@@ -55,7 +55,7 @@ class Map {
         var num = 0;
         this.travel8Neighbours(x, y, (e, status) =>
         {
-            if (e && status == BrickStatus.Covered)
+            if (e && e.isCovered())
                 num++;
         });
 
@@ -152,5 +152,10 @@ class Map {
         });
 
         return es;
+    }
+
+    // 迭代每一个元素, f 是一个形如 funciton(e:Elem):boolean 的函数，返回值表示是否要继续迭代
+    public foreachElems(f) {
+        Utils.NDimentionArrayForeach(this.elems, (e) => !e ? true : f(e));
     }
 }

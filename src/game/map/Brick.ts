@@ -16,6 +16,9 @@ class Brick {
     // 地图格子默认是覆盖的状态
     public status : BrickStatus = BrickStatus.Covered;
 
+    // 广义上的覆盖状态
+    public isCovered = () => this.status != BrickStatus.Uncovered;
+
     // 会被赋值一个 function(x, y): Elem 的函数，用于获取当前格子上的元素
     public getElem;
 
