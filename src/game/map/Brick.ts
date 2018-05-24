@@ -2,7 +2,7 @@
 // 地图上每一个格子的状态
 enum BrickStatus {
     Covered, // 默认状态，被覆盖
-    Clean, // 已经被揭开
+    Uncovered, // 已经被揭开
     Marked, // 未揭开，但已经标记了其中的内容
     Blocked, // 用户标记为危险，不可被揭开
 }

@@ -8,6 +8,8 @@ class Map {
 
     public constructor(w: number, h: number) {
         this.size = {w: w, h: h};
+        this.bricks = [];
+        this.elems = [];
 
         for(var i = 0; i < this.size.w; i++) {
             var x = i;
@@ -51,7 +53,7 @@ class Map {
     // 计算指定目标位置的 8 邻位置上，隐藏的元素个数，不计算目标位置自身
     public getCoveredElemNum(x: number, y: number) : number {
         var num = 0;
-        this.travel8Neighbour(x, y, (e, status) =>
+        this.travel8Neighbours(x, y, (e, status) =>
         {
             if (e && status == BrickStatus.Covered)
                 num++;
@@ -62,16 +64,13 @@ class Map {
 
     // 对指定位置的 8 邻做过滤计算，不包括目标自身, f 是遍历函数，形如 function(e:Elem, status:BrickStatus):boolean，
     // 返回值表示是否要继续遍历
-    public travel8Neighbour(x:number, y:number, f) {
-        var l = x <= 0 ? 0 : x - 1;
-        var r = x >= this.size.w - 1 ? this.size.w - 1 : x + 1;
-        var t = y <= 0 ? 0 : y - 1;
-        var b = y >= this.size.h - 1 ? this.size.h - 1 : y = 1;
-
+    public travel8Neighbours(x:number, y:number, f) {
         var continueLoop = true;
-        for (var i = l; i <= r && continueLoop; i++) {
-            for (var j = t; j <= b && continueLoop; j++) {
-                if (i == x && y == j) // 目标格子不计算在内，只计算八邻位置
+        for (var i = x - 1; i <= x + 1 && continueLoop; i++) {
+            for (var j = y - 1; j <= y + 1 && continueLoop; j++) {
+                if (i < 0 || i >= this.size.w || j < 0 || j >= this.size.h)
+                    continue; // 越界忽略
+                else if (i == x && y == j) // 目标格子不计算在内，只计算八邻位置
                     continue;
 
                 continueLoop = f(this.elems[i][j], this.bricks[i][j].status);
@@ -81,7 +80,7 @@ class Map {
 
     // 纵向优先依次序遍历地图中的所有格子, f 是遍历函数，形如 function(x:number, y:nubmer):boolean，
     // 返回值表示是否要继续遍历
-    public travelAllBricks(f) {
+    public travelAll(f) {
         var continueLoop = true;
         for (var i = 0; i <= this.size.w && continueLoop; i++) {
             for (var j = 0; j <= this.size.h && continueLoop; j++) {
@@ -115,6 +114,43 @@ class Map {
     public switchElems(x1: number, y1: number, x2:number, y2:number) {
         this.assertBound(x1, y1);
         this.assertBound(x2, y2);
-        this.elems[x1][y1], this.elems[x2][y2] = this.elems[x2][y2], this.elems[x1][y1];
+        var e1 = this.elems[x1][y1];
+        var e2 = this.elems[x2][y2];
+        this.elems[x1][y1] = e2;
+        this.elems[x2][y2] = e1;
+        if (this.elems[x1][y1])
+            this.elems[x1][y1].pos = {x: x1, y: y1};
+        if (this.elems[x2][y2])
+            this.elems[x2][y2].pos = {x: x2, y: y2};
+    }
+
+    // 寻找满足条件的第一个 Elem
+    public findFirstElem(f):Elem {
+        var e:Elem;
+        this.travelAll((x, y) =>
+        {
+            if (f(x, y, this.elems[x][y])) {
+                e = this.elems[x][y];
+                return false; //　找到第一个就停止遍历
+            }
+            else
+                return true;
+        });
+
+        return e;
+    }
+
+    // 寻找所有满足条件的 Elem, f 是一个函数表示过滤条件，形如 function(x:number, y:number, e:elem):boolean
+    public findAllElems(f):Elem[] {
+        var es = [];
+        this.travelAll((x, y) =>
+        {
+            if (!f || f(x, y, this.elems[x][y]))
+                es.push(this.elems[x][y]);
+
+            return true; // 继续遍历
+        });
+
+        return es;
     }
 }

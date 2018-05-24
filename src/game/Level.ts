@@ -1,8 +1,8 @@
 
 // 关卡控制逻辑
 class Level {
-    srand: SRandom;
-    map:Map;
+    public map:Map;
+    private srand: SRandom;
 
     public Init(cfg, randomSeed:number) {
         this.srand = new SRandom(randomSeed);
@@ -12,7 +12,7 @@ class Level {
 
     // 创建地图
     public InitMap(cfg) {
-        this.map = new Map(cfg.w, cfg.h);
+        this.map = new Map(cfg.size.w, cfg.size.h);
     }
 
     // 创建初始元素
@@ -24,14 +24,14 @@ class Level {
 
         // 依次加入地图
         var i = 0;
-        this.map.travelAllBricks((x, y) =>
+        this.map.travelAll((x, y) =>
         {
             this.map.addElemAt(elems[i++], x, y);
             return i >= elems.length;
         });
 
         // 乱序交换位置
-        this.map.travelAllBricks((x, y) =>
+        this.map.travelAll((x, y) =>
         {
             var e = this.map.getElemAt(x, y);
             if (e) {

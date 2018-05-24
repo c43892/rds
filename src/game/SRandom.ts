@@ -19,7 +19,7 @@ class SRandom {
 
     // http://indiegamr.com/generate-repeatable-random-numbers-in-js/
     public nextInt(min:number, max:number):number {
-        return Math.round(this.next(min, max));
+        return Math.floor(this.next(min, max));
     }
 
     public nextDouble():number {

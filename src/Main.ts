@@ -57,13 +57,28 @@ class Main extends egret.DisplayObjectContainer {
         })
     }
 
+    // 基础功能装配
+    private globalInit() {
+        Battle.getLevelCfg = (lv) => RES.getRes("levelconfig_json")[lv];
+    }
+
     private async runGame() {
+        this.globalInit(); // 全局基础功能初始化
+
         await this.loadResource()
         this.createGameScene();
         const result = await RES.getResAsync("description_json")
         await platform.login();
         const userInfo = await platform.getUserInfo();
-        console.log(userInfo);
+        // console.log(userInfo);
+
+        // test map
+        console.log("create test battle");
+        var bt = new Battle();
+        bt.createNewPlayer();
+        bt.loadCurrentLevel();
+        bt.uncoverStartupRegion();
+        Utils.LogMap(bt.level.map);
     }
 
     private async loadResource() {
