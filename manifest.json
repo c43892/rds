@@ -9,7 +9,7 @@
 	],
 	"game": [
 		"bin-debug/game/elems/Elem.js",
-		"bin-debug/LoadingUI.js",
+		"bin-debug/view/ViewUtils.js",
 		"bin-debug/Platform.js",
 		"bin-debug/game/Battle.js",
 		"bin-debug/game/Level.js",
@@ -17,7 +17,7 @@
 		"bin-debug/game/SRandom.js",
 		"bin-debug/game/user.js",
 		"bin-debug/game/Utils.js",
-		"bin-debug/Main.js",
+		"bin-debug/LoadingUI.js",
 		"bin-debug/game/elems/ElemFactory.js",
 		"bin-debug/game/elems/ExcapePort.js",
 		"bin-debug/game/elems/NextLevelPort.js",
@@ -25,6 +25,6 @@
 		"bin-debug/game/map/Map.js",
 		"bin-debug/view/MapGridView.js",
 		"bin-debug/view/MapView.js",
-		"bin-debug/view/ViewUtils.js"
+		"bin-debug/Main.js"
 	]
 }

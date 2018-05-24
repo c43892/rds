@@ -12,9 +12,11 @@ class MapGridView extends egret.DisplayObjectContainer {
     public constructor() {
         super();
 
-        this.gridBg = ViewUtils.createBitmapByName("grid_png");
-        this.coveredImg = ViewUtils.createBitmapByName("covered_png");
+        this.gridBg = ViewUtils.createBitmapByName("grid_png"); // 底图
+        this.coveredImg = ViewUtils.createBitmapByName("covered_png"); // 覆盖图
+        this.elemImg = ViewUtils.createBitmapByName(null); // 元素图
 
+        // 数字
         this.coveredHazardNum = new egret.TextField();
         this.coveredHazardNum.textColor = 0xffffff;
         this.coveredHazardNum.size = 50;
@@ -22,8 +24,6 @@ class MapGridView extends egret.DisplayObjectContainer {
         this.coveredHazardNum.anchorOffsetY = 0;
         this.coveredHazardNum.x = 0;
         this.coveredHazardNum.y = 0;
-
-        this.elemImg = ViewUtils.createBitmapByName(null);
 
         this.anchorOffsetX = 0;
         this.anchorOffsetY = 0;
@@ -61,5 +61,9 @@ class MapGridView extends egret.DisplayObjectContainer {
 
     public clear() {
         this.removeChildren();
+    }
+
+    public getElem():Elem {
+        return this.map.getElemAt(this.gx, this.gy);
     }
 }

@@ -25,6 +25,12 @@ class MapView extends egret.DisplayObjectContainer {
                 mgv.height = gh;
                 this.addChild(mgv);
                 this.mgvs[i].push(mgv);
+
+                mgv.touchEnabled = true;
+                mgv.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchGrid(mgv), this);
+                mgv.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin(mgv), this);
+                mgv.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.onTouchMove(mgv), this);
+                mgv.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd(mgv), this);
             }
         }
     }
@@ -46,5 +52,33 @@ class MapView extends egret.DisplayObjectContainer {
     // 清除所有地图显示元素
     public clear() {
         Utils.NDimentionArrayForeach(this.mgvs, (mgv) => mgv.clear());
+    }
+
+    // 点击
+    onTouchGrid(gmv:MapGridView) {
+        return function(evt:egret.TouchEvent) {
+            console.log("touch tap: " + gmv.gx + ", " + gmv.gy);
+        };
+    }
+
+    // 开始拖拽
+    onTouchBegin(gmv:MapGridView) {
+        return function(evt:egret.TouchEvent) {
+            console.log("touch begin: " + gmv.gx + ", " + gmv.gy);
+        };
+    }
+
+    // 拖拽移动
+    onTouchMove(gmv:MapGridView) {
+        return function(evt:egret.TouchEvent) {
+            console.log("touch move: " + gmv.gx + ", " + gmv.gy);
+        };
+    }
+
+    // 结束拖拽
+    onTouchEnd(gmv:MapGridView) {
+        return function(evt:egret.TouchEvent) {
+            console.log("touch end: " + gmv.gx + ", " + gmv.gy);
+        };
     }
 }
