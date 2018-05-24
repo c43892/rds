@@ -62,6 +62,8 @@ class Main extends egret.DisplayObjectContainer {
         Battle.getLevelCfg = (lv) => RES.getRes("levelconfig_json")[lv];
     }
 
+    private mv: MapView; // 地图显示
+
     private async runGame() {
         this.globalInit(); // 全局基础功能初始化
 
@@ -79,6 +81,10 @@ class Main extends egret.DisplayObjectContainer {
         bt.loadCurrentLevel();
         bt.uncoverStartupRegion();
         Utils.LogMap(bt.level.map);
+
+        // refresh view
+        this.mv.setMap(bt.level.map);
+        this.mv.refresh();
     }
 
     private async loadResource() {
@@ -94,27 +100,33 @@ class Main extends egret.DisplayObjectContainer {
         }
     }
 
-    private textfield: egret.TextField;
-
-    private mv: MapView; // 地图显示
-
     /**
      * 创建游戏场景
      * Create a game scene
      */
     private createGameScene() {
-        // 地图区域
-        let mv = new MapView();
         let stageW = this.stage.stageWidth;
         let stageH = this.stage.stageHeight;
-        mv.width = stageW;
-        mv.height = stageH;
-        mv.anchorOffsetX = mv.width / 2;
-        mv.anchorOffsetY = mv.height / 2;
-        mv.x = stageW / 2;
-        mv.y = stageH / 2;
-        this.addChild(mv);
-        mv.Refresh();
+
+        // 背景图
+        let bg = ViewUtils.createBitmapByName("bg_png");
+        bg.width = stageW;
+        bg.height = stageH;
+        bg.x = 0;
+        bg.y = 0;
+        this.addChild(bg);
+
+        // 地图区域
+        this.mv = new MapView(1, 1);
+        this.mv.width = stageW - 20; // 左右两边各留 10 像素
+        this.mv.height = this.mv.width; // 区域等宽高
+        // 锚点在中间底部，方便定位
+        this.mv.anchorOffsetX = this.mv.width / 2; 
+        this.mv.anchorOffsetY = this.mv.height;
+        // 左右居中，距离底部 100 像素
+        this.mv.x = stageW / 2;
+        this.mv.y = stageH - 100;
+        this.addChild(this.mv);
 
         // let sky = ViewUtils.createBitmapByName("bg_jpg");
         // this.addChild(sky);

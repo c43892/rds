@@ -5,8 +5,21 @@ class ViewUtils {
      */
     public static createBitmapByName(name: string) {
         let result = new egret.Bitmap();
-        let texture: egret.Texture = RES.getRes(name);
-        result.texture = texture;
+
+        if (name) {
+            let texture: egret.Texture = RES.getRes(name);
+            result.texture = texture;
+            if (texture) {
+                result.width = texture.textureWidth;
+                result.height = texture.textureHeight;
+            }
+        }
+        
+        result.anchorOffsetX = 0;
+        result.anchorOffsetY = 0;
+        result.x = 0;
+        result.y = 0;
+        
         return result;
     }
 }

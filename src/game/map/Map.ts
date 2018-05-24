@@ -23,7 +23,7 @@ class Map {
                 var b = new Brick();
                 b.pos = {x: x, y: y};
                 b.getElem = () => this.getElemAt(x, y);
-                b.getCoveredElemNum = () => this.getCoveredElemNum(x, y);
+                b.getCoveredElemNum = () => this.getCoveredHazardNum(x, y);
                 this.bricks[x].push(b);
                 
                 // 地图创建时，地块上没有元素，但是要把位置先占住
@@ -51,7 +51,7 @@ class Map {
     }
 
     // 计算指定目标位置的 8 邻位置上，隐藏的元素个数，不计算目标位置自身
-    public getCoveredElemNum(x: number, y: number) : number {
+    public getCoveredHazardNum(x: number, y: number) : number {
         var num = 0;
         this.travel8Neighbours(x, y, (e, status) =>
         {
@@ -63,17 +63,17 @@ class Map {
     }
 
     // 对指定位置的 8 邻做过滤计算，不包括目标自身, f 是遍历函数，形如 function(e:Elem, status:BrickStatus):boolean，
-    // 返回值表示是否要继续遍历
+    // 返回值表示是否要中断遍历
     public travel8Neighbours(x:number, y:number, f) {
-        var continueLoop = true;
-        for (var i = x - 1; i <= x + 1 && continueLoop; i++) {
-            for (var j = y - 1; j <= y + 1 && continueLoop; j++) {
+        var breakLoop = false;
+        for (var i = x - 1; i <= x + 1 && !breakLoop; i++) {
+            for (var j = y - 1; j <= y + 1 && !breakLoop; j++) {
                 if (i < 0 || i >= this.size.w || j < 0 || j >= this.size.h)
                     continue; // 越界忽略
                 else if (i == x && y == j) // 目标格子不计算在内，只计算八邻位置
                     continue;
 
-                continueLoop = f(this.elems[i][j], this.bricks[i][j].status);
+                breakLoop = f(this.elems[i][j], this.bricks[i][j].status);
             }
         }
     }

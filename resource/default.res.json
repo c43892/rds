@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "bg_jpg,egret_icon_png,description_json,levelconfig_json",
+			"keys": "description_json,levelconfig_json,covered_png,grid_png,bg_png",
 			"name": "preload"
 		}
 	],
@@ -30,6 +30,21 @@
 			"url": "config/levelconfig.json",
 			"type": "json",
 			"name": "levelconfig_json"
+		},
+		{
+			"name": "covered_png",
+			"type": "image",
+			"url": "assets/covered.png"
+		},
+		{
+			"name": "grid_png",
+			"type": "image",
+			"url": "assets/grid.png"
+		},
+		{
+			"name": "bg_png",
+			"type": "image",
+			"url": "assets/bg.png"
 		}
 	]
 }

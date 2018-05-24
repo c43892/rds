@@ -3,8 +3,8 @@ class Utils {
     public static LogMap(map:Map) {
         console.log("==============\r\n");
         var str = "";
-        for (var i = 0; i < map.size.w; i++) {
-            for (var j = 0; j < map.size.h; j++) {
+        for (var j = 0; j < map.size.h; j++) {
+            for (var i = 0; i < map.size.w; i++) {
                 var b = map.getBrickAt(i, j);
                 if (b.status == BrickStatus.Covered)
                     str += ". ";
@@ -13,7 +13,7 @@ class Utils {
                 else {
                     var e = map.getElemAt(i, j);
                     if (!e)
-                        str += map.getCoveredElemNum(i, j) + " ";
+                        str += map.getCoveredHazardNum(i, j) + " ";
                     else
                         str += e.type.charAt(0) + " ";
                 }
@@ -66,17 +66,19 @@ class Utils {
 
     // 遍历一个数组，无论这个数组是几维的，都逐维遍历其中元素
     public static NDimentionArrayForeach(nArr, f) {
-        var continueLoop = true;
+        var breakLoop = false;
         var unpackArr = function(arr) {
-            for (var e in arr) {
+            for (var e of arr) {
                 if (Array.isArray(e))
                     unpackArr(e);
                 else
-                    continueLoop = f(e);
+                    breakLoop = f(e);
 
-                if (!continueLoop)
+                if (breakLoop)
                     return;
             } 
         };
+
+        unpackArr(nArr);
     }
 }
