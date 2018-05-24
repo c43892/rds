@@ -4,15 +4,15 @@ class Level {
     public map:Map;
     private srand: SRandom;
 
-    public Init(cfg, randomSeed:number) {
+    public Init(cfg, mapsize, randomSeed:number) {
         this.srand = new SRandom(randomSeed);
-        this.InitMap(cfg.map);
+        this.InitMap(cfg.map, mapsize);
         this.InitElems(cfg.elems);
     }
 
     // 创建地图
-    public InitMap(cfg) {
-        this.map = new Map(cfg.size.w, cfg.size.h);
+    public InitMap(cfg, size) {
+        this.map = new Map(size.w, size.h);
     }
 
     // 创建初始元素

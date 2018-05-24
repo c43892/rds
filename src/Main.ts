@@ -59,16 +59,21 @@ class Main extends egret.DisplayObjectContainer {
 
     // 基础功能装配
     private globalInit() {
-        Battle.getLevelCfg = (lv) => RES.getRes("levelconfig_json")[lv];
+        var lvCfg = RES.getRes("levelconfig_json");
+        Battle.getLevelCfg = (lv) => lvCfg[lv];
+        Battle.mapsize = lvCfg.mapsize;
     }
 
     private mv: MapView; // 地图显示
 
     private async runGame() {
+        await this.loadResource() // 加载初始资源
         this.globalInit(); // 全局基础功能初始化
 
-        await this.loadResource()
+        // 创建场景
         this.createGameScene();
+
+        // 登录
         const result = await RES.getResAsync("description_json")
         await platform.login();
         const userInfo = await platform.getUserInfo();
@@ -119,7 +124,9 @@ class Main extends egret.DisplayObjectContainer {
         // 地图区域
         this.mv = new MapView(1, 1);
         this.mv.width = stageW - 20; // 左右两边各留 10 像素
-        this.mv.height = this.mv.width; // 区域等宽高
+        // 按比例计算高度
+        var mapsize = RES.getRes("levelconfig_json")["mapsize"];
+        this.mv.height = this.mv.width * mapsize.h / mapsize.w;
         // 锚点在中间底部，方便定位
         this.mv.anchorOffsetX = this.mv.width / 2; 
         this.mv.anchorOffsetY = this.mv.height;

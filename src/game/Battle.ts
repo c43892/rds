@@ -2,6 +2,7 @@
 // 一局战斗，包含当前关卡和当前角色数据，并控制整个战斗进程
 class Battle {
     public static getLevelCfg; // 关卡配置，一个形如 function(lv:string):any 的函数
+    public static mapsize; // 地图尺寸，全局唯一
     
     private lvCfg; // 当前关卡配置
     public level:Level; // 当前关卡
@@ -17,7 +18,7 @@ class Battle {
     public loadCurrentLevel() {
         this.level = new Level();
         this.lvCfg = Battle.getLevelCfg(this.player.currentLevel);
-        this.level.Init(this.lvCfg, 0);
+        this.level.Init(this.lvCfg, Battle.mapsize, 0);
     }
 
     // 载入下一关卡
