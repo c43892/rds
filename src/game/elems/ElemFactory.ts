@@ -7,10 +7,11 @@ class ElemFactory {
     }
 
     // 创建指定类型元素
-    public static Create(type:string, map:Map) {
+    public static create(type:string, map:Map) {
         var creators = {};
-        creators["EscapePort"] = function() { return new EscapePort(); }, // 逃跑出口
-        creators["NextLevelPort"] = function() { return new NextLevelPort(); } // 下一关入口
+        creators["EscapePort"] = () => new EscapePort(); // 逃跑出口
+        creators["NextLevelPort"] = () => new NextLevelPort(); // 下一关入口
+        creators["BigHpPortion"] = () => new HpPotion(10); // 大红药
         
         var e = creators[type]();
         ElemFactory.InitElem(e, map);

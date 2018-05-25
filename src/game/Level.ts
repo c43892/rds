@@ -18,9 +18,16 @@ class Level {
     // 创建初始元素
     public InitElems(cfg) {
         var elems = [
-            ElemFactory.Create("EscapePort", this.map), // 逃跑出口
-            ElemFactory.Create("NextLevelPort", this.map) // 下一层入口 
+            ElemFactory.create("EscapePort", this.map), // 逃跑出口
+            ElemFactory.create("NextLevelPort", this.map) // 下一层入口 
         ];
+
+        // 添加其它配置物品
+        for (var e in cfg) {
+            let num = cfg[e];
+            for (var i = 0; i < num; i++)
+                elems.push(ElemFactory.create(e, this.map));
+        }
 
         // 依次加入地图
         var i = 0;

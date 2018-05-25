@@ -5,7 +5,9 @@
         "map": {
         },
         "init_uncovered": {"w": 1, "h": 1},
-        "elems": {}, 
+        "elems": {
+            "BigHpPortion":5
+        }, 
         "nextLevel": "testLevel"
     }
 }

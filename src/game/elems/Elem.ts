@@ -19,4 +19,7 @@ class Elem {
 
     // 当用户回合结束时，会被赋值为一个 function():void 的函数
     public afterPlayerAction;
+
+    public static escape; // 具体逃跑逻辑由外层指定，是一个 function():void
+    public static getPlayer; // 获取当前角色
 }

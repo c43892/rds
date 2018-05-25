@@ -1,7 +1,7 @@
 // 显示地图
 class MapView extends egret.DisplayObjectContainer {
     private map:Map; // 对应地图数据
-    private mgvs:MapGridView[][]; // 所有格子视图
+    private mgvs:GridView[][]; // 所有格子视图
 
     public constructor(w:number, h:number) {
         super();
@@ -16,7 +16,7 @@ class MapView extends egret.DisplayObjectContainer {
         for(var i = 0; i < w; i++) {
             this.mgvs[i] = [];
             for (var j = 0; j < h; j++) {
-                let mgv = new MapGridView();
+                let mgv = new GridView();
                 mgv.gx = i;
                 mgv.gy = j;
                 mgv.x = i * gw;
@@ -25,12 +25,7 @@ class MapView extends egret.DisplayObjectContainer {
                 mgv.height = gh;
                 this.addChild(mgv);
                 this.mgvs[i].push(mgv);
-
                 mgv.touchEnabled = true;
-                mgv.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchGrid(mgv), this);
-                mgv.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin(mgv), this);
-                mgv.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.onTouchMove(mgv), this);
-                mgv.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd(mgv), this);
             }
         }
     }
@@ -54,31 +49,8 @@ class MapView extends egret.DisplayObjectContainer {
         Utils.NDimentionArrayForeach(this.mgvs, (mgv) => mgv.clear());
     }
 
-    // 点击
-    onTouchGrid(gmv:MapGridView) {
-        return function(evt:egret.TouchEvent) {
-            console.log("touch tap: " + gmv.gx + ", " + gmv.gy);
-        };
-    }
-
-    // 开始拖拽
-    onTouchBegin(gmv:MapGridView) {
-        return function(evt:egret.TouchEvent) {
-            console.log("touch begin: " + gmv.gx + ", " + gmv.gy);
-        };
-    }
-
-    // 拖拽移动
-    onTouchMove(gmv:MapGridView) {
-        return function(evt:egret.TouchEvent) {
-            console.log("touch move: " + gmv.gx + ", " + gmv.gy);
-        };
-    }
-
-    // 结束拖拽
-    onTouchEnd(gmv:MapGridView) {
-        return function(evt:egret.TouchEvent) {
-            console.log("touch end: " + gmv.gx + ", " + gmv.gy);
-        };
+    // 揭开指定位置
+    public onBrickUncovered(evt:BrickUncoveredEvent) {
+        this.mgvs[evt.x][evt.y].refresh();
     }
 }
