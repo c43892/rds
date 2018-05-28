@@ -15,3 +15,15 @@ class BrickChangedEvent extends egret.Event {
         this.y = y;
     }
 }
+
+// 角色信息发生变化
+class PlayerChangedEvent extends egret.Event {
+    public subType:string; // 进一步类型信息
+    public static type:string = "PlayerChangedEvent";
+
+    public constructor(subType:string, bubbles:boolean=false, cancelable:boolean=false)
+    {
+        super(PlayerChangedEvent.type, bubbles, cancelable);
+        this.subType = subType;
+    }
+}

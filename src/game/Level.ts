@@ -34,7 +34,6 @@ class Level {
         var i = 0;
         this.map.travelAll((x, y) =>
         {
-            console.log("i, x, y = " + i + ", " + x + ", " + y);
             this.map.addElemAt(elems[i++], x, y);
             return i >= elems.length;
         });

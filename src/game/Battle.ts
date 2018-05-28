@@ -45,7 +45,7 @@ class Battle extends egret.EventDispatcher {
         // 移除逃离出口，目前不需要了
         var ep = this.level.map.findFirstElem((x, y, e) => e && e.type == "EscapePort");
         this.level.map.removeElemAt(ep.pos.x, ep.pos.y);
-        this.triggerLogicPoint("onInitialUncovered", {});
+        this.triggerLogicPoint("onInitialUncovered");
     }
 
     // 计算一片指定大小的区域，该区域尽量以逃跑的出口位置为中心，
@@ -68,7 +68,7 @@ class Battle extends egret.EventDispatcher {
 
     // 触发逻辑点，参数为逻辑点名称，该名称直接字面对应个各元素对逻辑点的处理函数，
     // 处理函数的返回值表示是否需要继续传递该逻辑点事件给其它元素
-    public triggerLogicPoint(lpName:string, params) {
+    public triggerLogicPoint(lpName:string, params = undefined) {
         // 地图上的元素响应之
         this.level.map.foreachUncoveredElems((e) => {
             var handler = e[lpName];
@@ -130,5 +130,12 @@ class Battle extends egret.EventDispatcher {
         this.level.map.removeElemAt(x, y);
         this.dispatchEvent(new BrickChangedEvent(x, y, "ElemRemoved"));
         this.triggerLogicPoint("onElemRemoved", {eleme:e});
+    }
+
+    // 修改角色 hp
+    public addPlayerHp(dhp:number) {
+        this.player.addHp(dhp);
+        this.dispatchEvent(new PlayerChangedEvent("hp"));
+        this.triggerLogicPoint("onPlayerChanged", {"subType": "hp"});
     }
 }

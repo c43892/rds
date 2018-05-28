@@ -28,13 +28,4 @@ class Elem {
 
     // 当用户回合结束时，会被赋值为一个 function():void 的函数
     public afterPlayerAction;
-
-    // 实现各种元素功能的 api
-    public static escape; // 具体逃跑逻辑由外层指定，是一个 function():void
-    public static getPlayer; // 获取当前角色
-    public static addPlayerHp = (hp:number) => { // 给玩家角色 +hp
-        let p = Elem.getPlayer();
-            p.addHp(hp);
-    }
-    public static Go2NextLevel; // 进入下一关
 }

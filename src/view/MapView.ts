@@ -1,7 +1,7 @@
-// 显示地图
+// 地图视图
 class MapView extends egret.DisplayObjectContainer {
     private map:Map; // 对应地图数据
-    private mgvs:GridView[][]; // 所有格子视图
+    private mgvs:GridView[][]; // 所有地图格子视图
 
     public constructor(w:number, h:number) {
         super();
@@ -11,18 +11,12 @@ class MapView extends egret.DisplayObjectContainer {
     private rebuildMapGridView(w:number, h:number) {
         this.removeChildren();
         this.mgvs = [];
-        var gw = this.width / w;
-        var gh = this.height / h
         for(var i = 0; i < w; i++) {
             this.mgvs[i] = [];
             for (var j = 0; j < h; j++) {
                 let mgv = new GridView();
                 mgv.gx = i;
                 mgv.gy = j;
-                mgv.x = i * gw;
-                mgv.y = j * gh;
-                mgv.width = gw;
-                mgv.height = gh;
                 this.addChild(mgv);
                 this.mgvs[i].push(mgv);
                 mgv.touchEnabled = true;
@@ -39,9 +33,17 @@ class MapView extends egret.DisplayObjectContainer {
         Utils.NDimentionArrayForeach(this.mgvs, (mgv) => { mgv.map = map; });
     }
 
-    // 刷新地图显示，并不用于普通的地图数据变化，而是全部清除重建的时候用
+    // 刷新显示
     public refresh() {
-        Utils.NDimentionArrayForeach(this.mgvs, (mgv) => { mgv.refresh(); });
+        var gw = this.width / this.map.size.w;
+        var gh = this.height / this.map.size.h;
+        Utils.NDimentionArrayForeach(this.mgvs, (gv:GridView) => {
+            gv.x = gv.gx * gw;
+            gv.y = gv.gy * gh;
+            gv.width = gw;
+            gv.height = gh;
+            gv.refresh();
+        });
     }
 
     // 清除所有地图显示元素
@@ -50,8 +52,8 @@ class MapView extends egret.DisplayObjectContainer {
     }
 
     // 指定位置发生状态或元素变化
-    public onBrickChanged(evt:BrickChangedEvent) {
-        this.mgvs[evt.x][evt.y].refresh();
-        this.map.travel8Neighbours(evt.x, evt.y, (x, y, e) => this.mgvs[x][y].refresh());
+    public refresh3x3(cx:number, cy:number) {
+        this.mgvs[cx][cy].refresh();
+        this.map.travel8Neighbours(cx, cy, (x, y, e) => this.mgvs[x][y].refresh());
     }
 }

@@ -14,7 +14,7 @@ class GridView extends egret.DisplayObjectContainer {
 
         this.gridBg = ViewUtils.createBitmapByName("grid_png"); // 底图
         this.coveredImg = ViewUtils.createBitmapByName("covered_png"); // 覆盖图
-        this.elemImg = ViewUtils.createBitmapByName(null); // 元素图
+        this.elemImg = ViewUtils.createBitmapByName(); // 元素图
 
         // 数字
         this.coveredHazardNum = new egret.TextField();

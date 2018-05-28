@@ -62,10 +62,9 @@ class Main extends egret.DisplayObjectContainer {
         var lvCfg = RES.getRes("levelconfig_json");
         Battle.getLevelCfg = (lv) => lvCfg[lv];
         Battle.mapsize = lvCfg.mapsize;
-        ElemFactory.StaticInit();
     }
 
-    private mv: MapView; // 地图显示
+    private mv: MainView; // 地图显示
 
     private async runGame() {
         await this.loadResource() // 加载初始资源
@@ -85,15 +84,17 @@ class Main extends egret.DisplayObjectContainer {
         var bt = Battle.createNewBattle(Player.createTestPlayer());
         bt.loadCurrentLevel();
         bt.uncoverStartupRegion();
-        Utils.LogMap(bt.level.map);
+        // Utils.LogMap(bt.level.map);
 
         // refresh view
         this.mv.setMap(bt.level.map);
+        this.mv.setPlayer(bt.player);
         this.mv.refresh();
 
         GridView.try2UncoverAt = bt.try2UncoverAt();
         GridView.try2UseElem = bt.try2UseItem();
         bt.addEventListener(BrickChangedEvent.type, this.mv.onBrickChanged, this.mv);
+        bt.addEventListener(PlayerChangedEvent.type, this.mv.onPlayerChanged, this.mv);
     }
 
     private async loadResource() {
@@ -126,17 +127,13 @@ class Main extends egret.DisplayObjectContainer {
         this.addChild(bg);
 
         // 地图区域
-        this.mv = new MapView(1, 1);
-        this.mv.width = stageW - 20; // 左右两边各留 10 像素
-        // 按比例计算高度
-        var mapsize = RES.getRes("levelconfig_json")["mapsize"];
-        this.mv.height = this.mv.width * mapsize.h / mapsize.w;
-        // 锚点在中间底部，方便定位
-        this.mv.anchorOffsetX = this.mv.width / 2; 
-        this.mv.anchorOffsetY = this.mv.height;
-        // 左右居中，距离底部 100 像素
-        this.mv.x = stageW / 2;
-        this.mv.y = stageH - 100;
+        this.mv = new MainView(1, 1);
+        this.mv.width = stageW;
+        this.mv.height = stageH;
+        this.mv.anchorOffsetX = 0;
+        this.mv.anchorOffsetY = 0;
+        this.mv.x = 0;
+        this.mv.y = 0;
         this.addChild(this.mv);
 
         // let sky = ViewUtils.createBitmapByName("bg_jpg");
