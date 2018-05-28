@@ -153,7 +153,7 @@ class Map {
     // 迭代每一个活动元素, f 是一个形如 funciton(e:Elem):boolean 的函数，返回值表示是否要中断迭代
     public foreachUncoveredElems(f) {
         Utils.NDimentionArrayForeach(this.elems, (e:Elem) => {
-            if (e && this.getBrickAt(e.pos.x, e.pos.y).isCovered())
+            if (e && !this.getBrickAt(e.pos.x, e.pos.y).isCovered())
                 return f(e);
         });
     }

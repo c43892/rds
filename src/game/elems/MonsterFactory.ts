@@ -19,9 +19,16 @@ class MonsterFactory {
         m.hp = hp;
         m.power = power;
         m.hazard = true;
+
+        // 使用，即是攻击怪物
         m.use = () =>  {
             Battle.CurrentBattle.tryPlayerAttackElem(m);
             return m.hp > 0;
+        }
+
+        // 角色行动后，会攻击角色
+        m.afterPlayerActed = () => {
+            Battle.CurrentBattle.tryElemAttackPlayer(m);
         }
         return m;
     }

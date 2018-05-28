@@ -69,12 +69,12 @@ class Battle extends egret.EventDispatcher {
     }
 
     // 触发逻辑点，参数为逻辑点名称，该名称直接字面对应个各元素对逻辑点的处理函数，
-    // 处理函数的返回值表示是否需要继续传递该逻辑点事件给其它元素
+    // 处理函数的返回值表示是否需要截获该事件，不再传递给其它元素
     public triggerLogicPoint(lpName:string, params = undefined) {
         // 地图上的元素响应之
         this.level.map.foreachUncoveredElems((e) => {
             var handler = e[lpName];
-            return !handler ? true : handler(params);
+            return !handler ? false : handler(params);
         });
     }
 
@@ -157,6 +157,8 @@ class Battle extends egret.EventDispatcher {
             case "dodged": // 被闪避
                 this.triggerLogicPoint("onElemDodged");
         }
+
+        this.triggerLogicPoint("afterPlayerActed"); // 算一次角色行动
     }
 
     // 指定元素尝试攻击角色
@@ -166,7 +168,7 @@ class Battle extends egret.EventDispatcher {
 
         switch (r.r) {
             case "attacked": // 攻击成功
-                this.player.hp -= r.dhp;
+                this.addPlayerHp(r.dhp);
                 this.triggerLogicPoint("onPlayerDamanged", {"dhp": r.dhp});
             break;
             case "dodged": // 被闪避

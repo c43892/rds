@@ -24,7 +24,7 @@ class BattleCalculator {
             return {"r": "dodged"};
         else {
             var d = power > defence ? power - defence : 1; // 伤害至少是 1
-            return {"r": "attacked", "dhp": d}; // 参数表示掉多少血
+            return {"r": "attacked", "dhp": -d}; // 参数表示血量变化
         }
     }
 }

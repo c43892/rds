@@ -9,8 +9,8 @@
 	],
 	"game": [
 		"bin-debug/game/elems/Elem.js",
-		"bin-debug/game/elems/MonsterFactory.js",
 		"bin-debug/game/elems/ItemFactory.js",
+		"bin-debug/game/elems/MonsterFactory.js",
 		"bin-debug/game/Utils.js",
 		"bin-debug/game/BattleCaculator.js",
 		"bin-debug/game/BattleEvents.js",
@@ -18,7 +18,7 @@
 		"bin-debug/game/Player.js",
 		"bin-debug/game/SRandom.js",
 		"bin-debug/game/user.js",
-		"bin-debug/view/ViewUtils.js",
+		"bin-debug/Main.js",
 		"bin-debug/LoadingUI.js",
 		"bin-debug/game/elems/ElemFactory.js",
 		"bin-debug/Platform.js",
@@ -28,6 +28,6 @@
 		"bin-debug/view/GridView.js",
 		"bin-debug/view/MainView.js",
 		"bin-debug/view/MapView.js",
-		"bin-debug/Main.js"
+		"bin-debug/view/ViewUtils.js"
 	]
 }
