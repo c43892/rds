@@ -4,23 +4,23 @@ class ItemFactory {
     public creators = {
 
         // 逃跑出口
-        "EscapePort": (ps) => {
-            var e = new Elem();
+        "EscapePort": (bt, ps) => {
+            var e = new Elem(bt);
             e.canUse = () => true;
             return e;
         },
 
         // 红药水
-        "HpPotion": (ps) => {
-            var e = new Elem();
+        "HpPotion": (bt, ps) => {
+            var e = new Elem(bt);
             e.canUse = () => true;
-            e.use = () => Battle.CurrentBattle.addPlayerHp(10); // +10 hp
+            e.use = () => e.bt.implAddPlayerHp(10); // +10 hp
             return e;
         },
 
         // 下一关入口
-        "NextLevelPort": (ps) => {
-            var e = new Elem();
+        "NextLevelPort": (bt, ps) => {
+            var e = new Elem(bt);
             e.canUse = () => true;
             return e;
         }

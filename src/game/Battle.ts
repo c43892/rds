@@ -1,26 +1,28 @@
 
 // 一局战斗，包含当前关卡和当前角色数据，并控制整个战斗进程
 class Battle extends egret.EventDispatcher {
-    public static CurrentBattle:Battle; // 当前唯一战斗
-    public static getLevelCfg; // 关卡配置，一个形如 function(lv:string):any 的函数
-    public static mapsize; // 地图尺寸，全局唯一
-    
+    srand:SRandom; // 随机序列
     private lvCfg; // 当前关卡配置
     public level:Level; // 当前关卡
     public player:Player; // 角色数据
     private bc:BattleCalculator; // 战斗计算器
 
+    constructor(randomseed:number) {
+        super();
+        this.srand = new SRandom(randomseed);
+    }
+
     public static createNewBattle(player:Player):Battle {
-        Battle.CurrentBattle = new Battle();
-        Battle.CurrentBattle.player = player;
-        return Battle.CurrentBattle;
+        var bt = new Battle(0);
+        bt.player = player;
+        return bt;
     }
 
     // 载入指定关卡
     public loadCurrentLevel():Level {
         this.level = new Level();
-        this.lvCfg = Battle.getLevelCfg(this.player.currentLevel);
-        this.level.Init(this.lvCfg, Battle.mapsize, 0);
+        this.lvCfg = GBConfig.getLevelCfg(this.player.currentLevel);
+        this.level.Init(this, this.lvCfg);
         this.bc = new BattleCalculator(0);
         return this.level;
     }
@@ -78,22 +80,6 @@ class Battle extends egret.EventDispatcher {
         });
     }
 
-    // 尝试揭开指定位置
-    public try2UncoverAt() {
-        return (x:number, y:number) => {
-            Utils.assert(x >= 0 && x < this.level.map.size.w 
-                            && y >= 0 && y < this.level.map.size.h, 
-                            "index out of bounds");
-
-            let b = this.level.map.getBrickAt(x, y);
-            if (b.status == BrickStatus.Uncovered || b.status == BrickStatus.Blocked)
-                return;
-
-            this.uncover(x, y);
-            this.triggerLogicPoint("afterPlayerActed"); // 算一次角色行动
-        };
-    }
-
     // 添加物品
     public addElemAt(e:Elem, x:number, y:number) {
         this.level.map.addElemAt(e, x, y);
@@ -110,8 +96,26 @@ class Battle extends egret.EventDispatcher {
         this.triggerLogicPoint("onElemRemoved", {eleme:e});
     }
 
+    // try 开头的函数通常对应玩家操作行为
+
+    // 尝试揭开指定位置
+    public try2UncoverAt() {
+        return (x:number, y:number) => {
+            Utils.assert(x >= 0 && x < this.level.map.size.w 
+                            && y >= 0 && y < this.level.map.size.h, 
+                            "index out of bounds");
+
+            let b = this.level.map.getBrickAt(x, y);
+            if (b.status == BrickStatus.Uncovered || b.status == BrickStatus.Blocked)
+                return;
+
+            this.uncover(x, y);
+            this.triggerLogicPoint("afterPlayerActed"); // 算一次角色行动
+        };
+    }
+
     // 尝试无目标使用元素
-    public try2UseItem() {
+    public try2UseElem() {
         return (elem:Elem) => {
             let canUse = elem.canUse;
             if (!canUse)
@@ -128,7 +132,7 @@ class Battle extends egret.EventDispatcher {
             // 可以使用
             if (canUse) {
                 var reserve = elem.use(); // 返回值决定是保留还是消耗掉
-                this.triggerLogicPoint("onItemUsed", {elem:elem});
+                this.triggerLogicPoint("onElemUsed", {elem:elem});
                 if (!reserve)
                     this.removeElem(elem);
 
@@ -137,38 +141,45 @@ class Battle extends egret.EventDispatcher {
         };
     }
 
+    // impl 开头的函数，通常对应具体的逻辑功能实现，提供给 Elem 使用
+
     // 修改角色 hp
-    public addPlayerHp(dhp:number) {
+    public implAddPlayerHp(dhp:number) {
         this.player.addHp(dhp);
         this.dispatchEvent(new PlayerChangedEvent("hp"));
         this.triggerLogicPoint("onPlayerChanged", {"subType": "hp"});
     }
 
-    // 角色尝试攻击指定元素
-    public tryPlayerAttackElem(e) {
-        var r = this.bc.tryAttack(this.player, e);
-        this.dispatchEvent(new AttackEvent("player2elem", r));
-
-        switch (r.r) {
-            case "attacked": // 攻击成功
-                e.hp -= r.dhp;
-                this.triggerLogicPoint("onElemDamanged", {"dhp": r.dhp});
-            break;
-            case "dodged": // 被闪避
-                this.triggerLogicPoint("onElemDodged");
-        }
-
-        this.triggerLogicPoint("afterPlayerActed"); // 算一次角色行动
+    // 修改怪物 hp
+    public implAddMonsterHp(m:Monster, dhp:number) {
+        m.addHp(dhp);
+        this.dispatchEvent(new MonsterChangedEvent("hp"));
+        this.triggerLogicPoint("onMonsterChanged", {"subType": "hp"});
     }
 
-    // 指定元素尝试攻击角色
-    public tryElemAttackPlayer(e) {
-        var r = this.bc.tryAttack(e, this.player);
-        this.dispatchEvent(new AttackEvent("elem2player", r));
+    // 角色尝试攻击指定怪物
+    public implPlayerAttackMonster(e:Monster) {
+        var r = this.bc.tryAttack(this.player, e);
+        this.dispatchEvent(new AttackEvent("player2monster", r));
 
         switch (r.r) {
             case "attacked": // 攻击成功
-                this.addPlayerHp(r.dhp);
+                this.implAddMonsterHp(e, r.dhp);
+                this.triggerLogicPoint("onMonsterDamanged", {"dhp": r.dhp});
+            break;
+            case "dodged": // 被闪避
+                this.triggerLogicPoint("onMonsterDodged");
+        }
+    }
+
+    // 指定怪物尝试攻击角色
+    public implMonsterAttackPlayer(e:Monster) {
+        var r = this.bc.tryAttack(e, this.player);
+        this.dispatchEvent(new AttackEvent("monster2player", r));
+
+        switch (r.r) {
+            case "attacked": // 攻击成功
+                this.implAddPlayerHp(r.dhp);
                 this.triggerLogicPoint("onPlayerDamanged", {"dhp": r.dhp});
             break;
             case "dodged": // 被闪避

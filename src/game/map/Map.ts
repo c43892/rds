@@ -1,12 +1,14 @@
 
 // 实时的游戏地图，用于存放所有地图格和元素
 class Map {
-    
     public size = {w: 0, h: 0}; // 地图尺寸
     public bricks : Brick[][]; // 所有地图格子
     public elems : Elem[][]; // 所有元素
+    
+    public constructor() {
+        var w = GBConfig.mapsize.w;
+        var h = GBConfig.mapsize.h;
 
-    public constructor(w: number, h: number) {
         this.size = {w: w, h: h};
         this.bricks = [];
         this.elems = [];

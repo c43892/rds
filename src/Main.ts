@@ -60,8 +60,8 @@ class Main extends egret.DisplayObjectContainer {
     // 基础功能装配
     private globalInit() {
         var lvCfg = RES.getRes("levelconfig_json");
-        Battle.getLevelCfg = (lv) => lvCfg[lv];
-        Battle.mapsize = lvCfg.mapsize;
+        GBConfig.mapsize = lvCfg.mapsize;
+        GBConfig.getLevelCfg = (lv) => lvCfg[lv];
     }
 
     private mv: MainView; // 地图显示
@@ -92,7 +92,7 @@ class Main extends egret.DisplayObjectContainer {
         this.mv.refresh();
 
         GridView.try2UncoverAt = bt.try2UncoverAt();
-        GridView.try2UseElem = bt.try2UseItem();
+        GridView.try2UseElem = bt.try2UseElem();
         bt.addEventListener(BrickChangedEvent.type, this.mv.onBrickChanged, this.mv);
         bt.addEventListener(PlayerChangedEvent.type, this.mv.onPlayerChanged, this.mv);
         bt.addEventListener(AttackEvent.type, this.mv.onAttacked, this.mv);

@@ -14,6 +14,7 @@
 		"bin-debug/game/Utils.js",
 		"bin-debug/game/BattleCaculator.js",
 		"bin-debug/game/BattleEvents.js",
+		"bin-debug/game/GlobalBattleConfig.js",
 		"bin-debug/game/Level.js",
 		"bin-debug/game/Player.js",
 		"bin-debug/game/SRandom.js",

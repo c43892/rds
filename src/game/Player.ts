@@ -22,8 +22,8 @@ class Player extends egret.EventDispatcher {
     // 血量逻辑
     public hp:number;
     public maxHp:number;
-    public addHp(num:number) {
-        this.hp += num;
+    public addHp(dhp:number) {
+        this.hp += dhp;
         if (this.hp < 0)
             this.hp = 0;
         else if (this.hp > this.maxHp)
