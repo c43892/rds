@@ -10,6 +10,9 @@ class Player extends egret.EventDispatcher {
         p.hp = 10;
         p.maxHp = 20;
         p.avatar = "avator1";
+        p.power = 2;
+        p.defence = 0;
+        p.dodge = 10; // 10%
         return p;
     }
 
@@ -27,4 +30,8 @@ class Player extends egret.EventDispatcher {
             this.hp = this.maxHp;
     }
     
+    // 战斗逻辑
+    public power:number; // 攻击力
+    public defence:number; // 防御力
+    public dodge:number; // 闪避%
 }

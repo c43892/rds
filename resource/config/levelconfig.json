@@ -6,7 +6,8 @@
         },
         "init_uncovered": {"w": 1, "h": 1},
         "elems": {
-            "HpPotion":{"num":5}
+            "HpPotion":{"num":2},
+            "Bunny":{"num":10}
         }, 
         "nextLevel": "testLevel"
     }

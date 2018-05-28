@@ -8,6 +8,7 @@ class Battle extends egret.EventDispatcher {
     private lvCfg; // 当前关卡配置
     public level:Level; // 当前关卡
     public player:Player; // 角色数据
+    private bc:BattleCalculator; // 战斗计算器
 
     public static createNewBattle(player:Player):Battle {
         Battle.CurrentBattle = new Battle();
@@ -20,6 +21,7 @@ class Battle extends egret.EventDispatcher {
         this.level = new Level();
         this.lvCfg = Battle.getLevelCfg(this.player.currentLevel);
         this.level.Init(this.lvCfg, Battle.mapsize, 0);
+        this.bc = new BattleCalculator(0);
         return this.level;
     }
 
@@ -88,7 +90,24 @@ class Battle extends egret.EventDispatcher {
                 return;
 
             this.uncover(x, y);
+            this.triggerLogicPoint("afterPlayerActed"); // 算一次角色行动
         };
+    }
+
+    // 添加物品
+    public addElemAt(e:Elem, x:number, y:number) {
+        this.level.map.addElemAt(e, x, y);
+        this.dispatchEvent(new BrickChangedEvent(x, y, "ElemAdded"));
+        this.triggerLogicPoint("onElemAdded", {eleme:e});
+    }
+
+    // 移除物品
+    public removeElem(e:Elem) {
+        var x = e.pos.x;
+        var y = e.pos.y;
+        this.level.map.removeElemAt(x, y);
+        this.dispatchEvent(new BrickChangedEvent(x, y, "ElemRemoved"));
+        this.triggerLogicPoint("onElemRemoved", {eleme:e});
     }
 
     // 尝试无目标使用元素
@@ -112,24 +131,10 @@ class Battle extends egret.EventDispatcher {
                 this.triggerLogicPoint("onItemUsed", {elem:elem});
                 if (!reserve)
                     this.removeElem(elem);
+
+                this.triggerLogicPoint("afterPlayerActed"); // 算一次角色行动
             }
         };
-    }
-
-    // 添加物品
-    public addElemAt(e:Elem, x:number, y:number) {
-        this.level.map.addElemAt(e, x, y);
-        this.dispatchEvent(new BrickChangedEvent(x, y, "ElemAdded"));
-        this.triggerLogicPoint("onElemAdded", {eleme:e});
-    }
-
-    // 移除物品
-    public removeElem(e:Elem) {
-        var x = e.pos.x;
-        var y = e.pos.y;
-        this.level.map.removeElemAt(x, y);
-        this.dispatchEvent(new BrickChangedEvent(x, y, "ElemRemoved"));
-        this.triggerLogicPoint("onElemRemoved", {eleme:e});
     }
 
     // 修改角色 hp
@@ -137,5 +142,36 @@ class Battle extends egret.EventDispatcher {
         this.player.addHp(dhp);
         this.dispatchEvent(new PlayerChangedEvent("hp"));
         this.triggerLogicPoint("onPlayerChanged", {"subType": "hp"});
+    }
+
+    // 角色尝试攻击指定元素
+    public tryPlayerAttackElem(e) {
+        var r = this.bc.tryAttack(this.player, e);
+        this.dispatchEvent(new AttackEvent("player2elem", r));
+
+        switch (r.r) {
+            case "attacked": // 攻击成功
+                e.hp -= r.dhp;
+                this.triggerLogicPoint("onElemDamanged", {"dhp": r.dhp});
+            break;
+            case "dodged": // 被闪避
+                this.triggerLogicPoint("onElemDodged");
+        }
+    }
+
+    // 指定元素尝试攻击角色
+    public tryElemAttackPlayer(e) {
+        var r = this.bc.tryAttack(e, this.player);
+        this.dispatchEvent(new AttackEvent("elem2player", r));
+
+        switch (r.r) {
+            case "attacked": // 攻击成功
+                this.player.hp -= r.dhp;
+                this.triggerLogicPoint("onPlayerDamanged", {"dhp": r.dhp});
+            break;
+            case "dodged": // 被闪避
+                this.triggerLogicPoint("onPlayerDodged");
+            break;
+        }
     }
 }

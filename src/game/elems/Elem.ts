@@ -12,8 +12,7 @@ class Elem {
     public type: string; // 元素类型
     public pos = {x: 0, y: 0}; // 元素当前坐标位置
     public hazard:boolean; // 是否有害，有害的元素会被相邻格子计数
-    
-    public getBrick; // 会被赋值一个 function(x, y): Brick 的函数，用于获取当前元素所在的地图格
+    public getBrick; // 会被赋值一个 function(x, y): Brick 的函数，方便获取当前元素所在的地图格
 
     // 各逻辑点，挂接的都是函数
     public canUse; // 一个 function():boolean
@@ -26,6 +25,8 @@ class Elem {
     public use; // 一个 function():boolean, 返回值表示是否要保留（不消耗）
     public useOn; // 一个 function(e:Elem):boolean, 返回值表示是否要保留（不消耗）
 
-    // 当用户回合结束时，会被赋值为一个 function():void 的函数
-    public afterPlayerAction;
+    // 各种逻辑点，Elem 应该在此作响应逻辑
+    public afterPlayerActed; // 当角色行动结束时触发，会被赋值为一个 function():void 的函数
+    public beforePlayerMove2NextLevel; // 当角色准备进入下一层时触发
+    
 }

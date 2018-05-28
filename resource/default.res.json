@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "description_json,levelconfig_json,covered_png,grid_png,bg_png,HpPotion_png,NextLevelPort_png,avator1_png",
+			"keys": "description_json,levelconfig_json,covered_png,grid_png,bg_png,HpPotion_png,NextLevelPort_png,avator1_png,Bunny_png",
 			"name": "preload"
 		}
 	],
@@ -60,6 +60,11 @@
 			"name": "avator1_png",
 			"type": "image",
 			"url": "assets/avatars/avator1.png"
+		},
+		{
+			"name": "Bunny_png",
+			"type": "image",
+			"url": "assets/monsters/Bunny.png"
 		}
 	]
 }

@@ -64,7 +64,7 @@ class MainView extends egret.DisplayObjectContainer {
             this.avatar.height = this.avatar.texture.textureHeight;
 
             this.hp.x = this.avatar.x + this.avatar.width + 20;
-            this.hp.y = this.avatar.y;
+            this.hp.y = this.avatar.y + 10;
         }
         else {
             this.avatar.width = 0;
@@ -87,5 +87,9 @@ class MainView extends egret.DisplayObjectContainer {
     // 角色信息发生变化
     public onPlayerChanged(evt:PlayerChangedEvent) {
         this.refreshPlayer();
+    }
+
+    // 产生攻击行为
+    public onAttacked(evt:AttackEvent) {
     }
 }

@@ -15,7 +15,6 @@ class ItemFactory {
             var e = new Elem();
             e.canUse = () => true;
             e.use = () => Battle.CurrentBattle.addPlayerHp(10); // +10 hp
-            e.hazard = true;
             return e;
         },
 

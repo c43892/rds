@@ -46,7 +46,6 @@ class GridView extends egret.DisplayObjectContainer {
                 if (e) { // 有元素显示元素图片
                     this.elemImg = ViewUtils.createBitmapByName(e.type + "_png");
                     this.addChild(this.elemImg);
-                    console.log("show: " + e.type);
                 }
                 else { // 空地块
                     var num = this.map.getCoveredHazardNum(this.gx, this.gy);
