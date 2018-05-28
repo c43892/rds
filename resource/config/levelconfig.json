@@ -6,7 +6,7 @@
         },
         "init_uncovered": {"w": 1, "h": 1},
         "elems": {
-            "BigHpPortion":5
+            "HpPotion":{"num":5}
         }, 
         "nextLevel": "testLevel"
     }

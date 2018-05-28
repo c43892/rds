@@ -62,6 +62,7 @@ class Main extends egret.DisplayObjectContainer {
         var lvCfg = RES.getRes("levelconfig_json");
         Battle.getLevelCfg = (lv) => lvCfg[lv];
         Battle.mapsize = lvCfg.mapsize;
+        ElemFactory.StaticInit();
     }
 
     private mv: MapView; // 地图显示
@@ -81,8 +82,7 @@ class Main extends egret.DisplayObjectContainer {
 
         // test map
         console.log("create test battle");
-        var bt = new Battle();
-        bt.createNewPlayer();
+        var bt = Battle.createNewBattle(Player.createTestPlayer());
         bt.loadCurrentLevel();
         bt.uncoverStartupRegion();
         Utils.LogMap(bt.level.map);

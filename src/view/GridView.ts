@@ -44,6 +44,9 @@ class GridView extends egret.DisplayObjectContainer {
             break;
             case BrickStatus.Uncovered: // 被揭开
                 if (e) { // 有元素显示元素图片
+                    this.elemImg = ViewUtils.createBitmapByName(e.type + "_png");
+                    this.addChild(this.elemImg);
+                    console.log("show: " + e.type);
                 }
                 else { // 空地块
                     var num = this.map.getCoveredHazardNum(this.gx, this.gy);
@@ -100,16 +103,13 @@ class GridView extends egret.DisplayObjectContainer {
 
     // 开始拖拽
     onTouchBegin(evt:egret.TouchEvent) {
-        console.log("touch begin: " + this.gx + ", " + this.gy);
     }
 
     // 拖拽移动
     onTouchMove(evt:egret.TouchEvent) {
-        console.log("touch move: " + this.gx + ", " + this.gy);
     }
 
     // 结束拖拽
     onTouchEnd(evt:egret.TouchEvent) {
-        console.log("touch end: " + this.gx + ", " + this.gy);
     }
 }

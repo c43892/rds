@@ -1,6 +1,7 @@
 
 // 一局战斗，包含当前关卡和当前角色数据，并控制整个战斗进程
 class Battle extends egret.EventDispatcher {
+    public static CurrentBattle:Battle; // 当前唯一战斗
     public static getLevelCfg; // 关卡配置，一个形如 function(lv:string):any 的函数
     public static mapsize; // 地图尺寸，全局唯一
     
@@ -8,25 +9,25 @@ class Battle extends egret.EventDispatcher {
     public level:Level; // 当前关卡
     public player:Player; // 角色数据
 
-    // 重新创建角色
-    public createNewPlayer() {
-        this.player = new Player();
-        this.player.currentLevel = "testLevel";
-        this.player.hp = 10;
+    public static createNewBattle(player:Player):Battle {
+        Battle.CurrentBattle = new Battle();
+        Battle.CurrentBattle.player = player;
+        return Battle.CurrentBattle;
     }
 
     // 载入指定关卡
-    public loadCurrentLevel() {
+    public loadCurrentLevel():Level {
         this.level = new Level();
         this.lvCfg = Battle.getLevelCfg(this.player.currentLevel);
         this.level.Init(this.lvCfg, Battle.mapsize, 0);
+        return this.level;
     }
 
     // 载入下一关卡
-    public loadNextLevel() {
+    public loadNextLevel():Level {
         var nextLevelCfg = this.lvCfg.nextLevel;
         this.player.currentLevel = nextLevelCfg;
-        this.loadCurrentLevel();
+        return this.loadCurrentLevel();
     }
 
     // 揭开起始区域

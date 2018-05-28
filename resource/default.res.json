@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "description_json,levelconfig_json,covered_png,grid_png,bg_png",
+			"keys": "description_json,levelconfig_json,covered_png,grid_png,bg_png,HpPotion_png,NextLevelPort_png",
 			"name": "preload"
 		}
 	],
@@ -45,6 +45,16 @@
 			"name": "bg_png",
 			"type": "image",
 			"url": "assets/bg.png"
+		},
+		{
+			"name": "HpPotion_png",
+			"type": "image",
+			"url": "assets/HpPotion.png"
+		},
+		{
+			"name": "NextLevelPort_png",
+			"type": "image",
+			"url": "assets/NextLevelPort.png"
 		}
 	]
 }

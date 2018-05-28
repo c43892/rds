@@ -1,8 +1,17 @@
 
 // 地图上每个怪物，物品，符文都是一个元素
 class Elem {
+
+    constructor() {
+        this.canUse = () => false;  // 不可使用
+        this.canUseOn = () => false; // 不可对其它目标使用(不可移动)
+        this.canUseOther = () => true;  // 不影响其它元素使用
+        this.canUseOtherOn = () => true;  // 不影响其它元素对其它目标使用
+    }
+
     public type: string; // 元素类型
     public pos = {x: 0, y: 0}; // 元素当前坐标位置
+    public hazard:boolean; // 是否有害，有害的元素会被相邻格子计数
     
     public getBrick; // 会被赋值一个 function(x, y): Brick 的函数，用于获取当前元素所在的地图格
 
@@ -20,6 +29,13 @@ class Elem {
     // 当用户回合结束时，会被赋值为一个 function():void 的函数
     public afterPlayerAction;
 
+    // 实现各种元素功能的 api
     public static escape; // 具体逃跑逻辑由外层指定，是一个 function():void
     public static getPlayer; // 获取当前角色
+    public static addPlayerHp = (hp:number) => { // 给玩家角色 +hp
+        let p = Elem.getPlayer();
+            p.addHp(hp);
+            console.log("+hp: " + hp);
+    }
+    public static Go2NextLevel; // 进入下一关
 }

@@ -50,12 +50,12 @@ class Map {
         return this.bricks[x][y];
     }
 
-    // 计算指定目标位置的 8 邻位置上，隐藏的元素个数，不计算目标位置自身
+    // 计算指定目标位置的 8 邻位置上，隐藏的有害元素个数，不计算目标位置自身
     public getCoveredHazardNum(x: number, y: number) : number {
         var num = 0;
-        this.travel8Neighbours(x, y, (e, status) =>
+        this.travel8Neighbours(x, y, (e:Elem) =>
         {
-            if (e && e.isCovered())
+            if (e && e.hazard && e.getBrick().isCovered())
                 num++;
         });
 
@@ -73,7 +73,9 @@ class Map {
                 else if (i == x && y == j) // 目标格子不计算在内，只计算八邻位置
                     continue;
 
-                breakLoop = f(this.elems[i][j], this.bricks[i][j].status);
+                console.log(i + ", " + j + " : " +( 
+                    (!this.elems[i][j]) ? "false" : this.elems[i][j].getBrick().isCovered()));
+                breakLoop = f(this.elems[i][j]);
             }
         }
     }
@@ -81,10 +83,10 @@ class Map {
     // 纵向优先依次序遍历地图中的所有格子, f 是遍历函数，形如 function(x:number, y:nubmer):boolean，
     // 返回值表示是否要继续遍历
     public travelAll(f) {
-        var continueLoop = true;
-        for (var i = 0; i <= this.size.w && continueLoop; i++) {
-            for (var j = 0; j <= this.size.h && continueLoop; j++) {
-                continueLoop = f(i, j);
+        var breakLoop = false;
+        for (var i = 0; i < this.size.w && !breakLoop; i++) {
+            for (var j = 0; j < this.size.h && !breakLoop; j++) {
+                breakLoop = f(i, j);
             }
         }
     }
@@ -131,10 +133,8 @@ class Map {
         {
             if (f(x, y, this.elems[x][y])) {
                 e = this.elems[x][y];
-                return false; //　找到第一个就停止遍历
+                return true; //　找到第一个就停止遍历
             }
-            else
-                return true;
         });
 
         return e;
@@ -147,8 +147,6 @@ class Map {
         {
             if (!f || f(x, y, this.elems[x][y]))
                 es.push(this.elems[x][y]);
-
-            return true; // 继续遍历
         });
 
         return es;
