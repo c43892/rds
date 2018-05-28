@@ -49,8 +49,9 @@ class MapView extends egret.DisplayObjectContainer {
         Utils.NDimentionArrayForeach(this.mgvs, (mgv) => mgv.clear());
     }
 
-    // 揭开指定位置
-    public onBrickUncovered(evt:BrickUncoveredEvent) {
+    // 指定位置发生状态或元素变化
+    public onBrickChanged(evt:BrickChangedEvent) {
         this.mgvs[evt.x][evt.y].refresh();
+        this.map.travel8Neighbours(evt.x, evt.y, (x, y, e) => this.mgvs[x][y].refresh());
     }
 }

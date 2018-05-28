@@ -35,6 +35,7 @@ class ElemFactory {
             var e = new Elem();
             e.canUse = () => true;
             e.use = () => Elem.addPlayerHp(10); // +10 hp
+            e.hazard = true;
             return e;
         },
 

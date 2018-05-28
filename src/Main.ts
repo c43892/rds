@@ -93,7 +93,7 @@ class Main extends egret.DisplayObjectContainer {
 
         GridView.try2UncoverAt = bt.try2UncoverAt();
         GridView.try2UseElem = bt.try2UseItem();
-        bt.addEventListener(BrickUncoveredEvent.type, this.mv.onBrickUncovered, this.mv);
+        bt.addEventListener(BrickChangedEvent.type, this.mv.onBrickChanged, this.mv);
     }
 
     private async loadResource() {

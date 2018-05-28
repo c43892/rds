@@ -8,15 +8,15 @@
 		"libs/modules/promise/promise.js"
 	],
 	"game": [
-		"bin-debug/game/elems/ElemFactory.js",
 		"bin-debug/LoadingUI.js",
+		"bin-debug/game/user.js",
 		"bin-debug/Platform.js",
 		"bin-debug/game/Battle.js",
 		"bin-debug/game/BattleEvents.js",
 		"bin-debug/game/Level.js",
 		"bin-debug/game/Player.js",
 		"bin-debug/game/SRandom.js",
-		"bin-debug/game/user.js",
+		"bin-debug/game/elems/ElemFactory.js",
 		"bin-debug/game/Utils.js",
 		"bin-debug/view/ViewUtils.js",
 		"bin-debug/game/elems/Elem.js",

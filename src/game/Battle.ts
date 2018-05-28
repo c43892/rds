@@ -62,7 +62,7 @@ class Battle extends egret.EventDispatcher {
         var e = this.level.map.getBrickAt(x, y);
         e.status = BrickStatus.Uncovered;
 
-        this.dispatchEvent(new BrickUncoveredEvent(x, y));
+        this.dispatchEvent(new BrickChangedEvent(x, y, "BrickUnconvered"));
         this.triggerLogicPoint("onUncovered", {eleme:e});
     }
 
@@ -108,9 +108,27 @@ class Battle extends egret.EventDispatcher {
 
             // 可以使用
             if (canUse) {
-                elem.use();
+                var reserve = elem.use(); // 返回值决定是保留还是消耗掉
                 this.triggerLogicPoint("onItemUsed", {elem:elem});
+                if (!reserve)
+                    this.removeElem(elem);
             }
         };
+    }
+
+    // 添加物品
+    public addElemAt(e:Elem, x:number, y:number) {
+        this.level.map.addElemAt(e, x, y);
+        this.dispatchEvent(new BrickChangedEvent(x, y, "ElemAdded"));
+        this.triggerLogicPoint("onElemAdded", {eleme:e});
+    }
+
+    // 移除物品
+    public removeElem(e:Elem) {
+        var x = e.pos.x;
+        var y = e.pos.y;
+        this.level.map.removeElemAt(x, y);
+        this.dispatchEvent(new BrickChangedEvent(x, y, "ElemRemoved"));
+        this.triggerLogicPoint("onElemRemoved", {eleme:e});
     }
 }

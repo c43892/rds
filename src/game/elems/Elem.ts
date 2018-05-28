@@ -23,8 +23,8 @@ class Elem {
     
     // 以下关于 use 相关的逻辑，都不考虑未揭开情况，因为 Elem 并不包含揭开这个逻辑，
     // 也不考虑被其它元素的影响的情况，这种影响属于地图整体逻辑的一部分
-    public use; // 一个 function():void
-    public useOn; // 一个 function(e:Elem):void
+    public use; // 一个 function():boolean, 返回值表示是否要保留（不消耗）
+    public useOn; // 一个 function(e:Elem):boolean, 返回值表示是否要保留（不消耗）
 
     // 当用户回合结束时，会被赋值为一个 function():void 的函数
     public afterPlayerAction;
@@ -35,7 +35,6 @@ class Elem {
     public static addPlayerHp = (hp:number) => { // 给玩家角色 +hp
         let p = Elem.getPlayer();
             p.addHp(hp);
-            console.log("+hp: " + hp);
     }
     public static Go2NextLevel; // 进入下一关
 }

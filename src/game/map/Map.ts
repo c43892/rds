@@ -51,9 +51,9 @@ class Map {
     }
 
     // 计算指定目标位置的 8 邻位置上，隐藏的有害元素个数，不计算目标位置自身
-    public getCoveredHazardNum(x: number, y: number) : number {
+    public getCoveredHazardNum(cx: number, cy: number) : number {
         var num = 0;
-        this.travel8Neighbours(x, y, (e:Elem) =>
+        this.travel8Neighbours(cx, cy, (x, y, e) =>
         {
             if (e && e.hazard && e.getBrick().isCovered())
                 num++;
@@ -62,7 +62,7 @@ class Map {
         return num;
     }
 
-    // 对指定位置的 8 邻做过滤计算，不包括目标自身, f 是遍历函数，形如 function(e:Elem, status:BrickStatus):boolean，
+    // 对指定位置的 8 邻做过滤计算，不包括目标自身, f 是遍历函数，形如 function(x, y, e:Elem):boolean，
     // 返回值表示是否要中断遍历
     public travel8Neighbours(x:number, y:number, f) {
         var breakLoop = false;
@@ -73,9 +73,7 @@ class Map {
                 else if (i == x && y == j) // 目标格子不计算在内，只计算八邻位置
                     continue;
 
-                console.log(i + ", " + j + " : " +( 
-                    (!this.elems[i][j]) ? "false" : this.elems[i][j].getBrick().isCovered()));
-                breakLoop = f(this.elems[i][j]);
+                breakLoop = f(i, j, this.elems[i][j]);
             }
         }
     }
