@@ -8,6 +8,7 @@ class GridView extends egret.DisplayObjectContainer {
     private coveredImg:egret.Bitmap; // 被覆盖
     private coveredHazardNum:egret.TextField; // 数字
     private elemImg:egret.Bitmap; // 元素图
+    private hpNum:egret.TextField; // 怪物血量
 
     public constructor() {
         super();
@@ -24,6 +25,15 @@ class GridView extends egret.DisplayObjectContainer {
         this.coveredHazardNum.anchorOffsetY = 0;
         this.coveredHazardNum.x = 0;
         this.coveredHazardNum.y = 0;
+
+        // 血量
+        this.hpNum = new egret.TextField();
+        this.hpNum.textColor = 0xffffff;
+        this.hpNum.size = 25;
+        this.hpNum.anchorOffsetX = 0;
+        this.hpNum.anchorOffsetY = 0;
+        this.hpNum.x = 0;
+        this.hpNum.y = 0;
 
         this.anchorOffsetX = 0;
         this.anchorOffsetY = 0;
@@ -46,6 +56,11 @@ class GridView extends egret.DisplayObjectContainer {
                 if (e) { // 有元素显示元素图片
                     this.elemImg = ViewUtils.createBitmapByName(e.type + "_png");
                     this.addChild(this.elemImg);
+                    if (e instanceof Monster) {
+                        var m = <Monster>e;
+                        this.hpNum.text = m.hp.toString();
+                        this.addChild(this.hpNum);
+                    }
                 }
                 else { // 空地块
                     var num = this.map.getCoveredHazardNum(this.gx, this.gy);

@@ -4,6 +4,9 @@ class MainView extends egret.DisplayObjectContainer {
     private player:Player; // 当前角色
     private avatar:egret.Bitmap; // 角色头像
     private hp:egret.TextField; // 血量
+    private power:egret.TextField; // 攻击
+    private defence:egret.TextField; // 防御
+    private dodge:egret.TextField; // 闪避
 
     public constructor(w:number, h:number) {
         super();
@@ -12,7 +15,13 @@ class MainView extends egret.DisplayObjectContainer {
         this.avatar = new egret.Bitmap();
         this.addChild(this.avatar);
         this.hp = new egret.TextField();
-        this.addChild(this.hp);      
+        this.addChild(this.hp);
+        this.power = new egret.TextField();
+        this.addChild(this.power);   
+        this.defence = new egret.TextField();
+        this.addChild(this.defence);   
+        this.dodge = new egret.TextField();
+        this.addChild(this.dodge); 
     }
 
     // 设置新的地图数据，但并不自动刷新显示，需要手动刷新
@@ -53,7 +62,10 @@ class MainView extends egret.DisplayObjectContainer {
     // 刷新角色信息
     public refreshPlayer() {
         this.avatar.texture = RES.getRes(this.player.avatar + "_png");
-        this.hp.text = "hp: " + this.player.hp + "/" + this.player.maxHp;
+        this.hp.text = "血量: " + this.player.hp + "/" + this.player.maxHp;
+        this.power.text = "攻击: " + this.player.power;
+        this.defence.text = "防御: " + this.player.defence;
+        this.dodge.text = "闪避: " + this.player.dodge + "%";
 
         this.avatar.anchorOffsetX = 0;
         this.avatar.anchorOffsetY = 0;
@@ -64,7 +76,13 @@ class MainView extends egret.DisplayObjectContainer {
             this.avatar.height = this.avatar.texture.textureHeight;
 
             this.hp.x = this.avatar.x + this.avatar.width + 20;
-            this.hp.y = this.avatar.y + 10;
+            this.hp.y = this.avatar.y - 10;
+            this.power.x = this.hp.x;
+            this.power.y = this.hp.y + this.hp.height + 10;
+            this.defence.x = this.power.x;
+            this.defence.y = this.power.y + this.defence.height + 10;
+            this.dodge.x = this.defence.x;
+            this.dodge.y = this.defence.y + this.dodge.height + 10;
         }
         else {
             this.avatar.width = 0;
@@ -82,6 +100,12 @@ class MainView extends egret.DisplayObjectContainer {
     // 指定位置发生状态或元素变化
     public onBrickChanged(evt:BrickChangedEvent) {
         this.mv.refresh3x3(evt.x, evt.y);
+    }
+
+    // 怪物属性发生变化
+    public onMonsterChanged(evt:MonsterChangedEvent) {
+        var m = evt.m;
+        this.mv.refreshAt(m.pos.x, m.pos.y);
     }
 
     // 角色信息发生变化

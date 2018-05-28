@@ -31,12 +31,14 @@ class PlayerChangedEvent extends egret.Event {
 // 怪物信息发生变化
 class MonsterChangedEvent extends egret.Event {
     public subType:string; // 进一步类型信息
+    public m:Monster; // 目标怪物
     public static type:string = "MonsterChangedEvent";
 
-    public constructor(subType:string, bubbles:boolean=false, cancelable:boolean=false)
+    public constructor(subType:string, m:Monster, bubbles:boolean=false, cancelable:boolean=false)
     {
         super(MonsterChangedEvent.type, bubbles, cancelable);
         this.subType = subType;
+        this.m = m;
     }
 }
 

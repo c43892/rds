@@ -153,8 +153,8 @@ class Battle extends egret.EventDispatcher {
     // 修改怪物 hp
     public implAddMonsterHp(m:Monster, dhp:number) {
         m.addHp(dhp);
-        this.dispatchEvent(new MonsterChangedEvent("hp"));
-        this.triggerLogicPoint("onMonsterChanged", {"subType": "hp"});
+        this.dispatchEvent(new MonsterChangedEvent("hp", m));
+        this.triggerLogicPoint("onMonsterChanged", {"subType": "hp", "m":m});
     }
 
     // 角色尝试攻击指定怪物
