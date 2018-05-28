@@ -75,14 +75,14 @@ class MainView extends egret.DisplayObjectContainer {
             this.avatar.width = this.avatar.texture.textureWidth;
             this.avatar.height = this.avatar.texture.textureHeight;
 
-            this.hp.x = this.avatar.x + this.avatar.width + 20;
-            this.hp.y = this.avatar.y - 10;
-            this.power.x = this.hp.x;
-            this.power.y = this.hp.y + this.hp.height + 10;
-            this.defence.x = this.power.x;
-            this.defence.y = this.power.y + this.defence.height + 10;
-            this.dodge.x = this.defence.x;
-            this.dodge.y = this.defence.y + this.dodge.height + 10;
+            var x = this.avatar.x + this.avatar.width + 20;
+            var y = this.avatar.y - 10;
+            var txtArr = [this.hp, this.power, this.defence, this.dodge];
+            for (var txt of txtArr) {
+                txt.x = x;
+                txt.y = y;
+                y = txt.y + txt.height + 10;
+            }
         }
         else {
             this.avatar.width = 0;

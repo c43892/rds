@@ -25,6 +25,8 @@ class GridView extends egret.DisplayObjectContainer {
         this.coveredHazardNum.anchorOffsetY = 0;
         this.coveredHazardNum.x = 0;
         this.coveredHazardNum.y = 0;
+        this.coveredHazardNum.textAlign = egret.HorizontalAlign.CENTER;
+        this.coveredHazardNum.verticalAlign = egret.VerticalAlign.MIDDLE;
 
         // 血量
         this.hpNum = new egret.TextField();
