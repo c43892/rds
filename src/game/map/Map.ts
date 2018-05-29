@@ -24,8 +24,9 @@ class Map {
                 // 创建地块
                 var b = new Grid();
                 b.pos = {x: x, y: y};
-                b.getElem = () => this.getElemAt(x, y);
-                b.getCoveredElemNum = () => this.getCoveredHazardNum(x, y);
+                b.map = this;
+                // b.getElem = () => { return this.getElemAt(x, y); }
+                // b.getCoveredElemNum = () => {console.log(x+","+y); this.getCoveredHazardNum(x, y); }
                 this.grids[x].push(b);
                 
                 // 地图创建时，地块上没有元素，但是要把位置先占住

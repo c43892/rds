@@ -97,6 +97,10 @@ class GridView extends egret.DisplayObjectContainer {
         return this.map.getElemAt(this.gx, this.gy);
     }
 
+    public getGrid():Grid {
+        return this.map.getGridAt(this.gx, this.gy);
+    }
+
     // 各种操作逻辑构建
     static dragStartThreshold2 = 25; // 拖动多远之后，认为已经开始拖拽
     static pressed:boolean = false; // 按下，但尚未开始拖拽移动
@@ -109,6 +113,7 @@ class GridView extends egret.DisplayObjectContainer {
     public static try2UncoverAt; // 尝试解开指定位置
     public static try2UseElem; // 尝试无目标使用元素，会挂接形如 function(e:Elem) 的函数
     public static try2BlockGrid; // 尝试设置/取消一个危险标志
+    public static try2UseAt; // 尝试对使用一个元素，将坐标为目标
 
     // 点击
     onTouchGrid(evt:egret.TouchEvent) {
@@ -209,6 +214,10 @@ class GridView extends egret.DisplayObjectContainer {
             GridView.dragFrom.elemImg.alpha = 1;
             this.parent.removeChild(GridView.draggingElemImg);
             GridView.draggingElemImg.texture = undefined;
+
+            var from = GridView.dragFrom;
+            var to = this;
+            GridView.try2UseAt(from.getElem(), to.gx, to.gy);
         }
 
         GridView.pressed = false;

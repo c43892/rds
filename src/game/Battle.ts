@@ -158,6 +158,26 @@ class Battle extends egret.EventDispatcher {
         };
     }
 
+    // 尝试使用一个元素，将一个坐标设定为目标
+    public try2UseAt() {
+        return (e:Elem, x:number, y:number) => {
+            var map = this.level.map;
+            var fx = e.pos.x;
+            var fy = e.pos.y;
+            var b = map.getGridAt(x, y);
+            if (b.status == GridStatus.Uncovered && !b.getElem()) {
+                // 将元素移动到空地
+                map.removeElemAt(fx, fy);
+                map.addElemAt(e, x, y);
+                this.dispatchEvent(new GridChangedEvent(fx, fy, "ElemSwitchFrom"));
+                this.dispatchEvent(new GridChangedEvent(x, y, "ElemSwitchTo"));
+            }
+            else {
+                // 其它情况
+            }
+        };
+    }
+
     // impl 开头的函数，通常对应具体的逻辑功能实现，提供给 Elem 使用
 
     // 修改角色 hp

@@ -10,6 +10,8 @@ enum GridStatus {
 // 表示一个地图格
 class Grid {
 
+    public map:Map; // 反向引用所属地图
+
     // 表示地图块的坐标
     public pos = {x: 0, y: 0};
 
@@ -17,11 +19,6 @@ class Grid {
     public status : GridStatus = GridStatus.Covered;
 
     // 广义上的覆盖状态
-    public isCovered = () => this.status != GridStatus.Uncovered;
-
-    // 会被赋值一个 function(x, y): Elem 的函数，用于获取当前格子上的元素
-    public getElem;
-
-    // 会被赋值一个 function(x, y): Number 的函数，用于获取当前格子八邻的隐藏元素数量
-    public getCoveredElemNum;
+    public isCovered() { return this.status != GridStatus.Uncovered; }
+    public getElem() { return this.map.getElemAt(this.pos.x, this.pos.y); }
 }

@@ -94,6 +94,7 @@ class Main extends egret.DisplayObjectContainer {
         GridView.try2UncoverAt = bt.try2UncoverAt();
         GridView.try2UseElem = bt.try2UseElem();
         GridView.try2BlockGrid = bt.try2BlockGrid();
+        GridView.try2UseAt = bt.try2UseAt();
         bt.addEventListener(GridChangedEvent.type, this.mv.onGridChanged, this.mv);
         bt.addEventListener(PlayerChangedEvent.type, this.mv.onPlayerChanged, this.mv);
         bt.addEventListener(AttackEvent.type, this.mv.onAttacked, this.mv);
