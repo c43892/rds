@@ -5,10 +5,10 @@ class Utils {
         var str = "";
         for (var j = 0; j < map.size.h; j++) {
             for (var i = 0; i < map.size.w; i++) {
-                var b = map.getBrickAt(i, j);
-                if (b.status == BrickStatus.Covered)
+                var b = map.getGridAt(i, j);
+                if (b.status == GridStatus.Covered)
                     str += ". ";
-                else if (b.status == BrickStatus.Blocked)
+                else if (b.status == GridStatus.Blocked)
                     str += "* ";
                 else {
                     var e = map.getElemAt(i, j);

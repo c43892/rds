@@ -1,15 +1,15 @@
 // 定义各种 Battle 事件，用于连接战斗逻辑和界面
 
 // 指定位置状态或元素发生变化
-class BrickChangedEvent extends egret.Event {
+class GridChangedEvent extends egret.Event {
     public x:number;
     public y:number;
     public subType:string; // 进一步类型信息
-    public static type:string = "BrickChangedEvent";
+    public static type:string = "GridChangedEvent";
 
     public constructor(x:number, y:number, subType:string, bubbles:boolean=false, cancelable:boolean=false)
     {
-        super(BrickChangedEvent.type, bubbles, cancelable);
+        super(GridChangedEvent.type, bubbles, cancelable);
         this.subType = subType;
         this.x = x;
         this.y = y;

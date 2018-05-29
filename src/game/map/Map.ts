@@ -2,7 +2,7 @@
 // 实时的游戏地图，用于存放所有地图格和元素
 class Map {
     public size = {w: 0, h: 0}; // 地图尺寸
-    public bricks : Brick[][]; // 所有地图格子
+    public grids : Grid[][]; // 所有地图格子
     public elems : Elem[][]; // 所有元素
     
     public constructor() {
@@ -10,23 +10,23 @@ class Map {
         var h = GBConfig.mapsize.h;
 
         this.size = {w: w, h: h};
-        this.bricks = [];
+        this.grids = [];
         this.elems = [];
 
         for(var i = 0; i < this.size.w; i++) {
             var x = i;
-            this.bricks[x] = [];
+            this.grids[x] = [];
             this.elems[x] = [];
 
             for (var j = 0; j < this.size.h; j++) {
                 var y = j;
 
                 // 创建地块
-                var b = new Brick();
+                var b = new Grid();
                 b.pos = {x: x, y: y};
                 b.getElem = () => this.getElemAt(x, y);
                 b.getCoveredElemNum = () => this.getCoveredHazardNum(x, y);
-                this.bricks[x].push(b);
+                this.grids[x].push(b);
                 
                 // 地图创建时，地块上没有元素，但是要把位置先占住
                 this.elems[x].push(undefined);
@@ -47,9 +47,9 @@ class Map {
     }
 
     // 获取指定位置的地块
-    public getBrickAt(x: number, y: number) : Brick {
+    public getGridAt(x: number, y: number) : Grid {
         this.assertBound(x, y);
-        return this.bricks[x][y];
+        return this.grids[x][y];
     }
 
     // 计算指定目标位置的 8 邻位置上，隐藏的有害元素个数，不计算目标位置自身
@@ -57,7 +57,7 @@ class Map {
         var num = 0;
         this.travel8Neighbours(cx, cy, (x, y, e) =>
         {
-            if (e && e.hazard && e.getBrick().isCovered())
+            if (e && e.hazard && e.getGrid().isCovered())
                 num++;
         });
 
@@ -155,7 +155,7 @@ class Map {
     // 迭代每一个活动元素, f 是一个形如 funciton(e:Elem):boolean 的函数，返回值表示是否要中断迭代
     public foreachUncoveredElems(f) {
         Utils.NDimentionArrayForeach(this.elems, (e:Elem) => {
-            if (e && !this.getBrickAt(e.pos.x, e.pos.y).isCovered())
+            if (e && !this.getGridAt(e.pos.x, e.pos.y).isCovered())
                 return f(e);
         });
     }

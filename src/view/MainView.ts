@@ -98,7 +98,7 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 指定位置发生状态或元素变化
-    public onBrickChanged(evt:BrickChangedEvent) {
+    public onGridChanged(evt:GridChangedEvent) {
         this.mv.refresh3x3(evt.x, evt.y);
     }
 

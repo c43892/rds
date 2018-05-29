@@ -63,10 +63,10 @@ class Battle extends egret.EventDispatcher {
 
     // 揭开指定位置的地块
     public uncover(x:number, y:number) {
-        var e = this.level.map.getBrickAt(x, y);
-        e.status = BrickStatus.Uncovered;
+        var e = this.level.map.getGridAt(x, y);
+        e.status = GridStatus.Uncovered;
 
-        this.dispatchEvent(new BrickChangedEvent(x, y, "BrickUnconvered"));
+        this.dispatchEvent(new GridChangedEvent(x, y, "GridUnconvered"));
         this.triggerLogicPoint("onUncovered", {eleme:e});
     }
 
@@ -83,7 +83,7 @@ class Battle extends egret.EventDispatcher {
     // 添加物品
     public addElemAt(e:Elem, x:number, y:number) {
         this.level.map.addElemAt(e, x, y);
-        this.dispatchEvent(new BrickChangedEvent(x, y, "ElemAdded"));
+        this.dispatchEvent(new GridChangedEvent(x, y, "ElemAdded"));
         this.triggerLogicPoint("onElemAdded", {eleme:e});
     }
 
@@ -92,7 +92,7 @@ class Battle extends egret.EventDispatcher {
         var x = e.pos.x;
         var y = e.pos.y;
         this.level.map.removeElemAt(x, y);
-        this.dispatchEvent(new BrickChangedEvent(x, y, "ElemRemoved"));
+        this.dispatchEvent(new GridChangedEvent(x, y, "ElemRemoved"));
         this.triggerLogicPoint("onElemRemoved", {eleme:e});
     }
 
@@ -105,8 +105,8 @@ class Battle extends egret.EventDispatcher {
                             && y >= 0 && y < this.level.map.size.h, 
                             "index out of bounds");
 
-            let b = this.level.map.getBrickAt(x, y);
-            if (b.status == BrickStatus.Uncovered || b.status == BrickStatus.Blocked)
+            let b = this.level.map.getGridAt(x, y);
+            if (b.status == GridStatus.Uncovered || b.status == GridStatus.Blocked)
                 return;
 
             this.uncover(x, y);
@@ -137,6 +137,23 @@ class Battle extends egret.EventDispatcher {
                     this.removeElem(elem);
 
                 this.triggerLogicPoint("afterPlayerActed"); // 算一次角色行动
+            }
+        };
+    }
+
+    // 尝试设置/取消一个危险标记，该操作不算角色行动
+    public try2BlockGrid() {
+        return (x:number, y:number, mark:boolean) => {
+            var b = this.level.map.getGridAt(x, y);
+            if (mark) {
+                Utils.assert(b.status == GridStatus.Covered, "only covered grid can be blocked");
+                b.status = GridStatus.Blocked;
+                this.dispatchEvent(new GridChangedEvent(x, y, "GridBlocked"));
+            }
+            else {
+                Utils.assert(b.status == GridStatus.Blocked, "only blocked grid can be unblocked");
+                b.status = GridStatus.Covered;
+                this.dispatchEvent(new GridChangedEvent(x, y, "GridUnblocked"));
             }
         };
     }
