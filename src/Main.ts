@@ -82,6 +82,7 @@ class Main extends egret.DisplayObjectContainer {
         // test map
         console.log("create test battle");
         var bt = Battle.createNewBattle(Player.createTestPlayer());
+
         bt.loadCurrentLevel();
         bt.uncoverStartupRegion();
         // Utils.LogMap(bt.level.map);

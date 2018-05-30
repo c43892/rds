@@ -3,7 +3,7 @@
 class SRandom {
     private seed:number;
     constructor(seed:number) {
-        seed = !seed ? Date.now() : seed;
+        seed = (seed == undefined) ? Date.now() : seed;
         this.seed = seed;
     }
 

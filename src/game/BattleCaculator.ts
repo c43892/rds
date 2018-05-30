@@ -1,8 +1,8 @@
 // 所有战斗相关计算集中于此
 class BattleCalculator {
     private srand:SRandom; // 随机数生成器
-    public constructor(randomSeed:number) {
-        this.srand = new SRandom(randomSeed);
+    public constructor(srand:SRandom) {
+        this.srand = srand;
     }
 
     // 计算攻击，attacker 必须包含 power, target 必须包含 hp，

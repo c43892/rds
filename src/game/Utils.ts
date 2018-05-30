@@ -1,4 +1,5 @@
 class Utils {
+
     // 将当前所见地图信息打印在控制台
     public static LogMap(map:Map) {
         console.log("==============\r\n");

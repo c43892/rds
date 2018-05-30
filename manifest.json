@@ -18,7 +18,7 @@
 		"bin-debug/game/Level.js",
 		"bin-debug/game/Player.js",
 		"bin-debug/game/SRandom.js",
-		"bin-debug/game/user.js",
+		"bin-debug/game/User.js",
 		"bin-debug/view/ViewUtils.js",
 		"bin-debug/LoadingUI.js",
 		"bin-debug/game/elems/ElemFactory.js",

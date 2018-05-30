@@ -13,7 +13,7 @@ class Battle extends egret.EventDispatcher {
     }
 
     public static createNewBattle(player:Player):Battle {
-        var bt = new Battle(0);
+        var bt = new Battle(player.battleRandomSeed);
         bt.player = player;
         return bt;
     }
@@ -23,7 +23,7 @@ class Battle extends egret.EventDispatcher {
         this.level = new Level();
         this.lvCfg = GBConfig.getLevelCfg(this.player.currentLevel);
         this.level.Init(this, this.lvCfg);
-        this.bc = new BattleCalculator(0);
+        this.bc = new BattleCalculator(this.srand);
         return this.level;
     }
 

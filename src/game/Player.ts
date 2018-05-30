@@ -2,6 +2,7 @@
 // 玩家角色数据
 class Player extends egret.EventDispatcher {
     public currentLevel:string; // 当前关卡配置名称
+    public battleRandomSeed:number; // 下一场战斗随机种子
 
     // 重新创建角色
     public static createTestPlayer():Player {
@@ -13,6 +14,7 @@ class Player extends egret.EventDispatcher {
         p.power = 2;
         p.defence = 0;
         p.dodge = 10; // 10%
+        p.battleRandomSeed = 0;
         return p;
     }
 

@@ -99,7 +99,10 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 指定位置发生状态或元素变化
     public onGridChanged(evt:GridChangedEvent) {
-        this.mv.refresh3x3(evt.x, evt.y);
+        if (evt.subType.indexOf("Elem") == 0)
+            this.mv.refreshAt(evt.x, evt.y);
+        else
+            this.mv.refresh3x3(evt.x, evt.y);
     }
 
     // 怪物属性发生变化
