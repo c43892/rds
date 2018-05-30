@@ -67,6 +67,10 @@ class Main extends egret.DisplayObjectContainer {
     private mv: MainView; // 地图显示
 
     private async runGame() {
+
+        var c = new TcpClient();
+        c.connect2srv("echo.websocket.org", 80);
+
         await this.loadResource() // 加载初始资源
         this.globalInit(); // 全局基础功能初始化
 
@@ -131,7 +135,7 @@ class Main extends egret.DisplayObjectContainer {
         bg.y = 0;
         this.addChild(bg);
 
-        // 地图区域
+        // 主视图
         this.mv = new MainView(1, 1);
         this.mv.width = stageW;
         this.mv.height = stageH;
@@ -140,52 +144,5 @@ class Main extends egret.DisplayObjectContainer {
         this.mv.x = 0;
         this.mv.y = 0;
         this.addChild(this.mv);
-
-        // let sky = ViewUtils.createBitmapByName("bg_jpg");
-        // this.addChild(sky);
-        // sky.width = stageW;
-        // sky.height = stageH;
-
-        // let topMask = new egret.Shape();
-        // topMask.graphics.beginFill(0x000000, 0.5);
-        // topMask.graphics.drawRect(0, 0, stageW, 172);
-        // topMask.graphics.endFill();
-        // topMask.y = 33;
-        // this.addChild(topMask);
-
-        // let icon = this.createBitmapByName("egret_icon_png");
-        // this.addChild(icon);
-        // icon.x = 26;
-        // icon.y = 33;
-
-        // let line = new egret.Shape();
-        // line.graphics.lineStyle(2, 0xffffff);
-        // line.graphics.moveTo(0, 0);
-        // line.graphics.lineTo(0, 117);
-        // line.graphics.endFill();
-        // line.x = 172;
-        // line.y = 61;
-        // this.addChild(line);
-
-        // let colorLabel = new egret.TextField();
-        // colorLabel.textColor = 0xffffff;
-        // colorLabel.width = stageW - 172;
-        // colorLabel.textAlign = "center";
-        // colorLabel.text = "Hello Egret";
-        // colorLabel.size = 24;
-        // colorLabel.x = 172;
-        // colorLabel.y = 80;
-        // this.addChild(colorLabel);
-
-        // let textfield = new egret.TextField();
-        // this.addChild(textfield);
-        // textfield.alpha = 0;
-        // textfield.width = stageW - 172;
-        // textfield.textAlign = egret.HorizontalAlign.CENTER;
-        // textfield.size = 24;
-        // textfield.textColor = 0xffffff;
-        // textfield.x = 172;
-        // textfield.y = 135;
-        // this.textfield = textfield;
     }
 }

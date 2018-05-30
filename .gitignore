@@ -1,3 +1,6 @@
 client/bin-debug
 client/bin-release
+client/src/battle
 
+server/battle
+server/debug
