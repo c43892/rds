@@ -1,5 +1,3 @@
-Library
-v14
-bin-debug
-bin-release
+client/bin-debug
+client/bin-release
 
