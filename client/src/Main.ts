@@ -68,8 +68,10 @@ class Main extends egret.DisplayObjectContainer {
 
     private async runGame() {
 
-        var c = new TcpClient();
-        c.connect2srv("echo.websocket.org", 80);
+        var c = new WSClient();
+        c.connect2srv("localhost", 80)
+        .onError(() => console.log("net error"))
+        .onConnected(() => c.request({"msg":"echo", "content":"hello"}, (r) => console.log("echo: " + r["content"])));
 
         await this.loadResource() // 加载初始资源
         this.globalInit(); // 全局基础功能初始化

@@ -27,7 +27,7 @@
 		"bin-debug/battle/Battle.js",
 		"bin-debug/battle/map/Grid.js",
 		"bin-debug/battle/map/Map.js",
-		"bin-debug/net/TcpClient.js",
+		"bin-debug/net/WSClient.js",
 		"bin-debug/view/GridView.js",
 		"bin-debug/view/MainView.js",
 		"bin-debug/view/MapView.js",
