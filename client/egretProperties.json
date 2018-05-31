@@ -1,34 +1,34 @@
 {
-  "engineVersion": "5.1.11",
-  "compilerVersion": "5.1.11",
-  "template": {},
-  "target": {
-    "current": "web"
-  },
-  "modules": [
-    {
-      "name": "egret"
-    },
-    {
-      "name": "game"
-    },
-    {
-      "name": "tween"
-    },
-    {
-      "name": "assetsmanager"
-    },
-    {
-      "name": "promise"
-    },
-    {
-      "name": "socket"
-    }
-  ],
-  "targets": {
-    "android": {
-      "appname": "rds",
-      "packagename": "com.yxys.rds"
-    }
-  }
+	"engineVersion": "5.2.0",
+	"compilerVersion": "5.2.0",
+	"template": {},
+	"target": {
+		"current": "web"
+	},
+	"modules": [
+		{
+			"name": "egret"
+		},
+		{
+			"name": "game"
+		},
+		{
+			"name": "tween"
+		},
+		{
+			"name": "assetsmanager"
+		},
+		{
+			"name": "promise"
+		},
+		{
+			"name": "socket"
+		}
+	],
+	"targets": {
+		"android": {
+			"appname": "rds",
+			"packagename": "com.yxys.rds"
+		}
+	}
 }

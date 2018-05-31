@@ -10,7 +10,7 @@ import (
 func main() {
 	fmt.Println("rds server started.")
 	initMsgHandlers();
-	http.HandleFunc("/msg",  handleMsgfunc)
+	http.HandleFunc("/",  handleMsgfunc)
     http.ListenAndServe(":80", nil)
 }
 
