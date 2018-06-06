@@ -2,9 +2,6 @@ class Monster extends Elem {
 
     constructor(bt:Battle) {
         super(bt);
-
-        // 每次玩家回合结束后的执行逻辑
-        this.afterPlayerActed = this.makeActListCaller("afterPlayerActed");
     }
 
     public hp:number; // 血量
@@ -13,25 +10,12 @@ class Monster extends Elem {
     public defence:number; // 防御
     public dodge:number; // 闪避%
 
-    public logicActs = {};
-
     public addHp(dhp:number) {
         this.hp += dhp;
         if (this.hp < 0)
             this.hp = 0;
         else if (this.hp > this.maxHp)
             this.hp = this.maxHp;
-    }
-
-    makeActListCaller(logicPoint:string) {
-        return () => {
-            var acts = this.logicActs[logicPoint];
-            if (acts == undefined || acts.length == 0)
-                return;
-
-            for (var act of acts)
-                act();
-        }
     }
 }
 
@@ -64,10 +48,13 @@ class MonsterFactory {
 
     // 为怪物在指定逻辑点添加一个行为
     addAI(m:Monster, logicPoint:string, act) {
-        if (m.logicActs[logicPoint] == undefined)
-            m.logicActs[logicPoint] = [act];
-        else
-            m.logicActs[logicPoint].push(act);
+        var doPrior = m[logicPoint];
+        m[logicPoint] = () => {
+            if (doPrior != undefined)
+                doPrior();
+
+            act();
+        }
         
         return m;
     }
