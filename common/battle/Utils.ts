@@ -82,4 +82,89 @@ class Utils {
 
         unpackArr(nArr);
     }
+
+    // 根据给定的多维坐标序列，生成一个连续插值迭代的函数，pts 是一个 number[][]，每一个 number[] 表示一个节点坐标，
+    // 返回值形如 function(deltaDistance:nubmer):number[]，参数表示距离变化，这个值是每次调用累计增加的（只能为正数），
+    // 返回值表示是本次插值结果，如果是 undefined 则表示迭代结束，
+    // 距离使用欧式定义，作为节点的每个 number[] 必须有同样维度
+    public static createInterpolater(pts:number[][]) {
+        var len = pts.length;
+
+        // 0，1 个节点特别处理一下，1 个节点的时候，只跑一帧
+        if (pts.length == 0)
+            return (dd:number) => undefined;
+        else if (pts.length == 1) {
+            var moved = false;
+            return (dd:number) => {
+                if (!moved) {
+                    moved = true;
+                    return pts[0];
+                }
+                else
+                    return undefined;
+            }
+        }
+
+        // 多节点累计插值结算
+        var lastPt = pts[0];
+        var n = 1;
+        var iter = (dd:number) => {
+            Utils.assert(dd >= 0, "deltaDistance must be positive number");
+            if (n >= pts.length)
+                return undefined;
+            
+            var a = lastPt;
+            var b = pts[n];
+            var d2 = 0;
+            for (var i in a) { d2 += Math.abs(b[i] - a[i]); }
+            var d = Math.sqrt(d2);
+            if (dd >= d) { // 越过下一节点
+                lastPt = b;
+                n++;
+                dd -= d;
+            }
+            else { // 两节点间插值
+                var p = a.slice();
+                for (var i in a) {
+                    p[i] += (b[i] - a[i]) * dd / d;
+                }
+
+                lastPt = p;
+            }
+
+            return lastPt;
+        };
+
+        return iter;
+    }
+
+    // 将一维坐标序列包装成 createInterpolaterN 的参数格式
+    public static createInterpolater1(pts:number[]) {
+        return Utils.createInterpolater(Utils.map(pts, (n) => [n]));
+    }
+
+    // 将一个数组映射为一个新的数组
+    public static map(srcArr:any[], mapFunc):any[] {
+        var dstArr = [];
+        for (var s of srcArr)
+            dstArr.push(mapFunc(s));
+
+        return dstArr;
+    }
+
+    // log 多个参数
+    public static log(...params:any[]) { console.log(Utils.logStr(...params)); }
+    static logStr(...params:any[]):string {
+        var str = "";
+        for (var p of params) {
+            if (Array.isArray(p))
+                str += "[" + Utils.logStr(...p) + "],";
+            else if (p == undefined)
+                str += "$$undefined" + ",";
+            else
+                str += p + ",";
+        }
+
+        return str;
+    }
 }

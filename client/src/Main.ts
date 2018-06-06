@@ -106,6 +106,7 @@ class Main extends egret.DisplayObjectContainer {
         bt.addEventListener(PlayerChangedEvent.type, this.mv.onPlayerChanged, this.mv);
         bt.addEventListener(AttackEvent.type, this.mv.onAttacked, this.mv);
         bt.addEventListener(MonsterChangedEvent.type, this.mv.onMonsterChanged, this.mv);
+        bt.addEventListener(ElemMovingEvent.type, this.mv.onElemMoving, this.mv);
     }
 
     private async loadResource() {

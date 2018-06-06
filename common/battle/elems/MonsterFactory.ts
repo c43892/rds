@@ -2,21 +2,44 @@ class Monster extends Elem {
 
     constructor(bt:Battle) {
         super(bt);
+
+        // 每次玩家回合结束后的执行逻辑
+        this.afterPlayerActed = this.makeActListCaller("afterPlayerActed");
     }
 
     public hp:number; // 血量
+    public maxHp:number; // 最大血量
     public power:number; // 攻击力
     public defence:number; // 防御
     public dodge:number; // 闪避%
 
-    public addHp; // +hp，可以是+负数
+    public logicActs = {};
+
+    public addHp(dhp:number) {
+        this.hp += dhp;
+        if (this.hp < 0)
+            this.hp = 0;
+        else if (this.hp > this.maxHp)
+            this.hp = this.maxHp;
+    }
+
+    makeActListCaller(logicPoint:string) {
+        return () => {
+            var acts = this.logicActs[logicPoint];
+            if (acts == undefined || acts.length == 0)
+                return;
+
+            for (var act of acts)
+                act();
+        }
+    }
 }
 
 // 怪物
 class MonsterFactory {
     public creators = {
         // 兔子
-        "Bunny": (bt, ps) => this.createNormalMonster(bt, 5, 1)
+        "Bunny": (bt, ps) => this.doMove("afterPlayerActed", 3, this.doAttack("afterPlayerActed", this.createNormalMonster(bt, 5, 1)))
     };
 
     // 创建一个普通的怪物
@@ -24,12 +47,11 @@ class MonsterFactory {
         var m = new Monster(bt);
         m.canUse = () => true;
         m.hp = hp;
+        m.maxHp = hp;
         m.power = power;
         m.hazard = true;
-
-        m.addHp = (dhp) => {
-            m.hp = m.hp + dhp > 0 ? m.hp + dhp : 0;
-        };
+        m.blockUncover = true;
+        m.dodge = dodge;
 
         // 使用，即攻击怪物
         m.use = () =>  {
@@ -37,11 +59,39 @@ class MonsterFactory {
             return m.hp > 0;
         };
 
-        // 角色行动后，会攻击角色
-        m.afterPlayerActed = () => {
-            m.bt.implMonsterAttackPlayer(m);
-        };
-
         return m;
+    }
+
+    // 为怪物在指定逻辑点添加一个行为
+    addAI(m:Monster, logicPoint:string, act) {
+        if (m.logicActs[logicPoint] == undefined)
+            m.logicActs[logicPoint] = [act];
+        else
+            m.logicActs[logicPoint].push(act);
+        
+        return m;
+    }
+
+    // 攻击玩家一次
+    doAttack(logicPoint:string, m:Monster):Monster {
+        return this.addAI(m, logicPoint, () => m.bt.implMonsterAttackPlayer(m));
+    }
+
+    // 随机移动一次，dist 表示移动几格
+    doMove(logicPoint:string, dist:number, m:Monster):Monster {
+        var dir = [[-1,0],[1,0],[0,-1],[0,1]];
+        return this.addAI(m, logicPoint, () => {
+            var path = [{x:m.pos.x, y:m.pos.y}];
+            for (var i = 0; i < dist; i++) {
+                var d = dir[m.bt.srand.nextInt(0, dir.length)];
+                var lastPt = path[path.length - 1];
+                var x = lastPt.x + d[0];
+                var y = lastPt.y + d[1];
+                if ((m.pos.x == x && m.pos.y == y) || m.bt.level.map.isWalkable(x, y))
+                    path.push({x:x, y:y});
+            }
+
+            m.bt.implMonsterMoving(m, path);
+        });
     }
 }

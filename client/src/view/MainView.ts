@@ -119,4 +119,23 @@ class MainView extends egret.DisplayObjectContainer {
     // 产生攻击行为
     public onAttacked(evt:AttackEvent) {
     }
+
+    // 元素移动
+    public onElemMoving(evt:ElemMovingEvent) {
+        var path = evt.path;
+        
+        // var iter = Utils.createInterpolater(Utils.map(path, (pt) => [pt.x, pt.y]));
+        // while (true) {
+        //     var pt = iter(0.1);
+        //     if (pt == undefined)
+        //         break;
+        // }
+
+        if (path.length == 1)
+            this.mv.refreshAt(path[0].x, path[0].y);
+        else if (path.length > 1) {
+            this.mv.refreshAt(path[0].x, path[0].y);
+            this.mv.refreshAt(path[path.length - 1].x, path[path.length - 1].y);
+        }
+    }
 }

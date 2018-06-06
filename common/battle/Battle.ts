@@ -42,7 +42,7 @@ class Battle extends egret.EventDispatcher {
         var lt = this.getGetRegionWithEscapePort(w, h);
         for(var i = 0; i < w; i++) {
             for (var j = 0; j < h; j++) {
-                this.uncover(i + lt.left, j + lt.top, true);
+                this.uncover(i + lt.left, j + lt.top);
             }
         }
 
@@ -61,16 +61,15 @@ class Battle extends egret.EventDispatcher {
         return Utils.calculateBoundary(ep.pos.x, ep.pos.y, w, h, 0, 0, map.size.w, map.size.h);
     }
 
-    // 揭开指定位置的地块, doItAnyay 表示是否忽略检查条件（比如每关揭开初始区域）
-    public uncover(x:number, y:number, doItAnyay:boolean = false) {
-        if (!doItAnyay && !this.level.map.isUncoverable(x, y))
-            return;
-
+    // 揭开指定位置的地块（不再检查条件）
+    public uncover(x:number, y:number) {
         var e = this.level.map.getGridAt(x, y);
+        Utils.assert(e.isCovered(), "uncover action can only be implemented on a covered grid");
         e.status = GridStatus.Uncovered;
 
         this.dispatchEvent(new GridChangedEvent(x, y, "GridUnconvered"));
         this.triggerLogicPoint("onUncovered", {eleme:e});
+        return true;
     }
 
     // 触发逻辑点，参数为逻辑点名称，该名称直接字面对应个各元素对逻辑点的处理函数，
@@ -109,7 +108,7 @@ class Battle extends egret.EventDispatcher {
                             "index out of bounds");
 
             let b = this.level.map.getGridAt(x, y);
-            if (b.status == GridStatus.Uncovered || b.status == GridStatus.Blocked)
+            if (!this.level.map.isUncoverable(x, y))
                 return;
 
             this.uncover(x, y);
@@ -226,5 +225,28 @@ class Battle extends egret.EventDispatcher {
                 this.triggerLogicPoint("onPlayerDodged");
             break;
         }
+    }
+
+    // 怪物进行移动，path 是一组 {x:x, y:y} 的数组
+    public implMonsterMoving(m:Monster, path) {
+        if (path.length == 0)
+            return;
+
+        // 第一个路径点必须是相邻格子
+        if (Math.abs(m.pos.x - path[0].x) + Math.abs(m.pos.y - path[0].y) > 1)
+            return;
+        
+        // 检查路径上的格子是不是都可以走
+        for (var n of path) {
+            var x = n.x;
+            var y = n.y;
+            if (!(m.pos.x == x && m.pos.y == y) && !this.level.map.isWalkable(x, y))
+                return;
+        }
+
+
+        // 直接移动到指定位置，逻辑上是没有连续移动过程的
+        this.level.map.switchElems(m.pos.x, m.pos.y, path[path.length-1].x, path[path.length-1].y);
+        this.dispatchEvent(new ElemMovingEvent("MonsterMoving", m, path));
     }
 }

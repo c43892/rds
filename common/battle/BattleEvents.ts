@@ -55,3 +55,19 @@ class AttackEvent extends egret.Event {
         this.r = r;
     }
 }
+
+// 物品移动
+class ElemMovingEvent extends egret.Event {
+    public subType:string;
+    public e:Elem; // 移动主体
+    public path; // 移动路径
+    public static type:string = "ElemMovingEvent";
+
+    public constructor(subType:string, e:Elem, path, bubbles:boolean=false, cancelable:boolean=false)
+    {
+        super(ElemMovingEvent.type, bubbles, cancelable);
+        this.subType = subType;
+        this.e = e;
+        this.path = path;
+    }
+}

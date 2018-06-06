@@ -93,8 +93,12 @@ class Map {
         }
     }
 
-    // 是否可以揭开（四邻至少一个揭开，且没有怪物相邻）
+    // 是否可以揭开（未揭开状态，四邻至少一个揭开，且没有怪物相邻）
     public isUncoverable(x:number, y:number):boolean {
+        var g = this.grids[x][y];
+        if (g.status == GridStatus.Uncovered || g.status == GridStatus.Blocked)
+            return false;
+
         var uncoverable = false;
         this.travel4Neighbours(x, y, (x, y, e:Elem, g:Grid) => {
             if (g.isCovered() || (e != undefined && e.blockUncover))
@@ -105,6 +109,17 @@ class Map {
         });
 
         return uncoverable;
+    }
+
+    // 是否可行走
+    public isWalkable(x:number, y:number):boolean {
+        if (x < 0 || x >= this.size.w || y < 0 || y >= this.size.h)
+            return false;
+
+        if (this.elems[x][y] != undefined || this.grids[x][y].isCovered())
+            return false;
+
+        return true;
     }
 
     // 纵向优先依次序遍历地图中的所有格子, f 是遍历函数，形如 function(x:number, y:nubmer):boolean，
@@ -181,9 +196,15 @@ class Map {
 
     // 迭代每一个活动元素, f 是一个形如 funciton(e:Elem):boolean 的函数，返回值表示是否要中断迭代
     public foreachUncoveredElems(f) {
+        var es = [];
         Utils.NDimentionArrayForeach(this.elems, (e:Elem) => {
             if (e && !this.getGridAt(e.pos.x, e.pos.y).isCovered())
-                return f(e);
+                es.push(e);
         });
+
+        for (var e of es) {
+            if (f(e))
+                break;
+        }
     }
 }

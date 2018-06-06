@@ -13,7 +13,7 @@ class Player extends egret.EventDispatcher {
         p.avatar = "avator1";
         p.power = 2;
         p.defence = 0;
-        p.dodge = 10; // 10%
+        p.dodge = 0;
         p.battleRandomSeed = 0;
         return p;
     }
