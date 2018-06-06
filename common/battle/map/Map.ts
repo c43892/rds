@@ -63,7 +63,7 @@ class Map {
         return num;
     }
 
-    // 对指定位置的 8 邻做过滤计算，不包括目标自身, f 是遍历函数，形如 function(x, y, e:Elem):boolean，
+    // 对指定位置的 8 邻做过滤计算，不包括目标自身, f 是遍历函数，形如 function(x, y, e:Elem, g:Grid):boolean，
     // 返回值表示是否要中断遍历
     public travel8Neighbours(x:number, y:number, f) {
         var breakLoop = false;
@@ -74,9 +74,37 @@ class Map {
                 else if (i == x && y == j) // 目标格子不计算在内，只计算八邻位置
                     continue;
 
-                breakLoop = f(i, j, this.elems[i][j]);
+                breakLoop = f(i, j, this.elems[i][j], this.grids[i][j]);
             }
         }
+    }
+
+    // 对指定位置的 4 邻做过滤计算，不包括目标自身, f 是遍历函数，形如 function(x, y, e:Elem, g:Grid):boolean，
+    // 返回值表示是否要中断遍历
+    public travel4Neighbours(x:number, y:number, f) {
+        var breakLoop = false;
+        var neighbours = [{x:x-1, y:y}, {x:x+1, y:y}, {x:x, y:y-1}, {x:x, y:y+1}];
+        for (var i = 0; i < neighbours.length; i++) {
+            var n = neighbours[i];
+            if (n.x < 0 || n.x >= this.size.w || n.y < 0 || n.y >= this.size.h)
+                continue; // 越界忽略
+
+            breakLoop = f(n.x, n.y, this.elems[n.x][n.y], this.grids[n.x][n.y]);
+        }
+    }
+
+    // 是否可以揭开（四邻至少一个揭开，且没有怪物相邻）
+    public isUncoverable(x:number, y:number):boolean {
+        var uncoverable = false;
+        this.travel4Neighbours(x, y, (x, y, e:Elem, g:Grid) => {
+            if (g.isCovered() || (e != undefined && e.blockUncover))
+                return; // 忽略
+
+            uncoverable = true;
+            return uncoverable;
+        });
+
+        return uncoverable;
     }
 
     // 纵向优先依次序遍历地图中的所有格子, f 是遍历函数，形如 function(x:number, y:nubmer):boolean，

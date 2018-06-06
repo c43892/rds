@@ -6,6 +6,7 @@ class GridView extends egret.DisplayObjectContainer {
     
     private gridBg:egret.Bitmap; // 格子地图
     private coveredImg:egret.Bitmap; // 被覆盖
+    private uncoverableImg:egret.Bitmap; // 被覆盖，但可以揭开
     private blockedImg:egret.Bitmap; // 危险
     private coveredHazardNum:egret.TextField; // 数字
     private elemImg:egret.Bitmap; // 元素图
@@ -16,8 +17,10 @@ class GridView extends egret.DisplayObjectContainer {
 
         this.gridBg = ViewUtils.createBitmapByName("grid_png"); // 底图
         this.coveredImg = ViewUtils.createBitmapByName("covered_png"); // 覆盖图
+        this.uncoverableImg = ViewUtils.createBitmapByName("uncoverable_png"); // 覆盖图
         this.elemImg = ViewUtils.createBitmapByName(); // 元素图
         this.blockedImg = ViewUtils.createBitmapByName("blocked_png"); // 危险
+        
 
         // 数字
         this.coveredHazardNum = new egret.TextField();
@@ -54,7 +57,11 @@ class GridView extends egret.DisplayObjectContainer {
         var e = this.map.getElemAt(this.gx, this.gy);
         switch (b.status) {
             case GridStatus.Covered: // 被覆盖
-                this.addChild(this.coveredImg);
+                // 如果附近有怪物，或者四临没有揭开的格子，则不可揭开
+                if (this.map.isUncoverable(b.pos.x, b.pos.y))
+                    this.addChild(this.uncoverableImg);
+                else
+                    this.addChild(this.coveredImg);
             break;
             case GridStatus.Blocked: // 危险
                 this.addChild(this.blockedImg);
@@ -82,11 +89,8 @@ class GridView extends egret.DisplayObjectContainer {
 
         var w = this.width;
         var h = this.height;
-        this.gridBg.width = w; this.gridBg.height = h;
-        this.blockedImg.width = w; this.blockedImg.height = h;
-        this.coveredImg.width = w; this.coveredImg.height = h;
-        this.coveredHazardNum.width = w; this.coveredHazardNum.height = h;
-        this.elemImg.width = w; this.elemImg.height = h;
+        var arr = [this.gridBg, this.blockedImg, this.coveredImg, this.uncoverableImg, this.elemImg, this.coveredHazardNum];
+        arr.forEach((a) => { a.width = w; a.height = h; });
     }
 
     public clear() {

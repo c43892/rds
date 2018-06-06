@@ -42,7 +42,7 @@ class Battle extends egret.EventDispatcher {
         var lt = this.getGetRegionWithEscapePort(w, h);
         for(var i = 0; i < w; i++) {
             for (var j = 0; j < h; j++) {
-                this.uncover(i + lt.left, j + lt.top);
+                this.uncover(i + lt.left, j + lt.top, true);
             }
         }
 
@@ -61,8 +61,11 @@ class Battle extends egret.EventDispatcher {
         return Utils.calculateBoundary(ep.pos.x, ep.pos.y, w, h, 0, 0, map.size.w, map.size.h);
     }
 
-    // 揭开指定位置的地块
-    public uncover(x:number, y:number) {
+    // 揭开指定位置的地块, doItAnyay 表示是否忽略检查条件（比如每关揭开初始区域）
+    public uncover(x:number, y:number, doItAnyay:boolean = false) {
+        if (!doItAnyay && !this.level.map.isUncoverable(x, y))
+            return;
+
         var e = this.level.map.getGridAt(x, y);
         e.status = GridStatus.Uncovered;
 
