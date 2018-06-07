@@ -91,17 +91,16 @@ class Main extends egret.DisplayObjectContainer {
 
         bt.loadCurrentLevel();
         bt.uncoverStartupRegion();
-        // Utils.LogMap(bt.level.map);
 
         // refresh view
         this.mv.setMap(bt.level.map);
         this.mv.setPlayer(bt.player);
         this.mv.refresh();
 
-        GridView.try2UncoverAt = bt.try2UncoverAt();
-        GridView.try2UseElem = bt.try2UseElem();
-        GridView.try2BlockGrid = bt.try2BlockGrid();
-        GridView.try2UseAt = bt.try2UseAt();
+        ElemView.try2UncoverAt = bt.try2UncoverAt();
+        ElemView.try2UseElem = bt.try2UseElem();
+        ElemView.try2BlockGrid = bt.try2BlockGrid();
+        ElemView.try2UseAt = bt.try2UseAt();
         bt.addEventListener(GridChangedEvent.type, this.mv.onGridChanged, this.mv);
         bt.addEventListener(PlayerChangedEvent.type, this.mv.onPlayerChanged, this.mv);
         bt.addEventListener(AttackEvent.type, this.mv.onAttacked, this.mv);

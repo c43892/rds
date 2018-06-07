@@ -152,6 +152,11 @@ class Utils {
         return dstArr;
     }
 
+    // 延时等待
+    public static delay(ms: number):Promise<void> {
+        return new Promise<void>(resolve => setTimeout(resolve, ms));
+    }
+
     // log 多个参数
     public static log(...params:any[]) { console.log(Utils.logStr(...params)); }
     static logStr(...params:any[]):string {

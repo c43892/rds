@@ -123,18 +123,18 @@ class MainView extends egret.DisplayObjectContainer {
     // 元素移动
     public onElemMoving(evt:ElemMovingEvent) {
         var path = evt.path;
+        var fromPt = evt.path[0];
         
-        // var iter = Utils.createInterpolater(Utils.map(path, (pt) => [pt.x, pt.y]));
-        // while (true) {
-        //     var pt = iter(0.1);
-        //     if (pt == undefined)
-        //         break;
-        // }
+        // 创建路径动画
+        var showPath = Utils.map(path, (pt) => this.mv.logicPos2ShowPos(pt.x, pt.y));
+        showPath = Utils.map(showPath, (pt) => [pt[0] - showPath[0][0], pt[1] - showPath[0][1]]);
+        showPath = showPath.slice(1);
+        var eImg = this.mv.getElemViewAt(fromPt.x, fromPt.y);
+        AnimationFactory.createMovingAnim(eImg, showPath);
 
-        if (path.length == 1)
-            this.mv.refreshAt(path[0].x, path[0].y);
-        else if (path.length > 1) {
-            this.mv.refreshAt(path[0].x, path[0].y);
+        // 刷新格子显示
+        this.mv.refreshAt(fromPt.x, fromPt.y);
+        if (path.length > 1) {
             this.mv.refreshAt(path[path.length - 1].x, path[path.length - 1].y);
         }
     }
