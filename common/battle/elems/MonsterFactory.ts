@@ -38,8 +38,8 @@ class MonsterFactory {
         m.dodge = dodge;
 
         // 使用，即攻击怪物
-        m.use = () =>  {
-            m.bt.implPlayerAttackMonster(m);
+        m.use = async () =>  {
+            await m.bt.implPlayerAttackMonster(m);
             return m.hp > 0;
         };
 
@@ -49,11 +49,11 @@ class MonsterFactory {
     // 为怪物在指定逻辑点添加一个行为
     addAI(m:Monster, logicPoint:string, act) {
         var doPrior = m[logicPoint];
-        m[logicPoint] = () => {
+        m[logicPoint] = async () => {
             if (doPrior != undefined)
-                doPrior();
+                await doPrior();
 
-            act();
+            await act();
         }
         
         return m;
@@ -67,7 +67,7 @@ class MonsterFactory {
     // 随机移动一次，dist 表示移动几格
     doMove(logicPoint:string, dist:number, m:Monster):Monster {
         var dir = [[-1,0],[1,0],[0,-1],[0,1]];
-        return this.addAI(m, logicPoint, () => {
+        return this.addAI(m, logicPoint, async () => {
             var path = [{x:m.pos.x, y:m.pos.y}];
             for (var i = 0; i < dist; i++) {
                 var d = dir[m.bt.srand.nextInt(0, dir.length)];
@@ -78,7 +78,7 @@ class MonsterFactory {
                     path.push({x:x, y:y});
             }
 
-            m.bt.implMonsterMoving(m, path);
+            await m.bt.implMonsterMoving(m, path);
         });
     }
 }

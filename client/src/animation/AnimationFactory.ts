@@ -8,9 +8,9 @@ class AnimationFactory {
         for (var pt of path) {
             var x = pt[0];
             var y = pt[1];
-            tw = tw.to({x:x, y:y}, 250);
+            tw = tw.to({x:x, y:y}, 200);
         }
 
-        return Utils.delay(250 * path.length);
+        return new Promise<void>((resolve, reject) => tw.call(resolve));
     }
 }

@@ -98,44 +98,48 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 指定位置发生状态或元素变化
-    public onGridChanged(evt:GridChangedEvent) {
+    public async onGridChanged(evt:GridChangedEvent) {
         if (evt.subType.indexOf("Elem") == 0)
-            this.mv.refreshAt(evt.x, evt.y);
+            await this.mv.refreshAt(evt.x, evt.y);
         else
-            this.mv.refresh3x3(evt.x, evt.y);
+            await this.mv.refresh3x3(evt.x, evt.y);
     }
 
     // 怪物属性发生变化
-    public onMonsterChanged(evt:MonsterChangedEvent) {
+    public async onMonsterChanged(evt:MonsterChangedEvent) {
+        Utils.log(evt, evt.m);
         var m = evt.m;
         this.mv.refreshAt(m.pos.x, m.pos.y);
+        await Utils.delay(1000);
     }
 
     // 角色信息发生变化
-    public onPlayerChanged(evt:PlayerChangedEvent) {
+    public async onPlayerChanged(evt:PlayerChangedEvent) {
         this.refreshPlayer();
+        await Utils.delay(1000);
     }
 
     // 产生攻击行为
-    public onAttacked(evt:AttackEvent) {
+    public async onAttacked(evt:AttackEvent) {
+        this.refreshPlayer();
+        await Utils.delay(1000);
     }
 
     // 元素移动
-    public onElemMoving(evt:ElemMovingEvent) {
+    public async onElemMoving(evt:ElemMovingEvent) {
         var path = evt.path;
         var fromPt = evt.path[0];
         
         // 创建路径动画
         var showPath = Utils.map(path, (pt) => this.mv.logicPos2ShowPos(pt.x, pt.y));
         showPath = Utils.map(showPath, (pt) => [pt[0] - showPath[0][0], pt[1] - showPath[0][1]]);
-        showPath = showPath.slice(1);
+        showPath.shift();
         var eImg = this.mv.getElemViewAt(fromPt.x, fromPt.y);
-        AnimationFactory.createMovingAnim(eImg, showPath);
-
+        await AnimationFactory.createMovingAnim(eImg, showPath);
+        
         // 刷新格子显示
         this.mv.refreshAt(fromPt.x, fromPt.y);
-        if (path.length > 1) {
+        if (path.length > 1)
             this.mv.refreshAt(path[path.length - 1].x, path[path.length - 1].y);
-        }
     }
 }

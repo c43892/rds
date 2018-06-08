@@ -14,7 +14,7 @@ class ItemFactory {
         "HpPotion": (bt, ps) => {
             var e = new Elem(bt);
             e.canUse = () => true;
-            e.use = () => e.bt.implAddPlayerHp(10); // +10 hp
+            e.use = async () => await e.bt.implAddPlayerHp(10); // +10 hp
             e.canBeMoved = true;
             return e;
         },

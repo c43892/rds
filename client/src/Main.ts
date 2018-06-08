@@ -101,11 +101,11 @@ class Main extends egret.DisplayObjectContainer {
         ElemView.try2UseElem = bt.try2UseElem();
         ElemView.try2BlockGrid = bt.try2BlockGrid();
         ElemView.try2UseAt = bt.try2UseAt();
-        bt.addEventListener(GridChangedEvent.type, this.mv.onGridChanged, this.mv);
-        bt.addEventListener(PlayerChangedEvent.type, this.mv.onPlayerChanged, this.mv);
-        bt.addEventListener(AttackEvent.type, this.mv.onAttacked, this.mv);
-        bt.addEventListener(MonsterChangedEvent.type, this.mv.onMonsterChanged, this.mv);
-        bt.addEventListener(ElemMovingEvent.type, this.mv.onElemMoving, this.mv);
+        bt.registerEvent(GridChangedEvent.type, (evt) => this.mv.onGridChanged(evt));
+        bt.registerEvent(PlayerChangedEvent.type, (evt) => this.mv.onPlayerChanged(evt));
+        bt.registerEvent(AttackEvent.type, (evt) => this.mv.onAttacked(evt));
+        bt.registerEvent(MonsterChangedEvent.type, (evt) => this.mv.onMonsterChanged(evt));
+        bt.registerEvent(ElemMovingEvent.type, (evt) => this.mv.onElemMoving(evt));
     }
 
     private async loadResource() {
