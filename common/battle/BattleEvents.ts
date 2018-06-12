@@ -46,13 +46,15 @@ class MonsterChangedEvent extends egret.Event {
 class AttackEvent extends egret.Event {
     public subType:string; // 进一步类型信息: player2elem, elem2player, elem2elem
     public r; // 攻击结果
+    public m; // 相关怪物
     public static type:string = "AttackEvent";
 
-    public constructor(subType:string, r, bubbles:boolean=false, cancelable:boolean=false)
+    public constructor(subType:string, r, m:Monster, bubbles:boolean=false, cancelable:boolean=false)
     {
         super(AttackEvent.type, bubbles, cancelable);
         this.subType = subType;
         this.r = r;
+        this.m = m;
     }
 }
 

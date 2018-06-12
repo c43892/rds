@@ -8,6 +8,9 @@ class MainView extends egret.DisplayObjectContainer {
     private defence:egret.TextField; // 防御
     private dodge:egret.TextField; // 闪避
 
+    private aniLayer:egret.Bitmap; // 播放动画时的操作屏蔽层
+    private aniFact:AnimationFactory; // 动画工厂
+
     public constructor(w:number, h:number) {
         super();
         this.mv = new MapView(w, h);
@@ -21,7 +24,10 @@ class MainView extends egret.DisplayObjectContainer {
         this.defence = new egret.TextField();
         this.addChild(this.defence);   
         this.dodge = new egret.TextField();
-        this.addChild(this.dodge); 
+        this.addChild(this.dodge);
+
+        this.aniFact = new AnimationFactory();
+        this.aniFact.notifyAniStarted = (ani:Promise<void>, aniType:string, ps) => { this.onAniStarted(ani, aniType, ps); };
     }
 
     // 设置新的地图数据，但并不自动刷新显示，需要手动刷新
@@ -37,6 +43,12 @@ class MainView extends egret.DisplayObjectContainer {
     public refresh() {
         this.refreshMap();
         this.refreshPlayer();
+
+        // 播放动画时阻挡玩家操作
+        this.aniLayer = ViewUtils.createBitmapByName("anilayer_png");
+        this.aniLayer.width = this.width;
+        this.aniLayer.height = this.height;
+        this.aniLayer.touchEnabled = true;
     }
 
     // 刷新地图显示
@@ -109,19 +121,22 @@ class MainView extends egret.DisplayObjectContainer {
     public async onMonsterChanged(evt:MonsterChangedEvent) {
         var m = evt.m;
         this.mv.refreshAt(m.pos.x, m.pos.y);
-        await Utils.delay(1000);
+        await this.aniFact.createAni("monsterChanged", {"m": evt.m});
     }
 
     // 角色信息发生变化
     public async onPlayerChanged(evt:PlayerChangedEvent) {
         this.refreshPlayer();
-        await Utils.delay(1000);
+        await this.aniFact.createAni("playerChanged");
     }
 
     // 产生攻击行为
     public async onAttacked(evt:AttackEvent) {
         this.refreshPlayer();
-        await Utils.delay(1000);
+        if (evt.subType == "player2monster")
+            await this.aniFact.createAni("monsterAttackPlayer", {"m": evt.m});
+        else
+            await this.aniFact.createAni("playerAttackMonster", {"m": evt.m});
     }
 
     // 元素移动
@@ -134,11 +149,24 @@ class MainView extends egret.DisplayObjectContainer {
         showPath = Utils.map(showPath, (pt) => [pt[0] - showPath[0][0], pt[1] - showPath[0][1]]);
         showPath.shift();
         var eImg = this.mv.getElemViewAt(fromPt.x, fromPt.y);
-        await AnimationFactory.createMovingAnim(eImg, showPath);
+        await this.aniFact.createAni("moving", {"img": eImg, "path": showPath});
         
         // 刷新格子显示
         this.mv.refreshAt(fromPt.x, fromPt.y);
         if (path.length > 1)
             this.mv.refreshAt(path[path.length - 1].x, path[path.length - 1].y);
+    }
+
+    // 动画开始播放时，阻止玩家操作
+    aniLayerCnt = 0;
+    onAniStarted(ani:Promise<void>, aniType:string, ps = undefined) {
+        this.addChild(this.aniLayer);
+        this.aniLayerCnt++;
+        ani.then(() => {
+            Utils.assert(this.aniLayerCnt > 0, "aniLayerCnt corrupted");
+            this.aniLayerCnt--;
+            if (this.aniLayerCnt == 0)
+                this.removeChild(this.aniLayer);
+        });
     }
 }

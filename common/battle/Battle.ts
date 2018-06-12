@@ -251,13 +251,13 @@ class Battle {
     }
 
     // 角色尝试攻击指定怪物
-    public async implPlayerAttackMonster(e:Monster) {
-        var r = this.bc.tryAttack(this.player, e);
-        await this.fireEvent(new AttackEvent("player2monster", r));
+    public async implPlayerAttackMonster(m:Monster) {
+        var r = this.bc.tryAttack(this.player, m);
+        await this.fireEvent(new AttackEvent("player2monster", r, m));
 
         switch (r.r) {
             case "attacked": // 攻击成功
-                this.implAddMonsterHp(e, r.dhp);
+                this.implAddMonsterHp(m, r.dhp);
                 await this.triggerLogicPoint("onMonsterDamanged", {"dhp": r.dhp});
             break;
             case "dodged": // 被闪避
@@ -266,9 +266,9 @@ class Battle {
     }
 
     // 指定怪物尝试攻击角色
-    public async implMonsterAttackPlayer(e:Monster) {
-        var r = this.bc.tryAttack(e, this.player);
-        await this.fireEvent(new AttackEvent("monster2player", r));
+    public async implMonsterAttackPlayer(m:Monster) {
+        var r = this.bc.tryAttack(m, this.player);
+        await this.fireEvent(new AttackEvent("monster2player", r, m));
 
         switch (r.r) {
             case "attacked": // 攻击成功
