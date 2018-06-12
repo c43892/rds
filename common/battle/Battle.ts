@@ -173,7 +173,7 @@ class Battle {
     // 尝试无目标使用元素
     public try2UseElem() {
         return async (elem:Elem) => {
-            let canUse = elem.canUse;
+            let canUse = elem.canUse();
             if (!canUse)
                 return;
             
