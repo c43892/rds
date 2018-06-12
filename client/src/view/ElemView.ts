@@ -41,10 +41,26 @@ class ElemView extends egret.DisplayObjectContainer {
         var b = this.map.getGridAt(this.gx, this.gy);
         var e = this.map.getElemAt(this.gx, this.gy);
         switch (b.status) {
+            case GridStatus.Marked: // 被标记
+            {
+                Utils.assert(e && e instanceof Monster, "only monster could be marked");
+                this.elemImg = ViewUtils.createBitmapByName(e.type + "_png");
+                this.showLayer.addChild(this.elemImg);
+                var colorMatrix = [
+                    0.5,0,0,0,0,
+                    0.5,0,0,0,0,
+                    0.5,0,0,0,0,
+                    1,0,0,0,0
+                ];
+                var colorFlilter = new egret.ColorMatrixFilter(colorMatrix);
+                this.elemImg.filters = [colorFlilter];
+            }
+            break;
             case GridStatus.Uncovered: // 被揭开
                 if (e) { // 有元素显示元素图片
                     this.elemImg = ViewUtils.createBitmapByName(e.type + "_png");
                     this.showLayer.addChild(this.elemImg);
+                    this.elemImg.filters = undefined;
                     if (e instanceof Monster) {
                         var m = <Monster>e;
                         this.hpNum.text = m.hp.toString();
