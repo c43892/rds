@@ -60,6 +60,17 @@ class Battle {
         return Utils.calculateBoundary(ep.pos.x, ep.pos.y, w, h, 0, 0, map.size.w, map.size.h);
     }
 
+    // 标记指定位置的地块
+    public async mark(x:number, y:number) {
+        var g = this.level.map.getGridAt(x, y);
+        var e = g.getElem();
+        Utils.assert(g.isCovered() && e && e.hazard, "only covered hazared element could be marked");
+
+        g.status = GridStatus.Marked;
+        await this.fireEvent(new GridChangedEvent(x, y, "ElemMarked"));
+        await this.triggerLogicPoint("onMarked", {eleme:e});
+    }
+
     // 揭开指定位置的地块（不再检查条件）
     public async uncover(x:number, y:number) {
         var e = this.level.map.getGridAt(x, y);
@@ -68,7 +79,25 @@ class Battle {
 
         await this.fireEvent(new GridChangedEvent(x, y, "GridUnconvered"));
         await this.triggerLogicPoint("onUncovered", {eleme:e});
+
+        // 对 8 邻格子进行标记逻辑计算
+        var neighbours = [];
+        this.level.map.travel8Neighbours(x, y, (px, py, e, g:Grid) => {
+            if (g.isCovered())
+                neighbours.push([px, py]);
+        });
+
+        for (var p of neighbours)
+            await this.tryCalcMarkPos(p[0], p[1]);
+
         return true;
+    }
+
+    // 计算标记
+    public async tryCalcMarkPos(x:number, y:number) {
+        var markPos = MonsterMarker.CalcMonsterMarkSignAt(this.level.map, x, y);
+        for (var p of markPos)
+            this.mark(p[0], p[1]);
     }
 
     // 触发逻辑点，参数为逻辑点名称，该名称直接字面对应个各元素对逻辑点的处理函数，

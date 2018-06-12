@@ -172,4 +172,19 @@ class Utils {
 
         return str;
     }
+
+    // 寻找第一个满足条件的元素，f 表示判断条件, fromIndex 表示开始搜索的位置，
+    // 返回值是满足条件的元素的索引，未找到是 -1
+    public static indexOf<T>(arr:T[], f, fromIndex:number = 0):number {
+        if (arr.length > 10) {
+            Utils.log(arr.length);
+        }
+        for (var i = fromIndex; i < arr.length; i++) {
+            var e = arr[i];
+            if (f(e))
+                return i;
+        }
+
+        return -1;
+    }
 }

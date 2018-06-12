@@ -107,7 +107,6 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 怪物属性发生变化
     public async onMonsterChanged(evt:MonsterChangedEvent) {
-        Utils.log(evt, evt.m);
         var m = evt.m;
         this.mv.refreshAt(m.pos.x, m.pos.y);
         await Utils.delay(1000);

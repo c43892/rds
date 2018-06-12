@@ -106,6 +106,7 @@ class Main extends egret.DisplayObjectContainer {
         bt.registerEvent(AttackEvent.type, (evt) => this.mv.onAttacked(evt));
         bt.registerEvent(MonsterChangedEvent.type, (evt) => this.mv.onMonsterChanged(evt));
         bt.registerEvent(ElemMovingEvent.type, (evt) => this.mv.onElemMoving(evt));
+        
     }
 
     private async loadResource() {
