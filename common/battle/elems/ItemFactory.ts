@@ -22,7 +22,7 @@ class ItemFactory {
         // 下一关入口
         "NextLevelPort": (bt, ps) => {
             var e = new Elem(bt);
-            e.canUse = () => true;
+            e.canUse = () => false;
             return e;
         }
     };
