@@ -68,6 +68,12 @@ class Main extends egret.DisplayObjectContainer {
 
     private async runGame() {
 
+        var replayList = JSON.parse(Utils.$$loadItem("replayList"));
+        if (replayList) {
+            for (var r of replayList)
+                Utils.log(r.id, r.time);
+        }
+
         // var c = new WSClient();
         // c.connect2srv("localhost", 80)
         // .onError(() => console.log("net error"))
@@ -88,6 +94,7 @@ class Main extends egret.DisplayObjectContainer {
         // test map
         console.log("create test battle");
         var bt = Battle.createNewBattle(Player.createTestPlayer());
+        BattleRecorder.startNew(bt.id, bt.player.battleRandomSeed); // start recording
 
         bt.loadCurrentLevel();
         bt.uncoverStartupRegion();
@@ -106,7 +113,9 @@ class Main extends egret.DisplayObjectContainer {
         bt.registerEvent(AttackEvent.type, (evt) => this.mv.onAttacked(evt));
         bt.registerEvent(MonsterChangedEvent.type, (evt) => this.mv.onMonsterChanged(evt));
         bt.registerEvent(ElemMovingEvent.type, (evt) => this.mv.onElemMoving(evt));
-        
+        bt.registerEvent(PlayerOpEvent.type, (evt) => BattleRecorder.onPlayerOp(evt.op, evt.ps));
+
+        bt.registerEvent(PlayerOpEvent.type, (evt) => BattleRecorder.$$autoSaveReplay(evt.op, evt.ps));
     }
 
     private async loadResource() {

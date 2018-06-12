@@ -73,3 +73,17 @@ class ElemMovingEvent extends egret.Event {
         this.path = path;
     }
 }
+
+// 玩家操作事件，用于录像
+class PlayerOpEvent extends egret.Event {
+    public op:string; // 玩家操作类型
+    public ps; // 玩家操作参数
+    public static type:string = "PlayerOpEvent";
+
+    public constructor(op:string, ps, bubbles:boolean=false, cancelable:boolean=false)
+    {
+        super(PlayerOpEvent.type, bubbles, cancelable);
+        this.op = op;
+        this.ps = ps;
+    }
+}

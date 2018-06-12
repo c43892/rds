@@ -1,7 +1,8 @@
 
 // 一局战斗，包含当前关卡和当前角色数据，并控制整个战斗进程
 class Battle {
-    srand:SRandom; // 随机序列
+    public id:string; // 每场战斗一个随机 id
+    public srand:SRandom; // 随机序列
     private lvCfg; // 当前关卡配置
     public level:Level; // 当前关卡
     public player:Player; // 角色数据
@@ -13,6 +14,7 @@ class Battle {
 
     public static createNewBattle(player:Player):Battle {
         var bt = new Battle(player.battleRandomSeed);
+        bt.id = "bt_" + Math.random();
         bt.player = player;
         return bt;
     }
@@ -136,6 +138,16 @@ class Battle {
             await h(evt, params);
     }
 
+    // 同步触发事件，不会使用协程等待，典型的用途是录像
+    public fireEventSync(evt:egret.Event, params = undefined) {
+        var handlers = this.eventHandlers[evt.type];
+        if (handlers == undefined)
+            return;
+
+        for (var h of handlers)
+            h(evt, params);
+    }
+
     // 添加物品
     public async addElemAt(e:Elem, x:number, y:number) {
         this.level.map.addElemAt(e, x, y);
@@ -165,6 +177,9 @@ class Battle {
             if (!this.level.map.isUncoverable(x, y))
                 return;
 
+            // 操作录像
+            this.fireEventSync(new PlayerOpEvent("try2UncoverAt", {x:x, y:y}));
+
             this.uncover(x, y);
             await this.triggerLogicPoint("afterPlayerActed"); // 算一次角色行动
         };
@@ -172,25 +187,29 @@ class Battle {
 
     // 尝试无目标使用元素
     public try2UseElem() {
-        return async (elem:Elem) => {
-            let canUse = elem.canUse();
+        return async (e:Elem) => {
+            let canUse = e.canUse();
             if (!canUse)
                 return;
             
             // 其它元素可能会阻止使用
             this.level.map.foreachUncoveredElems((e:Elem) => {
                 if (e.canUseOther)
-                    canUse = e.canUseOther(elem);
+                    canUse = e.canUseOther(e);
 
                 return !canUse;
             });
 
             // 可以使用
             if (canUse) {
-                var reserve = await elem.use(); // 返回值决定是保留还是消耗掉
-                await this.triggerLogicPoint("onElemUsed", {elem:elem});
+
+                // 操作录像
+                this.fireEventSync(new PlayerOpEvent("try2UseElem", {x:e.pos.x, y:e.pos.y}));
+
+                var reserve = await e.use(); // 返回值决定是保留还是消耗掉
+                await this.triggerLogicPoint("onElemUsed", {elem:e});
                 if (!reserve)
-                    this.removeElem(elem);
+                    this.removeElem(e);
 
                 await this.triggerLogicPoint("afterPlayerActed"); // 算一次角色行动
             }
@@ -200,6 +219,9 @@ class Battle {
     // 尝试设置/取消一个危险标记，该操作不算角色行动
     public try2BlockGrid() {
         return async (x:number, y:number, mark:boolean) => {
+            // 操作录像
+            this.fireEventSync(new PlayerOpEvent("try2UseElem", {x:x, y:y}));
+
             var b = this.level.map.getGridAt(x, y);
             if (mark) {
                 Utils.assert(b.status == GridStatus.Covered, "only covered grid can be blocked");

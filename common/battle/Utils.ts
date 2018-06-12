@@ -176,9 +176,6 @@ class Utils {
     // 寻找第一个满足条件的元素，f 表示判断条件, fromIndex 表示开始搜索的位置，
     // 返回值是满足条件的元素的索引，未找到是 -1
     public static indexOf<T>(arr:T[], f, fromIndex:number = 0):number {
-        if (arr.length > 10) {
-            Utils.log(arr.length);
-        }
         for (var i = fromIndex; i < arr.length; i++) {
             var e = arr[i];
             if (f(e))
@@ -186,5 +183,15 @@ class Utils {
         }
 
         return -1;
+    }
+
+    // 测试期间用，本地存储部分数据
+    public static $$saveItem(key:string, value:string) {
+        egret.localStorage.setItem(key, value);
+    }
+
+    // 测试期间用，从本地存储读取数据
+    public static $$loadItem(key:string):string {
+        return egret.localStorage.getItem(key);
     }
 }
