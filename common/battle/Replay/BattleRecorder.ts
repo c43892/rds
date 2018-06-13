@@ -53,6 +53,8 @@ class BattleRecorder {
 
     public static stop() {
         BattleRecorder.inRecording = true;
+        BattleRecorder.replay.ops = BattleRecorder.replay.ops.slice(0, BattleRecorder.replayIndex);
+        BattleRecorder.replayIndex = 0;
     }
 
     // 推动录像播放前进一步
