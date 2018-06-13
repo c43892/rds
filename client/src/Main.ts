@@ -85,13 +85,13 @@ class Main extends egret.DisplayObjectContainer {
         const userInfo = await platform.getUserInfo();
 
         // test map
-        console.log("create test battle");
         var bt = Battle.createNewBattle(Player.createTestPlayer());
         this.startNewBattle(bt);
         BattleRecorder.startNew(bt.id, bt.player.battleRandomSeed); // start recording
     }
 
     public startNewBattle(bt:Battle) {
+        Utils.log("start a new battle with srandseed=", bt.$$srandSeed());
         bt.loadCurrentLevel();
         bt.uncoverStartupRegion();
 

@@ -82,6 +82,8 @@ class ReplayView extends egret.DisplayObjectContainer {
             else {
                 // 录像回放状态，点击该按钮，则退出录像回放
                 this.removeChild(this.replaybg);
+                BattleRecorder.stop();
+                this.openBtn.text = "⚪";
             }
         }
         else {
@@ -95,6 +97,7 @@ class ReplayView extends egret.DisplayObjectContainer {
                  // 关闭列表界面
                  this.removeChild(this.listArea);
                  this.addChild(this.replaybg);
+                 this.setChildIndex(this.openBtn, this.getChildIndex(this.replaybg) + 1);
                  this.openBtn.text = "■";
             }
             else {

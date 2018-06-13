@@ -7,9 +7,11 @@ class Battle {
     public level:Level; // 当前关卡
     public player:Player; // 角色数据
     private bc:BattleCalculator; // 战斗计算器
+    public $$srandSeed; // 测试用，获取战斗随机数种子
 
     constructor(randomseed:number) {
         this.srand = new SRandom(randomseed);
+        this.$$srandSeed = () => randomseed;
     }
 
     public static createNewBattle(player:Player):Battle {

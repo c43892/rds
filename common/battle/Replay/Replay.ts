@@ -23,7 +23,6 @@ class Replay {
     public static fromString(str:string):Replay {
         var json = JSON.parse(str);
         var r = new Replay(json.btid, json.srandSeed);
-        Utils.log("json.srandSeed:", json.srandSeed);
         for (var op of json.ops)
             r.addOp(op.op, op.ps);
 

@@ -46,10 +46,13 @@ class BattleRecorder {
             BattleRecorder.replay = r;
 
         Utils.assert(BattleRecorder.replay != undefined, "current replay should not be undefined");
-        Utils.log("r.srandSeed:", r.srandSeed);
         BattleRecorder.startNewBattleImpl(r.srandSeed);
         BattleRecorder.inRecording = false;
         BattleRecorder.replayIndex = 0;
+    }
+
+    public static stop() {
+        BattleRecorder.inRecording = true;
     }
 
     // 推动录像播放前进一步
