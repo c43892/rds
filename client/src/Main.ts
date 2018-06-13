@@ -83,13 +83,15 @@ class Main extends egret.DisplayObjectContainer {
         const result = await RES.getResAsync("description_json")
         await platform.login();
         const userInfo = await platform.getUserInfo();
-        // console.log(userInfo);
 
         // test map
         console.log("create test battle");
         var bt = Battle.createNewBattle(Player.createTestPlayer());
+        this.startNewBattle(bt);
         BattleRecorder.startNew(bt.id, bt.player.battleRandomSeed); // start recording
+    }
 
+    public startNewBattle(bt:Battle) {
         bt.loadCurrentLevel();
         bt.uncoverStartupRegion();
 
@@ -109,7 +111,12 @@ class Main extends egret.DisplayObjectContainer {
         bt.registerEvent(ElemMovingEvent.type, (evt) => this.mv.onElemMoving(evt));
         bt.registerEvent(PlayerOpEvent.type, (evt) => BattleRecorder.onPlayerOp(evt.op, evt.ps));
 
-        bt.registerEvent(PlayerOpEvent.type, (evt) => BattleRecorder.$$autoSaveReplay(evt.op, evt.ps));
+        BattleRecorder.registerReplayIndicatorHandlers(bt);
+        BattleRecorder.startNewBattleImpl = (srandseed:number) => {
+            var p = Player.createTestPlayer();
+            p.battleRandomSeed = srandseed;
+            this.startNewBattle(Battle.createNewBattle(p));
+        };
     }
 
     private async loadResource() {

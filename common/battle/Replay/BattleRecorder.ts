@@ -20,6 +20,9 @@ class BattleRecorder {
 
         Utils.assert(BattleRecorder.replay != undefined, "should have replay");
         BattleRecorder.replay.addOp(op, ps);
+
+        // 测试期间在本地自动存放录像
+        BattleRecorder.$$autoSaveReplay();
     }
 
     // 读取当前录像列表
@@ -31,30 +34,51 @@ class BattleRecorder {
     // 从 json 载入录像
     public static loadReplay(btid:string):Replay {
         var str = Utils.$$loadItem(btid);
-        var json = JSON.parse(str);
-        BattleRecorder.replay = new Replay(json.btid, json.srandSeed);
-        for (var op of json.ops)
-            BattleRecorder.replay.addOp(op.op, op.ps);
-
+        BattleRecorder.replay = Replay.fromString(str);
         return BattleRecorder.replay;
     }
 
     // 播放指定录像
+    public static startNewBattleImpl;
+    static replayIndex = 0; // 重播录像的当前指令序号
     public static play(r:Replay = undefined) {
         if (r != undefined)
             BattleRecorder.replay = r;
 
         Utils.assert(BattleRecorder.replay != undefined, "current replay should not be undefined");
+        Utils.log("r.srandSeed:", r.srandSeed);
+        BattleRecorder.startNewBattleImpl(r.srandSeed);
         BattleRecorder.inRecording = false;
+        BattleRecorder.replayIndex = 0;
     }
 
     // 推动录像播放前进一步
     public static currentReplayMoveOneStep():boolean {
-        return true;
+        var r = BattleRecorder.replay;
+        var ops = r.ops;
+        var op = ops[BattleRecorder.replayIndex++];
+        var h = BattleRecorder.replayOpHandlers[op.op];
+        Utils.assert(h, "unhandled replay indication: " + op.op);
+        h(op.ps);
+        BattleRecorder.inRecording = BattleRecorder.replayIndex >= ops.length;
+        return BattleRecorder.inRecording; // 返回值表示录像是否已经回放结束（回放结束就是进入录制状态）
+    }
+
+    // 录像指令处理，基本上就是对应 Battle 中 fireEventSync 的部分
+    public static registerReplayIndicatorHandlers(bt:Battle) {
+        BattleRecorder.onReplayOp("try2UncoverAt", (ps) => { ElemView.try2UncoverAt(ps.x, ps.y); });
+        BattleRecorder.onReplayOp("try2UseElem", (ps) => { ElemView.try2UseElem(bt.level.map.getElemAt(ps.x, ps.y)); });
+        BattleRecorder.onReplayOp("try2BlockGrid", (ps) => { ElemView.try2BlockGrid(ps.x, ps.y, ps.mark); });
+    }
+
+    private static replayOpHandlers = {}; // 执行所有录像指令
+    // 注册录像指令处理函数
+    public static onReplayOp(op:string, handler) {
+        BattleRecorder.replayOpHandlers[op] = handler;
     }
 
     // 自动保存录像，测试期间用
-    public static $$autoSaveReplay(op:string, ps) {
+    public static $$autoSaveReplay() {
         var bt = BattleRecorder.getRecord();
 
         var btid = "replay_" + bt.btid;

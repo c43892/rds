@@ -98,7 +98,6 @@ class ReplayView extends egret.DisplayObjectContainer {
                  this.openBtn.text = "■";
             }
             else {
-                Utils.log("clicked");
                 Utils.assert(!BattleRecorder.inRecording, "should be in replaying");
                 
                 var ended = BattleRecorder.currentReplayMoveOneStep();

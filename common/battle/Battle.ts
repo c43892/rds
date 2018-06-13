@@ -220,7 +220,7 @@ class Battle {
     public try2BlockGrid() {
         return async (x:number, y:number, mark:boolean) => {
             // 操作录像
-            this.fireEventSync(new PlayerOpEvent("try2UseElem", {x:x, y:y}));
+            this.fireEventSync(new PlayerOpEvent("try2BlockGrid", {x:x, y:y, mark:mark}));
 
             var b = this.level.map.getGridAt(x, y);
             if (mark) {

@@ -17,6 +17,16 @@ class Replay {
 
     // 序列化为字符串
     public toString():string {
-        return JSON.stringify({"btid": this.btid, "seed": this.srandSeed, "ops":this.ops});
+        return JSON.stringify({"btid": this.btid, "srandSeed": this.srandSeed, "ops":this.ops});
+    }
+
+    public static fromString(str:string):Replay {
+        var json = JSON.parse(str);
+        var r = new Replay(json.btid, json.srandSeed);
+        Utils.log("json.srandSeed:", json.srandSeed);
+        for (var op of json.ops)
+            r.addOp(op.op, op.ps);
+
+        return r;
     }
 }
