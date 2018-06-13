@@ -1,5 +1,5 @@
 {
-    "mapsize": {"w": 6, "h": 8},
+    "mapsize": {"w": 7, "h": 9},
     "testLevel": {
         "displayName": "测试关卡",
         "map": {

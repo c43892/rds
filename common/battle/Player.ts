@@ -14,7 +14,7 @@ class Player extends egret.EventDispatcher {
         p.power = 2;
         p.defence = 0;
         p.dodge = 0;
-        p.battleRandomSeed = 0;
+        p.battleRandomSeed = (new Date()).getMilliseconds();
         return p;
     }
 
