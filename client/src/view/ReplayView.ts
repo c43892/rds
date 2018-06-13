@@ -3,6 +3,7 @@ class ReplayView extends egret.DisplayObjectContainer {
 
     private openBtn:egret.TextField; // 打开录像界面
     private listArea:egret.DisplayObjectContainer; // 列表区域
+    private replaybg:egret.Bitmap; // 背景接受点击
 
     public constructor(w:number, h:number) {
         super();
@@ -13,11 +14,14 @@ class ReplayView extends egret.DisplayObjectContainer {
         this.openBtn.size = 30;
         this.openBtn.touchEnabled = true;
         this.addChild(this.openBtn);
-        this.refresh(w, h);
 
         this.listArea = new egret.DisplayObjectContainer();
         this.listArea.name = "ListArea";
+        this.replaybg = ViewUtils.createBitmapByName("replaybg_png");
+        this.replaybg.x = this.replaybg.y = 0;
+        this.replaybg.touchEnabled = true;
 
+        this.refresh(w, h);
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchTap, this);
     }
 
@@ -26,8 +30,9 @@ class ReplayView extends egret.DisplayObjectContainer {
         this.height = h > 0 ? h : this.height;
         this.openBtn.x = this.width - this.openBtn.width - 5;
         this.openBtn.y = 5;
+        this.replaybg.width = this.width;
+        this.replaybg.height = this.height;
 
-        this.touchEnabled = !BattleRecorder.inRecording; // 播放状态则可以点击整个面板
         this.openBtn.text = "⚪";
     }
 
@@ -62,7 +67,6 @@ class ReplayView extends egret.DisplayObjectContainer {
         this.listArea.x = (this.width - this.listArea.width) / 2;
         this.listArea.y = (this.height - this.listArea.height) / 2;
         this.addChild(this.listArea);
-        this.touchEnabled = true;
     }
 
     onTouchTap(evt:egret.TouchEvent) {
@@ -77,7 +81,7 @@ class ReplayView extends egret.DisplayObjectContainer {
             }
             else {
                 // 录像回放状态，点击该按钮，则退出录像回放
-                this.touchEnabled = false;
+                this.removeChild(this.replaybg);
             }
         }
         else {
@@ -90,6 +94,7 @@ class ReplayView extends egret.DisplayObjectContainer {
 
                  // 关闭列表界面
                  this.removeChild(this.listArea);
+                 this.addChild(this.replaybg);
                  this.openBtn.text = "■";
             }
             else {
@@ -98,7 +103,7 @@ class ReplayView extends egret.DisplayObjectContainer {
                 
                 var ended = BattleRecorder.currentReplayMoveOneStep();
                 if (ended) {
-                    this.touchEnabled = false;
+                    this.removeChild(this.replaybg);
                     this.openBtn.text = "⚪";
                 }
             }

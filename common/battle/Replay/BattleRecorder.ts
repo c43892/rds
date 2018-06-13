@@ -7,15 +7,6 @@ class BattleRecorder {
     public static startNew(btid:string, srandSeed:number) {
         BattleRecorder.inRecording = true;
         BattleRecorder.replay = new Replay(btid, srandSeed);
-        
-        var replayList = JSON.parse(Utils.$$loadItem("replayList"));
-        if (!replayList)
-            replayList = [];
-        else if (replayList.length > 10)
-            replayList.shift();
-
-        replayList.push({id:btid, time:(new Date()).toLocaleString()});
-        Utils.$$saveItem("replayList", JSON.stringify(replayList));
     }
 
     public static getRecord():Replay {
@@ -39,8 +30,7 @@ class BattleRecorder {
 
     // 从 json 载入录像
     public static loadReplay(btid:string):Replay {
-        var str = Utils.$$loadItem("replay_" + btid);
-        Utils.log(str);
+        var str = Utils.$$loadItem(btid);
         var json = JSON.parse(str);
         BattleRecorder.replay = new Replay(json.btid, json.srandSeed);
         for (var op of json.ops)
@@ -66,8 +56,20 @@ class BattleRecorder {
     // 自动保存录像，测试期间用
     public static $$autoSaveReplay(op:string, ps) {
         var bt = BattleRecorder.getRecord();
+
+        var btid = "replay_" + bt.btid;
+        if (Utils.$$loadItem(btid) == undefined) {
+            var replayList = JSON.parse(Utils.$$loadItem("replayList"));
+            if (!replayList)
+                replayList = [];
+            else if (replayList.length > 10)
+                replayList.shift();
+
+            replayList.push({id:btid, time:(new Date()).toLocaleString()});
+            Utils.$$saveItem("replayList", JSON.stringify(replayList));
+        }
+
         var r = bt.toString();
-        Utils.$$saveItem("replay_" + bt.btid, r);
-        Utils.log(r);
+        Utils.$$saveItem(btid, r);
     }
 }

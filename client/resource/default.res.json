@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "description_json,levelconfig_json,covered_png,grid_png,bg_png,HpPotion_png,NextLevelPort_png,avator1_png,Bunny_png,blocked_png,uncoverable_png,anilayer_png",
+			"keys": "description_json,levelconfig_json,covered_png,grid_png,bg_png,HpPotion_png,NextLevelPort_png,avator1_png,Bunny_png,blocked_png,uncoverable_png,anilayer_png,replaybg_png",
 			"name": "preload"
 		}
 	],
@@ -80,6 +80,11 @@
 			"name": "anilayer_png",
 			"type": "image",
 			"url": "assets/anilayer.png"
+		},
+		{
+			"name": "replaybg_png",
+			"type": "image",
+			"url": "assets/replaybg.png"
 		}
 	]
 }
