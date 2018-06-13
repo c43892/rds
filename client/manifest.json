@@ -6,7 +6,8 @@
 		"libs/modules/tween/tween.js",
 		"libs/modules/assetsmanager/assetsmanager.js",
 		"libs/modules/promise/promise.js",
-		"libs/modules/socket/socket.js"
+		"libs/modules/socket/socket.js",
+		"libs/modules/eui/eui.js"
 	],
 	"game": [
 		"bin-debug/battle/elems/Elem.js",
@@ -36,7 +37,7 @@
 		"bin-debug/view/GridView.js",
 		"bin-debug/view/MainView.js",
 		"bin-debug/view/MapView.js",
-		"bin-debug/view/Replays.js",
+		"bin-debug/view/ReplayView.js",
 		"bin-debug/view/ViewUtils.js"
 	]
 }

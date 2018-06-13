@@ -11,8 +11,11 @@ class MainView extends egret.DisplayObjectContainer {
     private aniLayer:egret.Bitmap; // 播放动画时的操作屏蔽层
     private aniFact:AnimationFactory; // 动画工厂
 
+    private rv:ReplayView; // 录像界面
+    
     public constructor(w:number, h:number) {
         super();
+        
         this.mv = new MapView(w, h);
         this.addChild(this.mv);
         this.avatar = new egret.Bitmap();
@@ -25,6 +28,8 @@ class MainView extends egret.DisplayObjectContainer {
         this.addChild(this.defence);   
         this.dodge = new egret.TextField();
         this.addChild(this.dodge);
+        this.rv = new ReplayView(w, h);
+        this.addChild(this.rv);
 
         this.aniFact = new AnimationFactory();
         this.aniFact.notifyAniStarted = (ani:Promise<void>, aniType:string, ps) => { this.onAniStarted(ani, aniType, ps); };
@@ -49,6 +54,8 @@ class MainView extends egret.DisplayObjectContainer {
         this.aniLayer.width = this.width;
         this.aniLayer.height = this.height;
         this.aniLayer.touchEnabled = true;
+
+        this.rv.refresh(this.width, this.height);
     }
 
     // 刷新地图显示

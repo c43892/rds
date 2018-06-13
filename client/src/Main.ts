@@ -68,12 +68,6 @@ class Main extends egret.DisplayObjectContainer {
 
     private async runGame() {
 
-        var replayList = JSON.parse(Utils.$$loadItem("replayList"));
-        if (replayList) {
-            for (var r of replayList)
-                Utils.log(r.id, r.time);
-        }
-
         // var c = new WSClient();
         // c.connect2srv("localhost", 80)
         // .onError(() => console.log("net error"))
