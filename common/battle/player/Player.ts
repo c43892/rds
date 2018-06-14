@@ -1,12 +1,13 @@
 
-// 玩家角色数据
-class Player extends egret.EventDispatcher {
+// 玩家数据
+class Player {
 
     // 应该序列化的字段
     private static serializableFields = [
         "currentLevel", "battleRandomSeed", "avatar", 
         "hp", "maxHp", "power", "defence", "dodge"];
 
+    // 关卡逻辑
     public currentLevel:string; // 当前关卡配置名称
     public battleRandomSeed:number; // 下一场战斗随机种子
 
@@ -27,9 +28,13 @@ class Player extends egret.EventDispatcher {
     // 头像逻辑
     public avatar:string;
 
-    // 血量逻辑
+    // 战斗逻辑
     public hp:number;
     public maxHp:number;
+    public power:number; // 攻击力
+    public defence:number; // 防御力
+    public dodge:number; // 闪避%
+
     public addHp(dhp:number) {
         this.hp += dhp;
         if (this.hp < 0)
@@ -37,11 +42,8 @@ class Player extends egret.EventDispatcher {
         else if (this.hp > this.maxHp)
             this.hp = this.maxHp;
     }
-    
-    // 战斗逻辑
-    public power:number; // 攻击力
-    public defence:number; // 防御力
-    public dodge:number; // 闪避%
+
+    // 序列化
 
     public static fromString(str:string):Player {
         var pinfo = JSON.parse(str);
@@ -59,4 +61,8 @@ class Player extends egret.EventDispatcher {
 
         return JSON.stringify(pinfo);
     }
+
+    // 各逻辑点，不同职业的能力挂接于此
+    public afterGoInLevel; // 进入新关卡
+    public onGoOutLevel; // 离开当前关卡
 }

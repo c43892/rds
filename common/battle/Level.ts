@@ -43,8 +43,9 @@ class Level {
         {
             var e = this.map.getElemAt(x, y);
             if (e) {
-                var targetX = this.bt.srand.nextInt(0, this.map.size.w);
-                var targetY = this.bt.srand.nextInt(0, this.map.size.h);
+                // 乱序的随机性，是独立于主随机序列的，不参与存档，但参与录像，所以玩家是可以刷的
+                var targetX = this.bt.trueRand.nextInt(0, this.map.size.w);
+                var targetY = this.bt.trueRand.nextInt(0, this.map.size.h);
                 this.map.switchElems(x, y, targetX, targetY);
             }
         });

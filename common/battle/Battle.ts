@@ -3,20 +3,27 @@
 class Battle {
     public id:string; // 每场战斗一个随机 id
     public srand:SRandom; // 随机序列
+    public trueRandomSeed:number; // 随机序列2，这个随机序列相关的通常是允许玩家刷的东西，不会计入存档，但是会计入录像
+    public trueRand:SRandom; // 随机序列2，这个随机序列相关的通常是允许玩家刷的东西，不会计入存档，但是会计入录像
     private lvCfg; // 当前关卡配置
     public level:Level; // 当前关卡
     public player:Player; // 角色数据
     private bc:BattleCalculator; // 战斗计算器
     public $$srandSeed; // 测试用，获取战斗随机数种子
 
-    constructor(randomseed:number) {
+    constructor(randomseed:number, trueRandomSeed:number) {
         Utils.assert(randomseed != undefined, "the randomseed should be specified");
         this.srand = new SRandom(randomseed);
+        this.trueRandomSeed = trueRandomSeed;
+        this.trueRand = new SRandom(trueRandomSeed);
         this.$$srandSeed = () => randomseed;
     }
 
-    public static createNewBattle(player:Player):Battle {
-        var bt = new Battle(player.battleRandomSeed);
+    public static createNewBattle(player:Player, trueRandomSeed:number = undefined):Battle {
+        if (trueRandomSeed == undefined)
+            trueRandomSeed = (new Date()).getMilliseconds();
+
+        var bt = new Battle(player.battleRandomSeed, trueRandomSeed);
         bt.id = "bt_" + Math.random();
         bt.player = player;
         return bt;
@@ -107,13 +114,18 @@ class Battle {
 
     // 触发逻辑点，参数为逻辑点名称，该名称直接字面对应个各元素对逻辑点的处理函数，
     // 处理函数的返回值表示是否需要截获该事件，不再传递给其它元素
-    public async triggerLogicPoint(lpName:string, params = undefined) {
+    public async triggerLogicPoint(lpName:string, ps = undefined) {
+        // 玩家响应之
+        var h = this.player[lpName];
+        if (h)
+            await h(ps);
+
         // 地图上的元素响应之
         var es = [];
         this.level.map.foreachUncoveredElems((e) => { es.push(e); return false; });
         for (var e of es) {
             var handler = e[lpName];
-            if (handler && await handler(params))
+            if (handler && await handler(ps))
                 return;
         }
     }

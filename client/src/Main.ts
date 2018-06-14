@@ -85,13 +85,13 @@ class Main extends egret.DisplayObjectContainer {
         const userInfo = await platform.getUserInfo();
 
         // 录像机如何启动新的录像战斗
-        BattleRecorder.startNewBattleImpl = (p:Player) => {
-            this.startNewBattle(Battle.createNewBattle(p));
+        BattleRecorder.startNewBattleImpl = (p:Player, trueRandomSeed:number) => {
+            this.startNewBattle(Battle.createNewBattle(p, trueRandomSeed));
         };
 
         // 如何启动下一关战斗
         Battle.startNewBattle = (p:Player) => {
-            p.currentLevel = p.currentLevel == "testLevel2" ? "testLevel1" : "testLevel2";
+            p.currentLevel = GBConfig.getLevelCfg(p.currentLevel).nextLevel;
             this.startNewBattleWithRecorder(Battle.createNewBattle(p));
         }
 
@@ -101,7 +101,7 @@ class Main extends egret.DisplayObjectContainer {
     }
 
     // 开始一场新的战斗
-    public startNewBattleWithRecorder(bt:Battle) { this.startNewBattle(bt); BattleRecorder.startNew(bt.id, bt.player); }
+    public startNewBattleWithRecorder(bt:Battle) { this.startNewBattle(bt); BattleRecorder.startNew(bt.id, bt.player, bt.trueRandomSeed); }
     public startNewBattle(bt:Battle) {
         Utils.log("start a new battle with srandseed=", bt.$$srandSeed());
         bt.loadCurrentLevel();
