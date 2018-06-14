@@ -116,13 +116,13 @@ class Main extends egret.DisplayObjectContainer {
         ElemView.try2UseElem = bt.try2UseElem();
         ElemView.try2BlockGrid = bt.try2BlockGrid();
         ElemView.try2UseAt = bt.try2UseAt();
-        bt.registerEvent(GridChangedEvent.type, (evt) => this.mv.onGridChanged(evt));
-        bt.registerEvent(PlayerChangedEvent.type, (evt) => this.mv.onPlayerChanged(evt));
-        bt.registerEvent(AttackEvent.type, (evt) => this.mv.onAttacked(evt));
-        bt.registerEvent(MonsterChangedEvent.type, (evt) => this.mv.onMonsterChanged(evt));
-        bt.registerEvent(ElemMovingEvent.type, (evt) => this.mv.onElemMoving(evt));
+        bt.registerEvent(GridChangedEvent.type, (evt) => this.mv.aniView.onGridChanged(evt));
+        bt.registerEvent(PlayerChangedEvent.type, (evt) => this.mv.aniView.onPlayerChanged(evt));
+        bt.registerEvent(AttackEvent.type, (evt) => this.mv.aniView.onAttacked(evt));
+        bt.registerEvent(MonsterChangedEvent.type, (evt) => this.mv.aniView.onMonsterChanged(evt));
+        bt.registerEvent(ElemMovingEvent.type, (evt) => this.mv.aniView.onElemMoving(evt));
         bt.registerEvent(PlayerOpEvent.type, (evt) => BattleRecorder.onPlayerOp(evt.op, evt.ps));
-        bt.registerEvent(LevelEvent.type, (evt) => this.mv.onLevelEvent(evt));
+        bt.registerEvent(LevelEvent.type, (evt) => this.mv.aniView.onLevelEvent(evt));
 
         BattleRecorder.registerReplayIndicatorHandlers(bt);
     }

@@ -10,6 +10,7 @@ class Battle {
     public $$srandSeed; // 测试用，获取战斗随机数种子
 
     constructor(randomseed:number) {
+        Utils.assert(randomseed != undefined, "the randomseed should be specified");
         this.srand = new SRandom(randomseed);
         this.$$srandSeed = () => randomseed;
     }

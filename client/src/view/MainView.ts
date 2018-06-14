@@ -1,24 +1,19 @@
 // 主视图
-class MainView extends egret.DisplayObjectContainer {
-    private mapView:MapView; // 地图视图
-    private player:Player; // 当前角色
-    private avatar:egret.Bitmap; // 角色头像
-    private hp:egret.TextField; // 血量
-    private power:egret.TextField; // 攻击
-    private defence:egret.TextField; // 防御
-    private dodge:egret.TextField; // 闪避
-    private blackCover:egret.Bitmap; // 黑屏用的遮挡
+class MainView extends egret.DisplayObjectContainer {    
+    public player:Player; // 当前角色
+    public avatar:egret.Bitmap; // 角色头像
+    public hp:egret.TextField; // 血量
+    public power:egret.TextField; // 攻击
+    public defence:egret.TextField; // 防御
+    public dodge:egret.TextField; // 闪避
 
-    private aniLayer:egret.Bitmap; // 播放动画时的操作屏蔽层
-    private aniFact:AnimationFactory; // 动画工厂
+    public mapView:MapView; // 地图视图
+    private repView:ReplayView; // 录像界面
+    public aniView:AniView; // 动画视图
 
-    private rv:ReplayView; // 录像界面
-    
     public constructor(w:number, h:number) {
         super();
         
-        this.mapView = new MapView(w, h);
-        this.addChild(this.mapView);
         this.avatar = new egret.Bitmap();
         this.addChild(this.avatar);
         this.hp = new egret.TextField();
@@ -29,15 +24,13 @@ class MainView extends egret.DisplayObjectContainer {
         this.addChild(this.defence);   
         this.dodge = new egret.TextField();
         this.addChild(this.dodge);
-        this.rv = new ReplayView(w, h);
-        this.addChild(this.rv);
 
-        this.aniLayer = ViewUtils.createBitmapByName("anilayer_png");
-        this.blackCover = ViewUtils.createBitmapByName("blackcover_png");
-        this.blackCover.name = "BlackColver";
-
-        this.aniFact = new AnimationFactory();
-        this.aniFact.notifyAniStarted = (ani:Promise<void>, aniType:string, ps) => { this.onAniStarted(ani, aniType, ps); };
+        this.mapView = new MapView(w, h);
+        this.addChild(this.mapView);
+        this.repView = new ReplayView(w, h);
+        this.addChild(this.repView);
+        this.aniView = new AniView(w, h, this);
+        this.addChild(this.aniView);
     }
 
     // 设置新的地图数据，但并不自动刷新显示，需要手动刷新
@@ -53,20 +46,8 @@ class MainView extends egret.DisplayObjectContainer {
     public refresh() {
         this.refreshMap();
         this.refreshPlayer();
-
-        // 播放动画时阻挡玩家操作
-        this.aniLayer.width = this.width;
-        this.aniLayer.height = this.height;
-        this.aniLayer.touchEnabled = true;
-
-        // 黑屏用的遮挡
-        this.blackCover.width = this.width;
-        this.blackCover.height = this.height;
-        this.blackCover.touchEnabled = true;
-        if (this.getChildByName(this.blackCover.name) != undefined)
-            this.removeChild(this.blackCover);
-
-        this.rv.refresh(this.width, this.height);
+        this.aniView.refresh(this.width, this.height);
+        this.repView.refresh(this.width, this.height);
     }
 
     // 刷新地图显示
@@ -123,86 +104,9 @@ class MainView extends egret.DisplayObjectContainer {
     // 清除所有地图显示元素
     public clear() {
         this.mapView.clear();
+        this.aniView.clear();
+        this.repView.clear();
         this.avatar.texture = undefined;
         this.hp.text = "";
-    }
-
-    // 指定位置发生状态或元素变化
-    public async onGridChanged(evt:GridChangedEvent) {
-        if (evt.subType.indexOf("Elem") == 0)
-            await this.mapView.refreshAt(evt.x, evt.y);
-        else
-            await this.mapView.refresh3x3(evt.x, evt.y);
-    }
-
-    // 怪物属性发生变化
-    public async onMonsterChanged(evt:MonsterChangedEvent) {
-        var m = evt.m;
-        this.mapView.refreshAt(m.pos.x, m.pos.y);
-        await this.aniFact.createAni("monsterChanged", {"m": evt.m});
-    }
-
-    // 角色信息发生变化
-    public async onPlayerChanged(evt:PlayerChangedEvent) {
-        this.refreshPlayer();
-        await this.aniFact.createAni("playerChanged");
-    }
-
-    // 产生攻击行为
-    public async onAttacked(evt:AttackEvent) {
-        this.refreshPlayer();
-        if (evt.subType == "player2monster")
-            await this.aniFact.createAni("monsterAttackPlayer", {"m": evt.m});
-        else
-            await this.aniFact.createAni("playerAttackMonster", {"m": evt.m});
-    }
-
-    // 元素移动
-    public async onElemMoving(evt:ElemMovingEvent) {
-        var path = evt.path;
-        var fromPt = evt.path[0];
-        
-        // 创建路径动画
-        var showPath = Utils.map(path, (pt) => this.mapView.logicPos2ShowPos(pt.x, pt.y));
-        showPath = Utils.map(showPath, (pt) => [pt[0] - showPath[0][0], pt[1] - showPath[0][1]]);
-        showPath.shift();
-        var eImg = this.mapView.getElemViewAt(fromPt.x, fromPt.y);
-        await this.aniFact.createAni("moving", {"img": eImg, "path": showPath});
-        
-        // 刷新格子显示
-        this.mapView.refreshAt(fromPt.x, fromPt.y);
-        if (path.length > 1)
-            this.mapView.refreshAt(path[path.length - 1].x, path[path.length - 1].y);
-    }
-
-    // 关卡事件
-    public async onLevelEvent(evt:LevelEvent) {
-        switch (evt.subType) {
-            case "goOutLevel": // 出关卡
-                this.addChild(this.blackCover);
-                await this.aniFact.createAni("fadeIn", {"img": this.blackCover, "time": 1000});
-                this.removeChild(this.blackCover);
-            break;
-            case "goInLevel": // 进关卡
-                this.addChild(this.blackCover);
-                await this.aniFact.createAni("fadeOut", {"img": this.blackCover, "time": 1000});
-                this.removeChild(this.blackCover);
-            break;
-            default:
-                Utils.assert(false, "unhandled LevelEvent: " + evt.subType);            
-        }    
-    }
-
-    // 动画开始播放时，阻止玩家操作
-    aniLayerCnt = 0;
-    onAniStarted(ani:Promise<void>, aniType:string, ps = undefined) {
-        this.addChild(this.aniLayer);
-        this.aniLayerCnt++;
-        ani.then(() => {
-            Utils.assert(this.aniLayerCnt > 0, "aniLayerCnt corrupted");
-            this.aniLayerCnt--;
-            if (this.aniLayerCnt == 0)
-                this.removeChild(this.aniLayer);
-        });
     }
 }

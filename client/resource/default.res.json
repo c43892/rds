@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "description_json,levelconfig_json,covered_png,grid_png,bg_png,HpPotion_png,NextLevelPort_png,avator1_png,Bunny_png,blocked_png,uncoverable_png,anilayer_png,replaybg_png,blackcover_png",
+			"keys": "description_json,levelconfig_json,covered_png,grid_png,bg_png,HpPotion_png,NextLevelPort_png,avator1_png,Bunny_png,blocked_png,uncoverable_png,replaybg_png,blackcover_png,anicover_png",
 			"name": "preload"
 		}
 	],
@@ -77,11 +77,6 @@
 			"url": "assets/uncoverable.png"
 		},
 		{
-			"name": "anilayer_png",
-			"type": "image",
-			"url": "assets/anilayer.png"
-		},
-		{
 			"name": "replaybg_png",
 			"type": "image",
 			"url": "assets/replaybg.png"
@@ -90,6 +85,11 @@
 			"name": "blackcover_png",
 			"type": "image",
 			"url": "assets/blackcover.png"
+		},
+		{
+			"name": "anicover_png",
+			"type": "image",
+			"url": "assets/anicover.png"
 		}
 	]
 }

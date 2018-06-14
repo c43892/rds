@@ -20,6 +20,7 @@ class ReplayView extends egret.DisplayObjectContainer {
         this.replaybg = ViewUtils.createBitmapByName("replaybg_png");
         this.replaybg.x = this.replaybg.y = 0;
         this.replaybg.touchEnabled = true;
+        this.replaybg.name = "ReplayBg";
 
         this.refresh(w, h);
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchTap, this);
@@ -34,6 +35,12 @@ class ReplayView extends egret.DisplayObjectContainer {
         this.replaybg.height = this.height;
 
         this.openBtn.text = "⚪";
+    }
+
+    public clear() {
+        this.listArea.removeChildren();
+        if (this.getChildByName(this.replaybg.name) != undefined)
+            this.removeChild(this.replaybg);
     }
 
     // 打开录像界面
