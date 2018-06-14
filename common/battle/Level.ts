@@ -18,8 +18,8 @@ class Level {
     // 创建初始元素
     public InitElems(cfg) {
         var elems = [
-            ElemFactory.create("EscapePort", this.bt, cfg), // 逃跑出口
-            ElemFactory.create("NextLevelPort", this.bt, cfg) // 下一层入口 
+            ElemFactory.create("EscapePort", this.bt), // 逃跑出口
+            ElemFactory.create("NextLevelPort", this.bt) // 下一层入口 
         ];
 
         // 添加其它配置物品
@@ -27,7 +27,7 @@ class Level {
             let eCfg = cfg[e];
             let num = eCfg.num;
             for (var i = 0; i < num; i++)
-                elems.push(ElemFactory.create(e, this.bt, eCfg));
+                elems.push(ElemFactory.create(e, this.bt));
         }
 
         // 依次加入地图
@@ -37,7 +37,10 @@ class Level {
             this.map.addElemAt(elems[i++], x, y);
             return i >= elems.length;
         });
+    }
 
+    // 乱序所有元素
+    public RandomElemsPos() {
         // 乱序交换位置
         this.map.travelAll((x, y) =>
         {

@@ -23,7 +23,7 @@ class Monster extends Elem {
 class MonsterFactory {
     public creators = {
         // 兔子
-        "Bunny": (bt, ps) => this.doAttack("afterPlayerActed", this.doMove("afterPlayerActed", 3, this.createNormalMonster(bt, 5, 1)))
+        "Bunny": (bt) => this.doAttack("afterPlayerActed", this.doMove("afterPlayerActed", 3, this.createNormalMonster(bt, 5, 1)))
     };
 
     // 创建一个普通的怪物

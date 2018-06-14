@@ -103,14 +103,7 @@ class Main extends egret.DisplayObjectContainer {
     // 开始一场新的战斗
     public startNewBattleWithRecorder(bt:Battle) { this.startNewBattle(bt); BattleRecorder.startNew(bt.id, bt.player, bt.trueRandomSeed); }
     public startNewBattle(bt:Battle) {
-        Utils.log("start a new battle with srandseed=", bt.$$srandSeed());
-        bt.loadCurrentLevel();
-        bt.uncoverStartupRegion();
-
-        // refresh view
-        this.mv.setMap(bt.level.map);
-        this.mv.setPlayer(bt.player);
-        this.mv.refresh();
+        Utils.log("start a new battle with ", bt.$$srandSeed());
 
         ElemView.try2UncoverAt = bt.try2UncoverAt();
         ElemView.try2UseElem = bt.try2UseElem();
@@ -122,9 +115,12 @@ class Main extends egret.DisplayObjectContainer {
         bt.registerEvent(MonsterChangedEvent.type, (evt) => this.mv.aniView.onMonsterChanged(evt));
         bt.registerEvent(ElemMovingEvent.type, (evt) => this.mv.aniView.onElemMoving(evt));
         bt.registerEvent(PlayerOpEvent.type, (evt) => BattleRecorder.onPlayerOp(evt.op, evt.ps));
-        bt.registerEvent(LevelEvent.type, (evt) => this.mv.aniView.onLevelEvent(evt));
+        bt.registerEvent(LevelEvent.type, (evt) => this.mv.onLevelEvent(evt));
+        bt.registerEvent(AllCoveredAtInitEvent.type, (evt) => this.mv.aniView.onAllCoveredAtInit(evt));
 
         BattleRecorder.registerReplayIndicatorHandlers(bt);
+
+        bt.Start();
     }
 
     private async loadResource() {

@@ -50,9 +50,17 @@ class AniView extends egret.DisplayObjectContainer {
     // 指定位置发生状态或元素变化
     public async onGridChanged(evt:GridChangedEvent) {
         if (evt.subType.indexOf("Elem") == 0)
-            await this.mv.mapView.refreshAt(evt.x, evt.y);
+            this.mv.mapView.refreshAt(evt.x, evt.y);
         else
-            await this.mv.mapView.refresh3x3(evt.x, evt.y);
+            this.mv.mapView.refresh3x3(evt.x, evt.y);
+
+        switch (evt.subType) {
+            case "ElemAdded":
+                this.mv.mapView.refreshAt(evt.x, evt.y);                            
+                var eImg = this.mv.mapView.getElemViewAt(evt.x, evt.y).getImg();
+                await this.aniFact.createAni("fadeIn", {"img": eImg, "time":1000});
+            break;
+        }
     }
 
     // 怪物属性发生变化
@@ -86,8 +94,8 @@ class AniView extends egret.DisplayObjectContainer {
         var showPath = Utils.map(path, (pt) => this.mv.mapView.logicPos2ShowPos(pt.x, pt.y));
         showPath = Utils.map(showPath, (pt) => [pt[0] - showPath[0][0], pt[1] - showPath[0][1]]);
         showPath.shift();
-        var eImg = this.mv.mapView.getElemViewAt(fromPt.x, fromPt.y);
-        await this.aniFact.createAni("moving", {"img": eImg, "path": showPath});
+        var e = this.mv.mapView.getElemViewAt(fromPt.x, fromPt.y).getShowLayer();
+        await this.aniFact.createAni("moving", {"obj": e, "path": showPath});
         
         // 刷新格子显示
         this.mv.mapView.refreshAt(fromPt.x, fromPt.y);
@@ -98,19 +106,34 @@ class AniView extends egret.DisplayObjectContainer {
     // 关卡事件
     public async onLevelEvent(evt:LevelEvent) {
         switch (evt.subType) {
-            case "goOutLevel": // 出关卡
-                this.addChild(this.blackCover);
-                await this.aniFact.createAni("fadeIn", {"img": this.blackCover, "time": 1000});
-                this.removeChild(this.blackCover);
+            case "levelInited": // 进关卡
             break;
-            case "goInLevel": // 进关卡
-                this.addChild(this.blackCover);
-                await this.aniFact.createAni("fadeOut", {"img": this.blackCover, "time": 1000});
-                this.removeChild(this.blackCover);
+            case "goOutLevel": // 出关卡
+                await this.blackIn(true);
             break;
             default:
                 Utils.assert(false, "unhandled LevelEvent: " + evt.subType);            
         }    
+    }
+
+    // 开局时所有元素盖上
+    public async onAllCoveredAtInit(evt:AllCoveredAtInitEvent) {
+        await this.blackIn();
+        this.mv.refresh();
+        await this.blackOut();
+    }
+
+    async blackIn(removedWhenFinish = false) {
+        this.addChild(this.blackCover);
+        await this.aniFact.createAni("fadeIn", {"img": this.blackCover, "time": 1000});
+        if (removedWhenFinish)
+            this.removeChild(this.blackCover);
+    }
+
+    async blackOut() {
+        await this.aniFact.createAni("fadeOut", {"img": this.blackCover, "time": 1000});
+        if (this.getChildByName(this.blackCover.name))
+            this.removeChild(this.blackCover);
     }
 
     // 动画开始播放时，阻止玩家操作

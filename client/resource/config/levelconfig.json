@@ -5,7 +5,7 @@
         "map": { },
         "init_uncovered": {"w": 3, "h": 3},
         "elems": {
-            "HpPotion":{"num":2},
+            "HpPotion":{"num":1},
             "Bunny":{"num":3}
         }, 
         "nextLevel": "testLevel2"

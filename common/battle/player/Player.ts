@@ -5,7 +5,10 @@ class Player {
     // 应该序列化的字段
     private static serializableFields = [
         "currentLevel", "battleRandomSeed", "avatar", 
-        "hp", "maxHp", "power", "defence", "dodge"];
+        "hp", "maxHp", "power", "defence", "dodge", 
+        "occupation"];
+
+    public getBattle; // 当前战斗
 
     // 关卡逻辑
     public currentLevel:string; // 当前关卡配置名称
@@ -15,6 +18,7 @@ class Player {
     public static createTestPlayer():Player {
         var p = new Player();
         p.currentLevel = "testLevel1";
+        p.occupation = "nurse";
         p.hp = 10;
         p.maxHp = 20;
         p.avatar = "avator1";
@@ -43,7 +47,7 @@ class Player {
             this.hp = this.maxHp;
     }
 
-    // 序列化
+    // 序列化反序列化
 
     public static fromString(str:string):Player {
         var pinfo = JSON.parse(str);
@@ -63,6 +67,9 @@ class Player {
     }
 
     // 各逻辑点，不同职业的能力挂接于此
-    public afterGoInLevel; // 进入新关卡
-    public onGoOutLevel; // 离开当前关卡
+    public occupation:string; // 当前职业
+    public onLevelInited = []; // 关卡数据初始化之后
+    public onAllCoveredAtInit = []; // 关卡初始盖住所有元素之后
+    public onStartupRegionUncovered = []; // 初始区域揭开之后
+    public onGoOutLevel = []; // 离开当前关卡
 }

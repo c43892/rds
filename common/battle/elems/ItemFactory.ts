@@ -4,14 +4,14 @@ class ItemFactory {
     public creators = {
 
         // 逃跑出口
-        "EscapePort": (bt, ps) => {
+        "EscapePort": (bt) => {
             var e = new Elem(bt);
             e.canUse = () => true;
             return e;
         },
 
         // 红药水
-        "HpPotion": (bt, ps) => {
+        "HpPotion": (bt) => {
             var e = new Elem(bt);
             e.canUse = () => true;
             e.use = async () => await e.bt.implAddPlayerHp(10); // +10 hp
@@ -20,7 +20,7 @@ class ItemFactory {
         },
 
         // 下一关入口
-        "NextLevelPort": (bt, ps) => {
+        "NextLevelPort": (bt) => {
             var e = new Elem(bt);
             e.canUse = () => true;
             e.use = async () => await e.bt.implGo2NextLevel(); // 进入下一关卡

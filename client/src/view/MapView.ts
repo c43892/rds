@@ -91,8 +91,8 @@ class MapView extends egret.DisplayObjectContainer {
     }
 
     // 获取指定位置的显示元素
-    public getElemViewAt(x:number, y:number):egret.DisplayObjectContainer {
-        return this.mevs[x][y].getViewLayer();
+    public getElemViewAt(x:number, y:number):ElemView {
+        return this.mevs[x][y];
     }
 
     // 逻辑坐标变换为显示坐标

@@ -61,6 +61,9 @@ class ReplayView extends egret.DisplayObjectContainer {
             rt.width = this.listArea.width;
             rt.height = 50;
             rt.text = r.time;
+            rt.textColor = 0x00ff00;
+            rt.stroke = 1;
+            rt.strokeColor = 0x888888;
             rt.size = 45;
             rt.textAlign = egret.HorizontalAlign.CENTER;
             rt.x = 0;

@@ -16,7 +16,7 @@ class Battle {
         this.srand = new SRandom(randomseed);
         this.trueRandomSeed = trueRandomSeed;
         this.trueRand = new SRandom(trueRandomSeed);
-        this.$$srandSeed = () => randomseed;
+        this.$$srandSeed = () => [randomseed, trueRandomSeed];
     }
 
     public static createNewBattle(player:Player, trueRandomSeed:number = undefined):Battle {
@@ -25,14 +25,16 @@ class Battle {
 
         var bt = new Battle(player.battleRandomSeed, trueRandomSeed);
         bt.id = "bt_" + Math.random();
-        bt.player = player;
+        bt.player = Occupation.makeOccupation(player);
+        player.getBattle = () => bt;
         return bt;
     }
 
     // 载入指定关卡
     public loadCurrentLevel():Level {
+        // 创建关卡地图和元素
         this.level = new Level();
-        this.lvCfg = GBConfig.getLevelCfg(this.player.currentLevel);
+        this.lvCfg = GBConfig.getLevelCfg(this.player.currentLevel);        
         this.level.Init(this, this.lvCfg);
         this.bc = new BattleCalculator(this.srand);
         return this.level;
@@ -43,6 +45,26 @@ class Battle {
         var nextLevelCfg = this.lvCfg.nextLevel;
         this.player.currentLevel = nextLevelCfg;
         return this.loadCurrentLevel();
+    }
+
+    // 开始当前战斗
+    public async Start() {
+        this.loadCurrentLevel();
+        this.level.RandomElemsPos(); // 先随机一下，免得看起来不好看
+
+        await this.fireEvent(new LevelEvent("levelInited", this));
+        await this.triggerLogicPoint("onLevelInited");
+
+        await this.coverAllAtInit();
+        this.level.RandomElemsPos(); // 随机元素位置
+        await this.uncoverStartupRegion();
+    }
+
+    // 初始盖住所有格子
+    public async coverAllAtInit() {
+        this.level.map.travelAll((x, y) => this.level.map.getGridAt(x, y).status = GridStatus.Covered);
+        await this.fireEvent(new AllCoveredAtInitEvent());
+        await this.triggerLogicPoint("onAllCoveredAtInit");
     }
 
     // 揭开起始区域
@@ -60,7 +82,8 @@ class Battle {
         // 移除逃离出口，目前不需要了
         var ep = this.level.map.findFirstElem((x, y, e) => e && e.type == "EscapePort");
         this.level.map.removeElemAt(ep.pos.x, ep.pos.y);
-        await this.triggerLogicPoint("onInitialUncovered");
+        await this.fireEvent(new StartupRegionUncoveredEvent());
+        await this.triggerLogicPoint("onStartupRegionUncovered");
     }
 
     // 计算一片指定大小的区域，该区域尽量以逃跑的出口位置为中心，
@@ -116,9 +139,10 @@ class Battle {
     // 处理函数的返回值表示是否需要截获该事件，不再传递给其它元素
     public async triggerLogicPoint(lpName:string, ps = undefined) {
         // 玩家响应之
-        var h = this.player[lpName];
-        if (h)
-            await h(ps);
+        var hs = this.player[lpName];
+        if (hs)
+            for (var h of hs)
+                await h(ps);
 
         // 地图上的元素响应之
         var es = [];
@@ -164,19 +188,15 @@ class Battle {
     }
 
     // 添加物品
-    public async addElemAt(e:Elem, x:number, y:number) {
+    public addElemAt(e:Elem, x:number, y:number) {
         this.level.map.addElemAt(e, x, y);
-        await this.fireEvent(new GridChangedEvent(x, y, "ElemAdded"));
-        await this.triggerLogicPoint("onElemAdded", {eleme:e});
     }
 
     // 移除物品
-    public async removeElem(e:Elem) {
+    public removeElem(e:Elem) {
         var x = e.pos.x;
         var y = e.pos.y;
         this.level.map.removeElemAt(x, y);
-        await this.fireEvent(new GridChangedEvent(x, y, "ElemRemoved"));
-        await this.triggerLogicPoint("onElemRemoved", {eleme:e});
     }
 
     // try 开头的函数通常对应玩家操作行为
@@ -222,10 +242,11 @@ class Battle {
                 this.fireEventSync(new PlayerOpEvent("try2UseElem", {x:e.pos.x, y:e.pos.y}));
 
                 var reserve = await e.use(); // 返回值决定是保留还是消耗掉
-                await this.triggerLogicPoint("onElemUsed", {elem:e});
                 if (!reserve)
                     this.removeElem(e);
 
+                await this.fireEvent(new GridChangedEvent(e.pos.x, e.pos.y, "ElemUsed"));
+                await this.triggerLogicPoint("onElemUsed", {elem:e});
                 await this.triggerLogicPoint("afterPlayerActed"); // 算一次角色行动
             }
         };
@@ -277,10 +298,24 @@ class Battle {
     public static startNewBattle;
     public async implGo2NextLevel() {
         await this.triggerLogicPoint("beforeGoOutLevel");
-        await this.fireEvent(new LevelEvent("goOutLevel"));
+        await this.fireEvent(new LevelEvent("goOutLevel", this));
         Battle.startNewBattle(this.player);
-        await this.fireEvent(new LevelEvent("goInLevel"));
-        await this.triggerLogicPoint("afterGoInLevel");
+    }
+
+    // 添加物品
+    public async implAddElemAt(e:Elem, x:number, y:number) {
+        this.addElemAt(e, x, y);
+        await this.fireEvent(new GridChangedEvent(x, y, "ElemAdded"));
+        await this.triggerLogicPoint("onElemAdded", {eleme:e});
+    }
+
+    // 移除物品
+    public async implRemoveElem(e:Elem) {
+        var x = e.pos.x;
+        var y = e.pos.y;
+        this.removeElem(e);
+        await this.fireEvent(new GridChangedEvent(x, y, "ElemRemoved"));
+        await this.triggerLogicPoint("onElemRemoved", {eleme:e});
     }
 
     // 修改角色 hp

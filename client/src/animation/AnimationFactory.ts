@@ -12,7 +12,7 @@ class AnimationFactory {
             case "playerChanged": ani = this.playerChanged(); break;
             case "playerAttackMonster": ani = this.playerAttackMonster(ps.m); break;
             case "monsterAttackPlayer": ani = this.monsterAttackPlayer(ps.m); break;
-            case "moving": ani = this.moving(ps.img, ps.path); break;
+            case "moving": ani = this.moving(ps.obj, ps.path); break;
             case "fadeIn": ani = this.fade(ps.img, 0, 1, ps.time); break;
             case "fadeOut": ani = this.fade(ps.img, 1, 0, ps.time); break;
         }
@@ -34,7 +34,7 @@ class AnimationFactory {
         return new Promise<void>((resolve, reject) => tw.call(resolve));
     }
 
-    // 指定图片的 alpha 渐变
+    // 指定对象的 alpha 渐变
     fade(g:egret.Bitmap, alphaFrom:number, alphaTo:number, time:number) {
         var tw = egret.Tween.get(g);
         g.alpha = alphaFrom;

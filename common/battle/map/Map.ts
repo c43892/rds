@@ -22,10 +22,11 @@ class Map {
                 var y = j;
 
                 // 创建地块
-                var b = new Grid();
-                b.pos = {x: x, y: y};
-                b.map = this;
-                this.grids[x].push(b);
+                var g = new Grid();
+                g.pos = {x: x, y: y};
+                g.map = this;
+                g.status = GridStatus.Uncovered;
+                this.grids[x].push(g);
                 
                 // 地图创建时，地块上没有元素，但是要把位置先占住
                 this.elems[x].push(undefined);
@@ -166,6 +167,20 @@ class Map {
             this.elems[x1][y1].pos = {x: x1, y: y1};
         if (this.elems[x2][y2])
             this.elems[x2][y2].pos = {x: x2, y: y2};
+    }
+
+    // 寻找满足条件的第一个 Grid
+    public findFirstGrid(f):Grid {
+        var g:Grid;
+        this.travelAll((x, y) =>
+        {
+            if (f(x, y, this.grids[x][y])) {
+                g = this.grids[x][y];
+                return true; //　找到第一个就停止遍历
+            }
+        });
+
+        return g;
     }
 
     // 寻找满足条件的第一个 Elem
