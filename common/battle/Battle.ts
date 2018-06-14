@@ -260,6 +260,16 @@ class Battle {
 
     // impl 开头的函数，通常对应具体的逻辑功能实现，提供给 Elem 使用
 
+    // 进入下一关卡
+    public static startNewBattle;
+    public async implGo2NextLevel() {
+        await this.triggerLogicPoint("beforeGoOutLevel");
+        await this.fireEvent(new LevelEvent("goOutLevel"));
+        Battle.startNewBattle(this.player);
+        await this.fireEvent(new LevelEvent("goInLevel"));
+        await this.triggerLogicPoint("afterGoInLevel");
+    }
+
     // 修改角色 hp
     public async implAddPlayerHp(dhp:number) {
         this.player.addHp(dhp);

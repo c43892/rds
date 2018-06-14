@@ -1,12 +1,13 @@
 // 主视图
 class MainView extends egret.DisplayObjectContainer {
-    private mv:MapView; // 地图视图
+    private mapView:MapView; // 地图视图
     private player:Player; // 当前角色
     private avatar:egret.Bitmap; // 角色头像
     private hp:egret.TextField; // 血量
     private power:egret.TextField; // 攻击
     private defence:egret.TextField; // 防御
     private dodge:egret.TextField; // 闪避
+    private blackCover:egret.Bitmap; // 黑屏用的遮挡
 
     private aniLayer:egret.Bitmap; // 播放动画时的操作屏蔽层
     private aniFact:AnimationFactory; // 动画工厂
@@ -16,8 +17,8 @@ class MainView extends egret.DisplayObjectContainer {
     public constructor(w:number, h:number) {
         super();
         
-        this.mv = new MapView(w, h);
-        this.addChild(this.mv);
+        this.mapView = new MapView(w, h);
+        this.addChild(this.mapView);
         this.avatar = new egret.Bitmap();
         this.addChild(this.avatar);
         this.hp = new egret.TextField();
@@ -31,13 +32,17 @@ class MainView extends egret.DisplayObjectContainer {
         this.rv = new ReplayView(w, h);
         this.addChild(this.rv);
 
+        this.aniLayer = ViewUtils.createBitmapByName("anilayer_png");
+        this.blackCover = ViewUtils.createBitmapByName("blackcover_png");
+        this.blackCover.name = "BlackColver";
+
         this.aniFact = new AnimationFactory();
         this.aniFact.notifyAniStarted = (ani:Promise<void>, aniType:string, ps) => { this.onAniStarted(ani, aniType, ps); };
     }
 
     // 设置新的地图数据，但并不自动刷新显示，需要手动刷新
     public setMap(map:Map) {
-        this.mv.setMap(map);
+        this.mapView.setMap(map);
     }
 
     // 设置角色数据，但并不刷新显示，需要手动刷新
@@ -50,10 +55,16 @@ class MainView extends egret.DisplayObjectContainer {
         this.refreshPlayer();
 
         // 播放动画时阻挡玩家操作
-        this.aniLayer = ViewUtils.createBitmapByName("anilayer_png");
         this.aniLayer.width = this.width;
         this.aniLayer.height = this.height;
         this.aniLayer.touchEnabled = true;
+
+        // 黑屏用的遮挡
+        this.blackCover.width = this.width;
+        this.blackCover.height = this.height;
+        this.blackCover.touchEnabled = true;
+        if (this.getChildByName(this.blackCover.name) != undefined)
+            this.removeChild(this.blackCover);
 
         this.rv.refresh(this.width, this.height);
     }
@@ -61,21 +72,21 @@ class MainView extends egret.DisplayObjectContainer {
     // 刷新地图显示
     public refreshMap() {
         // 地图区域尺寸
-        this.mv.width = this.width - 20; // 左右两边各留 10 像素
+        this.mapView.width = this.width - 20; // 左右两边各留 10 像素
 
         // 按比例计算高度
         var mapsize = RES.getRes("levelconfig_json")["mapsize"];
-        this.mv.height = this.mv.width * mapsize.h / mapsize.w;
+        this.mapView.height = this.mapView.width * mapsize.h / mapsize.w;
 
         // 锚点在中间底部，方便定位
-        this.mv.anchorOffsetX = this.mv.width / 2; 
-        this.mv.anchorOffsetY = this.mv.height;
+        this.mapView.anchorOffsetX = this.mapView.width / 2; 
+        this.mapView.anchorOffsetY = this.mapView.height;
 
         // 左右居中，距离底部一个格子高+ 20 像素
-        this.mv.x = this.width / 2;
-        this.mv.y = this.height - this.mv.width / mapsize.w - 20;
+        this.mapView.x = this.width / 2;
+        this.mapView.y = this.height - this.mapView.width / mapsize.w - 20;
 
-        this.mv.refresh();
+        this.mapView.refresh();
     }
 
     // 刷新角色信息
@@ -111,7 +122,7 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 清除所有地图显示元素
     public clear() {
-        this.mv.clear();
+        this.mapView.clear();
         this.avatar.texture = undefined;
         this.hp.text = "";
     }
@@ -119,15 +130,15 @@ class MainView extends egret.DisplayObjectContainer {
     // 指定位置发生状态或元素变化
     public async onGridChanged(evt:GridChangedEvent) {
         if (evt.subType.indexOf("Elem") == 0)
-            await this.mv.refreshAt(evt.x, evt.y);
+            await this.mapView.refreshAt(evt.x, evt.y);
         else
-            await this.mv.refresh3x3(evt.x, evt.y);
+            await this.mapView.refresh3x3(evt.x, evt.y);
     }
 
     // 怪物属性发生变化
     public async onMonsterChanged(evt:MonsterChangedEvent) {
         var m = evt.m;
-        this.mv.refreshAt(m.pos.x, m.pos.y);
+        this.mapView.refreshAt(m.pos.x, m.pos.y);
         await this.aniFact.createAni("monsterChanged", {"m": evt.m});
     }
 
@@ -152,16 +163,34 @@ class MainView extends egret.DisplayObjectContainer {
         var fromPt = evt.path[0];
         
         // 创建路径动画
-        var showPath = Utils.map(path, (pt) => this.mv.logicPos2ShowPos(pt.x, pt.y));
+        var showPath = Utils.map(path, (pt) => this.mapView.logicPos2ShowPos(pt.x, pt.y));
         showPath = Utils.map(showPath, (pt) => [pt[0] - showPath[0][0], pt[1] - showPath[0][1]]);
         showPath.shift();
-        var eImg = this.mv.getElemViewAt(fromPt.x, fromPt.y);
+        var eImg = this.mapView.getElemViewAt(fromPt.x, fromPt.y);
         await this.aniFact.createAni("moving", {"img": eImg, "path": showPath});
         
         // 刷新格子显示
-        this.mv.refreshAt(fromPt.x, fromPt.y);
+        this.mapView.refreshAt(fromPt.x, fromPt.y);
         if (path.length > 1)
-            this.mv.refreshAt(path[path.length - 1].x, path[path.length - 1].y);
+            this.mapView.refreshAt(path[path.length - 1].x, path[path.length - 1].y);
+    }
+
+    // 关卡事件
+    public async onLevelEvent(evt:LevelEvent) {
+        switch (evt.subType) {
+            case "goOutLevel": // 出关卡
+                this.addChild(this.blackCover);
+                await this.aniFact.createAni("fadeIn", {"img": this.blackCover, "time": 1000});
+                this.removeChild(this.blackCover);
+            break;
+            case "goInLevel": // 进关卡
+                this.addChild(this.blackCover);
+                await this.aniFact.createAni("fadeOut", {"img": this.blackCover, "time": 1000});
+                this.removeChild(this.blackCover);
+            break;
+            default:
+                Utils.assert(false, "unhandled LevelEvent: " + evt.subType);            
+        }    
     }
 
     // 动画开始播放时，阻止玩家操作

@@ -22,7 +22,8 @@ class ItemFactory {
         // 下一关入口
         "NextLevelPort": (bt, ps) => {
             var e = new Elem(bt);
-            e.canUse = () => false;
+            e.canUse = () => true;
+            e.use = async () => await e.bt.implGo2NextLevel(); // 进入下一关卡
             return e;
         }
     };

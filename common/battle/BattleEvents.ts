@@ -74,6 +74,17 @@ class ElemMovingEvent extends egret.Event {
     }
 }
 
+// 关卡事件
+class LevelEvent extends egret.Event {
+    public subType:string;
+    public static type:string = "LevelEvent";
+
+    public constructor(subType:string, bubbles:boolean=false, cancelable:boolean=false) {
+        super(LevelEvent.type, bubbles, cancelable);
+        this.subType = subType;
+    }
+}
+
 // 玩家操作事件，用于录像
 class PlayerOpEvent extends egret.Event {
     public op:string; // 玩家操作类型

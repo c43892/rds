@@ -84,12 +84,24 @@ class Main extends egret.DisplayObjectContainer {
         await platform.login();
         const userInfo = await platform.getUserInfo();
 
+        // 录像机如何启动新的录像战斗
+        BattleRecorder.startNewBattleImpl = (p:Player) => {
+            this.startNewBattle(Battle.createNewBattle(p));
+        };
+
+        // 如何启动下一关战斗
+        Battle.startNewBattle = (p:Player) => {
+            p.currentLevel = p.currentLevel == "testLevel2" ? "testLevel1" : "testLevel2";
+            this.startNewBattleWithRecorder(Battle.createNewBattle(p));
+        }
+
         // test map
         var bt = Battle.createNewBattle(Player.createTestPlayer());
-        this.startNewBattle(bt);
-        BattleRecorder.startNew(bt.id, bt.player.battleRandomSeed); // start recording
+        this.startNewBattleWithRecorder(bt);
     }
 
+    // 开始一场新的战斗
+    public startNewBattleWithRecorder(bt:Battle) { this.startNewBattle(bt); BattleRecorder.startNew(bt.id, bt.player); }
     public startNewBattle(bt:Battle) {
         Utils.log("start a new battle with srandseed=", bt.$$srandSeed());
         bt.loadCurrentLevel();
@@ -110,13 +122,9 @@ class Main extends egret.DisplayObjectContainer {
         bt.registerEvent(MonsterChangedEvent.type, (evt) => this.mv.onMonsterChanged(evt));
         bt.registerEvent(ElemMovingEvent.type, (evt) => this.mv.onElemMoving(evt));
         bt.registerEvent(PlayerOpEvent.type, (evt) => BattleRecorder.onPlayerOp(evt.op, evt.ps));
+        bt.registerEvent(LevelEvent.type, (evt) => this.mv.onLevelEvent(evt));
 
         BattleRecorder.registerReplayIndicatorHandlers(bt);
-        BattleRecorder.startNewBattleImpl = (srandseed:number) => {
-            var p = Player.createTestPlayer();
-            p.battleRandomSeed = srandseed;
-            this.startNewBattle(Battle.createNewBattle(p));
-        };
     }
 
     private async loadResource() {

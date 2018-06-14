@@ -1,14 +1,23 @@
 {
     "mapsize": {"w": 7, "h": 9},
-    "testLevel": {
-        "displayName": "测试关卡",
-        "map": {
-        },
-        "init_uncovered": {"w": 1, "h": 1},
+    "testLevel1": {
+        "displayName": "测试关卡1",
+        "map": { },
+        "init_uncovered": {"w": 3, "h": 3},
         "elems": {
             "HpPotion":{"num":2},
-            "Bunny":{"num":10}
+            "Bunny":{"num":3}
         }, 
-        "nextLevel": "testLevel"
+        "nextLevel": "testLevel2"
+    },
+    "testLevel2": {
+        "displayName": "测试关卡2",
+        "map": { },
+        "init_uncovered": {"w": 3, "h": 3},
+        "elems": {
+            "HpPotion":{"num":1},
+            "Bunny":{"num":10}
+        },
+        "nextLevel": "testLevel1"
     }
 }
