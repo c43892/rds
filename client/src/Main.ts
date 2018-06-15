@@ -109,15 +109,16 @@ class Main extends egret.DisplayObjectContainer {
         ElemView.try2UseElem = bt.try2UseElem();
         ElemView.try2BlockGrid = bt.try2BlockGrid();
         ElemView.try2UseAt = bt.try2UseAt();
-        bt.registerEvent(GridChangedEvent.type, (evt) => this.mv.aniView.onGridChanged(evt));
-        bt.registerEvent(PlayerChangedEvent.type, (evt) => this.mv.aniView.onPlayerChanged(evt));
-        bt.registerEvent(AttackEvent.type, (evt) => this.mv.aniView.onAttacked(evt));
-        bt.registerEvent(MonsterChangedEvent.type, (evt) => this.mv.aniView.onMonsterChanged(evt));
-        bt.registerEvent(ElemMovingEvent.type, (evt) => this.mv.aniView.onElemMoving(evt));
-        bt.registerEvent(PlayerOpEvent.type, (evt) => BattleRecorder.onPlayerOp(evt.op, evt.ps));
-        bt.registerEvent(LevelEvent.type, (evt) => this.mv.onLevelEvent(evt));
-        bt.registerEvent(AllCoveredAtInitEvent.type, (evt) => this.mv.aniView.onAllCoveredAtInit(evt));
-        bt.registerEvent(MoneyStolenEvent.type, (evt) => this.mv.aniView.onMoneyStolen(evt));
+
+        bt.registerEvent("onGridChanged", (ps) => this.mv.aniView.onGridChanged(ps));
+        bt.registerEvent("onPlayerChanged", (ps) => this.mv.aniView.onPlayerChanged(ps));
+        bt.registerEvent("onAttack", (ps) => this.mv.aniView.onAttacked(ps));
+        bt.registerEvent("onMonsterChanged", (ps) => this.mv.aniView.onMonsterChanged(ps));
+        bt.registerEvent("onElemMoving", (ps) => this.mv.aniView.onElemMoving(ps));
+        bt.registerEvent("onPlayerOp", (ps) => BattleRecorder.onPlayerOp(ps.op, ps.ps));
+        bt.registerEvent("onLevel", (ps) => this.mv.onLevelEvent(ps));
+        bt.registerEvent("onAllCoveredAtInit", (ps) => this.mv.aniView.onAllCoveredAtInit(ps));
+        bt.registerEvent("onMoneyStolen", (ps) => this.mv.aniView.onMoneyStolen(ps));
 
         BattleRecorder.registerReplayIndicatorHandlers(bt);
 

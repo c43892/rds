@@ -52,7 +52,7 @@ class Battle {
         this.loadCurrentLevel();
         this.level.RandomElemsPos(); // 先随机一下，免得看起来不好看
 
-        await this.fireEvent(new LevelEvent("levelInited", this));
+        await this.fireEvent("onLevel", {subType:"levelInited", bt:this});
         await this.triggerLogicPoint("onLevelInited");
 
         await this.coverAllAtInit();
@@ -63,7 +63,7 @@ class Battle {
     // 初始盖住所有格子
     public async coverAllAtInit() {
         this.level.map.travelAll((x, y) => this.level.map.getGridAt(x, y).status = GridStatus.Covered);
-        await this.fireEvent(new AllCoveredAtInitEvent());
+        await this.fireEvent("onAllCoveredAtInit");
         await this.triggerLogicPoint("onAllCoveredAtInit");
     }
 
@@ -82,7 +82,7 @@ class Battle {
         // 移除逃离出口，目前不需要了
         var ep = this.level.map.findFirstElem((x, y, e) => e && e.type == "EscapePort");
         this.level.map.removeElemAt(ep.pos.x, ep.pos.y);
-        await this.fireEvent(new StartupRegionUncoveredEvent());
+        await this.fireEvent("onStartupRegionUncovered");
         await this.triggerLogicPoint("onStartupRegionUncovered");
     }
 
@@ -102,7 +102,7 @@ class Battle {
         Utils.assert(g.isCovered() && e && e.hazard, "only covered hazared element could be marked");
 
         g.status = GridStatus.Marked;
-        await this.fireEvent(new GridChangedEvent(x, y, "ElemMarked"));
+        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"ElemMarked"});
         await this.triggerLogicPoint("onMarked", {eleme:e});
     }
 
@@ -112,7 +112,7 @@ class Battle {
         Utils.assert(e.isCovered(), "uncover action can only be implemented on a covered grid");
         e.status = GridStatus.Uncovered;
 
-        await this.fireEvent(new GridChangedEvent(x, y, "GridUnconvered"));
+        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"GridUnconvered"});
         await this.triggerLogicPoint("onUncovered", {eleme:e});
 
         // 对 8 邻格子进行标记逻辑计算
@@ -165,34 +165,34 @@ class Battle {
     private eventHandlers = {};
 
     // 注册事件响应函数，这些事件是一个个异步执行的函数，需要一个个 wait 顺序执行，这也是不直接使用 egret.EventDispatcher 的原因
-    public registerEvent(evtType:string, h) {
-        var handlers = this.eventHandlers[evtType];
+    public registerEvent(eventType:string, h) {
+        var handlers = this.eventHandlers[eventType];
         if (handlers == undefined) {
             handlers = [];
-            this.eventHandlers[evtType] = handlers;
+            this.eventHandlers[eventType] = handlers;
         }
 
         handlers.push(h);
     }
 
     // 触发事件，这些事件是一个个异步执行的函数，需要一个个 wait 顺序执行，这也是不直接使用 egret.EventDispatcher 的原因    
-    public async fireEvent(evt:egret.Event, params = undefined) {
-        var handlers = this.eventHandlers[evt.type];
+    public async fireEvent(eventType:string, ps = undefined) {
+        var handlers = this.eventHandlers[eventType];
         if (handlers == undefined)
             return;
 
         for (var h of handlers)
-            await h(evt, params);
+            await h(ps);
     }
 
     // 同步触发事件，不会使用协程等待，典型的用途是录像
-    public fireEventSync(evt:egret.Event, params = undefined) {
-        var handlers = this.eventHandlers[evt.type];
+    public fireEventSync(eventType:string, ps = undefined) {
+        var handlers = this.eventHandlers[eventType];
         if (handlers == undefined)
             return;
 
         for (var h of handlers)
-            h(evt, params);
+            h(ps);
     }
 
     // 添加物品
@@ -221,7 +221,7 @@ class Battle {
                 return;
 
             // 操作录像
-            this.fireEventSync(new PlayerOpEvent("try2UncoverAt", {x:x, y:y}));
+            this.fireEventSync("onPlayerOp", {op:"try2UncoverAt", ps:{x:x, y:y}});
 
             var stateBeforeUncover = this.level.map.grids[x][y].status;
             this.uncover(x, y);
@@ -249,13 +249,13 @@ class Battle {
             if (canUse) {
 
                 // 操作录像
-                this.fireEventSync(new PlayerOpEvent("try2UseElem", {x:e.pos.x, y:e.pos.y}));
+                this.fireEventSync("onPlayerOp", {op:"try2UseElem", ps:{x:e.pos.x, y:e.pos.y}});
 
                 var reserve = await e.use(); // 返回值决定是保留还是消耗掉
                 if (!reserve)
                     this.removeElem(e);
 
-                await this.fireEvent(new GridChangedEvent(e.pos.x, e.pos.y, "ElemUsed"));
+                await this.fireEvent("onGridChanged", {x:e.pos.x, y:e.pos.y, subType:"ElemUsed"});
                 await this.triggerLogicPoint("onElemUsed", {elem:e});
                 await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
             }
@@ -266,18 +266,18 @@ class Battle {
     public try2BlockGrid() {
         return async (x:number, y:number, mark:boolean) => {
             // 操作录像
-            this.fireEventSync(new PlayerOpEvent("try2BlockGrid", {x:x, y:y, mark:mark}));
+            this.fireEventSync("onPlayerOp", {op:"try2BlockGrid", ps:{x:x, y:y, mark:mark}});
 
             var b = this.level.map.getGridAt(x, y);
             if (mark) {
                 Utils.assert(b.status == GridStatus.Covered, "only covered grid can be blocked");
                 b.status = GridStatus.Blocked;
-                await this.fireEvent(new GridChangedEvent(x, y, "GridBlocked"));
+                await this.fireEvent("onGridChanged", {x:x, y:y, subType:"GridBlocked"});
             }
             else {
                 Utils.assert(b.status == GridStatus.Blocked, "only blocked grid can be unblocked");
                 b.status = GridStatus.Covered;
-                await this.fireEvent(new GridChangedEvent(x, y, "GridUnblocked"));
+                await this.fireEvent("onGridChanged", {x:x, y:y, subType:"GridUnblocked"});
             }
         };
     }
@@ -293,8 +293,8 @@ class Battle {
                 // 将元素移动到空地
                 map.removeElemAt(fx, fy);
                 map.addElemAt(e, x, y);
-                await this.fireEvent(new GridChangedEvent(fx, fy, "ElemSwitchFrom"));
-                await this.fireEvent(new GridChangedEvent(x, y, "ElemSwitchTo"));
+                await this.fireEvent("onGridChanged", {x:fx, y:fy, subType:"ElemSwitchFrom"});
+                await this.fireEvent("onGridChanged", {x:x, y:y, subType:"ElemSwitchTo"});
                 await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
             }
             else {
@@ -309,14 +309,14 @@ class Battle {
     public static startNewBattle;
     public async implGo2NextLevel() {
         await this.triggerLogicPoint("beforeGoOutLevel");
-        await this.fireEvent(new LevelEvent("goOutLevel", this));
+        await this.fireEvent("onLevel", {subType:"goOutLevel", bt:this});
         Battle.startNewBattle(this.player);
     }
 
     // 向地图添加物品
     public async implAddElemAt(e:Elem, x:number, y:number) {
         this.addElemAt(e, x, y);
-        await this.fireEvent(new GridChangedEvent(x, y, "ElemAdded"));
+        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"ElemAdded"});
         await this.triggerLogicPoint("onElemAdded", {eleme:e});
     }
 
@@ -325,28 +325,28 @@ class Battle {
         var x = e.pos.x;
         var y = e.pos.y;
         this.removeElem(e);
-        await this.fireEvent(new GridChangedEvent(x, y, "ElemRemoved"));
+        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"ElemRemoved"});
         await this.triggerLogicPoint("onElemRemoved", {eleme:e});
     }
 
     // 角色+hp
     public async implAddPlayerHp(dhp:number) {
         this.player.addHp(dhp);
-        await this.fireEvent(new PlayerChangedEvent("hp"));
+        await this.fireEvent("onPlayerChanged", {subtype:"hp"});
         await this.triggerLogicPoint("onPlayerChanged", {"subType": "hp"});
     }
 
     // 怪物+hp
     public async implAddMonsterHp(m:Monster, dhp:number) {
         m.addHp(dhp);
-        await this.fireEvent(new MonsterChangedEvent("hp", m));
+        await this.fireEvent("onMonsterChanged", {subType:"hp", m:m});
         await this.triggerLogicPoint("onMonsterChanged", {"subType": "hp", "m":m});
     }
 
     // 角色尝试攻击指定怪物
     public async implPlayerAttackMonster(m:Monster) {
         var r = this.bc.tryAttack(this.player, m);
-        await this.fireEvent(new AttackEvent("player2monster", r, m));
+        await this.fireEvent("onAttack", {subtype:"player2monster", r:r, m:m});
 
         switch (r.r) {
             case "attacked": // 攻击成功
@@ -361,7 +361,7 @@ class Battle {
     // 指定怪物尝试攻击角色
     public async implMonsterAttackPlayer(m:Monster) {
         var r = this.bc.tryAttack(m, this.player);
-        await this.fireEvent(new AttackEvent("monster2player", r, m));
+        await this.fireEvent("onAttack", {subtype:"monster2player", r:r, m:m});
 
         switch (r.r) {
             case "attacked": // 攻击成功
@@ -394,17 +394,17 @@ class Battle {
 
         // 直接移动到指定位置，逻辑上是没有连续移动过程的
         this.level.map.switchElems(m.pos.x, m.pos.y, path[path.length-1].x, path[path.length-1].y);
-        await this.fireEvent(new ElemMovingEvent("MonsterMoving", m, path));
+        await this.fireEvent("onElemMoving", {subType:"MonsterMoving", m:m, path:path});
     }
 
     // 从角色身上偷钱
     public async implStealMoney(m:Monster, dm:number) {
         this.player.addMoney(-dm);
         
-        await this.fireEvent(new MoneyStolenEvent(m, dm));
+        await this.fireEvent("onMoneyStolen", {m:m, d:dm});
         await this.triggerLogicPoint("onMoneyStolen", {"subType": "money", "m":m});
 
-        await this.fireEvent(new PlayerChangedEvent("money"));
+        await this.fireEvent("onPlayerChanged", {subtype:"money"});
         await this.triggerLogicPoint("onPlayerChanged", {"subType": "money", "m":m});
     }
 }

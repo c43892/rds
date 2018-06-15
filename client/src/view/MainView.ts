@@ -121,14 +121,14 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 初始化主视图数据
-    public async onLevelEvent(evt:LevelEvent) {
-        if (evt.subType == "levelInited") {
-            var bt = evt.bt;
+    public async onLevelEvent(ps) {
+        if (ps.subType == "levelInited") {
+            var bt = ps.bt;
             this.setMap(bt.level.map);
             this.setPlayer(bt.player);
             this.refresh();
         }
 
-        await this.aniView.onLevelEvent(evt);
+        await this.aniView.onLevelEvent(ps);
     }
 }
