@@ -5,11 +5,11 @@ class Battle {
     public srand:SRandom; // 随机序列
     public trueRandomSeed:number; // 随机序列2，这个随机序列相关的通常是允许玩家刷的东西，不会计入存档，但是会计入录像
     public trueRand:SRandom; // 随机序列2，这个随机序列相关的通常是允许玩家刷的东西，不会计入存档，但是会计入录像
-    private lvCfg; // 当前关卡配置
     public level:Level; // 当前关卡
     public player:Player; // 角色数据
-    private bc:BattleCalculator; // 战斗计算器
+    public bc:BattleCalculator; // 战斗计算器
     public $$srandSeed; // 测试用，获取战斗随机数种子
+    private lvCfg; // 当前关卡配置
 
     constructor(randomseed:number, trueRandomSeed:number) {
         Utils.assert(randomseed != undefined, "the randomseed should be specified");
@@ -136,7 +136,7 @@ class Battle {
     }
 
     // 搜集所有计算参数，返回值形如 {a:[...], b:[...], c:[...]}
-    public getAttrPs(type:string) {
+    public getCalcPs(type:string) {
         var ps = {a:[], b:[], c:[]};
         BattleUtils.mergeCalcPs(ps, this.player[type]);
         this.level.map.foreachUncoveredElems((e) => BattleUtils.mergeCalcPs(ps, e[type]));
@@ -326,27 +326,16 @@ class Battle {
         await this.triggerLogicPoint("onElemRemoved", {eleme:e});
     }
 
-    // 角色 +hp
+    // 角色+hp
     public async implAddPlayerHp(dhp:number) {
-        // 搜集影响数值计算的参数，然后计算最终结果
-        var ps = this.getAttrPs("forAddHp");
-        dhp = this.bc.forAttr(dhp, ps);
-        // 执行实际结果
         this.player.addHp(dhp);
         await this.fireEvent(new PlayerChangedEvent("hp"));
         await this.triggerLogicPoint("onPlayerChanged", {"subType": "hp"});
     }
 
-    // 角色 -hp
-    public async implDecPlayerHp(dhp:number) {
-        this.player.addHp(-dhp);
-        await this.fireEvent(new PlayerChangedEvent("hp"));
-        await this.triggerLogicPoint("onPlayerChanged", {"subType": "hp"});
-    }
-
-    // 怪物 -hp
-    public async implDecMonsterHp(m:Monster, dhp:number) {
-        m.addHp(-dhp);
+    // 怪物+hp
+    public async implAddMonsterHp(m:Monster, dhp:number) {
+        m.addHp(dhp);
         await this.fireEvent(new MonsterChangedEvent("hp", m));
         await this.triggerLogicPoint("onMonsterChanged", {"subType": "hp", "m":m});
     }
@@ -358,7 +347,7 @@ class Battle {
 
         switch (r.r) {
             case "attacked": // 攻击成功
-                this.implDecMonsterHp(m, r.dhp);
+                this.implAddMonsterHp(m, -r.dhp);
                 await this.triggerLogicPoint("onMonsterDamanged", {"dhp": r.dhp});
             break;
             case "dodged": // 被闪避
@@ -373,7 +362,7 @@ class Battle {
 
         switch (r.r) {
             case "attacked": // 攻击成功
-                this.implDecPlayerHp(r.dhp);
+                this.implAddPlayerHp(-r.dhp);
                 await this.triggerLogicPoint("onPlayerDamanged", {"dhp": r.dhp});
             break;
             case "dodged": // 被闪避

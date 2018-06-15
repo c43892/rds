@@ -27,7 +27,7 @@ class BattleCalculator {
     }
 
     // 属性加成计算
-    public forAttr(v:number, ps) {
+    public doCalc(v:number, ps) {
         for (var b of ps.b)
             v += b;
 
