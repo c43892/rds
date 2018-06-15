@@ -15,7 +15,6 @@
 		"bin-debug/animation/AnimationFactory.js",
 		"bin-debug/battle/Battle.js",
 		"bin-debug/battle/BattleCaculator.js",
-		"bin-debug/battle/BattleEvents.js",
 		"bin-debug/battle/BattleUtils.js",
 		"bin-debug/battle/GlobalBattleConfig.js",
 		"bin-debug/battle/Level.js",

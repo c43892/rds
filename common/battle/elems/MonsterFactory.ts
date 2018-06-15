@@ -5,7 +5,6 @@ class Monster extends Elem {
     }
 
     public hp:number; // 血量
-    public maxHp:number; // 最大血量
     public power:number; // 攻击力
     public defence:number; // 防御
     public dodge:number; // 闪避%
@@ -14,29 +13,27 @@ class Monster extends Elem {
         this.hp += dhp;
         if (this.hp < 0)
             this.hp = 0;
-        else if (this.hp > this.maxHp)
-            this.hp = this.maxHp;
     }
 }
 
 // 怪物
 class MonsterFactory {
     public creators = {
-        // "Bunny": (bt) => this.doAttackBack(this.createNormalMonster(bt, 5, 1)) // 被攻击时反击
-        // "Bunny": (bt) => this.doAttackBack(this.doSneakAttack(this.createNormalMonster(bt, 5, 1))) // 偷袭行为是攻击，被攻击时反击
-        "Bunny": (bt) => this.doAttackBack(this.doSneakStealMoney(this.createNormalMonster(bt, 5, 1))) // 偷袭行为是偷钱，被攻击时反击
+        // "Bunny": (bt, attrs) => this.doAttackBack(this.createNormalMonster(bt, attrs.hp, attrs.power, attrs.defence, attrs.dodge)) // 被攻击时反击
+        // "Bunny": (bt, attrs) => this.doAttackBack(this.doSneakAttack(this.createNormalMonster(bt, attrs.hp, attrs.power, attrs.defence, attrs.dodge))) // 偷袭行为是攻击，被攻击时反击
+        "Bunny": (bt, attrs) => this.doAttackBack(this.doSneakStealMoney(this.createNormalMonster(bt, attrs.hp, attrs.power, attrs.defence, attrs.dodge))) // 偷袭行为是偷钱，被攻击时反击
     };
 
     // 创建一个普通的怪物
-    createNormalMonster(bt:Battle, hp:number, power:number, defence:number = 0, dodge:number = 0):Monster {
+    createNormalMonster(bt:Battle, hp:number, power:number, defence:number, dodge:number):Monster {
         var m = new Monster(bt);
         m.canUse = () => true;
-        m.hp = hp;
-        m.maxHp = hp;
-        m.power = power;
+        m.hp = hp ? hp : 0;
+        m.power = power ? power : 0;
+        m.defence = defence ? defence : 0;
+        m.dodge = dodge ? dodge : 0;        
         m.hazard = true;
         m.blockUncover = true;
-        m.dodge = dodge;
 
         // 使用，即攻击怪物
         m.use = async () =>  {
@@ -74,7 +71,7 @@ class MonsterFactory {
 
     // 偷袭：偷钱
     doSneakStealMoney(m:Monster):Monster {
-        return this.addSneakAI(m, () => m.bt.implStealMoney(m, 10));
+        return this.addSneakAI(m, () => m.bt.implAddMoney(m, -10));
     }
 
     // 被攻击时反击一次

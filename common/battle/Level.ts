@@ -26,8 +26,9 @@ class Level {
         for (var e in cfg) {
             let eCfg = cfg[e];
             let num = eCfg.num;
+            let attrs = eCfg.attrs;
             for (var i = 0; i < num; i++)
-                elems.push(ElemFactory.create(e, this.bt));
+                elems.push(ElemFactory.create(e, this.bt, attrs));
         }
 
         // 依次加入地图

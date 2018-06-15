@@ -86,4 +86,10 @@ class Player {
     public onAllCoveredAtInit = []; // 关卡初始盖住所有元素之后
     public onStartupRegionUncovered = []; // 初始区域揭开之后
     public onGoOutLevel = []; // 离开当前关卡
+    public clearOccupationFun() {
+        this.onLevelInited = [];
+        this.onAllCoveredAtInit = [];
+        this.onStartupRegionUncovered = [];
+        this.onGoOutLevel = [];
+    }
 }

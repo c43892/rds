@@ -397,14 +397,11 @@ class Battle {
         await this.fireEvent("onElemMoving", {subType:"MonsterMoving", m:m, path:path});
     }
 
-    // 从角色身上偷钱
-    public async implStealMoney(m:Monster, dm:number) {
-        this.player.addMoney(-dm);
+    // 给角色加钱/减钱, e 是相关元素，比如偷钱的怪物，或者是地上的钱币
+    public async implAddMoney(e:Elem, dm:number) {
+        this.player.addMoney(dm);
         
-        await this.fireEvent("onMoneyStolen", {m:m, d:dm});
-        await this.triggerLogicPoint("onMoneyStolen", {"subType": "money", "m":m});
-
-        await this.fireEvent("onPlayerChanged", {subtype:"money"});
-        await this.triggerLogicPoint("onPlayerChanged", {"subType": "money", "m":m});
+        await this.fireEvent("onPlayerChanged", {subtype:"money", e:e});
+        await this.triggerLogicPoint("onPlayerChanged", {"subType": "money", e:e});
     }
 }
