@@ -15,6 +15,7 @@ class ItemFactory {
             var e = new Elem(bt);
             e.canUse = () => true;
             e.use = async () => {
+                // 搜集所有参数，过公式算一下最终值
                 var ps = e.bt.getCalcPs("forHpPotion");
                 var dhp = e.bt.bc.doCalc(10, ps);
                 await e.bt.implAddPlayerHp(dhp);

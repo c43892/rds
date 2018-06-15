@@ -224,7 +224,8 @@ class Battle {
             this.fireEventSync(new PlayerOpEvent("try2UncoverAt", {x:x, y:y}));
 
             this.uncover(x, y);
-            await this.triggerLogicPoint("afterPlayerActed"); // 算一次角色行动
+            await this.triggerLogicPoint("onGridUncovered", {x:x, y:y});
+            await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
         };
     }
 
@@ -255,7 +256,7 @@ class Battle {
 
                 await this.fireEvent(new GridChangedEvent(e.pos.x, e.pos.y, "ElemUsed"));
                 await this.triggerLogicPoint("onElemUsed", {elem:e});
-                await this.triggerLogicPoint("afterPlayerActed"); // 算一次角色行动
+                await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
             }
         };
     }
@@ -293,6 +294,7 @@ class Battle {
                 map.addElemAt(e, x, y);
                 await this.fireEvent(new GridChangedEvent(fx, fy, "ElemSwitchFrom"));
                 await this.fireEvent(new GridChangedEvent(x, y, "ElemSwitchTo"));
+                await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
             }
             else {
                 // 其它情况

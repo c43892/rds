@@ -23,7 +23,7 @@ class Monster extends Elem {
 class MonsterFactory {
     public creators = {
         // 兔子
-        "Bunny": (bt) => this.doAttack("afterPlayerActed", this.doMove("afterPlayerActed", 3, this.createNormalMonster(bt, 5, 1)))
+        "Bunny": (bt) => this.doAttackBack(this.createNormalMonster(bt, 5, 1))
     };
 
     // 创建一个普通的怪物
@@ -47,13 +47,14 @@ class MonsterFactory {
     }
 
     // 为怪物在指定逻辑点添加一个行为
-    addAI(m:Monster, logicPoint:string, act) {
+    addAI(m:Monster, logicPoint:string, act, condition = undefined) {
         var doPrior = m[logicPoint];
-        m[logicPoint] = async () => {
+        m[logicPoint] = async (ps) => {
             if (doPrior != undefined)
-                await doPrior();
+                await doPrior(ps);
 
-            await act();
+            if (!condition || condition(ps))
+                await act(ps);
         }
         
         return m;
@@ -62,6 +63,11 @@ class MonsterFactory {
     // 攻击玩家一次
     doAttack(logicPoint:string, m:Monster):Monster {
         return this.addAI(m, logicPoint, () => m.bt.implMonsterAttackPlayer(m));
+    }
+
+    // 被攻击时反击一次
+    doAttackBack(m:Monster):Monster {
+        return this.addAI(m, "onElemUsed", () => m.bt.implMonsterAttackPlayer(m), (ps) => ps.elem == m);
     }
 
     // 随机移动一次，dist 表示移动几格

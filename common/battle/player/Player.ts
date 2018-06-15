@@ -5,7 +5,7 @@ class Player {
     // 应该序列化的字段
     private static serializableFields = [
         "currentLevel", "battleRandomSeed", "avatar", 
-        "hp", "maxHp", "power", "defence", "dodge", 
+        "deathStep", "hp", "maxHp", "power", "defence", "dodge", 
         "occupation"];
 
     public getBattle; // 当前战斗
@@ -19,6 +19,7 @@ class Player {
         var p = new Player();
         p.currentLevel = "testLevel1";
         p.occupation = "nurse";
+        p.deathStep = 20;
         p.hp = 10;
         p.maxHp = 20;
         p.avatar = "avator1";
@@ -33,6 +34,7 @@ class Player {
     public avatar:string;
 
     // 战斗逻辑
+    public deathStep:number; // 死神剩余步数
     public hp:number;
     public maxHp:number;
     public power:number; // 攻击力
