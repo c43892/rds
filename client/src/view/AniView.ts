@@ -116,6 +116,11 @@ class AniView extends egret.DisplayObjectContainer {
         }    
     }
 
+    // 偷钱
+    public async onMoneyStolen(evt:MoneyStolenEvent) {
+        await this.aniFact.createAni("stealMoney", {"dm":evt.dm});
+    }
+
     // 开局时所有元素盖上
     public async onAllCoveredAtInit(evt:AllCoveredAtInitEvent) {
         await this.blackIn();

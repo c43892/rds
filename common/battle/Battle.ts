@@ -223,8 +223,9 @@ class Battle {
             // 操作录像
             this.fireEventSync(new PlayerOpEvent("try2UncoverAt", {x:x, y:y}));
 
+            var stateBeforeUncover = this.level.map.grids[x][y].status;
             this.uncover(x, y);
-            await this.triggerLogicPoint("onGridUncovered", {x:x, y:y});
+            await this.triggerLogicPoint("onGridUncovered", {x:x, y:y, stateBeforeUncover:stateBeforeUncover});
             await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
         };
     }
@@ -235,7 +236,7 @@ class Battle {
             let canUse = e.canUse();
             if (!canUse)
                 return;
-            
+
             // 其它元素可能会阻止使用
             this.level.map.foreachUncoveredElems((e:Elem) => {
                 if (e.canUseOther)
@@ -312,14 +313,14 @@ class Battle {
         Battle.startNewBattle(this.player);
     }
 
-    // 添加物品
+    // 向地图添加物品
     public async implAddElemAt(e:Elem, x:number, y:number) {
         this.addElemAt(e, x, y);
         await this.fireEvent(new GridChangedEvent(x, y, "ElemAdded"));
         await this.triggerLogicPoint("onElemAdded", {eleme:e});
     }
 
-    // 移除物品
+    // 从地图移除物品
     public async implRemoveElem(e:Elem) {
         var x = e.pos.x;
         var y = e.pos.y;
@@ -394,5 +395,16 @@ class Battle {
         // 直接移动到指定位置，逻辑上是没有连续移动过程的
         this.level.map.switchElems(m.pos.x, m.pos.y, path[path.length-1].x, path[path.length-1].y);
         await this.fireEvent(new ElemMovingEvent("MonsterMoving", m, path));
+    }
+
+    // 从角色身上偷钱
+    public async implStealMoney(m:Monster, dm:number) {
+        this.player.addMoney(-dm);
+        
+        await this.fireEvent(new MoneyStolenEvent(m, dm));
+        await this.triggerLogicPoint("onMoneyStolen", {"subType": "money", "m":m});
+
+        await this.fireEvent(new PlayerChangedEvent("money"));
+        await this.triggerLogicPoint("onPlayerChanged", {"subType": "money", "m":m});
     }
 }

@@ -5,6 +5,7 @@ class Player {
     // 应该序列化的字段
     private static serializableFields = [
         "currentLevel", "battleRandomSeed", "avatar", 
+        "money", 
         "deathStep", "hp", "maxHp", "power", "defence", "dodge", 
         "occupation"];
 
@@ -27,11 +28,22 @@ class Player {
         p.defence = 0;
         p.dodge = 0;
         p.battleRandomSeed = 0;
+
+        p.money = 100;
         return p;
     }
 
     // 头像逻辑
     public avatar:string;
+
+    // 非战斗逻辑
+    public money:number; // 金币
+
+    public addMoney(dm:number) {
+        this.money += dm;
+        if (this.money < 0)
+            this.money = 0;
+    }
 
     // 战斗逻辑
     public deathStep:number; // 死神剩余步数

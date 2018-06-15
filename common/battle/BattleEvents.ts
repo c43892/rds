@@ -72,6 +72,20 @@ class AttackEvent extends egret.Event {
     }
 }
 
+// 玩家钱被偷
+class MoneyStolenEvent extends egret.Event {
+    public m:Monster; // 谁偷的
+    public dm:number; // 被偷数量
+    public static type:string = "MoneyStolen";
+
+    public constructor(m:Monster, dm:number, bubbles:boolean=false, cancelable:boolean=false)
+    {
+        super(MoneyStolenEvent.type, bubbles, cancelable);
+        this.m = m;
+        this.dm = dm;
+    }
+}
+
 // 物品移动
 class ElemMovingEvent extends egret.Event {
     public subType:string;

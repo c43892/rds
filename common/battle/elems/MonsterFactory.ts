@@ -22,8 +22,9 @@ class Monster extends Elem {
 // 怪物
 class MonsterFactory {
     public creators = {
-        // 兔子
-        "Bunny": (bt) => this.doAttackBack(this.createNormalMonster(bt, 5, 1))
+        // "Bunny": (bt) => this.doAttackBack(this.createNormalMonster(bt, 5, 1)) // 被攻击时反击
+        // "Bunny": (bt) => this.doAttackBack(this.doSneakAttack(this.createNormalMonster(bt, 5, 1))) // 偷袭行为是攻击，被攻击时反击
+        "Bunny": (bt) => this.doAttackBack(this.doSneakStealMoney(this.createNormalMonster(bt, 5, 1))) // 偷袭行为是偷钱，被攻击时反击
     };
 
     // 创建一个普通的怪物
@@ -60,14 +61,30 @@ class MonsterFactory {
         return m;
     }
 
-    // 攻击玩家一次
-    doAttack(logicPoint:string, m:Monster):Monster {
-        return this.addAI(m, logicPoint, () => m.bt.implMonsterAttackPlayer(m));
+    // 设定偷袭逻辑
+    addSneakAI(m:Monster, act) {
+        return this.addAI(m, "onGridUncovered", act, (ps) => ps.x == m.pos.x && ps.y == m.pos.y 
+                                                        && ps.stateBeforeUncover != GridStatus.Marked);
+    }
+
+    // 偷袭：攻击
+    doSneakAttack(m:Monster):Monster {
+        return this.addSneakAI(m, () => m.bt.implMonsterAttackPlayer(m));
+    }
+
+    // 偷袭：偷钱
+    doSneakStealMoney(m:Monster):Monster {
+        return this.addSneakAI(m, () => m.bt.implStealMoney(m, 10));
     }
 
     // 被攻击时反击一次
     doAttackBack(m:Monster):Monster {
         return this.addAI(m, "onElemUsed", () => m.bt.implMonsterAttackPlayer(m), (ps) => ps.elem == m);
+    }
+
+    // 攻击玩家一次
+    doAttack(logicPoint:string, m:Monster):Monster {
+        return this.addAI(m, logicPoint, () => m.bt.implMonsterAttackPlayer(m));
     }
 
     // 随机移动一次，dist 表示移动几格
