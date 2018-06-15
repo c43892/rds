@@ -152,6 +152,7 @@ class Map {
 
         var e = this.elems[x][y];
         this.elems[x][y] = undefined;
+        e.bt = undefined;
         return e;
     }
 

@@ -21,7 +21,7 @@ class MonsterFactory {
     public creators = {
         // "Bunny": (bt, attrs) => this.doAttackBack(this.createNormalMonster(bt, attrs.hp, attrs.power, attrs.defence, attrs.dodge)) // 被攻击时反击
         // "Bunny": (bt, attrs) => this.doAttackBack(this.doSneakAttack(this.createNormalMonster(bt, attrs.hp, attrs.power, attrs.defence, attrs.dodge))) // 偷袭行为是攻击，被攻击时反击
-        "Bunny": (bt, attrs) => this.doAttackBack(this.doSneakStealMoney(this.createNormalMonster(bt, attrs.hp, attrs.power, attrs.defence, attrs.dodge))) // 偷袭行为是偷钱，被攻击时反击
+        "Bunny": (bt, attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakStealMoney(this.createNormalMonster(bt, attrs.hp, attrs.power, attrs.defence, attrs.dodge))) // 偷袭行为是偷钱，被攻击时反击
     };
 
     // 创建一个普通的怪物
@@ -44,50 +44,43 @@ class MonsterFactory {
         return m;
     }
 
-    // 为怪物在指定逻辑点添加一个行为
-    addAI(m:Monster, logicPoint:string, act, condition = undefined) {
-        var doPrior = m[logicPoint];
-        m[logicPoint] = async (ps) => {
-            if (doPrior != undefined)
-                await doPrior(ps);
-
-            if (!condition || condition(ps))
-                await act(ps);
-        }
-        
-        return m;
-    }
-
     // 设定偷袭逻辑
-    addSneakAI(m:Monster, act) {
-        return this.addAI(m, "onGridUncovered", act, (ps) => ps.x == m.pos.x && ps.y == m.pos.y 
+    static addSneakAI(m:Monster, act) {
+        return <Monster>ElemFactory.addAI(m, "onGridUncovered", act, (ps) => ps.x == m.pos.x && ps.y == m.pos.y 
                                                         && ps.stateBeforeUncover != GridStatus.Marked);
     }
 
     // 偷袭：攻击
-    doSneakAttack(m:Monster):Monster {
-        return this.addSneakAI(m, () => m.bt.implMonsterAttackPlayer(m));
+    static doSneakAttack(m:Monster):Monster {
+        return MonsterFactory.addSneakAI(m, () => m.bt.implMonsterAttackPlayer(m));
     }
 
     // 偷袭：偷钱
-    doSneakStealMoney(m:Monster):Monster {
-        return this.addSneakAI(m, () => m.bt.implAddMoney(m, -10));
+    static doSneakStealMoney(m:Monster):Monster {
+        return MonsterFactory.addSneakAI(m, () => {
+            var dm = 10;
+            if (!m.dropItems["Coins"])
+                m.dropItems["Coins"] = {num:1, attrs:{cnt:0}};
+
+            m.dropItems["Coins"] = {num:1, attrs:{cnt:m.dropItems["Coins"].attrs.cnt + dm}};
+            m.bt.implAddMoney(m, -dm);
+        });
     }
 
     // 被攻击时反击一次
-    doAttackBack(m:Monster):Monster {
-        return this.addAI(m, "onElemUsed", () => m.bt.implMonsterAttackPlayer(m), (ps) => ps.elem == m);
+    static doAttackBack(m:Monster):Monster {
+        return <Monster>ElemFactory.addAI(m, "onElemUsed", () => m.bt.implMonsterAttackPlayer(m), (ps) => ps.e == m);
     }
 
     // 攻击玩家一次
-    doAttack(logicPoint:string, m:Monster):Monster {
-        return this.addAI(m, logicPoint, () => m.bt.implMonsterAttackPlayer(m));
+    static doAttack(logicPoint:string, m:Monster):Monster {
+        return <Monster>ElemFactory.addAI(m, logicPoint, () => m.bt.implMonsterAttackPlayer(m));
     }
 
     // 随机移动一次，dist 表示移动几格
-    doMove(logicPoint:string, dist:number, m:Monster):Monster {
+    static doMove(logicPoint:string, dist:number, m:Monster):Monster {
         var dir = [[-1,0],[1,0],[0,-1],[0,1]];
-        return this.addAI(m, logicPoint, async () => {
+        return <Monster>ElemFactory.addAI(m, logicPoint, async () => {
             var path = [{x:m.pos.x, y:m.pos.y}];
             for (var i = 0; i < dist; i++) {
                 var d = dir[m.bt.srand.nextInt(0, dir.length)];

@@ -33,5 +33,7 @@ class Elem {
     // 各种逻辑点，Elem 应该在此作响应逻辑
     public afterPlayerActed; // 当角色行动结束时触发，会被赋值为一个 function():void 的函数
     public beforePlayerMove2NextLevel; // 当角色准备进入下一层时触发
+    public onDie; // 角色死亡时（物品使用后从地图上移除也算）
     
+    public dropItems = {}; // 死后要掉落的物品，形如 {物品:{num:1, attrs:{...}}, ...} 这样
 }
