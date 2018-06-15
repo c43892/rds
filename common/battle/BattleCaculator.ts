@@ -22,7 +22,21 @@ class BattleCalculator {
             return {"r": "dodged"};
         else {
             var d = power > defence ? power - defence : 1; // 伤害至少是 1
-            return {"r": "attacked", "dhp": -d}; // 参数表示血量变化
+            return {"r": "attacked", "dhp": d}; // 参数表示血量变化
         }
+    }
+
+    // 属性加成计算
+    public forAttr(v:number, ps) {
+        for (var b of ps.b)
+            v += b;
+
+        for (var a of ps.a)
+            v *= (1 + a);
+
+        for (var c of ps.c)
+            v += c;
+
+        return v;
     }
 }

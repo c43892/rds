@@ -135,6 +135,14 @@ class Battle {
             this.mark(p[0], p[1]);
     }
 
+    // 搜集所有计算参数，返回值形如 {a:[...], b:[...], c:[...]}
+    public getAttrPs(type:string) {
+        var ps = {a:[], b:[], c:[]};
+        BattleUtils.mergeCalcPs(ps, this.player[type]);
+        this.level.map.foreachUncoveredElems((e) => BattleUtils.mergeCalcPs(ps, e[type]));
+        return ps;
+    }
+
     // 触发逻辑点，参数为逻辑点名称，该名称直接字面对应个各元素对逻辑点的处理函数，
     // 处理函数的返回值表示是否需要截获该事件，不再传递给其它元素
     public async triggerLogicPoint(lpName:string, ps = undefined) {
@@ -318,16 +326,27 @@ class Battle {
         await this.triggerLogicPoint("onElemRemoved", {eleme:e});
     }
 
-    // 修改角色 hp
+    // 角色 +hp
     public async implAddPlayerHp(dhp:number) {
+        // 搜集影响数值计算的参数，然后计算最终结果
+        var ps = this.getAttrPs("forAddHp");
+        dhp = this.bc.forAttr(dhp, ps);
+        // 执行实际结果
         this.player.addHp(dhp);
         await this.fireEvent(new PlayerChangedEvent("hp"));
         await this.triggerLogicPoint("onPlayerChanged", {"subType": "hp"});
     }
 
-    // 修改怪物 hp
-    public async implAddMonsterHp(m:Monster, dhp:number) {
-        m.addHp(dhp);
+    // 角色 -hp
+    public async implDecPlayerHp(dhp:number) {
+        this.player.addHp(-dhp);
+        await this.fireEvent(new PlayerChangedEvent("hp"));
+        await this.triggerLogicPoint("onPlayerChanged", {"subType": "hp"});
+    }
+
+    // 怪物 -hp
+    public async implDecMonsterHp(m:Monster, dhp:number) {
+        m.addHp(-dhp);
         await this.fireEvent(new MonsterChangedEvent("hp", m));
         await this.triggerLogicPoint("onMonsterChanged", {"subType": "hp", "m":m});
     }
@@ -339,7 +358,7 @@ class Battle {
 
         switch (r.r) {
             case "attacked": // 攻击成功
-                this.implAddMonsterHp(m, r.dhp);
+                this.implDecMonsterHp(m, r.dhp);
                 await this.triggerLogicPoint("onMonsterDamanged", {"dhp": r.dhp});
             break;
             case "dodged": // 被闪避
@@ -354,7 +373,7 @@ class Battle {
 
         switch (r.r) {
             case "attacked": // 攻击成功
-                this.implAddPlayerHp(r.dhp);
+                this.implDecPlayerHp(r.dhp);
                 await this.triggerLogicPoint("onPlayerDamanged", {"dhp": r.dhp});
             break;
             case "dodged": // 被闪避

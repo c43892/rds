@@ -27,6 +27,11 @@ class Occupation {
 
         // 离开关卡时恢复生命
         p.onGoOutLevel.push(async () => { await p.getBattle().implAddPlayerHp(5); });
+
+
+        // 护士加血效果加成
+        p["forAddHp"] = {a:0, b:0, c:1};
+
         return p;
     }
 }

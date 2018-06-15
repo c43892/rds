@@ -20,4 +20,18 @@ class BattleUtils {
     public static findRandomEmptyGrid(bt:Battle, covered:boolean) {
         return BattleUtils.findRandomGrid(bt, (g:Grid) => (g.isCovered() == covered) && g.getElem() == undefined);
     }
+
+    // 合并计算公式参数
+    public static mergeCalcPs(ps1, ps2) {
+        if (!ps2)
+            return ps1;
+
+        var pNames = ["a", "b", "c"];
+        for (var pn of pNames) {
+            if (ps2[pn])
+                ps1[pn].push(ps2[pn]);
+        }
+
+        return ps1;
+    }
 }
