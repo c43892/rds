@@ -17,7 +17,7 @@ class BattleUtils {
     }
 
     // 寻找一个随机的空白位置
-    public static findRandomEmptyGrid(bt:Battle, covered:boolean):Grid {
+    public static findRandomEmptyGrid(bt:Battle, covered:boolean = false):Grid {
         return BattleUtils.findRandomGrid(bt, (g:Grid) => (g.isCovered() == covered) && g.getElem() == undefined);
     }
 

@@ -197,6 +197,11 @@ class Map {
         return e;
     }
 
+    // 寻找满足条件的第一个揭开了的 Elem
+    public findFirstUncoveredElem(f):Elem {
+        return this.findFirstElem((x, y, e) => e && !this.grids[x][y].isCovered() && f(e));
+    }
+
     // 寻找所有满足条件的 Elem, f 是一个函数表示过滤条件，形如 function(x:number, y:number, e:elem):boolean
     public findAllElems(f):Elem[] {
         var es = [];

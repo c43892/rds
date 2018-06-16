@@ -4,7 +4,9 @@ class Occupation {
     public static makeOccupation(p:Player):Player {
         var c = Occupation.creators[p.occupation];
         Utils.assert(c, "no such occupation: " + p.occupation);
-        p.clearOccupationFun();
+        p.clear();
+        p.mountBuffLogicPoint();
+        p.buffs.push(new BuffDeath(p));
         return c(p);
     }
 
@@ -18,7 +20,7 @@ class Occupation {
         p.onLevelInited.push(async () => {
             var bt = p.getBattle();
             // 随机找个揭开了的空白格子
-            var g = BattleUtils.findRandomEmptyGrid(bt, false);
+            var g = BattleUtils.findRandomEmptyGrid(bt);
             if (g) {
                 var hpPotion = ElemFactory.create("HpPotion", bt, {dhp:10});
                 await Utils.delay(1000);

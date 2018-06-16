@@ -1,5 +1,6 @@
 {
     "HpPotion":{"dhp":10, "canOverlap":true},
     "Coins":{"canOverlap":true},
-    "Gun":{"canOverlap":true}
+    "Gun":{"canOverlap":true},
+    "DeathGod":{"hp":10, "power":3}
 }

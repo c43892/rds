@@ -31,7 +31,7 @@ class ElemFactory {
     }
 
     // 为怪物在指定逻辑点添加一个行为
-    public static addAI(e:Elem, logicPoint:string, act, condition = undefined):Elem {
+    public static addAI(logicPoint:string, act, e:Elem, condition = undefined):Elem {
         var doPrior = e[logicPoint];
         e[logicPoint] = async (ps) => {
             if (doPrior != undefined)
@@ -45,7 +45,7 @@ class ElemFactory {
     }
 
     // 为物品死亡增加逻辑
-    public static addDieAI(e:Elem, act):Elem {
+    public static addDieAI(act, e:Elem):Elem {
         var bt = e.bt;
         var prior = e.onDie;
         e.onDie = async (ps) => {
@@ -61,7 +61,7 @@ class ElemFactory {
     // 死亡时掉落物品
     public static doDropItemsOnDie(e:Elem):Elem {
         var bt = e.bt;
-        ElemFactory.addDieAI(e, async () => {
+        ElemFactory.addDieAI(async () => {
             var dropInPosition = true;
             for (var elem of e.dropItems) {
                 var g:Grid; // 掉落位置，优先掉在原地
@@ -69,12 +69,12 @@ class ElemFactory {
                     g = bt.level.map.getGridAt(e.pos.x, e.pos.y);
                     dropInPosition = false;
                 } else
-                    g = BattleUtils.findRandomEmptyGrid(bt, false);
+                    g = BattleUtils.findRandomEmptyGrid(bt);
 
                 if (!g) return; // 没有空间了
                 await bt.implAddElemAt(elem, g.pos.x, g.pos.y);
             }
-        });
+        }, e);
 
         return e;
     }

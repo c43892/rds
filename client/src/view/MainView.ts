@@ -3,6 +3,7 @@ class MainView extends egret.DisplayObjectContainer {
     public player:Player; // 当前角色
     public avatar:egret.Bitmap; // 角色头像
     public money:egret.TextField; // 金币
+    public deathStep:egret.TextField; // 死神距离
     public hp:egret.TextField; // 血量
     public power:egret.TextField; // 攻击
     public defence:egret.TextField; // 防御
@@ -20,6 +21,9 @@ class MainView extends egret.DisplayObjectContainer {
 
         this.money = new egret.TextField();
         this.addChild(this.money);
+
+        this.deathStep = new egret.TextField();
+        this.addChild(this.deathStep);
 
         this.hp = new egret.TextField();
         this.addChild(this.hp);
@@ -79,6 +83,7 @@ class MainView extends egret.DisplayObjectContainer {
     public refreshPlayer() {
         this.avatar.texture = RES.getRes(this.player.avatar + "_png");
         this.money.text = "💴：" + this.player.money;
+        this.deathStep.text = "😈：" + this.player.deathStep;
         this.hp.text = "血量: " + this.player.hp + "/" + this.player.maxHp;
         this.power.text = "攻击: " + this.player.power;
         this.defence.text = "防御: " + this.player.defence;
@@ -93,8 +98,10 @@ class MainView extends egret.DisplayObjectContainer {
             this.avatar.width = this.avatar.texture.textureWidth;
             this.avatar.height = this.avatar.texture.textureHeight;
 
-            this.money.x = this.avatar.x;
+            this.money.x = this.avatar.x; 
             this.money.y = this.avatar.y + this.avatar.height + 10;
+            this.deathStep.x = this.money.x + this.money.width + 10;
+            this.deathStep.y = this.money.y;
 
             var x = this.avatar.x + this.avatar.width + 20;
             var y = this.avatar.y - 10;

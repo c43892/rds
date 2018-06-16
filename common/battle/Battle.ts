@@ -80,7 +80,7 @@ class Battle {
         }
 
         // 移除逃离出口，目前不需要了
-        var ep = this.level.map.findFirstElem((x, y, e) => e && e.type == "EscapePort");
+        var ep = this.level.map.findFirstUncoveredElem((e) => e.type == "EscapePort");
         this.level.map.removeElemAt(ep.pos.x, ep.pos.y);
         await this.fireEvent("onStartupRegionUncovered");
         await this.triggerLogicPoint("onStartupRegionUncovered");
@@ -91,7 +91,7 @@ class Battle {
     private getGetRegionWithEscapePort(w:number, h:number) {
         var map = this.level.map;
         var ep = map.findFirstElem((x, y, e) => e && e.type == "EscapePort");
-        Utils.assert(!!ep, "there should be 1 EscapePort"); // 有且只有一个逃离出口
+        Utils.assert(!!ep, "there be 1 EscapePort"); // 有且只有一个逃离出口
         return Utils.calculateBoundary(ep.pos.x, ep.pos.y, w, h, 0, 0, map.size.w, map.size.h);
     }
 
@@ -103,7 +103,7 @@ class Battle {
 
         g.status = GridStatus.Marked;
         await this.fireEvent("onGridChanged", {x:x, y:y, subType:"ElemMarked"});
-        await this.triggerLogicPoint("onMarked", {eleme:e});
+        await this.triggerLogicPoint("onMarked", {e:e});
     }
 
     // 揭开指定位置的地块（不再检查条件）
@@ -113,7 +113,7 @@ class Battle {
         e.status = GridStatus.Uncovered;
 
         await this.fireEvent("onGridChanged", {x:x, y:y, subType:"GridUnconvered"});
-        await this.triggerLogicPoint("onUncovered", {eleme:e});
+        await this.triggerLogicPoint("onUncovered", {e:e});
 
         // 对 8 邻格子进行标记逻辑计算
         var neighbours = [];
@@ -341,7 +341,7 @@ class Battle {
     public async implAddElemAt(e:Elem, x:number, y:number) {
         this.addElemAt(e, x, y);
         await this.fireEvent("onGridChanged", {x:x, y:y, subType:"ElemAdded"});
-        await this.triggerLogicPoint("onElemAdded", {eleme:e});
+        await this.triggerLogicPoint("onElemAdded", {e:e});
     }
 
     // 从地图移除物品
@@ -350,7 +350,7 @@ class Battle {
         var y = e.pos.y;
         this.removeElem(e);
         await this.fireEvent("onGridChanged", {x:x, y:y, subType:"ElemRemoved"});
-        await this.triggerLogicPoint("onElemRemoved", {eleme:e});
+        await this.triggerLogicPoint("onElemRemoved", {e:e});
     }
 
     // 角色+hp
@@ -402,6 +402,15 @@ class Battle {
                 await this.triggerLogicPoint("onPlayerDodged");
             break;
         }
+    }
+
+    // 角色+属性，除了hp
+    public async implAddPlayerAttr(attrType:string, dv:number, min:number = 0) {
+        var v = this.player[attrType];
+        v += dv;
+        this.player[attrType] = v < min ? min : v;
+        await this.fireEvent("onPlayerChanged", {subtype:"attrType"});
+        await this.triggerLogicPoint("onPlayerChanged", {"subType": "attrType"});
     }
 
     // 怪物进行移动，path 是一组 {x:x, y:y} 的数组

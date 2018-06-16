@@ -20,7 +20,7 @@ class Player {
         var p = new Player();
         p.currentLevel = "testLevel1";
         p.occupation = "nurse";
-        p.deathStep = 20;
+        p.deathStep = 10;
         p.hp = 10;
         p.maxHp = 20;
         p.avatar = "avator1";
@@ -28,8 +28,8 @@ class Player {
         p.defence = 0;
         p.dodge = 0;
         p.battleRandomSeed = 0;
-
         p.money = 100;
+
         return p;
     }
 
@@ -86,10 +86,25 @@ class Player {
     public onAllCoveredAtInit = []; // 关卡初始盖住所有元素之后
     public onStartupRegionUncovered = []; // 初始区域揭开之后
     public onGoOutLevel = []; // 离开当前关卡
-    public clearOccupationFun() {
+    public onPlayerActed = [];
+    public clear() {
+        this.buffs = [];
         this.onLevelInited = [];
         this.onAllCoveredAtInit = [];
         this.onStartupRegionUncovered = [];
         this.onGoOutLevel = [];
+    }
+
+    public buffs = []; // 所有 buff
+    mountBuffLogicPoint() {
+        this.onPlayerActed.push(async () => {
+            for (var b of this.buffs) {
+                var h = b.onPlayerActed;
+                if (!h)
+                    continue;
+
+                await h();
+            }
+        });
     }
 }
