@@ -1,30 +1,15 @@
 {
 	"groups": [
 		{
-			"keys": "description_json,levelconfig_json,covered_png,grid_png,bg_png,HpPotion_png,NextLevelPort_png,avator1_png,Bunny_png,blocked_png,uncoverable_png,replaybg_png,blackcover_png,anicover_png,Coins_png,Gun_png",
+			"keys": "description_json,levelconfig_json,covered_png,grid_png,bg_png,HpPotion_png,NextLevelPort_png,avator1_png,Bunny_png,blocked_png,uncoverable_png,replaybg_png,blackcover_png,anicover_png,Coins_png,Gun_png,elemattrsconfig_json",
 			"name": "preload"
 		}
 	],
 	"resources": [
 		{
-			"url": "assets/bg.jpg",
-			"type": "image",
-			"name": "bg_jpg"
-		},
-		{
-			"url": "assets/egret_icon.png",
-			"type": "image",
-			"name": "egret_icon_png"
-		},
-		{
 			"url": "config/description.json",
 			"type": "json",
 			"name": "description_json"
-		},
-		{
-			"url": "config/mapconfig.json",
-			"type": "json",
-			"name": "mapconfig_json"
 		},
 		{
 			"url": "config/levelconfig.json",
@@ -32,74 +17,79 @@
 			"name": "levelconfig_json"
 		},
 		{
-			"name": "covered_png",
+			"url": "assets/covered.png",
 			"type": "image",
-			"url": "assets/covered.png"
+			"name": "covered_png"
 		},
 		{
-			"name": "grid_png",
+			"url": "assets/grid.png",
 			"type": "image",
-			"url": "assets/grid.png"
+			"name": "grid_png"
 		},
 		{
-			"name": "bg_png",
+			"url": "assets/bg.png",
 			"type": "image",
-			"url": "assets/bg.png"
+			"name": "bg_png"
 		},
 		{
-			"name": "HpPotion_png",
+			"url": "assets/elems/HpPotion.png",
 			"type": "image",
-			"url": "assets/elems/HpPotion.png"
+			"name": "HpPotion_png"
 		},
 		{
-			"name": "NextLevelPort_png",
+			"url": "assets/elems/NextLevelPort.png",
 			"type": "image",
-			"url": "assets/elems/NextLevelPort.png"
+			"name": "NextLevelPort_png"
 		},
 		{
-			"name": "avator1_png",
+			"url": "assets/avatars/avator1.png",
 			"type": "image",
-			"url": "assets/avatars/avator1.png"
+			"name": "avator1_png"
 		},
 		{
-			"name": "Bunny_png",
+			"url": "assets/monsters/Bunny.png",
 			"type": "image",
-			"url": "assets/monsters/Bunny.png"
+			"name": "Bunny_png"
 		},
 		{
-			"name": "blocked_png",
+			"url": "assets/blocked.png",
 			"type": "image",
-			"url": "assets/blocked.png"
+			"name": "blocked_png"
 		},
 		{
-			"name": "uncoverable_png",
+			"url": "assets/uncoverable.png",
 			"type": "image",
-			"url": "assets/uncoverable.png"
+			"name": "uncoverable_png"
 		},
 		{
-			"name": "replaybg_png",
+			"url": "assets/replaybg.png",
 			"type": "image",
-			"url": "assets/replaybg.png"
+			"name": "replaybg_png"
 		},
 		{
-			"name": "blackcover_png",
+			"url": "assets/blackcover.png",
 			"type": "image",
-			"url": "assets/blackcover.png"
+			"name": "blackcover_png"
 		},
 		{
-			"name": "anicover_png",
+			"url": "assets/anicover.png",
 			"type": "image",
-			"url": "assets/anicover.png"
+			"name": "anicover_png"
 		},
 		{
-			"name": "Coins_png",
+			"url": "assets/elems/Coins.png",
 			"type": "image",
-			"url": "assets/elems/Coins.png"
+			"name": "Coins_png"
 		},
 		{
-			"name": "Gun_png",
+			"url": "assets/elems/Gun.png",
 			"type": "image",
-			"url": "assets/elems/Gun.png"
+			"name": "Gun_png"
+		},
+		{
+			"url": "config/elemattrsconfig.json",
+			"type": "json",
+			"name": "elemattrsconfig_json"
 		}
 	]
 }

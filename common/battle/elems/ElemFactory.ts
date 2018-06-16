@@ -7,15 +7,27 @@ class ElemFactory {
 
     // 创建指定类型元素
     private static $$idSeqNo = 1; // 给 $$id 计数
-    public static create(type:string, bt:Battle, attrs = undefined) {
+    public static create(type:string, bt:Battle, attrs = {}) {
         for (var factory of ElemFactory.creators) {
             if(factory.creators[type]) {
-                var e:Elem = factory.creators[type](bt, attrs);
+                var e:Elem = factory.creators[type](bt, ElemFactory.mergeAttrs(type, attrs));
                 e.type = type;
+                e.attrs = attrs;
                 e.$$id = type + ":" + (ElemFactory.$$idSeqNo++);
                 return ElemFactory.doDropItemsOnDie(e);
             }
         }
+    }
+
+    static mergeAttrs(e, attrs) {
+        var defaultAttrs = GCfg.getElemAttrsCfg(e);
+        for (var k in defaultAttrs) {
+            var v = defaultAttrs[k];
+            if (!attrs[k])
+                attrs[k] = v;
+        }
+
+        return attrs;
     }
 
     // 为怪物在指定逻辑点添加一个行为
@@ -51,22 +63,16 @@ class ElemFactory {
         var bt = e.bt;
         ElemFactory.addDieAI(e, async () => {
             var dropInPosition = true;
-            for (var dpe in e.dropItems) {
-                var num = e.dropItems[dpe].num;
-                for (var i = 0; i < num; i++) {
-                    var g:Grid; // 掉落位置，优先掉在原地
-                    if (dropInPosition) {
-                        g = bt.level.map.getGridAt(e.pos.x, e.pos.y);
-                        dropInPosition = false;
-                    } else
-                        g = BattleUtils.findRandomEmptyGrid(bt, false);
+            for (var elem of e.dropItems) {
+                var g:Grid; // 掉落位置，优先掉在原地
+                if (dropInPosition) {
+                    g = bt.level.map.getGridAt(e.pos.x, e.pos.y);
+                    dropInPosition = false;
+                } else
+                    g = BattleUtils.findRandomEmptyGrid(bt, false);
 
-                    if (!g) return; // 没有空间了
-
-                    var attrs = e.dropItems[dpe].attrs;
-                    var elem = ElemFactory.create(dpe, bt, attrs);
-                    await bt.implAddElemAt(elem, g.pos.x, g.pos.y);
-                }
+                if (!g) return; // 没有空间了
+                await bt.implAddElemAt(elem, g.pos.x, g.pos.y);
             }
         });
 

@@ -34,7 +34,7 @@ class Battle {
     public loadCurrentLevel():Level {
         // 创建关卡地图和元素
         this.level = new Level();
-        this.lvCfg = GBConfig.getLevelCfg(this.player.currentLevel);        
+        this.lvCfg = GCfg.getLevelCfg(this.player.currentLevel);        
         this.level.Init(this, this.lvCfg);
         this.bc = new BattleCalculator(this.srand);
         return this.level;
@@ -436,12 +436,20 @@ class Battle {
     }
 
     // 吸血，e 是相关元素
-    public async implSuckPlayerBlood(m:Monster) {
-        var dhp = m.spower; // 吸血能力
+    public async implSuckPlayerBlood(m:Monster, suckBlood:number) {
+        var dhp = suckBlood; // 吸血能力
         this.player.addHp(-dhp);
         m.addHp(dhp);
 
         await this.triggerLogicPoint("onSuckPlayerBlood", {m:m});
         await this.fireEvent("onSuckPlayerBlood", {m:m});
+    }
+
+    // 怪物拿走一批元素
+    public async implMonsterTakeElems(m:Monster, es:Elem[]) {
+        for (var e of es) {
+            await this.fireEvent("onMonsterTakeElem", {m:m, e:e})
+            await this.implRemoveElem(e);
+        }
     }
 }

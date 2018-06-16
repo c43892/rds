@@ -143,6 +143,13 @@ class AniView extends egret.DisplayObjectContainer {
         this.mv.mapView.refreshAt(x, y);
     }
 
+    // 怪物拿走物品
+    public async onMonsterTakeElem(ps) {
+        var m = ps.m;
+        var e = ps.e;
+        await this.aniFact.createAni("monsterTakeElem", {m:m, e:e});
+    }
+
     async blackIn(removedWhenFinish = false) {
         this.addChild(this.blackCover);
         await this.aniFact.createAni("fadeIn", {"img": this.blackCover, "time": 1000});

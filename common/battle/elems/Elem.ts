@@ -36,5 +36,19 @@ class Elem {
     public beforePlayerMove2NextLevel; // 当角色准备进入下一层时触发
     public onDie; // 物品死亡时（物品使用后从地图上移除也算）
     
-    public dropItems = {}; // 死后要掉落的物品，形如 {物品:{num:1, attrs:{...}}, ...} 这样
+    public attrs; // 来自配置表的属性
+    public dropItems:Elem[] = [];
+
+    // 添加掉落物品
+    public addDropItem(e:Elem) {
+        if (e.attrs.canOverlap) { // 叠加物品
+            var n = Utils.indexOf(this.dropItems, (elem) => elem.type == e.type);
+            if (n >= 0)
+                this.dropItems[n].cnt += e.cnt;
+            else
+                this.dropItems.push(e);
+        } else {
+            this.dropItems.push(e);
+        }
+    }
 }

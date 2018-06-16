@@ -8,7 +8,6 @@ class Monster extends Elem {
     public power:number; // 攻击力
     public defence:number; // 防御
     public dodge:number; // 闪避%
-    public spower:number; // 吸血能力
 
     public addHp(dhp:number) {
         this.hp += dhp;
@@ -24,7 +23,8 @@ class MonsterFactory {
         // "Bunny": (bt, attrs) => MonsterFactory.doAttackBack(MonsterFactory.createNormalMonster(bt, attrs)) // 被攻击时反击
         // "Bunny": (bt, attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakAttack(this.createNormalMonster(bt, attrs))) // 偷袭行为是攻击，被攻击时反击
         // "Bunny": (bt, attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakStealMoney(this.createNormalMonster(bt, attrs))) // 偷袭行为是偷钱，被攻击时反击
-        "Bunny": (bt, attrs) => MonsterFactory.doSneakSuckBlood(this.createNormalMonster(bt, attrs)) // 偷袭行为是吸血
+        // "Bunny": (bt, attrs) => MonsterFactory.doSneakSuckBlood(this.createNormalMonster(bt, attrs)) // 偷袭行为是吸血
+        "Bunny": (bt, attrs) => MonsterFactory.doSneakEatItems(this.createNormalMonster(bt, attrs), true) // 偷袭行为是拿走道具
     };
 
     // 创建一个普通的怪物
@@ -35,7 +35,6 @@ class MonsterFactory {
         m.power = attrs.power ? attrs.power : 0;
         m.defence = attrs.defence ? attrs.defence : 0;
         m.dodge = attrs.dodge ? attrs.dodge : 0;
-        m.spower = attrs.spower ? attrs.spower : 0;
         m.hazard = true;
         m.blockUncover = true;
 
@@ -63,18 +62,28 @@ class MonsterFactory {
     static doSneakStealMoney(m:Monster):Monster {
         return MonsterFactory.addSneakAI(m, async () => {
             var dm = 10;
-            if (!m.dropItems["Coins"])
-                m.dropItems["Coins"] = {num:1, attrs:{cnt:0}};
-
-            m.dropItems["Coins"] = {num:1, attrs:{cnt:m.dropItems["Coins"].attrs.cnt + dm}};
             await m.bt.implAddMoney(m, -dm);
+            m.addDropItem(ElemFactory.create("Coins", m.bt, {"cnt":dm}));
         });
     }
 
     // 偷袭：吸血
     static doSneakSuckBlood(m:Monster):Monster {
         return MonsterFactory.addSneakAI(m, async () => {
-            await m.bt.implSuckPlayerBlood(m);
+            await m.bt.implSuckPlayerBlood(m, m.attrs.suckBlood);
+        });
+    }
+
+    // 偷袭：拿走道具
+    static doSneakEatItems(m:Monster, dropOnDie:boolean):Monster {
+        return MonsterFactory.addSneakAI(m, async () => {
+            var eatNum = m.attrs.eatNum ? m.attrs.eatNum : 1;
+            var es = BattleUtils.findRandomElems(m.bt, eatNum, (e:Elem) => !(e instanceof Monster) && !e.getGrid().isCovered());
+            await m.bt.implMonsterTakeElems(m, es);
+            if (dropOnDie) {
+                for(var e of es)
+                    m.addDropItem(e);
+            }
         });
     }
 

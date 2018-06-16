@@ -6,8 +6,8 @@ class Map {
     public elems : Elem[][]; // 所有元素
     
     public constructor() {
-        var w = GBConfig.mapsize.w;
-        var h = GBConfig.mapsize.h;
+        var w = GCfg.mapsize.w;
+        var h = GCfg.mapsize.h;
 
         this.size = {w: w, h: h};
         this.grids = [];

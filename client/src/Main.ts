@@ -60,8 +60,10 @@ class Main extends egret.DisplayObjectContainer {
     // 基础功能装配
     private globalInit() {
         var lvCfg = RES.getRes("levelconfig_json");
-        GBConfig.mapsize = lvCfg.mapsize;
-        GBConfig.getLevelCfg = (lv) => lvCfg[lv];
+        GCfg.mapsize = lvCfg.mapsize;
+        GCfg.getLevelCfg = (lv) => lvCfg[lv];
+        var elemAttrsCfg = RES.getRes("elemattrsconfig_json");
+        GCfg.getElemAttrsCfg = (e) => elemAttrsCfg[e];
     }
 
     private mv: MainView; // 地图显示
@@ -91,7 +93,7 @@ class Main extends egret.DisplayObjectContainer {
 
         // 如何启动下一关战斗
         Battle.startNewBattle = (p:Player) => {
-            p.currentLevel = GBConfig.getLevelCfg(p.currentLevel).nextLevel;
+            p.currentLevel = GCfg.getLevelCfg(p.currentLevel).nextLevel;
             this.startNewBattleWithRecorder(Battle.createNewBattle(p));
         }
 
@@ -114,7 +116,7 @@ class Main extends egret.DisplayObjectContainer {
         bt.registerEvent("onLevel", (ps) => this.mv.onLevel(ps));
         Utils.registerEventHandlers(bt, [
             "onGridChanged", "onPlayerChanged", "onAttack", "onMonsterChanged",
-            "onElemMoving", "onAllCoveredAtInit", "onSuckPlayerBlood"
+            "onElemMoving", "onAllCoveredAtInit", "onSuckPlayerBlood", "onMonsterTakeElem",
         ], (e) => (ps) => this.mv.aniView[e](ps));
 
         BattleRecorder.registerReplayIndicatorHandlers(bt);
