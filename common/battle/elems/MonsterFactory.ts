@@ -20,8 +20,9 @@ class Monster extends Elem {
 // 怪物
 class MonsterFactory {
     public creators = {
-        // "Bunny": (bt, attrs) => this.doAttackBack(this.createNormalMonster(bt, attrs)) // 被攻击时反击
-        // "Bunny": (bt, attrs) => this.doAttackBack(this.doSneakAttack(this.createNormalMonster(bt, attrs))) // 偷袭行为是攻击，被攻击时反击
+        // "Bunny": (bt, attrs) => MonsterFactory.doAttack("onPlayerActed", this.createNormalMonster(bt, attrs)) // 每回合攻击玩家
+        // "Bunny": (bt, attrs) => MonsterFactory.doAttackBack(MonsterFactory.createNormalMonster(bt, attrs)) // 被攻击时反击
+        // "Bunny": (bt, attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakAttack(this.createNormalMonster(bt, attrs))) // 偷袭行为是攻击，被攻击时反击
         // "Bunny": (bt, attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakStealMoney(this.createNormalMonster(bt, attrs))) // 偷袭行为是偷钱，被攻击时反击
         "Bunny": (bt, attrs) => MonsterFactory.doSneakSuckBlood(this.createNormalMonster(bt, attrs)) // 偷袭行为是吸血
     };
