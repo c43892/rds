@@ -105,8 +105,8 @@ class Main extends egret.DisplayObjectContainer {
     public startNewBattle(bt:Battle) {
         Utils.log("start a new battle with ", bt.$$srandSeed());
 
-        ElemView.try2UncoverAt = bt.try2UncoverAt();
         ElemView.try2UseElem = bt.try2UseElem();
+        ElemView.try2UncoverAt = bt.try2UncoverAt();
         ElemView.try2BlockGrid = bt.try2BlockGrid();
         ElemView.try2UseAt = bt.try2UseAt();
 

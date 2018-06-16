@@ -7,7 +7,8 @@
         "elems": {
             "HpPotion":{"num":1, "attrs":{"dhp":10}},
             "Bunny":{"num":3, "attrs":{"hp":5, "power":1}},
-            "Coins":{"num":10, "attrs":{"cnt":5}}
+            "Coins":{"num":10, "attrs":{"cnt":5}},
+            "Gun": {"num":10, "attrs":{"cnt":2, "power":3}}
         }, 
         "nextLevel": "testLevel2"
     },

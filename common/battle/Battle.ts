@@ -258,9 +258,51 @@ class Battle {
                         await e.onDie();
                 }
 
-                await this.fireEvent("onGridChanged", {x:e.pos.x, y:e.pos.y, subType:"ElemUsed"});
+                await this.fireEvent("onGridChanged", {x:e.pos.x, y:e.pos.y, subType:"ElemDie"});
                 await this.triggerLogicPoint("onElemUsed", {x:e.pos.x, y:e.pos.y, e:e});
                 await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
+            }
+        };
+    }
+
+    // 尝试使用一个元素，将一个坐标设定为目标
+    public try2UseAt() {
+        return async (e:Elem, x:number, y:number) => {
+            var map = this.level.map;
+            var fx = e.pos.x;
+            var fy = e.pos.y;
+            var b = map.getGridAt(x, y);
+            if (b.status == GridStatus.Uncovered && !b.getElem()) {
+                // 将元素移动到空地
+                map.removeElemAt(fx, fy);
+                map.addElemAt(e, x, y);
+                await this.fireEvent("onGridChanged", {x:fx, y:fy, subType:"ElemSwitchFrom"});
+                await this.fireEvent("onGridChanged", {x:x, y:y, subType:"ElemSwitchTo"});
+            }
+            else if (e.canUseAt(x, y)) {
+                // 对指定目标位置使用
+                var canUse = true;
+                // 其它元素可能会阻止使用
+                this.level.map.foreachUncoveredElems((e:Elem) => {
+                    if (e.canUseOther)
+                        canUse = e.canUseOtherAt(e, x, y);
+
+                    return !canUse;
+                });
+
+                // 操作录像
+                this.fireEventSync("onPlayerOp", {op:"try2UseElemAt", ps:{x:e.pos.x, y:e.pos.y, tox:x, toy:y}});
+
+                var toe = this.level.map.getElemAt(x, y);
+                var reserve = await e.useAt(x, y); // 返回值决定是保留还是消耗掉
+                if (!reserve) {
+                    this.removeElem(e);
+                    if (e.onDie)
+                        await e.onDie();
+                }
+
+                await this.fireEvent("onGridChanged", {x:e.pos.x, y:e.pos.y, subType:"UseElem"});
+                await this.triggerLogicPoint("onUseElemAt", {x:e.pos.x, y:e.pos.y, e:e, tox:x, toy:y, toe:toe});
             }
         };
     }
@@ -281,27 +323,6 @@ class Battle {
                 Utils.assert(b.status == GridStatus.Blocked, "only blocked grid can be unblocked");
                 b.status = GridStatus.Covered;
                 await this.fireEvent("onGridChanged", {x:x, y:y, subType:"GridUnblocked"});
-            }
-        };
-    }
-
-    // 尝试使用一个元素，将一个坐标设定为目标
-    public try2UseAt() {
-        return async (e:Elem, x:number, y:number) => {
-            var map = this.level.map;
-            var fx = e.pos.x;
-            var fy = e.pos.y;
-            var b = map.getGridAt(x, y);
-            if (b.status == GridStatus.Uncovered && !b.getElem()) {
-                // 将元素移动到空地
-                map.removeElemAt(fx, fy);
-                map.addElemAt(e, x, y);
-                await this.fireEvent("onGridChanged", {x:fx, y:fy, subType:"ElemSwitchFrom"});
-                await this.fireEvent("onGridChanged", {x:x, y:y, subType:"ElemSwitchTo"});
-                await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
-            }
-            else {
-                // 其它情况
             }
         };
     }
@@ -347,14 +368,20 @@ class Battle {
     }
 
     // 角色尝试攻击指定怪物
-    public async implPlayerAttackMonster(m:Monster) {
-        var r = this.bc.tryAttack(this.player, m);
-        await this.fireEvent("onAttack", {subtype:"player2monster", r:r, m:m});
+    public async implPlayerAttackMonster(m:Monster, weapon:Elem = undefined) {
+        var r = this.bc.tryAttack(this.player, m, weapon);
+        await this.fireEvent("onAttack", {subtype:"player2monster", r:r, m:m, weapon:weapon});
 
         switch (r.r) {
             case "attacked": // 攻击成功
                 this.implAddMonsterHp(m, -r.dhp);
-                await this.triggerLogicPoint("onMonsterDamanged", {"dhp": r.dhp});
+                await this.triggerLogicPoint("onMonsterHurt", {"dhp": r.dhp, m:m});
+                if (m.hp <= 0) { // 打死了
+                    this.removeElem(m);
+                    if (m.onDie)
+                        await m.onDie();
+                }
+                await this.fireEvent("onGridChanged", {x:m.pos.x, y:m.pos.y, subType:"onMonsterDamanged"});
             break;
             case "dodged": // 被闪避
                 await this.triggerLogicPoint("onMonsterDodged");

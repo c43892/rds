@@ -27,10 +27,33 @@ class ItemFactory {
         // 金币
         "Coins": (bt, attrs) => {
             var e = new Elem(bt);
+            e.cnt = attrs.cnt;
             e.canUse = () => true;
             e.use = async () => {
-                await e.bt.implAddMoney(e, attrs.cnt);
+                await e.bt.implAddMoney(e, e.cnt);
             }
+            e.canBeMoved = true;
+            return e;
+        },
+
+        // 枪
+        "Gun": (bt, attrs) => {
+            var e = new Elem(bt);
+            e.cnt = attrs.cnt;
+            e["power"] = attrs.power;
+            e.canUseAt = (x, y) => {
+                var toe = e.bt.level.map.getElemAt(x, y);
+                return toe instanceof Monster;
+            };
+
+            e.useAt = async (x, y) => {
+                var m = <Monster>e.bt.level.map.getElemAt(x, y);
+                await e.bt.implPlayerAttackMonster(m, e);
+                e.cnt--;
+                return e.cnt > 0;
+            }
+
+            e.canBeMoved = true;
             return e;
         },
 

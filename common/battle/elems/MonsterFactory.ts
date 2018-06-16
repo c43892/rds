@@ -38,7 +38,7 @@ class MonsterFactory {
         // 使用，即攻击怪物
         m.use = async () =>  {
             await m.bt.implPlayerAttackMonster(m);
-            return m.hp > 0;
+            return true; // m.hp > 0;
         };
 
         return m;
@@ -69,7 +69,7 @@ class MonsterFactory {
 
     // 被攻击时反击一次
     static doAttackBack(m:Monster):Monster {
-        return <Monster>ElemFactory.addAI(m, "onElemUsed", () => m.bt.implMonsterAttackPlayer(m), (ps) => ps.e == m);
+        return <Monster>ElemFactory.addAI(m, "onMonsterHurt", () => m.bt.implMonsterAttackPlayer(m), (ps) => ps.m == m);
     }
 
     // 攻击玩家一次
