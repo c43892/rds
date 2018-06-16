@@ -16,6 +16,7 @@ class AnimationFactory {
             case "fadeIn": ani = this.fade(ps.img, 0, 1, ps.time); break;
             case "fadeOut": ani = this.fade(ps.img, 1, 0, ps.time); break;
             case "moneyMoving": ani = Utils.delay(500); break;
+            case "suckBlood": ani = Utils.delay(500); break;
         }
         
         Utils.assert(ani != undefined, "unknown aniType: " + aniType);

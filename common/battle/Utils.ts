@@ -185,6 +185,14 @@ class Utils {
         return -1;
     }
 
+    // 按照名称对应规则进行事件处理的批量映射
+    public static registerEventHandlers(eventDispatcher, events:string[], getHandler) {
+        for (var e of events) {
+            var h = getHandler(e);
+            eventDispatcher.registerEvent(e, h);
+        }
+    }
+
     // 测试期间用，本地存储部分数据
     public static $$saveItem(key:string, value:string) {
         egret.localStorage.setItem(key, value);

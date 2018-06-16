@@ -83,7 +83,7 @@ class AniView extends egret.DisplayObjectContainer {
     }
 
     // 产生攻击行为
-    public async onAttacked(ps) {
+    public async onAttack(ps) {
         this.mv.refreshPlayer();
         if (ps.subType == "player2monster")
             await this.aniFact.createAni("monsterAttackPlayer", {"m": ps.m});
@@ -110,7 +110,7 @@ class AniView extends egret.DisplayObjectContainer {
     }
 
     // 关卡事件
-    public async onLevelEvent(ps) {
+    public async onLevel(ps) {
         switch (ps.subType) {
             case "levelInited": // 进关卡
             break;
@@ -132,6 +132,15 @@ class AniView extends egret.DisplayObjectContainer {
         await this.blackIn();
         this.mv.refresh();
         await this.blackOut();
+    }
+
+    // 吸血
+    public async onSuckPlayerBlood(ps) {
+        var x = ps.m.pos.x;
+        var y = ps.m.pos.y
+        await this.aniFact.createAni("suckBlood", {x:x, y:y});
+        this.mv.refreshPlayer();
+        this.mv.mapView.refreshAt(x, y);
     }
 
     async blackIn(removedWhenFinish = false) {

@@ -106,21 +106,18 @@ class Main extends egret.DisplayObjectContainer {
         Utils.log("start a new battle with ", bt.$$srandSeed());
 
         ElemView.try2UseElem = bt.try2UseElem();
+        ElemView.try2UseElemAt = bt.try2UseElemAt();
         ElemView.try2UncoverAt = bt.try2UncoverAt();
         ElemView.try2BlockGrid = bt.try2BlockGrid();
-        ElemView.try2UseAt = bt.try2UseAt();
 
-        bt.registerEvent("onGridChanged", (ps) => this.mv.aniView.onGridChanged(ps));
-        bt.registerEvent("onPlayerChanged", (ps) => this.mv.aniView.onPlayerChanged(ps));
-        bt.registerEvent("onAttack", (ps) => this.mv.aniView.onAttacked(ps));
-        bt.registerEvent("onMonsterChanged", (ps) => this.mv.aniView.onMonsterChanged(ps));
-        bt.registerEvent("onElemMoving", (ps) => this.mv.aniView.onElemMoving(ps));
         bt.registerEvent("onPlayerOp", (ps) => BattleRecorder.onPlayerOp(ps.op, ps.ps));
-        bt.registerEvent("onLevel", (ps) => this.mv.onLevelEvent(ps));
-        bt.registerEvent("onAllCoveredAtInit", (ps) => this.mv.aniView.onAllCoveredAtInit(ps));
+        bt.registerEvent("onLevel", (ps) => this.mv.onLevel(ps));
+        Utils.registerEventHandlers(bt, [
+            "onGridChanged", "onPlayerChanged", "onAttack", "onMonsterChanged",
+            "onElemMoving", "onAllCoveredAtInit", "onSuckPlayerBlood"
+        ], (e) => (ps) => this.mv.aniView[e](ps));
 
         BattleRecorder.registerReplayIndicatorHandlers(bt);
-
         bt.Start();
     }
 

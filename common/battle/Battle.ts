@@ -162,7 +162,7 @@ class Battle {
         }
     }
 
-    private eventHandlers = {};
+    private eventHandlers = {}; // 事件处理函数
 
     // 注册事件响应函数，这些事件是一个个异步执行的函数，需要一个个 wait 顺序执行，这也是不直接使用 egret.EventDispatcher 的原因
     public registerEvent(eventType:string, h) {
@@ -266,7 +266,7 @@ class Battle {
     }
 
     // 尝试使用一个元素，将一个坐标设定为目标
-    public try2UseAt() {
+    public try2UseElemAt() {
         return async (e:Elem, x:number, y:number) => {
             var map = this.level.map;
             var fx = e.pos.x;
@@ -433,5 +433,15 @@ class Battle {
         
         await this.fireEvent("onPlayerChanged", {subtype:"money", e:e});
         await this.triggerLogicPoint("onPlayerChanged", {"subType": "money", e:e});
+    }
+
+    // 吸血，e 是相关元素
+    public async implSuckPlayerBlood(m:Monster) {
+        var dhp = m.spower; // 吸血能力
+        this.player.addHp(-dhp);
+        m.addHp(dhp);
+
+        await this.triggerLogicPoint("onSuckPlayerBlood", {m:m});
+        await this.fireEvent("onSuckPlayerBlood", {m:m});
     }
 }

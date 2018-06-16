@@ -8,6 +8,7 @@ class Monster extends Elem {
     public power:number; // 攻击力
     public defence:number; // 防御
     public dodge:number; // 闪避%
+    public spower:number; // 吸血能力
 
     public addHp(dhp:number) {
         this.hp += dhp;
@@ -19,26 +20,28 @@ class Monster extends Elem {
 // 怪物
 class MonsterFactory {
     public creators = {
-        // "Bunny": (bt, attrs) => this.doAttackBack(this.createNormalMonster(bt, attrs.hp, attrs.power, attrs.defence, attrs.dodge)) // 被攻击时反击
-        // "Bunny": (bt, attrs) => this.doAttackBack(this.doSneakAttack(this.createNormalMonster(bt, attrs.hp, attrs.power, attrs.defence, attrs.dodge))) // 偷袭行为是攻击，被攻击时反击
-        "Bunny": (bt, attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakStealMoney(this.createNormalMonster(bt, attrs.hp, attrs.power, attrs.defence, attrs.dodge))) // 偷袭行为是偷钱，被攻击时反击
+        // "Bunny": (bt, attrs) => this.doAttackBack(this.createNormalMonster(bt, attrs)) // 被攻击时反击
+        // "Bunny": (bt, attrs) => this.doAttackBack(this.doSneakAttack(this.createNormalMonster(bt, attrs))) // 偷袭行为是攻击，被攻击时反击
+        // "Bunny": (bt, attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakStealMoney(this.createNormalMonster(bt, attrs))) // 偷袭行为是偷钱，被攻击时反击
+        "Bunny": (bt, attrs) => MonsterFactory.doSneakSuckBlood(this.createNormalMonster(bt, attrs)) // 偷袭行为是吸血
     };
 
     // 创建一个普通的怪物
-    createNormalMonster(bt:Battle, hp:number, power:number, defence:number, dodge:number):Monster {
+    createNormalMonster(bt:Battle, attrs):Monster {
         var m = new Monster(bt);
         m.canUse = () => true;
-        m.hp = hp ? hp : 0;
-        m.power = power ? power : 0;
-        m.defence = defence ? defence : 0;
-        m.dodge = dodge ? dodge : 0;        
+        m.hp = attrs.hp ? attrs.hp : 0;
+        m.power = attrs.power ? attrs.power : 0;
+        m.defence = attrs.defence ? attrs.defence : 0;
+        m.dodge = attrs.dodge ? attrs.dodge : 0;
+        m.spower = attrs.spower ? attrs.spower : 0;
         m.hazard = true;
         m.blockUncover = true;
 
         // 使用，即攻击怪物
         m.use = async () =>  {
             await m.bt.implPlayerAttackMonster(m);
-            return true; // m.hp > 0;
+            return true;
         };
 
         return m;
@@ -52,29 +55,36 @@ class MonsterFactory {
 
     // 偷袭：攻击
     static doSneakAttack(m:Monster):Monster {
-        return MonsterFactory.addSneakAI(m, () => m.bt.implMonsterAttackPlayer(m));
+        return MonsterFactory.addSneakAI(m, async () => m.bt.implMonsterAttackPlayer(m));
     }
 
     // 偷袭：偷钱
     static doSneakStealMoney(m:Monster):Monster {
-        return MonsterFactory.addSneakAI(m, () => {
+        return MonsterFactory.addSneakAI(m, async () => {
             var dm = 10;
             if (!m.dropItems["Coins"])
                 m.dropItems["Coins"] = {num:1, attrs:{cnt:0}};
 
             m.dropItems["Coins"] = {num:1, attrs:{cnt:m.dropItems["Coins"].attrs.cnt + dm}};
-            m.bt.implAddMoney(m, -dm);
+            await m.bt.implAddMoney(m, -dm);
+        });
+    }
+
+    // 偷袭：吸血
+    static doSneakSuckBlood(m:Monster):Monster {
+        return MonsterFactory.addSneakAI(m, async () => {
+            await m.bt.implSuckPlayerBlood(m);
         });
     }
 
     // 被攻击时反击一次
     static doAttackBack(m:Monster):Monster {
-        return <Monster>ElemFactory.addAI(m, "onMonsterHurt", () => m.bt.implMonsterAttackPlayer(m), (ps) => ps.m == m);
+        return <Monster>ElemFactory.addAI(m, "onMonsterHurt", async () => m.bt.implMonsterAttackPlayer(m), (ps) => ps.m == m);
     }
 
     // 攻击玩家一次
     static doAttack(logicPoint:string, m:Monster):Monster {
-        return <Monster>ElemFactory.addAI(m, logicPoint, () => m.bt.implMonsterAttackPlayer(m));
+        return <Monster>ElemFactory.addAI(m, logicPoint, async () => m.bt.implMonsterAttackPlayer(m));
     }
 
     // 随机移动一次，dist 表示移动几格
