@@ -19,16 +19,17 @@ class Monster extends Elem {
 // 怪物
 class MonsterFactory {
     public creators = {
-        // "Bunny": (bt, attrs) => MonsterFactory.doAttack("onPlayerActed", this.createNormalMonster(bt, attrs)) // 每回合攻击玩家
-        // "Bunny": (bt, attrs) => MonsterFactory.doAttackBack(MonsterFactory.createNormalMonster(bt, attrs)) // 被攻击时反击
-        // "Bunny": (bt, attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakAttack(this.createNormalMonster(bt, attrs))) // 偷袭行为是攻击，被攻击时反击
-        // "Bunny": (bt, attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakStealMoney(this.createNormalMonster(bt, attrs))) // 偷袭行为是偷钱，被攻击时反击
-        // "Bunny": (bt, attrs) => MonsterFactory.doSneakSuckBlood(this.createNormalMonster(bt, attrs)) // 偷袭行为是吸血
-        "Bunny": (bt, attrs) => MonsterFactory.doSneakEatItems(this.createNormalMonster(bt, attrs), true) // 偷袭行为是拿走道具
+        // "Bunny": (bt, attrs) => MonsterFactory.doAttack("onPlayerActed", this.createMonster(bt, attrs)) // 每回合攻击玩家
+        // "Bunny": (bt, attrs) => MonsterFactory.doAttackBack(MonsterFactory.createMonster(bt, attrs)) // 被攻击时反击
+        // "Bunny": (bt, attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakAttack(this.createMonster(bt, attrs))) // 偷袭行为是攻击，被攻击时反击
+        // "Bunny": (bt, attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakStealMoney(this.createMonster(bt, attrs))) // 偷袭行为是偷钱，被攻击时反击
+        // "Bunny": (bt, attrs) => MonsterFactory.doSneakSuckBlood(this.createMonster(bt, attrs)) // 偷袭行为是吸血
+        // "Bunny": (bt, attrs) => MonsterFactory.doSneakEatItems(this.createMonster(bt, attrs), true) // 偷袭行为是拿走道具
+        "Bunny": (bt, attrs) => MonsterFactory.doSneakSummon(this.createMonster(bt, attrs)) // 偷袭行为是召唤
     };
 
     // 创建一个普通的怪物
-    createNormalMonster(bt:Battle, attrs):Monster {
+    createMonster(bt:Battle, attrs):Monster {
         var m = new Monster(bt);
         m.canUse = () => true;
         m.hp = attrs.hp ? attrs.hp : 0;
@@ -83,6 +84,23 @@ class MonsterFactory {
             if (dropOnDie) {
                 for(var e of es)
                     m.addDropItem(e);
+            }
+        });
+    }
+
+    // 偷袭：召唤
+    static doSneakSummon(m:Monster):Monster {
+        return MonsterFactory.addSneakAI(m, async () => {
+            var bt = m.bt;
+            var ss = m.attrs.summons;
+            for (var i = 0; i < ss.length; i++) {
+                var g:Grid; // 掉落位置，优先掉在原地
+                g = BattleUtils.findRandomEmptyGrid(bt, false);
+                if (!g) return; // 没有空间了
+                var type = ss[i].type;
+                var attrs = ss[i].attrs;
+                var sm = ElemFactory.create(type, bt, attrs);
+                await bt.implAddElemAt(sm, g.pos.x, g.pos.y);
             }
         });
     }
