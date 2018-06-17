@@ -185,6 +185,14 @@ class Utils {
         return -1;
     }
 
+    // 移除数组中指定位置的元素，结果作为一个新数组返回
+    public static removeAt(arr, n) {
+        if (n < 0 || n >= arr.length)
+            return arr;
+
+        return [...arr.slice(0, n), ...arr.slice(n + 1)];
+    }
+
     // 按照名称对应规则进行事件处理的批量映射
     public static registerEventHandlers(eventDispatcher, events:string[], getHandler) {
         for (var e of events) {

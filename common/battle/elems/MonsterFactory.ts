@@ -23,7 +23,7 @@ class MonsterFactory {
         "DeathGod": (bt:Battle, attrs) => 
                     ElemFactory.addDieAI(async () => bt.implAddPlayerAttr("deathStep", 10),
                     MonsterFactory.doAttack("onPlayerActed", 
-                    MonsterFactory.doMove("onPlayerActed", 3,
+                    <Monster>ElemFactory.doMove("onPlayerActed", 3,
                     this.createMonster(bt, attrs),
                 ))),
 
@@ -49,7 +49,7 @@ class MonsterFactory {
 
         // 使用，即攻击怪物
         m.use = async () =>  {
-            await m.bt.implPlayerAttackMonster(m);
+            await m.bt().implPlayerAttackMonster(m);
             return true;
         };
 
@@ -64,22 +64,22 @@ class MonsterFactory {
 
     // 偷袭：攻击
     static doSneakAttack(m:Monster):Monster {
-        return MonsterFactory.addSneakAI(async () => m.bt.implMonsterAttackPlayer(m), m);
+        return MonsterFactory.addSneakAI(async () => m.bt().implMonsterAttackPlayer(m), m);
     }
 
     // 偷袭：偷钱
     static doSneakStealMoney(m:Monster):Monster {
         return MonsterFactory.addSneakAI(async () => {
             var dm = 10;
-            await m.bt.implAddMoney(m, -dm);
-            m.addDropItem(ElemFactory.create("Coins", m.bt, {"cnt":dm}));
+            await m.bt().implAddMoney(m, -dm);
+            m.addDropItem(ElemFactory.create("Coins", m.bt(), {"cnt":dm}));
         }, m);
     }
 
     // 偷袭：吸血
     static doSneakSuckBlood(m:Monster):Monster {
         return MonsterFactory.addSneakAI(async () => {
-            await m.bt.implSuckPlayerBlood(m, m.attrs.suckBlood);
+            await m.bt().implSuckPlayerBlood(m, m.attrs.suckBlood);
         }, m);
     }
 
@@ -87,8 +87,8 @@ class MonsterFactory {
     static doSneakEatItems(m:Monster, dropOnDie:boolean):Monster {
         return MonsterFactory.addSneakAI(async () => {
             var eatNum = m.attrs.eatNum ? m.attrs.eatNum : 1;
-            var es = BattleUtils.findRandomElems(m.bt, eatNum, (e:Elem) => !(e instanceof Monster) && !e.getGrid().isCovered());
-            await m.bt.implMonsterTakeElems(m, es);
+            var es = BattleUtils.findRandomElems(m.bt(), eatNum, (e:Elem) => !(e instanceof Monster) && !e.getGrid().isCovered());
+            await m.bt().implMonsterTakeElems(m, es);
             if (dropOnDie) {
                 for(var e of es)
                     m.addDropItem(e);
@@ -99,45 +99,26 @@ class MonsterFactory {
     // 偷袭：召唤
     static doSneakSummon(m:Monster):Monster {
         return MonsterFactory.addSneakAI(async () => {
-            var bt = m.bt;
             var ss = m.attrs.summons;
             for (var i = 0; i < ss.length; i++) {
                 var g:Grid; // 掉落位置，优先掉在原地
-                g = BattleUtils.findRandomEmptyGrid(bt);
+                g = BattleUtils.findRandomEmptyGrid(m.bt());
                 if (!g) return; // 没有空间了
                 var type = ss[i].type;
                 var attrs = ss[i].attrs;
-                var sm = ElemFactory.create(type, bt, attrs);
-                await bt.implAddElemAt(sm, g.pos.x, g.pos.y);
+                var sm = ElemFactory.create(type, m.bt(), attrs);
+                await m.bt().implAddElemAt(sm, g.pos.x, g.pos.y);
             }
         }, m);
     }
 
     // 被攻击时反击一次
     static doAttackBack(m:Monster):Monster {
-        return <Monster>ElemFactory.addAI("onMonsterHurt", async () => m.bt.implMonsterAttackPlayer(m), m, (ps) => ps.m == m);
+        return <Monster>ElemFactory.addAI("onMonsterHurt", async () => m.bt().implMonsterAttackPlayer(m), m, (ps) => ps.m == m);
     }
 
     // 攻击玩家一次
     static doAttack(logicPoint:string, m:Monster):Monster {
-        return <Monster>ElemFactory.addAI(logicPoint, async () => m.bt.implMonsterAttackPlayer(m), m);
-    }
-
-    // 随机移动一次，dist 表示移动几格
-    static doMove(logicPoint:string, dist:number, m:Monster):Monster {
-        var dir = [[-1,0],[1,0],[0,-1],[0,1]];
-        return <Monster>ElemFactory.addAI(logicPoint, async () => {
-            var path = [{x:m.pos.x, y:m.pos.y}];
-            for (var i = 0; i < dist; i++) {
-                var d = dir[m.bt.srand.nextInt(0, dir.length)];
-                var lastPt = path[path.length - 1];
-                var x = lastPt.x + d[0];
-                var y = lastPt.y + d[1];
-                if ((m.pos.x == x && m.pos.y == y) || m.bt.level.map.isWalkable(x, y))
-                    path.push({x:x, y:y});
-            }
-
-            await m.bt.implMonsterMoving(m, path);
-        }, m);
+        return <Monster>ElemFactory.addAI(logicPoint, async () => m.bt().implMonsterAttackPlayer(m), m);
     }
 }

@@ -2,6 +2,7 @@
 class ElemFactory {
     static creators = [
         new ItemFactory(),
+        new RelicFactory(),
         new MonsterFactory()
     ];
 
@@ -46,7 +47,6 @@ class ElemFactory {
 
     // 为物品死亡增加逻辑
     public static addDieAI(act, e:Elem):Elem {
-        var bt = e.bt;
         var prior = e.onDie;
         e.onDie = async (ps) => {
             if (prior)
@@ -60,22 +60,39 @@ class ElemFactory {
 
     // 死亡时掉落物品
     public static doDropItemsOnDie(e:Elem):Elem {
-        var bt = e.bt;
         ElemFactory.addDieAI(async () => {
             var dropInPosition = true;
             for (var elem of e.dropItems) {
                 var g:Grid; // 掉落位置，优先掉在原地
                 if (dropInPosition) {
-                    g = bt.level.map.getGridAt(e.pos.x, e.pos.y);
+                    g = e.bt().level.map.getGridAt(e.pos.x, e.pos.y);
                     dropInPosition = false;
                 } else
-                    g = BattleUtils.findRandomEmptyGrid(bt);
+                    g = BattleUtils.findRandomEmptyGrid(e.bt());
 
                 if (!g) return; // 没有空间了
-                await bt.implAddElemAt(elem, g.pos.x, g.pos.y);
+                await e.bt().implAddElemAt(elem, g.pos.x, g.pos.y);
             }
         }, e);
 
         return e;
+    }
+
+    // 随机移动一次，dist 表示移动几格
+    static doMove(logicPoint:string, dist:number, e:Elem):Elem {
+        var dir = [[-1,0],[1,0],[0,-1],[0,1]];
+        return <Elem>ElemFactory.addAI(logicPoint, async () => {
+            var path = [{x:e.pos.x, y:e.pos.y}];
+            for (var i = 0; i < dist; i++) {
+                var d = dir[e.bt().srand.nextInt(0, dir.length)];
+                var lastPt = path[path.length - 1];
+                var x = lastPt.x + d[0];
+                var y = lastPt.y + d[1];
+                if ((e.pos.x == x && e.pos.y == y) || e.bt().level.map.isWalkable(x, y))
+                    path.push({x:x, y:y});
+            }
+
+            await e.bt().implElemMoving(e, path);
+        }, e);
     }
 }

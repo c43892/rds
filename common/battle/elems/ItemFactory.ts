@@ -16,9 +16,9 @@ class ItemFactory {
             e.canUse = () => true;
             e.use = async () => {
                 // 搜集所有参数，过公式算一下最终值
-                var ps = e.bt.getCalcPs("forHpPotion");
-                var dhp = e.bt.bc.doCalc(attrs.dhp, ps);
-                await e.bt.implAddPlayerHp(dhp);
+                var ps = e.bt().getCalcPs("forHpPotion");
+                var dhp = e.bt().bc.doCalc(attrs.dhp, ps);
+                await e.bt().implAddPlayerHp(dhp);
             }
             e.canBeMoved = true;
             return e;
@@ -30,7 +30,7 @@ class ItemFactory {
             e.cnt = attrs.cnt;
             e.canUse = () => true;
             e.use = async () => {
-                await e.bt.implAddMoney(e, e.cnt);
+                await e.bt().implAddMoney(e, e.cnt);
             }
             e.canBeMoved = true;
             return e;
@@ -42,13 +42,13 @@ class ItemFactory {
             e.cnt = attrs.cnt;
             e["power"] = attrs.power;
             e.canUseAt = (x, y) => {
-                var toe = e.bt.level.map.getElemAt(x, y);
+                var toe = e.bt().level.map.getElemAt(x, y);
                 return toe instanceof Monster;
             };
 
             e.useAt = async (x, y) => {
-                var m = <Monster>e.bt.level.map.getElemAt(x, y);
-                await e.bt.implPlayerAttackMonster(m, e);
+                var m = <Monster>e.bt().level.map.getElemAt(x, y);
+                await e.bt().implPlayerAttackMonster(m, e);
                 e.cnt--;
                 return e.cnt > 0;
             }
@@ -61,7 +61,7 @@ class ItemFactory {
         "NextLevelPort": (bt, attrs) => {
             var e = new Elem(bt);
             e.canUse = () => true;
-            e.use = async () => await e.bt.implGo2NextLevel(); // 进入下一关卡
+            e.use = async () => await e.bt().implGo2NextLevel(); // 进入下一关卡
             return e;
         }
     };

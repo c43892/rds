@@ -8,6 +8,7 @@ class MainView extends egret.DisplayObjectContainer {
     public power:egret.TextField; // 攻击
     public defence:egret.TextField; // 防御
     public dodge:egret.TextField; // 闪避
+    public relics:egret.Bitmap[] = []; // 遗物
 
     public mapView:MapView; // 地图视图
     private repView:ReplayView; // 录像界面
@@ -116,6 +117,24 @@ class MainView extends egret.DisplayObjectContainer {
             this.avatar.width = 0;
             this.avatar.width = 0;
         }
+
+        this.refreshRelics();
+    }
+
+    public refreshRelics() {
+        for (var rBmp of this.relics) this.removeChild(rBmp);
+        this.relics = [];
+
+        var x = this.money.x;
+        var y = this.money.y + this.money.height + 10;
+        for (var r of this.player.relics) {
+            var rBmp = ViewUtils.createBitmapByName(r.type + "_png");
+            rBmp.x = x; rBmp.y = y;
+            rBmp.width = rBmp.height = 25;
+            x += rBmp.width + 5;
+            this.addChild(rBmp);
+            this.relics.push(rBmp);
+        }
     }
 
     // 清除所有地图显示元素
@@ -125,6 +144,8 @@ class MainView extends egret.DisplayObjectContainer {
         this.repView.clear();
         this.avatar.texture = undefined;
         this.hp.text = "";
+        for (var rBmp of this.relics) this.removeChild(rBmp);
+        this.relics = [];
     }
 
     // 初始化主视图数据

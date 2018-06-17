@@ -73,15 +73,15 @@ class Battle {
         var w = init_uncovered.w;
         var h = init_uncovered.h;
         var lt = this.getGetRegionWithEscapePort(w, h);
+        // 移除逃离出口，目前不需要了
+        var ep = this.level.map.findFirstElem((x, y, e) => e && e.type == "EscapePort");
+        this.level.map.removeElemAt(ep.pos.x, ep.pos.y);
         for(var i = 0; i < w; i++) {
             for (var j = 0; j < h; j++) {
                 this.uncover(i + lt.left, j + lt.top);
             }
         }
 
-        // 移除逃离出口，目前不需要了
-        var ep = this.level.map.findFirstUncoveredElem((e) => e.type == "EscapePort");
-        this.level.map.removeElemAt(ep.pos.x, ep.pos.y);
         await this.fireEvent("onStartupRegionUncovered");
         await this.triggerLogicPoint("onStartupRegionUncovered");
     }
@@ -152,12 +152,19 @@ class Battle {
             for (var h of hs)
                 await h(ps);
 
+        // 玩家遗物响应之
+        for (var r of this.player.relics) {
+            var h = r[lpName];
+            if (h && await h(ps))
+                return;
+        }
+
         // 地图上的元素响应之
         var es = [];
         this.level.map.foreachUncoveredElems((e) => { es.push(e); return false; });
         for (var e of es) {
-            var handler = e[lpName];
-            if (handler && await handler(ps))
+            var h = e[lpName];
+            if (h && await h(ps))
                 return;
         }
     }
@@ -332,7 +339,8 @@ class Battle {
     // 进入下一关卡
     public static startNewBattle;
     public async implGo2NextLevel() {
-        await this.triggerLogicPoint("beforeGoOutLevel");
+        await this.triggerLogicPoint("beforeGoOutLevel1");
+        await this.triggerLogicPoint("beforeGoOutLevel2");
         await this.fireEvent("onLevel", {subType:"goOutLevel", bt:this});
         Battle.startNewBattle(this.player);
     }
@@ -410,30 +418,44 @@ class Battle {
         v += dv;
         this.player[attrType] = v < min ? min : v;
         await this.fireEvent("onPlayerChanged", {subtype:"attrType"});
-        await this.triggerLogicPoint("onPlayerChanged", {"subType": "attrType"});
+        await this.triggerLogicPoint("onPlayerChanged", {subType: "attrType"});
     }
 
-    // 怪物进行移动，path 是一组 {x:x, y:y} 的数组
-    public async implMonsterMoving(m:Monster, path) {
+    // 角色+遗物
+    public async implAddPlayerRelic(e:Elem) {
+        this.player.addRelic(e);
+        await this.fireEvent("onPlayerChanged", {subtype:"addRelic", e:e});
+        await this.triggerLogicPoint("onPlayerChanged", {subtype:"addRelic", e:e});
+    }
+
+    // 角色-遗物
+    public async implRemovePlayerRelic(type:string) {
+        var e = this.player.removeRelic(type);
+        await this.fireEvent("onPlayerChanged", {subtype:"removeRelic", e:e});
+        await this.triggerLogicPoint("onPlayerChanged", {subtype:"removeRelic", e:e});
+    }
+
+    // 元素进行移动，path 是一组 {x:x, y:y} 的数组
+    public async implElemMoving(e:Elem, path) {
         if (path.length == 0)
             return;
 
         // 第一个路径点必须是相邻格子
-        if (Math.abs(m.pos.x - path[0].x) + Math.abs(m.pos.y - path[0].y) > 1)
+        if (Math.abs(e.pos.x - path[0].x) + Math.abs(e.pos.y - path[0].y) > 1)
             return;
         
         // 检查路径上的格子是不是都可以走
         for (var n of path) {
             var x = n.x;
             var y = n.y;
-            if (!(m.pos.x == x && m.pos.y == y) && !this.level.map.isWalkable(x, y))
+            if (!(e.pos.x == x && e.pos.y == y) && !this.level.map.isWalkable(x, y))
                 return;
         }
 
 
         // 直接移动到指定位置，逻辑上是没有连续移动过程的
-        this.level.map.switchElems(m.pos.x, m.pos.y, path[path.length-1].x, path[path.length-1].y);
-        await this.fireEvent("onElemMoving", {subType:"MonsterMoving", m:m, path:path});
+        this.level.map.switchElems(e.pos.x, e.pos.y, path[path.length-1].x, path[path.length-1].y);
+        await this.fireEvent("onElemMoving", {e:e, path:path});
     }
 
     // 给角色加钱/减钱, e 是相关元素，比如偷钱的怪物，或者是地上的钱币

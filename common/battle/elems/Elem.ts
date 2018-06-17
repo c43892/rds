@@ -2,7 +2,7 @@
 // 地图上每个怪物，物品，符文都是一个元素
 class Elem {
     constructor(bt:Battle) {
-        this.bt = bt;
+        this._bt = () => bt;
         this.canUse = () => false;  // 不可使用
         this.canUseAt = () => false; // 不可对其它目标使用(不可移动)
         this.canUseOther = () => true;  // 不影响其它元素使用
@@ -10,14 +10,15 @@ class Elem {
     }
 
     public $$id:string; // 调试用
-    public bt:Battle; // 反向引用回所属战斗对象
+    public _bt;
+    public bt = ():Battle => this._bt(); // 所属战斗对象
     public type: string; // 元素类型
     public cnt:number; // 叠加数量
     public pos = {x: 0, y: 0}; // 元素当前坐标位置
     public hazard:boolean; // 是否有害，有害的元素会被相邻格子计数
     public blockUncover:boolean; // 是否阻挡后面的格子（比如岩石）
     public movingSpeed:number; // 移动速度
-    public getGrid = () => this.bt.level.map.getGridAt(this.pos.x, this.pos.y); // 当前元素所在的地图格
+    public getGrid = () => this.bt().level.map.getGridAt(this.pos.x, this.pos.y); // 当前元素所在的地图格
 
     // 各逻辑点，挂接的都是函数
     public canUse; // 一个 function():boolean

@@ -5,9 +5,9 @@ class Player {
     // 应该序列化的字段
     private static serializableFields = [
         "currentLevel", "battleRandomSeed", "avatar", 
-        "money", 
         "deathStep", "hp", "maxHp", "power", "defence", "dodge", 
-        "occupation"];
+        "occupation", 
+        "money", ""];
 
     public getBattle; // 当前战斗
 
@@ -106,5 +106,25 @@ class Player {
                 await h();
             }
         });
+    }
+
+    // 遗物相关逻辑
+
+    public relics:Elem[] = []; // 所有遗物
+
+    public addRelic(e:Elem) {
+        this.relics.push(e);
+    }
+
+    public removeRelic(type:string):Elem {
+        for (var i in this.relics) {
+            var e = this.relics[i];
+            if (e.type == type) {
+                this.relics = Utils.removeAt(this.relics, i)
+                return e;
+            }
+        }
+
+        Utils.assert(false, "player has no relic: " + type + " to remove");
     }
 }

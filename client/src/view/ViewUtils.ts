@@ -12,7 +12,8 @@ class ViewUtils {
             if (texture) {
                 result.width = texture.textureWidth;
                 result.height = texture.textureHeight;
-            }
+            } else
+                Utils.log("no texture created: " + name);
         }
         
         result.anchorOffsetX = 0;

@@ -11,9 +11,9 @@
 	"game": [
 		"bin-debug/battle/elems/Elem.js",
 		"bin-debug/battle/elems/ItemFactory.js",
-		"bin-debug/battle/elems/MonsterFactory.js",
 		"bin-debug/battle/buffs/Buff.js",
-		"bin-debug/battle/elems/ElemFactory.js",
+		"bin-debug/battle/elems/MonsterFactory.js",
+		"bin-debug/battle/elems/RelicFactory.js",
 		"bin-debug/battle/BattleCaculator.js",
 		"bin-debug/battle/BattleUtils.js",
 		"bin-debug/battle/GCfg.js",
@@ -25,7 +25,8 @@
 		"bin-debug/LoadingUI.js",
 		"bin-debug/battle/buffs/BuffDeath.js",
 		"bin-debug/Platform.js",
-		"bin-debug/view/ViewUtils.js",
+		"bin-debug/battle/elems/ElemFactory.js",
+		"bin-debug/Main.js",
 		"bin-debug/animation/AnimationFactory.js",
 		"bin-debug/battle/Battle.js",
 		"bin-debug/battle/map/Grid.js",
@@ -41,6 +42,6 @@
 		"bin-debug/view/MainView.js",
 		"bin-debug/view/MapView.js",
 		"bin-debug/view/ReplayView.js",
-		"bin-debug/Main.js"
+		"bin-debug/view/ViewUtils.js"
 	]
 }
