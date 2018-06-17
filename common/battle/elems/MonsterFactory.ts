@@ -99,7 +99,7 @@ class MonsterFactory {
     // 偷袭：召唤
     static doSneakSummon(m:Monster):Monster {
         return MonsterFactory.addSneakAI(async () => {
-            var ss = m.attrs.summons;
+            var ss = m.attrs.summons ? m.attrs.summons : [];
             for (var i = 0; i < ss.length; i++) {
                 var g:Grid; // 掉落位置，优先掉在原地
                 g = BattleUtils.findRandomEmptyGrid(m.bt());

@@ -6,9 +6,11 @@ class Replay {
     public trueRandomSeed:number;
     public ops:any[]; // 操作列表，按操作顺序记录，格式是 [[op:op1, ps:{...}], [op:op2, ps:{...}], ...]
 
+    private playerWhenStart;
     constructor(btid:string, player:Player, trueRandomSeed:number) {
         this.btid = btid;
         this.player = player;
+        this.playerWhenStart = player.toString();
         this.trueRandomSeed = trueRandomSeed;
         this.ops = [];
     }
@@ -21,7 +23,7 @@ class Replay {
     public toString():string {
         return JSON.stringify({
             "btid": this.btid, 
-            "player": this.player.toString(), 
+            "player": this.playerWhenStart,
             "trueRandomSeed": this.trueRandomSeed, 
             "ops":this.ops
         });

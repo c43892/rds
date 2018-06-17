@@ -75,13 +75,15 @@ class Player {
         for (var r of this.relics)
             relics.push(r.toString());
 
-        // var buffs = [];
-        // for (var b of this.buffs)
-        //     buffs.push(b.toString());
+        var buffs = [];
+        for (var b of this.buffs)
+            buffs.push(b.toString());
 
-        var pinfo = {relics:relics};
+        var pinfo = {relics:relics, buffs:buffs};
         for (var f of Player.serializableFields)
             pinfo[f] = this[f];
+
+        Utils.log("save", this.deathStep);
 
         return JSON.stringify(pinfo);
     }
@@ -95,9 +97,10 @@ class Player {
         for (var r of pinfo.relics)
             p.relics.push(Elem.fromString(r));
 
-        // for (var b of pinfo.buffs)
-        //     p.buffs.push(Buff.fromString(p, b));
+        for (var b of pinfo.buffs)
+            p.buffs.push(Buff.fromString(p, b));
 
+        Utils.log("load", p.deathStep);
         return p
     }
 
