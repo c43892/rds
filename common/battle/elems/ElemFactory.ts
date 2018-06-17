@@ -2,6 +2,7 @@
 class ElemFactory {
     static creators = [
         new ItemFactory(),
+        new PropFactory(),
         new RelicFactory(),
         new MonsterFactory()
     ];

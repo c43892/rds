@@ -272,6 +272,33 @@ class Battle {
         };
     }
 
+    // 尝试无目标使用道具
+    public try2UseProp() {
+        return async (e:Elem) => {
+            let canUse = e.canUse();
+            if (!canUse)
+                return;
+
+            // 其它元素可能会阻止使用
+            this.level.map.foreachUncoveredElems((e:Elem) => {
+                if (e.canUseOther)
+                    canUse = e.canUseOther(e);
+
+                return !canUse;
+            });
+
+            // 可以使用
+            if (canUse) {
+
+                // 操作录像
+                this.fireEventSync("onPlayerOp", {op:"try2UseProp", ps:{type:e.type}});
+                await e.use();
+                await this.fireEvent("onPropChanged", {type:e.type});
+                await this.triggerLogicPoint("onPropUsed", {type:e.type});
+            }
+        };
+    }
+
     // 尝试使用一个元素，将一个坐标设定为目标
     public try2UseElemAt() {
         return async (e:Elem, x:number, y:number) => {
@@ -433,6 +460,20 @@ class Battle {
         var e = this.player.removeRelic(type);
         await this.fireEvent("onPlayerChanged", {subtype:"removeRelic", e:e});
         await this.triggerLogicPoint("onPlayerChanged", {subtype:"removeRelic", e:e});
+    }
+
+    // 角色+道具
+    public async implAddPlayerProp(e:Elem) {
+        this.player.addProp(e);
+        await this.fireEvent("onPlayerChanged", {subtype:"addProp", e:e});
+        await this.triggerLogicPoint("onPlayerChanged", {subtype:"addProp", e:e});
+    }
+
+    // 角色-道具
+    public async implRemovePlayerProp(type:string, cnt:number = 1) {
+        this.player.removeProp(type, cnt);
+        await this.fireEvent("onPlayerChanged", {subtype:"removeProp", type:type});
+        await this.triggerLogicPoint("onPlayerChanged", {subtype:"removeProp", type:type});
     }
 
     // 元素进行移动，path 是一组 {x:x, y:y} 的数组

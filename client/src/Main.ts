@@ -111,6 +111,7 @@ class Main extends egret.DisplayObjectContainer {
         ElemView.try2UseElemAt = bt.try2UseElemAt();
         ElemView.try2UncoverAt = bt.try2UncoverAt();
         ElemView.try2BlockGrid = bt.try2BlockGrid();
+        PropView.try2UseProp = bt.try2UseProp();
 
         bt.registerEvent("onPlayerOp", (ps) => BattleRecorder.onPlayerOp(ps.op, ps.ps));
         bt.registerEvent("onLevel", (ps) => this.mv.onLevel(ps));

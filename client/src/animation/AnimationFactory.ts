@@ -7,7 +7,6 @@ class AnimationFactory {
     // 创建指定类型的动画
     public createAni(aniType:string, ps = undefined):Promise<void> {
         var ani:Promise<void>;
-        Utils.log(aniType);
         switch (aniType) {
             case "monsterChanged": ani = this.monsterChanged(ps.m); break;
             case "playerChanged": ani = this.playerChanged(); break;

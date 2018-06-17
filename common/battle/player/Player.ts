@@ -75,11 +75,15 @@ class Player {
         for (var r of this.relics)
             relics.push(r.toString());
 
+        var props = [];
+        for (var p of this.props)
+            props.push(p.toString());
+
         var buffs = [];
         for (var b of this.buffs)
             buffs.push(b.toString());
 
-        var pinfo = {relics:relics, buffs:buffs};
+        var pinfo = {relics:relics, props:props, buffs:buffs};
         for (var f of Player.serializableFields)
             pinfo[f] = this[f];
 
@@ -94,6 +98,9 @@ class Player {
 
         for (var r of pinfo.relics)
             p.relics.push(Elem.fromString(r));
+
+        for (var prop of pinfo.props)
+            p.props.push(Elem.fromString(prop));
 
         for (var b of pinfo.buffs)
             p.buffs.push(Buff.fromString(p, b));
@@ -147,5 +154,32 @@ class Player {
         }
 
         Utils.assert(false, "player has no relic: " + type + " to remove");
+    }
+
+    // 道具相关逻辑
+
+    public props:Elem[] = []; // 所有道具
+
+    public addProp(e:Elem) {
+        // 合并可叠加的物品
+        var n = Utils.indexOf(this.props, (prop:Elem) => prop.type == e.type);
+        if (n >= 0 && e.attrs.canOverlap) {
+            var p = this.props[n];
+            p.cnt += e.cnt;
+        }
+        else
+            this.props.push(e);
+    }
+
+    public removeProp(type:string, cnt:number = 1) {
+        var n = Utils.indexOf(this.props, (prop:Elem) => prop.type == type);
+        Utils.assert(n >= 0, "no prop: " + type + " to remove");
+
+        var p = this.props[n];
+        Utils.assert(p.attrs.canOverlap || n == 1, type + " can be removed only 1 each time");
+        p.cnt -= cnt;
+
+        if (p.cnt <= 0 || !p.attrs.canOverlap)
+            this.props = Utils.removeAt(this.props, n);
     }
 }

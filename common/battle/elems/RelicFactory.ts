@@ -6,6 +6,7 @@ class RelicFactory {
     createRelic(bt:Battle, attrs, mountLogic):Elem {
         var e = new Elem(bt);
         e.canUse = () => true;
+        e.canBeMoved = true;
         e.use = async () => {
             e.canUse = false;
             e.use = undefined;

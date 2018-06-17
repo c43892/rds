@@ -11,6 +11,7 @@ class MainView extends egret.DisplayObjectContainer {
     public relics:egret.Bitmap[] = []; // 遗物
 
     public mapView:MapView; // 地图视图
+    public propsView:PropsView; // 道具视图
     private repView:ReplayView; // 录像界面
     public aniView:AniView; // 动画视图
 
@@ -37,6 +38,8 @@ class MainView extends egret.DisplayObjectContainer {
 
         this.mapView = new MapView(w, h);
         this.addChild(this.mapView);
+        this.propsView = new PropsView(w, 100);
+        this.addChild(this.propsView);
         this.repView = new ReplayView(w, h);
         this.addChild(this.repView);
         this.aniView = new AniView(w, h, this);
@@ -119,6 +122,9 @@ class MainView extends egret.DisplayObjectContainer {
         }
 
         this.refreshRelics();
+        this.propsView.width = this.width;
+        this.propsView.y = this.height - this.propsView.height;
+        this.propsView.refresh(this.player.props);
     }
 
     public refreshRelics() {

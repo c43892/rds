@@ -72,7 +72,6 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 角色信息发生变化
     public async onPlayerChanged(ps) {
-        this.mv.refreshPlayer();
         switch (ps.subType) {
             case "money":
                 await this.aniFact.createAni("moneyMoving");
@@ -80,6 +79,8 @@ class AniView extends egret.DisplayObjectContainer {
             default:
                 await this.aniFact.createAni("playerChanged");
         }
+
+        this.mv.refreshPlayer();
     }
 
     // 产生攻击行为
