@@ -6,7 +6,7 @@ class Occupation {
         Utils.assert(c, "no such occupation: " + p.occupation);
         p.clear();
         p.mountBuffLogicPoint();
-        p.buffs.push(new BuffDeath(p));
+        p.buffs.push(new BuffDeathGod(p));
         return c(p);
     }
 

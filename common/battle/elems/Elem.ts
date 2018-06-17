@@ -53,4 +53,23 @@ class Elem {
             this.dropItems.push(e);
         }
     }
+
+    // 序列化和反序列化
+
+    public toString():string {
+        var dropItmes = [];
+        for (var dp of this.dropItems)
+            dropItmes.push(dp.toString());
+
+        return JSON.stringify({type:this.type, attrs:this.attrs, dropItems:dropItmes});
+    }
+
+    public static fromString(str:string):Elem {
+        var info = JSON.parse(str);
+        var e = ElemFactory.create(info.type, info.attrs);
+        for (var dp of info.dropItems)
+            e.dropItems.push(Elem.fromString(dp));
+        
+        return e;
+    }
 }

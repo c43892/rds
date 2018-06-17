@@ -1,8 +1,8 @@
 
 // 死神
-class BuffDeath extends Buff {
+class BuffDeathGod extends Buff {
     constructor(owner) {
-        super(owner);
+        super(owner, "BuffDeathGod");
         var p = <Player>owner;
         this.onPlayerActed = async () => {
             var bt:Battle = p.getBattle();

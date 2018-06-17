@@ -70,21 +70,35 @@ class Player {
 
     // 序列化反序列化
 
+    public toString():string {
+        var relics = [];
+        for (var r of this.relics)
+            relics.push(r.toString());
+
+        // var buffs = [];
+        // for (var b of this.buffs)
+        //     buffs.push(b.toString());
+
+        var pinfo = {relics:relics};
+        for (var f of Player.serializableFields)
+            pinfo[f] = this[f];
+
+        return JSON.stringify(pinfo);
+    }
+
     public static fromString(str:string):Player {
         var pinfo = JSON.parse(str);
         var p = new Player();
         for (var f of Player.serializableFields)
             p[f] = pinfo[f];
 
+        for (var r of pinfo.relics)
+            p.relics.push(Elem.fromString(r));
+
+        // for (var b of pinfo.buffs)
+        //     p.buffs.push(Buff.fromString(p, b));
+
         return p
-    }
-
-    public toString():string {
-        var pinfo = {};
-        for (var f of Player.serializableFields)
-            pinfo[f] = this[f];
-
-        return JSON.stringify(pinfo);
     }
 
     // 各逻辑点，不同职业的能力挂接于此
@@ -102,7 +116,7 @@ class Player {
         this.onGoOutLevel = [];
     }
 
-    public buffs = []; // 所有 buff
+    public buffs:Buff[] = []; // 所有 buff
     mountBuffLogicPoint() {
         this.onPlayerActed.push(async () => {
             for (var b of this.buffs) {
