@@ -83,8 +83,6 @@ class Player {
         for (var f of Player.serializableFields)
             pinfo[f] = this[f];
 
-        Utils.log("save", this.deathStep);
-
         return JSON.stringify(pinfo);
     }
 
@@ -100,7 +98,6 @@ class Player {
         for (var b of pinfo.buffs)
             p.buffs.push(Buff.fromString(p, b));
 
-        Utils.log("load", p.deathStep);
         return p
     }
 

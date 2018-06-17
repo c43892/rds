@@ -7,6 +7,7 @@ class AnimationFactory {
     // 创建指定类型的动画
     public createAni(aniType:string, ps = undefined):Promise<void> {
         var ani:Promise<void>;
+        Utils.log(aniType);
         switch (aniType) {
             case "monsterChanged": ani = this.monsterChanged(ps.m); break;
             case "playerChanged": ani = this.playerChanged(); break;
@@ -15,9 +16,9 @@ class AnimationFactory {
             case "moving": ani = this.moving(ps.obj, ps.path); break;
             case "fadeIn": ani = this.fade(ps.img, 0, 1, ps.time); break;
             case "fadeOut": ani = this.fade(ps.img, 1, 0, ps.time); break;
-            case "moneyMoving": ani = Utils.delay(500); break;
-            case "suckBlood": ani = Utils.delay(500); break;
-            case "monsterTakeElem": ani = Utils.delay(500); break;
+            case "moneyMoving": ani = Utils.delay(100); break;
+            case "suckBlood": ani = Utils.delay(100); break;
+            case "monsterTakeElem": ani = Utils.delay(100); break;
         }
         
         Utils.assert(ani != undefined, "unknown aniType: " + aniType);
@@ -47,21 +48,21 @@ class AnimationFactory {
 
     // 创建怪物攻击玩家角色的特效
     monsterAttackPlayer(m:Monster):Promise<void> {
-        return Utils.delay(500);
+        return Utils.delay(100);
     }
 
     // 创建玩家角色攻击怪物的特效
     playerAttackMonster(m:Monster):Promise<void> {
-        return Utils.delay(500);
+        return Utils.delay(100);
     }
 
     // 玩家角色属性变化
     playerChanged():Promise<void> {
-        return Utils.delay(500);
+        return Utils.delay(100);
     }
 
     // 怪物属性变化
     monsterChanged(m:Monster):Promise<void> {
-        return Utils.delay(500);
+        return Utils.delay(100);
     }
 }

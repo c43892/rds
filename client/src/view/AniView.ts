@@ -49,11 +49,6 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 指定位置发生状态或元素变化
     public async onGridChanged(ps) {
-        if (ps.subType.indexOf("Elem") == 0)
-            this.mv.mapView.refreshAt(ps.x, ps.y);
-        else
-            this.mv.mapView.refresh3x3(ps.x, ps.y);
-
         switch (ps.subType) {
             case "ElemAdded":
                 this.mv.mapView.refreshAt(ps.x, ps.y);
@@ -61,6 +56,11 @@ class AniView extends egret.DisplayObjectContainer {
                 await this.aniFact.createAni("fadeIn", {"img": eImg, "time":1000});
             break;
         }
+
+        if (ps.subType.indexOf("Elem") == 0)
+            this.mv.mapView.refreshAt(ps.x, ps.y);
+        else
+            this.mv.mapView.refresh3x3(ps.x, ps.y);
     }
 
     // 怪物属性发生变化

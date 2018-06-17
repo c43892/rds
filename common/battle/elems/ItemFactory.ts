@@ -40,7 +40,6 @@ class ItemFactory {
         "Gun": (bt, attrs) => {
             var e = new Elem(bt);
             e.cnt = attrs.cnt;
-            e["power"] = attrs.power;
             e.canUseAt = (x, y) => {
                 var toe = e.bt().level.map.getElemAt(x, y);
                 return toe instanceof Monster;

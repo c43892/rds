@@ -12,7 +12,7 @@ class BattleCalculator {
     //      "dodged": 被闪避
     // 具体结果数值附加在其它结果参数中
     public tryAttack(attacker, target, weapon:Elem = undefined):any {
-        var power = weapon ? weapon["power"] : attacker.power;
+        var power = weapon ? weapon.attrs["power"] : attacker.power;
         var defence = target.defence ? target.defenct : 0;
         var dodge = target.dodge ? target.dodge : 0;
         
