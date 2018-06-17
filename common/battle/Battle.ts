@@ -19,14 +19,14 @@ class Battle {
         this.$$srandSeed = () => [randomseed, trueRandomSeed];
     }
 
-    public static createNewBattle(player:Player, trueRandomSeed:number = undefined):Battle {
+    public static createNewBattle(p:Player, trueRandomSeed:number = undefined):Battle {
         if (trueRandomSeed == undefined)
             trueRandomSeed = (new Date()).getMilliseconds();
 
-        var bt = new Battle(player.battleRandomSeed, trueRandomSeed);
+        var bt = new Battle(p.battleRandomSeed, trueRandomSeed);
         bt.id = "bt_" + Math.random();
-        bt.player = Occupation.makeOccupation(player);
-        player.getBattle = () => bt;
+        bt.player = Occupation.makeOccupation(p);
+        p.setBattle(bt);
         return bt;
     }
 

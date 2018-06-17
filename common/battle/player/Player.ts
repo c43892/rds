@@ -9,7 +9,14 @@ class Player {
         "occupation", 
         "money", ""];
 
-    public getBattle; // 当前战斗
+    // 所属战斗
+    private $$bt;
+    public getBattle = ():Battle => this.$$bt;
+    public setBattle(bt:Battle) {
+        this.$$bt = bt;
+        for (var r of this.relics)
+            r.setBattle(bt);
+    }
 
     // 关卡逻辑
     public currentLevel:string; // 当前关卡配置名称
@@ -20,7 +27,7 @@ class Player {
         var p = new Player();
         p.currentLevel = "testLevel1";
         p.occupation = "nurse";
-        p.deathStep = 10;
+        p.deathStep = 100;
         p.hp = 10;
         p.maxHp = 20;
         p.avatar = "avator1";

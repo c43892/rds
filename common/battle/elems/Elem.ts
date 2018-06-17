@@ -2,7 +2,7 @@
 // 地图上每个怪物，物品，符文都是一个元素
 class Elem {
     constructor(bt:Battle) {
-        this._bt = () => bt;
+        this.$$bt = bt;
         this.canUse = () => false;  // 不可使用
         this.canUseAt = () => false; // 不可对其它目标使用(不可移动)
         this.canUseOther = () => true;  // 不影响其它元素使用
@@ -10,8 +10,9 @@ class Elem {
     }
 
     public $$id:string; // 调试用
-    public _bt;
-    public bt = ():Battle => this._bt(); // 所属战斗对象
+    private $$bt; // 所属战斗对象
+    public setBattle(bt:Battle) { this.$$bt = bt; }
+    public bt():Battle { return this.$$bt; } // 所属战斗对象
     public type: string; // 元素类型
     public cnt:number; // 叠加数量
     public pos = {x: 0, y: 0}; // 元素当前坐标位置
