@@ -129,7 +129,7 @@ class ElemView extends egret.DisplayObjectContainer {
                 if (e) {
                     if (e.canUse)
                         ElemView.try2UseElem(e);
-                    else
+                    else if (e.attrs.useWithTarget)
                         ElemView.selectGrid((elem) => e.canUseAt(elem.pos.x, elem.pos.y), (pos) => {
                             if (!pos) return; // 取消选择
                             ElemView.try2UseElemAt(e, pos.x, pos.y);

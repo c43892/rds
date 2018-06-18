@@ -290,8 +290,8 @@ class Battle {
             // 可以使用
             if (canUse) {
                 // 操作录像
-                this.fireEventSync("onPlayerOp", {op:"try2UseProp", ps:{type:e.type}});
-                
+                this.fireEventSync("onPlayerOp", {op:"try2UseProp", ps:{type:e.type, n:Utils.indexOf(this.player.props, (p) => p == e)}});
+
                 await e.use();
                 await this.fireEvent("onPropChanged", {type:e.type});
                 await this.triggerLogicPoint("onPropUsed", {type:e.type});
@@ -372,7 +372,7 @@ class Battle {
                 });
 
                 // 操作录像
-                this.fireEventSync("onPlayerOp", {op:"try2UsePropAt", ps:{tox:x, toy:y}});
+                this.fireEventSync("onPlayerOp", {op:"try2UsePropAt", ps:{type:e.type, n:Utils.indexOf(this.player.props, (p) => p == e), tox:x, toy:y}});
 
                 var toe = this.level.map.getElemAt(x, y);
                 await e.useAt(x, y);

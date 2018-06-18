@@ -55,7 +55,7 @@ class PropView extends egret.DisplayObjectContainer {
     onTouchGrid(evt:egret.TouchEvent) {
         if (this.e.canUse)
             PropView.try2UseProp(this.e);
-        else {
+        else if (this.e.attrs.useWithTarget) {
             PropView.selectGrid((x, y) => this.e.canUseAt(x, y), (pos) => {
                 if (!pos) return; // 取消选择
                 PropView.try2UsePropAt(this.e, pos.x, pos.y);
