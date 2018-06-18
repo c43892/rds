@@ -41,8 +41,8 @@ class PropFactory {
             return this.createProp(bt, attrs, (e) => {
                 e.cnt = attrs.cnt;
                 e.canUseAt = (x, y) => {
-                    var toe = e.bt().level.map.getElemAt(x, y);
-                    return toe instanceof Monster;
+                    var toe:Elem = e.bt().level.map.getElemAt(x, y);
+                    return toe && toe.getGrid().isUncoveredOrMarked() && (toe instanceof Monster);
                 };
 
                 e.useAt = async (x, y) => {

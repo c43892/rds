@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "description_json,levelconfig_json,covered_png,grid_png,bg_png,HpPotion_png,NextLevelPort_png,avator1_png,Bunny_png,blocked_png,uncoverable_png,replaybg_png,blackcover_png,anicover_png,Coins_png,Gun_png,elemattrsconfig_json,DeathGod_png,MedicineBox_png,EscapePort_png",
+			"keys": "description_json,levelconfig_json,covered_png,grid_png,bg_png,HpPotion_png,NextLevelPort_png,avator1_png,Bunny_png,blocked_png,uncoverable_png,replaybg_png,blackcover_png,anicover_png,Coins_png,Gun_png,elemattrsconfig_json,DeathGod_png,MedicineBox_png,EscapePort_png,selectable_png,unselectable_png",
 			"name": "preload"
 		}
 	],
@@ -105,6 +105,16 @@
 			"name": "EscapePort_png",
 			"type": "image",
 			"url": "assets/elems/EscapePort.png"
+		},
+		{
+			"name": "selectable_png",
+			"type": "image",
+			"url": "assets/selectable.png"
+		},
+		{
+			"name": "unselectable_png",
+			"type": "image",
+			"url": "assets/unselectable.png"
 		}
 	]
 }

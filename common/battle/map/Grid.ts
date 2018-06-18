@@ -20,5 +20,6 @@ class Grid {
 
     // 广义上的覆盖状态
     public isCovered() { return this.status != GridStatus.Uncovered; }
+    public isUncoveredOrMarked() { return this.status == GridStatus.Uncovered || this.status == GridStatus.Marked; }
     public getElem() { return this.map.getElemAt(this.pos.x, this.pos.y); }
 }

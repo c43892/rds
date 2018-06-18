@@ -289,9 +289,9 @@ class Battle {
 
             // 可以使用
             if (canUse) {
-
                 // 操作录像
                 this.fireEventSync("onPlayerOp", {op:"try2UseProp", ps:{type:e.type}});
+                
                 await e.use();
                 await this.fireEvent("onPropChanged", {type:e.type});
                 await this.triggerLogicPoint("onPropUsed", {type:e.type});
@@ -306,7 +306,10 @@ class Battle {
             var fx = e.pos.x;
             var fy = e.pos.y;
             var b = map.getGridAt(x, y);
-            Utils.assert(b.status == GridStatus.Uncovered && !b.getElem(), "the repos position is not empty or not uncorvered");
+            if (b.status != GridStatus.Uncovered || b.getElem()) { // 无法拖过去
+                await this.fireEvent("onGridChanged", {x:fx, y:fy, subType:"ElemSwitchFrom"});
+                return;
+            }
             
             // 操作录像
             this.fireEventSync("onPlayerOp", {op:"reposElemTo", ps:{x:e.pos.x, y:e.pos.y, tox:x, toy:y}});
@@ -349,6 +352,32 @@ class Battle {
 
                 await this.fireEvent("onGridChanged", {x:e.pos.x, y:e.pos.y, subType:"UseElem"});
                 await this.triggerLogicPoint("onUseElemAt", {x:e.pos.x, y:e.pos.y, e:e, tox:x, toy:y, toe:toe});
+            }
+        };
+    }
+
+    // 尝试使用一个道具，将一个坐标设定为目标
+    public try2UsePropAt() {
+        return async (e:Elem, x:number, y:number) => {
+            var map = this.level.map;
+            if (e.canUseAt(x, y)) {
+                // 对指定目标位置使用
+                var canUse = true;
+                // 其它元素可能会阻止使用
+                this.level.map.foreachUncoveredElems((e:Elem) => {
+                    if (e.canUseOther)
+                        canUse = e.canUseOtherAt(e, x, y);
+
+                    return !canUse;
+                });
+
+                // 操作录像
+                this.fireEventSync("onPlayerOp", {op:"try2UsePropAt", ps:{tox:x, toy:y}});
+
+                var toe = this.level.map.getElemAt(x, y);
+                await e.useAt(x, y);
+                await this.fireEvent("onPropChanged", {type:e.type});
+                await this.triggerLogicPoint("onPropUsed", {type:e.type});
             }
         };
     }

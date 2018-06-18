@@ -4,6 +4,10 @@ class MapView extends egret.DisplayObjectContainer {
     private mgvs:GridView[][]; // 所有地图格子视图
     private mevs:ElemView[][]; // 所有元素视图
 
+    public gsize = {w:0, h:0};
+    public gw = 0;
+    public gh = 0;
+
     public constructor(w:number, h:number) {
         super();
     }
@@ -11,6 +15,8 @@ class MapView extends egret.DisplayObjectContainer {
     // 重建所有格子视图，一般在初始化或者地图大小发生变化时用
     private rebuildMapGridView(w:number, h:number) {
         this.removeChildren();
+
+        this.gsize = {w: w, h: h};
 
         this.mgvs = [];
         for(var i = 0; i < w; i++) {
@@ -51,22 +57,22 @@ class MapView extends egret.DisplayObjectContainer {
 
     // 刷新显示
     public refresh() {
-        var gw = this.width / this.map.size.w;
-        var gh = this.height / this.map.size.h;
+        this.gw = this.width / this.map.size.w;
+        this.gh = this.height / this.map.size.h;
 
         Utils.NDimentionArrayForeach(this.mgvs, (gv:GridView) => {
-            gv.x = gv.gx * gw;
-            gv.y = gv.gy * gh;
-            gv.width = gw;
-            gv.height = gh;
+            gv.x = gv.gx * this.gw;
+            gv.y = gv.gy * this.gh;
+            gv.width = this.gw;
+            gv.height = this.gh;
             gv.refresh();
         });
 
         Utils.NDimentionArrayForeach(this.mevs, (ev:ElemView) => {
-            ev.x = ev.gx * gw;
-            ev.y = ev.gy * gh;
-            ev.width = gw;
-            ev.height = gh;
+            ev.x = ev.gx * this.gw;
+            ev.y = ev.gy * this.gh;
+            ev.width = this.gw;
+            ev.height = this.gh;
             ev.refresh();
         });
     }
