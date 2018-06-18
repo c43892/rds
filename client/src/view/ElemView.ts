@@ -107,6 +107,7 @@ class ElemView extends egret.DisplayObjectContainer {
 
     public static try2UseElem; // 尝试无目标使用元素，会挂接形如 function(e:Elem) 的函数
     public static try2UseElemAt; // 尝试使用一个元素，将坐标为目标
+    public static reposElemTo; // 将物品放到指定空位
     public static try2UncoverAt; // 尝试解开指定位置
     public static try2BlockGrid; // 尝试设置/取消一个危险标志
 
@@ -212,7 +213,7 @@ class ElemView extends egret.DisplayObjectContainer {
 
             var from = ElemView.dragFrom;
             var to = this;
-            ElemView.try2UseElemAt(from.getElem(), to.gx, to.gy);
+            ElemView.reposElemTo(from.getElem(), to.gx, to.gy);
         }
 
         ElemView.pressed = false;

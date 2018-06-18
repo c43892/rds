@@ -299,21 +299,33 @@ class Battle {
         };
     }
 
+    // 移动一个元素到指定空位
+    public reposElemTo() {
+        return async (e:Elem, x:number, y:number) => {
+            var map = this.level.map;
+            var fx = e.pos.x;
+            var fy = e.pos.y;
+            var b = map.getGridAt(x, y);
+            Utils.assert(b.status == GridStatus.Uncovered && !b.getElem(), "the repos position is not empty or not uncorvered");
+            
+            // 操作录像
+            this.fireEventSync("onPlayerOp", {op:"reposElemTo", ps:{x:e.pos.x, y:e.pos.y, tox:x, toy:y}});
+
+            // 将元素移动到空地
+            map.removeElemAt(fx, fy);
+            map.addElemAt(e, x, y);
+            await this.fireEvent("onGridChanged", {x:fx, y:fy, subType:"ElemSwitchFrom"});
+            await this.fireEvent("onGridChanged", {x:x, y:y, subType:"ElemSwitchTo"});
+        };
+    }
+
     // 尝试使用一个元素，将一个坐标设定为目标
     public try2UseElemAt() {
         return async (e:Elem, x:number, y:number) => {
             var map = this.level.map;
             var fx = e.pos.x;
             var fy = e.pos.y;
-            var b = map.getGridAt(x, y);
-            if (b.status == GridStatus.Uncovered && !b.getElem()) {
-                // 将元素移动到空地
-                map.removeElemAt(fx, fy);
-                map.addElemAt(e, x, y);
-                await this.fireEvent("onGridChanged", {x:fx, y:fy, subType:"ElemSwitchFrom"});
-                await this.fireEvent("onGridChanged", {x:x, y:y, subType:"ElemSwitchTo"});
-            }
-            else if (e.canUseAt(x, y)) {
+            if (e.canUseAt(x, y)) {
                 // 对指定目标位置使用
                 var canUse = true;
                 // 其它元素可能会阻止使用

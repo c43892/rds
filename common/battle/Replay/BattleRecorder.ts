@@ -75,6 +75,7 @@ class BattleRecorder {
         BattleRecorder.onReplayOp("try2UseElem", (ps) => { ElemView.try2UseElem(bt.level.map.getElemAt(ps.x, ps.y)); });
         BattleRecorder.onReplayOp("try2BlockGrid", (ps) => { ElemView.try2BlockGrid(ps.x, ps.y, ps.mark); });
         BattleRecorder.onReplayOp("try2UseElemAt", (ps) => { ElemView.try2UseElemAt(bt.level.map.getElemAt(ps.x, ps.y), ps.tox, ps.toy); });
+        BattleRecorder.onReplayOp("reposElemTo", (ps) => { ElemView.reposElemTo(bt.level.map.getElemAt(ps.x, ps.y), ps.tox, ps.toy); });
     }
 
     private static replayOpHandlers = {}; // 执行所有录像指令

@@ -109,6 +109,7 @@ class Main extends egret.DisplayObjectContainer {
 
         ElemView.try2UseElem = bt.try2UseElem();
         ElemView.try2UseElemAt = bt.try2UseElemAt();
+        ElemView.reposElemTo = bt.reposElemTo();
         ElemView.try2UncoverAt = bt.try2UncoverAt();
         ElemView.try2BlockGrid = bt.try2BlockGrid();
         PropView.try2UseProp = bt.try2UseProp();
