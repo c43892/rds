@@ -10,7 +10,7 @@ class ItemFactory {
             return e;
         },
 
-        // 金币
+        // 金币堆
         "Coins": (bt, attrs) => {
             var e = new Elem(bt);
             e.cnt = attrs.cnt;

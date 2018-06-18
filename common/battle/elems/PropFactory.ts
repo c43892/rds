@@ -23,6 +23,7 @@ class PropFactory {
         // 红药水
         "HpPotion": (bt, attrs) => {
             return this.createProp(bt, attrs, (e:Elem) => {
+                e.cnt = attrs.cn;
                 e.canUse = () => true;
                 e.use = async () => {
                     // 搜集所有参数，过公式算一下最终值

@@ -140,6 +140,28 @@ class Player {
         });
     }
 
+    // buff 相关
+    
+    public addBuff(buff:Buff) {
+        // 如果有相同的 buff，就合并
+        var n = Utils.indexOf(this.buffs, (b) => b.type == buff.type);
+        if (n < 0)
+            this.buffs.push(buff);
+        else if (buff.cnt)
+            this.buffs[n].cnt += buff.cnt;
+    }
+
+    public removeBuff(type:string):Buff {
+        var n = Utils.indexOf(this.buffs, (b) => b.type == type);
+        var buff;
+        if (n >= 0) {
+            buff = this.buffs[n];
+            this.buffs = Utils.removeAt(this.buffs, n);
+        }
+
+        return buff;
+    }
+
     // 遗物相关逻辑
 
     public relics:Elem[] = []; // 所有遗物

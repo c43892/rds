@@ -3,7 +3,7 @@
     "Coins":{"canOverlap":true},
     "Gun":{"canOverlap":true, "useWithTarget":true},
     "DeathGod":{"hp":10, "power":3},
-
+    "Bunny":{"colddown":5},
     "MedicineBox":{"dhp":5},
 
     "":{}

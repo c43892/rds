@@ -443,6 +443,22 @@ class Battle {
         await this.triggerLogicPoint("onMonsterChanged", {"subType": "hp", "m":m});
     }
 
+    // 角色+buff
+    public async implAddBuff(buff:Buff) {
+        this.player.addBuff(buff);
+        await this.fireEvent("onBuffAdded", {buff:buff});
+        await this.triggerLogicPoint("onBuffAdded", {buff:buff});
+    }
+
+    // 角色-buff
+    public async implRemoveBuff(type:string) {
+        var buff = this.player.removeBuff(type);
+        if (buff) {
+            await this.fireEvent("onBuffRemoved", {buff:buff});
+            await this.triggerLogicPoint("onBuffAdded", {buff:buff});
+        }
+    }
+
     // 角色尝试攻击指定怪物
     public async implPlayerAttackMonster(m:Monster, weapon:Elem = undefined) {
 
