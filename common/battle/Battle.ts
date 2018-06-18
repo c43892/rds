@@ -445,7 +445,13 @@ class Battle {
 
     // 角色尝试攻击指定怪物
     public async implPlayerAttackMonster(m:Monster, weapon:Elem = undefined) {
-        var r = this.bc.tryAttack(this.player, m, weapon);
+
+        // 如果目标是被标记的怪
+        var marked = m.getGrid().status == GridStatus.Marked;
+        if (marked)
+            this.uncover(m.pos.x, m.pos.y);
+
+        var r = this.bc.tryAttack(this.player, m, marked, weapon);
         await this.fireEvent("onAttack", {subtype:"player2monster", r:r, m:m, weapon:weapon});
 
         switch (r.r) {

@@ -38,7 +38,7 @@ class PropFactory {
 
         // 枪
         "Gun": (bt, attrs) => {
-            return this.createProp(bt, attrs, (e) => {
+            return this.createProp(bt, attrs, (e:Elem) => {
                 e.cnt = attrs.cnt;
                 e.canUseAt = (x, y) => {
                     var toe:Elem = e.bt().level.map.getElemAt(x, y);
