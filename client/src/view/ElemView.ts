@@ -125,6 +125,9 @@ class ElemView extends egret.DisplayObjectContainer {
             case GridStatus.Marked:
             case GridStatus.Uncovered:
             {
+                if (b.status == GridStatus.Marked)
+                    ElemView.try2UncoverAt(b.pos.x, b.pos.y);
+
                 let e = this.map.getElemAt(this.gx, this.gy);
                 if (e) {
                     if (e.canUse)

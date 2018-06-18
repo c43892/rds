@@ -14,8 +14,12 @@ class Player {
     public getBattle = ():Battle => this.$$bt;
     public setBattle(bt:Battle) {
         this.$$bt = bt;
+
         for (var r of this.relics)
             r.setBattle(bt);
+
+        for (var p of this.props)
+            p.setBattle(bt);
     }
 
     // 关卡逻辑
