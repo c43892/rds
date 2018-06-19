@@ -42,13 +42,19 @@ class PropFactory {
             return this.createProp(bt, attrs, (e:Elem) => {
                 e.cnt = attrs.cnt;
                 e.canUseAt = (x, y) => {
+                    var tog:Grid = e.bt().level.map.getGridAt(x, y);
+                    if (tog.isUncoverable()) // 对未揭开区域可以使用
+                        return true;
+
                     var toe:Elem = e.bt().level.map.getElemAt(x, y);
-                    return toe && toe.getGrid().isUncoveredOrMarked() && (toe instanceof Monster);
+                    if (toe && toe instanceof Monster) // 对揭开的怪可以使用
+                        return true;
+                    
+                    return false; // 其它情况不可以使用
                 };
 
                 e.useAt = async (x, y) => {
-                    var m = <Monster>e.bt().level.map.getElemAt(x, y);
-                    await e.bt().implPlayerAttackMonster(m, e);
+                    await e.bt().implPlayerAttackAt(x, y, e);
                     await e.bt().implRemovePlayerProp(e.type);
                     return e.cnt > 0;
                 }

@@ -87,9 +87,9 @@ class AniView extends egret.DisplayObjectContainer {
     public async onAttack(ps) {
         this.mv.refreshPlayer();
         if (ps.subType == "player2monster")
-            await this.aniFact.createAni("monsterAttackPlayer", {"m": ps.m});
+            await this.aniFact.createAni("monsterAttackPlayer");
         else
-            await this.aniFact.createAni("playerAttackMonster", {"m": ps.m});
+            await this.aniFact.createAni("playerAttackMonster");
     }
 
     // 元素移动

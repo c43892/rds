@@ -10,8 +10,8 @@ class AnimationFactory {
         switch (aniType) {
             case "monsterChanged": ani = this.monsterChanged(ps.m); break;
             case "playerChanged": ani = this.playerChanged(); break;
-            case "playerAttackMonster": ani = this.playerAttackMonster(ps.m); break;
-            case "monsterAttackPlayer": ani = this.monsterAttackPlayer(ps.m); break;
+            case "playerAttackMonster": ani = this.playerAttackMonster(); break;
+            case "monsterAttackPlayer": ani = this.monsterAttackPlayer(); break;
             case "moving": ani = this.moving(ps.obj, ps.path); break;
             case "fadeIn": ani = this.fade(ps.img, 0, 1, ps.time); break;
             case "fadeOut": ani = this.fade(ps.img, 1, 0, ps.time); break;
@@ -46,12 +46,12 @@ class AnimationFactory {
     }
 
     // 创建怪物攻击玩家角色的特效
-    monsterAttackPlayer(m:Monster):Promise<void> {
+    monsterAttackPlayer():Promise<void> {
         return Utils.delay(100);
     }
 
     // 创建玩家角色攻击怪物的特效
-    playerAttackMonster(m:Monster):Promise<void> {
+    playerAttackMonster():Promise<void> {
         return Utils.delay(100);
     }
 

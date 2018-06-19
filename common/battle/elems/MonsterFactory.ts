@@ -54,7 +54,7 @@ class MonsterFactory {
 
         // 使用，即攻击怪物
         m.use = async () =>  {
-            await m.bt().implPlayerAttackMonster(m);
+            await m.bt().implPlayerAttackAt(m.pos.x, m.pos.y);
             return true;
         };
 

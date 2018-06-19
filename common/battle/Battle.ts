@@ -459,17 +459,23 @@ class Battle {
         }
     }
 
-    // 角色尝试攻击指定怪物
-    public async implPlayerAttackMonster(m:Monster, weapon:Elem = undefined) {
+    // 角色尝试攻击指定位置
+    public async implPlayerAttackAt(x:number, y:number, weapon:Elem = undefined) {
 
-        // 如果目标是被标记的怪
-        var marked = m.getGrid().status == GridStatus.Marked;
-        if (marked)
-            this.uncover(m.pos.x, m.pos.y);
+        // 如果目标被标记
+        var g = this.level.map.getGridAt(x, y);
+        var marked = g.status == GridStatus.Marked;
+        if (g.isCovered()) this.uncover(x, y); // 攻击行为自动揭开地块
 
-        var r = this.bc.tryAttack(this.player, m, marked, weapon);
-        await this.fireEvent("onAttack", {subtype:"player2monster", r:r, m:m, weapon:weapon});
+        var e = g.getElem();
+        var r; // 攻击结果
+        if (e && e instanceof Monster)
+            r = this.bc.tryAttack(this.player, <Monster>e, marked, weapon);
 
+        await this.fireEvent("onAttack", {subtype:"player2monster", x:y, y:y, r:r, weapon:weapon});
+        if (!r) return; // 目标位置没怪物
+
+        var m = <Monster>e;
         switch (r.r) {
             case "attacked": // 攻击成功
                 this.implAddMonsterHp(m, -r.dhp);

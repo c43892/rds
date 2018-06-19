@@ -20,6 +20,10 @@ class Grid {
 
     // 广义上的覆盖状态
     public isCovered() { return this.status != GridStatus.Uncovered; }
+    // 可以被揭开
+    public isUncoverable() { return this.map.isUncoverable(this.pos.x, this.pos.y); }
+    // 已经被揭开或者被标记
     public isUncoveredOrMarked() { return this.status == GridStatus.Uncovered || this.status == GridStatus.Marked; }
+    // 获取其上的元素
     public getElem() { return this.map.getElemAt(this.pos.x, this.pos.y); }
 }
