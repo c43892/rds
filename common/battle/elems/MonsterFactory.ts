@@ -9,6 +9,8 @@ class Monster extends Elem {
     public defence:number; // 防御
     public dodge:number; // 闪避%
 
+    public dead = () => this.hp <= 0; // 是否还活着
+
     public addHp(dhp:number) {
         this.hp += dhp;
         if (this.hp < 0)
@@ -28,7 +30,7 @@ class MonsterFactory {
                 ))),
 
         // "Bunny": (bt, attrs) => MonsterFactory.doAttack("onPlayerActed", this.createMonster(bt, attrs)) // 每回合攻击玩家
-        // "Bunny": (bt, attrs) => MonsterFactory.doAttackBack(this.createMonster(bt, attrs)) // 被攻击时反击
+        "Bunny": (bt, attrs) => MonsterFactory.doAttackBack(this.createMonster(bt, attrs)) // 被攻击时反击
         // "Bunny": (bt, attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakAttack(this.createMonster(bt, attrs))) // 偷袭行为是攻击，被攻击时反击
         // "Bunny": (bt, attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakStealMoney(this.createMonster(bt, attrs))) // 偷袭行为是偷钱，被攻击时反击
         // "Bunny": (bt, attrs) => MonsterFactory.doSneakSuckBlood(this.createMonster(bt, attrs)) // 偷袭行为是吸血
@@ -39,18 +41,18 @@ class MonsterFactory {
         //     m = <Monster>ElemFactory.addDieAI(async () => m.bt().implAddBuff(new BuffPoison(m.bt().player, 3)), m);
         //     return m;
         // }
-        "Bunny": (bt, attrs) => { // 玩家离开时，偷袭玩家
-            var m = this.createMonster(bt, attrs);
-            m = <Monster>ElemFactory.addAIEvenCovered("beforeGoOutLevel1", async () => {
-                var bt = m.bt();
-                var g = m.getGrid();
-                if (g.isCovered()) // 先揭开，再攻击
-                    await bt.implUncoverAt(g.pos.x, g.pos.y);
+        // "Bunny": (bt, attrs) => { // 玩家离开时，偷袭玩家
+        //     var m = this.createMonster(bt, attrs);
+        //     m = <Monster>ElemFactory.addAIEvenCovered("beforeGoOutLevel1", async () => {
+        //         var bt = m.bt();
+        //         var g = m.getGrid();
+        //         if (g.isCovered()) // 先揭开，再攻击
+        //             await bt.implUncoverAt(g.pos.x, g.pos.y);
 
-                await bt.implMonsterAttackPlayer(m);
-            }, m);
-            return m;
-        }
+        //         await bt.implMonsterAttackPlayer(m);
+        //     }, m);
+        //     return m;
+        // }
     };
 
     // 创建一个普通的怪物
@@ -131,7 +133,7 @@ class MonsterFactory {
 
     // 被攻击时反击一次
     static doAttackBack(m:Monster):Monster {
-        return <Monster>ElemFactory.addAI("onMonsterHurt", async () => m.bt().implMonsterAttackPlayer(m), m, (ps) => ps.m == m);
+        return <Monster>ElemFactory.addAI("onMonsterHurt", async () => m.bt().implMonsterAttackPlayer(m), m, (ps) => ps.m == m && !m.dead());
     }
 
     // 攻击玩家一次
