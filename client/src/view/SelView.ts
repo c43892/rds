@@ -19,6 +19,8 @@ class SelView extends egret.DisplayObjectContainer {
         // 标题
         var tt = new egret.TextField();
         tt.text = title;
+        tt.size = 50;
+        tt.textColor = 0x00ff00;
         tt.width = this.width; tt.height = ch;
         tt.textAlign = egret.HorizontalAlign.CENTER;
         tt.y = y - 100;
@@ -30,6 +32,7 @@ class SelView extends egret.DisplayObjectContainer {
             var c = choices[n];
             var btn = new egret.TextField();
             btn.text = c;
+            btn.textColor = 0x00ff00;
             btn.x = x; btn.y = y;
             btn.width = cw; btn.height = ch;
             x += (cw + space);

@@ -1,10 +1,11 @@
+class Relic extends Elem {}
 
 // 遗物刚被创建时，是一个 item，其拾取操作，才生成一个遗物到玩家身上
 class RelicFactory {
 
     // 创建一个遗物在地图上的包装对象
     createRelic(bt:Battle, attrs, mountLogic):Elem {
-        var e = new Elem(bt);
+        var e = new Relic(bt);
         e.canUse = () => true;
         e.canBeMoved = true;
         e.use = async () => {
