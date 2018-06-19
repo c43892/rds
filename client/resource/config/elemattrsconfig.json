@@ -1,10 +1,10 @@
 {
-    "HpPotion":{"dhp":10, "canOverlap":true},
-    "Coins":{"canOverlap":true},
-    "Gun":{"canOverlap":true, "useWithTarget":true},
-    "DeathGod":{"hp":10, "power":3},
-    "Bunny":{"colddown":5},
-    "MedicineBox":{"dhp":5},
+    "HpPotion":{"name":"血瓶", "dhp":10, "canOverlap":true},
+    "Coins":{"name":"金币", "canOverlap":true},
+    "Gun":{"name":"枪", "canOverlap":true, "useWithTarget":true},
+    "DeathGod":{"name":"死神", "hp":10, "power":3},
+    "Bunny":{"name":"兔子", "colddown":5},
+    "MedicineBox":{"name":"医药箱", "dhp":5},
 
     "":{}
 }

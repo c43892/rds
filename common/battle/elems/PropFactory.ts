@@ -1,10 +1,13 @@
+// 道具
+class Prop extends Elem {
+}
 
 // 道具刚被创建时，是一个 item，其拾取操作，才生成一个道具到玩家身上
 class PropFactory {
 
     // 创建一个道具在地图上的包装对象
-    createProp(bt:Battle, attrs, mountLogic):Elem {
-        var e = new Elem(bt);
+    createProp(bt:Battle, attrs, mountLogic):Prop {
+        var e = new Prop(bt);
         e.canUse = () => true;
         e.canBeMoved = true;
         e.use = async () => {

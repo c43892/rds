@@ -17,6 +17,8 @@ class PropsView extends egret.DisplayObjectContainer {
             pv.width = pv.height = PropsView.ViewGridSize;
             pv.touchEnabled = true;
         }
+
+        this.height = PropsView.ViewGridSize;
     }
 
     // 刷新显示

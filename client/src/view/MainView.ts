@@ -12,7 +12,7 @@ class MainView extends egret.DisplayObjectContainer {
 
     public mapView:MapView; // 地图视图
     public propsView:PropsView; // 道具视图
-    public gridsSelView:GridsSelView; // 目标选择视图
+    public selView:SelView; // 目标选择视图
     private repView:ReplayView; // 录像界面
     public aniView:AniView; // 动画视图
 
@@ -41,8 +41,8 @@ class MainView extends egret.DisplayObjectContainer {
         this.addChild(this.mapView);
         this.propsView = new PropsView(w, 100);
         this.addChild(this.propsView);
-        this.gridsSelView = new GridsSelView();
-        this.addChild(this.gridsSelView);
+        this.selView = new SelView();
+        this.addChild(this.selView);
         this.repView = new ReplayView(w, h);
         this.addChild(this.repView);
         this.aniView = new AniView(w, h, this);
@@ -64,8 +64,9 @@ class MainView extends egret.DisplayObjectContainer {
         this.refreshPlayer();
         this.aniView.refresh(this.width, this.height);
         this.repView.refresh(this.width, this.height);
-        this.gridsSelView.x = this.gridsSelView.y = 0;
-        this.gridsSelView.close();
+        this.selView.width = this.width; this.selView.height = this.height;
+        this.selView.x = this.selView.y = 0;
+        this.selView.close();
     }
 
     // 刷新地图显示
@@ -153,7 +154,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.mapView.clear();
         this.aniView.clear();
         this.repView.clear();
-        this.gridsSelView.close();
+        this.selView.close();
         this.avatar.texture = undefined;
         this.hp.text = "";
         for (var rBmp of this.relics) this.removeChild(rBmp);
@@ -172,9 +173,14 @@ class MainView extends egret.DisplayObjectContainer {
         await this.aniView.onLevel(ps);
     }
 
+    // n 选 1
+    public async select1inN(title:string, choices:string[], f) {
+        return this.selView.sel1inN(title, choices, f);
+    }
+
     // 打开目标选择界面
     public async selectGrid(f) {
-        return this.gridsSelView.open(this.mapView.gw, this.mapView.gh, 
+        return this.selView.selGrid(this.mapView.gw, this.mapView.gh, 
                             this.mapView.gsize.w, this.mapView.gsize.h, 
                              /* mapView 是下面中间对齐的，我们需要计算左上角 */
                             this.mapView.x - this.mapView.width / 2, this.mapView.y - this.mapView.height,

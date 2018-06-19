@@ -50,11 +50,15 @@ class PropView extends egret.DisplayObjectContainer {
     public static try2UseProp; // 尝试无目标使用道具，会挂接形如 function(e:Elem) 的函数
     public static try2UsePropAt; // 尝试使用一个道具，将坐标为目标
     public static selectGrid; // 选择目标
+    public static select1InN; // n 选 1
 
     // 点击
     onTouchGrid(evt:egret.TouchEvent) {
         if (this.e.canUse)
-            PropView.try2UseProp(this.e);
+            PropView.select1InN("确定使用 " + this.e.attrs.name, ["确定", "取消"], (c) => true, (c) => {
+                if (c == "确定")
+                    PropView.try2UseProp(this.e);
+            });
         else if (this.e.attrs.useWithTarget) {
             PropView.selectGrid((x, y) => this.e.canUseAt(x, y), (pos) => {
                 if (!pos) return; // 取消选择

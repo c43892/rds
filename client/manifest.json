@@ -10,11 +10,11 @@
 	],
 	"game": [
 		"bin-debug/battle/elems/Elem.js",
+		"bin-debug/battle/buffs/Buff.js",
+		"bin-debug/battle/elems/ItemFactory.js",
 		"bin-debug/battle/elems/PropFactory.js",
 		"bin-debug/battle/elems/RelicFactory.js",
 		"bin-debug/battle/elems/MonsterFactory.js",
-		"bin-debug/battle/buffs/Buff.js",
-		"bin-debug/battle/elems/ItemFactory.js",
 		"bin-debug/battle/BattleUtils.js",
 		"bin-debug/battle/GCfg.js",
 		"bin-debug/battle/Level.js",
@@ -40,13 +40,13 @@
 		"bin-debug/net/WSClient.js",
 		"bin-debug/view/AniView.js",
 		"bin-debug/view/ElemView.js",
-		"bin-debug/view/GridsSelView.js",
 		"bin-debug/view/GridView.js",
 		"bin-debug/view/MainView.js",
 		"bin-debug/view/MapView.js",
 		"bin-debug/view/PropsView.js",
 		"bin-debug/view/PropView.js",
 		"bin-debug/view/ReplayView.js",
+		"bin-debug/view/SelView.js",
 		"bin-debug/view/ViewUtils.js"
 	]
 }
