@@ -11,9 +11,10 @@ class BuffPoison extends Buff {
             else
                 await bt.implAddMonsterHp(owner, -1);
 
-            cnt--;
+            this.cnt--;
 
-            if (cnt <= 0)
+            Utils.log(this.cnt);
+            if (this.cnt <= 0)
                 bt.implRemoveBuff(this.type);
         };
     }
