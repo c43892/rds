@@ -6,7 +6,7 @@ class Buff {
         this.owner = owner;
     }
 
-    public cnt = undefined; // 剩余回合数，undefined 表示永远不结束
+    public cd = undefined; // 剩余回合数，undefined 表示永远不结束
 
     public toString():string {
         var info = {type:this.type};

@@ -1,16 +1,16 @@
 
 // 毒
 class BuffPoison extends Buff {
-    constructor(owner, cnt) {
+    constructor(owner, cd) {
         super(owner, "BuffPoison");
-        this.cnt = cnt;
+        this.cd = cd;
         this.onPlayerActed = async () => {
-            this.cnt--;
+            this.cd--;
 
             var bt:Battle = owner.getBattle();
             await this.doEffect();
 
-            if (this.cnt <= 0)
+            if (this.cd <= 0)
                 await bt.implRemoveBuff(this.type);
         };
 
