@@ -1,6 +1,6 @@
 class Buff {
     public type:string;
-    private owner; // 所属对象
+    public owner; // 所属对象
     constructor(owner, type:string) {
         this.type = type;
         this.owner = owner;

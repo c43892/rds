@@ -13,6 +13,7 @@ class ElemFactory {
         for (var factory of ElemFactory.creators) {
             if(factory.creators[type]) {
                 var e:Elem = factory.creators[type](bt, ElemFactory.mergeAttrs(type, attrs));
+                Utils.assert(e != undefined, "unknown elem type: " + type);
                 e.type = type;
                 e.attrs = attrs;
                 e.$$id = type + ":" + (ElemFactory.$$idSeqNo++);
@@ -32,8 +33,8 @@ class ElemFactory {
         return attrs;
     }
 
-    // 为怪物在指定逻辑点添加一个行为
-    public static addAI(logicPoint:string, act, e:Elem, condition = undefined):Elem {
+    // 为怪物在指定逻辑点添加一个行为，在隐藏时也生效
+    public static addAIEvenCovered(logicPoint:string, act, e:Elem, condition = undefined):Elem {
         var doPrior = e[logicPoint];
         e[logicPoint] = async (ps) => {
             if (doPrior != undefined)
@@ -44,6 +45,11 @@ class ElemFactory {
         }
         
         return e;
+    }
+
+    // 为怪物在指定逻辑点添加一个行为，只在显形的时候生效
+    public static addAI(logicPoint:string, act, e:Elem, condition = undefined):Elem {
+        return this.addAIEvenCovered(logicPoint, act, e, (ps) => !e.getGrid().isCovered() && (!condition || condition(ps)));
     }
 
     // 为物品死亡增加逻辑

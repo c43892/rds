@@ -214,11 +214,11 @@ class Map {
         return es;
     }
 
-    // 迭代每一个活动元素, f 是一个形如 funciton(e:Elem):boolean 的函数，返回值表示是否要中断迭代
-    public foreachUncoveredElems(f) {
+    // 迭代每一个元素
+    public foreachElem(f, condition = undefined) {
         var es = [];
         Utils.NDimentionArrayForeach(this.elems, (e:Elem) => {
-            if (e && !this.getGridAt(e.pos.x, e.pos.y).isCovered())
+            if (e && (!condition || condition(e)))
                 es.push(e);
         });
 
@@ -226,5 +226,10 @@ class Map {
             if (f(e))
                 break;
         }
+    }
+
+    // 迭代每一个活动元素, f 是一个形如 funciton(e:Elem):boolean 的函数，返回值表示是否要中断迭代
+    public foreachUncoveredElems(f) {
+        this.foreachElem(f, (e:Elem) => !e.getGrid().isCovered());
     }
 }

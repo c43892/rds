@@ -123,13 +123,13 @@ class Battle {
         });
 
         for (var p of neighbours)
-            await this.tryCalcMarkPos(p[0], p[1]);
+            await this.calcMarkPos(p[0], p[1]);
 
         return true;
     }
 
     // 计算标记
-    public async tryCalcMarkPos(x:number, y:number) {
+    public async calcMarkPos(x:number, y:number) {
         var markPos = MonsterMarker.CalcMonsterMarkSignAt(this.level.map, x, y);
         for (var p of markPos)
             this.mark(p[0], p[1]);
@@ -161,7 +161,7 @@ class Battle {
 
         // 地图上的元素响应之
         var es = [];
-        this.level.map.foreachUncoveredElems((e) => { es.push(e); return false; });
+        this.level.map.foreachElem((e) => { es.push(e); return false; });
         for (var e of es) {
             var h = e[lpName];
             if (h && await h(ps))
@@ -403,6 +403,11 @@ class Battle {
     }
 
     // impl 开头的函数，通常对应具体的逻辑功能实现，提供给 Elem 使用
+
+    // 揭开指定位置
+    public async implUncoverAt(x:number, y:number) {
+        await this.uncover(x, y);
+    }
 
     // 进入下一关卡
     public static startNewBattle;

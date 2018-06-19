@@ -18,7 +18,7 @@ class Occupation {
     static createNurse(p:Player):Player {
         // 每关起始加一瓶血
         p.onLevelInited.push(async () => {
-            var bt = p.getBattle();
+            var bt = p.bt();
             // 随机找个揭开了的空白格子
             var g = BattleUtils.findRandomEmptyGrid(bt);
             if (g) {
@@ -29,7 +29,7 @@ class Occupation {
         });
 
         // 离开关卡时恢复生命
-        p.onGoOutLevel.push(async () => { await p.getBattle().implAddPlayerHp(5); });
+        p.onGoOutLevel.push(async () => { await p.bt().implAddPlayerHp(5); });
 
         // 使用血瓶时加成
         p["forHpPotion"] = {a:0, b:0, c:1};
