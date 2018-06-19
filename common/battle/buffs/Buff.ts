@@ -26,6 +26,9 @@ class Buff {
         return c();
     }
 
+    // 生效一次（可以用来手动生效）
+    public doEffect;
+
     // 各逻辑挂接点
     public onPlayerActed; // 无参数
 }

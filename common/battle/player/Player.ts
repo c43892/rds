@@ -11,7 +11,7 @@ class Player {
 
     // 所属战斗
     private $$bt;
-    public getBattle = ():Battle => this.$$bt;
+    public bt = ():Battle => this.$$bt;
     public setBattle(bt:Battle) {
         this.$$bt = bt;
 
