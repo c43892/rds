@@ -7,7 +7,13 @@
         "init_uncovered": {"w": 3, "h": 3},
         "elems": {
             "HpPotion":{"num":10},
-            "Bunny":{"num":5, "attrs":{"hp":5, "power":1, "suckBlood":3, "summons":[]}},
+            "Bunny":{
+                "num":5, 
+                "attrs":{
+                    "hp":5, "power":1, "suckBlood":3, "summons":[], 
+                    "selfExplode":{"power":6}
+                }
+            },
             "Coins":{"num":1, "attrs":{"cnt":5}},
             "Gun": {"num":10, "attrs":{"cnt":2, "power":3}},
             "MedicineBox": {"num":1}
@@ -21,7 +27,13 @@
         "init_uncovered": {"w": 3, "h": 3},
         "elems": {
             "HpPotion":{"num":1, "attrs":{"dhp":5}},
-            "Bunny":{"num":10, "attrs":{"hp":3, "power":2}}
+            "Bunny":{
+                "num":10, 
+                "attrs":{
+                    "hp":3, "power":2, 
+                    "selfExplode":{"power":6}
+                }
+            }
         },
         "nextLevel": "testLevel1"
     }

@@ -11,9 +11,8 @@ class BattleCalculator {
     //      "blocked": 完全格挡
     //      "dodged": 被闪避
     // 具体结果数值附加在其它结果参数中
-    public tryAttack(attacker, target, marked:boolean = false, weapon:Elem = undefined):any {
-        var power = weapon ? weapon.attrs["power"] : attacker.power;
-        if (marked && !weapon) power += 2;
+    public tryAttack(attacker, target, weaponAttrs = undefined):any {
+        var power = weaponAttrs ? weaponAttrs["power"] : attacker.power;
         var defence = target.defence ? target.defenct : 0;
         var dodge = target.dodge ? target.dodge : 0;
         

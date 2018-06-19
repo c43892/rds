@@ -475,7 +475,7 @@ class Battle {
         var e = g.getElem();
         var r; // 攻击结果
         if (e && e instanceof Monster)
-            r = this.bc.tryAttack(this.player, <Monster>e, marked, weapon);
+            r = this.bc.tryAttack(this.player, <Monster>e, weapon ? weapon.attrs : undefined);
 
         await this.fireEvent("onAttack", {subtype:"player2monster", x:y, y:y, r:r, weapon:weapon});
         if (!r) return; // 目标位置没怪物
@@ -498,8 +498,11 @@ class Battle {
     }
 
     // 指定怪物尝试攻击角色
-    public async implMonsterAttackPlayer(m:Monster) {
-        var r = this.bc.tryAttack(m, this.player);
+    public async implMonsterAttackPlayer(m:Monster, selfExplode = false) {
+        // 自爆逻辑的攻击属性要特别处理一下
+        var weaponAttrs = selfExplode ? m.attrs.selfExplode : undefined;
+        Utils.assert(!selfExplode || weaponAttrs, "self explode needs specific attr: selfExplode");
+        var r = this.bc.tryAttack(m, this.player, weaponAttrs);
         await this.fireEvent("onAttack", {subtype:"monster2player", r:r, m:m});
 
         switch (r.r) {

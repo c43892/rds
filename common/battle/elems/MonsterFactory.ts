@@ -29,22 +29,21 @@ class MonsterFactory {
                     this.createMonster(bt, attrs),
                 ))),
 
-        // "Bunny": (bt, attrs) => MonsterFactory.doAttack("onPlayerActed", this.createMonster(bt, attrs)) // 每回合攻击玩家
-        "Bunny": (bt, attrs) => MonsterFactory.doAttackBack(this.createMonster(bt, attrs)) // 被攻击时反击
-        // "Bunny": (bt, attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakAttack(this.createMonster(bt, attrs))) // 偷袭行为是攻击，被攻击时反击
-        // "Bunny": (bt, attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakStealMoney(this.createMonster(bt, attrs))) // 偷袭行为是偷钱，被攻击时反击
-        // "Bunny": (bt, attrs) => MonsterFactory.doSneakSuckBlood(this.createMonster(bt, attrs)) // 偷袭行为是吸血
-        // "Bunny": (bt, attrs) => MonsterFactory.doSneakEatItems(this.createMonster(bt, attrs), true) // 偷袭行为是拿走道具
-        // "Bunny": (bt, attrs) => MonsterFactory.doSneakSummon(this.createMonster(bt, attrs)) // 偷袭行为是召唤
-        // "Bunny": (bt, attrs) => { // 死亡时放毒
+        // "Bunny": (bt:Battle, attrs) => MonsterFactory.doAttack("onPlayerActed", this.createMonster(bt, attrs)) // 每回合攻击玩家
+        // "Bunny": (bt:Battle, attrs) => MonsterFactory.doAttackBack(this.createMonster(bt, attrs)) // 被攻击时反击
+        // "Bunny": (bt:Battle, attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakAttack(this.createMonster(bt, attrs))) // 偷袭行为是攻击，被攻击时反击
+        // "Bunny": (bt:Battle, attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakStealMoney(this.createMonster(bt, attrs))) // 偷袭行为是偷钱，被攻击时反击
+        // "Bunny": (bt:Battle, attrs) => MonsterFactory.doSneakSuckBlood(this.createMonster(bt, attrs)) // 偷袭行为是吸血
+        // "Bunny": (bt:Battle, attrs) => MonsterFactory.doSneakEatItems(this.createMonster(bt, attrs), true) // 偷袭行为是拿走道具
+        // "Bunny": (bt:Battle, attrs) => MonsterFactory.doSneakSummon(this.createMonster(bt, attrs)) // 偷袭行为是召唤
+        // "Bunny": (bt:Battle, attrs) => { // 死亡时放毒
         //     var m = this.createMonster(bt, attrs);
-        //     m = <Monster>ElemFactory.addDieAI(async () => m.bt().implAddBuff(new BuffPoison(m.bt().player, 3)), m);
+        //     m = <Monster>ElemFactory.addDieAI(async () => bt.implAddBuff(new BuffPoison(m.bt().player, 3)), m);
         //     return m;
         // }
-        // "Bunny": (bt, attrs) => { // 玩家离开时，偷袭玩家
+        // "Bunny": (bt:Battle, attrs) => { // 玩家离开时，偷袭玩家
         //     var m = this.createMonster(bt, attrs);
         //     m = <Monster>ElemFactory.addAIEvenCovered("beforeGoOutLevel1", async () => {
-        //         var bt = m.bt();
         //         var g = m.getGrid();
         //         if (g.isCovered()) // 先揭开，再攻击
         //             await bt.implUncoverAt(g.pos.x, g.pos.y);
@@ -53,6 +52,11 @@ class MonsterFactory {
         //     }, m);
         //     return m;
         // }
+        "Bunny": (bt:Battle, attrs) => {
+            var m = this.createMonster(bt, attrs);
+            m = <Monster>ElemFactory.addDieAI(async () => bt.implMonsterAttackPlayer(m, true), m);
+            return m;
+        }
     };
 
     // 创建一个普通的怪物
