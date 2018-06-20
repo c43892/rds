@@ -412,14 +412,14 @@ class Battle {
         Battle.startNewBattle(this.player);
     }
 
-    // 向地图添加物品
+    // 向地图添加 Elem
     public async implAddElemAt(e:Elem, x:number, y:number) {
         this.addElemAt(e, x, y);
         await this.fireEvent("onGridChanged", {x:x, y:y, subType:"ElemAdded"});
         await this.triggerLogicPoint("onElemAdded", {e:e});
     }
 
-    // 从地图移除物品
+    // 从地图移除 Elem
     public async implRemoveElem(e:Elem) {
         var x = e.pos.x;
         var y = e.pos.y;
