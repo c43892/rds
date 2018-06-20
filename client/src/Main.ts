@@ -64,6 +64,8 @@ class Main extends egret.DisplayObjectContainer {
         GCfg.getLevelCfg = (lv) => lvCfg[lv];
         var elemAttrsCfg = RES.getRes("elemattrsconfig_json");
         GCfg.getElemAttrsCfg = (e) => elemAttrsCfg[e];
+        var playerCfg = RES.getRes("playerconfig_json");
+        GCfg.playerCfg = playerCfg;
     }
 
     private mv: MainView; // 地图显示

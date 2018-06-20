@@ -30,5 +30,8 @@ class Buff {
     public doEffect;
 
     // 各逻辑挂接点
-    public onPlayerActed; // 无参数
+    public onPlayerActed;
+    public onLevelInited;
+    public onGoOutLevel;
+    public onGridUncovered; // 形如 function(x:number, y:number, statusBeforeUncoverd:GridStatus)
 }

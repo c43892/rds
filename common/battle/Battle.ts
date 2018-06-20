@@ -146,17 +146,16 @@ class Battle {
     // 触发逻辑点，参数为逻辑点名称，该名称直接字面对应个各元素对逻辑点的处理函数，
     // 处理函数的返回值表示是否需要截获该事件，不再传递给其它元素
     public async triggerLogicPoint(lpName:string, ps = undefined) {
-        // 玩家响应之
-        var hs = this.player[lpName];
-        if (hs)
-            for (var h of hs)
-                await h(ps);
+        // 玩家 buff 响应之
+        for (var b of this.player.buffs) {
+            var h = b[lpName];
+            if (h && await h()) return;
+        }
 
         // 玩家遗物响应之
         for (var r of this.player.relics) {
             var h = r[lpName];
-            if (h && await h(ps))
-                return;
+            if (h && await h(ps)) return;
         }
 
         // 地图上的元素响应之
@@ -164,8 +163,7 @@ class Battle {
         this.level.map.foreachElem((e) => { es.push(e); return false; });
         for (var e of es) {
             var h = e[lpName];
-            if (h && await h(ps))
-                return;
+            if (h && await h(ps)) return;
         }
     }
 
@@ -518,6 +516,17 @@ class Battle {
             this.removeElem(m);
             if (m.onDie)
                 await m.onDie();
+        }
+    }
+
+    // 角色+经验
+    public async implAddPlayerExp(dExp:number) {
+        var lvUp = this.player.addExp(dExp);
+        await this.fireEvent("onPlayerChanged", {subtype:"exp"});
+        await this.triggerLogicPoint("onPlayerChanged", {subtype:"exp"});
+        if (lvUp) {
+            await this.fireEvent("onPlayerChanged", {subtype:"lvUp"});
+            await this.triggerLogicPoint("onPlayerChanged", {subType: "lvUp"});
         }
     }
 

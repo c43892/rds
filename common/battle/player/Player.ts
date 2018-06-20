@@ -6,7 +6,7 @@ class Player {
     private static serializableFields = [
         "currentLevel", "battleRandomSeed", "avatar", 
         "deathStep", "hp", "maxHp", "power", "defence", "dodge", 
-        "occupation", 
+        "occupation", "exp", "lv",
         "money", ""];
 
     // 所属战斗
@@ -40,8 +40,31 @@ class Player {
         p.dodge = 0;
         p.battleRandomSeed = 0;
         p.money = 100;
+        p.exp = 0;
+        p.lv = 0;
 
         return p;
+    }
+
+    // 经验等级
+
+    public exp:number;
+    public lv:number;
+
+    // 加经验，返回值表示是否发生等级变化
+    public addExp(dExp:number):boolean {
+        var exp2Lv = GCfg.playerCfg.exp2Lv;        
+        if (this.lv >= exp2Lv.Length) // 已经满级了
+            return false;
+
+        this.exp += dExp;
+        if (this.exp >= exp2Lv[this.lv]) {
+            this.exp -= exp2Lv[this.lv];
+            this.lv++;
+            return true;
+        }
+        else
+            return false;
     }
 
     // 头像逻辑
@@ -112,35 +135,14 @@ class Player {
         return p
     }
 
-    // 各逻辑点，不同职业的能力挂接于此
     public occupation:string; // 当前职业
-    public onLevelInited = []; // 关卡数据初始化之后
-    public onAllCoveredAtInit = []; // 关卡初始盖住所有元素之后
-    public onStartupRegionUncovered = []; // 初始区域揭开之后
-    public onGoOutLevel = []; // 离开当前关卡
-    public onPlayerActed = [];
     public clear() {
         this.buffs = [];
-        this.onLevelInited = [];
-        this.onAllCoveredAtInit = [];
-        this.onStartupRegionUncovered = [];
-        this.onGoOutLevel = [];
-    }
-
-    public buffs:Buff[] = []; // 所有 buff
-    mountBuffLogicPoint() {
-        this.onPlayerActed.push(async () => {
-            for (var b of this.buffs) {
-                var h = b.onPlayerActed;
-                if (!h)
-                    continue;
-
-                await h();
-            }
-        });
     }
 
     // buff 相关
+
+    public buffs:Buff[] = []; // 所有 buff
     
     public addBuff(buff:Buff) {
         // 如果有相同的 buff，就合并
