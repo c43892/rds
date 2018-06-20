@@ -1,5 +1,8 @@
 // 道具
 class Prop extends Elem {
+    constructor(bt) {
+        super(bt);
+    }
 }
 
 // 道具刚被创建时，是一个 item，其拾取操作，才生成一个道具到玩家身上

@@ -503,8 +503,7 @@ class Battle {
         var weaponAttrs = selfExplode ? m.attrs.selfExplode : undefined;
         Utils.assert(!selfExplode || weaponAttrs, "self explode needs specific attr: selfExplode");
         var r = this.bc.tryAttack(m, this.player, weaponAttrs);
-        await this.fireEvent("onAttack", {subtype:"monster2player", r:r, m:m});
-
+        await this.fireEvent("onAttack", {subtype:"monster2player", r:r, m:m, selfExplode:selfExplode});
         switch (r.r) {
             case "attacked": // 攻击成功
                 this.implAddPlayerHp(-r.dhp);
@@ -513,6 +512,12 @@ class Battle {
             case "dodged": // 被闪避
                 await this.triggerLogicPoint("onPlayerDodged");
             break;
+        }
+
+        if (selfExplode && !m.dead()) { // 自爆还要走死亡逻辑
+            this.removeElem(m);
+            if (m.onDie)
+                await m.onDie();
         }
     }
 

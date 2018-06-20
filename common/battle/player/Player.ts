@@ -147,8 +147,8 @@ class Player {
         var n = Utils.indexOf(this.buffs, (b) => b.type == buff.type);
         if (n < 0)
             this.buffs.push(buff);
-        else if (buff.cnt)
-            this.buffs[n].cnt += buff.cnt;
+        else if (buff.cd)
+            this.buffs[n].cd += buff.cd;
     }
 
     public removeBuff(type:string):Buff {

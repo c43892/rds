@@ -1,5 +1,4 @@
 class Monster extends Elem {
-
     constructor(bt:Battle) {
         super(bt);
     }

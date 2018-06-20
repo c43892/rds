@@ -1,4 +1,8 @@
-class Relic extends Elem {}
+class Relic extends Elem {
+    constructor(bt) {
+        super(bt);
+    }
+}
 
 // 遗物刚被创建时，是一个 item，其拾取操作，才生成一个遗物到玩家身上
 class RelicFactory {
