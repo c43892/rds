@@ -9,14 +9,22 @@ class ElemFactory {
 
     // 创建指定类型元素
     private static $$idSeqNo = 1; // 给 $$id 计数
-    public static create(type:string, bt:Battle, attrs = {}) {
+    public static create(type:string, bt:Battle, attrs = undefined) {
+        attrs = attrs ? attrs : {};
         for (var factory of ElemFactory.creators) {
             if(factory.creators[type]) {
                 var e:Elem = factory.creators[type](bt, ElemFactory.mergeAttrs(type, attrs));
-                Utils.assert(e != undefined, "unknown elem type: " + type);
+                Utils.assert(!!e, "unknown elem type: " + type);
                 e.type = type;
                 e.attrs = attrs;
                 e.$$id = type + ":" + (ElemFactory.$$idSeqNo++);
+
+                if (attrs.dropItems) // 初始就可能携带掉落物品
+                    for (var dpItem in attrs.dropItems) {
+                        var dpe = ElemFactory.create(dpItem, bt, attrs.dropItems[dpItem]);
+                        e.addDropItem(dpe);
+                    }
+
                 return ElemFactory.doDropItemsOnDie(e);
             }
         }

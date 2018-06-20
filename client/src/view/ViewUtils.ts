@@ -23,4 +23,8 @@ class ViewUtils {
         
         return result;
     }
+
+    public static loadTex(name: string) {
+        return egret.Texture = RES.getRes(name);
+    }
 }

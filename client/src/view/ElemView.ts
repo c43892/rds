@@ -7,7 +7,8 @@ class ElemView extends egret.DisplayObjectContainer {
     private showLayer:egret.DisplayObjectContainer; // 装入所有显示内容
     private opLayer:egret.TextField; // 专门用于接收操作事件
     private elemImg:egret.Bitmap; // 元素图
-    private num:egret.TextField; // 怪物血量或者元素数量
+    private hp:egret.TextField; // 怪物血量或者元素数量
+    private dropElemImg:egret.Bitmap; // 掉落物品的图
 
     public constructor() {
         super();
@@ -19,13 +20,11 @@ class ElemView extends egret.DisplayObjectContainer {
         this.addChild(this.opLayer);
 
         // 血量
-        this.num = new egret.TextField();
-        this.num.textColor = 0xffffff;
-        this.num.size = 25;
-        this.num.anchorOffsetX = 0;
-        this.num.anchorOffsetY = 0;
-        this.num.x = 0;
-        this.num.y = 0;
+        this.hp = new egret.TextField();
+        this.hp.textColor = 0xffffff;
+        this.hp.size = 25;
+        this.hp.anchorOffsetX = 0;
+        this.hp.anchorOffsetY = 0;
 
         this.anchorOffsetX = 0;
         this.anchorOffsetY = 0;
@@ -34,6 +33,35 @@ class ElemView extends egret.DisplayObjectContainer {
         this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
         this.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.onTouchMove, this);
         this.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd, this);
+    }
+
+    // 刷新掉落物品显示
+    public refreshDropItem() {
+        var b = this.map.getGridAt(this.gx, this.gy);
+        var e = this.map.getElemAt(this.gx, this.gy);
+        var dpe;
+        if (e.dropItems) {
+            var n = Utils.indexOf(e.dropItems, (dpe) => dpe.type != "Coins" && (dpe instanceof Item || dpe instanceof Prop));
+            if (n >= 0)
+                dpe = e.dropItems[n];
+        }
+
+        var show = !b.isCovered() && dpe;
+
+        if (!show && this.getChildByName(this.dropElemImg.name)) {
+            this.removeChild(this.dropElemImg);
+            this.dropElemImg = undefined;
+        } else if (show && (!this.dropElemImg || !this.getChildByName(this.dropElemImg.name))) {
+            this.dropElemImg = ViewUtils.createBitmapByName(dpe.type + "_png");
+            this.dropElemImg.name = "DropElem";
+            this.dropElemImg.x = this.dropElemImg.y = 0;
+            this.dropElemImg.width = this.dropElemImg.height = 25;
+            this.showLayer.addChild(this.dropElemImg);
+        } else if (show && this.dropElemImg && this.getChildByName(this.dropElemImg.name)) {
+            var tex = ViewUtils.loadTex(dpe.type + "_png");
+            if (this.dropElemImg.texture != tex)
+                this.dropElemImg.texture = tex;
+        }
     }
 
     public refresh() {
@@ -63,13 +91,10 @@ class ElemView extends egret.DisplayObjectContainer {
                     this.elemImg.filters = undefined;
                     if (e instanceof Monster) { // 怪物
                         var m = <Monster>e;
-                        this.num.text = m.hp.toString();
-                        this.num.textColor = 0xff0000;
-                        this.showLayer.addChild(this.num);
-                    } else if (e.attrs.canOverlap && e.cnt > 1) { // 可叠加元素显示数量
-                        this.num.text = e.cnt.toString();
-                        this.num.textColor = 0x00ff00;
-                        this.showLayer.addChild(this.num);
+                        this.hp.text = m.hp.toString();
+                        this.hp.textColor = 0xff0000;
+                        this.showLayer.addChild(this.hp);
+                        this.refreshDropItem(); // 刷新掉落物品显示
                     }
                 }
             break;
@@ -77,7 +102,10 @@ class ElemView extends egret.DisplayObjectContainer {
 
         var w = this.width;
         var h = this.height;
-        var arr = [this.showLayer, this.opLayer, this.elemImg, this.num];
+        this.hp.x = this.width - this.hp.width;
+        this.hp.y = this.height - this.hp.height;
+
+        var arr = [this.showLayer, this.opLayer, this.elemImg];
         arr.forEach((a) => { a.x = 0; a.y = 0; a.width = w; a.height = h; });
     }
 
