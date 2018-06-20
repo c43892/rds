@@ -13,7 +13,6 @@ class RelicFactory {
         e.canUse = () => true;
         e.canBeMoved = true;
         e.use = async () => {
-            e.canUse = false;
             e.use = undefined;
             mountLogic(e); // 这时候才生成遗物的行为逻辑
 

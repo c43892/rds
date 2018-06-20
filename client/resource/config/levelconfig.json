@@ -6,7 +6,7 @@
         "map": { },
         "init_uncovered": {"w": 3, "h": 3},
         "elems": {
-            "HpPotion":{"num":1},
+            "HpPotion":{"num":10},
             "Bunny":{
                 "num":1, 
                 "attrs":{

@@ -14,7 +14,6 @@ class PropFactory {
         e.canUse = () => true;
         e.canBeMoved = true;
         e.use = async () => {
-            e.canUse = false;
             e.use = undefined;
             e.cnt = e.attrs.cnt ? e.attrs.cnt : 1;
             mountLogic(e); // 这时候才生成道具的行为逻辑
@@ -29,7 +28,6 @@ class PropFactory {
         // 红药水
         "HpPotion": (bt, attrs) => {
             return this.createProp(bt, attrs, (e:Elem) => {
-                e.cnt = attrs.cn;
                 e.canUse = () => true;
                 e.use = async () => {
                     // 搜集所有参数，过公式算一下最终值

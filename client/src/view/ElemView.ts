@@ -7,7 +7,7 @@ class ElemView extends egret.DisplayObjectContainer {
     private showLayer:egret.DisplayObjectContainer; // 装入所有显示内容
     private opLayer:egret.TextField; // 专门用于接收操作事件
     private elemImg:egret.Bitmap; // 元素图
-    private hpNum:egret.TextField; // 怪物血量
+    private num:egret.TextField; // 怪物血量或者元素数量
 
     public constructor() {
         super();
@@ -19,13 +19,13 @@ class ElemView extends egret.DisplayObjectContainer {
         this.addChild(this.opLayer);
 
         // 血量
-        this.hpNum = new egret.TextField();
-        this.hpNum.textColor = 0xffffff;
-        this.hpNum.size = 25;
-        this.hpNum.anchorOffsetX = 0;
-        this.hpNum.anchorOffsetY = 0;
-        this.hpNum.x = 0;
-        this.hpNum.y = 0;
+        this.num = new egret.TextField();
+        this.num.textColor = 0xffffff;
+        this.num.size = 25;
+        this.num.anchorOffsetX = 0;
+        this.num.anchorOffsetY = 0;
+        this.num.x = 0;
+        this.num.y = 0;
 
         this.anchorOffsetX = 0;
         this.anchorOffsetY = 0;
@@ -61,10 +61,15 @@ class ElemView extends egret.DisplayObjectContainer {
                     this.elemImg = ViewUtils.createBitmapByName(e.type + "_png");
                     this.showLayer.addChild(this.elemImg);
                     this.elemImg.filters = undefined;
-                    if (e instanceof Monster) {
+                    if (e instanceof Monster) { // 怪物
                         var m = <Monster>e;
-                        this.hpNum.text = m.hp.toString();
-                        this.showLayer.addChild(this.hpNum);
+                        this.num.text = m.hp.toString();
+                        this.num.textColor = 0xff0000;
+                        this.showLayer.addChild(this.num);
+                    } else if (e.attrs.canOverlap && e.cnt > 1) { // 可叠加元素显示数量
+                        this.num.text = e.cnt.toString();
+                        this.num.textColor = 0x00ff00;
+                        this.showLayer.addChild(this.num);
                     }
                 }
             break;
@@ -72,7 +77,7 @@ class ElemView extends egret.DisplayObjectContainer {
 
         var w = this.width;
         var h = this.height;
-        var arr = [this.showLayer, this.opLayer, this.elemImg, this.hpNum];
+        var arr = [this.showLayer, this.opLayer, this.elemImg, this.num];
         arr.forEach((a) => { a.x = 0; a.y = 0; a.width = w; a.height = h; });
     }
 

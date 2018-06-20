@@ -51,7 +51,6 @@ class ItemFactory {
         "Door": (bt, attrs) => {
             var e = new Item(bt);
             e.canBeMoved = false;
-            e.canUse = false;
             e.use = async () => { // 门被设定为不可以使用，但有一个 use 方法，其实是给 Key 调用的
                 var bt = e.bt();
                 await bt.implRemoveElem(e);
@@ -66,7 +65,6 @@ class ItemFactory {
         "TreasureBox": (bt, attrs) => {
             var e = new Item(bt);
             e.canBeMoved = true;
-            e.canUse = false;
             e.use = async () => { // 宝箱被设定为不可以使用，但有一个 use 方法，其实是给 Key 调用的
                 var bt = e.bt();
                 await bt.implRemoveElem(e);

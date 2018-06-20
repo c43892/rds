@@ -2,6 +2,7 @@
 class PropView extends egret.DisplayObjectContainer {
     private e:Elem;
     private elemImg:egret.Bitmap; // 元素图
+    private num:egret.TextField; // 数量
 
     public constructor() {
         super();        
@@ -10,6 +11,15 @@ class PropView extends egret.DisplayObjectContainer {
 
         this.anchorOffsetX = 0;
         this.anchorOffsetY = 0;
+
+        // 血量
+        this.num = new egret.TextField();
+        this.num.textColor = 0xffffff;
+        this.num.size = 25;
+        this.num.anchorOffsetX = 0;
+        this.num.anchorOffsetY = 0;
+        this.num.x = 0;
+        this.num.y = 0;
 
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchGrid, this);
     }
@@ -20,10 +30,10 @@ class PropView extends egret.DisplayObjectContainer {
 
     public refresh() {
         this.clear();
-        if (!this.e)
-            return;
+        if (!this.e) return;
 
-        this.elemImg = ViewUtils.createBitmapByName(this.e.type + "_png");
+        var e = this.e;
+        this.elemImg = ViewUtils.createBitmapByName(e.type + "_png");
         this.elemImg.name = "elemImg";
         var w = this.width;
         var h = this.height;
@@ -31,6 +41,12 @@ class PropView extends egret.DisplayObjectContainer {
         this.elemImg.width = this.width;
         this.elemImg.height = this.height;
         this.addChild(this.elemImg);
+
+        if (e.attrs.canOverlap && e.cnt > 1) { // 可叠加元素显示数量
+            this.num.text = e.cnt.toString();
+            this.num.textColor = 0x00ff00;
+            this.addChild(this.num);
+        }
     }
 
     public clear() {
