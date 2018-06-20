@@ -7,7 +7,7 @@ class BuffPoison extends Buff {
         this.onPlayerActed = async () => {
             this.cd--;
 
-            var bt:Battle = owner.getBattle();
+            var bt:Battle = owner.bt();
             await this.doEffect();
 
             if (this.cd <= 0)
