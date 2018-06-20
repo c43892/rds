@@ -19,7 +19,7 @@ class Level {
     public InitElems(cfg) {
         var elems = [
             ElemFactory.create("EscapePort", this.bt), // 逃跑出口
-            ElemFactory.create("NextLevelPort", this.bt) // 下一层入口 
+            ElemFactory.create("Door", this.bt) // 下一层入口的门
         ];
 
         // 添加其它配置物品

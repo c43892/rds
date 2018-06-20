@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "description_json,levelconfig_json,covered_png,grid_png,bg_png,HpPotion_png,NextLevelPort_png,avator1_png,Bunny_png,blocked_png,uncoverable_png,replaybg_png,blackcover_png,anicover_png,Coins_png,Gun_png,elemattrsconfig_json,DeathGod_png,MedicineBox_png,EscapePort_png,selectable_png,unselectable_png,playerconfig_json",
+			"keys": "description_json,levelconfig_json,covered_png,grid_png,bg_png,HpPotion_png,NextLevelPort_png,avator1_png,Bunny_png,blocked_png,uncoverable_png,replaybg_png,blackcover_png,anicover_png,Coins_png,Gun_png,elemattrsconfig_json,DeathGod_png,MedicineBox_png,EscapePort_png,selectable_png,unselectable_png,playerconfig_json,Key_png,Door_png,TreasureBox_png",
 			"name": "preload"
 		}
 	],
@@ -120,6 +120,21 @@
 			"name": "playerconfig_json",
 			"type": "json",
 			"url": "config/playerconfig.json"
+		},
+		{
+			"name": "Key_png",
+			"type": "image",
+			"url": "assets/elems/Key.png"
+		},
+		{
+			"name": "Door_png",
+			"type": "image",
+			"url": "assets/elems/Door.png"
+		},
+		{
+			"name": "TreasureBox_png",
+			"type": "image",
+			"url": "assets/elems/TreasureBox.png"
 		}
 	]
 }

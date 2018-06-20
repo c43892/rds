@@ -6,17 +6,22 @@
         "map": { },
         "init_uncovered": {"w": 3, "h": 3},
         "elems": {
-            "HpPotion":{"num":10},
+            "HpPotion":{"num":1},
             "Bunny":{
-                "num":5, 
+                "num":1, 
                 "attrs":{
                     "hp":5, "power":1, "suckBlood":3, "summons":[], 
                     "selfExplode":{"power":6}
-                }
+                },
+                "dropItems":[
+                    {"key":{}}
+                ]
             },
             "Coins":{"num":1, "attrs":{"cnt":5}},
-            "Gun": {"num":10, "attrs":{"cnt":2, "power":3}},
-            "MedicineBox": {"num":1}
+            "Gun": {"num":1, "attrs":{"cnt":2, "power":3}},
+            "MedicineBox": {"num":1},
+            "Key":{"num":10},
+            "TreasureBox": {"num":10}
         }, 
         "nextLevel": "testLevel2"
     },

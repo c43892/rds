@@ -128,18 +128,17 @@ class ElemView extends egret.DisplayObjectContainer {
             {
                 let e = this.map.getElemAt(this.gx, this.gy);
                 if (e) {
-                    if (e.canUse)
-                        if (e.canUse) {
-                            if (e instanceof Prop || e instanceof Monster || e instanceof Relic)
-                                ElemView.try2UseElem(e);
-                            else
-                                PropView.select1InN("确定使用 " + e.attrs.name, ["确定", "取消"], (c) => true, (c) => {
-                                    if (c == "确定")
-                                        ElemView.try2UseElem(e);
-                                });
-                        }
+                    if (e.canUse()) {
+                        if (e instanceof Prop || e instanceof Monster || e instanceof Relic)
+                            ElemView.try2UseElem(e);
+                        else
+                            PropView.select1InN("确定使用 " + e.attrs.name, ["确定", "取消"], (c) => true, (c) => {
+                                if (c == "确定")
+                                    ElemView.try2UseElem(e);
+                            });
+                    }
                     else if (e.attrs.useWithTarget)
-                        ElemView.selectGrid((elem) => e.canUseAt(elem.pos.x, elem.pos.y), (pos) => {
+                        ElemView.selectGrid((x, y) => e.canUseAt(x, y), (pos) => {
                             if (!pos) return; // 取消选择
                             ElemView.try2UseElemAt(e, pos.x, pos.y);
                         });
