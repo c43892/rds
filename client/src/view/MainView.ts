@@ -2,6 +2,7 @@
 class MainView extends egret.DisplayObjectContainer {    
     public player:Player; // 当前角色
     public avatar:egret.Bitmap; // 角色头像
+    public playerLv:egret.TextField; // 角色等级
     public money:egret.TextField; // 金币
     public deathStep:egret.TextField; // 死神距离
     public hp:egret.TextField; // 血量
@@ -21,6 +22,8 @@ class MainView extends egret.DisplayObjectContainer {
         
         this.avatar = new egret.Bitmap();
         this.addChild(this.avatar);
+        this.playerLv = new egret.TextField();
+        this.addChild(this.playerLv);
 
         this.money = new egret.TextField();
         this.addChild(this.money);
@@ -92,6 +95,7 @@ class MainView extends egret.DisplayObjectContainer {
     // 刷新角色信息
     public refreshPlayer() {
         this.avatar.texture = RES.getRes(this.player.avatar + "_png");
+        this.playerLv.text = "lv:" + this.player.lv + ", e:" + this.player.exp;
         this.money.text = "💴：" + this.player.money;
         this.deathStep.text = "😈：" + this.player.deathStep;
         this.hp.text = "血量: " + this.player.hp + "/" + this.player.maxHp;
@@ -126,6 +130,12 @@ class MainView extends egret.DisplayObjectContainer {
             this.avatar.width = 0;
             this.avatar.width = 0;
         }
+
+        this.playerLv.x = this.avatar.x;
+        this.playerLv.y = this.avatar.y;
+        this.playerLv.width = this.avatar.width;
+        this.playerLv.height = 30;
+        this.playerLv.textColor = 0xff0000;
 
         this.refreshRelics();
         this.propsView.width = this.width;
