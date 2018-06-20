@@ -36,7 +36,10 @@
                 "num":10, 
                 "attrs":{
                     "hp":3, "power":2, 
-                    "selfExplode":{"power":6}
+                    "selfExplode":{"power":6},
+                    "dropItems":{
+                        "Key":{}
+                    }
                 }
             }
         },

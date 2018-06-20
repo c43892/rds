@@ -1,12 +1,12 @@
 
 // 护士职业 buff
 class BuffNurse extends Buff {
-    constructor(owner) {
-        super(owner, "BuffNurse");
+    constructor() {
+        super("BuffNurse");
 
         // 开局 +1 HpPotion
         this.onLevelInited = async (x:number, y:number, statusBeforeUncovered:GridStatus) => {
-            var bt = owner.bt();
+            var bt = this.getOwner().bt();
 
             // 随机找个揭开了的空白格子
             var g = BattleUtils.findRandomEmptyGrid(bt);
@@ -19,7 +19,7 @@ class BuffNurse extends Buff {
 
         // 过关 +5 Hp
         this.onGoOutLevel = async() => {
-            var bt = owner.bt();
+            var bt = this.getOwner().bt();
             await bt.implAddPlayerHp(5);
         }
 

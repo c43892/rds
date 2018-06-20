@@ -1,10 +1,10 @@
 
 // 死神
 class BuffDeathGod extends Buff {
-    constructor(owner) {
-        super(owner, "BuffDeathGod");
-        var p = <Player>owner;
+    constructor() {
+        super("BuffDeathGod");
         this.onPlayerActed = async () => {
+            var p = <Player>this.getOwner();            
             var bt:Battle = p.bt();
             await bt.implAddPlayerAttr("deathStep", -1);
             if (p.deathStep == 0 && !bt.level.map.findFirstUncoveredElem((e:Elem) => e.type == "DeathGod"))
@@ -12,7 +12,7 @@ class BuffDeathGod extends Buff {
         };
 
         this.doEffect = async () => {
-            var bt:Battle = owner.bt();
+            var bt:Battle = this.getOwner().bt();
             var dg = ElemFactory.create("DeathGod", bt);
             var g = BattleUtils.findRandomEmptyGrid(bt);
             if (!g) return; // 没空位了

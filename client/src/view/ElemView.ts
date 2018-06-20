@@ -36,6 +36,7 @@ class ElemView extends egret.DisplayObjectContainer {
     }
 
     // 刷新掉落物品显示
+    dropElemImgExists = () => this.dropElemImg && this.getChildByName(this.dropElemImg.name);
     public refreshDropItem() {
         var b = this.map.getGridAt(this.gx, this.gy);
         var e = this.map.getElemAt(this.gx, this.gy);
@@ -48,16 +49,16 @@ class ElemView extends egret.DisplayObjectContainer {
 
         var show = !b.isCovered() && dpe;
 
-        if (!show && this.getChildByName(this.dropElemImg.name)) {
+        if (!show && this.dropElemImgExists()) {
             this.removeChild(this.dropElemImg);
             this.dropElemImg = undefined;
-        } else if (show && (!this.dropElemImg || !this.getChildByName(this.dropElemImg.name))) {
+        } else if (show && !this.dropElemImgExists()) {
             this.dropElemImg = ViewUtils.createBitmapByName(dpe.type + "_png");
             this.dropElemImg.name = "DropElem";
             this.dropElemImg.x = this.dropElemImg.y = 0;
             this.dropElemImg.width = this.dropElemImg.height = 25;
             this.showLayer.addChild(this.dropElemImg);
-        } else if (show && this.dropElemImg && this.getChildByName(this.dropElemImg.name)) {
+        } else if (show && this.dropElemImgExists()) {
             var tex = ViewUtils.loadTex(dpe.type + "_png");
             if (this.dropElemImg.texture != tex)
                 this.dropElemImg.texture = tex;
@@ -245,7 +246,7 @@ class ElemView extends egret.DisplayObjectContainer {
                 ElemView.dragFrom.elemImg.alpha = 0;
             }
         }
-        else {
+        else if (ElemView.draggingElemImg) {
             ElemView.draggingElemImg.x = px - ElemView.draggingElemImg.width / 2;
             ElemView.draggingElemImg.y = py - ElemView.draggingElemImg.height / 2;
         }

@@ -45,6 +45,7 @@ class PropFactory {
         "Gun": (bt, attrs) => {
             return this.createProp(bt, attrs, (e:Elem) => {
                 e.cnt = attrs.cnt;
+                e.canUse = () => false;
                 e.canUseAt = (x, y) => {
                     var tog:Grid = e.bt().level.map.getGridAt(x, y);
                     if (tog.isUncoverable()) // 对未揭开区域可以使用

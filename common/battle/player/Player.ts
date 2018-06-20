@@ -106,11 +106,12 @@ class Player {
         for (var p of this.props)
             props.push(p.toString());
 
-        var buffs = [];
-        for (var b of this.buffs)
-            buffs.push(b.toString());
+        // 目前 buff 不参与
+        // var buffs = [];
+        // for (var b of this.buffs)
+        //     buffs.push(b.toString());
 
-        var pinfo = {relics:relics, props:props, buffs:buffs};
+        var pinfo = {relics:relics, props:props/*, buffs:buffs*/};
         for (var f of Player.serializableFields)
             pinfo[f] = this[f];
 
@@ -129,8 +130,9 @@ class Player {
         for (var prop of pinfo.props)
             p.props.push(Elem.fromString(prop));
 
-        for (var b of pinfo.buffs)
-            p.buffs.push(Buff.fromString(p, b));
+        // 目前 buff 不参与
+        // for (var b of pinfo.buffs)
+        //     p.addBuff(Buff.fromString(b));
 
         return p
     }
@@ -147,8 +149,10 @@ class Player {
     public addBuff(buff:Buff) {
         // 如果有相同的 buff，就合并
         var n = Utils.indexOf(this.buffs, (b) => b.type == buff.type);
-        if (n < 0)
+        if (n < 0) {
+            buff.getOwner = () => this;
             this.buffs.push(buff);
+        }
         else if (buff.cd)
             this.buffs[n].cd += buff.cd;
     }

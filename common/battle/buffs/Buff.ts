@@ -1,29 +1,26 @@
 class Buff {
     public type:string;
-    public owner; // 所属对象
-    constructor(owner, type:string) {
+    public getOwner; // 获取所属对象
+    constructor(type:string) {
         this.type = type;
-        this.owner = owner;
     }
 
     public cd = undefined; // 剩余回合数，undefined 表示永远不结束
 
+    getConstructorPs = () => []; // 序列化时需要带什么参数，由各 buff 自己决定，和各自构造参数对应
     public toString():string {
-        var info = {type:this.type};
+        var info = {type:this.type, ps:this.getConstructorPs()};
+        Utils.log(" => ", this.type, info.ps);
         return JSON.stringify(info);
     }
 
-    public static fromString(owner, str:string):Buff {
+    public static fromString(str:string):Buff {
         var info = JSON.parse(str);
         var type = info.type;
-
-        var creators = {
-            "BuffDeathGod": () => new BuffDeathGod(owner)
-        };
-
-        var c = creators[type];
-        Utils.assert(c, "no such a buff: " + type);
-        return c();
+        var buff = BuffFactory.create(type, ...info.ps);
+        Utils.log(" <= ", type, info.ps);
+        Utils.assert(!!buff, "no such a buff: " + type);
+        return buff;
     }
 
     // 生效一次（可以用来手动生效）
