@@ -32,9 +32,7 @@ class PropFactory {
                 e.canUse = () => true;
                 e.use = async () => {
                     // 搜集所有参数，过公式算一下最终值
-                    var ps = e.bt().getCalcPs("forHpPotion");
-                    var dhp = e.bt().bc.doCalc(attrs.dhp, ps);
-                    await e.bt().implAddPlayerHp(dhp);
+                    await e.bt().implAddPlayerHp(attrs.dhp);
                     await e.bt().implRemovePlayerProp(e.type);
                 }
 

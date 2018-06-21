@@ -433,8 +433,13 @@ class Battle {
         await this.triggerLogicPoint("onElemRemoved", {e:e});
     }
 
-    // 角色+hp
-    public async implAddPlayerHp(dhp:number) {
+    // 角色+hp, absolutely 表示是否忽略所有加成因素，直接使用给定数值
+    public async implAddPlayerHp(dhp:number, absolutely:boolean = false) {
+        if (!absolutely) {
+            var ps = this.getCalcPs("forHpPotion");
+            dhp = this.bc.doCalc(dhp, ps);
+        }
+
         this.player.addHp(dhp);
         await this.fireEvent("onPlayerChanged", {subtype:"hp"});
         await this.triggerLogicPoint("onPlayerChanged", {"subType": "hp"});

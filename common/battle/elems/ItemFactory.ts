@@ -87,6 +87,19 @@ class ItemFactory {
             return e;
         },
 
+        // 药丸
+        "HpCapsule": (attrs) => {
+            var e = new Item();
+            e.canBeMoved = true;
+            e.canUse = () => true;
+            e.use = async () => {
+                var bt = e.bt();
+                await bt.implAddBuff(bt.player, "BuffAddHp", e.attrs.cnt);
+            };
+
+            return e;
+        },
+
         // 下一关入口
         "NextLevelPort": (attrs) => {
             var e = new Item();

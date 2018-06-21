@@ -4,7 +4,6 @@ class BuffFlame extends Buff {
     constructor(cd) {
         super("BuffFlame");
         this.cd = cd;
-        this.getConstructorPs = () => [this.cd];
         this.onPlayerActed = async () => {
             this.cd--;
 

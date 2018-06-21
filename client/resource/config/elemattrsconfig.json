@@ -9,6 +9,7 @@
     "Door":{"name":"门"},
     "TreasureBox":{"name":"宝箱"},
     "Clock":{"name":"钟表"},
+    "HpCapsule":{"name":"药丸"},
 
     "NextLevelPort":{"name":"下一层"}
 }

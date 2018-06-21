@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "description_json,levelconfig_json,covered_png,grid_png,bg_png,avator1_png,Bunny_png,blocked_png,uncoverable_png,replaybg_png,blackcover_png,anicover_png,elemattrsconfig_json,DeathGod_png,MedicineBox_png,selectable_png,unselectable_png,playerconfig_json,Hawkeye_png,TimeMachine_png,Coins_png,Door_png,EscapePort_png,Gun_png,HpPotion_png,Key_png,NextLevelPort_png,TreasureBox_png,Clock_png",
+			"keys": "description_json,levelconfig_json,covered_png,grid_png,bg_png,avator1_png,Bunny_png,blocked_png,uncoverable_png,replaybg_png,blackcover_png,anicover_png,elemattrsconfig_json,DeathGod_png,MedicineBox_png,selectable_png,unselectable_png,playerconfig_json,Hawkeye_png,TimeMachine_png,Coins_png,Door_png,EscapePort_png,Gun_png,HpPotion_png,Key_png,NextLevelPort_png,TreasureBox_png,Clock_png,HpCapsule_png",
 			"name": "preload"
 		}
 	],
@@ -150,6 +150,11 @@
 			"name": "Clock_png",
 			"type": "image",
 			"url": "assets/items/Clock.png"
+		},
+		{
+			"name": "HpCapsule_png",
+			"type": "image",
+			"url": "assets/items/HpCapsule.png"
 		}
 	]
 }
