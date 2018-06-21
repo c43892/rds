@@ -435,7 +435,7 @@ class Battle {
 
     // 角色+hp, absolutely 表示是否忽略所有加成因素，直接使用给定数值
     public async implAddPlayerHp(dhp:number, absolutely:boolean = false) {
-        if (!absolutely) {
+        if (!absolutely && dhp > 0) {
             var ps = this.getCalcPs("forHpPotion");
             dhp = this.bc.doCalc(dhp, ps);
         }
@@ -448,7 +448,7 @@ class Battle {
     // 怪物+hp
     public async implAddMonsterHp(m:Monster, dhp:number) {
         m.addHp(dhp);
-        await this.triggerLogicPoint("onMonsterHurt", {"dhp": dhp, m:m});
+        if (dhp < 0) await this.triggerLogicPoint("onMonsterHurt", {"dhp": dhp, m:m});
         if (m.dead())
             await this.implOnElemDie(m);
         else {

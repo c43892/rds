@@ -54,17 +54,17 @@ class MonsterFactory {
         },
 
         // "Bunny": (attrs) => MonsterFactory.doAttack("onPlayerActed", this.createMonster(attrs)) // 每回合攻击玩家
-        // "Bunny": (attrs) => MonsterFactory.doAttackBack(this.createMonster(attrs)) // 被攻击时反击
+        "Bunny": (attrs) => MonsterFactory.doAttackBack(this.createMonster(attrs)) // 被攻击时反击
         // "Bunny": (attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakAttack(this.createMonster(attrs))) // 偷袭行为是攻击，被攻击时反击
         // "Bunny": (attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakStealMoney(this.createMonster(attrs))) // 偷袭行为是偷钱，被攻击时反击
         // "Bunny": (attrs) => MonsterFactory.doSneakSuckBlood(this.createMonster(attrs)) // 偷袭行为是吸血
         // "Bunny": (attrs) => MonsterFactory.doSneakEatItems(this.createMonster(attrs), true) // 偷袭行为是拿走道具
         // "Bunny": (attrs) => MonsterFactory.doSneakSummon(this.createMonster(attrs)) // 偷袭行为是召唤
-        "Bunny": (attrs) => { // 死亡时放毒
-            var m = this.createMonster(attrs);
-            m = <Monster>ElemFactory.addDieAI(async () => m.bt().implAddBuff(m.bt().player, "BuffPoison", 3), m);
-            return m;
-        }
+        // "Bunny": (attrs) => { // 死亡时放毒
+        //     var m = this.createMonster(attrs);
+        //     m = <Monster>ElemFactory.addDieAI(async () => m.bt().implAddBuff(m.bt().player, "BuffPoison", 3), m);
+        //     return m;
+        // }
         // "Bunny": (attrs) => { // 玩家离开时，偷袭玩家
         //     var m = this.createMonster(attrs);
         //     m = <Monster>ElemFactory.addAIEvenCovered("beforeGoOutLevel1", async () => {
@@ -161,7 +161,9 @@ class MonsterFactory {
 
     // 被攻击时反击一次
     static doAttackBack(m:Monster):Monster {
-        return <Monster>ElemFactory.addAI("onMonsterHurt", async () => m.bt().implMonsterAttackPlayer(m), m, (ps) => ps.m == m && !m.dead());
+        return <Monster>ElemFactory.addAI("onMonsterHurt", async () => {
+            await m.bt().implMonsterAttackPlayer(m);
+        }, m, (ps) => ps.m == m && !m.dead());
     }
 
     // 攻击玩家一次
