@@ -87,7 +87,7 @@ class ItemFactory {
             return e;
         },
 
-        // 药丸
+        // 医疗药剂
         "HpCapsule": (attrs) => {
             var e = new Item();
             e.canBeMoved = true;
@@ -95,6 +95,19 @@ class ItemFactory {
             e.use = async () => {
                 var bt = e.bt();
                 await bt.implAddBuff(bt.player, "BuffAddHp", e.attrs.cnt);
+            };
+
+            return e;
+        },
+
+        // 解毒药剂
+        "DePoison": (attrs) => {
+            var e = new Item();
+            e.canBeMoved = true;
+            e.canUse = () => true;
+            e.use = async () => {
+                var bt = e.bt();
+                await bt.implRemoveBuff(bt.player, "BuffPoison");
             };
 
             return e;
