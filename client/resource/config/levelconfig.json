@@ -14,7 +14,7 @@
                     "selfExplode":{"power":6},
                     "dropItems":{
                         "Hawkeye":{},
-                        "Key":{},
+                        "Magazine":{"cnt":3},
                         "TimeMachine":{}
                     }
                 }

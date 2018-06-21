@@ -112,6 +112,22 @@ class ItemFactory {
 
             return e;
         },
+        
+        // 经验书
+        "Magazine": (attrs) => {
+            var e = new Item();
+            e.cnt = attrs.cnt;
+            e.canBeMoved = true;
+            e.canUse = () => true;
+            e.use = async () => {
+                e.cnt--;
+                var bt = e.bt();
+                await bt.implAddPlayerExp(1);
+                return e.cnt > 0;
+            };
+
+            return e;
+        },
 
         // 下一关入口
         "NextLevelPort": (attrs) => {

@@ -11,6 +11,7 @@
     "Clock":{"name":"钟表"},
     "HpCapsule":{"name":"医疗药剂"},
     "DePoison":{"name":"解毒药剂"},
+    "Magazine":{"name":"自然杂志"},
 
     "NextLevelPort":{"name":"下一层"}
 }
