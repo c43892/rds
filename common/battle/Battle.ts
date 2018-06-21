@@ -168,10 +168,6 @@ class Battle {
         }
 
         for (var h of hs) {
-            if (h.type == "Hawkeye" && lpName == "onStartupRegionUncovered") {
-                var cc = h[lpName];
-                cc(ps);
-            }
             if (h[lpName] && await h[lpName](ps))
                 return;
         }

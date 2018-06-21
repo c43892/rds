@@ -107,7 +107,7 @@ class Main extends egret.DisplayObjectContainer {
     // 开始一场新的战斗
     public startNewBattleWithRecorder(bt:Battle) { this.startNewBattle(bt); BattleRecorder.startNew(bt.id, bt.player, bt.trueRandomSeed); }
     public startNewBattle(bt:Battle) {
-        Utils.log("start a new battle with ", bt.$$srandSeed());
+        Utils.log("start new battle with ", bt.$$srandSeed());
 
         ElemView.try2UseElem = bt.try2UseElem();
         ElemView.try2UseElemAt = bt.try2UseElemAt();
