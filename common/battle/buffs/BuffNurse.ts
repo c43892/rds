@@ -18,7 +18,7 @@ class BuffNurse extends Buff {
         }
 
         // 过关 +5 Hp
-        this.onGoOutLevel = async() => {
+        this.beforeGoOutLevel2 = async() => {
             var bt = this.getOwner().bt();
             await bt.implAddPlayerHp(5);
         }

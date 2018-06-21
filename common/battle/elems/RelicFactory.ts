@@ -7,7 +7,7 @@ class Relic extends Elem {
 class RelicFactory {
 
     // 创建一个遗物在地图上的包装对象
-    createRelic(attrs, mountLogic):Elem {
+    createRelic(attrs, mountLogic):Relic {
         var e = new Relic();
         e.canUse = () => true;
         e.canBeMoved = true;
@@ -38,6 +38,15 @@ class RelicFactory {
                     if (ms.length == 0) return;
                     var m = ms[0];
                     await e.bt().implMark(m.pos.x, m.pos.y);
+                }, e);
+            });
+        }, 
+
+        // 时光机
+        "TimeMachine": (attrs) => {
+            return this.createRelic(attrs, (e:Elem) => {
+                ElemFactory.addAI("beforeGoOutLevel2", async () => {
+                    await e.bt().implAddPlayerAttr("deathStep", 5);
                 }, e);
             });
         }

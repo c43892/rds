@@ -29,6 +29,7 @@ class Buff {
     // 各逻辑挂接点
     public onPlayerActed;
     public onLevelInited;
-    public onGoOutLevel;
+    public beforeGoOutLevel1;
+    public beforeGoOutLevel2;
     public onGridUncovered; // 形如 function(x:number, y:number, statusBeforeUncoverd:GridStatus)
 }

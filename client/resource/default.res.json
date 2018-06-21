@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "description_json,levelconfig_json,covered_png,grid_png,bg_png,HpPotion_png,NextLevelPort_png,avator1_png,Bunny_png,blocked_png,uncoverable_png,replaybg_png,blackcover_png,anicover_png,Coins_png,Gun_png,elemattrsconfig_json,DeathGod_png,MedicineBox_png,EscapePort_png,selectable_png,unselectable_png,playerconfig_json,Door_png,TreasureBox_png,Key_png,Hawkeye_png",
+			"keys": "description_json,levelconfig_json,covered_png,grid_png,bg_png,HpPotion_png,NextLevelPort_png,avator1_png,Bunny_png,blocked_png,uncoverable_png,replaybg_png,blackcover_png,anicover_png,Coins_png,Gun_png,elemattrsconfig_json,DeathGod_png,MedicineBox_png,EscapePort_png,selectable_png,unselectable_png,playerconfig_json,Door_png,TreasureBox_png,Key_png,Hawkeye_png,TimeMachine_png",
 			"name": "preload"
 		}
 	],
@@ -140,6 +140,11 @@
 			"name": "Hawkeye_png",
 			"type": "image",
 			"url": "assets/relics/Hawkeye.png"
+		},
+		{
+			"name": "TimeMachine_png",
+			"type": "image",
+			"url": "assets/relics/TimeMachine.png"
 		}
 	]
 }
