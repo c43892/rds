@@ -25,6 +25,7 @@ class Elem {
     public canUseAt = (x, y) => { return false }; // 一个 function(x:number, y:number):boolean
     public canUseOther = (e) => { return true; }; // 一个 function(e:Elem):boolean，用于表示是否影响另外一个元素的使用
     public canUseOtherAt = (e, x, y) => { return true; } // 一个 function(e:Elem, x:number, y:number)，用于表示是否影响另外一个元素使用在另外一个目标元素上
+    public isValid = () => { return this.bt().level.map.isValid(this.pos.x, this.pos.y); } // 是否被周围怪物影响导致失效
     public canBeMoved = false; // 可以被玩家移动
     
     // 以下关于 use 相关的逻辑，都不考虑未揭开情况，因为 Elem 并不包含揭开这个逻辑，

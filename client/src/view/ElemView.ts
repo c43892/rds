@@ -186,6 +186,9 @@ class ElemView extends egret.DisplayObjectContainer {
 
     // 按下
     onTouchBegin(evt:egret.TouchEvent) {
+        if (!this.map.isValid(this.gx, this.gy))
+            return;
+
         ElemView.pressed = true;
         ElemView.longPressed = false;
         ElemView.dragging = false;

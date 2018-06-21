@@ -95,12 +95,12 @@ class Map {
         }
     }
 
-    // 指定位置是否可用，如果有有害怪物在附近，则不可用。
+    // 指定位置是否可用，如果有显形的有害怪物在附近，则不可用。
     // 不可用影响空地探索，也影响物品使用和生效
     public isValid(x:number, y:number):boolean {
         var valid = true;
         this.travel8Neighbours(x, y, (x, y, g:Grid) => {
-            var e = g.getElem();
+            var e = g.isCovered() ? undefined : g.getElem();
             valid = !e || !e.hazard;
             return !valid;
         })

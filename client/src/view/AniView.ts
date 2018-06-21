@@ -57,10 +57,7 @@ class AniView extends egret.DisplayObjectContainer {
             break;
         }
 
-        if (ps.subType.indexOf("Elem") == 0)
-            this.mv.mapView.refreshAt(ps.x, ps.y);
-        else
-            this.mv.mapView.refresh3x3(ps.x, ps.y);
+        this.mv.mapView.refresh3x3(ps.x, ps.y);
     }
 
     // 怪物属性发生变化

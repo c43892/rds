@@ -245,9 +245,8 @@ class Battle {
     // 尝试无目标使用元素
     public try2UseElem() {
         return async (e:Elem) => {
-            let canUse = e.canUse();
-            if (!canUse)
-                return;
+            var canUse = e.canUse() && e.isValid();
+            if (!canUse) return;
 
             // 其它元素可能会阻止使用
             this.level.map.foreachUncoveredElems((e:Elem) => {
@@ -276,8 +275,7 @@ class Battle {
     public try2UseProp() {
         return async (e:Elem) => {
             let canUse = e.canUse();
-            if (!canUse)
-                return;
+            if (!canUse) return;
 
             // 其它元素可能会阻止使用
             this.level.map.foreachUncoveredElems((e:Elem) => {
@@ -305,6 +303,7 @@ class Battle {
             var map = this.level.map;
             var fx = e.pos.x;
             var fy = e.pos.y;
+            if (!e.isValid()) return;
             var b = map.getGridAt(x, y);
             if (b.status != GridStatus.Uncovered || b.getElem()) { // 无法拖过去
                 await this.fireEvent("onGridChanged", {x:fx, y:fy, subType:"ElemSwitchFrom"});
@@ -328,14 +327,11 @@ class Battle {
             var map = this.level.map;
             var fx = e.pos.x;
             var fy = e.pos.y;
-            if (e.canUseAt(x, y)) {
-                // 对指定目标位置使用
-                var canUse = true;
+            var canUse = e.isValid() && map.isValid(x, y) && e.canUseAt(x, y);
+            if (canUse) {
                 // 其它元素可能会阻止使用
                 this.level.map.foreachUncoveredElems((e:Elem) => {
-                    if (e.canUseOther)
-                        canUse = e.canUseOtherAt(e, x, y);
-
+                    if (e.canUseOther) canUse = e.canUseOtherAt(e, x, y);
                     return !canUse;
                 });
 
