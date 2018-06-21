@@ -28,6 +28,8 @@ class ElemFactory {
                 return ElemFactory.doDropItemsOnDie(e);
             }
         }
+
+        Utils.assert(!!e, "unknown elem type: " + type);
     }
 
     static mergeAttrs(e, attrs) {
@@ -55,9 +57,17 @@ class ElemFactory {
         return e;
     }
 
-    // 为怪物在指定逻辑点添加一个行为，只在显形的时候生效
+    // 为怪物在指定逻辑点添加一个行为，对于怪物和物品，只在显形的时候生效
     public static addAI(logicPoint:string, act, e:Elem, condition = undefined):Elem {
-        return this.addAIEvenCovered(logicPoint, act, e, (ps) => !e.getGrid().isCovered() && (!condition || condition(ps)));
+        return this.addAIEvenCovered(logicPoint, act, e, (ps) => {
+            if (e instanceof Item || e instanceof Monster) {
+                if (e.getGrid().isCovered())
+                    return false;
+                else
+                    return !condition || condition(ps);
+            } else
+                return true;
+        });
     }
 
     // 为物品死亡增加逻辑

@@ -150,12 +150,10 @@ class Battle {
         var hs = [];
 
         // 玩家 buff
-        for (var b of this.player.buffs)
-            hs.push(b);
+        hs.push(...this.player.buffs);
 
         // 玩家遗物
-        for (var r of this.player.relics)
-            hs.push(r);
+        hs.push(...this.player.relics);
 
         // 地图上的元素
         var es = [];
@@ -169,6 +167,10 @@ class Battle {
         }
 
         for (var h of hs) {
+            if (h.type == "Hawkeye" && lpName == "onStartupRegionUncovered") {
+                var cc = h[lpName];
+                cc(ps);
+            }
             if (h[lpName] && await h[lpName](ps))
                 return;
         }
@@ -397,6 +399,11 @@ class Battle {
     }
 
     // impl 开头的函数，通常对应具体的逻辑功能实现，提供给 Elem 使用
+
+    // 标记指定位置的地块
+    public async implMark(x:number, y:number) {
+        await this.mark(x, y);
+    }
 
     // 揭开指定位置
     public async implUncoverAt(x:number, y:number) {

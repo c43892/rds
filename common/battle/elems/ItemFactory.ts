@@ -68,8 +68,11 @@ class ItemFactory {
             e.use = async () => { // 宝箱被设定为不可以使用，但有一个 use 方法，其实是给 Key 调用的
                 var bt = e.bt();
                 await bt.implRemoveElem(e);
-                var pt = ElemFactory.create("Key", bt);
-                await bt.implAddElemAt(pt, e.pos.x, e.pos.y);
+                var genElem = e.attrs.inBox;
+                if (genElem) {
+                    var ge = ElemFactory.create(genElem, bt);
+                    await bt.implAddElemAt(ge, e.pos.x, e.pos.y);
+                }
             }
 
             return e;
