@@ -1,7 +1,4 @@
-class Monster extends Elem {
-    constructor(bt:Battle) {
-        super(bt);
-    }
+class Monster extends Elem {constructor() { super();}
 
     public hp:number; // 血量
     public power:number; // 攻击力
@@ -47,46 +44,48 @@ class Monster extends Elem {
 class MonsterFactory {
     public creators = {
         // 死神每回合攻击玩家，并随机移动，死亡时给玩家 +10 死神时间
-        "DeathGod": (bt:Battle, attrs) => 
-                    ElemFactory.addDieAI(async () => bt.implAddPlayerAttr("deathStep", 10),
-                    MonsterFactory.doAttack("onPlayerActed", 
-                    <Monster>ElemFactory.doMove("onPlayerActed", 3,
-                    this.createMonster(bt, attrs),
-                ))),
+        "DeathGod": (attrs) => {
+            var m = this.createMonster(attrs);
+            var bt = m.bt();
+            m = <Monster>ElemFactory.addDieAI(async () => bt.implAddPlayerAttr("deathStep", 10), m);
+            m = MonsterFactory.doAttack("onPlayerActed", m);
+            m = <Monster>ElemFactory.doMove("onPlayerActed", 3, m);
+            return m;
+        },
 
-        // "Bunny": (bt:Battle, attrs) => MonsterFactory.doAttack("onPlayerActed", this.createMonster(bt, attrs)) // 每回合攻击玩家
-        // "Bunny": (bt:Battle, attrs) => MonsterFactory.doAttackBack(this.createMonster(bt, attrs)) // 被攻击时反击
-        // "Bunny": (bt:Battle, attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakAttack(this.createMonster(bt, attrs))) // 偷袭行为是攻击，被攻击时反击
-        // "Bunny": (bt:Battle, attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakStealMoney(this.createMonster(bt, attrs))) // 偷袭行为是偷钱，被攻击时反击
-        // "Bunny": (bt:Battle, attrs) => MonsterFactory.doSneakSuckBlood(this.createMonster(bt, attrs)) // 偷袭行为是吸血
-        // "Bunny": (bt:Battle, attrs) => MonsterFactory.doSneakEatItems(this.createMonster(bt, attrs), true) // 偷袭行为是拿走道具
-        "Bunny": (bt:Battle, attrs) => MonsterFactory.doSneakSummon(this.createMonster(bt, attrs)) // 偷袭行为是召唤
-        // "Bunny": (bt:Battle, attrs) => { // 死亡时放毒
-        //     var m = this.createMonster(bt, attrs);
-        //     m = <Monster>ElemFactory.addDieAI(async () => bt.implAddBuff(bt.player, "BuffPoison", 3), m);
-        //     return m;
-        // }
-        // "Bunny": (bt:Battle, attrs) => { // 玩家离开时，偷袭玩家
-        //     var m = this.createMonster(bt, attrs);
+        // "Bunny": (attrs) => MonsterFactory.doAttack("onPlayerActed", this.createMonster(attrs)) // 每回合攻击玩家
+        // "Bunny": (attrs) => MonsterFactory.doAttackBack(this.createMonster(attrs)) // 被攻击时反击
+        // "Bunny": (attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakAttack(this.createMonster(attrs))) // 偷袭行为是攻击，被攻击时反击
+        // "Bunny": (attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakStealMoney(this.createMonster(attrs))) // 偷袭行为是偷钱，被攻击时反击
+        // "Bunny": (attrs) => MonsterFactory.doSneakSuckBlood(this.createMonster(attrs)) // 偷袭行为是吸血
+        // "Bunny": (attrs) => MonsterFactory.doSneakEatItems(this.createMonster(attrs), true) // 偷袭行为是拿走道具
+        // "Bunny": (attrs) => MonsterFactory.doSneakSummon(this.createMonster(attrs)) // 偷袭行为是召唤
+        "Bunny": (attrs) => { // 死亡时放毒
+            var m = this.createMonster(attrs);
+            m = <Monster>ElemFactory.addDieAI(async () => m.bt().implAddBuff(m.bt().player, "BuffPoison", 3), m);
+            return m;
+        }
+        // "Bunny": (attrs) => { // 玩家离开时，偷袭玩家
+        //     var m = this.createMonster(attrs);
         //     m = <Monster>ElemFactory.addAIEvenCovered("beforeGoOutLevel1", async () => {
         //         var g = m.getGrid();
         //         if (g.isCovered()) // 先揭开，再攻击
-        //             await bt.implUncoverAt(g.pos.x, g.pos.y);
+        //             await m.bt().implUncoverAt(g.pos.x, g.pos.y);
 
-        //         await bt.implMonsterAttackPlayer(m);
+        //         await m.bt().implMonsterAttackPlayer(m);
         //     }, m);
         //     return m;
         // }
-        // "Bunny": (bt:Battle, attrs) => {
-        //     var m = this.createMonster(bt, attrs);
-        //     m = <Monster>ElemFactory.addDieAI(async () => bt.implMonsterAttackPlayer(m, true), m);
+        // "Bunny": (attrs) => {
+        //     var m = this.createMonster(attrs);
+        //     m = <Monster>ElemFactory.addDieAI(async () => m.bt().implMonsterAttackPlayer(m, true), m);
         //     return m;
         // }
     };
 
     // 创建一个普通的怪物
-    createMonster(bt:Battle, attrs):Monster {
-        var m = new Monster(bt);
+    createMonster(attrs):Monster {
+        var m = new Monster();
         m.canUse = () => true;
         m.hp = attrs.hp ? attrs.hp : 0;
         m.power = attrs.power ? attrs.power : 0;
@@ -120,7 +119,7 @@ class MonsterFactory {
         return MonsterFactory.addSneakAI(async () => {
             var dm = 10;
             await m.bt().implAddMoney(m, -dm);
-            m.addDropItem(ElemFactory.create("Coins", m.bt(), {"cnt":dm}));
+            m.addDropItem(ElemFactory.create("Coins", {"cnt":dm}));
         }, m);
     }
 
@@ -154,7 +153,7 @@ class MonsterFactory {
                 if (!g) return; // 没有空间了
                 var type = ss[i].type;
                 var attrs = ss[i].attrs;
-                var sm = ElemFactory.create(type, m.bt(), attrs);
+                var sm = ElemFactory.create(type, attrs);
                 await m.bt().implAddElemAt(sm, g.pos.x, g.pos.y);
             }
         }, m);

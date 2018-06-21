@@ -1,8 +1,4 @@
-class Item extends Elem {
-    constructor(bt) {
-        super(bt);
-    }
-}
+class Item extends Elem {}
 
 // 普通物品
 class ItemFactory {
@@ -10,16 +6,16 @@ class ItemFactory {
     public creators = {
 
         // 逃跑出口
-        "EscapePort": (bt, attrs) => {
-            var e = new Item(bt);
+        "EscapePort": (attrs) => {
+            var e = new Item();
             e.canUse = () => false;
             e.canBeMoved = false;
             return e;
         },
 
         // 金币堆
-        "Coins": (bt, attrs) => {
-            var e = new Item(bt);
+        "Coins": (attrs) => {
+            var e = new Item();
             e.cnt = attrs.cnt;
             e.canUse = () => true;
             e.use = async () => await e.bt().implAddMoney(e, e.cnt);
@@ -28,8 +24,8 @@ class ItemFactory {
         },
 
         // 钥匙
-        "Key": (bt, attrs) => {
-            var e = new Item(bt);
+        "Key": (attrs) => {
+            var e = new Item();
             e.canBeMoved = true;
             e.canUseAt = (x:number, y:number) => {
                 var map = e.bt().level.map;
@@ -48,8 +44,8 @@ class ItemFactory {
         },
 
         // 门
-        "Door": (bt, attrs) => {
-            var e = new Item(bt);
+        "Door": (attrs) => {
+            var e = new Item();
             e.canBeMoved = false;
             e.use = async () => { // 门被设定为不可以使用，但有一个 use 方法，其实是给 Key 调用的
                 var bt = e.bt();
@@ -62,8 +58,8 @@ class ItemFactory {
         },
 
         // 宝箱
-        "TreasureBox": (bt, attrs) => {
-            var e = new Item(bt);
+        "TreasureBox": (attrs) => {
+            var e = new Item();
             e.canBeMoved = true;
             e.use = async () => { // 宝箱被设定为不可以使用，但有一个 use 方法，其实是给 Key 调用的
                 var bt = e.bt();
@@ -79,8 +75,8 @@ class ItemFactory {
         },
 
         // 下一关入口
-        "NextLevelPort": (bt, attrs) => {
-            var e = new Item(bt);
+        "NextLevelPort": (attrs) => {
+            var e = new Item();
             e.canUse = () => true;
             e.use = async () => await e.bt().implGo2NextLevel(); // 进入下一关卡
             return e;

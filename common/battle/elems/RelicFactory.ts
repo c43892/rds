@@ -1,38 +1,33 @@
 class Relic extends Elem {
-    constructor(bt) {
-        super(bt);
-    }
+    constructor() {super();}
+    public toRelic; // 从地上的遗物物品，变成真正的遗物，这时才具备遗物逻辑
 }
 
 // 遗物刚被创建时，是一个 item，其拾取操作，才生成一个遗物到玩家身上
 class RelicFactory {
 
     // 创建一个遗物在地图上的包装对象
-    createRelic(bt:Battle, attrs, mountLogic):Elem {
-        var e = new Relic(bt);
+    createRelic(attrs, mountLogic):Elem {
+        var e = new Relic();
         e.canUse = () => true;
         e.canBeMoved = true;
-        e.use = async () => {
-            e.use = undefined;
-            mountLogic(e); // 这时候才生成遗物的行为逻辑
-
-            await e.bt().implAddPlayerRelic(e);
-        };
+        e.toRelic = () => { e.use = undefined; mountLogic(e); return e; };
+        e.use = async () => await e.bt().implAddPlayerRelic(e.toRelic());
         
         return e;
     }
 
     public creators = {
         // 医疗箱过关回血
-        "MedicineBox": (bt:Battle, attrs) => {
-            return this.createRelic(bt, attrs, (e) => 
+        "MedicineBox": (attrs) => {
+            return this.createRelic(attrs, (e) => 
                 ElemFactory.addAI("beforeGoOutLevel2", async () => e.bt().implAddPlayerHp(e.attrs.dhp), e),
             );
         },
 
         // 鹰眼，每关开始前标注一个带钥匙的怪物
-        "Hawkeye": (bt:Battle, attrs) => {
-            return this.createRelic(bt, attrs, (e) => {
+        "Hawkeye": (attrs) => {
+            return this.createRelic(attrs, (e) => {
                 ElemFactory.addAI("onStartupRegionUncovered", async () => {
                     var ms = BattleUtils.findRandomElems(e.bt(), 1, (m) => {
                         if (!(m instanceof Monster)) return false;

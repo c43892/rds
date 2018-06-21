@@ -36,6 +36,7 @@ class Battle {
         this.level = new Level();
         this.lvCfg = GCfg.getLevelCfg(this.player.currentLevel);        
         this.level.Init(this, this.lvCfg);
+        this.level.map.foreachElem((e) => e.setBattle(this));
         this.bc = new BattleCalculator(this.srand);
         return this.level;
     }
@@ -211,6 +212,7 @@ class Battle {
 
     // 添加物品
     public addElemAt(e:Elem, x:number, y:number) {
+        e.setBattle(this);
         this.level.map.addElemAt(e, x, y);
     }
 

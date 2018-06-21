@@ -1,8 +1,7 @@
 
 // 地图上每个怪物，物品，符文都是一个元素
 class Elem {
-    constructor(bt:Battle) {
-        this.$$bt = bt;
+    constructor() {
         this.canUse = () => false;  // 不可使用
         this.canUseAt = () => false; // 不可对其它目标使用(不可移动)
         this.canUseOther = () => true;  // 不影响其它元素使用

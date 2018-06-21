@@ -1,33 +1,34 @@
 // 道具
 class Prop extends Elem {
-    constructor(bt) {
-        super(bt);
-    }
+    constructor() { super(); }
+    public toProp; // 从地上的道具物品，变成真正的遗物，这时才具备遗物逻辑
 }
 
 // 道具刚被创建时，是一个 item，其拾取操作，才生成一个道具到玩家身上
 class PropFactory {
 
     // 创建一个道具在地图上的包装对象
-    createProp(bt:Battle, attrs, mountLogic):Prop {
-        var e = new Prop(bt);
+    createProp(attrs, mountLogic):Prop {
+        var e = new Prop();
         e.canUse = () => true;
         e.canBeMoved = true;
-        e.use = async () => {
+        e.toProp = () => {
             e.use = undefined;
-            e.cnt = e.attrs.cnt ? e.attrs.cnt : 1;
-            mountLogic(e); // 这时候才生成道具的行为逻辑
             e.canBeMoved = false;
-            await e.bt().implAddPlayerProp(e);
+            e.cnt = e.attrs.cnt ? e.attrs.cnt : 1;
+            mountLogic(e);
+            return e;
         };
+
+        e.use = async () => await e.bt().implAddPlayerProp(e.toProp());
         
         return e;
     }
 
     public creators = {
         // 红药水
-        "HpPotion": (bt, attrs) => {
-            return this.createProp(bt, attrs, (e:Elem) => {
+        "HpPotion": (attrs) => {
+            return this.createProp(attrs, (e:Elem) => {
                 e.canUse = () => true;
                 e.use = async () => {
                     // 搜集所有参数，过公式算一下最终值
@@ -42,8 +43,8 @@ class PropFactory {
         },
 
         // 枪
-        "Gun": (bt, attrs) => {
-            return this.createProp(bt, attrs, (e:Elem) => {
+        "Gun": (attrs) => {
+            return this.createProp(attrs, (e:Elem) => {
                 e.cnt = attrs.cnt;
                 e.canUse = () => false;
                 e.canUseAt = (x, y) => {

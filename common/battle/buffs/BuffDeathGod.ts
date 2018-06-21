@@ -13,7 +13,7 @@ class BuffDeathGod extends Buff {
 
         this.doEffect = async () => {
             var bt:Battle = this.getOwner().bt();
-            var dg = ElemFactory.create("DeathGod", bt);
+            var dg = ElemFactory.create("DeathGod");
             var g = BattleUtils.findRandomEmptyGrid(bt);
             if (!g) return; // 没空位了
             await bt.implAddElemAt(dg, g.pos.x, g.pos.y);

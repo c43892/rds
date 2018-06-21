@@ -125,10 +125,10 @@ class Player {
             p[f] = pinfo[f];
 
         for (var r of pinfo.relics)
-            p.relics.push(Elem.fromString(r));
+            p.relics.push((<Relic>Elem.fromString(r)).toRelic());
 
         for (var prop of pinfo.props)
-            p.props.push(Elem.fromString(prop));
+            p.props.push((<Prop>Elem.fromString(prop)).toProp());
 
         // 目前 buff 不参与
         // for (var b of pinfo.buffs)

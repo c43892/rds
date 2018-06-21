@@ -18,8 +18,8 @@ class Level {
     // 创建初始元素
     public InitElems(cfg) {
         var elems = [
-            ElemFactory.create("EscapePort", this.bt), // 逃跑出口
-            ElemFactory.create("Door", this.bt) // 下一层入口的门
+            ElemFactory.create("EscapePort"), // 逃跑出口
+            ElemFactory.create("Door") // 下一层入口的门
         ];
 
         // 添加其它配置物品
@@ -28,7 +28,7 @@ class Level {
             let num = eCfg.num;
             let attrs = eCfg.attrs;
             for (var i = 0; i < num; i++)
-                elems.push(ElemFactory.create(e, this.bt, attrs));
+                elems.push(ElemFactory.create(e, attrs));
         }
 
         // 依次加入地图
