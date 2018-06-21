@@ -98,6 +98,11 @@ class Map {
     // 指定位置是否可用，如果有显形的有害怪物在附近，则不可用。
     // 不可用影响空地探索，也影响物品使用和生效
     public isValid(x:number, y:number):boolean {
+        // 揭开的怪或空地就不用判断了，始终可用
+        var g = this.getGridAt(x, y);
+        var e = this.getElemAt(x, y);
+        if (!g.isCovered() && (!e || e instanceof Monster)) return true;
+
         var valid = true;
         this.travel8Neighbours(x, y, (x, y, g:Grid) => {
             var e = g.isCovered() ? undefined : g.getElem();

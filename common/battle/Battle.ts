@@ -109,12 +109,12 @@ class Battle {
 
     // 揭开指定位置的地块（不再检查条件）
     public async uncover(x:number, y:number) {
-        var e = this.level.map.getGridAt(x, y);
-        Utils.assert(e.isCovered(), "uncover action can only be implemented on a covered grid");
-        e.status = GridStatus.Uncovered;
+        var g = this.level.map.getGridAt(x, y);
+        Utils.assert(g.isCovered(), "uncover action can only be implemented on a covered grid");
+        g.status = GridStatus.Uncovered;
 
         await this.fireEvent("onGridChanged", {x:x, y:y, subType:"GridUnconvered"});
-        await this.triggerLogicPoint("onUncovered", {e:e});
+        await this.triggerLogicPoint("onGridChanged", {g:g});
 
         // 对 8 邻格子进行标记逻辑计算
         var neighbours = [];
@@ -237,7 +237,6 @@ class Battle {
 
             var stateBeforeUncover = this.level.map.grids[x][y].status;
             this.uncover(x, y);
-            await this.triggerLogicPoint("onGridUncovered", {x:x, y:y, stateBeforeUncover:stateBeforeUncover});
             await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
         };
     }

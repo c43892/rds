@@ -14,11 +14,12 @@
                     "selfExplode":{"power":6},
                     "dropItems":{
                         "Hawkeye":{},
-                        "HpCapsule":{"cnt":3},
+                        "Key":{},
                         "TimeMachine":{}
                     }
                 }
             },
+            "HpCapsule":{"num":2, "attrs":{"cnt":5}},
             "Coins":{"num":1, "attrs":{"cnt":5}},
             "Gun": {"num":1, "attrs":{"cnt":2, "power":3}},
             "MedicineBox": {"num":1},
