@@ -74,6 +74,19 @@ class ItemFactory {
             return e;
         },
 
+        // 钟表
+        "Clock": (attrs) => {
+            var e = new Item();
+            e.canBeMoved = true;
+            e.canUse = () => true;
+            e.use = async () => {
+                var bt = e.bt();
+                await bt.implAddPlayerAttr("deathStep", 15);
+            }
+
+            return e;
+        },
+
         // 下一关入口
         "NextLevelPort": (attrs) => {
             var e = new Item();

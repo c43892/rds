@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "description_json,levelconfig_json,covered_png,grid_png,bg_png,HpPotion_png,NextLevelPort_png,avator1_png,Bunny_png,blocked_png,uncoverable_png,replaybg_png,blackcover_png,anicover_png,Coins_png,Gun_png,elemattrsconfig_json,DeathGod_png,MedicineBox_png,EscapePort_png,selectable_png,unselectable_png,playerconfig_json,Door_png,TreasureBox_png,Key_png,Hawkeye_png,TimeMachine_png",
+			"keys": "description_json,levelconfig_json,covered_png,grid_png,bg_png,avator1_png,Bunny_png,blocked_png,uncoverable_png,replaybg_png,blackcover_png,anicover_png,elemattrsconfig_json,DeathGod_png,MedicineBox_png,selectable_png,unselectable_png,playerconfig_json,Hawkeye_png,TimeMachine_png,Coins_png,Door_png,EscapePort_png,Gun_png,HpPotion_png,Key_png,NextLevelPort_png,TreasureBox_png,Clock_png",
 			"name": "preload"
 		}
 	],
@@ -30,16 +30,6 @@
 			"url": "assets/bg.png",
 			"type": "image",
 			"name": "bg_png"
-		},
-		{
-			"url": "assets/elems/HpPotion.png",
-			"type": "image",
-			"name": "HpPotion_png"
-		},
-		{
-			"url": "assets/elems/NextLevelPort.png",
-			"type": "image",
-			"name": "NextLevelPort_png"
 		},
 		{
 			"url": "assets/avatars/avator1.png",
@@ -77,16 +67,6 @@
 			"name": "anicover_png"
 		},
 		{
-			"url": "assets/elems/Coins.png",
-			"type": "image",
-			"name": "Coins_png"
-		},
-		{
-			"url": "assets/elems/Gun.png",
-			"type": "image",
-			"name": "Gun_png"
-		},
-		{
 			"url": "config/elemattrsconfig.json",
 			"type": "json",
 			"name": "elemattrsconfig_json"
@@ -100,11 +80,6 @@
 			"name": "MedicineBox_png",
 			"type": "image",
 			"url": "assets/relics/MedicineBox.png"
-		},
-		{
-			"name": "EscapePort_png",
-			"type": "image",
-			"url": "assets/elems/EscapePort.png"
 		},
 		{
 			"name": "selectable_png",
@@ -122,21 +97,6 @@
 			"url": "config/playerconfig.json"
 		},
 		{
-			"name": "Door_png",
-			"type": "image",
-			"url": "assets/elems/Door.png"
-		},
-		{
-			"name": "TreasureBox_png",
-			"type": "image",
-			"url": "assets/elems/TreasureBox.png"
-		},
-		{
-			"name": "Key_png",
-			"type": "image",
-			"url": "assets/elems/Key.png"
-		},
-		{
 			"name": "Hawkeye_png",
 			"type": "image",
 			"url": "assets/relics/Hawkeye.png"
@@ -145,6 +105,51 @@
 			"name": "TimeMachine_png",
 			"type": "image",
 			"url": "assets/relics/TimeMachine.png"
+		},
+		{
+			"name": "Coins_png",
+			"type": "image",
+			"url": "assets/items/Coins.png"
+		},
+		{
+			"name": "Door_png",
+			"type": "image",
+			"url": "assets/items/Door.png"
+		},
+		{
+			"name": "EscapePort_png",
+			"type": "image",
+			"url": "assets/items/EscapePort.png"
+		},
+		{
+			"name": "Gun_png",
+			"type": "image",
+			"url": "assets/items/Gun.png"
+		},
+		{
+			"name": "HpPotion_png",
+			"type": "image",
+			"url": "assets/items/HpPotion.png"
+		},
+		{
+			"name": "Key_png",
+			"type": "image",
+			"url": "assets/items/Key.png"
+		},
+		{
+			"name": "NextLevelPort_png",
+			"type": "image",
+			"url": "assets/items/NextLevelPort.png"
+		},
+		{
+			"name": "TreasureBox_png",
+			"type": "image",
+			"url": "assets/items/TreasureBox.png"
+		},
+		{
+			"name": "Clock_png",
+			"type": "image",
+			"url": "assets/items/Clock.png"
 		}
 	]
 }

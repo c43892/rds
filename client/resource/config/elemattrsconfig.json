@@ -8,7 +8,7 @@
     "Key":{"name":"钥匙", "useWithTarget":true, "validTargets":["Door", "TreasureBox"]},
     "Door":{"name":"门"},
     "TreasureBox":{"name":"宝箱"},
-    "NextLevelPort":{"name":"下一层"},
+    "Clock":{"name":"钟表"},
 
-    "":{}
+    "NextLevelPort":{"name":"下一层"},
 }
