@@ -40,11 +40,11 @@ class GridView extends egret.DisplayObjectContainer {
         var e = this.map.getElemAt(this.gx, this.gy);
         switch (b.status) {
             case GridStatus.Covered: // 被覆盖
-                // 如果附近有怪物，或者四临没有揭开的格子，则不可揭开
+                // 如果附近有怪物，或者四临没有揭开的格子，则不可揭开d
                 if (this.map.isUncoverable(b.pos.x, b.pos.y))
                     this.addChild(this.uncoverableImg);
                 else
-                     this.addChild(this.coveredImg);
+                    this.addChild(this.coveredImg);
             break;
             case GridStatus.Blocked: // 危险
                 this.addChild(this.blockedImg);

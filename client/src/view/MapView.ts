@@ -87,7 +87,7 @@ class MapView extends egret.DisplayObjectContainer {
     public refresh3x3(cx:number, cy:number) {
         this.mgvs[cx][cy].refresh();
         this.mevs[cx][cy].refresh();
-        this.map.travel8Neighbours(cx, cy, (x, y, e, g) => { this.mgvs[x][y].refresh(); this.mevs[x][y].refresh(); });
+        this.map.travel8Neighbours(cx, cy, (x, y, g) => { this.mgvs[x][y].refresh(); this.mevs[x][y].refresh(); });
     }
 
     // 指定位置发生状态或元素变化

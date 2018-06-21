@@ -7,12 +7,14 @@ class ElemView extends egret.DisplayObjectContainer {
     private showLayer:egret.DisplayObjectContainer; // 装入所有显示内容
     private opLayer:egret.TextField; // 专门用于接收操作事件
     private elemImg:egret.Bitmap; // 元素图
+    private banImg:egret.Bitmap; // 禁止符号
     private hp:egret.TextField; // 怪物血量或者元素数量
     private dropElemImg:egret.Bitmap; // 掉落物品的图
 
     public constructor() {
         super();
         this.elemImg = ViewUtils.createBitmapByName(); // 元素图
+        this.banImg = ViewUtils.createBitmapByName("ban_png"); // 禁止符号
         this.showLayer = new egret.DisplayObjectContainer(); // 显示层
         this.addChild(this.showLayer);
 
@@ -96,7 +98,8 @@ class ElemView extends egret.DisplayObjectContainer {
                         this.hp.textColor = 0xff0000;
                         this.showLayer.addChild(this.hp);
                         this.refreshDropItem(); // 刷新掉落物品显示
-                    }
+                    } else if (!this.map.isValid(e.pos.x, e.pos.y)) // 禁止符号
+                        this.showLayer.addChild(this.banImg);
                 }
             break;
         }
@@ -106,7 +109,7 @@ class ElemView extends egret.DisplayObjectContainer {
         this.hp.x = this.width - this.hp.width;
         this.hp.y = this.height - this.hp.height;
 
-        var arr = [this.showLayer, this.opLayer, this.elemImg];
+        var arr = [this.showLayer, this.opLayer, this.elemImg, this.banImg];
         arr.forEach((a) => { a.x = 0; a.y = 0; a.width = w; a.height = h; });
     }
 

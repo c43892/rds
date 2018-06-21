@@ -118,7 +118,7 @@ class Battle {
 
         // 对 8 邻格子进行标记逻辑计算
         var neighbours = [];
-        this.level.map.travel8Neighbours(x, y, (px, py, e, g:Grid) => {
+        this.level.map.travel8Neighbours(x, y, (px, py, g:Grid) => {
             if (g.isCovered())
                 neighbours.push([px, py]);
         });

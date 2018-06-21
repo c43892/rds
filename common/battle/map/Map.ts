@@ -55,8 +55,9 @@ class Map {
     // 计算指定目标位置的 8 邻位置上，隐藏的有害元素个数，不计算目标位置自身
     public getCoveredHazardNum(cx: number, cy: number) : number {
         var num = 0;
-        this.travel8Neighbours(cx, cy, (x, y, e) =>
+        this.travel8Neighbours(cx, cy, (x, y, g:Grid) =>
         {
+            var e = g.getElem();
             if (e && e.hazard && e.getGrid().isCovered())
                 num++;
         });
@@ -64,7 +65,7 @@ class Map {
         return num;
     }
 
-    // 对指定位置的 8 邻做过滤计算，不包括目标自身, f 是遍历函数，形如 function(x, y, e:Elem, g:Grid):boolean，
+    // 对指定位置的 8 邻做过滤计算，不包括目标自身, f 是遍历函数，形如 function(x, y, g:Grid):boolean，
     // 返回值表示是否要中断遍历
     public travel8Neighbours(x:number, y:number, f) {
         var breakLoop = false;
@@ -75,12 +76,12 @@ class Map {
                 else if (i == x && y == j) // 目标格子不计算在内，只计算八邻位置
                     continue;
 
-                breakLoop = f(i, j, this.elems[i][j], this.grids[i][j]);
+                breakLoop = f(i, j, this.grids[i][j]);
             }
         }
     }
 
-    // 对指定位置的 4 邻做过滤计算，不包括目标自身, f 是遍历函数，形如 function(x, y, e:Elem, g:Grid):boolean，
+    // 对指定位置的 4 邻做过滤计算，不包括目标自身, f 是遍历函数，形如 function(x, y, g:Grid):boolean，
     // 返回值表示是否要中断遍历
     public travel4Neighbours(x:number, y:number, f) {
         var breakLoop = false;
@@ -90,8 +91,21 @@ class Map {
             if (n.x < 0 || n.x >= this.size.w || n.y < 0 || n.y >= this.size.h)
                 continue; // 越界忽略
 
-            breakLoop = f(n.x, n.y, this.elems[n.x][n.y], this.grids[n.x][n.y]);
+            breakLoop = f(n.x, n.y, this.grids[n.x][n.y]);
         }
+    }
+
+    // 指定位置是否可用，如果有有害怪物在附近，则不可用。
+    // 不可用影响空地探索，也影响物品使用和生效
+    public isValid(x:number, y:number):boolean {
+        var valid = true;
+        this.travel8Neighbours(x, y, (x, y, g:Grid) => {
+            var e = g.getElem();
+            valid = !e || !e.hazard;
+            return !valid;
+        })
+
+        return valid;
     }
 
     // 是否可以揭开（未揭开状态，四邻至少一个揭开，且没有怪物相邻）
@@ -101,13 +115,14 @@ class Map {
             return false;
 
         var uncoverable = false;
-        this.travel4Neighbours(x, y, (x, y, e:Elem, g:Grid) => {
-            if (g.isCovered() || (e != undefined && e.blockUncover))
-                return; // 忽略
-
-            uncoverable = true;
+        this.travel4Neighbours(x, y, (x, y, g:Grid) => {
+            if (!g.isCovered()) uncoverable = true;
             return uncoverable;
         });
+
+        // 检查 8 邻是否有怪
+        if (uncoverable)
+            uncoverable = this.isValid(x, y);
 
         return uncoverable;
     }

@@ -27,7 +27,7 @@ class MonsterMarker {
 
             // 这个块本自身入标记组，并开始检查其周围的相邻块
             markPos.push([cx, cy]);
-            map.travel8Neighbours(cx, cy, (px, py, e, g) => {
+            map.travel8Neighbours(cx, cy, (px, py, g) => {
                 if (Utils.indexOf(markPos, (pt) => px == pt[0] && py == pt[1]) < 0
                     && Utils.indexOf(forCheck, (pt) => px == pt[0] && py == pt[1]) < 0) {
                     forCheck.push([px, py]);
