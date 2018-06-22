@@ -53,7 +53,7 @@ class MonsterFactory {
         },
 
         // "Bunny": (attrs) => MonsterFactory.doAttack("onPlayerActed", this.createMonster(attrs)) // 每回合攻击玩家
-        "Bunny": (attrs) => MonsterFactory.doAttackBack(this.createMonster(attrs)) // 被攻击时反击
+        // "Bunny": (attrs) => MonsterFactory.doAttackBack(this.createMonster(attrs)) // 被攻击时反击
         // "Bunny": (attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakAttack(this.createMonster(attrs))) // 偷袭行为是攻击，被攻击时反击
         // "Bunny": (attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakStealMoney(this.createMonster(attrs))) // 偷袭行为是偷钱，被攻击时反击
         // "Bunny": (attrs) => MonsterFactory.doSneakSuckBlood(this.createMonster(attrs)) // 偷袭行为是吸血
@@ -80,6 +80,10 @@ class MonsterFactory {
         //     m = <Monster>ElemFactory.addDieAI(async () => m.bt().implMonsterAttackPlayer(m, true), m);
         //     return m;
         // }
+        "Bunny": (attrs) => {
+            var m = this.createMonster(attrs);
+            return MonsterFactory.addSneakAI(() => m.bt().implMonsterAttackPlayer(m), m);
+        }
     };
 
     // 创建一个普通的怪物
@@ -105,8 +109,7 @@ class MonsterFactory {
 
     // 设定偷袭逻辑
     static addSneakAI(act, m:Monster):Monster {
-        return <Monster>ElemFactory.addAI("onGridUncovered", act, m, (ps) => ps.x == m.pos.x && ps.y == m.pos.y 
-                                                        && ps.stateBeforeUncover != GridStatus.Marked);
+        return <Monster>ElemFactory.addAI("onGridChanged", act, m, (ps) => ps.x == m.pos.x && ps.y == m.pos.y && ps.subType == "GridUnconvered" && ps.stateBeforeUncover != GridStatus.Marked);
     }
 
     // 偷袭：攻击

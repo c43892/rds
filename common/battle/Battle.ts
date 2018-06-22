@@ -114,7 +114,7 @@ class Battle {
         g.status = GridStatus.Uncovered;
 
         await this.fireEvent("onGridChanged", {x:x, y:y, subType:"GridUnconvered"});
-        await this.triggerLogicPoint("onGridChanged", {g:g});
+        await this.triggerLogicPoint("onGridChanged", {x:x, y:y, subType:"GridUnconvered"});
 
         // 对 8 邻格子进行标记逻辑计算
         var neighbours = [];
