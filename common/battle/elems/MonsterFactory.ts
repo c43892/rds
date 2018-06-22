@@ -109,7 +109,7 @@ class MonsterFactory {
 
     // 设定偷袭逻辑
     static addSneakAI(act, m:Monster):Monster {
-        return <Monster>ElemFactory.addAI("onGridChanged", act, m, (ps) => ps.x == m.pos.x && ps.y == m.pos.y && ps.subType == "GridUnconvered" && ps.stateBeforeUncover != GridStatus.Marked);
+        return <Monster>ElemFactory.addAI("onGridChanged", act, m, (ps) => ps.x == m.pos.x && ps.y == m.pos.y && ps.subType == "gridUnconvered" && ps.stateBeforeUncover != GridStatus.Marked);
     }
 
     // 偷袭：攻击

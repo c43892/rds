@@ -74,12 +74,43 @@ class Battle {
         var w = init_uncovered.w;
         var h = init_uncovered.h;
         var lt = this.getGetRegionWithEscapePort(w, h);
+
         // 移除逃离出口，目前不需要了
         var ep = this.level.map.findFirstElem((x, y, e) => e && e.type == "EscapePort");
         this.level.map.removeElemAt(ep.pos.x, ep.pos.y);
         for(var i = 0; i < w; i++) {
             for (var j = 0; j < h; j++) {
-                this.uncover(i + lt.left, j + lt.top);
+                this.uncover(i + lt.left, j + lt.top, true);
+            }
+        }
+
+        // 揭开起始区域
+        for(var i = 0; i < w; i++) {
+            var x = i + lt.left;
+            for (var j = 0; j < h; j++) {
+                var y = j + lt.top;
+                this.uncover(x, y, true);
+            }
+        }
+
+        // 如果起始区域有东西，则换个别的位置
+        var map = this.level.map;
+        for(var i = 0; i < w; i++) {
+            var x = i + lt.left;
+            for (var j = 0; j < h; j++) {
+                var y = j + lt.top;
+                var e = this.level.map.getElemAt(x, y);
+                if (!!e) {
+                    var g = BattleUtils.findRandomEmptyGrid(this, true);
+                    if (!!g) {
+                        // 将元素移动到空地
+                        map.removeElemAt(x, y);
+                        map.addElemAt(e, g.pos.x, g.pos.y);
+
+                        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"uncoverStartupRegion"});
+                        await this.fireEvent("onGridChanged", {x:g.pos.x, y:g.pos.y, subType:"uncoverStartupRegion"});
+                    }
+                }
             }
         }
 
@@ -103,18 +134,20 @@ class Battle {
         Utils.assert(g.isCovered() && e && e.hazard(), "only covered hazared element could be marked");
 
         g.status = GridStatus.Marked;
-        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"ElemMarked"});
+        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"elemMarked"});
         await this.triggerLogicPoint("onMarked", {e:e});
     }
 
     // 揭开指定位置的地块（不再检查条件）
-    public async uncover(x:number, y:number) {
+    public async uncover(x:number, y:number, suppressLogicEvent = false) {
         var g = this.level.map.getGridAt(x, y);
         Utils.assert(g.isCovered(), "uncover action can only be implemented on a covered grid");
         g.status = GridStatus.Uncovered;
 
-        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"GridUnconvered"});
-        await this.triggerLogicPoint("onGridChanged", {x:x, y:y, subType:"GridUnconvered"});
+        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"gridUnconvered"});
+
+        if (!suppressLogicEvent)
+            await this.triggerLogicPoint("onGridChanged", {x:x, y:y, subType:"gridUnconvered"});
 
         // 对 8 邻格子进行标记逻辑计算
         var neighbours = [];
@@ -302,7 +335,7 @@ class Battle {
             if (!e.isValid()) return;
             var b = map.getGridAt(x, y);
             if (b.status != GridStatus.Uncovered || b.getElem()) { // 无法拖过去
-                await this.fireEvent("onGridChanged", {x:fx, y:fy, subType:"ElemSwitchFrom"});
+                await this.fireEvent("onGridChanged", {x:fx, y:fy, subType:"elemSwitchFrom"});
                 return;
             }
             
@@ -312,8 +345,10 @@ class Battle {
             // 将元素移动到空地
             map.removeElemAt(fx, fy);
             map.addElemAt(e, x, y);
-            await this.fireEvent("onGridChanged", {x:fx, y:fy, subType:"ElemSwitchFrom"});
-            await this.fireEvent("onGridChanged", {x:x, y:y, subType:"ElemSwitchTo"});
+            await this.fireEvent("onGridChanged", {x:fx, y:fy, subType:"elemSwitchFrom"});
+            await this.fireEvent("onGridChanged", {x:x, y:y, subType:"elemSwitchTo"});
+            await this.triggerLogicPoint("onGridChanged", {x:fx, y:fy, subType:"elemSwitchFrom"});
+            await this.triggerLogicPoint("onGridChanged", {x:x, y:y, subType:"elemSwitchTo"});
         };
     }
 
@@ -377,12 +412,12 @@ class Battle {
             if (mark) {
                 Utils.assert(b.status == GridStatus.Covered, "only covered grid can be blocked");
                 b.status = GridStatus.Blocked;
-                await this.fireEvent("onGridChanged", {x:x, y:y, subType:"GridBlocked"});
+                await this.fireEvent("onGridChanged", {x:x, y:y, subType:"gridBlocked"});
             }
             else {
                 Utils.assert(b.status == GridStatus.Blocked, "only blocked grid can be unblocked");
                 b.status = GridStatus.Covered;
-                await this.fireEvent("onGridChanged", {x:x, y:y, subType:"GridUnblocked"});
+                await this.fireEvent("onGridChanged", {x:x, y:y, subType:"gridUnblocked"});
             }
         };
     }
