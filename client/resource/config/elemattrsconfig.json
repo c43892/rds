@@ -4,10 +4,12 @@
     "Key":{"name":"钥匙", "useWithTarget":true, "validTargets":["Door", "TreasureBox"]},
     "Door":{"name":"门"},
     "TreasureBox":{"name":"宝箱"},
+    "RandomEgg":{"name":"彩蛋","inBox":["Hawkeye", "HpPotion", "MedicineBox"]},
     "Clock":{"name":"钟表"},
     "HpCapsule":{"name":"医疗药剂"},
     "DePoison":{"name":"解毒药剂"},
     "Magazine":{"name":"自然杂志"},
+
 
     "DeathGod":{"name":"死神", "hp":10, "power":3},
     "Bunny":{"name":"兔子", "colddown":5},

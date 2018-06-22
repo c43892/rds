@@ -8,14 +8,12 @@
         "elems": {
             "HpPotion":{"num":1},
             "Bunny":{
-                "num":1, 
+                "num":10, 
                 "attrs":{
                     "hp":5, "power":1, "suckBlood":3, "summons":[ {"type":"Bunny", "attrs":{"hp":1}} ], 
                     "selfExplode":{"power":6},
                     "dropItems":{
-                        "Hawkeye":{},
-                        "Magazine":{"cnt":3},
-                        "TimeMachine":{}
+                        "RandomEgg":{"inBox":["Hawkeye", "HpPotion", "MedicineBox"]}
                     }
                 }
             },
@@ -23,10 +21,10 @@
             "Coins":{"num":1, "attrs":{"cnt":5}},
             "Gun": {"num":1, "attrs":{"cnt":2, "power":3}},
             "MedicineBox": {"num":1},
-            "Key":{"num":1},
-            "TreasureBox": {"num":1, "attrs":{"inBox":"Hawkeye"}},
-            "Hole":{"num":20}
-        }, 
+            "Key":{"num":10},
+            "TreasureBox": {"num":10, "attrs":{"inBox":["Hawkeye", "Key", "HpPotion"]}},
+            "Hole":{"num":2}
+        },
         "nextLevel": "testLevel2"
     },
 
