@@ -213,9 +213,7 @@ class Battle {
     }
 
     // 移除物品
-    public removeElem(e:Elem) {
-        var x = e.pos.x;
-        var y = e.pos.y;
+    public removeElemAt(x:number, y:number) {
         this.level.map.removeElemAt(x, y);
     }
 
@@ -414,7 +412,7 @@ class Battle {
     public async implReplaceElemAt(e:Elem, newE:Elem) {
         var x = e.pos.x;
         var y = e.pos.y;
-        this.removeElem(e);
+        this.removeElemAt(x, y);
         this.addElemAt(newE, x, y);
         await this.fireEvent("onGridChanged", {x:x, y:y, subType:"elemReplaced"});
         await this.fireEvent("triggerLogicPoint", {x:x, y:y, subType:"elemReplaced"});
@@ -428,12 +426,10 @@ class Battle {
     }
 
     // 从地图移除 Elem
-    public async implRemoveElem(e:Elem) {
-        var x = e.pos.x;
-        var y = e.pos.y;
-        this.removeElem(e);
+    public async implRemoveElemAt(x:number, y:number) {
+        this.removeElemAt(x, y);
         await this.fireEvent("onGridChanged", {x:x, y:y, subType:"elemRemoved"});
-        await this.triggerLogicPoint("onGridChanged", {e:e, subType:"elemRemoved"});
+        await this.triggerLogicPoint("onGridChanged", {x:x, y:y, subType:"elemRemoved"});
     }
 
     // 角色+hp, absolutely 表示是否忽略所有加成因素，直接使用给定数值
@@ -504,7 +500,7 @@ class Battle {
 
     // 执行元素死亡逻辑
     public async implOnElemDie(e:Elem) {
-        this.removeElem(e);
+        this.removeElemAt(e.pos.x, e.pos.y);
         if (e.onDie) await e.onDie();
         await this.fireEvent("onElemChanged", {subType:"die", e:e});
         await this.triggerLogicPoint("onElemChanged", {"subType": "die", e:e});
@@ -626,7 +622,7 @@ class Battle {
     public async implMonsterTakeElems(m:Monster, es:Elem[]) {
         for (var e of es) {
             await this.fireEvent("onMonsterTakeElem", {m:m, e:e})
-            await this.implRemoveElem(e);
+            await this.implRemoveElemAt(e.pos.x, e.pos.y);
         }
     }
 }
