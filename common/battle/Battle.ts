@@ -78,11 +78,6 @@ class Battle {
         // 移除逃离出口，目前不需要了
         var ep = this.level.map.findFirstElem((x, y, e) => e && e.type == "EscapePort");
         this.level.map.removeElemAt(ep.pos.x, ep.pos.y);
-        for(var i = 0; i < w; i++) {
-            for (var j = 0; j < h; j++) {
-                this.uncover(i + lt.left, j + lt.top, true);
-            }
-        }
 
         // 揭开起始区域
         for(var i = 0; i < w; i++) {
@@ -101,6 +96,9 @@ class Battle {
                 var y = j + lt.top;
                 var e = this.level.map.getElemAt(x, y);
                 if (!!e) {
+                    if (e.type == "EscapePort")
+                        this.level.map.removeElemAt(ep.pos.x, ep.pos.y);
+
                     var g = BattleUtils.findRandomEmptyGrid(this, true);
                     if (!!g) {
                         // 将元素移动到空地
