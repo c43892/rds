@@ -26,7 +26,8 @@
             "Key":{"num":1},
             "TreasureBox": {"num":1, "attrs":{"inBox":"Hawkeye"}},
             "Hole":{"num":2},
-            "Apple3":{"num":10}
+            "Apple3":{"num":1},
+            "Steak3":{"num":10}
         }, 
         "nextLevel": "testLevel2"
     },

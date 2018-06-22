@@ -178,6 +178,48 @@ class ItemFactory {
             return e;
         },
 
+        // 牛排3
+        "Steak3": (attrs) => {
+            var e = new Item();
+            e.canBeMoved = true;
+            e.canUse = () => true;
+            e.use = async () => {
+                var bt = e.bt();
+                var steak2 = ElemFactory.create("Steak2");
+                await bt.implReplaceElemAt(e, steak2);
+                await bt.implAddPlayerHp(2);
+                return true;
+            };
+            return e;
+        },
+
+        // 牛排2
+        "Steak2": (attrs) => {
+            var e = new Item();
+            e.canBeMoved = true;
+            e.canUse = () => true;
+            e.use = async () => {
+                var bt = e.bt();
+                var steak1 = ElemFactory.create("Steak1");
+                await bt.implReplaceElemAt(e, steak1);
+                await bt.implAddPlayerHp(2);
+                return true;
+            };
+            return e;
+        },
+
+        // 牛排1
+        "Steak1": (attrs) => {
+            var e = new Item();
+            e.canBeMoved = true;
+            e.canUse = () => true;
+            e.use = async () => {
+                var bt = e.bt();
+                await bt.implAddPlayerHp(2);
+            };
+            return e;
+        },
+
         // 下一关入口
         "NextLevelPort": (attrs) => {
             var e = new Item();
