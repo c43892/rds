@@ -3,7 +3,8 @@
 class BuffBasic extends Buff {
     constructor() {
         super("BuffUncoveringAddExp");
-        this.onGridUncovered = async (x:number, y:number, statusBeforeUncovered:GridStatus) => {
+        this.onGridChanged = async (ps) => {
+            if (ps.subType != "GridUnconvered") return;
             await this.doEffect();
         }
 

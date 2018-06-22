@@ -15,5 +15,5 @@ class Buff {
     public onLevelInited;
     public beforeGoOutLevel1;
     public beforeGoOutLevel2;
-    public onGridUncovered; // 形如 function(x:number, y:number, statusBeforeUncoverd:GridStatus)
+    public onGridChanged; // 形如 function(x:number, y:number, statusBeforeUncoverd:GridStatus)
 }

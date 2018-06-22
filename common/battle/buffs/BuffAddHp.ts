@@ -14,7 +14,6 @@ class BuffAddHp extends Buff {
         };
 
         this.doEffect = async () => {
-            Utils.log("add 1 hp");
             var bt = this.getOwner().bt();
             if (this.getOwner() instanceof Player)
                 await bt.implAddPlayerHp(1);

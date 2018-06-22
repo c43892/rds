@@ -428,7 +428,7 @@ class Battle {
     // 从地图移除 Elem
     public async implRemoveElemAt(x:number, y:number) {
         this.removeElemAt(x, y);
-        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"elemRemoved"});
+        await this.fireEvent("", {x:x, y:y, subType:"elemRemoved"});
         await this.triggerLogicPoint("onGridChanged", {x:x, y:y, subType:"elemRemoved"});
     }
 
