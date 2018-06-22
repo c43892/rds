@@ -80,10 +80,7 @@ class MonsterFactory {
         //     m = <Monster>ElemFactory.addDieAI(async () => m.bt().implMonsterAttackPlayer(m, true), m);
         //     return m;
         // }
-        "Bunny": (attrs) => {
-            var m = this.createMonster(attrs);
-            return MonsterFactory.addSneakAI(() => m.bt().implMonsterAttackPlayer(m), m);
-        }
+
     };
 
     // 创建一个普通的怪物
@@ -194,6 +191,9 @@ class MonsterFactory {
         return <Monster>ElemFactory.addDieAI(async () => {
             for(var i = 0; i < n; i++){
                 var fg = BattleUtils.findRandomEmptyGrid(m.bt(), true);
+                if(!fg)
+                    return;
+
                 var x = fg.pos.x, y = fg.pos.y;
                 await m.bt().implUncoverAt(x, y);
             }
