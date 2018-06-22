@@ -49,6 +49,7 @@ class ItemFactory {
             e.canBeMoved = false;
             e.use = async () => { // 门被设定为不可以使用，但有一个 use 方法，其实是给 Key 调用的
                 var bt = e.bt();
+
                 await bt.implRemoveElemAt(e.pos.x, e.pos.y);
                 var pt = ElemFactory.create("NextLevelPort", bt);
                 await bt.implAddElemAt(pt, e.pos.x, e.pos.y);
@@ -63,16 +64,42 @@ class ItemFactory {
             e.canBeMoved = true;
             e.use = async () => { // 宝箱被设定为不可以使用，但有一个 use 方法，其实是给 Key 调用的
                 var bt = e.bt();
+
                 await bt.implRemoveElemAt(e.pos.x, e.pos.y);
-                var genElem = e.attrs.inBox;
+
+                var genElem = e.attrs.inBox[bt.srand.nextInt(0, e.attrs.inBox.length)];
                 if (genElem) {
-                    var ge = ElemFactory.create(genElem, bt);
+
+                    var ge = ElemFactory.create(genElem);
                     await bt.implAddElemAt(ge, e.pos.x, e.pos.y);
                 }
             }
 
             return e;
         },
+
+        // 宝蛋
+        "RandomEgg": (attrs) => {
+            var e = new Item();
+            e.canBeMoved = true;
+            e.canUse = () => true;
+            e.use = async () => {
+                var bt = e.bt();
+				await bt.implRemoveElemAt(e.pos.x, e.pos.y);
+                var genElem = e.attrs.inBox[bt.srand.nextInt(0, e.attrs.inBox.length)];
+                if (genElem) {
+                    var ge = ElemFactory.create(genElem);
+                    await bt.implAddElemAt(ge, e.pos.x, e.pos.y);
+                    
+                }
+                return true;
+            }
+            return e;
+        },
+
+        
+
+
 
         // 钟表
         "Clock": (attrs) => {

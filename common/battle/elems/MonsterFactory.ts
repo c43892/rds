@@ -80,10 +80,7 @@ class MonsterFactory {
         //     m = <Monster>ElemFactory.addDieAI(async () => m.bt().implMonsterAttackPlayer(m, true), m);
         //     return m;
         // }
-        "Bunny": (attrs) => {
-            var m = this.createMonster(attrs);
-            return MonsterFactory.addSneakAI(() => m.bt().implMonsterAttackPlayer(m), m);
-        }
+
     };
 
     // 创建一个普通的怪物
@@ -162,6 +159,13 @@ class MonsterFactory {
         }, m);
     }
 
+    //偷袭：死神提前N回合到来
+    static doSneakReduseDeathStep(n:number, m:Monster):Monster {
+        return MonsterFactory.addSneakAI(async () => {
+            await m.bt().implAddPlayerAttr("deathStep", -n);
+        }, m);
+    }
+
     // 被攻击时反击一次
     static doAttackBack(m:Monster):Monster {
         return <Monster>ElemFactory.addAI("onMonsterHurt", async () => {
@@ -181,4 +185,19 @@ class MonsterFactory {
             bt.implAddBuff(bt.player, buffCreator(m))
         }, m);
     }
+
+    //死亡时翻开N个空地块
+    static doUncoverGridOnDeath(n:number, m:Monster):Monster{
+        return <Monster>ElemFactory.addDieAI(async () => {
+            for(var i = 0; i < n; i++){
+                var fg = BattleUtils.findRandomEmptyGrid(m.bt(), true);
+                if(!fg)
+                    return;
+
+                var x = fg.pos.x, y = fg.pos.y;
+                await m.bt().implUncoverAt(x, y);
+            }
+        }, m);
+    }
+   
 }
