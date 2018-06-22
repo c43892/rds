@@ -107,6 +107,7 @@ class ElemFactory {
     static doMove(logicPoint:string, dist:number, e:Elem):Elem {
         var dir = [[-1,0],[1,0],[0,-1],[0,1]];
         return <Elem>ElemFactory.addAI(logicPoint, async () => {
+            if ((<Monster>e).isDead()) return;
             var path = [{x:e.pos.x, y:e.pos.y}];
             for (var i = 0; i < dist; i++) {
                 var d = dir[e.bt().srand.nextInt(0, dir.length)];

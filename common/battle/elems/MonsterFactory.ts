@@ -5,7 +5,7 @@ class Monster extends Elem {constructor() { super();}
     public defence:number; // 防御
     public dodge:number; // 闪避%
 
-    public dead = () => this.hp <= 0; // 是否还活着
+    public isDead = () => this.hp <= 0; // 是否已经死亡
 
     public addHp(dhp:number) {
         this.hp += dhp;
@@ -46,8 +46,7 @@ class MonsterFactory {
         // 死神每回合攻击玩家，并随机移动，死亡时给玩家 +10 死神时间
         "DeathGod": (attrs) => {
             var m = this.createMonster(attrs);
-            var bt = m.bt();
-            m = <Monster>ElemFactory.addDieAI(async () => bt.implAddPlayerAttr("deathStep", 10), m);
+            m = <Monster>ElemFactory.addDieAI(async () => m.bt().implAddPlayerAttr("deathStep", 10), m);
             m = MonsterFactory.doAttack("onPlayerActed", m);
             m = <Monster>ElemFactory.doMove("onPlayerActed", 3, m);
             return m;
@@ -164,7 +163,7 @@ class MonsterFactory {
     static doAttackBack(m:Monster):Monster {
         return <Monster>ElemFactory.addAI("onMonsterHurt", async () => {
             await m.bt().implMonsterAttackPlayer(m);
-        }, m, (ps) => ps.m == m && !m.dead());
+        }, m, (ps) => ps.m == m && !m.isDead());
     }
 
     // 攻击玩家一次
