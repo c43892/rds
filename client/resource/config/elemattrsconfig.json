@@ -15,6 +15,7 @@
     "HpPotion":{"name":"血瓶", "dhp":10, "canOverlap":true},
     "Gun":{"name":"枪", "canOverlap":true, "useWithTarget":true},
     "Hole":{"name":"黑洞", "barrier":true},
+    "Apple3":{"name":"苹果"}, "Apple2":{"name":"苹果"}, "Apple1":{"name":"苹果"},
 
     "NextLevelPort":{"name":"下一层"}
 }

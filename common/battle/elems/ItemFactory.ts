@@ -136,6 +136,48 @@ class ItemFactory {
             return e;
         },
 
+        // 苹果3
+        "Apple3": (attrs) => {
+            var e = new Item();
+            e.canBeMoved = true;
+            e.canUse = () => true;
+            e.use = async () => {
+                var bt = e.bt();
+                var apple2 = ElemFactory.create("Apple2");
+                await bt.implReplaceElemAt(e, apple2);
+                await bt.implAddPlayerHp(1);
+                return true;
+            };
+            return e;
+        },
+
+        // 苹果2
+        "Apple2": (attrs) => {
+            var e = new Item();
+            e.canBeMoved = true;
+            e.canUse = () => true;
+            e.use = async () => {
+                var bt = e.bt();
+                var apple1 = ElemFactory.create("Apple1");
+                await bt.implReplaceElemAt(e, apple1);
+                await bt.implAddPlayerHp(1);
+                return true;
+            };
+            return e;
+        },
+
+        // 苹果1
+        "Apple1": (attrs) => {
+            var e = new Item();
+            e.canBeMoved = true;
+            e.canUse = () => true;
+            e.use = async () => {
+                var bt = e.bt();
+                await bt.implAddPlayerHp(1);
+            };
+            return e;
+        },
+
         // 下一关入口
         "NextLevelPort": (attrs) => {
             var e = new Item();

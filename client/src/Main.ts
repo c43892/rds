@@ -111,7 +111,7 @@ class Main extends egret.DisplayObjectContainer {
 
         ElemView.try2UseElem = bt.try2UseElem();
         ElemView.try2UseElemAt = bt.try2UseElemAt();
-        ElemView.reposElemTo = bt.reposElemTo();
+        ElemView.reposElemTo = bt.try2ReposElemTo();
         ElemView.selectGrid = (f, cb) => this.mv.selectGrid(f).then(cb);
         ElemView.select1InN = (title, choices, f, cb) => this.mv.select1inN(title, choices, f).then(cb);
         ElemView.try2UncoverAt = bt.try2UncoverAt();

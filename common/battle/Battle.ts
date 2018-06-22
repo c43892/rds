@@ -296,7 +296,7 @@ class Battle {
     }
 
     // 移动一个元素到指定空位
-    public reposElemTo() {
+    public try2ReposElemTo() {
         return async (e:Elem, x:number, y:number) => {
             var map = this.level.map;
             var fx = e.pos.x;
@@ -410,11 +410,21 @@ class Battle {
         Battle.startNewBattle(this.player);
     }
 
+    // 替换一个元素
+    public async implReplaceElemAt(e:Elem, newE:Elem) {
+        var x = e.pos.x;
+        var y = e.pos.y;
+        this.removeElem(e);
+        this.addElemAt(newE, x, y);
+        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"elemReplaced"});
+        await this.fireEvent("triggerLogicPoint", {x:x, y:y, subType:"elemReplaced"});
+    }
+
     // 向地图添加 Elem
     public async implAddElemAt(e:Elem, x:number, y:number) {
         this.addElemAt(e, x, y);
-        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"ElemAdded"});
-        await this.triggerLogicPoint("onElemAdded", {e:e});
+        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"elemAdded"});
+        await this.triggerLogicPoint("onGridChanged", {e:e, subType:"elemAdded"});
     }
 
     // 从地图移除 Elem
@@ -422,8 +432,8 @@ class Battle {
         var x = e.pos.x;
         var y = e.pos.y;
         this.removeElem(e);
-        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"ElemRemoved"});
-        await this.triggerLogicPoint("onElemRemoved", {e:e});
+        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"elemRemoved"});
+        await this.triggerLogicPoint("onGridChanged", {e:e, subType:"elemRemoved"});
     }
 
     // 角色+hp, absolutely 表示是否忽略所有加成因素，直接使用给定数值
