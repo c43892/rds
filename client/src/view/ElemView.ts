@@ -98,7 +98,7 @@ class ElemView extends egret.DisplayObjectContainer {
                         this.hp.textColor = 0xff0000;
                         this.showLayer.addChild(this.hp);
                         this.refreshDropItem(); // 刷新掉落物品显示
-                    } else if (!this.map.isValid(e.pos.x, e.pos.y)) // 禁止符号
+                    } else if (!this.map.isValid(e.pos.x, e.pos.y) && e.type != "Hole") // 禁止符号
                         this.showLayer.addChild(this.banImg);
                 }
             break;

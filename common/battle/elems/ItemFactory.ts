@@ -129,6 +129,13 @@ class ItemFactory {
             return e;
         },
 
+        // 黑洞
+        "Hole": (attrs) => {
+            var e = new Item();
+            e.canBeMoved = false;
+            return e;
+        },
+
         // 下一关入口
         "NextLevelPort": (attrs) => {
             var e = new Item();

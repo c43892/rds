@@ -100,7 +100,7 @@ class Battle {
     public async mark(x:number, y:number) {
         var g = this.level.map.getGridAt(x, y);
         var e = g.getElem();
-        Utils.assert(g.isCovered() && e && e.hazard, "only covered hazared element could be marked");
+        Utils.assert(g.isCovered() && e && e.hazard(), "only covered hazared element could be marked");
 
         g.status = GridStatus.Marked;
         await this.fireEvent("onGridChanged", {x:x, y:y, subType:"ElemMarked"});

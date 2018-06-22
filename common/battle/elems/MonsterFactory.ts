@@ -91,8 +91,9 @@ class MonsterFactory {
         m.power = attrs.power ? attrs.power : 0;
         m.defence = attrs.defence ? attrs.defence : 0;
         m.dodge = attrs.dodge ? attrs.dodge : 0;
-        m.hazard = true;
-        m.blockUncover = true;
+
+        attrs.hazard = true;
+        attrs.barrier = true;
 
         // 使用，即攻击怪物
         m.use = async () =>  {

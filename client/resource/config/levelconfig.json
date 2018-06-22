@@ -8,7 +8,7 @@
         "elems": {
             "HpPotion":{"num":1},
             "Bunny":{
-                "num":10, 
+                "num":1, 
                 "attrs":{
                     "hp":5, "power":1, "suckBlood":3, "summons":[ {"type":"Bunny", "attrs":{"hp":1}} ], 
                     "selfExplode":{"power":6},
@@ -24,7 +24,8 @@
             "Gun": {"num":1, "attrs":{"cnt":2, "power":3}},
             "MedicineBox": {"num":1},
             "Key":{"num":1},
-            "TreasureBox": {"num":1, "attrs":{"inBox":"Hawkeye"}}
+            "TreasureBox": {"num":1, "attrs":{"inBox":"Hawkeye"}},
+            "Hole":{"num":20}
         }, 
         "nextLevel": "testLevel2"
     },
