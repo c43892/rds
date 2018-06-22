@@ -13,6 +13,7 @@
                     "hp":5, "power":1, "suckBlood":3, "summons":[ {"type":"Bunny", "attrs":{"hp":1}} ], 
                     "selfExplode":{"power":6},
                     "dropItems":{
+
                         "RandomEgg":{"inBox":["Hawkeye", "HpPotion", "MedicineBox"]}
                     }
                 }
@@ -21,9 +22,12 @@
             "Coins":{"num":1, "attrs":{"cnt":5}},
             "Gun": {"num":1, "attrs":{"cnt":2, "power":3}},
             "MedicineBox": {"num":1},
+
             "Key":{"num":10},
             "TreasureBox": {"num":10, "attrs":{"inBox":["Hawkeye", "Key", "HpPotion"]}},
-            "Hole":{"num":2}
+            "Hole":{"num":2},
+            "Apple3":{"num":1},
+            "Steak3":{"num":1}
         },
         "nextLevel": "testLevel2"
     },

@@ -31,7 +31,7 @@ class Player {
         var p = new Player();
         p.currentLevel = "testLevel1";
         p.occupation = "nurse";
-        p.deathStep = 100;
+        p.deathStep = 10;
         p.hp = 10;
         p.maxHp = 20;
         p.avatar = "avator1";

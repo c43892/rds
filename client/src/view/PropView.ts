@@ -14,6 +14,7 @@ class PropView extends egret.DisplayObjectContainer {
 
         // 血量
         this.num = new egret.TextField();
+        this.num.name = "num";
         this.num.textColor = 0xffffff;
         this.num.size = 25;
         this.num.anchorOffsetX = 0;
@@ -52,6 +53,9 @@ class PropView extends egret.DisplayObjectContainer {
     public clear() {
         if (this.getChildByName(this.elemImg.name))
             this.removeChild(this.elemImg);
+
+        if (this.getChildByName(this.num.name))
+            this.removeChild(this.num);
     }
 
     public getElem():Elem {

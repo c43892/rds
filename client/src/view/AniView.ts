@@ -61,10 +61,10 @@ class AniView extends egret.DisplayObjectContainer {
     }
 
     // 怪物属性发生变化
-    public async onMonsterChanged(ps) {
-        var m = ps.m;
-        this.mv.mapView.refreshAt(m.pos.x, m.pos.y);
-        await this.aniFact.createAni("monsterChanged", {"m": ps.m});
+    public async onElemChanged(ps) {
+        var e = ps.e;
+        this.mv.mapView.refresh3x3(e.pos.x, e.pos.y);
+        await this.aniFact.createAni("elemChanged", {"m": ps.m});
     }
 
     // 角色信息发生变化
@@ -102,9 +102,9 @@ class AniView extends egret.DisplayObjectContainer {
         await this.aniFact.createAni("moving", {"obj": e, "path": showPath});
         
         // 刷新格子显示
-        this.mv.mapView.refreshAt(fromPt.x, fromPt.y);
+        this.mv.mapView.refresh3x3(fromPt.x, fromPt.y);
         if (path.length > 1)
-            this.mv.mapView.refreshAt(path[path.length - 1].x, path[path.length - 1].y);
+            this.mv.mapView.refresh3x3(path[path.length - 1].x, path[path.length - 1].y);
     }
 
     // 关卡事件

@@ -114,7 +114,7 @@ class Battle {
         g.status = GridStatus.Uncovered;
 
         await this.fireEvent("onGridChanged", {x:x, y:y, subType:"GridUnconvered"});
-        await this.triggerLogicPoint("onGridChanged", {g:g});
+        await this.triggerLogicPoint("onGridChanged", {x:x, y:y, subType:"GridUnconvered"});
 
         // 对 8 邻格子进行标记逻辑计算
         var neighbours = [];
@@ -213,9 +213,7 @@ class Battle {
     }
 
     // 移除物品
-    public removeElem(e:Elem) {
-        var x = e.pos.x;
-        var y = e.pos.y;
+    public removeElemAt(x:number, y:number) {
         this.level.map.removeElemAt(x, y);
     }
 
@@ -263,7 +261,6 @@ class Battle {
 
                 var reserve = await e.use(); // 返回值决定是保留还是消耗掉
                 if (!reserve) await this.implOnElemDie(e);
-                await this.fireEvent("onGridChanged", {x:e.pos.x, y:e.pos.y, subType:"ElemDie"});
                 await this.triggerLogicPoint("onElemUsed", {x:e.pos.x, y:e.pos.y, e:e});
                 await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
             }
@@ -297,7 +294,7 @@ class Battle {
     }
 
     // 移动一个元素到指定空位
-    public reposElemTo() {
+    public try2ReposElemTo() {
         return async (e:Elem, x:number, y:number) => {
             var map = this.level.map;
             var fx = e.pos.x;
@@ -339,7 +336,6 @@ class Battle {
 
                 var reserve = await e.useAt(x, y); // 返回值决定是保留还是消耗掉
                 if (!reserve) await this.implOnElemDie(e);
-                await this.fireEvent("onGridChanged", {x:e.pos.x, y:e.pos.y, subType:"UseElem"});
                 await this.triggerLogicPoint("onUseElemAt", {x:e.pos.x, y:e.pos.y, e:e, tox:x, toy:y});
             }
         };
@@ -412,20 +408,28 @@ class Battle {
         Battle.startNewBattle(this.player);
     }
 
+    // 替换一个元素
+    public async implReplaceElemAt(e:Elem, newE:Elem) {
+        var x = e.pos.x;
+        var y = e.pos.y;
+        this.removeElemAt(x, y);
+        this.addElemAt(newE, x, y);
+        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"elemReplaced"});
+        await this.fireEvent("triggerLogicPoint", {x:x, y:y, subType:"elemReplaced"});
+    }
+
     // 向地图添加 Elem
     public async implAddElemAt(e:Elem, x:number, y:number) {
         this.addElemAt(e, x, y);
-        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"ElemAdded"});
-        await this.triggerLogicPoint("onElemAdded", {e:e});
+        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"elemAdded"});
+        await this.triggerLogicPoint("onGridChanged", {e:e, subType:"elemAdded"});
     }
 
     // 从地图移除 Elem
-    public async implRemoveElem(e:Elem) {
-        var x = e.pos.x;
-        var y = e.pos.y;
-        this.removeElem(e);
-        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"ElemRemoved"});
-        await this.triggerLogicPoint("onElemRemoved", {e:e});
+    public async implRemoveElemAt(x:number, y:number) {
+        this.removeElemAt(x, y);
+        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"elemRemoved"});
+        await this.triggerLogicPoint("onGridChanged", {x:x, y:y, subType:"elemRemoved"});
     }
 
     // 角色+hp, absolutely 表示是否忽略所有加成因素，直接使用给定数值
@@ -444,11 +448,11 @@ class Battle {
     public async implAddMonsterHp(m:Monster, dhp:number) {
         m.addHp(dhp);
         if (dhp < 0) await this.triggerLogicPoint("onMonsterHurt", {"dhp": dhp, m:m});
-        if (m.dead())
+        if (m.isDead())
             await this.implOnElemDie(m);
         else {
-            await this.fireEvent("onMonsterChanged", {subType:"hp", m:m});
-            await this.triggerLogicPoint("onMonsterChanged", {"subType": "hp", "m":m});
+            await this.fireEvent("onElemChanged", {subType:"hp", e:m});
+            await this.triggerLogicPoint("onElemChanged", {"subType": "hp", e:m});
         }
     }
 
@@ -488,7 +492,6 @@ class Battle {
         switch (r.r) {
             case "attacked": // 攻击成功
                 this.implAddMonsterHp(m, -r.dhp);
-                await this.fireEvent("onGridChanged", {x:m.pos.x, y:m.pos.y, subType:"onMonsterDamanged"});
             break;
             case "dodged": // 被闪避
                 await this.triggerLogicPoint("onMonsterDodged");
@@ -497,10 +500,12 @@ class Battle {
 
     // 执行元素死亡逻辑
     public async implOnElemDie(e:Elem) {
-        this.removeElem(e);
+        this.removeElemAt(e.pos.x, e.pos.y);
         if (e.onDie) await e.onDie();
         await this.fireEvent("onElemChanged", {subType:"die", e:e});
-        await this.triggerLogicPoint("onElemChanged", {"subType": "die", "e":e});
+        await this.triggerLogicPoint("onElemChanged", {"subType": "die", e:e});
+        await this.fireEvent("onGridChanged", {x:e.pos.x, y:e.pos.y, subType:"elemDie"});        
+        await this.triggerLogicPoint("onGridChanged", {x:e.pos.x, y:e.pos.y, subType:"elemDie"});        
     }
 
     // 指定怪物尝试攻击角色
@@ -520,7 +525,7 @@ class Battle {
             break;
         }
 
-        if (selfExplode && !m.dead()) // 自爆还要走死亡逻辑
+        if (selfExplode && !m.isDead()) // 自爆还要走死亡逻辑
             await this.implOnElemDie(m);
     }
 
@@ -617,7 +622,7 @@ class Battle {
     public async implMonsterTakeElems(m:Monster, es:Elem[]) {
         for (var e of es) {
             await this.fireEvent("onMonsterTakeElem", {m:m, e:e})
-            await this.implRemoveElem(e);
+            await this.implRemoveElemAt(e.pos.x, e.pos.y);
         }
     }
 }

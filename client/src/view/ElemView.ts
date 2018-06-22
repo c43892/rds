@@ -152,7 +152,7 @@ class ElemView extends egret.DisplayObjectContainer {
 
     // 点击
     onTouchGrid(evt:egret.TouchEvent) {
-        if (ElemView.longPressed || ElemView.dragging)
+        if (ElemView.longPressed || ElemView.dragging || !this.map.isValid(this.gx, this.gy))
             return;
 
         let b = this.map.getGridAt(this.gx, this.gy);
@@ -275,6 +275,6 @@ class ElemView extends egret.DisplayObjectContainer {
         ElemView.pressed = false;
         ElemView.dragging = false;
         ElemView.dragFrom = undefined;
-        ElemView.pressTimer.stop();
+        if (ElemView.pressTimer) ElemView.pressTimer.stop();
     }
 }

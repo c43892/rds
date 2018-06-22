@@ -49,7 +49,8 @@ class ItemFactory {
             e.canBeMoved = false;
             e.use = async () => { // 门被设定为不可以使用，但有一个 use 方法，其实是给 Key 调用的
                 var bt = e.bt();
-                await bt.implRemoveElem(e);
+
+                await bt.implRemoveElemAt(e.pos.x, e.pos.y);
                 var pt = ElemFactory.create("NextLevelPort", bt);
                 await bt.implAddElemAt(pt, e.pos.x, e.pos.y);
             }
@@ -63,9 +64,12 @@ class ItemFactory {
             e.canBeMoved = true;
             e.use = async () => { // 宝箱被设定为不可以使用，但有一个 use 方法，其实是给 Key 调用的
                 var bt = e.bt();
-                await bt.implRemoveElem(e);
+
+                await bt.implRemoveElemAt(e.pos.x, e.pos.y);
+
                 var genElem = e.attrs.inBox[bt.srand.nextInt(0, e.attrs.inBox.length)];
                 if (genElem) {
+
                     var ge = ElemFactory.create(genElem);
                     await bt.implAddElemAt(ge, e.pos.x, e.pos.y);
                 }
@@ -81,7 +85,7 @@ class ItemFactory {
             e.canUse = () => true;
             e.use = async () => {
                 var bt = e.bt();
-                await bt.implRemoveElem(e);
+				await bt.implRemoveElemAt(e.pos.x, e.pos.y);
                 var genElem = e.attrs.inBox[bt.srand.nextInt(0, e.attrs.inBox.length)];
                 if (genElem) {
                     var ge = ElemFactory.create(genElem);
@@ -156,6 +160,90 @@ class ItemFactory {
         "Hole": (attrs) => {
             var e = new Item();
             e.canBeMoved = false;
+            return e;
+        },
+
+        // 苹果3
+        "Apple3": (attrs) => {
+            var e = new Item();
+            e.canBeMoved = true;
+            e.canUse = () => true;
+            e.use = async () => {
+                var bt = e.bt();
+                var apple2 = ElemFactory.create("Apple2");
+                await bt.implReplaceElemAt(e, apple2);
+                await bt.implAddPlayerHp(1);
+                return true;
+            };
+            return e;
+        },
+
+        // 苹果2
+        "Apple2": (attrs) => {
+            var e = new Item();
+            e.canBeMoved = true;
+            e.canUse = () => true;
+            e.use = async () => {
+                var bt = e.bt();
+                var apple1 = ElemFactory.create("Apple1");
+                await bt.implReplaceElemAt(e, apple1);
+                await bt.implAddPlayerHp(1);
+                return true;
+            };
+            return e;
+        },
+
+        // 苹果1
+        "Apple1": (attrs) => {
+            var e = new Item();
+            e.canBeMoved = true;
+            e.canUse = () => true;
+            e.use = async () => {
+                var bt = e.bt();
+                await bt.implAddPlayerHp(1);
+            };
+            return e;
+        },
+
+        // 牛排3
+        "Steak3": (attrs) => {
+            var e = new Item();
+            e.canBeMoved = true;
+            e.canUse = () => true;
+            e.use = async () => {
+                var bt = e.bt();
+                var steak2 = ElemFactory.create("Steak2");
+                await bt.implReplaceElemAt(e, steak2);
+                await bt.implAddPlayerHp(2);
+                return true;
+            };
+            return e;
+        },
+
+        // 牛排2
+        "Steak2": (attrs) => {
+            var e = new Item();
+            e.canBeMoved = true;
+            e.canUse = () => true;
+            e.use = async () => {
+                var bt = e.bt();
+                var steak1 = ElemFactory.create("Steak1");
+                await bt.implReplaceElemAt(e, steak1);
+                await bt.implAddPlayerHp(2);
+                return true;
+            };
+            return e;
+        },
+
+        // 牛排1
+        "Steak1": (attrs) => {
+            var e = new Item();
+            e.canBeMoved = true;
+            e.canUse = () => true;
+            e.use = async () => {
+                var bt = e.bt();
+                await bt.implAddPlayerHp(2);
+            };
             return e;
         },
 

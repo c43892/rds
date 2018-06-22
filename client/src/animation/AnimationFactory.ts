@@ -8,7 +8,7 @@ class AnimationFactory {
     public createAni(aniType:string, ps = undefined):Promise<void> {
         var ani:Promise<void>;
         switch (aniType) {
-            case "monsterChanged": ani = this.monsterChanged(ps.m); break;
+            case "elemChanged": ani = this.monsterChanged(ps.m); break;
             case "playerChanged": ani = this.playerChanged(); break;
             case "playerAttackMonster": ani = this.playerAttackMonster(); break;
             case "monsterAttackPlayer": ani = this.monsterAttackPlayer(); break;
