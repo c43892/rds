@@ -7,8 +7,7 @@ class Monster extends Elem {constructor() { super();}
     public btAttrs;
 
     // 获取攻击属性，n 表示用哪一套
-    public getAttrsAsAttacker(n:number) {
-        Utils.assert(n == 0, "monster does not support item attack yet");
+    public getAttrsAsAttacker() {
         return {
             owner:this,
             power:{a:0, b:this.btAttrs.power, c:0},
@@ -80,9 +79,9 @@ class MonsterFactory {
             return m;
         },
 
-        "Bunny": (attrs) => this.createMonster(attrs) // 什么都不做
+        // "Bunny": (attrs) => this.createMonster(attrs) // 什么都不做
         // "Bunny": (attrs) => MonsterFactory.doAttack("onPlayerActed", this.createMonster(attrs)) // 每回合攻击玩家
-        // "Bunny": (attrs) => MonsterFactory.doAttackBack(this.createMonster(attrs)) // 被攻击时反击
+        "Bunny": (attrs) => MonsterFactory.doAttackBack(this.createMonster(attrs)) // 被攻击时反击
         // "Bunny": (attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakAttack(this.createMonster(attrs))) // 偷袭行为是攻击，被攻击时反击
         // "Bunny": (attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakStealMoney(this.createMonster(attrs))) // 偷袭行为是偷钱，被攻击时反击
         // "Bunny": (attrs) => MonsterFactory.doSneakSuckBlood(this.createMonster(attrs)) // 偷袭行为是吸血

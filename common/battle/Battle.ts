@@ -511,6 +511,37 @@ class Battle {
         }
     }
 
+    // 执行元素死亡逻辑
+    public async implOnElemDie(e:Elem) {
+        this.removeElemAt(e.pos.x, e.pos.y);
+        if (e.onDie) await e.onDie();
+        await this.fireEvent("onElemChanged", {subType:"die", e:e});
+        await this.triggerLogicPoint("onElemChanged", {"subType": "die", e:e});
+        await this.fireEvent("onGridChanged", {x:e.pos.x, y:e.pos.y, subType:"elemDie"});        
+        await this.triggerLogicPoint("onGridChanged", {x:e.pos.x, y:e.pos.y, subType:"elemDie"});        
+    }
+
+    // 进行一次攻击计算
+    public calcAttack(attackerAttrs, targetAttrs) {
+        var hs = this.collectAllLogicHandler();
+
+        // 先确定攻击，免疫属性
+        for (var h of hs) {
+            attackerAttrs.attackFlags = Utils.mergeSet(attackerAttrs.attackFlags, h.onAttrs.attackFlags);
+            targetAttrs.immuneFlags = Utils.mergeSet(targetAttrs.immuneFlags, h.onAttrs.immuneFlags);
+        }
+
+        // 搜集对应参数
+        for (var h of hs) {
+            for (var flag of attackerAttrs.attackFlags) {
+                attackerAttrs = BattleUtils.mergeBattleAttrsPS(attackerAttrs, h.onAttrs[flag]);
+                targetAttrs = BattleUtils.mergeBattleAttrsPS(targetAttrs, h.onAttrs[flag]);
+            }
+        }
+
+        return this.bc.doAttackCalc(attackerAttrs, targetAttrs);
+    }
+
     // 角色尝试攻击指定位置
     public async implPlayerAttackAt(x:number, y:number, weapon:Elem = undefined) {
         // 如果目标被标记
@@ -536,50 +567,19 @@ class Battle {
         await this.fireEvent("onAttack", {subtype:"player2monster", x:m.pos.x, y:m.pos.x, r:r, target:m, weapon:weapon});
     }
 
-    // 进行一次攻击计算
-    calcAttack(attackerAttrs, targetAttrs) {
-        var hs = this.collectAllLogicHandler();
-
-        // 先确定攻击，免疫属性
-        for (var h of hs) {
-            attackerAttrs.attackFlags = Utils.mergeSet(attackerAttrs.attackFlags, h.onAttrs.attackFlags);
-            targetAttrs.immuneFlags = Utils.mergeSet(targetAttrs.immuneFlags, h.onAttrs.immuneFlags);
-        }
-
-        // 搜集对应参数
-        for (var h of hs) {
-            for (var flag of attackerAttrs.attackFlags) {
-                attackerAttrs = BattleUtils.mergeBattleAttrsPS(attackerAttrs, h.onAttrs[flag]);
-                targetAttrs = BattleUtils.mergeBattleAttrsPS(targetAttrs, h.onAttrs[flag]);
-            }
-        }
-
-        return this.bc.doAttackCalc(attackerAttrs, targetAttrs);
-    }
-
-    // 执行元素死亡逻辑
-    public async implOnElemDie(e:Elem) {
-        this.removeElemAt(e.pos.x, e.pos.y);
-        if (e.onDie) await e.onDie();
-        await this.fireEvent("onElemChanged", {subType:"die", e:e});
-        await this.triggerLogicPoint("onElemChanged", {"subType": "die", e:e});
-        await this.fireEvent("onGridChanged", {x:e.pos.x, y:e.pos.y, subType:"elemDie"});        
-        await this.triggerLogicPoint("onGridChanged", {x:e.pos.x, y:e.pos.y, subType:"elemDie"});        
-    }
-
     // 指定怪物尝试攻击角色
     public async implMonsterAttackPlayer(m:Monster, sneak = false, selfExplode = false) {
         // 自爆逻辑的攻击属性要特别处理一下
         var weaponAttrs = selfExplode ? m.attrs.selfExplode : undefined;
         Utils.assert(!selfExplode || weaponAttrs, "self explode needs specific attr: selfExplode");
 
-        var attackerAttrs = m.getAttrsAsAttacker(0);
+        var attackerAttrs = m.getAttrsAsAttacker();
         var targetAttrs = this.player.getAttrsAsTarget();
         if (sneak) (<string[]>attackerAttrs.attackFlags).push("sneak"); // 偷袭标记
 
         var r = this.calcAttack(attackerAttrs, targetAttrs);
         Utils.assert(r.dguard == 0, "player does not support guard");
-        if (r.dhp > 0) await this.implAddMonsterHp(m, r.dhp);
+        if (r.dhp > 0) await this.implAddPlayerHp(-r.dhp);
         await this.fireEvent("onAttack", {subtype:"monster2player", r:r});
 
         if (selfExplode && !m.isDead()) // 自爆还要走死亡逻辑
