@@ -72,169 +72,174 @@
 			"name": "elemattrsconfig_json"
 		},
 		{
-			"name": "DeathGod_png",
+			"url": "assets/monsters/DeathGod.png",
 			"type": "image",
-			"url": "assets/monsters/DeathGod.png"
+			"name": "DeathGod_png"
 		},
 		{
-			"name": "MedicineBox_png",
+			"url": "assets/relics/MedicineBox.png",
 			"type": "image",
-			"url": "assets/relics/MedicineBox.png"
+			"name": "MedicineBox_png"
 		},
 		{
-			"name": "selectable_png",
+			"url": "assets/selectable.png",
 			"type": "image",
-			"url": "assets/selectable.png"
+			"name": "selectable_png"
 		},
 		{
-			"name": "unselectable_png",
+			"url": "assets/unselectable.png",
 			"type": "image",
-			"url": "assets/unselectable.png"
+			"name": "unselectable_png"
 		},
 		{
-			"name": "playerconfig_json",
+			"url": "config/playerconfig.json",
 			"type": "json",
-			"url": "config/playerconfig.json"
+			"name": "playerconfig_json"
 		},
 		{
-			"name": "Hawkeye_png",
+			"url": "assets/relics/Hawkeye.png",
 			"type": "image",
-			"url": "assets/relics/Hawkeye.png"
+			"name": "Hawkeye_png"
 		},
 		{
-			"name": "TimeMachine_png",
+			"url": "assets/relics/TimeMachine.png",
 			"type": "image",
-			"url": "assets/relics/TimeMachine.png"
+			"name": "TimeMachine_png"
 		},
 		{
-			"name": "Coins_png",
+			"url": "assets/items/Coins.png",
 			"type": "image",
-			"url": "assets/items/Coins.png"
+			"name": "Coins_png"
 		},
 		{
-			"name": "Door_png",
+			"url": "assets/items/Door.png",
 			"type": "image",
-			"url": "assets/items/Door.png"
+			"name": "Door_png"
 		},
 		{
-			"name": "EscapePort_png",
+			"url": "assets/items/EscapePort.png",
 			"type": "image",
-			"url": "assets/items/EscapePort.png"
+			"name": "EscapePort_png"
 		},
 		{
-			"name": "Gun_png",
+			"url": "assets/items/Gun.png",
 			"type": "image",
-			"url": "assets/items/Gun.png"
+			"name": "Gun_png"
 		},
 		{
-			"name": "HpPotion_png",
+			"url": "assets/items/HpPotion.png",
 			"type": "image",
-			"url": "assets/items/HpPotion.png"
+			"name": "HpPotion_png"
 		},
 		{
-			"name": "Key_png",
+			"url": "assets/items/Key.png",
 			"type": "image",
-			"url": "assets/items/Key.png"
+			"name": "Key_png"
 		},
 		{
-			"name": "NextLevelPort_png",
+			"url": "assets/items/NextLevelPort.png",
 			"type": "image",
-			"url": "assets/items/NextLevelPort.png"
+			"name": "NextLevelPort_png"
 		},
 		{
-			"name": "TreasureBox_png",
+			"url": "assets/items/TreasureBox.png",
 			"type": "image",
-			"url": "assets/items/TreasureBox.png"
+			"name": "TreasureBox_png"
 		},
 		{
-			"name": "Clock_png",
+			"url": "assets/items/Clock.png",
 			"type": "image",
-			"url": "assets/items/Clock.png"
+			"name": "Clock_png"
 		},
 		{
-			"name": "HpCapsule_png",
+			"url": "assets/items/HpCapsule.png",
 			"type": "image",
-			"url": "assets/items/HpCapsule.png"
+			"name": "HpCapsule_png"
 		},
 		{
-			"name": "ban_png",
+			"url": "assets/ban.png",
 			"type": "image",
-			"url": "assets/ban.png"
+			"name": "ban_png"
 		},
 		{
-			"name": "Magazine_png",
+			"url": "assets/items/Magazine.png",
 			"type": "image",
-			"url": "assets/items/Magazine.png"
+			"name": "Magazine_png"
 		},
 		{
-			"name": "Hole_png",
+			"url": "assets/items/Hole.png",
 			"type": "image",
-			"url": "assets/items/Hole.png"
+			"name": "Hole_png"
 		},
 		{
-			"name": "Apple3_png",
+			"url": "assets/items/Apple3.png",
 			"type": "image",
-			"url": "assets/items/Apple3.png"
+			"name": "Apple3_png"
 		},
 		{
-			"name": "Apple2_png",
+			"url": "assets/items/Apple2.png",
 			"type": "image",
-			"url": "assets/items/Apple2.png"
+			"name": "Apple2_png"
 		},
 		{
-			"name": "Apple1_png",
+			"url": "assets/items/Apple1.png",
 			"type": "image",
-			"url": "assets/items/Apple1.png"
+			"name": "Apple1_png"
 		},
 		{
-			"name": "Steak3_png",
+			"url": "assets/items/Steak3.png",
 			"type": "image",
-			"url": "assets/items/Steak3.png"
+			"name": "Steak3_png"
 		},
 		{
-			"name": "Steak2_png",
+			"url": "assets/items/Steak2.png",
 			"type": "image",
-			"url": "assets/items/Steak2.png"
+			"name": "Steak2_png"
 		},
 		{
-			"name": "Steak1_png",
+			"url": "assets/items/Steak1.png",
 			"type": "image",
-			"url": "assets/items/Steak1.png"
+			"name": "Steak1_png"
 		},
 		{
-			"name": "RandomEgg_png",
+			"url": "assets/items/RandomEgg.png",
 			"type": "image",
-			"url": "assets/items/RandomEgg.png"
+			"name": "RandomEgg_png"
 		},
 		{
-			"name": "Apple12_png",
+			"url": "assets/items/Apple1.png",
 			"type": "image",
-			"url": "assets/items/Apple1.png"
+			"name": "Apple12_png"
 		},
 		{
-			"name": "Apple22_png",
+			"url": "assets/items/Apple2.png",
 			"type": "image",
-			"url": "assets/items/Apple2.png"
+			"name": "Apple22_png"
 		},
 		{
-			"name": "Apple32_png",
+			"url": "assets/items/Apple3.png",
 			"type": "image",
-			"url": "assets/items/Apple3.png"
+			"name": "Apple32_png"
 		},
 		{
-			"name": "Steak12_png",
+			"url": "assets/items/Steak1.png",
 			"type": "image",
-			"url": "assets/items/Steak1.png"
+			"name": "Steak12_png"
 		},
 		{
-			"name": "Steak22_png",
+			"url": "assets/items/Steak2.png",
 			"type": "image",
-			"url": "assets/items/Steak2.png"
+			"name": "Steak22_png"
 		},
 		{
-			"name": "Steak32_png",
+			"url": "assets/items/Steak3.png",
 			"type": "image",
-			"url": "assets/items/Steak3.png"
+			"name": "Steak32_png"
+		},
+		{
+			"url": "assets/monsters/Frozen.png",
+			"type": "image",
+			"name": "Frozen_png"
 		}
 	]
 }

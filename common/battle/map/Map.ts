@@ -58,7 +58,7 @@ class Map {
         this.travel8Neighbours(cx, cy, (x, y, g:Grid) =>
         {
             var e = g.getElem();
-            if (e && e.hazard() && e.getGrid().isCovered())
+            if (e && e.isHazard() && e.getGrid().isCovered())
                 num++;
         });
 
@@ -109,7 +109,7 @@ class Map {
         var valid = true;
         this.travel8Neighbours(x, y, (x, y, g:Grid) => {
             var e = g.isCovered() ? undefined : g.getElem();
-            valid = !e || !e.hazard();
+            valid = !e || !e.isHazard();
             return !valid;
         })
 
@@ -125,7 +125,7 @@ class Map {
         var uncoverable = false; // 检查 4 邻是否有揭开，且不阻挡
         this.travel4Neighbours(x, y, (x, y, g:Grid) => {
             var e = g.getElem();
-            if (!g.isCovered() && (!e || !e.barrier()))
+            if (!g.isCovered() && (!e || !e.isBarrier()))
                 uncoverable = true;
             return uncoverable;
         });

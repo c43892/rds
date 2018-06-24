@@ -22,6 +22,10 @@ class SRandom {
         return Math.floor(this.next(min, max));
     }
 
+    public next100():number {
+        return this.nextInt(0, 100);
+    }
+
     public nextDouble():number {
         return this.next(0, 1);
     }

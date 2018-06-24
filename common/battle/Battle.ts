@@ -129,7 +129,7 @@ class Battle {
     public async mark(x:number, y:number) {
         var g = this.level.map.getGridAt(x, y);
         var e = g.getElem();
-        Utils.assert(g.isCovered() && e && e.hazard(), "only covered hazared element could be marked");
+        Utils.assert(g.isCovered() && !!e, "only covered element could be marked");
 
         g.status = GridStatus.Marked;
         await this.fireEvent("onGridChanged", {x:x, y:y, subType:"elemMarked"});
@@ -167,18 +167,7 @@ class Battle {
             this.mark(p[0], p[1]);
     }
 
-    // 搜集所有计算参数，返回值形如 {a:[...], b:[...], c:[...]}
-    public getCalcPs(type:string) {
-        var ps = {a:[], b:[], c:[]};
-        BattleUtils.mergeCalcPs(ps, this.player[type]);
-        this.level.map.foreachUncoveredElems((e) => BattleUtils.mergeCalcPs(ps, e[type]));
-        return ps;
-    }
-
-    // 触发逻辑点，参数为逻辑点名称，该名称直接字面对应个各元素对逻辑点的处理函数，
-    // 处理函数的返回值表示是否需要截获该事件，不再传递给其它元素
-    public async triggerLogicPoint(lpName:string, ps = undefined) {
-
+    collectAllLogicHandler() {
         var hs = [];
 
         // 玩家 buff
@@ -198,6 +187,13 @@ class Battle {
                 hs.push(...e.buffs);
         }
 
+        return hs;
+    }
+
+    // 触发逻辑点，参数为逻辑点名称，该名称直接字面对应个各元素对逻辑点的处理函数，
+    // 处理函数的返回值表示是否需要截获该事件，不再传递给其它元素
+    public async triggerLogicPoint(lpName:string, ps = undefined) {
+        var hs = this.collectAllLogicHandler();
         for (var h of hs) {
             if (h[lpName] && await h[lpName](ps))
                 return;
@@ -465,16 +461,18 @@ class Battle {
         await this.triggerLogicPoint("onGridChanged", {x:x, y:y, subType:"elemRemoved"});
     }
 
-    // 角色+hp, absolutely 表示是否忽略所有加成因素，直接使用给定数值
+    // 角色+hp
     public async implAddPlayerHp(dhp:number, absolutely:boolean = false) {
-        if (!absolutely && dhp > 0) {
-            var ps = this.getCalcPs("forHpPotion");
-            dhp = this.bc.doCalc(dhp, ps);
-        }
-
         this.player.addHp(dhp);
         await this.fireEvent("onPlayerChanged", {subtype:"hp"});
         await this.triggerLogicPoint("onPlayerChanged", {"subType": "hp"});
+    }
+
+    // 角色+guard
+    public async implAddPlayerSheild(m:Monster, ds:number) {
+        m.addSheild(ds);
+        await this.fireEvent("onPlayerChanged", {subType:"guard"});
+        await this.triggerLogicPoint("onPlayerChanged", {"subType": "guard"});
     }
 
     // 怪物+hp
@@ -487,6 +485,13 @@ class Battle {
             await this.fireEvent("onElemChanged", {subType:"hp", e:m});
             await this.triggerLogicPoint("onElemChanged", {"subType": "hp", e:m});
         }
+    }
+
+    // 怪物+guard
+    public async implAddMonsterSheild(m:Monster, ds:number) {
+        m.addSheild(ds);
+        await this.fireEvent("onElemChanged", {subType:"sheild", e:m});
+        await this.triggerLogicPoint("onElemChanged", {"subType": "sheild", e:m});
     }
 
     // +buff
@@ -514,21 +519,42 @@ class Battle {
         if (g.isCovered()) this.uncover(x, y); // 攻击行为自动揭开地块
 
         var e = g.getElem();
-        var r; // 攻击结果
-        if (e && e instanceof Monster)
-            r = this.bc.tryAttack(this.player, <Monster>e, weapon ? weapon.attrs : undefined);
-
-        await this.fireEvent("onAttack", {subtype:"player2monster", x:y, y:y, r:r, weapon:weapon});
-        if (!r) return; // 目标位置没怪物
+        if (!e || !(e instanceof Monster)) { // 如果打空，则不需要战斗计算过程，有个表现就可以了
+            await this.fireEvent("onAttack", {subtype:"player2monster", x:y, y:y, target:undefined, weapon:weapon});
+            return;
+        }
 
         var m = <Monster>e;
-        switch (r.r) {
-            case "attacked": // 攻击成功
-                this.implAddMonsterHp(m, -r.dhp);
-            break;
-            case "dodged": // 被闪避
-                await this.triggerLogicPoint("onMonsterDodged");
+        var attackerAttrs = !weapon ? this.player.getAttrsAsAttacker(0) :
+            BattleUtils.mergeBattleAttrsPS(this.player.getAttrsAsAttacker(1), weapon.attrs);
+        var targetAttrs = m.getAttrsAsTarget();
+        if (marked) (<string[]>attackerAttrs.attackFlags).push("sneak"); // 偷袭标记
+        
+        var r = this.calcAttack(attackerAttrs, targetAttrs);
+        await this.implAddMonsterHp(m, -r.dhp);
+        await this.implAddMonsterSheild(m, -r.dguard)
+        await this.fireEvent("onAttack", {subtype:"player2monster", x:m.pos.x, y:m.pos.x, r:r, target:m, weapon:weapon});
+    }
+
+    // 进行一次攻击计算
+    calcAttack(attackerAttrs, targetAttrs) {
+        var hs = this.collectAllLogicHandler();
+
+        // 先确定攻击，免疫属性
+        for (var h of hs) {
+            attackerAttrs.attackFlags = Utils.mergeSet(attackerAttrs.attackFlags, h.onAttrs.attackFlags);
+            targetAttrs.immuneFlags = Utils.mergeSet(targetAttrs.immuneFlags, h.onAttrs.immuneFlags);
         }
+
+        // 搜集对应参数
+        for (var h of hs) {
+            for (var flag of attackerAttrs.attackFlags) {
+                attackerAttrs = BattleUtils.mergeBattleAttrsPS(attackerAttrs, h.onAttrs[flag]);
+                targetAttrs = BattleUtils.mergeBattleAttrsPS(targetAttrs, h.onAttrs[flag]);
+            }
+        }
+
+        return this.bc.doAttackCalc(attackerAttrs, targetAttrs);
     }
 
     // 执行元素死亡逻辑
@@ -542,21 +568,19 @@ class Battle {
     }
 
     // 指定怪物尝试攻击角色
-    public async implMonsterAttackPlayer(m:Monster, selfExplode = false) {
+    public async implMonsterAttackPlayer(m:Monster, sneak = false, selfExplode = false) {
         // 自爆逻辑的攻击属性要特别处理一下
         var weaponAttrs = selfExplode ? m.attrs.selfExplode : undefined;
         Utils.assert(!selfExplode || weaponAttrs, "self explode needs specific attr: selfExplode");
-        var r = this.bc.tryAttack(m, this.player, weaponAttrs);
-        await this.fireEvent("onAttack", {subtype:"monster2player", r:r, m:m, selfExplode:selfExplode});
-        switch (r.r) {
-            case "attacked": // 攻击成功
-                this.implAddPlayerHp(-r.dhp);
-                await this.triggerLogicPoint("onPlayerDamanged", {"dhp": r.dhp});
-            break;
-            case "dodged": // 被闪避
-                await this.triggerLogicPoint("onPlayerDodged");
-            break;
-        }
+
+        var attackerAttrs = m.getAttrsAsAttacker(0);
+        var targetAttrs = this.player.getAttrsAsTarget();
+        if (sneak) (<string[]>attackerAttrs.attackFlags).push("sneak"); // 偷袭标记
+
+        var r = this.calcAttack(attackerAttrs, targetAttrs);
+        Utils.assert(r.dguard == 0, "player does not support guard");
+        if (r.dhp > 0) await this.implAddMonsterHp(m, r.dhp);
+        await this.fireEvent("onAttack", {subtype:"monster2player", r:r});
 
         if (selfExplode && !m.isDead()) // 自爆还要走死亡逻辑
             await this.implOnElemDie(m);

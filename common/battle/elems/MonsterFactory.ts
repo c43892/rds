@@ -1,16 +1,44 @@
 class Monster extends Elem {constructor() { super();}
-
     public hp:number; // 血量
-    public power:number; // 攻击力
-    public defence:number; // 防御
-    public dodge:number; // 闪避%
+    public sheild:number; // 护盾
 
     public isDead = () => this.hp <= 0; // 是否已经死亡
+
+    public btAttrs;
+
+    // 获取攻击属性，n 表示用哪一套
+    public getAttrsAsAttacker(n:number) {
+        Utils.assert(n == 0, "monster does not support item attack yet");
+        return {
+            owner:this,
+            power:{a:0, b:this.btAttrs.power, c:0},
+            accuracy:{a:0, b:this.btAttrs.accuracy, c:0},
+            critial:{a:0, b:this.btAttrs.critial, c:0},
+            damageAdd:{a:0, b:this.btAttrs.damageAdd, c:0},
+            attackFlags: this.btAttrs.attackFlags,
+            buffs:{}
+        };
+    }
+
+    public getAttrsAsTarget() {
+        return {
+            owner:this,
+            guard:{a:0, b:this.btAttrs.guard, c:0},
+            dodge:{a:0, b:this.btAttrs.dodge, c:0},
+            damageDec:{a:0, b:this.btAttrs.damageDec, c:0},
+            resist:{a:0, b:0, c:this.btAttrs.resist},
+            immuneFlags:this.btAttrs.immuneFlags
+        };
+    }
 
     public addHp(dhp:number) {
         this.hp += dhp;
         if (this.hp < 0)
             this.hp = 0;
+    }
+
+    public addSheild(ds:number) {
+        this.sheild += ds;
     }
 
     // buff 相关
@@ -52,7 +80,8 @@ class MonsterFactory {
             return m;
         },
 
-        "Bunny": (attrs) => MonsterFactory.doAttack("onPlayerActed", this.createMonster(attrs)) // 每回合攻击玩家
+        "Bunny": (attrs) => this.createMonster(attrs) // 什么都不做
+        // "Bunny": (attrs) => MonsterFactory.doAttack("onPlayerActed", this.createMonster(attrs)) // 每回合攻击玩家
         // "Bunny": (attrs) => MonsterFactory.doAttackBack(this.createMonster(attrs)) // 被攻击时反击
         // "Bunny": (attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakAttack(this.createMonster(attrs))) // 偷袭行为是攻击，被攻击时反击
         // "Bunny": (attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakStealMoney(this.createMonster(attrs))) // 偷袭行为是偷钱，被攻击时反击
@@ -88,12 +117,10 @@ class MonsterFactory {
         var m = new Monster();
         m.canUse = () => true;
         m.hp = attrs.hp ? attrs.hp : 0;
-        m.power = attrs.power ? attrs.power : 0;
-        m.defence = attrs.defence ? attrs.defence : 0;
-        m.dodge = attrs.dodge ? attrs.dodge : 0;
-
-        attrs.hazard = true;
-        attrs.barrier = true;
+        m.attrs = attrs;
+        m.btAttrs = BattleUtils.mergeBattleAttrs({}, attrs);
+        m.hazard = true;
+        m.barrier = true;
 
         // 使用，即攻击怪物
         m.use = async () =>  {

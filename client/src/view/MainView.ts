@@ -7,7 +7,6 @@ class MainView extends egret.DisplayObjectContainer {
     public deathStep:egret.TextField; // 死神距离
     public hp:egret.TextField; // 血量
     public power:egret.TextField; // 攻击
-    public defence:egret.TextField; // 防御
     public dodge:egret.TextField; // 闪避
     public relics:egret.Bitmap[] = []; // 遗物
 
@@ -34,9 +33,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.hp = new egret.TextField();
         this.addChild(this.hp);
         this.power = new egret.TextField();
-        this.addChild(this.power);   
-        this.defence = new egret.TextField();
-        this.addChild(this.defence);   
+        this.addChild(this.power);  
         this.dodge = new egret.TextField();
         this.addChild(this.dodge);
 
@@ -100,7 +97,6 @@ class MainView extends egret.DisplayObjectContainer {
         this.deathStep.text = "😈：" + this.player.deathStep;
         this.hp.text = "血量: " + this.player.hp + "/" + this.player.maxHp;
         this.power.text = "攻击: " + this.player.power;
-        this.defence.text = "防御: " + this.player.defence;
         this.dodge.text = "闪避: " + this.player.dodge + "%";
 
         this.avatar.anchorOffsetX = 0;
@@ -119,7 +115,7 @@ class MainView extends egret.DisplayObjectContainer {
 
             var x = this.avatar.x + this.avatar.width + 20;
             var y = this.avatar.y - 10;
-            var txtArr = [this.hp, this.power, this.defence, this.dodge];
+            var txtArr = [this.hp, this.power, this.dodge];
             for (var txt of txtArr) {
                 txt.x = x;
                 txt.y = y;

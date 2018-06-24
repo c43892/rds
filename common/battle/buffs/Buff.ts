@@ -1,8 +1,11 @@
 class Buff {
     public type:string;
     public getOwner; // 获取所属对象
+    public onAttrs = {};
+    
     constructor(type:string) {
         this.type = type;
+        this.onAttrs = {};
     }
 
     public cd = undefined; // 剩余回合数，undefined 表示永远不结束

@@ -6,6 +6,7 @@ class Elem {
         this.canUseAt = () => false; // 不可对其它目标使用(不可移动)
         this.canUseOther = () => true;  // 不影响其它元素使用
         this.canUseOtherAt = () => true;  // 不影响其它元素对其它目标使用
+        this.onAttrs = {};
     }
 
     public $$id:string; // 调试用
@@ -15,8 +16,10 @@ class Elem {
     public type: string; // 元素类型
     public cnt:number; // 叠加数量
     public pos = {x: 0, y: 0}; // 元素当前坐标位置
-    public hazard = () => this.attrs.hazard; // 是否有害，有害的元素会被相邻格子计数
-    public barrier = () => this.attrs.barrier; // 是否会阻挡道路
+    public hazard:boolean;
+    public barrier:boolean;
+    public isHazard = () => this.hazard; // 是否有害，有害的元素会被相邻格子计数
+    public isBarrier = () => this.barrier; // 是否会阻挡道路
     public movingSpeed:number; // 移动速度
     public getGrid = () => this.bt().level.map.getGridAt(this.pos.x, this.pos.y); // 当前元素所在的地图格
 
@@ -38,7 +41,8 @@ class Elem {
     public beforePlayerMove2NextLevel; // 当角色准备进入下一层时触发
     public onDie; // 物品死亡时（物品使用后从地图上移除也算）
     
-    public attrs; // 来自配置表的属性
+    public attrs; // 来自配置表的属性，不允许在代码中修改!
+    public onAttrs; // 影响战斗属性的参数
     public dropItems:Elem[] = [];
 
     // 添加掉落物品

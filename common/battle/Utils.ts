@@ -173,6 +173,18 @@ class Utils {
         return str;
     }
 
+    public static logObjs(...objs:Object[]) {
+        var str = "";
+        for (var o of objs) {
+            str += "{";
+            for (var k in o)
+                str += k + ":" + o[k] + ",";
+            str += "}";
+        }
+
+        console.log(str);
+    }
+
     // 寻找第一个满足条件的元素，f 表示判断条件, fromIndex 表示开始搜索的位置，
     // 返回值是满足条件的元素的索引，未找到是 -1
     public static indexOf<T>(arr:T[], f, fromIndex:number = 0):number {
@@ -183,6 +195,11 @@ class Utils {
         }
 
         return -1;
+    }
+
+    // 指定数组是否包含某一指定值
+    public static contains<T>(arr:T[], v:T, fromIndex:number = 0):boolean {
+        return Utils.indexOf(arr, (e) => v == undefined ? e == undefined : e == v, fromIndex) >= 0;
     }
 
     // 移除数组中指定位置的元素，结果作为一个新数组返回
@@ -199,6 +216,23 @@ class Utils {
             var h = getHandler(e);
             eventDispatcher.registerEvent(e, h);
         }
+    }
+
+    // 合并多个数组，并去除相同项目
+    public static mergeSet(...ss:string[][]):string[] {
+        var map = {};
+        for (var s of ss) {
+            if (!s) continue;
+            for (var k of s) {
+                map[k] = 0;
+            }
+        }
+
+        var r = [];
+        for (var k in map)
+            r.push(k);
+
+        return r;
     }
 
     // 测试期间用，本地存储部分数据

@@ -18,12 +18,12 @@ class MonsterMarker {
                 continue;
             else {
                 var e = map.getElemAt(cx, cy);
-                if (!e || !e.hazard()) // 如果有未揭开的非怪物，则直接返回结果
+                if (!e || !e.isHazard()) // 如果有未揭开的非怪物，则直接返回结果
                     return [];
             }
 
             // 剩下的情况，应该就是未揭开的怪物了
-            Utils.assert(g.isCovered() && e && e.hazard(), "should be covered hazared element here!");
+            Utils.assert(g.isCovered() && e && e.isHazard(), "should be covered hazared element here!");
 
             // 这个块本自身入标记组，并开始检查其周围的相邻块
             markPos.push([cx, cy]);
