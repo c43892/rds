@@ -97,10 +97,6 @@ class ItemFactory {
             return e;
         },
 
-        
-
-
-
         // 钟表
         "Clock": (attrs) => {
             var e = new Item();
@@ -163,87 +159,35 @@ class ItemFactory {
             return e;
         },
 
-        // 苹果3
-        "Apple3": (attrs) => {
+        // 苹果
+        "Apple": (attrs) => {
             var e = new Item();
+            e.cnt = 3;
             e.canBeMoved = true;
             e.canUse = () => true;
             e.use = async () => {
-                var bt = e.bt();
-                var apple2 = ElemFactory.create("Apple2");
-                await bt.implReplaceElemAt(e, apple2);
-                await bt.implAddPlayerHp(1);
-                return true;
-            };
-            return e;
-        },
-
-        // 苹果2
-        "Apple2": (attrs) => {
-            var e = new Item();
-            e.canBeMoved = true;
-            e.canUse = () => true;
-            e.use = async () => {
-                var bt = e.bt();
-                var apple1 = ElemFactory.create("Apple1");
-                await bt.implReplaceElemAt(e, apple1);
-                await bt.implAddPlayerHp(1);
-                return true;
-            };
-            return e;
-        },
-
-        // 苹果1
-        "Apple1": (attrs) => {
-            var e = new Item();
-            e.canBeMoved = true;
-            e.canUse = () => true;
-            e.use = async () => {
+                e.cnt--;
                 var bt = e.bt();
                 await bt.implAddPlayerHp(1);
+                return e.cnt > 0;
             };
+            e.getElemImgRes = () => "Apple" + e.cnt;
             return e;
         },
 
-        // 牛排3
-        "Steak3": (attrs) => {
+        // 牛排
+        "Steak": (attrs) => {
             var e = new Item();
+            e.cnt = 3;
             e.canBeMoved = true;
             e.canUse = () => true;
             e.use = async () => {
-                var bt = e.bt();
-                var steak2 = ElemFactory.create("Steak2");
-                await bt.implReplaceElemAt(e, steak2);
-                await bt.implAddPlayerHp(2);
-                return true;
-            };
-            return e;
-        },
-
-        // 牛排2
-        "Steak2": (attrs) => {
-            var e = new Item();
-            e.canBeMoved = true;
-            e.canUse = () => true;
-            e.use = async () => {
-                var bt = e.bt();
-                var steak1 = ElemFactory.create("Steak1");
-                await bt.implReplaceElemAt(e, steak1);
-                await bt.implAddPlayerHp(2);
-                return true;
-            };
-            return e;
-        },
-
-        // 牛排1
-        "Steak1": (attrs) => {
-            var e = new Item();
-            e.canBeMoved = true;
-            e.canUse = () => true;
-            e.use = async () => {
+                e.cnt--;
                 var bt = e.bt();
                 await bt.implAddPlayerHp(2);
+                return e.cnt > 0;
             };
+            e.getElemImgRes = () => "Steak" + e.cnt;
             return e;
         },
 

@@ -51,7 +51,7 @@ class AniView extends egret.DisplayObjectContainer {
     public async onGridChanged(ps) {
         switch (ps.subType) {
             case "ElemAdded":
-                this.mv.mapView.refreshAt(ps.x, ps.y);
+                this.mv.mapView.refresh3x3(ps.x, ps.y);
                 var eImg = this.mv.mapView.getElemViewAt(ps.x, ps.y).getImg();
                 await this.aniFact.createAni("fadeIn", {"img": eImg, "time":1000});
             break;

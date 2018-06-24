@@ -22,6 +22,7 @@ class Elem {
     public isBarrier = () => this.barrier; // 是否会阻挡道路
     public movingSpeed:number; // 移动速度
     public getGrid = () => this.bt().level.map.getGridAt(this.pos.x, this.pos.y); // 当前元素所在的地图格
+    public getElemImgRes = () => this.attrs.elemImg ? this.attrs.elemImg : this.type;
 
     // 各逻辑点，挂接的都是函数
     public canUse = () => { return false; } // 一个 function():boolean
