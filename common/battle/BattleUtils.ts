@@ -64,7 +64,7 @@ class BattleUtils {
 
         for (var k in ps) {
             var v = ps[k];
-            if (k == "attackFlags" || k == "immuneFlags")
+            if (Array.isArray(v))
                 ps[k] = Utils.mergeSet(ps1[k], ps2[k]); // 合并标记
             else { // 合并 a, b, c 参数
                 var v1 = ps1[k];
@@ -101,7 +101,7 @@ class BattleUtils {
 
         for (var k in attrs) {
             var v = attrs[k];
-            if (k == "attackFlags" || k == "immuneFlags")
+            if (Array.isArray(v))
                 attrs[k] = Utils.mergeSet(attrs1[k], attrs2[k]); // 合并标记
             else { // 合并 a, b, c 参数
                 var v1 = attrs1[k];
