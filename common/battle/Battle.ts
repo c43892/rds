@@ -564,6 +564,7 @@ class Battle {
         var r = this.calcAttack(attackerAttrs, targetAttrs);
         await this.implAddMonsterHp(m, -r.dhp);
         await this.implAddMonsterSheild(m, -r.dguard)
+
         await this.fireEvent("onAttack", {subtype:"player2monster", x:m.pos.x, y:m.pos.x, r:r, target:m, weapon:weapon});
     }
 
@@ -650,7 +651,6 @@ class Battle {
             if (!(e.pos.x == x && e.pos.y == y) && !this.level.map.isWalkable(x, y))
                 return;
         }
-
 
         // 直接移动到指定位置，逻辑上是没有连续移动过程的
         this.level.map.switchElems(e.pos.x, e.pos.y, path[path.length-1].x, path[path.length-1].y);

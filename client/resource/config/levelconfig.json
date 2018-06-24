@@ -18,7 +18,7 @@
                     }
                 }
             },
-            "HpCapsule":{"num":2, "attrs":{"cnt":5}},
+            "HpCapsule":{"num":2, "attrs":{"cnt":5, "heal":1}},
             "Coins":{"num":1, "attrs":{"cnt":5}},
             "Gun": {"num":1, "attrs":{"cnt":2, "power":3}},
             "MedicineBox": {"num":1},

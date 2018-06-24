@@ -51,8 +51,8 @@ class Monster extends Elem {constructor() { super();}
             buff.getOwner = () => this;
             this.buffs.push(buff);
         }
-        else if (buff.cd)
-            this.buffs[n].cd += buff.cd;
+        else if (buff.cnt)
+            this.buffs[n].cnt += buff.cnt;
     }
 
     public removeBuff(type:string):Buff {
@@ -89,7 +89,7 @@ class MonsterFactory {
         // "Bunny": (attrs) => MonsterFactory.doSneakSummon(this.createMonster(attrs)) // 偷袭行为是召唤
         // "Bunny": (attrs) => { // 死亡时放毒
         //     var m = this.createMonster(attrs);
-        //     m = <Monster>ElemFactory.addDieAI(async () => m.bt().implAddBuff(m.bt().player, "BuffPoison", 3), m);
+        //     m = <Monster>ElemFactory.addDieAI(async () => m.bt().implAddBuff(m.bt().player, "BuffPoison", 3, 1), m);
         //     return m;
         // }
         // "Bunny": (attrs) => { // 玩家离开时，偷袭玩家
@@ -202,14 +202,6 @@ class MonsterFactory {
     // 攻击玩家一次
     static doAttack(logicPoint:string, m:Monster):Monster {
         return <Monster>ElemFactory.addAI(logicPoint, async () => m.bt().implMonsterAttackPlayer(m), m);
-    }
-
-    // 给玩家加一个 buff
-    static doAddBuff(logicPoint:string, buffCreator, m:Monster):Monster {
-        return <Monster>ElemFactory.addAI(logicPoint, async () => {
-            var bt = m.bt();
-            bt.implAddBuff(bt.player, buffCreator(m))
-        }, m);
     }
 
     //死亡时翻开N个空地块

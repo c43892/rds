@@ -121,7 +121,7 @@ class ItemFactory {
             e.canUse = () => true;
             e.use = async () => {
                 var bt = e.bt();
-                await bt.implAddBuff(bt.player, "BuffAddHp", e.attrs.cnt);
+                await bt.implAddBuff(bt.player, "BuffAddHp", e.attrs.cnt, e.attrs.heal);
             };
 
             return e;

@@ -7,10 +7,10 @@ class BuffFactory {
         switch (type) {
             case "BuffBasic": buff = new BuffBasic(); break;
             case "BuffDeathGod": buff = new BuffDeathGod(); break;
-            case "BuffFlame": buff = new BuffFlame(ps[0]); break;
-            case "BuffPoison": buff = new BuffPoison(ps[0]); break;
+            case "BuffFlame": buff = new BuffFlame(ps[0], ps[1]); break;
+            case "BuffPoison": buff = new BuffPoison(ps[0], ps[1]); break;
             case "BuffNurse": buff = new BuffNurse(); break;
-            case "BuffAddHp": buff = new BuffAddHp(ps[0]); break;
+            case "BuffAddHp": buff = new BuffAddHp(ps[0], ps[1]); break;
         }
 
         Utils.assert(!!buff, "no such a buff: " + type);

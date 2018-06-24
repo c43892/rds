@@ -71,8 +71,7 @@ class BattleCalculator {
 
         // 根据概率计算 buff 效果
         for (var b of buffs) {
-            var bFlag = "Buff" + b;
-            if (Utils.contains(immuneFlags, bFlag)) continue; // 免疫也阻止相应的 buff
+            if (Utils.contains(immuneFlags, b)) continue; // 免疫也阻止相应的 buff
             if (this.srand.next100() < buffs[b])
                 r.buffs.push(b);
         }

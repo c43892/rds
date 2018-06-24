@@ -8,7 +8,7 @@ class Buff {
         this.onAttrs = {};
     }
 
-    public cd = undefined; // 剩余回合数，undefined 表示永远不结束
+    public cnt = undefined; // 剩余回合数，undefined 表示永远不结束
 
     // 生效一次（可以用来手动生效）
     public doEffect;

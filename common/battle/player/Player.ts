@@ -108,7 +108,6 @@ class Player {
             critial:{a:0, b:this.critial[n], c:0},
             damageAdd:{a:0, b:this.damageAdd[n], c:0},
             attackFlags: this.attackFlags[n],
-            buffs:{}
         };
     }
 
@@ -193,8 +192,8 @@ class Player {
             buff.getOwner = () => this;
             this.buffs.push(buff);
         }
-        else if (buff.cd)
-            this.buffs[n].cd += buff.cd;
+        else if (buff.cnt)
+            this.buffs[n].cnt += buff.cnt;
     }
 
     public removeBuff(type:string):Buff {
