@@ -108,6 +108,7 @@ class Player {
             critial:{a:0, b:this.critial[n], c:0},
             damageAdd:{a:0, b:this.damageAdd[n], c:0},
             attackFlags: this.attackFlags[n],
+            addBuffs:[]
         };
     }
 

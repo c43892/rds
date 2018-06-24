@@ -15,7 +15,7 @@ class Monster extends Elem {constructor() { super();}
             critial:{a:0, b:this.btAttrs.critial, c:0},
             damageAdd:{a:0, b:this.btAttrs.damageAdd, c:0},
             attackFlags: this.btAttrs.attackFlags,
-            buffs:{}
+            addBuffs:this.btAttrs.addBuffs
         };
     }
 

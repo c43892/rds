@@ -17,7 +17,7 @@ class BattleCalculator {
         var accuracy = this.doCalc(attackerAttrs, "accuracy");
         var critial = this.doCalc(attackerAttrs, "critial");
         var damageAdd = this.doCalc(attackerAttrs, "damageAdd");
-        var buffs = attackerAttrs.buffs;
+        var addBuffs = attackerAttrs.addBuffs;
 
         var immuneFlags = targetAttrs.immuneFlags;
         var guard = this.doCalc(targetAttrs, "guard");
@@ -25,7 +25,7 @@ class BattleCalculator {
         var damageDec = this.doCalc(targetAttrs, "damageDec");
         var resist = targetAttrs.resist;
         // 战斗计算结果
-        var r = {r:"", dhp:0, dguard:0, buffs:[]};
+        var r = {r:"", dhp:0, dguard:0, addBuffs:[]};
 
         // 计算命中(-闪避)
         if (this.srand.next100() >= 100 + accuracy - dodge) {
@@ -70,10 +70,11 @@ class BattleCalculator {
         r.dhp = damage;
 
         // 根据概率计算 buff 效果
-        for (var b of buffs) {
-            if (Utils.contains(immuneFlags, b)) continue; // 免疫也阻止相应的 buff
-            if (this.srand.next100() < buffs[b])
-                r.buffs.push(b);
+        for (var b of addBuffs) {
+            var buffType = b.type;
+            if (Utils.contains(immuneFlags, buffType)) continue; // 免疫也阻止相应的 buff
+            if (this.srand.next100() < b.rate)
+                r.addBuffs.push({type:buffType, ps:b.ps});
         }
 
         return r;

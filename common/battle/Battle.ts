@@ -463,6 +463,7 @@ class Battle {
 
     // 角色+hp
     public async implAddPlayerHp(dhp:number, absolutely:boolean = false) {
+        if (dhp == 0) return;
         this.player.addHp(dhp);
         await this.fireEvent("onPlayerChanged", {subtype:"hp"});
         await this.triggerLogicPoint("onPlayerChanged", {"subType": "hp"});
@@ -470,6 +471,7 @@ class Battle {
 
     // 角色+guard
     public async implAddPlayerSheild(m:Monster, ds:number) {
+        if (ds == 0) return;
         m.addSheild(ds);
         await this.fireEvent("onPlayerChanged", {subType:"guard"});
         await this.triggerLogicPoint("onPlayerChanged", {"subType": "guard"});
@@ -477,6 +479,7 @@ class Battle {
 
     // 怪物+hp
     public async implAddMonsterHp(m:Monster, dhp:number) {
+        if (dhp == 0) return;
         m.addHp(dhp);
         if (dhp < 0) await this.triggerLogicPoint("onMonsterHurt", {"dhp": dhp, m:m});
         if (m.isDead())
@@ -489,6 +492,7 @@ class Battle {
 
     // 怪物+guard
     public async implAddMonsterSheild(m:Monster, ds:number) {
+        if (ds == 0) return;
         m.addSheild(ds);
         await this.fireEvent("onElemChanged", {subType:"sheild", e:m});
         await this.triggerLogicPoint("onElemChanged", {"subType": "sheild", e:m});
@@ -565,6 +569,10 @@ class Battle {
         await this.implAddMonsterHp(m, -r.dhp);
         await this.implAddMonsterSheild(m, -r.dguard)
 
+        // 处理附加 buff
+        for (var b of r.addBuffs)
+            await this.implAddBuff(m, "Buff" + b.type, ...b.ps);
+
         await this.fireEvent("onAttack", {subtype:"player2monster", x:m.pos.x, y:m.pos.x, r:r, target:m, weapon:weapon});
     }
 
@@ -580,7 +588,12 @@ class Battle {
 
         var r = this.calcAttack(attackerAttrs, targetAttrs);
         Utils.assert(r.dguard == 0, "player does not support guard");
-        if (r.dhp > 0) await this.implAddPlayerHp(-r.dhp);
+        await this.implAddPlayerHp(-r.dhp);
+
+        // 处理附加 buff
+        for (var b of r.addBuffs)
+            await this.implAddBuff(this.player, "Buff" + b.type, ...b.ps);
+
         await this.fireEvent("onAttack", {subtype:"monster2player", r:r});
 
         if (selfExplode && !m.isDead()) // 自爆还要走死亡逻辑
