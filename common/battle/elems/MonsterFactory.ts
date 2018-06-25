@@ -123,6 +123,7 @@ class MonsterFactory {
 
     // 偷袭：攻击
     static doSneakAttack(m:Monster):Monster {
+        // 怪物偷袭，其实并没有 Sneak 标记，不影响战斗计算过程
         return MonsterFactory.addSneakAI(async () => m.bt().implMonsterAttackPlayer(m), m);
     }
 

@@ -54,15 +54,8 @@ class BattleCalculator {
         // 没有穿刺，就计算护盾
         if (!Utils.contains(attackFlags, "Pierce"))
         {
-            // 护盾完全挡住伤害
-            if (damage <= sheild) {
-                r.dsheild = damage;
-                damage = 0;
-            }
-            else { // 消耗护盾，再计算剩余伤害
-                r.dsheild = sheild;
-                damage -= sheild;
-            }
+            r.dsheild = damage > sheild ? sheild : damage;
+            damage = 0;
         }
 
         // 计算最终伤害
