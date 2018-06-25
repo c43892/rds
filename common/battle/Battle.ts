@@ -357,7 +357,7 @@ class Battle {
             var map = this.level.map;
             var fx = e.pos.x;
             var fy = e.pos.y;
-            var canUse = e.isValid() && map.isValid(x, y) && e.canUseAt(x, y);
+            var canUse = e.isValid() && map.isGenerallyValid(x, y) && e.canUseAt(x, y);
             if (canUse) {
                 // 其它元素可能会阻止使用
                 this.level.map.foreachUncoveredElems((e:Elem) => {
@@ -566,9 +566,10 @@ class Battle {
 
         var m = <Monster>e;
         var attackerAttrs = !weapon ? this.player.getAttrsAsAttacker(0) :
-            BattleUtils.mergeBattleAttrsPS(this.player.getAttrsAsAttacker(1), weapon.attrs);
+            BattleUtils.mergeBattleAttrsPS(this.player.getAttrsAsAttacker(1), weapon.getAttrsAsAttacker());
+
         var targetAttrs = m.getAttrsAsTarget();
-        if (marked) (<string[]>attackerAttrs.attackFlags).push("sneak"); // 偷袭标记
+        if (marked) (<string[]>attackerAttrs.attackFlags).push("Sneak"); // 偷袭标记
         
         var r = this.calcAttack(attackerAttrs, targetAttrs);
         await this.implAddMonsterHp(m, -r.dhp);
@@ -589,7 +590,7 @@ class Battle {
 
         var attackerAttrs = m.getAttrsAsAttacker();
         var targetAttrs = this.player.getAttrsAsTarget();
-        if (sneak) (<string[]>attackerAttrs.attackFlags).push("sneak"); // 偷袭标记
+        if (sneak) (<string[]>attackerAttrs.attackFlags).push("Sneak"); // 偷袭标记
 
         var r = this.calcAttack(attackerAttrs, targetAttrs);
         Utils.assert(r.dguard == 0, "player does not support guard");

@@ -65,10 +65,10 @@ class BattleUtils {
         for (var k in ps) {
             var v = ps[k];
             if (Array.isArray(v))
-                ps[k] = Utils.mergeSet(ps1[k], ps2[k]); // 合并标记
+                ps[k] = Utils.mergeSet(ps1 ? ps1[k] : undefined, ps2 ? ps2[k] : undefined); // 合并标记
             else { // 合并 a, b, c 参数
-                var v1 = ps1[k];
-                var v2 = ps2[k];
+                var v1 = ps1 ? ps1[k] : undefined;
+                var v2 = ps2 ? ps2[k] : undefined;
                 for (var p of ["a", "b", "c"])
                     v[p] = (v1 && v2 && v1[p] && v2[p]) ? (v1[p] + v2[p]) 
                                 : (v1 && v1[p] ? v1[p] : 
@@ -77,8 +77,8 @@ class BattleUtils {
         }
 
         ps["addBuffs"] = [];
-        if (ps1.addBuffs) ps["addBuffs"].push(...ps1.addBuffs);
-        if (ps2.addBuffs) ps["addBuffs"].push(...ps2.addBuffs);
+        if (ps1 && ps1.addBuffs) ps["addBuffs"].push(...ps1.addBuffs);
+        if (ps2 && ps2.addBuffs) ps["addBuffs"].push(...ps2.addBuffs);
 
         return ps;
     }

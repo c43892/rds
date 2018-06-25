@@ -29,7 +29,7 @@ class Elem {
     public canUseAt = (x, y) => { return false }; // 一个 function(x:number, y:number):boolean
     public canUseOther = (e) => { return true; }; // 一个 function(e:Elem):boolean，用于表示是否影响另外一个元素的使用
     public canUseOtherAt = (e, x, y) => { return true; } // 一个 function(e:Elem, x:number, y:number)，用于表示是否影响另外一个元素使用在另外一个目标元素上
-    public isValid = () => { return this.bt().level.map.isValid(this.pos.x, this.pos.y); } // 是否被周围怪物影响导致失效
+    public isValid = () => { return this.bt().level.map.isGenerallyValid(this.pos.x, this.pos.y); } // 是否被周围怪物影响导致失效
     public canBeMoved = false; // 可以被玩家移动
     
     // 以下关于 use 相关的逻辑，都不考虑未揭开情况，因为 Elem 并不包含揭开这个逻辑，
@@ -43,6 +43,7 @@ class Elem {
     public onDie; // 物品死亡时（物品使用后从地图上移除也算）
     
     public attrs; // 来自配置表的属性，不允许在代码中修改!
+    public btAttrs; // 战斗相关属性
     public onAttrs; // 影响战斗属性的参数
     public dropItems:Elem[] = [];
 
@@ -63,6 +64,19 @@ class Elem {
         } else {
             this.dropItems.push(e);
         }
+    }
+
+    // 获取攻击属性，怪物或者武器都可以作为攻击者
+    public getAttrsAsAttacker() {
+        return {
+            owner:this,
+            power:{a:0, b:this.btAttrs.power, c:0},
+            accuracy:{a:0, b:this.btAttrs.accuracy, c:0},
+            critial:{a:0, b:this.btAttrs.critial, c:0},
+            damageAdd:{a:0, b:this.btAttrs.damageAdd, c:0},
+            attackFlags: this.btAttrs.attackFlags,
+            addBuffs:this.btAttrs.addBuffs
+        };
     }
 
     // 序列化和反序列化

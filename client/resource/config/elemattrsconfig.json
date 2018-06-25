@@ -15,10 +15,13 @@
     "Bunny":{"name":"兔子", "colddown":5},
 
     "HpPotion":{"name":"血瓶", "dhp":10, "canOverlap":true},
-    "Gun":{"name":"枪", "canOverlap":true, "useWithTarget":true},
+    "Gun":{"name":"枪", "canOverlap":true, "useWithTarget":true, "attackFlags":["Pierce", "Gun"]},
+    "RayGun":{"name":"火焰射线", "canOverlap":true, "useWithTarget":true, "attackFlags":["Flame", "Pierce", "Gun"], 
+                "addBuffs":[{"type":"Flame", "rate":100, "ps":[3, 1]}]
+    },
     "Hole":{"name":"黑洞", "barrier":true},
-    "Apple3":{"name":"苹果"}, "Apple2":{"name":"苹果"}, "Apple1":{"name":"苹果"},
-    "Steak3":{"name":"牛排"}, "Steak2":{"name":"牛排"}, "Steak1":{"name":"牛排"},
+    "Apple":{"name":"苹果"}, "Apple2":{"name":"苹果"}, "Apple1":{"name":"苹果"},
+    "Steak":{"name":"牛排"}, "Steak2":{"name":"牛排"}, "Steak1":{"name":"牛排"},
 
     "NextLevelPort":{"name":"下一层"}
 }

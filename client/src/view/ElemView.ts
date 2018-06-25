@@ -98,7 +98,7 @@ class ElemView extends egret.DisplayObjectContainer {
                         this.hp.textColor = 0xff0000;
                         this.showLayer.addChild(this.hp);
                         this.refreshDropItem(); // 刷新掉落物品显示
-                    } else if (!this.map.isValid(e.pos.x, e.pos.y) && e.type != "Hole") // 禁止符号
+                    } else if (!this.map.isGenerallyValid(e.pos.x, e.pos.y) && e.type != "Hole") // 禁止符号
                         this.showLayer.addChild(this.banImg);
                 }
             break;
@@ -152,7 +152,7 @@ class ElemView extends egret.DisplayObjectContainer {
 
     // 点击
     onTouchGrid(evt:egret.TouchEvent) {
-        if (ElemView.longPressed || ElemView.dragging || !this.map.isValid(this.gx, this.gy))
+        if (ElemView.longPressed || ElemView.dragging || !this.map.isGenerallyValid(this.gx, this.gy))
             return;
 
         let b = this.map.getGridAt(this.gx, this.gy);
@@ -175,7 +175,7 @@ class ElemView extends egret.DisplayObjectContainer {
                             });
                     }
                     else if (e.attrs.useWithTarget)
-                        ElemView.selectGrid((x, y) => this.map.isValid(x, y) && e.canUseAt(x, y), (pos) => {
+                        ElemView.selectGrid((x, y) => this.map.isGenerallyValid(x, y) && e.canUseAt(x, y), (pos) => {
                             if (!pos) return; // 取消选择
                             ElemView.try2UseElemAt(e, pos.x, pos.y);
                         });
@@ -186,7 +186,7 @@ class ElemView extends egret.DisplayObjectContainer {
 
     // 按下
     onTouchBegin(evt:egret.TouchEvent) {
-        if (!this.map.isValid(this.gx, this.gy))
+        if (!this.map.isGenerallyValid(this.gx, this.gy))
             return;
 
         ElemView.pressed = true;

@@ -17,6 +17,7 @@ class ElemFactory {
                 Utils.assert(!!e, "unknown elem type: " + type);
                 e.type = type;
                 e.attrs = attrs;
+                e.btAttrs = BattleUtils.mergeBattleAttrs({}, attrs);
                 e.$$id = type + ":" + (ElemFactory.$$idSeqNo++);
 
                 if (attrs.dropItems) // 初始就可能携带掉落物品
@@ -120,5 +121,19 @@ class ElemFactory {
 
             await e.bt().implElemMoving(e, path);
         }, e);
+    }
+
+    // 武器逻辑
+    static weaponLogic() {
+        return (e:Elem) => {
+            e.cnt = e.attrs.cnt;
+            e.canUse = () => false;
+            e.canUseAt = (x, y) => true;
+            e.useAt = async (x, y) => {
+                await e.bt().implPlayerAttackAt(x, y, e);
+                await e.bt().implRemovePlayerProp(e.type);
+                return e.cnt > 0;
+            };
+        };
     }
 }

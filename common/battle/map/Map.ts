@@ -95,9 +95,9 @@ class Map {
         }
     }
 
-    // 指定位置是否可用，如果有显形的有害怪物在附近，则不可用。
+    // 指定位置是否可用（不考虑特殊可用逻辑，比如全图可用等），如果有显形的有害怪物在附近，则不可用。
     // 不可用影响空地探索，也影响物品使用和生效
-    public isValid(x:number, y:number):boolean {        
+    public isGenerallyValid(x:number, y:number):boolean {        
         var g = this.getGridAt(x, y);
         var e = this.getElemAt(x, y);
         if (!g.isCovered()) { // 揭开的怪或空地始终可用
@@ -132,7 +132,7 @@ class Map {
 
         // 检查 8 邻是否有怪
         if (uncoverable)
-            uncoverable = this.isValid(x, y);
+            uncoverable = this.isGenerallyValid(x, y);
 
         return uncoverable;
     }

@@ -80,7 +80,7 @@ class PropView extends egret.DisplayObjectContainer {
                     PropView.try2UseProp(this.e);
             });
         else if (this.e.attrs.useWithTarget) {
-            PropView.selectGrid((x, y) => this.e.bt().level.map.isValid(x, y) && this.e.canUseAt(x, y), (pos) => {
+            PropView.selectGrid((x, y) => this.e.bt().level.map.isGenerallyValid(x, y) && this.e.canUseAt(x, y), (pos) => {
                 if (!pos) return; // 取消选择
                 PropView.try2UsePropAt(this.e, pos.x, pos.y);
             });

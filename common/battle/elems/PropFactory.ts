@@ -41,29 +41,9 @@ class PropFactory {
         },
 
         // 枪
-        "Gun": (attrs) => {
-            return this.createProp(attrs, (e:Elem) => {
-                e.cnt = attrs.cnt;
-                e.canUse = () => false;
-                e.canUseAt = (x, y) => {
-                    var tog:Grid = e.bt().level.map.getGridAt(x, y);
-                    if (tog.isUncoverable()) // 对未揭开区域可以使用
-                        return true;
+        "Gun": (attrs) => this.createProp(attrs, ElemFactory.weaponLogic()),
 
-                    var toe:Elem = e.bt().level.map.getElemAt(x, y);
-                    if (toe && toe instanceof Monster) // 对揭开的怪可以使用
-                        return true;
-                    
-                    return false; // 其它情况不可以使用
-                };
-
-                e.useAt = async (x, y) => {
-                    await e.bt().implPlayerAttackAt(x, y, e);
-                    await e.bt().implRemovePlayerProp(e.type);
-                    return e.cnt > 0;
-                }
-                return e;
-            });
-        },
+        // 火焰射线
+        "RayGun": (attrs) => this.createProp(attrs, ElemFactory.weaponLogic())
     };
 }

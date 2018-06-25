@@ -4,21 +4,6 @@ class Monster extends Elem {constructor() { super();}
 
     public isDead = () => this.hp <= 0; // 是否已经死亡
 
-    public btAttrs;
-
-    // 获取攻击属性，n 表示用哪一套
-    public getAttrsAsAttacker() {
-        return {
-            owner:this,
-            power:{a:0, b:this.btAttrs.power, c:0},
-            accuracy:{a:0, b:this.btAttrs.accuracy, c:0},
-            critial:{a:0, b:this.btAttrs.critial, c:0},
-            damageAdd:{a:0, b:this.btAttrs.damageAdd, c:0},
-            attackFlags: this.btAttrs.attackFlags,
-            addBuffs:this.btAttrs.addBuffs
-        };
-    }
-
     public getAttrsAsTarget() {
         return {
             owner:this,
@@ -116,8 +101,6 @@ class MonsterFactory {
         var m = new Monster();
         m.canUse = () => true;
         m.hp = attrs.hp ? attrs.hp : 0;
-        m.attrs = attrs;
-        m.btAttrs = BattleUtils.mergeBattleAttrs({}, attrs);
         m.hazard = true;
         m.barrier = true;
 

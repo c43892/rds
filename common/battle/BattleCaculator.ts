@@ -48,11 +48,11 @@ class BattleCalculator {
         // 计算+-伤害和抵抗
         var damage = power + damageAdd - damageDec;
         damage = (damage + resist.b) * (1 - resist.a) + resist.c;
-        if (Utils.contains(attackFlags, "sneak")) damage += 2;
+        if (Utils.contains(attackFlags, "Sneak")) damage += 2;
         if (damage < 0) damage = 0;        
 
         // 没有穿刺，就计算护盾
-        if (!Utils.contains(attackFlags, "pierce"))
+        if (!Utils.contains(attackFlags, "Pierce"))
         {
             // 护盾完全挡住伤害
             if (damage <= guard) {

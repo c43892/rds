@@ -8,7 +8,7 @@
         "elems": {
             "HpPotion":{"num":1},
             "Bunny":{
-                "num":1, 
+                "num":10, 
                 "attrs":{
                     "hp":5, "power":1, "suckBlood":3, "summons":[ {"type":"Bunny", "attrs":{"hp":1}} ], 
                     "selfExplode":{"power":6},
@@ -20,7 +20,8 @@
             },
             "HpCapsule":{"num":2, "attrs":{"cnt":5, "heal":1}},
             "Coins":{"num":1, "attrs":{"cnt":5}},
-            "Gun": {"num":1, "attrs":{"cnt":2, "power":3}},
+            "Gun": {"num":10, "attrs":{"cnt":2, "power":3}},
+            "RayGun": {"num":10, "attrs":{"cnt":2, "power":3}},
             "MedicineBox": {"num":1},
 
             "Key":{"num":10},
