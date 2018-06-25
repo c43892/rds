@@ -15,8 +15,10 @@
     "Bunny":{"name":"兔子", "sheild":3},
 
     "HpPotion":{"name":"血瓶", "dhp":10, "canOverlap":true},
-    "Gun":{"name":"枪", "canOverlap":true, "useWithTarget":true, "attackFlags":["Pierce", "Gun"]},
-    "RayGun":{"name":"火焰射线", "canOverlap":true, "useWithTarget":true, "attackFlags":["Flame", "Pierce", "Gun"], 
+    "Gun":{"name":"枪", "canOverlap":true, "useWithTarget":true, "validTarget":["all"], "attackFlags":["Pierce", "Gun"]},
+    "RayGun":{"name":"火焰射线", "canOverlap":true, "useWithTarget":true, 
+                "validTarget":["all"], 
+                "attackFlags":["Flame", "Pierce", "Gun"], 
                 "addBuffs":[{"type":"Flame", "rate":100, "ps":[3, 1]}]
     },
     "Hole":{"name":"黑洞", "barrier":true},

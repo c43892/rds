@@ -272,30 +272,18 @@ class Battle {
             var canUse = e.canUse() && e.isValid();
             if (!canUse) return;
 
-            // 其它元素可能会阻止使用
-            this.level.map.foreachUncoveredElems((e:Elem) => {
-                if (e.canUseOther)
-                    canUse = e.canUseOther(e);
+            // 操作录像
+            this.fireEventSync("onPlayerOp", {op:"try2UseElem", ps:{x:e.pos.x, y:e.pos.y}});
 
-                return !canUse;
-            });
-
-            // 可以使用
-            if (canUse) {
-
-                // 操作录像
-                this.fireEventSync("onPlayerOp", {op:"try2UseElem", ps:{x:e.pos.x, y:e.pos.y}});
-
-                var reserve = await e.use(); // 返回值决定是保留还是消耗掉
-                if (!reserve)
-                    await this.implOnElemDie(e);
-                else {
-                    await this.fireEvent("onElemChanged", {subType:"useElem", e:e});
-                    await this.triggerLogicPoint("onElemChanged", {subType:"useElem", e:e});
-                }
-
-                await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
+            var reserve = await e.use(); // 返回值决定是保留还是消耗掉
+            if (!reserve)
+                await this.implOnElemDie(e);
+            else {
+                await this.fireEvent("onElemChanged", {subType:"useElem", e:e});
+                await this.triggerLogicPoint("onElemChanged", {subType:"useElem", e:e});
             }
+
+            await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
         };
     }
 
@@ -304,14 +292,6 @@ class Battle {
         return async (e:Elem) => {
             let canUse = e.canUse();
             if (!canUse) return;
-
-            // 其它元素可能会阻止使用
-            this.level.map.foreachUncoveredElems((e:Elem) => {
-                if (e.canUseOther)
-                    canUse = e.canUseOther(e);
-
-                return !canUse;
-            });
 
             // 可以使用
             if (canUse) {
@@ -357,21 +337,15 @@ class Battle {
             var map = this.level.map;
             var fx = e.pos.x;
             var fy = e.pos.y;
-            var canUse = e.isValid() && map.isGenerallyValid(x, y) && e.canUseAt(x, y);
-            if (canUse) {
-                // 其它元素可能会阻止使用
-                this.level.map.foreachUncoveredElems((e:Elem) => {
-                    if (e.canUseOther) canUse = e.canUseOtherAt(e, x, y);
-                    return !canUse;
-                });
+            var canUse = e.isValid() && e.canUseAt(x, y);
+            if (!canUse) return;
 
-                // 操作录像
-                this.fireEventSync("onPlayerOp", {op:"try2UseElemAt", ps:{x:e.pos.x, y:e.pos.y, tox:x, toy:y}});
+            // 操作录像
+            this.fireEventSync("onPlayerOp", {op:"try2UseElemAt", ps:{x:e.pos.x, y:e.pos.y, tox:x, toy:y}});
 
-                var reserve = await e.useAt(x, y); // 返回值决定是保留还是消耗掉
-                if (!reserve) await this.implOnElemDie(e);
-                await this.triggerLogicPoint("onUseElemAt", {x:e.pos.x, y:e.pos.y, e:e, tox:x, toy:y});
-            }
+            var reserve = await e.useAt(x, y); // 返回值决定是保留还是消耗掉
+            if (!reserve) await this.implOnElemDie(e);
+            await this.triggerLogicPoint("onUseElemAt", {x:e.pos.x, y:e.pos.y, e:e, tox:x, toy:y});
         };
     }
 
@@ -382,14 +356,7 @@ class Battle {
             if (e.canUseAt(x, y)) {
                 // 对指定目标位置使用
                 var canUse = true;
-                // 其它元素可能会阻止使用
-                this.level.map.foreachUncoveredElems((e:Elem) => {
-                    if (e.canUseOther)
-                        canUse = e.canUseOtherAt(e, x, y);
-
-                    return !canUse;
-                });
-
+                
                 // 操作录像
                 this.fireEventSync("onPlayerOp", {op:"try2UsePropAt", ps:{type:e.type, n:Utils.indexOf(this.player.props, (p) => p == e), tox:x, toy:y}});
 

@@ -210,7 +210,7 @@ class ElemView extends egret.DisplayObjectContainer {
                             });
                     }
                     else if (e.attrs.useWithTarget)
-                        ElemView.selectGrid((x, y) => this.map.isGenerallyValid(x, y) && e.canUseAt(x, y), (pos) => {
+                        ElemView.selectGrid((x, y) => e.canUseAt(x, y), (pos) => {
                             if (!pos) return; // 取消选择
                             ElemView.try2UseElemAt(e, pos.x, pos.y);
                         });

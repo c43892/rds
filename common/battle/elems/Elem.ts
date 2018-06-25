@@ -3,9 +3,25 @@
 class Elem {
     constructor() {
         this.canUse = () => false;  // 不可使用
-        this.canUseAt = () => false; // 不可对其它目标使用(不可移动)
-        this.canUseOther = () => true;  // 不影响其它元素使用
-        this.canUseOtherAt = () => true;  // 不影响其它元素对其它目标使用
+        this.canUseAt = (x:number, y:number):boolean => {  // 不可对其它目标使用(不可移动)
+            if (!this.attrs.useWithTarget) return false;
+            var g = this.map().getGridAt(x, y);
+            var e = this.map().getElemAt(x, y);
+            switch (this.attrs.validTarget) {
+                case "all": // 全图
+                    return true;
+                case "uncoveredEmpty":
+                    return !g.isCovered() && !e;
+                case "markedMonster|uncoveredMonster|uncoverable":
+                    return (e instanceof Monster && g.isUncoveredOrMarked()) || g.isUncoverable();
+                case "uncoveredMonser":
+                    return e instanceof Monster && !g.isCovered();
+                case "markedMonster|uncoveredMonser":
+                    return e instanceof Monster && g.isMarked();
+                default:
+                    return false;
+            }
+        };
         this.onAttrs = {};
     }
 
@@ -13,6 +29,7 @@ class Elem {
     private $$bt; // 所属战斗对象
     public setBattle(bt:Battle) { this.$$bt = bt; }
     public bt():Battle { return this.$$bt; } // 所属战斗对象
+    public map():Map { return this.bt().level.map; }
     public type: string; // 元素类型
     public cnt:number; // 叠加数量
     public pos = {x: 0, y: 0}; // 元素当前坐标位置
@@ -27,8 +44,6 @@ class Elem {
     // 各逻辑点，挂接的都是函数
     public canUse = () => { return false; } // 一个 function():boolean
     public canUseAt = (x, y) => { return false }; // 一个 function(x:number, y:number):boolean
-    public canUseOther = (e) => { return true; }; // 一个 function(e:Elem):boolean，用于表示是否影响另外一个元素的使用
-    public canUseOtherAt = (e, x, y) => { return true; } // 一个 function(e:Elem, x:number, y:number)，用于表示是否影响另外一个元素使用在另外一个目标元素上
     public isValid = () => { return this.bt().level.map.isGenerallyValid(this.pos.x, this.pos.y); } // 是否被周围怪物影响导致失效
     public canBeMoved = false; // 可以被玩家移动
     
