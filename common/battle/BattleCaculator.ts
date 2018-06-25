@@ -52,7 +52,7 @@ class BattleCalculator {
         if (damage < 0) damage = 0;        
 
         // 没有穿刺，就计算护盾
-        if (!Utils.contains(attackFlags, "Pierce"))
+        if (!Utils.contains(attackFlags, "Pierce") && sheild > 0)
         {
             r.dsheild = damage > sheild ? sheild : damage;
             damage = 0;

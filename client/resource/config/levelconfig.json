@@ -14,8 +14,7 @@
                     "selfExplode":{"power":6},
                     "dropItems":{
                         "RandomEgg":{"inBox":["Hawkeye", "HpPotion", "MedicineBox"]}
-                    },
-                    "addBuffs":[{"type":"Poison", "rate":100, "ps":[3, 2]}]
+                    }
                 }
             },
             "HpCapsule":{"num":2, "attrs":{"cnt":5, "heal":1}},

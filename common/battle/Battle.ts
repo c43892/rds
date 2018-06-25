@@ -546,6 +546,7 @@ class Battle {
             await this.implAddBuff(m, "Buff" + b.type, ...b.ps);
 
         await this.fireEvent("onAttack", {subtype:"player2monster", x:m.pos.x, y:m.pos.x, r:r, target:m, weapon:weapon});
+        await this.triggerLogicPoint("onAttack", {subtype:"player2monster", x:m.pos.x, y:m.pos.x, r:r, target:m, weapon:weapon});        
     }
 
     // 指定怪物尝试攻击角色

@@ -181,9 +181,9 @@ class MonsterFactory {
 
     // 被攻击时反击一次
     static doAttackBack(m:Monster):Monster {
-        return <Monster>ElemFactory.addAI("onMonsterHurt", async () => {
+        return <Monster>ElemFactory.addAI("onAttack", async () => {
             await m.bt().implMonsterAttackPlayer(m);
-        }, m, (ps) => ps.m == m && !m.isDead());
+        }, m, (ps) => !ps.weapon && ps.target == m && !m.isDead());
     }
 
     // 攻击玩家一次
