@@ -8,22 +8,28 @@
     "Clock":{"name":"钟表"},
     "HpCapsule":{"name":"医疗药剂"},
     "DePoison":{"name":"解毒药剂"},
-    "Magazine":{"name":"自然杂志"},
+    "Magazine":{"name":"自然杂志", "cnt":3, "dexp":2},
 
 
     "DeathGod":{"name":"死神", "hp":10, "power":3},
     "Bunny":{"name":"兔子", "sheild":3},
 
     "HpPotion":{"name":"血瓶", "dhp":10, "canOverlap":true},
-    "Gun":{"name":"枪", "canOverlap":true, "useWithTarget":true, "validTarget":["all"], "attackFlags":["Pierce", "Gun"]},
-    "RayGun":{"name":"火焰射线", "canOverlap":true, "useWithTarget":true, 
-                "validTarget":["all"], 
-                "attackFlags":["Flame", "Pierce", "Gun"], 
-                "addBuffs":[{"type":"Flame", "rate":100, "ps":[3, 1]}]
-    },
     "Hole":{"name":"黑洞", "barrier":true},
-    "Apple":{"name":"苹果"}, "Apple2":{"name":"苹果"}, "Apple1":{"name":"苹果"},
-    "Steak":{"name":"牛排"}, "Steak2":{"name":"牛排"}, "Steak1":{"name":"牛排"},
+    "Apple":{"name":"苹果", "cnt":3, "dhp":1},
+    "Steak":{"name":"牛排", "cnt":3, "dhp":2},
+    "IceBlock":{"name":"冰块", "cnt":2},
+    "Gun":{"name":"枪", "canOverlap":true, "useWithTarget":true, 
+        "validTarget":"markedMonster|uncoveredMonster|uncoverable", "attackFlags":["Pierce", "Gun"]},
+    "RayGun":{"name":"火焰射线", "canOverlap":true, "useWithTarget":true, 
+        "validTarget":"all", 
+        "attackFlags":["Flame", "Pierce", "Gun"], 
+        "addBuffs":[{"type":"Flame", "rate":100, "ps":[3, 1]}]
+    },
+    "IceGun":{"name":"冰冻射线", "canOverlap":true, "useWithTarget":true, 
+        "validTarget":"markedMonster|uncoveredMonster|uncoverable", 
+        "attackFlags":["Ice", "Gun"]
+    },
 
     "NextLevelPort":{"name":"下一层"}
 }

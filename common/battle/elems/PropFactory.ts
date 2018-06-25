@@ -41,9 +41,14 @@ class PropFactory {
         },
 
         // 枪
-        "Gun": (attrs) => this.createProp(attrs, ElemFactory.weaponLogic()),
+        "Gun": (attrs) => this.createProp(attrs, ElemFactory.weaponLogic(attrs.cnt, true)),
 
         // 火焰射线
-        "RayGun": (attrs) => this.createProp(attrs, ElemFactory.weaponLogic())
+        "RayGun": (attrs) => this.createProp(attrs, ElemFactory.weaponLogic(attrs.cnt, true)),
+
+        // 冰冻射线
+        "IceGun": (attrs) => this.createProp(attrs, 
+                        ElemFactory.elemCanUseAtManyTimes(attrs.cnt, async (e, x, y) => 
+                            await e.bt().implFrozeAt(x, y, e), true))
     };
 }

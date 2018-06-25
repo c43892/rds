@@ -123,17 +123,43 @@ class ElemFactory {
         }, e);
     }
 
-    // 武器逻辑
-    static weaponLogic() {
+    // 可多次直接使用的物品
+    static elemCanUseManyTimes(cnt:number, useAct, fixImgRes = false) {
+        return (e:Elem) => {
+            e.cnt = cnt;         
+            e.canUse = () => true;
+            e.use = async () => {
+                e.cnt--;
+                if (useAct) await useAct(e);
+                return e.cnt > 0;
+            };
+            if (!fixImgRes) e.getElemImgRes = () => e.type + e.cnt;
+            return e;
+        };
+    }
+
+    // 可多次对目标使用的物品
+    static elemCanUseAtManyTimes(cnt:number, useAtAct, fixImgRes = false) {
         return (e:Elem) => {
             e.cnt = e.attrs.cnt;
             e.canUse = () => false;
-            e.canUseAt = (x, y) => true;
             e.useAt = async (x, y) => {
-                await e.bt().implPlayerAttackAt(x, y, e);
-                await e.bt().implRemovePlayerProp(e.type);
+                e.cnt--;
+                if (useAtAct) await useAtAct(e, x, y);
                 return e.cnt > 0;
             };
+            if (!fixImgRes) e.getElemImgRes = () => e.type + e.cnt;
+            return e;
         };
+    }
+
+    // 武器逻辑
+    static weaponLogic(cnt:number, fixImgRes = false) {
+        return ElemFactory.elemCanUseAtManyTimes(cnt, async (e, x, y) => await e.bt().implPlayerAttackAt(x, y, e), fixImgRes);
+    }
+
+    // 食物
+    static foodLogic(cnt:number, dhp:number, fixImgRes = false) {
+        return ElemFactory.elemCanUseManyTimes(cnt, async (e:Elem) => await e.bt().implAddPlayerHp(dhp), fixImgRes);
     }
 }

@@ -49,7 +49,6 @@ class ItemFactory {
             e.canBeMoved = false;
             e.use = async () => { // 门被设定为不可以使用，但有一个 use 方法，其实是给 Key 调用的
                 var bt = e.bt();
-
                 await bt.implRemoveElemAt(e.pos.x, e.pos.y);
                 var pt = ElemFactory.create("NextLevelPort", bt);
                 await bt.implAddElemAt(pt, e.pos.x, e.pos.y);
@@ -135,22 +134,6 @@ class ItemFactory {
 
             return e;
         },
-        
-        // 经验书
-        "Magazine": (attrs) => {
-            var e = new Item();
-            e.cnt = attrs.cnt;
-            e.canBeMoved = true;
-            e.canUse = () => true;
-            e.use = async () => {
-                e.cnt--;
-                var bt = e.bt();
-                await bt.implAddPlayerExp(1);
-                return e.cnt > 0;
-            };
-
-            return e;
-        },
 
         // 黑洞
         "Hole": (attrs) => {
@@ -159,37 +142,17 @@ class ItemFactory {
             return e;
         },
 
+        // 经验书
+        "Magazine": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, async (e:Elem) => await e.bt().implAddPlayerExp(attrs.dexp), true)(new Item()),
+       
         // 苹果
-        "Apple": (attrs) => {
-            var e = new Item();
-            e.cnt = 3;
-            e.canBeMoved = true;
-            e.canUse = () => true;
-            e.use = async () => {
-                e.cnt--;
-                var bt = e.bt();
-                await bt.implAddPlayerHp(1);
-                return e.cnt > 0;
-            };
-            e.getElemImgRes = () => "Apple" + e.cnt;
-            return e;
-        },
+        "Apple": (attrs) => ElemFactory.foodLogic(attrs.cnt, attrs.dhp)(new Item()),
 
         // 牛排
-        "Steak": (attrs) => {
-            var e = new Item();
-            e.cnt = 3;
-            e.canBeMoved = true;
-            e.canUse = () => true;
-            e.use = async () => {
-                e.cnt--;
-                var bt = e.bt();
-                await bt.implAddPlayerHp(2);
-                return e.cnt > 0;
-            };
-            e.getElemImgRes = () => "Steak" + e.cnt;
-            return e;
-        },
+        "Steak": (attrs) => ElemFactory.foodLogic(attrs.cnt, attrs.dhp)(new Item()),
+
+        // 冰冻块
+        "IceBlock": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, undefined, true)(new Item()),
 
         // 下一关入口
         "NextLevelPort": (attrs) => {

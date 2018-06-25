@@ -1,29 +1,7 @@
 
 // 地图上每个怪物，物品，符文都是一个元素
 class Elem {
-    constructor() {
-        this.canUse = () => false;  // 不可使用
-        this.canUseAt = (x:number, y:number):boolean => {  // 不可对其它目标使用(不可移动)
-            if (!this.attrs.useWithTarget) return false;
-            var g = this.map().getGridAt(x, y);
-            var e = this.map().getElemAt(x, y);
-            switch (this.attrs.validTarget) {
-                case "all": // 全图
-                    return true;
-                case "uncoveredEmpty":
-                    return !g.isCovered() && !e;
-                case "markedMonster|uncoveredMonster|uncoverable":
-                    return (e instanceof Monster && g.isUncoveredOrMarked()) || g.isUncoverable();
-                case "uncoveredMonser":
-                    return e instanceof Monster && !g.isCovered();
-                case "markedMonster|uncoveredMonser":
-                    return e instanceof Monster && g.isMarked();
-                default:
-                    return false;
-            }
-        };
-        this.onAttrs = {};
-    }
+    constructor() {}
 
     public $$id:string; // 调试用
     private $$bt; // 所属战斗对象
@@ -43,7 +21,25 @@ class Elem {
 
     // 各逻辑点，挂接的都是函数
     public canUse = () => { return false; } // 一个 function():boolean
-    public canUseAt = (x, y) => { return false }; // 一个 function(x:number, y:number):boolean
+    public canUseAt = (x:number, y:number):boolean => {  // 是否可对指定位置使用
+        if (!this.attrs.useWithTarget) return false;
+        var g = this.map().getGridAt(x, y);
+        var e = this.map().getElemAt(x, y);
+        switch (this.attrs.validTarget) {
+            case "all": // 全图
+                return true;
+            case "uncoveredEmpty":
+                return !g.isCovered() && !e;
+            case "markedMonster|uncoveredMonster|uncoverable":
+                return (e instanceof Monster && g.isUncoveredOrMarked()) || g.isUncoverable();
+            case "uncoveredMonser":
+                return e instanceof Monster && !g.isCovered();
+            case "markedMonster|uncoveredMonser":
+                return e instanceof Monster && g.isMarked();
+            default:
+                return false;
+        }
+    };
     public isValid = () => { return this.bt().level.map.isGenerallyValid(this.pos.x, this.pos.y); } // 是否被周围怪物影响导致失效
     public canBeMoved = false; // 可以被玩家移动
     
@@ -59,7 +55,7 @@ class Elem {
     
     public attrs; // 来自配置表的属性，不允许在代码中修改!
     public btAttrs; // 战斗相关属性
-    public onAttrs; // 影响战斗属性的参数
+    public onAttrs = {}; // 影响战斗属性的参数
     public dropItems:Elem[] = [];
 
     // 添加掉落物品

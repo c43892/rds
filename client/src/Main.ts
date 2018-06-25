@@ -124,7 +124,7 @@ class Main extends egret.DisplayObjectContainer {
         bt.registerEvent("onPlayerOp", (ps) => BattleRecorder.onPlayerOp(ps.op, ps.ps));
         bt.registerEvent("onLevel", (ps) => this.mv.onLevel(ps));
         Utils.registerEventHandlers(bt, [
-            "onGridChanged", "onPlayerChanged", "onAttack", "onElemChanged",
+            "onGridChanged", "onPlayerChanged", "onAttack", "onElemChanged", "onPropChanged",
             "onElemMoving", "onAllCoveredAtInit", "onSuckPlayerBlood", "onMonsterTakeElem",
         ], (e) => (ps) => this.mv.aniView[e](ps));
 

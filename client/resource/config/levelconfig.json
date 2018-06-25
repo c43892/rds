@@ -8,7 +8,7 @@
         "elems": {
             "HpPotion":{"num":1},
             "Bunny":{
-                "num":10, 
+                "num":1, 
                 "attrs":{
                     "hp":5, "power":1, "suckBlood":3, "summons":[ {"type":"Bunny", "attrs":{"hp":1, "sheild":0}} ], 
                     "selfExplode":{"power":6},
@@ -19,15 +19,17 @@
             },
             "HpCapsule":{"num":2, "attrs":{"cnt":5, "heal":1}},
             "Coins":{"num":1, "attrs":{"cnt":5}},
-            "Gun": {"num":10, "attrs":{"cnt":2, "power":3}},
-            "RayGun": {"num":10, "attrs":{"cnt":2, "power":3}},
+            "Gun": {"num":1, "attrs":{"cnt":2, "power":3}},
+            "RayGun": {"num":1, "attrs":{"cnt":2, "power":3}},
             "MedicineBox": {"num":1},
 
-            "Key":{"num":10},
-            "TreasureBox": {"num":10, "attrs":{"inBox":["Hawkeye", "Key", "HpPotion"]}},
+            "Key":{"num":1},
+            "TreasureBox": {"num":1, "attrs":{"inBox":["Hawkeye", "Key", "HpPotion"]}},
             "Hole":{"num":2},
-            "Apple":{"num":10},
-            "Steak":{"num":10}
+            "Apple":{"num":1},
+            "Steak":{"num":1},
+            "Magazine":{"num":1},
+            "IceGun":{"num":10,  "attrs":{"cnt":2}}
         },
         "nextLevel": "testLevel2"
     },

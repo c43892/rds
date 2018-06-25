@@ -298,9 +298,13 @@ class Battle {
                 // 操作录像
                 this.fireEventSync("onPlayerOp", {op:"try2UseProp", ps:{type:e.type, n:Utils.indexOf(this.player.props, (p) => p == e)}});
 
-                await e.use();
-                await this.fireEvent("onPropChanged", {type:e.type});
-                await this.triggerLogicPoint("onPropUsed", {type:e.type});
+                var reserve = await e.use();
+                if (!reserve)
+                    await this.implRemovePlayerProp(e.type);
+                else {
+                    await this.fireEvent("onPropChanged", {subtype:"useProp", type:e.type});
+                    await this.triggerLogicPoint("onPropChanged", {subtype:"useProp", type:e.type});
+                }
             }
         };
     }
@@ -361,9 +365,13 @@ class Battle {
                 this.fireEventSync("onPlayerOp", {op:"try2UsePropAt", ps:{type:e.type, n:Utils.indexOf(this.player.props, (p) => p == e), tox:x, toy:y}});
 
                 var toe = this.level.map.getElemAt(x, y);
-                await e.useAt(x, y);
-                await this.fireEvent("onPropChanged", {type:e.type});
-                await this.triggerLogicPoint("onPropUsed", {type:e.type});
+                var reserve = await e.useAt(x, y);
+                if (!reserve)
+                    await this.implRemovePlayerProp(e.type);
+                else {
+                    await this.fireEvent("onPropChanged", {type:e.type});
+                    await this.triggerLogicPoint("onPropChanged", {type:e.type});
+                }
             }
         };
     }
@@ -518,6 +526,37 @@ class Battle {
         return this.bc.doAttackCalc(attackerAttrs, targetAttrs);
     }
 
+    // 尝试冰冻目标
+    public async implFrozeAt(x:number, y:number, weapon:Elem = undefined) {
+        var g = this.level.map.getGridAt(x, y);
+        var e = g.getElem();
+        if (!e || !(e instanceof Monster)) { // 如果打空，则不需要战斗计算过程，有个表现就可以了
+            await this.fireEvent("onAttack", {subtype:"player2monster", x:y, y:y, weapon:weapon});
+            return;
+        }
+
+        var m = <Monster>e;
+        var targetAttrs = m.getAttrsAsTarget();
+
+        // 检查免疫
+        var hs = this.collectAllLogicHandler();
+        for (var h of hs)
+            targetAttrs.immuneFlags = Utils.mergeSet(targetAttrs.immuneFlags, h.onAttrs.immuneFlags);
+
+        if (Utils.contains(targetAttrs.immuneFlags, "Frozen")) {
+            await this.fireEvent("onAttack", {subtype:"player2monster", x:y, y:y, r:{r:"immunized"}, target:m, weapon:weapon});
+            return;
+        }
+
+        // 被冻结，生成冰块，转移掉落物品
+        var ice = ElemFactory.create("IceBlock");
+        ice.dropItems = m.dropItems;
+        m.dropItems = [];
+
+        await this.implOnElemDie(m);
+        await this.implAddElemAt(ice, m.pos.x, m.pos.y);
+    }
+
     // 角色尝试攻击指定位置
     public async implPlayerAttackAt(x:number, y:number, weapon:Elem = undefined) {
         // 如果目标被标记
@@ -610,15 +649,15 @@ class Battle {
     // 角色+道具
     public async implAddPlayerProp(e:Elem) {
         this.player.addProp(e);
-        await this.fireEvent("onPlayerChanged", {subtype:"addProp", e:e});
-        await this.triggerLogicPoint("onPlayerChanged", {subtype:"addProp", e:e});
+        await this.fireEvent("onPropChanged", {subtype:"addProp", e:e});
+        await this.triggerLogicPoint("onPropChanged", {subtype:"addProp", e:e});
     }
 
     // 角色-道具
-    public async implRemovePlayerProp(type:string, cnt:number = 1) {
-        this.player.removeProp(type, cnt);
-        await this.fireEvent("onPlayerChanged", {subtype:"removeProp", type:type});
-        await this.triggerLogicPoint("onPlayerChanged", {subtype:"removeProp", type:type});
+    public async implRemovePlayerProp(type:string) {
+        this.player.removeProp(type);
+        await this.fireEvent("onPropChanged", {subtype:"removeProp", type:type});
+        await this.triggerLogicPoint("onPropChanged", {subtype:"removeProp", type:type});
     }
 
     // 元素进行移动，path 是一组 {x:x, y:y} 的数组

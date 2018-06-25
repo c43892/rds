@@ -244,15 +244,9 @@ class Player {
             this.props.push(e);
     }
 
-    public removeProp(type:string, cnt:number = 1) {
+    public removeProp(type:string) {
         var n = Utils.indexOf(this.props, (prop:Elem) => prop.type == type);
         Utils.assert(n >= 0, "no prop: " + type + " to remove");
-
-        var p = this.props[n];
-        Utils.assert(p.attrs.canOverlap || n == 1, type + " can be removed only 1 each time");
-        p.cnt -= cnt;
-
-        if (p.cnt <= 0 || !p.attrs.canOverlap)
-            this.props = Utils.removeAt(this.props, n);
+        this.props = Utils.removeAt(this.props, n);
     }
 }

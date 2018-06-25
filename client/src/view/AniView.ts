@@ -80,6 +80,11 @@ class AniView extends egret.DisplayObjectContainer {
         this.mv.refreshPlayer();
     }
 
+    // 道具发生变化
+    public async onPropChanged(ps) {
+        this.mv.refreshPlayer();
+    }
+
     // 产生攻击行为
     public async onAttack(ps) {
         this.mv.refreshPlayer();
