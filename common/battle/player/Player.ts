@@ -133,6 +133,8 @@ class Player {
 
     public addSheild(ds:number) {
         this.sheild += ds;
+        if (this.sheild < 0)
+            this.sheild = 0;
     }
 
     // 序列化反序列化

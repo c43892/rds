@@ -23,6 +23,8 @@ class Monster extends Elem {constructor() { super();}
 
     public addSheild(ds:number) {
         this.sheild += ds;
+        if (this.sheild < 0)
+            this.sheild = 0;
     }
 
     // buff 相关
@@ -101,6 +103,7 @@ class MonsterFactory {
         var m = new Monster();
         m.canUse = () => true;
         m.hp = attrs.hp ? attrs.hp : 0;
+        m.sheild = attrs.sheild ? attrs.sheild : 0;
         m.hazard = true;
         m.barrier = true;
 

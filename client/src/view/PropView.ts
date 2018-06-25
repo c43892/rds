@@ -2,7 +2,7 @@
 class PropView extends egret.DisplayObjectContainer {
     private e:Elem;
     private elemImg:egret.Bitmap; // 元素图
-    private num:egret.TextField; // 数量
+    private num:egret.TextField; // 数量，右下角
 
     public constructor() {
         super();        
@@ -12,7 +12,7 @@ class PropView extends egret.DisplayObjectContainer {
         this.anchorOffsetX = 0;
         this.anchorOffsetY = 0;
 
-        // 血量
+        // 叠加数量
         this.num = new egret.TextField();
         this.num.name = "num";
         this.num.textColor = 0xffffff;

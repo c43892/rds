@@ -12,7 +12,7 @@
 
 
     "DeathGod":{"name":"死神", "hp":10, "power":3},
-    "Bunny":{"name":"兔子", "colddown":5},
+    "Bunny":{"name":"兔子", "sheild":3},
 
     "HpPotion":{"name":"血瓶", "dhp":10, "canOverlap":true},
     "Gun":{"name":"枪", "canOverlap":true, "useWithTarget":true, "attackFlags":["Pierce", "Gun"]},

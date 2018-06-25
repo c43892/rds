@@ -8,8 +8,11 @@ class ElemView extends egret.DisplayObjectContainer {
     private opLayer:egret.TextField; // 专门用于接收操作事件
     private elemImg:egret.Bitmap; // 元素图
     private banImg:egret.Bitmap; // 禁止符号
-    private hp:egret.TextField; // 怪物血量或者元素数量
-    private dropElemImg:egret.Bitmap; // 掉落物品的图
+
+    private hp:egret.TextField; // 怪物血量：右下角
+    private dropElemImg:egret.Bitmap; // 掉落物品的图：左上角，这里也可能显示怪物的行动回合数
+    private sheild:egret.TextField; // 护盾，右上角
+    private power:egret.TextField; // 攻击力，左下角
 
     public constructor() {
         super();
@@ -21,12 +24,20 @@ class ElemView extends egret.DisplayObjectContainer {
         this.opLayer = new egret.TextField(); // 事件层
         this.addChild(this.opLayer);
 
-        // 血量
+        // 血量，右下角
         this.hp = new egret.TextField();
-        this.hp.textColor = 0xffffff;
+        this.hp.textColor = 0xff0000;
         this.hp.size = 25;
-        this.hp.anchorOffsetX = 0;
-        this.hp.anchorOffsetY = 0;
+
+        // 护盾，右上角
+        this.sheild = new egret.TextField();
+        this.sheild.textColor = 0x000000;
+        this.sheild.size = 25;
+
+        // 攻击力，左下角
+        this.power = new egret.TextField();
+        this.power.textColor = 0x0000ff;
+        this.power.size = 25;
 
         this.anchorOffsetX = 0;
         this.anchorOffsetY = 0;
@@ -57,6 +68,8 @@ class ElemView extends egret.DisplayObjectContainer {
         } else if (show && !this.dropElemImgExists()) {
             this.dropElemImg = ViewUtils.createBitmapByName(dpe.getElemImgRes() + "_png");
             this.dropElemImg.name = "DropElem";
+            this.dropElemImg.anchorOffsetX = 0;
+            this.dropElemImg.anchorOffsetY = 0;
             this.dropElemImg.x = this.dropElemImg.y = 0;
             this.dropElemImg.width = this.dropElemImg.height = 25;
             this.showLayer.addChild(this.dropElemImg);
@@ -94,9 +107,31 @@ class ElemView extends egret.DisplayObjectContainer {
                     this.elemImg.filters = undefined;
                     if (e instanceof Monster) { // 怪物
                         var m = <Monster>e;
-                        this.hp.text = m.hp.toString();
-                        this.hp.textColor = 0xff0000;
-                        this.showLayer.addChild(this.hp);
+
+                        // 血量，右下角
+                        if (m.hp > 0) {
+                            this.hp.text = m.hp.toString();
+                            this.hp.x = this.width - this.hp.width;
+                            this.hp.y = this.height - this.hp.height;
+                            this.showLayer.addChild(this.hp);
+                        }
+                        
+                        // 护盾，右上角
+                        if (m.sheild > 0) {
+                            this.sheild.text = m.sheild.toString();
+                            this.sheild.x = this.width - this.sheild.width;
+                            this.sheild.y = 0;
+                            this.showLayer.addChild(this.sheild);
+                        }
+
+                        // 攻击力，左下角
+                        if (m.btAttrs.power > 0) {
+                            this.power.text = m.btAttrs.power.toString();
+                            this.power.x = 0;
+                            this.power.y = this.height - this.power.height;
+                            this.showLayer.addChild(this.power);
+                        }
+
                         this.refreshDropItem(); // 刷新掉落物品显示
                     } else if (!this.map.isGenerallyValid(e.pos.x, e.pos.y) && e.type != "Hole") // 禁止符号
                         this.showLayer.addChild(this.banImg);
