@@ -7,7 +7,7 @@ class Monster extends Elem {constructor() { super();}
     public getAttrsAsTarget() {
         return {
             owner:this,
-            guard:{a:0, b:this.btAttrs.guard, c:0},
+            sheild:{a:0, b:this.sheild, c:0},
             dodge:{a:0, b:this.btAttrs.dodge, c:0},
             damageDec:{a:0, b:this.btAttrs.damageDec, c:0},
             resist:{a:0, b:0, c:this.btAttrs.resist},

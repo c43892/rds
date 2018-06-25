@@ -20,12 +20,12 @@ class BattleCalculator {
         var addBuffs = attackerAttrs.addBuffs;
 
         var immuneFlags = targetAttrs.immuneFlags;
-        var guard = this.doCalc(targetAttrs, "guard");
+        var sheild = this.doCalc(targetAttrs, "sheild");
         var dodge = this.doCalc(targetAttrs, "dodge");
         var damageDec = this.doCalc(targetAttrs, "damageDec");
         var resist = targetAttrs.resist;
         // 战斗计算结果
-        var r = {r:"", dhp:0, dguard:0, addBuffs:[]};
+        var r = {r:"", dhp:0, dsheild:0, addBuffs:[]};
 
         // 计算命中(-闪避)
         if (this.srand.next100() >= 100 + accuracy - dodge) {
@@ -55,13 +55,13 @@ class BattleCalculator {
         if (!Utils.contains(attackFlags, "Pierce"))
         {
             // 护盾完全挡住伤害
-            if (damage <= guard) {
-                r.dguard = damage - guard;
+            if (damage <= sheild) {
+                r.dsheild = damage;
                 damage = 0;
             }
             else { // 消耗护盾，再计算剩余伤害
-                r.dguard = guard;
-                damage -= guard;
+                r.dsheild = sheild;
+                damage -= sheild;
             }
         }
 

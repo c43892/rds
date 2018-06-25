@@ -81,7 +81,6 @@ class Player {
     public deathStep:number; // 死神剩余步数
     public hp:number;
     public maxHp:number;
-    public sheild:number;
 
     public attackFlags:string[][] = [[], ["item"]]; // 攻击属性
     public resistFlags:string[][] = [[], []]; // 抵抗属性
@@ -92,7 +91,7 @@ class Player {
     public critial:number[] = [0, 0]; // 暴击
     public damageAdd:number[] = [0, 0]; // +伤
 
-    public guard:number = 0; // 护盾
+    public sheild:number = 0; // 护盾
     public dodge:number = 0; // 闪避
     public damageDec:number = 0; // -伤
     public resist:number = 0; // 抗性
@@ -115,7 +114,7 @@ class Player {
     public getAttrsAsTarget() {
         return {
             owner:this,
-            guard:{a:0, b:this.guard, c:0},
+            sheild:{a:0, b:this.sheild, c:0},
             dodge:{a:0, b:this.dodge, c:0},
             damageDec:{a:0, b:this.damageDec, c:0},
             resist:{a:0, b:0, c:this.resist},

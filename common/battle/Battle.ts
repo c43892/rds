@@ -474,12 +474,12 @@ class Battle {
         await this.triggerLogicPoint("onPlayerChanged", {"subType": "hp"});
     }
 
-    // 角色+guard
+    // 角色+sheild
     public async implAddPlayerSheild(m:Monster, ds:number) {
         if (ds == 0) return;
         m.addSheild(ds);
-        await this.fireEvent("onPlayerChanged", {subType:"guard"});
-        await this.triggerLogicPoint("onPlayerChanged", {"subType": "guard"});
+        await this.fireEvent("onPlayerChanged", {subType:"sheild"});
+        await this.triggerLogicPoint("onPlayerChanged", {"subType": "sheild"});
     }
 
     // 怪物+hp
@@ -495,7 +495,7 @@ class Battle {
         }
     }
 
-    // 怪物+guard
+    // 怪物+sheild
     public async implAddMonsterSheild(m:Monster, ds:number) {
         if (ds == 0) return;
         m.addSheild(ds);
@@ -570,10 +570,9 @@ class Battle {
 
         var targetAttrs = m.getAttrsAsTarget();
         if (marked) (<string[]>attackerAttrs.attackFlags).push("Sneak"); // 偷袭标记
-        
         var r = this.calcAttack(attackerAttrs, targetAttrs);
         await this.implAddMonsterHp(m, -r.dhp);
-        await this.implAddMonsterSheild(m, -r.dguard)
+        await this.implAddMonsterSheild(m, -r.dsheild)
 
         // 处理附加 buff
         for (var b of r.addBuffs)
@@ -593,7 +592,7 @@ class Battle {
         if (sneak) (<string[]>attackerAttrs.attackFlags).push("Sneak"); // 偷袭标记
 
         var r = this.calcAttack(attackerAttrs, targetAttrs);
-        Utils.assert(r.dguard == 0, "player does not support guard");
+        Utils.assert(r.dsheild == 0, "player does not support sheild");
         await this.implAddPlayerHp(-r.dhp);
 
         // 处理附加 buff
