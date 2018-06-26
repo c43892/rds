@@ -1,12 +1,12 @@
 // 主视图下属的动画层
 class AniView extends egret.DisplayObjectContainer {
-    private mv:MainView; // 主视图
+    private mv:BattleView; // 主视图
     private blackCover:egret.Bitmap; // 黑屏用的遮挡
 
     private aniCover:egret.Bitmap; // 播放动画时的操作屏蔽层
     private aniFact:AnimationFactory; // 动画工厂
 
-    public constructor(w:number, h:number, mainView:MainView) {
+    public constructor(w:number, h:number, mainView:BattleView) {
         super();
         
         this.mv = mainView;

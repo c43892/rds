@@ -214,6 +214,10 @@ class Player {
     public relics:Elem[] = []; // 所有遗物
 
     public addRelic(e:Elem) {
+        // 不加相同的遗物
+        if (Utils.indexOf(this.relics, (r) => r.type == e.type) >= 0)
+            return;
+
         this.relics.push(e);
     }
 

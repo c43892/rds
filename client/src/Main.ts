@@ -68,7 +68,7 @@ class Main extends egret.DisplayObjectContainer {
         GCfg.playerCfg = playerCfg;
     }
 
-    private mv: MainView; // 地图显示
+    private mv:MainView;
 
     private async runGame() {
 
@@ -88,48 +88,7 @@ class Main extends egret.DisplayObjectContainer {
         await platform.login();
         const userInfo = await platform.getUserInfo();
 
-        // 录像机如何启动新的录像战斗
-        BattleRecorder.startNewBattleImpl = (p:Player, trueRandomSeed:number) => {
-            this.startNewBattle(Battle.createNewBattle(p, trueRandomSeed));
-        };
-
-        // 如何启动下一关战斗
-        Battle.startNewBattle = (p:Player) => {
-            p.currentLevel = GCfg.getLevelCfg(p.currentLevel).nextLevel;
-            this.startNewBattleWithRecorder(Battle.createNewBattle(p));
-        }
-
-        // test map
-        var bt = Battle.createNewBattle(Player.createTestPlayer());
-        this.startNewBattleWithRecorder(bt);
-    }
-
-    // 开始一场新的战斗
-    public startNewBattleWithRecorder(bt:Battle) { this.startNewBattle(bt); BattleRecorder.startNew(bt.id, bt.player, bt.trueRandomSeed); }
-    public startNewBattle(bt:Battle) {
-        Utils.log("start new battle with ", bt.$$srandSeed());
-
-        ElemView.try2UseElem = bt.try2UseElem();
-        ElemView.try2UseElemAt = bt.try2UseElemAt();
-        ElemView.reposElemTo = bt.try2ReposElemTo();
-        ElemView.selectGrid = (f, cb) => this.mv.selectGrid(f).then(cb);
-        ElemView.select1InN = (title, choices, f, cb) => this.mv.select1inN(title, choices, f).then(cb);
-        ElemView.try2UncoverAt = bt.try2UncoverAt();
-        ElemView.try2BlockGrid = bt.try2BlockGrid();
-        PropView.try2UseProp = bt.try2UseProp();
-        PropView.selectGrid = (f, cb) => this.mv.selectGrid(f).then(cb);
-        PropView.select1InN = (title, choices, f, cb) => this.mv.select1inN(title, choices, f).then(cb);
-        PropView.try2UsePropAt = bt.try2UsePropAt();
-
-        bt.registerEvent("onPlayerOp", (ps) => BattleRecorder.onPlayerOp(ps.op, ps.ps));
-        bt.registerEvent("onLevel", (ps) => this.mv.onLevel(ps));
-        Utils.registerEventHandlers(bt, [
-            "onGridChanged", "onPlayerChanged", "onAttack", "onElemChanged", "onPropChanged",
-            "onElemMoving", "onAllCoveredAtInit", "onSuckPlayerBlood", "onMonsterTakeElem",
-        ], (e) => (ps) => this.mv.aniView[e](ps));
-
-        BattleRecorder.registerReplayIndicatorHandlers(bt);
-        bt.Start();
+        this.mv.startTestBattle();
     }
 
     private async loadResource() {
@@ -162,9 +121,7 @@ class Main extends egret.DisplayObjectContainer {
         this.addChild(bg);
 
         // 主视图
-        this.mv = new MainView(1, 1);
-        this.mv.width = stageW;
-        this.mv.height = stageH;
+        this.mv = new MainView(stageW, stageH);
         this.mv.anchorOffsetX = 0;
         this.mv.anchorOffsetY = 0;
         this.mv.x = 0;

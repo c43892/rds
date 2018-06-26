@@ -1,5 +1,5 @@
 {
-    "Coins":{"name":"金币", "canOverlap":true},
+    "Coins":{"name":"金币", "canOverlap":true, "useWithoutConfirm":true},
     "MedicineBox":{"name":"医药箱", "dhp":5},
     "Key":{"name":"钥匙", "useWithTarget":true, "validTargets":["Door", "TreasureBox"]},
     "Door":{"name":"门"},
@@ -18,7 +18,7 @@
     "Hole":{"name":"黑洞", "barrier":true},
     "Apple":{"name":"苹果", "cnt":3, "dhp":1},
     "Steak":{"name":"牛排", "cnt":3, "dhp":2},
-    "IceBlock":{"name":"冰块", "cnt":2},
+    "IceBlock":{"name":"冰块", "cnt":2, "useWithoutConfirm":true},
     "Gun":{"name":"枪", "canOverlap":true, "useWithTarget":true, 
         "validTarget":"markedMonster|uncoveredMonster|uncoverable", "attackFlags":["Pierce", "Gun"]},
     "RayGun":{"name":"火焰射线", "canOverlap":true, "useWithTarget":true, 
