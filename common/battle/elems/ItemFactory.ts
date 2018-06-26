@@ -2,12 +2,17 @@ class Item extends Elem {}
 
 // 普通物品
 class ItemFactory {
+    createItem():Item {
+        var item = new Item();
+        item.canBeMoved = true;
+        return item;
+    }
+
     // 各元素逻辑
     public creators = {
-
         // 逃跑出口
         "EscapePort": (attrs) => {
-            var e = new Item();
+            var e = this.createItem();
             e.canUse = () => false;
             e.canBeMoved = false;
             return e;
@@ -15,18 +20,16 @@ class ItemFactory {
 
         // 金币堆
         "Coins": (attrs) => {
-            var e = new Item();
+            var e = this.createItem();
             e.cnt = attrs.cnt;
             e.canUse = () => true;
             e.use = async () => await e.bt().implAddMoney(e, e.cnt);
-            e.canBeMoved = true;
             return e;
         },
 
         // 钥匙
         "Key": (attrs) => {
-            var e = new Item();
-            e.canBeMoved = true;
+            var e = this.createItem();
             e.canUseAt = (x:number, y:number) => {
                 var map = e.bt().level.map;
                 var tog:Grid = map.getGridAt(x, y);
@@ -45,7 +48,7 @@ class ItemFactory {
 
         // 门
         "Door": (attrs) => {
-            var e = new Item();
+            var e = this.createItem();
             e.canBeMoved = false;
             e.use = async () => { // 门被设定为不可以使用，但有一个 use 方法，其实是给 Key 调用的
                 var bt = e.bt();
@@ -59,8 +62,7 @@ class ItemFactory {
 
         // 宝箱
         "TreasureBox": (attrs) => {
-            var e = new Item();
-            e.canBeMoved = true;
+            var e = this.createItem();
             e.use = async () => { // 宝箱被设定为不可以使用，但有一个 use 方法，其实是给 Key 调用的
                 var bt = e.bt();
 
@@ -79,8 +81,7 @@ class ItemFactory {
 
         // 宝蛋
         "RandomEgg": (attrs) => {
-            var e = new Item();
-            e.canBeMoved = true;
+            var e = this.createItem();
             e.canUse = () => true;
             e.use = async () => {
                 var bt = e.bt();
@@ -98,8 +99,7 @@ class ItemFactory {
 
         // 钟表
         "Clock": (attrs) => {
-            var e = new Item();
-            e.canBeMoved = true;
+            var e = this.createItem();
             e.canUse = () => true;
             e.use = async () => {
                 var bt = e.bt();
@@ -111,8 +111,7 @@ class ItemFactory {
 
         // 医疗药剂
         "HpCapsule": (attrs) => {
-            var e = new Item();
-            e.canBeMoved = true;
+            var e = this.createItem();
             e.canUse = () => true;
             e.use = async () => {
                 var bt = e.bt();
@@ -124,8 +123,7 @@ class ItemFactory {
 
         // 解毒药剂
         "DePoison": (attrs) => {
-            var e = new Item();
-            e.canBeMoved = true;
+            var e = this.createItem();
             e.canUse = () => true;
             e.use = async () => {
                 var bt = e.bt();
@@ -137,26 +135,26 @@ class ItemFactory {
 
         // 黑洞
         "Hole": (attrs) => {
-            var e = new Item();
+            var e = this.createItem();
             e.canBeMoved = false;
             return e;
         },
 
         // 经验书
-        "Magazine": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, async (e:Elem) => await e.bt().implAddPlayerExp(attrs.dexp), true)(new Item()),
+        "Magazine": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, async (e:Elem) => await e.bt().implAddPlayerExp(attrs.dexp), true)(this.createItem()),
        
         // 苹果
-        "Apple": (attrs) => ElemFactory.foodLogic(attrs.cnt, attrs.dhp)(new Item()),
+        "Apple": (attrs) => ElemFactory.foodLogic(attrs.cnt, attrs.dhp)(this.createItem()),
 
         // 牛排
-        "Steak": (attrs) => ElemFactory.foodLogic(attrs.cnt, attrs.dhp)(new Item()),
+        "Steak": (attrs) => ElemFactory.foodLogic(attrs.cnt, attrs.dhp)(this.createItem()),
 
         // 冰冻块
-        "IceBlock": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, undefined, true)(new Item()),
+        "IceBlock": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, undefined, true)(this.createItem()),
 
         // 下一关入口
         "NextLevelPort": (attrs) => {
-            var e = new Item();
+            var e = this.createItem();
             e.canUse = () => true;
             e.use = async () => await e.bt().implGo2NextLevel(); // 进入下一关卡
             return e;
