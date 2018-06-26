@@ -3,34 +3,44 @@
 
     "testLevel1": {
         "displayName": "测试关卡1",
-        "map": { },
+        "map": {},
         "init_uncovered": {"w": 3, "h": 3},
-        "elems": {
-            "HpPotion":{"num":1},
+        "elems":{
+            "Key":{},
+            "TreasureBox":{"inBox":["Hawkeye", "Key", "HpPotion"]},
+            "Hole":{},
+            "Apple":{},
+            "Steak":{},
+            "Magazine":{},
+            "IceGun":{"cnt":2},
             "Bunny":{
-                "num":1, 
-                "attrs":{
-                    "hp":5, "power":1, "suckBlood":3, "summons":[ {"type":"Bunny", "attrs":{"hp":1, "sheild":0}} ], 
-                    "selfExplode":{"power":6},
-                    "dropItems":{
-                        "RandomEgg":{"inBox":["Hawkeye", "HpPotion", "MedicineBox"]}
-                    }
-                }
+                "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
+                "selfExplode":{"power":6},
+                "dropItems":{"RandomEgg":{"inBox":["Hawkeye", "HpPotion", "MedicineBox"]}}
             },
-            "HpCapsule":{"num":2, "attrs":{"cnt":5, "heal":1}},
-            "Coins":{"num":1, "attrs":{"cnt":5}},
-            "Gun": {"num":1, "attrs":{"cnt":2, "power":3}},
-            "RayGun": {"num":1, "attrs":{"cnt":2, "power":3}},
-            "MedicineBox": {"num":1},
-
-            "Key":{"num":1},
-            "TreasureBox": {"num":1, "attrs":{"inBox":["Hawkeye", "Key", "HpPotion"]}},
-            "Hole":{"num":2},
-            "Apple":{"num":1},
-            "Steak":{"num":1},
-            "Magazine":{"num":1},
-            "IceGun":{"num":10,  "attrs":{"cnt":2}}
+            "HpPotion":{},
+            "HpCapsule":{"cnt":5, "heal":1},
+            "Coins":{"cnt":5},
+            "Gun":{"cnt":2, "power":3},
+            "RayGun":{"cnt":2, "power":3},
+            "MedicineBox": {}
         },
+        "constElems":{
+            "Key": 1
+        },
+        "randomGroups":[{
+            "num":[4, 7], "elems": {
+                "Bunny": 10
+        }}, {
+            "num":[5, 6], "elems": {
+                "HpPotion": 10,
+                "HpCapsule": 10,
+                "Coins": 10,
+                "Gun": 10,
+                "RayGun": 10,
+                "MedicineBox": 10
+        }}],
+
         "nextLevel": "testLevel2"
     },
 
@@ -38,19 +48,7 @@
         "displayName": "测试关卡2",
         "map": { },
         "init_uncovered": {"w": 3, "h": 3},
-        "elems": {
-            "HpPotion":{"num":1, "attrs":{"dhp":5}},
-            "Bunny":{
-                "num":10, 
-                "attrs":{
-                    "hp":3, "power":2, 
-                    "selfExplode":{"power":6},
-                    "dropItems":{
-                        "Key":{}
-                    }
-                }
-            }
-        },
+        "elems": {},
         "nextLevel": "testLevel1"
     }
 }

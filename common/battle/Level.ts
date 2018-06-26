@@ -7,7 +7,7 @@ class Level {
     public Init(bt:Battle, cfg) {
         this.bt = bt;
         this.InitMap(cfg.map);
-        this.InitElems(cfg.elems);
+        this.InitElems(cfg.elems, cfg.constElems, cfg.randomGroups);
     }
 
     // 创建地图
@@ -16,19 +16,45 @@ class Level {
     }
 
     // 创建初始元素
-    public InitElems(cfg) {
+    public InitElems(elemsCfg, constElemsCfg, randomGroupsCfg) {
+
         var elems = [
             ElemFactory.create("EscapePort"), // 逃跑出口
             ElemFactory.create("Door") // 下一层入口的门
         ];
 
-        // 添加其它配置物品
-        for (var e in cfg) {
-            let eCfg = cfg[e];
-            let num = eCfg.num;
-            let attrs = eCfg.attrs;
+        // 添加固定元素
+        for (var e in constElemsCfg) {
+            let num = constElemsCfg[e];
             for (var i = 0; i < num; i++)
-                elems.push(ElemFactory.create(e, attrs));
+                elems.push(ElemFactory.create(e, elemsCfg[e]));
+        }
+
+        // 添加随机元素
+        for (var group of randomGroupsCfg) {
+            var numRange = group.num;
+            var elemsCfgInGroup = group.elems;
+
+            // 汇总该组权重
+            var tw = 0; // 总权重
+            var w2e = []; // 权重段
+            for (var e in elemsCfgInGroup) {
+                var w = elemsCfgInGroup[e];
+                w2e.push({w:tw, e:e});
+                tw += w;
+            }
+
+            // 执行随机添加过程
+            var num = this.bt.srand.nextInt(numRange[0], numRange[1]);
+            for (var i = 0; i < num; i++) {
+                var rw = this.bt.srand.nextInt(0, tw);
+                for (var j = w2e.length - 1; j >= 0 ; j--) {
+                    if (rw >= w2e[j].w) {
+                        elems.push(ElemFactory.create(w2e[j].e, elemsCfg[w2e[j].e]));
+                        break;
+                    }
+                }
+            }
         }
 
         // 依次加入地图

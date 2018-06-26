@@ -31,12 +31,12 @@ class Player {
         var p = new Player();
         p.currentLevel = "testLevel1";
         p.occupation = "nurse";
-        p.deathStep = 10;
+        p.deathStep = 100;
         p.hp = 10;
         p.maxHp = 20;
         p.avatar = "avator1";
         p.power = [2, 0];
-        p.battleRandomSeed = 0;
+        p.battleRandomSeed = Math.floor(Math.random() * 100);
         p.money = 100;
         p.exp = 0;
         p.lv = 0;

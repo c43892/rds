@@ -164,9 +164,7 @@ class MonsterFactory {
                 var g:Grid; // 掉落位置，优先掉在原地
                 g = BattleUtils.findRandomEmptyGrid(m.bt());
                 if (!g) return; // 没有空间了
-                var type = ss[i].type;
-                var attrs = ss[i].attrs;
-                var sm = ElemFactory.create(type, attrs);
+                var sm = ElemFactory.create(ss[i]);
                 await m.bt().implAddElemAt(sm, g.pos.x, g.pos.y);
             }
         }, m);
