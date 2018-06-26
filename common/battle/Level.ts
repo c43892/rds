@@ -1,10 +1,12 @@
 
 // 关卡控制逻辑
 class Level {
+    public displayName:string;
     public map:Map;
     private bt:Battle; // 反向引用回所属 battle
 
     public Init(bt:Battle, cfg) {
+        this.displayName = cfg.displayName;
         this.bt = bt;
         this.InitMap(cfg.map);
         this.InitElems(cfg.elems, cfg.constElems, cfg.randomGroups);
@@ -17,7 +19,7 @@ class Level {
 
     // 创建初始元素
     public InitElems(elemsCfg, constElemsCfg, randomGroupsCfg) {
-
+        var maxNumLimit = 0; // 做最大可能数量的检查
         var elems = [
             ElemFactory.create("EscapePort"), // 逃跑出口
             ElemFactory.create("Door") // 下一层入口的门
@@ -43,6 +45,10 @@ class Level {
                 w2e.push({w:tw, e:e});
                 tw += w;
             }
+
+            // 累计数量上限检查
+            maxNumLimit += numRange[1] - 1;
+            Utils.assert(maxNumLimit <= GCfg.mapsize.w * GCfg.mapsize.h, "elem overflow in map: " + this.displayName);
 
             // 执行随机添加过程
             var num = this.bt.srand.nextInt(numRange[0], numRange[1]);
