@@ -302,8 +302,8 @@ class Battle {
                 if (!reserve)
                     await this.implRemovePlayerProp(e.type);
                 else {
-                    await this.fireEvent("onPropChanged", {subtype:"useProp", type:e.type});
-                    await this.triggerLogicPoint("onPropChanged", {subtype:"useProp", type:e.type});
+                    await this.fireEvent("onPropChanged", {subType:"useProp", type:e.type});
+                    await this.triggerLogicPoint("onPropChanged", {subType:"useProp", type:e.type});
                 }
             }
         };
@@ -445,7 +445,7 @@ class Battle {
     public async implAddPlayerHp(dhp:number, absolutely:boolean = false) {
         if (dhp == 0) return;
         this.player.addHp(dhp);
-        await this.fireEvent("onPlayerChanged", {subtype:"hp"});
+        await this.fireEvent("onPlayerChanged", {subType:"hp"});
         await this.triggerLogicPoint("onPlayerChanged", {"subType": "hp"});
     }
 
@@ -530,8 +530,9 @@ class Battle {
     public async implFrozeAt(x:number, y:number, weapon:Elem = undefined) {
         var g = this.level.map.getGridAt(x, y);
         var e = g.getElem();
+        if (g.isCovered()) this.uncover(x, y); // 攻击行为自动揭开地块
         if (!e || !(e instanceof Monster)) { // 如果打空，则不需要战斗计算过程，有个表现就可以了
-            await this.fireEvent("onAttack", {subtype:"player2monster", x:y, y:y, weapon:weapon});
+            await this.fireEvent("onAttack", {subType:"player2monster", x:y, y:y, weapon:weapon});
             return;
         }
 
@@ -544,7 +545,7 @@ class Battle {
             targetAttrs.immuneFlags = Utils.mergeSet(targetAttrs.immuneFlags, h.onAttrs.immuneFlags);
 
         if (Utils.contains(targetAttrs.immuneFlags, "Frozen")) {
-            await this.fireEvent("onAttack", {subtype:"player2monster", x:y, y:y, r:{r:"immunized"}, target:m, weapon:weapon});
+            await this.fireEvent("onAttack", {subType:"player2monster", x:y, y:y, r:{r:"immunized"}, target:m, weapon:weapon});
             return;
         }
 
@@ -566,7 +567,7 @@ class Battle {
 
         var e = g.getElem();
         if (!e || !(e instanceof Monster)) { // 如果打空，则不需要战斗计算过程，有个表现就可以了
-            await this.fireEvent("onAttack", {subtype:"player2monster", x:y, y:y, target:undefined, weapon:weapon});
+            await this.fireEvent("onAttack", {subType:"player2monster", x:y, y:y, target:undefined, weapon:weapon});
             return;
         }
 
@@ -584,8 +585,8 @@ class Battle {
         for (var b of r.addBuffs)
             await this.implAddBuff(m, "Buff" + b.type, ...b.ps);
 
-        await this.fireEvent("onAttack", {subtype:"player2monster", x:m.pos.x, y:m.pos.x, r:r, target:m, weapon:weapon});
-        await this.triggerLogicPoint("onAttack", {subtype:"player2monster", x:m.pos.x, y:m.pos.x, r:r, target:m, weapon:weapon});        
+        await this.fireEvent("onAttack", {subType:"player2monster", x:m.pos.x, y:m.pos.x, r:r, target:m, weapon:weapon});
+        await this.triggerLogicPoint("onAttack", {subType:"player2monster", x:m.pos.x, y:m.pos.x, r:r, target:m, weapon:weapon});        
     }
 
     // 指定怪物尝试攻击角色
@@ -606,7 +607,7 @@ class Battle {
         for (var b of r.addBuffs)
             await this.implAddBuff(this.player, "Buff" + b.type, ...b.ps);
 
-        await this.fireEvent("onAttack", {subtype:"monster2player", r:r});
+        await this.fireEvent("onAttack", {subType:"monster2player", r:r});
 
         if (selfExplode && !m.isDead()) // 自爆还要走死亡逻辑
             await this.implOnElemDie(m);
@@ -615,10 +616,10 @@ class Battle {
     // 角色+经验
     public async implAddPlayerExp(dExp:number) {
         var lvUp = this.player.addExp(dExp);
-        await this.fireEvent("onPlayerChanged", {subtype:"exp"});
-        await this.triggerLogicPoint("onPlayerChanged", {subtype:"exp"});
+        await this.fireEvent("onPlayerChanged", {subType:"exp"});
+        await this.triggerLogicPoint("onPlayerChanged", {subType:"exp"});
         if (lvUp) {
-            await this.fireEvent("onPlayerChanged", {subtype:"lvUp"});
+            await this.fireEvent("onPlayerChanged", {subType:"lvUp"});
             await this.triggerLogicPoint("onPlayerChanged", {subType: "lvUp"});
         }
     }
@@ -628,36 +629,36 @@ class Battle {
         var v = this.player[attrType];
         v += dv;
         this.player[attrType] = v < min ? min : v;
-        await this.fireEvent("onPlayerChanged", {subtype:"attrType"});
+        await this.fireEvent("onPlayerChanged", {subType:"attrType"});
         await this.triggerLogicPoint("onPlayerChanged", {subType: "attrType"});
     }
 
     // 角色+遗物
     public async implAddPlayerRelic(e:Elem) {
         this.player.addRelic(e);
-        await this.fireEvent("onPlayerChanged", {subtype:"addRelic", e:e});
-        await this.triggerLogicPoint("onPlayerChanged", {subtype:"addRelic", e:e});
+        await this.fireEvent("onPlayerChanged", {subType:"addRelic", e:e});
+        await this.triggerLogicPoint("onPlayerChanged", {subType:"addRelic", e:e});
     }
 
     // 角色-遗物
     public async implRemovePlayerRelic(type:string) {
         var e = this.player.removeRelic(type);
-        await this.fireEvent("onPlayerChanged", {subtype:"removeRelic", e:e});
-        await this.triggerLogicPoint("onPlayerChanged", {subtype:"removeRelic", e:e});
+        await this.fireEvent("onPlayerChanged", {subType:"removeRelic", e:e});
+        await this.triggerLogicPoint("onPlayerChanged", {subType:"removeRelic", e:e});
     }
 
     // 角色+道具
     public async implAddPlayerProp(e:Elem) {
         this.player.addProp(e);
-        await this.fireEvent("onPropChanged", {subtype:"addProp", e:e});
-        await this.triggerLogicPoint("onPropChanged", {subtype:"addProp", e:e});
+        await this.fireEvent("onPropChanged", {subType:"addProp", e:e});
+        await this.triggerLogicPoint("onPropChanged", {subType:"addProp", e:e});
     }
 
     // 角色-道具
     public async implRemovePlayerProp(type:string) {
         this.player.removeProp(type);
-        await this.fireEvent("onPropChanged", {subtype:"removeProp", type:type});
-        await this.triggerLogicPoint("onPropChanged", {subtype:"removeProp", type:type});
+        await this.fireEvent("onPropChanged", {subType:"removeProp", type:type});
+        await this.triggerLogicPoint("onPropChanged", {subType:"removeProp", type:type});
     }
 
     // 元素进行移动，path 是一组 {x:x, y:y} 的数组
@@ -686,7 +687,7 @@ class Battle {
     public async implAddMoney(e:Elem, dm:number) {
         this.player.addMoney(dm);
         
-        await this.fireEvent("onPlayerChanged", {subtype:"money", e:e});
+        await this.fireEvent("onPlayerChanged", {subType:"money", e:e});
         await this.triggerLogicPoint("onPlayerChanged", {"subType": "money", e:e});
     }
 
