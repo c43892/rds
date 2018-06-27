@@ -62,9 +62,9 @@ class Elem {
     public addDropItem(e:Elem) {        
         // 目前限定，Item 和 Prop 类型的非金钱掉落，最多只能有一个
         Utils.assert(e.type == "Coins" || e instanceof Prop || e instanceof Relic
-                         || Utils.indexOf(this.dropItems, (elem) => elem.type != "Coins" 
+                         || Utils.indexOf(this.dropItems, (elem) => elem.type != "Coins" && elem.type != e.type 
                                 && !(elem instanceof Prop || elem instanceof Relic)) < 0,
-                 "only one drop item allowed (except Coins or Relic or Monster)");
+                 "only one type drop item allowed (except Coins or Relic or Monster)");
 
         if (e.attrs.canOverlap) { // 叠加物品
             var n = Utils.indexOf(this.dropItems, (elem) => elem.type == e.type);

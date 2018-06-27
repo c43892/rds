@@ -188,6 +188,9 @@ class Utils {
     // 寻找第一个满足条件的元素，f 表示判断条件, fromIndex 表示开始搜索的位置，
     // 返回值是满足条件的元素的索引，未找到是 -1
     public static indexOf<T>(arr:T[], f, fromIndex:number = 0):number {
+        if (arr == undefined || arr.length == 0)
+            return -1;
+
         for (var i = fromIndex; i < arr.length; i++) {
             var e = arr[i];
             if (f(e))
@@ -195,6 +198,21 @@ class Utils {
         }
 
         return -1;
+    }
+
+    // 统计数量
+    public static Count<T>(arr:T[], f, fromIndex:number = 0):number {
+        if (arr == undefined || arr.length == 0)
+            return 0;
+        
+        var cnt = 0;
+        for (var i = fromIndex; i < arr.length; i++) {
+            var e = arr[i];
+            if (f(e))
+                cnt++;
+        }
+
+        return cnt;
     }
 
     // 指定数组是否包含某一指定值

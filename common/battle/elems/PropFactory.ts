@@ -32,8 +32,9 @@ class PropFactory {
                 e.canUse = () => true;
                 e.use = async () => {
                     // 搜集所有参数，过公式算一下最终值
+                    e.cnt--;
                     await e.bt().implAddPlayerHp(attrs.dhp);
-                    await e.bt().implRemovePlayerProp(e.type);
+                    return e.cnt > 0;
                 }
 
                 return e;
