@@ -4,7 +4,7 @@
     "Key":{"name":"钥匙", "useWithTarget":true, "validTargets":["Door", "TreasureBox"]},
     "Door":{"name":"门"},
     "TreasureBox":{"name":"宝箱"},
-    "RandomEgg":{"name":"彩蛋","inBox":["Hawkeye", "HpPotion", "MedicineBox"]},
+    "RandomEgg":{"name":"彩蛋"},
     "Clock":{"name":"钟表"},
     "HpCapsule":{"name":"医疗药剂"},
     "DePoison":{"name":"解毒药剂"},
