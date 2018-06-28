@@ -22,7 +22,8 @@
             "RayGun":{"cnt":2, "power":3}
         },
         "constElems":{
-            "Key": 1
+            "Key": 1,
+            "Shield":10
         },
         "randomGroups":[{
             "num":[4, 7], "elems": {

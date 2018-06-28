@@ -139,7 +139,15 @@ class ItemFactory {
         // 盾牌
         "Shield": (attrs) => {
             var e = this.createItem();
-            e = ElemFactory.triggerColdownLogic(false)(e);
+            e = ElemFactory.triggerColdownLogic()(e);
+            e["onAttackResult"] = async (ps) => {
+                if (ps.r.r != "attacked" || !e.canTrigger() || ps.subType != "monster2player") return;
+                e.resetTrigger();
+                ps.r.r = "blocked";
+                ps.r.dhp = ps.r.dshield = 0;
+                await e.bt().implRemoveElemAt(e.pos.x, e.pos.y);
+                Utils.log("blocked");
+            };
             return e;
         },
 
