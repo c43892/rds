@@ -162,6 +162,9 @@ class MonsterFactory {
         return MonsterFactory.addSneakAI(async () => {
             var eatNum = m.attrs.eatNum ? m.attrs.eatNum : 1;
             var es = BattleUtils.findRandomElems(m.bt(), eatNum, (e:Elem) => !(e instanceof Monster) && !e.getGrid().isCovered());
+            if(es)
+                Utils.log("get");
+
             await m.bt().implMonsterTakeElems(m, es);
             if (dropOnDie) {
                 for(var e of es)

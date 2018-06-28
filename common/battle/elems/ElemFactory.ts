@@ -158,11 +158,11 @@ class ElemFactory {
     }
 
     // 被动触发
-    static triggerColdownLogic(onlyOnce:boolean) {
+    static triggerColdownLogic() {
         return (e:Elem) => {
-            e.cd = e.attrs.cd;
+            e.cd = 0;            
             e.canTrigger = () => e.cd <= 0;
-            e.resetTrigger = () => { e.cd = e.attrs.cd; return !onlyOnce; }
+            e.resetTrigger = () => e.cd = e.attrs.cd;
             e["onPlayerActed"] = async () => e.cd--;
             return e;
         };

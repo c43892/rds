@@ -42,11 +42,45 @@
             "MedicineBox": {}
         },
         "constElems":{
-            "Key": 1, "HpPotion":1
+            "Key": 1,
+            "Shield":10
         },
         "randomGroups":[{
-            "num":[5, 7], "elems": {
+            "num":[1, 2], "elems": {
+                "NormalZombie": 10
+        }}, {
+            "num":[1, 2], "elems": {
+                "ThiefZombie": 10
+        }}, {
+            "num":[1, 2], "elems": {
+                "HoundZombie": 10
+        }}, {
+            "num":[1, 2], "elems": {
+                "VampireZombie": 10
+        }}, {
+            "num":[1, 2], "elems": {
                 "DancerZombie": 10
+        }}, {
+            "num":[1, 2], "elems": {
+                "GluttonyZombie": 10
+        }}, {
+            "num":[1, 2], "elems": {
+                "SniperZombie": 10
+        }}, {
+            "num":[1, 2], "elems": {
+                "BombZombie": 10
+        }}, {
+            "num":[1, 2], "elems": {
+                "EyeDemonZombie": 10
+        }}, {
+            "num":[1, 2], "elems": {
+                "RandomEggZombie": 10
+        }}, {
+            "num":[1, 2], "elems": {
+                "LustZombie": 10
+        }}, {
+            "num":[1, 2], "elems": {
+                "IronZombie": 10
         }}, {
             "num":[5, 6], "elems": {
                 "HpPotion": 10,
