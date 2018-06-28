@@ -1,13 +1,13 @@
 class Monster extends Elem {constructor() { super();}
     public hp:number; // 血量
-    public sheild:number; // 护盾
+    public Shield:number; // 护盾
 
     public isDead = () => this.hp <= 0; // 是否已经死亡
 
     public getAttrsAsTarget() {
         return {
             owner:this,
-            sheild:{a:0, b:this.sheild, c:0},
+            Shield:{a:0, b:this.Shield, c:0},
             dodge:{a:0, b:this.btAttrs.dodge, c:0},
             damageDec:{a:0, b:this.btAttrs.damageDec, c:0},
             resist:{a:0, b:0, c:this.btAttrs.resist},
@@ -21,10 +21,10 @@ class Monster extends Elem {constructor() { super();}
             this.hp = 0;
     }
 
-    public addSheild(ds:number) {
-        this.sheild += ds;
-        if (this.sheild < 0)
-            this.sheild = 0;
+    public addShield(ds:number) {
+        this.Shield += ds;
+        if (this.Shield < 0)
+            this.Shield = 0;
     }
 
     // buff 相关
@@ -116,7 +116,7 @@ class MonsterFactory {
         var m = new Monster();
         m.canUse = () => true;
         m.hp = attrs.hp ? attrs.hp : 0;
-        m.sheild = attrs.sheild ? attrs.sheild : 0;
+        m.Shield = attrs.Shield ? attrs.Shield : 0;
         m.hazard = true;
         m.barrier = true;
 

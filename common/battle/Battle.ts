@@ -140,12 +140,13 @@ class Battle {
     public async uncover(x:number, y:number, suppressLogicEvent = false) {
         var g = this.level.map.getGridAt(x, y);
         Utils.assert(g.isCovered(), "uncover action can only be implemented on a covered grid");
+        var stateBeforeUncover = g.status;
         g.status = GridStatus.Uncovered;
 
-        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"gridUnconvered"});
+        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"gridUnconvered", stateBeforeUncover:stateBeforeUncover});
 
         if (!suppressLogicEvent)
-            await this.triggerLogicPoint("onGridChanged", {x:x, y:y, subType:"gridUnconvered"});
+            await this.triggerLogicPoint("onGridChanged", {x:x, y:y, subType:"gridUnconvered", stateBeforeUncover:stateBeforeUncover});
 
         // 对 8 邻格子进行标记逻辑计算
         var neighbours = [];
@@ -315,7 +316,7 @@ class Battle {
             var map = this.level.map;
             var fx = e.pos.x;
             var fy = e.pos.y;
-            if (!e.isValid()) return;
+            if (e.getGrid().isCovered() || !e.isValid()) return;
             var b = map.getGridAt(x, y);
             if (b.status != GridStatus.Uncovered || b.getElem()) { // 无法拖过去
                 await this.fireEvent("onGridChanged", {x:fx, y:fy, subType:"elemSwitchFrom"});
@@ -442,19 +443,19 @@ class Battle {
     }
 
     // 角色+hp
-    public async implAddPlayerHp(dhp:number, absolutely:boolean = false) {
+    public async implAddPlayerHp(dhp:number) {
         if (dhp == 0) return;
         this.player.addHp(dhp);
         await this.fireEvent("onPlayerChanged", {subType:"hp"});
         await this.triggerLogicPoint("onPlayerChanged", {"subType": "hp"});
     }
 
-    // 角色+sheild
-    public async implAddPlayerSheild(m:Monster, ds:number) {
+    // 角色+Shield
+    public async implAddPlayerShield(m:Monster, ds:number) {
         if (ds == 0) return;
-        m.addSheild(ds);
-        await this.fireEvent("onPlayerChanged", {subType:"sheild"});
-        await this.triggerLogicPoint("onPlayerChanged", {"subType": "sheild"});
+        m.addShield(ds);
+        await this.fireEvent("onPlayerChanged", {subType:"Shield"});
+        await this.triggerLogicPoint("onPlayerChanged", {"subType": "Shield"});
     }
 
     // 怪物+hp
@@ -470,12 +471,12 @@ class Battle {
         }
     }
 
-    // 怪物+sheild
-    public async implAddMonsterSheild(m:Monster, ds:number) {
+    // 怪物+Shield
+    public async implAddMonsterShield(m:Monster, ds:number) {
         if (ds == 0) return;
-        m.addSheild(ds);
-        await this.fireEvent("onElemChanged", {subType:"sheild", e:m});
-        await this.triggerLogicPoint("onElemChanged", {"subType": "sheild", e:m});
+        m.addShield(ds);
+        await this.fireEvent("onElemChanged", {subType:"Shield", e:m});
+        await this.triggerLogicPoint("onElemChanged", {"subType": "Shield", e:m});
     }
 
     // +buff
@@ -506,24 +507,11 @@ class Battle {
     }
 
     // 进行一次攻击计算
-    public calcAttack(attackerAttrs, targetAttrs) {
-        var hs = this.collectAllLogicHandler();
-
-        // 先确定攻击，免疫属性
-        for (var h of hs) {
-            attackerAttrs.attackFlags = Utils.mergeSet(attackerAttrs.attackFlags, h.onAttrs.attackFlags);
-            targetAttrs.immuneFlags = Utils.mergeSet(targetAttrs.immuneFlags, h.onAttrs.immuneFlags);
-        }
-
-        // 搜集对应参数
-        for (var h of hs) {
-            for (var flag of attackerAttrs.attackFlags) {
-                attackerAttrs = BattleUtils.mergeBattleAttrsPS(attackerAttrs, h.onAttrs[flag]);
-                targetAttrs = BattleUtils.mergeBattleAttrsPS(targetAttrs, h.onAttrs[flag]);
-            }
-        }
-
-        return this.bc.doAttackCalc(attackerAttrs, targetAttrs);
+    public async calcAttack(subType:string, attackerAttrs, targetAttrs) {
+        await this.triggerLogicPoint("onAttacking", {subType:subType, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+        var r = this.bc.doAttackCalc(attackerAttrs, targetAttrs); // 可能有免疫或者盾牌需要替换掉这个结果
+        await this.triggerLogicPoint("onAttackResult", {subType:subType, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
+        return r;
     }
 
     // 尝试冰冻目标
@@ -577,16 +565,19 @@ class Battle {
 
         var targetAttrs = m.getAttrsAsTarget();
         if (marked) (<string[]>attackerAttrs.attackFlags).push("Sneak"); // 偷袭标记
-        var r = this.calcAttack(attackerAttrs, targetAttrs);
-        await this.implAddMonsterHp(m, -r.dhp);
-        await this.implAddMonsterSheild(m, -r.dsheild)
+
+        var r = await this.calcAttack("player2monster", attackerAttrs, targetAttrs);
+        if (r.r == "attacked") {
+            await this.implAddMonsterHp(m, -r.dhp);
+            await this.implAddMonsterShield(m, -r.dShield)
+        }
 
         // 处理附加 buff
         for (var b of r.addBuffs)
             await this.implAddBuff(m, "Buff" + b.type, ...b.ps);
 
         await this.fireEvent("onAttack", {subType:"player2monster", x:m.pos.x, y:m.pos.x, r:r, target:m, weapon:weapon});
-        await this.triggerLogicPoint("onAttack", {subType:"player2monster", x:m.pos.x, y:m.pos.x, r:r, target:m, weapon:weapon});        
+        await this.triggerLogicPoint("onAttack", {subType:"player2monster", x:m.pos.x, y:m.pos.x, r:r, target:m, weapon:weapon});
     }
 
     // 指定怪物尝试攻击角色
@@ -599,9 +590,10 @@ class Battle {
         var targetAttrs = this.player.getAttrsAsTarget();
         if (sneak) (<string[]>attackerAttrs.attackFlags).push("Sneak"); // 偷袭标记
 
-        var r = this.calcAttack(attackerAttrs, targetAttrs);
-        Utils.assert(r.dsheild == 0, "player does not support sheild");
-        await this.implAddPlayerHp(-r.dhp);
+        var r = await this.calcAttack("monster2player", attackerAttrs, targetAttrs);
+        Utils.assert(r.dShield == 0, "player does not support Shield");
+        if (r.r == "attacked")
+            await this.implAddPlayerHp(-r.dhp);
 
         // 处理附加 buff
         for (var b of r.addBuffs)

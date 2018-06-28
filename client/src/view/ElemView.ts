@@ -11,7 +11,7 @@ class ElemView extends egret.DisplayObjectContainer {
 
     private hp:egret.TextField; // 怪物血量：右下角
     private dropElemImg:egret.Bitmap; // 掉落物品的图：左上角，这里也可能显示怪物的行动回合数
-    private sheild:egret.TextField; // 护盾，右上角
+    private Shield:egret.TextField; // 护盾，右上角
     private power:egret.TextField; // 攻击力，左下角
 
     public constructor() {
@@ -30,9 +30,9 @@ class ElemView extends egret.DisplayObjectContainer {
         this.hp.size = 25;
 
         // 护盾，右上角
-        this.sheild = new egret.TextField();
-        this.sheild.textColor = 0x000000;
-        this.sheild.size = 25;
+        this.Shield = new egret.TextField();
+        this.Shield.textColor = 0x000000;
+        this.Shield.size = 25;
 
         // 攻击力，左下角
         this.power = new egret.TextField();
@@ -117,11 +117,11 @@ class ElemView extends egret.DisplayObjectContainer {
                         }
                         
                         // 护盾，右上角
-                        if (m.sheild > 0) {
-                            this.sheild.text = m.sheild.toString();
-                            this.sheild.x = this.width - this.sheild.width;
-                            this.sheild.y = 0;
-                            this.showLayer.addChild(this.sheild);
+                        if (m.Shield > 0) {
+                            this.Shield.text = m.Shield.toString();
+                            this.Shield.x = this.width - this.Shield.width;
+                            this.Shield.y = 0;
+                            this.showLayer.addChild(this.Shield);
                         }
 
                         // 攻击力，左下角
@@ -225,9 +225,6 @@ class ElemView extends egret.DisplayObjectContainer {
 
     // 按下
     onTouchBegin(evt:egret.TouchEvent) {
-        if (!this.map.isGenerallyValid(this.gx, this.gy))
-            return;
-
         ElemView.pressed = true;
         ElemView.longPressed = false;
         ElemView.dragging = false;
@@ -242,26 +239,28 @@ class ElemView extends egret.DisplayObjectContainer {
     }
 
     static onPressTimer() {
-        if (!ElemView.pressed)
+        if (!ElemView.pressed )
             return;
 
         ElemView.longPressed = true;
         ElemView.pressTimer.stop();
 
-        let b = ElemView.dragFrom.map.getGridAt(ElemView.dragFrom.gx, ElemView.dragFrom.gy);
-        switch (b.status) {
+        let g = ElemView.dragFrom.map.getGridAt(ElemView.dragFrom.gx, ElemView.dragFrom.gy);
+        switch (g.status) {
             case GridStatus.Covered:
-                ElemView.try2BlockGrid(b.pos.x, b.pos.y, true);
+                ElemView.try2BlockGrid(g.pos.x, g.pos.y, true);
             break;
             case GridStatus.Blocked:
-                ElemView.try2BlockGrid(b.pos.x, b.pos.y, false);
+                ElemView.try2BlockGrid(g.pos.x, g.pos.y, false);
             break;
         }
     }
 
     // 拖拽移动
     onTouchMove(evt:egret.TouchEvent) {
-        if (ElemView.longPressed)
+        if (ElemView.longPressed 
+            || this.map.getGridAt(this.gx, this.gy).isCovered() 
+            || this.map.isGenerallyValid(this.gx, this.gy))
             return;
 
         var px = evt.localX + this.x;

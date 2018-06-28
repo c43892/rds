@@ -11,7 +11,12 @@ class RelicFactory {
         var e = new Relic();
         e.canUse = () => true;
         e.canBeMoved = true;
-        e.toRelic = () => { e.use = undefined; mountLogic(e); return e; };
+        var cd = 0;
+        e.toRelic = () => { 
+            e.use = undefined; 
+            mountLogic(e); 
+            return e; 
+        };
         e.use = async () => await e.bt().implAddPlayerRelic(e.toRelic());
         
         return e;

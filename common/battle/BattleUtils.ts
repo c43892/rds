@@ -56,7 +56,7 @@ class BattleUtils {
             damageAdd:{a:0, b:0, c:0},
 
             immuneFlags:[],
-            sheild:{a:0, b:0, c:0},
+            Shield:{a:0, b:0, c:0},
             dodge:{a:0, b:0, c:0},
             damageDec:{a:0, b:0, c:0},
             resist:{a:0, b:0, c:0},
@@ -93,7 +93,7 @@ class BattleUtils {
             damageAdd:0,
 
             immuneFlags:[],
-            sheild:0,
+            Shield:0,
             dodge:0,
             damageDec:0,
             resist:0,

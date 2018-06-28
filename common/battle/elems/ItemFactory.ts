@@ -136,6 +136,13 @@ class ItemFactory {
         // 冰冻块
         "IceBlock": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, undefined, true)(this.createItem()),
 
+        // 盾牌
+        "Shield": (attrs) => {
+            var e = this.createItem();
+            e = ElemFactory.triggerColdownLogic(false)(e);
+            return e;
+        },
+
         // 下一关入口
         "NextLevelPort": (attrs) => {
             var e = this.createItem();
