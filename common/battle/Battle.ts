@@ -550,7 +550,7 @@ class Battle {
         }
 
         // 被冻结，生成冰块，转移掉落物品
-        var ice = ElemFactory.create("IceBlock");
+        var ice = this.level.createElem("IceBlock");
         ice.dropItems = m.dropItems;
         m.dropItems = [];
 

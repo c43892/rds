@@ -7,7 +7,10 @@
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
             "Key":{},
-            "TreasureBox":{"inBox":["Hawkeye", "Key", "HpPotion"]},
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
             "Hole":{},
             "Apple":{},
             "Steak":{},
@@ -16,7 +19,7 @@
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
-                "dropItems":{"RandomEgg":{"inBox":["Hawkeye", "HpPotion", "MedicineBox"]}}
+                "dropItems":["RandomEgg1", "RandomEgg2"]
             },
             "HpPotion":{},
             "HpCapsule":{"cnt":5, "heal":1},
@@ -30,7 +33,9 @@
         },
         "randomGroups":[{
             "num":[4, 7], "elems": {
-                "Bunny": 10
+                "Bunny": 5,
+                "TreasureBox1": 2,
+                "TreasureBox2": 2
         }}, {
             "num":[5, 6], "elems": {
                 "HpPotion": 10,

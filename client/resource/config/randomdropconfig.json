@@ -1,0 +1,14 @@
+{
+    "rdp1": {"num":[1, 3], "elems":{
+        "Key":10,
+        "HpPotion":20
+    }},
+
+    "rdp2": {"num":[2, 4], "elems":{
+        "Gun":10,
+        "RayGun":20,
+        "IceGun":30
+    }},
+
+    "":{}
+}

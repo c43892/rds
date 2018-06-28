@@ -6,12 +6,12 @@ class BuffNurse extends Buff {
 
         // 开局 +1 HpPotion
         this.onLevelInited = async (x:number, y:number, statusBeforeUncovered:GridStatus) => {
-            var bt = this.getOwner().bt();
+            var bt:Battle = this.getOwner().bt();
 
             // 随机找个揭开了的空白格子
             var g = BattleUtils.findRandomEmptyGrid(bt);
             if (g) {
-                var hpPotion = ElemFactory.create("HpPotion", {dhp:10});
+                var hpPotion = bt.level.createElem("HpPotion", {dhp:20});
                 await Utils.delay(1000);
                 await bt.implAddElemAt(hpPotion, g.pos.x, g.pos.y);
             }

@@ -262,4 +262,32 @@ class Utils {
     public static $$loadItem(key:string):string {
         return egret.localStorage.getItem(key);
     }
+
+    // 根据指定权重，随机选取若干目标，集合格式为 {type:weight, type:weight, ...}
+    public static randomSelectByWeight(elemsWithWeight, srand, numMin, numMax) {
+        var r = [];
+
+        // 汇总该组权重
+        var tw = 0; // 总权重
+        var w2e = []; // 权重段
+        for (var e in elemsWithWeight) {
+            var w = elemsWithWeight[e];
+            w2e.push({w:tw, e:e});
+            tw += w;
+        }
+
+        // 执行随机添加过程
+        var num = srand.nextInt(numMin, numMax);
+        for (var i = 0; i < num; i++) {
+            var rw = srand.nextInt(0, tw);
+            for (var j = w2e.length - 1; j >= 0 ; j--) {
+                if (rw >= w2e[j].w) {
+                    r.push(w2e[j].e);
+                    break;
+                }
+            }
+        }
+
+        return r;
+    }
 }

@@ -132,7 +132,7 @@ class MonsterFactory {
         return MonsterFactory.addSneakAI(async () => {
             var dm = 10;
             await m.bt().implAddMoney(m, -dm);
-            m.addDropItem(ElemFactory.create("Coins", {"cnt":dm}));
+            m.addDropItem(m.bt().level.createElem("Coins"));
         }, m);
     }
 
@@ -164,7 +164,7 @@ class MonsterFactory {
                 var g:Grid; // 掉落位置，优先掉在原地
                 g = BattleUtils.findRandomEmptyGrid(m.bt());
                 if (!g) return; // 没有空间了
-                var sm = ElemFactory.create(ss[i]);
+                var sm = m.bt().level.createElem(ss[i]);
                 await m.bt().implAddElemAt(sm, g.pos.x, g.pos.y);
             }
         }, m);

@@ -57,6 +57,7 @@ class Elem {
     public btAttrs; // 战斗相关属性
     public onAttrs = {}; // 影响战斗属性的参数
     public dropItems:Elem[] = [];
+    public randomDrops:Elem[] = []; // 随机掉落是在创建时确定，在生成后，和 dropItems 没有本质区别
 
     // 添加掉落物品
     public addDropItem(e:Elem) {        
@@ -97,15 +98,24 @@ class Elem {
         for (var dp of this.dropItems)
             dropItmes.push(dp.toString());
 
-        return JSON.stringify({type:this.type, attrs:this.attrs, dropItems:dropItmes});
+        var randomDrops = [];
+        for (var rdp of this.randomDrops)
+            randomDrops.push(rdp.toString());
+
+        return JSON.stringify({type:this.type, 
+            attrs:this.attrs, 
+            dropItems:dropItmes, 
+            randomDrops:randomDrops
+        });
     }
 
     public static fromString(str:string):Elem {
-        var info = JSON.parse(str);
-        var e = ElemFactory.create(info.type, info.attrs);
-        for (var dp of info.dropItems)
-            e.dropItems.push(Elem.fromString(dp));
+        // var info = JSON.parse(str);
+        // var e = level.create(info.type, info.attrs);
+        // for (var dp of info.dropItems)
+        //     e.dropItems.push(Elem.fromString(dp));
         
-        return e;
+        // return e;
+        return undefined;
     }
 }

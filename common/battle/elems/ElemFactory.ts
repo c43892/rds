@@ -19,14 +19,7 @@ class ElemFactory {
                 e.attrs = attrs;
                 e.btAttrs = BattleUtils.mergeBattleAttrs({}, attrs);
                 e.$$id = type + ":" + (ElemFactory.$$idSeqNo++);
-
-                if (attrs.dropItems) // 初始就可能携带掉落物品
-                    for (var dpItem in attrs.dropItems) {
-                        var dpe = ElemFactory.create(dpItem, attrs.dropItems[dpItem]);
-                        e.addDropItem(dpe);
-                    }
-
-                return ElemFactory.doDropItemsOnDie(e);
+                return e;
             }
         }
 
@@ -88,7 +81,8 @@ class ElemFactory {
     public static doDropItemsOnDie(e:Elem):Elem {
         ElemFactory.addDieAI(async () => {
             var dropInPosition = true;
-            for (var elem of e.dropItems) {
+            var drops = [...e.dropItems, ...e.randomDrops];
+            for (var elem of drops) {
                 var g:Grid; // 掉落位置，优先掉在原地
                 if (dropInPosition) {
                     g = e.bt().level.map.getGridAt(e.pos.x, e.pos.y);

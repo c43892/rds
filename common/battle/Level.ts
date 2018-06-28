@@ -18,8 +18,50 @@ class Level {
         this.map = new Map();
     }
 
+    // 创建指定元素，如果未明确指定配置属性，则默认参考本关卡配置
+    private elemsCfgInLevel;
+    public createElem(type:string, attrs = undefined):Elem {
+        if (!attrs) { // 如果指定配置属性，则不再参考本关卡配置
+            attrs = this.elemsCfgInLevel[type];
+            while (attrs && attrs.type) {
+                type = attrs.type;
+                var tAttrs = this.elemsCfgInLevel[type];
+                if (tAttrs) {
+                    for (var k in attrs)
+                        if (k != "type")
+                            tAttrs[k] = attrs[k];
+
+                    attrs = tAttrs;
+                } else
+                    break;
+            }
+        }
+
+        var attrs =  attrs ? attrs : {};
+        var e = ElemFactory.create(type, attrs);
+
+        // 处理携带物品
+        if (attrs.dropItems) {
+            for (var dpType of attrs.dropItems) {
+                var dpe = this.createElem(dpType);
+                e.addDropItem(dpe);
+            }
+        }
+
+        // 处理随机掉落
+        if (attrs.rdp) {
+            var rdp = GCfg.getRandomDropGroupCfg(attrs.rdp);
+            var arr = Utils.randomSelectByWeight(rdp.elems, this.bt.srand, rdp.num[0], rdp.num[1]);
+            for (var dpType of arr)
+                e.randomDrops.push(this.createElem(dpType));
+        }
+
+        return ElemFactory.doDropItemsOnDie(e);
+    }
+
     // 创建初始元素
     public InitElems(elemsCfg, constElemsCfg, randomGroupsCfg, elemNumLimit) {
+        this.elemsCfgInLevel = elemsCfg;
         var maxNumLimit = 0; // 做最大可能数量的检查
         var elems = [
             ElemFactory.create("EscapePort"), // 逃跑出口
@@ -35,33 +77,14 @@ class Level {
 
         // 添加随机元素
         for (var group of randomGroupsCfg) {
-            var numRange = group.num;
-            var elemsCfgInGroup = group.elems;
-
-            // 汇总该组权重
-            var tw = 0; // 总权重
-            var w2e = []; // 权重段
-            for (var e in elemsCfgInGroup) {
-                var w = elemsCfgInGroup[e];
-                w2e.push({w:tw, e:e});
-                tw += w;
-            }
-
+            
             // 累计数量上限检查
-            maxNumLimit += numRange[1] - 1;
+            maxNumLimit += group.num[1] - 1;
             Utils.assert(maxNumLimit <= elemNumLimit, "elem overflow in map: " + this.displayName);
 
-            // 执行随机添加过程
-            var num = this.bt.srand.nextInt(numRange[0], numRange[1]);
-            for (var i = 0; i < num; i++) {
-                var rw = this.bt.srand.nextInt(0, tw);
-                for (var j = w2e.length - 1; j >= 0 ; j--) {
-                    if (rw >= w2e[j].w) {
-                        elems.push(ElemFactory.create(w2e[j].e, elemsCfg[w2e[j].e]));
-                        break;
-                    }
-                }
-            }
+            var arr = Utils.randomSelectByWeight(group.elems, this.bt.srand, group.num[0], group.num[1]);
+            for (var et of arr)
+                elems.push(this.createElem(et));
         }
 
         // 依次加入地图
