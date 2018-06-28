@@ -225,9 +225,6 @@ class ElemView extends egret.DisplayObjectContainer {
 
     // 按下
     onTouchBegin(evt:egret.TouchEvent) {
-        if (!this.map.isGenerallyValid(this.gx, this.gy))
-            return;
-
         ElemView.pressed = true;
         ElemView.longPressed = false;
         ElemView.dragging = false;
@@ -242,26 +239,28 @@ class ElemView extends egret.DisplayObjectContainer {
     }
 
     static onPressTimer() {
-        if (!ElemView.pressed)
+        if (!ElemView.pressed )
             return;
 
         ElemView.longPressed = true;
         ElemView.pressTimer.stop();
 
-        let b = ElemView.dragFrom.map.getGridAt(ElemView.dragFrom.gx, ElemView.dragFrom.gy);
-        switch (b.status) {
+        let g = ElemView.dragFrom.map.getGridAt(ElemView.dragFrom.gx, ElemView.dragFrom.gy);
+        switch (g.status) {
             case GridStatus.Covered:
-                ElemView.try2BlockGrid(b.pos.x, b.pos.y, true);
+                ElemView.try2BlockGrid(g.pos.x, g.pos.y, true);
             break;
             case GridStatus.Blocked:
-                ElemView.try2BlockGrid(b.pos.x, b.pos.y, false);
+                ElemView.try2BlockGrid(g.pos.x, g.pos.y, false);
             break;
         }
     }
 
     // 拖拽移动
     onTouchMove(evt:egret.TouchEvent) {
-        if (ElemView.longPressed)
+        if (ElemView.longPressed 
+            || this.map.getGridAt(this.gx, this.gy).isCovered() 
+            || this.map.isGenerallyValid(this.gx, this.gy))
             return;
 
         var px = evt.localX + this.x;

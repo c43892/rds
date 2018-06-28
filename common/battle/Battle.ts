@@ -315,7 +315,7 @@ class Battle {
             var map = this.level.map;
             var fx = e.pos.x;
             var fy = e.pos.y;
-            if (!e.isValid()) return;
+            if (e.getGrid().isCovered() || !e.isValid()) return;
             var b = map.getGridAt(x, y);
             if (b.status != GridStatus.Uncovered || b.getElem()) { // 无法拖过去
                 await this.fireEvent("onGridChanged", {x:fx, y:fy, subType:"elemSwitchFrom"});
