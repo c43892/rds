@@ -68,7 +68,7 @@ class MonsterFactory {
 
         // "Bunny": (attrs) => this.createMonster(attrs) // 什么都不做
         // "Bunny": (attrs) => MonsterFactory.doAttack("onPlayerActed", this.createMonster(attrs)) // 每回合攻击玩家
-        "Bunny": (attrs) => MonsterFactory.doAttackBack(this.createMonster(attrs)) // 被攻击时反击
+        "Bunny": (attrs) => MonsterFactory.doAttackBack(this.createMonster(attrs)), // 被攻击时反击
         // "Bunny": (attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakAttack(this.createMonster(attrs))) // 偷袭行为是攻击，被攻击时反击
         // "Bunny": (attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakStealMoney(this.createMonster(attrs))) // 偷袭行为是偷钱，被攻击时反击
         // "Bunny": (attrs) => MonsterFactory.doSneakSuckBlood(this.createMonster(attrs)) // 偷袭行为是吸血
@@ -95,6 +95,19 @@ class MonsterFactory {
         //     m = <Monster>ElemFactory.addDieAI(async () => m.bt().implMonsterAttackPlayer(m, true), m);
         //     return m;
         // }
+
+        "NormalZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //普通僵尸
+        "ThiefZombie": (attrs) => MonsterFactory.doSneakStealMoney(false, MonsterFactory.doAttackBack(this.createMonster(attrs))), //窃贼僵尸
+        "HoundZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //猎犬僵尸
+        "VampireZombie": (attrs) => MonsterFactory.doSneakSuckBlood(MonsterFactory.doAttackBack(this.createMonster(attrs))), //吸血鬼僵尸
+        "DancerZombie": (attrs) => MonsterFactory.doSneakSummon(MonsterFactory.doAttackBack(this.createMonster(attrs))), //舞王僵尸
+        "GluttonyZombie": (attrs) => MonsterFactory.doSneakEatItems(MonsterFactory.doAttackBack(this.createMonster(attrs)), false), //暴食僵尸
+        "SniperZombie": (attrs) => MonsterFactory.doAttackOnPlayerLeave(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //狙击者僵尸
+        "BombZombie": (attrs) => MonsterFactory.doSelfExplodeAfterNRound(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //炸弹僵尸
+        "EyeDemonZombie": (attrs) => MonsterFactory.doUncoverGridOnDeath(2, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //眼魔僵尸
+        "RandomEggZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //彩蛋僵尸
+        "LustZombie": (attrs) => MonsterFactory.doSneakReduseDeathStep(15, MonsterFactory.doAttackBack(this.createMonster(attrs))), //色欲僵尸
+        "IronZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))) //钢铁侠僵尸
 
     };
 
@@ -128,18 +141,19 @@ class MonsterFactory {
     }
 
     // 偷袭：偷钱
-    static doSneakStealMoney(m:Monster):Monster {
+    static doSneakStealMoney(giveback:Boolean, m:Monster):Monster {
         return MonsterFactory.addSneakAI(async () => {
-            var dm = 10;
-            await m.bt().implAddMoney(m, -dm);
-            m.addDropItem(m.bt().level.createElem("Coins"));
+            await m.bt().implAddMoney(m, - Math.floor(m.bt().player.money * m.attrs.steal.percent / 100) - m.attrs.steal.num);
+            if(giveback)
+                m.addDropItem(m.bt().level.createElem("Coins"));
+
         }, m);
     }
 
     // 偷袭：吸血
     static doSneakSuckBlood(m:Monster):Monster {
         return MonsterFactory.addSneakAI(async () => {
-            await m.bt().implSuckPlayerBlood(m, m.attrs.suckBlood);
+            await m.bt().implSuckPlayerBlood(m, Math.floor(m.bt().player.hp * m.attrs.suckBlood.percent / 100) + m.attrs.suckBlood.num);
         }, m);
     }
 
@@ -148,6 +162,9 @@ class MonsterFactory {
         return MonsterFactory.addSneakAI(async () => {
             var eatNum = m.attrs.eatNum ? m.attrs.eatNum : 1;
             var es = BattleUtils.findRandomElems(m.bt(), eatNum, (e:Elem) => !(e instanceof Monster) && !e.getGrid().isCovered());
+            if(es)
+                Utils.log("get");
+
             await m.bt().implMonsterTakeElems(m, es);
             if (dropOnDie) {
                 for(var e of es)
@@ -189,6 +206,17 @@ class MonsterFactory {
         return <Monster>ElemFactory.addAI(logicPoint, async () => m.bt().implMonsterAttackPlayer(m), m);
     }
 
+    // 玩家离开时，偷袭玩家
+    static doAttackOnPlayerLeave(m:Monster):Monster{
+        return <Monster>ElemFactory.addAIEvenCovered("beforeGoOutLevel1", async () => {
+                var g = m.getGrid();
+                if (g.isCovered()) // 先揭开，再攻击
+                    await m.bt().implUncoverAt(g.pos.x, g.pos.y);
+
+                await m.bt().implAddPlayerHp(-m.attrs.stealOnPlayerLeave);
+            }, m);;
+    }
+
     //死亡时翻开N个空地块
     static doUncoverGridOnDeath(n:number, m:Monster):Monster{
         return <Monster>ElemFactory.addDieAI(async () => {
@@ -203,4 +231,18 @@ class MonsterFactory {
         }, m);
     }
    
+   //N回合后自爆,对玩家造成攻击力的N倍伤害
+   static doSelfExplodeAfterNRound(m:Monster):Monster{
+        var cnt = 0;
+        return <Monster>ElemFactory.addAI("onPlayerActed", async () => {
+            cnt++;
+            Utils.log("step", cnt);
+            if(cnt > m.attrs.selfExplode.cnt)
+            {
+                m.btAttrs.power = m.btAttrs.power * m.attrs.selfExplode.mult;
+                m.bt().implMonsterAttackPlayer(m, false, true);
+            }
+        },m);
+   }
 }
+
