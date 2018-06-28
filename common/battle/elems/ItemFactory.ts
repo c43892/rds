@@ -145,9 +145,9 @@ class ItemFactory {
                 e.resetTrigger();
                 ps.r.r = "blocked";
                 ps.r.dhp = ps.r.dshield = 0;
-                await e.bt().implRemoveElemAt(e.pos.x, e.pos.y);
-                Utils.log("blocked");
+                await e.bt().implNotifyElemChanged("coldown", e);
             };
+            e.getElemImgRes = () => e.canTrigger() ? e.type + "1" : e.type + "2";
             return e;
         },
 

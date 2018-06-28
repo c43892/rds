@@ -158,12 +158,16 @@ class ElemFactory {
     }
 
     // 被动触发
-    static triggerColdownLogic() {
+    static triggerColdownLogic(needUncovered:boolean = true) {
         return (e:Elem) => {
             e.cd = 0;            
-            e.canTrigger = () => e.cd <= 0;
+            e.canTrigger = () => e.isValid() && (!needUncovered || !e.getGrid().isCovered()) && e.cd <= 0;
             e.resetTrigger = () => e.cd = e.attrs.cd;
-            e["onPlayerActed"] = async () => e.cd--;
+            e["onPlayerActed"] = async () => {
+                if (needUncovered && e.getGrid().isCovered()) return;
+                e.cd--;
+                await e.bt().implNotifyElemChanged("coldown", e);
+            }
             return e;
         };
     }

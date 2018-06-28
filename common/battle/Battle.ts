@@ -632,6 +632,12 @@ class Battle {
         await this.triggerLogicPoint("onPlayerChanged", {subType:"addRelic", e:e});
     }
 
+    // 通知元素属性更新
+    public async implNotifyElemChanged(attrType:string, e:Elem) {
+        await this.fireEvent("onElemChanged", {subType:attrType, e:e});
+        await this.triggerLogicPoint("onElemChanged", {subType:attrType, e:e});
+    }
+
     // 角色-遗物
     public async implRemovePlayerRelic(type:string) {
         var e = this.player.removeRelic(type);
