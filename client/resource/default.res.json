@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "description_json,levelconfig_json,covered_png,grid_png,bg_png,avator1_png,Bunny_png,blocked_png,uncoverable_png,replaybg_png,blackcover_png,anicover_png,elemattrsconfig_json,DeathGod_png,MedicineBox_png,selectable_png,unselectable_png,playerconfig_json,Hawkeye_png,TimeMachine_png,Coins_png,Door_png,EscapePort_png,Gun_png,HpPotion_png,Key_png,NextLevelPort_png,TreasureBox_png,Clock_png,HpCapsule_png,ban_png,Magazine_png,Hole_png,Apple3_png,Apple2_png,Apple1_png,Steak3_png,Steak2_png,Steak1_png,RandomEgg_png,Apple12_png,Apple22_png,Apple32_png,Steak12_png,Steak22_png,Steak32_png,RayGun_png,IceBlock_png,IceGun_png,randomdropconfig_json",
+			"keys": "description_json,levelconfig_json,covered_png,grid_png,bg_png,avator1_png,Bunny_png,blocked_png,uncoverable_png,replaybg_png,blackcover_png,anicover_png,elemattrsconfig_json,DeathGod_png,MedicineBox_png,selectable_png,unselectable_png,playerconfig_json,Hawkeye_png,TimeMachine_png,Coins_png,Door_png,EscapePort_png,Gun_png,HpPotion_png,Key_png,NextLevelPort_png,TreasureBox_png,Clock_png,HpCapsule_png,ban_png,Magazine_png,Hole_png,Apple3_png,Apple2_png,Apple1_png,Steak3_png,Steak2_png,Steak1_png,RandomEgg_png,Apple12_png,Apple22_png,Apple32_png,Steak12_png,Steak22_png,Steak32_png,RayGun_png,IceBlock_png,IceGun_png,randomdropconfig_json,BombZombie_png,DancerZombie_png,EyeDemonZombie_png,GluttonyZombie_png,HoundZombie_png,IronZombie_png,LustZombie_png,NormalZombie_png,ori_png,RandomEggZombie_png,SniperZombie_png,ThiefZombie_png,VampireZombie_png",
 			"name": "preload"
 		}
 	],
@@ -255,6 +255,71 @@
 			"url": "config/randomdropconfig.json",
 			"type": "json",
 			"name": "randomdropconfig_json"
+		},
+		{
+			"name": "BombZombie_png",
+			"type": "image",
+			"url": "assets/monsters/BombZombie.png"
+		},
+		{
+			"name": "DancerZombie_png",
+			"type": "image",
+			"url": "assets/monsters/DancerZombie.png"
+		},
+		{
+			"name": "EyeDemonZombie_png",
+			"type": "image",
+			"url": "assets/monsters/EyeDemonZombie.png"
+		},
+		{
+			"name": "GluttonyZombie_png",
+			"type": "image",
+			"url": "assets/monsters/GluttonyZombie.png"
+		},
+		{
+			"name": "HoundZombie_png",
+			"type": "image",
+			"url": "assets/monsters/HoundZombie.png"
+		},
+		{
+			"name": "IronZombie_png",
+			"type": "image",
+			"url": "assets/monsters/IronZombie.png"
+		},
+		{
+			"name": "LustZombie_png",
+			"type": "image",
+			"url": "assets/monsters/LustZombie.png"
+		},
+		{
+			"name": "NormalZombie_png",
+			"type": "image",
+			"url": "assets/monsters/NormalZombie.png"
+		},
+		{
+			"name": "ori_png",
+			"type": "image",
+			"url": "assets/monsters/ori.png"
+		},
+		{
+			"name": "RandomEggZombie_png",
+			"type": "image",
+			"url": "assets/monsters/RandomEggZombie.png"
+		},
+		{
+			"name": "SniperZombie_png",
+			"type": "image",
+			"url": "assets/monsters/SniperZombie.png"
+		},
+		{
+			"name": "ThiefZombie_png",
+			"type": "image",
+			"url": "assets/monsters/ThiefZombie.png"
+		},
+		{
+			"name": "VampireZombie_png",
+			"type": "image",
+			"url": "assets/monsters/VampireZombie.png"
 		}
 	]
 }

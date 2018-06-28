@@ -21,6 +21,19 @@
                 "selfExplode":{"power":6},
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
+            "NormalZombie":{"hp":5, "power":1},
+            "ThiefZombie":{"hp":5, "power":1, "steal":{"percent":50, "num":10}},
+            "HoundZombie":{"hp":5, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "VampireZombie":{"hp":5, "power":1, "suckBlood":{"percent":50, "num":2}},
+            "DancerZombie":{"hp":5, "power":1, "summons":["NormalZombie", "NormalZombie"]},
+            "GluttonyZombie":{"hp":5, "power":1},
+            "SniperZombie":{"hp":5, "power":1, "stealOnPlayerLeave":6},
+            "BombZombie":{"hp":5, "power":1, "selfExplode":{"cnt":5, "mult":3}},
+            "EyeDemonZombie":{"hp":5, "power":1},
+            "RandomEggZombie":{"hp":5, "power":1, "dropItems":["RandomEgg1"]},
+            "LustZombie":{"hp":5, "power":1},
+            "IronZombie":{"hp":5, "power":1, "sheild":20},
+
             "HpPotion":{},
             "HpCapsule":{"cnt":5, "heal":1},
             "Coins":{"cnt":5},
@@ -29,13 +42,11 @@
             "MedicineBox": {}
         },
         "constElems":{
-            "Key": 1
+            "Key": 1, "HpPotion":1
         },
         "randomGroups":[{
-            "num":[4, 7], "elems": {
-                "Bunny": 5,
-                "TreasureBox1": 2,
-                "TreasureBox2": 2
+            "num":[5, 7], "elems": {
+                "DancerZombie": 10
         }}, {
             "num":[5, 6], "elems": {
                 "HpPotion": 10,
@@ -46,7 +57,7 @@
                 "MedicineBox": 10
         }}],
 
-        "nextLevel": "testLevel2"
+        "nextLevel": "testLevel1"
     },
 
     "testLevel2": {

@@ -13,6 +13,19 @@
 
     "DeathGod":{"name":"死神", "hp":10, "power":3},
     "Bunny":{"name":"兔子", "sheild":3},
+    "NormalZombie":{"name":"普通僵尸"},
+    "ThiefZombie":{"name":"窃贼僵尸"},
+    "HoundZombie":{"name":"猎犬僵尸"},
+    "VampireZombie":{"name":"吸血鬼僵尸"},
+    "DancerZombie":{"name":"舞王僵尸"},
+    "GluttonyZombie":{"name":"暴食僵尸"},
+    "SniperZombie":{"name":"狙击者僵尸"},
+    "BombZombie":{"name":"炸弹僵尸"},
+    "EyeDemonZombie":{"name":"眼魔僵尸"},
+    "RandomEggZombie":{"name":"彩蛋僵尸"},
+    "LustZombie":{"name":"色欲僵尸"},
+    "IronZombie":{"name":"钢铁侠僵尸"},
+
 
     "HpPotion":{"name":"血瓶", "dhp":10, "canOverlap":true},
     "Hole":{"name":"黑洞", "barrier":true},
