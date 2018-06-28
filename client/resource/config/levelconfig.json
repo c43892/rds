@@ -6,27 +6,20 @@
         "map": {},
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
-            "Key":{},
             "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
             "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
             "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
             "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
-            "Hole":{},
-            "Apple":{},
-            "Steak":{},
-            "Magazine":{},
             "IceGun":{"cnt":2},
             "Bunny":{
-                "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
+                "hp":5, "Shield":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
-            "HpPotion":{},
             "HpCapsule":{"cnt":5, "heal":1},
             "Coins":{"cnt":5},
             "Gun":{"cnt":2, "power":3},
-            "RayGun":{"cnt":2, "power":3},
-            "MedicineBox": {}
+            "RayGun":{"cnt":2, "power":3}
         },
         "constElems":{
             "Key": 1

@@ -156,4 +156,15 @@ class ElemFactory {
     static foodLogic(cnt:number, dhp:number, fixImgRes = false) {
         return ElemFactory.elemCanUseManyTimes(cnt, async (e:Elem) => await e.bt().implAddPlayerHp(dhp), fixImgRes);
     }
+
+    // 被动触发
+    static triggerColdownLogic(onlyOnce:boolean) {
+        return (e:Elem) => {
+            e.cd = e.attrs.cd;
+            e.canTrigger = () => e.cd <= 0;
+            e.resetTrigger = () => { e.cd = e.attrs.cd; return !onlyOnce; }
+            e["onPlayerActed"] = async () => e.cd--;
+            return e;
+        };
+    }
 }

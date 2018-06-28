@@ -10,6 +10,7 @@ class Elem {
     public map():Map { return this.bt().level.map; }
     public type: string; // 元素类型
     public cnt:number; // 叠加数量
+    public cd:number; // 剩余冷却回合数
     public pos = {x: 0, y: 0}; // 元素当前坐标位置
     public hazard:boolean;
     public barrier:boolean;
@@ -42,6 +43,8 @@ class Elem {
     };
     public isValid = () => { return this.bt().level.map.isGenerallyValid(this.pos.x, this.pos.y); } // 是否被周围怪物影响导致失效
     public canBeMoved = false; // 可以被玩家移动
+    public canTrigger = () => false;
+    public resetTrigger; // 返回值表示是否继续保留
     
     // 以下关于 use 相关的逻辑，都不考虑未揭开情况，因为 Elem 并不包含揭开这个逻辑，
     // 也不考虑被其它元素的影响的情况，这种影响属于地图整体逻辑的一部分

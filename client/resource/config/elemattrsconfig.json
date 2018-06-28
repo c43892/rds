@@ -9,10 +9,10 @@
     "HpCapsule":{"name":"医疗药剂"},
     "DePoison":{"name":"解毒药剂"},
     "Magazine":{"name":"自然杂志", "cnt":3, "dexp":2},
-
+    "Shield":{"name":"盾牌", "cd":3},
 
     "DeathGod":{"name":"死神", "hp":10, "power":3},
-    "Bunny":{"name":"兔子", "sheild":3},
+    "Bunny":{"name":"兔子", "Shield":3},
 
     "HpPotion":{"name":"血瓶", "dhp":10, "canOverlap":true},
     "Hole":{"name":"黑洞", "barrier":true},

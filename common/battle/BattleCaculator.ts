@@ -19,26 +19,19 @@ class BattleCalculator {
         var damageAdd = this.doCalc(attackerAttrs, "damageAdd");
         var addBuffs = attackerAttrs.addBuffs;
 
-        var immuneFlags = targetAttrs.immuneFlags;
-        var sheild = this.doCalc(targetAttrs, "sheild");
+        // var immuneFlags = targetAttrs.immuneFlags;
+        var Shield = this.doCalc(targetAttrs, "Shield");
         var dodge = this.doCalc(targetAttrs, "dodge");
         var damageDec = this.doCalc(targetAttrs, "damageDec");
         var resist = targetAttrs.resist;
+
         // 战斗计算结果
-        var r = {r:"", dhp:0, dsheild:0, addBuffs:[]};
+        var r = {r:"", dhp:0, dShield:0, addBuffs:[]};
 
         // 计算命中(-闪避)
         if (this.srand.next100() >= 100 + accuracy - dodge) {
             r.r = "dodged";
             return r;
-        }
-
-        // 计算免疫
-        for (var af of attackFlags) {
-            if (Utils.contains(immuneFlags, af)) {
-                r.r = "immunized";
-                return r;
-            }
         }
 
         // 计算暴击
@@ -52,9 +45,9 @@ class BattleCalculator {
         if (damage < 0) damage = 0;        
 
         // 没有穿刺，就计算护盾
-        if (!Utils.contains(attackFlags, "Pierce") && sheild > 0)
+        if (!Utils.contains(attackFlags, "Pierce") && Shield > 0)
         {
-            r.dsheild = damage > sheild ? sheild : damage;
+            r.dShield = damage > Shield ? Shield : damage;
             damage = 0;
         }
 
@@ -65,7 +58,6 @@ class BattleCalculator {
         // 根据概率计算 buff 效果
         for (var b of addBuffs) {
             var buffType = b.type;
-            if (Utils.contains(immuneFlags, buffType)) continue; // 免疫也阻止相应的 buff
             if (this.srand.next100() < b.rate)
                 r.addBuffs.push({type:buffType, ps:b.ps});
         }

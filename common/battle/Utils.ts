@@ -228,6 +228,17 @@ class Utils {
         return [...arr.slice(0, n), ...arr.slice(n + 1)];
     }
 
+    // 移除数组中满足条件的元素，结果作为一个新数组返回
+    public static removeWhen(arr, f) {
+        var narr = [];
+        for (var e of arr) {
+            if (f(e))
+                narr.push(e);
+        }
+
+        return narr;
+    }
+
     // 按照名称对应规则进行事件处理的批量映射
     public static registerEventHandlers(eventDispatcher, events:string[], getHandler) {
         for (var e of events) {

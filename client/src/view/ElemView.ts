@@ -11,7 +11,7 @@ class ElemView extends egret.DisplayObjectContainer {
 
     private hp:egret.TextField; // 怪物血量：右下角
     private dropElemImg:egret.Bitmap; // 掉落物品的图：左上角，这里也可能显示怪物的行动回合数
-    private sheild:egret.TextField; // 护盾，右上角
+    private Shield:egret.TextField; // 护盾，右上角
     private power:egret.TextField; // 攻击力，左下角
 
     public constructor() {
@@ -30,9 +30,9 @@ class ElemView extends egret.DisplayObjectContainer {
         this.hp.size = 25;
 
         // 护盾，右上角
-        this.sheild = new egret.TextField();
-        this.sheild.textColor = 0x000000;
-        this.sheild.size = 25;
+        this.Shield = new egret.TextField();
+        this.Shield.textColor = 0x000000;
+        this.Shield.size = 25;
 
         // 攻击力，左下角
         this.power = new egret.TextField();
@@ -117,11 +117,11 @@ class ElemView extends egret.DisplayObjectContainer {
                         }
                         
                         // 护盾，右上角
-                        if (m.sheild > 0) {
-                            this.sheild.text = m.sheild.toString();
-                            this.sheild.x = this.width - this.sheild.width;
-                            this.sheild.y = 0;
-                            this.showLayer.addChild(this.sheild);
+                        if (m.Shield > 0) {
+                            this.Shield.text = m.Shield.toString();
+                            this.Shield.x = this.width - this.Shield.width;
+                            this.Shield.y = 0;
+                            this.showLayer.addChild(this.Shield);
                         }
 
                         // 攻击力，左下角
