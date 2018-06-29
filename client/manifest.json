@@ -32,7 +32,7 @@
 		"bin-debug/battle/buffs/BuffPoison.js",
 		"bin-debug/Platform.js",
 		"bin-debug/battle/elems/ElemFactory.js",
-		"bin-debug/view/WorldMapView.js",
+		"bin-debug/Main.js",
 		"bin-debug/animation/AnimationFactory.js",
 		"bin-debug/battle/Battle.js",
 		"bin-debug/battle/BattleCaculator.js",
@@ -55,6 +55,6 @@
 		"bin-debug/view/SelView.js",
 		"bin-debug/view/ShopView.js",
 		"bin-debug/view/ViewUtils.js",
-		"bin-debug/Main.js"
+		"bin-debug/view/WorldMapView.js"
 	]
 }
