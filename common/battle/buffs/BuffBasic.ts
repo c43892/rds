@@ -5,12 +5,17 @@ class BuffBasic extends Buff {
         super("BuffUncoveringAddExp");
         this.onGridChanged = async (ps) => {
             if (ps.subType != "gridUnconvered") return;
-            await this.doEffect();
+            var bt = this.getOwner().bt();
+            await bt.implAddPlayerExp(1);
+        }
+
+        // 过关 40 死神步数
+        this.beforeGoOutLevel2 = async() => {
+            var bt:Battle = this.getOwner().bt();
+            await bt.implAddPlayerAttr("deathStep", 40);
         }
 
         this.doEffect = async () => {
-            var bt = this.getOwner().bt();
-            await bt.implAddPlayerExp(1);
         };
     }
 }

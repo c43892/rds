@@ -6,16 +6,11 @@
         "map": {},
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
-            "Key":{},
             "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
             "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
             "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
             "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
-            "Hole":{},
-            "Apple":{},
-            "Steak":{},
-            "Magazine":{},
-            "IceGun":{"cnt":2},
+            
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -34,54 +29,25 @@
             "LustZombie":{"hp":5, "power":1},
             "IronZombie":{"hp":5, "power":1, "sheild":20},
 
-            "HpPotion":{},
-            "HpCapsule":{"cnt":5, "heal":1},
-            "Coins":{"cnt":5},
-            "Gun":{"cnt":2, "power":3},
-            "RayGun":{"cnt":2, "power":3},
-            "MedicineBox": {}
+            "Coins":{"cnt":5}
         },
         "constElems":{
             "Key": 1,
             "Shield":10
         },
         "randomGroups":[{
-            "num":[1, 2], "elems": {
-                "NormalZombie": 10
-        }}, {
-            "num":[1, 2], "elems": {
-                "ThiefZombie": 10
-        }}, {
-            "num":[1, 2], "elems": {
-                "HoundZombie": 10
-        }}, {
-            "num":[1, 2], "elems": {
-                "VampireZombie": 10
-        }}, {
-            "num":[1, 2], "elems": {
-                "DancerZombie": 10
-        }}, {
-            "num":[1, 2], "elems": {
-                "GluttonyZombie": 10
-        }}, {
-            "num":[1, 2], "elems": {
-                "SniperZombie": 10
-        }}, {
-            "num":[1, 2], "elems": {
-                "BombZombie": 10
-        }}, {
-            "num":[1, 2], "elems": {
-                "EyeDemonZombie": 10
-        }}, {
-            "num":[1, 2], "elems": {
-                "RandomEggZombie": 10
-        }}, {
-            "num":[1, 2], "elems": {
-                "LustZombie": 10
-        }}, {
-            "num":[1, 2], "elems": {
-                "IronZombie": 10
-        }}, {
+            "num":[1, 2], "elems": {"NormalZombie": 10}}, {
+            "num":[1, 2], "elems": {"ThiefZombie": 10}}, {
+            "num":[1, 2], "elems": {"HoundZombie": 10}}, {
+            "num":[1, 2], "elems": {"VampireZombie": 10}}, {
+            "num":[1, 2], "elems": {"DancerZombie": 10}}, {
+            "num":[1, 2], "elems": {"GluttonyZombie": 10}}, {
+            "num":[1, 2], "elems": {"SniperZombie": 10}}, {
+            "num":[1, 2], "elems": {"BombZombie": 10}}, {
+            "num":[1, 2], "elems": {"EyeDemonZombie": 10}}, {
+            "num":[1, 2], "elems": {"RandomEggZombie": 10}}, {
+            "num":[1, 2], "elems": {"LustZombie": 10}}, {
+            "num":[1, 2], "elems": {"IronZombie": 10}}, {
             "num":[5, 6], "elems": {
                 "HpPotion": 10,
                 "HpCapsule": 10,
