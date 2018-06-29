@@ -90,7 +90,8 @@ class Main extends egret.DisplayObjectContainer {
         await platform.login();
         const userInfo = await platform.getUserInfo();
 
-        this.mv.startTestBattle();
+        // this.mv.startTestBattle();
+        this.mv.openWorldMap();
     }
 
     private async loadResource() {

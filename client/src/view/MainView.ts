@@ -20,6 +20,13 @@ class MainView extends egret.DisplayObjectContainer {
         this.bv.y = 0;
         this.bv.openShop = () => this.openShop();
 
+        // 世界地图
+        this.wmv = new WorldMapView(w, h);
+        this.wmv.anchorOffsetX = 0;
+        this.wmv.anchorOffsetY = 0;
+        this.wmv.x = 0;
+        this.wmv.y = 0;
+
         // 录像机如何启动新的录像战斗
         BattleRecorder.startNewBattleImpl = (p:Player, trueRandomSeed:number) => {
             this.startNewBattle(Battle.createNewBattle(p, trueRandomSeed));
@@ -77,5 +84,10 @@ class MainView extends egret.DisplayObjectContainer {
     // 开启商店界面
     public openShop() {
 
+    }
+
+    // 开启世界地图
+    public openWorldMap() {
+        this.addChild(this.wmv);
     }
 }
