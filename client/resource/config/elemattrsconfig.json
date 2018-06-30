@@ -41,7 +41,7 @@
         "addBuffs":[{"type":"Flame", "rate":100, "ps":[3, 1]}],
         "cnt":2, "power":3
     },
-    "IceGun":{"name":"冰冻射线", "canOverlap":true, "useWithTarget":true, 
+    "IceGun":{"name":"冰冻射线", "canOverlap":true, "useWithTarget":true, "cnt":2,
         "validTarget":"markedMonster|uncoveredMonster|uncoverable", 
         "attackFlags":["Ice", "Gun"],
         "cnt":2
