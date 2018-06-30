@@ -87,7 +87,8 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 开启世界地图
-    public openWorldMap() {
+    public openWorldMap(worldmap:WorldMap) {
+        this.wmv.setWorldMap(worldmap);
         this.addChild(this.wmv);
     }
 }

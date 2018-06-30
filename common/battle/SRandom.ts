@@ -26,8 +26,8 @@ class SRandom {
         return this.nextInt(0, 100);
     }
 
-    public nextDouble():number {
-        return this.next(0, 1);
+    public nextDouble(min = 0, max = 1):number {
+        return this.next(min, max);
     }
 
     public pick(collection:any[]):any {
