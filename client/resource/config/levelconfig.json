@@ -6,33 +6,21 @@
         "map": {},
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
-            "Key":{},
             "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
             "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
             "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
             "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
-            "Hole":{},
-            "Apple":{},
-            "Steak":{},
-            "Magazine":{},
-            "IceGun":{"cnt":2},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
-            "NormalZombie":{"hp":5, "power":1},
-            "ThiefZombie":{"hp":5, "power":1, "steal":{"percent":50, "num":10}},
-            "HoundZombie":{"hp":5, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
-            "VampireZombie":{"hp":5, "power":1, "suckBlood":{"percent":50, "num":2}},
-            "DancerZombie":{"hp":5, "power":1, "summons":["NormalZombie", "NormalZombie"]},
-            "GluttonyZombie":{"hp":5, "power":1},
-            "SniperZombie":{"hp":5, "power":1, "stealOnPlayerLeave":6},
-            "BombZombie":{"hp":5, "power":1, "selfExplode":{"cnt":5, "mult":3}},
-            "EyeDemonZombie":{"hp":5, "power":1},
-            "RandomEggZombie":{"hp":5, "power":1, "dropItems":["RandomEgg1"]},
-            "LustZombie":{"hp":5, "power":1},
-            "IronZombie":{"hp":5, "power":1, "sheild":20},
+            "NormalZombie":{"hp":3, "power":1},
+            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "DancerZombie":{"hp":3, "power":1, "summons":["NormalZombie", "NormalZombie"]},
+            "EyeDemonZombie":{"hp":3, "power":1},
+            "RandomEggZombie":{"hp":3, "power":1, "dropItems":["RandomEgg1"]},
+
 
             "HpPotion":{},
             "HpCapsule":{"cnt":5, "heal":1},
@@ -42,63 +30,1046 @@
             "MedicineBox": {}
         },
         "constElems":{
-            "Key": 1,
-            "Shield":10
+            "Key": 1
         },
         "randomGroups":[{
-            "num":[1, 2], "elems": {
-                "NormalZombie": 10
-        }}, {
-            "num":[1, 2], "elems": {
-                "ThiefZombie": 10
-        }}, {
-            "num":[1, 2], "elems": {
-                "HoundZombie": 10
-        }}, {
-            "num":[1, 2], "elems": {
-                "VampireZombie": 10
-        }}, {
-            "num":[1, 2], "elems": {
-                "DancerZombie": 10
-        }}, {
-            "num":[1, 2], "elems": {
-                "GluttonyZombie": 10
-        }}, {
-            "num":[1, 2], "elems": {
-                "SniperZombie": 10
-        }}, {
-            "num":[1, 2], "elems": {
-                "BombZombie": 10
-        }}, {
-            "num":[1, 2], "elems": {
-                "EyeDemonZombie": 10
-        }}, {
-            "num":[1, 2], "elems": {
-                "RandomEggZombie": 10
-        }}, {
-            "num":[1, 2], "elems": {
-                "LustZombie": 10
-        }}, {
-            "num":[1, 2], "elems": {
-                "IronZombie": 10
-        }}, {
-            "num":[5, 6], "elems": {
-                "HpPotion": 10,
-                "HpCapsule": 10,
-                "Coins": 10,
+            "num":[4, 6], "elems": {
                 "Gun": 10,
                 "RayGun": 10,
-                "MedicineBox": 10
-        }}],
+                "Clock": 10,
+                "Coins": 10,
+                "MedicineBox": 1,
+                "Shield":10,
+                "Magazine":5
+        }},{
+            "num":[1, 3], "elems": {
+                "Apple": 20,
+                "Steak": 10,
+                "HpCapsule": 5,
+                "HpPotion": 5
+        }},{
+            "num":[1, 3], "elems": {
+                "TreasureBox1": 10,
+                "TreasureBox2": 10
+        }},{
+            "num":[2, 4], "elems": {
+                "Key": 10
+        }},{
+            "num":[8, 9], "elems":{
+                "NormalZombie": 10,
+                "HoundZombie": 10,
+                "DancerZombie": 10,
+                "EyeDemonZombie": 10,
+                "RandomEggZombie": 10
+            }}],
 
-        "nextLevel": "testLevel1"
+        "nextLevel": "testLevel2"
     },
 
     "testLevel2": {
         "displayName": "测试关卡2",
-        "map": { },
+        "map": {},
         "init_uncovered": {"w": 3, "h": 3},
-        "elems": {},
+        "elems":{
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "Bunny":{
+                "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
+                "selfExplode":{"power":6},
+                "dropItems":["RandomEgg1", "RandomEgg2"]
+            },
+            "NormalZombie":{"hp":3, "power":1},
+            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "DancerZombie":{"hp":3, "power":1, "summons":["NormalZombie", "NormalZombie"]},
+            "EyeDemonZombie":{"hp":3, "power":1},
+            "RandomEggZombie":{"hp":3, "power":1, "dropItems":["RandomEgg1"]},
+
+
+            "HpPotion":{},
+            "HpCapsule":{"cnt":5, "heal":1},
+            "Coins":{"cnt":5},
+            "Gun":{"cnt":2, "power":3},
+            "RayGun":{"cnt":2, "power":3},
+            "MedicineBox": {}
+        },
+        "constElems":{
+            "Key": 1
+        },
+        "randomGroups":[{
+            "num":[4, 6], "elems": {
+                "Gun": 10,
+                "RayGun": 10,
+                "Clock": 10,
+                "Coins": 10,
+                "MedicineBox": 1,
+                "Shield":10,
+                "Magazine":5
+        }},{
+            "num":[1, 3], "elems": {
+                "Apple": 20,
+                "Steak": 10,
+                "HpCapsule": 5,
+                "HpPotion": 5
+        }},{
+            "num":[1, 3], "elems": {
+                "TreasureBox1": 10,
+                "TreasureBox2": 10
+        }},{
+            "num":[2, 4], "elems": {
+                "Key": 10
+        }},{
+            "num":[8, 9], "elems":{
+                "NormalZombie": 10,
+                "HoundZombie": 10,
+                "DancerZombie": 10,
+                "EyeDemonZombie": 10,
+                "RandomEggZombie": 10
+            }}],
+
+        "nextLevel": "testLevel3"
+    },
+
+    "testLevel3": {
+        "displayName": "测试关卡3",
+        "map": {},
+        "init_uncovered": {"w": 3, "h": 3},
+        "elems":{
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "Bunny":{
+                "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
+                "selfExplode":{"power":6},
+                "dropItems":["RandomEgg1", "RandomEgg2"]
+            },
+            "NormalZombie":{"hp":3, "power":1},
+            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "DancerZombie":{"hp":3, "power":1, "summons":["NormalZombie", "NormalZombie"]},
+            "EyeDemonZombie":{"hp":3, "power":1},
+            "RandomEggZombie":{"hp":3, "power":1, "dropItems":["RandomEgg1"]},
+
+
+            "HpPotion":{},
+            "HpCapsule":{"cnt":5, "heal":1},
+            "Coins":{"cnt":5},
+            "Gun":{"cnt":2, "power":3},
+            "RayGun":{"cnt":2, "power":3},
+            "MedicineBox": {}
+        },
+        "constElems":{
+            "Key": 1
+        },
+        "randomGroups":[{
+            "num":[4, 6], "elems": {
+                "Gun": 10,
+                "RayGun": 10,
+                "Clock": 10,
+                "Coins": 10,
+                "MedicineBox": 1,
+                "Shield":10,
+                "Magazine":5
+        }},{
+            "num":[1, 3], "elems": {
+                "Apple": 20,
+                "Steak": 10,
+                "HpCapsule": 5,
+                "HpPotion": 5
+        }},{
+            "num":[1, 3], "elems": {
+                "TreasureBox1": 10,
+                "TreasureBox2": 10
+        }},{
+            "num":[2, 4], "elems": {
+                "Key": 10
+        }},{
+            "num":[8, 9], "elems":{
+                "NormalZombie": 10,
+                "HoundZombie": 10,
+                "DancerZombie": 10,
+                "EyeDemonZombie": 10,
+                "RandomEggZombie": 10
+            }}],
+
+        "nextLevel": "testLevel4"
+    },
+
+    "testLevel4": {
+        "displayName": "测试关卡4",
+        "map": {},
+        "init_uncovered": {"w": 3, "h": 3},
+        "elems":{
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "Bunny":{
+                "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
+                "selfExplode":{"power":6},
+                "dropItems":["RandomEgg1", "RandomEgg2"]
+            },
+            "NormalZombie":{"hp":3, "power":1},
+            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "DancerZombie":{"hp":3, "power":1, "summons":["NormalZombie", "NormalZombie"]},
+            "EyeDemonZombie":{"hp":3, "power":1},
+            "RandomEggZombie":{"hp":3, "power":1, "dropItems":["RandomEgg1"]},
+
+
+            "HpPotion":{},
+            "HpCapsule":{"cnt":5, "heal":1},
+            "Coins":{"cnt":5},
+            "Gun":{"cnt":2, "power":3},
+            "RayGun":{"cnt":2, "power":3},
+            "MedicineBox": {}
+        },
+        "constElems":{
+            "Key": 1
+        },
+        "randomGroups":[{
+            "num":[4, 6], "elems": {
+                "Gun": 10,
+                "RayGun": 10,
+                "Clock": 10,
+                "Coins": 10,
+                "MedicineBox": 1,
+                "Shield":10,
+                "Magazine":5
+        }},{
+            "num":[1, 3], "elems": {
+                "Apple": 20,
+                "Steak": 10,
+                "HpCapsule": 5,
+                "HpPotion": 5
+        }},{
+            "num":[1, 3], "elems": {
+                "TreasureBox1": 10,
+                "TreasureBox2": 10
+        }},{
+            "num":[2, 4], "elems": {
+                "Key": 10
+        }},{
+            "num":[8, 9], "elems":{
+                "NormalZombie": 10,
+                "HoundZombie": 10,
+                "DancerZombie": 10,
+                "EyeDemonZombie": 10,
+                "RandomEggZombie": 10
+            }}],
+
+        "nextLevel": "testLevel5"
+    },
+
+    "testLevel5": {
+        "displayName": "测试关卡5",
+        "map": {},
+        "init_uncovered": {"w": 3, "h": 3},
+        "elems":{
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "Bunny":{
+                "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
+                "selfExplode":{"power":6},
+                "dropItems":["RandomEgg1", "RandomEgg2"]
+            },
+            "NormalZombie":{"hp":3, "power":1},
+            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "DancerZombie":{"hp":3, "power":1, "summons":["NormalZombie", "NormalZombie"]},
+            "EyeDemonZombie":{"hp":3, "power":1},
+            "RandomEggZombie":{"hp":3, "power":1, "dropItems":["RandomEgg1"]},
+
+
+            "HpPotion":{},
+            "HpCapsule":{"cnt":5, "heal":1},
+            "Coins":{"cnt":5},
+            "Gun":{"cnt":2, "power":3},
+            "RayGun":{"cnt":2, "power":3},
+            "MedicineBox": {}
+        },
+        "constElems":{
+            "Key": 1
+        },
+        "randomGroups":[{
+            "num":[4, 6], "elems": {
+                "Gun": 10,
+                "RayGun": 10,
+                "Clock": 10,
+                "Coins": 10,
+                "MedicineBox": 1,
+                "Shield":10,
+                "Magazine":5
+        }},{
+            "num":[1, 3], "elems": {
+                "Apple": 20,
+                "Steak": 10,
+                "HpCapsule": 5,
+                "HpPotion": 5
+        }},{
+            "num":[1, 3], "elems": {
+                "TreasureBox1": 10,
+                "TreasureBox2": 10
+        }},{
+            "num":[2, 4], "elems": {
+                "Key": 10
+        }},{
+            "num":[8, 9], "elems":{
+                "NormalZombie": 10,
+                "HoundZombie": 10,
+                "DancerZombie": 10,
+                "EyeDemonZombie": 10,
+                "RandomEggZombie": 10
+            }}],
+
+        "nextLevel": "testLevel6"
+    },
+
+    "testLevel6": {
+        "displayName": "测试关卡6",
+        "map": {},
+        "init_uncovered": {"w": 3, "h": 3},
+        "elems":{
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "Bunny":{
+                "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
+                "selfExplode":{"power":6},
+                "dropItems":["RandomEgg1", "RandomEgg2"]
+            },
+            "NormalZombie":{"hp":3, "power":1},
+            "ThiefZombie":{"hp":3, "power":1, "steal":{"percent":50, "num":10}},
+            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "DancerZombie":{"hp":3, "power":1, "summons":["NormalZombie", "NormalZombie"]},
+            "SniperZombie":{"hp":3, "power":1, "stealOnPlayerLeave":6},
+            "EyeDemonZombie":{"hp":3, "power":1},
+            "RandomEggZombie":{"hp":3, "power":1, "dropItems":["RandomEgg1"]},
+            "IronZombie":{"hp":5, "power":1, "sheild":8},
+
+
+            "HpPotion":{},
+            "HpCapsule":{"cnt":5, "heal":1},
+            "Coins":{"cnt":5},
+            "Gun":{"cnt":2, "power":3},
+            "RayGun":{"cnt":2, "power":3},
+            "MedicineBox": {}
+        },
+        "constElems":{
+            "Key": 1
+        },
+        "randomGroups":[{
+            "num":[4, 6], "elems": {
+                "Gun": 10,
+                "RayGun": 10,
+                "Clock": 10,
+                "Coins": 10,
+                "MedicineBox": 1,
+                "Shield":10,
+                "Magazine":5
+        }},{
+            "num":[1, 3], "elems": {
+                "Apple": 20,
+                "Steak": 10,
+                "HpCapsule": 5,
+                "HpPotion": 5
+        }},{
+            "num":[1, 3], "elems": {
+                "TreasureBox1": 10,
+                "TreasureBox2": 10
+        }},{
+            "num":[2, 4], "elems": {
+                "Key": 10
+        }},{
+            "num":[9, 10], "elems":{
+                "NormalZombie": 10,
+                "ThiefZombie": 10,
+                "HoundZombie": 10,
+                "DancerZombie": 10,
+                "SniperZombie": 10,
+                "EyeDemonZombie": 10,
+                "RandomEggZombie": 10
+            }},{
+            "num":[1, 2], "elems":{
+                "IronZombie": 10
+            }}],
+
+        "nextLevel": "testLevel7"
+    },
+
+    "testLevel7": {
+        "displayName": "测试关卡7",
+        "map": {},
+        "init_uncovered": {"w": 3, "h": 3},
+        "elems":{
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "Bunny":{
+                "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
+                "selfExplode":{"power":6},
+                "dropItems":["RandomEgg1", "RandomEgg2"]
+            },
+            "NormalZombie":{"hp":3, "power":1},
+            "ThiefZombie":{"hp":3, "power":1, "steal":{"percent":50, "num":10}},
+            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "DancerZombie":{"hp":3, "power":1, "summons":["NormalZombie", "NormalZombie"]},
+            "SniperZombie":{"hp":3, "power":1, "stealOnPlayerLeave":6},
+            "EyeDemonZombie":{"hp":3, "power":1},
+            "RandomEggZombie":{"hp":3, "power":1, "dropItems":["RandomEgg1"]},
+            "IronZombie":{"hp":5, "power":1, "sheild":8},
+
+
+            "HpPotion":{},
+            "HpCapsule":{"cnt":5, "heal":1},
+            "Coins":{"cnt":5},
+            "Gun":{"cnt":2, "power":3},
+            "RayGun":{"cnt":2, "power":3},
+            "MedicineBox": {}
+        },
+        "constElems":{
+            "Key": 1
+        },
+        "randomGroups":[{
+            "num":[4, 6], "elems": {
+                "Gun": 10,
+                "RayGun": 10,
+                "Clock": 10,
+                "Coins": 10,
+                "MedicineBox": 1,
+                "Shield":10,
+                "Magazine":5
+        }},{
+            "num":[1, 3], "elems": {
+                "Apple": 20,
+                "Steak": 10,
+                "HpCapsule": 5,
+                "HpPotion": 5
+        }},{
+            "num":[1, 3], "elems": {
+                "TreasureBox1": 10,
+                "TreasureBox2": 10
+        }},{
+            "num":[2, 4], "elems": {
+                "Key": 10
+        }},{
+            "num":[10, 11], "elems":{
+                "NormalZombie": 10,
+                "ThiefZombie": 10,
+                "HoundZombie": 10,
+                "DancerZombie": 10,
+                "SniperZombie": 10,
+                "EyeDemonZombie": 10,
+                "RandomEggZombie": 10
+            }}],
+
+        "nextLevel": "testLevel8"
+    },
+
+    "testLevel8": {
+        "displayName": "测试关卡8",
+        "map": {},
+        "init_uncovered": {"w": 3, "h": 3},
+        "elems":{
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "Bunny":{
+                "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
+                "selfExplode":{"power":6},
+                "dropItems":["RandomEgg1", "RandomEgg2"]
+            },
+            "NormalZombie":{"hp":3, "power":1},
+            "ThiefZombie":{"hp":3, "power":1, "steal":{"percent":50, "num":10}},
+            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "DancerZombie":{"hp":3, "power":1, "summons":["NormalZombie", "NormalZombie"]},
+            "SniperZombie":{"hp":3, "power":1, "stealOnPlayerLeave":6},
+            "EyeDemonZombie":{"hp":3, "power":1},
+            "RandomEggZombie":{"hp":3, "power":1, "dropItems":["RandomEgg1"]},
+            "IronZombie":{"hp":5, "power":1, "sheild":8},
+
+
+            "HpPotion":{},
+            "HpCapsule":{"cnt":5, "heal":1},
+            "Coins":{"cnt":5},
+            "Gun":{"cnt":2, "power":3},
+            "RayGun":{"cnt":2, "power":3},
+            "MedicineBox": {}
+        },
+        "constElems":{
+            "Key": 1
+        },
+        "randomGroups":[{
+            "num":[4, 6], "elems": {
+                "Gun": 10,
+                "RayGun": 10,
+                "Clock": 10,
+                "Coins": 10,
+                "MedicineBox": 1,
+                "Shield":10,
+                "Magazine":5
+        }},{
+            "num":[1, 3], "elems": {
+                "Apple": 20,
+                "Steak": 10,
+                "HpCapsule": 5,
+                "HpPotion": 5
+        }},{
+            "num":[1, 3], "elems": {
+                "TreasureBox1": 10,
+                "TreasureBox2": 10
+        }},{
+            "num":[2, 4], "elems": {
+                "Key": 10
+        }},{
+            "num":[10, 11], "elems":{
+                "NormalZombie": 10,
+                "ThiefZombie": 10,
+                "HoundZombie": 10,
+                "DancerZombie": 10,
+                "SniperZombie": 10,
+                "EyeDemonZombie": 10,
+                "RandomEggZombie": 10
+            }}],
+
+        "nextLevel": "testLevel9"
+    },
+
+    "testLevel9": {
+        "displayName": "测试关卡9",
+        "map": {},
+        "init_uncovered": {"w": 3, "h": 3},
+        "elems":{
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "Bunny":{
+                "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
+                "selfExplode":{"power":6},
+                "dropItems":["RandomEgg1", "RandomEgg2"]
+            },
+            "NormalZombie":{"hp":3, "power":1},
+            "ThiefZombie":{"hp":3, "power":1, "steal":{"percent":50, "num":10}},
+            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "DancerZombie":{"hp":3, "power":1, "summons":["NormalZombie", "NormalZombie"]},
+            "SniperZombie":{"hp":3, "power":1, "stealOnPlayerLeave":6},
+            "EyeDemonZombie":{"hp":3, "power":1},
+            "RandomEggZombie":{"hp":3, "power":1, "dropItems":["RandomEgg1"]},
+            "IronZombie":{"hp":5, "power":1, "sheild":8},
+
+
+            "HpPotion":{},
+            "HpCapsule":{"cnt":5, "heal":1},
+            "Coins":{"cnt":5},
+            "Gun":{"cnt":2, "power":3},
+            "RayGun":{"cnt":2, "power":3},
+            "MedicineBox": {}
+        },
+        "constElems":{
+            "Key": 1
+        },
+        "randomGroups":[{
+            "num":[4, 6], "elems": {
+                "Gun": 10,
+                "RayGun": 10,
+                "Clock": 10,
+                "Coins": 10,
+                "MedicineBox": 1,
+                "Shield":10,
+                "Magazine":5
+        }},{
+            "num":[1, 3], "elems": {
+                "Apple": 20,
+                "Steak": 10,
+                "HpCapsule": 5,
+                "HpPotion": 5
+        }},{
+            "num":[1, 3], "elems": {
+                "TreasureBox1": 10,
+                "TreasureBox2": 10
+        }},{
+            "num":[2, 4], "elems": {
+                "Key": 10
+        }},{
+            "num":[10, 11], "elems":{
+                "NormalZombie": 10,
+                "ThiefZombie": 10,
+                "HoundZombie": 10,
+                "DancerZombie": 10,
+                "SniperZombie": 10,
+                "EyeDemonZombie": 10,
+                "RandomEggZombie": 10
+            }}],
+
+        "nextLevel": "testLevel10"
+    },
+
+    "testLevel10": {
+        "displayName": "测试关卡10",
+        "map": {},
+        "init_uncovered": {"w": 3, "h": 3},
+        "elems":{
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "Bunny":{
+                "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
+                "selfExplode":{"power":6},
+                "dropItems":["RandomEgg1", "RandomEgg2"]
+            },
+            "NormalZombie":{"hp":3, "power":1},
+            "ThiefZombie":{"hp":3, "power":1, "steal":{"percent":50, "num":10}},
+            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "DancerZombie":{"hp":3, "power":1, "summons":["NormalZombie", "NormalZombie"]},
+            "SniperZombie":{"hp":3, "power":1, "stealOnPlayerLeave":6},
+            "EyeDemonZombie":{"hp":3, "power":1},
+            "RandomEggZombie":{"hp":3, "power":1, "dropItems":["RandomEgg1"]},
+            "IronZombie":{"hp":5, "power":1, "sheild":8},
+
+
+            "HpPotion":{},
+            "HpCapsule":{"cnt":5, "heal":1},
+            "Coins":{"cnt":5},
+            "Gun":{"cnt":2, "power":3},
+            "RayGun":{"cnt":2, "power":3},
+            "MedicineBox": {}
+        },
+        "constElems":{
+            "Key": 1
+        },
+        "randomGroups":[{
+            "num":[4, 6], "elems": {
+                "Gun": 10,
+                "RayGun": 10,
+                "Clock": 10,
+                "Coins": 10,
+                "MedicineBox": 1,
+                "Shield":10,
+                "Magazine":5
+        }},{
+            "num":[1, 3], "elems": {
+                "Apple": 20,
+                "Steak": 10,
+                "HpCapsule": 5,
+                "HpPotion": 5
+        }},{
+            "num":[1, 3], "elems": {
+                "TreasureBox1": 10,
+                "TreasureBox2": 10
+        }},{
+            "num":[2, 4], "elems": {
+                "Key": 10
+        }},{
+            "num":[10, 11], "elems":{
+                "NormalZombie": 10,
+                "ThiefZombie": 10,
+                "HoundZombie": 10,
+                "DancerZombie": 10,
+                "SniperZombie": 10,
+                "EyeDemonZombie": 10,
+                "RandomEggZombie": 10
+            }}],
+
+        "nextLevel": "testLevel11"
+    },
+
+    "testLevel11": {
+        "displayName": "测试关卡11",
+        "map": {},
+        "init_uncovered": {"w": 3, "h": 3},
+        "elems":{
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "Bunny":{
+                "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
+                "selfExplode":{"power":6},
+                "dropItems":["RandomEgg1", "RandomEgg2"]
+            },
+            "NormalZombie":{"hp":3, "power":1},
+            "ThiefZombie":{"hp":3, "power":1, "steal":{"percent":50, "num":10}},
+            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "VampireZombie":{"hp":3, "power":1, "suckBlood":{"percent":50, "num":2}},
+            "DancerZombie":{"hp":3, "power":1, "summons":["NormalZombie", "NormalZombie"]},
+            "GluttonyZombie":{"hp":3, "power":1},
+            "SniperZombie":{"hp":3, "power":1, "stealOnPlayerLeave":6},
+            "BombZombie":{"hp":3, "power":1, "selfExplode":{"cnt":5, "mult":3}},
+            "EyeDemonZombie":{"hp":3, "power":1},
+            "RandomEggZombie":{"hp":3, "power":1, "dropItems":["RandomEgg1"]},
+            "LustZombie":{"hp":3, "power":1},
+            "IronZombie":{"hp":5, "power":1, "sheild":8},
+
+
+            "HpPotion":{},
+            "HpCapsule":{"cnt":5, "heal":1},
+            "Coins":{"cnt":5},
+            "Gun":{"cnt":2, "power":3},
+            "RayGun":{"cnt":2, "power":3},
+            "MedicineBox": {}
+        },
+        "constElems":{
+            "Key": 1
+        },
+        "randomGroups":[{
+            "num":[4, 6], "elems": {
+                "Gun": 10,
+                "RayGun": 10,
+                "Clock": 10,
+                "Coins": 10,
+                "MedicineBox": 1,
+                "Shield":10,
+                "Magazine":5
+        }},{
+            "num":[1, 3], "elems": {
+                "Apple": 20,
+                "Steak": 10,
+                "HpCapsule": 5,
+                "HpPotion": 5
+        }},{
+            "num":[1, 3], "elems": {
+                "TreasureBox1": 10,
+                "TreasureBox2": 10
+        }},{
+            "num":[2, 4], "elems": {
+                "Key": 10
+        }},{
+            "num":[11, 12], "elems":{
+                "NormalZombie": 10,
+                "ThiefZombie": 10,
+                "HoundZombie": 10,
+                "VampireZombie": 10,
+                "DancerZombie": 10,
+                "GluttonyZombie": 10,
+                "SniperZombie": 10,
+                "BombZombie": 10,
+                "EyeDemonZombie": 10,
+                "RandomEggZombie": 10,
+                "LustZombie": 10
+            }},{
+            "num":[1, 2], "elems":{
+                "IronZombie": 10
+            }}],
+
+        "nextLevel": "testLevel12"
+    },
+
+    "testLevel12": {
+        "displayName": "测试关卡12",
+        "map": {},
+        "init_uncovered": {"w": 3, "h": 3},
+        "elems":{
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "Bunny":{
+                "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
+                "selfExplode":{"power":6},
+                "dropItems":["RandomEgg1", "RandomEgg2"]
+            },
+            "NormalZombie":{"hp":3, "power":1},
+            "ThiefZombie":{"hp":3, "power":1, "steal":{"percent":50, "num":10}},
+            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "VampireZombie":{"hp":3, "power":1, "suckBlood":{"percent":50, "num":2}},
+            "DancerZombie":{"hp":3, "power":1, "summons":["NormalZombie", "NormalZombie"]},
+            "GluttonyZombie":{"hp":3, "power":1},
+            "SniperZombie":{"hp":3, "power":1, "stealOnPlayerLeave":6},
+            "BombZombie":{"hp":3, "power":1, "selfExplode":{"cnt":5, "mult":3}},
+            "EyeDemonZombie":{"hp":3, "power":1},
+            "RandomEggZombie":{"hp":3, "power":1, "dropItems":["RandomEgg1"]},
+            "LustZombie":{"hp":3, "power":1},
+            "IronZombie":{"hp":5, "power":1, "sheild":8},
+
+
+            "HpPotion":{},
+            "HpCapsule":{"cnt":5, "heal":1},
+            "Coins":{"cnt":5},
+            "Gun":{"cnt":2, "power":3},
+            "RayGun":{"cnt":2, "power":3},
+            "MedicineBox": {}
+        },
+        "constElems":{
+            "Key": 1
+        },
+        "randomGroups":[{
+            "num":[4, 6], "elems": {
+                "Gun": 10,
+                "RayGun": 10,
+                "Clock": 10,
+                "Coins": 10,
+                "MedicineBox": 1,
+                "Shield":10,
+                "Magazine":5
+        }},{
+            "num":[1, 3], "elems": {
+                "Apple": 20,
+                "Steak": 10,
+                "HpCapsule": 5,
+                "HpPotion": 5
+        }},{
+            "num":[1, 3], "elems": {
+                "TreasureBox1": 10,
+                "TreasureBox2": 10
+        }},{
+            "num":[2, 4], "elems": {
+                "Key": 10
+        }},{
+            "num":[12, 13], "elems":{
+                "NormalZombie": 10,
+                "ThiefZombie": 10,
+                "HoundZombie": 10,
+                "VampireZombie": 10,
+                "DancerZombie": 10,
+                "GluttonyZombie": 10,
+                "SniperZombie": 10,
+                "BombZombie": 10,
+                "EyeDemonZombie": 10,
+                "RandomEggZombie": 10,
+                "LustZombie": 10
+            }}],
+
+        "nextLevel": "testLevel13"
+    },
+
+    "testLevel13": {
+        "displayName": "测试关卡13",
+        "map": {},
+        "init_uncovered": {"w": 3, "h": 3},
+        "elems":{
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "Bunny":{
+                "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
+                "selfExplode":{"power":6},
+                "dropItems":["RandomEgg1", "RandomEgg2"]
+            },
+            "NormalZombie":{"hp":3, "power":1},
+            "ThiefZombie":{"hp":3, "power":1, "steal":{"percent":50, "num":10}},
+            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "VampireZombie":{"hp":3, "power":1, "suckBlood":{"percent":50, "num":2}},
+            "DancerZombie":{"hp":3, "power":1, "summons":["NormalZombie", "NormalZombie"]},
+            "GluttonyZombie":{"hp":3, "power":1},
+            "SniperZombie":{"hp":3, "power":1, "stealOnPlayerLeave":6},
+            "BombZombie":{"hp":3, "power":1, "selfExplode":{"cnt":5, "mult":3}},
+            "EyeDemonZombie":{"hp":3, "power":1},
+            "RandomEggZombie":{"hp":3, "power":1, "dropItems":["RandomEgg1"]},
+            "LustZombie":{"hp":3, "power":1},
+            "IronZombie":{"hp":5, "power":1, "sheild":8},
+
+
+            "HpPotion":{},
+            "HpCapsule":{"cnt":5, "heal":1},
+            "Coins":{"cnt":5},
+            "Gun":{"cnt":2, "power":3},
+            "RayGun":{"cnt":2, "power":3},
+            "MedicineBox": {}
+        },
+        "constElems":{
+            "Key": 1
+        },
+        "randomGroups":[{
+            "num":[4, 6], "elems": {
+                "Gun": 10,
+                "RayGun": 10,
+                "Clock": 10,
+                "Coins": 10,
+                "MedicineBox": 1,
+                "Shield":10,
+                "Magazine":5
+        }},{
+            "num":[1, 3], "elems": {
+                "Apple": 20,
+                "Steak": 10,
+                "HpCapsule": 5,
+                "HpPotion": 5
+        }},{
+            "num":[1, 3], "elems": {
+                "TreasureBox1": 10,
+                "TreasureBox2": 10
+        }},{
+            "num":[2, 4], "elems": {
+                "Key": 10
+        }},{
+            "num":[12, 13], "elems":{
+                "NormalZombie": 10,
+                "ThiefZombie": 10,
+                "HoundZombie": 10,
+                "VampireZombie": 10,
+                "DancerZombie": 10,
+                "GluttonyZombie": 10,
+                "SniperZombie": 10,
+                "BombZombie": 10,
+                "EyeDemonZombie": 10,
+                "RandomEggZombie": 10,
+                "LustZombie": 10
+            }}],
+
+        "nextLevel": "testLevel14"
+    },
+
+    "testLevel14": {
+        "displayName": "测试关卡14",
+        "map": {},
+        "init_uncovered": {"w": 3, "h": 3},
+        "elems":{
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "Bunny":{
+                "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
+                "selfExplode":{"power":6},
+                "dropItems":["RandomEgg1", "RandomEgg2"]
+            },
+            "NormalZombie":{"hp":3, "power":1},
+            "ThiefZombie":{"hp":3, "power":1, "steal":{"percent":50, "num":10}},
+            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "VampireZombie":{"hp":3, "power":1, "suckBlood":{"percent":50, "num":2}},
+            "DancerZombie":{"hp":3, "power":1, "summons":["NormalZombie", "NormalZombie"]},
+            "GluttonyZombie":{"hp":3, "power":1},
+            "SniperZombie":{"hp":3, "power":1, "stealOnPlayerLeave":6},
+            "BombZombie":{"hp":3, "power":1, "selfExplode":{"cnt":5, "mult":3}},
+            "EyeDemonZombie":{"hp":3, "power":1},
+            "RandomEggZombie":{"hp":3, "power":1, "dropItems":["RandomEgg1"]},
+            "LustZombie":{"hp":3, "power":1},
+            "IronZombie":{"hp":5, "power":1, "sheild":8},
+
+
+            "HpPotion":{},
+            "HpCapsule":{"cnt":5, "heal":1},
+            "Coins":{"cnt":5},
+            "Gun":{"cnt":2, "power":3},
+            "RayGun":{"cnt":2, "power":3},
+            "MedicineBox": {}
+        },
+        "constElems":{
+            "Key": 1
+        },
+        "randomGroups":[{
+            "num":[4, 6], "elems": {
+                "Gun": 10,
+                "RayGun": 10,
+                "Clock": 10,
+                "Coins": 10,
+                "MedicineBox": 1,
+                "Shield":10,
+                "Magazine":5
+        }},{
+            "num":[1, 3], "elems": {
+                "Apple": 20,
+                "Steak": 10,
+                "HpCapsule": 5,
+                "HpPotion": 5
+        }},{
+            "num":[1, 3], "elems": {
+                "TreasureBox1": 10,
+                "TreasureBox2": 10
+        }},{
+            "num":[2, 4], "elems": {
+                "Key": 10
+        }},{
+            "num":[12, 13], "elems":{
+                "NormalZombie": 10,
+                "ThiefZombie": 10,
+                "HoundZombie": 10,
+                "VampireZombie": 10,
+                "DancerZombie": 10,
+                "GluttonyZombie": 10,
+                "SniperZombie": 10,
+                "BombZombie": 10,
+                "EyeDemonZombie": 10,
+                "RandomEggZombie": 10,
+                "LustZombie": 10
+            }}],
+
+        "nextLevel": "testLevel15"
+    },
+
+    "testLevel15": {
+        "displayName": "测试关卡15",
+        "map": {},
+        "init_uncovered": {"w": 3, "h": 3},
+        "elems":{
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "Bunny":{
+                "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
+                "selfExplode":{"power":6},
+                "dropItems":["RandomEgg1", "RandomEgg2"]
+            },
+            "NormalZombie":{"hp":3, "power":1},
+            "ThiefZombie":{"hp":3, "power":1, "steal":{"percent":50, "num":10}},
+            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "VampireZombie":{"hp":3, "power":1, "suckBlood":{"percent":50, "num":2}},
+            "DancerZombie":{"hp":3, "power":1, "summons":["NormalZombie", "NormalZombie"]},
+            "GluttonyZombie":{"hp":3, "power":1},
+            "SniperZombie":{"hp":3, "power":1, "stealOnPlayerLeave":6},
+            "BombZombie":{"hp":3, "power":1, "selfExplode":{"cnt":5, "mult":3}},
+            "EyeDemonZombie":{"hp":3, "power":1},
+            "RandomEggZombie":{"hp":3, "power":1, "dropItems":["RandomEgg1"]},
+            "LustZombie":{"hp":3, "power":1},
+            "IronZombie":{"hp":5, "power":1, "sheild":8},
+
+
+            "HpPotion":{},
+            "HpCapsule":{"cnt":5, "heal":1},
+            "Coins":{"cnt":5},
+            "Gun":{"cnt":2, "power":3},
+            "RayGun":{"cnt":2, "power":3},
+            "MedicineBox": {}
+        },
+        "constElems":{
+            "Key": 1
+        },
+        "randomGroups":[{
+            "num":[4, 6], "elems": {
+                "Gun": 10,
+                "RayGun": 10,
+                "Clock": 10,
+                "Coins": 10,
+                "MedicineBox": 1,
+                "Shield":10,
+                "Magazine":5
+        }},{
+            "num":[1, 3], "elems": {
+                "Apple": 20,
+                "Steak": 10,
+                "HpCapsule": 5,
+                "HpPotion": 5
+        }},{
+            "num":[1, 3], "elems": {
+                "TreasureBox1": 10,
+                "TreasureBox2": 10
+        }},{
+            "num":[2, 4], "elems": {
+                "Key": 10
+        }},{
+            "num":[12, 13], "elems":{
+                "NormalZombie": 10,
+                "ThiefZombie": 10,
+                "HoundZombie": 10,
+                "VampireZombie": 10,
+                "DancerZombie": 10,
+                "GluttonyZombie": 10,
+                "SniperZombie": 10,
+                "BombZombie": 10,
+                "EyeDemonZombie": 10,
+                "RandomEggZombie": 10,
+                "LustZombie": 10
+            }}],
+
         "nextLevel": "testLevel1"
     }
+
 }
