@@ -52,10 +52,13 @@
                 "TreasureBox1": 10,
                 "TreasureBox2": 10
         }},{
-            "num":[2, 4], "elems": {
-                "Key": 10
+            "num":[2, 3], "drops":["Key"], "elems": {
+                "NormalZombie": 10,
+                "HoundZombie": 10,
+                "DancerZombie": 10,
+                "EyeDemonZombie": 10
         }},{
-            "num":[8, 9], "elems":{
+            "num":[6, 7], "elems":{
                 "NormalZombie": 10,
                 "HoundZombie": 10,
                 "DancerZombie": 10,
@@ -117,10 +120,13 @@
                 "TreasureBox1": 10,
                 "TreasureBox2": 10
         }},{
-            "num":[2, 4], "elems": {
-                "Key": 10
+            "num":[2, 3], "drops":["Key"], "elems": {
+                "NormalZombie": 10,
+                "HoundZombie": 10,
+                "DancerZombie": 10,
+                "EyeDemonZombie": 10
         }},{
-            "num":[8, 9], "elems":{
+            "num":[6, 7], "elems":{
                 "NormalZombie": 10,
                 "HoundZombie": 10,
                 "DancerZombie": 10,
@@ -182,10 +188,13 @@
                 "TreasureBox1": 10,
                 "TreasureBox2": 10
         }},{
-            "num":[2, 4], "elems": {
-                "Key": 10
+            "num":[2, 3], "drops":["Key"], "elems": {
+                "NormalZombie": 10,
+                "HoundZombie": 10,
+                "DancerZombie": 10,
+                "EyeDemonZombie": 10
         }},{
-            "num":[8, 9], "elems":{
+            "num":[6, 7], "elems":{
                 "NormalZombie": 10,
                 "HoundZombie": 10,
                 "DancerZombie": 10,
@@ -247,10 +256,13 @@
                 "TreasureBox1": 10,
                 "TreasureBox2": 10
         }},{
-            "num":[2, 4], "elems": {
-                "Key": 10
+            "num":[2, 3], "drops":["Key"], "elems": {
+                "NormalZombie": 10,
+                "HoundZombie": 10,
+                "DancerZombie": 10,
+                "EyeDemonZombie": 10
         }},{
-            "num":[8, 9], "elems":{
+            "num":[6, 7], "elems":{
                 "NormalZombie": 10,
                 "HoundZombie": 10,
                 "DancerZombie": 10,
@@ -312,10 +324,13 @@
                 "TreasureBox1": 10,
                 "TreasureBox2": 10
         }},{
-            "num":[2, 4], "elems": {
-                "Key": 10
+            "num":[2, 3], "drops":["Key"], "elems": {
+                "NormalZombie": 10,
+                "HoundZombie": 10,
+                "DancerZombie": 10,
+                "EyeDemonZombie": 10
         }},{
-            "num":[8, 9], "elems":{
+            "num":[6, 7], "elems":{
                 "NormalZombie": 10,
                 "HoundZombie": 10,
                 "DancerZombie": 10,
@@ -380,10 +395,15 @@
                 "TreasureBox1": 10,
                 "TreasureBox2": 10
         }},{
-            "num":[2, 4], "elems": {
-                "Key": 10
+            "num":[2, 3], "drops":["key"], "elems": {
+                "NormalZombie": 10,
+                "ThiefZombie": 10,
+                "HoundZombie": 10,
+                "DancerZombie": 10,
+                "SniperZombie": 10,
+                "EyeDemonZombie": 10
         }},{
-            "num":[9, 10], "elems":{
+            "num":[7, 8], "elems":{
                 "NormalZombie": 10,
                 "ThiefZombie": 10,
                 "HoundZombie": 10,
@@ -453,10 +473,15 @@
                 "TreasureBox1": 10,
                 "TreasureBox2": 10
         }},{
-            "num":[2, 4], "elems": {
-                "Key": 10
+            "num":[2, 3], "drops":["key"], "elems": {
+                "NormalZombie": 10,
+                "ThiefZombie": 10,
+                "HoundZombie": 10,
+                "DancerZombie": 10,
+                "SniperZombie": 10,
+                "EyeDemonZombie": 10
         }},{
-            "num":[10, 11], "elems":{
+            "num":[8, 9], "elems":{
                 "NormalZombie": 10,
                 "ThiefZombie": 10,
                 "HoundZombie": 10,
@@ -523,10 +548,15 @@
                 "TreasureBox1": 10,
                 "TreasureBox2": 10
         }},{
-            "num":[2, 4], "elems": {
-                "Key": 10
+            "num":[2, 3], "drops":["key"], "elems": {
+                "NormalZombie": 10,
+                "ThiefZombie": 10,
+                "HoundZombie": 10,
+                "DancerZombie": 10,
+                "SniperZombie": 10,
+                "EyeDemonZombie": 10
         }},{
-            "num":[10, 11], "elems":{
+            "num":[8, 9], "elems":{
                 "NormalZombie": 10,
                 "ThiefZombie": 10,
                 "HoundZombie": 10,
@@ -593,10 +623,15 @@
                 "TreasureBox1": 10,
                 "TreasureBox2": 10
         }},{
-            "num":[2, 4], "elems": {
-                "Key": 10
+            "num":[2, 3], "drops":["key"], "elems": {
+                "NormalZombie": 10,
+                "ThiefZombie": 10,
+                "HoundZombie": 10,
+                "DancerZombie": 10,
+                "SniperZombie": 10,
+                "EyeDemonZombie": 10
         }},{
-            "num":[10, 11], "elems":{
+            "num":[8, 9], "elems":{
                 "NormalZombie": 10,
                 "ThiefZombie": 10,
                 "HoundZombie": 10,
@@ -663,10 +698,15 @@
                 "TreasureBox1": 10,
                 "TreasureBox2": 10
         }},{
-            "num":[2, 4], "elems": {
-                "Key": 10
+            "num":[2, 3], "drops":["key"], "elems": {
+                "NormalZombie": 10,
+                "ThiefZombie": 10,
+                "HoundZombie": 10,
+                "DancerZombie": 10,
+                "SniperZombie": 10,
+                "EyeDemonZombie": 10
         }},{
-            "num":[10, 11], "elems":{
+            "num":[8, 9], "elems":{
                 "NormalZombie": 10,
                 "ThiefZombie": 10,
                 "HoundZombie": 10,
@@ -737,10 +777,19 @@
                 "TreasureBox1": 10,
                 "TreasureBox2": 10
         }},{
-            "num":[2, 4], "elems": {
-                "Key": 10
+            "num":[2, 3], "drops":["key"], "elems": {
+                "NormalZombie": 10,
+                "ThiefZombie": 10,
+                "HoundZombie": 10,
+                "VampireZombie": 10,
+                "DancerZombie": 10,
+                "GluttonyZombie": 10,
+                "SniperZombie": 10,
+                "BombZombie": 10,
+                "EyeDemonZombie": 10,
+                "LustZombie": 10
         }},{
-            "num":[11, 12], "elems":{
+            "num":[9, 10], "elems":{
                 "NormalZombie": 10,
                 "ThiefZombie": 10,
                 "HoundZombie": 10,
@@ -818,10 +867,19 @@
                 "TreasureBox1": 10,
                 "TreasureBox2": 10
         }},{
-            "num":[2, 4], "elems": {
-                "Key": 10
+            "num":[2, 3], "drops":["key"], "elems": {
+                "NormalZombie": 10,
+                "ThiefZombie": 10,
+                "HoundZombie": 10,
+                "VampireZombie": 10,
+                "DancerZombie": 10,
+                "GluttonyZombie": 10,
+                "SniperZombie": 10,
+                "BombZombie": 10,
+                "EyeDemonZombie": 10,
+                "LustZombie": 10
         }},{
-            "num":[12, 13], "elems":{
+            "num":[10, 11], "elems":{
                 "NormalZombie": 10,
                 "ThiefZombie": 10,
                 "HoundZombie": 10,
@@ -896,10 +954,19 @@
                 "TreasureBox1": 10,
                 "TreasureBox2": 10
         }},{
-            "num":[2, 4], "elems": {
-                "Key": 10
+            "num":[2, 3], "drops":["key"], "elems": {
+                "NormalZombie": 10,
+                "ThiefZombie": 10,
+                "HoundZombie": 10,
+                "VampireZombie": 10,
+                "DancerZombie": 10,
+                "GluttonyZombie": 10,
+                "SniperZombie": 10,
+                "BombZombie": 10,
+                "EyeDemonZombie": 10,
+                "LustZombie": 10
         }},{
-            "num":[12, 13], "elems":{
+            "num":[10, 11], "elems":{
                 "NormalZombie": 10,
                 "ThiefZombie": 10,
                 "HoundZombie": 10,
@@ -974,10 +1041,19 @@
                 "TreasureBox1": 10,
                 "TreasureBox2": 10
         }},{
-            "num":[2, 4], "elems": {
-                "Key": 10
+            "num":[2, 3], "drops":["key"], "elems": {
+                "NormalZombie": 10,
+                "ThiefZombie": 10,
+                "HoundZombie": 10,
+                "VampireZombie": 10,
+                "DancerZombie": 10,
+                "GluttonyZombie": 10,
+                "SniperZombie": 10,
+                "BombZombie": 10,
+                "EyeDemonZombie": 10,
+                "LustZombie": 10
         }},{
-            "num":[12, 13], "elems":{
+            "num":[10, 11], "elems":{
                 "NormalZombie": 10,
                 "ThiefZombie": 10,
                 "HoundZombie": 10,
@@ -1052,10 +1128,19 @@
                 "TreasureBox1": 10,
                 "TreasureBox2": 10
         }},{
-            "num":[2, 4], "elems": {
-                "Key": 10
+            "num":[2, 3], "drops":["key"], "elems": {
+                "NormalZombie": 10,
+                "ThiefZombie": 10,
+                "HoundZombie": 10,
+                "VampireZombie": 10,
+                "DancerZombie": 10,
+                "GluttonyZombie": 10,
+                "SniperZombie": 10,
+                "BombZombie": 10,
+                "EyeDemonZombie": 10,
+                "LustZombie": 10
         }},{
-            "num":[12, 13], "elems":{
+            "num":[10, 11], "elems":{
                 "NormalZombie": 10,
                 "ThiefZombie": 10,
                 "HoundZombie": 10,
