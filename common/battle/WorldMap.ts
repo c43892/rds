@@ -31,6 +31,13 @@ class WorldMap {
             w.stories.push(s);
         }
 
+        // 先分配固定配置点
+        for (var fixStorey in cfg.fixedSpecs) {
+            var n = parseInt(fixStorey);
+            for (var i = 0; i < w.stories[n].length; i++)
+                w.stories[n][i] = cfg.fixedSpecs[fixStorey]
+        }
+
         return undefined;
     }
 }
