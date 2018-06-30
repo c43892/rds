@@ -113,12 +113,11 @@ class Elem {
     }
 
     public static fromString(str:string):Elem {
-        // var info = JSON.parse(str);
-        // var e = level.create(info.type, info.attrs);
-        // for (var dp of info.dropItems)
-        //     e.dropItems.push(Elem.fromString(dp));
+        var info = JSON.parse(str);
+        var e = ElemFactory.create(info.type, info.attrs);
+        for (var dp of info.dropItems)
+            e.dropItems.push(Elem.fromString(dp));
         
-        // return e;
-        return undefined;
+        return e;
     }
 }

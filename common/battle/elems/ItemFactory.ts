@@ -139,6 +139,7 @@ class ItemFactory {
         // 盾牌
         "Shield": (attrs) => {
             var e = this.createItem();
+            e.canBeMoved = true;
             e = ElemFactory.triggerColdownLogic()(e);
             e["onAttackResult"] = async (ps) => {
                 if (ps.r.r != "attacked" || !e.canTrigger() || ps.subType != "monster2player") return;
