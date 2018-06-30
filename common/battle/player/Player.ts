@@ -1,7 +1,7 @@
 
 // 玩家数据
-class Player {
 
+class Player {
     // 应该序列化的字段
     private static serializableFields = [
         "currentLevel", "battleRandomSeed", "avatar", 
@@ -23,12 +23,14 @@ class Player {
     }
 
     // 关卡逻辑
+    public worldmap;WorldMap;
     public currentLevel:string; // 当前关卡配置名称
     public battleRandomSeed:number; // 下一场战斗随机种子
 
     // 重新创建角色
     public static createTestPlayer():Player {
         var p = new Player();
+        p.worldmap = undefined;
         p.currentLevel = "testLevel1";
         p.occupation = "nurse";
         p.deathStep = 100;
