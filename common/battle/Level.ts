@@ -83,8 +83,16 @@ class Level {
             Utils.assert(maxNumLimit <= elemNumLimit, "elem overflow in map: " + this.displayName);
 
             var arr = Utils.randomSelectByWeight(group.elems, this.bt.srand, group.num[0], group.num[1]);
-            for (var et of arr)
-                elems.push(this.createElem(et));
+            for (var et of arr) {
+                var elem = this.createElem(et)
+                if (group.drops) {
+                    for (var dp of group.drops) {
+                        var dpe = this.createElem(dp);
+                        elem.addDropItem(dpe);
+                    }
+                }
+                elems.push(elem);
+            }
         }
 
         // 依次加入地图

@@ -68,6 +68,9 @@ class Main extends egret.DisplayObjectContainer {
         GCfg.playerCfg = playerCfg;
         var randomDropGroupCfg = RES.getRes("randomdropconfig_json");
         GCfg.getRandomDropGroupCfg = (e) => randomDropGroupCfg[e];
+        var worldmapCfg = RES.getRes("worldmap_json");
+        GCfg.worldMapConnectionCfg = worldmapCfg.connections;
+        GCfg.getWorldMapCfg = (world) => worldmapCfg[world];
     }
 
     private mv:MainView;

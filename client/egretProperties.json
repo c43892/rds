@@ -28,7 +28,7 @@
   "targets": {
     "android": {
       "appname": "rds",
-      "packagename": "com.rds.weehours"
+      "packagename": "com.rds.daybreak"
     }
   }
 }
