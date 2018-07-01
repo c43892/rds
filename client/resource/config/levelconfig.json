@@ -21,17 +21,18 @@
             "EyeDemonZombie":{"hp":6, "power":1},
             "RandomEggZombie":{"hp":5, "power":1, "dropItems":["RandomEgg1"]},
 
-
             "HpPotion":{},
             "HpCapsule":{"cnt":5, "heal":1},
             "Coins":{"cnt":5},
+            "CoinsBig":{"type":"Coins", "cnt":10},            
             "Gun":{"cnt":2, "power":3},
             "RayGun":{"cnt":2, "power":3},
             "MedicineBox": {}
 
         },
         "constElems":{
-            "Key": 1
+            "Key": 1,
+            "CoinsBig":10
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {

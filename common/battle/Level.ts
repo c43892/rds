@@ -72,7 +72,7 @@ class Level {
         for (var e in constElemsCfg) {
             let num = constElemsCfg[e];
             for (var i = 0; i < num; i++)
-                elems.push(ElemFactory.create(e, elemsCfg[e]));
+                elems.push(this.createElem(e));
         }
 
         // 添加随机元素

@@ -148,7 +148,6 @@ class WorldMap {
             xpos:JSON.stringify(this.xpos)
         };
 
-        Utils.log(" => w: ", JSON.stringify(wInfo));
         return JSON.stringify(wInfo);
     }
 

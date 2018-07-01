@@ -1,5 +1,5 @@
 {
-    "Coins":{"name":"金币", "canOverlap":true, "useWithoutConfirm":true},
+    "Coins":{"name":"金币", "cnt":1, "canOverlap":true, "useWithoutConfirm":true},
     "MedicineBox":{"name":"医药箱", "dhp":5},
     "Key":{"name":"钥匙", "useWithTarget":true, "validTargets":["Door", "TreasureBox"]},
     "Door":{"name":"门"},
