@@ -24,7 +24,7 @@
             "HpPotion":{},
             "HpCapsule":{"cnt":5, "heal":1},
             "Coins":{"cnt":5},
-            "CoinsBig":{"type":"Coins", "cnt":10},            
+            "CoinsBig":{"type":"Coins", "cnt":10},
             "Gun":{"cnt":2, "power":3},
             "RayGun":{"cnt":2, "power":3},
             "MedicineBox": {}
