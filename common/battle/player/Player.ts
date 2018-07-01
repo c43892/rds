@@ -6,8 +6,7 @@ class Player {
     private static serializableFields = [
         "currentLevel", "battleRandomSeed", "avatar", 
         "deathStep", "hp", "maxHp", "power", "defence", "dodge", 
-        "occupation", "exp", "lv",
-        "money", ""];
+        "occupation", "exp", "lv", "money"];
 
     // 所属战斗
     private $$bt;
@@ -23,15 +22,15 @@ class Player {
     }
 
     // 关卡逻辑
-    public worldmap;WorldMap;
-    public currentLevel:string; // 当前关卡配置名称
+    public worldmap:WorldMap;
     public battleRandomSeed:number; // 下一场战斗随机种子
+    public currentLevel; // 当前所在层数以及该层关卡位置
 
     // 重新创建角色
     public static createTestPlayer():Player {
         var p = new Player();
         p.worldmap = undefined;
-        p.currentLevel = "testLevel1";
+        p.currentLevel = {"lv":0, "n":0, status:"finished"};
         p.occupation = "nurse";
         p.deathStep = 100;
         p.hp = 10;
@@ -150,13 +149,14 @@ class Player {
             props.push(p.toString());
 
         // 目前 buff 不参与
-        // var buffs = [];
-        // for (var b of this.buffs)
-        //     buffs.push(b.toString());
 
-        var pinfo = {relics:relics, props:props/*, buffs:buffs*/};
+        var world = this.toString.toString();
+
+        var pinfo = {relics:relics, props:props, world:world};
         for (var f of Player.serializableFields)
             pinfo[f] = this[f];
+
+        // Utils.log(JSON.stringify(pinfo));
 
         return JSON.stringify(pinfo);
     }
@@ -174,8 +174,8 @@ class Player {
             p.props.push((<Prop>Elem.fromString(prop)).toProp());
 
         // 目前 buff 不参与
-        // for (var b of pinfo.buffs)
-        //     p.addBuff(Buff.fromString(b));
+
+        p.worldmap = WorldMap.fromString(pinfo.world);
 
         return p
     }

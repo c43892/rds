@@ -2,6 +2,7 @@
 // 一局战斗，包含当前关卡和当前角色数据，并控制整个战斗进程
 class Battle {
     public id:string; // 每场战斗一个随机 id
+    public btType:string; // 战斗配置类型
     public srand:SRandom; // 随机序列
     public trueRandomSeed:number; // 随机序列2，这个随机序列相关的通常是允许玩家刷的东西，不会计入存档，但是会计入录像
     public trueRand:SRandom; // 随机序列2，这个随机序列相关的通常是允许玩家刷的东西，不会计入存档，但是会计入录像
@@ -19,38 +20,40 @@ class Battle {
         this.$$srandSeed = () => [randomseed, trueRandomSeed];
     }
 
-    public static createNewBattle(p:Player, trueRandomSeed:number = undefined):Battle {
+    public static createNewBattle(p:Player, btType:string, trueRandomSeed:number = undefined):Battle {
         if (trueRandomSeed == undefined)
             trueRandomSeed = (new Date()).getMilliseconds();
 
-        var bt = new Battle(p.battleRandomSeed, trueRandomSeed);
+        var bt = new Battle(p.battleRandomSeed, trueRandomSeed);        
         bt.id = "bt_" + Math.random();
         bt.player = Occupation.makeOccupation(p);
+        bt.btType = btType;
         p.setBattle(bt);
         return bt;
     }
 
     // 载入指定关卡
-    public loadCurrentLevel():Level {
+    public loadCurrentLevel(btType:string):Level {
         // 创建关卡地图和元素
         this.level = new Level();
-        this.lvCfg = GCfg.getLevelCfg(this.player.currentLevel);        
+        this.lvCfg = GCfg.getLevelCfg(btType);
+        Utils.assert(!!this.lvCfg, "can not find level config: " + btType);
         this.level.Init(this, this.lvCfg);
         this.level.map.foreachElem((e) => e.setBattle(this));
         this.bc = new BattleCalculator(this.srand);
         return this.level;
     }
 
-    // 载入下一关卡
-    public loadNextLevel():Level {
-        var nextLevelCfg = this.lvCfg.nextLevel;
-        this.player.currentLevel = nextLevelCfg;
-        return this.loadCurrentLevel();
-    }
+    // // 载入下一关卡
+    // public loadNextLevel():Level {
+    //     var nextLevelCfg = this.lvCfg.nextLevel;
+    //     this.player.currentLevel = nextLevelCfg;
+    //     return this.loadCurrentLevel();
+    // }
 
     // 开始当前战斗
     public async Start() {
-        this.loadCurrentLevel();
+        this.loadCurrentLevel(this.btType);
         this.level.RandomElemsPos(); // 先随机一下，免得看起来不好看
 
         await this.fireEvent("onLevel", {subType:"levelInited", bt:this});
@@ -410,12 +413,12 @@ class Battle {
     }
 
     // 进入下一关卡
-    public static startNewBattle;
+    public static openWorldMap;
     public async implGo2NextLevel() {
         await this.triggerLogicPoint("beforeGoOutLevel1");
         await this.triggerLogicPoint("beforeGoOutLevel2");
         await this.fireEvent("onLevel", {subType:"goOutLevel", bt:this});
-        Battle.startNewBattle(this.player);
+        Battle.openWorldMap(this.player);
     }
 
     // 替换一个元素

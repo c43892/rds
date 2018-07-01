@@ -29,20 +29,28 @@ class MainView extends egret.DisplayObjectContainer {
 
         // 录像机如何启动新的录像战斗
         BattleRecorder.startNewBattleImpl = (p:Player, trueRandomSeed:number) => {
-            this.startNewBattle(Battle.createNewBattle(p, trueRandomSeed));
+            // this.startNewBattle(Battle.createNewBattle(p, trueRandomSeed));
         };
 
         // 如何启动下一关战斗
-        Battle.startNewBattle = (p:Player) => {
-            p.currentLevel = GCfg.getLevelCfg(p.currentLevel).nextLevel;
-            this.startNewBattleWithRecorder(Battle.createNewBattle(p));
+        Battle.openWorldMap = (p:Player) => {
+            this.openWorldMap(p.worldmap);
+        }
+
+        this.wmv.startNewBattle = (p:Player, lv:number, n:number) => { 
+            var btType = p.worldmap.stories[lv][n];
+            var bt = Battle.createNewBattle(p, btType + "_" + lv);
+
+            this.removeChild(this.wmv);
+            this.addChild(this.bv);
+            this.startNewBattleWithRecorder(bt);
         }
     }
 
     public startTestBattle() {
         // test map
-        var bt = Battle.createNewBattle(Player.createTestPlayer());
-        this.startNewBattleWithRecorder(bt);
+        // var bt = Battle.createNewBattle(Player.createTestPlayer());
+        // this.startNewBattleWithRecorder(bt);
     }
     
     public bv:BattleView; // 战斗视图

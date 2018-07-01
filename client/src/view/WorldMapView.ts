@@ -1,6 +1,5 @@
 // 大地图视图
 class WorldMapView extends egret.DisplayObjectContainer {
-
     private viewContent:egret.DisplayObjectContainer;
     private bg:egret.Bitmap;
     private mapArea:egret.ScrollView;
@@ -29,6 +28,9 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.addChild(this.mapArea);
 
         this.refresh();
+
+        this.touchEnabled = false;
+        this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchGrid, this);
     }
 
     pts = [];
@@ -46,11 +48,11 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
         var wp = this.worldmap;
 
-        // 显示每一层
+        // 显示每个节点
         var imgs = [];
-        var storeyHeight = this.viewContent.height / (wp.stories.length + 1);
+        var storeyHeight = this.viewContent.height / wp.stories.length;
         for (var i = 0; i < wp.stories.length; i++) {
-            var y = storeyHeight * (i + 1);
+            var y = storeyHeight * i;
             imgs.push([]);
             for (var j = 0; j < wp.stories[i].length; j++) {
                 var pt = wp.stories[i][j];
@@ -59,34 +61,64 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 img.y = this.viewContent.height - y;
                 img.anchorOffsetX = img.width / 2;
                 img.anchorOffsetY = img.height / 2;
-                this.viewContent.addChild(img);
+                img["ptType"] = wp.stories[i][j];
+                img["ptStoreyLv"] = i;
+                img["ptStoreyN"] = j;
+                img.touchEnabled = true;
+                // this.viewContent.addChild(img);
                 imgs[i].push(img);
             }
         }
 
         // 显示连接关系
         var cnt = [];
-        for (var i = 0; i < wp.stories.length - 1; i++) {
+        for (var i = 1; i < wp.stories.length - 1; i++) {
             var conns = wp.conns[i];
             cnt.push(0);
             for (var j = 0; j < conns.length; j++) {
                 var conn2 = conns[j]
                 for (var k = 0; k < conn2.length; k++) {
                     var l:egret.Shape = new egret.Shape();
-                    l.graphics.lineStyle(2, 0x888888);
+                    l.graphics.lineStyle(3, 0x888888);
                     l.graphics.moveTo(imgs[i][j].x, imgs[i][j].y);
-                    l.graphics.lineTo(imgs[i+1][conn2[k]-1].x, imgs[i+1][conn2[k]-1].y);
+                    l.graphics.lineTo(imgs[i+1][conn2[k]].x, imgs[i+1][conn2[k]].y);
                     l.graphics.endFill();
                     this.viewContent.addChild(l);
                     cnt[i]++;
                 }
+                this.viewContent.addChild(imgs[i][j]);
             }
         }
+        this.viewContent.addChild(imgs[imgs.length - 1][0]);
     }
 
     worldmap:WorldMap;
     public setWorldMap(worldmap:WorldMap) {
         this.worldmap = worldmap;
         this.refresh();
+    }
+
+    public startNewBattle; // 开启一场新战斗
+    onTouchGrid(evt:egret.TouchEvent) {
+        var bmp = evt.target;
+        if (!(bmp instanceof egret.Bitmap))
+            return;
+
+        var ptType = bmp["ptType"];
+        var ptStoreyLv = bmp["ptStoreyLv"];
+        var ptStoreyN = bmp["ptStoreyN"];
+        Utils.assert(this.worldmap.stories[ptStoreyLv][ptStoreyN] == ptType, 
+            "worldmap storey type ruined: " + ptType + " vs " + this.worldmap.stories[ptStoreyLv][ptStoreyN]);
+
+        switch(ptType) {
+            case "normal":
+            case "senior":
+            case "boss":
+                this.startNewBattle(this.worldmap.player, ptStoreyLv, ptStoreyN);
+            break;
+            default:
+                Utils.log("not support " + ptType + " yet");
+            break;
+        }
     }
 }

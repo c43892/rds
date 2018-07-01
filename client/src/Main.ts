@@ -96,6 +96,7 @@ class Main extends egret.DisplayObjectContainer {
         // this.mv.startTestBattle();
         var p = Player.createTestPlayer();
         p.worldmap = WorldMap.buildFromConfig("world1");
+        p.worldmap.player = p;
         this.mv.openWorldMap(p.worldmap);
     }
 

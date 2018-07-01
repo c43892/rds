@@ -228,15 +228,25 @@ class Utils {
         return [...arr.slice(0, n), ...arr.slice(n + 1)];
     }
 
-    // 移除数组中满足条件的元素，结果作为一个新数组返回
-    public static removeWhen(arr, f) {
+    // 过滤出数组中满足条件的元素，结果作为一个新数组返回
+    public static filter(arr, f) {
         var narr = [];
-        for (var e of arr) {
-            if (f(e))
-                narr.push(e);
+        for (var i = 0; i < arr.length; i++) {
+            if (f(arr[i]))
+                narr.push(i);
         }
 
         return narr;
+    }
+
+    // 移除数组中满足条件的第一个元素，结果作为一个新数组返回
+    public static removeFirstWhen(arr, f) {
+        for (var i = 0; i < arr.length; i++) {
+            if (f(arr[i]))
+                return Utils.removeAt(arr, i);
+        }
+
+        return arr;
     }
 
     // 按照名称对应规则进行事件处理的批量映射

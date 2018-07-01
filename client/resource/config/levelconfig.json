@@ -1,7 +1,7 @@
 {
     "mapsize": {"w": 7, "h": 9},
 
-    "testLevel1": {
+    "normal_1": {
         "displayName": "测试关卡1",
         "map": {},
         "init_uncovered": {"w": 3, "h": 3},
@@ -60,12 +60,10 @@
                 "DancerZombie": 10,
                 "EyeDemonZombie": 10,
                 "RandomEggZombie": 10
-            }}],
-
-        "nextLevel": "testLevel2"
+        }}]
     },
 
-    "testLevel2": {
+    "normal_2": {
         "displayName": "测试关卡2",
         "map": {},
         "init_uncovered": {"w": 3, "h": 3},
@@ -125,12 +123,10 @@
                 "DancerZombie": 10,
                 "EyeDemonZombie": 10,
                 "RandomEggZombie": 10
-            }}],
-
-        "nextLevel": "testLevel3"
+        }}]
     },
 
-    "testLevel3": {
+    "normal_3": {
         "displayName": "测试关卡3",
         "map": {},
         "init_uncovered": {"w": 3, "h": 3},
@@ -190,12 +186,10 @@
                 "DancerZombie": 10,
                 "EyeDemonZombie": 10,
                 "RandomEggZombie": 10
-            }}],
-
-        "nextLevel": "testLevel4"
+        }}]
     },
 
-    "testLevel4": {
+    "normal_4": {
         "displayName": "测试关卡4",
         "map": {},
         "init_uncovered": {"w": 3, "h": 3},
@@ -255,12 +249,10 @@
                 "DancerZombie": 10,
                 "EyeDemonZombie": 10,
                 "RandomEggZombie": 10
-            }}],
-
-        "nextLevel": "testLevel5"
+        }}]
     },
 
-    "testLevel5": {
+    "normal_5": {
         "displayName": "测试关卡5",
         "map": {},
         "init_uncovered": {"w": 3, "h": 3},
@@ -320,12 +312,10 @@
                 "DancerZombie": 10,
                 "EyeDemonZombie": 10,
                 "RandomEggZombie": 10
-            }}],
-
-        "nextLevel": "testLevel6"
+        }}]
     },
 
-    "testLevel6": {
+    "normal_6": {
         "displayName": "测试关卡6",
         "map": {},
         "init_uncovered": {"w": 3, "h": 3},
@@ -393,12 +383,10 @@
             }},{
             "num":[1, 2], "elems":{
                 "IronZombie": 10
-            }}],
-
-        "nextLevel": "testLevel7"
+        }}]
     },
 
-    "testLevel7": {
+    "normal_7": {
         "displayName": "测试关卡7",
         "map": {},
         "init_uncovered": {"w": 3, "h": 3},
@@ -463,12 +451,10 @@
                 "SniperZombie": 10,
                 "EyeDemonZombie": 10,
                 "RandomEggZombie": 10
-            }}],
-
-        "nextLevel": "testLevel8"
+        }}]
     },
 
-    "testLevel8": {
+    "normal_8": {
         "displayName": "测试关卡8",
         "map": {},
         "init_uncovered": {"w": 3, "h": 3},
@@ -533,12 +519,10 @@
                 "SniperZombie": 10,
                 "EyeDemonZombie": 10,
                 "RandomEggZombie": 10
-            }}],
-
-        "nextLevel": "testLevel9"
+        }}]
     },
 
-    "testLevel9": {
+    "normal_9": {
         "displayName": "测试关卡9",
         "map": {},
         "init_uncovered": {"w": 3, "h": 3},
@@ -603,12 +587,10 @@
                 "SniperZombie": 10,
                 "EyeDemonZombie": 10,
                 "RandomEggZombie": 10
-            }}],
-
-        "nextLevel": "testLevel10"
+        }}]
     },
 
-    "testLevel10": {
+    "normal_10": {
         "displayName": "测试关卡10",
         "map": {},
         "init_uncovered": {"w": 3, "h": 3},
@@ -673,12 +655,10 @@
                 "SniperZombie": 10,
                 "EyeDemonZombie": 10,
                 "RandomEggZombie": 10
-            }}],
-
-        "nextLevel": "testLevel11"
+        }}]
     },
 
-    "testLevel11": {
+    "normal_11": {
         "displayName": "测试关卡11",
         "map": {},
         "init_uncovered": {"w": 3, "h": 3},
@@ -754,12 +734,10 @@
             }},{
             "num":[1, 2], "elems":{
                 "IronZombie": 10
-            }}],
-
-        "nextLevel": "testLevel12"
+        }}]
     },
 
-    "testLevel12": {
+    "normal_12": {
         "displayName": "测试关卡12",
         "map": {},
         "init_uncovered": {"w": 3, "h": 3},
@@ -832,12 +810,10 @@
                 "EyeDemonZombie": 10,
                 "RandomEggZombie": 10,
                 "LustZombie": 10
-            }}],
-
-        "nextLevel": "testLevel13"
+        }}]
     },
 
-    "testLevel13": {
+    "normal_13": {
         "displayName": "测试关卡13",
         "map": {},
         "init_uncovered": {"w": 3, "h": 3},
@@ -910,12 +886,10 @@
                 "EyeDemonZombie": 10,
                 "RandomEggZombie": 10,
                 "LustZombie": 10
-            }}],
-
-        "nextLevel": "testLevel14"
+        }}]
     },
 
-    "testLevel14": {
+    "normal_14": {
         "displayName": "测试关卡14",
         "map": {},
         "init_uncovered": {"w": 3, "h": 3},
@@ -988,12 +962,10 @@
                 "EyeDemonZombie": 10,
                 "RandomEggZombie": 10,
                 "LustZombie": 10
-            }}],
-
-        "nextLevel": "testLevel15"
+        }}]
     },
 
-    "testLevel15": {
+    "boss_15": {
         "displayName": "测试关卡15",
         "map": {},
         "init_uncovered": {"w": 3, "h": 3},
@@ -1066,9 +1038,6 @@
                 "EyeDemonZombie": 10,
                 "RandomEggZombie": 10,
                 "LustZombie": 10
-            }}],
-
-        "nextLevel": "testLevel1"
+        }}]
     }
-
 }
