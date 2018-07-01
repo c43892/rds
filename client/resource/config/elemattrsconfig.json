@@ -43,8 +43,7 @@
     },
     "IceGun":{"name":"冰冻射线", "canOverlap":true, "useWithTarget":true, "cnt":2,
         "validTarget":"markedMonster|uncoveredMonster|uncoverable", 
-        "attackFlags":["Ice", "Gun"],
-        "cnt":2
+        "attackFlags":["Ice", "Gun"]
     },
 
     "NextLevelPort":{"name":"下一层"}

@@ -148,7 +148,7 @@ class ItemFactory {
                 ps.r.dhp = ps.r.dshield = 0;
                 await e.bt().implNotifyElemChanged("coldown", e);
             };
-            e.getElemImgRes = () => e.canTrigger() ? e.type + "1" : e.type + "2";
+            e.getElemImgRes = () => (e.cd <= 0) ? e.type + "1" : e.type + "2";
             return e;
         },
 
@@ -156,6 +156,7 @@ class ItemFactory {
         "NextLevelPort": (attrs) => {
             var e = this.createItem();
             e.canUse = () => true;
+            e.canBeMoved = false;
             e.use = async () => await e.bt().implGo2NextLevel(); // 进入下一关卡
             return e;
         }
