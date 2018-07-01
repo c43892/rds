@@ -142,10 +142,22 @@ class WorldMap {
     }
 
     public toString() {
-        return "";
+        var wInfo = {
+            stories:JSON.stringify(this.stories),
+            conns:JSON.stringify(this.conns),
+            xpos:JSON.stringify(this.xpos)
+        };
+
+        Utils.log(" => w: ", JSON.stringify(wInfo));
+        return JSON.stringify(wInfo);
     }
 
     public static fromString(str):WorldMap {
-        return undefined;
+        var wInfo = JSON.parse(str);
+        var worldmap = new WorldMap();
+        worldmap.stories = JSON.parse(wInfo.stories);
+        worldmap.conns = JSON.parse(wInfo.conns);
+        worldmap.xpos = JSON.parse(wInfo.xpos);
+        return worldmap;
     }
 }

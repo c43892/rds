@@ -152,13 +152,11 @@ class Player {
 
         // 目前 buff 不参与
 
-        var world = this.toString.toString();
+        var world = this.worldmap.toString();
 
         var pinfo = {relics:relics, props:props, world:world};
         for (var f of Player.serializableFields)
             pinfo[f] = this[f];
-
-        // Utils.log(JSON.stringify(pinfo));
 
         return JSON.stringify(pinfo);
     }
@@ -178,6 +176,7 @@ class Player {
         // 目前 buff 不参与
 
         p.worldmap = WorldMap.fromString(pinfo.world);
+        p.worldmap.player = p;
 
         return p
     }
@@ -261,12 +260,12 @@ class Player {
     // 大地图相关逻辑
 
     // 通知进入世界地图节点
-    public notifyInStoreyPos(lv:number, n:number) {
+    public notifyStoreyPosIn(lv:number, n:number) {
         this.currentStoreyPos = {lv:lv, n:n, status:"in"};
     }
 
     // 通知完成世界地图节点
-    public notifyFinishStoreyPos(lv:number, n:number) {
+    public notifyStoreyPosFinished(lv:number, n:number) {
         Utils.assert(
             this.currentStoreyPos.lv == lv
             && this.currentStoreyPos.n == n
@@ -276,5 +275,6 @@ class Player {
 
         this.currentStoreyPos.status = "finished";
         this.finishedStoreyPos.push({lv:lv, n:n});
+        
     }
 }

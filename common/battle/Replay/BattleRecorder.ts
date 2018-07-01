@@ -4,9 +4,9 @@ class BattleRecorder {
     private static replay:Replay; // 当前录像数据
     public static inRecording:boolean; // 是否在录像中（否则就是回放中）
 
-    public static startNew(btid:string, player:Player, trueRandomSeed:number) {
+    public static startNew(btid:string, player:Player, btType:string, trueRandomSeed:number) {
         BattleRecorder.inRecording = true;
-        BattleRecorder.replay = new Replay(btid, player, trueRandomSeed);
+        BattleRecorder.replay = new Replay(btid, player, btType, trueRandomSeed);
     }
 
     public static getRecord():Replay {
@@ -46,7 +46,7 @@ class BattleRecorder {
             BattleRecorder.replay = r;
 
         Utils.assert(BattleRecorder.replay != undefined, "current replay should not be undefined");
-        BattleRecorder.startNewBattleImpl(r.player, r.trueRandomSeed);
+        BattleRecorder.startNewBattleImpl(r.player, r.btType, r.trueRandomSeed);
         BattleRecorder.inRecording = false;
         BattleRecorder.replayIndex = 0;
     }

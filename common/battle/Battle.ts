@@ -25,7 +25,7 @@ class Battle {
             trueRandomSeed = (new Date()).getMilliseconds();
 
         var bt = new Battle(p.battleRandomSeed, trueRandomSeed);        
-        bt.id = "bt_" + Math.random();
+        bt.id = "bt_" + bt.btType + "_" + Math.random();
         bt.player = Occupation.makeOccupation(p);
         bt.btType = btType;
         p.setBattle(bt);
@@ -419,12 +419,10 @@ class Battle {
     }
 
     // 进入下一关卡
-    public static openWorldMap;
     public async implGo2NextLevel() {
         await this.triggerLogicPoint("beforeGoOutLevel1");
         await this.triggerLogicPoint("beforeGoOutLevel2");
         await this.fireEvent("onLevel", {subType:"goOutLevel", bt:this});
-        Battle.openWorldMap(this.player);
     }
 
     // 替换一个元素
