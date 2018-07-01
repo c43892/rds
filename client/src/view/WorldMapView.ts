@@ -87,6 +87,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                     cnt[i]++;
                 }
                 this.viewContent.addChild(imgs[i][j]);
+                imgs[i][j].colorFlilter = undefined;
             }
         }
         this.viewContent.addChild(imgs[imgs.length - 1][0]);
@@ -100,6 +101,19 @@ class WorldMapView extends egret.DisplayObjectContainer {
             var h = img.height;
             tw.to({width:w*1.5, height:h*1.5}, 1000, egret.Ease.quadInOut)
                 .to({width:w, height:w}, 1000, egret.Ease.quadInOut);
+        }
+
+        // 显示可经过的节点
+        for (var sp of this.worldmap.player.finishedStoreyPos) {
+            var img:egret.Bitmap = imgs[sp.lv][sp.n];
+            var colorMatrix = [
+                    0.75,0,0,0,0,
+                    0.75,0,0,0,0,
+                    0.75,0,0,0,0,
+                    1,0,0,0,0
+            ];
+            var colorFlilter = new egret.ColorMatrixFilter(colorMatrix);
+            img.filters = [colorFlilter];
         }
     }
 

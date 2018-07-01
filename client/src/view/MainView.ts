@@ -32,14 +32,10 @@ class MainView extends egret.DisplayObjectContainer {
             // this.startNewBattle(Battle.createNewBattle(p, trueRandomSeed));
         };
 
-        // 如何启动下一关战斗
-        Battle.openWorldMap = (p:Player) => {
-            this.openWorldMap(p.worldmap);
-        }
-
         this.wmv.startNewBattle = (p:Player, lv:number, n:number) => { 
             var btType = p.worldmap.stories[lv][n];
             var bt = Battle.createNewBattle(p, btType + "_" + lv);
+            p.notifyStoreyPosIn(lv, n);
 
             this.removeChild(this.wmv);
             this.addChild(this.bv);
@@ -78,6 +74,14 @@ class MainView extends egret.DisplayObjectContainer {
             "onGridChanged", "onPlayerChanged", "onAttack", "onElemChanged", "onPropChanged",
             "onElemMoving", "onAllCoveredAtInit", "onSuckPlayerBlood", "onMonsterTakeElem",
         ], (e) => (ps) => this.bv.aniView[e](ps));
+        bt.registerEvent("onLevel", (ps) => {
+            if (ps.subType != "goOutLevel")
+                return;
+
+            var p = bt.player;
+            p.notifyStoreyPosFinished(p.currentStoreyPos.lv, p.currentStoreyPos.n);
+            this.openWorldMap(p.worldmap);
+        })
 
         BattleRecorder.registerReplayIndicatorHandlers(bt);
         bt.Start();
