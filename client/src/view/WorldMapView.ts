@@ -90,6 +90,17 @@ class WorldMapView extends egret.DisplayObjectContainer {
             }
         }
         this.viewContent.addChild(imgs[imgs.length - 1][0]);
+
+        // 显示可选节点动画
+        var sps = BattleUtils.getSelectableStoreyPos(this.worldmap.player);
+        for (var sp of sps) {
+            var img:egret.Bitmap = imgs[sp.lv][sp.n];
+            var tw = egret.Tween.get(img, {loop:true});
+            var w = img.width;
+            var h = img.height;
+            tw.to({width:w*1.5, height:h*1.5}, 1000, egret.Ease.quadInOut)
+                .to({width:w, height:w}, 1000, egret.Ease.quadInOut);
+        }
     }
 
     worldmap:WorldMap;
@@ -107,6 +118,10 @@ class WorldMapView extends egret.DisplayObjectContainer {
         var ptType = bmp["ptType"];
         var ptStoreyLv = bmp["ptStoreyLv"];
         var ptStoreyN = bmp["ptStoreyN"];
+
+        // if (!BattleUtils.isStoreyPosSelectable(this.worldmap.player, {lv:ptStoreyLv, n:ptStoreyN}))
+        //     return;
+
         Utils.assert(this.worldmap.stories[ptStoreyLv][ptStoreyN] == ptType, 
             "worldmap storey type ruined: " + ptType + " vs " + this.worldmap.stories[ptStoreyLv][ptStoreyN]);
 

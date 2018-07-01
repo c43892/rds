@@ -46,12 +46,6 @@ class MainView extends egret.DisplayObjectContainer {
             this.startNewBattleWithRecorder(bt);
         }
     }
-
-    public startTestBattle() {
-        // test map
-        // var bt = Battle.createNewBattle(Player.createTestPlayer());
-        // this.startNewBattleWithRecorder(bt);
-    }
     
     public bv:BattleView; // 战斗视图
     public sv:ShopView; // 商店视图

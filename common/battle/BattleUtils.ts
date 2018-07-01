@@ -116,4 +116,21 @@ class BattleUtils {
 
         return attrs;
     }
+
+    // 获取玩家在世界地图上可以选择的节点
+    public static getSelectableStoreyPos(p:Player) {
+        if (p.currentStoreyPos.status == "in")
+            return [];
+        
+        Utils.assert(p.currentStoreyPos.status == "finished", "player current storey status ruined");
+        var lv = p.currentStoreyPos.lv;
+        var n = p.currentStoreyPos.n;
+        return Utils.map(p.worldmap.conns[lv][n], (cn) => { return {lv:lv+1, n:cn}; });
+    }
+
+    // 指定节点是否当前可选
+    public static isStoreyPosSelectable(p:Player, sp) {
+        var sps = BattleUtils.getSelectableStoreyPos(p);
+        return Utils.indexOf(sps, (p) => p.lv == sp.lv && p.n == sp.n) >= 0;
+    }
 }

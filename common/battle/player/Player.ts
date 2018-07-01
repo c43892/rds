@@ -4,7 +4,7 @@
 class Player {
     // 应该序列化的字段
     private static serializableFields = [
-        "currentLevel", "battleRandomSeed", "avatar", 
+        "currentStoreyPos", "finishedStoreyPos", "battleRandomSeed", "avatar", 
         "deathStep", "hp", "maxHp", "power", "defence", "dodge", 
         "occupation", "exp", "lv", "money"];
 
@@ -24,13 +24,15 @@ class Player {
     // 关卡逻辑
     public worldmap:WorldMap;
     public battleRandomSeed:number; // 下一场战斗随机种子
-    public currentLevel; // 当前所在层数以及该层关卡位置
+    public currentStoreyPos; // 当前所在层数以及该层位置
+    public finishedStoreyPos; // 已经完成的世界地图节点
 
     // 重新创建角色
     public static createTestPlayer():Player {
         var p = new Player();
         p.worldmap = undefined;
-        p.currentLevel = {"lv":0, "n":0, status:"finished"};
+        p.currentStoreyPos = {lv:0, n:0, status:"finished"};
+        p.finishedStoreyPos = [{lv:0, n:0}];
         p.occupation = "nurse";
         p.deathStep = 100;
         p.hp = 10;
@@ -254,5 +256,25 @@ class Player {
         var n = Utils.indexOf(this.props, (prop:Elem) => prop.type == type);
         Utils.assert(n >= 0, "no prop: " + type + " to remove");
         this.props = Utils.removeAt(this.props, n);
+    }
+
+    // 大地图相关逻辑
+
+    // 通知进入世界地图节点
+    public notifyInStoreyPos(lv:number, n:number) {
+        this.currentStoreyPos = {lv:lv, n:n, status:"in"};
+    }
+
+    // 通知完成世界地图节点
+    public notifyFinishStoreyPos(lv:number, n:number) {
+        Utils.assert(
+            this.currentStoreyPos.lv == lv
+            && this.currentStoreyPos.n == n
+            && this.currentStoreyPos.status == "in",
+            "player current storey status ruined"
+        );
+
+        this.currentStoreyPos.status = "finished";
+        this.finishedStoreyPos.push({lv:lv, n:n});
     }
 }

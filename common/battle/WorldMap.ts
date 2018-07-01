@@ -97,13 +97,13 @@ class WorldMap {
             var n = rand.nextInt(0, validPos.length);
             var nlv = validPos[n].lv;
             var nn = validPos[n].n;
-            // var checkN = n;
-            // while (WorldMap.connectionConflict(w, c, validLevels[c], nlv, nn)) {
-            //     n = (n + 1) % lps.length;
-            //     Utils.assert(n != checkN, "can not find position for " + c + " in world " + world);
-            //     nlv = lps[n].lv;
-            //     nn = lps[n].n;
-            // }
+            var checkN = n;
+            while (WorldMap.connectionConflict(w, c, validLevels[c], nlv, nn)) {
+                n = (n + 1) % validPos.length;
+                Utils.assert(n != checkN, "can not find position for " + c + " in world " + world);
+                nlv = validPos[n].lv;
+                nn = validPos[n].n;
+            }
 
             w.stories[nlv][nn] = c;
             validPos = Utils.removeAt(validPos, n);
@@ -112,34 +112,34 @@ class WorldMap {
         return w;
     }
 
-    // static connectionConflict(w, type, validLevels, lv, n):boolean {
-    //     if (lv < validLevels[0] || lv > validLevels[1])
-    //         return true;
+    static connectionConflict(w, type, validLevels, lv, n):boolean {
+        if (lv < validLevels[0] || lv > validLevels[1])
+            return true;
 
-    //     if (type != "shop" && type != "camp") // 这两种不检查直连冲突
-    //         return false;
+        // if (type != "shop" && type != "camp") // 这两种不检查直连冲突
+        //     return false;
 
-    //     var connPrior = lv > 1 ? w.conns[lv - 1] : [];
-    //     var connNext = lv < w.conns.length ? w.conns[lv] : [];
+        // var connPrior = lv > 1 ? w.conns[lv - 1] : [];
+        // var connNext = lv < w.conns.length ? w.conns[lv] : [];
 
-    //     for (var ncp = 0; ncp < connPrior.length; ncp++) {
-    //         var cp = connPrior[ncp];
+        // for (var ncp = 0; ncp < connPrior.length; ncp++) {
+        //     var cp = connPrior[ncp];
             
-    //         if (Utils.indexOf(cp, (p) => p == n) >= 0) {
-    //             if (w.stories[lv - 1][ncp] == type)
-    //                 return true;
-    //                 // Utils.log(lv - 1, ncp, w.stories[lv - 1][ncp], " vs ", lv, n, type);
-    //         }
-    //     }
+        //     if (Utils.indexOf(cp, (p) => p == n) >= 0) {
+        //         if (w.stories[lv - 1][ncp] == type)
+        //             return true;
+        //             // Utils.log(lv - 1, ncp, w.stories[lv - 1][ncp], " vs ", lv, n, type);
+        //     }
+        // }
 
-    //     for (var ncn = 0; ncn < connNext[n].length; ncn++) {
-    //         if (w.stories[lv + 1][connNext[n][ncn]] == type)
-    //             return true;
-    //             // Utils.log(lv, n, type, " vs ", lv + 1, connNext[n][ncn], w.stories[lv + 1][connNext[n][ncn]]);
-    //     }
+        // for (var ncn = 0; ncn < connNext[n].length; ncn++) {
+        //     if (w.stories[lv + 1][connNext[n][ncn]] == type)
+        //         return true;
+        //         // Utils.log(lv, n, type, " vs ", lv + 1, connNext[n][ncn], w.stories[lv + 1][connNext[n][ncn]]);
+        // }
 
-    //     return false;
-    // }
+        return false;
+    }
 
     public toString() {
         return "";
