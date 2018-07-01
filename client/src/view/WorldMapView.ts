@@ -24,10 +24,11 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.mapArea.verticalScrollPolicy = "auto";
         this.mapArea.horizontalScrollPolicy = "off";
         this.mapArea.setContent(this.viewContent);
-        this.mapArea.bounces = false;
+        this.mapArea.bounces = false;        
         this.addChild(this.mapArea);
 
         this.refresh();
+        this.mapArea.scrollTop = this.viewContent.height - this.mapArea.height;
 
         this.touchEnabled = false;
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchGrid, this);

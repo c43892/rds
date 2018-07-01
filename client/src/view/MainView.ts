@@ -28,8 +28,8 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.y = 0;
 
         // 录像机如何启动新的录像战斗
-        BattleRecorder.startNewBattleImpl = (p:Player, trueRandomSeed:number) => {
-            // this.startNewBattle(Battle.createNewBattle(p, trueRandomSeed));
+        BattleRecorder.startNewBattleImpl = (p:Player, btType:string, trueRandomSeed:number) => {
+            this.startNewBattle(Battle.createNewBattle(p, btType, trueRandomSeed));
         };
 
         this.wmv.startNewBattle = (p:Player, lv:number, n:number) => { 
@@ -37,7 +37,7 @@ class MainView extends egret.DisplayObjectContainer {
             var bt = Battle.createNewBattle(p, btType + "_" + lv);
             p.notifyStoreyPosIn(lv, n);
 
-            this.removeChild(this.wmv);
+            if (this.contains(this.wmv)) this.removeChild(this.wmv);
             this.addChild(this.bv);
             this.startNewBattleWithRecorder(bt);
         }
@@ -48,7 +48,7 @@ class MainView extends egret.DisplayObjectContainer {
     public wmv:WorldMapView; // 大地图视图
 
     // 开始一场新的战斗
-    public startNewBattleWithRecorder(bt:Battle) { this.startNewBattle(bt); BattleRecorder.startNew(bt.id, bt.player, bt.trueRandomSeed); }
+    public startNewBattleWithRecorder(bt:Battle) { this.startNewBattle(bt); BattleRecorder.startNew(bt.id, bt.player, bt.btType, bt.trueRandomSeed); }
     public startNewBattle(bt:Battle) {
         Utils.log("start new battle with ", bt.$$srandSeed());
 
@@ -94,6 +94,7 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 开启世界地图
     public openWorldMap(worldmap:WorldMap) {
+        if (this.contains(this.bv)) this.removeChild(this.bv);
         this.wmv.setWorldMap(worldmap);
         this.addChild(this.wmv);
     }
