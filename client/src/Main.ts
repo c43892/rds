@@ -93,11 +93,13 @@ class Main extends egret.DisplayObjectContainer {
         await platform.login();
         const userInfo = await platform.getUserInfo();
 
-        // this.mv.startTestBattle();
-        var p = Player.createTestPlayer();
-        p.worldmap = WorldMap.buildFromConfig("world1");
-        p.worldmap.player = p;
-        this.mv.openWorldMap(p.worldmap);
+        // 载入用户数据
+        var savedData = Utils.$$loadItem("player");
+        var p:Player;
+        if (savedData)
+            p = Player.fromString(savedData);
+
+        this.mv.openStartup(p);
     }
 
     private async loadResource() {

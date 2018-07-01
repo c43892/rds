@@ -27,4 +27,20 @@ class ViewUtils {
     public static loadTex(name: string) {
         return egret.Texture = RES.getRes(name);
     }
+
+    public static makeGray(e:egret.DisplayObject, gray:boolean = true) {
+        if (!gray) {
+            e.filters = undefined;
+            return;
+        }
+        
+        var colorMatrix = [
+            0.5,0,0,0,0,
+            0.5,0,0,0,0,
+            0.5,0,0,0,0,
+            1,0,0,0,0
+        ];
+        var colorFlilter = new egret.ColorMatrixFilter(colorMatrix);
+        e.filters = [colorFlilter];
+    }
 }

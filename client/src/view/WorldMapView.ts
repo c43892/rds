@@ -105,17 +105,8 @@ class WorldMapView extends egret.DisplayObjectContainer {
         }
 
         // 显示可经过的节点
-        for (var sp of this.worldmap.player.finishedStoreyPos) {
-            var img:egret.Bitmap = imgs[sp.lv][sp.n];
-            var colorMatrix = [
-                    0.75,0,0,0,0,
-                    0.75,0,0,0,0,
-                    0.75,0,0,0,0,
-                    1,0,0,0,0
-            ];
-            var colorFlilter = new egret.ColorMatrixFilter(colorMatrix);
-            img.filters = [colorFlilter];
-        }
+        for (var sp of this.worldmap.player.finishedStoreyPos)
+            ViewUtils.makeGray(imgs[sp.lv][sp.n]);
     }
 
     worldmap:WorldMap;

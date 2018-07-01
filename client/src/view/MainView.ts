@@ -27,6 +27,27 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.x = 0;
         this.wmv.y = 0;
 
+        // 主界面菜单
+        this.mm = new egret.DisplayObjectContainer();
+        this.mm.x = this.mm.y = 0;
+        this.mm.width = this.width;
+        this.mm.height = this.height;
+        var btnContinue = ViewUtils.createBitmapByName("continuePlay_png");
+        btnContinue.x = (this.mm.width - btnContinue.width) / 2;
+        btnContinue.y = this.mm.height / 2 - btnContinue.height - 50;
+        btnContinue.touchEnabled = true;
+        btnContinue.name = "continuePlay";
+        this.mm.addChild(btnContinue);
+        var btnNew = ViewUtils.createBitmapByName("newPlay_png");
+        btnNew.x = btnContinue.x;
+        btnNew.y = btnContinue.y + btnNew.height + 100;
+        btnNew.touchEnabled = true;
+        btnNew.name = "newPlay";
+        this.mm.addChild(btnNew);
+
+        btnContinue.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onContinuePlay, this);
+        btnNew.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onNewPlay, this);
+
         // 录像机如何启动新的录像战斗
         BattleRecorder.startNewBattleImpl = (p:Player, btType:string, trueRandomSeed:number) => {
             this.startNewBattle(Battle.createNewBattle(p, btType, trueRandomSeed));
@@ -37,15 +58,19 @@ class MainView extends egret.DisplayObjectContainer {
             var bt = Battle.createNewBattle(p, btType + "_" + lv);
             p.notifyStoreyPosIn(lv, n);
 
-            if (this.contains(this.wmv)) this.removeChild(this.wmv);
+            Utils.$$saveItem("player", p.toString());
+
+            this.clear();
             this.addChild(this.bv);
             this.startNewBattleWithRecorder(bt);
         }
     }
     
+    private p:Player; // 当前玩家数据
     public bv:BattleView; // 战斗视图
     public sv:ShopView; // 商店视图
     public wmv:WorldMapView; // 大地图视图
+    public mm:egret.DisplayObjectContainer; // 主界面菜单
 
     // 开始一场新的战斗
     public startNewBattleWithRecorder(bt:Battle) { this.startNewBattle(bt); BattleRecorder.startNew(bt.id, bt.player, bt.btType, bt.trueRandomSeed); }
@@ -80,11 +105,20 @@ class MainView extends egret.DisplayObjectContainer {
 
             var p = bt.player;
             p.notifyStoreyPosFinished(p.currentStoreyPos.lv, p.currentStoreyPos.n);
+            Utils.$$saveItem("player", p.toString());
+
             this.openWorldMap(p.worldmap);
         })
 
         BattleRecorder.registerReplayIndicatorHandlers(bt);
         bt.Start();
+    }
+
+    clear() {
+        var uis = [this.mm, this.bv, this.wmv, this.sv];
+        for (var ui of uis)
+            if (this.contains(ui))
+                this.removeChild(ui);
     }
 
     // 开启商店界面
@@ -94,8 +128,44 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 开启世界地图
     public openWorldMap(worldmap:WorldMap) {
-        if (this.contains(this.bv)) this.removeChild(this.bv);
+        this.clear();
         this.wmv.setWorldMap(worldmap);
         this.addChild(this.wmv);
     }
+
+    // 开启初始界面
+    public openStartup(p:Player = undefined) {
+        var btnNew = this.mm.getChildByName("newPlay");
+        var btnContinue = this.mm.getChildByName("continuePlay");
+        btnNew.touchEnabled = true;
+        if (!p) {
+            btnContinue.touchEnabled = false;
+            ViewUtils.makeGray(btnContinue);
+        } else {
+            btnContinue.touchEnabled = true;
+            ViewUtils.makeGray(btnContinue, false);
+        }
+
+        this.clear();
+        this.p = p;
+        this.addChild(this.mm);
+    }
+
+     onContinuePlay(evt:egret.TouchEvent) {
+        if (this.p.currentStoreyPos.status == "finished")
+            this.openWorldMap(this.p.worldmap);
+        else {
+            var lv = this.p.currentStoreyPos.lv;
+            var n = this.p.currentStoreyPos.n;
+            this.wmv.startNewBattle(this.p, lv, n);
+        }
+     }
+
+     onNewPlay(evt:egret.TouchEvent) {
+        var p = Player.createTestPlayer();
+        p.worldmap = WorldMap.buildFromConfig("world1");
+        p.worldmap.player = p;
+        this.p = p;
+        this.openWorldMap(p.worldmap);
+     }
 }
