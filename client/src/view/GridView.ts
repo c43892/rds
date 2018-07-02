@@ -54,6 +54,9 @@ class GridView extends egret.DisplayObjectContainer {
                 if (num > 0) {
                     this.addChild(this.coveredHazardNum);
                     this.coveredHazardNum.text = num.toString();
+                } else if (num < 0) { // 显示 ?
+                    this.addChild(this.coveredHazardNum);
+                    this.coveredHazardNum.text = "?";
                 } else
                     this.addChild(this.gridBg);
             break;

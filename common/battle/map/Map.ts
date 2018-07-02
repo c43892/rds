@@ -58,8 +58,14 @@ class Map {
         this.travel8Neighbours(cx, cy, (x, y, g:Grid) =>
         {
             var e = g.getElem();
-            if (e && e.isHazard() && e.getGrid().isCovered())
-                num++;
+            if (e && e.isHazard() && e.getGrid().isCovered()) {
+                if (e.hideHazardNum())
+                    num = -1;
+                else
+                    num++;
+            }
+
+            return num < 0;
         });
 
         return num;
