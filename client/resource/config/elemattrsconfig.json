@@ -12,7 +12,7 @@
     "Shield":{"name":"盾牌", "cd":3},
 
     "DeathGod":{"name":"死神", "hp":10, "power":3},
-    "Bunny":{"name":"兔子", "sheild":3},
+    "Bunny":{"name":"兔子", "sheild":3, "hideHazardNum":true},
     "NormalZombie":{"name":"普通僵尸"},
     "ThiefZombie":{"name":"窃贼僵尸"},
     "HoundZombie":{"name":"猎犬僵尸"},
