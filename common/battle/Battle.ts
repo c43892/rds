@@ -79,30 +79,30 @@ class Battle {
 
     // 揭开起始区域
     public async uncoverStartupRegion() {
-        var init_uncovered = this.lvCfg.init_uncovered;
-        var w = init_uncovered.w;
-        var h = init_uncovered.h;
-        var lt = this.getGetRegionWithEscapePort(w, h);
+        // var init_uncovered = this.lvCfg.init_uncovered;
+        // var w = init_uncovered.w;
+        // var h = init_uncovered.h;
+        // var lt = this.getGetRegionWithEscapePort(w, h);
 
         // 移除逃离出口，目前不需要了
         var ep = this.level.map.findFirstElem((x, y, e) => e && e.type == "EscapePort");
         this.level.map.removeElemAt(ep.pos.x, ep.pos.y);
 
         // 揭开起始区域
-        for(var i = 0; i < w; i++) {
-            var x = i + lt.left;
-            for (var j = 0; j < h; j++) {
-                var y = j + lt.top;
+        for(var i = 0; i < ep.attrs.size.w; i++) {
+            var x = ep.pos.x + i;
+            for (var j = 0; j < ep.attrs.size.h; j++) {
+                var y = ep.pos.y + j;
                 this.uncover(x, y, true);
             }
         }
 
         // 如果起始区域有东西，则换个别的位置
         var map = this.level.map;
-        for(var i = 0; i < w; i++) {
-            var x = i + lt.left;
-            for (var j = 0; j < h; j++) {
-                var y = j + lt.top;
+        for(var i = 0; i < ep.attrs.size.w; i++) {
+            var x = ep.pos.x + i;
+            for (var j = 0; j < ep.attrs.size.h; j++) {
+                var y = ep.pos.y + j;
                 var e = this.level.map.getElemAt(x, y);
                 if (!!e) {
                     if (e.type == "EscapePort")

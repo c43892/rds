@@ -10,7 +10,8 @@ class Level {
         this.bt = bt;
         this.InitMap(cfg.map);
         this.InitElems(cfg.elems, cfg.constElems, cfg.randomGroups, 
-            GCfg.mapsize.w * GCfg.mapsize.h + cfg.init_uncovered.w + cfg.init_uncovered.h);
+            GCfg.mapsize.w * GCfg.mapsize.h + cfg.init_uncovered.w + cfg.init_uncovered.h, 
+            cfg.init_uncovered);
     }
 
     // 创建地图
@@ -60,11 +61,11 @@ class Level {
     }
 
     // 创建初始元素
-    public InitElems(elemsCfg, constElemsCfg, randomGroupsCfg, elemNumLimit) {
+    public InitElems(elemsCfg, constElemsCfg, randomGroupsCfg, elemNumLimit, init_uncovered_size) {
         this.elemsCfgInLevel = elemsCfg;
         var maxNumLimit = 0; // 做最大可能数量的检查
         var elems = [
-            ElemFactory.create("EscapePort"), // 逃跑出口
+            ElemFactory.create("EscapePort", {size: init_uncovered_size}), // 逃跑出口
             ElemFactory.create("Door") // 下一层入口的门
         ];
 
@@ -96,12 +97,16 @@ class Level {
         }
 
         // 依次加入地图
-        var i = 0;
-        this.map.travelAll((x, y) =>
-        {
-            this.map.addElemAt(elems[i++], x, y);
-            return i >= elems.length;
-        });
+        var x = 0;
+        var y = 0;
+        for (var elem of elems) {
+            this.map.addElemAt(elem, x, y);
+            var cnt = elem.isBig() ? elem.attrs.size.w * elem.attrs.size.h : 1;
+            for (var i = 0; i < cnt; i++) {
+                x++;
+                if (x >= this.map.size.w) { y++; x = 0; }
+            }
+        }
     }
 
     // 乱序所有元素
@@ -115,7 +120,10 @@ class Level {
             var e = this.map.getElemAt(x, y);
             if (!e) return;
 
-            if (e.attrs.size && e.attrs.size > 1)
+             if (e.type == "PlaceHolder")
+                return;
+
+            if (e.isBig())
                 biggerElems.push(e);
             else
                 normalElems.push(e);
@@ -130,22 +138,23 @@ class Level {
             Utils.assert(!!g, "can not place big " + e.type + " with size of " + esize);
             this.map.addElemAt(e, g.pos.x, g.pos.y);
             var hds:Elem[] = e["placeHolders"]();
-            Utils.assert(hds.length == esize * esize - 1, "big elem size mismatch the number of it's placeholders");
-            for (var i = 0; i < esize; i++) {
-                for (var j = 0; j < esize; j++) {
+            Utils.assert(hds.length == esize.w * esize.h - 1, "big elem size mismatch the number of it's placeholders");
+            for (var i = 0; i < esize.w; i++) {
+                for (var j = 0; j < esize.h; j++) {
                     if (i == 0 && j == 0) continue;
                     var hd = hds.shift();
-                    this.map.addElemAt(hd, e.pos.x + i, e.pos.y + j);
-                    normalElems = Utils.remove(normalElems, hd);
+                    this.map.switchElems(hd.pos.x, hd.pos.y, e.pos.x + i, e.pos.y + j);
                 }
             }
+            Utils.assert(hds.length == 0, "more placehodlers need to be placed");
         }
 
         // 再放置普通元素
         for (var e of normalElems) {
+            Utils.assert(e.type != "PlaceHolder", "place holders should be placed already");
             var g = BattleUtils.findRandomEmptyGrid(this.bt, false);
-            Utils.assert(!!g, "no place more elem");
+            Utils.assert(!!g, "no more place for elem");
             this.map.addElemAt(e, g.pos.x, g.pos.y);
-        }        
+        }
     }
 }

@@ -19,6 +19,7 @@ class ElemFactory {
                 e.attrs = attrs;
                 e.btAttrs = BattleUtils.mergeBattleAttrs({}, attrs);
                 e.$$id = type + ":" + (ElemFactory.$$idSeqNo++);
+                if (e.isBig()) e = ElemFactory.makeElemBigger(e, e.attrs.size);
                 return e;
             }
         }
@@ -26,14 +27,15 @@ class ElemFactory {
         Utils.assert(!!e, "unknown elem type: " + type);
     }
 
-    static mergeAttrs(e, attrs) {
-        var defaultAttrs = GCfg.getElemAttrsCfg(e);
+    static mergeAttrs(type, attrs) {
+        var defaultAttrs = GCfg.getElemAttrsCfg(type);
         for (var k in defaultAttrs) {
             var v = defaultAttrs[k];
             if (!attrs[k])
                 attrs[k] = v;
         }
 
+        attrs.size = attrs.size ? attrs.size : {w:1, h:1};
         return attrs;
     }
 
@@ -171,4 +173,53 @@ class ElemFactory {
             return e;
         };
     }
+
+    // 创建大尺寸元素
+   static makeElemBigger(e:Elem, size):Elem {
+       if (size.w == 1 && size.h == 1) return e;
+       var placeHolders:Elem[] = [];
+       e["placeHolders"] = () => [...placeHolders];
+
+       // 带占位符
+       for (var i = 0; i < size.w; i++) {
+            for (var j = 0; j < size.h; j++) {
+                if (i == 0 && j == 0) continue;
+                var hd = ElemFactory.create("PlaceHolder");
+                hd["linkTo"] = e;
+                placeHolders.push(hd);
+
+                hd.canUse = () => e.canUse();
+                hd.use = () => e.use();
+                hd.hazard = true;
+                hd.barrier = true;
+            }
+        }
+
+       // 翻开时一起翻开
+       e = <Monster>ElemFactory.addAI("onGridChanged", async () => {
+           var bt = e.bt();
+           if (e.getGrid().isCovered()) await bt.implUncoverAt(e.pos.x, e.pos.y);
+           for (var hd of placeHolders) {
+               if (hd.getGrid().isCovered())
+                   await bt.implUncoverAt(hd.pos.x, hd.pos.y);
+           }
+       }, e, (ps) => {
+           return ps.subType == "gridUnconvered" && (e.pos.x == ps.x && e.pos.y == ps.y) || (Utils.indexOf(placeHolders, (hd) => hd.pos.x == ps.x && hd.pos.y == ps.y) >= 0);
+       }, false);
+
+    //    // 死亡时把占位物体带走
+    //    e = <Monster>ElemFactory.addDieAI(async () => {
+    //        for (var hd of placeHolders)
+    //            await e.bt().implRemoveElemAt(hd.pos.x, hd.pos.y);
+    //    }, e);
+
+       e.setBattle = (bt:Battle) => 
+       {
+           e.$$bt = bt;
+           for (var hd of placeHolders)
+            hd.setBattle(bt);
+       };
+
+       return e;
+   }
 }

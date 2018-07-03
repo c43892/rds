@@ -17,11 +17,11 @@ class BattleUtils {
     }
 
     // 寻找一个随机的空白位置
-    public static findRandomEmptyGrid(bt:Battle, covered:boolean = false, size:number = 1):Grid {
+    public static findRandomEmptyGrid(bt:Battle, covered:boolean = false, size = {w:1, h:1}):Grid {
         return BattleUtils.findRandomGrid(bt, (g:Grid) => {
-            if (g.pos.x + size > g.map.size.w || g.pos.y + size > g.map.size.h) return false;
-            for (var i = 0; i < size; i++) {
-                for (var j = 0; j < size; j++) {
+            if (g.pos.x + size.w > g.map.size.w || g.pos.y + size.h > g.map.size.h) return false;
+            for (var i = 0; i < size.w; i++) {
+                for (var j = 0; j < size.h; j++) {
                     var _g = g.map.getGridAt(g.pos.x + i, g.pos.y + j);
                     if (_g.isCovered() != covered || _g.getElem() != undefined)
                         return false;

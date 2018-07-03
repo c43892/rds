@@ -168,21 +168,48 @@ class Map {
     // 在指定位置添加一个元素，如果位置已经被占用，则会报错
     public addElemAt(e:Elem, x:number, y:number) {
         this.assertBound(x, y);
-        if (this.elems[x][y])
-            throw new Error("it's not empty at [" + x + "][" + y + "]");
+        if (this.elems[x][y]) {
+            var str = "it's not empty at [" + x + "][" + y + "] for " + e.type + " over " + this.elems[x][y].type;
+            throw new Error(str);
+        }
 
         e.pos = {x: x, y: y};
         this.elems[x][y] = e;
+
+        if (e.isBig()) {
+            var hds = e["placeHolders"]();
+            for (var hd of hds) {
+                while (this.getElemAt(x, y) != undefined) {
+                    x++;
+                    if (x >= this.size.w) {
+                        x = 0;
+                        y++;
+                        if (y >= this.size.h)
+                            y = 0;
+                    }
+
+                    Utils.assert(x < this.size.w && y < this.size.h, "no more place for placeHolder");
+                }
+
+                this.addElemAt(hd, x, y);
+            }
+        }
     }
     
     // 移除一个指定位置的元素
     public removeElemAt(x:number, y:number):Elem {
         this.assertBound(x, y);
-        if (!this.elems[x][y])
-            throw new Error("no element at [" + x + "][" + y + "]");
+        var e = this.getElemAt(x, y);
+        if (!e) throw new Error("no element at [" + x + "][" + y + "]");
 
-        var e = this.elems[x][y];
         this.elems[x][y] = undefined;
+
+        if (e.isBig()) {
+            var hds = e["placeHolders"]();
+            for (var hd of hds)
+                this.removeElemAt(hd.pos.x, hd.pos.y);
+        }
+
         return e;
     }
 

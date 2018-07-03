@@ -112,10 +112,9 @@ class MonsterFactory {
         "BossBunny": (attrs) => {
             var m = this.createMonster(attrs);
             m = MonsterFactory.doAttack("onPlayerActed", m);
-            m = MonsterFactory.makeBoss(m, attrs.size);
             m.getElemImgRes = () => "Bunny";
             return m;
-        },
+        }, 
 
         "PlaceHolder": (attrs) => this.createMonster(attrs)
     };
@@ -251,51 +250,7 @@ class MonsterFactory {
                 m.btAttrs.power = m.btAttrs.power * m.attrs.selfExplode.mult;
                 m.bt().implMonsterAttackPlayer(m, false, true);
             }
-        },m);
-   }
-
-   // 创建boss或精英
-   static makeBoss(m:Monster, size:number):Monster {
-       var placeHolders:Elem[] = [];
-
-       m["placeHolders"] = () => [...placeHolders];
-
-       // 带占位符
-       for (var i = 0; i < size; i++) {
-            for (var j = 0; j < size; j++) {
-                if (i == 0 && j == 0) continue;
-                var hd = ElemFactory.create("PlaceHolder");
-                hd["linkTo"] = m;
-                placeHolders.push(hd);
-            }
-        }
-
-       // 翻开时一起翻开
-       m = <Monster>ElemFactory.addAI("onGridChanged", async () => {
-           var bt = m.bt();
-           if (m.getGrid().isCovered()) await bt.implUncoverAt(m.pos.x, m.pos.y);
-           for (var hd of placeHolders) {
-               if (hd.getGrid().isCovered())
-                   await bt.implUncoverAt(hd.pos.x, hd.pos.y);
-           }
-       }, m, (ps) => {
-           return ps.subType == "gridUnconvered" && (m.pos.x == ps.x && m.pos.y == ps.y) || (Utils.indexOf(placeHolders, (hd) => hd.pos.x == ps.x && hd.pos.y == ps.y) >= 0);
-       }, false);
-
-       // 死亡时把占位物体带走
-       m = <Monster>ElemFactory.addDieAI(async () => {
-           for (var hd of placeHolders)
-               await m.bt().implRemoveElemAt(hd.pos.x, hd.pos.y);
-       }, m);
-
-       m.setBattle = (bt:Battle) => 
-       {
-           m.$$bt = bt;
-           for (var hd of placeHolders)
-            hd.setBattle(bt);
-       };
-
-       return m;
+        }, m);
    }
 }
 
