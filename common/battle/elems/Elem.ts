@@ -4,7 +4,7 @@ class Elem {
     constructor() {}
 
     public $$id:string; // 调试用
-    private $$bt; // 所属战斗对象
+    public $$bt; // 所属战斗对象
     public setBattle(bt:Battle) { this.$$bt = bt; }
     public bt():Battle { return this.$$bt; } // 所属战斗对象
     public map():Map { return this.bt().level.map; }

@@ -52,10 +52,10 @@ class ElemFactory {
     }
 
     // 为怪物在指定逻辑点添加一个行为，对于怪物和物品，只在显形的时候生效
-    public static addAI(logicPoint:string, act, e:Elem, condition = undefined):Elem {
+    public static addAI(logicPoint:string, act, e:Elem, condition = undefined, onlyUncovered:boolean = true):Elem {
         return this.addAIEvenCovered(logicPoint, act, e, (ps) => {
             if (e instanceof Item || e instanceof Monster) {
-                if (e.getGrid().isCovered())
+                if (onlyUncovered && e.getGrid().isCovered())
                     return false;
                 else
                     return !condition || condition(ps);

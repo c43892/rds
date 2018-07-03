@@ -65,8 +65,8 @@ class Battle {
         await this.fireEvent("onLevel", {subType:"levelInited", bt:this});
         await this.triggerLogicPoint("onLevelInited");
 
-        await this.coverAllAtInit();
         this.level.RandomElemsPos(); // 随机元素位置
+        await this.coverAllAtInit();
         await this.uncoverStartupRegion();
     }
 
@@ -564,6 +564,12 @@ class Battle {
         if (!e || !(e instanceof Monster)) { // 如果打空，则不需要战斗计算过程，有个表现就可以了
             await this.fireEvent("onAttack", {subType:"player2monster", x:y, y:y, target:undefined, weapon:weapon});
             return;
+        }
+
+        if (e["linkTo"]) { // 是 boss 占位符，更换目标
+            e = e["linkTo"];
+            x = e.pos.x;
+            y = e.pos.y;
         }
 
         var m = <Monster>e;

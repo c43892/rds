@@ -1071,7 +1071,6 @@
             "LustZombie":{"hp":6, "power":2},
             "IronZombie":{"hp":5, "power":1, "sheild":8},
 
-
             "HpPotion":{},
             "HpCapsule":{"cnt":5, "heal":1},
             "Coins":{"cnt":5},
@@ -1168,7 +1167,6 @@
             "LustZombie":{"hp":6, "power":2},
             "IronZombie":{"hp":5, "power":1, "sheild":8},
 
-
             "HpPotion":{},
             "HpCapsule":{"cnt":5, "heal":1},
             "Coins":{"cnt":5},
@@ -1177,7 +1175,8 @@
             "MedicineBox": {}
         },
         "constElems":{
-            "Key": 1
+            "Key": 1,
+            "BossBunny": 1
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {

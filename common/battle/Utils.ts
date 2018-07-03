@@ -239,6 +239,11 @@ class Utils {
         return narr;
     }
 
+    // 移除数组中的指定元素
+    public static remove(arr, e) {
+        return Utils.removeFirstWhen(arr, (_e) => _e == e);
+    }
+
     // 移除数组中满足条件的第一个元素，结果作为一个新数组返回
     public static removeFirstWhen(arr, f) {
         for (var i = 0; i < arr.length; i++) {
