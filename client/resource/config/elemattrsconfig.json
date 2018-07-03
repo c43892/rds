@@ -26,8 +26,8 @@
     "LustZombie":{"name":"色欲僵尸"},
     "IronZombie":{"name":"钢铁侠僵尸"},
 
-    "PlaceHolder":{"name":"Boss精英占位", "hideHazardNum":true},
-    "BossBunny":{"name":"boss兔子", "size":{"w":3, "h":3}, "hp":10, "hideHazardNum":true},
+    "PlaceHolder":{"name":"Boss精英占位", "hideHazardNum":true, "invisible":true},
+    "BossBunny":{"name":"boss兔子", "size":{"w":2, "h":2}, "hp":10, "hideHazardNum":true},
 
     "HpPotion":{"name":"血瓶", "dhp":10, "canOverlap":true},
     "Hole":{"name":"黑洞", "barrier":true},

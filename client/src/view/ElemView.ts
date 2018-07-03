@@ -101,13 +101,8 @@ class ElemView extends egret.DisplayObjectContainer {
             }
             break;
             case GridStatus.Uncovered: // 被揭开
-                if (e) { // 有元素显示元素图片
+                if (e && !e.attrs.invisible) { // 有元素显示元素图片
                     this.elemImg = ViewUtils.createBitmapByName(e.getElemImgRes() + "_png");
-                    // Utils.log(e.type);
-                    // if (e.attrs.size && e.attrs.size > 1) {
-                    //     this.elemImg.width = this.elemImg.texture.textureWidth * e.attrs.size;
-                    //     this.elemImg.height = this.elemImg.texture.textureHeight * e.attrs.size;
-                    // }
                     this.showLayer.addChild(this.elemImg);
                     this.elemImg.filters = undefined;
                     if (e instanceof Monster) { // 怪物
@@ -150,7 +145,17 @@ class ElemView extends egret.DisplayObjectContainer {
         this.hp.y = this.height - this.hp.height;
 
         var arr = [this.showLayer, this.opLayer, this.elemImg, this.banImg];
-        arr.forEach((a) => { a.x = 0; a.y = 0; a.width = w; a.height = h; });
+        arr.forEach((a) => {
+            a.x = 0;
+            a.y = 0;
+            a.width = w;
+            a.height = h;
+        });
+
+        if (e && e.isBig()) {
+            this.showLayer.scaleX = e.attrs.size.w;
+            this.showLayer.scaleY = e.attrs.size.h;
+        }
     }
 
     public clear() {
