@@ -84,16 +84,32 @@ class MapView extends egret.DisplayObjectContainer {
     }
 
     // 指定位置发生状态或元素变化
-    public refresh3x3(cx:number, cy:number) {
-        this.mgvs[cx][cy].refresh();
-        this.mevs[cx][cy].refresh();
-        this.map.travel8Neighbours(cx, cy, (x, y, g) => { this.mgvs[x][y].refresh(); this.mevs[x][y].refresh(); });
-    }
+    public refreshAt(cx:number, cy:number, bigSize = undefined) {
+        var poses = [];
+        poses.push({x:cx, y:cy});
+        var e = this.map.getElemAt(cx, cy);
+        if (bigSize) {
+            var esize = bigSize;
+            for (var i = -1; i <= esize.w + 1; i++) {
+                for (var j = -1; j <= esize.h + 1; j++) {
+                    var x = cx + i;
+                    var y = cy + j;
+                    if (x < 0 || x >= this.map.size.w || y < 0 || y >= this.map.size.h)
+                        continue;
+                    else if (Utils.indexOf(poses, (pt) => pt.x == x && pt.y == y) < 0)
+                        poses.push({x:x, y:y});
+                }
+            }
+        } else {
+            this.map.travel8Neighbours(cx, cy, (x, y, g) => {
+                poses.push({x:x, y:y});
+            });
+        }
 
-    // 指定位置发生状态或元素变化
-    public refreshAt(cx:number, cy:number) {
-        this.mgvs[cx][cy].refresh();
-        this.mevs[cx][cy].refresh();
+        for (var pt of poses) {
+            this.mgvs[pt.x][pt.y].refresh();
+            this.mevs[pt.x][pt.y].refresh();
+        }
     }
 
     // 获取指定位置的显示元素

@@ -188,7 +188,7 @@ class Map {
                             y = 0;
                     }
 
-                    Utils.assert(x < this.size.w && y < this.size.h, "no more place for placeHolder");
+                    Utils.assert(x != e.pos.x || y != e.pos.y, "no more place for placeHolder");
                 }
 
                 this.addElemAt(hd, x, y);

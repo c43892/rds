@@ -114,8 +114,8 @@ class Battle {
                         map.removeElemAt(x, y);
                         map.addElemAt(e, g.pos.x, g.pos.y);
 
-                        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"uncoverStartupRegion"});
-                        await this.fireEvent("onGridChanged", {x:g.pos.x, y:g.pos.y, subType:"uncoverStartupRegion"});
+                        await this.fireEvent("onGridChanged", {x:x, y:y, e:e, subType:"uncoverStartupRegion"});
+                        await this.triggerLogicPoint("onGridChanged", {x:g.pos.x, y:g.pos.y, e:e, subType:"uncoverStartupRegion"});
                     }
                 }
             }
@@ -141,7 +141,7 @@ class Battle {
         Utils.assert(g.isCovered() && !!e, "only covered element could be marked");
 
         g.status = GridStatus.Marked;
-        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"elemMarked"});
+        await this.fireEvent("onGridChanged", {x:x, y:y, e:e, subType:"elemMarked"});
         await this.triggerLogicPoint("onMarked", {e:e});
     }
 
@@ -250,8 +250,8 @@ class Battle {
     }
 
     // 移除物品
-    public removeElemAt(x:number, y:number) {
-        this.level.map.removeElemAt(x, y);
+    public removeElemAt(x:number, y:number):Elem {
+        return this.level.map.removeElemAt(x, y);
     }
 
     // try 开头的函数通常对应玩家操作行为
@@ -328,7 +328,7 @@ class Battle {
             if (e.getGrid().isCovered() || !e.isValid()) return;
             var b = map.getGridAt(x, y);
             if (b.status != GridStatus.Uncovered || b.getElem()) { // 无法拖过去
-                await this.fireEvent("onGridChanged", {x:fx, y:fy, subType:"elemSwitchFrom"});
+                await this.fireEvent("onGridChanged", {x:fx, y:fy, e:e, subType:"elemSwitchFrom"});
                 return;
             }
             
@@ -338,10 +338,10 @@ class Battle {
             // 将元素移动到空地
             map.removeElemAt(fx, fy);
             map.addElemAt(e, x, y);
-            await this.fireEvent("onGridChanged", {x:fx, y:fy, subType:"elemSwitchFrom"});
-            await this.fireEvent("onGridChanged", {x:x, y:y, subType:"elemSwitchTo"});
-            await this.triggerLogicPoint("onGridChanged", {x:fx, y:fy, subType:"elemSwitchFrom"});
-            await this.triggerLogicPoint("onGridChanged", {x:x, y:y, subType:"elemSwitchTo"});
+            await this.fireEvent("onGridChanged", {x:fx, y:fy, e:e, subType:"elemSwitchFrom"});
+            await this.fireEvent("onGridChanged", {x:x, y:y, e:e, subType:"elemSwitchTo"});
+            await this.triggerLogicPoint("onGridChanged", {x:fx, y:fy, e:e, subType:"elemSwitchFrom"});
+            await this.triggerLogicPoint("onGridChanged", {x:x, y:y, e:e, subType:"elemSwitchTo"});
         };
     }
 
@@ -431,22 +431,22 @@ class Battle {
         var y = e.pos.y;
         this.removeElemAt(x, y);
         this.addElemAt(newE, x, y);
-        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"elemReplaced"});
-        await this.fireEvent("triggerLogicPoint", {x:x, y:y, subType:"elemReplaced"});
+        await this.fireEvent("onGridChanged", {x:x, y:y, e:e, subType:"elemReplaced"});
+        await this.fireEvent("triggerLogicPoint", {x:x, y:y, e:e, subType:"elemReplaced"});
     }
 
     // 向地图添加 Elem
     public async implAddElemAt(e:Elem, x:number, y:number) {
         this.addElemAt(e, x, y);
-        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"elemAdded"});
+        await this.fireEvent("onGridChanged", {x:x, y:y, e:e, subType:"elemAdded"});
         await this.triggerLogicPoint("onGridChanged", {e:e, subType:"elemAdded"});
     }
 
     // 从地图移除 Elem
     public async implRemoveElemAt(x:number, y:number) {
-        this.removeElemAt(x, y);
-        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"elemRemoved"});
-        await this.triggerLogicPoint("onGridChanged", {x:x, y:y, subType:"elemRemoved"});
+        var e = this.removeElemAt(x, y);
+        await this.fireEvent("onGridChanged", {x:x, y:y, e:e, subType:"elemRemoved"});
+        await this.triggerLogicPoint("onGridChanged", {x:x, y:y, e:e, subType:"elemRemoved"});
     }
 
     // 角色+hp
@@ -509,8 +509,8 @@ class Battle {
         if (e.onDie) await e.onDie();
         await this.fireEvent("onElemChanged", {subType:"die", e:e});
         await this.triggerLogicPoint("onElemChanged", {"subType": "die", e:e});
-        await this.fireEvent("onGridChanged", {x:e.pos.x, y:e.pos.y, subType:"elemDie"});        
-        await this.triggerLogicPoint("onGridChanged", {x:e.pos.x, y:e.pos.y, subType:"elemDie"});        
+        await this.fireEvent("onGridChanged", {x:e.pos.x, y:e.pos.y, e:e, subType:"elemDie"});        
+        await this.triggerLogicPoint("onGridChanged", {x:e.pos.x, y:e.pos.y, e:e, subType:"elemDie"});        
     }
 
     // 进行一次攻击计算

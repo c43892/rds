@@ -51,19 +51,20 @@ class AniView extends egret.DisplayObjectContainer {
     public async onGridChanged(ps) {
         switch (ps.subType) {
             case "ElemAdded":
-                this.mv.mapView.refresh3x3(ps.x, ps.y);
+                this.mv.mapView.refreshAt(ps.x, ps.y);
                 var eImg = this.mv.mapView.getElemViewAt(ps.x, ps.y).getImg();
                 await this.aniFact.createAni("fadeIn", {"img": eImg, "time":1000});
             break;
         }
 
-        this.mv.mapView.refresh3x3(ps.x, ps.y);
+        var e:Elem = ps.e;
+        this.mv.mapView.refreshAt(ps.x, ps.y, e && e.isBig() ? e.attrs.size : undefined);
     }
 
     // 怪物属性发生变化
     public async onElemChanged(ps) {
         var e = ps.e;
-        this.mv.mapView.refresh3x3(e.pos.x, e.pos.y);
+        this.mv.mapView.refreshAt(e.pos.x, e.pos.y);
         await this.aniFact.createAni("elemChanged", {"m": ps.m});
     }
 
@@ -107,9 +108,9 @@ class AniView extends egret.DisplayObjectContainer {
         await this.aniFact.createAni("moving", {"obj": e, "path": showPath});
         
         // 刷新格子显示
-        this.mv.mapView.refresh3x3(fromPt.x, fromPt.y);
+        this.mv.mapView.refreshAt(fromPt.x, fromPt.y);
         if (path.length > 1)
-            this.mv.mapView.refresh3x3(path[path.length - 1].x, path[path.length - 1].y);
+            this.mv.mapView.refreshAt(path[path.length - 1].x, path[path.length - 1].y);
     }
 
     // 关卡事件
