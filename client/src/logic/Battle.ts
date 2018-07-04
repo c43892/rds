@@ -564,7 +564,6 @@ class Battle {
             resist:{a:0, b:0, c:0},
             immuneFlags:0
         };
-        Utils.log("trigger onAttacking");
         await this.triggerLogicPoint("onAttacking", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
         return attackerAttrs;
     }

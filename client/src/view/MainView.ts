@@ -7,25 +7,17 @@ class MainView extends egret.DisplayObjectContainer {
 
         // 商店视图
         this.sv = new ShopView(w, h);
-        this.sv.anchorOffsetX = 0;
-        this.sv.anchorOffsetY = 0;
-        this.sv.x = 0;
-        this.sv.y = 0;
+        this.sv.x = this.sv.y = 0;
 
         // 战斗视图
         this.bv = new BattleView(w, h);
-        this.bv.anchorOffsetX = 0;
-        this.bv.anchorOffsetY = 0;
-        this.bv.x = 0;
-        this.bv.y = 0;
-        this.bv.openShop = () => this.openShop();
+        this.bv.x = this.bv.y = 0;
+        this.bv.openShop = (shop, autoClose) => this.openShop(shop, autoClose);
 
         // 世界地图
         this.wmv = new WorldMapView(w, h);
-        this.wmv.anchorOffsetX = 0;
-        this.wmv.anchorOffsetY = 0;
-        this.wmv.x = 0;
-        this.wmv.y = 0;
+        this.wmv.x = this.wmv.y = 0;
+        this.wmv.openShop = (shop) => this.openShop(shop, false);
 
         // 主界面菜单
         this.mm = new egret.DisplayObjectContainer();
@@ -64,6 +56,15 @@ class MainView extends egret.DisplayObjectContainer {
             this.addChild(this.bv);
             this.startNewBattleWithRecorder(bt);
         }
+
+        // 提示确认视图
+        this.tcv = new TipConfirmView(w, h);
+        this.tcv.x = this.tcv.y = 0;
+        this.addChild(this.tcv);
+        this.sv.confirmYesNo = async (title) => {
+            this.setChildIndex(this.tcv, -1);
+            return await this.tcv.confirmYesNo(title);
+        };
     }
     
     private p:Player; // 当前玩家数据
@@ -71,6 +72,7 @@ class MainView extends egret.DisplayObjectContainer {
     public sv:ShopView; // 商店视图
     public wmv:WorldMapView; // 大地图视图
     public mm:egret.DisplayObjectContainer; // 主界面菜单
+    public tcv:TipConfirmView; // 提示确认视图
 
     // 开始一场新的战斗
     public startNewBattleWithRecorder(bt:Battle) { this.startNewBattle(bt); BattleRecorder.startNew(bt.id, bt.player, bt.btType, bt.trueRandomSeed); }
@@ -122,8 +124,14 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 开启商店界面
-    public openShop() {
-
+    public openShop(shop, autoClose:boolean = true) {
+        this.sv.player = this.p;
+        this.addChild(this.sv);
+        this.sv.open(shop, autoClose).then(() => {
+            this.removeChild(this.sv);
+        }, () => {
+            this.removeChild(this.sv);
+        });
     }
 
     // 开启世界地图

@@ -3,7 +3,8 @@ class WorldMapView extends egret.DisplayObjectContainer {
     private viewContent:egret.DisplayObjectContainer;
     private bg:egret.Bitmap;
     private mapArea:egret.ScrollView;
-    private sv:ShopView;
+
+    public openShop; // 打开商店
 
     public constructor(w:number, h:number) {
         super();
@@ -33,8 +34,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
         this.touchEnabled = false;
         this.mapArea.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchGrid, this);
-        
-        this.sv = new ShopView(this.width, this.height);
     }
 
     pts = [];
@@ -116,16 +115,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
     public setWorldMap(worldmap:WorldMap) {
         this.worldmap = worldmap;
         this.refresh();
-    }
-
-    public openShop(shop) {
-        this.removeChild(this.mapArea);
-        this.addChild(this.sv);
-        this.sv.open(shop).then((sel) => {
-            Utils.log(sel);
-            this.removeChild(this.sv);
-            this.addChild(this.mapArea);
-        });
     }
 
     public startNewBattle; // 开启一场新战斗

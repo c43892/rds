@@ -6,7 +6,9 @@ class ShopView extends egret.DisplayObjectContainer {
     private grids:egret.Bitmap[] = []; // 商品格子
     private items:string[] = [];
     private btnGoBack;
-    private goBackCallback;
+
+    public player:Player;
+    public confirmYesNo; // yesno 确认
 
     public constructor(w:number, h:number) {
         super();
@@ -36,13 +38,16 @@ class ShopView extends egret.DisplayObjectContainer {
         }
 
         this.btnGoBack = ViewUtils.createBitmapByName("goBack_png")
-        this.addChild(this.btnGoBack);
-        this.btnGoBack.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onGoBack, this);
         this.btnGoBack.x = 10;
         this.btnGoBack.y = this.height - this.btnGoBack.height - 10;
+        this.btnGoBack.touchEnabled = true;
+        this.addChild(this.btnGoBack);
+        this.btnGoBack.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onGoBack, this);
     }
 
-    public async open(shop):Promise<string> {
+    private onCancel;
+    private onBuy;
+    public async open(shop, autoClose:boolean = true):Promise<string> {
         var rand = new SRandom();
         var cfg = GCfg.getShopCfg(shop);
 
@@ -52,7 +57,29 @@ class ShopView extends egret.DisplayObjectContainer {
         }
 
         this.refresh();
-        return new Promise<string>((resolve, reject) => this.goBackCallback = resolve);
+        return new Promise<string>((resolve, reject) => {
+            this.onBuy = (item) => {
+                var price = 5; // 先固定价格
+                if (!this.player.addMoney(price)) {
+                    Utils.log("钱不够");
+                    return;
+                }
+
+                var e = ElemFactory.create(item);
+                if (e instanceof Prop) {
+                    var prop = (e as Prop).toProp();
+                    this.player.addProp(prop);
+                } else if (e instanceof Relic) {
+                    var relic = (e as Relic).toRelic();
+                    this.player.addRelic(relic);
+                } else
+                    Utils.assert(false, "only prop or relic can be sold in shop, got: " + typeof(e));
+
+                if (autoClose)
+                    resolve(item);
+            };
+            this.onCancel = reject;
+        });
     }
 
     public refresh() {
@@ -61,15 +88,14 @@ class ShopView extends egret.DisplayObjectContainer {
     }
 
     onGoBack(evt:egret.TouchEvent) {
-        this.goBackCallback(undefined);
+        this.onCancel(undefined);
     }
 
-    onSelItem(evt:egret.TouchEvent) {
+    async onSelItem(evt:egret.TouchEvent) {
         var n = evt.target["itemIndex"];
         var item = this.items[n];
-        Utils.log(item);
-    }
-
-    onBuyItem(evt:egret.TouchEvent) {
+        var yesno = await this.confirmYesNo("确定购买 " + item + "，花费 5 金币 ?");
+        if (yesno)
+            this.onBuy(item);
     }
 }
