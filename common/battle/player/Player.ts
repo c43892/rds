@@ -94,7 +94,7 @@ class Player {
     public critial:number[] = [0, 0]; // 暴击
     public damageAdd:number[] = [0, 0]; // +伤
 
-    public Shield:number = 0; // 护盾
+    public shield:number = 0; // 护盾
     public dodge:number = 0; // 闪避
     public damageDec:number = 0; // -伤
     public resist:number = 0; // 抗性
@@ -117,7 +117,7 @@ class Player {
     public getAttrsAsTarget() {
         return {
             owner:this,
-            Shield:{a:0, b:this.Shield, c:0},
+            shield:{a:0, b:this.shield, c:0},
             dodge:{a:0, b:this.dodge, c:0},
             damageDec:{a:0, b:this.damageDec, c:0},
             resist:{a:0, b:0, c:this.resist},
@@ -134,9 +134,9 @@ class Player {
     }
 
     public addShield(ds:number) {
-        this.Shield += ds;
-        if (this.Shield < 0)
-            this.Shield = 0;
+        this.shield += ds;
+        if (this.shield < 0)
+            this.shield = 0;
     }
 
     // 序列化反序列化

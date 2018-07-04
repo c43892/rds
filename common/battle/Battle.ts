@@ -457,12 +457,12 @@ class Battle {
         await this.triggerLogicPoint("onPlayerChanged", {"subType": "hp"});
     }
 
-    // 角色+Shield
+    // 角色+shield
     public async implAddPlayerShield(m:Monster, ds:number) {
         if (ds == 0) return;
         m.addShield(ds);
-        await this.fireEvent("onPlayerChanged", {subType:"Shield"});
-        await this.triggerLogicPoint("onPlayerChanged", {"subType": "Shield"});
+        await this.fireEvent("onPlayerChanged", {subType:"shield"});
+        await this.triggerLogicPoint("onPlayerChanged", {"subType": "shield"});
     }
 
     // 怪物+hp
@@ -478,12 +478,12 @@ class Battle {
         }
     }
 
-    // 怪物+Shield
+    // 怪物+shield
     public async implAddMonsterShield(m:Monster, ds:number) {
         if (ds == 0) return;
         m.addShield(ds);
-        await this.fireEvent("onElemChanged", {subType:"Shield", e:m});
-        await this.triggerLogicPoint("onElemChanged", {"subType": "Shield", e:m});
+        await this.fireEvent("onElemChanged", {subType:"shield", e:m});
+        await this.triggerLogicPoint("onElemChanged", {"subType": "shield", e:m});
     }
 
     // +buff
@@ -551,6 +551,38 @@ class Battle {
 
         await this.implOnElemDie(m);
         await this.implAddElemAt(ice, m.pos.x, m.pos.y);
+    }
+
+    // 计算当前角色受一切地图元素影响所得到的攻击属性
+    public async calcPlayerAttackerAttrs() {
+        var attackerAttrs = this.player.getAttrsAsAttacker(0);
+        var targetAttrs = {
+            owner:undefined,
+            shield:{a:0, b:0, c:0},
+            dodge:{a:0, b:0, c:0},
+            damageDec:{a:0, b:0, c:0},
+            resist:{a:0, b:0, c:0},
+            immuneFlags:0
+        };
+        Utils.log("trigger onAttacking");
+        await this.triggerLogicPoint("onAttacking", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+        return attackerAttrs;
+    }
+
+    // 计算当前角色受一切地图元素影响所得到的防御属性
+    public async calcPlayerTargetAttrs() {
+        var targetAttrs = this.player.getAttrsAsTarget();
+        var attackerAttrs = {
+            owner:this,
+            power:{a:0, b:0, c:0},
+            accuracy:{a:0, b:0, c:0},
+            critial:{a:0, b:0, c:0},
+            damageAdd:{a:0, b:0, c:0},
+            attackFlags: 0,
+            addBuffs:[]
+        };
+        await this.triggerLogicPoint("onAttacking", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+        return targetAttrs;
     }
 
     // 角色尝试攻击指定位置

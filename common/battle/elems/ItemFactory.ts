@@ -161,6 +161,7 @@ class ItemFactory {
                 var attackerAttrs = ps.attackerAttrs;
                 if (!(attackerAttrs.owner instanceof Player)) return;
                 attackerAttrs.power.b += e.attrs.powerA;
+                Utils.log(attackerAttrs.power.a, attackerAttrs.power.b, attackerAttrs.power.c);
             };
             return e;
         },

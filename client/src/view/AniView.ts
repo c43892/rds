@@ -59,6 +59,7 @@ class AniView extends egret.DisplayObjectContainer {
 
         var e:Elem = ps.e;
         this.mv.mapView.refreshAt(ps.x, ps.y, e && e.isBig() ? e.attrs.size : undefined);
+        this.mv.refreshPlayer(); // 角色属性受地图上所有东西影响
     }
 
     // 怪物属性发生变化
@@ -66,6 +67,7 @@ class AniView extends egret.DisplayObjectContainer {
         var e = ps.e;
         this.mv.mapView.refreshAt(e.pos.x, e.pos.y);
         await this.aniFact.createAni("elemChanged", {"m": ps.m});
+        this.mv.refreshPlayer(); // 角色属性受地图上所有东西影响
     }
 
     // 角色信息发生变化
@@ -111,16 +113,18 @@ class AniView extends egret.DisplayObjectContainer {
         this.mv.mapView.refreshAt(fromPt.x, fromPt.y);
         if (path.length > 1)
             this.mv.mapView.refreshAt(path[path.length - 1].x, path[path.length - 1].y);
+
+        this.mv.refreshPlayer(); // 角色属性受地图上所有东西影响
     }
 
     // 关卡事件
     public async onLevel(ps) {
         switch (ps.subType) {
             case "levelInited": // 进关卡
-            break;
+                break;
             case "goOutLevel": // 出关卡
                 await this.blackIn(true);
-            break;
+                break;
             default:
                 Utils.assert(false, "unhandled LevelEvent: " + ps.subType);            
         }    

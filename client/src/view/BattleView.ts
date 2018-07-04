@@ -98,8 +98,16 @@ class BattleView extends egret.DisplayObjectContainer {
         this.money.text = "💴：" + this.player.money;
         this.deathStep.text = "😈：" + this.player.deathStep;
         this.hp.text = "血量: " + this.player.hp + "/" + this.player.maxHp;
-        this.power.text = "攻击: " + this.player.power;
-        this.dodge.text = "闪避: " + this.player.dodge + "%";
+
+        this.player.bt().calcPlayerAttackerAttrs().then((attackerAttrs) => {
+            var power = attackerAttrs.power.b * (1 + attackerAttrs.power.a) + attackerAttrs.power.c;
+            this.power.text = "攻击: " + power;
+        })
+
+        this.player.bt().calcPlayerTargetAttrs().then((targetAttrs) => {
+            var dodge = targetAttrs.dodge.b * (1 + targetAttrs.dodge.a) + targetAttrs.dodge.c;
+            this.dodge.text = "闪避: " + this.player.dodge + "%";
+        });
 
         this.avatar.anchorOffsetX = 0;
         this.avatar.anchorOffsetY = 0;

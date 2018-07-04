@@ -60,6 +60,7 @@ class BattleUtils {
     // 合并计算公式参数
     public static mergeBattleAttrsPS(ps1, ps2) {
         var ps = {
+            owner:undefined,
             attackFlags:[],
             power:{a:0, b:0, c:0},
             accuracy:{a:0, b:0, c:0},
@@ -67,7 +68,7 @@ class BattleUtils {
             damageAdd:{a:0, b:0, c:0},
 
             immuneFlags:[],
-            Shield:{a:0, b:0, c:0},
+            shield:{a:0, b:0, c:0},
             dodge:{a:0, b:0, c:0},
             damageDec:{a:0, b:0, c:0},
             resist:{a:0, b:0, c:0},
@@ -90,6 +91,7 @@ class BattleUtils {
         ps["addBuffs"] = [];
         if (ps1 && ps1.addBuffs) ps["addBuffs"].push(...ps1.addBuffs);
         if (ps2 && ps2.addBuffs) ps["addBuffs"].push(...ps2.addBuffs);
+        ps.owner = ps2.owner ? ps2.owner : ps1.owner;
 
         return ps;
     }
@@ -104,7 +106,7 @@ class BattleUtils {
             damageAdd:0,
 
             immuneFlags:[],
-            Shield:0,
+            shield:0,
             dodge:0,
             damageDec:0,
             resist:0,

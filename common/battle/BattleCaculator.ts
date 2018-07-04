@@ -20,7 +20,7 @@ class BattleCalculator {
         var addBuffs = attackerAttrs.addBuffs;
 
         // var immuneFlags = targetAttrs.immuneFlags;
-        var Shield = this.doCalc(targetAttrs, "Shield");
+        var shield = this.doCalc(targetAttrs, "shield");
         var dodge = this.doCalc(targetAttrs, "dodge");
         var damageDec = this.doCalc(targetAttrs, "damageDec");
         var resist = targetAttrs.resist;
@@ -45,9 +45,9 @@ class BattleCalculator {
         if (damage < 0) damage = 0;        
 
         // 没有穿刺，就计算护盾
-        if (!Utils.contains(attackFlags, "Pierce") && Shield > 0)
+        if (!Utils.contains(attackFlags, "Pierce") && shield > 0)
         {
-            r.dShield = damage > Shield ? Shield : damage;
+            r.dShield = damage > shield ? shield : damage;
             damage = 0;
         }
 
