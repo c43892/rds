@@ -28,7 +28,7 @@ class BattleUtils {
                 }
             }
 
-            return true;            
+            return true;
         });
     }
 

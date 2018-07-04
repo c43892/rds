@@ -152,6 +152,19 @@ class ItemFactory {
             return e;
         },
 
+        // 剑
+        "Sword": (attrs) => {
+            var e = this.createItem();
+            e.canBeMoved = true;
+            e["onAttacking"] = async (ps) => {
+                if (e.getGrid().isCovered() || !e.isValid()) return; // 检查可用性
+                var attackerAttrs = ps.attackerAttrs;
+                if (!(attackerAttrs.owner instanceof Player)) return;
+                attackerAttrs.power.b += e.attrs.powerA;
+            };
+            return e;
+        },
+
         // 下一关入口
         "NextLevelPort": (attrs) => {
             var e = this.createItem();

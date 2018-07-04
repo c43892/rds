@@ -1144,6 +1144,19 @@
         "map": {},
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
+        },
+        "constElems":{
+            "BossBunny": 1,
+            "Sword":10
+        },
+        "randomGroups":[]
+    },
+
+    "_boss_15": {
+        "displayName": "Boss战斗15",
+        "map": {},
+        "init_uncovered": {"w": 3, "h": 3},
+        "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
             "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
             "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},

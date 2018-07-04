@@ -47,6 +47,7 @@
         "validTarget":"markedMonster|uncoveredMonster|uncoverable", 
         "attackFlags":["Ice", "Gun"]
     },
+    "Sword":{"name":"剑", "powerA":1},
 
     "NextLevelPort":{"name":"下一层"}
 }

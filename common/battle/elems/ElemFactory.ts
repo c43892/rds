@@ -207,12 +207,6 @@ class ElemFactory {
            return ps.subType == "gridUnconvered" && (e.pos.x == ps.x && e.pos.y == ps.y) || (Utils.indexOf(placeHolders, (hd) => hd.pos.x == ps.x && hd.pos.y == ps.y) >= 0);
        }, false);
 
-    //    // 死亡时把占位物体带走
-    //    e = <Monster>ElemFactory.addDieAI(async () => {
-    //        for (var hd of placeHolders)
-    //            await e.bt().implRemoveElemAt(hd.pos.x, hd.pos.y);
-    //    }, e);
-
        e.setBattle = (bt:Battle) => 
        {
            e.$$bt = bt;
