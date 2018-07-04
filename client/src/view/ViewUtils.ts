@@ -4,24 +4,27 @@ class ViewUtils {
      * Create a Bitmap object according to name keyword.As for the property of name please refer to the configuration file of resources/resource.json.
      */
     public static createBitmapByName(name: string = undefined):egret.Bitmap {
-        let result = new egret.Bitmap();
+        return ViewUtils.setTex(new egret.Bitmap(), name, true);
+    }
 
+    public static setTex(bmp:egret.Bitmap, name:string, resetSize:boolean = false):egret.Bitmap {
         if (name) {
             let texture: egret.Texture = RES.getRes(name);
-            result.texture = texture;
-            if (texture) {
-                result.width = texture.textureWidth;
-                result.height = texture.textureHeight;
-            } else
+            bmp.texture = texture;
+            if (texture && resetSize) {
+                bmp.width = texture.textureWidth;
+                bmp.height = texture.textureHeight;
+            } else if (!texture)
                 Utils.log("no texture created: " + name);
         }
         
-        result.anchorOffsetX = 0;
-        result.anchorOffsetY = 0;
-        result.x = 0;
-        result.y = 0;
-        
-        return result;
+        if (resetSize) {
+            bmp.anchorOffsetX = 0;
+            bmp.anchorOffsetY = 0;
+            bmp.x = 0;
+            bmp.y = 0;
+        }
+        return bmp;
     }
 
     public static loadTex(name: string) {

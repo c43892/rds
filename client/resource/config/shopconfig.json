@@ -1,0 +1,21 @@
+{
+    "inbattle": [
+        {"Key":10},
+        {"IceGun":10, "Gun":10},
+        {"RayGun":10, "Gun":10},
+        {"MedicineBox":10, "Gun":10},
+        {"MedicineBox":10, "Gun":10},
+        {"MedicineBox":10, "Gun":10}
+    ],
+
+    "worldmap": [
+        {"Key":10, "Gun":10},
+        {"IceGun":10},
+        {"RayGun":10, "Key":10},
+        {"MedicineBox":10, "Key":10},
+        {"MedicineBox":10, "Key":10},
+        {"MedicineBox":10, "Key":10}
+    ],
+
+    "":{}
+}

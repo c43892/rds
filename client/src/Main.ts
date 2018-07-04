@@ -71,6 +71,8 @@ class Main extends egret.DisplayObjectContainer {
         var worldmapCfg = RES.getRes("worldmap_json");
         GCfg.worldMapConnectionCfg = worldmapCfg.connections;
         GCfg.getWorldMapCfg = (world) => worldmapCfg[world];
+        var shopCfg = RES.getRes("shopconfig_json");
+        GCfg.getShopCfg = (shop) => shopCfg[shop];
     }
 
     private mv:MainView;

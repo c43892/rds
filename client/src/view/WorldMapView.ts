@@ -3,6 +3,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
     private viewContent:egret.DisplayObjectContainer;
     private bg:egret.Bitmap;
     private mapArea:egret.ScrollView;
+    private sv:ShopView;
 
     public constructor(w:number, h:number) {
         super();
@@ -31,7 +32,9 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.mapArea.scrollTop = this.viewContent.height - this.mapArea.height;
 
         this.touchEnabled = false;
-        this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchGrid, this);
+        this.mapArea.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchGrid, this);
+        
+        this.sv = new ShopView(this.width, this.height);
     }
 
     pts = [];
@@ -115,6 +118,16 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.refresh();
     }
 
+    public openShop(shop) {
+        this.removeChild(this.mapArea);
+        this.addChild(this.sv);
+        this.sv.open(shop).then((sel) => {
+            Utils.log(sel);
+            this.removeChild(this.sv);
+            this.addChild(this.mapArea);
+        });
+    }
+
     public startNewBattle; // 开启一场新战斗
     onTouchGrid(evt:egret.TouchEvent) {
         var bmp = evt.target;
@@ -136,7 +149,10 @@ class WorldMapView extends egret.DisplayObjectContainer {
             case "senior":
             case "boss":
                 this.startNewBattle(this.worldmap.player, ptStoreyLv, ptStoreyN);
-            break;
+                break;
+            case "shop":
+                this.openShop("worldmap");
+                break;
             default:
                 Utils.log("not support " + ptType + " yet");
             break;
