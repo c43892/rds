@@ -1,21 +1,37 @@
 {
-    "inbattle": [
-        {"Key":10},
-        {"IceGun":10, "Gun":10},
-        {"RayGun":10, "Gun":10},
-        {"MedicineBox":10, "Gun":10},
-        {"MedicineBox":10, "Gun":10},
-        {"MedicineBox":10, "Gun":10}
-    ],
+    "price": {
+        "Key":5,
+        "Gun":5,
+        "IceGun":5,
+        "RayGun":5,
+        "MedicineBox":5
+    },
 
-    "worldmap": [
-        {"Key":10, "Gun":10},
-        {"IceGun":10},
-        {"RayGun":10, "Key":10},
-        {"MedicineBox":10, "Key":10},
-        {"MedicineBox":10, "Key":10},
-        {"MedicineBox":10, "Key":10}
-    ],
+    "inbattle": {
+        "price": {
+            "Key":10
+        },
+        "items":[
+            {"Key":10},
+            {"IceGun":10, "Gun":10},
+            {"RayGun":10, "Gun":10},
+            {"MedicineBox":10, "Gun":10},
+            {"MedicineBox":10, "Gun":10},
+            {"MedicineBox":10, "Gun":10}
+    ]},
+
+    "worldmap": {
+        "price": {
+            "Gun":10
+        },
+        "items":[
+            {"Key":10, "Gun":10},
+            {"IceGun":10},
+            {"RayGun":10, "Key":10},
+            {"MedicineBox":10, "Key":10},
+            {"MedicineBox":10, "Key":10},
+            {"MedicineBox":10, "Key":10}
+    ]},
 
     "":{}
 }
