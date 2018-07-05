@@ -156,7 +156,7 @@ class BattleView extends egret.DisplayObjectContainer {
         var x = this.money.x;
         var y = this.money.y + this.money.height + 10;
         for (var r of this.player.relics) {
-            var rBmp = ViewUtils.createBitmapByName(r.type + "_png");
+            var rBmp = ViewUtils.createBitmapByName(r.getElemImgRes() + "_png");
             rBmp.x = x; rBmp.y = y;
             rBmp.width = rBmp.height = 25;
             x += rBmp.width + 5;

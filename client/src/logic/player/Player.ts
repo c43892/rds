@@ -220,9 +220,7 @@ class Player {
 
     public addRelic(e:Elem) {
         // 不加相同的遗物
-        if (Utils.indexOf(this.relics, (r) => r.type == e.type) >= 0)
-            return;
-
+        // Utils.assert(Utils.indexOf(this.relics, (r) => r.type == e.type) < 0, "player relic duplicated: " + e.type);
         this.relics.push(e);
     }
 

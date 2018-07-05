@@ -8,6 +8,7 @@ class HospitalView extends egret.DisplayObjectContainer {
     private btnCure:egret.Bitmap; // 治疗
     private btnReinforce:egret.Bitmap; // 强化
     private btnMutate:egret.Bitmap; // 变异
+    private btnCancel:egret.Bitmap;
 
     public constructor(w:number, h:number) {
         super();
@@ -51,6 +52,13 @@ class HospitalView extends egret.DisplayObjectContainer {
         this.addChild(this.btnMutate);
         this.btnMutate.touchEnabled = true;
         this.btnMutate.addEventListener(egret.TouchEvent.TOUCH_TAP, this.openMutate, this);
+
+        this.btnCancel = ViewUtils.createBitmapByName("goBack2_png");
+        this.btnCancel.x = 0;
+        this.btnCancel.y = this.height - this.btnCancel.height;
+        this.addChild(this.btnCancel);
+        this.btnCancel.touchEnabled = true;
+        this.btnCancel.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onCancel, this);
     }
 
     private doClose;
@@ -67,12 +75,38 @@ class HospitalView extends egret.DisplayObjectContainer {
     }
 
     async openReinforce(evt:egret.TouchEvent) {
-        var sel = this.selRelic((r) => true);
-        Utils.log("reinforce " + sel);
+        var sel = -1;
+        while (sel < 0) {
+            sel = await this.selRelic("选择要强化的遗物", (r) => true);
+            if (sel >= 0) {
+                var e = this.player.relics[sel];
+                var yesno = await this.confirmYesNo("确定强化 " + e.attrs.name);
+                if (yesno) {
+                    this.doClose();
+                } else
+                    sel = -1;
+            } else
+                break;
+        }
     }
 
-    openMutate(evt:egret.TouchEvent) {
-        var sel = this.selRelic((r) => true);
-        Utils.log("mutate " + sel);
+    async openMutate(evt:egret.TouchEvent) {
+        var sel = -1;
+        while (sel < 0) {
+            sel = await this.selRelic("选择要变异的遗物", (r) => true);
+            if (sel >= 0) {
+                var e = this.player.relics[sel];
+                var yesno = await this.confirmYesNo("确定变异 " + e.attrs.name);
+                if (yesno) {
+                    this.doClose();
+                } else
+                    sel = -1;
+            } else
+                break;
+        }
+    }
+
+    onCancel(evt:egret.TouchEvent) {
+        this.doClose();
     }
 }

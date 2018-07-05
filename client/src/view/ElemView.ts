@@ -74,7 +74,7 @@ class ElemView extends egret.DisplayObjectContainer {
             this.dropElemImg.width = this.dropElemImg.height = 25;
             this.showLayer.addChild(this.dropElemImg);
         } else if (show && this.dropElemImgExists()) {
-            var tex = ViewUtils.loadTex(dpe.type + "_png");
+            var tex = ViewUtils.loadTex(dpe.getElemImgRes() + "_png");
             if (this.dropElemImg.texture != tex)
                 this.dropElemImg.texture = tex;
         }

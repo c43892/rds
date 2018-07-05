@@ -34,7 +34,7 @@ class PropView extends egret.DisplayObjectContainer {
         if (!this.e) return;
 
         var e = this.e;
-        this.elemImg = ViewUtils.createBitmapByName(e.type + "_png");
+        this.elemImg = ViewUtils.createBitmapByName(e.getElemImgRes() + "_png");
         this.elemImg.name = "elemImg";
         var w = this.width;
         var h = this.height;

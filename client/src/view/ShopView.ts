@@ -17,6 +17,7 @@ class ShopView extends egret.DisplayObjectContainer {
 
         this.width = w;
         this.height = h;
+        this.touchEnabled = true;
 
         this.bg = ViewUtils.createBitmapByName("translucent_png");
         this.addChild(this.bg);
@@ -78,6 +79,7 @@ class ShopView extends egret.DisplayObjectContainer {
         for(var i = 0; i < ShopView.GridNum; i++) {
             var e = Utils.randomSelectByWeight(items[i], rand, 1, 2)[0];
             this.items.push(e);
+            this.soldOut[i] = false;
         }
 
         this.refresh();
@@ -124,7 +126,7 @@ class ShopView extends egret.DisplayObjectContainer {
             } else {
                 var e = this.items[i];
                 this.prices[i].text = this.getPrice(e);
-                ViewUtils.setTex(gd, e + "_png");
+                ViewUtils.setTex(gd, ElemFactory.create(e).getElemImgRes() + "_png");
             }
         }
     }

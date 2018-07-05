@@ -5,6 +5,7 @@ class MainView extends egret.DisplayObjectContainer {
     public sv:ShopView; // 商店视图
     public hv:HospitalView; // 医院视图
     public wmv:WorldMapView; // 大地图视图
+    public rsv:RelicSelView; // 遗物选择视图
     public mm:egret.DisplayObjectContainer; // 主界面菜单
     public tcv:TipConfirmView; // 提示确认视图
     
@@ -26,6 +27,14 @@ class MainView extends egret.DisplayObjectContainer {
             return await this.tcv.confirmYesNo(title);
         };
 
+        // 遗物选择视图
+        this.rsv = new RelicSelView(w, h);
+        this.rsv.x = this.rsv.y = 0;
+        this.rsv.confirmYesNo = async (title) => {
+            this.setChildIndex(this.tcv, -1);
+            return await this.tcv.confirmYesNo(title);
+        };
+
         // 战斗视图
         this.bv = new BattleView(w, h);
         this.bv.x = this.bv.y = 0;
@@ -43,6 +52,13 @@ class MainView extends egret.DisplayObjectContainer {
         this.hv.confirmYesNo = async (title) => {
             this.setChildIndex(this.tcv, -1);
             return await this.tcv.confirmYesNo(title);
+        };
+        this.hv.selRelic = async (title, f) => {
+            this.rsv.player = this.p;
+            this.addChild(this.rsv);
+            var sel = await this.rsv.open(title, f);
+            this.removeChild(this.rsv);
+            return sel;
         };
 
         // 主界面菜单
