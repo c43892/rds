@@ -1,6 +1,6 @@
 client/bin-debug
 client/bin-release
-client/src/battle
+client/src/logic
 
-server/battle
+server/logic
 server/debug

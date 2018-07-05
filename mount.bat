@@ -1,3 +1,3 @@
-junction client\src\battle common\battle
-junction server\battle common\battle
+junction client\src\logic common\logic
+junction server\logic common\logic
 pause

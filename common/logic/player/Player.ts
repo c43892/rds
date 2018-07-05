@@ -74,10 +74,12 @@ class Player {
     // 非战斗逻辑
     public money:number; // 金币
 
-    public addMoney(dm:number) {
+    public addMoney(dm:number):boolean {
+        if (this.money  + dm < 0)
+            return false;
+
         this.money += dm;
-        if (this.money < 0)
-            this.money = 0;
+        return true;
     }
 
     // 战斗逻辑
