@@ -6,6 +6,7 @@ class ShopView extends egret.DisplayObjectContainer {
     private grids:egret.Bitmap[] = []; // 商品格子
     private prices:egret.TextField[] = []; // 商品价格
     private items:string[] = [];
+    private soldOut:boolean[] = [];
     private btnGoBack;
 
     public player:Player;
@@ -47,6 +48,8 @@ class ShopView extends egret.DisplayObjectContainer {
             pt.verticalAlign = egret.VerticalAlign.MIDDLE;
             this.prices.push(pt);
             this.addChild(pt);
+
+            this.soldOut.push(false);
         }
 
         this.btnGoBack = ViewUtils.createBitmapByName("goBack_png")
@@ -75,15 +78,20 @@ class ShopView extends egret.DisplayObjectContainer {
         for(var i = 0; i < ShopView.GridNum; i++) {
             var e = Utils.randomSelectByWeight(items[i], rand, 1, 2)[0];
             this.items.push(e);
-            this.prices[i].text = this.getPrice(e);
         }
 
         this.refresh();
         return new Promise<void>((resolve, reject) => {
-            this.onBuy = (e) => {
+            this.onBuy = (n) => {
+                if (this.soldOut[n]) {
+                    Utils.log("已售罄");
+                    return;
+                }
+
+                var e = this.items[n];
                 var price = this.getPrice(e);
                 if (!this.player.addMoney(price)) {
-                    Utils.log("钱不够");
+                    Utils.log("金币不足");
                     return;
                 }
 
@@ -97,16 +105,28 @@ class ShopView extends egret.DisplayObjectContainer {
                 } else
                     Utils.assert(false, "only prop or relic can be sold in shop, got: " + e);
 
+                this.soldOut[n] = true;
                 if (autoClose)
                     resolve();
+                else
+                    this.refresh();
             };
             this.onCancel = reject;
         });
     }
 
     public refresh() {
-        for(var gd of this.grids)
-            ViewUtils.setTex(gd, this.items[gd["itemIndex"]] + "_png");
+        for(var gd of this.grids) {
+            var i = gd["itemIndex"];
+            if (this.soldOut[i]) {
+                this.prices[i].text = "";
+                ViewUtils.setTex(gd, "soldout_png");
+            } else {
+                var e = this.items[i];
+                this.prices[i].text = this.getPrice(e);
+                ViewUtils.setTex(gd, e + "_png");
+            }
+        }
     }
 
     onGoBack(evt:egret.TouchEvent) {
@@ -118,6 +138,6 @@ class ShopView extends egret.DisplayObjectContainer {
         var e = this.items[n];
         var yesno = await this.confirmYesNo("确定购买 " + e + "，花费 " + this.getPrice(e) + " 金币 ?");
         if (yesno)
-            this.onBuy(e);
+            this.onBuy(n);
     }
 }

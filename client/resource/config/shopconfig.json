@@ -12,7 +12,7 @@
             "Key":10
         },
         "items":[
-            {"Key":10},
+            {"Gun":10},
             {"IceGun":10, "Gun":10},
             {"RayGun":10, "Gun":10},
             {"MedicineBox":10, "Gun":10},
@@ -25,12 +25,12 @@
             "Gun":10
         },
         "items":[
-            {"Key":10, "Gun":10},
+            {"Gun":10, "MedicineBox":10},
             {"IceGun":10},
-            {"RayGun":10, "Key":10},
-            {"MedicineBox":10, "Key":10},
-            {"MedicineBox":10, "Key":10},
-            {"MedicineBox":10, "Key":10}
+            {"RayGun":10, "Gun":10},
+            {"MedicineBox":10, "Gun":10},
+            {"MedicineBox":10, "Gun":10},
+            {"MedicineBox":10, "Gun":10}
     ]},
 
     "":{}
