@@ -1,13 +1,30 @@
 // 主视图
 class MainView extends egret.DisplayObjectContainer {
+    private p:Player; // 当前玩家数据
+    public bv:BattleView; // 战斗视图
+    public sv:ShopView; // 商店视图
+    public hv:HospitalView; // 医院视图
+    public wmv:WorldMapView; // 大地图视图
+    public mm:egret.DisplayObjectContainer; // 主界面菜单
+    public tcv:TipConfirmView; // 提示确认视图
+    
     public constructor(w:number, h:number) {
         super();
         this.width = w;
         this.height = h;
 
+        // 提示确认视图
+        this.tcv = new TipConfirmView(w, h);
+        this.tcv.x = this.tcv.y = 0;
+        this.addChild(this.tcv);
+
         // 商店视图
         this.sv = new ShopView(w, h);
         this.sv.x = this.sv.y = 0;
+        this.sv.confirmYesNo = async (title) => {
+            this.setChildIndex(this.tcv, -1);
+            return await this.tcv.confirmYesNo(title);
+        };
 
         // 战斗视图
         this.bv = new BattleView(w, h);
@@ -18,6 +35,15 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv = new WorldMapView(w, h);
         this.wmv.x = this.wmv.y = 0;
         this.wmv.openShop = (shop) => this.openShop(shop, false);
+        this.wmv.openHospital = () => this.openHospital();
+
+        // 医院视图
+        this.hv = new HospitalView(w, h);
+        this.hv.x = this.hv.y = 0;
+        this.hv.confirmYesNo = async (title) => {
+            this.setChildIndex(this.tcv, -1);
+            return await this.tcv.confirmYesNo(title);
+        };
 
         // 主界面菜单
         this.mm = new egret.DisplayObjectContainer();
@@ -56,23 +82,7 @@ class MainView extends egret.DisplayObjectContainer {
             this.addChild(this.bv);
             this.startNewBattleWithRecorder(bt);
         }
-
-        // 提示确认视图
-        this.tcv = new TipConfirmView(w, h);
-        this.tcv.x = this.tcv.y = 0;
-        this.addChild(this.tcv);
-        this.sv.confirmYesNo = async (title) => {
-            this.setChildIndex(this.tcv, -1);
-            return await this.tcv.confirmYesNo(title);
-        };
     }
-    
-    private p:Player; // 当前玩家数据
-    public bv:BattleView; // 战斗视图
-    public sv:ShopView; // 商店视图
-    public wmv:WorldMapView; // 大地图视图
-    public mm:egret.DisplayObjectContainer; // 主界面菜单
-    public tcv:TipConfirmView; // 提示确认视图
 
     // 开始一场新的战斗
     public startNewBattleWithRecorder(bt:Battle) { this.startNewBattle(bt); BattleRecorder.startNew(bt.id, bt.player, bt.btType, bt.trueRandomSeed); }
@@ -132,6 +142,13 @@ class MainView extends egret.DisplayObjectContainer {
         }, () => {
             this.removeChild(this.sv);
         });
+    }
+
+    // 打开医院界面
+    public openHospital() {
+        this.hv.player = this.p;
+        this.addChild(this.hv);
+        this.hv.openHospital().then(() => this.removeChild(this.hv));
     }
 
     // 开启世界地图

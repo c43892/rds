@@ -5,6 +5,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
     private mapArea:egret.ScrollView;
 
     public openShop; // 打开商店
+    public openHospital; // 进入医院
 
     public constructor(w:number, h:number) {
         super();
@@ -141,6 +142,9 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 break;
             case "shop":
                 this.openShop("worldmap");
+                break;
+            case "camp":
+                this.openHospital();
                 break;
             default:
                 Utils.log("not support " + ptType + " yet");
