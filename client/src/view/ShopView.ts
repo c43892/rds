@@ -113,7 +113,7 @@ class ShopView extends egret.DisplayObjectContainer {
                 else
                     this.refresh();
             };
-            this.onCancel = reject;
+            this.onCancel = resolve;
         });
     }
 

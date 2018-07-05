@@ -1,5 +1,6 @@
 // 大地图视图
 class WorldMapView extends egret.DisplayObjectContainer {
+    public player:Player;
     private viewContent:egret.DisplayObjectContainer;
     private bg:egret.Bitmap;
     private mapArea:egret.ScrollView;
@@ -69,7 +70,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 img["ptStoreyLv"] = i;
                 img["ptStoreyN"] = j;
                 img.touchEnabled = true;
-                // this.viewContent.addChild(img);
                 imgs[i].push(img);
             }
         }
@@ -119,7 +119,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
     }
 
     public startNewBattle; // 开启一场新战斗
-    onTouchGrid(evt:egret.TouchEvent) {
+    async onTouchGrid(evt:egret.TouchEvent) {
         var bmp = evt.target;
         if (!(bmp instanceof egret.Bitmap))
             return;
@@ -134,21 +134,35 @@ class WorldMapView extends egret.DisplayObjectContainer {
         Utils.assert(this.worldmap.stories[ptStoreyLv][ptStoreyN] == ptType, 
             "worldmap storey type ruined: " + ptType + " vs " + this.worldmap.stories[ptStoreyLv][ptStoreyN]);
 
+        var parent = this.parent;
+        parent.removeChild(this);
+
+        // 保存进度
+        this.player.notifyStoreyPosIn(ptStoreyLv, ptStoreyN);
+        Utils.$$saveItem("player", this.player.toString());
+            
         switch(ptType) {
             case "normal":
             case "senior":
             case "boss":
-                this.startNewBattle(this.worldmap.player, ptStoreyLv, ptStoreyN);
+                await this.startNewBattle(this.worldmap.player, ptStoreyLv, ptStoreyN);
                 break;
             case "shop":
-                this.openShop("worldmap");
+                await this.openShop("worldmap");
                 break;
             case "camp":
-                this.openHospital();
+                await this.openHospital();
                 break;
             default:
                 Utils.log("not support " + ptType + " yet");
             break;
         }
+
+        // 保存进度
+        this.player.notifyStoreyPosFinished(this.player.currentStoreyPos.lv, this.player.currentStoreyPos.n);
+        Utils.$$saveItem("player", this.player.toString());
+
+        parent.addChild(this);
+        this.refresh();
     }
 }

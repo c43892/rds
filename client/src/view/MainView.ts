@@ -38,13 +38,13 @@ class MainView extends egret.DisplayObjectContainer {
         // 战斗视图
         this.bv = new BattleView(w, h);
         this.bv.x = this.bv.y = 0;
-        this.bv.openShop = (shop, autoClose) => this.openShop(shop, autoClose);
+        this.bv.openShop = async (shop, autoClose) => await this.openShop(shop, autoClose);
 
         // 世界地图
         this.wmv = new WorldMapView(w, h);
         this.wmv.x = this.wmv.y = 0;
-        this.wmv.openShop = (shop) => this.openShop(shop, false);
-        this.wmv.openHospital = () => this.openHospital();
+        this.wmv.openShop = async (shop) => await this.openShop(shop, false);
+        this.wmv.openHospital = async () => await this.openHospital();
 
         // 医院视图
         this.hv = new HospitalView(w, h);
@@ -87,22 +87,17 @@ class MainView extends egret.DisplayObjectContainer {
             this.startNewBattle(Battle.createNewBattle(p, btType, trueRandomSeed));
         };
 
-        this.wmv.startNewBattle = (p:Player, lv:number, n:number) => { 
+        this.wmv.startNewBattle = async (p:Player, lv:number, n:number) => { 
             var btType = p.worldmap.stories[lv][n];
             var bt = Battle.createNewBattle(p, btType + "_" + lv);
-            p.notifyStoreyPosIn(lv, n);
-
-            Utils.$$saveItem("player", p.toString());
-
-            this.clear();
-            this.addChild(this.bv);
-            this.startNewBattleWithRecorder(bt);
+            await this.startNewBattleWithRecorder(bt);
         }
     }
 
     // 开始一场新的战斗
-    public startNewBattleWithRecorder(bt:Battle) { this.startNewBattle(bt); BattleRecorder.startNew(bt.id, bt.player, bt.btType, bt.trueRandomSeed); }
-    public startNewBattle(bt:Battle) {
+    public async startNewBattleWithRecorder(bt:Battle) { await this.startNewBattle(bt); BattleRecorder.startNew(bt.id, bt.player, bt.btType, bt.trueRandomSeed); }
+    private battleEndedCallback;
+    public async startNewBattle(bt:Battle) {
         Utils.log("start new battle with ", bt.$$srandSeed());
 
         this.bv.width = this.width;
@@ -131,15 +126,13 @@ class MainView extends egret.DisplayObjectContainer {
             if (ps.subType != "goOutLevel")
                 return;
 
-            var p = bt.player;
-            p.notifyStoreyPosFinished(p.currentStoreyPos.lv, p.currentStoreyPos.n);
-            Utils.$$saveItem("player", p.toString());
-
-            this.openWorldMap(p.worldmap);
+            this.removeChild(this.bv);
+            this.battleEndedCallback(bt);
         })
 
         BattleRecorder.registerReplayIndicatorHandlers(bt);
         bt.Start();
+        return new Promise<Battle>((resolve, reject) => this.battleEndedCallback = resolve);
     }
 
     clear() {
@@ -150,26 +143,25 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 开启商店界面
-    public openShop(shop, autoClose:boolean = true) {
+    public async openShop(shop, autoClose:boolean = true) {
         this.sv.player = this.p;
         this.addChild(this.sv);
-        this.sv.open(shop, autoClose).then(() => {
-            this.removeChild(this.sv);
-        }, () => {
-            this.removeChild(this.sv);
-        });
+        await this.sv.open(shop, autoClose);
+        this.removeChild(this.sv);
     }
 
     // 打开医院界面
-    public openHospital() {
+    public async openHospital() {
         this.hv.player = this.p;
         this.addChild(this.hv);
-        this.hv.openHospital().then(() => this.removeChild(this.hv));
+        await this.hv.openHospital();
+        this.removeChild(this.hv);
     }
 
     // 开启世界地图
     public openWorldMap(worldmap:WorldMap) {
         this.clear();
+        this.wmv.player = this.p;
         this.wmv.setWorldMap(worldmap);
         this.addChild(this.wmv);
     }

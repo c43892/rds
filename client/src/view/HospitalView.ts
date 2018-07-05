@@ -54,7 +54,7 @@ class HospitalView extends egret.DisplayObjectContainer {
         this.btnMutate.addEventListener(egret.TouchEvent.TOUCH_TAP, this.openMutate, this);
 
         this.btnCancel = ViewUtils.createBitmapByName("goBack2_png");
-        this.btnCancel.x = 0;
+        this.btnCancel.x = this.width - this.btnCancel.width;
         this.btnCancel.y = this.height - this.btnCancel.height;
         this.addChild(this.btnCancel);
         this.btnCancel.touchEnabled = true;
@@ -75,6 +75,9 @@ class HospitalView extends egret.DisplayObjectContainer {
     }
 
     async openReinforce(evt:egret.TouchEvent) {
+        var parent = this.parent;
+        parent.removeChild(this);
+        
         var sel = -1;
         while (sel < 0) {
             sel = await this.selRelic("选择要强化的遗物", (r) => true);
@@ -88,9 +91,14 @@ class HospitalView extends egret.DisplayObjectContainer {
             } else
                 break;
         }
+
+        parent.addChild(this);
     }
 
     async openMutate(evt:egret.TouchEvent) {
+        var parent = this.parent;
+        parent.removeChild(this);
+
         var sel = -1;
         while (sel < 0) {
             sel = await this.selRelic("选择要变异的遗物", (r) => true);
@@ -104,6 +112,8 @@ class HospitalView extends egret.DisplayObjectContainer {
             } else
                 break;
         }
+
+        parent.addChild(this);
     }
 
     onCancel(evt:egret.TouchEvent) {
