@@ -1,6 +1,12 @@
 {
+    "MedicineBox":{"name":"医药箱", "dhp":5, 
+        "reinforce":[
+            {"dhp":6}, {"dhp":7}, {"dhp":8}, {"dhp":9}, {"dhp":10},
+            {"dhp":11}, {"dhp":12}, {"dhp":13}, {"dhp":14}, {"dhp":15}
+        ]
+    },
+    
     "Coins":{"name":"金币", "cnt":1, "canOverlap":true, "useWithoutConfirm":true},
-    "MedicineBox":{"name":"医药箱", "dhp":5},
     "Key":{"name":"钥匙", "useWithTarget":true, "validTargets":["Door", "TreasureBox"]},
     "Door":{"name":"门"},
     "TreasureBox":{"name":"宝箱"},
