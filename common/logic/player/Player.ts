@@ -170,8 +170,11 @@ class Player {
         for (var f of Player.serializableFields)
             p[f] = pinfo[f];
 
-        for (var r of pinfo.relics)
-            p.relics.push((<Relic>Elem.fromString(r)).toRelic());
+        for (var r of pinfo.relics) {
+            var relic:Relic = (<Relic>Elem.fromString(r)).toRelic();
+            p.relics.push(relic);
+            relic.redoAllMutateEffects();
+        }
 
         for (var prop of pinfo.props)
             p.props.push((<Prop>Elem.fromString(prop)).toProp());
@@ -225,8 +228,10 @@ class Player {
         var n = Utils.indexOf(this.relics, (r) => r.type == e.type);
         if (n >= 0)
             (<Relic>this.relics[n]).reinforceLvUp();
-        else
+        else {
             this.relics.push(e);
+            (<Relic>e).player = this;
+        }
     }
 
     public removeRelic(type:string):Elem {
@@ -234,6 +239,7 @@ class Player {
             var e = this.relics[i];
             if (e.type == type) {
                 this.relics = Utils.removeAt(this.relics, i)
+                (<Relic>e).removeAllEffect();
                 return e;
             }
         }

@@ -30,6 +30,10 @@ class SRandom {
         return this.next(min, max);
     }
 
+    public select(collection) {
+        return collection[this.nextInt(0, collection.length)];
+    }
+
     public toString():string {
         return this.seed.toString();
     }

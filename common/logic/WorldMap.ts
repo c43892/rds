@@ -113,7 +113,7 @@ class WorldMap {
     }
 
     static connectionConflict(w, type, validLevels, lv, n):boolean {
-        if (lv < validLevels[0] || lv > validLevels[1])
+        if (lv < validLevels[0] || lv >= validLevels[1])
             return true;
 
         // if (type != "shop" && type != "camp") // 这两种不检查直连冲突
