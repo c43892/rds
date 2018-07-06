@@ -31,8 +31,7 @@
 
         },
         "constElems":{
-            "Key": 1,
-            "CoinsBig":10
+            "Key": 1
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {

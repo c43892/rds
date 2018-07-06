@@ -222,8 +222,11 @@ class Player {
 
     public addRelic(e:Elem) {
         // 不加相同的遗物
-        // Utils.assert(Utils.indexOf(this.relics, (r) => r.type == e.type) < 0, "player relic duplicated: " + e.type);
-        this.relics.push(e);
+        var n = Utils.indexOf(this.relics, (r) => r.type == e.type);
+        if (n >= 0)
+            (<Relic>this.relics[n]).reinforceLvUp();
+        else
+            this.relics.push(e);
     }
 
     public removeRelic(type:string):Elem {
