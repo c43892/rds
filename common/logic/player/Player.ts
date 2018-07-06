@@ -237,9 +237,7 @@ class Player {
         var n = Utils.indexOf(this.relics, (r) => r.type == e.type);
         if (n >= 0) {
             var r = <Relic>this.relics[n];
-            r.removeAllEffects();
             r.reinforceLvUp();
-            r.toRelic(this);
             r.redoAllMutatedEffects();
         }
         else {

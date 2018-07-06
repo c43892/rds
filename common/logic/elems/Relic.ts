@@ -9,13 +9,17 @@ class Relic extends Elem {
     
     public reinforceLv = 0; // 强化等级
     public canReinfoce():boolean { return this.attrs.reinforce && this.reinforceLv < this.attrs.reinforce.length; }
+    public beforeRinforceLvUp;
     public reinforceLvUp():boolean { 
         if (!this.canReinfoce())
             return false;
 
+        if (this.beforeRinforceLvUp) this.beforeRinforceLvUp();
         this.setReinfoceLv(this.reinforceLv + 1);
+        if (this.afterPlayerActed) this.afterPlayerActed();
         return true;
     }
+    public afterRinforceLvUp;
     public setReinfoceLv(lv:number) {
         Utils.assert(lv > 0 && lv < this.attrs.reinforce.length, "reinforce level overflow");
         var reinforceAttrs = this.attrs.reinforce[lv - 1];

@@ -3,7 +3,7 @@
 class RelicFactory {
 
     // 创建一个遗物在地图上的包装对象
-    createRelic(attrs, ...funcs):Relic {
+    createRelic(attrs, needResetOnReinforceLvUp:boolean, ...funcs):Relic {
         var e = new Relic();
         e.canUse = () => true;
         e.canBeMoved = true;
@@ -24,6 +24,15 @@ class RelicFactory {
         };
         if (attrs.reinforceLv) // 初始强化等级
             e.setReinfoceLv(attrs.reinforceLv);
+
+        // 强化时需要重置效果
+        if (needResetOnReinforceLvUp) {
+            e.beforeRinforceLvUp = () => e.removeAllEffects();
+            e.afterPlayerActed = () => {
+                e.toRelic(e.player);
+                e.redoAllMutatedEffects();
+            };
+        }
         
         return e;
     }
@@ -31,7 +40,7 @@ class RelicFactory {
     public creators = {
         // 医疗箱过关回血
         "MedicineBox": (attrs) => {
-            return this.createRelic(attrs, (r:Relic, enable:boolean) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (enable)
                     ElemFactory.addAI("beforeGoOutLevel2", async () => r.bt().implAddPlayerHp(r.attrs.dhp), r)
             });
@@ -39,7 +48,7 @@ class RelicFactory {
 
         // 鹰眼，每关开始前标注一个带钥匙的怪物
         "Hawkeye": (attrs) => {
-            return this.createRelic(attrs, (r:Relic, enable:boolean) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (enable) {
                     ElemFactory.addAI("onStartupRegionUncovered", async () => {
                         var ms = BattleUtils.findRandomElems(r.bt(), 1, (m) => {
@@ -58,7 +67,7 @@ class RelicFactory {
 
         // 时光机
         "TimeMachine": (attrs) => {
-            return this.createRelic(attrs, (r:Relic, enable:boolean) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (enable) {
                     ElemFactory.addAI("beforeGoOutLevel2", async () => {
                         await r.bt().implAddPlayerAttr("deathStep", attrs.deathGodBackStep);
@@ -69,7 +78,7 @@ class RelicFactory {
 
         // 耐力
         "Endurance": (attrs) => {
-            return this.createRelic(attrs, async (r:Relic, enable:boolean) => {
+            return this.createRelic(attrs, true, (r:Relic, enable:boolean) => {
                 r.player.addMaxHp(enable ? attrs.dMaxHp : -attrs.dMaxHp);
             });
         },
