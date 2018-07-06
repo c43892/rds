@@ -37,8 +37,7 @@ class Battle {
     public loadCurrentLevel(btType:string):Level {
         // 创建关卡地图和元素
         this.level = new Level();
-        this.lvCfg = GCfg.getLevelCfg(btType);   
-        this.displayName = this.lvCfg.displayName;
+        this.lvCfg = GCfg.getLevelCfg(btType);
         Utils.assert(!!this.lvCfg, "can not find level config: " + btType);
         while (this.lvCfg.redirect) {
             btType = this.lvCfg.redirect;
@@ -46,6 +45,7 @@ class Battle {
             Utils.assert(!!this.lvCfg, "can not find level config: " + btType);
         }
 
+        this.displayName = this.lvCfg.displayName;
         this.level.Init(this, this.lvCfg);
         this.level.map.foreachElem((e) => e.setBattle(this));
         this.bc = new BattleCalculator(this.srand);
