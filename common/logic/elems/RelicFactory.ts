@@ -61,7 +61,7 @@ class RelicFactory {
             return this.createRelic(attrs, (r:Relic, enable:boolean) => {
                 if (enable) {
                     ElemFactory.addAI("beforeGoOutLevel2", async () => {
-                        await r.bt().implAddPlayerAttr("deathStep", 5);
+                        await r.bt().implAddPlayerAttr("deathStep", attrs.deathGodBackStep);
                     }, r);
                 }
             });

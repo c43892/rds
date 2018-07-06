@@ -1,15 +1,17 @@
 {
     "MedicineBox":{"name":"医药箱", "dhp":5, 
-        "reinforceLv":0,
         "reinforce":[
             {"dhp":6}, {"dhp":7}, {"dhp":8}, {"dhp":9}, {"dhp":10},
             {"dhp":11}, {"dhp":12}, {"dhp":13}, {"dhp":14}, {"dhp":15}
         ]
     },
     "Hawkeye":{"name":"鹰眼"},
-    "TimeMachine":{"name":"时光机"},
+    "TimeMachine":{"name":"时光机", "deathGodBackStep":5,
+        "reinforce":[
+            {"deathGodBackStep":6}, {"deathGodBackStep":7}, {"deathGodBackStep":8}, {"dMaxHp":9}, {"deathGodBackStep":10}
+        ]
+    },
     "Endurance":{"name":"耐力", "dMaxHp":5, 
-        "reinforceLv":0,
         "reinforce":[
             {"dMaxHp":6}, {"dMaxHp":7}, {"dMaxHp":8}, {"dMaxHp":9}, {"dMaxHp":10}
         ]
