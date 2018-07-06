@@ -28,7 +28,6 @@
             "Gun":{"cnt":2, "power":3},
             "RayGun":{"cnt":2, "power":3},
             "MedicineBox": {}
-
         },
         "constElems":{
             "Key": 1

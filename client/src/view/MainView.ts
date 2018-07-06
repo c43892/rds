@@ -83,22 +83,26 @@ class MainView extends egret.DisplayObjectContainer {
         btnNew.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onNewPlay, this);
 
         // 录像机如何启动新的录像战斗
-        BattleRecorder.startNewBattleImpl = (p:Player, btType:string, trueRandomSeed:number) => {
-            this.startNewBattle(Battle.createNewBattle(p, btType, trueRandomSeed));
+        BattleRecorder.startNewBattleImpl = (p:Player, btType:string, btRandomSeed:number, trueRandomSeed:number) => {
+            this.startNewBattle(Battle.createNewBattle(p, btType, btRandomSeed, trueRandomSeed));
         };
 
-        this.wmv.startNewBattle = async (p:Player, lv:number, n:number) => { 
+        this.wmv.startNewBattle = async (p:Player, lv:number, n:number, btRandomSeed:number) => { 
             var btType = p.worldmap.stories[lv][n];
-            var bt = Battle.createNewBattle(p, btType + "_" + lv);
+            var bt = Battle.createNewBattle(p, btType + "_" + lv, btRandomSeed);
             await this.startNewBattleWithRecorder(bt);
         }
     }
 
     // 开始一场新的战斗
-    public async startNewBattleWithRecorder(bt:Battle) { BattleRecorder.startNew(bt.id, bt.player, bt.btType, bt.trueRandomSeed); await this.startNewBattle(bt); }
+    public async startNewBattleWithRecorder(bt:Battle)
+    {
+        BattleRecorder.startNew(bt.id, bt.player, bt.btType, bt.btRandomSeed, bt.trueRandomSeed);
+        await this.startNewBattle(bt);
+    }
     private battleEndedCallback;
     public async startNewBattle(bt:Battle) {
-        Utils.log("start new battle with ", bt.$$srandSeed());
+        Utils.log("start new battle with ", bt.btRandomSeed, bt.trueRandomSeed);
 
         this.bv.width = this.width;
         this.bv.height = this.height;

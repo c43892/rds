@@ -81,7 +81,6 @@ class ReplayView extends egret.DisplayObjectContainer {
 
     onTouchTap(evt:egret.TouchEvent) {
         if (evt.target == this.openBtn) { // 打开关闭录像界面/停止录像播放
-            Utils.log("BattleRecorder.inRecording:" + BattleRecorder.inRecording);
             if (BattleRecorder.inRecording) { // 非录像回放状态
                 if (this.getChildByName(this.listArea.name) != undefined) {
                     this.removeChild(this.listArea);
