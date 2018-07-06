@@ -15,7 +15,7 @@
                 "selfExplode":{"power":6},
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
-            "NormalZombie":{"hp":4, "power":1},
+            "NormalZombie":{"hp":4, "power":2},
             "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
             "DancerZombie":{"hp":4, "power":2, "summons":["NormalZombie", "NormalZombie"]},
             "EyeDemonZombie":{"hp":6, "power":1},
@@ -39,7 +39,7 @@
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
-                "MedicineBox": 1,
+                "MedicineBox": 5,
                 "Shield":10,
                 "Magazine":5
         }},{
@@ -82,7 +82,7 @@
                 "selfExplode":{"power":6},
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
-            "NormalZombie":{"hp":4, "power":1},
+            "NormalZombie":{"hp":4, "power":2},
             "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
             "DancerZombie":{"hp":4, "power":2, "summons":["NormalZombie", "NormalZombie"]},
             "EyeDemonZombie":{"hp":6, "power":1},
@@ -105,7 +105,7 @@
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
-                "MedicineBox": 1,
+                "MedicineBox": 5,
                 "Shield":10,
                 "Magazine":5
         }},{
@@ -148,7 +148,7 @@
                 "selfExplode":{"power":6},
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
-            "NormalZombie":{"hp":4, "power":1},
+            "NormalZombie":{"hp":4, "power":2},
             "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
             "DancerZombie":{"hp":4, "power":2, "summons":["NormalZombie", "NormalZombie"]},
             "EyeDemonZombie":{"hp":6, "power":1},
@@ -171,7 +171,7 @@
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
-                "MedicineBox": 1,
+                "MedicineBox": 5,
                 "Shield":10,
                 "Magazine":5
         }},{
@@ -214,11 +214,11 @@
                 "selfExplode":{"power":6},
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
-            "NormalZombie":{"hp":4, "power":1},
-            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
-            "DancerZombie":{"hp":4, "power":2, "summons":["NormalZombie", "NormalZombie"]},
-            "EyeDemonZombie":{"hp":6, "power":1},
-            "RandomEggZombie":{"hp":5, "power":1, "dropItems":["RandomEgg1"]},
+            "NormalZombie":{"hp":5, "power":2},
+            "HoundZombie":{"hp":4, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "DancerZombie":{"hp":5, "power":2, "summons":["NormalZombie", "NormalZombie"]},
+            "EyeDemonZombie":{"hp":7, "power":1},
+            "RandomEggZombie":{"hp":6, "power":1, "dropItems":["RandomEgg1"]},
 
 
             "HpPotion":{},
@@ -237,7 +237,7 @@
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
-                "MedicineBox": 1,
+                "MedicineBox": 5,
                 "Shield":10,
                 "Magazine":5
         }},{
@@ -280,11 +280,11 @@
                 "selfExplode":{"power":6},
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
-            "NormalZombie":{"hp":4, "power":1},
-            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
-            "DancerZombie":{"hp":4, "power":2, "summons":["NormalZombie", "NormalZombie"]},
-            "EyeDemonZombie":{"hp":6, "power":1},
-            "RandomEggZombie":{"hp":5, "power":1, "dropItems":["RandomEgg1"]},
+            "NormalZombie":{"hp":5, "power":2},
+            "HoundZombie":{"hp":4, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "DancerZombie":{"hp":5, "power":2, "summons":["NormalZombie", "NormalZombie"]},
+            "EyeDemonZombie":{"hp":7, "power":1},
+            "RandomEggZombie":{"hp":6, "power":1, "dropItems":["RandomEgg1"]},
 
 
             "HpPotion":{},
@@ -303,7 +303,7 @@
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
-                "MedicineBox": 1,
+                "MedicineBox": 5,
                 "Shield":10,
                 "Magazine":5
         }},{
@@ -346,14 +346,14 @@
                 "selfExplode":{"power":6},
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
-            "NormalZombie":{"hp":4, "power":1},
+            "NormalZombie":{"hp":5, "power":3},
             "ThiefZombie":{"hp":3, "power":1, "steal":{"percent":20, "num":5}},
-            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
-            "DancerZombie":{"hp":4, "power":2, "summons":["NormalZombie", "NormalZombie"]},
+            "HoundZombie":{"hp":4, "power":2, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "DancerZombie":{"hp":5, "power":3, "summons":["NormalZombie", "NormalZombie"]},
             "SniperZombie":{"hp":5, "power":2, "stealOnPlayerLeave":6},
-            "EyeDemonZombie":{"hp":6, "power":1},
-            "RandomEggZombie":{"hp":5, "power":1, "dropItems":["RandomEgg1"]},
-            "IronZombie":{"hp":5, "power":1, "sheild":8},
+            "EyeDemonZombie":{"hp":7, "power":2},
+            "RandomEggZombie":{"hp":6, "power":2, "dropItems":["RandomEgg1"]},
+            "IronZombie":{"hp":5, "power":2, "sheild":8},
 
 
             "HpPotion":{},
@@ -372,7 +372,7 @@
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
-                "MedicineBox": 1,
+                "MedicineBox": 5,
                 "Shield":10,
                 "Magazine":5
         }},{
@@ -422,14 +422,14 @@
                 "selfExplode":{"power":6},
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
-            "NormalZombie":{"hp":4, "power":1},
+            "NormalZombie":{"hp":6, "power":3},
             "ThiefZombie":{"hp":3, "power":1, "steal":{"percent":20, "num":5}},
-            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
-            "DancerZombie":{"hp":4, "power":2, "summons":["NormalZombie", "NormalZombie"]},
+            "HoundZombie":{"hp":5, "power":2, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "DancerZombie":{"hp":6, "power":3, "summons":["NormalZombie", "NormalZombie"]},
             "SniperZombie":{"hp":5, "power":2, "stealOnPlayerLeave":6},
-            "EyeDemonZombie":{"hp":6, "power":1},
-            "RandomEggZombie":{"hp":5, "power":1, "dropItems":["RandomEgg1"]},
-            "IronZombie":{"hp":5, "power":1, "sheild":8},
+            "EyeDemonZombie":{"hp":8, "power":2},
+            "RandomEggZombie":{"hp":7, "power":2, "dropItems":["RandomEgg1"]},
+            "IronZombie":{"hp":5, "power":2, "sheild":8},
 
 
             "HpPotion":{},
@@ -448,7 +448,7 @@
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
-                "MedicineBox": 1,
+                "MedicineBox": 5,
                 "Shield":10,
                 "Magazine":5
         }},{
@@ -495,14 +495,14 @@
                 "selfExplode":{"power":6},
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
-            "NormalZombie":{"hp":4, "power":1},
+            "NormalZombie":{"hp":6, "power":3},
             "ThiefZombie":{"hp":3, "power":1, "steal":{"percent":20, "num":5}},
-            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
-            "DancerZombie":{"hp":4, "power":2, "summons":["NormalZombie", "NormalZombie"]},
+            "HoundZombie":{"hp":5, "power":2, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "DancerZombie":{"hp":6, "power":3, "summons":["NormalZombie", "NormalZombie"]},
             "SniperZombie":{"hp":5, "power":2, "stealOnPlayerLeave":6},
-            "EyeDemonZombie":{"hp":6, "power":1},
-            "RandomEggZombie":{"hp":5, "power":1, "dropItems":["RandomEgg1"]},
-            "IronZombie":{"hp":5, "power":1, "sheild":8},
+            "EyeDemonZombie":{"hp":8, "power":2},
+            "RandomEggZombie":{"hp":7, "power":2, "dropItems":["RandomEgg1"]},
+            "IronZombie":{"hp":5, "power":2, "sheild":8},
 
 
             "HpPotion":{},
@@ -521,7 +521,7 @@
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
-                "MedicineBox": 1,
+                "MedicineBox": 5,
                 "Shield":10,
                 "Magazine":5
         }},{
@@ -568,14 +568,14 @@
                 "selfExplode":{"power":6},
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
-            "NormalZombie":{"hp":4, "power":1},
-            "ThiefZombie":{"hp":3, "power":1, "steal":{"percent":20, "num":5}},
-            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
-            "DancerZombie":{"hp":4, "power":2, "summons":["NormalZombie", "NormalZombie"]},
-            "SniperZombie":{"hp":5, "power":2, "stealOnPlayerLeave":6},
-            "EyeDemonZombie":{"hp":6, "power":1},
-            "RandomEggZombie":{"hp":5, "power":1, "dropItems":["RandomEgg1"]},
-            "IronZombie":{"hp":5, "power":1, "sheild":8},
+            "NormalZombie":{"hp":6, "power":3},
+            "ThiefZombie":{"hp":4, "power":1, "steal":{"percent":20, "num":5}},
+            "HoundZombie":{"hp":5, "power":2, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "DancerZombie":{"hp":6, "power":3, "summons":["NormalZombie", "NormalZombie"]},
+            "SniperZombie":{"hp":6, "power":2, "stealOnPlayerLeave":6},
+            "EyeDemonZombie":{"hp":8, "power":2},
+            "RandomEggZombie":{"hp":7, "power":2, "dropItems":["RandomEgg1"]},
+            "IronZombie":{"hp":6, "power":2, "sheild":8},
 
 
             "HpPotion":{},
@@ -594,7 +594,7 @@
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
-                "MedicineBox": 1,
+                "MedicineBox": 5,
                 "Shield":10,
                 "Magazine":5
         }},{
@@ -641,14 +641,14 @@
                 "selfExplode":{"power":6},
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
-            "NormalZombie":{"hp":4, "power":1},
-            "ThiefZombie":{"hp":3, "power":1, "steal":{"percent":20, "num":5}},
-            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
-            "DancerZombie":{"hp":4, "power":2, "summons":["NormalZombie", "NormalZombie"]},
-            "SniperZombie":{"hp":5, "power":2, "stealOnPlayerLeave":6},
-            "EyeDemonZombie":{"hp":6, "power":1},
-            "RandomEggZombie":{"hp":5, "power":1, "dropItems":["RandomEgg1"]},
-            "IronZombie":{"hp":5, "power":1, "sheild":8},
+            "NormalZombie":{"hp":7, "power":3},
+            "ThiefZombie":{"hp":4, "power":1, "steal":{"percent":20, "num":5}},
+            "HoundZombie":{"hp":6, "power":2, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "DancerZombie":{"hp":7, "power":3, "summons":["NormalZombie", "NormalZombie"]},
+            "SniperZombie":{"hp":6, "power":2, "stealOnPlayerLeave":6},
+            "EyeDemonZombie":{"hp":9, "power":2},
+            "RandomEggZombie":{"hp":8, "power":2, "dropItems":["RandomEgg1"]},
+            "IronZombie":{"hp":6, "power":2, "sheild":9},
 
 
             "HpPotion":{},
@@ -667,7 +667,7 @@
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
-                "MedicineBox": 1,
+                "MedicineBox": 5,
                 "Shield":10,
                 "Magazine":5
         }},{
@@ -714,18 +714,18 @@
                 "selfExplode":{"power":6},
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
-            "NormalZombie":{"hp":4, "power":1},
-            "ThiefZombie":{"hp":3, "power":1, "steal":{"percent":20, "num":5}},
-            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "NormalZombie":{"hp":7, "power":4},
+            "ThiefZombie":{"hp":4, "power":2, "steal":{"percent":20, "num":5}},
+            "HoundZombie":{"hp":6, "power":3, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
             "VampireZombie":{"hp":3, "power":2, "suckBlood":{"percent":50, "num":0}},
-            "DancerZombie":{"hp":4, "power":2, "summons":["NormalZombie", "NormalZombie"]},
+            "DancerZombie":{"hp":7, "power":4, "summons":["NormalZombie", "NormalZombie"]},
             "GluttonyZombie":{"hp":8, "power":3},
-            "SniperZombie":{"hp":5, "power":2, "stealOnPlayerLeave":6},
+            "SniperZombie":{"hp":6, "power":3, "stealOnPlayerLeave":6},
             "BombZombie":{"hp":4, "power":3, "selfExplode":{"cnt":5, "mult":3}},
-            "EyeDemonZombie":{"hp":6, "power":1},
-            "RandomEggZombie":{"hp":5, "power":1, "dropItems":["RandomEgg1"]},
+            "EyeDemonZombie":{"hp":9, "power":3},
+            "RandomEggZombie":{"hp":8, "power":3, "dropItems":["RandomEgg1"]},
             "LustZombie":{"hp":6, "power":2},
-            "IronZombie":{"hp":5, "power":1, "sheild":8},
+            "IronZombie":{"hp":6, "power":3, "sheild":9},
 
 
             "HpPotion":{},
@@ -744,7 +744,7 @@
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
-                "MedicineBox": 1,
+                "MedicineBox": 5,
                 "Shield":10,
                 "Magazine":5
         }},{
@@ -802,18 +802,18 @@
                 "selfExplode":{"power":6},
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
-            "NormalZombie":{"hp":4, "power":1},
-            "ThiefZombie":{"hp":3, "power":1, "steal":{"percent":20, "num":5}},
-            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "NormalZombie":{"hp":7, "power":4},
+            "ThiefZombie":{"hp":5, "power":2, "steal":{"percent":20, "num":5}},
+            "HoundZombie":{"hp":6, "power":3, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
             "VampireZombie":{"hp":3, "power":2, "suckBlood":{"percent":50, "num":0}},
-            "DancerZombie":{"hp":4, "power":2, "summons":["NormalZombie", "NormalZombie"]},
+            "DancerZombie":{"hp":7, "power":4, "summons":["NormalZombie", "NormalZombie"]},
             "GluttonyZombie":{"hp":8, "power":3},
-            "SniperZombie":{"hp":5, "power":2, "stealOnPlayerLeave":6},
+            "SniperZombie":{"hp":7, "power":3, "stealOnPlayerLeave":6},
             "BombZombie":{"hp":4, "power":3, "selfExplode":{"cnt":5, "mult":3}},
-            "EyeDemonZombie":{"hp":6, "power":1},
-            "RandomEggZombie":{"hp":5, "power":1, "dropItems":["RandomEgg1"]},
+            "EyeDemonZombie":{"hp":9, "power":3},
+            "RandomEggZombie":{"hp":8, "power":3, "dropItems":["RandomEgg1"]},
             "LustZombie":{"hp":6, "power":2},
-            "IronZombie":{"hp":5, "power":1, "sheild":8},
+            "IronZombie":{"hp":7, "power":3, "sheild":9},
 
 
             "HpPotion":{},
@@ -832,7 +832,7 @@
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
-                "MedicineBox": 1,
+                "MedicineBox": 5,
                 "Shield":10,
                 "Magazine":5
         }},{
@@ -887,18 +887,18 @@
                 "selfExplode":{"power":6},
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
-            "NormalZombie":{"hp":4, "power":1},
-            "ThiefZombie":{"hp":3, "power":1, "steal":{"percent":20, "num":5}},
-            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "NormalZombie":{"hp":8, "power":4},
+            "ThiefZombie":{"hp":5, "power":2, "steal":{"percent":20, "num":5}},
+            "HoundZombie":{"hp":7, "power":3, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
             "VampireZombie":{"hp":3, "power":2, "suckBlood":{"percent":50, "num":0}},
-            "DancerZombie":{"hp":4, "power":2, "summons":["NormalZombie", "NormalZombie"]},
+            "DancerZombie":{"hp":8, "power":4, "summons":["NormalZombie", "NormalZombie"]},
             "GluttonyZombie":{"hp":8, "power":3},
-            "SniperZombie":{"hp":5, "power":2, "stealOnPlayerLeave":6},
+            "SniperZombie":{"hp":7, "power":3, "stealOnPlayerLeave":6},
             "BombZombie":{"hp":4, "power":3, "selfExplode":{"cnt":5, "mult":3}},
-            "EyeDemonZombie":{"hp":6, "power":1},
-            "RandomEggZombie":{"hp":5, "power":1, "dropItems":["RandomEgg1"]},
+            "EyeDemonZombie":{"hp":10, "power":3},
+            "RandomEggZombie":{"hp":9, "power":3, "dropItems":["RandomEgg1"]},
             "LustZombie":{"hp":6, "power":2},
-            "IronZombie":{"hp":5, "power":1, "sheild":8},
+            "IronZombie":{"hp":7, "power":3, "sheild":10},
 
             "HpPotion":{},
             "HpCapsule":{"cnt":5, "heal":1},
@@ -916,7 +916,7 @@
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
-                "MedicineBox": 1,
+                "MedicineBox": 5,
                 "Shield":10,
                 "Magazine":5
         }},{
@@ -971,18 +971,18 @@
                 "selfExplode":{"power":6},
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
-            "NormalZombie":{"hp":4, "power":1},
-            "ThiefZombie":{"hp":3, "power":1, "steal":{"percent":20, "num":5}},
-            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
-            "VampireZombie":{"hp":3, "power":2, "suckBlood":{"percent":50, "num":0}},
-            "DancerZombie":{"hp":4, "power":2, "summons":["NormalZombie", "NormalZombie"]},
-            "GluttonyZombie":{"hp":8, "power":3},
-            "SniperZombie":{"hp":5, "power":2, "stealOnPlayerLeave":6},
-            "BombZombie":{"hp":4, "power":3, "selfExplode":{"cnt":5, "mult":3}},
-            "EyeDemonZombie":{"hp":6, "power":1},
-            "RandomEggZombie":{"hp":5, "power":1, "dropItems":["RandomEgg1"]},
-            "LustZombie":{"hp":6, "power":2},
-            "IronZombie":{"hp":5, "power":1, "sheild":8},
+            "NormalZombie":{"hp":8, "power":4},
+            "ThiefZombie":{"hp":5, "power":2, "steal":{"percent":20, "num":5}},
+            "HoundZombie":{"hp":7, "power":3, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "VampireZombie":{"hp":4, "power":2, "suckBlood":{"percent":50, "num":0}},
+            "DancerZombie":{"hp":8, "power":4, "summons":["NormalZombie", "NormalZombie"]},
+            "GluttonyZombie":{"hp":9, "power":3},
+            "SniperZombie":{"hp":7, "power":3, "stealOnPlayerLeave":6},
+            "BombZombie":{"hp":5, "power":3, "selfExplode":{"cnt":5, "mult":3}},
+            "EyeDemonZombie":{"hp":10, "power":3},
+            "RandomEggZombie":{"hp":9, "power":3, "dropItems":["RandomEgg1"]},
+            "LustZombie":{"hp":7, "power":2},
+            "IronZombie":{"hp":7, "power":3, "sheild":10},
 
 
             "HpPotion":{},
@@ -1001,7 +1001,7 @@
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
-                "MedicineBox": 1,
+                "MedicineBox": 5,
                 "Shield":10,
                 "Magazine":5
         }},{
@@ -1056,18 +1056,18 @@
                 "selfExplode":{"power":6},
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
-            "NormalZombie":{"hp":4, "power":1},
-            "ThiefZombie":{"hp":3, "power":1, "steal":{"percent":20, "num":5}},
-            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
-            "VampireZombie":{"hp":3, "power":2, "suckBlood":{"percent":50, "num":0}},
-            "DancerZombie":{"hp":4, "power":2, "summons":["NormalZombie", "NormalZombie"]},
-            "GluttonyZombie":{"hp":8, "power":3},
-            "SniperZombie":{"hp":5, "power":2, "stealOnPlayerLeave":6},
-            "BombZombie":{"hp":4, "power":3, "selfExplode":{"cnt":5, "mult":3}},
-            "EyeDemonZombie":{"hp":6, "power":1},
-            "RandomEggZombie":{"hp":5, "power":1, "dropItems":["RandomEgg1"]},
-            "LustZombie":{"hp":6, "power":2},
-            "IronZombie":{"hp":5, "power":1, "sheild":8},
+            "NormalZombie":{"hp":8, "power":4},
+            "ThiefZombie":{"hp":6, "power":2, "steal":{"percent":20, "num":5}},
+            "HoundZombie":{"hp":7, "power":3, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "VampireZombie":{"hp":4, "power":2, "suckBlood":{"percent":50, "num":0}},
+            "DancerZombie":{"hp":8, "power":4, "summons":["NormalZombie", "NormalZombie"]},
+            "GluttonyZombie":{"hp":9, "power":3},
+            "SniperZombie":{"hp":8, "power":3, "stealOnPlayerLeave":6},
+            "BombZombie":{"hp":5, "power":3, "selfExplode":{"cnt":5, "mult":3}},
+            "EyeDemonZombie":{"hp":10, "power":3},
+            "RandomEggZombie":{"hp":9, "power":3, "dropItems":["RandomEgg1"]},
+            "LustZombie":{"hp":7, "power":2},
+            "IronZombie":{"hp":8, "power":3, "sheild":10},
 
             "HpPotion":{},
             "HpCapsule":{"cnt":5, "heal":1},
@@ -1085,7 +1085,7 @@
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
-                "MedicineBox": 1,
+                "MedicineBox": 5,
                 "Shield":10,
                 "Magazine":5
         }},{
@@ -1165,18 +1165,18 @@
                 "selfExplode":{"power":6},
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
-            "NormalZombie":{"hp":4, "power":1},
-            "ThiefZombie":{"hp":3, "power":1, "steal":{"percent":20, "num":5}},
-            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
-            "VampireZombie":{"hp":3, "power":2, "suckBlood":{"percent":50, "num":0}},
-            "DancerZombie":{"hp":4, "power":2, "summons":["NormalZombie", "NormalZombie"]},
-            "GluttonyZombie":{"hp":8, "power":3},
-            "SniperZombie":{"hp":5, "power":2, "stealOnPlayerLeave":6},
-            "BombZombie":{"hp":4, "power":3, "selfExplode":{"cnt":5, "mult":3}},
-            "EyeDemonZombie":{"hp":6, "power":1},
-            "RandomEggZombie":{"hp":5, "power":1, "dropItems":["RandomEgg1"]},
-            "LustZombie":{"hp":6, "power":2},
-            "IronZombie":{"hp":5, "power":1, "sheild":8},
+            "NormalZombie":{"hp":8, "power":4},
+            "ThiefZombie":{"hp":6, "power":2, "steal":{"percent":20, "num":5}},
+            "HoundZombie":{"hp":7, "power":3, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "VampireZombie":{"hp":4, "power":2, "suckBlood":{"percent":50, "num":0}},
+            "DancerZombie":{"hp":8, "power":4, "summons":["NormalZombie", "NormalZombie"]},
+            "GluttonyZombie":{"hp":9, "power":3},
+            "SniperZombie":{"hp":8, "power":3, "stealOnPlayerLeave":6},
+            "BombZombie":{"hp":5, "power":3, "selfExplode":{"cnt":5, "mult":3}},
+            "EyeDemonZombie":{"hp":10, "power":3},
+            "RandomEggZombie":{"hp":9, "power":3, "dropItems":["RandomEgg1"]},
+            "LustZombie":{"hp":7, "power":2},
+            "IronZombie":{"hp":8, "power":3, "sheild":10},
 
             "HpPotion":{},
             "HpCapsule":{"cnt":5, "heal":1},
@@ -1195,7 +1195,7 @@
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
-                "MedicineBox": 1,
+                "MedicineBox": 5,
                 "Shield":10,
                 "Magazine":5
         }},{
