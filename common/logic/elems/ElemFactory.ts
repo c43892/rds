@@ -81,9 +81,19 @@ class ElemFactory {
 
     // 死亡时掉落物品
     public static doDropItemsOnDie(e:Elem):Elem {
-        ElemFactory.addDieAI(async () => {
+        ElemFactory.addDieAI(async () => { // 处理随机掉落
+
+            // 随机掉落是在掉落瞬间才确定
+            var randomDrops = [];
+            if (e.attrs.rdp) {
+                var rdp = GCfg.getRandomDropGroupCfg(e.attrs.rdp);
+                var arr = Utils.randomSelectByWeightWithRelicFilter(e.bt().player, rdp.elems, e.bt().srand, rdp.num[0], rdp.num[1], "Coins");
+                for (var dpType of arr)
+                    randomDrops.push(e.bt().level.createElem(dpType));
+            }
+
             var dropInPosition = true;
-            var drops = [...e.dropItems, ...e.randomDrops];
+            var drops = [...e.dropItems, ...randomDrops];
             for (var elem of drops) {
                 var g:Grid; // 掉落位置，优先掉在原地
                 if (dropInPosition) {

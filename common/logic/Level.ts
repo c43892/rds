@@ -49,14 +49,6 @@ class Level {
             }
         }
 
-        // 处理随机掉落
-        if (attrs.rdp) {
-            var rdp = GCfg.getRandomDropGroupCfg(attrs.rdp);
-            var arr = Utils.randomSelectByWeightWithRelicFilter(this.bt.player, rdp.elems, this.bt.srand, rdp.num[0], rdp.num[1], "Coins");
-            for (var dpType of arr)
-                e.randomDrops.push(this.createElem(dpType));
-        }
-
         return ElemFactory.doDropItemsOnDie(e);
     }
 
