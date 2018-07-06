@@ -95,7 +95,7 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 开始一场新的战斗
-    public async startNewBattleWithRecorder(bt:Battle) { await this.startNewBattle(bt); BattleRecorder.startNew(bt.id, bt.player, bt.btType, bt.trueRandomSeed); }
+    public async startNewBattleWithRecorder(bt:Battle) { BattleRecorder.startNew(bt.id, bt.player, bt.btType, bt.trueRandomSeed); await this.startNewBattle(bt); }
     private battleEndedCallback;
     public async startNewBattle(bt:Battle) {
         Utils.log("start new battle with ", bt.$$srandSeed());

@@ -340,8 +340,6 @@ class Utils {
         if (cnt == 0 && defaultRelicType)
             elems[defaultRelicType] = 1;
 
-        Utils.logObjs(elems);
-
         return Utils.randomSelectByWeight(elems, srand, numMin, numMax);
     }
 }
