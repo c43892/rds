@@ -71,13 +71,13 @@ class ShopView extends egret.DisplayObjectContainer {
     private onBuy;
     public async open(shop, autoClose:boolean = true):Promise<void> {
         this.defaultPrice = GCfg.getShopCfg("price");
-        var rand = new SRandom();
         var cfg = GCfg.getShopCfg(shop);
         var items = cfg.items;
         this.shopPrice = cfg.price;
 
         for(var i = 0; i < ShopView.GridNum; i++) {
-            var e = Utils.randomSelectByWeight(items[i], rand, 1, 2)[0];
+            var e = Utils.randomSelectByWeightWithRelicFilter(this.player, items[i], this.player.playerRandom, 1, 2)[0];
+            Utils.assert(!!e, "no item in shop " + shop + ":" + i);
             this.items.push(e);
             this.soldOut[i] = false;
         }

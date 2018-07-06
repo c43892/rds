@@ -190,7 +190,8 @@ class MainView extends egret.DisplayObjectContainer {
         else {
             var lv = this.p.currentStoreyPos.lv;
             var n = this.p.currentStoreyPos.n;
-            this.wmv.startNewBattle(this.p, lv, n);
+            this.openWorldMap(this.p.worldmap);
+            this.wmv.enterNode(lv, n);
         }
      }
 

@@ -30,7 +30,12 @@ class SRandom {
         return this.next(min, max);
     }
 
-    public pick(collection:any[]):any {
-        return collection[this.nextInt(0, collection.length - 1)];
+    public toString():string {
+        return this.seed.toString();
+    }
+
+    public static fromString(str) : SRandom {
+        var seed = Number(str);
+        return new SRandom(seed);
     }
 }

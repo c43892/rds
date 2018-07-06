@@ -24,7 +24,7 @@ class Battle {
         if (trueRandomSeed == undefined)
             trueRandomSeed = (new Date()).getMilliseconds();
 
-        var bt = new Battle(p.battleRandomSeed, trueRandomSeed);        
+        var bt = new Battle(p.playerRandom.nextInt(0, 10000), trueRandomSeed);
         bt.id = "bt_" + bt.btType + "_" + Math.random();
         bt.player = Occupation.makeOccupation(p);
         bt.btType = btType;

@@ -37,6 +37,8 @@ class RelicFactory {
             return e; 
         };
         e.use = async () => await e.bt().implAddPlayerRelic(e.toRelic());
+        if (attrs.reinforceLv) // 初始强化等级
+            e.setReinfoceLv(attrs.reinforceLv);
         
         return e;
     }

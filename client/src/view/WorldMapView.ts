@@ -134,18 +134,23 @@ class WorldMapView extends egret.DisplayObjectContainer {
         Utils.assert(this.worldmap.stories[ptStoreyLv][ptStoreyN] == ptType, 
             "worldmap storey type ruined: " + ptType + " vs " + this.worldmap.stories[ptStoreyLv][ptStoreyN]);
 
+        this.enterNode(ptStoreyLv, ptStoreyN);
+    }
+
+    public async enterNode(lv:number, n:number) {
         var parent = this.parent;
         parent.removeChild(this);
 
         // 保存进度
-        this.player.notifyStoreyPosIn(ptStoreyLv, ptStoreyN);
+        this.player.notifyStoreyPosIn(lv, n);
         Utils.$$saveItem("player", this.player.toString());
-            
-        switch(ptType) {
+
+        var nodeType = this.worldmap.stories[lv][n];
+        switch(nodeType) {
             case "normal":
             case "senior":
             case "boss":
-                await this.startNewBattle(this.worldmap.player, ptStoreyLv, ptStoreyN);
+                await this.startNewBattle(this.worldmap.player, lv, n);
                 break;
             case "shop":
                 await this.openShop("worldmap");
@@ -154,7 +159,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 await this.openHospital();
                 break;
             default:
-                Utils.log("not support " + ptType + " yet");
+                Utils.log("not support " + nodeType + " yet");
             break;
         }
 

@@ -290,7 +290,7 @@ class Utils {
     }
 
     // 根据指定权重，随机选取若干目标，集合格式为 {type:weight, type:weight, ...}
-    public static randomSelectByWeight(elemsWithWeight, srand, numMin, numMax) {
+    public static randomSelectByWeight(elemsWithWeight, srand:SRandom, numMin:number, numMax:number) {
         var r = [];
 
         // 汇总该组权重
@@ -315,5 +315,33 @@ class Utils {
         }
 
         return r;
+    }
+
+    // 在 randomSelectByWeight 之前，从掉落列表中，过滤掉玩家有携带遗物并且已经到达顶级强化等级的遗物，如果
+    // 过滤后列表为空，则填入一个指定的替代品
+    public static randomSelectByWeightWithRelicFilter(p:Player, elemsWithWeight, srand:SRandom, numMin:number, numMax:number, defaultRelicType:string = undefined) {
+        var cnt = 0;
+        var elems = {};
+
+        // 移除掉不应该再出现的遗物(玩家持有并且已经到达强化等级上限)
+        for (var e in elemsWithWeight) {
+            var n = Utils.indexOf(p.relics, (r) => r.type == e);
+            if (n >= 0) {
+                var r:Relic = <Relic>p.relics[n];
+                if (!r.canReinfoce())
+                    continue;
+            }
+
+            elems[e] = elemsWithWeight[e];
+            cnt++;
+        }
+
+        // 如果列表为空，且有指定默认替代遗物类型，则添加一个保底
+        if (cnt == 0 && defaultRelicType)
+            elems[defaultRelicType] = 1;
+
+        Utils.logObjs(elems);
+
+        return Utils.randomSelectByWeight(elems, srand, numMin, numMax);
     }
 }

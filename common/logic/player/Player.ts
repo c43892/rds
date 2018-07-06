@@ -23,7 +23,7 @@ class Player {
 
     // 关卡逻辑
     public worldmap:WorldMap;
-    public battleRandomSeed:number; // 下一场战斗随机种子
+    public playerRandom:SRandom; // 伴随角色的随机数，会被 save/load
     public currentStoreyPos; // 当前所在层数以及该层位置
     public finishedStoreyPos; // 已经完成的世界地图节点
 
@@ -39,7 +39,7 @@ class Player {
         p.maxHp = 20;
         p.avatar = "avator1";
         p.power = [2, 0];
-        p.battleRandomSeed = Math.floor(Math.random() * 100);
+        p.playerRandom = new SRandom();
         p.money = 100;
         p.exp = 0;
         p.lv = 0;
@@ -155,8 +155,9 @@ class Player {
         // 目前 buff 不参与
 
         var world = this.worldmap.toString();
+        var srand = this.playerRandom.toString();
 
-        var pinfo = {relics:relics, props:props, world:world};
+        var pinfo = {relics:relics, props:props, world:world, srand:srand};
         for (var f of Player.serializableFields)
             pinfo[f] = this[f];
 
@@ -179,6 +180,7 @@ class Player {
 
         p.worldmap = WorldMap.fromString(pinfo.world);
         p.worldmap.player = p;
+        p.playerRandom = SRandom.fromString(pinfo.srand);
 
         return p
     }
