@@ -86,7 +86,7 @@ class Relic extends Elem {
     }
 
     // 重新使所有变异属性生效（基础属性除外），一般用在 save/load 的时候
-    public redoAllMutateEffects() {
+    public redoAllMutatedEffects() {
         for (var fp of this.enabledFuncs)
             if (fp != 0)
                 this.funcs[fp](this, false);
@@ -96,5 +96,7 @@ class Relic extends Elem {
     public removeAllEffects() {
         for (var fp of this.enabledFuncs)
             this.funcs[fp](this, false);
+
+        this.enabledFuncs = [];
     }
 }

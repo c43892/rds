@@ -100,7 +100,7 @@ class WorldMap {
             var checkN = n;
             while (WorldMap.connectionConflict(w, c, validLevels[c], nlv, nn)) {
                 n = (n + 1) % validPos.length;
-                Utils.assert(n != checkN, "can not find position for " + c + " in world " + world);
+                if (n != checkN) break;
                 nlv = validPos[n].lv;
                 nn = validPos[n].n;
             }

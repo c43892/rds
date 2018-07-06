@@ -10,12 +10,18 @@ class RelicFactory {
         var cd = 0;
         Utils.assert(funcs.length == 1 || funcs.length == 6, "invalid relic functors number: " + funcs.length);
         e.funcs = funcs;
-        e.toRelic = () => {
-            e.use = undefined; 
+        e.toRelic = (p:Player) => {
+            e.player = p;
+            e.use = undefined;
             funcs[0](e, true);
+            e.enabledFuncs.push(0);
             return e;
         };
-        e.use = async () => await e.bt().implAddPlayerRelic(e.toRelic());
+        e.use = async () => { 
+            var bt = e.bt();
+            var p = bt.player;
+            await bt.implAddPlayerRelic(e);
+        };
         if (attrs.reinforceLv) // 初始强化等级
             e.setReinfoceLv(attrs.reinforceLv);
         
@@ -59,6 +65,15 @@ class RelicFactory {
                     }, r);
                 }
             });
-        }
+        },
+
+        // 耐力
+        "Endurance": (attrs) => {
+            return this.createRelic(attrs, async (r:Relic, enable:boolean) => {
+                r.player.addMaxHp(enable ? attrs.dMaxHp : -attrs.dMaxHp);
+            });
+        },
+        
+        "":{}
     };
 }
