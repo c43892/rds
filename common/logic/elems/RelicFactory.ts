@@ -5,7 +5,7 @@ class Relic extends Elem {
     public reinforceLv = 0; // 强化等级
     
     // 强化相关逻辑
-    public canReinfoce():boolean { return this.reinforceLv < this.attrs.reinforce.length; }
+    public canReinfoce():boolean { return this.attrs.reinforce && this.reinforceLv < this.attrs.reinforce.length; }
     public reinforceLvUp():boolean { 
         if (!this.canReinfoce())
             return false;
