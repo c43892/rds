@@ -1,6 +1,7 @@
 // 战斗视图
 class BattleView extends egret.DisplayObjectContainer {    
     public player:Player; // 当前角色
+    public title:egret.TextField; // 战斗名称
     public avatar:egret.Bitmap; // 角色头像
     public playerLv:egret.TextField; // 角色等级
     public money:egret.TextField; // 金币
@@ -20,9 +21,16 @@ class BattleView extends egret.DisplayObjectContainer {
 
     public constructor(w:number, h:number) {
         super();
+
+        this.width = w;
+        this.height = h;
         
         this.avatar = new egret.Bitmap();
         this.addChild(this.avatar);
+        this.title = new egret.TextField();
+        this.title.x = this.title.y = 0;
+        this.title.width = this.width;
+        this.addChild(this.title);
         this.playerLv = new egret.TextField();
         this.addChild(this.playerLv);
 
@@ -52,8 +60,9 @@ class BattleView extends egret.DisplayObjectContainer {
     }
 
     // 设置新的地图数据，但并不自动刷新显示，需要手动刷新
-    public setMap(map:Map) {
+    public setMap(map:Map, title:string) {
         this.mapView.setMap(map);
+        this.title.text = title;
     }
 
     // 设置角色数据，但并不刷新显示，需要手动刷新
@@ -95,6 +104,7 @@ class BattleView extends egret.DisplayObjectContainer {
     public refreshPlayer() {
         this.avatar.texture = RES.getRes(this.player.avatar + "_png");
         this.playerLv.text = "lv:" + this.player.lv + ", e:" + this.player.exp;
+        // this.title.width = this.width -         
         this.money.text = "💴：" + this.player.money;
         this.deathStep.text = "😈：" + this.player.deathStep;
         this.hp.text = "血量: " + this.player.hp + "/" + this.player.maxHp;
@@ -180,8 +190,8 @@ class BattleView extends egret.DisplayObjectContainer {
     // 初始化主视图数据
     public async onLevel(ps) {
         if (ps.subType == "levelInited") {
-            var bt = ps.bt;
-            this.setMap(bt.level.map);
+            var bt:Battle = ps.bt;
+            this.setMap(bt.level.map, bt.displayName);
             this.setPlayer(bt.player);
             this.refresh();
         }

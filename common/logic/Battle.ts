@@ -2,6 +2,7 @@
 // 一局战斗，包含当前关卡和当前角色数据，并控制整个战斗进程
 class Battle {
     public id:string; // 每场战斗一个随机 id
+    public displayName:string; // 战斗标题
     public btType:string; // 战斗配置类型
     public btRandomSeed:number; // 随机序列种子
     public srand:SRandom; // 随机序列
@@ -36,7 +37,8 @@ class Battle {
     public loadCurrentLevel(btType:string):Level {
         // 创建关卡地图和元素
         this.level = new Level();
-        this.lvCfg = GCfg.getLevelCfg(btType);        
+        this.lvCfg = GCfg.getLevelCfg(btType);   
+        this.displayName = this.lvCfg.displayName;
         Utils.assert(!!this.lvCfg, "can not find level config: " + btType);
         while (this.lvCfg.redirect) {
             btType = this.lvCfg.redirect;
