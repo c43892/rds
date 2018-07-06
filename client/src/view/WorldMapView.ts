@@ -150,7 +150,9 @@ class WorldMapView extends egret.DisplayObjectContainer {
             case "normal":
             case "senior":
             case "boss":
-                await this.startNewBattle(this.worldmap.player, lv, n);
+                var p = this.worldmap.player;
+                var btRandonSeed = p.playerRandom.nextInt(0, 10000);
+                await this.startNewBattle(p, lv, n, btRandonSeed);
                 break;
             case "shop":
                 await this.openShop("worldmap");

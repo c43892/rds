@@ -3,28 +3,28 @@
 class Battle {
     public id:string; // 每场战斗一个随机 id
     public btType:string; // 战斗配置类型
+    public btRandomSeed:number; // 随机序列种子
     public srand:SRandom; // 随机序列
     public trueRandomSeed:number; // 随机序列2，这个随机序列相关的通常是允许玩家刷的东西，不会计入存档，但是会计入录像
     public trueRand:SRandom; // 随机序列2，这个随机序列相关的通常是允许玩家刷的东西，不会计入存档，但是会计入录像
     public level:Level; // 当前关卡
     public player:Player; // 角色数据
     public bc:BattleCalculator; // 战斗计算器
-    public $$srandSeed; // 测试用，获取战斗随机数种子
     private lvCfg; // 当前关卡配置
 
     constructor(randomseed:number, trueRandomSeed:number) {
         Utils.assert(randomseed != undefined, "the randomseed should be specified");
+        this.btRandomSeed = randomseed;
         this.srand = new SRandom(randomseed);
         this.trueRandomSeed = trueRandomSeed;
         this.trueRand = new SRandom(trueRandomSeed);
-        this.$$srandSeed = () => [randomseed, trueRandomSeed];
     }
 
-    public static createNewBattle(p:Player, btType:string, trueRandomSeed:number = undefined):Battle {
+    public static createNewBattle(p:Player, btType:string, btRandomSeed:number, trueRandomSeed:number = undefined):Battle {
         if (trueRandomSeed == undefined)
             trueRandomSeed = (new Date()).getMilliseconds();
 
-        var bt = new Battle(p.playerRandom.nextInt(0, 10000), trueRandomSeed);
+        var bt = new Battle(btRandomSeed, trueRandomSeed);
         bt.id = "bt_" + bt.btType + "_" + Math.random();
         bt.player = Occupation.makeOccupation(p);
         bt.btType = btType;
