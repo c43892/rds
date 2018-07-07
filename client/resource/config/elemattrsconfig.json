@@ -1,8 +1,7 @@
 {
     "MedicineBox":{"name":"医药箱", "dhp":1, 
         "reinforce":[
-            {"dhp":2}, {"dhp":3}, {"dhp":4}, {"dhp":5}, {"dhp":6},
-            {"dhp":7}, {"dhp":8}, {"dhp":9}, {"dhp":10}
+            {"dhp":2}
         ]
     },
     "Hawkeye":{"name":"鹰眼"},

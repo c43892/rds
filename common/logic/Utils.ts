@@ -230,10 +230,13 @@ class Utils {
 
     // 过滤出数组中满足条件的元素，结果作为一个新数组返回
     public static filter(arr, f) {
+        if (!f)
+            return [...arr];
+
         var narr = [];
         for (var i = 0; i < arr.length; i++) {
-            if (f(arr[i]))
-                narr.push(i);
+            var e = arr[i];
+            if (f(e)) narr.push(e);
         }
 
         return narr;
