@@ -140,14 +140,13 @@ class ItemFactory {
         "Shield": (attrs) => {
             var e = this.createItem();
             e.canBeMoved = true;
-            e = ElemFactory.triggerColdownLogic()(e);
-            e["onAttackResult"] = async (ps) => {
-                if (ps.r.r != "attacked" || !e.canTrigger() || ps.subType != "monster2player") return;
-                e.resetTrigger();
+            e = ElemFactory.addAI("onAttackResult", async (ps) => {
+                e.resetCD();
                 ps.r.r = "blocked";
                 ps.r.dhp = ps.r.dshield = 0;
                 await e.bt().implNotifyElemChanged("coldown", e);
-            };
+            }, e, (ps) => e.isValid() && ps.r.r == "attacked" && ps.subType == "monster2player");
+            e = ElemFactory.triggerColdownLogic(e);
             e.getElemImgRes = () => (e.cd <= 0) ? e.type + "1" : e.type + "2";
             return e;
         },
@@ -156,12 +155,11 @@ class ItemFactory {
         "Sword": (attrs) => {
             var e = this.createItem();
             e.canBeMoved = true;
-            e["onAttacking"] = async (ps) => {
-                if (e.getGrid().isCovered() || !e.isValid()) return; // 检查可用性
+            e = ElemFactory.addAI("onAttacking", async (ps) => {
                 var attackerAttrs = ps.attackerAttrs;
                 if (!(attackerAttrs.owner instanceof Player)) return;
                 attackerAttrs.power.b += e.attrs.powerA;
-            };
+            }, e, () => e.isValid());
             return e;
         },
 

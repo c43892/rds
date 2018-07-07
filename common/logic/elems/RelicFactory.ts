@@ -93,7 +93,7 @@ class RelicFactory {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) return;
                 ElemFactory.addAI("onAttacking", async (ps) => {
-                    ps.attackerAttrs.critical.b += attrs.dSneakCritical;
+                    ps.attackerAttrs.critical.b += attrs.dSneakCritical; // 增加暴击率
                 }, r, (ps) => ps.subType == "player2monster" && Utils.contains(ps.attackerAttrs.attackFlags, "Sneak"));
             });
         },
@@ -102,11 +102,13 @@ class RelicFactory {
         "Cloak": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) return;
+                ElemFactory.triggerColdownLogic(
                 ElemFactory.addAI("onSneaking", async (ps) => {
                     if (ps.immunized) return;
                     ps.immunized = true;
+                    r.resetCD();
                     Utils.log("immunize sneak");
-                }, r);
+                }, r, () => r.checkCD()));
             });
         },
         

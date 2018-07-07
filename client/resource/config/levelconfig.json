@@ -31,7 +31,8 @@
         },
         "constElems":{
             "Key": 1,
-            "Endurance":10
+            "Cloak":5,
+            "Shield":5
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
@@ -1148,7 +1149,7 @@
         "constElems":{
             "Key":1,
             "BossBunny": 1,
-            "Fierce":10
+            "Sword":10
         },
         "randomGroups":[]
     },
