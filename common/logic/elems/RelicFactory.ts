@@ -89,6 +89,15 @@ class RelicFactory {
                 r.player.power[0] += (enable ? attrs.dPower : -attrs.dPower);
             });
         },
+
+        // 凶暴
+        "Fierce": (attrs) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                ElemFactory.addAI("onAttacking", async (ps) => {
+                    ps.attackerAttrs.critical.b += attrs.dSneakCritical;
+                }, r, (ps) => ps.subType == "player2monster" && Utils.contains(ps.attackerAttrs.attackFlags, "Sneak"));
+            });
+        },
         
         "":{}
     };

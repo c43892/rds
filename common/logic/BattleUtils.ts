@@ -63,7 +63,7 @@ class BattleUtils {
             attackFlags:[],
             power:{a:0, b:0, c:0},
             accuracy:{a:0, b:0, c:0},
-            critial:{a:0, b:0, c:0},
+            critical:{a:0, b:0, c:0},
             damageAdd:{a:0, b:0, c:0},
 
             immuneFlags:[],
@@ -101,7 +101,7 @@ class BattleUtils {
             attackFlags:[],
             power:0,
             accuracy:0,
-            critial:0,
+            critical:0,
             damageAdd:0,
 
             immuneFlags:[],

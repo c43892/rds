@@ -566,6 +566,8 @@ class Battle {
             resist:{a:0, b:0, c:0},
             immuneFlags:0
         };
+        if (!Utils.contains(attackerAttrs.attackFlags, "simulation"))
+            attackerAttrs.attackFlags.push("simulation");
         await this.triggerLogicPoint("onAttacking", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
         return attackerAttrs;
     }
@@ -577,9 +579,9 @@ class Battle {
             owner:this,
             power:{a:0, b:0, c:0},
             accuracy:{a:0, b:0, c:0},
-            critial:{a:0, b:0, c:0},
+            critical:{a:0, b:0, c:0},
             damageAdd:{a:0, b:0, c:0},
-            attackFlags: 0,
+            attackFlags:["simulation"],
             addBuffs:[]
         };
         await this.triggerLogicPoint("onAttacking", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});

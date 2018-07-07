@@ -22,6 +22,11 @@
             {"dPower":7}, {"dPower":8}, {"dPower":9}, {"dPower":10}
         ]
     },
+    "Fierce":{"name":"凶暴", "dSneakCritical":5,
+        "reinforce":[
+            {"dSneakCritical":10}, {"dSneakCritical":20}, {"dSneakCritical":100}
+        ]
+    },
     
     "Coins":{"name":"金币", "cnt":1, "canOverlap":true, "useWithoutConfirm":true},
     "Key":{"name":"钥匙", "useWithTarget":true, "validTargets":["Door", "TreasureBox"]},

@@ -62,7 +62,7 @@ class ElemFactory {
                 else
                     return !condition || condition(ps);
             } else
-                return true;
+                return !condition || condition(ps);
         });
     }
 

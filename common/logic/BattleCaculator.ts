@@ -15,7 +15,7 @@ class BattleCalculator {
         var attackFlags = attackerAttrs.attackFlags;
         var power = this.doCalc(attackerAttrs, "power");
         var accuracy = this.doCalc(attackerAttrs, "accuracy");
-        var critial = this.doCalc(attackerAttrs, "critial");
+        var critical = this.doCalc(attackerAttrs, "critical");
         var damageAdd = this.doCalc(attackerAttrs, "damageAdd");
         var addBuffs = attackerAttrs.addBuffs;
 
@@ -35,7 +35,7 @@ class BattleCalculator {
         }
 
         // 计算暴击
-        if (this.srand.next100() < critial)
+        if (this.srand.next100() < critical)
             power *= 2;
 
         // 计算+-伤害和抵抗
