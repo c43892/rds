@@ -41,38 +41,36 @@ class RelicFactory {
         // 医疗箱过关回血
         "MedicineBox": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
-                if (enable)
-                    ElemFactory.addAI("beforeGoOutLevel2", async () => r.bt().implAddPlayerHp(r.attrs.dhp), r)
+                if (!enable) return;
+                ElemFactory.addAI("beforeGoOutLevel2", async () => r.bt().implAddPlayerHp(r.attrs.dhp), r)
             });
         },
 
         // 鹰眼，每关开始前标注一个带钥匙的怪物
         "Hawkeye": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
-                if (enable) {
-                    ElemFactory.addAI("onStartupRegionUncovered", async () => {
-                        var ms = BattleUtils.findRandomElems(r.bt(), 1, (m) => {
-                            if (!(m instanceof Monster)) return false;
-                            if (!m.getGrid().isCovered()) return false;
-                            return Utils.indexOf(m.dropItems, (dpi) => dpi.type == "Key") >= 0;
-                        });
+                if (!enable) return;
+                ElemFactory.addAI("onStartupRegionUncovered", async () => {
+                    var ms = BattleUtils.findRandomElems(r.bt(), 1, (m) => {
+                        if (!(m instanceof Monster)) return false;
+                        if (!m.getGrid().isCovered()) return false;
+                        return Utils.indexOf(m.dropItems, (dpi) => dpi.type == "Key") >= 0;
+                    });
 
-                        if (ms.length == 0) return;
-                        var m = ms[0];
-                        await r.bt().implMark(m.pos.x, m.pos.y);
-                    }, r);
-                }
+                    if (ms.length == 0) return;
+                    var m = ms[0];
+                    await r.bt().implMark(m.pos.x, m.pos.y);
+                }, r);
             });
         }, 
 
         // 时光机
         "TimeMachine": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
-                if (enable) {
-                    ElemFactory.addAI("beforeGoOutLevel2", async () => {
-                        await r.bt().implAddPlayerAttr("deathStep", attrs.deathGodBackStep);
-                    }, r);
-                }
+                if (!enable) return;
+                ElemFactory.addAI("beforeGoOutLevel2", async () => {
+                    await r.bt().implAddPlayerAttr("deathStep", attrs.deathGodBackStep);
+                }, r);
             });
         },
 
@@ -80,6 +78,47 @@ class RelicFactory {
         "Endurance": (attrs) => {
             return this.createRelic(attrs, true, (r:Relic, enable:boolean) => {
                 r.player.addMaxHp(enable ? attrs.dMaxHp : -attrs.dMaxHp);
+            });
+        },
+
+        // 力量
+        "Power": (attrs) => {
+            return this.createRelic(attrs, true, (r:Relic, enable:boolean) => {
+                r.player.power[0] += (enable ? attrs.dPower : -attrs.dPower);
+            });
+        },
+
+        // 凶暴
+        "Fierce": (attrs) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) return;
+                ElemFactory.addAI("onAttacking", async (ps) => {
+                    ps.attackerAttrs.critical.b += attrs.dSneakCritical; // 增加暴击率
+                }, r, (ps) => ps.subType == "player2monster" && Utils.contains(ps.attackerAttrs.attackFlags, "Sneak"));
+            });
+        },
+
+        // 披风，免疫一次偷袭
+        "Cloak": (attrs) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) return;
+                ElemFactory.triggerColdownLogic(
+                ElemFactory.addAI("onSneaking", async (ps) => {
+                    if (ps.immunized) return;
+                    ps.immunized = true;
+                    r.resetCD();
+                    Utils.log("immunize sneak");
+                }, r, () => r.checkCD()));
+            });
+        },
+
+        // 先动，免疫突袭时的反击
+        "Unback2Sneak": (attrs) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) return;
+                ElemFactory.addAI("onAttacking", async (ps) => {
+                    ps.targetAttrs.immuneFlags.push("cancelAttack");
+                }, r, (ps) => ps.subType == "monster2player" && ps.attackerAttrs && Utils.contains(ps.attackerAttrs.attackFlags, "back2sneak"));
             });
         },
         

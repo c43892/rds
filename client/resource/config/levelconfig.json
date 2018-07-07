@@ -31,7 +31,7 @@
         },
         "constElems":{
             "Key": 1,
-            "Endurance":10
+            "Unback2Sneak":10
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
@@ -1146,6 +1146,7 @@
         "elems":{
         },
         "constElems":{
+            "Key":1,
             "BossBunny": 1,
             "Sword":10
         },

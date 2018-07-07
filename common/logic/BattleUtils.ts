@@ -63,7 +63,7 @@ class BattleUtils {
             attackFlags:[],
             power:{a:0, b:0, c:0},
             accuracy:{a:0, b:0, c:0},
-            critial:{a:0, b:0, c:0},
+            critical:{a:0, b:0, c:0},
             damageAdd:{a:0, b:0, c:0},
 
             immuneFlags:[],
@@ -101,7 +101,7 @@ class BattleUtils {
             attackFlags:[],
             power:0,
             accuracy:0,
-            critial:0,
+            critical:0,
             damageAdd:0,
 
             immuneFlags:[],
@@ -131,12 +131,13 @@ class BattleUtils {
 
     // 获取玩家在世界地图上可以选择的节点
     public static getSelectableStoreyPos(p:Player) {
-        if (p.currentStoreyPos.status == "in")
+        var lv = p.currentStoreyPos.lv;
+        var n = p.currentStoreyPos.n;
+
+        if (p.currentStoreyPos.status == "in" || !p.worldmap.conns[lv] || p.worldmap.conns[lv].length == 0)
             return [];
         
         Utils.assert(p.currentStoreyPos.status == "finished", "player current storey status ruined");
-        var lv = p.currentStoreyPos.lv;
-        var n = p.currentStoreyPos.n;
         return Utils.map(p.worldmap.conns[lv][n], (cn) => { return {lv:lv+1, n:cn}; });
     }
 

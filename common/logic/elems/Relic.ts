@@ -21,7 +21,7 @@ class Relic extends Elem {
     }
     public afterRinforceLvUp;
     public setReinfoceLv(lv:number) {
-        Utils.assert(lv > 0 && lv < this.attrs.reinforce.length, "reinforce level overflow");
+        Utils.assert(this.attrs.reinforce && lv > 0 && lv <= this.attrs.reinforce.length, "reinforce level overflow");
         var reinforceAttrs = this.attrs.reinforce[lv - 1];
         this.reinforceLv = lv;
         for (var attr in reinforceAttrs)

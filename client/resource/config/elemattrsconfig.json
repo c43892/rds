@@ -1,8 +1,7 @@
 {
-    "MedicineBox":{"name":"医药箱", "dhp":5, 
+    "MedicineBox":{"name":"医药箱", "dhp":1, 
         "reinforce":[
-            {"dhp":6}, {"dhp":7}, {"dhp":8}, {"dhp":9}, {"dhp":10},
-            {"dhp":11}, {"dhp":12}, {"dhp":13}, {"dhp":14}, {"dhp":15}
+            {"dhp":2}
         ]
     },
     "Hawkeye":{"name":"鹰眼"},
@@ -16,6 +15,19 @@
             {"dMaxHp":6}, {"dMaxHp":7}, {"dMaxHp":8}, {"dMaxHp":9}, {"dMaxHp":10}
         ]
     },
+    "Power":{"name":"力量", "dPower":1,
+    "reinforce":[
+            {"dPower":2}, {"dPower":3}, {"dPower":4}, {"dPower":5}, {"dPower":6},
+            {"dPower":7}, {"dPower":8}, {"dPower":9}, {"dPower":10}
+        ]
+    },
+    "Fierce":{"name":"凶暴", "dSneakCritical":5,
+        "reinforce":[
+            {"dSneakCritical":10}, {"dSneakCritical":20}, {"dSneakCritical":100}
+        ]
+    },
+    "Cloak":{"name":"披风", "cd":100},
+    "Unback2Sneak":{"name":"先动"},
     
     "Coins":{"name":"金币", "cnt":1, "canOverlap":true, "useWithoutConfirm":true},
     "Key":{"name":"钥匙", "useWithTarget":true, "validTargets":["Door", "TreasureBox"]},
@@ -66,5 +78,6 @@
     },
     "Sword":{"name":"剑", "powerA":1},
 
-    "NextLevelPort":{"name":"下一层"}
+    "NextLevelPort":{"name":"下一层"},
+    "EscapePort":{"name":"逃跑", "invisible":true}
 }

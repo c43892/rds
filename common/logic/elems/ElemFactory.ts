@@ -62,7 +62,7 @@ class ElemFactory {
                 else
                     return !condition || condition(ps);
             } else
-                return true;
+                return !condition || condition(ps);
         });
     }
 
@@ -169,19 +169,21 @@ class ElemFactory {
         return ElemFactory.elemCanUseManyTimes(cnt, async (e:Elem) => await e.bt().implAddPlayerHp(dhp), fixImgRes);
     }
 
-    // 被动触发
-    static triggerColdownLogic(needUncovered:boolean = true) {
-        return (e:Elem) => {
-            e.cd = 0;            
-            e.canTrigger = () => e.isValid() && (!needUncovered || !e.getGrid().isCovered()) && e.cd <= 0;
-            e.resetTrigger = () => e.cd = e.attrs.cd;
-            e["onPlayerActed"] = async () => {
-                if (needUncovered && e.getGrid().isCovered()) return;
-                e.cd--;
-                await e.bt().implNotifyElemChanged("coldown", e);
-            }
-            return e;
+    // cd 逻辑
+    static triggerColdownLogic(e:Elem, onlyUncovered:boolean = true):Elem {
+        e.cd = 0;
+        e.checkCD = () => e.cd <= 0;
+        e.resetCD = () => e.cd = e.attrs.cd;
+        var priorIsValid = e.isValid;
+        e.isValid = () => {
+            if (priorIsValid && !priorIsValid()) return false;
+            return e.checkCD();
         };
+        return ElemFactory.addAI("onPlayerActed", async () => {
+            if (onlyUncovered && e.getGrid().isCovered()) return;
+            e.cd--;
+            await e.bt().implNotifyElemChanged("coldown", e);
+        }, e, () => true, onlyUncovered);
     }
 
     // 创建大尺寸元素

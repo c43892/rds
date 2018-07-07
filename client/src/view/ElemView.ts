@@ -60,7 +60,7 @@ class ElemView extends egret.DisplayObjectContainer {
                 dpe = e.dropItems[n];
         }
 
-        var show = !b.isCovered() && dpe;
+        var show = (!b.isCovered() || b.isCovered()) && dpe;
 
         if (!show && this.dropElemImgExists()) {
             this.removeChild(this.dropElemImg);
@@ -86,25 +86,23 @@ class ElemView extends egret.DisplayObjectContainer {
         var e = this.map.getElemAt(this.gx, this.gy);
         switch (b.status) {
             case GridStatus.Marked: // 被标记
-            {
-                Utils.assert(e && e instanceof Monster, "only monster could be marked");
-                this.elemImg = ViewUtils.createBitmapByName(e.getElemImgRes() + "_png");
-                this.showLayer.addChild(this.elemImg);
-                var colorMatrix = [
-                    0.5,0,0,0,0,
-                    0.5,0,0,0,0,
-                    0.5,0,0,0,0,
-                    1,0,0,0,0
-                ];
-                var colorFlilter = new egret.ColorMatrixFilter(colorMatrix);
-                this.elemImg.filters = [colorFlilter];
-            }
-            break;
             case GridStatus.Uncovered: // 被揭开
+                Utils.assert(b.status != GridStatus.Marked || !e || e instanceof Monster, "only monster could be marked");
+                var colorFilters;
+                if (b.status == GridStatus.Marked) {
+                    var colorMatrix = [
+                        0.5,0,0,0,0,
+                        0.5,0,0,0,0,
+                        0.5,0,0,0,0,
+                        1,0,0,0,0
+                    ];
+                    colorFilters = [new egret.ColorMatrixFilter(colorMatrix)];
+                }
+
                 if (e && !e.attrs.invisible) { // 有元素显示元素图片
                     this.elemImg = ViewUtils.createBitmapByName(e.getElemImgRes() + "_png");
+                    this.elemImg.filters = colorFilters;
                     this.showLayer.addChild(this.elemImg);
-                    this.elemImg.filters = undefined;
                     if (e instanceof Monster) { // 怪物
                         var m = <Monster>e;
 
@@ -113,6 +111,7 @@ class ElemView extends egret.DisplayObjectContainer {
                             this.hp.text = m.hp.toString();
                             this.hp.x = this.width - this.hp.width;
                             this.hp.y = this.height - this.hp.height;
+                            this.hp.filters = colorFilters;
                             this.showLayer.addChild(this.hp);
                         }
                         
@@ -121,6 +120,7 @@ class ElemView extends egret.DisplayObjectContainer {
                             this.shield.text = m.shield.toString();
                             this.shield.x = this.width - this.shield.width;
                             this.shield.y = 0;
+                            this.shield.filters = colorFilters;
                             this.showLayer.addChild(this.shield);
                         }
 
@@ -129,11 +129,14 @@ class ElemView extends egret.DisplayObjectContainer {
                             this.power.text = m.btAttrs.power.toString();
                             this.power.x = 0;
                             this.power.y = this.height - this.power.height;
+                            this.power.filters = colorFilters;
                             this.showLayer.addChild(this.power);
                         }
 
                         this.refreshDropItem(); // 刷新掉落物品显示
-                    } else if (!this.map.isGenerallyValid(e.pos.x, e.pos.y) && e.type != "Hole") // 禁止符号
+                        if (this.dropElemImg)
+                            this.dropElemImg.filters = colorFilters;
+                    } else if (!e.attrs.invisible && !this.map.isGenerallyValid(e.pos.x, e.pos.y) && e.type != "Hole") // 禁止符号
                         this.showLayer.addChild(this.banImg);
                 }
             break;

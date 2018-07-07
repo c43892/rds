@@ -38,7 +38,7 @@ class Player {
         p.hp = 10;
         p.maxHp = 20;
         p.avatar = "avator1";
-        p.power = [2, 0];
+        p.power = [1, 0];
         p.playerRandom = new SRandom();
         p.money = 100;
         p.exp = 0;
@@ -93,7 +93,7 @@ class Player {
 
     public power:number[] = [0, 0]; // 攻击力
     public accuracy:number[] = [0, 0]; // 命中
-    public critial:number[] = [0, 0]; // 暴击
+    public critical:number[] = [0, 0]; // 暴击
     public damageAdd:number[] = [0, 0]; // +伤
 
     public shield:number = 0; // 护盾
@@ -109,9 +109,9 @@ class Player {
             owner:this,
             power:{a:0, b:this.power[n], c:0},
             accuracy:{a:0, b:this.accuracy[n], c:0},
-            critial:{a:0, b:this.critial[n], c:0},
+            critical:{a:0, b:this.critical[n], c:0},
             damageAdd:{a:0, b:this.damageAdd[n], c:0},
-            attackFlags: this.attackFlags[n],
+            attackFlags: [...this.attackFlags[n]],
             addBuffs:[]
         };
     }
@@ -123,7 +123,7 @@ class Player {
             dodge:{a:0, b:this.dodge, c:0},
             damageDec:{a:0, b:this.damageDec, c:0},
             resist:{a:0, b:0, c:this.resist},
-            immuneFlags:this.immuneFlags
+            immuneFlags:[...this.immuneFlags]
         };
     }
 
@@ -238,7 +238,6 @@ class Player {
         if (n >= 0) {
             var r = <Relic>this.relics[n];
             r.reinforceLvUp();
-            r.redoAllMutatedEffects();
         }
         else {
             var r = <Relic>e;

@@ -45,8 +45,8 @@ class Elem {
     };
     public isValid = () => { return this.bt().level.map.isGenerallyValid(this.pos.x, this.pos.y); } // 是否被周围怪物影响导致失效
     public canBeMoved = false; // 可以被玩家移动
-    public canTrigger = () => true;
-    public resetTrigger; // 返回值表示是否继续保留
+    public checkCD = () => true;
+    public resetCD;
     
     // 以下关于 use 相关的逻辑，都不考虑未揭开情况，因为 Elem 并不包含揭开这个逻辑，
     // 也不考虑被其它元素的影响的情况，这种影响属于地图整体逻辑的一部分
@@ -88,10 +88,10 @@ class Elem {
             owner:this,
             power:{a:0, b:this.btAttrs.power, c:0},
             accuracy:{a:0, b:this.btAttrs.accuracy, c:0},
-            critial:{a:0, b:this.btAttrs.critial, c:0},
+            critical:{a:0, b:this.btAttrs.critical, c:0},
             damageAdd:{a:0, b:this.btAttrs.damageAdd, c:0},
-            attackFlags: this.btAttrs.attackFlags,
-            addBuffs:this.btAttrs.addBuffs
+            attackFlags: [...this.btAttrs.attackFlags],
+            addBuffs:[...this.btAttrs.addBuffs]
         };
     }
 
