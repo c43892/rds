@@ -131,7 +131,7 @@ class BattleUtils {
 
     // 获取玩家在世界地图上可以选择的节点
     public static getSelectableStoreyPos(p:Player) {
-        if (p.currentStoreyPos.status == "in")
+        if (p.currentStoreyPos.status == "in" || !p.worldmap.conns[lv] || p.worldmap.conns[lv].length == 0)
             return [];
         
         Utils.assert(p.currentStoreyPos.status == "finished", "player current storey status ruined");

@@ -1146,8 +1146,9 @@
         "elems":{
         },
         "constElems":{
+            "Key":1,
             "BossBunny": 1,
-            "Sword":10
+            "Power":10
         },
         "randomGroups":[]
     },

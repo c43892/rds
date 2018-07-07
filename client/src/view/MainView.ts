@@ -150,7 +150,7 @@ class MainView extends egret.DisplayObjectContainer {
     public async openShop(shop, autoClose:boolean = true) {
         this.sv.player = this.p;
         this.addChild(this.sv);
-        await this.sv.open(shop, autoClose);
+        await this.sv.open(shop, this.p.playerRandom, autoClose);
         this.removeChild(this.sv);
     }
 

@@ -238,7 +238,6 @@ class Player {
         if (n >= 0) {
             var r = <Relic>this.relics[n];
             r.reinforceLvUp();
-            r.redoAllMutatedEffects();
         }
         else {
             var r = <Relic>e;

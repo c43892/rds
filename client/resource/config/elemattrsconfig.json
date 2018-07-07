@@ -1,8 +1,8 @@
 {
-    "MedicineBox":{"name":"医药箱", "dhp":5, 
+    "MedicineBox":{"name":"医药箱", "dhp":1, 
         "reinforce":[
-            {"dhp":6}, {"dhp":7}, {"dhp":8}, {"dhp":9}, {"dhp":10},
-            {"dhp":11}, {"dhp":12}, {"dhp":13}, {"dhp":14}, {"dhp":15}
+            {"dhp":2}, {"dhp":3}, {"dhp":4}, {"dhp":5}, {"dhp":6},
+            {"dhp":7}, {"dhp":8}, {"dhp":9}, {"dhp":10}
         ]
     },
     "Hawkeye":{"name":"鹰眼"},
@@ -14,6 +14,12 @@
     "Endurance":{"name":"耐力", "dMaxHp":5, 
         "reinforce":[
             {"dMaxHp":6}, {"dMaxHp":7}, {"dMaxHp":8}, {"dMaxHp":9}, {"dMaxHp":10}
+        ]
+    },
+    "Power":{"name":"力量", "dPower":1,
+    "reinforce":[
+            {"dPower":2}, {"dPower":3}, {"dPower":4}, {"dPower":5}, {"dPower":6},
+            {"dPower":7}, {"dPower":8}, {"dPower":9}, {"dPower":10}
         ]
     },
     

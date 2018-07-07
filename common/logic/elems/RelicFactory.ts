@@ -82,6 +82,13 @@ class RelicFactory {
                 r.player.addMaxHp(enable ? attrs.dMaxHp : -attrs.dMaxHp);
             });
         },
+
+        // 力量
+        "Power": (attrs) => {
+            return this.createRelic(attrs, true, (r:Relic, enable:boolean) => {
+                r.player.power[0] += (enable ? attrs.dPower : -attrs.dPower);
+            });
+        },
         
         "":{}
     };

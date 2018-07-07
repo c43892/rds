@@ -69,14 +69,15 @@ class ShopView extends egret.DisplayObjectContainer {
 
     private onCancel;
     private onBuy;
-    public async open(shop, autoClose:boolean = true):Promise<void> {
+    public async open(shop, rand:SRandom, autoClose:boolean = true):Promise<void> {
         this.defaultPrice = GCfg.getShopCfg("price");
         var cfg = GCfg.getShopCfg(shop);
         var items = cfg.items;
         this.shopPrice = cfg.price;
 
+        this.items = [];
         for(var i = 0; i < ShopView.GridNum; i++) {
-            var e = Utils.randomSelectByWeightWithRelicFilter(this.player, items[i], this.player.playerRandom, 1, 2)[0];
+            var e = Utils.randomSelectByWeightWithRelicFilter(this.player, items[i], rand, 1, 2)[0];
             Utils.assert(!!e, "no item in shop " + shop + ":" + i);
             this.items.push(e);
             this.soldOut[i] = false;
@@ -122,10 +123,12 @@ class ShopView extends egret.DisplayObjectContainer {
             if (this.soldOut[i]) {
                 this.prices[i].text = "";
                 ViewUtils.setTex(gd, "soldout_png");
+                gd.touchEnabled = false;
             } else {
                 var e = this.items[i];
                 this.prices[i].text = this.getPrice(e);
                 ViewUtils.setTex(gd, ElemFactory.create(e).getElemImgRes() + "_png");
+                gd.touchEnabled = true;
             }
         }
     }
