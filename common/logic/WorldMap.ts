@@ -100,7 +100,7 @@ class WorldMap {
             var checkN = n;
             while (WorldMap.connectionConflict(w, c, validLevels[c], nlv, nn)) {
                 n = (n + 1) % validPos.length;
-                Utils.assert(n != checkN, "can not find position for " + c + " in world " + world);
+                if (n != checkN) break;
                 nlv = validPos[n].lv;
                 nn = validPos[n].n;
             }
@@ -113,7 +113,7 @@ class WorldMap {
     }
 
     static connectionConflict(w, type, validLevels, lv, n):boolean {
-        if (lv < validLevels[0] || lv > validLevels[1])
+        if (lv < validLevels[0] || lv >= validLevels[1])
             return true;
 
         // if (type != "shop" && type != "camp") // 这两种不检查直连冲突

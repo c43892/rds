@@ -30,7 +30,8 @@
             "MedicineBox": {}
         },
         "constElems":{
-            "Key": 1
+            "Key": 1,
+            "Endurance":10
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
@@ -96,7 +97,8 @@
             "MedicineBox": {}
         },
         "constElems":{
-            "Key": 1
+            "Key": 1,
+            "Endurance":10
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {

@@ -135,6 +135,15 @@ class Player {
             this.hp = this.maxHp;
     }
 
+    public addMaxHp(dmax:number) {
+        this.maxHp += dmax;
+        if (this.maxHp < 0)
+            this.maxHp = 0;
+
+        if (this.hp > this.maxHp)
+            this.hp = this.maxHp;
+    }
+
     public addShield(ds:number) {
         this.shield += ds;
         if (this.shield < 0)
@@ -170,8 +179,11 @@ class Player {
         for (var f of Player.serializableFields)
             p[f] = pinfo[f];
 
-        for (var r of pinfo.relics)
-            p.relics.push((<Relic>Elem.fromString(r)).toRelic());
+        for (var r of pinfo.relics) {
+            var e = Elem.fromString(r);
+            p.addRelic(e);
+            (<Relic>e).redoAllMutatedEffects();
+        }
 
         for (var prop of pinfo.props)
             p.props.push((<Prop>Elem.fromString(prop)).toProp());
@@ -218,15 +230,21 @@ class Player {
 
     // 遗物相关逻辑
 
-    public relics:Elem[] = []; // 所有遗物
+    public relics:Relic[] = []; // 所有遗物
 
     public addRelic(e:Elem) {
         // 不加相同的遗物
         var n = Utils.indexOf(this.relics, (r) => r.type == e.type);
-        if (n >= 0)
-            (<Relic>this.relics[n]).reinforceLvUp();
-        else
-            this.relics.push(e);
+        if (n >= 0) {
+            var r = <Relic>this.relics[n];
+            r.reinforceLvUp();
+            r.redoAllMutatedEffects();
+        }
+        else {
+            var r = <Relic>e;
+            r.player = this;
+            this.relics.push(r.toRelic(this));
+        }
     }
 
     public removeRelic(type:string):Elem {
@@ -234,6 +252,7 @@ class Player {
             var e = this.relics[i];
             if (e.type == type) {
                 this.relics = Utils.removeAt(this.relics, i)
+                (<Relic>e).removeAllEffect();
                 return e;
             }
         }

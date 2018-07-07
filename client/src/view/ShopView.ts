@@ -102,8 +102,7 @@ class ShopView extends egret.DisplayObjectContainer {
                     var prop = (elem as Prop).toProp();
                     this.player.addProp(prop);
                 } else if (elem instanceof Relic) {
-                    var relic = (elem as Relic).toRelic();
-                    this.player.addRelic(relic);
+                    this.player.addRelic(elem);
                 } else
                     Utils.assert(false, "only prop or relic can be sold in shop, got: " + e);
 
