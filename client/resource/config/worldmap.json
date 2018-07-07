@@ -43,6 +43,8 @@
 
     "world1":{
         "totalLevels":15,
+        "width":8,
+        "routesMax":6,
         "specs": {
             "shop":{"num":3, "levels":[2, 13]},
             "camp":{"num":4, "levels":[6, 13]},
