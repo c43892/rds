@@ -28,6 +28,11 @@ class BattleCalculator {
         // 战斗计算结果
         var r = {r:"attacked", dhp:0, dShield:0, addBuffs:[]};
 
+        if (Utils.contains(immuneFlags, "cancelAttack")) { // 攻击行为被取消
+            r.r = "canceled";
+            return r;
+        }
+
         // 计算命中(-闪避)
         if (this.srand.next100() >= 100 + accuracy - dodge) {
             r.r = "dodged";

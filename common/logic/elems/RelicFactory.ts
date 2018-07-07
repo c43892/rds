@@ -117,6 +117,7 @@ class RelicFactory {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) return;
                 ElemFactory.addAI("onAttacking", async (ps) => {
+                    ps.targetAttrs.immuneFlags.push("cancelAttack");
                 }, r, (ps) => ps.subType == "monster2player" && ps.attackerAttrs && Utils.contains(ps.attackerAttrs.attackFlags, "back2sneak"));
             });
         },
