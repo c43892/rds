@@ -28,6 +28,7 @@
         ]
     },
     "Cloak":{"name":"披风", "cd":100},
+    "Unback2Sneak":{"name":"先动"},
     
     "Coins":{"name":"金币", "cnt":1, "canOverlap":true, "useWithoutConfirm":true},
     "Key":{"name":"钥匙", "useWithTarget":true, "validTargets":["Door", "TreasureBox"]},
@@ -78,5 +79,6 @@
     },
     "Sword":{"name":"剑", "powerA":1},
 
-    "NextLevelPort":{"name":"下一层"}
+    "NextLevelPort":{"name":"下一层"},
+    "EscapePort":{"name":"逃跑", "invisible":true}
 }

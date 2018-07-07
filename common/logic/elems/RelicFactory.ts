@@ -111,6 +111,15 @@ class RelicFactory {
                 }, r, () => r.checkCD()));
             });
         },
+
+        // 先动，免疫突袭时的反击
+        "Unback2Sneak": (attrs) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) return;
+                ElemFactory.addAI("onAttacking", async (ps) => {
+                }, r, (ps) => ps.subType == "monster2player" && ps.attackerAttrs && Utils.contains(ps.attackerAttrs.attackFlags, "back2sneak"));
+            });
+        },
         
         "":{}
     };

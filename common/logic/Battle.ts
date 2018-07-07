@@ -632,19 +632,22 @@ class Battle {
         for (var b of r.addBuffs)
             await this.implAddBuff(m, "Buff" + b.type, ...b.ps);
 
-        await this.fireEvent("onAttack", {subType:"player2monster", x:m.pos.x, y:m.pos.x, r:r, target:m, weapon:weapon});
-        await this.triggerLogicPoint("onAttack", {subType:"player2monster", x:m.pos.x, y:m.pos.x, r:r, target:m, weapon:weapon});
+        await this.fireEvent("onAttack", {subType:"player2monster", x:m.pos.x, y:m.pos.x, r:r, target:m, weapon:weapon, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+        await this.triggerLogicPoint("onAttack", {subType:"player2monster", x:m.pos.x, y:m.pos.x, r:r, target:m, weapon:weapon, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
     }
 
     // 指定怪物尝试攻击角色
-    public async implMonsterAttackPlayer(m:Monster, sneak = false, selfExplode = false) {
+    public async implMonsterAttackPlayer(m:Monster, selfExplode = false, addFlags:string[] = []) {
         // 自爆逻辑的攻击属性要特别处理一下
         var weaponAttrs = selfExplode ? m.attrs.selfExplode : undefined;
         Utils.assert(!selfExplode || weaponAttrs, "self explode needs specific attr: selfExplode");
 
         var attackerAttrs = m.getAttrsAsAttacker();
         var targetAttrs = this.player.getAttrsAsTarget();
-        if (sneak) (<string[]>attackerAttrs.attackFlags).push("Sneak"); // 偷袭标记
+
+        for (var af of addFlags)
+            if (!Utils.contains(attackerAttrs.attackFlags, af))
+                attackerAttrs.attackFlags.push(af);
 
         var r = await this.calcAttack("monster2player", attackerAttrs, targetAttrs);
         Utils.assert(r.dShield == 0, "player does not support Shield");
@@ -655,7 +658,8 @@ class Battle {
         for (var b of r.addBuffs)
             await this.implAddBuff(this.player, "Buff" + b.type, ...b.ps);
 
-        await this.fireEvent("onAttack", {subType:"monster2player", r:r});
+        await this.fireEvent("onAttack", {subType:"monster2player", r:r, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+        await this.triggerLogicPoint("onAttack", {subType:"monster2player", x:m.pos.x, y:m.pos.x, r:r, target:this.player, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
 
         if (selfExplode && !m.isDead()) // 自爆还要走死亡逻辑
             await this.implOnElemDie(m);

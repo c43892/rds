@@ -11,7 +11,7 @@ class Monster extends Elem {constructor() { super();}
             dodge:{a:0, b:this.btAttrs.dodge, c:0},
             damageDec:{a:0, b:this.btAttrs.damageDec, c:0},
             resist:{a:0, b:0, c:this.btAttrs.resist},
-            immuneFlags:this.btAttrs.immuneFlags
+            immuneFlags:[...this.btAttrs.immuneFlags]
         };
     }
 
@@ -206,8 +206,12 @@ class MonsterFactory {
 
     // 被攻击时反击一次
     static doAttackBack(m:Monster):Monster {
-        return <Monster>ElemFactory.addAI("onAttack", async () => {
-            await m.bt().implMonsterAttackPlayer(m);
+        return <Monster>ElemFactory.addAI("onAttack", async (ps) => {
+            var addFlags = [];
+            if (Utils.contains(ps.attackerAttrs.attackFlags, "Sneak"))
+                addFlags.push("back2sneak");
+
+            await m.bt().implMonsterAttackPlayer(m, false, addFlags);
         }, m, (ps) => !ps.weapon && ps.target == m && !m.isDead());
     }
 
@@ -250,7 +254,7 @@ class MonsterFactory {
             if(cnt > m.attrs.selfExplode.cnt)
             {
                 m.btAttrs.power = m.btAttrs.power * m.attrs.selfExplode.mult;
-                m.bt().implMonsterAttackPlayer(m, false, true);
+                m.bt().implMonsterAttackPlayer(m, true);
             }
         }, m);
    }

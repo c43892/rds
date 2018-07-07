@@ -90,8 +90,8 @@ class Elem {
             accuracy:{a:0, b:this.btAttrs.accuracy, c:0},
             critical:{a:0, b:this.btAttrs.critical, c:0},
             damageAdd:{a:0, b:this.btAttrs.damageAdd, c:0},
-            attackFlags: this.btAttrs.attackFlags,
-            addBuffs:this.btAttrs.addBuffs
+            attackFlags: [...this.btAttrs.attackFlags],
+            addBuffs:[...this.btAttrs.addBuffs]
         };
     }
 

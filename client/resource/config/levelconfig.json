@@ -31,8 +31,7 @@
         },
         "constElems":{
             "Key": 1,
-            "Cloak":5,
-            "Shield":5
+            "Unback2Sneak":10
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
