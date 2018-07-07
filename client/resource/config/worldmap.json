@@ -44,15 +44,14 @@
     "world1":{
         "totalLevels":15,
         "specs": {
-            "shop":{"num":3, "levels":[5, 6]},
-            "camp":{"num":5, "levels":[3, 10]},
-            "senior":{"num":3, "levels":[3, 12]},
-            "event":{"num":3, "levels":[3, 12]},
-            "box":{"num":3, "levels":[3, 12]}
+            "shop":{"num":3, "levels":[2, 13]},
+            "camp":{"num":4, "levels":[6, 13]},
+            "senior":{"num":3, "levels":[6, 13]},
+            "event":{"num":7, "levels":[2, 14]}
         },
         "fixedSpecs": {
-            "13":"camp",
-            "3":"box"
+            "14":"camp",
+            "8":"box"
         }
     }
 }
