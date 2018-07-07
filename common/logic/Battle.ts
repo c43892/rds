@@ -564,7 +564,7 @@ class Battle {
             dodge:{a:0, b:0, c:0},
             damageDec:{a:0, b:0, c:0},
             resist:{a:0, b:0, c:0},
-            immuneFlags:0
+            immuneFlags:[]
         };
         if (!Utils.contains(attackerAttrs.attackFlags, "simulation"))
             attackerAttrs.attackFlags.push("simulation");
@@ -586,6 +586,14 @@ class Battle {
         };
         await this.triggerLogicPoint("onAttacking", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
         return targetAttrs;
+    }
+
+    // 怪物进行偷袭
+    public async implMonsterSneak(sneakAct) {
+        var sneakPs = {immunized:false}; // 可能被免疫
+        await this.triggerLogicPoint("onSneaking", sneakPs);
+        if (!sneakPs.immunized)
+            await sneakAct();
     }
 
     // 角色尝试攻击指定位置

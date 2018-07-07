@@ -19,14 +19,14 @@ class BattleCalculator {
         var damageAdd = this.doCalc(attackerAttrs, "damageAdd");
         var addBuffs = attackerAttrs.addBuffs;
 
-        // var immuneFlags = targetAttrs.immuneFlags;
+        var immuneFlags = targetAttrs.immuneFlags;
         var shield = this.doCalc(targetAttrs, "shield");
         var dodge = this.doCalc(targetAttrs, "dodge");
         var damageDec = this.doCalc(targetAttrs, "damageDec");
         var resist = targetAttrs.resist;
 
         // 战斗计算结果
-        var r = {r:"", dhp:0, dShield:0, addBuffs:[]};
+        var r = {r:"attacked", dhp:0, dShield:0, addBuffs:[]};
 
         // 计算命中(-闪避)
         if (this.srand.next100() >= 100 + accuracy - dodge) {
@@ -34,26 +34,37 @@ class BattleCalculator {
             return r;
         }
 
-        // 计算暴击
-        if (this.srand.next100() < critical)
-            power *= 2;
-
-        // 计算+-伤害和抵抗
-        var damage = power + damageAdd - damageDec;
-        damage = (damage + resist.b) * (1 - resist.a) + resist.c;
-        if (Utils.contains(attackFlags, "Sneak")) damage += 2;
-        if (damage < 0) damage = 0;        
-
-        // 没有穿刺，就计算护盾
-        if (!Utils.contains(attackFlags, "Pierce") && shield > 0)
-        {
-            r.dShield = damage > shield ? shield : damage;
-            damage = 0;
+        // 判断免疫
+        for (var af of attackFlags) {
+            if (Utils.contains(immuneFlags, af)) {
+                r.r = "immunized";
+                break;
+            }
         }
 
-        // 计算最终伤害
-        r.r = "attacked";
-        r.dhp = damage;
+        // 如果免疫，则跳过伤害计算
+        if (r.r != "immunized") {
+            // 计算暴击
+            if (this.srand.next100() < critical)
+                power *= 2;
+
+            // 计算+-伤害和抵抗
+            var damage = power + damageAdd - damageDec;
+            damage = (damage + resist.b) * (1 - resist.a) + resist.c;
+            if (Utils.contains(attackFlags, "Sneak")) damage += 2;
+            if (damage < 0) damage = 0;        
+
+            // 没有穿刺，就计算护盾
+            if (!Utils.contains(attackFlags, "Pierce") && shield > 0)
+            {
+                r.dShield = damage > shield ? shield : damage;
+                damage = 0;
+            }
+
+            // 计算最终伤害
+            r.r = "attacked";
+            r.dhp = damage;
+        }
 
         // 根据概率计算 buff 效果
         for (var b of addBuffs) {

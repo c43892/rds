@@ -27,6 +27,7 @@
             {"dSneakCritical":10}, {"dSneakCritical":20}, {"dSneakCritical":100}
         ]
     },
+    "Cloak":{"name":"披风"},
     
     "Coins":{"name":"金币", "cnt":1, "canOverlap":true, "useWithoutConfirm":true},
     "Key":{"name":"钥匙", "useWithTarget":true, "validTargets":["Door", "TreasureBox"]},
