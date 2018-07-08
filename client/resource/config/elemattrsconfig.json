@@ -2,7 +2,8 @@
     "MedicineBox":{"name":"医药箱", "dhp":1, 
         "reinforce":[
             {"dhp":2}
-        ]
+        ],
+        "occupations":["Nurse"]
     },
     "Hawkeye":{"name":"鹰眼"},
     "TimeMachine":{"name":"时光机", "deathGodBackStep":5,
