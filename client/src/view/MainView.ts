@@ -6,6 +6,7 @@ class MainView extends egret.DisplayObjectContainer {
     public hv:HospitalView; // 医院视图
     public wmv:WorldMapView; // 大地图视图
     public rsv:RelicSelView; // 遗物选择视图
+    public brv:BoxRoomView; // 宝箱房间
     public mm:egret.DisplayObjectContainer; // 主界面菜单
     public tcv:TipConfirmView; // 提示确认视图
     
@@ -40,11 +41,16 @@ class MainView extends egret.DisplayObjectContainer {
         this.bv.x = this.bv.y = 0;
         this.bv.openShop = async (shop, autoClose) => await this.openShop(shop, autoClose);
 
+        // 宝箱房间
+        this.brv = new BoxRoomView(w, h);
+        this.brv.x = this.brv.y = 0;
+
         // 世界地图
         this.wmv = new WorldMapView(w, h);
         this.wmv.x = this.wmv.y = 0;
         this.wmv.openShop = async (shop) => await this.openShop(shop, false);
         this.wmv.openHospital = async () => await this.openHospital();
+        this.wmv.openBoxRoom = async (openBoxRoom) => await this.openBoxRoom(openBoxRoom);
 
         // 医院视图
         this.hv = new HospitalView(w, h);
@@ -160,6 +166,14 @@ class MainView extends egret.DisplayObjectContainer {
         this.addChild(this.hv);
         await this.hv.openHospital();
         this.removeChild(this.hv);
+    }
+
+    // 打开宝箱房间
+    public async openBoxRoom(dropCfg) {
+        this.brv.player = this.p;
+        this.addChild(this.brv);
+        await this.brv.open(dropCfg);
+        this.removeChild(this.brv);
     }
 
     // 开启世界地图

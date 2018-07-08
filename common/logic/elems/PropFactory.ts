@@ -20,7 +20,7 @@ class PropFactory {
             return e;
         };
 
-        e.use = async () => await e.bt().implAddPlayerProp(e.toProp());
+        e.use = async () => await e.bt().implAddPlayerProp(e);
         
         return e;
     }

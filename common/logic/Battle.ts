@@ -176,7 +176,7 @@ class Battle {
     public async calcMarkPos(x:number, y:number) {
         var markPos = MonsterMarker.CalcMonsterMarkSignAt(this.level.map, x, y);
         for (var p of markPos)
-            this.mark(p[0], p[1]);
+            await this.mark(p[0], p[1]);
     }
 
     collectAllLogicHandler() {
@@ -533,26 +533,40 @@ class Battle {
             return;
         }
 
+        if (e["linkTo"]) { // 是 boss 占位符，更换目标
+            e = e["linkTo"];
+            x = e.pos.x;
+            y = e.pos.y;
+        }
+
         var m = <Monster>e;
         var targetAttrs = m.getAttrsAsTarget();
+        var attackerAttrs = weapon.getAttrsAsAttacker();
+
+        // 计算冻结参数
+        var frozenAttrs = weapon.attrs.frozenAttrs;
+        await this.triggerLogicPoint("onFrozenAttrs", {attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, frozenAttrs:frozenAttrs});
 
         // 检查免疫
-        var hs = this.collectAllLogicHandler();
-        for (var h of hs)
-            targetAttrs.immuneFlags = Utils.mergeSet(targetAttrs.immuneFlags, h.onAttrs.immuneFlags);
-
         if (Utils.contains(targetAttrs.immuneFlags, "Frozen")) {
             await this.fireEvent("onAttack", {subType:"player2monster", x:y, y:y, r:{r:"immunized"}, target:m, weapon:weapon});
             return;
         }
 
-        // 被冻结，生成冰块，转移掉落物品
-        var ice = this.level.createElem("IceBlock");
-        ice.dropItems = m.dropItems;
-        m.dropItems = [];
 
-        await this.implOnElemDie(m);
-        await this.implAddElemAt(ice, m.pos.x, m.pos.y);
+        if (m.isBoss) { // boss 冰冻限制行动
+            await m["makeFrozen"](frozenAttrs);
+        } else { // 普通怪物生成冰块，转移掉落物品
+            var ice = this.level.createElem("IceBlock");
+            ice.dropItems = m.dropItems;
+            m.dropItems = [];
+
+            await this.implOnElemDie(m);
+            await this.implAddElemAt(ice, m.pos.x, m.pos.y);
+        }
+        
+        // 被冻结
+        await this.fireEvent("onGridChanged", {x:e.pos.x, y:e.pos.y, e:e, subType:"frozen"}); 
     }
 
     // 计算当前角色受一切地图元素影响所得到的攻击属性

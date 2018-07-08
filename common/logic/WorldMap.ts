@@ -1,5 +1,6 @@
 // 世界地图数据
 class WorldMap {
+    public worldCfg; // 地图配置
     public stories; // 所有层
     public conns; // 层间连接关系
     public xpos; // 每一层节点的水平位置的值，虽然只是显示用，但要存下来
@@ -16,6 +17,7 @@ class WorldMap {
         var rand:SRandom = new SRandom();
         var w = new WorldMap();
         var cfg = GCfg.getWorldMapCfg(world);
+        w.worldCfg = cfg;
 
         // 建立节点库和每一类节点出现的层级约束
         var candidates = [];

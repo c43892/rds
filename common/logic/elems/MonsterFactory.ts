@@ -3,6 +3,8 @@ class Monster extends Elem {constructor() { super();}
     public shield:number; // 护盾
 
     public isDead = () => this.hp <= 0; // 是否已经死亡
+    public isBoss = false;
+    public trapped = false;
 
     public getAttrsAsTarget() {
         return {
@@ -111,8 +113,12 @@ class MonsterFactory {
 
         "BossBunny": (attrs) => {
             var m = this.createMonster(attrs);
-            m = MonsterFactory.doAttack("onPlayerActed", m);
             m.getElemImgRes = () => "Bunny";
+            MonsterFactory.makeBoss(
+                MonsterFactory.doSneakAttack(
+                    MonsterFactory.doAttackBack(
+                        MonsterFactory.doAttack("onPlayerActed", m, attrs.attackInterval, () => !m.trapped), 
+                    () => !m.trapped)));
             return m;
         }, 
 
@@ -205,19 +211,28 @@ class MonsterFactory {
     }
 
     // 被攻击时反击一次
-    static doAttackBack(m:Monster):Monster {
+    static doAttackBack(m:Monster, condition = () => true):Monster {
         return <Monster>ElemFactory.addAI("onAttack", async (ps) => {
             var addFlags = [];
             if (Utils.contains(ps.attackerAttrs.attackFlags, "Sneak"))
                 addFlags.push("back2sneak");
 
             await m.bt().implMonsterAttackPlayer(m, false, addFlags);
-        }, m, (ps) => !ps.weapon && ps.target == m && !m.isDead());
+        }, m, (ps) => !ps.weapon && ps.target == m && !m.isDead() && condition());
     }
 
     // 攻击玩家一次
-    static doAttack(logicPoint:string, m:Monster):Monster {
-        return <Monster>ElemFactory.addAI(logicPoint, async () => m.bt().implMonsterAttackPlayer(m), m);
+    static doAttack(logicPoint:string, m:Monster, attackInterval:number = 0, condition = () => true):Monster {
+        attackInterval = attackInterval ? attackInterval : 0;
+        var interval = 0;
+        return <Monster>ElemFactory.addAI(logicPoint, async () => {
+            if (interval < attackInterval)
+                interval++;
+            else if (condition()) {
+                interval = 0;
+                await m.bt().implMonsterAttackPlayer(m);
+            }
+        }, m);
     }
 
     // 玩家离开时，偷袭玩家
@@ -245,8 +260,8 @@ class MonsterFactory {
         }, m);
     }
    
-   //N回合后自爆,对玩家造成攻击力的N倍伤害
-   static doSelfExplodeAfterNRound(m:Monster):Monster{
+   // N 回合后自爆,对玩家造成攻击力的 N 倍伤害
+   static doSelfExplodeAfterNRound(m:Monster):Monster {
         var cnt = 0;
         return <Monster>ElemFactory.addAI("onPlayerActed", async () => {
             cnt++;
@@ -257,6 +272,31 @@ class MonsterFactory {
                 m.bt().implMonsterAttackPlayer(m, true);
             }
         }, m);
+   }
+
+   // boss 特殊逻辑
+   static makeBoss(m:Monster):Monster {
+       var frozenRound = 0;
+       m.isBoss = true;
+       m.isHazard = () => frozenRound == 0;
+       m["makeFrozen"] = async (frozenAttrs) => {
+           frozenRound += frozenAttrs.rounds;
+           m.trapped = frozenRound > 0;
+       };
+       ElemFactory.addAI("onPlayerActed", async () => {
+           if (frozenRound > 0) {
+               frozenRound--;
+               if (frozenRound == 0) // 取消冻结
+                   await m.bt().fireEvent("onGridChanged", {x:m.pos.x, y:m.pos.y, e:m, subType:"unfrozen"});
+
+                m.trapped = frozenRound > 0;
+           }
+       }, m);
+       var priorGetElemImgRes = m.getElemImgRes;
+       m.getElemImgRes = () => {
+           return frozenRound > 0 ? "IceBlock" : priorGetElemImgRes();
+       }
+       return m;
    }
 }
 

@@ -33,7 +33,7 @@ class Player {
         p.worldmap = undefined;
         p.currentStoreyPos = {lv:0, n:0, status:"finished"};
         p.finishedStoreyPos = [{lv:0, n:0}];
-        p.occupation = "nurse";
+        p.occupation = "Nurse";
         p.deathStep = 100;
         p.hp = 10;
         p.maxHp = 20;
@@ -264,14 +264,16 @@ class Player {
     public props:Elem[] = []; // 所有道具
 
     public addProp(e:Elem) {
+        var prop = (<Prop>e).toProp();
+
         // 合并可叠加的物品
-        var n = Utils.indexOf(this.props, (prop:Elem) => prop.type == e.type);
+        var n = Utils.indexOf(this.props, (prop:Elem) => prop.type == prop.type);
         if (n >= 0 && e.attrs.canOverlap) {
             var p = this.props[n];
-            p.cnt += e.cnt;
+            p.cnt += prop.cnt;
         }
         else
-            this.props.push(e);
+            this.props.push(prop);
     }
 
     public removeProp(type:string) {
