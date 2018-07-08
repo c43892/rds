@@ -7,6 +7,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
     public openShop; // 打开商店
     public openHospital; // 进入医院
+    public openBoxRoom; // 宝箱房间
 
     public constructor(w:number, h:number) {
         super();
@@ -159,6 +160,9 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 break;
             case "camp":
                 await this.openHospital();
+                break;
+            case "box":
+                await this.openBoxRoom(this.worldmap.worldCfg.boxroomDrops);
                 break;
             default:
                 Utils.log("not support " + nodeType + " yet");

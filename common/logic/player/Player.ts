@@ -271,7 +271,7 @@ class Player {
             p.cnt += e.cnt;
         }
         else
-            this.props.push(e);
+            this.props.push((<Prop>e).toProp());
     }
 
     public removeProp(type:string) {

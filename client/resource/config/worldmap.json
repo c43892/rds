@@ -54,6 +54,15 @@
         "fixedSpecs": {
             "14":"camp",
             "8":"box"
+        },
+        "boxroomDrops":{
+            "MedicineBox":10,
+            "Hawkeye":10,
+            "Endurance":10,
+            "Power":10,
+            "Fierce":10,
+            "Cloak":10,
+            "Unback2Sneak":10
         }
     }
 }
