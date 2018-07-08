@@ -20,7 +20,7 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
 
     private doClose;
     public async open(dropCfg):Promise<void> {
-        this.choices = Utils.randomSelectByWeightWithPlayerFilter(this.player, dropCfg, this.player.playerRandom, 1, 4);
+        this.choices = Utils.randomSelectByWeightWithPlayerFilter(this.player, dropCfg, this.player.playerRandom, 3, 4);
         this.refresh();
         return new Promise<void>((resolve, reject) => this.doClose = resolve);
     }
@@ -30,31 +30,37 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
         for (var btn of this.btnChoices)
             this.removeChild(btn);
 
+        var h = 50;
         this.btnChoices = [];
         for (var c of this.choices) {
             var btn = new egret.TextField();
-            btn.x = (this.width - btn.x) / 2;
-            this.btnChoices.push(btn);
-            btn.text = GCfg.getElemAttrsCfg(c).displayName;
+            btn.width = this.width;
+            btn.size = 40;
+            btn.height = h;
+            btn.textColor = 0x000000;
+            btn.text = GCfg.getElemAttrsCfg(c).name;
             btn.textAlign = egret.HorizontalAlign.CENTER;
             btn.verticalAlign = egret.VerticalAlign.MIDDLE;
             btn["choice"] = c;
             btn.touchEnabled = true;
             btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onSel, this);
+
             this.addChild(btn);
+            this.btnChoices.push(btn);
         }
 
-        var h = this.btnChoices[0].height
         var ySpace = h * 0.5;
-        var y = (h * this.btnChoices.length + (h - 1) * ySpace) / 2;
+        var y = (this.height - (h * this.btnChoices.length + (this.btnChoices.length - 1) * ySpace)) / 2;
         for (var btn of this.btnChoices) {
+            btn.x = 0;            
             btn.y = y;
-            y += h + ySpace;
+            y += (h + ySpace);
         }
     }
 
     onSel(evt:egret.TouchEvent) {
-        Utils.log(evt.target["choice"]);
+        var r = <Relic>ElemFactory.create(evt.target["choice"]);
+        this.player.addRelic(r);
         this.doClose();
     }
 }

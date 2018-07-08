@@ -41,7 +41,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.bv = new BattleView(w, h);
         this.bv.x = this.bv.y = 0;
         this.bv.openShop = async (shop, autoClose) => await this.openShop(shop, autoClose);
-        this.bv.openPlayerLevelUp = async () => await this.openPlayerLevelUp();
+        this.bv.openPlayerLevelUpSels = async () => await this.openPlayerLevelUpSels();
 
         // 宝箱房间
         this.brv = new BoxRoomView(w, h);
@@ -134,6 +134,7 @@ class MainView extends egret.DisplayObjectContainer {
 
         bt.registerEvent("onPlayerOp", (ps) => BattleRecorder.onPlayerOp(ps.op, ps.ps));
         bt.registerEvent("onLevel", (ps) => this.bv.onLevel(ps));
+        bt.registerEvent("onPlayerChanged", (ps) => this.bv.onPlayerChanged(ps));
         Utils.registerEventHandlers(bt, [
             "onGridChanged", "onPlayerChanged", "onAttack", "onElemChanged", "onPropChanged",
             "onElemMoving", "onAllCoveredAtInit", "onSuckPlayerBlood", "onMonsterTakeElem",
@@ -183,9 +184,9 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 打开升级界面
-    public async openPlayerLevelUp() {
+    public async openPlayerLevelUpSels() {
         this.pluv.player = this.p;
-        this.addChild(this.brv);
+        this.addChild(this.pluv);
         await this.pluv.open(GCfg.playerCfg.levelUpChoices);
         this.removeChild(this.pluv);
     }

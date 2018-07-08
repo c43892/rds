@@ -274,7 +274,14 @@ class Battle {
 
             var stateBeforeUncover = this.level.map.grids[x][y].status;
             this.uncover(x, y);
+            await this.fireEvent("onPlayerActed");
             await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
+            
+            // 检查等级提升
+            if (this.player.checkLevelUp()) {
+                await this.fireEvent("onPlayerChanged", {subType:"lvUp"});
+                await this.triggerLogicPoint("onPlayerChanged", {subType: "lvUp"});
+            }
         };
     }
 
@@ -295,7 +302,14 @@ class Battle {
                 await this.triggerLogicPoint("onElemChanged", {subType:"useElem", e:e});
             }
 
+            await this.fireEvent("onPlayerActed");
             await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
+
+            // 检查等级提升
+            if (this.player.checkLevelUp()) {
+                await this.fireEvent("onPlayerChanged", {subType:"lvUp"});
+                await this.triggerLogicPoint("onPlayerChanged", {subType: "lvUp"});
+            }
         };
     }
 
@@ -681,13 +695,9 @@ class Battle {
 
     // 角色+经验
     public async implAddPlayerExp(dExp:number) {
-        var lvUp = this.player.addExp(dExp);
+        this.player.addExp(dExp);
         await this.fireEvent("onPlayerChanged", {subType:"exp"});
         await this.triggerLogicPoint("onPlayerChanged", {subType:"exp"});
-        if (lvUp) {
-            await this.fireEvent("onPlayerChanged", {subType:"lvUp"});
-            await this.triggerLogicPoint("onPlayerChanged", {subType: "lvUp"});
-        }
     }
 
     // 角色+属性，除了hp
