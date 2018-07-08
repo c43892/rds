@@ -2,5 +2,15 @@
     "exp2Lv":[5, 10],
     "rewards":[],
 
+    "levelUpChoices":{
+        "MedicineBox":10,
+        "Hawkeye":10,
+        "Endurance":10,
+        "Power":10,
+        "Fierce":10,
+        "Cloak":10,
+        "Unback2Sneak":10
+    },
+
     "":{}
 }
