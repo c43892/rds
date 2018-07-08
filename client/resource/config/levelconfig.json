@@ -1144,6 +1144,7 @@
         "map": {},
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
+            "BossBunny":{"hp":20, "power":3}
         },
         "constElems":{
             "Key":1,
@@ -1179,6 +1180,7 @@
             "RandomEggZombie":{"hp":9, "power":3, "dropItems":["RandomEgg1"]},
             "LustZombie":{"hp":7, "power":2},
             "IronZombie":{"hp":8, "power":3, "sheild":10},
+            "BossBunny":{"hp":20, "power":3},
 
             "HpPotion":{},
             "HpCapsule":{"cnt":5, "heal":1},
