@@ -293,25 +293,38 @@ class Utils {
     }
 
     // 根据指定权重，随机选取若干目标，集合格式为 {type:weight, type:weight, ...}
-    public static randomSelectByWeight(elemsWithWeight, srand:SRandom, numMin:number, numMax:number) {
+    public static randomSelectByWeight(elemsWithWeight, srand:SRandom, numMin:number, numMax:number, noDuplicated:boolean) {
         var r = [];
 
         // 汇总该组权重
         var tw = 0; // 总权重
         var w2e = []; // 权重段
-        for (var e in elemsWithWeight) {
-            var w = elemsWithWeight[e];
-            w2e.push({w:tw, e:e});
-            tw += w;
-        }
+        var reweight = () => {
+            tw = 0;
+            w2e = [];
+            for (var e in elemsWithWeight) {
+                var w = elemsWithWeight[e];
+                if (w > 0) {
+                    w2e.push({w:tw, e:e});
+                    tw += w;
+                }
+            }
+        };
+
+        reweight();
 
         // 执行随机添加过程
         var num = srand.nextInt(numMin, numMax);
-        for (var i = 0; i < num; i++) {
+        for (var i = 0; i < num && w2e.length > 0; i++) {
             var rw = srand.nextInt(0, tw);
             for (var j = w2e.length - 1; j >= 0 ; j--) {
                 if (rw >= w2e[j].w) {
-                    r.push(w2e[j].e);
+                    var e =w2e[j].e;
+                    r.push(e);
+                    if (noDuplicated) { // 移除已选中的，并重新计算权重
+                        elemsWithWeight[e] = 0;
+                        reweight();
+                    }
                     break;
                 }
             }
@@ -322,7 +335,7 @@ class Utils {
 
     // 在 randomSelectByWeight 之前，从掉落列表中，过滤掉玩家有携带遗物并且已经到达顶级强化等级的遗物，如果
     // 过滤后列表为空，则填入一个指定的替代品
-    public static randomSelectByWeightWithPlayerFilter(p:Player, elemsWithWeight, srand:SRandom, numMin:number, numMax:number, defaultRelicType:string = undefined) {
+    public static randomSelectByWeightWithPlayerFilter(p:Player, elemsWithWeight, srand:SRandom, numMin:number, numMax:number, noDuplicated:boolean, defaultRelicType:string = undefined) {
         var cnt = 0;
         var elems = {};
 
@@ -350,6 +363,6 @@ class Utils {
         if (cnt == 0 && defaultRelicType)
             elems[defaultRelicType] = 1;
 
-        return Utils.randomSelectByWeight(elems, srand, numMin, numMax);
+        return Utils.randomSelectByWeight(elems, srand, numMin, numMax, noDuplicated);
     }
 }

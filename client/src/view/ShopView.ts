@@ -77,7 +77,7 @@ class ShopView extends egret.DisplayObjectContainer {
 
         this.items = [];
         for(var i = 0; i < ShopView.GridNum; i++) {
-            var e = Utils.randomSelectByWeightWithPlayerFilter(this.player, items[i], rand, 1, 2)[0];
+            var e = Utils.randomSelectByWeightWithPlayerFilter(this.player, items[i], rand, 1, 2, false)[0];
             Utils.assert(!!e, "no item in shop " + shop + ":" + i);
             this.items.push(e);
             this.soldOut[i] = false;

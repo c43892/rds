@@ -87,7 +87,7 @@ class ElemFactory {
             var randomDrops = [];
             if (e.attrs.rdp) {
                 var rdp = GCfg.getRandomDropGroupCfg(e.attrs.rdp);
-                var arr = Utils.randomSelectByWeightWithPlayerFilter(e.bt().player, rdp.elems, e.bt().srand, rdp.num[0], rdp.num[1], "Coins");
+                var arr = Utils.randomSelectByWeightWithPlayerFilter(e.bt().player, rdp.elems, e.bt().srand, rdp.num[0], rdp.num[1], true, "Coins");
                 for (var dpType of arr)
                     randomDrops.push(e.bt().level.createElem(dpType));
             }

@@ -3,6 +3,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
     public player:Player; // 当前玩家数据
 
     private box:egret.Bitmap;
+    private e:egret.Bitmap;
     private close:egret.Bitmap;
     
     public constructor(w:number, h:number) {
@@ -28,9 +29,11 @@ class BoxRoomView extends egret.DisplayObjectContainer {
     private dropItem;
     private doClose;
     public async open(dropCfg) {
-        var arr = Utils.randomSelectByWeightWithPlayerFilter(this.player, dropCfg, this.player.playerRandom, 1, 2, "Coins");
+        var arr = Utils.randomSelectByWeightWithPlayerFilter(this.player, dropCfg, this.player.playerRandom, 1, 2, true, "Coins");
         this.dropItem = arr[0];
         ViewUtils.setTex(this.box, "BoxRoomBox_png");
+
+        if (this.e) this.removeChild(this.e);
 
         return new Promise<void>((resolve, reject) => this.doClose = resolve);
     }
@@ -42,8 +45,6 @@ class BoxRoomView extends egret.DisplayObjectContainer {
     async onOpenBox(evt:egret.TouchEvent) {
         if (!this.dropItem) return;
 
-        Utils.log("got", this.dropItem);
-
         var dp = ElemFactory.create(this.dropItem);
         if (dp instanceof Relic)
             this.player.addRelic(dp);
@@ -53,6 +54,11 @@ class BoxRoomView extends egret.DisplayObjectContainer {
             Utils.assert(dp.type == "Coins", "invalid type in box:" + dp.type);
             this.player.addMoney(dp.cnt);
         }
+
+        this.e = ViewUtils.createBitmapByName(dp.getElemImgRes() + "_png");
+        this.e.x = (this.width - this.e.width) / 2;
+        this.e.y = (this.height - this.e.height) / 2;
+        this.addChild(this.e);
 
         ViewUtils.setTex(this.box, "BoxRoomBoxOpened_png");
         this.dropItem = undefined;
