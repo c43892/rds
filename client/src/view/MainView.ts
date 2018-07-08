@@ -7,6 +7,7 @@ class MainView extends egret.DisplayObjectContainer {
     public wmv:WorldMapView; // 大地图视图
     public rsv:RelicSelView; // 遗物选择视图
     public brv:BoxRoomView; // 宝箱房间
+    public pluv:PlayerLevelUpView; // 角色升级界面
     public mm:egret.DisplayObjectContainer; // 主界面菜单
     public tcv:TipConfirmView; // 提示确认视图
     
@@ -40,10 +41,15 @@ class MainView extends egret.DisplayObjectContainer {
         this.bv = new BattleView(w, h);
         this.bv.x = this.bv.y = 0;
         this.bv.openShop = async (shop, autoClose) => await this.openShop(shop, autoClose);
+        this.bv.openPlayerLevelUp = async () => await this.openPlayerLevelUp();
 
         // 宝箱房间
         this.brv = new BoxRoomView(w, h);
         this.brv.x = this.brv.y = 0;
+
+        // 角色升级界面
+        this.pluv = new PlayerLevelUpView(w, h);
+        this.pluv.x = this.pluv.y = 0;
 
         // 世界地图
         this.wmv = new WorldMapView(w, h);
@@ -174,6 +180,14 @@ class MainView extends egret.DisplayObjectContainer {
         this.addChild(this.brv);
         await this.brv.open(dropCfg);
         this.removeChild(this.brv);
+    }
+
+    // 打开升级界面
+    public async openPlayerLevelUp() {
+        this.pluv.player = this.p;
+        this.addChild(this.brv);
+        await this.pluv.open(GCfg.playerCfg.levelUpChoices);
+        this.removeChild(this.pluv);
     }
 
     // 开启世界地图

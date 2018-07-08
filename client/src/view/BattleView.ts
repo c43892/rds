@@ -18,6 +18,7 @@ class BattleView extends egret.DisplayObjectContainer {
     public aniView:AniView; // 动画视图
     
     public openShop; // 打开商店界面
+    public openPlayerLevelUp; // 打开角色升级界面
 
     public constructor(w:number, h:number) {
         super();
