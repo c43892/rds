@@ -18,7 +18,7 @@ class BattleView extends egret.DisplayObjectContainer {
     public aniView:AniView; // 动画视图
     
     public openShop; // 打开商店界面
-    public openPlayerLevelUp; // 打开角色升级界面
+    public openPlayerLevelUpSels; // 打开角色升级界面
 
     public constructor(w:number, h:number) {
         super();
@@ -198,6 +198,20 @@ class BattleView extends egret.DisplayObjectContainer {
         }
 
         await this.aniView.onLevel(ps);
+    }
+
+    // 角色变化
+    public async onPlayerChanged(ps) {
+        if (ps.subType == "lvUp") // 等级提升
+            await this.openPlayerLevelUpSels();
+    }
+
+    // 打开商店
+    public async onOpenShop(ps) {
+        var shop = ps.shopCfg;
+        var onBuy = ps.onBuy;
+        var refreshItems = ps.refreshItems;
+        await this.openShop(shop, onBuy, refreshItems);
     }
 
     // n 选 1

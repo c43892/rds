@@ -52,20 +52,24 @@ class Player {
     public exp:number;
     public lv:number;
 
-    // 加经验，返回值表示是否发生等级变化
-    public addExp(dExp:number):boolean {
+    // 加经验，不检查等级变化
+    public addExp(dExp:number) {
+        this.exp += dExp;
+    }
+
+    // 检查是否已经升级
+    public checkLevelUp():boolean {
         var exp2Lv = GCfg.playerCfg.exp2Lv;        
         if (this.lv >= exp2Lv.Length) // 已经满级了
             return false;
 
-        this.exp += dExp;
-        if (this.exp >= exp2Lv[this.lv]) {
+        var oldLv = this.lv;
+        while (this.exp >= exp2Lv[this.lv]) {
             this.exp -= exp2Lv[this.lv];
             this.lv++;
-            return true;
         }
-        else
-            return false;
+
+        return this.lv > oldLv;
     }
 
     // 头像逻辑

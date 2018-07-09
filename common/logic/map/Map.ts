@@ -246,8 +246,9 @@ class Map {
         var e:Elem;
         this.travelAll((x, y) =>
         {
-            if (f(x, y, this.elems[x][y])) {
-                e = this.elems[x][y];
+            var elem = this.elems[x][y];
+            if (elem && f(elem)) {
+                e = elem;
                 return true; //　找到第一个就停止遍历
             }
         });
@@ -257,7 +258,7 @@ class Map {
 
     // 寻找满足条件的第一个揭开了的 Elem
     public findFirstUncoveredElem(f):Elem {
-        return this.findFirstElem((x, y, e) => e && !this.grids[x][y].isCovered() && f(e));
+        return this.findFirstElem((e) => e && !this.grids[e.pos.x][e.pos.y].isCovered() && f(e));
     }
 
     // 寻找所有满足条件的 Elem, f 是一个函数表示过滤条件，形如 function(x:number, y:number, e:elem):boolean

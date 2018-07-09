@@ -40,8 +40,8 @@ class MainView extends egret.DisplayObjectContainer {
         // 战斗视图
         this.bv = new BattleView(w, h);
         this.bv.x = this.bv.y = 0;
-        this.bv.openShop = async (shop, autoClose) => await this.openShop(shop, autoClose);
-        this.bv.openPlayerLevelUp = async () => await this.openPlayerLevelUp();
+        this.bv.openShop = async (shop, onBuy, refreshItems) => await this.openShop(shop, onBuy, refreshItems);
+        this.bv.openPlayerLevelUpSels = async () => await this.openPlayerLevelUpSels();
 
         // 宝箱房间
         this.brv = new BoxRoomView(w, h);
@@ -54,7 +54,7 @@ class MainView extends egret.DisplayObjectContainer {
         // 世界地图
         this.wmv = new WorldMapView(w, h);
         this.wmv.x = this.wmv.y = 0;
-        this.wmv.openShop = async (shop) => await this.openShop(shop, false);
+        this.wmv.openShop = async (shop) => await this.openShopOnWorldMap(shop);
         this.wmv.openHospital = async () => await this.openHospital();
         this.wmv.openBoxRoom = async (openBoxRoom) => await this.openBoxRoom(openBoxRoom);
 
@@ -134,6 +134,8 @@ class MainView extends egret.DisplayObjectContainer {
 
         bt.registerEvent("onPlayerOp", (ps) => BattleRecorder.onPlayerOp(ps.op, ps.ps));
         bt.registerEvent("onLevel", (ps) => this.bv.onLevel(ps));
+        bt.registerEvent("onPlayerChanged", (ps) => this.bv.onPlayerChanged(ps));
+        bt.registerEvent("onOpenShop", (ps) => this.bv.onOpenShop(ps));
         Utils.registerEventHandlers(bt, [
             "onGridChanged", "onPlayerChanged", "onAttack", "onElemChanged", "onPropChanged",
             "onElemMoving", "onAllCoveredAtInit", "onSuckPlayerBlood", "onMonsterTakeElem",
@@ -159,11 +161,26 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 开启商店界面
-    public async openShop(shop, autoClose:boolean = true) {
+    public async openShop(shop, onBuy, refreshItems:boolean = true) {
         this.sv.player = this.p;
         this.addChild(this.sv);
-        await this.sv.open(shop, this.p.playerRandom, autoClose);
+        await this.sv.open(shop, this.p.playerRandom, onBuy, refreshItems);
         this.removeChild(this.sv);
+    }
+
+    // 世界地图上开启商店界面
+    public async openShopOnWorldMap(shop) {
+        await this.openShop(shop, (elem) => {
+            if (elem instanceof Prop) {
+                var prop = (elem as Prop);
+                this.p.addProp(prop);
+            } else if (elem instanceof Relic) {
+                this.p.addRelic(elem);
+            } else
+                Utils.assert(false, "only prop or relic can be sold in shop, got: " + elem.type);
+
+            return false;
+        });
     }
 
     // 打开医院界面
@@ -183,9 +200,9 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 打开升级界面
-    public async openPlayerLevelUp() {
+    public async openPlayerLevelUpSels() {
         this.pluv.player = this.p;
-        this.addChild(this.brv);
+        this.addChild(this.pluv);
         await this.pluv.open(GCfg.playerCfg.levelUpChoices);
         this.removeChild(this.pluv);
     }

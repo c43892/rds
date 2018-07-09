@@ -64,7 +64,7 @@ class MonsterFactory {
             var m = this.createMonster(attrs);
             m = <Monster>ElemFactory.addDieAI(async () => m.bt().implAddPlayerAttr("deathStep", 10), m);
             m = MonsterFactory.doAttack("onPlayerActed", m);
-            m = <Monster>ElemFactory.doMove("onPlayerActed", 3, m);
+            m = <Monster>ElemFactory.doRandomMove("onPlayerActed", 3, m);
             return m;
         },
 
@@ -110,6 +110,8 @@ class MonsterFactory {
         "RandomEggZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //彩蛋僵尸
         "LustZombie": (attrs) => MonsterFactory.doSneakReduseDeathStep(15, MonsterFactory.doAttackBack(this.createMonster(attrs))), //色欲僵尸
         "IronZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //钢铁侠僵尸
+
+        "ShopNpc": (attrs) => MonsterFactory.makeShopNPC(this.createMonster(attrs)),
 
         "BossBunny": (attrs) => {
             var m = this.createMonster(attrs);
@@ -296,6 +298,26 @@ class MonsterFactory {
        m.getElemImgRes = () => {
            return frozenRound > 0 ? "IceBlock" : priorGetElemImgRes();
        }
+       return m;
+   }
+
+   // 商店 npc 逻辑
+   static makeShopNPC(m:Monster):Monster {
+       var firstTime = true;
+       m.isHazard = () => false;
+       m.canUse = () => true;
+       var onBuy = async (elem:Elem) => {
+           var g = BattleUtils.findNearestGrid(m.bt().level.map, m.pos, (g:Grid) => !g.isCovered() && !g.getElem());
+           if (g) await m.bt().implAddElemAt(elem, g.pos.x, g.pos.y);
+           return true; // 购买后关闭商店
+       };
+
+       m.use = async () => {
+           await m.bt().fireEvent("onOpenShop", {npc:m, shopCfg:m.attrs.shopCfg, onBuy:onBuy, refreshItems:firstTime});
+           firstTime = false;
+           return false; // npc 不保留
+       };
+
        return m;
    }
 }

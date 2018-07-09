@@ -75,7 +75,7 @@ class Level {
             maxNumLimit += group.num[1] - 1;
             Utils.assert(maxNumLimit <= elemNumLimit, "elem overflow in map: " + this.displayName);
 
-            var arr = Utils.randomSelectByWeight(group.elems, this.bt.srand, group.num[0], group.num[1]);
+            var arr = Utils.randomSelectByWeight(group.elems, this.bt.srand, group.num[0], group.num[1], false);
             for (var et of arr) {
                 var elem = this.createElem(et)
                 if (group.drops) {

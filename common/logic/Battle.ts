@@ -81,13 +81,9 @@ class Battle {
 
     // 揭开起始区域
     public async uncoverStartupRegion() {
-        // var init_uncovered = this.lvCfg.init_uncovered;
-        // var w = init_uncovered.w;
-        // var h = init_uncovered.h;
-        // var lt = this.getGetRegionWithEscapePort(w, h);
 
         // 移除逃离出口，目前不需要了
-        var ep = this.level.map.findFirstElem((x, y, e) => e && e.type == "EscapePort");
+        var ep = this.level.map.findFirstElem((e) => e && e.type == "EscapePort");
         this.level.map.removeElemAt(ep.pos.x, ep.pos.y);
 
         // 揭开起始区域
@@ -123,6 +119,11 @@ class Battle {
             }
         }
 
+        // 如果有商人，要移动到起始区域
+        var shopNpc = BattleUtils.moveElem2Area(this, "ShopNpc", ep.pos, ep.attrs.size);
+        await this.fireEvent("onGridChanged", {x:shopNpc.pos.x, y:shopNpc.pos.y, e:shopNpc, subType:"moveShopNpc"});
+        await this.triggerLogicPoint("onGridChanged", {x:shopNpc.pos.x, y:shopNpc.pos.y, e:shopNpc, subType:"moveShopNpc"});
+
         await this.fireEvent("onStartupRegionUncovered");
         await this.triggerLogicPoint("onStartupRegionUncovered");
     }
@@ -131,7 +132,7 @@ class Battle {
     // 结果格式为 {left:left, top:top} 指明该区域的左小坐标
     private getGetRegionWithEscapePort(w:number, h:number) {
         var map = this.level.map;
-        var ep = map.findFirstElem((x, y, e) => e && e.type == "EscapePort");
+        var ep = map.findFirstElem((e) => e && e.type == "EscapePort");
         Utils.assert(!!ep, "there be 1 EscapePort"); // 有且只有一个逃离出口
         return Utils.calculateBoundary(ep.pos.x, ep.pos.y, w, h, 0, 0, map.size.w, map.size.h);
     }
@@ -274,7 +275,14 @@ class Battle {
 
             var stateBeforeUncover = this.level.map.grids[x][y].status;
             this.uncover(x, y);
+            await this.fireEvent("onPlayerActed");
             await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
+            
+            // 检查等级提升
+            if (this.player.checkLevelUp()) {
+                await this.fireEvent("onPlayerChanged", {subType:"lvUp"});
+                await this.triggerLogicPoint("onPlayerChanged", {subType: "lvUp"});
+            }
         };
     }
 
@@ -295,7 +303,14 @@ class Battle {
                 await this.triggerLogicPoint("onElemChanged", {subType:"useElem", e:e});
             }
 
+            await this.fireEvent("onPlayerActed");
             await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
+
+            // 检查等级提升
+            if (this.player.checkLevelUp()) {
+                await this.fireEvent("onPlayerChanged", {subType:"lvUp"});
+                await this.triggerLogicPoint("onPlayerChanged", {subType: "lvUp"});
+            }
         };
     }
 
@@ -681,13 +696,9 @@ class Battle {
 
     // 角色+经验
     public async implAddPlayerExp(dExp:number) {
-        var lvUp = this.player.addExp(dExp);
+        this.player.addExp(dExp);
         await this.fireEvent("onPlayerChanged", {subType:"exp"});
         await this.triggerLogicPoint("onPlayerChanged", {subType:"exp"});
-        if (lvUp) {
-            await this.fireEvent("onPlayerChanged", {subType:"lvUp"});
-            await this.triggerLogicPoint("onPlayerChanged", {subType: "lvUp"});
-        }
     }
 
     // 角色+属性，除了hp
