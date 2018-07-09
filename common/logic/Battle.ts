@@ -697,6 +697,28 @@ class Battle {
             await this.implOnElemDie(m);
     }
 
+    // 指定怪物尝试指定怪物
+    public async implMonsterAttackMonster(attacker:Monster, target:Monster, selfExplode = false, addFlags:string[] = []) {
+        if (target["linkTo"]) // 是 boss 占位符，更换目标
+            target = target["linkTo"];
+        
+        var attackerAttrs = attacker.getAttrsAsAttacker();
+        var targetAttrs = target.getAttrsAsTarget();
+
+        var r = await this.calcAttack("monster2monster", attackerAttrs, targetAttrs);
+        if (r.r == "attacked") {
+            await this.implAddMonsterHp(target, -r.dhp);
+            await this.implAddMonsterShield(target, -r.dShield)
+        }
+
+        // 处理附加 buff
+        for (var b of r.addBuffs)
+            await this.implAddBuff(target, "Buff" + b.type, ...b.ps);
+
+        await this.fireEvent("onAttack", {subType:"monster2monster", x:target.pos.x, y:target.pos.x, r:r, target:target, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+        await this.triggerLogicPoint("onAttack", {subType:"monster2monster", x:target.pos.x, y:target.pos.x, r:r, target:target, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+    }
+
     // 角色+经验
     public async implAddPlayerExp(dExp:number) {
         this.player.addExp(dExp);

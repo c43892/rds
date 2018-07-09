@@ -131,10 +131,11 @@ class ElemFactory {
 
     static moveFunc(e:Elem, dist:number, getTargetPos) {
         return async () => {
-            if (!getTargetPos) return;
+            var targetPos = getTargetPos();
+            if (!targetPos) return;
+            
             var map = e.bt().level.map;
             map.makeSurePathFinderPrepared();
-            var targetPos = getTargetPos();
             var path = map.findPath(e.pos, targetPos);
             if (path.length == 0) return;
 
@@ -149,14 +150,6 @@ class ElemFactory {
     // 向目标移动，使用 astar 寻路，dist 表示最多走几格
     static doMove2Target(logicPoint:string, e:Elem, dist:number, getTargetPos):Elem {
         return <Elem>ElemFactory.addAI(logicPoint, ElemFactory.moveFunc(e, dist, getTargetPos), e);
-    }
-
-    // 向商人移动
-    static doMove2ShopNpc(logicPoint:string, e:Elem, dist:number):Elem {
-        return ElemFactory.doMove2Target(logicPoint, e, dist, () => {
-            var shopNpc = e.bt().level.map.findFirstElem((elem) => elem.type == "ShopNpc");
-            return shopNpc ? shopNpc.pos : undefined;
-        });
     }
 
     // 可多次直接使用的物品
