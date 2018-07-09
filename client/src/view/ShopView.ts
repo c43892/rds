@@ -68,24 +68,25 @@ class ShopView extends egret.DisplayObjectContainer {
     }
 
     private onCancel;
-    private onBuy;
-    public async open(shop, rand:SRandom, autoClose:boolean = true):Promise<void> {
-        this.defaultPrice = GCfg.getShopCfg("price");
-        var cfg = GCfg.getShopCfg(shop);
-        var items = cfg.items;
-        this.shopPrice = cfg.price;
-
-        this.items = [];
-        for(var i = 0; i < ShopView.GridNum; i++) {
-            var e = Utils.randomSelectByWeightWithPlayerFilter(this.player, items[i], rand, 1, 2, false)[0];
-            Utils.assert(!!e, "no item in shop " + shop + ":" + i);
-            this.items.push(e);
-            this.soldOut[i] = false;
+    private onSel;
+    public async open(shop, rand:SRandom, onBuy, refreshItems:boolean = true):Promise<void> {
+        if (refreshItems) {
+            this.defaultPrice = GCfg.getShopCfg("price");
+            var cfg = GCfg.getShopCfg(shop);
+            this.shopPrice = cfg.price;
+            var items = cfg.items;
+            this.items = [];
+            for(var i = 0; i < ShopView.GridNum; i++) {
+                var e = Utils.randomSelectByWeightWithPlayerFilter(this.player, items[i], rand, 1, 2, false)[0];
+                Utils.assert(!!e, "no item in shop " + shop + ":" + i);
+                this.items.push(e);
+                this.soldOut[i] = false;
+            }
         }
 
         this.refresh();
         return new Promise<void>((resolve, reject) => {
-            this.onBuy = (n) => {
+            this.onSel = (n) => {
                 if (this.soldOut[n]) {
                     Utils.log("已售罄");
                     return;
@@ -99,16 +100,10 @@ class ShopView extends egret.DisplayObjectContainer {
                 }
 
                 var elem = ElemFactory.create(e);
-                if (elem instanceof Prop) {
-                    var prop = (elem as Prop);
-                    this.player.addProp(prop);
-                } else if (elem instanceof Relic) {
-                    this.player.addRelic(elem);
-                } else
-                    Utils.assert(false, "only prop or relic can be sold in shop, got: " + e);
-
+                var closeShop = onBuy(elem);
                 this.soldOut[n] = true;
-                if (autoClose)
+                
+                if (closeShop)
                     resolve();
                 else
                     this.refresh();
@@ -142,6 +137,6 @@ class ShopView extends egret.DisplayObjectContainer {
         var e = this.items[n];
         var yesno = await this.confirmYesNo("确定购买 " + e + "，花费 " + this.getPrice(e) + " 金币 ?");
         if (yesno)
-            this.onBuy(n);
+            this.onSel(n);
     }
 }

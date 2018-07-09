@@ -365,4 +365,10 @@ class Utils {
 
         return Utils.randomSelectByWeight(elems, srand, numMin, numMax, noDuplicated);
     }
+
+    // 给定坐标是否在指定范围内
+    public static isInArea(pt, areaLeftCorner, areaSize) {
+        return pt.x >= areaLeftCorner.x && pt.x < areaLeftCorner.x + areaSize.w
+                && pt.y >= areaLeftCorner.y && pt.y < areaLeftCorner.y + areaSize.h;
+    }
 }

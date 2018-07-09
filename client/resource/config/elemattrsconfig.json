@@ -55,6 +55,7 @@
     "RandomEggZombie":{"name":"彩蛋僵尸"},
     "LustZombie":{"name":"色欲僵尸"},
     "IronZombie":{"name":"钢铁侠僵尸"},
+    "ShopNpc":{"name":"商人", "hp":5},
 
     "PlaceHolder":{"name":"Boss精英占位", "hideHazardNum":true, "invisible":true},
     "BossBunny":{"name":"boss兔子", "size":{"w":2, "h":2}, "hp":10, "hideHazardNum":true, "attackInterval":2},

@@ -206,6 +206,14 @@ class BattleView extends egret.DisplayObjectContainer {
             await this.openPlayerLevelUpSels();
     }
 
+    // 打开商店
+    public async onOpenShop(ps) {
+        var shop = ps.shopCfg;
+        var onBuy = ps.onBuy;
+        var refreshItems = ps.refreshItems;
+        await this.openShop(shop, onBuy, refreshItems);
+    }
+
     // n 选 1
     public async select1inN(title:string, choices:string[], f) {
         return this.selView.sel1inN(title, choices, f);

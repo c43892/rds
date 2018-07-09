@@ -32,6 +32,40 @@ class BattleUtils {
         });
     }
 
+    // 寻找一个离指定位置最近的满足条件的位置
+    public static findNearestGrid(map:Map, pos, f) {
+        // 确定最大搜索半径
+        var w = map.size.w;
+        var h = map.size.h;
+        var dxl = pos.x;
+        var dxr = w - pos.x;
+        var dyt = pos.y;
+        var dyb = h - pos.y;
+        var maxDx = dxl > dxr ? dxl : dxr;
+        var maxDy = dyt > dyb ? dyt : dyb;
+        var maxd = maxDx > maxDy ? maxDx : maxDy;
+
+        var x = 0;
+        var y = 0;
+        for (var d = 0; d < maxd; d++) {
+            for (var i = -d; i <= d; i++) {
+                var checkPos = [
+                    {x:pos.x + i, y:pos.y - d},
+                    {x:pos.x + i, y:pos.y + d},
+                    {x:pos.x - d, y:pos.y + i},
+                    {x:pos.x + d, y:pos.y + i},
+                ];
+
+                for (var pt of checkPos) {
+                    if (Utils.isInArea(pt, {x:0, y:0}, map.size)) {
+                        var g = map.getGridAt(pt.x, pt.y);
+                        if(f(g)) return g;
+                    }
+                }
+            }
+        }
+    }
+
     // 寻找最多几个随机的满足条件的元素，f 是过滤条件，形如 function(e:Elem):boolean
     public static findRandomElems(bt:Battle, maxNum:number, f):Elem[] {
         var es:Elem[] = [];
@@ -145,5 +179,17 @@ class BattleUtils {
     public static isStoreyPosSelectable(p:Player, sp) {
         var sps = BattleUtils.getSelectableStoreyPos(p);
         return Utils.indexOf(sps, (p) => p.lv == sp.lv && p.n == sp.n) >= 0;
+    }
+
+    // 将指定元素移动到指定区域
+    public static moveElem2Area(bt:Battle, elemType:string, areaLeftCorner, areaSize):Elem {
+        var e = bt.level.map.findFirstElem((elem:Elem) => elem.type == elemType);
+        if (!e) return e; // 没找到指定元素
+
+        var grid = BattleUtils.findRandomGrid(bt, (g:Grid) => Utils.isInArea(g.pos, areaLeftCorner, areaSize) && !g.getElem());
+        if (!grid) return; // 没找到空位置
+
+        bt.level.map.switchElems(e.pos.x, e.pos.y, grid.pos.x, grid.pos.y);
+        return e;
     }
 }

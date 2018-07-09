@@ -1144,11 +1144,13 @@
         "map": {},
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
-            "BossBunny":{"hp":20, "power":3}
+            "BossBunny":{"hp":20, "power":3},
+            "ShopNpc":{"shopCfg":"inbattle"}
         },
         "constElems":{
             "Key":1,
             "BossBunny": 1,
+            "ShopNpc":1,
             "Sword":10
         },
         "randomGroups":[]
