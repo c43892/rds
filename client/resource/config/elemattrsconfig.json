@@ -43,7 +43,7 @@
 
     "DeathGod":{"name":"死神", "hp":10, "power":3},
     "Bunny":{"name":"兔子", "sheild":3},
-    "NormalZombie":{"name":"普通僵尸"},
+    "NormalZombie":{"name":"普通僵尸", "moveRange":3},
     "ThiefZombie":{"name":"窃贼僵尸"},
     "HoundZombie":{"name":"猎犬僵尸"},
     "VampireZombie":{"name":"吸血鬼僵尸"},

@@ -100,14 +100,16 @@ class AniView extends egret.DisplayObjectContainer {
     // 元素移动
     public async onElemMoving(ps) {
         var path = ps.path;
-        var fromPt = ps.path[0];
-        
+        if (path.length <= 1) // 只有一个起点，就不用移动了
+            return;
+
+        var fromPt = path[0];
+
         // 创建路径动画
-        var showPath = Utils.map(path, (pt) => this.mv.mapView.logicPos2ShowPos(pt.x, pt.y));
-        showPath = Utils.map(showPath, (pt) => [pt[0] - showPath[0][0], pt[1] - showPath[0][1]]);
+        var showPath = Utils.map(path, (pt) => this.mv.mapView.logicPos2ShowPos(pt.x - fromPt.x, pt.y - fromPt.y));
         showPath.shift();
-        var e = this.mv.mapView.getElemViewAt(fromPt.x, fromPt.y).getShowLayer();
-        await this.aniFact.createAni("moving", {"obj": e, "path": showPath});
+        var ev = this.mv.mapView.getElemViewAt(fromPt.x, fromPt.y).getShowLayer();
+        await this.aniFact.createAni("moving", {"obj": ev, "path": showPath});
         
         // 刷新格子显示
         this.mv.mapView.refreshAt(fromPt.x, fromPt.y);

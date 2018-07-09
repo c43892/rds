@@ -6,6 +6,19 @@ class Monster extends Elem {constructor() { super();}
     public isBoss = false;
     public trapped = false;
 
+    // 是否在射程范围内
+    public inAttackRange(target) {
+        if (target instanceof Player)
+            return true;
+        else if (this.attrs.rangedAttacker) // 远程攻击
+            return true;
+        else {
+            var dx = Math.abs(this.pos.x - target.pos.x);
+            var dy = Math.abs(this.pos.y - target.pos.y);
+            return (dx + dy) == 1;
+        }
+    }
+
     public getAttrsAsTarget() {
         return {
             owner:this,
@@ -63,7 +76,7 @@ class MonsterFactory {
         "DeathGod": (attrs) => {
             var m = this.createMonster(attrs);
             m = <Monster>ElemFactory.addDieAI(async () => m.bt().implAddPlayerAttr("deathStep", 10), m);
-            m = MonsterFactory.doAttack("onPlayerActed", m);
+            m = MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player);
             m = <Monster>ElemFactory.doRandomMove("onPlayerActed", 3, m);
             return m;
         },
@@ -98,7 +111,7 @@ class MonsterFactory {
         //     return m;
         // }
 
-        "NormalZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //普通僵尸
+        "NormalZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(MonsterFactory.doMove2ShopNpcAndAttackIt("onPlayerActed", this.createMonster(attrs), attrs.moveRange))), //普通僵尸
         "ThiefZombie": (attrs) => MonsterFactory.doSneakStealMoney(false, MonsterFactory.doAttackBack(this.createMonster(attrs))), //窃贼僵尸
         "HoundZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //猎犬僵尸
         "VampireZombie": (attrs) => MonsterFactory.doSneakSuckBlood(MonsterFactory.doAttackBack(this.createMonster(attrs))), //吸血鬼僵尸
@@ -119,7 +132,7 @@ class MonsterFactory {
             MonsterFactory.makeBoss(
                 MonsterFactory.doSneakAttack(
                     MonsterFactory.doAttackBack(
-                        MonsterFactory.doAttack("onPlayerActed", m, attrs.attackInterval, () => !m.trapped), 
+                        MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player, attrs.attackInterval, () => !m.trapped), 
                     () => !m.trapped)));
             return m;
         }, 
@@ -223,16 +236,25 @@ class MonsterFactory {
         }, m, (ps) => !ps.weapon && ps.target == m && !m.isDead() && condition());
     }
 
-    // 攻击玩家一次
-    static doAttack(logicPoint:string, m:Monster, attackInterval:number = 0, condition = () => true):Monster {
+    // 攻击一次
+    static doAttack(logicPoint:string, m:Monster, findTarget, attackInterval:number = 0, condition = () => true):Monster {
         attackInterval = attackInterval ? attackInterval : 0;
-        var interval = 0;
+        var interval = 0; // 攻击行为的间隔回合数
         return <Monster>ElemFactory.addAI(logicPoint, async () => {
             if (interval < attackInterval)
                 interval++;
             else if (condition()) {
+                var target = findTarget();
+                if (!target) return;
+
+                // 判断射程
+                if (!m.inAttackRange(target)) return;
+
                 interval = 0;
-                await m.bt().implMonsterAttackPlayer(m);
+                if (target instanceof Player)
+                    await m.bt().implMonsterAttackPlayer(m);
+                else if (target instanceof Monster)
+                    await m.bt().implMonsterAttackMonster(m, target);
             }
         }, m);
     }
@@ -261,9 +283,9 @@ class MonsterFactory {
             }
         }, m);
     }
-   
-   // N 回合后自爆,对玩家造成攻击力的 N 倍伤害
-   static doSelfExplodeAfterNRound(m:Monster):Monster {
+
+    // N 回合后自爆,对玩家造成攻击力的 N 倍伤害
+    static doSelfExplodeAfterNRound(m:Monster):Monster {
         var cnt = 0;
         return <Monster>ElemFactory.addAI("onPlayerActed", async () => {
             cnt++;
@@ -274,51 +296,59 @@ class MonsterFactory {
                 m.bt().implMonsterAttackPlayer(m, true);
             }
         }, m);
-   }
+    }
 
-   // boss 特殊逻辑
-   static makeBoss(m:Monster):Monster {
-       var frozenRound = 0;
-       m.isBoss = true;
-       m.isHazard = () => frozenRound == 0;
-       m["makeFrozen"] = async (frozenAttrs) => {
-           frozenRound += frozenAttrs.rounds;
-           m.trapped = frozenRound > 0;
-       };
-       ElemFactory.addAI("onPlayerActed", async () => {
-           if (frozenRound > 0) {
-               frozenRound--;
-               if (frozenRound == 0) // 取消冻结
-                   await m.bt().fireEvent("onGridChanged", {x:m.pos.x, y:m.pos.y, e:m, subType:"unfrozen"});
+    // boss 特殊逻辑
+    static makeBoss(m:Monster):Monster {
+        var frozenRound = 0;
+        m.isBoss = true;
+        m.isHazard = () => frozenRound == 0;
+        m["makeFrozen"] = async (frozenAttrs) => {
+            frozenRound += frozenAttrs.rounds;
+            m.trapped = frozenRound > 0;
+        };
+        ElemFactory.addAI("onPlayerActed", async () => {
+            if (frozenRound > 0) {
+                frozenRound--;
+                if (frozenRound == 0) // 取消冻结
+                    await m.bt().fireEvent("onGridChanged", {x:m.pos.x, y:m.pos.y, e:m, subType:"unfrozen"});
 
                 m.trapped = frozenRound > 0;
-           }
-       }, m);
-       var priorGetElemImgRes = m.getElemImgRes;
-       m.getElemImgRes = () => {
-           return frozenRound > 0 ? "IceBlock" : priorGetElemImgRes();
-       }
-       return m;
-   }
+            }
+        }, m);
+        var priorGetElemImgRes = m.getElemImgRes;
+        m.getElemImgRes = () => {
+            return frozenRound > 0 ? "IceBlock" : priorGetElemImgRes();
+        }
+        return m;
+    }
 
-   // 商店 npc 逻辑
-   static makeShopNPC(m:Monster):Monster {
-       var firstTime = true;
-       m.isHazard = () => false;
-       m.canUse = () => true;
-       var onBuy = async (elem:Elem) => {
-           var g = BattleUtils.findNearestGrid(m.bt().level.map, m.pos, (g:Grid) => !g.isCovered() && !g.getElem());
-           if (g) await m.bt().implAddElemAt(elem, g.pos.x, g.pos.y);
-           return true; // 购买后关闭商店
-       };
+    // 商店 npc 逻辑
+    static makeShopNPC(m:Monster):Monster {
+        var firstTime = true;
+        m.isHazard = () => false;
+        m.canUse = () => true;
+        var onBuy = async (elem:Elem) => {
+            var g = BattleUtils.findNearestGrid(m.bt().level.map, m.pos, (g:Grid) => !g.isCovered() && !g.getElem());
+            if (g) await m.bt().implAddElemAt(elem, g.pos.x, g.pos.y);
+            return true; // 购买后关闭商店
+        };
 
-       m.use = async () => {
-           await m.bt().fireEvent("onOpenShop", {npc:m, shopCfg:m.attrs.shopCfg, onBuy:onBuy, refreshItems:firstTime});
-           firstTime = false;
-           return false; // npc 不保留
-       };
+        m.use = async () => {
+            await m.bt().fireEvent("onOpenShop", {npc:m, shopCfg:m.attrs.shopCfg, onBuy:onBuy, refreshItems:firstTime});
+            firstTime = false;
+            return false; // npc 不保留
+        };
 
-       return m;
-   }
+        return m;
+    }
+
+    // 向商人移动
+    static doMove2ShopNpcAndAttackIt(logicPoint:string, e:Elem, dist:number):Monster {
+        var findShopNpc = () => e.bt().level.map.findFirstElem((elem) => elem.type == "ShopNpc");
+        return MonsterFactory.doAttack(logicPoint, <Monster>ElemFactory.doMove2Target(logicPoint, e, dist, () => {
+            var shopNpc = findShopNpc();
+            return shopNpc ? shopNpc.pos : undefined;
+        }), findShopNpc);
+    }
 }
-

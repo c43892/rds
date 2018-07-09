@@ -1145,13 +1145,14 @@
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
             "BossBunny":{"hp":20, "power":3},
-            "ShopNpc":{"shopCfg":"inbattle"}
+            "ShopNpc":{"shopCfg":"inbattle"},
+            "NormalZombie":{"hp":5, "power":1}
         },
         "constElems":{
             "Key":1,
             "BossBunny": 1,
             "ShopNpc":1,
-            "Sword":10
+            "NormalZombie":10
         },
         "randomGroups":[]
     },

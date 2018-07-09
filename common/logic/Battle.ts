@@ -84,6 +84,7 @@ class Battle {
 
         // 移除逃离出口，目前不需要了
         var ep = this.level.map.findFirstElem((e) => e && e.type == "EscapePort");
+        Utils.assert(!!ep, "no escape point in map");
         this.level.map.removeElemAt(ep.pos.x, ep.pos.y);
 
         // 揭开起始区域
@@ -121,8 +122,10 @@ class Battle {
 
         // 如果有商人，要移动到起始区域
         var shopNpc = BattleUtils.moveElem2Area(this, "ShopNpc", ep.pos, ep.attrs.size);
-        await this.fireEvent("onGridChanged", {x:shopNpc.pos.x, y:shopNpc.pos.y, e:shopNpc, subType:"moveShopNpc"});
-        await this.triggerLogicPoint("onGridChanged", {x:shopNpc.pos.x, y:shopNpc.pos.y, e:shopNpc, subType:"moveShopNpc"});
+        if (shopNpc) {
+            await this.fireEvent("onGridChanged", {x:shopNpc.pos.x, y:shopNpc.pos.y, e:shopNpc, subType:"moveShopNpc"});
+            await this.triggerLogicPoint("onGridChanged", {x:shopNpc.pos.x, y:shopNpc.pos.y, e:shopNpc, subType:"moveShopNpc"});
+        }
 
         await this.fireEvent("onStartupRegionUncovered");
         await this.triggerLogicPoint("onStartupRegionUncovered");
@@ -694,6 +697,28 @@ class Battle {
             await this.implOnElemDie(m);
     }
 
+    // 指定怪物尝试指定怪物
+    public async implMonsterAttackMonster(attacker:Monster, target:Monster, selfExplode = false, addFlags:string[] = []) {
+        if (target["linkTo"]) // 是 boss 占位符，更换目标
+            target = target["linkTo"];
+        
+        var attackerAttrs = attacker.getAttrsAsAttacker();
+        var targetAttrs = target.getAttrsAsTarget();
+
+        var r = await this.calcAttack("monster2monster", attackerAttrs, targetAttrs);
+        if (r.r == "attacked") {
+            await this.implAddMonsterHp(target, -r.dhp);
+            await this.implAddMonsterShield(target, -r.dShield)
+        }
+
+        // 处理附加 buff
+        for (var b of r.addBuffs)
+            await this.implAddBuff(target, "Buff" + b.type, ...b.ps);
+
+        await this.fireEvent("onAttack", {subType:"monster2monster", x:target.pos.x, y:target.pos.x, r:r, target:target, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+        await this.triggerLogicPoint("onAttack", {subType:"monster2monster", x:target.pos.x, y:target.pos.x, r:r, target:target, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+    }
+
     // 角色+经验
     public async implAddPlayerExp(dExp:number) {
         this.player.addExp(dExp);
@@ -750,8 +775,8 @@ class Battle {
             return;
 
         // 第一个路径点必须是相邻格子
-        if (Math.abs(e.pos.x - path[0].x) + Math.abs(e.pos.y - path[0].y) > 1)
-            return;
+        Utils.assert(Math.abs(e.pos.x - path[0].x) + Math.abs(e.pos.y - path[0].y) == 1, 
+            "first step should be around:" + e.pos.x + ", " + e.pos.y + " - " + path[0].x + ", " + path[0].y);
         
         // 检查路径上的格子是不是都可以走
         for (var n of path) {
@@ -762,8 +787,9 @@ class Battle {
         }
 
         // 直接移动到指定位置，逻辑上是没有连续移动过程的
+        var fromPos = {x:e.pos.x, y:e.pos.y};
         this.level.map.switchElems(e.pos.x, e.pos.y, path[path.length-1].x, path[path.length-1].y);
-        await this.fireEvent("onElemMoving", {e:e, path:path});
+        await this.fireEvent("onElemMoving", {e:e, path:[fromPos, ...path]});
     }
 
     // 给角色加钱/减钱, e 是相关元素，比如偷钱的怪物，或者是地上的钱币
