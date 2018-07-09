@@ -4,7 +4,7 @@ class WorldMapNode{
     public y:number;//世界地图层数
     public routes:WorldMapRoute[] = [];//该点通往上一层的路线
     public roomType:string;//该点房间类型
-    public parents:WorldMapNode[] = [];//该点的父节点
+    public parents:WorldMapNode[] = [];//该点的父节点    
 
     constructor(x:number, y:number){
         this.x = x;
@@ -13,14 +13,7 @@ class WorldMapNode{
 
 
     public static getNode(x, y, nodes):WorldMapNode{
-        var elem;
-        Utils.NDimentionArrayForeach(nodes, (e) => {
-            if (e.x == x && e.y == y) {
-                elem = e;
-                return true;
-            }
-        });
-        return elem;
+        return nodes[y][x];
     }
 
     public hasRoute():boolean{//是否有路线通往下层
@@ -40,6 +33,7 @@ class WorldMapNode{
 
     public addRoute(route:WorldMapRoute){//添加路线
         this.routes.push(route);
+        // Utils.log("node", this.x, this.y, " got a route to ", route.dstNode.x, route.dstNode.y);
     }
 
     public rightRoute():WorldMapRoute{//由该点出发最右边的路线
@@ -115,7 +109,6 @@ class WorldMapNode{
             if(leftNode.getParents().length == 0 || rightNode.getParents().length == 0)
                 return null;
             
-
             leftNode = WorldMapNode.getMaxXNode(leftNode.getParents());
             rightNode = WorldMapNode.getMinXNode(rightNode.getParents());
             if(leftNode == rightNode)
@@ -126,12 +119,43 @@ class WorldMapNode{
      return null;
     }
 
+    public static getSiblingNodes(node:WorldMapNode):WorldMapNode[]{
+        var siblingNodes = [];
+        for(var i = 0; i < node.parents.length; i++){
+            for(var j = 0; j < node.parents[i].routes.length; j++){
+                if(node.parents[i].routes[j].dstNode != node){
+                    siblingNodes.push(node.parents[i].routes[j].dstNode);
+                }
+            }
+        }
+        return siblingNodes;
+    }
+
     private static getMaxXNode(nodes:WorldMapNode[]):WorldMapNode{
         return nodes.sort(WorldMapNode.getLeftNode)[0];
     }
 
     private static getMinXNode(nodes:WorldMapNode[]):WorldMapNode{
         return nodes.sort(WorldMapNode.getRightNode)[0];
+    }
+
+    public toString() {
+        var nInfo = {
+            x:JSON.stringify(this.x),
+            y:JSON.stringify(this.y),
+            roomType:JSON.stringify(this.roomType),
+            routes:JSON.stringify(this.routes),
+            parents:JSON.stringify(this.parents)
+        }
+    }
+
+    public static fromString(str):WorldMapNode{
+        var nInfo = JSON.parse(str);
+        var worldmapnode = new WorldMapNode(nInfo.x, nInfo.y);
+        worldmapnode.roomType = nInfo.roomType;
+        worldmapnode.routes = nInfo.routes;
+        worldmapnode.parents = nInfo.parents;
+        return worldmapnode;
     }
 
 }

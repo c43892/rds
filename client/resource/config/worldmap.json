@@ -38,20 +38,29 @@
         "4_4":[
             [[0], [1], [2], [3]],
             [[0,1], [1,2,3], [3], [3]]
+        ],
+        "2_1":[
+            [[0],[0]]
+        ],
+        "3_1":[
+            [[0],[0],[0]]
+        ],
+        "4_1":[
+            [[0],[0],[0],[0]]
         ]
     },
 
     "world1":{
         "totalLevels":15,
-        "width":8,
-        "routesMax":6,
+        "width":9,
+        "routesMax":4,
         "specs": {
-            "shop":{"num":3, "levels":[2, 13]},
-            "camp":{"num":4, "levels":[6, 13]},
-            "senior":{"num":3, "levels":[6, 13]},
-            "event":{"num":7, "levels":[2, 14]}
+            "shop":{"percent":5},
+            "camp":{"percent":12},
+            "senior":{"percent":8},
+            "event":{"percent":22}
         },
-        "fixedSpecs": {
+        "fixedRow": {
             "14":"camp",
             "8":"box"
         },

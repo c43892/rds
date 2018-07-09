@@ -134,11 +134,16 @@ class BattleUtils {
         var lv = p.currentStoreyPos.lv;
         var n = p.currentStoreyPos.n;
 
-        if (p.currentStoreyPos.status == "in" || !p.worldmap.conns[lv] || p.worldmap.conns[lv].length == 0)
-            return [];
-        
-        Utils.assert(p.currentStoreyPos.status == "finished", "player current storey status ruined");
-        return Utils.map(p.worldmap.conns[lv][n], (cn) => { return {lv:lv+1, n:cn}; });
+        var selectableNodes = [];
+        var currentNode = WorldMapNode.getNode(n, lv, p.worldmap.nodes);
+
+        for(var i = 0; i < currentNode.routes.length; i++){//找到该点所有路线的目的地
+            if(currentNode.routes[i]){
+                selectableNodes.push({n:currentNode.routes[i].dstNode.x, lv:currentNode.routes[i].dstNode.y});
+            }
+        }
+
+        return selectableNodes;
     }
 
     // 指定节点是否当前可选

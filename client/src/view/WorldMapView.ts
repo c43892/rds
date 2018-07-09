@@ -56,46 +56,47 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
         // 显示每个节点
         var imgs = [];
-        var storeyHeight = this.viewContent.height / wp.stories.length;
-        for (var i = 0; i < wp.stories.length; i++) {
-            var y = storeyHeight * i;
-            imgs.push([]);
-            for (var j = 0; j < wp.stories[i].length; j++) {
-                var pt = wp.stories[i][j];
-                var img = ViewUtils.createBitmapByName(pt + "_png");
-                img.x = wp.xpos[i][j] * (this.mapArea.width - 50) + 25;
-                img.y = this.viewContent.height - y;
-                img.anchorOffsetX = img.width / 2;
-                img.anchorOffsetY = img.height / 2;
-                img["ptType"] = wp.stories[i][j];
-                img["ptStoreyLv"] = i;
-                img["ptStoreyN"] = j;
-                img.touchEnabled = true;
-                imgs[i].push(img);
+        var yGap = this.viewContent.height / wp.nodes.length;
+        var xGap = (this.mapArea.width - 100) / (wp.worldCfg.width - 1);
+        for (var i = 0; i < wp.nodes.length; i++) {
+            var y = yGap * i;
+            var row = [];
+            for (var j = 0; j < wp.nodes[i].length; j++) {
+                if(wp.nodes[i][j].parents.length != 0){
+                    var pt = wp.nodes[i][j].roomType;
+                    var img = ViewUtils.createBitmapByName(pt + "_png");
+                    img.x = wp.nodes[i][j].x * xGap + 50;
+                    img.y = this.viewContent.height - y;
+                    img.anchorOffsetX = img.width / 2;
+                    img.anchorOffsetY = img.height / 2;
+                    img["ptType"] = wp.nodes[i][j].roomType;
+                    img["ptStoreyLv"] = i;
+                    img["ptStoreyN"] = j;
+                    img.touchEnabled = true;
+                    row.push(img);
+                }else 
+                row.push("");
             }
+            imgs.push(row);
         }
 
-        // 显示连接关系
-        var cnt = [];
-        for (var i = 1; i < wp.stories.length - 1; i++) {
-            var conns = wp.conns[i];
-            cnt.push(0);
-            for (var j = 0; j < conns.length; j++) {
-                var conn2 = conns[j]
-                for (var k = 0; k < conn2.length; k++) {
-                    var l:egret.Shape = new egret.Shape();
-                    l.graphics.lineStyle(3, 0x888888);
-                    l.graphics.moveTo(imgs[i][j].x, imgs[i][j].y);
-                    l.graphics.lineTo(imgs[i+1][conn2[k]].x, imgs[i+1][conn2[k]].y);
-                    l.graphics.endFill();
-                    this.viewContent.addChild(l);
-                    cnt[i]++;
-                }
+        for(var i = 0; i < wp.nodes.length; i++){
+            for(var j = 0; j < wp.nodes[i].length; j++){
+                if(wp.nodes[i][j].parents.length != 0){
+                    for(var k = 0; k < wp.nodes[i][j].routes.length; k++){
+                        var n = wp.nodes[i][j];
+                        var l:egret.Shape = new egret.Shape();
+                        l.graphics.lineStyle(3, 0x888888);
+                        l.graphics.moveTo(imgs[i][j].x ,imgs[i][j].y);
+                        l.graphics.lineTo(imgs[i][j].x + n.routes[k].offsetX * xGap, imgs[i][j].y - yGap);
+                        l.graphics.endFill();
+                        // Utils.log("draw a line from",n.x, n.y,"to", n.routes[k].dstNode.x, n.routes[k].dstNode.y);
+                        this.viewContent.addChild(l);
+                    }
                 this.viewContent.addChild(imgs[i][j]);
-                imgs[i][j].colorFlilter = undefined;
+                }
             }
         }
-        this.viewContent.addChild(imgs[imgs.length - 1][0]);
 
         // 显示可选节点动画
         var sps = BattleUtils.getSelectableStoreyPos(this.worldmap.player);
@@ -121,6 +122,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
     public startNewBattle; // 开启一场新战斗
     async onTouchGrid(evt:egret.TouchEvent) {
+
         var bmp = evt.target;
         if (!(bmp instanceof egret.Bitmap))
             return;
@@ -132,8 +134,8 @@ class WorldMapView extends egret.DisplayObjectContainer {
         // if (!BattleUtils.isStoreyPosSelectable(this.worldmap.player, {lv:ptStoreyLv, n:ptStoreyN}))
         //     return;
 
-        Utils.assert(this.worldmap.stories[ptStoreyLv][ptStoreyN] == ptType, 
-            "worldmap storey type ruined: " + ptType + " vs " + this.worldmap.stories[ptStoreyLv][ptStoreyN]);
+        Utils.assert(this.worldmap.nodes[ptStoreyLv][ptStoreyN].roomType == ptType, 
+            "worldmap storey type ruined: " + ptType + " vs " + this.worldmap.nodes[ptStoreyLv][ptStoreyN].roomType);
 
         this.enterNode(ptStoreyLv, ptStoreyN);
     }
@@ -141,12 +143,13 @@ class WorldMapView extends egret.DisplayObjectContainer {
     public async enterNode(lv:number, n:number) {
         var parent = this.parent;
         parent.removeChild(this);
-
+        
         // 保存进度
         this.player.notifyStoreyPosIn(lv, n);
         Utils.$$saveItem("player", this.player.toString());
-
-        var nodeType = this.worldmap.stories[lv][n];
+        
+        var nodeType = this.worldmap.nodes[lv][n].roomType;
+        Utils.log("type",nodeType);
         switch(nodeType) {
             case "normal":
             case "senior":
