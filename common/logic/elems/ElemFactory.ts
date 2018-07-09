@@ -111,7 +111,7 @@ class ElemFactory {
     }
 
     // 随机移动一次，dist 表示移动几格
-    static doMove(logicPoint:string, dist:number, e:Elem):Elem {
+    static doRandomMove(logicPoint:string, dist:number, e:Elem):Elem {
         var dir = [[-1,0],[1,0],[0,-1],[0,1]];
         return <Elem>ElemFactory.addAI(logicPoint, async () => {
             if ((<Monster>e).isDead()) return;
@@ -127,6 +127,11 @@ class ElemFactory {
 
             await e.bt().implElemMoving(e, path);
         }, e);
+    }
+
+    // 向目标移动，使用 astar 寻路，dist 表示最多走几格
+    static doMove2Target(logicPoint:string, dist:number, e:Elem, targetPos):Elem {
+        return e;
     }
 
     // 可多次直接使用的物品

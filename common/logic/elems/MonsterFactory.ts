@@ -64,7 +64,7 @@ class MonsterFactory {
             var m = this.createMonster(attrs);
             m = <Monster>ElemFactory.addDieAI(async () => m.bt().implAddPlayerAttr("deathStep", 10), m);
             m = MonsterFactory.doAttack("onPlayerActed", m);
-            m = <Monster>ElemFactory.doMove("onPlayerActed", 3, m);
+            m = <Monster>ElemFactory.doRandomMove("onPlayerActed", 3, m);
             return m;
         },
 

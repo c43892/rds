@@ -6,15 +6,16 @@
 		"libs/modules/tween/tween.js",
 		"libs/modules/assetsmanager/assetsmanager.js",
 		"libs/modules/promise/promise.js",
-		"libs/modules/socket/socket.js"
+		"libs/modules/socket/socket.js",
+		"src/logic/astar/astar.js"
 	],
 	"game": [
 		"bin-debug/logic/elems/Elem.js",
-		"bin-debug/logic/elems/RelicFactory.js",
 		"bin-debug/logic/elems/MonsterFactory.js",
 		"bin-debug/logic/buffs/Buff.js",
 		"bin-debug/logic/elems/ItemFactory.js",
 		"bin-debug/logic/elems/PropFactory.js",
+		"bin-debug/logic/elems/RelicFactory.js",
 		"bin-debug/logic/BattleUtils.js",
 		"bin-debug/logic/GCfg.js",
 		"bin-debug/logic/Level.js",
@@ -37,7 +38,7 @@
 		"bin-debug/Platform.js",
 		"bin-debug/logic/elems/ElemFactory.js",
 		"bin-debug/animation/AnimationFactory.js",
-		"bin-debug/view/WorldMapView.js",
+		"bin-debug/Main.js",
 		"bin-debug/logic/Battle.js",
 		"bin-debug/logic/elems/Relic.js",
 		"bin-debug/logic/BattleCaculator.js",
@@ -65,6 +66,6 @@
 		"bin-debug/view/ShopView.js",
 		"bin-debug/view/TipConfirmView.js",
 		"bin-debug/view/ViewUtils.js",
-		"bin-debug/Main.js"
+		"bin-debug/view/WorldMapView.js"
 	]
 }
