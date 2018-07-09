@@ -247,7 +247,7 @@ Graph.prototype.toString = function() {
     var rowDebug = [];
     var row = nodes[x];
     for (var y = 0; y < row.length; y++) {
-      rowDebug.push(row[y].weight);
+      rowDebug.push(row[y].weight(x, y));
     }
     graphString.push(rowDebug.join(" "));
   }
@@ -267,13 +267,13 @@ GridNode.prototype.toString = function() {
 GridNode.prototype.getCost = function(fromNeighbor) {
   // Take diagonal weight into consideration.
   if (fromNeighbor && fromNeighbor.x != this.x && fromNeighbor.y != this.y) {
-    return this.weight * 1.41421;
+    return this.weight(this.x, this.y) * 1.41421;
   }
-  return this.weight;
+  return this.weight(this.x, this.y);
 };
 
 GridNode.prototype.isWall = function() {
-  return this.weight === 0;
+  return this.weight(this.x, this.y) === 0;
 };
 
 function BinaryHeap(scoreFunction) {

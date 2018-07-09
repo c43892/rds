@@ -26,12 +26,12 @@ class AnimationFactory {
     }
 
     // 创建按指定路径移动的动画
-    moving(g:egret.DisplayObject, path:number[][]):Promise<void> {
+    moving(g:egret.DisplayObject, path):Promise<void> {
         var tw = egret.Tween.get(g);
         for (var pt of path) {
-            var x = pt[0];
-            var y = pt[1];
-            tw = tw.to({x:x, y:y}, 200, egret.Ease.quintInOut);
+            var x = pt.x;
+            var y = pt.y;
+            tw = tw.to({x:x, y:y}, 250, egret.Ease.quintInOut);
         }
 
         return new Promise<void>((resolve, reject) => tw.call(resolve));

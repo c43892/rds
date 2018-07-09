@@ -118,9 +118,9 @@ class MapView extends egret.DisplayObjectContainer {
     }
 
     // 逻辑坐标变换为显示坐标
-    public logicPos2ShowPos(gx:number, gy:number):number[] {
+    public logicPos2ShowPos(gx:number, gy:number) {
         var gw = this.width / this.map.size.w;
         var gh = this.height / this.map.size.h;
-        return [gx * gw, gy * gh];
+        return {x:gx*gw, y:gy*gh};
     }
 }

@@ -78,7 +78,6 @@ class Main extends egret.DisplayObjectContainer {
     private mv:MainView;
 
     private async runGame() {
-
         // var c = new WSClient();
         // c.connect2srv("localhost", 80)
         // .onError(() => console.log("net error"))

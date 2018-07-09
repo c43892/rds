@@ -1151,7 +1151,7 @@
             "Key":1,
             "BossBunny": 1,
             "ShopNpc":1,
-            "Sword":10
+            "NormalZombie":10
         },
         "randomGroups":[]
     },

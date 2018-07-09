@@ -129,9 +129,34 @@ class ElemFactory {
         }, e);
     }
 
+    static moveFunc(e:Elem, dist:number, getTargetPos) {
+        return async () => {
+            if (!getTargetPos) return;
+            var map = e.bt().level.map;
+            map.makeSurePathFinderPrepared();
+            var targetPos = getTargetPos();
+            var path = map.findPath(e.pos, targetPos);
+            if (path.length == 0) return;
+
+            if (!e.bt().level.map.isWalkable(targetPos.x, targetPos.y)) // 目标点如果不可走，去掉目标点
+                path.pop();
+
+            if (path.length > dist) path = path.slice(0, dist);
+            await e.bt().implElemMoving(e, path);
+        };
+    }
+
     // 向目标移动，使用 astar 寻路，dist 表示最多走几格
-    static doMove2Target(logicPoint:string, dist:number, e:Elem, targetPos):Elem {
-        return e;
+    static doMove2Target(logicPoint:string, e:Elem, dist:number, getTargetPos):Elem {
+        return <Elem>ElemFactory.addAI(logicPoint, ElemFactory.moveFunc(e, dist, getTargetPos), e);
+    }
+
+    // 向商人移动
+    static doMove2ShopNpc(logicPoint:string, e:Elem, dist:number):Elem {
+        return ElemFactory.doMove2Target(logicPoint, e, dist, () => {
+            var shopNpc = e.bt().level.map.findFirstElem((elem) => elem.type == "ShopNpc");
+            return shopNpc ? shopNpc.pos : undefined;
+        });
     }
 
     // 可多次直接使用的物品

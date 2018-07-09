@@ -2,12 +2,12 @@
 declare class GridNode {
     x:number;
     y:number;
-    weight:number;
+    weight(_x:number, _y:number):number;
 }
 
 declare class Graph {
     grid:GridNode[][];
-    constructor (gs:number[][]);
+    constructor (gs:any[][]);
 }
 
 declare module astar {
