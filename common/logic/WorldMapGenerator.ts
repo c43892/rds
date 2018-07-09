@@ -1,10 +1,27 @@
 //生成世界地图
 class WorldMapGenerator{
-    public static worldMapGenerator(w:WorldMap):WorldMap{
-        var rand = new SRandom;
+    public static worldMapGenerator(w:WorldMap, rand:SRandom):WorldMap{
+
         var cfg = w.worldCfg;
 
         w.nodes = WorldMapGenerator.createNodes(w, cfg);
+
+        // var route1 = new WorldMapRoute(WorldMapNode.getNode(5, 1, w.nodes), WorldMapNode.getNode(5, 2, w.nodes));
+        // var route2 = new WorldMapRoute(WorldMapNode.getNode(5, 1, w.nodes), WorldMapNode.getNode(6, 2, w.nodes));
+        // var route3 = new WorldMapRoute(WorldMapNode.getNode(5, 1, w.nodes), WorldMapNode.getNode(4, 2, w.nodes));
+        // WorldMapNode.getNode(5, 1, w.nodes).addRoute(route1);
+        // WorldMapNode.getNode(5, 1, w.nodes).addRoute(route2);
+        // WorldMapNode.getNode(5, 1, w.nodes).addRoute(route3);
+        // WorldMapNode.getNode(5, 1, w.nodes).addParente(WorldMapNode.getNode(5, 0, w.nodes));
+        // WorldMapNode.getNode(5, 1, w.nodes).roomType = "normal";
+
+
+
+        // var x1 = WorldMapNode.getNode(5, 1, w.nodes).rightRoute().dstNode.x;
+        // var x2 = WorldMapNode.getNode(5, 1, w.nodes).leftRoute().dstNode.x;
+        // Utils.log(x1, x2);
+        
+
 
         w.nodes = WorldMapGenerator.createRoutes(cfg, w.nodes, rand);
 
@@ -247,6 +264,7 @@ class WorldMapGenerator{
         for(var i = 0; i < eventCount; i++){
             roomList.push("event");
         }
+        Utils.log(shopCount, campCount, seniorCount, eventCount);
 
         if(roomList.length > nodesCount){
             Utils.log("too many special room were set.");
@@ -283,7 +301,7 @@ class WorldMapGenerator{
                         var preTypes = Utils.filter(roomList, (e) => { if(Utils.contains(rt, e)) 
                                                                             return true });
                         var type = preTypes[rd.nextInt(0, preTypes.length)];
-                        // Utils.log(nodes[i][j].x, nodes[i][j].y, preTypes, "set",type);
+                        Utils.log(nodes[i][j].x, nodes[i][j].y, preTypes, "set",type);
                         roomList = WorldMapGenerator.setRoomType(nodes[i][j], type, roomList);
                         // Utils.log("lengthaf",roomList.length);
                     }else {
@@ -294,6 +312,7 @@ class WorldMapGenerator{
                 }
             }
         }
+        Utils.log(roomList);
         return nodes;
     }
 
@@ -313,7 +332,7 @@ class WorldMapGenerator{
             types = Utils.removeAt(types, Utils.indexOf(types, (e) => {if(e == "senior") return true;}));
             types = Utils.removeAt(types, Utils.indexOf(types, (e) => {if(e == "camp") return true;}));            
         }
-
+        // Utils.log(types);
         return types;
     }
 
@@ -324,6 +343,7 @@ class WorldMapGenerator{
             preTypes = Utils.removeAt(preTypes, Utils.indexOf(preTypes, (e) => { if(e == node.parents[i].roomType) return true;}));
         }
         preTypes.push("normal");
+        preTypes.push("event");
         return preTypes;
     }
 
@@ -344,6 +364,7 @@ class WorldMapGenerator{
             preTypes = Utils.removeAt(preTypes, Utils.indexOf(preTypes, (e) => { if(e == node.routes[i].dstNode.roomType) return true;}));
         }
         preTypes.push("normal");
+        preTypes.push("event");
         return preTypes;
     }
 

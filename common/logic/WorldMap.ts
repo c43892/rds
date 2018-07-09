@@ -20,7 +20,9 @@ class WorldMap {
         var cfg = GCfg.getWorldMapCfg(world);
         w.worldCfg = cfg;
 
-        WorldMapGenerator.worldMapGenerator(w);
+        var srand = new SRandom();
+        // Utils.log(srand.toString());
+        WorldMapGenerator.worldMapGenerator(w, srand);
 
         return w;
     }

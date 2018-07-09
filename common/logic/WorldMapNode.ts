@@ -37,35 +37,25 @@ class WorldMapNode{
     }
 
     public rightRoute():WorldMapRoute{//由该点出发最右边的路线
-        return this.routes.sort(WorldMapNode.getRightRoute)[0];
+        return this.routes.sort(WorldMapNode.sortRoutesByX)[this.routes.length - 1];
     }
 
     public leftRoute():WorldMapRoute{//由该点出发最左边的路线
-        return this.routes.sort(WorldMapNode.getLeftRoute)[0];
+        return this.routes.sort(WorldMapNode.sortRoutesByX)[0];
     }
 
-    public static getLeftRoute = function (r1, r2){//找该点最左边路线的规则
-        var dstX1 = r1.dstX;
-        var dstX2 = r2.dstX;
-        if(dstX1 < dstX2){
-            return 1;
-        }
-        else if(dstX1 > dstX2){
-            return -1;
-        }
-        else return 0;
-    }
-
-    public static getRightRoute = function (r1, r2){//找该点最右边路线的规则
-        var dstX1 = r1.dstX;
-        var dstX2 = r2.dstX;
+    public static sortRoutesByX = function (r1:WorldMapRoute, r2:WorldMapRoute){//找该点最左边路线的规则
+        var dstX1 = r1.dstNode.x;
+        var dstX2 = r2.dstNode.x;
         if(dstX1 < dstX2){
             return -1;
         }
         else if(dstX1 > dstX2){
             return 1;
         }
-        else return 0;
+        else {
+            return 0;
+        }
     }
 
     public static getLeftNode = function (n1, n2){//找该点最左边节点的规则
