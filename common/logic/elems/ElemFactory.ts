@@ -139,7 +139,8 @@ class ElemFactory {
             var path = map.findPath(e.pos, targetPos, {closest:true});
             if (path.length == 0) return;
 
-            if (!e.bt().level.map.isWalkable(targetPos.x, targetPos.y)) // 目标点如果不可走，去掉目标点
+            var lastNode = path[path.length - 1];
+            if (!e.bt().level.map.isWalkable(lastNode.x, lastNode.y)) // 目标点如果不可走，去掉目标点
                 path.pop();
 
             if (path.length > dist) path = path.slice(0, dist);
