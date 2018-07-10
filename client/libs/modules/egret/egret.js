@@ -2006,6 +2006,16 @@ var egret;
                 }
                 if (!egret.nativeRender) {
                     self.$updateRenderMode();
+                    var p = self.$parent;
+                    if (p && !p.$cacheDirty) {
+                        p.$cacheDirty = true;
+                        p.$cacheDirtyUp();
+                    }
+                    var maskedObject = self.$maskedObject;
+                    if (maskedObject && !maskedObject.$cacheDirty) {
+                        maskedObject.$cacheDirty = true;
+                        maskedObject.$cacheDirtyUp();
+                    }
                 }
             },
             enumerable: true,
@@ -5618,7 +5628,6 @@ var egret;
              * @default <code>BitmapFillMode.SCALE</code>
              *
              * @version Egret 2.4
-             * @version eui 1.0
              * @platform Web
              * @language en_US
              */
@@ -5630,7 +5639,6 @@ var egret;
              * @default <code>BitmapFillMode.SCALE</code>
              *
              * @version Egret 2.4
-             * @version eui 1.0
              * @platform Web
              * @language zh_CN
              */
@@ -9166,6 +9174,7 @@ var egret;
                     j++;
                 }
             }
+            this.onPropertyChange();
         };
         /**
          * @private
@@ -10278,6 +10287,20 @@ var egret;
         Graphics.prototype.dirty = function () {
             var self = this;
             self.$renderNode.dirtyRender = true;
+            if (!egret.nativeRender) {
+                var target = self.$targetDisplay;
+                target.$cacheDirty = true;
+                var p = target.$parent;
+                if (p && !p.$cacheDirty) {
+                    p.$cacheDirty = true;
+                    p.$cacheDirtyUp();
+                }
+                var maskedObject = target.$maskedObject;
+                if (maskedObject && !maskedObject.$cacheDirty) {
+                    maskedObject.$cacheDirty = true;
+                    maskedObject.$cacheDirtyUp();
+                }
+            }
         };
         /**
          * @private
@@ -13216,10 +13239,10 @@ var egret;
     if (egret.nativeRender) {
         var nrABIVersion = egret_native.nrABIVersion;
         var nrMinEgretVersion = egret_native.nrMinEgretVersion;
-        var requiredNrABIVersion = 3;
+        var requiredNrABIVersion = 4;
         if (nrABIVersion < requiredNrABIVersion) {
             egret.nativeRender = false;
-            var msg = "需要升级微端版本到 0.1.6 才可以开启原生渲染加速";
+            var msg = "需要升级微端版本到 0.1.8 才可以开启原生渲染加速";
             egret.sys.$warnToFPS(msg);
             egret.warn(msg);
         }
@@ -15346,11 +15369,11 @@ var egret;
             else {
                 var matrix = egret.Matrix.create();
                 matrix.identity();
+                matrix.scale(scale, scale);
                 //应用裁切
                 if (clipBounds) {
                     matrix.translate(-clipBounds.x, -clipBounds.y);
                 }
-                matrix.scale(scale, scale);
                 egret.sys.systemRenderer.render(displayObject, renderBuffer, matrix, true);
                 egret.Matrix.release(matrix);
             }
@@ -16892,7 +16915,7 @@ var egret;
          * @platform Web,Native
          * @language zh_CN
          */
-        Capabilities.engineVersion = "5.1.12";
+        Capabilities.engineVersion = "5.2.4";
         /***
          * current render mode.
          * @type {string}
@@ -20478,7 +20501,7 @@ var egret;
             get: function () {
                 this.$getLinesArr();
                 if (egret.nativeRender) {
-                    return egret_native.nrGetTextFieldWidth(this.$nativeDisplayObject.id);
+                    return egret_native.nrGetTextWidth(this.$nativeDisplayObject.id);
                 }
                 return this.$TextField[5 /* textWidth */];
             },
@@ -20501,7 +20524,7 @@ var egret;
             get: function () {
                 this.$getLinesArr();
                 if (egret.nativeRender) {
-                    return egret_native.nrGetTextFieldHeight(this.$nativeDisplayObject.id);
+                    return egret_native.nrGetTextHeight(this.$nativeDisplayObject.id);
                 }
                 return egret.TextFieldUtils.$getTextHeight(this);
             },

@@ -1,38 +1,38 @@
 {
-  "engineVersion": "5.2.0",
-  "compilerVersion": "5.2.0",
-  "template": {},
-  "target": {
-    "current": "web"
-  },
-  "modules": [
-    {
-      "name": "egret"
-    },
-    {
-      "name": "game"
-    },
-    {
-      "name": "tween"
-    },
-    {
-      "name": "assetsmanager"
-    },
-    {
-      "name": "promise"
-    },
-    {
-      "name": "socket"
-    },
-    {
-      "name": "astar",
-      "path": "src/logic/astar"
-    }
-  ],
-  "targets": {
-    "android": {
-      "appname": "rds",
-      "packagename": "com.rds.daybreak"
-    }
-  }
+	"engineVersion": "5.2.4",
+	"compilerVersion": "5.2.4",
+	"template": {},
+	"target": {
+		"current": "web"
+	},
+	"modules": [
+		{
+			"name": "egret"
+		},
+		{
+			"name": "game"
+		},
+		{
+			"name": "tween"
+		},
+		{
+			"name": "assetsmanager"
+		},
+		{
+			"name": "promise"
+		},
+		{
+			"name": "socket"
+		},
+		{
+			"name": "astar",
+			"path": "src/logic/astar"
+		}
+	],
+	"targets": {
+		"android": {
+			"appname": "rds",
+			"packagename": "com.rds.daybreak"
+		}
+	}
 }
