@@ -96,6 +96,21 @@ class AniView extends egret.DisplayObjectContainer {
         else
             await this.aniFact.createAni("playerAttackMonster");
     }
+    
+    // 元素飞行
+    public async onElemFlying(ps) {
+        var fromPt = ps.fromPos;
+        var toPt = ps.toPos;
+
+        // 创建路径动画
+        var showPath = Utils.map([fromPt, toPt], (pt) => this.mv.mapView.logicPos2ShowPos(pt.x - fromPt.x, pt.y - fromPt.y));
+        showPath.shift();
+        var ev = this.mv.mapView.getElemViewAt(fromPt.x, fromPt.y).getShowLayer();
+        await this.aniFact.createAni("moving", {"obj": ev, "path": showPath});
+        this.mv.mapView.refreshAt(fromPt.x, fromPt.y);
+        this.mv.mapView.refreshAt(toPt.x, toPt.y);
+        this.mv.refreshPlayer();
+    }
 
     // 元素移动
     public async onElemMoving(ps) {

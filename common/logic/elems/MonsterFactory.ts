@@ -77,7 +77,7 @@ class MonsterFactory {
             var m = this.createMonster(attrs);
             m = <Monster>ElemFactory.addDieAI(async () => m.bt().implAddPlayerAttr("deathStep", 10), m);
             m = MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player);
-            m = <Monster>ElemFactory.doRandomMove("onPlayerActed", 3, m);
+            m = MonsterFactory.doRandomFly("onPlayerActed", m);
             return m;
         },
 
@@ -156,6 +156,36 @@ class MonsterFactory {
         };
 
         return m;
+    }
+
+    // 随机移动一次，dist 表示移动几格
+    static doRandomMove(logicPoint:string, dist:number, m:Monster):Monster {
+        var dir = [[-1,0],[1,0],[0,-1],[0,1]];
+        return <Monster>ElemFactory.addAI(logicPoint, async () => {
+            if (m.isDead()) return;
+            var path = [];
+            for (var i = 0; i < dist; i++) {
+                var d = dir[m.bt().srand.nextInt(0, dir.length)];
+                var lastPt = path[path.length - 1];
+                var x = lastPt.x + d[0];
+                var y = lastPt.y + d[1];
+                if ((m.pos.x == x && m.pos.y == y) || m.bt().level.map.isWalkable(x, y))
+                    path.push({x:x, y:y});
+            }
+
+            await m.bt().implElemMoving(m, path);
+        }, m);
+    }
+
+    // 随机飞行一次
+    static doRandomFly(logicPoint:string, m:Monster):Monster {
+        return <Monster>ElemFactory.addAI(logicPoint, async () => {
+            var bt = m.bt();
+            if (m.isDead()) return;
+            var targetPos = BattleUtils.findRandomEmptyGrid(bt);
+            if (!targetPos) return;
+            await bt.implElemFly(m, targetPos.pos);
+        }, m);
     }
 
     // 设定偷袭逻辑

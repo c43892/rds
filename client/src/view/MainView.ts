@@ -138,7 +138,7 @@ class MainView extends egret.DisplayObjectContainer {
         bt.registerEvent("onOpenShop", (ps) => this.bv.onOpenShop(ps));
         Utils.registerEventHandlers(bt, [
             "onGridChanged", "onPlayerChanged", "onAttack", "onElemChanged", "onPropChanged",
-            "onElemMoving", "onAllCoveredAtInit", "onSuckPlayerBlood", "onMonsterTakeElem",
+            "onElemMoving", "onElemFlying", "onAllCoveredAtInit", "onSuckPlayerBlood", "onMonsterTakeElem",
         ], (e) => (ps) => this.bv.aniView[e](ps));
         bt.registerEvent("onLevel", (ps) => {
             if (ps.subType != "goOutLevel")
