@@ -136,8 +136,7 @@ class ElemFactory {
             
             var map = e.bt().level.map;
             map.makeSurePathFinderPrepared();
-            var path = map.findPath(e.pos, targetPos);
-            Utils.log(path.length);
+            var path = map.findPath(e.pos, targetPos, {closest:true});
             if (path.length == 0) return;
 
             if (!e.bt().level.map.isWalkable(targetPos.x, targetPos.y)) // 目标点如果不可走，去掉目标点

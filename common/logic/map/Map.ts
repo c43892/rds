@@ -327,7 +327,7 @@ class Map {
     }
 
     // 执行寻路操作
-    public findPath (start, end) {
+    public findPath (start, end, options) {
         Utils.assert(!!this.pathGraph, "path graph is not prepared yet");
         Utils.assert(Utils.isInArea(start, {x:0, y:0}, this.size) && Utils.isInArea(end, {x:0, y:0}, this.size), 
             "start & end position should be in map area: " + start.x + ", " + start.y + " - " + end.x + ", " + end.y);
@@ -336,7 +336,7 @@ class Map {
         this.endPos = end;
         var s = this.pathGraph.grid[start.x][start.y];
         var e = this.pathGraph.grid[end.x][end.y];
-        var pathNodes = astar.search(this.pathGraph, s, e);
+        var pathNodes = astar.search(this.pathGraph, s, e, options);
         this.startPos = undefined;
         this.endPos = undefined;
         return Utils.map(pathNodes, (node) => { return {x:node.x, y:node.y}; });

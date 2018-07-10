@@ -11,5 +11,5 @@ declare class Graph {
 }
 
 declare module astar {
-    function search(graph:Graph, start:GridNode, end:GridNode):GridNode[];
+    function search(graph:Graph, start:GridNode, end:GridNode, options:any):GridNode[];
 }
