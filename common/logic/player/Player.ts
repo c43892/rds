@@ -245,7 +245,7 @@ class Player {
         }
         else {
             var r = <Relic>e;
-            r.player = this;
+            r.player = this;            
             this.relics.push(r.toRelic(this));
         }
     }

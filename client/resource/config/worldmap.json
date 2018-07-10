@@ -21,6 +21,11 @@
             "Fierce":10,
             "Cloak":10,
             "Unback2Sneak":10
+        },
+        "events":{
+            "shop":10,
+            "normal":10,
+            "box":10
         }
     }
 }

@@ -52,13 +52,6 @@ class Battle {
         return this.level;
     }
 
-    // // 载入下一关卡
-    // public loadNextLevel():Level {
-    //     var nextLevelCfg = this.lvCfg.nextLevel;
-    //     this.player.currentLevel = nextLevelCfg;
-    //     return this.loadCurrentLevel();
-    // }
-
     // 开始当前战斗
     public async Start() {
         this.loadCurrentLevel(this.btType);

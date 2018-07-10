@@ -185,7 +185,8 @@ class ElemFactory {
             return e.checkCD();
         };
         return ElemFactory.addAI("onPlayerActed", async () => {
-            if (onlyUncovered && e.getGrid().isCovered()) return;
+            if (!(e instanceof Prop) && !(e instanceof Relic) && onlyUncovered && e.getGrid().isCovered()) return;
+            Utils.assert(!!e.bt(), "not added to battle yet! " + e.type);            
             e.cd--;
             await e.bt().implNotifyElemChanged("coldown", e);
         }, e, () => true, onlyUncovered);

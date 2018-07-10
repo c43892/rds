@@ -308,7 +308,7 @@ class Utils {
     }
 
     // 根据指定权重，随机选取若干目标，集合格式为 {type:weight, type:weight, ...}
-    public static randomSelectByWeight(elemsWithWeight, srand:SRandom, numMin:number, numMax:number, noDuplicated:boolean) {
+    public static randomSelectByWeight(elemsWithWeight, srand:SRandom, numMin:number, numMax:number, noDuplicated:boolean = false) {
         var r = [];
 
         // 汇总该组权重

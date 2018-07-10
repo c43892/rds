@@ -1,18 +1,15 @@
 // 世界地图数据
 class WorldMap {
-    public worldCfg; // 地图配置
+    public cfg; // 地图配置
     public player:Player;
     public nodes:WorldMapNode[][];
-
-    constructor() {
-    }
 
     // 从指定配置数据生成一个大地图
     public static buildFromConfig(world):WorldMap {
         var rand:SRandom = new SRandom();
         var w = new WorldMap();
         var cfg = GCfg.getWorldMapCfg(world);
-        w.worldCfg = cfg;
+        w.cfg = JSON.parse(JSON.stringify(cfg));
 
         var srand = new SRandom();
         WorldMapGenerator.worldMapGenerator(w, srand);
@@ -32,7 +29,7 @@ class WorldMap {
             nodesParents.push(nodeParents);
         });
 
-        var wInfo = {nodesArr:nodesArr, nodesParents:nodesParents, cfg:this.worldCfg};
+        var wInfo = {nodesArr:nodesArr, nodesParents:nodesParents, cfg:this.cfg};
         return JSON.stringify(wInfo);
     }
 
@@ -43,7 +40,7 @@ class WorldMap {
 
         //生成不带连接关系的大地图
         var nodesArr = wInfo.nodesArr;      
-        worldmap.worldCfg = cfg;
+        worldmap.cfg = cfg;
         worldmap.nodes = [];
         var index = 0;
         for (var lv = 0; lv <= cfg.totalLevels; lv++) {

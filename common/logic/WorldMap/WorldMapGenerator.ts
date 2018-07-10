@@ -1,19 +1,11 @@
 //生成世界地图
 class WorldMapGenerator{
     public static worldMapGenerator(w:WorldMap, rand:SRandom):WorldMap{
-
-        var cfg = w.worldCfg;
-
+        var cfg = w.cfg;
         w.nodes = WorldMapGenerator.createNodes(w, cfg, rand);
-
         w.nodes = WorldMapGenerator.createRoutes(cfg, w.nodes, rand);
-
         w.nodes = WorldMapGenerator.deleteRepeatRoutes(w.nodes);
-
-        // w.nodes = WorldMapGenerator.deleteRedundantNodes(w.nodes, cfg);
-
         w.nodes = WorldMapGenerator.arrangeRoomToAllNodes(w.nodes, cfg, rand);
-
         return w;
     }
 

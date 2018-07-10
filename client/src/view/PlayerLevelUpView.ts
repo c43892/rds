@@ -60,6 +60,7 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
 
     onSel(evt:egret.TouchEvent) {
         var r = <Relic>ElemFactory.create(evt.target["choice"]);
+        r.setBattle(this.player.bt());
         this.player.addRelic(r);
         this.doClose();
     }

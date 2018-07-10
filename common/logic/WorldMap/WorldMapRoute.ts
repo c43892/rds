@@ -11,6 +11,4 @@ class WorldMapRoute{
          this.offsetX = dstNode.x - strNode.x;
          this.offsetY = 1
      }
-    
-
 }

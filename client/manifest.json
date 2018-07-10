@@ -6,7 +6,8 @@
 		"libs/modules/tween/tween.js",
 		"libs/modules/assetsmanager/assetsmanager.js",
 		"libs/modules/promise/promise.js",
-		"libs/modules/socket/socket.js"
+		"libs/modules/socket/socket.js",
+		"src/logic/astar/astar.js"
 	],
 	"game": [
 		"bin-debug/logic/elems/Elem.js",

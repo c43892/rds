@@ -99,8 +99,7 @@ class MainView extends egret.DisplayObjectContainer {
             this.startNewBattle(Battle.createNewBattle(p, btType, btRandomSeed, trueRandomSeed));
         };
 
-        this.wmv.startNewBattle = async (p:Player, lv:number, n:number, btRandomSeed:number) => { 
-            var btType = p.worldmap.nodes[lv][n].roomType;
+        this.wmv.startNewBattle = async (p:Player, btType:string, lv:number, n:number, btRandomSeed:number) => { 
             var bt = Battle.createNewBattle(p, btType + "_" + lv, btRandomSeed);
             await this.startNewBattleWithRecorder(bt);
         }
@@ -170,7 +169,8 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 世界地图上开启商店界面
     public async openShopOnWorldMap(shop) {
-        await this.openShop(shop, (elem) => {
+        await this.openShop(shop, (elem:Elem) => {
+            elem.setBattle(this.p.bt());
             if (elem instanceof Prop) {
                 var prop = (elem as Prop);
                 this.p.addProp(prop);

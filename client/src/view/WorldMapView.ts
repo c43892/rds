@@ -58,7 +58,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         var imgs = [];
         var xEdgeBlank = 50;
         var yGap = this.viewContent.height / wp.nodes.length;
-        var xGap = (this.mapArea.width - 2 * xEdgeBlank) / (wp.worldCfg.width - 1);
+        var xGap = (this.mapArea.width - 2 * xEdgeBlank) / (wp.cfg.width - 1);
         var xSwing = 0.2;
         var ySwing = 0.2;
 
@@ -170,7 +170,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
             case "boss":
                 var p = this.worldmap.player;
                 var btRandonSeed = p.playerRandom.nextInt(0, 10000);
-                await this.startNewBattle(p, lv, n, btRandonSeed);
+                await this.startNewBattle(p, nodeType, lv, n, btRandonSeed);
                 break;
             case "shop":
                 await this.openShop("worldmap");
@@ -179,7 +179,10 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 await this.openHospital();
                 break;
             case "box":
-                await this.openBoxRoom(this.worldmap.worldCfg.boxroomDrops);
+                await this.openBoxRoom(this.worldmap.cfg.boxroomDrops);
+                break;
+            case "event": 
+                await this.openMapEvent(lv, n);
                 break;
             default:
                 Utils.log("not support " + nodeType + " yet");
@@ -192,5 +195,26 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
         parent.addChild(this);
         this.refresh();
+    }
+
+    async openMapEvent(lv, n) {
+        var events = this.worldmap.cfg.events;
+        var evt = Utils.randomSelectByWeight(events, this.player.playerRandom, 1, 2)[0];
+        switch (evt) {
+            case "normal":
+                var p = this.worldmap.player;
+                var btRandonSeed = p.playerRandom.nextInt(0, 10000);
+                await this.startNewBattle(p, "normal", lv, n, btRandonSeed);
+                break;
+            case "camp":
+                await this.openHospital();
+                break;
+            case "box":
+                await this.openBoxRoom(this.worldmap.cfg.boxroomDrops);
+                break;
+            default:
+                Utils.log("not support event type " + evt + " yet");
+            break;
+        }
     }
 }
