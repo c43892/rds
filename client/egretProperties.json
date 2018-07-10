@@ -23,10 +23,6 @@
     },
     {
       "name": "socket"
-    },
-    {
-      "name": "astar",
-      "path":"src/logic/astar"
     }
   ],
   "targets": {
