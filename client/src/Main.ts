@@ -95,11 +95,8 @@ class Main extends egret.DisplayObjectContainer {
         const userInfo = await platform.getUserInfo();
 
         // 载入用户数据
-        var savedData = Utils.$$loadItem("player");
-        var p:Player;
-        if (savedData)
-            p = Player.fromString(savedData);
-
+        var savedData = Utils.loadPlayer();
+        var p:Player = savedData.player;
         this.mv.openStartup(p);
     }
 

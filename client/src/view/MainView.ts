@@ -249,7 +249,7 @@ class MainView extends egret.DisplayObjectContainer {
         p.worldmap = WorldMap.buildFromConfig("world1");
         p.worldmap.player = p;
         this.p = p;
-        Utils.$$saveItem("player", p.toString());
         this.openWorldMap(p.worldmap);
+        Utils.savePlayer(p);
      }
 }

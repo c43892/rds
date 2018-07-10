@@ -15,7 +15,6 @@ class WorldMap {
         w.worldCfg = cfg;
 
         var srand = new SRandom();
-        // Utils.log(srand.toString());
         WorldMapGenerator.worldMapGenerator(w, srand);
 
         return w;

@@ -106,7 +106,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
                                               WorldMapNode.getNodeYposOnView(n.routes[k].dstNode, this.viewContent.height, yGap, ySwing));
                         }
                         l.graphics.endFill();
-                        // Utils.log("draw a line from",n.x, n.y,"to", n.routes[k].dstNode.x, n.routes[k].dstNode.y);
                         this.viewContent.addChild(l);
                     }
                 this.viewContent.addChild(imgs[i][j]);
@@ -162,10 +161,9 @@ class WorldMapView extends egret.DisplayObjectContainer {
         
         // 保存进度
         this.player.notifyStoreyPosIn(lv, n);
-        Utils.$$saveItem("player", this.player.toString());
+        Utils.savePlayer(this.player);
         
         var nodeType = this.worldmap.nodes[lv][n].roomType;
-        Utils.log("type",nodeType);
         switch(nodeType) {
             case "normal":
             case "senior":
@@ -190,7 +188,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
         // 保存进度
         this.player.notifyStoreyPosFinished(this.player.currentStoreyPos.lv, this.player.currentStoreyPos.n);
-        Utils.$$saveItem("player", this.player.toString());
+        Utils.savePlayer(this.player);
 
         parent.addChild(this);
         this.refresh();

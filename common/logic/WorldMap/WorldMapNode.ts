@@ -36,7 +36,6 @@ class WorldMapNode{
 
     public addRoute(route:WorldMapRoute){//添加路线
         this.routes.push(route);
-        // Utils.log("node", this.x, this.y, " got a route to ", route.dstNode.x, route.dstNode.y);
     }
 
     public rightRoute():WorldMapRoute{//由该点出发最右边的路线

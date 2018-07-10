@@ -223,9 +223,6 @@ class MonsterFactory {
         return MonsterFactory.addSneakAI(async () => {
             var eatNum = m.attrs.eatNum ? m.attrs.eatNum : 1;
             var es = BattleUtils.findRandomElems(m.bt(), eatNum, (e:Elem) => !(e instanceof Monster) && !e.getGrid().isCovered());
-            if(es)
-                Utils.log("get");
-
             await m.bt().implMonsterTakeElems(m, es);
             if (dropOnDie) {
                 for(var e of es)
@@ -319,7 +316,6 @@ class MonsterFactory {
         var cnt = 0;
         return <Monster>ElemFactory.addAI("onPlayerActed", async () => {
             cnt++;
-            // Utils.log("step", cnt);
             if(cnt > m.attrs.selfExplode.cnt)
             {
                 m.btAttrs.power = m.btAttrs.power * m.attrs.selfExplode.mult;

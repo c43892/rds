@@ -292,6 +292,21 @@ class Utils {
         return egret.localStorage.getItem(key);
     }
 
+    // 保存角色数据
+    public static savePlayer(p:Player) {
+        Utils.$$saveItem("Player", p.toString());
+        Utils.$$saveItem("Version", Version.currentVersion.toString());
+    }
+
+    // 载入角色数据
+    public static loadPlayer() {
+        var oldVer = +Utils.$$loadItem("Version");
+        if (Version.isCompatible(oldVer))
+            return {ver:oldVer, player:Player.fromString(Utils.$$loadItem("Player"))};
+        else
+            return {ver:oldVer, player:undefined};
+    }
+
     // 根据指定权重，随机选取若干目标，集合格式为 {type:weight, type:weight, ...}
     public static randomSelectByWeight(elemsWithWeight, srand:SRandom, numMin:number, numMax:number, noDuplicated:boolean) {
         var r = [];
