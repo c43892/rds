@@ -6,7 +6,7 @@ class RelicFactory {
     createRelic(attrs, needResetOnReinforceLvUp:boolean, ...funcs):Relic {
         var e = new Relic();
         e.canUse = () => true;
-        e.canBeMoved = true;
+        e.canBeDragDrop = true;
         var cd = 0;
         Utils.assert(funcs.length == 1 || funcs.length == 6, "invalid relic functors number: " + funcs.length);
         e.funcs = funcs;

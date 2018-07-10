@@ -4,7 +4,7 @@ class Item extends Elem {}
 class ItemFactory {
     createItem():Item {
         var item = new Item();
-        item.canBeMoved = true;
+        item.canBeDragDrop = true;
         return item;
     }
 
@@ -14,7 +14,7 @@ class ItemFactory {
         "EscapePort": (attrs) => {
             var e = this.createItem();
             e.canUse = () => false;
-            e.canBeMoved = false;
+            e.canBeDragDrop = false;
             return e;
         },
 
@@ -49,7 +49,7 @@ class ItemFactory {
         // 门
         "Door": (attrs) => {
             var e = this.createItem();
-            e.canBeMoved = false;
+            e.canBeDragDrop = false;
             e.use = async () => { // 门被设定为不可以使用，但有一个 use 方法，其实是给 Key 调用的
                 var bt = e.bt();
                 await bt.implRemoveElemAt(e.pos.x, e.pos.y);
@@ -120,7 +120,7 @@ class ItemFactory {
         // 黑洞
         "Hole": (attrs) => {
             var e = this.createItem();
-            e.canBeMoved = false;
+            e.canBeDragDrop = false;
             return e;
         },
 
@@ -139,7 +139,7 @@ class ItemFactory {
         // 盾牌
         "Shield": (attrs) => {
             var e = this.createItem();
-            e.canBeMoved = true;
+            e.canBeDragDrop = true;
             e = ElemFactory.addAI("onAttackResult", async (ps) => {
                 e.resetCD();
                 ps.r.r = "blocked";
@@ -154,7 +154,7 @@ class ItemFactory {
         // 剑
         "Sword": (attrs) => {
             var e = this.createItem();
-            e.canBeMoved = true;
+            e.canBeDragDrop = true;
             e = ElemFactory.addAI("onAttacking", async (ps) => {
                 var attackerAttrs = ps.attackerAttrs;
                 if (!(attackerAttrs.owner instanceof Player)) return;
@@ -167,7 +167,7 @@ class ItemFactory {
         "NextLevelPort": (attrs) => {
             var e = this.createItem();
             e.canUse = () => true;
-            e.canBeMoved = false;
+            e.canBeDragDrop = false;
             e.use = async () => await e.bt().implGo2NextLevel(); // 进入下一关卡
             return e;
         }

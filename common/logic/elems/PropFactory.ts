@@ -11,10 +11,10 @@ class PropFactory {
     createProp(attrs, mountLogic):Prop {
         var e = new Prop();
         e.canUse = () => true;
-        e.canBeMoved = true;
+        e.canBeDragDrop = true;
         e.toProp = () => {
             e.use = undefined;
-            e.canBeMoved = false;
+            e.canBeDragDrop = false;
             e.cnt = e.attrs.cnt ? e.attrs.cnt : 1;
             mountLogic(e);
             return e;
