@@ -769,6 +769,13 @@ class Battle {
         await this.triggerLogicPoint("onPropChanged", {subType:"removeProp", type:type});
     }
 
+    // 元素飞行到指定位置
+    public async implElemFly(e:Elem, toPos) {
+        var fromPos = {x:e.pos.x, y:e.pos.y};
+        this.level.map.switchElems(e.pos.x, e.pos.y, toPos.x, toPos.y);
+        await this.fireEvent("onElemFlying", {e:e, fromPos:fromPos, toPos:toPos});
+    }
+
     // 元素进行移动，path 是一组 {x:x, y:y} 的数组
     public async implElemMoving(e:Elem, path) {
         if (path.length == 0)

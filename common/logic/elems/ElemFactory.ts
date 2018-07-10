@@ -110,25 +110,6 @@ class ElemFactory {
         return e;
     }
 
-    // 随机移动一次，dist 表示移动几格
-    static doRandomMove(logicPoint:string, dist:number, e:Elem):Elem {
-        var dir = [[-1,0],[1,0],[0,-1],[0,1]];
-        return <Elem>ElemFactory.addAI(logicPoint, async () => {
-            if ((<Monster>e).isDead()) return;
-            var path = [];
-            for (var i = 0; i < dist; i++) {
-                var d = dir[e.bt().srand.nextInt(0, dir.length)];
-                var lastPt = path[path.length - 1];
-                var x = lastPt.x + d[0];
-                var y = lastPt.y + d[1];
-                if ((e.pos.x == x && e.pos.y == y) || e.bt().level.map.isWalkable(x, y))
-                    path.push({x:x, y:y});
-            }
-
-            await e.bt().implElemMoving(e, path);
-        }, e);
-    }
-
     static moveFunc(e:Elem, dist:number, getTargetPos) {
         return async () => {
             var targetPos = getTargetPos();
@@ -136,11 +117,11 @@ class ElemFactory {
             
             var map = e.bt().level.map;
             map.makeSurePathFinderPrepared();
-            var path = map.findPath(e.pos, targetPos);
-            Utils.log(path.length);
+            var path = map.findPath(e.pos, targetPos, {closest:true});
             if (path.length == 0) return;
 
-            if (!e.bt().level.map.isWalkable(targetPos.x, targetPos.y)) // 目标点如果不可走，去掉目标点
+            var lastNode = path[path.length - 1];
+            if (!e.bt().level.map.isWalkable(lastNode.x, lastNode.y)) // 目标点如果不可走，去掉目标点
                 path.pop();
 
             if (path.length > dist) path = path.slice(0, dist);
