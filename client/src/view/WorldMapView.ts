@@ -206,11 +206,11 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 var btRandonSeed = p.playerRandom.nextInt(0, 10000);
                 await this.startNewBattle(p, "normal", lv, n, btRandonSeed);
                 break;
-            case "camp":
-                await this.openHospital();
-                break;
             case "box":
                 await this.openBoxRoom(this.worldmap.cfg.boxroomDrops);
+                break;
+            case "shop":
+                await this.openShop("worldmap");
                 break;
             default:
                 Utils.log("not support event type " + evt + " yet");
