@@ -284,7 +284,7 @@ class ElemView extends egret.DisplayObjectContainer {
 
         if (!ElemView.dragging && ElemView.dragFrom) {
             var e = ElemView.dragFrom.getElem();
-            if (!e || !e.canBeMoved)
+            if (!e || !e.canBeDragDrop || !e.isValid())
                 return;
 
             var dx = ElemView.dragFrom.x - px;

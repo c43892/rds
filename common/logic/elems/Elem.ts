@@ -44,7 +44,7 @@ class Elem {
         }
     };
     public isValid = () => { return this.bt().level.map.isGenerallyValid(this.pos.x, this.pos.y); } // 是否被周围怪物影响导致失效
-    public canBeMoved = false; // 可以被玩家移动
+    public canBeDragDrop = false; // 可以被玩家拖拽移动
     public checkCD = () => true;
     public resetCD;
     

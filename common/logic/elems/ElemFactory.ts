@@ -115,7 +115,7 @@ class ElemFactory {
         var dir = [[-1,0],[1,0],[0,-1],[0,1]];
         return <Elem>ElemFactory.addAI(logicPoint, async () => {
             if ((<Monster>e).isDead()) return;
-            var path = [{x:e.pos.x, y:e.pos.y}];
+            var path = [];
             for (var i = 0; i < dist; i++) {
                 var d = dir[e.bt().srand.nextInt(0, dir.length)];
                 var lastPt = path[path.length - 1];
@@ -137,6 +137,7 @@ class ElemFactory {
             var map = e.bt().level.map;
             map.makeSurePathFinderPrepared();
             var path = map.findPath(e.pos, targetPos);
+            Utils.log(path.length);
             if (path.length == 0) return;
 
             if (!e.bt().level.map.isWalkable(targetPos.x, targetPos.y)) // 目标点如果不可走，去掉目标点

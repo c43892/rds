@@ -111,7 +111,7 @@ class MonsterFactory {
         //     return m;
         // }
 
-        "NormalZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(MonsterFactory.doMove2ShopNpcAndAttackIt("onPlayerActed", this.createMonster(attrs), attrs.moveRange))), //普通僵尸
+        "NormalZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(MonsterFactory.doMove2FoodAndEatIt("onPlayerActed", this.createMonster(attrs), attrs.moveRange))), //普通僵尸
         "ThiefZombie": (attrs) => MonsterFactory.doSneakStealMoney(false, MonsterFactory.doAttackBack(this.createMonster(attrs))), //窃贼僵尸
         "HoundZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //猎犬僵尸
         "VampireZombie": (attrs) => MonsterFactory.doSneakSuckBlood(MonsterFactory.doAttackBack(this.createMonster(attrs))), //吸血鬼僵尸
@@ -328,6 +328,7 @@ class MonsterFactory {
         var firstTime = true;
         m.isHazard = () => false;
         m.canUse = () => true;
+        m.canBeDragDrop = true;
         var onBuy = async (elem:Elem) => {
             var g = BattleUtils.findNearestGrid(m.bt().level.map, m.pos, (g:Grid) => !g.isCovered() && !g.getElem());
             if (g) await m.bt().implAddElemAt(elem, g.pos.x, g.pos.y);
@@ -343,12 +344,47 @@ class MonsterFactory {
         return m;
     }
 
-    // 向商人移动
+    // 向商人移动并攻击之
     static doMove2ShopNpcAndAttackIt(logicPoint:string, e:Elem, dist:number):Monster {
         var findShopNpc = () => e.bt().level.map.findFirstElem((elem) => elem.type == "ShopNpc");
         return MonsterFactory.doAttack(logicPoint, <Monster>ElemFactory.doMove2Target(logicPoint, e, dist, () => {
             var shopNpc = findShopNpc();
             return shopNpc ? shopNpc.pos : undefined;
         }), findShopNpc);
+    }
+
+    // 向食物移动并吃一口
+    static doMove2FoodAndEatIt(logicPoint:string, e:Elem, dist:number):Monster {
+        var findFood = () => {
+            var map = e.bt().level.map;
+            var g = BattleUtils.findNearestGrid(map, e.pos, (g:Grid) => {
+                return !g.isCovered() && g.getElem() && Utils.contains(g.getElem().attrs.tags, "food");
+            });
+
+            return g ? g.getElem() : undefined;
+        };
+
+        e = ElemFactory.doMove2Target(logicPoint, e, dist, () => {
+            var target = findFood();
+            return target ? target.pos : undefined;
+        });
+
+        return <Monster>ElemFactory.addAI(logicPoint, async () => {
+            // 找到食物
+            var food = findFood();
+            if (!food) return;
+
+            // 判断距离
+            var dx = Math.abs(e.pos.x - food.pos.x);
+            var dy = Math.abs(e.pos.y - food.pos.y);
+            if (dx + dy > 1) return;
+
+            // 吃一口
+            food.cnt--;
+            if (food.cnt <= 0)
+                await food.bt().implRemoveElemAt(food.pos.x, food.pos.y);
+            else
+                await food.bt().implNotifyElemChanged("cnt", food);    
+        }, e);
     }
 }

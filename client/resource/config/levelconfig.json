@@ -1152,7 +1152,8 @@
             "Key":1,
             "BossBunny": 1,
             "ShopNpc":1,
-            "NormalZombie":10
+            "NormalZombie":10,
+            "Apple":10
         },
         "randomGroups":[]
     },
