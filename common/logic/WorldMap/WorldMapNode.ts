@@ -8,13 +8,12 @@ class WorldMapNode{
     public xOffsetOnView:number
     public yOffsetOnView:number
 
-    constructor(x:number, y:number, rd:SRandom){
+    constructor(x:number, y:number, xOffset:number, yOffset:number){
         this.x = x;
         this.y = y;
-        this.xOffsetOnView = rd.nextInt(-100 ,100) / 100;
-        this.yOffsetOnView = rd.nextInt(-100 ,100) / 100;
+        this.xOffsetOnView = xOffset;
+        this.yOffsetOnView = yOffset;
     }
-
 
     public static getNode(x, y, nodes):WorldMapNode{
         return nodes[y][x];
@@ -143,21 +142,33 @@ class WorldMapNode{
 
     public toString() {
         var nInfo = {
-            x:JSON.stringify(this.x),
-            y:JSON.stringify(this.y),
-            roomType:JSON.stringify(this.roomType),
-            routes:JSON.stringify(this.routes),
-            parents:JSON.stringify(this.parents)
-        }
+            x:this.x,
+            y:this.y,
+            roomType:this.roomType,
+            xOffset:this.xOffsetOnView,
+            yOffset:this.yOffsetOnView,
+        };
+
+        return JSON.stringify(nInfo);
     }
 
-    public static fromString(str):WorldMapNode{
-        var nInfo = JSON.parse(str);
-        var worldmapnode = new WorldMapNode(nInfo.x, nInfo.y, nInfo.rd);
-        worldmapnode.roomType = nInfo.roomType;
-        worldmapnode.routes = nInfo.routes;
-        worldmapnode.parents = nInfo.parents;
-        return worldmapnode;
+    public toStringForParents(){
+            var parentsInfo = Utils.map(this.parents, (p) => { return {x:p.x, y:p.y}; });
+            return JSON.stringify(parentsInfo);
     }
+
+//     public static fromString(str):WorldMapNode{
+//         var nInfo = JSON.parse(str);
+//         var worldmapnode = new WorldMapNode(nInfo.x, nInfo.y, nInfo.xOffset, nInfo.yOffset);
+
+//         worldmapnode.roomType = nInfo.roomType;
+//         return worldmapnode;
+//     }
+
+// // 单独存节点的父节点信息
+//     public static fromStringForParents(parentsInfo){
+//         var pInfo = JSON.parse(parentsInfo);
+//         return pInfo;
+//     }
 
 }

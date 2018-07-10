@@ -26,7 +26,9 @@ class WorldMapGenerator{
         for(var y = 0; y < height + 1; y++){
             var row = [];
             for(var x = 0; x < width; x++){
-                row.push(new WorldMapNode(x, y, rand));
+                var xOffset = rand.nextInt(-100, 100) / 100;
+                var yOffset = rand.nextInt(-100, 100) / 100;
+                row.push(new WorldMapNode(x, y, xOffset, yOffset));
             }
             nodes[y] = row;
         }
@@ -288,7 +290,7 @@ class WorldMapGenerator{
                         if(!type)
                             type = "normal";
 
-                        Utils.log(nodes[i][j].x, nodes[i][j].y, "available rooms", rt, "roomlist", roomList, "preTypes", preTypes, "set", type);
+                        // Utils.log(nodes[i][j].x, nodes[i][j].y, "available rooms", rt, "roomlist", roomList, "preTypes", preTypes, "set", type);
                         roomList = WorldMapGenerator.setRoomType(nodes[i][j], type, roomList);
                         // Utils.log("lengthaf",roomList.length);
                     }else {

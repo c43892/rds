@@ -59,8 +59,8 @@ class WorldMapView extends egret.DisplayObjectContainer {
         var xEdgeBlank = 50;
         var yGap = this.viewContent.height / wp.nodes.length;
         var xGap = (this.mapArea.width - 2 * xEdgeBlank) / (wp.worldCfg.width - 1);
-        var xSwing = 0.25;
-        var ySwing = 0.25;
+        var xSwing = 0.2;
+        var ySwing = 0.2;
 
 
         for (var i = 0; i < wp.nodes.length; i++) {

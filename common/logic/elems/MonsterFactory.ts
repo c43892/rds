@@ -289,7 +289,7 @@ class MonsterFactory {
         var cnt = 0;
         return <Monster>ElemFactory.addAI("onPlayerActed", async () => {
             cnt++;
-            Utils.log("step", cnt);
+            // Utils.log("step", cnt);
             if(cnt > m.attrs.selfExplode.cnt)
             {
                 m.btAttrs.power = m.btAttrs.power * m.attrs.selfExplode.mult;
