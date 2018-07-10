@@ -56,8 +56,13 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
         // 显示每个节点
         var imgs = [];
+        var xEdgeBlank = 50;
         var yGap = this.viewContent.height / wp.nodes.length;
-        var xGap = (this.mapArea.width - 100) / (wp.worldCfg.width - 1);
+        var xGap = (this.mapArea.width - 2 * xEdgeBlank) / (wp.worldCfg.width - 1);
+        var xSwing = 0.25;
+        var ySwing = 0.25;
+
+
         for (var i = 0; i < wp.nodes.length; i++) {
             var y = yGap * i;
             var row = [];
@@ -65,8 +70,13 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 if(wp.nodes[i][j].parents.length != 0){
                     var pt = wp.nodes[i][j].roomType;
                     var img = ViewUtils.createBitmapByName(pt + "_png");
-                    img.x = wp.nodes[i][j].x * xGap + 50;
-                    img.y = this.viewContent.height - y;
+                    if(i == wp.nodes.length - 1){
+                        img.x = (wp.nodes[i].length - 1) / 2 * xGap + xEdgeBlank;//boss点
+                        img.y = WorldMapNode.getNodeYposOnView(wp.nodes[i][j], this.viewContent.height, yGap, 0);
+                    }else{
+                        img.x = WorldMapNode.getNodeXposOnView(wp.nodes[i][j], xEdgeBlank, xGap, xSwing);
+                        img.y = WorldMapNode.getNodeYposOnView(wp.nodes[i][j], this.viewContent.height, yGap, ySwing);
+                    }
                     img.anchorOffsetX = img.width / 2;
                     img.anchorOffsetY = img.height / 2;
                     img["ptType"] = wp.nodes[i][j].roomType;
@@ -88,7 +98,13 @@ class WorldMapView extends egret.DisplayObjectContainer {
                         var l:egret.Shape = new egret.Shape();
                         l.graphics.lineStyle(3, 0x888888);
                         l.graphics.moveTo(imgs[i][j].x ,imgs[i][j].y);
-                        l.graphics.lineTo(imgs[i][j].x + n.routes[k].offsetX * xGap, imgs[i][j].y - yGap);
+                        if(i == wp.nodes.length - 2){
+                            l.graphics.lineTo((wp.nodes[i].length - 1) / 2 * xGap + xEdgeBlank, 
+                                               WorldMapNode.getNodeYposOnView(n.routes[k].dstNode, this.viewContent.height, yGap, 0));//至boss路线
+                        } else{
+                            l.graphics.lineTo(WorldMapNode.getNodeXposOnView(n.routes[k].dstNode, xEdgeBlank, xGap, xSwing), 
+                                              WorldMapNode.getNodeYposOnView(n.routes[k].dstNode, this.viewContent.height, yGap, ySwing));
+                        }
                         l.graphics.endFill();
                         // Utils.log("draw a line from",n.x, n.y,"to", n.routes[k].dstNode.x, n.routes[k].dstNode.y);
                         this.viewContent.addChild(l);

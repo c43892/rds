@@ -4,11 +4,15 @@ class WorldMapNode{
     public y:number;//世界地图层数
     public routes:WorldMapRoute[] = [];//该点通往上一层的路线
     public roomType:string;//该点房间类型
-    public parents:WorldMapNode[] = [];//该点的父节点    
+    public parents:WorldMapNode[] = [];//该点的父节点
+    public xOffsetOnView:number
+    public yOffsetOnView:number
 
-    constructor(x:number, y:number){
+    constructor(x:number, y:number, rd:SRandom){
         this.x = x;
         this.y = y;
+        this.xOffsetOnView = rd.nextInt(-100 ,100) / 100;
+        this.yOffsetOnView = rd.nextInt(-100 ,100) / 100;
     }
 
 
@@ -129,6 +133,14 @@ class WorldMapNode{
         return nodes.sort(WorldMapNode.getRightNode)[0];
     }
 
+    public static getNodeXposOnView(node:WorldMapNode, mapAreaLeftSize:number, xGap:number, swing:number):number{
+        return node.x * xGap + mapAreaLeftSize + node.xOffsetOnView * xGap * swing;
+    }
+
+    public static getNodeYposOnView(node:WorldMapNode, mapAreaHeight:number, yGap:number, swing:number):number{
+        return mapAreaHeight - node.y * yGap - node.yOffsetOnView * yGap * swing;
+    }
+
     public toString() {
         var nInfo = {
             x:JSON.stringify(this.x),
@@ -141,7 +153,7 @@ class WorldMapNode{
 
     public static fromString(str):WorldMapNode{
         var nInfo = JSON.parse(str);
-        var worldmapnode = new WorldMapNode(nInfo.x, nInfo.y);
+        var worldmapnode = new WorldMapNode(nInfo.x, nInfo.y, nInfo.rd);
         worldmapnode.roomType = nInfo.roomType;
         worldmapnode.routes = nInfo.routes;
         worldmapnode.parents = nInfo.parents;

@@ -4,24 +4,7 @@ class WorldMapGenerator{
 
         var cfg = w.worldCfg;
 
-        w.nodes = WorldMapGenerator.createNodes(w, cfg);
-
-        // var route1 = new WorldMapRoute(WorldMapNode.getNode(5, 1, w.nodes), WorldMapNode.getNode(5, 2, w.nodes));
-        // var route2 = new WorldMapRoute(WorldMapNode.getNode(5, 1, w.nodes), WorldMapNode.getNode(6, 2, w.nodes));
-        // var route3 = new WorldMapRoute(WorldMapNode.getNode(5, 1, w.nodes), WorldMapNode.getNode(4, 2, w.nodes));
-        // WorldMapNode.getNode(5, 1, w.nodes).addRoute(route1);
-        // WorldMapNode.getNode(5, 1, w.nodes).addRoute(route2);
-        // WorldMapNode.getNode(5, 1, w.nodes).addRoute(route3);
-        // WorldMapNode.getNode(5, 1, w.nodes).addParente(WorldMapNode.getNode(5, 0, w.nodes));
-        // WorldMapNode.getNode(5, 1, w.nodes).roomType = "normal";
-
-
-
-        // var x1 = WorldMapNode.getNode(5, 1, w.nodes).rightRoute().dstNode.x;
-        // var x2 = WorldMapNode.getNode(5, 1, w.nodes).leftRoute().dstNode.x;
-        // Utils.log(x1, x2);
-        
-
+        w.nodes = WorldMapGenerator.createNodes(w, cfg, rand);
 
         w.nodes = WorldMapGenerator.createRoutes(cfg, w.nodes, rand);
 
@@ -35,7 +18,7 @@ class WorldMapGenerator{
     }
 
     //根据地图大小生成所有节点
-    public static createNodes(worldMap, cfg):WorldMapNode[][]{
+    public static createNodes(worldMap, cfg, rand:SRandom):WorldMapNode[][]{
         var nodes:WorldMapNode[][] = [];
         var height = cfg.totalLevels;
         var width = cfg.width;
@@ -43,7 +26,7 @@ class WorldMapGenerator{
         for(var y = 0; y < height + 1; y++){
             var row = [];
             for(var x = 0; x < width; x++){
-                row.push(new WorldMapNode(x, y));
+                row.push(new WorldMapNode(x, y, rand));
             }
             nodes[y] = row;
         }
@@ -79,8 +62,9 @@ class WorldMapGenerator{
         var currentRowSize = nodes[currentRow].length;//当前层节点数
 
         if(currentRow == nodes.length - 2){//判断是否是通往BOSS点的路线
-            var centerX = (currentRowSize + 1) / 2 - 1;
-            targetNode = WorldMapNode.getNode(centerX, currentRow + 1, nodes);
+            // var centerX = (currentRowSize + 1) / 2 - 1;
+            // targetNode = WorldMapNode.getNode(centerX, currentRow + 1, nodes);
+            targetNode = WorldMapNode.getNode(0, currentRow + 1, nodes);
             var newRoute = new WorldMapRoute(currentNode, targetNode);
             currentNode.addRoute(newRoute);
             targetNode.addParente(currentNode);
@@ -200,22 +184,22 @@ class WorldMapGenerator{
         return nodes;
     }
 
-    //删除多余节点
-    public static deleteRedundantNodes(nodes:WorldMapNode[][], cfg):WorldMapNode[][]{
-        var nodesSaved: WorldMapNode[][]=[];
-        for(var row of nodes){
-            var rowSaved = [];
-            for(var node of row){
-                if(node.hasRoute()){
-                    rowSaved.push(node);
-                }
-            }
-            nodesSaved.push(rowSaved);
-        }
-        nodesSaved.pop();
-        nodesSaved.push([WorldMapNode.getNode((cfg.width + 1) / 2 - 1, cfg.totalLevels, nodes)]);//添加BOSS所在节点
-        return nodesSaved;
-    }
+    // //删除多余节点(暂时不用了)
+    // public static deleteRedundantNodes(nodes:WorldMapNode[][], cfg):WorldMapNode[][]{
+    //     var nodesSaved: WorldMapNode[][]=[];
+    //     for(var row of nodes){
+    //         var rowSaved = [];
+    //         for(var node of row){
+    //             if(node.hasRoute()){
+    //                 rowSaved.push(node);
+    //             }
+    //         }
+    //         nodesSaved.push(rowSaved);
+    //     }
+    //     nodesSaved.pop();
+    //     nodesSaved.push([WorldMapNode.getNode((cfg.width + 1) / 2 - 1, cfg.totalLevels, nodes)]);//添加BOSS所在节点
+    //     return nodesSaved;
+    // }
 
     //给所有节点安排房间类型
     public static arrangeRoomToAllNodes(nodes:WorldMapNode[][], cfg, rd):WorldMapNode[][]{
@@ -228,7 +212,7 @@ class WorldMapGenerator{
 
         var roomList = WorldMapGenerator.getRoomList(nodes, cfg);
 
-        nodes = WorldMapGenerator.arrangeRoomToOneNodes(nodes, roomList, rd);
+        nodes = WorldMapGenerator.arrangeRoomToLeftNodes(nodes, roomList, rd);
 
         return nodes;
 
@@ -264,16 +248,17 @@ class WorldMapGenerator{
         for(var i = 0; i < eventCount; i++){
             roomList.push("event");
         }
-        Utils.log(shopCount, campCount, seniorCount, eventCount);
+        // Utils.log(shopCount, campCount, seniorCount, eventCount);
 
         if(roomList.length > nodesCount){
             Utils.log("too many special room were set.");
         }else if(roomList.length <= nodesCount){
-            var lenth = roomList.length;
-            for(var i = 0; i < nodesCount - length; i++){
+            var lack = nodesCount - roomList.length;
+            for(var i = 0; i < lack; i++){
                 roomList.push("normal");
             }
         }
+        // Utils.log("count", nodesCount, "length", roomList.length);
         
         return roomList;
     }
@@ -291,28 +276,29 @@ class WorldMapGenerator{
         }
     }
 
-    //给节点安排房间类型
-    public static arrangeRoomToOneNodes(nodes:WorldMapNode[][], roomList:string[], rd:SRandom):WorldMapNode[][]{
+    //给非特定节点安排房间类型
+    public static arrangeRoomToLeftNodes(nodes:WorldMapNode[][], roomList:string[], rd:SRandom):WorldMapNode[][]{
         for(var i = 1; i < nodes.length; i++){
             for(var j = 0; j < nodes[i].length; j++){
                 if(nodes[i][j].parents.length != 0 && nodes[i][j].roomType == null){
                     var rt = WorldMapGenerator.getAvailableRoomType(nodes[i][j]);
                     if(rt != null){
-                        var preTypes = Utils.filter(roomList, (e) => { if(Utils.contains(rt, e)) 
-                                                                            return true });
+                        var preTypes = Utils.filter(roomList, (e) => { if(Utils.contains(rt, e)) return true });
                         var type = preTypes[rd.nextInt(0, preTypes.length)];
-                        Utils.log(nodes[i][j].x, nodes[i][j].y, preTypes, "set",type);
+                        if(!type)
+                            type = "normal";
+
+                        Utils.log(nodes[i][j].x, nodes[i][j].y, "available rooms", rt, "roomlist", roomList, "preTypes", preTypes, "set", type);
                         roomList = WorldMapGenerator.setRoomType(nodes[i][j], type, roomList);
                         // Utils.log("lengthaf",roomList.length);
                     }else {
                         roomList = WorldMapGenerator.setRoomType(nodes[i][j], "normal", roomList);
-                        Utils.log("cannot getAvailableRoomType at node", nodes[i][j].x, nodes[i][j].y);
-                        Utils.log("rest rooms", roomList);
+                        Utils.log("cannot getAvailableRoomType at node", nodes[i][j].x, nodes[i][j].y, "rest rooms", roomList);
                     }                        
                 }
             }
         }
-        Utils.log(roomList);
+        Utils.log("these rooms were not be set", roomList);
         return nodes;
     }
 
