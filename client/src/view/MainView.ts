@@ -8,6 +8,7 @@ class MainView extends egret.DisplayObjectContainer {
     public rsv:RelicSelView; // 遗物选择视图
     public brv:BoxRoomView; // 宝箱房间
     public pluv:PlayerLevelUpView; // 角色升级界面
+    public wmesv:WorldMapEventSelsView; // 大地图选项事件视图
     public mm:egret.DisplayObjectContainer; // 主界面菜单
     public tcv:TipConfirmView; // 提示确认视图
     
@@ -51,12 +52,17 @@ class MainView extends egret.DisplayObjectContainer {
         this.pluv = new PlayerLevelUpView(w, h);
         this.pluv.x = this.pluv.y = 0;
 
+        // 大地图选项事件视图
+        this.wmesv = new WorldMapEventSelsView(w, h);
+        this.wmesv.x = this.wmesv.y = 0;
+
         // 世界地图
         this.wmv = new WorldMapView(w, h);
         this.wmv.x = this.wmv.y = 0;
         this.wmv.openShop = async (shop) => await this.openShopOnWorldMap(shop);
         this.wmv.openHospital = async () => await this.openHospital();
         this.wmv.openBoxRoom = async (openBoxRoom) => await this.openBoxRoom(openBoxRoom);
+        this.wmv.openEventSels = async (sels) => await this.openMapEventSels(sels);
 
         // 医院视图
         this.hv = new HospitalView(w, h);
@@ -205,6 +211,14 @@ class MainView extends egret.DisplayObjectContainer {
         this.addChild(this.pluv);
         await this.pluv.open(GCfg.playerCfg.levelUpChoices);
         this.removeChild(this.pluv);
+    }
+
+    // 打开选项事件界面
+    public async openMapEventSels(sels) {
+        this.wmesv.player = this.p;
+        this.addChild(this.wmesv);
+        await this.wmesv.open(sels);
+        this.removeChild(this.wmesv);
     }
 
     // 开启世界地图

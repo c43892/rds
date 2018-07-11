@@ -1,0 +1,13 @@
+{
+    "sels": {
+        "exit": {
+            "desc":"离开"
+        },
+
+        "":{}
+    },
+
+    "groups": {
+        "defaultGroup": ["exit"]
+    }
+}

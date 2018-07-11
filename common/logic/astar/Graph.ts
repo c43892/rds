@@ -17,12 +17,11 @@ namespace astar{
             {
                 var path = aStar.path;
                 var st = path.shift(); // remove the start node
-                Utils.assert(st.x == sx && st.y == sy, "this first node should be start node");
+                Utils.assert(st.x == sx && st.y == sy, "the first node should be start node");
                 return Utils.map(path, (node:Node) => { return {x:node.x, y:node.y}; });
             }
-            else {
+            else
                 return [];
-            }
         }
     }
 }

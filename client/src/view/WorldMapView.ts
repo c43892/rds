@@ -8,6 +8,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
     public openShop; // 打开商店
     public openHospital; // 进入医院
     public openBoxRoom; // 宝箱房间
+    public openEventSels; // 选项事件
 
     public constructor(w:number, h:number) {
         super();
@@ -61,7 +62,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
         var xGap = (this.mapArea.width - 2 * xEdgeBlank) / (wp.cfg.width - 1);
         var xSwing = 0.2;
         var ySwing = 0.2;
-
 
         for (var i = 0; i < wp.nodes.length; i++) {
             var y = yGap * i;
@@ -182,7 +182,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 await this.openBoxRoom(this.worldmap.cfg.boxroomDrops);
                 break;
             case "event": 
-                await this.openMapEvent(lv, n);
+                await this.openMapEventSels(lv, n);
                 break;
             default:
                 Utils.log("not support " + nodeType + " yet");
@@ -197,12 +197,13 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.refresh();
     }
 
-    async openMapEvent(lv, n) {
+    async openMapEventSels(lv, n) {
         var events = this.worldmap.cfg.events;
         var evt = Utils.randomSelectByWeight(events, this.player.playerRandom, 1, 2)[0];
+        var p = this.worldmap.player;
+
         switch (evt) {
             case "normal":
-                var p = this.worldmap.player;
                 var btRandonSeed = p.playerRandom.nextInt(0, 10000);
                 await this.startNewBattle(p, "normal", lv, n, btRandonSeed);
                 break;
@@ -212,9 +213,14 @@ class WorldMapView extends egret.DisplayObjectContainer {
             case "shop":
                 await this.openShop("worldmap");
                 break;
-            default:
-                Utils.log("not support event type " + evt + " yet");
-            break;
+            default: {
+                // 此外就都认为是地图选项事件
+                var sels = WorldMapEventSelFactory.createGroup(p, evt);
+                await this.openEventSels(sels);
+
+                // 这一类事件是出现一次就移出候选集
+                delete events[evt];
+            }
         }
     }
 }
