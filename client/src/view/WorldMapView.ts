@@ -173,7 +173,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 await this.startNewBattle(p, nodeType, lv, n, btRandonSeed);
                 break;
             case "shop":
-                await this.openShop("worldmap");
+                await this.openShop(this.worldmap.cfg.shop);
                 break;
             case "camp":
                 await this.openHospital();
@@ -197,6 +197,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.refresh();
     }
 
+    wmesFact = new WorldMapEventSelFactory();
     async openMapEventSels(lv, n) {
         var events = this.worldmap.cfg.events;
         var evt = Utils.randomSelectByWeight(events, this.player.playerRandom, 1, 2)[0];
@@ -211,11 +212,11 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 await this.openBoxRoom(this.worldmap.cfg.boxroomDrops);
                 break;
             case "shop":
-                await this.openShop("worldmap");
+                await this.openShop(this.worldmap.cfg.shop);
                 break;
             default: {
                 // 此外就都认为是地图选项事件
-                var sels = WorldMapEventSelFactory.createGroup(p, evt);
+                var sels = this.wmesFact.createGroup(p, evt);
                 await this.openEventSels(sels);
 
                 // 这一类事件是出现一次就移出候选集

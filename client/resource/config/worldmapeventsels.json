@@ -1,19 +1,32 @@
 {
-    "sels": {
-        "exit": {"desc":"离开"},
-        "+coins-hp": {
-            "desc": "获得 {coins} 金币，扣除 {hp} hp", 
-            "coins": 10, 
-            "hp":3
-        },
-
-        "":{}
+    "desc": {
+        "exit": "离开",
+        "-money": "失去 {money} 金币",
+        "+money": "获得 {money} 金币",
+        "-allMoney": "失去所有金币",
+        "-hp": "失去 {hp} hp",
+        "+hp": "获得 {hp} hp",
+        "-maxHpPrecentage": "血量上限减少 {maxHpPrecentage}%",
+        "-maxHp": "血量上限减少 {maxHp}",
+        "+maxHp": "血量上限增加 {maxHp}",
+        "+item": "获得 {item}",
+        "reinforceRandomRelics": "随机强化 {reinforceNum} 件遗物"
     },
 
     "groups": {
-        "defaultGroup": {
-            "exit": {},
-            "+coins-hp": {"coins":15, "hp":4}
-        }
+        "defaultGroup": [{
+            "func": ["+money", "-hp"],
+            "ps": {"money":10, "hp":1}
+        }, {
+            "desc": "获得一个 {item}，但你会失去所有金币",
+            "func": ["-allMoney", "+item"],
+            "ps": {"item": "MedicineBox"}
+        }, {
+            "func": ["-maxHpPrecentage", "reinforceRandomRelics"],
+            "ps": {"maxHpPrecentage": 50, "reinforceNum":2}
+        }, {
+            "func": ["-maxHp", "reinforceRandomRelics"],
+            "ps": {"maxHp": 5, "reinforceNum":1}
+        }]
     }
 }

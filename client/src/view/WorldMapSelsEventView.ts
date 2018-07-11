@@ -16,9 +16,9 @@ class WorldMapEventSelsView extends egret.DisplayObjectContainer {
         this.bg.height = this.height;
     }
 
-    private sels:WorldMapEventSel[];
+    private sels:WMES[];
     private doClose;
-    public async open(sels:WorldMapEventSel[]):Promise<void> {
+    public async open(sels:WMES[]):Promise<void> {
         this.sels = sels;
         this.refresh();
         return new Promise<void>((resolve, reject) => this.doClose = resolve);
@@ -34,14 +34,14 @@ class WorldMapEventSelsView extends egret.DisplayObjectContainer {
         for (var sel of this.sels) {
             var btn = new egret.TextField();
             btn.width = this.width;
-            btn.size = 40;
+            btn.size = 30;
             btn.height = h;
             btn.text = sel.getDesc();
             btn.textAlign = egret.HorizontalAlign.CENTER;
             btn.verticalAlign = egret.VerticalAlign.MIDDLE;
             btn["sel"] = sel;
             var valid = sel.valid();
-            btn.textColor = valid ? 0x000000 : 0x888888;
+            btn.textColor = valid ? 0x0000ff : 0x888888;
             btn.touchEnabled = valid;
             btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onSel, this);
 
@@ -59,7 +59,7 @@ class WorldMapEventSelsView extends egret.DisplayObjectContainer {
     }
 
     onSel(evt:egret.TouchEvent) {
-        var sel:WorldMapEventSel = evt.target["sel"];
+        var sel:WMES = evt.target["sel"];
         if (!sel.exec())
             this.doClose();
         else

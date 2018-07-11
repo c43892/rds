@@ -359,6 +359,12 @@ class Utils {
         return r;
     }
 
+    // 判断物品和角色的职业兼容性
+    public static occupationCompatible(occupation, type) {
+        var eCfg = GCfg.getElemAttrsCfg(type);
+        return !eCfg.occupations || Utils.contains(eCfg.occupations, occupation);
+    }
+
     // 在 randomSelectByWeight 之前，从掉落列表中，过滤掉玩家有携带遗物并且已经到达顶级强化等级的遗物，如果
     // 过滤后列表为空，则填入一个指定的替代品
     public static randomSelectByWeightWithPlayerFilter(p:Player, elemsWithWeight, srand:SRandom, numMin:number, numMax:number, noDuplicated:boolean, defaultRelicType:string = undefined) {
@@ -369,8 +375,7 @@ class Utils {
         for (var e in elemsWithWeight) {
 
             // 检查职业冲突
-            var eCfg = GCfg.getElemAttrsCfg(e);
-            if (eCfg.occupations && !Utils.contains(eCfg.occupations, e))
+            if (!Utils.occupationCompatible(p.occupation, e))
                 continue;
 
             // 检查遗物强化等级

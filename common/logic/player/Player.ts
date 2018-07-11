@@ -236,6 +236,11 @@ class Player {
 
     public relics:Relic[] = []; // 所有遗物
 
+    // 获取还可以强化的遗物
+    public getReinfoceableRelics() {
+        return Utils.filter(this.relics, (r:Relic) => r.canReinfoce());
+    }
+
     public addRelic(e:Elem) {
         // 不加相同的遗物
         var n = Utils.indexOf(this.relics, (r) => r.type == e.type);

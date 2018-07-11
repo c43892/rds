@@ -34,6 +34,22 @@ class SRandom {
         return collection[this.nextInt(0, collection.length)];
     }
 
+    public selectN(collection, n:number) {
+        if (n == 1) return [this.select(collection)];
+
+        var sels = [...collection];
+        var rs = [];
+        for (var i = 0; i < n; i++) {
+            var rn = this.nextInt(0, sels.length - i);
+            rs.push(sels[rn]);
+            var tmp = sels[rn];
+            sels[rn] = sels[sels.length - i - 1];
+            sels[sels.length - i - 1] = tmp;
+        }
+
+        return rs;
+    }
+
     public toString():string {
         return this.seed.toString();
     }

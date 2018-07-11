@@ -20,7 +20,7 @@
             {"MedicineBox":10, "Gun":10}
     ]},
 
-    "worldmap": {
+    "world1shop": {
         "price": {
             "Gun":10
         },
@@ -31,7 +31,5 @@
             {"MedicineBox":10, "Gun":10},
             {"MedicineBox":10, "Gun":10},
             {"MedicineBox":10, "Gun":10}
-    ]},
-
-    "":{}
+    ]}
 }

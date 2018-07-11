@@ -27,6 +27,7 @@
             "normal":10,
             "box":10,
             "defaultGroup": 1000
-        }
+        },
+        "shop": "world1shop"
     }
 }
