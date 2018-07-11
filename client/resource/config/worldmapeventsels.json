@@ -15,7 +15,7 @@
     },
 
     "groups": {
-        "defaultGroup": [{
+        "world1": [{
             "func": ["+money", "-hp"],
             "ps": {"money":10, "hp":1}
         }, {
@@ -29,7 +29,7 @@
             "func": ["-maxHp", "reinforceRandomRelics"],
             "ps": {"maxHp": 5, "reinforceNum":1}
         }, {
-            "desc": "攻击敌人",
+            "desc": "进行一场普通战斗",
             "func": ["battle"],
             "ps": {"battleType": "normal"}
         }, {
