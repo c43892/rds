@@ -1,6 +1,7 @@
 {
     "desc": {
         "exit": "离开",
+        "battle": "战斗",
         "-money": "失去 {money} 金币",
         "+money": "获得 {money} 金币",
         "-allMoney": "失去所有金币",
@@ -27,6 +28,12 @@
         }, {
             "func": ["-maxHp", "reinforceRandomRelics"],
             "ps": {"maxHp": 5, "reinforceNum":1}
+        }, {
+            "desc": "攻击敌人",
+            "func": ["battle"],
+            "ps": {"battleType": "normal"}
+        }, {
+            "func": ["exit"]
         }]
     }
 }

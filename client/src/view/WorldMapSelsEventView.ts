@@ -58,9 +58,10 @@ class WorldMapEventSelsView extends egret.DisplayObjectContainer {
         }
     }
 
-    onSel(evt:egret.TouchEvent) {
+    async onSel(evt:egret.TouchEvent) {
         var sel:WMES = evt.target["sel"];
-        if (!sel.exec())
+        await sel.exec();
+        if (sel.exit())
             this.doClose();
         else
             this.refresh();

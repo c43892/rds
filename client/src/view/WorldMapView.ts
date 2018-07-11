@@ -10,6 +10,8 @@ class WorldMapView extends egret.DisplayObjectContainer {
     public openBoxRoom; // 宝箱房间
     public openEventSels; // 选项事件
 
+    private wmesFact:WorldMapEventSelFactory;
+
     public constructor(w:number, h:number) {
         super();
         this.width = w;
@@ -38,6 +40,8 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
         this.touchEnabled = false;
         this.mapArea.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchGrid, this);
+
+        this.wmesFact = new WorldMapEventSelFactory();
     }
 
     pts = [];
@@ -197,7 +201,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.refresh();
     }
 
-    wmesFact = new WorldMapEventSelFactory();
     async openMapEventSels(lv, n) {
         var events = this.worldmap.cfg.events;
         var evt = Utils.randomSelectByWeight(events, this.player.playerRandom, 1, 2)[0];
@@ -216,6 +219,10 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 break;
             default: {
                 // 此外就都认为是地图选项事件
+                this.wmesFact.startBattle = async (battleType) => {
+                    var btRandonSeed = p.playerRandom.nextInt(0, 10000);
+                    await this.startNewBattle(p, battleType, lv, n, btRandonSeed);
+                };
                 var sels = this.wmesFact.createGroup(p, evt);
                 await this.openEventSels(sels);
 
