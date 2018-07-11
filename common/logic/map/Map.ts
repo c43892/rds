@@ -294,9 +294,9 @@ class Map {
 
     // astar 寻路相关
 
-    private pathGraph:Graph;
     private startPos;
     private endPos;
+    private pathGraph:astar.Graph;
 
     // 确保寻路器准备继续
     public makeSurePathFinderPrepared() {
@@ -311,18 +311,10 @@ class Map {
         var wf = (x, y) => {
             return (x == this.startPos.x && y == this.startPos.y)
                 || (x == this.endPos.x && y == this.endPos.y)
-                || this.isWalkable(x, y) ? 1 : 0;
+                || this.isWalkable(x, y);
         };
 
-        var weightFuncs = [];
-        for (var i = 0; i < this.size.w; i++) {
-            weightFuncs.push([]);
-            for (var j = 0; j < this.size.h; j++) {
-                weightFuncs[i].push((x, y) => wf(x, y));
-            }
-        }
-
-        this.pathGraph = new Graph(weightFuncs);
+        this.pathGraph = new astar.Graph(this.size.w, this.size.h, wf);
         return this.pathGraph != undefined;
     }
 
@@ -334,11 +326,9 @@ class Map {
 
         this.startPos = start;
         this.endPos = end;
-        var s = this.pathGraph.grid[start.x][start.y];
-        var e = this.pathGraph.grid[end.x][end.y];
-        var pathNodes = astar.search(this.pathGraph, s, e, options);
+        var path = this.pathGraph.search(start.x, start.y, end.x, end.y, true);
         this.startPos = undefined;
         this.endPos = undefined;
-        return Utils.map(pathNodes, (node) => { return {x:node.x, y:node.y}; });
+        return path;
     }
 }
