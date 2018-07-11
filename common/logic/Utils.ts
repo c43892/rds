@@ -282,6 +282,17 @@ class Utils {
         return r;
     }
 
+    // 合并多个字典，生成新的字典，相同项后面的覆盖前面的
+    public static merge(...ss) {
+        var r = {};
+        for (var s of ss) {
+            for (var k in s)
+                r[k] = s[k];
+        }
+
+        return r;
+    }
+
     // 测试期间用，本地存储部分数据
     public static $$saveItem(key:string, value:string) {
         egret.localStorage.setItem(key, value);

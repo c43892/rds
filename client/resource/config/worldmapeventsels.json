@@ -1,13 +1,19 @@
 {
     "sels": {
-        "exit": {
-            "desc":"离开"
+        "exit": {"desc":"离开"},
+        "+coins-hp": {
+            "desc": "获得 {coins} 金币，扣除 {hp} hp", 
+            "coins": 10, 
+            "hp":3
         },
 
         "":{}
     },
 
     "groups": {
-        "defaultGroup": ["exit"]
+        "defaultGroup": {
+            "exit": {},
+            "+coins-hp": {"coins":15, "hp":4}
+        }
     }
 }
