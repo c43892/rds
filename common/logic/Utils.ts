@@ -323,12 +323,7 @@ class Utils {
         var r = [];
 
         // 一会要修改这个权重表，所以复制一份，防止修改到外面的对象
-        var elems = elemsWithWeight;
-        if (noDuplicated) {
-            elems = {};
-            for (var k in elemsWithWeight)
-                elems[k] = elemsWithWeight[k];
-        }
+        var elems = noDuplicated ? Utils.clone(elemsWithWeight) : elemsWithWeight;
 
         // 汇总该组权重
         var tw = 0; // 总权重
@@ -409,5 +404,14 @@ class Utils {
     public static isInArea(pt, areaLeftCorner, areaSize) {
         return pt.x >= areaLeftCorner.x && pt.x < areaLeftCorner.x + areaSize.w
                 && pt.y >= areaLeftCorner.y && pt.y < areaLeftCorner.y + areaSize.h;
+    }
+
+    // 浅克隆一个对象
+    public static clone(obj) {
+        var r = {};
+        for (var k in obj)
+            r[k] = obj[k];
+
+        return r;
     }
 }

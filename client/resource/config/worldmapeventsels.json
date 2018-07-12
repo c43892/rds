@@ -85,12 +85,12 @@
                 "func": ["sequence"],
                 "ps": {
                     "desc": "{rate}% 获得一个随机物品并损失 {hp} hp",
-                    "func": ["-hp", "+randomItems"],
-                    "rates": [99, 50, 1],
+                    "func": ["-hp"],
+                    "rates": [100, 0, 25],
                     "items": {"HpPotion":100, "MedicineBox":50, "IceGun":1},
                     "randomNum": 1,
                     "ps": [{"hp":3}, {"hp":4}, {"hp":5}],
-                    "failedFunc": ["exit"]
+                    "failedFunc": ["+randomItems", "-hp", "exit"]
                 }
             }, {
                 "func": ["exit"]

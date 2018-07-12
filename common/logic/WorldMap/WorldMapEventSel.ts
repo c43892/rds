@@ -20,11 +20,11 @@ class WorldMapEventSelFactory {
             var sel = sels[i];
             var func = sel.func
             var ps = sel.ps;
-            var s = this.newSel(ps);
+            var s = this.newSel();
             for (var f of func) {
                 var c = this.creators[f];
                 Utils.assert(!!c, "not support event selection: " + f + " yet");
-                s = c(s, player, ps);
+                s = c(s, player, Utils.clone(ps));
             }
             
             if (!s.desc) s.desc = this.genDesc(sel.desc, func, ps);
@@ -61,7 +61,7 @@ class WorldMapEventSelFactory {
         return desc;
     }
 
-    newSel(ps):WMES {
+    newSel():WMES {
         var sel = new WMES();
         sel.exec = async () => {};
         sel.valid = () => true;
@@ -132,7 +132,7 @@ class WorldMapEventSelFactory {
         "sequence": (sel:WMES, p:Player, ps) => {
             var subSels = [];
             for (var i = 0; i < ps.rates.length; i++) {
-                var subSel = this.newSel(ps);
+                var subSel = this.newSel();
                 var rate = ps.rates[i];
                 var hit = p.playerRandom.next100() < rate;
                 var func = hit ? ps.func : ps.failedFunc;
@@ -145,7 +145,7 @@ class WorldMapEventSelFactory {
                     ps["rate"] = rate;
                     ps["-rate"] = 100 - rate;
 
-                    subSel = c(subSel, p, ps);
+                    subSel = c(subSel, p, Utils.clone(ps));
                     subSel.desc = this.genDesc(ps.desc, func, ps);
                 }
                 subSels.push(subSel);
