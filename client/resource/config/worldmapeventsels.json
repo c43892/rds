@@ -11,11 +11,12 @@
         "-maxHp": "血量上限减少 {maxHp}",
         "+maxHp": "血量上限增加 {maxHp}",
         "+item": "获得 {item}",
-        "reinforceRandomRelics": "随机强化 {reinforceNum} 件遗物"
+        "reinforceRandomRelics": "随机强化 {reinforceNum} 件遗物",
+        "gambling": "压 {wager} 金币，{rate}% 胜利获得 {award} 金币"
     },
 
     "groups": {
-        "world1": [{
+        "g1": [{
             "func": ["+money", "-hp"],
             "ps": {"money":10, "hp":1}
         }, {
@@ -23,15 +24,30 @@
             "func": ["-allMoney", "+item"],
             "ps": {"item": "MedicineBox"}
         }, {
+            "func": ["exit"]
+        }],
+        "g2": [{
             "func": ["-maxHpPrecentage", "reinforceRandomRelics"],
             "ps": {"maxHpPrecentage": 50, "reinforceNum":2}
         }, {
             "func": ["-maxHp", "reinforceRandomRelics"],
             "ps": {"maxHp": 5, "reinforceNum":1}
         }, {
+            "func": ["exit"]
+        }],
+        "g3": [{
             "desc": "进行一场普通战斗",
             "func": ["battle"],
             "ps": {"battleType": "normal"}
+        }, {
+            "func": ["-allMoney"]
+        }], 
+        "g4": [{
+            "func": ["gambling"],
+            "ps": {"wager":50, "rate":75, "award":100}
+        }, {
+            "func": ["gambling"],
+            "ps": {"wager":50, "rate":25, "award":250}
         }, {
             "func": ["exit"]
         }]

@@ -50,11 +50,13 @@ class WorldMapEventSelFactory {
         }
 
         return () => {
-            for (var p in ps) {
-                var pName = "{"+p+"}";
-                var pValue = ps[p];
-                if (p == "item") pValue = GCfg.getElemAttrsCfg(pValue).name;
-                desc = desc.replace(pName, pValue);
+            if (ps) {
+                for (var p in ps) {
+                    var pName = "{"+p+"}";
+                    var pValue = ps[p];
+                    if (p == "item") pValue = GCfg.getElemAttrsCfg(pValue).name;
+                    desc = desc.replace(pName, pValue);
+                }
             }
 
             return desc;
@@ -108,6 +110,12 @@ class WorldMapEventSelFactory {
                 Utils.assert(rs.length > 0, "no relic can be reinforced");
                 for (var relic of rs)
                     p.addRelic(ElemFactory.create(relic.type));
-        }, sel))
+        }, sel)),
+        "gambling": (sel:WMES, p:Player, ps) => this.valid(() => p.money >= ps.wager,
+            this.exec(async () => {
+                p.addMoney(-ps.wager);
+                if (p.playerRandom.next100() < ps.rate)
+                    p.addMoney(ps.award);
+        }, sel)),
     };
 }
