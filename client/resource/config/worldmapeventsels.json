@@ -14,6 +14,7 @@
         "+item": "获得 {item}",
         "+randomItems": "获得 {randomNum} 件随机物品",
         "reinforceRandomRelics": "随机强化 {reinforceNum} 件遗物",
+        "reinfoceRelic": "强化一件遗物",
         "gambling": "压 {wager} 金币，{rate}% 胜利获得 {award} 金币"
     },
 
@@ -42,8 +43,8 @@
                 "func": ["-hpPrecentage"],
                 "ps": {"hpPrecentage": 50}
             }, {
-                "func": ["-maxHp", "reinforceRandomRelics"],
-                "ps": {"maxHp": 5, "reinforceNum":1}
+                "func": ["-maxHp", "reinfoceRelic"],
+                "ps": {"maxHp": 5}
             }, {
                 "func": ["exit"]
             }]

@@ -25,18 +25,12 @@ class MainView extends egret.DisplayObjectContainer {
         // 商店视图
         this.sv = new ShopView(w, h);
         this.sv.x = this.sv.y = 0;
-        this.sv.confirmYesNo = async (title) => {
-            this.setChildIndex(this.tcv, -1);
-            return await this.tcv.confirmYesNo(title);
-        };
+        this.sv.confirmYesNo = (title) => this.confirmYesNo(title);
 
         // 遗物选择视图
         this.rsv = new RelicSelView(w, h);
         this.rsv.x = this.rsv.y = 0;
-        this.rsv.confirmYesNo = async (title) => {
-            this.setChildIndex(this.tcv, -1);
-            return await this.tcv.confirmYesNo(title);
-        };
+        this.rsv.confirmYesNo = (title) => this.confirmYesNo(title);
 
         // 战斗视图
         this.bv = new BattleView(w, h);
@@ -63,21 +57,14 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.openHospital = async () => await this.openHospital();
         this.wmv.openBoxRoom = async (openBoxRoom) => await this.openBoxRoom(openBoxRoom);
         this.wmv.openEventSels = async (title, desc, sels) => await this.openWorldMapEventSels(title, desc, sels);
+        this.wmv.confirmYesNo = (title) => this.confirmYesNo(title);
+        this.wmv.selRelic = (title, f) => this.openSelRelic(title, f);
 
         // 医院视图
         this.hv = new HospitalView(w, h);
         this.hv.x = this.hv.y = 0;
-        this.hv.confirmYesNo = async (title) => {
-            this.setChildIndex(this.tcv, -1);
-            return await this.tcv.confirmYesNo(title);
-        };
-        this.hv.selRelic = async (title, f) => {
-            this.rsv.player = this.p;
-            this.addChild(this.rsv);
-            var sel = await this.rsv.open(title, f);
-            this.removeChild(this.rsv);
-            return sel;
-        };
+        this.hv.confirmYesNo = (title) => this.confirmYesNo(title);
+        this.hv.selRelic = (title, f) => this.openSelRelic(title, f);
 
         // 主界面菜单
         this.mm = new egret.DisplayObjectContainer();
@@ -235,6 +222,21 @@ class MainView extends egret.DisplayObjectContainer {
         this.clear();
         this.p = p;
         this.addChild(this.mm);
+    }
+
+    // 打开选择遗物界面
+    public async openSelRelic(title, f) {
+        this.rsv.player = this.p;
+        this.addChild(this.rsv);
+        var sel = await this.rsv.open(title, f);
+        this.removeChild(this.rsv);
+        return sel;
+    }
+
+    // yesno
+    public async confirmYesNo(title) {
+        this.setChildIndex(this.tcv, -1);
+        return await this.tcv.confirmYesNo(title);
     }
 
      onContinuePlay(evt:egret.TouchEvent) {

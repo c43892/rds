@@ -9,6 +9,8 @@ class WorldMapView extends egret.DisplayObjectContainer {
     public openHospital; // 进入医院
     public openBoxRoom; // 宝箱房间
     public openEventSels; // 选项事件
+    public confirmYesNo; // yesno 确认
+    public selRelic; // 选择遗物
 
     private wmesFact:WorldMapEventSelFactory;
 
@@ -223,6 +225,8 @@ class WorldMapView extends egret.DisplayObjectContainer {
                     var btRandonSeed = p.playerRandom.nextInt(0, 10000);
                     await this.startNewBattle(p, battleType, lv, n, btRandonSeed);
                 };
+                this.wmesFact.confirmYesNo = this.confirmYesNo;
+                this.wmesFact.selRelic = this.selRelic;
                 var selsGroup = GCfg.getWorldMapEventSelGroupsCfg(evt);
                 var sels = this.wmesFact.createGroup(p, selsGroup.sels);
                 await this.openEventSels(selsGroup.title, selsGroup.desc, sels);

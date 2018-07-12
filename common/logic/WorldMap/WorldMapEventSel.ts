@@ -12,6 +12,8 @@ class WMES {
 class WorldMapEventSelFactory {
 
     public startBattle;
+    public confirmYesNo; // yesno 确认
+    public selRelic; // 选择遗物
 
     // 创建一组选项
     public createGroup(player:Player, sels) {
@@ -114,6 +116,22 @@ class WorldMapEventSelFactory {
                 Utils.assert(rs.length > 0, "no relic can be reinforced");
                 for (var relic of rs)
                     p.addRelic(<Relic>ElemFactory.create(relic.type));
+        }, sel)),
+        "reinfoceRelic": (sel:WMES, p:Player, ps) => this.valid(() => p.getReinfoceableRelics().length > 0, 
+            this.exec(async () => {
+                var sel = -1;
+                while (sel < 0) {
+                    sel = await this.selRelic("选择要强化的遗物", (r:Relic) => r.canReinfoce());
+                    if (sel >= 0) {
+                        var e:Relic = <Relic>p.relics[sel];
+                        var yesno = await this.confirmYesNo("确定强化 " + e.attrs.name);
+                        if (yesno)
+                            e.reinforceLvUp();
+                        else
+                            sel = -1;
+                    } else
+                        break;
+                }
         }, sel)),
         "gambling": (sel:WMES, p:Player, ps) => this.valid(() => p.money >= ps.wager,
             this.exec(async () => {
