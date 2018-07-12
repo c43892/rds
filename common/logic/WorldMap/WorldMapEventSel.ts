@@ -19,12 +19,12 @@ class WorldMapEventSelFactory {
         for (var i = 0; i < sels.length; i++) {
             var sel = sels[i];
             var func = sel.func
-            var ps = sel.ps;
+            var ps = Utils.clone(sel.ps);
             var s = this.newSel();
             for (var f of func) {
                 var c = this.creators[f];
                 Utils.assert(!!c, "not support event selection: " + f + " yet");
-                s = c(s, player, Utils.clone(ps));
+                s = c(s, player, ps);
             }
             
             if (!s.desc) s.desc = this.genDesc(sel.desc, func, ps);
@@ -93,7 +93,16 @@ class WorldMapEventSelFactory {
         "-allMoney": (sel:WMES, p:Player, ps) => this.exec(async () => p.addMoney(-p.money), sel),
         "-hp": (sel:WMES, p:Player, ps) => this.exec(async () => p.addHp(-ps.hp), sel),
         "+hp": (sel:WMES, p:Player, ps) => this.exec(async () => p.addHp(ps.hp), sel),
-        "-maxHpPrecentage": (sel:WMES, p:Player, ps) => this.exec(async () => p.addMaxHp(Math.ceil(-p.maxHp * ps.maxHpPrecentage / 100)), sel),
+        "-hpPrecentage": (sel:WMES, p:Player, ps) => { 
+            var hp = Math.ceil(p.maxHp * ps.hpPrecentage / 100);
+            ps["hp"] = hp;
+            return this.exec(async () => p.addHp(-hp), sel);
+        },
+        "-maxHpPrecentage": (sel:WMES, p:Player, ps) => {
+            var maxHp = Math.ceil(p.maxHp * ps.maxHpPrecentage / 100);
+            ps["maxHp"] = maxHp;
+            return this.exec(async () => p.addMaxHp(-maxHp), sel)
+        },
         "-maxHp": (sel:WMES, p:Player, ps) => this.exec(async () => p.addMaxHp(-ps.maxHp), sel),
         "+maxHp": (sel:WMES, p:Player, ps) => this.exec(async () => p.addMaxHp(ps.maxHp), sel),
         "+item": (sel:WMES, p:Player, ps) => this.valid(() => Utils.occupationCompatible(p.occupation, ps.item), 

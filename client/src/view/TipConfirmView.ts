@@ -38,7 +38,6 @@ class TipConfirmView extends egret.DisplayObjectContainer {
         this.tipsPanel.heigh = this.height;
     }
 
-
     // yesno 部分
 
     private yesnoPanel:egret.DisplayObjectContainer;

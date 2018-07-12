@@ -7,7 +7,8 @@
         "-allMoney": "失去所有金币",
         "-hp": "失去 {hp} hp",
         "+hp": "获得 {hp} hp",
-        "-maxHpPrecentage": "血量上限减少 {maxHpPrecentage}%",
+        "-hpPrecentage": "损失 {hp} hp",
+        "-maxHpPrecentage": "血量上限减少 {maxHp}",
         "-maxHp": "血量上限减少 {maxHp}",
         "+maxHp": "血量上限增加 {maxHp}",
         "+item": "获得 {item}",
@@ -38,6 +39,9 @@
                 "func": ["-maxHpPrecentage", "reinforceRandomRelics"],
                 "ps": {"maxHpPrecentage": 50, "reinforceNum":2}
             }, {
+                "func": ["-hpPrecentage"],
+                "ps": {"hpPrecentage": 50}
+            }, {
                 "func": ["-maxHp", "reinforceRandomRelics"],
                 "ps": {"maxHp": 5, "reinforceNum":1}
             }, {
@@ -50,7 +54,7 @@
             "sels":[{
                 "desc": "进行一场普通战斗",
                 "func": ["battle"],
-                "ps": {"battleType": "normal"}
+                "ps": {"battleType": "_abcd"}
             }, {
                 "func": ["-allMoney"]
             }]

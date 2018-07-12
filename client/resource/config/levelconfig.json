@@ -1158,7 +1158,7 @@
         "randomGroups":[]
     },
 
-    "_boss_15": {
+    "_abcd": {
         "displayName": "Boss战斗15",
         "map": {},
         "init_uncovered": {"w": 3, "h": 3},

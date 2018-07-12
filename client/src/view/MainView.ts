@@ -106,7 +106,8 @@ class MainView extends egret.DisplayObjectContainer {
         };
 
         this.wmv.startNewBattle = async (p:Player, btType:string, lv:number, n:number, btRandomSeed:number) => { 
-            var bt = Battle.createNewBattle(p, btType + "_" + lv, btRandomSeed);
+            if (btType[0] != "_") btType = btType + "_" + lv;
+            var bt = Battle.createNewBattle(p, btType, btRandomSeed);
             await this.startNewBattleWithRecorder(bt);
         }
     }
