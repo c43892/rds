@@ -116,10 +116,11 @@ class WorldMapEventSelFactory {
                 if (p.playerRandom.next100() < ps.rate)
                     p.addMoney(ps.award);
         }, sel)),
-        "+randomItem":(sel:WMES, p:Player, ps) => this.exec(async () => {
-            var es = Utils.randomSelectByWeightWithPlayerFilter(p, ps.itemList, p.playerRandom, ps.randomNum, ps.randomNum+1, true);
+        "+randomItems":(sel:WMES, p:Player, ps) => this.exec(async () => {
+            var es = Utils.randomSelectByWeightWithPlayerFilter(p, ps.items, p.playerRandom, ps.randomNum, ps.randomNum+1, true);
             for (var et of es) {
                 var e = ElemFactory.create(et);
+                delete ps.items[et];
                 if (e instanceof Relic)
                     p.addRelic(e);
                 else if (e instanceof Prop)
@@ -138,11 +139,13 @@ class WorldMapEventSelFactory {
                 for (var f of func) {
                     var c = this.creators[f];
                     Utils.assert(!!c, "not support event selection: " + f + " yet");
-                    subSel = c(subSel, p, ps.ps[i]);
-                    for (var pp in ps.ps[i])
-                        ps[pp] = ps.ps[i][pp];
+
+                    // 合并子项参数
+                    for (var pp in ps.ps[i]) ps[pp] = ps.ps[i][pp];
                     ps["rate"] = rate;
                     ps["-rate"] = 100 - rate;
+
+                    subSel = c(subSel, p, ps);
                     subSel.desc = this.genDesc(ps.desc, func, ps);
                 }
                 subSels.push(subSel);

@@ -276,7 +276,7 @@ class Player {
         var prop = (<Prop>e).toProp();
 
         // 合并可叠加的物品
-        var n = Utils.indexOf(this.props, (prop:Elem) => prop.type == prop.type);
+        var n = Utils.indexOf(this.props, (prop:Elem) => prop.type == e.type);
         if (n >= 0 && e.attrs.canOverlap) {
             var p = this.props[n];
             p.cnt += prop.cnt;

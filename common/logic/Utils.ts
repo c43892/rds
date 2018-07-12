@@ -322,14 +322,22 @@ class Utils {
     public static randomSelectByWeight(elemsWithWeight, srand:SRandom, numMin:number, numMax:number, noDuplicated:boolean = false) {
         var r = [];
 
+        // 一会要修改这个权重表，所以复制一份，防止修改到外面的对象
+        var elems = elemsWithWeight;
+        if (noDuplicated) {
+            elems = {};
+            for (var k in elemsWithWeight)
+                elems[k] = elemsWithWeight[k];
+        }
+
         // 汇总该组权重
         var tw = 0; // 总权重
         var w2e = []; // 权重段
         var reweight = () => {
             tw = 0;
             w2e = [];
-            for (var e in elemsWithWeight) {
-                var w = elemsWithWeight[e];
+            for (var e in elems) {
+                var w = elems[e];
                 if (w > 0) {
                     w2e.push({w:tw, e:e});
                     tw += w;
@@ -348,7 +356,7 @@ class Utils {
                     var e =w2e[j].e;
                     r.push(e);
                     if (noDuplicated) { // 移除已选中的，并重新计算权重
-                        elemsWithWeight[e] = 0;
+                        delete elems[e];
                         reweight();
                     }
                     break;
