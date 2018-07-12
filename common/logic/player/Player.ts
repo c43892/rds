@@ -38,9 +38,9 @@ class Player {
         p.hp = 10;
         p.maxHp = 20;
         p.avatar = "avator1";
-        p.power = [100, 0];
+        p.power = [3, 0];
         p.playerRandom = new SRandom();
-        p.money = 15;
+        p.money = 50;
         p.exp = 0;
         p.lv = 0;
 
