@@ -185,7 +185,7 @@ class Player {
 
         for (var r of pinfo.relics) {
             var e = Elem.fromString(r);
-            p.addRelic(e);
+            p.addRelic(<Relic>e);
             (<Relic>e).redoAllMutatedEffects();
         }
 
@@ -241,17 +241,26 @@ class Player {
         return Utils.filter(this.relics, (r:Relic) => r.canReinfoce());
     }
 
-    public addRelic(e:Elem) {
+    public addItem(e:Elem) {
+        e.setBattle(this.bt());
+        if (e instanceof Relic)
+            this.addRelic(<Relic>e);
+        else if (e instanceof Prop)
+            this.addProp(<Prop>e);
+        else if (e.type == "Coins")
+            this.addMoney(e.cnt);
+        else
+            Utils.assert(false, "player can not take: " + e.type);
+    }
+
+    public addRelic(e:Relic) {
         // 不加相同的遗物
         var n = Utils.indexOf(this.relics, (r) => r.type == e.type);
-        if (n >= 0) {
-            var r = <Relic>this.relics[n];
-            r.reinforceLvUp();
-        }
+        if (n >= 0)
+            this.relics[n].reinforceLvUp();
         else {
-            var r = <Relic>e;
-            r.player = this;            
-            this.relics.push(r.toRelic(this));
+            e.player = this;            
+            this.relics.push(e.toRelic(this));
         }
     }
 
@@ -272,15 +281,13 @@ class Player {
 
     public props:Elem[] = []; // 所有道具
 
-    public addProp(e:Elem) {
-        var prop = (<Prop>e).toProp();
+    public addProp(e:Prop) {
+        var prop = e.toProp();
 
         // 合并可叠加的物品
-        var n = Utils.indexOf(this.props, (prop:Elem) => prop.type == e.type);
-        if (n >= 0 && e.attrs.canOverlap) {
-            var p = this.props[n];
-            p.cnt += prop.cnt;
-        }
+        var n = Utils.indexOf(this.props, (p:Elem) => p.type == prop.type);
+        if (n >= 0 && e.attrs.canOverlap)
+            this.props[n].cnt += prop.cnt;
         else
             this.props.push(prop);
     }

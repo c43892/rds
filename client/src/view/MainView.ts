@@ -175,18 +175,7 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 世界地图上开启商店界面
     public async openShopOnWorldMap(shop) {
-        await this.openShop(shop, (elem:Elem) => {
-            elem.setBattle(this.p.bt());
-            if (elem instanceof Prop) {
-                var prop = (elem as Prop);
-                this.p.addProp(prop);
-            } else if (elem instanceof Relic) {
-                this.p.addRelic(elem);
-            } else
-                Utils.assert(false, "only prop or relic can be sold in shop, got: " + elem.type);
-
-            return false;
-        });
+        await this.openShop(shop, (elem:Elem) => this.p.addItem(elem));
     }
 
     // 打开医院界面

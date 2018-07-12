@@ -97,18 +97,14 @@ class WorldMapEventSelFactory {
         "-maxHp": (sel:WMES, p:Player, ps) => this.exec(async () => p.addMaxHp(-ps.maxHp), sel),
         "+maxHp": (sel:WMES, p:Player, ps) => this.exec(async () => p.addMaxHp(ps.maxHp), sel),
         "+item": (sel:WMES, p:Player, ps) => this.valid(() => Utils.occupationCompatible(p.occupation, ps.item), 
-            this.exec(async () => {
-                var item = ElemFactory.create(ps.item);
-                if (item instanceof Prop) p.addProp(item);
-                else if (item instanceof Relic) p.addRelic(item);
-        }, sel)),
+            this.exec(async () => p.addItem(ElemFactory.create(ps.item)), sel)),
         "reinforceRandomRelics": (sel:WMES, p:Player, ps) => this.valid(() => p.getReinfoceableRelics().length > 0, 
             this.exec(async () => {
                 var relics = p.getReinfoceableRelics();
                 var rs = p.playerRandom.selectN(relics, 2);
                 Utils.assert(rs.length > 0, "no relic can be reinforced");
                 for (var relic of rs)
-                    p.addRelic(ElemFactory.create(relic.type));
+                    p.addRelic(<Relic>ElemFactory.create(relic.type));
         }, sel)),
         "gambling": (sel:WMES, p:Player, ps) => this.valid(() => p.money >= ps.wager,
             this.exec(async () => {
@@ -121,12 +117,7 @@ class WorldMapEventSelFactory {
             for (var et of es) {
                 var e = ElemFactory.create(et);
                 delete ps.items[et];
-                if (e instanceof Relic)
-                    p.addRelic(e);
-                else if (e instanceof Prop)
-                    p.addProp(e);
-                else
-                    Utils.assert(false, "player can not take " + et);
+                p.addItem(e);
             }
         }, sel),
         "sequence": (sel:WMES, p:Player, ps) => {

@@ -46,14 +46,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
         if (!this.dropItem) return;
 
         var dp = ElemFactory.create(this.dropItem);
-        if (dp instanceof Relic)
-            this.player.addRelic(dp);
-        else if (dp instanceof Prop)
-            this.player.addProp(dp);
-        else {
-            Utils.assert(dp.type == "Coins", "invalid type in box:" + dp.type);
-            this.player.addMoney(dp.cnt);
-        }
+        this.player.addItem(dp);
 
         this.e = ViewUtils.createBitmapByName(dp.getElemImgRes() + "_png");
         this.e.x = (this.width - this.e.width) / 2;

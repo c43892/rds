@@ -730,7 +730,7 @@ class Battle {
 
     // 角色+遗物
     public async implAddPlayerRelic(e:Elem) {
-        this.player.addRelic(e);
+        this.player.addRelic(<Relic>e);
         await this.fireEvent("onPlayerChanged", {subType:"addRelic", e:e});
         await this.triggerLogicPoint("onPlayerChanged", {subType:"addRelic", e:e});
     }
@@ -750,7 +750,7 @@ class Battle {
 
     // 角色+道具
     public async implAddPlayerProp(e:Elem) {
-        this.player.addProp(e);
+        this.player.addProp(<Prop>e);
         await this.fireEvent("onPropChanged", {subType:"addProp", e:e});
         await this.triggerLogicPoint("onPropChanged", {subType:"addProp", e:e});
     }
