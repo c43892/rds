@@ -8,7 +8,6 @@ class MainView extends egret.DisplayObjectContainer {
     public rsv:RelicSelView; // 遗物选择视图
     public brv:BoxRoomView; // 宝箱房间
     public pluv:PlayerLevelUpView; // 角色升级界面
-    public wmesv:WorldMapEventSelsView; // 大地图选项事件视图
     public mm:egret.DisplayObjectContainer; // 主界面菜单
     public tcv:TipConfirmView; // 提示确认视图
     
@@ -45,10 +44,6 @@ class MainView extends egret.DisplayObjectContainer {
         // 角色升级界面
         this.pluv = new PlayerLevelUpView(w, h);
         this.pluv.x = this.pluv.y = 0;
-
-        // 大地图选项事件视图
-        this.wmesv = new WorldMapEventSelsView(w, h);
-        this.wmesv.x = this.wmesv.y = 0;
 
         // 世界地图
         this.wmv = new WorldMapView(w, h);
@@ -192,10 +187,13 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 打开选项事件界面
     public async openWorldMapEventSels(title, desc, sels) {
-        this.wmesv.player = this.p;
-        this.addChild(this.wmesv);
-        await this.wmesv.open(title, desc, sels);
-        this.removeChild(this.wmesv);
+        // 大地图选项事件视图
+        var wmesv = new WorldMapEventSelsView(this.width, this.height);
+        wmesv.x = wmesv.y = 0;
+        wmesv.player = this.p;
+        this.addChild(wmesv);
+        await wmesv.open(title, desc, sels);
+        this.removeChild(wmesv);
     }
 
     // 开启世界地图

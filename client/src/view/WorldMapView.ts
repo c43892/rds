@@ -44,6 +44,9 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.mapArea.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchGrid, this);
 
         this.wmesFact = new WorldMapEventSelFactory();
+        this.wmesFact.confirmYesNo = this.confirmYesNo;
+        this.wmesFact.selRelic = this.selRelic;
+        this.wmesFact.openEventSels = async (p:Player, group) => await this.openSelGroup(p, group);
     }
 
     pts = [];
@@ -225,15 +228,18 @@ class WorldMapView extends egret.DisplayObjectContainer {
                     var btRandonSeed = p.playerRandom.nextInt(0, 10000);
                     await this.startNewBattle(p, battleType, lv, n, btRandonSeed);
                 };
-                this.wmesFact.confirmYesNo = this.confirmYesNo;
-                this.wmesFact.selRelic = this.selRelic;
-                var selsGroup = GCfg.getWorldMapEventSelGroupsCfg(evt);
-                var sels = this.wmesFact.createGroup(p, selsGroup.sels);
-                await this.openEventSels(selsGroup.title, selsGroup.desc, sels);
+
+                await this.openSelGroup(p, evt);
 
                 // 这一类事件是出现一次就移出候选集
                 delete events[evt];
             }
         }
+    }
+
+    async openSelGroup(p:Player, group) {
+        var selsGroup = GCfg.getWorldMapEventSelGroupsCfg(group);
+        var sels = this.wmesFact.createGroup(p, selsGroup.sels);
+        await this.openEventSels(selsGroup.title, selsGroup.desc, sels);
     }
 }

@@ -15,7 +15,8 @@
         "+randomItems": "获得 {randomNum} 件随机物品",
         "reinforceRandomRelics": "随机强化 {reinforceNum} 件遗物",
         "reinfoceRelic": "强化一件遗物",
-        "gambling": "压 {wager} 金币，{rate}% 胜利获得 {award} 金币"
+        "gambling": "压 {wager} 金币，{rate}% 胜利获得 {award} 金币",
+        "redirectSelGroup": "重建选项列表"
     },
 
     "groups": {
@@ -81,10 +82,11 @@
                     "failedFunc": ["battle"]
                 }
             }, {
-                "func": ["+randomItems"],
+                "func": ["+randomItems", "redirectSelGroup"],
                 "ps": {
                     "randomNum": 2,
-                    "items": {"HpPotion":100, "MedicineBox":50, "IceGun":1}
+                    "items": {"HpPotion":100, "MedicineBox":50, "IceGun":1},
+                    "group":"gg"
                 }
             }, {
                 "func": ["sequence"],
@@ -97,6 +99,18 @@
                     "ps": [{"hp":3}, {"hp":4}, {"hp":5}],
                     "failedFunc": ["+randomItems", "-hp", "exit"]
                 }
+            }, {
+                "func": ["exit"]
+            }]
+        },
+        "gg": {
+            "title": "这是一个二级选项列表",
+            "desc": "这是一个二级选项列表",
+            "sels":[{
+                "func": ["-hp"],
+                "ps": {"hp":1}
+            }, {
+                "func": ["-allMoney"]
             }, {
                 "func": ["exit"]
             }]

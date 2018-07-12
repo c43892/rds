@@ -14,6 +14,7 @@ class WorldMapEventSelFactory {
     public startBattle;
     public confirmYesNo; // yesno 确认
     public selRelic; // 选择遗物
+    public openEventSels; // 重新打开一个选项列表
 
     // 创建一组选项
     public createGroup(player:Player, sels) {
@@ -139,13 +140,16 @@ class WorldMapEventSelFactory {
                 if (p.playerRandom.next100() < ps.rate)
                     p.addMoney(ps.award);
         }, sel)),
-        "+randomItems":(sel:WMES, p:Player, ps) => this.exec(async () => {
+        "+randomItems": (sel:WMES, p:Player, ps) => this.exec(async () => {
             var es = Utils.randomSelectByWeightWithPlayerFilter(p, ps.items, p.playerRandom, ps.randomNum, ps.randomNum+1, true);
             for (var et of es) {
                 var e = ElemFactory.create(et);
                 delete ps.items[et];
                 p.addItem(e);
             }
+        }, sel),
+        "redirectSelGroup": (sel:WMES, p:Player, ps) => this.exec(async () => {
+            await this.openEventSels(p, ps.group);
         }, sel),
         "sequence": (sel:WMES, p:Player, ps) => {
             var subSels = [];
