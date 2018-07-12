@@ -11,6 +11,7 @@
         "-maxHp": "血量上限减少 {maxHp}",
         "+maxHp": "血量上限增加 {maxHp}",
         "+item": "获得 {item}",
+        "+randomItem": "获得一个随机物品",
         "reinforceRandomRelics": "随机强化 {reinforceNum} 件遗物",
         "gambling": "压 {wager} 金币，{rate}% 胜利获得 {award} 金币"
     },
@@ -63,6 +64,17 @@
             }, {
                 "func": ["gambling"],
                 "ps": {"wager":50, "rate":25, "award":250}
+            }, {
+                "func": ["sequence"],
+                "ps": {
+                    "desc": "{rate}% 损失 {hp} hp 并获得 {money} 金币，{-rate}% 触发战斗",                    
+                    "func": ["-hp", "+money"],
+                    "rates": [99, 98, 97],
+                    "ps": [{"hp":1, "money":1, "battleType":"normal"},
+                           {"hp":2, "money":2, "battleType":"normal"},
+                           {"hp":3, "money":3, "battleType":"normal"}],
+                    "failedFunc": ["battle"]
+                }
             }, {
                 "func": ["exit"]
             }]

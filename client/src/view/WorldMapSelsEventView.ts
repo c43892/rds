@@ -51,7 +51,7 @@ class WorldMapEventSelsView extends egret.DisplayObjectContainer {
             btn.width = this.width;
             btn.size = 30;
             btn.height = h;
-            btn.text = sel.getDesc();
+            btn.text = sel.desc;
             btn.textAlign = egret.HorizontalAlign.CENTER;
             btn.verticalAlign = egret.VerticalAlign.MIDDLE;
             btn["sel"] = sel;

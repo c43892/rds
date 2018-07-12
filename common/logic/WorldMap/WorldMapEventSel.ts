@@ -1,7 +1,7 @@
 
 // 大地图事件选项
 class WMES {
-    public getDesc; // 获取玩家可见的描述
+    public desc; // 获取玩家可见的描述
     public valid; // 获取选项的当前可用性
     public exec; // 执行该选项
     public exit; // 执行该选项后，是否结束对话
@@ -27,7 +27,7 @@ class WorldMapEventSelFactory {
                 s = c(s, player, ps);
             }
             
-            s.getDesc = this.genGetDesc(sel.desc, func, ps);
+            if (!s.desc) s.desc = this.genDesc(sel.desc, func, ps);
             ss.push(s);
         }
 
@@ -35,7 +35,7 @@ class WorldMapEventSelFactory {
     }
 
     // 生成动态获取选项描述的函数
-    genGetDesc(specificDesc:string, func, ps) {
+    genDesc(specificDesc:string, func, ps) {
         var genDesc = !specificDesc;
         var desc = genDesc ? "" : specificDesc;
 
@@ -48,18 +48,17 @@ class WorldMapEventSelFactory {
             }
         }
 
-        return () => {
-            if (ps) {
-                for (var p in ps) {
-                    var pName = "{"+p+"}";
-                    var pValue = ps[p];
-                    if (p == "item") pValue = GCfg.getElemAttrsCfg(pValue).name;
-                    desc = desc.replace(pName, pValue);
-                }
+        if (ps) {
+            for (var p in ps) {
+                var pName = "{"+p+"}";
+                var pValue = ps[p];
+                if (!Utils.contains(["number", "string"], typeof(pValue))) continue;
+                if (p == "item") pValue = GCfg.getElemAttrsCfg(pValue).name;
+                desc = desc.replace(pName, pValue);
             }
+        }
 
-            return desc;
-        };
+        return desc;
     }
 
     newSel(ps):WMES {
@@ -116,5 +115,44 @@ class WorldMapEventSelFactory {
                 if (p.playerRandom.next100() < ps.rate)
                     p.addMoney(ps.award);
         }, sel)),
+        "sequence": (sel:WMES, p:Player, ps) => {
+            var subSels = [];
+            for (var i = 0; i < ps.rates.length; i++) {
+                var subSel = this.newSel(ps);
+                var rate = ps.rates[i];
+                var hit = p.playerRandom.next100() < rate;
+                var func = hit ? ps.func : ps.failedFunc;
+                for (var f of func) {
+                    var c = this.creators[f];
+                    Utils.assert(!!c, "not support event selection: " + f + " yet");
+                    subSel = c(subSel, p, ps.ps[i]);
+                    for (var pp in ps.ps[i])
+                        ps[pp] = ps.ps[i][pp];
+                    ps["rate"] = rate;
+                    ps["-rate"] = 100 - rate;
+                    subSel.desc = this.genDesc(ps.desc, func, ps);
+                }
+                subSels.push(subSel);
+                if (!hit) break;
+            }
+
+            sel["move2NextSubSel"] = (n) => {
+                var ss = subSels[n++];
+                sel.valid = () => ss.valid();
+                sel.exec = async () => {
+                    await ss.exec();
+                    if (n < subSels.length) {
+                        sel["move2NextSubSel"](n);
+                        sel.exit = () => false;
+                    } else
+                        sel.exit = () => true;
+                };
+                sel.desc = ss.desc;
+            };
+
+            sel["move2NextSubSel"](0);
+            
+            return sel;
+        }
     };
 }

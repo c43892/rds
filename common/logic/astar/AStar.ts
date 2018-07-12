@@ -84,7 +84,6 @@ namespace astar{
 
 						if (findNearest) {
 							if (test.h < nearest.h) {
-								console.log("nearest ", nearest.x, nearest.y, nearest.h, test.x, test.y, test.h);
 								nearest = test;
 							}
 						}
