@@ -223,8 +223,9 @@ class WorldMapView extends egret.DisplayObjectContainer {
                     var btRandonSeed = p.playerRandom.nextInt(0, 10000);
                     await this.startNewBattle(p, battleType, lv, n, btRandonSeed);
                 };
-                var sels = this.wmesFact.createGroup(p, evt);
-                await this.openEventSels(sels);
+                var selsGroup = GCfg.getWorldMapEventSelGroupsCfg(evt);
+                var sels = this.wmesFact.createGroup(p, selsGroup.sels);
+                await this.openEventSels(selsGroup.title, selsGroup.desc, sels);
 
                 // 这一类事件是出现一次就移出候选集
                 delete events[evt];

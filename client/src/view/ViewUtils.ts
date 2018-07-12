@@ -46,4 +46,14 @@ class ViewUtils {
         var colorFlilter = new egret.ColorMatrixFilter(colorMatrix);
         e.filters = [colorFlilter];
     }
+
+    public static createTextField(size:number, color:number, alignCenter:boolean = true, vAlignMiddle:boolean = true) {
+        var t = new egret.TextField();
+        t.size = size;
+        t.textColor = color;
+        t.textAlign = alignCenter ? egret.HorizontalAlign.CENTER : egret.HorizontalAlign.LEFT;
+        t.verticalAlign = alignCenter ? egret.VerticalAlign.MIDDLE : egret.VerticalAlign.TOP;
+        t.x = t.y = 0;
+        return t;
+    }
 }

@@ -2,6 +2,8 @@
 class WorldMapEventSelsView extends egret.DisplayObjectContainer {    
     public player:Player;
     private bg:egret.Bitmap; // 背景
+    private title:egret.TextField;
+    private desc:egret.TextField;
 
     public constructor(w:number, h:number) {
         super();
@@ -14,12 +16,25 @@ class WorldMapEventSelsView extends egret.DisplayObjectContainer {
         this.addChild(this.bg);
         this.bg.width = this.width;
         this.bg.height = this.height;
+
+        this.title = ViewUtils.createTextField(50, 0x000000);
+        this.title.width = this.width;
+        this.title.y = 50;
+        this.addChild(this.title);
+
+        this.desc = ViewUtils.createTextField(25, 0x000000);
+        this.desc.width = this.width;
+        this.desc.height = 200;
+        this.desc.y = 150;
+        this.addChild(this.desc);
     }
 
     private sels:WMES[];
     private doClose;
-    public async open(sels:WMES[]):Promise<void> {
+    public async open(title:string, desc:string, sels:WMES[]):Promise<void> {
         this.sels = sels;
+        this.title.text = title;
+        this.desc.text = desc;
         this.refresh();
         return new Promise<void>((resolve, reject) => this.doClose = resolve);
     }

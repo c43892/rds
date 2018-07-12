@@ -16,40 +16,56 @@
     },
 
     "groups": {
-        "g1": [{
-            "func": ["+money", "-hp"],
-            "ps": {"money":10, "hp":1}
-        }, {
-            "desc": "获得一个 {item}，但你会失去所有金币",
-            "func": ["-allMoney", "+item"],
-            "ps": {"item": "MedicineBox"}
-        }, {
-            "func": ["exit"]
-        }],
-        "g2": [{
-            "func": ["-maxHpPrecentage", "reinforceRandomRelics"],
-            "ps": {"maxHpPrecentage": 50, "reinforceNum":2}
-        }, {
-            "func": ["-maxHp", "reinforceRandomRelics"],
-            "ps": {"maxHp": 5, "reinforceNum":1}
-        }, {
-            "func": ["exit"]
-        }],
-        "g3": [{
-            "desc": "进行一场普通战斗",
-            "func": ["battle"],
-            "ps": {"battleType": "normal"}
-        }, {
-            "func": ["-allMoney"]
-        }], 
-        "g4": [{
-            "func": ["gambling"],
-            "ps": {"wager":50, "rate":75, "award":100}
-        }, {
-            "func": ["gambling"],
-            "ps": {"wager":50, "rate":25, "award":250}
-        }, {
-            "func": ["exit"]
-        }]
+        "g1": {
+            "title": "事件标题",
+            "desc": "事件描述文字，说说这个事件是什么意思",
+            "sels":[{
+                "func": ["+money", "-hp"],
+                "ps": {"money":10, "hp":1}
+            }, {
+                "desc": "获得一个 {item}，但你会失去所有金币",
+                "func": ["-allMoney", "+item"],
+                "ps": {"item": "MedicineBox"}
+            }, {
+                "func": ["exit"]
+            }]
+        },
+        "g2": {
+            "title": "事件标题",
+            "desc": "事件描述文字，说说这个事件是什么意思",
+            "sels":[{
+                "func": ["-maxHpPrecentage", "reinforceRandomRelics"],
+                "ps": {"maxHpPrecentage": 50, "reinforceNum":2}
+            }, {
+                "func": ["-maxHp", "reinforceRandomRelics"],
+                "ps": {"maxHp": 5, "reinforceNum":1}
+            }, {
+                "func": ["exit"]
+            }]
+        },
+        "g3": {
+            "title": "事件标题",
+            "desc": "事件描述文字，说说这个事件是什么意思",
+            "sels":[{
+                "desc": "进行一场普通战斗",
+                "func": ["battle"],
+                "ps": {"battleType": "normal"}
+            }, {
+                "func": ["-allMoney"]
+            }]
+        },
+        "g4": {
+            "title": "事件标题",
+            "desc": "事件描述文字，说说这个事件是什么意思",
+            "sels":[{
+                "func": ["gambling"],
+                "ps": {"wager":50, "rate":75, "award":100}
+            }, {
+                "func": ["gambling"],
+                "ps": {"wager":50, "rate":25, "award":250}
+            }, {
+                "func": ["exit"]
+            }]
+        }
     }
 }

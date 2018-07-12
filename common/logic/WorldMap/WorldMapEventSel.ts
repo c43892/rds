@@ -14,8 +14,7 @@ class WorldMapEventSelFactory {
     public startBattle;
 
     // 创建一组选项
-    public createGroup(player:Player, group:string) {
-        var sels = GCfg.getWorldMapEventSelGroupsCfg(group);
+    public createGroup(player:Player, sels) {
         var ss = [];
         for (var i = 0; i < sels.length; i++) {
             var sel = sels[i];
