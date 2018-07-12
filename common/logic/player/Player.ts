@@ -40,7 +40,7 @@ class Player {
         p.avatar = "avator1";
         p.power = [100, 0];
         p.playerRandom = new SRandom();
-        p.money = 100;
+        p.money = 15;
         p.exp = 0;
         p.lv = 0;
 

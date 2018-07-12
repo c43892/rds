@@ -87,7 +87,8 @@ class WorldMapEventSelFactory {
     creators = {
         "exit": (sel:WMES, p:Player, ps) => { sel.exit = () => true; return sel; },
         "battle": (sel:WMES, p:Player, ps) => this.exec(async () => await this.startBattle(ps.battleType), sel),
-        "-money": (sel:WMES, p:Player, ps) => this.exec(async () => p.addMoney(-ps.money), sel),
+        "-money": (sel:WMES, p:Player, ps) => this.valid(() => p.money >= ps.money, 
+            this.exec(async () => p.addMoney(-ps.money), sel)),
         "+money": (sel:WMES, p:Player, ps) => this.exec(async () => p.addMoney(ps.money), sel),
         "-allMoney": (sel:WMES, p:Player, ps) => this.exec(async () => p.addMoney(-p.money), sel),
         "-hp": (sel:WMES, p:Player, ps) => this.exec(async () => p.addHp(-ps.hp), sel),
@@ -95,7 +96,7 @@ class WorldMapEventSelFactory {
         "-maxHpPrecentage": (sel:WMES, p:Player, ps) => this.exec(async () => p.addMaxHp(Math.ceil(-p.maxHp * ps.maxHpPrecentage / 100)), sel),
         "-maxHp": (sel:WMES, p:Player, ps) => this.exec(async () => p.addMaxHp(-ps.maxHp), sel),
         "+maxHp": (sel:WMES, p:Player, ps) => this.exec(async () => p.addMaxHp(ps.maxHp), sel),
-        "+item": (sel:WMES, p:Player, ps) => this.valid(async () => Utils.occupationCompatible(p.occupation, ps.item), 
+        "+item": (sel:WMES, p:Player, ps) => this.valid(() => Utils.occupationCompatible(p.occupation, ps.item), 
             this.exec(async () => {
                 var item = ElemFactory.create(ps.item);
                 if (item instanceof Prop) p.addProp(item);
@@ -115,6 +116,18 @@ class WorldMapEventSelFactory {
                 if (p.playerRandom.next100() < ps.rate)
                     p.addMoney(ps.award);
         }, sel)),
+        "+randomItem":(sel:WMES, p:Player, ps) => this.exec(async () => {
+            var es = Utils.randomSelectByWeightWithPlayerFilter(p, ps.itemList, p.playerRandom, ps.randomNum, ps.randomNum+1, true);
+            for (var et of es) {
+                var e = ElemFactory.create(et);
+                if (e instanceof Relic)
+                    p.addRelic(e);
+                else if (e instanceof Prop)
+                    p.addProp(e);
+                else
+                    Utils.assert(false, "player can not take " + et);
+            }
+        }, sel),
         "sequence": (sel:WMES, p:Player, ps) => {
             var subSels = [];
             for (var i = 0; i < ps.rates.length; i++) {
@@ -138,7 +151,7 @@ class WorldMapEventSelFactory {
 
             sel["move2NextSubSel"] = (n) => {
                 var ss = subSels[n++];
-                sel.valid = () => ss.valid();
+                sel.valid = ss.valid;
                 sel.exec = async () => {
                     await ss.exec();
                     if (n < subSels.length) {

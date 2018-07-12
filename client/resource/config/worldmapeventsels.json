@@ -11,7 +11,7 @@
         "-maxHp": "血量上限减少 {maxHp}",
         "+maxHp": "血量上限增加 {maxHp}",
         "+item": "获得 {item}",
-        "+randomItem": "获得一个随机物品",
+        "+randomItem": "获得 {randomNum} 件随机物品",
         "reinforceRandomRelics": "随机强化 {reinforceNum} 件遗物",
         "gambling": "压 {wager} 金币，{rate}% 胜利获得 {award} 金币"
     },
@@ -67,13 +67,19 @@
             }, {
                 "func": ["sequence"],
                 "ps": {
-                    "desc": "{rate}% 损失 {hp} hp 并获得 {money} 金币，{-rate}% 触发战斗",                    
-                    "func": ["-hp", "+money"],
+                    "desc": "{rate}% 获得 {hp} hp 并损失 {money} 金币，{-rate}% 触发战斗",                    
+                    "func": ["+hp", "-money"],
                     "rates": [99, 98, 97],
-                    "ps": [{"hp":1, "money":1, "battleType":"normal"},
-                           {"hp":2, "money":2, "battleType":"normal"},
-                           {"hp":3, "money":3, "battleType":"normal"}],
+                    "ps": [{"hp":1, "money":10, "battleType":"normal"},
+                           {"hp":2, "money":20, "battleType":"normal"},
+                           {"hp":3, "money":30, "battleType":"normal"}],
                     "failedFunc": ["battle"]
+                }
+            }, {
+                "func": ["+randomItem"],
+                "ps": {
+                    "randomNum": 2,
+                    "itemList": {"HpPotion":10, "MedicineBox":10, "IceGun":10}
                 }
             }, {
                 "func": ["exit"]
