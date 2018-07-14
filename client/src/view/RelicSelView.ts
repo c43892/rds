@@ -1,7 +1,7 @@
 // 遗物选择视图
 class RelicSelView extends egret.DisplayObjectContainer {
     public player:Player;
-    public confirmYesNo;
+    public confirmOkYesNo;
 
     private viewContent:egret.DisplayObjectContainer;
     private bg:egret.Bitmap;

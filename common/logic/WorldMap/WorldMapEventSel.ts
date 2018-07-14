@@ -12,7 +12,7 @@ class WMES {
 class WorldMapEventSelFactory {
 
     public startBattle;
-    public confirmYesNo; // yesno 确认
+    public confirmOkYesNo; // yesno 确认
     public selRelic; // 选择遗物
     public openEventSels; // 重新打开一个选项列表
 
@@ -125,7 +125,7 @@ class WorldMapEventSelFactory {
                     sel = await this.selRelic("选择要强化的遗物", (r:Relic) => r.canReinfoce());
                     if (sel >= 0) {
                         var e:Relic = <Relic>p.relics[sel];
-                        var yesno = await this.confirmYesNo("确定强化 " + e.attrs.name);
+                        var yesno = await this.confirmOkYesNo("确定强化 " + e.attrs.name, true);
                         if (yesno)
                             e.reinforceLvUp();
                         else

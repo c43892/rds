@@ -10,7 +10,7 @@ class ShopView extends egret.DisplayObjectContainer {
     private btnGoBack;
 
     public player:Player;
-    public confirmYesNo; // yesno 确认
+    public confirmOkYesNo; // yesno 确认
 
     public constructor(w:number, h:number) {
         super();
@@ -135,7 +135,7 @@ class ShopView extends egret.DisplayObjectContainer {
     async onSelItem(evt:egret.TouchEvent) {
         var n = evt.target["itemIndex"];
         var e = this.items[n];
-        var yesno = await this.confirmYesNo("确定购买 " + e + "，花费 " + this.getPrice(e) + " 金币 ?");
+        var yesno = await this.confirmOkYesNo("确定购买 " + e + "，花费 " + this.getPrice(e) + " 金币 ?");
         if (yesno)
             this.onSel(n);
     }

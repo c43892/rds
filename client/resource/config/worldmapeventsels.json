@@ -96,7 +96,7 @@
                     "rates": [100, 0, 25],
                     "items": {"HpPotion":100, "MedicineBox":50, "IceGun":1},
                     "randomNum": 1,
-                    "ps": [{"hp":3}, {"hp":4}, {"hp":5}],
+                    "ps": [{"hp":30}, {"hp":40}, {"hp":50}],
                     "failedFunc": ["+randomItems", "-hp", "exit"]
                 }
             }, {

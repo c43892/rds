@@ -1,7 +1,7 @@
 // 医院视图
 class HospitalView extends egret.DisplayObjectContainer {    
     public player:Player;
-    public confirmYesNo; // yesno 确认
+    public confirmOkYesNo; // yesno 确认
     public selRelic; // 选择遗物
 
     private bg:egret.Bitmap; // 背景
@@ -67,7 +67,7 @@ class HospitalView extends egret.DisplayObjectContainer {
     }
 
     async onCure(evt:egret.TouchEvent) {
-        var yesno = await this.confirmYesNo("确定治疗？(回复最多 50% 生命)");
+        var yesno = await this.confirmOkYesNo("确定治疗？(回复最多 50% 生命)", true);
         if (yesno) {
             this.player.addHp(this.player.maxHp / 2);
             this.doClose();
@@ -83,7 +83,7 @@ class HospitalView extends egret.DisplayObjectContainer {
             sel = await this.selRelic("选择要强化的遗物", (r:Relic) => r.canReinfoce());
             if (sel >= 0) {
                 var e:Relic = <Relic>this.player.relics[sel];
-                var yesno = await this.confirmYesNo("确定强化 " + e.attrs.name);
+                var yesno = await this.confirmOkYesNo("确定强化 " + e.attrs.name, true);
                 if (yesno) {
                     e.reinforceLvUp();
                     this.doClose();
@@ -105,7 +105,7 @@ class HospitalView extends egret.DisplayObjectContainer {
             sel = await this.selRelic("选择要变异的遗物", (r) => true);
             if (sel >= 0) {
                 var e = this.player.relics[sel];
-                var yesno = await this.confirmYesNo("确定变异 " + e.attrs.name);
+                var yesno = await this.confirmOkYesNo("确定变异 " + e.attrs.name, true);
                 if (yesno) {
                     this.doClose();
                 } else

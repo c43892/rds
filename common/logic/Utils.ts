@@ -298,6 +298,11 @@ class Utils {
         egret.localStorage.setItem(key, value);
     }
 
+    // 测试期间用，本地存储数据清除
+    public static $$removeItem(key:string) {
+        egret.localStorage.removeItem(key);
+    }
+
     // 测试期间用，从本地存储读取数据
     public static $$loadItem(key:string):string {
         return egret.localStorage.getItem(key);
@@ -305,8 +310,13 @@ class Utils {
 
     // 保存角色数据
     public static savePlayer(p:Player) {
-        Utils.$$saveItem("Player", p.toString());
-        Utils.$$saveItem("Version", Version.currentVersion.toString());
+        if (p) {
+            Utils.$$saveItem("Player", p.toString());
+            Utils.$$saveItem("Version", Version.currentVersion.toString());
+        } else {
+            Utils.$$removeItem("Player");
+            Utils.$$removeItem("Version");
+        }
     }
 
     // 载入角色数据

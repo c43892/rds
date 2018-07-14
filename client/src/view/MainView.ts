@@ -24,12 +24,12 @@ class MainView extends egret.DisplayObjectContainer {
         // 商店视图
         this.sv = new ShopView(w, h);
         this.sv.x = this.sv.y = 0;
-        this.sv.confirmYesNo = (title) => this.confirmYesNo(title);
+        this.sv.confirmOkYesNo = (title, yesno) => this.confirmOkYesNo(title, yesno);
 
         // 遗物选择视图
         this.rsv = new RelicSelView(w, h);
         this.rsv.x = this.rsv.y = 0;
-        this.rsv.confirmYesNo = (title) => this.confirmYesNo(title);
+        this.rsv.confirmOkYesNo = (title, yesno) => this.confirmOkYesNo(title, yesno);
 
         // 战斗视图
         this.bv = new BattleView(w, h);
@@ -52,13 +52,14 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.openHospital = async () => await this.openHospital();
         this.wmv.openBoxRoom = async (openBoxRoom) => await this.openBoxRoom(openBoxRoom);
         this.wmv.openEventSels = async (title, desc, sels) => await this.openWorldMapEventSels(title, desc, sels);
-        this.wmv.confirmYesNo = (title) => this.confirmYesNo(title);
+        this.wmv.confirmOkYesNo = (title, yesno) => this.confirmOkYesNo(title, yesno);
         this.wmv.selRelic = (title, f) => this.openSelRelic(title, f);
+        this.wmv.openPlayerDieView = () => this.openPlayerDieView();
 
         // 医院视图
         this.hv = new HospitalView(w, h);
         this.hv.x = this.hv.y = 0;
-        this.hv.confirmYesNo = (title) => this.confirmYesNo(title);
+        this.hv.confirmOkYesNo = (title, yesno) => this.confirmOkYesNo(title, yesno);
         this.hv.selRelic = (title, f) => this.openSelRelic(title, f);
 
         // 主界面菜单
@@ -124,6 +125,7 @@ class MainView extends egret.DisplayObjectContainer {
         bt.registerEvent("onLevel", (ps) => this.bv.onLevel(ps));
         bt.registerEvent("onPlayerChanged", (ps) => this.bv.onPlayerChanged(ps));
         bt.registerEvent("onOpenShop", (ps) => this.bv.onOpenShop(ps));
+        bt.registerEvent("onPlayerDead", () => this.openPlayerDieView());
         Utils.registerEventHandlers(bt, [
             "onGridChanged", "onPlayerChanged", "onAttack", "onElemChanged", "onPropChanged",
             "onElemMoving", "onElemFlying", "onAllCoveredAtInit", "onSuckPlayerBlood", "onMonsterTakeElem",
@@ -231,13 +233,21 @@ class MainView extends egret.DisplayObjectContainer {
         return sel;
     }
 
-    // yesno
-    public async confirmYesNo(title) {
-        this.setChildIndex(this.tcv, -1);
-        return await this.tcv.confirmYesNo(title);
+    // 打开角色死亡界面
+    public async openPlayerDieView() {
+        Utils.savePlayer(undefined);
+        await this.confirmOkYesNo("不幸死亡", false);
+        this.p = undefined;
+        this.openStartup(undefined);
     }
 
-     onContinuePlay(evt:egret.TouchEvent) {
+    // yesno
+    public async confirmOkYesNo(title, yesno) {
+        this.setChildIndex(this.tcv, -1);
+        return await this.tcv.confirmOkYesNo(title, yesno);
+    }
+
+    onContinuePlay(evt:egret.TouchEvent) {
         if (this.p.currentStoreyPos.status == "finished")
             this.openWorldMap(this.p.worldmap);
         else {
@@ -246,14 +256,14 @@ class MainView extends egret.DisplayObjectContainer {
             this.openWorldMap(this.p.worldmap);
             this.wmv.enterNode(lv, n);
         }
-     }
+    }
 
-     onNewPlay(evt:egret.TouchEvent) {
+    onNewPlay(evt:egret.TouchEvent) {
         var p = Player.createTestPlayer();
         p.worldmap = WorldMap.buildFromConfig("world1");
         p.worldmap.player = p;
         this.p = p;
         this.openWorldMap(p.worldmap);
         Utils.savePlayer(p);
-     }
+    }
 }

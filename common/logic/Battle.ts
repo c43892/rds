@@ -255,6 +255,28 @@ class Battle {
 
     // try 开头的函数通常对应玩家操作行为
 
+    async checkPlayerLevelUpAndDie() {
+        // 检查等级提升
+        if (this.player.checkLevelUp()) {
+            await this.fireEvent("onPlayerChanged", {subType:"lvUp"});
+            await this.triggerLogicPoint("onPlayerChanged", {subType: "lvUp"});
+        }
+
+        // 检查死亡
+        if (this.player.isDead()) {
+            await this.fireEvent("onPlayerDying");
+            var diePs = {reborn:false};
+            await this.triggerLogicPoint("onPlayerDying", diePs);
+
+            if (diePs.reborn) {
+                await this.fireEvent("onPlayerReborn");
+                await this.triggerLogicPoint("onPlayerReborn");
+            } else {
+                await this.fireEvent("onPlayerDead");
+            }
+        }
+    }
+
     // 尝试揭开指定位置
     public try2UncoverAt() {
         return async (x:number, y:number) => {
@@ -274,11 +296,7 @@ class Battle {
             await this.fireEvent("onPlayerActed");
             await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
             
-            // 检查等级提升
-            if (this.player.checkLevelUp()) {
-                await this.fireEvent("onPlayerChanged", {subType:"lvUp"});
-                await this.triggerLogicPoint("onPlayerChanged", {subType: "lvUp"});
-            }
+            await this.checkPlayerLevelUpAndDie();
         };
     }
 
@@ -302,11 +320,7 @@ class Battle {
             await this.fireEvent("onPlayerActed");
             await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
 
-            // 检查等级提升
-            if (this.player.checkLevelUp()) {
-                await this.fireEvent("onPlayerChanged", {subType:"lvUp"});
-                await this.triggerLogicPoint("onPlayerChanged", {subType: "lvUp"});
-            }
+            await this.checkPlayerLevelUpAndDie();
         };
     }
 

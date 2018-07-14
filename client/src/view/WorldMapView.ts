@@ -9,8 +9,9 @@ class WorldMapView extends egret.DisplayObjectContainer {
     public openHospital; // 进入医院
     public openBoxRoom; // 宝箱房间
     public openEventSels; // 选项事件
-    public confirmYesNo; // yesno 确认
+    public confirmOkYesNo; // yesno 确认
     public selRelic; // 选择遗物
+    public openPlayerDieView; // 角色死亡
 
     private wmesFact:WorldMapEventSelFactory;
 
@@ -44,7 +45,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.mapArea.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchGrid, this);
 
         this.wmesFact = new WorldMapEventSelFactory();
-        this.wmesFact.confirmYesNo = this.confirmYesNo;
+        this.wmesFact.confirmOkYesNo = this.confirmOkYesNo;
         this.wmesFact.selRelic = this.selRelic;
         this.wmesFact.openEventSels = async (p:Player, group) => await this.openSelGroup(p, group);
     }
@@ -202,8 +203,13 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.player.notifyStoreyPosFinished(this.player.currentStoreyPos.lv, this.player.currentStoreyPos.n);
         Utils.savePlayer(this.player);
 
-        parent.addChild(this);
-        this.refresh();
+        // 检查死亡
+        if (this.player.isDead()) {
+            await this.openPlayerDieView();
+        } else {
+            parent.addChild(this);
+            this.refresh();
+        }
     }
 
     async openMapEventSels(lv, n) {
