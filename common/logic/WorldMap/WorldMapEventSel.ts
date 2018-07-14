@@ -21,7 +21,7 @@ class WorldMapEventSelFactory {
         var ss = [];
         for (var i = 0; i < sels.length; i++) {
             var sel = sels[i];
-            var func = sel.func
+            var func = sel.func;
             var ps = Utils.clone(sel.ps);
             var s = this.newSel();
             for (var f of func) {
