@@ -35,6 +35,7 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
         for (var c of this.choices) {
             var btn = new egret.TextField();
             btn = ViewUtils.createTextField(40, 0x000000, true, true);
+            btn.width = this.width;
             btn.height = h;
             btn.text = GCfg.getElemAttrsCfg(c).name;
             btn["choice"] = c;
