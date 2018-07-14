@@ -34,13 +34,9 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
         this.btnChoices = [];
         for (var c of this.choices) {
             var btn = new egret.TextField();
-            btn.width = this.width;
-            btn.size = 40;
+            btn = ViewUtils.createTextField(40, 0x000000, true, true);
             btn.height = h;
-            btn.textColor = 0x000000;
             btn.text = GCfg.getElemAttrsCfg(c).name;
-            btn.textAlign = egret.HorizontalAlign.CENTER;
-            btn.verticalAlign = egret.VerticalAlign.MIDDLE;
             btn["choice"] = c;
             btn.touchEnabled = true;
             btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onSel, this);
