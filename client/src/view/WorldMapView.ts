@@ -8,6 +8,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
     public openShop; // 打开商店
     public openHospital; // 进入医院
     public openBoxRoom; // 宝箱房间
+    public openTurntable;//打开转盘事件
     public openEventSels; // 选项事件
     public confirmOkYesNo; // yesno 确认
     public selRelic; // 选择遗物
@@ -94,7 +95,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                     img["ptStoreyN"] = j;
                     img.touchEnabled = true;
                     row.push(img);
-                }else 
+                }else
                 row.push("");
             }
             imgs.push(row);
@@ -193,7 +194,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 break;
             case "event": 
                 await this.openMapEventSels(lv, n);
-                break;
+                break;                
             default:
                 Utils.log("not support " + nodeType + " yet");
             break;
@@ -227,6 +228,9 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 break;
             case "shop":
                 await this.openShop(this.worldmap.cfg.shop);
+                break;
+            case "turntable":
+                await this.openTurntable();
                 break;
             default: {
                 // 此外就都认为是地图选项事件

@@ -7,6 +7,7 @@ class MainView extends egret.DisplayObjectContainer {
     public wmv:WorldMapView; // 大地图视图
     public rsv:RelicSelView; // 遗物选择视图
     public brv:BoxRoomView; // 宝箱房间
+    public ttv:TurntableView; //转盘事件
     public pluv:PlayerLevelUpView; // 角色升级界面
     public mm:egret.DisplayObjectContainer; // 主界面菜单
     public tcv:TipConfirmView; // 提示确认视图
@@ -41,6 +42,10 @@ class MainView extends egret.DisplayObjectContainer {
         this.brv = new BoxRoomView(w, h);
         this.brv.x = this.brv.y = 0;
 
+        //转盘事件
+        this.ttv = new TurntableView(w, h);
+        this.ttv.x = this.ttv.y = 0;
+
         // 角色升级界面
         this.pluv = new PlayerLevelUpView(w, h);
         this.pluv.x = this.pluv.y = 0;
@@ -51,6 +56,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.openShop = async (shop) => await this.openShopOnWorldMap(shop);
         this.wmv.openHospital = async () => await this.openHospital();
         this.wmv.openBoxRoom = async (openBoxRoom) => await this.openBoxRoom(openBoxRoom);
+        this.wmv.openTurntable = async () => await this.openTurntable();
         this.wmv.openEventSels = async (title, desc, sels) => await this.openWorldMapEventSels(title, desc, sels);
         this.wmv.confirmOkYesNo = (title, yesno) => this.confirmOkYesNo(title, yesno);
         this.wmv.selRelic = (title, f) => this.openSelRelic(title, f);
@@ -177,6 +183,15 @@ class MainView extends egret.DisplayObjectContainer {
         this.addChild(this.brv);
         await this.brv.open(dropCfg);
         this.removeChild(this.brv);
+    }
+
+    // 打开转盘界面
+    public async openTurntable() {
+        this.ttv.player = this.p;
+        this.addChild(this.ttv); 
+        this.setChildIndex(this.ttv, -1);
+        await this.ttv.open();
+        // this.removeChild(this.ttv);
     }
 
     // 打开升级界面

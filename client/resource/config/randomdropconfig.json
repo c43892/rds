@@ -1,7 +1,11 @@
 {
     "rdp1": {"num":[1, 2], "elems":{
-        "Coins":10,
-        "HpPotion":20
+        "Coins":30,
+        "HpPotion":10,
+        "Gun":10,
+        "MedicineBox":10,
+        "Hawkeye":10,
+        "TimeMachine":10
     }},
 
     "rdp2": {"num":[1, 2], "elems":{
