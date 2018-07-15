@@ -52,7 +52,7 @@ class ViewUtils {
         t.size = size;
         t.textColor = color;
         t.textAlign = alignCenter ? egret.HorizontalAlign.CENTER : egret.HorizontalAlign.LEFT;
-        t.verticalAlign = alignCenter ? egret.VerticalAlign.MIDDLE : egret.VerticalAlign.TOP;
+        t.verticalAlign = vAlignMiddle ? egret.VerticalAlign.MIDDLE : egret.VerticalAlign.TOP;
         t.x = t.y = 0;
         return t;
     }

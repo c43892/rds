@@ -21,7 +21,7 @@ class WorldMapEventSelFactory {
         var ss = [];
         for (var i = 0; i < sels.length; i++) {
             var sel = sels[i];
-            var func = sel.func
+            var func = sel.func;
             var ps = Utils.clone(sel.ps);
             var s = this.newSel();
             for (var f of func) {
@@ -149,7 +149,10 @@ class WorldMapEventSelFactory {
             }
         }, sel),
         "redirectSelGroup": (sel:WMES, p:Player, ps) => this.exec(async () => {
-            await this.openEventSels(p, ps.group);
+             if (p.isDead())
+                sel.exit = () => true;
+            else
+                await this.openEventSels(p, ps.group);
         }, sel),
         "sequence": (sel:WMES, p:Player, ps) => {
             var subSels = [];
@@ -179,7 +182,7 @@ class WorldMapEventSelFactory {
                 sel.valid = ss.valid;
                 sel.exec = async () => {
                     await ss.exec();
-                    if (n < subSels.length) {
+                    if (n < subSels.length && !p.isDead()) {
                         sel["move2NextSubSel"](n);
                         sel.exit = () => false;
                     } else

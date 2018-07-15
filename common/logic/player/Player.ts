@@ -37,7 +37,7 @@ class Player {
         p.deathStep = 100;
         p.hp = 10;
         p.maxHp = 20;
-        p.avatar = "avator1";
+        p.avatar = "avatar1";
         p.power = [3, 0];
         p.playerRandom = new SRandom();
         p.money = 50;
