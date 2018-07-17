@@ -170,7 +170,7 @@ class TurntableView extends egret.DisplayObjectContainer {
         for(var i = 0; i < cfg.length; i++){
             totalWeight += cfg[i].weight;
         }
-        var r = this.player.playerRandom.nextInt(0,totalWeight);    
+        var r = this.player.playerRandom.nextInt(0,totalWeight);
         var tempWeight = 0;
         for(var j = 0; j < cfg.length; j++){
             tempWeight += cfg[j].weight;
