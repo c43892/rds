@@ -292,7 +292,9 @@ class WorldMapGenerator{
                 }
             }
         }
-        Utils.log("these rooms were not be set", roomList);
+        if(roomList.length != 0){
+            Utils.log("these rooms were not be set", roomList);
+        }        
         return nodes;
     }
 

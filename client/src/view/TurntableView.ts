@@ -7,6 +7,7 @@ class TurntableView extends egret.DisplayObjectContainer {
     private goOutBtn:egret.Bitmap;
     private imgs:egret.Bitmap[] = []; //候选奖励
     private rewardCount = 6;
+    private sign:egret.Bitmap;
 
     public constructor(w:number, h:number){
         super();
@@ -18,6 +19,10 @@ class TurntableView extends egret.DisplayObjectContainer {
         this.addChild(this.bg);
         this.bg.x = (this.width - this.bg.width) / 2;
         this.bg.y = (this.height - this.bg.height) / 2;
+
+        this.sign = ViewUtils.createBitmapByName("turntableSign_png");
+        this.sign.x = this.bg.x;
+        this.sign.y = this.bg.y;
         
         this.rewards = new egret.DisplayObjectContainer;
         this.addChild(this.rewards);
@@ -102,6 +107,7 @@ class TurntableView extends egret.DisplayObjectContainer {
             this.imgs[i]["weight"] = cfg.weight;
             this.rewards.addChild(this.imgs[i]);
         }
+        this.addChild(this.sign);
 
         return new Promise<void>((resolve, reject) => this.doClsoe = resolve);
     }
