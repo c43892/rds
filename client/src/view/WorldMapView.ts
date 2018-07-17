@@ -23,12 +23,14 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.bg = ViewUtils.createBitmapByName("WorldMapBg_png");
         this.bg.x = 0;
         this.bg.y = 0;
+        this.bg.width = w;
+        this.bg.height = h;
 
         this.viewContent = new egret.DisplayObjectContainer();
         this.viewContent.x = 0;
         this.viewContent.y = 0;
-        this.viewContent.width = this.bg.width;
-        this.viewContent.height = this.bg.height;
+        this.viewContent.width = w;
+        this.viewContent.height = h;
         this.viewContent.addChild(this.bg);
 
         this.mapArea = new egret.ScrollView();
@@ -94,14 +96,15 @@ class WorldMapView extends egret.DisplayObjectContainer {
                     img["ptStoreyN"] = j;
                     img.touchEnabled = true;
                     row.push(img);
-                }else 
-                row.push("");
+                } else 
+                    row.push(undefined);
             }
             imgs.push(row);
         }
 
         for(var i = 0; i < wp.nodes.length; i++){
             for(var j = 0; j < wp.nodes[i].length; j++){
+                if (!wp.nodes[i][j]) continue;
                 if(wp.nodes[i][j].parents.length != 0){
                     for(var k = 0; k < wp.nodes[i][j].routes.length; k++){
                         var n = wp.nodes[i][j];
@@ -127,6 +130,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         var sps = BattleUtils.getSelectableStoreyPos(this.worldmap.player);
         for (var sp of sps) {
             var img:egret.Bitmap = imgs[sp.lv][sp.n];
+            if (!img) continue;
             var tw = egret.Tween.get(img, {loop:true});
             var w = img.width;
             var h = img.height;
@@ -135,8 +139,10 @@ class WorldMapView extends egret.DisplayObjectContainer {
         }
 
         // 显示可经过的节点
-        for (var sp of this.worldmap.player.finishedStoreyPos)
+        for (var sp of this.worldmap.player.finishedStoreyPos) {
+            if (!imgs[sp.lv][sp.n]) continue;
             ViewUtils.makeGray(imgs[sp.lv][sp.n]);
+        }
     }
 
     worldmap:WorldMap;
