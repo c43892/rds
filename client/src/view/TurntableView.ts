@@ -2,9 +2,11 @@ class TurntableView extends egret.DisplayObjectContainer {
     public player:Player;
     
     private bg:egret.Bitmap;
+    private rewards:egret.DisplayObjectContainer; //奖励内容
     private startBtn:egret.Bitmap;
-    private rewards:egret.DisplayObjectContainer;//奖励内容
     private goOutBtn:egret.Bitmap;
+    private imgs:egret.Bitmap[] = []; //候选奖励
+    private rewardCount = 6;
 
     public constructor(w:number, h:number){
         super();
@@ -19,10 +21,21 @@ class TurntableView extends egret.DisplayObjectContainer {
         
         this.rewards = new egret.DisplayObjectContainer;
         this.addChild(this.rewards);
-        this.rewards.x = 0;
-        this.rewards.y = 0;
+        this.rewards.x = this.bg.x + this.bg.width / 2;
+        this.rewards.y = this.bg.y + this.bg.height / 2;
         this.rewards.width = this.bg.width;
         this.rewards.height = this.bg.height;
+        this.rewards.anchorOffsetX = this.rewards.width / 2;
+        this.rewards.anchorOffsetY = this.rewards.height / 2;
+        this.rewards.width = this.bg.width;
+        this.rewards.height = this.bg.height;
+
+        for(var i = 0; i < this.rewardCount; i++){
+            var img = new egret.Bitmap;
+            this.imgs.push(img);
+            this.rewards.addChild(this.imgs[i]);
+        }
+
 
         this.startBtn = ViewUtils.createBitmapByName("turntableStartBtn_png");
         this.addChild(this.startBtn);
@@ -34,6 +47,7 @@ class TurntableView extends egret.DisplayObjectContainer {
         this.startBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onStart, this);
 
         this.goOutBtn = ViewUtils.createBitmapByName("turntableGoOutBtn_png");
+        this.addChild(this.goOutBtn);
         this.goOutBtn.x = this.width - this.goOutBtn.width;
         this.goOutBtn.y = this.height - this.goOutBtn.height;
         this.goOutBtn.anchorOffsetX = this.goOutBtn.width / 2;
@@ -41,69 +55,78 @@ class TurntableView extends egret.DisplayObjectContainer {
         this.goOutBtn.touchEnabled = true;
         this.goOutBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onGoOut, this);
     }
-    
-    public async open(){
+
+    private doClsoe;
+    public async open():Promise<void> {
+        this.addChild(this.startBtn);
+        this.removeChild(this.goOutBtn);
+        for(var i = 0; i < this.rewardCount; i++){
+            this.rewards.removeChild(this.imgs[i]);
+        }
+        this.rewards.rotation = 0;
         
         var cfg = this.player.worldmap.cfg.turntable;
-        var xOrigin = this.x + this.bg.width / 2;
-        var yOrigin = this.bg.y + this.bg.height / 2;
+        var xOrigin = this.bg.width / 2;
+        var yOrigin = this.bg.height / 2;
         
-        var imgs:egret.Bitmap[] = [];
-        for(var i = 0; i < cfg.length; i++){
+        for(var i = 0; i < this.rewardCount; i++){
             var type = cfg[i].type;
             switch(type){
                 case "+hp":
-                var img = ViewUtils.createBitmapByName("turntableAddHp_png");
+                this.imgs[i] = ViewUtils.setTex(this.imgs[i], "turntableAddHp_png");
                 break;
                 case "-hp":
-                var img = ViewUtils.createBitmapByName("turntableMinusHp_png");
+                this.imgs[i] = ViewUtils.setTex(this.imgs[i], "turntableMinusHp_png");
                 break;
                 case "box":
-                var img = ViewUtils.createBitmapByName("turntableBox_png");
+                this.imgs[i] = ViewUtils.setTex(this.imgs[i], "turntableBox_png");
                 break;
                 case "coins":
-                var img = ViewUtils.createBitmapByName("turntableCoin_png");
+                this.imgs[i] = ViewUtils.setTex(this.imgs[i], "turntableCoin_png");
                 break;
                 case "item":
                 var rdp = GCfg.getRandomDropGroupCfg(cfg[i].attrs);
                 var dropItem = Utils.randomSelectByWeightWithPlayerFilter(this.player, rdp.elems, this.player.playerRandom, 1, 2, false)[0];
-                var img = ViewUtils.createBitmapByName(dropItem + "_png");
+                this.imgs[i] = ViewUtils.setTex(this.imgs[i], dropItem + "_png");
                 break;
             }
-            img.x = xOrigin + 200 * Math.cos(i * Math.PI / 3);
-            img.y = yOrigin - 200 * Math.sin(i * Math.PI / 3);
-            img.anchorOffsetX = img.width / 2;
-            img.anchorOffsetY = img.height / 2;
-            img.rotation = 90 - 60 * i;
-            img["type"] = type;
+            this.imgs[i].x = xOrigin + 200 * Math.cos(i * 2 * Math.PI / this.rewardCount);
+            this.imgs[i].y = yOrigin - 200 * Math.sin(i * 2 * Math.PI / this.rewardCount);
+            this.imgs[i].rotation = 90 - 360 / this.rewardCount * i;
+            this.imgs[i].anchorOffsetX = this.imgs[i].width / 2;
+            this.imgs[i].anchorOffsetY = this.imgs[i].height / 2;
+            this.imgs[i]["type"] = type;
             if(type != "item")
-                img["attrs"] = cfg[i].attrs;
-            else 
-                img["attrs"] = dropItem;
-            img["weight"] = cfg.weight;
-            imgs.push(img);
-            this.rewards.addChild(img);
+                this.imgs[i]["attrs"] = cfg[i].attrs;
+            else
+                this.imgs[i]["attrs"] = dropItem;
+            this.imgs[i]["weight"] = cfg.weight;
+
+            this.rewards.addChild(this.imgs[i]);
         }
-        this.onStart(imgs);
+
+        return new Promise<void>((resolve, reject) => this.doClsoe = resolve);
     }
 
-    private onStart(arr:egret.Bitmap[]){
+    private onStart(evt:egret.TouchEvent){
+        this.removeChild(this.startBtn);
         var cfg = this.player.worldmap.cfg.turntable;
-        var randomIndex = this.getRandomIndex(cfg);
-        Utils.log("randomIndex", randomIndex, "type", arr[randomIndex]["type"], "attrs",arr[randomIndex]["attrs"]);
+        var randomIndex = this.getRandomIndexByWeight(cfg);
 
-        var rotateAngels = ( randomIndex / 3 + 2 * 10 ) * Math.PI;//所需旋转角度,额外加十圈,弧度单位
-        //待添加的旋转动画
+        var rotateAngels = (randomIndex * 60  + 3600 );//所需旋转角度,额外加十圈,角度单位
 
-        var award = arr[randomIndex];
+        var rr = egret.Tween.get(this.rewards, {loop:false});
+        rr.to({rotation:rotateAngels}, 3000, egret.Ease.circInOut).call(() => this.addChild(this.goOutBtn));
+
+        var award = this.imgs[randomIndex];
         switch(award["type"]){
                 case "+hp":
-                Utils.log("after hp", this.player.hp);
+                Utils.log("before hp", this.player.hp);
                 this.player.addHp(Math.round(this.player.hp * award["attrs"] / 100));
                 Utils.log("after hp", this.player.hp);
                 break;
                 case "-hp":
-                Utils.log("after hp", this.player.hp);
+                Utils.log("before hp", this.player.hp);
                 this.player.addHp(Math.round(this.player.hp * award["attrs"] / 100));
                 Utils.log("after hp", this.player.hp);
                 break;
@@ -125,15 +148,13 @@ class TurntableView extends egret.DisplayObjectContainer {
                 Utils.log("get item from turntable", award["attrs"]);
                 break;
             }
-        
-        this.addChild(this.goOutBtn);
     }
 
-    private onGoOut(){
-        
+    private onGoOut(evt:egret.TouchEvent){
+        this.doClsoe();
     }
 
-    private getRandomIndex(cfg):number{
+    private getRandomIndexByWeight(cfg):number{
         var totalWeight = 0;
         for(var i = 0; i < cfg.length; i++){
             totalWeight += cfg[i].weight;

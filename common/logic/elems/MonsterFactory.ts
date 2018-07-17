@@ -123,6 +123,7 @@ class MonsterFactory {
         "RandomEggZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //彩蛋僵尸
         "LustZombie": (attrs) => MonsterFactory.doSneakReduseDeathStep(15, MonsterFactory.doAttackBack(this.createMonster(attrs))), //色欲僵尸
         "IronZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //钢铁侠僵尸
+        // "CommanderZombie": (attrs) => MonsterFactory.doEnhanceOtherMonster(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //指挥官僵尸
 
         "ShopNpc": (attrs) => MonsterFactory.makeShopNPC(this.createMonster(attrs)),
 
@@ -294,7 +295,7 @@ class MonsterFactory {
                     await m.bt().implUncoverAt(g.pos.x, g.pos.y);
 
                 await m.bt().implAddPlayerHp(-m.attrs.stealOnPlayerLeave);
-            }, m);;
+            }, m);
     }
 
     //死亡时翻开N个空地块
@@ -323,6 +324,40 @@ class MonsterFactory {
             }
         }, m);
     }
+
+    // 每回合增加生命值
+    static doAddHpPerRound(n:number, m:Monster):Monster{
+        return <Monster>ElemFactory.addAI("onPlayerActed", async () => {
+            if(m.hp > 0)
+                m.hp += 1;
+
+        }, m)
+    }
+
+    // 受伤害时增加攻击力
+    static doAddPowerOnBeHurt(m:Monster):Monster{
+        var hurted = [];
+        var cnt = 1;
+        return <Monster>ElemFactory.addAI("onMonsterHurt", async () => {
+            hurted[0] = m.attrs.hp;
+            hurted[cnt] = m.hp;
+            m.btAttrs.power += hurted[cnt - 1] - hurted[cnt];
+            cnt ++;
+        },m);
+    }
+
+    // // 出现时其他怪血量攻击翻倍
+    // static doEnhanceOtherMonster(m:Monster):Monster {
+    //     return <Monster>ElemFactory.addAI("onGridChanged", async () => {
+    //         var ms:Elem[]= [];
+    //         ms = m.map().findAllElems((e:Elem) => !e.getGrid().isCovered() || e instanceof Monster);
+    //         Utils.log("个数",ms.length);
+    //         for(var i = 0; i < ms.length; i++){
+    //             ms[i].btAttrs.power *= 2;
+    //             ms[i].btAttrs.hp *= 2;
+    //         }
+    //     }, m, (ps) => ps.x == m.pos.x && ps.y == m.pos.y && ps.subType == "gridUnconvered");
+    // }
 
     // boss 特殊逻辑
     static makeBoss(m:Monster):Monster {

@@ -28,7 +28,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
 
     private dropItem;
     private doClose;
-    public async open(dropCfg) {
+    public async open(dropCfg):Promise<void> {
         var arr = Utils.randomSelectByWeightWithPlayerFilter(this.player, dropCfg, this.player.playerRandom, 1, 2, true, "Coins");
         this.dropItem = arr[0];
         ViewUtils.setTex(this.box, "BoxRoomBox_png");
