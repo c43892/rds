@@ -68,12 +68,13 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
         // 显示每个节点
         var imgs = [];
-        var xEdgeBlank = 50;
+        var xEdgeBlank = 50; // 节点与左右边缘留白大小
         var yGap = this.viewContent.height / wp.nodes.length;
         var xGap = (this.mapArea.width - 2 * xEdgeBlank) / (wp.cfg.width - 1);
-        var xSwing = 0.2;
+        var xSwing = 0.2; // 节点在地图上偏离标准位置的抖动幅度
         var ySwing = 0.2;
 
+        // 遍历所有节点,将具有父节点的作为可用节点,并记录该节点的属性.
         for (var i = 0; i < wp.nodes.length; i++) {
             var y = yGap * i;
             var row = [];
@@ -82,7 +83,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                     var pt = wp.nodes[i][j].roomType;
                     var img = ViewUtils.createBitmapByName(pt + "_png");
                     if(i == wp.nodes.length - 1){
-                        img.x = (wp.nodes[i].length - 1) / 2 * xGap + xEdgeBlank;//boss点
+                        img.x = (wp.nodes[i].length - 1) / 2 * xGap + xEdgeBlank;// boss点位置特殊处理
                         img.y = WorldMapNode.getNodeYposOnView(wp.nodes[i][j], this.viewContent.height, yGap, 0);
                     }else{
                         img.x = WorldMapNode.getNodeXposOnView(wp.nodes[i][j], xEdgeBlank, xGap, xSwing);
@@ -95,12 +96,13 @@ class WorldMapView extends egret.DisplayObjectContainer {
                     img["ptStoreyN"] = j;
                     img.touchEnabled = true;
                     row.push(img);
-                }else
-                row.push("");
+                } else
+                    row.push(undefined);
             }
             imgs.push(row);
         }
 
+        // 遍历所有可用节点的所有边,根据边的起始节点和目标节点的坐标画线
         for(var i = 0; i < wp.nodes.length; i++){
             for(var j = 0; j < wp.nodes[i].length; j++){
                 if(wp.nodes[i][j].parents.length != 0){
@@ -111,7 +113,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                         l.graphics.moveTo(imgs[i][j].x ,imgs[i][j].y);
                         if(i == wp.nodes.length - 2){
                             l.graphics.lineTo((wp.nodes[i].length - 1) / 2 * xGap + xEdgeBlank, 
-                                               WorldMapNode.getNodeYposOnView(n.routes[k].dstNode, this.viewContent.height, yGap, 0));//至boss路线
+                                               WorldMapNode.getNodeYposOnView(n.routes[k].dstNode, this.viewContent.height, yGap, 0));//通往boss点的路线
                         } else{
                             l.graphics.lineTo(WorldMapNode.getNodeXposOnView(n.routes[k].dstNode, xEdgeBlank, xGap, xSwing), 
                                               WorldMapNode.getNodeYposOnView(n.routes[k].dstNode, this.viewContent.height, yGap, ySwing));
@@ -135,9 +137,12 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 .to({width:w, height:w}, 1000, egret.Ease.quadInOut);
         }
 
-        // 显示可经过的节点
-        for (var sp of this.worldmap.player.finishedStoreyPos)
-            ViewUtils.makeGray(imgs[sp.lv][sp.n]);
+        // 将所有已经过的节点置灰
+        for (var sp of this.worldmap.player.finishedStoreyPos){
+            if(sp.lv != 0)
+                ViewUtils.makeGray(imgs[sp.lv][sp.n]);
+        }
+
     }
 
     worldmap:WorldMap;

@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "description_json,levelconfig_json,covered_png,grid_png,bg_png,avator1_png,Bunny_png,blocked_png,uncoverable_png,replaybg_png,blackcover_png,anicover_png,elemattrsconfig_json,DeathGod_png,MedicineBox_png,selectable_png,unselectable_png,playerconfig_json,Hawkeye_png,TimeMachine_png,Coins_png,Door_png,Gun_png,HpPotion_png,Key_png,NextLevelPort_png,TreasureBox_png,Clock_png,HpCapsule_png,ban_png,Magazine_png,Hole_png,Apple3_png,Apple2_png,Apple1_png,Steak3_png,Steak2_png,Steak1_png,RandomEgg_png,Apple12_png,Apple22_png,Apple32_png,Steak12_png,Steak22_png,Steak32_png,RayGun_png,IceBlock_png,IceGun_png,randomdropconfig_json,BombZombie_png,DancerZombie_png,EyeDemonZombie_png,GluttonyZombie_png,HoundZombie_png,IronZombie_png,LustZombie_png,NormalZombie_png,ori_png,RandomEggZombie_png,SniperZombie_png,ThiefZombie_png,VampireZombie_png,Shield1_png,Shield2_png,WorldMapBg_png,WorldMapBg2_png,worldmap_json,normal_png,boss_png,senior_png,camp_png,box_png,event_png,shop_png,worldmapstart_png,continuePlay_png,newPlay_png,Sword_png,translucent_png,shopconfig_json,goBack_png,btnyes_png,btnno_png,soldout_png,btnCure_png,btnReinforce_png,btnMutate_png,goBack2_png,Endurance_png,Power_png,Fierce_png,Cloak_png,Unback2Sneak_png,BoxRoomBox_png,BoxRoomBoxOpened_png,ShopNpc_png,worldmapeventsels_json,btnok_png,turntableBg_png,turntableAddHp_png,turntableMinusHp_png,turntableBox_png,turntableCoin_png,turntableItem_png,turntableBoxOpended_png,turntableStartBtn_png,turntableGoOutBtn_png",
+			"keys": "description_json,levelconfig_json,covered_png,grid_png,bg_png,Bunny_png,blocked_png,uncoverable_png,replaybg_png,blackcover_png,anicover_png,elemattrsconfig_json,DeathGod_png,MedicineBox_png,selectable_png,unselectable_png,playerconfig_json,Hawkeye_png,TimeMachine_png,Coins_png,Door_png,Gun_png,HpPotion_png,Key_png,NextLevelPort_png,TreasureBox_png,Clock_png,HpCapsule_png,ban_png,Magazine_png,Hole_png,Apple3_png,Apple2_png,Apple1_png,Steak3_png,Steak2_png,Steak1_png,RandomEgg_png,Apple12_png,Apple22_png,Apple32_png,Steak12_png,Steak22_png,Steak32_png,RayGun_png,IceBlock_png,IceGun_png,randomdropconfig_json,BombZombie_png,DancerZombie_png,EyeDemonZombie_png,GluttonyZombie_png,HoundZombie_png,IronZombie_png,LustZombie_png,NormalZombie_png,ori_png,RandomEggZombie_png,SniperZombie_png,ThiefZombie_png,VampireZombie_png,Shield1_png,Shield2_png,WorldMapBg_png,WorldMapBg2_png,worldmap_json,normal_png,boss_png,senior_png,camp_png,box_png,event_png,shop_png,worldmapstart_png,continuePlay_png,newPlay_png,Sword_png,translucent_png,shopconfig_json,goBack_png,btnyes_png,btnno_png,soldout_png,btnCure_png,btnReinforce_png,btnMutate_png,goBack2_png,Endurance_png,Power_png,Fierce_png,Cloak_png,Unback2Sneak_png,BoxRoomBox_png,BoxRoomBoxOpened_png,ShopNpc_png,worldmapeventsels_json,btnok_png,turntableBg_png,turntableAddHp_png,turntableMinusHp_png,turntableBox_png,turntableCoin_png,turntableItem_png,turntableBoxOpended_png,turntableStartBtn_png,turntableGoOutBtn_png,avatar1_png",
 			"name": "preload"
 		}
 	],
@@ -30,11 +30,6 @@
 			"url": "assets/bg.png",
 			"type": "image",
 			"name": "bg_png"
-		},
-		{
-			"url": "assets/avatars/avator1.png",
-			"type": "image",
-			"name": "avator1_png"
 		},
 		{
 			"url": "assets/monsters/Bunny.png",
@@ -392,154 +387,159 @@
 			"name": "newPlay_png"
 		},
 		{
-			"name": "Sword_png",
+			"url": "assets/items/Sword.png",
 			"type": "image",
-			"url": "assets/items/Sword.png"
+			"name": "Sword_png"
 		},
 		{
-			"name": "translucent_png",
+			"url": "assets/ui/common/translucent.png",
 			"type": "image",
-			"url": "assets/ui/common/translucent.png"
+			"name": "translucent_png"
 		},
 		{
-			"name": "shopconfig_json",
+			"url": "config/shopconfig.json",
 			"type": "json",
-			"url": "config/shopconfig.json"
+			"name": "shopconfig_json"
 		},
 		{
-			"name": "goBack_png",
+			"url": "assets/ui/common/goBack.png",
 			"type": "image",
-			"url": "assets/ui/common/goBack.png"
+			"name": "goBack_png"
 		},
 		{
-			"name": "btnyes_png",
+			"url": "assets/ui/common/btnyes.png",
 			"type": "image",
-			"url": "assets/ui/common/btnyes.png"
+			"name": "btnyes_png"
 		},
 		{
-			"name": "btnno_png",
+			"url": "assets/ui/common/btnno.png",
 			"type": "image",
-			"url": "assets/ui/common/btnno.png"
+			"name": "btnno_png"
 		},
 		{
-			"name": "soldout_png",
+			"url": "assets/ui/shop/soldout.png",
 			"type": "image",
-			"url": "assets/ui/shop/soldout.png"
+			"name": "soldout_png"
 		},
 		{
-			"name": "btnCure_png",
+			"url": "assets/ui/hospital/btnCure.png",
 			"type": "image",
-			"url": "assets/ui/hospital/btnCure.png"
+			"name": "btnCure_png"
 		},
 		{
-			"name": "btnReinforce_png",
+			"url": "assets/ui/hospital/btnReinforce.png",
 			"type": "image",
-			"url": "assets/ui/hospital/btnReinforce.png"
+			"name": "btnReinforce_png"
 		},
 		{
-			"name": "btnMutate_png",
+			"url": "assets/ui/hospital/btnMutate.png",
 			"type": "image",
-			"url": "assets/ui/hospital/btnMutate.png"
+			"name": "btnMutate_png"
 		},
 		{
-			"name": "goBack2_png",
+			"url": "assets/ui/common/goBack2.png",
 			"type": "image",
-			"url": "assets/ui/common/goBack2.png"
+			"name": "goBack2_png"
 		},
 		{
-			"name": "Endurance_png",
+			"url": "assets/relics/Endurance.png",
 			"type": "image",
-			"url": "assets/relics/Endurance.png"
+			"name": "Endurance_png"
 		},
 		{
-			"name": "Power_png",
+			"url": "assets/relics/Power.png",
 			"type": "image",
-			"url": "assets/relics/Power.png"
+			"name": "Power_png"
 		},
 		{
-			"name": "Fierce_png",
+			"url": "assets/relics/Fierce.png",
 			"type": "image",
-			"url": "assets/relics/Fierce.png"
+			"name": "Fierce_png"
 		},
 		{
-			"name": "Cloak_png",
+			"url": "assets/relics/Cloak.png",
 			"type": "image",
-			"url": "assets/relics/Cloak.png"
+			"name": "Cloak_png"
 		},
 		{
-			"name": "Unback2Sneak_png",
+			"url": "assets/relics/Unback2Sneak.png",
 			"type": "image",
-			"url": "assets/relics/Unback2Sneak.png"
+			"name": "Unback2Sneak_png"
 		},
 		{
-			"name": "BoxRoomBox_png",
+			"url": "assets/ui/boxroom/BoxRoomBox.png",
 			"type": "image",
-			"url": "assets/ui/boxroom/BoxRoomBox.png"
+			"name": "BoxRoomBox_png"
 		},
 		{
-			"name": "BoxRoomBoxOpened_png",
+			"url": "assets/ui/boxroom/BoxRoomBoxOpened.png",
 			"type": "image",
-			"url": "assets/ui/boxroom/BoxRoomBoxOpened.png"
+			"name": "BoxRoomBoxOpened_png"
 		},
 		{
-			"name": "ShopNpc_png",
+			"url": "assets/monsters/ShopNpc.png",
 			"type": "image",
-			"url": "assets/monsters/ShopNpc.png"
+			"name": "ShopNpc_png"
 		},
 		{
-			"name": "worldmapeventsels_json",
+			"url": "config/worldmapeventsels.json",
 			"type": "json",
-			"url": "config/worldmapeventsels.json"
+			"name": "worldmapeventsels_json"
 		},
 		{
-			"name": "btnok_png",
+			"url": "assets/ui/common/btnok.png",
 			"type": "image",
-			"url": "assets/ui/common/btnok.png"
+			"name": "btnok_png"
 		},
 		{
-			"name": "turntableBg_png",
+			"url": "assets/ui/turntable/turntableBg.png",
 			"type": "image",
-			"url": "assets/ui/turntable/turntableBg.png"
+			"name": "turntableBg_png"
 		},
 		{
-			"name": "turntableAddHp_png",
+			"url": "assets/ui/turntable/turntableAddHp.png",
 			"type": "image",
-			"url": "assets/ui/turntable/turntableAddHp.png"
+			"name": "turntableAddHp_png"
 		},
 		{
-			"name": "turntableMinusHp_png",
+			"url": "assets/ui/turntable/turntableMinusHp.png",
 			"type": "image",
-			"url": "assets/ui/turntable/turntableMinusHp.png"
+			"name": "turntableMinusHp_png"
 		},
 		{
-			"name": "turntableBox_png",
+			"url": "assets/ui/turntable/turntableBox.png",
 			"type": "image",
-			"url": "assets/ui/turntable/turntableBox.png"
+			"name": "turntableBox_png"
 		},
 		{
-			"name": "turntableCoin_png",
+			"url": "assets/ui/turntable/turntableCoin.png",
 			"type": "image",
-			"url": "assets/ui/turntable/turntableCoin.png"
+			"name": "turntableCoin_png"
 		},
 		{
-			"name": "turntableItem_png",
+			"url": "assets/ui/turntable/turntableItem.png",
 			"type": "image",
-			"url": "assets/ui/turntable/turntableItem.png"
+			"name": "turntableItem_png"
 		},
 		{
-			"name": "turntableBoxOpended_png",
+			"url": "assets/ui/turntable/turntableBoxOpended.png",
 			"type": "image",
-			"url": "assets/ui/turntable/turntableBoxOpended.png"
+			"name": "turntableBoxOpended_png"
 		},
 		{
-			"name": "turntableStartBtn_png",
+			"url": "assets/ui/turntable/turntableStartBtn.png",
 			"type": "image",
-			"url": "assets/ui/turntable/turntableStartBtn.png"
+			"name": "turntableStartBtn_png"
 		},
 		{
-			"name": "turntableGoOutBtn_png",
+			"url": "assets/ui/turntable/turntableGoOutBtn.png",
 			"type": "image",
-			"url": "assets/ui/turntable/turntableGoOutBtn.png"
+			"name": "turntableGoOutBtn_png"
+		},
+		{
+			"url": "assets/avatars/avatar1.png",
+			"type": "image",
+			"name": "avatar1_png"
 		}
 	]
 }

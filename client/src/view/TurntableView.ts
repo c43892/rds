@@ -30,12 +30,12 @@ class TurntableView extends egret.DisplayObjectContainer {
         this.rewards.width = this.bg.width;
         this.rewards.height = this.bg.height;
 
+        //奖励物品的Bitmap
         for(var i = 0; i < this.rewardCount; i++){
             var img = new egret.Bitmap;
             this.imgs.push(img);
             this.rewards.addChild(this.imgs[i]);
         }
-
 
         this.startBtn = ViewUtils.createBitmapByName("turntableStartBtn_png");
         this.addChild(this.startBtn);
@@ -57,18 +57,16 @@ class TurntableView extends egret.DisplayObjectContainer {
     }
 
     private doClsoe;
+
+    // 打开转盘界面
     public async open():Promise<void> {
-        this.addChild(this.startBtn);
-        this.removeChild(this.goOutBtn);
-        for(var i = 0; i < this.rewardCount; i++){
-            this.rewards.removeChild(this.imgs[i]);
-        }
-        this.rewards.rotation = 0;
+        this.refresh();
         
         var cfg = this.player.worldmap.cfg.turntable;
         var xOrigin = this.bg.width / 2;
         var yOrigin = this.bg.height / 2;
         
+        // 根据奖励内容获取对应Bitmap并调整其位置
         for(var i = 0; i < this.rewardCount; i++){
             var type = cfg[i].type;
             switch(type){
@@ -100,24 +98,36 @@ class TurntableView extends egret.DisplayObjectContainer {
                 this.imgs[i]["attrs"] = cfg[i].attrs;
             else
                 this.imgs[i]["attrs"] = dropItem;
-            this.imgs[i]["weight"] = cfg.weight;
 
+            this.imgs[i]["weight"] = cfg.weight;
             this.rewards.addChild(this.imgs[i]);
         }
 
         return new Promise<void>((resolve, reject) => this.doClsoe = resolve);
     }
 
+    // 刷新界面,加入开始按钮,去掉前进按钮,重置奖励轮盘
+    private refresh(){        
+        this.addChild(this.startBtn);
+        this.removeChild(this.goOutBtn);
+        for(var i = 0; i < this.rewardCount; i++){
+            this.rewards.removeChild(this.imgs[i]);
+        }
+        this.rewards.rotation = 0;
+    }
+
+    // 转动转盘,获取随机奖励
     private onStart(evt:egret.TouchEvent){
         this.removeChild(this.startBtn);
         var cfg = this.player.worldmap.cfg.turntable;
         var randomIndex = this.getRandomIndexByWeight(cfg);
 
-        var rotateAngels = (randomIndex * 60  + 3600 );//所需旋转角度,额外加十圈,角度单位
+        var rotateAngels = (randomIndex * 60  + 3600 );// 所需旋转角度,额外加十圈,角度单位
 
         var rr = egret.Tween.get(this.rewards, {loop:false});
-        rr.to({rotation:rotateAngels}, 3000, egret.Ease.circInOut).call(() => this.addChild(this.goOutBtn));
+        rr.to({rotation:rotateAngels}, 3000, egret.Ease.circInOut).call(() => this.addChild(this.goOutBtn));// 3秒动画后出现前进按钮
 
+        // 将奖励添加到角色身上
         var award = this.imgs[randomIndex];
         switch(award["type"]){
                 case "+hp":
@@ -154,14 +164,13 @@ class TurntableView extends egret.DisplayObjectContainer {
         this.doClsoe();
     }
 
+    // 根据配置的物品和权重随机奖励内容的索引
     private getRandomIndexByWeight(cfg):number{
         var totalWeight = 0;
         for(var i = 0; i < cfg.length; i++){
             totalWeight += cfg[i].weight;
         }
-
-        var r = this.player.playerRandom.nextInt(0,totalWeight);
-        
+        var r = this.player.playerRandom.nextInt(0,totalWeight);    
         var tempWeight = 0;
         for(var j = 0; j < cfg.length; j++){
             tempWeight += cfg[j].weight;
@@ -171,4 +180,5 @@ class TurntableView extends egret.DisplayObjectContainer {
         }
     return j;
     }
+
 }
