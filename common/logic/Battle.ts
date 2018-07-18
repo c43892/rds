@@ -459,7 +459,7 @@ class Battle {
         this.removeElemAt(x, y);
         this.addElemAt(newE, x, y);
         await this.fireEvent("onGridChanged", {x:x, y:y, e:e, subType:"elemReplaced"});
-        await this.fireEvent("triggerLogicPoint", {x:x, y:y, e:e, subType:"elemReplaced"});
+        await this.fireEvent("onGridChanged", {x:x, y:y, e:e, subType:"elemReplaced"});
     }
 
     // 向地图添加 Elem

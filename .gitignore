@@ -1,6 +1,7 @@
 client/bin-debug
 client/bin-release
 client/src/logic
+client_wxgame
 
 server/logic
 server/debug
