@@ -89,7 +89,7 @@ class TurntableView extends egret.DisplayObjectContainer {
                 break;
                 case "item":
                 var rdp = GCfg.getRandomDropGroupCfg(cfg[i].attrs);
-                var dropItem = Utils.randomSelectByWeightWithPlayerFilter(this.player, rdp.elems, this.player.playerRandom, 1, 2, false)[0];
+                var dropItem = Utils.randomSelectByWeightWithPlayerFilter(this.player, rdp.elems, new SRandom, 1, 2, false)[0];
                 this.imgs[i] = ViewUtils.setTex(this.imgs[i], dropItem + "_png");
                 break;
             }
@@ -176,7 +176,8 @@ class TurntableView extends egret.DisplayObjectContainer {
         for(var i = 0; i < cfg.length; i++){
             totalWeight += cfg[i].weight;
         }
-        var r = this.player.playerRandom.nextInt(0,totalWeight);
+        var rand = new SRandom;
+        var r = rand.nextInt(0, totalWeight);
         var tempWeight = 0;
         for(var j = 0; j < cfg.length; j++){
             tempWeight += cfg[j].weight;
