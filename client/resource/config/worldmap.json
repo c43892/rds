@@ -26,7 +26,7 @@
             "shop":10,
             "normal":10,
             "box":10,
-            "turntable":10000,
+            "turntable":10,
             "g1": 10,
             "g2": 10,
             "g3": 10,
@@ -36,10 +36,10 @@
         "turntable": [
             {"type":"+hp", "attrs":15, "weight":10},
             {"type":"-hp", "attrs":-15, "weight":10},
-            {"type":"box", "attrs":"rdp1", "weight":10},
+            {"type":"box", "attrs":"ttrdp1", "weight":10},
             {"type":"coins", "attrs":10, "weight":10},
-            {"type":"item", "attrs":"rdp1", "weight":10},
-            {"type":"item", "attrs":"rdp1", "weight":10}
+            {"type":"item", "attrs":"ttrdp2", "weight":10},
+            {"type":"item", "attrs":"ttrdp2", "weight":10}
         ]
     }
 }

@@ -14,5 +14,16 @@
         "IceGun":30
     }},
 
-    "":{}
+    "ttrdp1":{"num":[1, 2],"elems":{
+        "MedicineBox":10,
+        "Hawkeye":10,
+        "TimeMachine":10
+    }},
+
+    "ttrdp2":{"num":[1, 2],"elems":{
+        "HpPotion":10,
+        "Gun":10,
+        "RayGun":20,
+        "IceGun":30
+    }}
 }

@@ -8,6 +8,8 @@ class TurntableView extends egret.DisplayObjectContainer {
     private imgs:egret.Bitmap[] = []; //候选奖励
     private rewardCount = 6;
     private sign:egret.Bitmap;
+    private tipBg:egret.Bitmap;
+    private tipContent:egret.TextField;
 
     public constructor(w:number, h:number){
         super();
@@ -51,10 +53,30 @@ class TurntableView extends egret.DisplayObjectContainer {
         this.startBtn.touchEnabled = true;
         this.startBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onStart, this);
 
+        this.tipBg = ViewUtils.createBitmapByName("turntableTipBg_png");
+        this.tipBg.x = this.bg.x + this.bg.width / 2;
+        this.tipBg.y = this.bg.y + this.bg.height / 2;
+        this.tipBg.anchorOffsetX = this.tipBg.width / 2;
+        this.tipBg.anchorOffsetY = this.tipBg.height / 2;
+        this.addChild(this.tipBg);
+
+        this.tipContent = new egret.TextField;
+        this.tipContent.x = this.bg.x + this.bg.width / 2;
+        this.tipContent.y = this.bg.y + this.bg.height / 2;
+        this.tipContent.width = this.tipBg.width - 100;
+        this.tipContent.height = this.tipBg.height;
+        this.tipContent.anchorOffsetX = this.tipContent.width / 2;
+        this.tipContent.anchorOffsetY = this.tipContent.height / 2;
+        this.tipContent.textColor = 0X000000;
+        this.tipContent.size = 30;
+        this.tipContent.textAlign = egret.HorizontalAlign.CENTER;
+        this.tipContent.verticalAlign = egret.VerticalAlign.MIDDLE;
+        this.addChild(this.tipContent);
+
         this.goOutBtn = ViewUtils.createBitmapByName("turntableGoOutBtn_png");
         this.addChild(this.goOutBtn);
-        this.goOutBtn.x = this.width - this.goOutBtn.width;
-        this.goOutBtn.y = this.height - this.goOutBtn.height;
+        this.goOutBtn.x = this.tipBg.x + this.tipBg.width / 2 - this.goOutBtn.width;
+        this.goOutBtn.y = this.tipBg.y + this.tipBg.height / 2 - this.goOutBtn.height;
         this.goOutBtn.anchorOffsetX = this.goOutBtn.width / 2;
         this.goOutBtn.anchorOffsetY = this.goOutBtn.height / 2;
         this.goOutBtn.touchEnabled = true;
@@ -116,6 +138,8 @@ class TurntableView extends egret.DisplayObjectContainer {
     private refresh(){        
         this.addChild(this.startBtn);
         this.removeChild(this.goOutBtn);
+        this.removeChild(this.tipBg);
+        this.removeChild(this.tipContent);        
         for(var i = 0; i < this.rewardCount; i++){
             this.rewards.removeChild(this.imgs[i]);
         }
@@ -130,40 +154,44 @@ class TurntableView extends egret.DisplayObjectContainer {
 
         var rotateAngels = (randomIndex * 60  + 3600 );// 所需旋转角度,额外加十圈,角度单位
 
-        var rr = egret.Tween.get(this.rewards, {loop:false});
-        rr.to({rotation:rotateAngels}, 3000, egret.Ease.circInOut).call(() => this.addChild(this.goOutBtn));// 3秒动画后出现前进按钮
-
-        // 将奖励添加到角色身上
+                // 将奖励添加到角色身上
         var award = this.imgs[randomIndex];
         switch(award["type"]){
                 case "+hp":
-                Utils.log("before hp", this.player.hp);
+                var hpBefore = this.player.hp;
                 this.player.addHp(Math.round(this.player.hp * award["attrs"] / 100));
-                Utils.log("after hp", this.player.hp);
+                this.tipContent.text = "恭喜你恢复了" +  (this.player.hp - hpBefore) + "点生命值.";
                 break;
                 case "-hp":
-                Utils.log("before hp", this.player.hp);
+                var hpBefore = this.player.hp;
                 this.player.addHp(Math.round(this.player.hp * award["attrs"] / 100));
-                Utils.log("after hp", this.player.hp);
+                this.tipContent.text = "很不幸你失去了" +  (hpBefore - this.player.hp) + "点生命值.";
                 break;
                 case "box":
                 var rdp = GCfg.getRandomDropGroupCfg(award["attrs"]);
                 var dropItem = Utils.randomSelectByWeightWithPlayerFilter(this.player, rdp.elems, this.player.playerRandom, 1, 2, false)[0];
-                var e = ElemFactory.create(dropItem);                
+                var e = ElemFactory.create(dropItem);
                 this.player.addItem(e);
-                Utils.log("get item from box", dropItem);
+                this.tipContent.text = "恭喜你,在宝箱中得到了" + dropItem + ".";
                 break;
                 case "coins":
-                Utils.log("before money", this.player.money);
-                this.player.addMoney(award["attrs"]);
-                Utils.log("after money", this.player.money);
+                this.player.addMoney(award["attrs"]);                
+                this.tipContent.text = "恭喜你获得了" + award["attrs"] + "金币.";
                 break;
                 case "item":
                 var e = ElemFactory.create(award["attrs"]);
                 this.player.addItem(e);
-                Utils.log("get item from turntable", award["attrs"]);
+                this.tipContent.text = "恭喜你获得了" + award["attrs"];
                 break;
             }
+
+        var rr = egret.Tween.get(this.rewards, {loop:false});
+        rr.to({rotation:rotateAngels}, 3000, egret.Ease.circInOut).call(() => {            
+            this.addChild(this.tipBg);
+            this.addChild(this.tipContent);
+            this.addChild(this.goOutBtn);
+            });// 3秒动画后出现前进按钮
+
     }
 
     private onGoOut(evt:egret.TouchEvent){
