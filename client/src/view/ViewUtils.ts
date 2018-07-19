@@ -4,26 +4,44 @@ class ViewUtils {
      * Create a Bitmap object according to name keyword.As for the property of name please refer to the configuration file of resources/resource.json.
      */
     public static createBitmapByName(name: string = undefined):egret.Bitmap {
-        return ViewUtils.setTex(new egret.Bitmap(), name, true);
+        return ViewUtils.setTexName(new egret.Bitmap(), name, true);
     }
 
-    public static setTex(bmp:egret.Bitmap, name:string, resetSize:boolean = false):egret.Bitmap {
-        if (name) {
-            let texture: egret.Texture = RES.getRes(name);
-            bmp.texture = texture;
-            if (texture && resetSize) {
-                bmp.width = texture.textureWidth;
-                bmp.height = texture.textureHeight;
-            } else if (!texture)
-                Utils.log("no texture created: " + name);
+    public static createFromBitmapData(bmpData:egret.BitmapData) {
+        var bmp = new egret.Bitmap();
+        return ViewUtils.setBitmapData(bmp, bmpData);
+    }
+
+    public static setBitmapData(bmp:egret.Bitmap, bmpData:egret.BitmapData) {
+        if (!bmp.texture) bmp.texture = new egret.Texture();
+        bmp.texture.bitmapData = bmpData;
+        return;
+    }
+
+    public static setTex(bmp:egret.Bitmap, tex:egret.Texture, resetSize:boolean = false):egret.Bitmap {
+        bmp.texture = tex;
+        if (tex && resetSize) {
+            bmp.width = tex.textureWidth;
+            bmp.height = tex.textureHeight;
         }
-        
+
         if (resetSize) {
             bmp.anchorOffsetX = 0;
             bmp.anchorOffsetY = 0;
             bmp.x = 0;
             bmp.y = 0;
         }
+
+        return bmp;
+    }
+
+    public static setTexName(bmp:egret.Bitmap, name:string, resetSize:boolean = false):egret.Bitmap {
+        if (name) {
+            let tex: egret.Texture = RES.getRes(name);
+            if (!tex) Utils.log("no texture created: " + name);
+            ViewUtils.setTex(bmp, tex, resetSize);
+        }
+
         return bmp;
     }
 

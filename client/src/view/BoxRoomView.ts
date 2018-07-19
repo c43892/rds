@@ -31,7 +31,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
     public async open(dropCfg) {
         var arr = Utils.randomSelectByWeightWithPlayerFilter(this.player, dropCfg, this.player.playerRandom, 1, 2, true, "Coins");
         this.dropItem = arr[0];
-        ViewUtils.setTex(this.box, "BoxRoomBox_png");
+        ViewUtils.setTexName(this.box, "BoxRoomBox_png");
 
         if (this.e) this.removeChild(this.e);
 
@@ -53,7 +53,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
         this.e.y = (this.height - this.e.height) / 2;
         this.addChild(this.e);
 
-        ViewUtils.setTex(this.box, "BoxRoomBoxOpened_png");
+        ViewUtils.setTexName(this.box, "BoxRoomBoxOpened_png");
         this.dropItem = undefined;
     }
 }

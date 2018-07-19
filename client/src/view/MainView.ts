@@ -10,6 +10,7 @@ class MainView extends egret.DisplayObjectContainer {
     public pluv:PlayerLevelUpView; // 角色升级界面
     public mm:egret.DisplayObjectContainer; // 主界面菜单
     public tcv:TipConfirmView; // 提示确认视图
+    public rankv:RankingView; // 排行榜视图
     
     public constructor(w:number, h:number) {
         super();
@@ -61,6 +62,9 @@ class MainView extends egret.DisplayObjectContainer {
         this.hv.x = this.hv.y = 0;
         this.hv.confirmOkYesNo = (title, yesno) => this.confirmOkYesNo(title, yesno);
         this.hv.selRelic = (title, f) => this.openSelRelic(title, f);
+
+        // 排行榜视图
+        this.rankv = new RankingView(w, h);
 
         // 主界面菜单
         this.mm = new egret.DisplayObjectContainer();
@@ -152,6 +156,7 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 开启商店界面
     public async openShop(shop, onBuy, refreshItems:boolean = true) {
+        await this.openRanking();
         this.sv.player = this.p;
         this.addChild(this.sv);
         await this.sv.open(shop, this.p.playerRandom, onBuy, refreshItems);
@@ -245,6 +250,16 @@ class MainView extends egret.DisplayObjectContainer {
     public async confirmOkYesNo(title, yesno) {
         this.setChildIndex(this.tcv, -1);
         return await this.tcv.confirmOkYesNo(title, yesno);
+    }
+
+    // ranking
+    public async openRanking() {
+        window.platform.openDataContext.setUserCloudStorage([{"lv":9}]);
+        this.addChild(this.rankv);
+        var platform = window.platform;
+        var bmp = platform.openDataContext.createDisplayObject(null,this.stage.stageWidth, this.stage.stageHeight);
+        await this.rankv.open(bmp);
+        this.removeChild(this.rankv);
     }
 
     onContinuePlay(evt:egret.TouchEvent) {
