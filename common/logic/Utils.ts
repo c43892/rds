@@ -313,6 +313,8 @@ class Utils {
         if (p) {
             Utils.$$saveItem("Player", p.toString());
             Utils.$$saveItem("Version", Version.currentVersion.toString());
+            window.platform.setUserCloudStorage([{key:"lv", value:p.currentStoreyPos.lv.toString()}]);
+            Utils.log(p.currentStoreyPos.lv);
         } else {
             Utils.$$removeItem("Player");
             Utils.$$removeItem("Version");

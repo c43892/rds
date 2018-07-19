@@ -8,7 +8,12 @@ declare interface Platform {
 
     getUserInfo(): Promise<any>;
 
-    login(): Promise<any>
+    login(): Promise<any>;
+
+    setUserCloudStorage(data): Promise<boolean>;
+    removeUserCloudStorage(data): Promise<boolean>;
+
+    openDataContext;
 }
 
 class DebugPlatform implements Platform {
@@ -18,6 +23,10 @@ class DebugPlatform implements Platform {
     async login() {
 
     }
+    async setUserCloudStorage(data): Promise<boolean> { return false; }
+    async removeUserCloudStorage(data): Promise<boolean> { return false; }
+
+    openDataContext;
 }
 
 
