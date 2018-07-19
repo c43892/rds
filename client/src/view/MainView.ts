@@ -162,7 +162,6 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 开启商店界面
     public async openShop(shop, onBuy, refreshItems:boolean = true) {
-        await this.openRanking();
         this.sv.player = this.p;
         this.addChild(this.sv);
         await this.sv.open(shop, this.p.playerRandom, onBuy, refreshItems);
@@ -269,12 +268,12 @@ class MainView extends egret.DisplayObjectContainer {
 
     // ranking
     public async openRanking() {
-        window.platform.openDataContext.setUserCloudStorage([{"lv":9}]);
-        this.addChild(this.rankv);
-        var platform = window.platform;
-        var bmp = platform.openDataContext.createDisplayObject(null,this.stage.stageWidth, this.stage.stageHeight);
-        await this.rankv.open(bmp);
-        this.removeChild(this.rankv);
+        // window.platform.openDataContext.setUserCloudStorage([{"lv":9}]);
+        // this.addChild(this.rankv);
+        // var platform = window.platform;
+        // var bmp = platform.openDataContext.createDisplayObject(null,this.stage.stageWidth, this.stage.stageHeight);
+        // await this.rankv.open(bmp);
+        // this.removeChild(this.rankv);
     }
 
     onContinuePlay(evt:egret.TouchEvent) {

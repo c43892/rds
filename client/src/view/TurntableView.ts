@@ -98,21 +98,21 @@ class TurntableView extends egret.DisplayObjectContainer {
             var type = cfg[i].type;
             switch(type){
                 case "+hp":
-                this.imgs[i] = ViewUtils.setTex(this.imgs[i], "turntableAddHp_png");
+                this.imgs[i] = ViewUtils.setTexName(this.imgs[i], "turntableAddHp_png");
                 break;
                 case "-hp":
-                this.imgs[i] = ViewUtils.setTex(this.imgs[i], "turntableMinusHp_png");
+                this.imgs[i] = ViewUtils.setTexName(this.imgs[i], "turntableMinusHp_png");
                 break;
                 case "box":
-                this.imgs[i] = ViewUtils.setTex(this.imgs[i], "turntableBox_png");
+                this.imgs[i] = ViewUtils.setTexName(this.imgs[i], "turntableBox_png");
                 break;
                 case "coins":
-                this.imgs[i] = ViewUtils.setTex(this.imgs[i], "turntableCoin_png");
+                this.imgs[i] = ViewUtils.setTexName(this.imgs[i], "turntableCoin_png");
                 break;
                 case "item":
                 var rdp = GCfg.getRandomDropGroupCfg(cfg[i].attrs);
                 var dropItem = Utils.randomSelectByWeightWithPlayerFilter(this.player, rdp.elems, new SRandom, 1, 2, false)[0];
-                this.imgs[i] = ViewUtils.setTex(this.imgs[i], dropItem + "_png");
+                this.imgs[i] = ViewUtils.setTexName(this.imgs[i], dropItem + "_png");
                 break;
             }
             this.imgs[i].x = xOrigin + 200 * Math.cos(i * 2 * Math.PI / this.rewardCount);

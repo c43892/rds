@@ -9,7 +9,6 @@ declare interface Platform {
     getUserInfo(): Promise<any>;
 
     login(): Promise<any>
-
 }
 
 class DebugPlatform implements Platform {
