@@ -261,13 +261,14 @@ class Map {
         return this.findFirstElem((e) => e && !this.grids[e.pos.x][e.pos.y].isCovered() && f(e));
     }
 
-    // 寻找所有满足条件的 Elem, f 是一个函数表示过滤条件，形如 function(x:number, y:number, e:elem):boolean
+    // 寻找所有满足条件的 Elem, f 是一个函数表示过滤条件，形如 function(e:elem):boolean
     public findAllElems(f):Elem[] {
         var es = [];
         this.travelAll((x, y) =>
         {
-            if (!f || f(x, y, this.elems[x][y]))
-                es.push(this.elems[x][y]);
+            var e = this.elems[x][y];
+        if (e && (!f || f(e)))
+                es.push(e);
         });
 
         return es;

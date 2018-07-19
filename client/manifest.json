@@ -70,6 +70,7 @@
 		"bin-debug/view/SelView.js",
 		"bin-debug/view/ShopView.js",
 		"bin-debug/view/TipConfirmView.js",
+		"bin-debug/view/TurntableView.js",
 		"bin-debug/view/ViewUtils.js",
 		"bin-debug/view/WorldMapSelsEventView.js",
 		"bin-debug/view/WorldMapView.js"

@@ -19,34 +19,41 @@ class WorldMapNode{
         return nodes[y][x];
     }
 
-    public hasRoute():boolean{//是否有路线通往下层
+    //是否有路线通往下层
+    public hasRoute():boolean{
         if(this.routes.length == 0)
             return false;        
         else 
             return true;
     }
 
-    public getParents(){//获取该点的父节点
+    //获取该点的父节点
+    public getParents(){
         return this.parents;
     }
 
-    public addParente(parentNode:WorldMapNode){//添加父节点
+    //添加父节点
+    public addParente(parentNode:WorldMapNode){
         this.parents.push(parentNode);
     }
 
-    public addRoute(route:WorldMapRoute){//添加路线
+    //添加路线
+    public addRoute(route:WorldMapRoute){
         this.routes.push(route);
     }
 
-    public rightRoute():WorldMapRoute{//由该点出发最右边的路线
+    //找该点出发的路线中最右边的路线
+    public rightRoute():WorldMapRoute{
         return this.routes.sort(WorldMapNode.sortRoutesByX)[this.routes.length - 1];
     }
 
-    public leftRoute():WorldMapRoute{//由该点出发最左边的路线
+    //找该点出发的路线中最左边的路线
+    public leftRoute():WorldMapRoute{
         return this.routes.sort(WorldMapNode.sortRoutesByX)[0];
     }
 
-    public static sortRoutesByX = function (r1:WorldMapRoute, r2:WorldMapRoute){//找该点最左边路线的规则
+    //找该点出发的路线中最左边的路线的规则
+    public static sortRoutesByX = function (r1:WorldMapRoute, r2:WorldMapRoute){
         var dstX1 = r1.dstNode.x;
         var dstX2 = r2.dstNode.x;
         if(dstX1 < dstX2){
@@ -60,7 +67,8 @@ class WorldMapNode{
         }
     }
 
-    public static getLeftNode = function (n1, n2){//找该点最左边节点的规则
+    //找较为靠左的节点的规则
+    public static getLeftNode = function (n1, n2){
         var x1 = n1.x;
         var x2 = n2.x;
         if(x1 < x2){
@@ -72,7 +80,8 @@ class WorldMapNode{
         else return 0;
     }
 
-    public static getRightNode = function (n1, n2){//找该点最左边节点的规则
+    //找较为靠右的节点的规则
+    public static getRightNode = function (n1, n2){
         var x1 = n1.x;
         var x2 = n2.x;
         if(x1 < x2){
@@ -84,7 +93,8 @@ class WorldMapNode{
         else return 0;
     }
 
-    public static getCommonAncestor(node1:WorldMapNode ,node2:WorldMapNode ,depth){//找寻同层两点的共同祖先点
+    //找寻同层两点的共同祖先点
+    public static getCommonAncestor(node1:WorldMapNode ,node2:WorldMapNode ,depth){
         var rightNode:WorldMapNode;
         var leftNode:WorldMapNode;
     
@@ -111,6 +121,7 @@ class WorldMapNode{
      return null;
     }
 
+    //获取一个节点的兄弟节点
     public static getSiblingNodes(node:WorldMapNode):WorldMapNode[]{
         var siblingNodes = [];
         for(var i = 0; i < node.parents.length; i++){
@@ -123,18 +134,22 @@ class WorldMapNode{
         return siblingNodes;
     }
 
+    //获取一个节点集内最右边的节点
     private static getMaxXNode(nodes:WorldMapNode[]):WorldMapNode{
         return nodes.sort(WorldMapNode.getLeftNode)[0];
     }
 
+    //获取一个节点集内最左边的节点
     private static getMinXNode(nodes:WorldMapNode[]):WorldMapNode{
         return nodes.sort(WorldMapNode.getRightNode)[0];
     }
 
+    //获得该点在随机抖动后的x坐标
     public static getNodeXposOnView(node:WorldMapNode, mapAreaLeftSize:number, xGap:number, swing:number):number{
         return node.x * xGap + mapAreaLeftSize + node.xOffsetOnView * xGap * swing;
     }
 
+    //获得该点在随机抖动后的y坐标
     public static getNodeYposOnView(node:WorldMapNode, mapAreaHeight:number, yGap:number, swing:number):number{
         return mapAreaHeight - node.y * yGap - node.yOffsetOnView * yGap * swing;
     }
