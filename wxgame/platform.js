@@ -65,6 +65,8 @@ class WxgamePlatform {
             })
         })
     }
+	
+	platformType = "wx";
 
     openDataContext = new WxgameOpenDataContext();
 }
@@ -96,7 +98,6 @@ class WxgameOpenDataContext {
         }
         return bitmap;
     }
-
 
     postMessage(data) {
         const openDataContext = wx.getOpenDataContext();

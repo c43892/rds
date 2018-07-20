@@ -13,6 +13,8 @@ declare interface Platform {
     setUserCloudStorage(data): Promise<boolean>;
     removeUserCloudStorage(data): Promise<boolean>;
 
+    platformType;
+
     openDataContext;
 }
 
@@ -25,6 +27,8 @@ class DebugPlatform implements Platform {
     }
     async setUserCloudStorage(data): Promise<boolean> { return false; }
     async removeUserCloudStorage(data): Promise<boolean> { return false; }
+
+    platformType = "debug";
 
     openDataContext = {
         createDisplayObject: () => {},

@@ -74,8 +74,10 @@ class RankingView extends egret.DisplayObjectContainer {
             this.openWeeklyRank();
         else if (rankType == "roleRank")
             this.openRoleRank();
-        else if (rankType == "friendRank")
-            this.openWxFriendRank();
+        else if (rankType == "friendRank") {
+            if (window.platform.platformType == "wx")
+                this.openWxFriendRank();
+        }
         else
             Utils.assert(false, "not supported rank type:" + rankType);
     }
