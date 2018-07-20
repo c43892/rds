@@ -13,7 +13,6 @@ class WSClient {
     
     constructor() {
         this.ws = new egret.WebSocket();
-        this.ws
         this.ws.addEventListener(egret.Event.CONNECT, () => {
             if (this.handleConnected)
                 this.handleConnected();

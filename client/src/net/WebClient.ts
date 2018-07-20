@@ -11,32 +11,28 @@ class WebClient {
         var r = new egret.HttpRequest();
         r.responseType = egret.HttpResponseType.TEXT;
         r.open(this.srv, egret.HttpMethod.POST);
-        r.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        r.setRequestHeader("Access-Control-Allow-Origin", "*"); 
-        r.setRequestHeader("Access-Control-Allow-Headers", "Content-Type");
+        r.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
         r.send("msg=" + JSON.stringify(msg));
     }
 
     // 发送数据，并等待回执
-    public request(msg, onResponse):Promise<any> {
+    public request(msg):Promise<any> {
         var r = new egret.HttpRequest();
         r.responseType = egret.HttpResponseType.TEXT;
-        r.open(this.srv, egret.HttpMethod.POST);
-        r.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        r.setRequestHeader("Access-Control-Allow-Origin", "*");
-        r.setRequestHeader("Access-Control-Allow-Headers", "Content-Type");
 
         var doResolve;
 
         r.addEventListener(egret.Event.COMPLETE, (event:egret.Event) => {
             var request = <egret.HttpRequest>event.currentTarget;
-            doResolve(JSON.parse(request.response));
+            doResolve(request.response ? JSON.parse(request.response) : undefined);
         }, this);
 
         r.addEventListener(egret.IOErrorEvent.IO_ERROR, (event:egret.Event) => {
             doResolve(event);
         },this);
 
+        r.open(this.srv, egret.HttpMethod.POST);
+        r.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
         r.send("msg=" + JSON.stringify(msg));
         return new Promise<any>((resolve, reject) => {
             doResolve = resolve;

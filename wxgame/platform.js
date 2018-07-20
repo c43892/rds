@@ -6,33 +6,63 @@ class WxgamePlatform {
 
     name = 'wxgame'
 
-    login() {
-        return new Promise((resolve, reject) => {
+    wxLogin() {
+		return new Promise((resolve, reject) => {
             wx.login({
                 success: (res) => {
-                    resolve(res)
-                }
-            })
-        })
+					if (res.errMsg === "login:ok")
+						resolve({ok:true});
+                },
+				fail: (res) => {
+					resolve({ok:false});
+				}
+            });
+        });
+	}
+	
+	wxGetUserInfo() {
+		return new Promise((resolve, reject) => {
+			wx.getUserInfo({
+				success: function (res) {
+					resolve({ok:true, usr:res.userInfo});
+				},
+				fail: (res) => {
+					resolve({ok:false});
+				}
+			});
+		});
+	}
+	
+    login() {
+		return new Promise((resolve, reject) => {
+			this.wxLogin().then((r) => {
+				if (!r.ok)
+					resolve(r);
+					
+				this.wxGetUserInfo().then((r) => {
+					resolve(r);
+				})
+			});
+		});
     }
 
-    getUserInfo() {
-        return new Promise((resolve, reject) => {
-            wx.getUserInfo({
-                withCredentials: true,
-                success: function (res) {
-                    var userInfo = res.userInfo
-                    var nickName = userInfo.nickName
-                    var avatarUrl = userInfo.avatarUrl
-                    var gender = userInfo.gender //性别 0：未知、1：男、2：女
-                    var province = userInfo.province
-                    var city = userInfo.city
-                    var country = userInfo.country
-                    resolve(userInfo);
-                }
-            })
-        })
-    }
+    // async getUserInfo() {
+        // return new Promise((resolve, reject) => {
+            // wx.getUserInfo({
+                // withCredentials: true,
+                // success: function (res) {
+                    // var userInfo = res.userInfo
+                    // var nickName = userInfo.nickName
+                    // var avatarUrl = userInfo.avatarUrl
+                    // var gender = userInfo.gender //性别 0：未知、1：男、2：女
+                    // var province = userInfo.province
+                    // var city = userInfo.city
+                    // var country = userInfo.country
+                    // resolve(userInfo);
+                // }
+            // })
+        // })
+    // }
 	
 	setUserCloudStorage(data) {
         return new Promise((resolve, reject) => {

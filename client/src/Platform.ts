@@ -7,7 +7,6 @@
 declare interface Platform {
 
     login(): Promise<any>;
-    getUserInfo(): Promise<any>;
 
     setUserCloudStorage(data): Promise<boolean>;
     removeUserCloudStorage(data): Promise<boolean>;
@@ -17,20 +16,19 @@ declare interface Platform {
 }
 
 class DebugPlatform implements Platform {
-    wc:WebClient;
-    
-    constructor() {
-        this.wc = new WebClient("http://127.0.0.1:81");
-    }
+    public wc:WebClient;
     
     async login() {
-        await this.wc.request({}, (r) => {
-            Utils.log(JSON.parse(r));
-        });
-    }
-
-    async getUserInfo() {
-        return { nickName: "username" }
+        var uid = Utils.$$loadItem("userid");
+        var rType = uid ? "loginUser" : "createUser";
+        var r = await this.wc.request({loginType:rType});
+        if (r.Ok) {
+            uid = r.Usr.Uid;
+            Utils.$$saveItem("userid", uid);
+            return {ok:true, usr:r.Usr};
+        }
+        else
+            return {ok:false};
     }
 
     async setUserCloudStorage(data): Promise<boolean> { return false; }

@@ -232,8 +232,23 @@ class MainView extends egret.DisplayObjectContainer {
         this.addChild(this.wmv);
     }
 
+    // 登录
+    public async doLogin() {
+        var retry = true;
+        while (retry) {
+            var r = await platform.login();
+
+            if (!r.ok)
+                retry = await this.confirmOkYesNo("连接服务器失败", true, {yes:"重试", no:"取消"});
+            else
+                return true;
+        }
+
+        return false;
+    }
+
     // 开启初始界面
-    public openStartup(p:Player = undefined) {
+    public async openStartup(p:Player) {
         var btnNew = this.mm.getChildByName("newPlay");
         var btnContinue = this.mm.getChildByName("continuePlay");
         btnNew.touchEnabled = true;
@@ -268,13 +283,17 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // yesno
-    public async confirmOkYesNo(title, yesno) {
+    public async confirmOkYesNo(title, yesno:boolean, btnText = {}) {
+        btnText = Utils.merge({"yes":"yes", "no":"no", "ok":"ok"}, btnText);
         this.setChildIndex(this.tcv, -1);
-        return await this.tcv.confirmOkYesNo(title, yesno);
+        return await this.tcv.confirmOkYesNo(title, yesno, btnText);
     }
 
     // ranking
     public async openRankView() {
+        if (!await this.doLogin())
+            return;
+
         this.addChild(this.rankv);
         await this.rankv.open();
         this.removeChild(this.rankv);
