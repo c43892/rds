@@ -269,11 +269,8 @@ class MainView extends egret.DisplayObjectContainer {
 
     // ranking
     public async openRanking() {
-        window.platform.openDataContext.postMessage({"type":"refresh"});
         this.addChild(this.rankv);
-        var platform = window.platform;
-        var bmp = platform.openDataContext.createDisplayObject(null,this.stage.stageWidth, this.stage.stageHeight);
-        await this.rankv.open(bmp);
+        await this.rankv.open();
         this.removeChild(this.rankv);
     }
 

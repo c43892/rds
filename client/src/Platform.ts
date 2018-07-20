@@ -26,7 +26,10 @@ class DebugPlatform implements Platform {
     async setUserCloudStorage(data): Promise<boolean> { return false; }
     async removeUserCloudStorage(data): Promise<boolean> { return false; }
 
-    openDataContext;
+    openDataContext = {
+        createDisplayObject: () => {},
+        setUserCloudStorage: () => {}
+    }
 }
 
 
