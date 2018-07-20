@@ -95,7 +95,7 @@ class Main extends egret.DisplayObjectContainer {
         // 登录
         const result = await RES.getResAsync("description_json")
         await platform.login();
-        const userInfo = await platform.getUserInfo();
+        // const userInfo = await platform.getUserInfo();
 
         // 载入用户数据
         var savedData = Utils.loadPlayer();

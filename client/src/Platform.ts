@@ -6,47 +6,41 @@
  */
 declare interface Platform {
 
-    getUserInfo(): Promise<any>;
-
     login(): Promise<any>;
+    getUserInfo(): Promise<any>;
 
     setUserCloudStorage(data): Promise<boolean>;
     removeUserCloudStorage(data): Promise<boolean>;
 
     platformType;
-
     openDataContext;
 }
 
 class DebugPlatform implements Platform {
-    async getUserInfo() {
-        return { nickName: "username" }
-    }
     async login() {
 
     }
+
+    async getUserInfo() {
+        return { nickName: "username" }
+    }
+
     async setUserCloudStorage(data): Promise<boolean> { return false; }
     async removeUserCloudStorage(data): Promise<boolean> { return false; }
 
     platformType = "debug";
-
     openDataContext = {
         createDisplayObject: () => {},
         setUserCloudStorage: () => {}
     }
 }
 
-
 if (!window.platform) {
     window.platform = new DebugPlatform();
 }
 
-
-
 declare let platform: Platform;
-
 declare interface Window {
-
     platform: Platform
 }
 
