@@ -7,6 +7,8 @@ class RankingView extends egret.DisplayObjectContainer {
     tabMenu:egret.TextField[]; // 顶端不同榜单切换
     rankViewContainer; // 榜单区域
     wxRankImg; // 微信好友榜单
+    menu = [];
+    menuDisplayName = {"weeklyRank":"周榜", "roleRank":"角色榜", "friendRank":"好友榜"};
     public constructor(w:number, h:number) {
         super();
 
@@ -37,15 +39,14 @@ class RankingView extends egret.DisplayObjectContainer {
 
         var y = this.title.y + this.title.height + 50;
         // 切换按钮
-        var menu = ["weeklyRank", "roleRank", "friendRank"];
-        var menuDisplayName = {"weeklyRank":"周榜", "roleRank":"角色榜", "friendRank":"好友榜"};
+        this.menu = window.platform.platformType == "wx" ? ["friendRank"] : ["weeklyRank", "roleRank"];
         var x = 0;
-        for (var m of menu) {
+        for (var m of this.menu) {
             var menuBtn = ViewUtils.createTextField(30, 0x0000ff);
-            menuBtn.text = menuDisplayName[m];
+            menuBtn.text = this.menuDisplayName[m];
             menuBtn.x = x;
             menuBtn.y = y;
-            menuBtn.width = this.width / menu.length;
+            menuBtn.width = this.width / this.menu.length;
             x += menuBtn.width;
             menuBtn["rankType"] = m;
             this.addChild(menuBtn);
@@ -83,7 +84,8 @@ class RankingView extends egret.DisplayObjectContainer {
     }
 
     doClose;
-    public open(rankType:string = "weeklyRank"):Promise<void> {
+    public open(rankType:string = undefined):Promise<void> {
+        rankType = rankType ? rankType : this.menu[0];
         this.openRank(rankType);
         return new Promise<void>((resolve, reject) => this.doClose = resolve);
     }
