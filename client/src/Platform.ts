@@ -17,8 +17,16 @@ declare interface Platform {
 }
 
 class DebugPlatform implements Platform {
+    wc:WebClient;
+    
+    constructor() {
+        this.wc = new WebClient("http://127.0.0.1:81");
+    }
+    
     async login() {
-
+        await this.wc.request({}, (r) => {
+            Utils.log(JSON.parse(r));
+        });
     }
 
     async getUserInfo() {
