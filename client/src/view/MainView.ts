@@ -79,7 +79,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.mm.height = this.height;
         var btnContinue = ViewUtils.createBitmapByName("continuePlay_png");
         btnContinue.x = (this.mm.width - btnContinue.width) / 2;
-        btnContinue.y = this.mm.height / 2 - btnContinue.height - 50;
+        btnContinue.y = this.mm.height / 2 - btnContinue.height * 1.5 - 50;
         btnContinue.touchEnabled = true;
         btnContinue.name = "continuePlay";
         this.mm.addChild(btnContinue);
@@ -89,9 +89,16 @@ class MainView extends egret.DisplayObjectContainer {
         btnNew.touchEnabled = true;
         btnNew.name = "newPlay";
         this.mm.addChild(btnNew);
+        var btnOpenRank = ViewUtils.createBitmapByName("openRank_png");
+        btnOpenRank.x = btnNew.x;
+        btnOpenRank.y = btnNew.y + btnOpenRank.height + 100;
+        btnOpenRank.touchEnabled = true;
+        btnOpenRank.name = "newPlay";
+        this.mm.addChild(btnOpenRank);
 
         btnContinue.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onContinuePlay, this);
         btnNew.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onNewPlay, this);
+        btnOpenRank.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onOpenRank, this);
 
         // 录像机如何启动新的录像战斗
         BattleRecorder.startNewBattleImpl = (p:Player, btType:string, btRandomSeed:number, trueRandomSeed:number) => {
@@ -162,7 +169,6 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 开启商店界面
     public async openShop(shop, onBuy, refreshItems:boolean = true) {
-        await this.openRanking();
         this.sv.player = this.p;
         this.addChild(this.sv);
         await this.sv.open(shop, this.p.playerRandom, onBuy, refreshItems);
@@ -268,7 +274,7 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // ranking
-    public async openRanking() {
+    public async openRankView() {
         this.addChild(this.rankv);
         await this.rankv.open();
         this.removeChild(this.rankv);
@@ -292,5 +298,9 @@ class MainView extends egret.DisplayObjectContainer {
         this.p = p;
         this.openWorldMap(p.worldmap);
         Utils.savePlayer(p);
+    }
+
+    onOpenRank(evt:egret.TouchEvent) {
+        this.openRankView();
     }
 }
