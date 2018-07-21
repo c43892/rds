@@ -351,13 +351,11 @@ class MonsterFactory {
     static doAddPowerOnHurt(m:Monster):Monster{
         var hurted = [];
         var cnt = 1;
-        return <Monster>ElemFactory.addAI("onAttack", async () => {
-            hurted[0] = m.attrs.hp;
-            hurted[cnt] = m.hp;
-            m.btAttrs.power += hurted[cnt - 1] - hurted[cnt];
+        return <Monster>ElemFactory.addAI("onMonsterHurt", async (ps) => {
+            m.btAttrs.power -= ps.dhp;
             await m.bt().fireEvent("onElemChanged", {subType:"power", e:m});
             cnt ++;
-        }, m, (ps) => ps.target == m);
+        }, m, (ps) => ps.m == m);
     }
 
     // 被翻开时act
