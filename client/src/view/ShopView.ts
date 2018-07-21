@@ -117,12 +117,12 @@ class ShopView extends egret.DisplayObjectContainer {
             var i = gd["itemIndex"];
             if (this.soldOut[i]) {
                 this.prices[i].text = "";
-                ViewUtils.setTex(gd, "soldout_png");
+                ViewUtils.setTexName(gd, "soldout_png");
                 gd.touchEnabled = false;
             } else {
                 var e = this.items[i];
                 this.prices[i].text = this.getPrice(e);
-                ViewUtils.setTex(gd, ElemFactory.create(e).getElemImgRes() + "_png");
+                ViewUtils.setTexName(gd, ElemFactory.create(e).getElemImgRes() + "_png");
                 gd.touchEnabled = true;
             }
         }

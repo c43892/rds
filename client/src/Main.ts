@@ -92,10 +92,8 @@ class Main extends egret.DisplayObjectContainer {
         // 创建场景
         this.createGameScene();
 
-        // 登录
-        const result = await RES.getResAsync("description_json")
-        await platform.login();
-        const userInfo = await platform.getUserInfo();
+        if (platform instanceof DebugPlatform)
+            (<DebugPlatform>platform).wc = new WebClient("http://127.0.0.1:81");
 
         // 载入用户数据
         var savedData = Utils.loadPlayer();

@@ -6,32 +6,53 @@
  */
 declare interface Platform {
 
-    getUserInfo(): Promise<any>;
+    login(): Promise<any>;
 
-    login(): Promise<any>
+    setUserCloudStorage(data): Promise<boolean>;
+    removeUserCloudStorage(data): Promise<boolean>;
 
+    platformType;
+    openDataContext;
 }
 
 class DebugPlatform implements Platform {
-    async getUserInfo() {
-        return { nickName: "username" }
-    }
+    public wc:WebClient;
+    
     async login() {
+        var uid = Utils.$$loadItem("userid");
+        var r = await this.wc.request({
+            type: "LoginAndGetRank",
+            uid: uid ? uid : "",
+            nickName: uid ? uid + "_name" : "",
+            rank: 0
+        });
 
+        if (r.ok) {
+            uid = r.usr.uid;
+            Utils.$$saveItem("userid", uid);
+            Utils.log(r.rank.usrs);
+            return {ok:true, usr:r.usr};
+        }
+        else
+            return {ok:false};
+    }
+
+    async setUserCloudStorage(data): Promise<boolean> { return false; }
+    async removeUserCloudStorage(data): Promise<boolean> { return false; }
+
+    platformType = "debug";
+    openDataContext = {
+        createDisplayObject: () => {},
+        setUserCloudStorage: () => {}
     }
 }
-
 
 if (!window.platform) {
     window.platform = new DebugPlatform();
 }
 
-
-
 declare let platform: Platform;
-
 declare interface Window {
-
     platform: Platform
 }
 

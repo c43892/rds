@@ -2,6 +2,7 @@ client/bin-debug
 client/bin-release
 client/src/logic
 client_wxgame
+wxOpenDataContext
 
 server/logic
 server/debug

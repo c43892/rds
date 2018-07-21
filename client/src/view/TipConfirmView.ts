@@ -42,9 +42,9 @@ class TipConfirmView extends egret.DisplayObjectContainer {
 
     private okyesnoPanel:egret.DisplayObjectContainer;
     private yesnoTitle:egret.TextField;
-    private btnOk:egret.Bitmap;
-    private btnYes:egret.Bitmap;
-    private btnNo:egret.Bitmap;
+    private btnOk:egret.TextField;
+    private btnYes:egret.TextField;
+    private btnNo:egret.TextField;
 
     createOkYesNoLayer() {
         this.okyesnoPanel = new egret.DisplayObjectContainer();
@@ -62,15 +62,9 @@ class TipConfirmView extends egret.DisplayObjectContainer {
         this.yesnoTitle.height = this.height / 2;
         this.okyesnoPanel.addChild(this.yesnoTitle);
 
-        this.btnOk = ViewUtils.createBitmapByName("btnok_png");
-        this.btnOk.x = this.width / 2 - this.btnOk.width / 2;
-        this.btnOk.y = this.height / 2 + this.btnOk.height / 2;
-        this.btnYes = ViewUtils.createBitmapByName("btnyes_png");
-        this.btnYes.x = this.width / 2 - this.btnYes.width * 1.5;
-        this.btnYes.y = this.height / 2 + this.btnYes.height / 2;
-        this.btnNo = ViewUtils.createBitmapByName("btnno_png");
-        this.btnNo.x = this.width / 2 + this.btnNo.width / 2;
-        this.btnNo.y = this.height / 2 + this.btnNo.height / 2;        
+        this.btnOk = ViewUtils.createTextField(30, 0x000000);
+        this.btnYes = ViewUtils.createTextField(30, 0x000000);
+        this.btnNo = ViewUtils.createTextField(30, 0x000000);
 
         this.btnOk.touchEnabled = true;
         this.btnYes.touchEnabled = true;
@@ -83,17 +77,28 @@ class TipConfirmView extends egret.DisplayObjectContainer {
     private confirmOkCallback;
     private confirmYesNoCallback;
     private confirmCancelCallback;
-    public confirmOkYesNo(title:string, yesno:boolean):Promise<boolean> {
+    public confirmOkYesNo(title:string, yesno:boolean, btnText):Promise<boolean> {
         this.clear();
         this.addChild(this.bg);
         this.yesnoTitle.text = title;
         this.addChild(this.okyesnoPanel);
 
         if (yesno) {
+            this.btnYes.text = btnText.yes;
+            this.btnNo.text = btnText.no;
             this.okyesnoPanel.addChild(this.btnYes);
             this.okyesnoPanel.addChild(this.btnNo);
-        } else
+        } else {
+            this.btnOk.text = btnText.ok;
             this.okyesnoPanel.addChild(this.btnOk);
+        }
+
+        this.btnOk.x = this.width / 2 - this.btnOk.width / 2;
+        this.btnOk.y = this.height / 2 + this.btnOk.height / 2;
+        this.btnYes.x = this.width / 2 - this.btnYes.width * 1.5;
+        this.btnYes.y = this.height / 2 + this.btnYes.height / 2;
+        this.btnNo.x = this.width / 2 + this.btnNo.width / 2;
+        this.btnNo.y = this.height / 2 + this.btnNo.height / 2;
 
         return new Promise<boolean>((resolve, reject) => {
             this.confirmOkCallback = resolve;
