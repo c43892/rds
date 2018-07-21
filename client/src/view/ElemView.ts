@@ -55,7 +55,7 @@ class ElemView extends egret.DisplayObjectContainer {
         var e = this.map.getElemAt(this.gx, this.gy);
         var dpe;
         if (e.dropItems) {
-            var n = Utils.indexOf(e.dropItems, (dpe) => dpe.type != "Coins" && (dpe instanceof Item || dpe instanceof Prop));
+            var n = Utils.indexOf(e.dropItems, (dpe) => dpe.type != "Coins" && (dpe instanceof Item || dpe instanceof Prop || dpe instanceof Relic));
             if (n >= 0)
                 dpe = e.dropItems[n];
         }
@@ -276,7 +276,7 @@ class ElemView extends egret.DisplayObjectContainer {
     onTouchMove(evt:egret.TouchEvent) {
         if (ElemView.longPressed 
             || this.map.getGridAt(this.gx, this.gy).isCovered() 
-            || !this.map.isGenerallyValid(this.gx, this.gy))
+            || !this.map.isGenerallyValid(ElemView.dragFrom.gx, ElemView.dragFrom.gy))
             return;
 
         var px = evt.localX + this.x;
@@ -284,7 +284,7 @@ class ElemView extends egret.DisplayObjectContainer {
 
         if (!ElemView.dragging && ElemView.dragFrom) {
             var e = ElemView.dragFrom.getElem();
-            if (!e || !e.canBeDragDrop || !e.isValid())
+            if (!e || !e.canBeDragDrop)
                 return;
 
             var dx = ElemView.dragFrom.x - px;

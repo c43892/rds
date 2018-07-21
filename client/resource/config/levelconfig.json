@@ -8,6 +8,7 @@
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
             "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
+            "MonsterBox":{"type":"TreasureBox", "rdp":"MonsterBox"},
             "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
             "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
             "Bunny":{
@@ -16,10 +17,24 @@
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
             "NormalZombie":{"hp":4, "power":2},
-            "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
+            "HoundZombie":{"hp":10, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
             "DancerZombie":{"hp":4, "power":2, "summons":["NormalZombie", "NormalZombie"]},
             "EyeDemonZombie":{"hp":6, "power":1},
             "RandomEggZombie":{"hp":5, "power":1, "dropItems":["RandomEgg1"]},
+            "CommanderZombie":{"hp":6, "power":1},
+            "RageZombie":{"hp":8, "power":1},
+            "HideZombie":{"hp":6, "power":1},
+            "GuardZombie":{"hp":20, "power":1},
+            "ReviveZombie":{"hp":6, "power":1, "cnt":1},
+            "CowardZombie":{"hp":6, "power":1},
+            "MarkZombie":{"hp":6, "power":1},
+            "ConfusionZombie":{"hp":6, "power":1},
+            "GreedyZombie":{"hp":6, "power":1},
+            "FogZombie":{"hp":6, "power":1},
+            "MiasmaZombie":{"hp":6, "power":1},
+            "SnkZombie":{"hp":10, "power":1, "dropItems":["HeadBone"]},
+            "SwatheZombie":{"hp":10, "power":1},
+            "BoxMonster":{"hp":10, "power":1},
 
             "HpPotion":{},
             "HpCapsule":{"cnt":5, "heal":1},
@@ -31,10 +46,10 @@
         },
         "constElems":{
             "Key": 1,
-            "Unback2Sneak":10
+            "Unback2Sneak":1
         },
         "randomGroups":[{
-            "num":[4, 6], "elems": {
+            "num":[8, 9], "elems": {
                 "Gun": 10,
                 "RayGun": 10,
                 "Clock": 10,
@@ -51,20 +66,31 @@
         }},{
             "num":[1, 3], "elems": {
                 "TreasureBox1": 10,
-                "TreasureBox2": 10
+                "TreasureBox2": 10,
+                "MonsterBox":10
         }},{
             "num":[2, 3], "drops":["Key"], "elems": {
-                "NormalZombie": 10,
-                "HoundZombie": 10,
-                "DancerZombie": 10,
-                "EyeDemonZombie": 10
+                "CommanderZombie":10,
+                "RageZombie":10,
+                "HideZombie":10,
+                "ReviveZombie":10,
+                "CowardZombie":10,
+                "MarkZombie":10
         }},{
-            "num":[6, 7], "elems":{
-                "NormalZombie": 10,
-                "HoundZombie": 10,
-                "DancerZombie": 10,
-                "EyeDemonZombie": 10,
-                "RandomEggZombie": 10
+            "num":[7, 8], "elems":{
+                "CommanderZombie":10,
+                "RageZombie":10,
+                "HideZombie":10,
+                "ReviveZombie":10,
+                "CowardZombie":10,
+                "MarkZombie":10,
+                "GreedyZombie":10,
+                "MiasmaZombie":10,
+                "SwatheZombie":10,
+                "GuardZombie":10,
+                "ConfusionZombie":10,
+                "FogZombie":10,
+                "SnkZombie":10                
         }}]
     },
 

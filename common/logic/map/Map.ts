@@ -241,6 +241,18 @@ class Map {
         return g;
     }
 
+    // 寻找满足条件的所有 Grid
+    public findAllGrid(f):Grid[] {
+        var grids:Grid[] = [];
+        this.travelAll((x, y) =>
+        {
+            if (f(x, y, this.grids[x][y])) {
+                grids.push(this.grids[x][y]);
+            }
+        });
+        return grids;
+    }
+
     // 寻找满足条件的第一个 Elem
     public findFirstElem(f):Elem {
         var e:Elem;

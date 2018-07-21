@@ -14,6 +14,11 @@
         "IceGun":30
     }},
 
+    "MonsterBox": {"num":[1, 2], "elems":{
+        "BoxMonster":10
+    }},
+
+
     "ttrdp1":{"num":[1, 2],"elems":{
         "MedicineBox":10,
         "Hawkeye":10,

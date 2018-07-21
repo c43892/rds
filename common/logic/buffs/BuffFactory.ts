@@ -11,6 +11,7 @@ class BuffFactory {
             case "BuffPoison": buff = new BuffPoison(ps[0], ps[1]); break;
             case "BuffNurse": buff = new BuffNurse(); break;
             case "BuffAddHp": buff = new BuffAddHp(ps[0], ps[1]); break;
+            case "BuffPoisonOnGrids": buff = new BuffPoisonOnGrids(ps[0], ps[1], ps[2]); break;
         }
 
         Utils.assert(!!buff, "no such a buff: " + type);

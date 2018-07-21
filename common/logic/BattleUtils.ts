@@ -197,4 +197,36 @@ class BattleUtils {
         bt.level.map.switchElems(e.pos.x, e.pos.y, grid.pos.x, grid.pos.y);
         return e;
     }
+
+    // 判断GridA是否在GridB的周围,取八格
+    public static isAround(gridA:Grid, gridB:Grid){
+        var isAroundPos = (posA, posB) => {
+            if(Math.abs(posA.x - posB.x) <= 1 && Math.abs(posA.y - posB.y) <= 1 && !(posA.x == posB.x && posA.y == posB.y))
+                return true;
+            else 
+                return false;
+        }
+
+        var isAroundForBig = (e:Elem, posB) => {
+            if(isAroundPos(e.getGrid().pos, gridB.pos)){ // 检查bigElem
+                return true;
+            } else 
+                var placeHolders = e["placeHolders"]();
+                for(var i = 0; i < placeHolders.length; i++){ // 检查所有占位符位置
+                    if(isAroundPos(placeHolders[i].pos, gridB.pos))
+                        return true;
+                }
+        }
+
+        var e = gridA.getElem();
+        if(e == undefined){
+            return isAroundPos(gridA.pos, gridB.pos);
+        } else if(e["linkTo"]) { // 是占位符，检查同属一个e的所有占位符以及e
+            e = e["linkTo"];
+            return isAroundForBig(e, gridB.pos);
+        } else if(e.isBig()){
+            return isAroundForBig(e, gridB.pos);
+        } else (e)
+        return isAroundPos(gridA.pos, gridB.pos);
+    }
 }

@@ -40,6 +40,7 @@
     "DePoison":{"name":"解毒药剂"},
     "Magazine":{"name":"自然杂志", "cnt":3, "dexp":2},
     "Shield":{"name":"盾牌", "cd":3},
+    "HeadBone":{"name":"骷髅头"},
 
     "DeathGod":{"name":"死神", "hp":10, "power":3},
     "Bunny":{"name":"兔子", "sheild":3},
@@ -55,6 +56,20 @@
     "RandomEggZombie":{"name":"彩蛋僵尸"},
     "LustZombie":{"name":"色欲僵尸"},
     "IronZombie":{"name":"钢铁侠僵尸"},
+    "CommanderZombie":{"name":"指挥官僵尸"},
+    "RageZombie":{"name":"狂暴僵尸"},
+    "HideZombie":{"name":"隐匿僵尸"},
+    "GuardZombie":{"name":"护卫僵尸"},
+    "ReviveZombie":{"name":"复生僵尸"},
+    "CowardZombie":{"name":"胆怯僵尸"},
+    "MarkZombie":{"name":"标记僵尸"},
+    "GreedyZombie":{"name":"贪婪僵尸", "moveRange":3},
+    "ConfusionZombie":{"name":"疑惑僵尸", "hideHazardNum":true},
+    "FogZombie":{"name":"迷雾僵尸"},
+    "MiasmaZombie":{"name":"瘴气僵尸", "buffCnt":8, "poisonPs":[3, 1]},
+    "SnkZombie":{"name":"骷髅王僵尸", "dropItems":["HeadBone"]},
+    "SwatheZombie":{"name":"缠绕僵尸", "invalid":["Cocoon"]},
+    "BoxMonster":{"name":"宝箱怪"},
     "ShopNpc":{"name":"商人", "hp":5},
 
     "PlaceHolder":{"name":"Boss精英占位", "hideHazardNum":true, "invisible":true},
@@ -80,6 +95,7 @@
         "frozenAttrs":{"rounds":3}
     },
     "Sword":{"name":"剑", "powerA":1},
+    "Cocoon":{"name":"茧", "useWithoutConfirm":true},
 
     "NextLevelPort":{"name":"下一层"},
     "EscapePort":{"name":"逃跑", "invisible":true}
