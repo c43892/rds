@@ -233,7 +233,7 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 登录
-    public async doLogin() {
+    public async doLoginAndGetRank() {
         var retry = true;
         while (retry) {
             var r = await platform.login();
@@ -241,7 +241,7 @@ class MainView extends egret.DisplayObjectContainer {
             if (!r.ok)
                 retry = await this.confirmOkYesNo("连接服务器失败", true, {yes:"重试", no:"取消"});
             else
-                return r.usr;
+                return r;
         }
 
         return undefined;
@@ -291,11 +291,13 @@ class MainView extends egret.DisplayObjectContainer {
 
     // ranking
     public async openRankView() {
-        var usr = await this.doLogin();
-        if (!usr)
-            return;
+        var r = await this.doLoginAndGetRank();
+        if (!r) return;
 
-        Utils.logObjs(usr);
+        this.rankv.usrInfo = r.usr;
+        this.rankv.weeklyRankInfo = r.rank;
+        this.rankv.roleRankInfo = undefined;
+
         this.addChild(this.rankv);
         await this.rankv.open();
         this.removeChild(this.rankv);

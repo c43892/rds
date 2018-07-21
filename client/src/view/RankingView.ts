@@ -1,14 +1,20 @@
 // 排行榜视图
 class RankingView extends egret.DisplayObjectContainer {    
 
+    public usrInfo;
+    public weeklyRankInfo;
+    public roleRankInfo;
+    public wxRankInfo;
+
     bg:egret.Bitmap;
     closeBtn:egret.Bitmap;
     title:egret.TextField;
     tabMenu:egret.TextField[]; // 顶端不同榜单切换
-    rankViewContainer; // 榜单区域
+    rankViewContainer:egret.DisplayObjectContainer; // 榜单区域
     wxRankImg; // 微信好友榜单
     menu = [];
     menuDisplayName = {"weeklyRank":"周榜", "roleRank":"角色榜", "friendRank":"好友榜"};
+
     public constructor(w:number, h:number) {
         super();
 
@@ -89,12 +95,56 @@ class RankingView extends egret.DisplayObjectContainer {
         return new Promise<void>((resolve, reject) => this.doClose = resolve);
     }
 
+    rebuildRank(usrs, fromIndex:number, cnt:number) {
+        this.rankViewContainer.removeChildren();
+        if (!usrs) return;
+
+        var y = 0;
+        var h = 30;
+        var wAvatar = h;
+        var wName = (this.width - wAvatar) / 2;
+        var wScore = (this.width - wAvatar) / 2;
+        for (var i = fromIndex; i < (fromIndex + cnt) && i < usrs.length; i++) {
+            var usr = usrs[i];
+            if (!usr || !usr.uid || usr.uid == "" || usr.score == 0) // no more user
+                return;
+
+            var avatar = ViewUtils.createBitmapByName("avatar1_png");
+            avatar.x = 0;
+            avatar.y = y;
+            avatar.width = wAvatar;
+            avatar.height = h;
+            this.rankViewContainer.addChild(avatar);
+
+            var name = ViewUtils.createTextField(30, 0x0000ff);
+            name.x = avatar.x + avatar.width;
+            name.y = y;
+            name.width = wName;
+            name.height = h;
+            name.text = usr.nickName;
+            this.rankViewContainer.addChild(name);
+
+            var score = ViewUtils.createTextField(30, 0x0000ff);
+            score.x = name.x + name.width;
+            score.y = y;
+            score.width = wScore;
+            score.height = h;
+            score.text = usr.score.toString();
+            this.rankViewContainer.addChild(score);
+        }
+    }
+
+    currentPageIndex = 0;
+    pageSize = 10;
+
     // 周榜单
     public openWeeklyRank() {
+        this.rebuildRank(this.weeklyRankInfo, this.currentPageIndex * this.pageSize, this.pageSize);
     }
 
     // 角色榜单
     public openRoleRank() {
+        this.rebuildRank(this.roleRankInfo, this.currentPageIndex * this.pageSize, this.pageSize);
     }
 
     // 显示微信好友榜单

@@ -19,19 +19,19 @@ class DebugPlatform implements Platform {
     public wc:WebClient;
     
     async login() {
-        var uid = Utils.$$loadItem("userid");
+        var uid = Utils.$$loadItem("UserID");
+        var maxScore = Utils.$$loadItem("MaxScore");
         var r = await this.wc.request({
             type: "LoginAndGetRank",
             uid: uid ? uid : "",
             nickName: uid ? uid + "_name" : "",
-            rank: 0
+            score: maxScore ? +maxScore : 0
         });
 
         if (r.ok) {
             uid = r.usr.uid;
-            Utils.$$saveItem("userid", uid);
-            Utils.log(r.rank.usrs);
-            return {ok:true, usr:r.usr};
+            Utils.$$saveItem("UserID", uid);
+            return {ok:true, usr:r.usr, rank:r.rank.usrs};
         }
         else
             return {ok:false};

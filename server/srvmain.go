@@ -9,6 +9,8 @@ import (
 	"net/http"
 	"math/rand"
 	"github.com/go-redis/redis"
+	"sort"
+	"time"
 )
 
 func assert(condition bool, msg string) {
@@ -24,7 +26,7 @@ func initDB() {
 	dbc = redis.NewClient(&redis.Options{
 		Addr: dbAddr,
 		Password: "", // no password set
-		DB:       0,  // use default DB
+		DB: 0,  // use default DB
 	});
 	
 	_, err := dbc.Ping().Result()
@@ -42,10 +44,23 @@ type RankInfo struct {
 	Usrs [100]*UserInfo `json:"usrs"`
 }
 
+// sort interface
+func (r *RankInfo) Len() int { return len(r.Usrs); }
+func (r *RankInfo) Less(i, j int) bool {
+	if (r.Usrs[i] == nil) {
+		return false;
+	} else if (r.Usrs[i] == nil) {
+		return true;
+	} else {
+		return r.Usrs[i].Score > r.Usrs[j].Score;
+	}
+}
+func (r *RankInfo) Swap(i, j int) { tmp := r.Usrs[i]; r.Usrs[i] = r.Usrs[j]; r.Usrs[j] = tmp; }
+
 var rankInfo *RankInfo;
 func loadRankInfo() {
-
 	rankInfo = &RankInfo{};
+
 	for i := 0; i < len(rankInfo.Usrs); i++ {
 		data, err := dbc.Get("rank_" + strconv.Itoa(i)).Result();
 		if (err != nil || data == "") {
@@ -56,6 +71,7 @@ func loadRankInfo() {
 		}
 	}
 
+	sortRank();
 	log.Println("rank info loaded: " + strconv.Itoa(len(rankInfo.Usrs)));
 }
 
@@ -107,7 +123,39 @@ func handleMsgfunc(w http.ResponseWriter, r *http.Request) {
 }
 
 // refresh the rank
-func setUserScore(uid string, nickName string, score int) {
+func setUserScore(usrInfo *UserInfo) {
+	var len = len(rankInfo.Usrs);
+	for i := 0; i < len; i++ {
+		var usr = rankInfo.Usrs[i];
+		if usr != nil && usr.Uid == usrInfo.Uid {
+			if usr.Score < usrInfo.Score { // new high score
+				usr.Score = usrInfo.Score;
+			}
+
+			sortRank();
+			return;
+		}
+	}
+
+	// compare with the last one
+	var usr = rankInfo.Usrs[len - 1];
+	if usr != nil && usr.Score >= usrInfo.Score {
+		return;
+	}
+
+	rankInfo.Usrs[len - 1] = usrInfo;
+	sortRank();
+}
+
+// resort the rank
+func sortRank() {
+	sort.Sort(rankInfo);
+
+	// save the rank
+	for i := 0; i < len(rankInfo.Usrs); i++ {
+		data, _ := json.Marshal(rankInfo.Usrs[i]);
+		dbc.Set("rank_" + strconv.Itoa(i), string(data), 0);
+	}
 }
 
 // msg: LoginAndGetRank
@@ -122,20 +170,29 @@ func onLoginAndGetRank(msg *RequestMsg) (*UserInfo) {
 	if (err != nil || r == "") {
 		usrInfo = createUser();
 		data, _ := json.Marshal(usrInfo);
-		dbc.Set("uid_" + uid, string(data), 0);
+		dbc.Set("uid_" + usrInfo.Uid, string(data), 0);
 	} else {
 		usrInfo = &UserInfo{};
 		json.Unmarshal([]byte(r), usrInfo);
 	}
 
+	// refresh user information
+	usrInfo.NickName = msg.NickName;
+	usrInfo.Score = msg.Score;
+
+	// weekly refresh
+	_, nowWeeks := time.Now().ISOWeek();
+	data, _ := dbc.Get("weeklyRank_timestamp").Result();
+	weeklyRankTimestamp, _ := strconv.Atoi(data);
+	if (nowWeeks > weeklyRankTimestamp) {
+		rankInfo = &RankInfo{};
+		dbc.Set("weeklyRank_timestamp", strconv.Itoa(nowWeeks), 0);
+	}
+
 	// set user score and rebuild the rank
-	setUserScore(usrInfo.Uid, usrInfo.NickName, usrInfo.Score);
+	setUserScore(usrInfo);
 
 	// get rank info
-
-	// put the new record in and refresh the rank
-	setUserScore(msg.Uid, msg.NickName, msg.Score);
-
 	return usrInfo;
 }
 

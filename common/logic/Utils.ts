@@ -313,6 +313,14 @@ class Utils {
         if (p) {
             Utils.$$saveItem("Player", p.toString());
             Utils.$$saveItem("Version", Version.currentVersion.toString());
+
+            // 更新最高分
+            var score = Utils.$$loadItem("MaxScore");
+            var lastScore = score ? +score : 0;
+            var nowScore = p.currentStoreyPos.lv;
+            if (nowScore > lastScore)
+                Utils.$$saveItem("MaxScore", nowScore);
+
             window.platform.setUserCloudStorage([{key:"lv", value:p.currentStoreyPos.lv.toString()}]);
         } else {
             Utils.$$removeItem("Player");
