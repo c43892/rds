@@ -169,6 +169,31 @@ class Battle {
         return true;
     }
 
+    // 盖上指定位置的地块（不再检查条件）
+    public async cover(x:number, y:number, suppressLogicEvent = false) {
+        var g = this.level.map.getGridAt(x, y);
+        Utils.assert(!g.isCovered(), "cover action can only be implemented on a uncovered grid");
+        var stateBeforeUncover = g.status;
+        g.status = GridStatus.Covered;
+
+        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"gridCovered", stateBeforeUncover:stateBeforeUncover});
+
+        if (!suppressLogicEvent)
+            await this.triggerLogicPoint("onGridChanged", {x:x, y:y, subType:"gridCovered", stateBeforeUncover:stateBeforeUncover});
+
+        // 对 8 邻格子进行标记逻辑计算
+        var neighbours = [];
+        this.level.map.travel8Neighbours(x, y, (px, py, g:Grid) => {
+            if (g.isCovered())
+                neighbours.push([px, py]);
+        });
+
+        for (var p of neighbours)
+            await this.calcMarkPos(p[0], p[1]);
+
+        return true;
+    }
+
     // 计算标记
     public async calcMarkPos(x:number, y:number) {
         var markPos = MonsterMarker.CalcMonsterMarkSignAt(this.level.map, x, y);
@@ -445,6 +470,11 @@ class Battle {
         await this.uncover(x, y);
     }
 
+    // 盖上指定位置
+    public async implCoverAt(x:number, y:number) {
+        await this.cover(x, y);
+    }
+
     // 进入下一关卡
     public async implGo2NextLevel() {
         await this.triggerLogicPoint("beforeGoOutLevel1");
@@ -554,7 +584,7 @@ class Battle {
         var e = g.getElem();
         if (g.isCovered()) this.uncover(x, y); // 攻击行为自动揭开地块
         if (!e || !(e instanceof Monster)) { // 如果打空，则不需要战斗计算过程，有个表现就可以了
-            await this.fireEvent("onAttack", {subType:"player2monster", x:y, y:y, weapon:weapon});
+            await this.fireEvent("onAttack", {subType:"player2monster", x:x, y:y, weapon:weapon});
             return;
         }
 
@@ -574,7 +604,7 @@ class Battle {
 
         // 检查免疫
         if (Utils.contains(targetAttrs.immuneFlags, "Frozen")) {
-            await this.fireEvent("onAttack", {subType:"player2monster", x:y, y:y, r:{r:"immunized"}, target:m, weapon:weapon});
+            await this.fireEvent("onAttack", {subType:"player2monster", x:x, y:y, r:{r:"immunized"}, target:m, weapon:weapon});
             return;
         }
 
@@ -644,7 +674,7 @@ class Battle {
 
         var e = g.getElem();
         if (!e || !(e instanceof Monster)) { // 如果打空，则不需要战斗计算过程，有个表现就可以了
-            await this.fireEvent("onAttack", {subType:"player2monster", x:y, y:y, target:undefined, weapon:weapon});
+            await this.fireEvent("onAttack", {subType:"player2monster", x:x, y:y, target:undefined, weapon:weapon});
             return;
         }
 
@@ -653,6 +683,12 @@ class Battle {
             x = e.pos.x;
             y = e.pos.y;
         }
+
+        // 通知准备攻击,提供给援护怪进行判断是否要行动
+        var preAttackPs = {subType:"player2monster", x:x, y:y, target:e};
+        await this.fireEvent("preAttack", preAttackPs);
+        await this.triggerLogicPoint("preAttack", preAttackPs);
+        e = preAttackPs.target;
 
         var m = <Monster>e;
         var attackerAttrs = !weapon ? this.player.getAttrsAsAttacker(0) :
@@ -671,8 +707,8 @@ class Battle {
         for (var b of r.addBuffs)
             await this.implAddBuff(m, "Buff" + b.type, ...b.ps);
 
-        await this.fireEvent("onAttack", {subType:"player2monster", x:m.pos.x, y:m.pos.x, r:r, target:m, weapon:weapon, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
-        await this.triggerLogicPoint("onAttack", {subType:"player2monster", x:m.pos.x, y:m.pos.x, r:r, target:m, weapon:weapon, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+        await this.fireEvent("onAttack", {subType:"player2monster", x:m.pos.x, y:m.pos.y, r:r, target:m, weapon:weapon, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+        await this.triggerLogicPoint("onAttack", {subType:"player2monster", x:m.pos.x, y:m.pos.y, r:r, target:m, weapon:weapon, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
     }
 
     // 指定怪物尝试攻击角色

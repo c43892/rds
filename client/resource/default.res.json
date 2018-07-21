@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "description_json,levelconfig_json,covered_png,grid_png,bg_png,Bunny_png,blocked_png,uncoverable_png,replaybg_png,blackcover_png,anicover_png,elemattrsconfig_json,DeathGod_png,MedicineBox_png,selectable_png,unselectable_png,playerconfig_json,Hawkeye_png,TimeMachine_png,Coins_png,Door_png,Gun_png,HpPotion_png,Key_png,NextLevelPort_png,TreasureBox_png,Clock_png,HpCapsule_png,ban_png,Magazine_png,Hole_png,Apple3_png,Apple2_png,Apple1_png,Steak3_png,Steak2_png,Steak1_png,RandomEgg_png,Apple12_png,Apple22_png,Apple32_png,Steak12_png,Steak22_png,Steak32_png,RayGun_png,IceBlock_png,IceGun_png,randomdropconfig_json,BombZombie_png,DancerZombie_png,EyeDemonZombie_png,GluttonyZombie_png,HoundZombie_png,IronZombie_png,LustZombie_png,NormalZombie_png,ori_png,RandomEggZombie_png,SniperZombie_png,ThiefZombie_png,VampireZombie_png,Shield1_png,Shield2_png,WorldMapBg_png,WorldMapBg2_png,worldmap_json,normal_png,boss_png,senior_png,camp_png,box_png,event_png,shop_png,worldmapstart_png,continuePlay_png,newPlay_png,Sword_png,translucent_png,shopconfig_json,goBack_png,btnyes_png,btnno_png,soldout_png,btnCure_png,btnReinforce_png,btnMutate_png,goBack2_png,Endurance_png,Power_png,Fierce_png,Cloak_png,Unback2Sneak_png,BoxRoomBox_png,BoxRoomBoxOpened_png,ShopNpc_png,worldmapeventsels_json,btnok_png,turntableBg_png,turntableAddHp_png,turntableMinusHp_png,turntableBox_png,turntableCoin_png,turntableItem_png,turntableBoxOpended_png,turntableStartBtn_png,turntableGoOutBtn_png,avatar1_png,turntableSign_png,CommanderZombie_png,turntableTipBg_png",
+			"keys": "description_json,levelconfig_json,covered_png,grid_png,bg_png,Bunny_png,blocked_png,uncoverable_png,replaybg_png,blackcover_png,anicover_png,elemattrsconfig_json,DeathGod_png,MedicineBox_png,selectable_png,unselectable_png,playerconfig_json,Hawkeye_png,TimeMachine_png,Coins_png,Door_png,Gun_png,HpPotion_png,Key_png,NextLevelPort_png,TreasureBox_png,Clock_png,HpCapsule_png,ban_png,Magazine_png,Hole_png,Apple3_png,Apple2_png,Apple1_png,Steak3_png,Steak2_png,Steak1_png,RandomEgg_png,Apple12_png,Apple22_png,Apple32_png,Steak12_png,Steak22_png,Steak32_png,RayGun_png,IceBlock_png,IceGun_png,randomdropconfig_json,BombZombie_png,DancerZombie_png,EyeDemonZombie_png,GluttonyZombie_png,HoundZombie_png,IronZombie_png,LustZombie_png,NormalZombie_png,ori_png,RandomEggZombie_png,SniperZombie_png,ThiefZombie_png,VampireZombie_png,Shield1_png,Shield2_png,WorldMapBg_png,WorldMapBg2_png,worldmap_json,normal_png,boss_png,senior_png,camp_png,box_png,event_png,shop_png,worldmapstart_png,continuePlay_png,newPlay_png,Sword_png,translucent_png,shopconfig_json,goBack_png,btnyes_png,btnno_png,soldout_png,btnCure_png,btnReinforce_png,btnMutate_png,goBack2_png,Endurance_png,Power_png,Fierce_png,Cloak_png,Unback2Sneak_png,BoxRoomBox_png,BoxRoomBoxOpened_png,ShopNpc_png,worldmapeventsels_json,btnok_png,turntableBg_png,turntableAddHp_png,turntableMinusHp_png,turntableBox_png,turntableCoin_png,turntableItem_png,turntableBoxOpended_png,turntableStartBtn_png,turntableGoOutBtn_png,avatar1_png,turntableSign_png,CommanderZombie_png,turntableTipBg_png,RageZombie_png,HideZombie_png,GuardZombie_png,ReviveZombie_png,CowardZombie_png,MarkZombie_png,ConfusionZombie_png,GreedyZombie_png,FogZombie_png,MiasmaZombie_png,HeadBone_png,SnkZombie_png,Cocoon_png,SwatheZombie_png,BoxMonster_png",
 			"name": "preload"
 		}
 	],
@@ -555,6 +555,81 @@
 			"url": "assets/ui/turntable/turntableTipBg.png",
 			"type": "image",
 			"name": "turntableTipBg_png"
+		},
+		{
+			"url": "assets/monsters/RageZombie.png",
+			"type": "image",
+			"name": "RageZombie_png"
+		},
+		{
+			"url": "assets/monsters/HideZombie.png",
+			"type": "image",
+			"name": "HideZombie_png"
+		},
+		{
+			"url": "assets/monsters/GuardZombie.png",
+			"type": "image",
+			"name": "GuardZombie_png"
+		},
+		{
+			"url": "assets/monsters/ReviveZombie.png",
+			"type": "image",
+			"name": "ReviveZombie_png"
+		},
+		{
+			"url": "assets/monsters/CowardZombie.png",
+			"type": "image",
+			"name": "CowardZombie_png"
+		},
+		{
+			"url": "assets/monsters/MarkZombie.png",
+			"type": "image",
+			"name": "MarkZombie_png"
+		},
+		{
+			"url": "assets/monsters/ConfusionZombie.png",
+			"type": "image",
+			"name": "ConfusionZombie_png"
+		},
+		{
+			"url": "assets/monsters/GreedyZombie.png",
+			"type": "image",
+			"name": "GreedyZombie_png"
+		},
+		{
+			"name": "FogZombie_png",
+			"type": "image",
+			"url": "assets/monsters/FogZombie.png"
+		},
+		{
+			"name": "MiasmaZombie_png",
+			"type": "image",
+			"url": "assets/monsters/MiasmaZombie.png"
+		},
+		{
+			"name": "HeadBone_png",
+			"type": "image",
+			"url": "assets/items/HeadBone.png"
+		},
+		{
+			"name": "SnkZombie_png",
+			"type": "image",
+			"url": "assets/monsters/SnkZombie.png"
+		},
+		{
+			"name": "Cocoon_png",
+			"type": "image",
+			"url": "assets/items/Cocoon.png"
+		},
+		{
+			"name": "SwatheZombie_png",
+			"type": "image",
+			"url": "assets/monsters/SwatheZombie.png"
+		},
+		{
+			"name": "BoxMonster_png",
+			"type": "image",
+			"url": "assets/monsters/BoxMonster.png"
 		}
 	]
 }

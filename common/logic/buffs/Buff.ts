@@ -19,4 +19,6 @@ class Buff {
     public beforeGoOutLevel1;
     public beforeGoOutLevel2;
     public onGridChanged; // 形如 function(x:number, y:number, statusBeforeUncoverd:GridStatus)
+
+    public addBuffCnt;
 }

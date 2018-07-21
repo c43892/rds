@@ -55,7 +55,7 @@ class ElemView extends egret.DisplayObjectContainer {
         var e = this.map.getElemAt(this.gx, this.gy);
         var dpe;
         if (e.dropItems) {
-            var n = Utils.indexOf(e.dropItems, (dpe) => dpe.type != "Coins" && (dpe instanceof Item || dpe instanceof Prop));
+            var n = Utils.indexOf(e.dropItems, (dpe) => dpe.type != "Coins" && (dpe instanceof Item || dpe instanceof Prop || dpe instanceof Relic));
             if (n >= 0)
                 dpe = e.dropItems[n];
         }

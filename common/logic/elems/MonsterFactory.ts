@@ -123,7 +123,20 @@ class MonsterFactory {
         "RandomEggZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //彩蛋僵尸
         "LustZombie": (attrs) => MonsterFactory.doSneakReduseDeathStep(15, MonsterFactory.doAttackBack(this.createMonster(attrs))), //色欲僵尸
         "IronZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //钢铁侠僵尸
-        "CommanderZombie": (attrs) => MonsterFactory.doEnhanceOtherNewMonster(MonsterFactory.doRemoveEnhanceOtherMonster(MonsterFactory.doEnhanceOtherMonster(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))))), //指挥官僵尸
+        "CommanderZombie": (attrs) => MonsterFactory.doEnhanceAura(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //指挥官僵尸
+        "RageZombie": (attrs) => MonsterFactory.doAddPowerOnHurt(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //狂暴僵尸
+        "HideZombie": (attrs) => MonsterFactory.doHideAfterUncovered(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //隐匿僵尸
+        "GuardZombie": (attrs) => MonsterFactory.doProtectMonsterAround(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //护卫僵尸
+        "ReviveZombie": (attrs) => MonsterFactory.doReviveOndie(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //复生僵尸
+        "CowardZombie": (attrs) => MonsterFactory.doHideOnOtherMonsterDie(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //胆怯僵尸
+        "MarkZombie":  (attrs) => MonsterFactory.doMarkMonsterOnHurt(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //标记僵尸
+        "ConfusionZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //疑惑僵尸
+        "GreedyZombie": (attrs) => MonsterFactory.doTakeItemsAround(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //贪婪僵尸
+        "FogZombie": (attrs) => MonsterFactory.doCoverGridAround(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //迷雾僵尸
+        "MiasmaZombie": (attrs) => MonsterFactory.doMakeCoveredGridsPoison(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //瘴气僵尸
+        "SnkZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //骷髅王僵尸
+        "SwatheZombie": (attrs) => MonsterFactory.doSwatheItemsOnSneak(MonsterFactory.doAttackBack(this.createMonster(attrs))), //缠绕僵尸
+        "BoxMonster": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //宝箱怪
 
         "ShopNpc": (attrs) => MonsterFactory.makeShopNPC(this.createMonster(attrs)),
 
@@ -223,7 +236,7 @@ class MonsterFactory {
     static doSneakEatItems(m:Monster, dropOnDie:boolean):Monster {
         return MonsterFactory.addSneakAI(async () => {
             var eatNum = m.attrs.eatNum ? m.attrs.eatNum : 1;
-            var es = BattleUtils.findRandomElems(m.bt(), eatNum, (e:Elem) => !(e instanceof Monster) && !e.getGrid().isCovered());
+            var es = BattleUtils.findRandomElems(m.bt(), eatNum, (e:Elem) => !(e instanceof Monster) && !e.getGrid().isCovered() && e.type != "Door");
             await m.bt().implMonsterTakeElems(m, es);
             if (dropOnDie) {
                 for(var e of es)
@@ -320,7 +333,7 @@ class MonsterFactory {
             if(cnt > m.attrs.selfExplode.cnt)
             {
                 m.btAttrs.power = m.btAttrs.power * m.attrs.selfExplode.mult;
-                m.bt().implMonsterAttackPlayer(m, true);
+                await m.bt().implMonsterAttackPlayer(m, true);
             }
         }, m);
     }
@@ -335,80 +348,277 @@ class MonsterFactory {
     }
 
     // 受伤害时增加攻击力
-    static doAddPowerOnBeHurt(m:Monster):Monster{
+    static doAddPowerOnHurt(m:Monster):Monster{
         var hurted = [];
         var cnt = 1;
-        return <Monster>ElemFactory.addAI("onMonsterHurt", async () => {
+        return <Monster>ElemFactory.addAI("onAttack", async () => {
             hurted[0] = m.attrs.hp;
             hurted[cnt] = m.hp;
             m.btAttrs.power += hurted[cnt - 1] - hurted[cnt];
             await m.bt().fireEvent("onElemChanged", {subType:"power", e:m});
             cnt ++;
-        }, m);
+        }, m, (ps) => ps.target == m);
     }
 
     // 被翻开时act
-    static doOnUncoveredAI(act, m:Monster):Monster{
-        return <Monster>ElemFactory.addAI("onGridChanged", act, m, (ps) => ps.x == m.pos.x && ps.y == m.pos.y && ps.subType == "gridUnconvered");
+    static addAIOnUncovered(act, m:Monster, condition = undefined):Monster {
+        return <Monster>ElemFactory.addAI("onGridChanged", act, m, (ps) => {
+                if(ps.x == m.pos.x && ps.y == m.pos.y && ps.subType == "gridUnconvered")
+                    return condition?condition():true;
+                else 
+                    return false;
+                })
+    }
+
+    // 被盖上时act
+    static addAIOnCovered(act, m:Monster, condition = undefined):Monster {
+        return <Monster>ElemFactory.addAI("onGridChanged", act, m, (ps) => {
+            if(ps.x == m.pos.x && ps.y == m.pos.y && ps.subType == "gridCovered" )
+                return (condition?condition():true);
+            else 
+                return false;
+        })
     }
 
     // 有新的怪物加入战场时act
-    static doOnNewMonsterJoin(act, m:Monster, condition?:any):Monster{
-        return <Monster>ElemFactory.addAI("onGridChanged", act, m, (ps) => ps.subType == "elemAdded");
+    static addAIOnNewMonsterJoin(act, m:Monster, condition = undefined):Monster{
+        return <Monster>ElemFactory.addAI("onGridChanged", act, m, (ps) => ps.subType == "elemAdded" && (condition?condition():true));
+    }
+
+    // 指挥官僵尸逻辑
+    static doEnhanceAura(m:Monster):Monster {
+        return MonsterFactory.doEnhanceOtherNewMonster(MonsterFactory.doRemoveEnhanceOnDie(MonsterFactory.doEnhanceOtherMonster(m)));
     }
 
     // 在场时其他怪血量攻击翻倍
     static doEnhanceOtherMonster(m:Monster):Monster {
-        return <Monster>MonsterFactory.doOnUncoveredAI(async () => {
-            var n = m.map().findAllElems((e:Elem) => e.type == "CommanderZombie" && !e.getGrid().isCovered() && e != m).length;
-            if(n == 0){
-                var ms:Elem[]= [];
-                ms = m.map().findAllElems((e:Elem) => e instanceof Monster && e != m && e.type != "CommanderZombie");
-                
-                for(var i = 0; i < ms.length; i++){
-                    var theMonster = <Monster>ms[i];
-                    theMonster.hp *= 2;
-                    await m.bt().fireEvent("onElemChanged", {subType:"hp", e:theMonster});
-                    theMonster.btAttrs.power *= 2;
-                    await m.bt().fireEvent("onElemChanged", {subType:"power", e:theMonster});
+        m["canActOnNewAdd"] = false; //此时还不能触发增强新加入的怪物的效果
+        
+        return MonsterFactory.addAIOnUncovered(async (ps) => {
+                var n = m.map().findAllElems((e:Elem) => e.type == "CommanderZombie" && !e.getGrid().isCovered() && e != m).length;                
+                if(n == 0){
+                    var ms:Elem[]= [];
+                    ms = m.map().findAllElems((e:Elem) => e instanceof Monster && e != m && e.type != "CommanderZombie");
+                    for(var i = 0; i < ms.length; i++){
+                        var theMonster = <Monster>ms[i];
+                        theMonster.hp *= 2;
+                        await m.bt().fireEvent("onElemChanged", {subType:"hp", e:theMonster});
+                        theMonster.btAttrs.power *= 2;
+                        await m.bt().fireEvent("onElemChanged", {subType:"power", e:theMonster});
+                    }
+                    m["canActOnNewAdd"] = true;
                 }
-            }
         }, m);
     }
 
     // 指挥官僵尸将新加入的怪血量攻击翻倍
     static doEnhanceOtherNewMonster(m:Monster):Monster{
-        return MonsterFactory.doOnNewMonsterJoin(async (ps) => {
+        return MonsterFactory.addAIOnNewMonsterJoin(async (ps) => {
             if(ps.e instanceof Monster){
-                if(ps.commandZombieActed != true){
+                if(!ps.commandZombieActed){
                     var theMonster = ps.e;
                     theMonster.hp *= 2;
                     await m.bt().fireEvent("onElemChanged", {subType:"hp", e:theMonster});
                     theMonster.btAttrs.power *= 2;
                     await m.bt().fireEvent("onElemChanged", {subType:"power", e:theMonster});
-                    ps.commandZombieActed = true;
+                    ps.commandZombieActed = true; //给"onElemChanged"事件加上标记,表示该elem已经被一个指挥官僵尸增强过
+                }
+            }
+        }, m, m["canActOnNewAdd"]);
+    }
+
+    // 移除血量翻倍效果
+    static async doRemoveEnhance(m:Monster){
+            var n = m.map().findAllElems((e:Elem) => e.type == "CommanderZombie" && !e.getGrid().isCovered() && e != m).length;
+            if(n == 0){
+                var ms:Elem[]= [];
+                ms = m.map().findAllElems((e:Elem) => e instanceof Monster && e != m && e.type != "CommanderZombie");
+                for(var i = 0; i < ms.length; i++){
+                    var theMonster = <Monster>ms[i];
+                    theMonster.hp = Math.round(theMonster.hp * 0.5);
+                    await m.bt().fireEvent("onElemChanged", {subType:"hp", e:theMonster});
+                    theMonster.btAttrs.power =Math.round(theMonster.btAttrs.power * 0.5);
+                    await m.bt().fireEvent("onElemChanged", {subType:"power", e:theMonster});
+                }
+            }
+            m["canActOnNewAdd"] = false;
+    }
+
+    // 死亡时移除其他怪血量攻击翻倍效果
+    static doRemoveEnhanceOnDie(m:Monster):Monster {
+        return <Monster>ElemFactory.addDieAI(async () => await MonsterFactory.doRemoveEnhance(m), m);
+    }
+
+    // 指挥官僵尸被盖住时也移除其他怪血量攻击翻倍效果
+    static doRemoveEnhanceOnCovered(m:Monster):Monster {
+        return MonsterFactory.addAIOnCovered(async () => await MonsterFactory.doRemoveEnhance(m), m);
+    }
+
+    // 出现后随机隐藏到其他空位，如果没有空位则不会隐藏
+    static doHideAfterUncovered(m:Monster):Monster {
+        return MonsterFactory.addAIOnUncovered(async () => {
+            var g = BattleUtils.findRandomGrid(m.bt(), (g:Grid) => g.getElem() == undefined && g.isCovered());
+            if(g)
+                await m.bt().implElemFly(m, g.pos);
+
+        }, m);
+    }
+
+    // 援护逻辑
+    static doProtectMonsterAround(m:Monster):Monster {
+        return <Monster>ElemFactory.addAIEvenCovered("preAttack", async (ps) => {
+            if(m.getGrid().isCovered()){ //如果护卫所在地块还没被揭开,要揭开它但不要触发偷袭逻辑
+                var stateBeforeUncover = m.getGrid().status;
+                m.getGrid().status = GridStatus.Uncovered;
+                await m.bt().fireEvent("onGridChanged", {x:m.pos.x, y:m.pos.y, subType:"gridUnconvered", stateBeforeUncover:stateBeforeUncover});
+            }
+            ps.target = m;
+            ps.x = m.pos.x;
+            ps.y = m.pos.y;
+        }, m, (ps) => ps.subType == "player2monster" && ps.target.type != "GuardZombie" && BattleUtils.isAround(m.map().getGridAt(ps.x, ps.y), m.getGrid()));
+    }
+
+    // 其他怪物死亡时逃进阴影
+    static doHideOnOtherMonsterDie(m:Monster):Monster {
+        return <Monster>ElemFactory.addAI("onElemChanged", async () => {
+            var g = BattleUtils.findRandomGrid(m.bt(), (g:Grid) => g.getElem() == undefined && g.isCovered());
+            if(g)
+                await m.bt().implElemFly(m, g.pos);
+
+        }, m, (ps) => ps.subType == "die" && ps.e instanceof Monster);
+    }
+
+    // 死亡时在其他地点复活一次
+    static doReviveOndie(m:Monster):Monster {
+        return <Monster>ElemFactory.addDieAI(async () => {
+            m.cnt = m.attrs.cnt;
+            if(m.cnt > 0){
+                var newM = m.bt().level.createElem(m.type, {"hp":6, "power":1 ,cnt: m.attrs.cnt - 1});
+                var g = BattleUtils.findRandomEmptyGrid(m.bt(), false);
+                await m.bt().implAddElemAt(newM, g.pos.x, g.pos.y);
+            }
+        } ,m);
+    }
+
+    // 每次受到伤害，都会标记一个随机怪物
+    static doMarkMonsterOnHurt(m:Monster):Monster {
+        return <Monster>ElemFactory.addAI("onMonsterHurt", async () => {
+            var markTarget = <Monster>BattleUtils.findRandomElems(m.bt(), 1, (m:Monster) => m.getGrid().isCovered())[0];
+            var g = BattleUtils.findRandomGrid(m.bt(), (g:Grid) => g.isCovered() && g.getElem() instanceof Monster);
+            await m.bt().implMark(g.pos.x, g.pos.y);
+        }, m, (ps) => ps.m == m);
+    }
+
+    // 拾取周围的道具和金钱
+    static doTakeItemsAround(m:Monster):Monster {
+        var itemTook = false;
+        var targetElems:Elem[]
+        var findTarget = () => { //遍历周围8格寻找目标物品
+                m.map().travel8Neighbours(m.pos.x, m.pos.y, (x, y, g:Grid)=>{
+                    var e = g.getElem();
+                    if(e && !e.getGrid().isCovered() && isTargetType(e)){
+                        if(!itemTook)
+                            targetElems.push(e);
+                        else if(e.type == "Coins")
+                            targetElems.push(e);
+                    }
+                });
+            };
+
+        var takeTarget = async () => { //在周围8格中随机拿走一个物品
+                var targetElem = targetElems[m.bt().srand.nextInt(0, targetElems.length)];
+                await m.bt().implMonsterTakeElems(m, [targetElem]);
+                m.addDropItem(targetElem);
+                await m.bt().fireEvent("onElemChanged", {subType:"takeItem", e:m});
+                if(targetElem.type != "Coins"){
+                    itemTook = true;
+                }
+            };
+
+        var isTargetType = (e:Elem) => { //判断elem是否是当前可用的目标
+                if(!itemTook){
+                    if((e instanceof Prop || e instanceof Item || e instanceof Relic) && e.type != "Door")
+                        return true;
+                } else if(e.type == "Coins"){
+                    return true;
+                } else
+                    return false;
+            };
+
+        // 在当前位置周围8格找目标,没有则在地图上找,找到后移动,移动结束在周围找目标拿走,未移动到目标则行动结束
+        return <Monster>ElemFactory.addAI("onPlayerActed", async () => {
+            targetElems = [];
+            findTarget();
+            if(targetElems.length > 0){
+                await takeTarget();
+            } else {
+                var moveToTarget = ElemFactory.moveFunc(m, m.attrs.moveRange, () => {
+                    var g = BattleUtils.findNearestGrid(m.map(), m.pos, 
+                        (g:Grid) => !g.isCovered() && g.getElem() && isTargetType(g.getElem()));
+                    return g ? g.pos : undefined;
+                });
+                await moveToTarget();
+
+                findTarget();
+                if(targetElems.length > 0){
+                    await takeTarget();
                 }
             }
         }, m);
     }
 
-    // 死亡时移除其他怪血量攻击翻倍效果
-    static doRemoveEnhanceOtherMonster(m:Monster):Monster {
-        return <Monster>ElemFactory.addDieAI(async () => {
-            var n = m.map().findAllElems((e:Elem) => e.type == "CommanderZombie" && !e.getGrid().isCovered() && e != m).length;
-            if(n == 0){
-                var ms:Elem[]= [];
-                ms = m.map().findAllElems((e:Elem) => e instanceof Monster && e != m && e.type != "CommanderZombie");
-                
-                for(var i = 0; i < ms.length; i++){
-                    var theMonster = <Monster>ms[i];
-                    Math.round( theMonster.hp *= 0.5 );
-                    await m.bt().fireEvent("onElemChanged", {subType:"hp", e:theMonster});
-                    Math.round( theMonster.btAttrs.power *= 0.5);
-                    await m.bt().fireEvent("onElemChanged", {subType:"power", e:theMonster});
+    // 在自己身边最多8个位置制造迷雾,都为迷雾则盖住自己
+    static doCoverGridAround(m:Monster):Monster {
+        var uncoveredGrids:Grid[];
+        return <Monster>ElemFactory.addAI("onPlayerActed", async () => {
+            uncoveredGrids = [];
+            m.map().travel8Neighbours(m.pos.x, m.pos.y, (x, y, g:Grid) => {
+                if(!g.isCovered()){
+                    uncoveredGrids.push(g);
                 }
+            });
+            if(uncoveredGrids.length > 0){
+                var targetGrid = uncoveredGrids[m.bt().srand.nextInt(0, uncoveredGrids.length)];
+                await m.bt().implCoverAt(targetGrid.pos.x, targetGrid.pos.y);
+            } else {
+                await m.bt().implCoverAt(m.pos.x, m.pos.y);
             }
         }, m);
+    }
+
+    // 死亡时使所有未揭开的方块带毒,持续n回合
+    static doMakeCoveredGridsPoison(m:Monster):Monster {
+        return <Monster>ElemFactory.addDieAI(async () => {
+            var grids = m.map().findAllGrid((x, y, g:Grid) => g.isCovered());
+            if(grids.length != 0){
+                await m.bt().implAddBuff(m.bt().player, "BuffPoisonOnGrids", grids, m.attrs.buffCnt, m.attrs.poisonPs);
+                for(var i = 0; i < grids.length; i++)
+                    await m.bt().fireEvent("onGridChanged", {x:grids[i].pos.x, y:grids[i].pos.y, e:grids[i].getElem(), subType:"miasma"});
+            }
+        }, m);
+    }
+
+    // 偷袭时将3个物品用茧包住
+    static doSwatheItemsOnSneak(m:Monster):Monster {
+        return MonsterFactory.addSneakAI(async () => {
+            var items:Elem[] = BattleUtils.findRandomElems(m.bt(), 3, (e:Elem) => {
+                return !(e instanceof Monster) && !e.getGrid().isCovered() && (Utils.indexOf(m.attrs.invalid, (ie) => e.type == ie) < 0);
+            });
+            var bt = m.bt();
+            for(var i = 0; i < items.length; i++){
+                var grid = items[i].getGrid();
+                await bt.implRemoveElemAt(grid.pos.x, grid.pos.y);
+                var cocoon = bt.level.createElem("Cocoon");
+                cocoon.addDropItem(items[i]);
+                await bt.implAddElemAt(cocoon, grid.pos.x, grid.pos.y);
+                cocoon["swathedBy"] = m;
+            }
+        }, m);
+    }
+
+    // 会追着玩家进入下一层
+    static doChaseToNextLevel(m:Monster):Monster {
+        return ;
     }
 
     // boss 特殊逻辑

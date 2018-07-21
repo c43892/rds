@@ -163,6 +163,35 @@ class ItemFactory {
             return e;
         },
 
+        // 骷髅头
+        "HeadBone": (attrs) => {
+            var e = this.createItem();
+            e.canBeDragDrop = true;
+            e = ElemFactory.addAI("onSneaking", async () => {
+                var grid = e.getGrid();
+                var bt = e.bt();
+                var newSnk = bt.level.createElem("SnkZombie");
+                await bt.implRemoveElemAt(grid.pos.x, grid.pos.y);
+                await bt.implAddElemAt(newSnk, grid.pos.x, grid.pos.y);
+            }, e);
+            return e;
+        },
+
+        //茧
+        "Cocoon": (attrs) => {
+            var e = this.createItem();
+            e.canBeDragDrop = false;
+            e.canUse = () => {
+                if(e["swathedBy"].isDead())
+                    return true;
+                else return false;
+            };
+            e.use = async () => {
+                await e.bt().implOnElemDie(e);
+            };
+            return e;
+        },
+
         // 下一关入口
         "NextLevelPort": (attrs) => {
             var e = this.createItem();

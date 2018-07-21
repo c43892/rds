@@ -218,7 +218,7 @@ class Player {
             this.buffs.push(buff);
         }
         else if (buff.cnt)
-            this.buffs[n].cnt += buff.cnt;
+            this.buffs[n].addBuffCnt(this.buffs[n].cnt, buff.cnt);
     }
 
     public removeBuff(type:string):Buff {
