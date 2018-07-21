@@ -20,12 +20,18 @@ class DebugPlatform implements Platform {
     
     async login() {
         var uid = Utils.$$loadItem("userid");
-        var rType = uid ? "loginUser" : "createUser";
-        var r = await this.wc.request({loginType:rType});
-        if (r.Ok) {
-            uid = r.Usr.Uid;
+        var r = await this.wc.request({
+            type: "LoginAndGetRank",
+            uid: uid ? uid : "",
+            nickName: uid ? uid + "_name" : "",
+            rank: 0
+        });
+
+        if (r.ok) {
+            uid = r.usr.uid;
             Utils.$$saveItem("userid", uid);
-            return {ok:true, usr:r.Usr};
+            Utils.log(r.rank.usrs);
+            return {ok:true, usr:r.usr};
         }
         else
             return {ok:false};

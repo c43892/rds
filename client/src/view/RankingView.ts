@@ -70,7 +70,6 @@ class RankingView extends egret.DisplayObjectContainer {
     }
 
     openRank(rankType) {
-        Utils.log("open rank:" + rankType);
         if (rankType == "weeklyRank")
             this.openWeeklyRank();
         else if (rankType == "roleRank")
