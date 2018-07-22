@@ -223,6 +223,7 @@ function getFriendCloudStorage() {
   wx.getFriendCloudStorage({
 	  keyList: ["score"],
 	  success: (res) => {
+		totalGroup = [];
 		var data = res.data;
 		var len = data.length;
 		for (var i = 0; i < len; i++) {
