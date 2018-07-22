@@ -206,7 +206,7 @@ class MonsterFactory {
     static addSneakAI(act, m:Monster):Monster {
         return <Monster>ElemFactory.addAI("onGridChanged", 
             async () => await m.bt().implMonsterSneak(act),
-        m, (ps) => ps.x == m.pos.x && ps.y == m.pos.y && ps.subType == "gridUnconvered" && ps.stateBeforeUncover != GridStatus.Marked);
+        m, (ps) => ps.x == m.pos.x && ps.y == m.pos.y && ps.subType == "gridUncovered" && ps.stateBeforeUncover != GridStatus.Marked);
     }
 
     // 偷袭：攻击
@@ -304,8 +304,11 @@ class MonsterFactory {
     static doAttackOnPlayerLeave(m:Monster):Monster{
         return <Monster>ElemFactory.addAIEvenCovered("beforeGoOutLevel1", async () => {
                 var g = m.getGrid();
-                if (g.isCovered()) // 先揭开，再攻击
-                    await m.bt().implUncoverAt(g.pos.x, g.pos.y);
+                if (g.isCovered()){ // 先揭开，再攻击
+                    var stateBeforeUncover = m.getGrid().status;
+                    m.getGrid().status = GridStatus.Uncovered;
+                    await m.bt().fireEvent("onGridChanged", {x:m.pos.x, y:m.pos.y, subType:"gridUncovered", stateBeforeUncover:stateBeforeUncover});
+                }
 
                 await m.bt().implAddPlayerHp(-m.attrs.stealOnPlayerLeave);
             }, m);
@@ -358,7 +361,7 @@ class MonsterFactory {
     // 被翻开时act
     static addAIOnUncovered(act, m:Monster, condition = undefined):Monster {
         return <Monster>ElemFactory.addAI("onGridChanged", act, m, (ps) => {
-                if(ps.x == m.pos.x && ps.y == m.pos.y && ps.subType == "gridUnconvered")
+                if(ps.x == m.pos.x && ps.y == m.pos.y && ps.subType == "gridUncovered")
                     return condition?condition():true;
                 else 
                     return false;
@@ -465,7 +468,7 @@ class MonsterFactory {
             if(m.getGrid().isCovered()){ //如果护卫所在地块还没被揭开,要揭开它但不要触发偷袭逻辑
                 var stateBeforeUncover = m.getGrid().status;
                 m.getGrid().status = GridStatus.Uncovered;
-                await m.bt().fireEvent("onGridChanged", {x:m.pos.x, y:m.pos.y, subType:"gridUnconvered", stateBeforeUncover:stateBeforeUncover});
+                await m.bt().fireEvent("onGridChanged", {x:m.pos.x, y:m.pos.y, subType:"gridUncovered", stateBeforeUncover:stateBeforeUncover});
             }
             ps.target = m;
             ps.x = m.pos.x;

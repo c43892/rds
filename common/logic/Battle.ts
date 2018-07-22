@@ -151,10 +151,10 @@ class Battle {
         var stateBeforeUncover = g.status;
         g.status = GridStatus.Uncovered;
 
-        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"gridUnconvered", stateBeforeUncover:stateBeforeUncover});
+        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"gridUncovered", stateBeforeUncover:stateBeforeUncover});
 
         if (!suppressLogicEvent)
-            await this.triggerLogicPoint("onGridChanged", {x:x, y:y, subType:"gridUnconvered", stateBeforeUncover:stateBeforeUncover});
+            await this.triggerLogicPoint("onGridChanged", {x:x, y:y, subType:"gridUncovered", stateBeforeUncover:stateBeforeUncover});
 
         // 对 8 邻格子进行标记逻辑计算
         var neighbours = [];

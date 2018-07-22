@@ -222,7 +222,7 @@ class ElemFactory {
                    await bt.implUncoverAt(hd.pos.x, hd.pos.y);
            }
        }, e, (ps) => {
-           return ps.subType == "gridUnconvered" && (e.pos.x == ps.x && e.pos.y == ps.y) || (Utils.indexOf(placeHolders, (hd) => hd.pos.x == ps.x && hd.pos.y == ps.y) >= 0);
+           return ps.subType == "gridUncovered" && (e.pos.x == ps.x && e.pos.y == ps.y) || (Utils.indexOf(placeHolders, (hd) => hd.pos.x == ps.x && hd.pos.y == ps.y) >= 0);
        }, false);
 
        e.setBattle = (bt:Battle) => 
