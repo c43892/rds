@@ -210,6 +210,9 @@ class Battle {
         // 玩家遗物
         hs.push(...this.player.relics);
 
+        for (var i = 0; i < this.player.relics.length; i++) 
+            hs.push(this.player.relics[i]);
+
         // 地图上的元素
         var es = [];
         this.level.map.foreachElem((e) => { es.push(e); return false; });

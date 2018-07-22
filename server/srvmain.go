@@ -49,7 +49,7 @@ func (r *RankInfo) Len() int { return len(r.Usrs); }
 func (r *RankInfo) Less(i, j int) bool {
 	if (r.Usrs[i] == nil) {
 		return false;
-	} else if (r.Usrs[i] == nil) {
+	} else if (r.Usrs[j] == nil) {
 		return true;
 	} else {
 		return r.Usrs[i].Score > r.Usrs[j].Score;
@@ -188,7 +188,10 @@ func onGetRank(msg *RequestMsg) (*UserInfo) {
 func onSetUserInfo(msg *RequestMsg) (*UserInfo) {
 	// get user info
 	usrInfo := loadOrCreateUser(msg.Uid);
-	usrInfo.NickName = msg.NickName;
+
+	if (msg.NickName != "") {
+		usrInfo.NickName = msg.NickName;
+	}
 
 	// set user score and rebuild the rank
 	if (msg.Score > usrInfo.Score) {

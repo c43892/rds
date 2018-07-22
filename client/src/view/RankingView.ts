@@ -4,7 +4,6 @@ class RankingView extends egret.DisplayObjectContainer {
     public usrInfo;
     public weeklyRankInfo;
     public roleRankInfo;
-    public wxRankInfo;
 
     bg:egret.Bitmap;
     closeBtn:egret.Bitmap;

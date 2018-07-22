@@ -8,8 +8,7 @@ declare interface Platform {
 
     login(): Promise<any>;
 
-    setUserCloudStorage(data): Promise<boolean>;
-    removeUserCloudStorage(data): Promise<boolean>;
+    setUserCloudStorage(data);
 
     platformType;
     openDataContext;
@@ -27,31 +26,31 @@ class DebugPlatform implements Platform {
 
         if (r.ok) {
             uid = r.usr.uid;
+            var nickName = r.usr.nickName;
             Utils.$$saveItem("UserID", uid);
+            Utils.$$saveItem("UserNickName", nickName);
             return {ok:true, usr:r.usr, rank:r.rank.usrs};
         }
         else
             return {ok:false};
     }
 
-    async setUserCloudStorage(data): Promise<boolean>
+    setUserCloudStorage(data)
     {
         var uid = Utils.$$loadItem("UserID");
-        var score = data.Score;
-        var r = await this.wc.request({
+        var score = data.score;
+        var nickName = data.nickName;
+        this.wc.request({
             type: "SetUserInfo",
             uid: uid ? uid : "",
-            nickName: uid ? uid + "_name" : "",
+            nickName: nickName ? nickName : "",
             score: score ? score : 0
-        });
-
-        if (r.ok) {
+        }).then((r) => {
             uid = r.usr.uid;
+            var nickName = r.usr.nickName;
             Utils.$$saveItem("UserID", uid);
-            return true;
-        }
-        else
-            return false;
+            Utils.$$saveItem("UserNickName", nickName);
+        });
     }
 
     async removeUserCloudStorage(data): Promise<boolean> { return false; }

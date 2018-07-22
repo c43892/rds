@@ -217,7 +217,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
             await this.openPlayerDieView();
         } else {
             // 更新最高分
-            window.platform.setUserCloudStorage({"Score": this.player.currentStoreyPos.lv});
+            window.platform.setUserCloudStorage({"score": this.player.currentStoreyPos.lv});
             parent.addChild(this);
             this.refresh();
         }

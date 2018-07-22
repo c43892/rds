@@ -213,9 +213,9 @@ function buttonClick(buttonKey) {
 
 function getUserCloudStorage() {
   wx.getUserCloudStorage({
-	  keyList: ["lv"],
+	  keyList: ["score"],
 	  success: (res) => {
-		console.log(res.KVDataList[0].value);
+		console.log(getByKey(res.KVDataList, "score"));
 	  },
 	  fail: () => {
 		console.log("get failed");
@@ -225,7 +225,7 @@ function getUserCloudStorage() {
 
 function getFriendCloudStorage() {
   wx.getFriendCloudStorage({
-	  keyList: ["lv"],
+	  keyList: ["score"],
 	  success: (res) => {
 		var data = res.data;
 		console.log(data);
@@ -236,7 +236,7 @@ function getFriendCloudStorage() {
 				key:k+1,
 				name: data[i].nickname,
 				url: data[i].avatarUrl,
-				scroes: data[i].KVDataList[0].value,
+				scroes: getByKey(data[i].KVDataList, "score"),
 				openid: data[i].openid
 			});
 		}
@@ -249,11 +249,44 @@ function getFriendCloudStorage() {
   });
 }
 
+function getByKey(kvs, key) {
+	for (var i = 0;i < kvs.length; i++) {
+		var kv = kvs[i];
+		if (kv.key == key)
+			return kv.value;
+	}
+	
+	return undefined;
+}
+
 wx.onMessage(data => {
 	console.log("onmessage " + data.type);
     if (data.type === 'refresh') {
         getFriendCloudStorage();
-    } 
+    } else if (data.type === 'setUserData') {
+		
+		wx.getUserCloudStorage({
+			KVDataList: ["score"],
+			success: (kvs) => {
+				var score = getByKey(kvs, "score");
+				score = (score && score > data.score) ? score : data.score;
+				score = score ? score : 0;
+				
+				wx.setUserCloudStorage({
+					KVDataList: [{key:"score", value:score.toString()}], 
+					success: () => {
+						console.log("set ok");
+					},
+					fail: () => {
+						console.log("set failed");
+					}
+				});
+			},
+			fail: () => {
+				console.log("get failed");
+			}
+		});
+	}
 });
 
 /////////////////////////////////////////////////////////////////// 相关缓存数据
