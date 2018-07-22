@@ -744,6 +744,12 @@ class Battle {
     public async implMonsterAttackMonster(attacker:Monster, target:Monster, selfExplode = false, addFlags:string[] = []) {
         if (target["linkTo"]) // 是 boss 占位符，更换目标
             target = target["linkTo"];
+
+        // 通知准备攻击,提供给援护怪进行判断是否要行动
+        var preAttackPs = {subType:"monster2monster", x:target.pos.x, y:target.pos.y, target:target};
+        await this.fireEvent("preAttack", preAttackPs);
+        await this.triggerLogicPoint("preAttack", preAttackPs);
+        target = preAttackPs.target;
         
         var attackerAttrs = attacker.getAttrsAsAttacker();
         var targetAttrs = target.getAttrsAsTarget();
