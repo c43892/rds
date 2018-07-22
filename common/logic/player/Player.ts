@@ -4,7 +4,7 @@
 class Player {
     // 应该序列化的字段
     private static serializableFields = [
-        "currentStoreyPos", "finishedStoreyPos", "battleRandomSeed", "avatar", 
+        "currentStoreyPos", "finishedStoreyPos", "battleRandomSeed",  
         "deathStep", "hp", "maxHp", "power", "defence", "dodge", 
         "occupation", "exp", "lv", "money"];
 
@@ -37,7 +37,6 @@ class Player {
         p.deathStep = 100;
         p.hp = 10;
         p.maxHp = 20;
-        p.avatar = "avatar1";
         p.power = [3, 0];
         p.playerRandom = new SRandom();
         p.money = 50;
@@ -71,9 +70,6 @@ class Player {
 
         return this.lv > oldLv;
     }
-
-    // 头像逻辑
-    public avatar:string;
 
     // 非战斗逻辑
     public money:number; // 金币

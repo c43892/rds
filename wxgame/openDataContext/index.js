@@ -127,10 +127,13 @@ function drawByData(data, i) {
   //绘制底框
   context.drawImage(assets.box, startX, startY + i * preOffsetY, barWidth, barHeight);
   x += 10;
+  // 文字颜色
+  context.fillStyle = "black";
   //设置字体
   context.font = fontSize + "px Arial";
   //绘制序号
   context.fillText(data.key + "", x, startY + i * preOffsetY + textOffsetY, textMaxSize);
+  console.log("text::::", x, startY + i * preOffsetY + textOffsetY, textMaxSize);
   x += indexWidth + intervalX;
   //绘制头像
   // context.drawImage(data.url, x, startY + i * preOffsetY + (barHeight - avatarSize) / 2, avatarSize, avatarSize);
@@ -377,7 +380,7 @@ let buttonOffset;
 /**
  * 字体大小
  */
-let fontSize = 45;
+let fontSize = 40;
 /**
  * 文本文字Y轴偏移量
  * 可以使文本相对于图片大小居中

@@ -103,9 +103,8 @@ class BattleView extends egret.DisplayObjectContainer {
 
     // 刷新角色信息
     public refreshPlayer() {
-        this.avatar.texture = RES.getRes(this.player.avatar + "_png");
+        this.avatar.texture = RES.getRes(this.player.occupation + "_png");
         this.playerLv.text = "lv:" + this.player.lv + ", e:" + this.player.exp;
-        // this.title.width = this.width -         
         this.money.text = "💴：" + this.player.money;
         this.deathStep.text = "😈：" + this.player.deathStep;
         this.hp.text = "血量: " + this.player.hp + "/" + this.player.maxHp;
