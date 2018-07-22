@@ -18,6 +18,9 @@
         "BoxMonster":10
     }},
 
+    "SkeletonKing":{"num":[1, 2], "elems":{
+        "HeadBone":10
+    }},
 
     "ttrdp1":{"num":[1, 2],"elems":{
         "MedicineBox":10,

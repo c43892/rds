@@ -342,19 +342,16 @@ class MonsterFactory {
     static doAddHpPerRound(n:number, m:Monster):Monster{
         return <Monster>ElemFactory.addAI("onPlayerActed", async () => {
             if(m.hp > 0)
-                m.hp += 1;
+                await m.bt().implAddMonsterHp(m, 1);
 
         }, m);
     }
 
     // 受伤害时增加攻击力
-    static doAddPowerOnHurt(m:Monster):Monster{
-        var hurted = [];
-        var cnt = 1;
+    static doAddPowerOnHurt(m:Monster):Monster {
         return <Monster>ElemFactory.addAI("onMonsterHurt", async (ps) => {
             m.btAttrs.power -= ps.dhp;
             await m.bt().fireEvent("onElemChanged", {subType:"power", e:m});
-            cnt ++;
         }, m, (ps) => ps.m == m);
     }
 
@@ -473,7 +470,10 @@ class MonsterFactory {
             ps.target = m;
             ps.x = m.pos.x;
             ps.y = m.pos.y;
-        }, m, (ps) => ps.subType == "player2monster" && ps.target.type != "GuardZombie" && BattleUtils.isAround(m.map().getGridAt(ps.x, ps.y), m.getGrid()));
+        }, m, (ps) => 
+            (ps.subType == "player2monster" || ps.subType == "monster2monster") && ps.target.type != "GuardZombie" 
+            && ps.target.isHazard() && BattleUtils.isAround(m.map().getGridAt(ps.x, ps.y), m.getGrid())
+        );
     }
 
     // 其他怪物死亡时逃进阴影
@@ -491,7 +491,7 @@ class MonsterFactory {
         return <Monster>ElemFactory.addDieAI(async () => {
             m.cnt = m.attrs.cnt;
             if(m.cnt > 0){
-                var newM = m.bt().level.createElem(m.type, {"hp":6, "power":1 ,cnt: m.attrs.cnt - 1});
+                var newM = m.bt().level.createElem(m.type, {"hp":m.attrs.hp, "power":m.attrs.power ,cnt: m.attrs.cnt - 1});
                 var g = BattleUtils.findRandomEmptyGrid(m.bt(), false);
                 await m.bt().implAddElemAt(newM, g.pos.x, g.pos.y);
             }
@@ -515,10 +515,7 @@ class MonsterFactory {
                 m.map().travel8Neighbours(m.pos.x, m.pos.y, (x, y, g:Grid)=>{
                     var e = g.getElem();
                     if(e && !e.getGrid().isCovered() && isTargetType(e)){
-                        if(!itemTook)
-                            targetElems.push(e);
-                        else if(e.type == "Coins")
-                            targetElems.push(e);
+                        targetElems.push(e);
                     }
                 });
             };
