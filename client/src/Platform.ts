@@ -20,12 +20,9 @@ class DebugPlatform implements Platform {
     
     async login() {
         var uid = Utils.$$loadItem("UserID");
-        var maxScore = Utils.$$loadItem("MaxScore");
         var r = await this.wc.request({
-            type: "LoginAndGetRank",
-            uid: uid ? uid : "",
-            nickName: uid ? uid + "_name" : "",
-            score: maxScore ? +maxScore : 0
+            type: "GetRank",
+            uid: uid ? uid : ""
         });
 
         if (r.ok) {
@@ -37,13 +34,31 @@ class DebugPlatform implements Platform {
             return {ok:false};
     }
 
-    async setUserCloudStorage(data): Promise<boolean> { return false; }
+    async setUserCloudStorage(data): Promise<boolean>
+    {
+        var uid = Utils.$$loadItem("UserID");
+        var score = data.Score;
+        var r = await this.wc.request({
+            type: "SetUserInfo",
+            uid: uid ? uid : "",
+            nickName: uid ? uid + "_name" : "",
+            score: score ? score : 0
+        });
+
+        if (r.ok) {
+            uid = r.usr.uid;
+            Utils.$$saveItem("UserID", uid);
+            return true;
+        }
+        else
+            return false;
+    }
+
     async removeUserCloudStorage(data): Promise<boolean> { return false; }
 
     platformType = "debug";
     openDataContext = {
-        createDisplayObject: () => {},
-        setUserCloudStorage: () => {}
+        createDisplayObject: () => {}
     }
 }
 

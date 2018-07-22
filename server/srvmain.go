@@ -83,7 +83,7 @@ func main() {
     http.ListenAndServe(":81", nil)
 }
 
-type HttpLoginResp struct {
+type HttpResp struct {
 	Ok bool `json:"ok"`
 	Usr UserInfo `json:"usr"`
 	Rank RankInfo `json:"rank"`
@@ -104,21 +104,29 @@ func handleMsgfunc(w http.ResponseWriter, r *http.Request) {
 	msg := &RequestMsg{};
 	json.Unmarshal([]byte(r.PostFormValue("msg")), msg);
 
-	// only one request type is supported now
-	assert(msg.Type == "LoginAndGetRank", "only LoginAndGetRank message type supported");
+	var res *HttpResp; // response
 
 	// handle the request message
-	usr := onLoginAndGetRank(msg);
+	if (msg.Type == "GetRank") {
+		usr := onGetRank(msg);
+		res = &HttpResp{};
+		res.Ok = true;
+		res.Usr = *usr;
+		res.Rank = *rankInfo;
+
+	} else if (msg.Type == "SetUserInfo") {
+		usr := onSetUserInfo(msg);
+		res = &HttpResp{};
+		res.Ok = true;
+		res.Usr = *usr;
+	} else {
+		log.Fatal("unsupported message type: " + msg.Type);
+	}
 
 	// send the response
-	res := &HttpLoginResp{};
-	res.Ok = true;
-	res.Usr = *usr;
-	res.Rank = *rankInfo;
+	w.Header().Set("Access-Control-Allow-Origin", "*");
 	resData, _ := json.Marshal(res);
 	resStr := string(resData);
-
-	w.Header().Set("Access-Control-Allow-Origin", "*");
 	io.WriteString(w, resStr);
 }
 
@@ -158,27 +166,10 @@ func sortRank() {
 	}
 }
 
-// msg: LoginAndGetRank
-func onLoginAndGetRank(msg *RequestMsg) (*UserInfo) {
-	uid := msg.Uid;
-
+// msg: GetRank
+func onGetRank(msg *RequestMsg) (*UserInfo) {
 	// get user info
-	var usrInfo *UserInfo;
-
-	// load or create userinfo
-	r, err := dbc.Get("uid_" + uid).Result();
-	if (err != nil || r == "") {
-		usrInfo = createUser();
-		data, _ := json.Marshal(usrInfo);
-		dbc.Set("uid_" + usrInfo.Uid, string(data), 0);
-	} else {
-		usrInfo = &UserInfo{};
-		json.Unmarshal([]byte(r), usrInfo);
-	}
-
-	// refresh user information
-	usrInfo.NickName = msg.NickName;
-	usrInfo.Score = msg.Score;
+	usrInfo := loadOrCreateUser(msg.Uid);
 
 	// weekly refresh
 	_, nowWeeks := time.Now().ISOWeek();
@@ -189,10 +180,39 @@ func onLoginAndGetRank(msg *RequestMsg) (*UserInfo) {
 		dbc.Set("weeklyRank_timestamp", strconv.Itoa(nowWeeks), 0);
 	}
 
+	// get rank info
+	return usrInfo;
+}
+
+// msg: SetUserInfo
+func onSetUserInfo(msg *RequestMsg) (*UserInfo) {
+	// get user info
+	usrInfo := loadOrCreateUser(msg.Uid);
+	usrInfo.NickName = msg.NickName;
+
 	// set user score and rebuild the rank
-	setUserScore(usrInfo);
+	if (msg.Score > usrInfo.Score) {
+		usrInfo.Score = msg.Score;
+		setUserScore(usrInfo);
+	}
 
 	// get rank info
+	return usrInfo;
+}
+
+// load or create user
+func loadOrCreateUser(uid string) *UserInfo {
+	var usrInfo *UserInfo;
+	r, err := dbc.Get("uid_" + uid).Result();
+	if (err != nil || r == "") {
+		usrInfo = createUser();
+		data, _ := json.Marshal(usrInfo);
+		dbc.Set("uid_" + usrInfo.Uid, string(data), 0);
+	} else {
+		usrInfo = &UserInfo{};
+		json.Unmarshal([]byte(r), usrInfo);
+	}
+
 	return usrInfo;
 }
 
