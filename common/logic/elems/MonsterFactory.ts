@@ -112,14 +112,14 @@ class MonsterFactory {
         // }
 
         "NormalZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(MonsterFactory.doMove2FoodAndEatIt("onPlayerActed", this.createMonster(attrs), attrs.moveRange))), //普通僵尸
-        "ThiefZombie": (attrs) => MonsterFactory.doSneakStealMoney(false, MonsterFactory.doAttackBack(this.createMonster(attrs))), //窃贼僵尸
+        "GoblinThief": (attrs) => MonsterFactory.doSneakStealMoney(false, MonsterFactory.doAttackBack(this.createMonster(attrs))), //哥布林窃贼
         "HoundZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //猎犬僵尸
-        "VampireZombie": (attrs) => MonsterFactory.doSneakSuckBlood(MonsterFactory.doAttackBack(this.createMonster(attrs))), //吸血鬼僵尸
+        "Vampire": (attrs) => MonsterFactory.doSneakSuckBlood(MonsterFactory.doAttackBack(this.createMonster(attrs))), //吸血鬼
         "DancerZombie": (attrs) => MonsterFactory.doSneakSummon(MonsterFactory.doAttackBack(this.createMonster(attrs))), //舞王僵尸
         "GluttonyZombie": (attrs) => MonsterFactory.doSneakEatItems(MonsterFactory.doAttackBack(this.createMonster(attrs)), false), //暴食僵尸
-        "SniperZombie": (attrs) => MonsterFactory.doAttackOnPlayerLeave(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //狙击者僵尸
-        "BombZombie": (attrs) => MonsterFactory.doSelfExplodeAfterNRound(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //炸弹僵尸
-        "EyeDemonZombie": (attrs) => MonsterFactory.doUncoverGridOnDeath(2, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //眼魔僵尸
+        "Gengar": (attrs) => MonsterFactory.doAttackOnPlayerLeave(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //耿鬼
+        "BombAbomination": (attrs) => MonsterFactory.doSelfExplodeAfterNRound(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //自爆憎恶
+        "EyeDemon": (attrs) => MonsterFactory.doUncoverGridOnDeath(2, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //眼魔
         "RandomEggZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //彩蛋僵尸
         "LustZombie": (attrs) => MonsterFactory.doSneakReduseDeathStep(15, MonsterFactory.doAttackBack(this.createMonster(attrs))), //色欲僵尸
         "IronZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //钢铁侠僵尸
@@ -132,9 +132,9 @@ class MonsterFactory {
         "MarkZombie":  (attrs) => MonsterFactory.doMarkMonsterOnHurt(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //标记僵尸
         "ConfusionZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //疑惑僵尸
         "GreedyZombie": (attrs) => MonsterFactory.doTakeItemsAround(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //贪婪僵尸
-        "FogZombie": (attrs) => MonsterFactory.doCoverGridAround(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //迷雾僵尸
-        "MiasmaZombie": (attrs) => MonsterFactory.doMakeCoveredGridsPoison(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //瘴气僵尸
-        "SnkZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //骷髅王僵尸
+        "Mummy": (attrs) => MonsterFactory.doCoverGridAround(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //木乃伊
+        "PoisonJellyfish": (attrs) => MonsterFactory.doMakeCoveredGridsPoison(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //毒性水母
+        "SkeletonKing": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //骷髅王僵尸
         "SwatheZombie": (attrs) => MonsterFactory.doSwatheItemsOnSneak(MonsterFactory.doAttackBack(this.createMonster(attrs))), //缠绕僵尸
         "BoxMonster": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //宝箱怪
 
