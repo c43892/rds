@@ -78,10 +78,10 @@ function init() {
   barHeight = RankHeight / perPageMaxNum;
   offsetX_rankToBorder = (canvasWidth - RankWidth) / 2;
   offsetY_rankToBorder = 0; // canvasHeight - RankHeight;
-  preOffsetY = 0; // (RankHeight - barHeight) / (perPageMaxNum + 1);
+  preOffsetY = barHeight; // (RankHeight - barHeight) / (perPageMaxNum + 1);
 
   startX = offsetX_rankToBorder; // + offsetX_rankToBorder;
-  startY = offsetY_rankToBorder + preOffsetY;
+  startY = offsetY_rankToBorder; //  + preOffsetY;
   avatarSize = barHeight - 10;
   intervalX = barWidth / 20;
   textOffsetY = (barHeight + fontSize) / 2;
@@ -224,18 +224,19 @@ function getFriendCloudStorage() {
 	  keyList: ["score"],
 	  success: (res) => {
 		var data = res.data;
-		console.log(data);
 		var len = data.length;
 		for (var i = 0; i < len; i++) {
-			var k = i;
-			totalGroup.push({
-				key:k+1,
+			totalGroup.push({				
 				name: data[i].nickname,
 				url: data[i].avatarUrl,
 				scroes: getByKey(data[i].KVDataList, "score"),
 				openid: data[i].openid
 			});
 		}
+		
+		totalGroup.sort(function (a, b) { return b.scroes - a.scroes; });
+		for (var i = 0; i < len; i++)
+			totalGroup[i].key = i + 1;
 		
 		renderDirty = true;
 	  },
@@ -256,11 +257,9 @@ function getByKey(kvs, key) {
 }
 
 wx.onMessage(data => {
-	console.log("onmessage " + data.type);
 	if (data.type === 'setSize') {
 		canvasWidth = data.width;
 		canvasHeight = data.height;
-		console.log(canvasWidth, canvasHeight);
 		init();
 	}
     else if (data.type === 'refresh') {
