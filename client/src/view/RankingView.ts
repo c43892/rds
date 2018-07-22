@@ -24,6 +24,7 @@ class RankingView extends egret.DisplayObjectContainer {
         this.bg = ViewUtils.createBitmapByName("translucent_png");
         this.bg.width = this.width;
         this.bg.height = this.height;
+        this.bg.touchEnabled = true;
         this.addChild(this.bg);
 
         // 关闭按钮

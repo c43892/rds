@@ -451,7 +451,7 @@ function createScene() {
     // stageWidth = sharedCanvas.width;
     // stageHeight = sharedCanvas.height;
   } else {
-    console.log(`width :${sharedCanvas.width}   height:${sharedCanvas.width}`)
+    console.log(`width :${sharedCanvas.width}   height:${sharedCanvas.height}`)
   }
   // init();
   requestAnimationFrame(loop);
@@ -463,7 +463,7 @@ function createScene() {
  */
 function loop() {
   if (renderDirty) {
-    console.log(`width :${sharedCanvas.width}   height:${sharedCanvas.width}`)
+    console.log(`width :${sharedCanvas.width}   height:${sharedCanvas.height}`)
     context.setTransform(1, 0, 0, 1, 0, 0);
     context.clearRect(0, 0, sharedCanvas.width, sharedCanvas.height);
     drawRankPanel();

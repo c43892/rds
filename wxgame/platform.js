@@ -98,6 +98,7 @@ class WxgameOpenDataContext {
                     return false;
                 }, this);
             }
+			
         }
         return bitmap;
     }
