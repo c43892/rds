@@ -19,7 +19,7 @@
             "NormalZombie":{"hp":4, "power":2},
             "HoundZombie":{"hp":10, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
             "DancerZombie":{"hp":4, "power":2, "summons":["NormalZombie", "NormalZombie"]},
-            "EyeDemonZombie":{"hp":6, "power":1},
+            "EyeDemon":{"hp":6, "power":1},
             "RandomEggZombie":{"hp":5, "power":1, "dropItems":["RandomEgg1"]},
             "CommanderZombie":{"hp":6, "power":1},
             "RageZombie":{"hp":8, "power":1},
@@ -30,9 +30,9 @@
             "MarkZombie":{"hp":6, "power":1},
             "ConfusionZombie":{"hp":6, "power":1},
             "GreedyZombie":{"hp":6, "power":1},
-            "FogZombie":{"hp":6, "power":1},
-            "MiasmaZombie":{"hp":6, "power":1},
-            "SnkZombie":{"hp":10, "power":1, "dropItems":["HeadBone"]},
+            "Mummy":{"hp":6, "power":1},
+            "PoisonJellyfish":{"hp":6, "power":1},
+            "SkeletonKing":{"hp":10, "power":1, "dropItems":["HeadBone"]},
             "SwatheZombie":{"hp":10, "power":1},
             "BoxMonster":{"hp":10, "power":1},
 
@@ -85,12 +85,12 @@
                 "CowardZombie":10,
                 "MarkZombie":10,
                 "GreedyZombie":10,
-                "MiasmaZombie":10,
+                "PoisonJellyfish":10,
                 "SwatheZombie":10,
                 "GuardZombie":10,
                 "ConfusionZombie":10,
-                "FogZombie":10,
-                "SnkZombie":10                
+                "Mummy":10,
+                "SkeletonKing":10                
         }}]
     },
 
@@ -111,7 +111,7 @@
             "NormalZombie":{"hp":4, "power":2},
             "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
             "DancerZombie":{"hp":4, "power":2, "summons":["NormalZombie", "NormalZombie"]},
-            "EyeDemonZombie":{"hp":6, "power":1},
+            "EyeDemon":{"hp":6, "power":1},
             "RandomEggZombie":{"hp":5, "power":1, "dropItems":["RandomEgg1"]},
 
 
@@ -150,13 +150,13 @@
                 "NormalZombie": 10,
                 "HoundZombie": 10,
                 "DancerZombie": 10,
-                "EyeDemonZombie": 10
+                "EyeDemon": 10
         }},{
             "num":[6, 7], "elems":{
                 "NormalZombie": 10,
                 "HoundZombie": 10,
                 "DancerZombie": 10,
-                "EyeDemonZombie": 10,
+                "EyeDemon": 10,
                 "RandomEggZombie": 10
         }}]
     },
@@ -178,7 +178,7 @@
             "NormalZombie":{"hp":4, "power":2},
             "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
             "DancerZombie":{"hp":4, "power":2, "summons":["NormalZombie", "NormalZombie"]},
-            "EyeDemonZombie":{"hp":6, "power":1},
+            "EyeDemon":{"hp":6, "power":1},
             "RandomEggZombie":{"hp":5, "power":1, "dropItems":["RandomEgg1"]},
 
 
@@ -216,13 +216,13 @@
                 "NormalZombie": 10,
                 "HoundZombie": 10,
                 "DancerZombie": 10,
-                "EyeDemonZombie": 10
+                "EyeDemon": 10
         }},{
             "num":[6, 7], "elems":{
                 "NormalZombie": 10,
                 "HoundZombie": 10,
                 "DancerZombie": 10,
-                "EyeDemonZombie": 10,
+                "EyeDemon": 10,
                 "RandomEggZombie": 10
         }}]
     },
@@ -244,7 +244,7 @@
             "NormalZombie":{"hp":5, "power":2},
             "HoundZombie":{"hp":4, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
             "DancerZombie":{"hp":5, "power":2, "summons":["NormalZombie", "NormalZombie"]},
-            "EyeDemonZombie":{"hp":7, "power":1},
+            "EyeDemon":{"hp":7, "power":1},
             "RandomEggZombie":{"hp":6, "power":1, "dropItems":["RandomEgg1"]},
 
 
@@ -282,13 +282,13 @@
                 "NormalZombie": 10,
                 "HoundZombie": 10,
                 "DancerZombie": 10,
-                "EyeDemonZombie": 10
+                "EyeDemon": 10
         }},{
             "num":[6, 7], "elems":{
                 "NormalZombie": 10,
                 "HoundZombie": 10,
                 "DancerZombie": 10,
-                "EyeDemonZombie": 10,
+                "EyeDemon": 10,
                 "RandomEggZombie": 10
         }}]
     },
@@ -310,7 +310,7 @@
             "NormalZombie":{"hp":5, "power":2},
             "HoundZombie":{"hp":4, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
             "DancerZombie":{"hp":5, "power":2, "summons":["NormalZombie", "NormalZombie"]},
-            "EyeDemonZombie":{"hp":7, "power":1},
+            "EyeDemon":{"hp":7, "power":1},
             "RandomEggZombie":{"hp":6, "power":1, "dropItems":["RandomEgg1"]},
 
 
@@ -348,13 +348,13 @@
                 "NormalZombie": 10,
                 "HoundZombie": 10,
                 "DancerZombie": 10,
-                "EyeDemonZombie": 10
+                "EyeDemon": 10
         }},{
             "num":[6, 7], "elems":{
                 "NormalZombie": 10,
                 "HoundZombie": 10,
                 "DancerZombie": 10,
-                "EyeDemonZombie": 10,
+                "EyeDemon": 10,
                 "RandomEggZombie": 10
         }}]
     },
@@ -374,11 +374,11 @@
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
             "NormalZombie":{"hp":5, "power":3},
-            "ThiefZombie":{"hp":3, "power":1, "steal":{"percent":20, "num":5}},
+            "GoblinThief":{"hp":3, "power":1, "steal":{"percent":20, "num":5}},
             "HoundZombie":{"hp":4, "power":2, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
             "DancerZombie":{"hp":5, "power":3, "summons":["NormalZombie", "NormalZombie"]},
-            "SniperZombie":{"hp":5, "power":2, "stealOnPlayerLeave":6},
-            "EyeDemonZombie":{"hp":7, "power":2},
+            "Gengar":{"hp":5, "power":2, "stealOnPlayerLeave":6},
+            "EyeDemon":{"hp":7, "power":2},
             "RandomEggZombie":{"hp":6, "power":2, "dropItems":["RandomEgg1"]},
             "IronZombie":{"hp":5, "power":2, "sheild":8},
 
@@ -415,19 +415,19 @@
         }},{
             "num":[2, 3], "drops":["Key"], "elems": {
                 "NormalZombie": 10,
-                "ThiefZombie": 10,
+                "GoblinThief": 10,
                 "HoundZombie": 10,
                 "DancerZombie": 10,
-                "SniperZombie": 10,
-                "EyeDemonZombie": 10
+                "Gengar": 10,
+                "EyeDemon": 10
         }},{
             "num":[7, 8], "elems":{
                 "NormalZombie": 10,
-                "ThiefZombie": 10,
+                "GoblinThief": 10,
                 "HoundZombie": 10,
                 "DancerZombie": 10,
-                "SniperZombie": 10,
-                "EyeDemonZombie": 10,
+                "Gengar": 10,
+                "EyeDemon": 10,
                 "RandomEggZombie": 10
             }},{
             "num":[1, 2], "elems":{
@@ -450,11 +450,11 @@
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
             "NormalZombie":{"hp":6, "power":3},
-            "ThiefZombie":{"hp":3, "power":1, "steal":{"percent":20, "num":5}},
+            "GoblinThief":{"hp":3, "power":1, "steal":{"percent":20, "num":5}},
             "HoundZombie":{"hp":5, "power":2, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
             "DancerZombie":{"hp":6, "power":3, "summons":["NormalZombie", "NormalZombie"]},
-            "SniperZombie":{"hp":5, "power":2, "stealOnPlayerLeave":6},
-            "EyeDemonZombie":{"hp":8, "power":2},
+            "Gengar":{"hp":5, "power":2, "stealOnPlayerLeave":6},
+            "EyeDemon":{"hp":8, "power":2},
             "RandomEggZombie":{"hp":7, "power":2, "dropItems":["RandomEgg1"]},
             "IronZombie":{"hp":5, "power":2, "sheild":8},
 
@@ -491,19 +491,19 @@
         }},{
             "num":[2, 3], "drops":["Key"], "elems": {
                 "NormalZombie": 10,
-                "ThiefZombie": 10,
+                "GoblinThief": 10,
                 "HoundZombie": 10,
                 "DancerZombie": 10,
-                "SniperZombie": 10,
-                "EyeDemonZombie": 10
+                "Gengar": 10,
+                "EyeDemon": 10
         }},{
             "num":[8, 9], "elems":{
                 "NormalZombie": 10,
-                "ThiefZombie": 10,
+                "GoblinThief": 10,
                 "HoundZombie": 10,
                 "DancerZombie": 10,
-                "SniperZombie": 10,
-                "EyeDemonZombie": 10,
+                "Gengar": 10,
+                "EyeDemon": 10,
                 "RandomEggZombie": 10
         }}]
     },
@@ -523,11 +523,11 @@
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
             "NormalZombie":{"hp":6, "power":3},
-            "ThiefZombie":{"hp":3, "power":1, "steal":{"percent":20, "num":5}},
+            "GoblinThief":{"hp":3, "power":1, "steal":{"percent":20, "num":5}},
             "HoundZombie":{"hp":5, "power":2, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
             "DancerZombie":{"hp":6, "power":3, "summons":["NormalZombie", "NormalZombie"]},
-            "SniperZombie":{"hp":5, "power":2, "stealOnPlayerLeave":6},
-            "EyeDemonZombie":{"hp":8, "power":2},
+            "Gengar":{"hp":5, "power":2, "stealOnPlayerLeave":6},
+            "EyeDemon":{"hp":8, "power":2},
             "RandomEggZombie":{"hp":7, "power":2, "dropItems":["RandomEgg1"]},
             "IronZombie":{"hp":5, "power":2, "sheild":8},
 
@@ -564,19 +564,19 @@
         }},{
             "num":[2, 3], "drops":["Key"], "elems": {
                 "NormalZombie": 10,
-                "ThiefZombie": 10,
+                "GoblinThief": 10,
                 "HoundZombie": 10,
                 "DancerZombie": 10,
-                "SniperZombie": 10,
-                "EyeDemonZombie": 10
+                "Gengar": 10,
+                "EyeDemon": 10
         }},{
             "num":[8, 9], "elems":{
                 "NormalZombie": 10,
-                "ThiefZombie": 10,
+                "GoblinThief": 10,
                 "HoundZombie": 10,
                 "DancerZombie": 10,
-                "SniperZombie": 10,
-                "EyeDemonZombie": 10,
+                "Gengar": 10,
+                "EyeDemon": 10,
                 "RandomEggZombie": 10
         }}]
     },
@@ -596,11 +596,11 @@
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
             "NormalZombie":{"hp":6, "power":3},
-            "ThiefZombie":{"hp":4, "power":1, "steal":{"percent":20, "num":5}},
+            "GoblinThief":{"hp":4, "power":1, "steal":{"percent":20, "num":5}},
             "HoundZombie":{"hp":5, "power":2, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
             "DancerZombie":{"hp":6, "power":3, "summons":["NormalZombie", "NormalZombie"]},
-            "SniperZombie":{"hp":6, "power":2, "stealOnPlayerLeave":6},
-            "EyeDemonZombie":{"hp":8, "power":2},
+            "Gengar":{"hp":6, "power":2, "stealOnPlayerLeave":6},
+            "EyeDemon":{"hp":8, "power":2},
             "RandomEggZombie":{"hp":7, "power":2, "dropItems":["RandomEgg1"]},
             "IronZombie":{"hp":6, "power":2, "sheild":8},
 
@@ -637,19 +637,19 @@
         }},{
             "num":[2, 3], "drops":["Key"], "elems": {
                 "NormalZombie": 10,
-                "ThiefZombie": 10,
+                "GoblinThief": 10,
                 "HoundZombie": 10,
                 "DancerZombie": 10,
-                "SniperZombie": 10,
-                "EyeDemonZombie": 10
+                "Gengar": 10,
+                "EyeDemon": 10
         }},{
             "num":[8, 9], "elems":{
                 "NormalZombie": 10,
-                "ThiefZombie": 10,
+                "GoblinThief": 10,
                 "HoundZombie": 10,
                 "DancerZombie": 10,
-                "SniperZombie": 10,
-                "EyeDemonZombie": 10,
+                "Gengar": 10,
+                "EyeDemon": 10,
                 "RandomEggZombie": 10
         }}]
     },
@@ -669,11 +669,11 @@
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
             "NormalZombie":{"hp":7, "power":3},
-            "ThiefZombie":{"hp":4, "power":1, "steal":{"percent":20, "num":5}},
+            "GoblinThief":{"hp":4, "power":1, "steal":{"percent":20, "num":5}},
             "HoundZombie":{"hp":6, "power":2, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
             "DancerZombie":{"hp":7, "power":3, "summons":["NormalZombie", "NormalZombie"]},
-            "SniperZombie":{"hp":6, "power":2, "stealOnPlayerLeave":6},
-            "EyeDemonZombie":{"hp":9, "power":2},
+            "Gengar":{"hp":6, "power":2, "stealOnPlayerLeave":6},
+            "EyeDemon":{"hp":9, "power":2},
             "RandomEggZombie":{"hp":8, "power":2, "dropItems":["RandomEgg1"]},
             "IronZombie":{"hp":6, "power":2, "sheild":9},
 
@@ -710,19 +710,19 @@
         }},{
             "num":[2, 3], "drops":["Key"], "elems": {
                 "NormalZombie": 10,
-                "ThiefZombie": 10,
+                "GoblinThief": 10,
                 "HoundZombie": 10,
                 "DancerZombie": 10,
-                "SniperZombie": 10,
-                "EyeDemonZombie": 10
+                "Gengar": 10,
+                "EyeDemon": 10
         }},{
             "num":[8, 9], "elems":{
                 "NormalZombie": 10,
-                "ThiefZombie": 10,
+                "GoblinThief": 10,
                 "HoundZombie": 10,
                 "DancerZombie": 10,
-                "SniperZombie": 10,
-                "EyeDemonZombie": 10,
+                "Gengar": 10,
+                "EyeDemon": 10,
                 "RandomEggZombie": 10
         }}]
     },
@@ -742,14 +742,14 @@
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
             "NormalZombie":{"hp":7, "power":4},
-            "ThiefZombie":{"hp":4, "power":2, "steal":{"percent":20, "num":5}},
+            "GoblinThief":{"hp":4, "power":2, "steal":{"percent":20, "num":5}},
             "HoundZombie":{"hp":6, "power":3, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
-            "VampireZombie":{"hp":3, "power":2, "suckBlood":{"percent":50, "num":0}},
+            "Vampire":{"hp":3, "power":2, "suckBlood":{"percent":50, "num":0}},
             "DancerZombie":{"hp":7, "power":4, "summons":["NormalZombie", "NormalZombie"]},
             "GluttonyZombie":{"hp":8, "power":3},
-            "SniperZombie":{"hp":6, "power":3, "stealOnPlayerLeave":6},
-            "BombZombie":{"hp":4, "power":3, "selfExplode":{"cnt":5, "mult":3}},
-            "EyeDemonZombie":{"hp":9, "power":3},
+            "Gengar":{"hp":6, "power":3, "stealOnPlayerLeave":6},
+            "BombAbomination":{"hp":4, "power":3, "selfExplode":{"cnt":5, "mult":3}},
+            "EyeDemon":{"hp":9, "power":3},
             "RandomEggZombie":{"hp":8, "power":3, "dropItems":["RandomEgg1"]},
             "LustZombie":{"hp":6, "power":2},
             "IronZombie":{"hp":6, "power":3, "sheild":9},
@@ -787,26 +787,26 @@
         }},{
             "num":[2, 3], "drops":["Key"], "elems": {
                 "NormalZombie": 10,
-                "ThiefZombie": 10,
+                "GoblinThief": 10,
                 "HoundZombie": 10,
-                "VampireZombie": 10,
+                "Vampire": 10,
                 "DancerZombie": 10,
                 "GluttonyZombie": 10,
-                "SniperZombie": 10,
-                "BombZombie": 10,
-                "EyeDemonZombie": 10,
+                "Gengar": 10,
+                "BombAbomination": 10,
+                "EyeDemon": 10,
                 "LustZombie": 10
         }},{
             "num":[9, 10], "elems":{
                 "NormalZombie": 10,
-                "ThiefZombie": 10,
+                "GoblinThief": 10,
                 "HoundZombie": 10,
-                "VampireZombie": 10,
+                "Vampire": 10,
                 "DancerZombie": 10,
                 "GluttonyZombie": 10,
-                "SniperZombie": 10,
-                "BombZombie": 10,
-                "EyeDemonZombie": 10,
+                "Gengar": 10,
+                "BombAbomination": 10,
+                "EyeDemon": 10,
                 "RandomEggZombie": 10,
                 "LustZombie": 10
             }},{
@@ -830,14 +830,14 @@
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
             "NormalZombie":{"hp":7, "power":4},
-            "ThiefZombie":{"hp":5, "power":2, "steal":{"percent":20, "num":5}},
+            "GoblinThief":{"hp":5, "power":2, "steal":{"percent":20, "num":5}},
             "HoundZombie":{"hp":6, "power":3, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
-            "VampireZombie":{"hp":3, "power":2, "suckBlood":{"percent":50, "num":0}},
+            "Vampire":{"hp":3, "power":2, "suckBlood":{"percent":50, "num":0}},
             "DancerZombie":{"hp":7, "power":4, "summons":["NormalZombie", "NormalZombie"]},
             "GluttonyZombie":{"hp":8, "power":3},
-            "SniperZombie":{"hp":7, "power":3, "stealOnPlayerLeave":6},
-            "BombZombie":{"hp":4, "power":3, "selfExplode":{"cnt":5, "mult":3}},
-            "EyeDemonZombie":{"hp":9, "power":3},
+            "Gengar":{"hp":7, "power":3, "stealOnPlayerLeave":6},
+            "BombAbomination":{"hp":4, "power":3, "selfExplode":{"cnt":5, "mult":3}},
+            "EyeDemon":{"hp":9, "power":3},
             "RandomEggZombie":{"hp":8, "power":3, "dropItems":["RandomEgg1"]},
             "LustZombie":{"hp":6, "power":2},
             "IronZombie":{"hp":7, "power":3, "sheild":9},
@@ -875,26 +875,26 @@
         }},{
             "num":[2, 3], "drops":["Key"], "elems": {
                 "NormalZombie": 10,
-                "ThiefZombie": 10,
+                "GoblinThief": 10,
                 "HoundZombie": 10,
-                "VampireZombie": 10,
+                "Vampire": 10,
                 "DancerZombie": 10,
                 "GluttonyZombie": 10,
-                "SniperZombie": 10,
-                "BombZombie": 10,
-                "EyeDemonZombie": 10,
+                "Gengar": 10,
+                "BombAbomination": 10,
+                "EyeDemon": 10,
                 "LustZombie": 10
         }},{
             "num":[10, 11], "elems":{
                 "NormalZombie": 10,
-                "ThiefZombie": 10,
+                "GoblinThief": 10,
                 "HoundZombie": 10,
-                "VampireZombie": 10,
+                "Vampire": 10,
                 "DancerZombie": 10,
                 "GluttonyZombie": 10,
-                "SniperZombie": 10,
-                "BombZombie": 10,
-                "EyeDemonZombie": 10,
+                "Gengar": 10,
+                "BombAbomination": 10,
+                "EyeDemon": 10,
                 "RandomEggZombie": 10,
                 "LustZombie": 10
         }}]
@@ -915,14 +915,14 @@
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
             "NormalZombie":{"hp":8, "power":4},
-            "ThiefZombie":{"hp":5, "power":2, "steal":{"percent":20, "num":5}},
+            "GoblinThief":{"hp":5, "power":2, "steal":{"percent":20, "num":5}},
             "HoundZombie":{"hp":7, "power":3, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
-            "VampireZombie":{"hp":3, "power":2, "suckBlood":{"percent":50, "num":0}},
+            "Vampire":{"hp":3, "power":2, "suckBlood":{"percent":50, "num":0}},
             "DancerZombie":{"hp":8, "power":4, "summons":["NormalZombie", "NormalZombie"]},
             "GluttonyZombie":{"hp":8, "power":3},
-            "SniperZombie":{"hp":7, "power":3, "stealOnPlayerLeave":6},
-            "BombZombie":{"hp":4, "power":3, "selfExplode":{"cnt":5, "mult":3}},
-            "EyeDemonZombie":{"hp":10, "power":3},
+            "Gengar":{"hp":7, "power":3, "stealOnPlayerLeave":6},
+            "BombAbomination":{"hp":4, "power":3, "selfExplode":{"cnt":5, "mult":3}},
+            "EyeDemon":{"hp":10, "power":3},
             "RandomEggZombie":{"hp":9, "power":3, "dropItems":["RandomEgg1"]},
             "LustZombie":{"hp":6, "power":2},
             "IronZombie":{"hp":7, "power":3, "sheild":10},
@@ -959,26 +959,26 @@
         }},{
             "num":[2, 3], "drops":["Key"], "elems": {
                 "NormalZombie": 10,
-                "ThiefZombie": 10,
+                "GoblinThief": 10,
                 "HoundZombie": 10,
-                "VampireZombie": 10,
+                "Vampire": 10,
                 "DancerZombie": 10,
                 "GluttonyZombie": 10,
-                "SniperZombie": 10,
-                "BombZombie": 10,
-                "EyeDemonZombie": 10,
+                "Gengar": 10,
+                "BombAbomination": 10,
+                "EyeDemon": 10,
                 "LustZombie": 10
         }},{
             "num":[10, 11], "elems":{
                 "NormalZombie": 10,
-                "ThiefZombie": 10,
+                "GoblinThief": 10,
                 "HoundZombie": 10,
-                "VampireZombie": 10,
+                "Vampire": 10,
                 "DancerZombie": 10,
                 "GluttonyZombie": 10,
-                "SniperZombie": 10,
-                "BombZombie": 10,
-                "EyeDemonZombie": 10,
+                "Gengar": 10,
+                "BombAbomination": 10,
+                "EyeDemon": 10,
                 "RandomEggZombie": 10,
                 "LustZombie": 10
         }}]
@@ -999,14 +999,14 @@
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
             "NormalZombie":{"hp":8, "power":4},
-            "ThiefZombie":{"hp":5, "power":2, "steal":{"percent":20, "num":5}},
+            "GoblinThief":{"hp":5, "power":2, "steal":{"percent":20, "num":5}},
             "HoundZombie":{"hp":7, "power":3, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
-            "VampireZombie":{"hp":4, "power":2, "suckBlood":{"percent":50, "num":0}},
+            "Vampire":{"hp":4, "power":2, "suckBlood":{"percent":50, "num":0}},
             "DancerZombie":{"hp":8, "power":4, "summons":["NormalZombie", "NormalZombie"]},
             "GluttonyZombie":{"hp":9, "power":3},
-            "SniperZombie":{"hp":7, "power":3, "stealOnPlayerLeave":6},
-            "BombZombie":{"hp":5, "power":3, "selfExplode":{"cnt":5, "mult":3}},
-            "EyeDemonZombie":{"hp":10, "power":3},
+            "Gengar":{"hp":7, "power":3, "stealOnPlayerLeave":6},
+            "BombAbomination":{"hp":5, "power":3, "selfExplode":{"cnt":5, "mult":3}},
+            "EyeDemon":{"hp":10, "power":3},
             "RandomEggZombie":{"hp":9, "power":3, "dropItems":["RandomEgg1"]},
             "LustZombie":{"hp":7, "power":2},
             "IronZombie":{"hp":7, "power":3, "sheild":10},
@@ -1044,26 +1044,26 @@
         }},{
             "num":[2, 3], "drops":["Key"], "elems": {
                 "NormalZombie": 10,
-                "ThiefZombie": 10,
+                "GoblinThief": 10,
                 "HoundZombie": 10,
-                "VampireZombie": 10,
+                "Vampire": 10,
                 "DancerZombie": 10,
                 "GluttonyZombie": 10,
-                "SniperZombie": 10,
-                "BombZombie": 10,
-                "EyeDemonZombie": 10,
+                "Gengar": 10,
+                "BombAbomination": 10,
+                "EyeDemon": 10,
                 "LustZombie": 10
         }},{
             "num":[10, 11], "elems":{
                 "NormalZombie": 10,
-                "ThiefZombie": 10,
+                "GoblinThief": 10,
                 "HoundZombie": 10,
-                "VampireZombie": 10,
+                "Vampire": 10,
                 "DancerZombie": 10,
                 "GluttonyZombie": 10,
-                "SniperZombie": 10,
-                "BombZombie": 10,
-                "EyeDemonZombie": 10,
+                "Gengar": 10,
+                "BombAbomination": 10,
+                "EyeDemon": 10,
                 "RandomEggZombie": 10,
                 "LustZombie": 10
         }}]
@@ -1084,14 +1084,14 @@
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
             "NormalZombie":{"hp":8, "power":4},
-            "ThiefZombie":{"hp":6, "power":2, "steal":{"percent":20, "num":5}},
+            "GoblinThief":{"hp":6, "power":2, "steal":{"percent":20, "num":5}},
             "HoundZombie":{"hp":7, "power":3, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
-            "VampireZombie":{"hp":4, "power":2, "suckBlood":{"percent":50, "num":0}},
+            "Vampire":{"hp":4, "power":2, "suckBlood":{"percent":50, "num":0}},
             "DancerZombie":{"hp":8, "power":4, "summons":["NormalZombie", "NormalZombie"]},
             "GluttonyZombie":{"hp":9, "power":3},
-            "SniperZombie":{"hp":8, "power":3, "stealOnPlayerLeave":6},
-            "BombZombie":{"hp":5, "power":3, "selfExplode":{"cnt":5, "mult":3}},
-            "EyeDemonZombie":{"hp":10, "power":3},
+            "Gengar":{"hp":8, "power":3, "stealOnPlayerLeave":6},
+            "BombAbomination":{"hp":5, "power":3, "selfExplode":{"cnt":5, "mult":3}},
+            "EyeDemon":{"hp":10, "power":3},
             "RandomEggZombie":{"hp":9, "power":3, "dropItems":["RandomEgg1"]},
             "LustZombie":{"hp":7, "power":2},
             "IronZombie":{"hp":8, "power":3, "sheild":10},
@@ -1128,26 +1128,26 @@
         }},{
             "num":[2, 3], "drops":["Key"], "elems": {
                 "NormalZombie": 10,
-                "ThiefZombie": 10,
+                "GoblinThief": 10,
                 "HoundZombie": 10,
-                "VampireZombie": 10,
+                "Vampire": 10,
                 "DancerZombie": 10,
                 "GluttonyZombie": 10,
-                "SniperZombie": 10,
-                "BombZombie": 10,
-                "EyeDemonZombie": 10,
+                "Gengar": 10,
+                "BombAbomination": 10,
+                "EyeDemon": 10,
                 "LustZombie": 10
         }},{
             "num":[10, 11], "elems":{
                 "NormalZombie": 10,
-                "ThiefZombie": 10,
+                "GoblinThief": 10,
                 "HoundZombie": 10,
-                "VampireZombie": 10,
+                "Vampire": 10,
                 "DancerZombie": 10,
                 "GluttonyZombie": 10,
-                "SniperZombie": 10,
-                "BombZombie": 10,
-                "EyeDemonZombie": 10,
+                "Gengar": 10,
+                "BombAbomination": 10,
+                "EyeDemon": 10,
                 "RandomEggZombie": 10,
                 "LustZombie": 10
         }}]
@@ -1199,14 +1199,14 @@
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
             "NormalZombie":{"hp":8, "power":4},
-            "ThiefZombie":{"hp":6, "power":2, "steal":{"percent":20, "num":5}},
+            "GoblinThief":{"hp":6, "power":2, "steal":{"percent":20, "num":5}},
             "HoundZombie":{"hp":7, "power":3, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
-            "VampireZombie":{"hp":4, "power":2, "suckBlood":{"percent":50, "num":0}},
+            "Vampire":{"hp":4, "power":2, "suckBlood":{"percent":50, "num":0}},
             "DancerZombie":{"hp":8, "power":4, "summons":["NormalZombie", "NormalZombie"]},
             "GluttonyZombie":{"hp":9, "power":3},
-            "SniperZombie":{"hp":8, "power":3, "stealOnPlayerLeave":6},
-            "BombZombie":{"hp":5, "power":3, "selfExplode":{"cnt":5, "mult":3}},
-            "EyeDemonZombie":{"hp":10, "power":3},
+            "Gengar":{"hp":8, "power":3, "stealOnPlayerLeave":6},
+            "BombAbomination":{"hp":5, "power":3, "selfExplode":{"cnt":5, "mult":3}},
+            "EyeDemon":{"hp":10, "power":3},
             "RandomEggZombie":{"hp":9, "power":3, "dropItems":["RandomEgg1"]},
             "LustZombie":{"hp":7, "power":2},
             "IronZombie":{"hp":8, "power":3, "sheild":10},
@@ -1245,26 +1245,26 @@
         }},{
             "num":[2, 3], "drops":["Key"], "elems": {
                 "NormalZombie": 10,
-                "ThiefZombie": 10,
+                "GoblinThief": 10,
                 "HoundZombie": 10,
-                "VampireZombie": 10,
+                "Vampire": 10,
                 "DancerZombie": 10,
                 "GluttonyZombie": 10,
-                "SniperZombie": 10,
-                "BombZombie": 10,
-                "EyeDemonZombie": 10,
+                "Gengar": 10,
+                "BombAbomination": 10,
+                "EyeDemon": 10,
                 "LustZombie": 10
         }},{
             "num":[10, 11], "elems":{
                 "NormalZombie": 10,
-                "ThiefZombie": 10,
+                "GoblinThief": 10,
                 "HoundZombie": 10,
-                "VampireZombie": 10,
+                "Vampire": 10,
                 "DancerZombie": 10,
                 "GluttonyZombie": 10,
-                "SniperZombie": 10,
-                "BombZombie": 10,
-                "EyeDemonZombie": 10,
+                "Gengar": 10,
+                "BombAbomination": 10,
+                "EyeDemon": 10,
                 "RandomEggZombie": 10,
                 "LustZombie": 10
         }}]

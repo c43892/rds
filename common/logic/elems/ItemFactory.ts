@@ -170,7 +170,7 @@ class ItemFactory {
             e = ElemFactory.addAI("onSneaking", async () => {
                 var grid = e.getGrid();
                 var bt = e.bt();
-                var newSnk = bt.level.createElem("SnkZombie");
+                var newSnk = bt.level.createElem("SkeletonKing");
                 await bt.implRemoveElemAt(grid.pos.x, grid.pos.y);
                 await bt.implAddElemAt(newSnk, grid.pos.x, grid.pos.y);
             }, e);
