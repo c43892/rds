@@ -23,7 +23,7 @@ class BuffPoisonOnGrids extends Buff {
         this.onGridChanged = async (ps) => {
             var bt:Battle = this.getOwner().bt();
             var map:Map = bt.level.map;
-            if(ps.subType != "gridUnconvered") return;
+            if(ps.subType != "gridUncovered") return;
 
             if(Utils.indexOf(grids, (g:Grid) => g.pos.x == ps.x && g.pos.y == ps.y) > -1){
                 await bt.implAddBuff(this.getOwner(), "BuffPoison", this.buffPoisonPs[0], this.buffPoisonPs[1]);

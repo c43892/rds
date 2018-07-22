@@ -4,7 +4,7 @@ class BuffBasic extends Buff {
     constructor() {
         super("BuffUncoveringAddExp");
         this.onGridChanged = async (ps) => {
-            if (ps.subType != "gridUnconvered") return;
+            if (ps.subType != "gridUncovered") return;
             var bt = this.getOwner().bt();
             await bt.implAddPlayerExp(1);
         }
