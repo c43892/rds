@@ -150,14 +150,13 @@ class RankingView extends egret.DisplayObjectContainer {
     public openWxFriendRank() {
         if (this.wxRankImg) this.rankViewContainer.removeChild(this.wxRankImg);
         var platform = window.platform;
-        var bmp = platform.openDataContext.createDisplayObject(null,this.stage.stageWidth, this.stage.stageHeight);
+        var bmp = platform.openDataContext.createDisplayObject(null, this.rankViewContainer.width, this.rankViewContainer.height);
         this.wxRankImg = bmp;
         if (!bmp) return;
         
         this.rankViewContainer.addChild(this.wxRankImg);
-        this.wxRankImg.width = this.width;
-        this.wxRankImg.height = this.height;
-        window.platform.openDataContext.postMessage({"type":"refresh"});
+        this.wxRankImg.x = this.wxRankImg.y = 0;
+        window.platform.openDataContext.postMessage({"type":"refresh", pageIndex:0});
     }
     
     public onCloseBtn(evt:egret.TouchEvent) {

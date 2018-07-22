@@ -75,13 +75,15 @@ class WxgamePlatform {
 class WxgameOpenDataContext {
 
     createDisplayObject(type, width, height) {
+		this.postMessage({type:"setSize", width:width, height:height});
         const bitmapdata = new egret.BitmapData(sharedCanvas);
         bitmapdata.$deleteSource = false;
         const texture = new egret.Texture();
         texture._setBitmapData(bitmapdata);
         const bitmap = new egret.Bitmap(texture);
-        bitmap.width = width;
-        bitmap.height = height;
+        bitmap.width = width; // sharedCanvas.width;
+        bitmap.height = height; // sharedCanvas.height;
+		bitmap.fillMode = egret.BitmapFillMode.CLIP;
 
         if (egret.Capabilities.renderMode == "webgl") {
             const renderContext = egret.wxgame.WebGLRenderContext.getInstance();

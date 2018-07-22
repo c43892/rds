@@ -15,11 +15,8 @@
  * 之后可通过assets.引用名方式进行获取
  */
 var assets = {
-  icon: "openDataContext/assets/icon.png",
   box: "openDataContext/assets/box.png",
   panel: "openDataContext/assets/panel.png",
-  button: "openDataContext/assets/button.png",
-  title: "openDataContext/assets/rankingtitle.png"
 };
 /**
  * canvas 大小
@@ -55,35 +52,35 @@ let totalGroup = [
  */
 function drawRankPanel() {
   //绘制背景
-  context.drawImage(assets.panel, offsetX_rankToBorder, offsetY_rankToBorder, RankWidth, RankHeight);
+  // context.drawImage(assets.panel, offsetX_rankToBorder, offsetY_rankToBorder, RankWidth, RankHeight);
   //绘制标题
-  let title = assets.title;
+  // let title = assets.title;
   //根据title的宽高计算一下位置;
-  let titleX = offsetX_rankToBorder + (RankWidth - title.width) / 2;
-  let titleY = offsetY_rankToBorder + title.height + 50;
-  context.drawImage(title, titleX, titleY);
+  // let titleX = offsetX_rankToBorder + (RankWidth - title.width) / 2;
+  // let titleY = offsetY_rankToBorder + title.height + 50;
+  // context.drawImage(title, titleX, titleY);
   //获取当前要渲染的数据组
   let start = perPageMaxNum * page;
   currentGroup = totalGroup.slice(start, start + perPageMaxNum);
   //创建头像Bar
   drawRankByGroup(currentGroup);
   //创建按钮
-  drawButton()
+  // drawButton()
 }
 /**
  * 根据屏幕大小初始化所有绘制数据
  */
 function init() {
   //排行榜绘制数据初始化
-  RankWidth = stageWidth * 4 / 5;
-  RankHeight = stageHeight * 4 / 5;
-  barWidth = RankWidth * 4 / 5;
-  barHeight = RankWidth / perPageMaxNum;
-  offsetX_rankToBorder = (stageWidth - RankWidth) / 2;
-  offsetY_rankToBorder = (stageHeight - RankHeight) / 2;
-  preOffsetY = (RankHeight - barHeight) / (perPageMaxNum + 1);
+  RankWidth = canvasWidth - 20; // * 4 / 5;
+  RankHeight = canvasHeight * 4 / 5;
+  barWidth = RankWidth; // * 4 / 5;
+  barHeight = RankHeight / perPageMaxNum;
+  offsetX_rankToBorder = (canvasWidth - RankWidth) / 2;
+  offsetY_rankToBorder = 0; // canvasHeight - RankHeight;
+  preOffsetY = 0; // (RankHeight - barHeight) / (perPageMaxNum + 1);
 
-  startX = offsetX_rankToBorder + offsetX_rankToBorder;
+  startX = offsetX_rankToBorder; // + offsetX_rankToBorder;
   startY = offsetY_rankToBorder + preOffsetY;
   avatarSize = barHeight - 10;
   intervalX = barWidth / 20;
@@ -92,24 +89,24 @@ function init() {
   indexWidth = context.measureText("99").width;
 
   //按钮绘制数据初始化
-  buttonWidth = barWidth / 3;
-  buttonHeight = barHeight / 2;
-  buttonOffset = RankWidth / 3;
-  lastButtonX = offsetX_rankToBorder + buttonOffset - buttonWidth;
-  nextButtonX = offsetX_rankToBorder + 2 * buttonOffset;
-  nextButtonY = lastButtonY = offsetY_rankToBorder + RankHeight - 50 - buttonHeight;
-  let data = wx.getSystemInfoSync();
-  canvasWidth = data.windowWidth;
-  canvasHeight = data.windowHeight;
+  // buttonWidth = barWidth / 3;
+  // buttonHeight = barHeight / 2;
+  // buttonOffset = RankWidth / 3;
+  // lastButtonX = offsetX_rankToBorder + buttonOffset - buttonWidth;
+  // nextButtonX = offsetX_rankToBorder + 2 * buttonOffset;
+  // nextButtonY = lastButtonY = offsetY_rankToBorder + RankHeight - 50 - buttonHeight;
+  // let data = wx.getSystemInfoSync();
+  // canvasWidth = data.windowWidth;
+  // canvasHeight = data.windowHeight;
 }
 
 /**
  * 创建两个点击按钮
  */
-function drawButton() {
-  context.drawImage(assets.button, nextButtonX, nextButtonY, buttonWidth, buttonHeight);
-  context.drawImage(assets.button, lastButtonX, lastButtonY, buttonWidth, buttonHeight);
-}
+// function drawButton() {
+//   context.drawImage(assets.button, nextButtonX, nextButtonY, buttonWidth, buttonHeight);
+//   context.drawImage(assets.button, lastButtonX, lastButtonY, buttonWidth, buttonHeight);
+// }
 
 
 /**
@@ -157,59 +154,58 @@ function drawByData(data, i) {
 /**
  * 点击处理
  */
-function onTouchEnd(event) {
-  let x = event.clientX * sharedCanvas.width / canvasWidth;
-  let y = event.clientY * sharedCanvas.height / canvasHeight;
-  if (x > lastButtonX && x < lastButtonX + buttonWidth
-    && y > lastButtonY && y < lastButtonY + buttonHeight) {
-    //在last按钮的范围内
-    if (page > 0) {
-      buttonClick(0);
+// function onTouchEnd(event) {
+  // let x = event.clientX * sharedCanvas.width / canvasWidth;
+  // let y = event.clientY * sharedCanvas.height / canvasHeight;
+  // if (x > lastButtonX && x < lastButtonX + buttonWidth
+    // && y > lastButtonY && y < lastButtonY + buttonHeight) {
+    // //在last按钮的范围内
+    // if (page > 0) {
+      // buttonClick(0);
+    // }
+  // }
+  // if (x > nextButtonX && x < nextButtonX + buttonWidth
+    // && y > nextButtonY && y < nextButtonY + buttonHeight) {
+    // //在next按钮的范围内
+    // if ((page + 1) * perPageMaxNum < totalGroup.length) {
+      // buttonClick(1);
+    // }
+  // }
 
-    }
-  }
-  if (x > nextButtonX && x < nextButtonX + buttonWidth
-    && y > nextButtonY && y < nextButtonY + buttonHeight) {
-    //在next按钮的范围内
-    if ((page + 1) * perPageMaxNum < totalGroup.length) {
-      buttonClick(1);
-    }
-  }
-
-}
+// }
 /**
  * 根据传入的buttonKey 执行点击处理
  * 0 为上一页按钮
  * 1 为下一页按钮
  */
-function buttonClick(buttonKey) {
-  let old_buttonY;
-  if (buttonKey == 0) {
-    //上一页按钮
-    old_buttonY = lastButtonY;
-    lastButtonY += 10;
-    page--;
-    renderDirty = true;
-    console.log('上一页');
-    setTimeout(() => {
-      lastButtonY = old_buttonY;
-      //重新渲染必须标脏
-      renderDirty = true;
-    }, 100);
-  } else if (buttonKey == 1) {
-    //下一页按钮
-    old_buttonY = nextButtonY;
-    nextButtonY += 10;
-    page++;
-    renderDirty = true;
-    console.log('下一页');
-    setTimeout(() => {
-      nextButtonY = old_buttonY;
-      //重新渲染必须标脏
-      renderDirty = true;
-    }, 100);
-  }
-}
+// function buttonClick(buttonKey) {
+  // let old_buttonY;
+  // if (buttonKey == 0) {
+    // //上一页按钮
+    // old_buttonY = lastButtonY;
+    // lastButtonY += 10;
+    // page--;
+    // renderDirty = true;
+    // console.log('上一页');
+    // setTimeout(() => {
+      // lastButtonY = old_buttonY;
+      // //重新渲染必须标脏
+      // renderDirty = true;
+    // }, 100);
+  // } else if (buttonKey == 1) {
+    // //下一页按钮
+    // old_buttonY = nextButtonY;
+    // nextButtonY += 10;
+    // page++;
+    // renderDirty = true;
+    // console.log('下一页');
+    // setTimeout(() => {
+      // nextButtonY = old_buttonY;
+      // //重新渲染必须标脏
+      // renderDirty = true;
+    // }, 100);
+  // }
+// }
 
 function getUserCloudStorage() {
   wx.getUserCloudStorage({
@@ -261,8 +257,15 @@ function getByKey(kvs, key) {
 
 wx.onMessage(data => {
 	console.log("onmessage " + data.type);
-    if (data.type === 'refresh') {
-        getFriendCloudStorage();
+	if (data.type === 'setSize') {
+		canvasWidth = data.width;
+		canvasHeight = data.height;
+		console.log(canvasWidth, canvasHeight);
+		init();
+	}
+    else if (data.type === 'refresh') {
+		page = data.pageIndex;
+		getFriendCloudStorage();
     } else if (data.type === 'setUserData') {
 		
 		wx.getUserCloudStorage({
@@ -316,8 +319,8 @@ let page = 0;
 /**
  * 舞台大小
  */
-let stageWidth;
-let stageHeight;
+// let stageWidth;
+// let stageHeight;
 /**
  * 排行榜大小
  */
@@ -409,12 +412,12 @@ let indexWidth;
 /**
  * 监听点击
  */
-wx.onTouchEnd((event) => {
-  var l = event.changedTouches.length;
-  for (var i = 0; i < l; i++) {
-    onTouchEnd(event.changedTouches[i]);
-  }
-});
+// wx.onTouchEnd((event) => {
+  // var l = event.changedTouches.length;
+  // for (var i = 0; i < l; i++) {
+    // onTouchEnd(event.changedTouches[i]);
+  // }
+// });
 
 
 /**
@@ -445,12 +448,12 @@ function preloadAssets() {
 function createScene() {
   if (sharedCanvas.width && sharedCanvas.height) {
     console.log('初始化完成')
-    stageWidth = sharedCanvas.width;
-    stageHeight = sharedCanvas.height;
+    // stageWidth = sharedCanvas.width;
+    // stageHeight = sharedCanvas.height;
   } else {
-    console.log(`sharedCanvas.width:${sharedCanvas.width}    sharedCanvas.height：${sharedCanvas.height}`)
+    console.log(`width :${sharedCanvas.width}   height:${sharedCanvas.width}`)
   }
-  init();  
+  // init();
   requestAnimationFrame(loop);
 }
 /**
@@ -460,7 +463,7 @@ function createScene() {
  */
 function loop() {
   if (renderDirty) {
-    console.log(`stageWidth :${stageWidth}   stageHeight:${stageHeight}`)
+    console.log(`width :${sharedCanvas.width}   height:${sharedCanvas.width}`)
     context.setTransform(1, 0, 0, 1, 0, 0);
     context.clearRect(0, 0, sharedCanvas.width, sharedCanvas.height);
     drawRankPanel();
