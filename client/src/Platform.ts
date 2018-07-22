@@ -46,6 +46,7 @@ class DebugPlatform implements Platform {
             nickName: nickName ? nickName : "",
             score: score ? score : 0
         }).then((r) => {
+            if (!r.ok) return;
             uid = r.usr.uid;
             var nickName = r.usr.nickName;
             Utils.$$saveItem("UserID", uid);
