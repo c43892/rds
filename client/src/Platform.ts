@@ -8,8 +8,7 @@ declare interface Platform {
 
     login(): Promise<any>;
 
-    setUserCloudStorage(data): Promise<boolean>;
-    removeUserCloudStorage(data): Promise<boolean>;
+    setUserCloudStorage(data);
 
     platformType;
     openDataContext;
@@ -20,30 +19,45 @@ class DebugPlatform implements Platform {
     
     async login() {
         var uid = Utils.$$loadItem("UserID");
-        var maxScore = Utils.$$loadItem("MaxScore");
         var r = await this.wc.request({
-            type: "LoginAndGetRank",
-            uid: uid ? uid : "",
-            nickName: uid ? uid + "_name" : "",
-            score: maxScore ? +maxScore : 0
+            type: "GetRank",
+            uid: uid ? uid : ""
         });
 
         if (r.ok) {
             uid = r.usr.uid;
+            var nickName = r.usr.nickName;
             Utils.$$saveItem("UserID", uid);
+            Utils.$$saveItem("UserNickName", nickName);
             return {ok:true, usr:r.usr, rank:r.rank.usrs};
         }
         else
             return {ok:false};
     }
 
-    async setUserCloudStorage(data): Promise<boolean> { return false; }
+    setUserCloudStorage(data)
+    {
+        var uid = Utils.$$loadItem("UserID");
+        var score = data.score;
+        var nickName = data.nickName;
+        this.wc.request({
+            type: "SetUserInfo",
+            uid: uid ? uid : "",
+            nickName: nickName ? nickName : "",
+            score: score ? score : 0
+        }).then((r) => {
+            uid = r.usr.uid;
+            var nickName = r.usr.nickName;
+            Utils.$$saveItem("UserID", uid);
+            Utils.$$saveItem("UserNickName", nickName);
+        });
+    }
+
     async removeUserCloudStorage(data): Promise<boolean> { return false; }
 
     platformType = "debug";
     openDataContext = {
-        createDisplayObject: () => {},
-        setUserCloudStorage: () => {}
+        createDisplayObject: () => {}
     }
 }
 

@@ -47,19 +47,8 @@ class WxgamePlatform {
     }
 	
 	setUserCloudStorage(data) {
-        return new Promise((resolve, reject) => {
-            wx.setUserCloudStorage({
-				KVDataList: data, 
-                success: () => {
-					console.log("set ok");
-                    resolve(true)
-                },
-				fail: () => {
-					console.log("set failed");
-					resolve(false);
-				}
-            })
-        })
+		data.type = "setUserData";
+		this.openDataContext.postMessage(data);
     }
 	
 	removeUserCloudStorage(data) {
