@@ -106,9 +106,9 @@ class WorldMapGenerator{
                             else if(targetNode.x == currentNode.x){
                                 newNodeX = currentNode.x + rd.nextInt(-1, 2);
                                 if(newNodeX < 0)
-                                    newNodeX = currentNode.x + rd.nextInt(0, 2);
+                                    newNodeX = currentNode.x + 1;
                                 else if(newNodeX > nodes[currentRow + 1].length)
-                                    newNodeX = currentNode.x + rd.nextInt(-1, 1);
+                                    newNodeX = currentNode.x - 1;
                             }
                             else{
                                 newNodeX = currentNode.x + rd.nextInt(0, 2);

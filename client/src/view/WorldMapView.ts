@@ -70,7 +70,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
         // 显示每个节点
         var imgs = [];
-        var xEdgeBlank = 50; // 节点与左右边缘留白大小
+        var xEdgeBlank = 100; // 节点与左右边缘留白大小
         var yGap = this.viewContent.height / wp.nodes.length;
         var xGap = (this.mapArea.width - 2 * xEdgeBlank) / (wp.cfg.width - 1);
         var xSwing = 0.2; // 节点在地图上偏离标准位置的抖动幅度
