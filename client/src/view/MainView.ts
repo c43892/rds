@@ -1,6 +1,7 @@
 // 主视图
 class MainView extends egret.DisplayObjectContainer {
     private p:Player; // 当前玩家数据
+    public lgv:LoginView; // 主界面菜单
     public bv:BattleView; // 战斗视图
     public sv:ShopView; // 商店视图
     public hv:HospitalView; // 医院视图
@@ -9,7 +10,6 @@ class MainView extends egret.DisplayObjectContainer {
     public brv:BoxRoomView; // 宝箱房间
     public ttv:TurntableView; //转盘事件
     public pluv:PlayerLevelUpView; // 角色升级界面
-    public mm:egret.DisplayObjectContainer; // 主界面菜单
     public tcv:TipConfirmView; // 提示确认视图
     public rankv:RankingView; // 排行榜视图
     
@@ -51,6 +51,9 @@ class MainView extends egret.DisplayObjectContainer {
         this.pluv = new PlayerLevelUpView(w, h);
         this.pluv.x = this.pluv.y = 0;
 
+        // 登录界面
+        this.lgv = new LoginView(w, h);
+
         // 世界地图
         this.wmv = new WorldMapView(w, h);
         this.wmv.x = this.wmv.y = 0;
@@ -71,34 +74,6 @@ class MainView extends egret.DisplayObjectContainer {
 
         // 排行榜视图
         this.rankv = new RankingView(w, h);
-
-        // 主界面菜单
-        this.mm = new egret.DisplayObjectContainer();
-        this.mm.x = this.mm.y = 0;
-        this.mm.width = this.width;
-        this.mm.height = this.height;
-        var btnContinue = ViewUtils.createBitmapByName("continuePlay_png");
-        btnContinue.x = (this.mm.width - btnContinue.width) / 2;
-        btnContinue.y = this.mm.height / 2 - btnContinue.height * 1.5 - 50;
-        btnContinue.touchEnabled = true;
-        btnContinue.name = "continuePlay";
-        this.mm.addChild(btnContinue);
-        var btnNew = ViewUtils.createBitmapByName("newPlay_png");
-        btnNew.x = btnContinue.x;
-        btnNew.y = btnContinue.y + btnNew.height + 100;
-        btnNew.touchEnabled = true;
-        btnNew.name = "newPlay";
-        this.mm.addChild(btnNew);
-        var btnOpenRank = ViewUtils.createBitmapByName("openRank_png");
-        btnOpenRank.x = btnNew.x;
-        btnOpenRank.y = btnNew.y + btnOpenRank.height + 100;
-        btnOpenRank.touchEnabled = true;
-        btnOpenRank.name = "newPlay";
-        this.mm.addChild(btnOpenRank);
-
-        btnContinue.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onContinuePlay, this);
-        btnNew.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onNewPlay, this);
-        btnOpenRank.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onOpenRank, this);
 
         // 录像机如何启动新的录像战斗
         BattleRecorder.startNewBattleImpl = (p:Player, btType:string, btRandomSeed:number, trueRandomSeed:number) => {
@@ -161,7 +136,7 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     clear() {
-        var uis = [this.mm, this.bv, this.wmv, this.sv];
+        var uis = [this.lgv, this.bv, this.wmv, this.sv];
         for (var ui of uis)
             if (this.contains(ui))
                 this.removeChild(ui);
@@ -247,22 +222,24 @@ class MainView extends egret.DisplayObjectContainer {
         return undefined;
     }
 
-    // 开启初始界面
-    public async openStartup(p:Player) {
-        var btnNew = this.mm.getChildByName("newPlay");
-        var btnContinue = this.mm.getChildByName("continuePlay");
-        btnNew.touchEnabled = true;
-        if (!p) {
-            btnContinue.touchEnabled = false;
-            ViewUtils.makeGray(btnContinue);
-        } else {
-            btnContinue.touchEnabled = true;
-            ViewUtils.makeGray(btnContinue, false);
-        }
-
+    // 开启初始登录界面
+    public openStartup(p:Player) {
         this.clear();
+
         this.p = p;
-        this.addChild(this.mm);
+        this.lgv.player = p;
+        this.addChild(this.lgv);
+        this.lgv.onClose = (op:string) => {
+            if (op == "openRank")
+                this.openRankView();
+            else {
+                this.removeChild(this.lgv);
+                if (op == "continuePlay")
+                    this.continuePlay();
+                else if (op == "newPlay")
+                    this.newPlay();
+            }
+        };
     }
 
     // 打开选择遗物界面
@@ -303,7 +280,8 @@ class MainView extends egret.DisplayObjectContainer {
         this.removeChild(this.rankv);
     }
 
-    onContinuePlay(evt:egret.TouchEvent) {
+    // 按照本地存档继续游戏
+    continuePlay() {
         if (this.p.currentStoreyPos.status == "finished")
             this.openWorldMap(this.p.worldmap);
         else {
@@ -314,16 +292,13 @@ class MainView extends egret.DisplayObjectContainer {
         }
     }
 
-    onNewPlay(evt:egret.TouchEvent) {
+    // 开始新游戏，本地存档被新游戏覆盖
+    newPlay() {
         var p = Player.createTestPlayer();
         p.worldmap = WorldMap.buildFromConfig("world1");
         p.worldmap.player = p;
         this.p = p;
         this.openWorldMap(p.worldmap);
         Utils.savePlayer(p);
-    }
-
-    onOpenRank(evt:egret.TouchEvent) {
-        this.openRankView();
     }
 }
