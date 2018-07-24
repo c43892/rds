@@ -6,6 +6,8 @@ class WorldMapGenerator{
         w.nodes = WorldMapGenerator.createRoutes(cfg, w.nodes, rand);
         w.nodes = WorldMapGenerator.deleteRepeatRoutes(w.nodes);
         w.nodes = WorldMapGenerator.arrangeRoomToAllNodes(w.nodes, cfg, rand);
+        w.nodes = WorldMapGenerator.addStartRouteForView(w.nodes);
+        
         return w;
     }
 
@@ -40,9 +42,9 @@ class WorldMapGenerator{
                 startNodeX = rd.nextInt(0, rowSize);
             }
 
-            var startRoute = new WorldMapRoute(WorldMapNode.getNode(0, 0, nodes), WorldMapNode.getNode(startNodeX, 1, nodes));
+            var startRoute = new WorldMapRoute(WorldMapNode.getNode(startNodeX, 0, nodes), WorldMapNode.getNode(startNodeX, 1, nodes));
 
-            WorldMapNode.getNode(0, 0, nodes).addRoute(startRoute);
+            WorldMapNode.getNode(startNodeX, 0, nodes).addRoute(startRoute);
             WorldMapNode.getNode(startNodeX, 1, nodes).addParente(WorldMapNode.getNode(0, 0, nodes));
             
             WorldMapGenerator.createNextRoutes(nodes, startRoute, rd);//继续生成路线
@@ -84,7 +86,7 @@ class WorldMapGenerator{
         xOffset = rd.nextInt(min, max + 1);
         var newNodeX = route.dstNode.x + xOffset;
         var newNodeY = route.dstNode.y + 1;
-        var targetNode = WorldMapNode.getNode(newNodeX, newNodeY + 1, nodes);//选定目标点
+        var targetNode = WorldMapNode.getNode(newNodeX, newNodeY, nodes);//选定目标点
 
 
         //根据节点的共同祖先优化路线
@@ -107,15 +109,15 @@ class WorldMapGenerator{
                                 newNodeX = currentNode.x + rd.nextInt(-1, 2);
                                 if(newNodeX < 0)
                                     newNodeX = currentNode.x + 1;
-                                else if(newNodeX > nodes[currentRow + 1].length)
+                                else if(newNodeX > nodes[currentRow + 1].length - 1)
                                     newNodeX = currentNode.x - 1;
                             }
                             else{
                                 newNodeX = currentNode.x + rd.nextInt(0, 2);
-                                if(newNodeX > nodes[currentRow + 1].length)
+                                if(newNodeX > nodes[currentRow + 1].length - 1)
                                     newNodeX = currentNode.x;
                             }
-                            targetNode = WorldMapNode.getNode(newNodeX, newNodeY + 1, nodes);
+                            targetNode = WorldMapNode.getNode(newNodeX, newNodeY, nodes);
                         }
                     }
                 }
@@ -348,6 +350,19 @@ class WorldMapGenerator{
         preTypes.push("normal");
         preTypes.push("event");
         return preTypes;
+    }
+
+    // 将玩家初始点(0,0)设置为所有1层节点的父节点,以适配可选择节点的动画
+    public static addStartRouteForView(nodes:WorldMapNode[][]):WorldMapNode[][]{
+        for(var i = 0; i < nodes[1].length; i++){
+            var node = nodes[1][i];
+            if(node.parents.length != 0){
+                var route = new WorldMapRoute(WorldMapNode.getNode(0, 0, nodes), node);
+                node.addParente(WorldMapNode.getNode(0, 0, nodes));
+                WorldMapNode.getNode(0, 0, nodes).addRoute(route);
+            }
+        }
+        return nodes;
     }
 
 }

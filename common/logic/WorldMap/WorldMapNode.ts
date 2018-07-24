@@ -37,6 +37,12 @@ class WorldMapNode{
         this.parents.push(parentNode);
     }
 
+    public isParent(node:WorldMapNode):boolean{
+        if(Utils.indexOf(this.parents, (n:WorldMapNode) => n == node) < 0)
+            return false;
+        else return true;
+    }
+
     //添加路线
     public addRoute(route:WorldMapRoute){
         this.routes.push(route);

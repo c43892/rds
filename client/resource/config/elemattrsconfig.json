@@ -66,7 +66,7 @@
     "GreedyZombie":{"name":"贪婪僵尸", "moveRange":3},
     "ConfusionZombie":{"name":"疑惑僵尸", "hideHazardNum":true},
     "Mummy":{"name":"木乃伊"},
-    "PoisonJellyfish":{"name":"毒性水母", "buffCnt":8, "poisonPs":[3, 1]},
+    "PoisonJellyfish":{"name":"毒性水母", "buffCnt":3, "poisonPs":[3, 1]},
     "SkeletonKing":{"name":"骷髅王", "rdp":"SkeletonKing"},
     "SwatheZombie":{"name":"缠绕僵尸", "invalid":["Cocoon"]},
     "BoxMonster":{"name":"愤怒宝箱"},
