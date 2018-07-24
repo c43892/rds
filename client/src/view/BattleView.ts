@@ -108,6 +108,7 @@ class BattleView extends egret.DisplayObjectContainer {
     refreshExpBar() {
         var shape = this.expBarMask;
         var p = !this.player ? 0 : this.player.lvUpProgress();
+        Utils.log(p);
 
         var pts = [
             {x: this.expBar.x + this.expBar.width, y: this.expBar.y + this.expBar.height}, // 右下角
@@ -121,6 +122,7 @@ class BattleView extends egret.DisplayObjectContainer {
             pts.push({x: this.expBar.x, y: this.expBar.y + this.expBar.height * (0.5 - p) / 0.5}); // 左上角
         }
         
+        shape.graphics.clear();
         shape.graphics.beginFill(0xffffff);
         shape.graphics.moveTo(pts[0].x, pts[0].y);
         for (var i = 1; i < pts.length; i++)
@@ -142,7 +144,8 @@ class BattleView extends egret.DisplayObjectContainer {
         var h = p * this.hpBar.height;
         pts.push({x: this.hpBar.x + this.hpBar.width, y: this.expBar.y + h}); // 右上角
         pts.push({x: this.hpBar.x, y: this.expBar.y + h}); // 左上角
-        
+
+        shape.graphics.clear();            
         shape.graphics.beginFill(0xffffff);
         shape.graphics.moveTo(pts[0].x, pts[0].y);
         for (var i = 1; i < pts.length; i++)
