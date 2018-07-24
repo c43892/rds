@@ -7,7 +7,9 @@ class BattleView extends egret.DisplayObjectContainer {
     public avatar:egret.Bitmap; // 角色头像
     public expBar:egret.Bitmap; // 经验条
     public hpBar:egret.Bitmap; // 血条
+    public hpBarBg:egret.Bitmap; // 血条底色
     public expBarMask:egret.Shape; // 经验条遮罩
+    public hpBarMask:egret.Shape; // 血条遮罩
     public power:egret.TextField; // 攻击
     public dodge:egret.TextField; // 闪避
 
@@ -36,27 +38,47 @@ class BattleView extends egret.DisplayObjectContainer {
         // public power:egret.TextField; // 攻击
         // public dodge:egret.TextField; // 闪避
 
+        // 头像区域背景
         this.avatarBg = ViewUtils.createBitmapByName("avatarBg_png");
         this.avatarBg.name = "avatarBg";
         this.addChild(this.avatarBg);
 
+        // 经验条
         this.expBar = ViewUtils.createBitmapByName("expBar_png");
         this.expBar.name = "expBar";
         this.addChild(this.expBar);
 
+        // 经验条遮罩
         this.expBarMask = new egret.Shape();
         this.expBarMask.name = "expBarMask";
         this.expBar.mask = this.expBarMask;
         this.addChild(this.expBarMask);
 
+        // 血条
+        this.hpBarBg = ViewUtils.createBitmapByName("hpBarBg_png");
+        this.hpBarBg.name = "hpBarBg";
+        this.addChild(this.hpBarBg);        
+        this.hpBar = ViewUtils.createBitmapByName("hpBar_png");
+        this.hpBar.name = "hpBar";
+        this.addChild(this.hpBar);
+
+        // 血条遮罩
+        this.hpBarMask = new egret.Shape();
+        this.hpBarMask.name = "expBarMask";
+        this.hpBar.mask = this.hpBarMask;
+        this.addChild(this.hpBarMask);
+
+        // 头像
         this.avatar = new egret.Bitmap();
         this.avatar.name = "avatar";
         this.addChild(this.avatar);
 
-        ViewUtils.multiLang(this, this.avatar, this.expBar);
+        ViewUtils.multiLang(this, this.avatarBg, this.avatar, this.expBar, this.hpBar, this.hpBarBg);
         this.refreshExpBar();
+        this.refreshHpBar();
     }
 
+    // 根据当前升级进度，刷新经验条遮罩
     refreshExpBar() {
         var shape = this.expBarMask;
         var p = !this.player ? 0 : this.player.lvUpProgress();
@@ -81,6 +103,28 @@ class BattleView extends egret.DisplayObjectContainer {
         shape.graphics.endFill();
     }
 
+    // 刷新血条遮罩
+    refreshHpBar() {
+        var shape = this.hpBarMask;
+        var p = !this.player ? 0 : (this.player.hp / this.player.maxHp);
+
+        var pts = [
+            {x: this.hpBar.x, y: this.hpBar.y + this.hpBar.height}, // 左下角
+            {x: this.hpBar.x + this.hpBar.width, y: this.hpBar.y + this.hpBar.height} // 右下角
+        ];
+
+        var h = p * this.hpBar.height;
+        pts.push({x: this.hpBar.x + this.hpBar.width, y: this.expBar.y + h}); // 右上角
+        pts.push({x: this.hpBar.x, y: this.expBar.y + h}); // 左上角
+        
+        shape.graphics.beginFill(0xffffff);
+        shape.graphics.moveTo(pts[0].x, pts[0].y);
+        for (var i = 1; i < pts.length; i++)
+            shape.graphics.lineTo(pts[i].x, pts[i].y);
+        shape.graphics.lineTo(pts[0].x, pts[0].y);
+        shape.graphics.endFill();
+    }
+
     public constructor(w:number, h:number) {
         super();
 
@@ -88,10 +132,9 @@ class BattleView extends egret.DisplayObjectContainer {
         this.width = w;
         this.height = h;
 
+        // 头像区域
         this.createAvatarArea();
         
-        // 头像
-
         this.title = new egret.TextField();
         this.title.x = this.title.y = 0;
         this.title.width = this.width;
@@ -223,6 +266,8 @@ class BattleView extends egret.DisplayObjectContainer {
         this.propsView.y = this.height - this.propsView.height;
         this.propsView.refresh(this.player.props);
 
+        this.refreshExpBar();
+        this.refreshHpBar();
         ViewUtils.multiLang(this, this.avatarBg, this.avatar);
     }
 
