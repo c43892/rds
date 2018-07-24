@@ -1,5 +1,5 @@
 {
-    "currentLanguage":"EN",
+    "currentLanguage":"CNS",
     "validLanguages":["EN", "CNS", "CNT"],
 
     "views": {
@@ -20,10 +20,6 @@
                 "continueBtn": { "EN": "Continue ...", "CNS": "继续游戏 ...", "CNT": "继续游戏 ..." },
                 "newPlayBtn": { "EN": "New Play", "CNS": "新游戏", "CNT": "新游戏" },
                 "rankBtn": { "EN": "Score Rank >>", "CNS": "排行榜 >>", "CNT": "排行榜 >>" }
-            },
-
-            "imgs": {
-
             }
         }
     }

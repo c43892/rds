@@ -6,7 +6,7 @@ class LoginView extends egret.DisplayObjectContainer {
     title:egret.TextField;
     btnContinue:TextButtonWithBg;
     btnNewPlay:TextButtonWithBg;
-    btnOpenRank:TextButtonWithBg;
+    btnOpenRank:egret.TextField;
 
     public constructor(w:number, h:number) {
         super();
@@ -31,14 +31,14 @@ class LoginView extends egret.DisplayObjectContainer {
         this.addChild(this.title);
 
         // 继续游戏按钮
-        this.btnContinue = new TextButtonWithBg(50, 0x000000);
+        this.btnContinue = ViewUtils.createImageBtn(50, 0x000000);
         this.btnContinue.touchEnabled = true;
         this.btnContinue.text = "Continue Play ...";
         this.btnContinue.name = "continueBtn";
         this.addChild(this.btnContinue);
 
         // 开始新游戏按钮
-        this.btnNewPlay = new TextButtonWithBg(50, 0x000000);
+        this.btnNewPlay = ViewUtils.createImageBtn(50, 0x000000);
         this.btnNewPlay.x = this.btnContinue.x;
         this.btnNewPlay.y = this.btnContinue.y + this.btnNewPlay.height + 100;
         this.btnNewPlay.touchEnabled = true;
@@ -47,7 +47,7 @@ class LoginView extends egret.DisplayObjectContainer {
         this.addChild(this.btnNewPlay);
 
         // 排行榜按钮
-        this.btnOpenRank = new TextButtonWithBg(30, 0x000000);
+        this.btnOpenRank = ViewUtils.createTextField(30, 0x000000);
         this.btnOpenRank.touchEnabled = true;
         this.btnOpenRank.text = "Rank";
         this.btnOpenRank.name = "rankBtn";
