@@ -248,13 +248,10 @@ class BattleView extends egret.DisplayObjectContainer {
             this.dodge.text = this.player.dodge + "%";
         });
 
-        // this.playerLv.x = this.avatar.x;
-        // this.playerLv.y = this.avatar.y;
-        // this.playerLv.width = this.avatar.width;
-        // this.playerLv.height = 30;
-        // this.playerLv.textColor = 0xff0000;
-
+        // 遗物
         this.refreshRelics();
+        
+        // 物品
         this.propsView.width = this.width;
         this.propsView.y = this.height - this.propsView.height;
         this.propsView.refresh(this.player.props);
@@ -268,12 +265,13 @@ class BattleView extends egret.DisplayObjectContainer {
         for (var rBmp of this.relics) this.removeChild(rBmp);
         this.relics = [];
 
-        var x = this.money.x;
-        var y = this.money.y + this.money.height + 10;
-        for (var r of this.player.relics) {
+        var x = 200;
+        var y = 120;
+        for (var i = 0; i < this.player.relics.length && i < 6; i++) {
+            var r = this.player.relics[i];
             var rBmp = ViewUtils.createBitmapByName(r.getElemImgRes() + "_png");
             rBmp.x = x; rBmp.y = y;
-            rBmp.width = rBmp.height = 25;
+            rBmp.width = rBmp.height = 50;
             x += rBmp.width + 5;
             this.addChild(rBmp);
             this.relics.push(rBmp);
