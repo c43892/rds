@@ -180,7 +180,7 @@ class BattleView extends egret.DisplayObjectContainer {
 
         this.mapView = new MapView(w, h);
         this.addChild(this.mapView);
-        this.propsView = new PropsView(w, 100);
+        this.propsView = new PropsView(w, 90);
         this.addChild(this.propsView);
         this.selView = new SelView();
         this.addChild(this.selView);
@@ -252,8 +252,9 @@ class BattleView extends egret.DisplayObjectContainer {
         this.refreshRelics();
         
         // 物品
-        this.propsView.width = this.width;
-        this.propsView.y = this.height - this.propsView.height;
+        this.propsView.width = this.width - 50;
+        this.propsView.x = (this.width - this.propsView.width) / 2;
+        this.propsView.y = this.height - this.propsView.height - 20;
         this.propsView.refresh(this.player.props);
 
         this.refreshExpBar();
