@@ -17,7 +17,6 @@ class BattleView extends egret.DisplayObjectContainer {
     public playerLv:egret.TextField; // 角色等级
     public money:egret.TextField; // 金币
     public deathStep:egret.TextField; // 死神距离
-    public hp:egret.TextField; // 血量
     public relics:egret.Bitmap[] = []; // 遗物
 
     public mapView:MapView; // 地图视图
@@ -73,7 +72,15 @@ class BattleView extends egret.DisplayObjectContainer {
         this.avatar.name = "avatar";
         this.addChild(this.avatar);
 
-        ViewUtils.multiLang(this, this.avatarBg, this.avatar, this.expBar, this.hpBar, this.hpBarBg);
+        // 攻击闪避属性
+        this.power = ViewUtils.createTextField(20, 0xff0000, false);
+        this.power.name = "power";
+        this.addChild(this.power);
+        this.dodge = ViewUtils.createTextField(20, 0xff0000, false);
+        this.dodge.name = "dodge";
+        this.addChild(this.dodge);
+
+        ViewUtils.multiLang(this, this.avatarBg, this.avatar, this.expBar, this.hpBar, this.hpBarBg, this.power, this.dodge);
         this.refreshExpBar();
         this.refreshHpBar();
     }
@@ -136,25 +143,16 @@ class BattleView extends egret.DisplayObjectContainer {
         this.createAvatarArea();
         
         this.title = new egret.TextField();
-        this.title.x = this.title.y = 0;
-        this.title.width = this.width;
-        this.addChild(this.title);
+        // this.addChild(this.title);
         this.playerLv = new egret.TextField();
         this.avatar.name = "avatar";
-        this.addChild(this.playerLv);
+        // this.addChild(this.playerLv);
 
         this.money = new egret.TextField();
         this.addChild(this.money);
 
         this.deathStep = new egret.TextField();
         this.addChild(this.deathStep);
-
-        this.hp = new egret.TextField();
-        this.addChild(this.hp);
-        this.power = new egret.TextField();
-        this.addChild(this.power);  
-        this.dodge = new egret.TextField();
-        this.addChild(this.dodge);
 
         this.mapView = new MapView(w, h);
         this.addChild(this.mapView);
@@ -215,22 +213,16 @@ class BattleView extends egret.DisplayObjectContainer {
         this.playerLv.text = "lv:" + this.player.lv + ", e:" + this.player.exp;
         this.money.text = "💴：" + this.player.money;
         this.deathStep.text = "😈：" + this.player.deathStep;
-        this.hp.text = "血量: " + this.player.hp + "/" + this.player.maxHp;
 
         this.player.bt().calcPlayerAttackerAttrs().then((attackerAttrs) => {
             var power = attackerAttrs.power.b * (1 + attackerAttrs.power.a) + attackerAttrs.power.c;
-            this.power.text = "攻击: " + power;
+            this.power.text = power.toString();
         })
 
         this.player.bt().calcPlayerTargetAttrs().then((targetAttrs) => {
             var dodge = targetAttrs.dodge.b * (1 + targetAttrs.dodge.a) + targetAttrs.dodge.c;
-            this.dodge.text = "闪避: " + this.player.dodge + "%";
+            this.dodge.text = this.player.dodge + "%";
         });
-
-        // this.avatar.anchorOffsetX = 0;
-        // this.avatar.anchorOffsetY = 0;
-        // this.avatar.x = 20;
-        // this.avatar.y = 20;
 
         if (this.avatar.texture) {
             this.avatar.width = this.avatar.texture.textureWidth;
@@ -240,15 +232,6 @@ class BattleView extends egret.DisplayObjectContainer {
             this.money.y = this.avatar.y + this.avatar.height + 10;
             this.deathStep.x = this.money.x + this.money.width + 10;
             this.deathStep.y = this.money.y;
-
-            var x = this.avatar.x + this.avatar.width + 20;
-            var y = this.avatar.y - 10;
-            var txtArr = [this.hp, this.power, this.dodge];
-            for (var txt of txtArr) {
-                txt.x = x;
-                txt.y = y;
-                y = txt.y + txt.height + 10;
-            }
         }
         else {
             this.avatar.width = 0;
@@ -268,7 +251,7 @@ class BattleView extends egret.DisplayObjectContainer {
 
         this.refreshExpBar();
         this.refreshHpBar();
-        ViewUtils.multiLang(this, this.avatarBg, this.avatar);
+        ViewUtils.multiLang(this, this.avatarBg, this.avatar, this.power, this.dodge);
     }
 
     public refreshRelics() {
@@ -294,8 +277,8 @@ class BattleView extends egret.DisplayObjectContainer {
         this.repView.clear();
         this.selView.close();
         this.avatar.texture = undefined;
-        this.hp.text = "";
-        for (var rBmp of this.relics) this.removeChild(rBmp);
+        for (var rBmp of this.relics)
+            this.removeChild(rBmp);
         this.relics = [];
     }
 
