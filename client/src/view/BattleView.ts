@@ -18,10 +18,9 @@ class BattleView extends egret.DisplayObjectContainer {
 
     public money:egret.TextField; // 金币
     public currentStoryLv:egret.TextField; // 当前层数
-    public deathStep:egret.TextField; // 死神距离    
+    public deathGod:egret.Bitmap; // 死神位置
 
     public title:egret.TextField; // 战斗名称
-    public playerLv:egret.TextField; // 角色等级
 
     public relics:egret.Bitmap[] = []; // 遗物
 
@@ -38,15 +37,22 @@ class BattleView extends egret.DisplayObjectContainer {
     createPlayerAttrs() {
         this.createAvatarArea();
 
+        // 金钱
         this.money = ViewUtils.createTextField(25, 0xffff00, false);
         this.money.name = "money";
         this.addChild(this.money);
 
+        // 当前层数
         this.currentStoryLv = ViewUtils.createTextField(25, 0xffff00, false);
         this.currentStoryLv.name = "storeyLv";
         this.addChild(this.currentStoryLv);
 
-        ViewUtils.multiLang(this, this.money,this.currentStoryLv);
+        // 死神符号
+        this.deathGod = ViewUtils.createBitmapByName("deathGod_png");
+        this.deathGod.name = "deathGod";
+        this.addChild(this.deathGod);
+
+        ViewUtils.multiLang(this, this.money,this.currentStoryLv, this.deathGod);
     }
 
     // 头像、经验条、血条、攻击、闪避
@@ -160,7 +166,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.bg.x = this.bg.y = 0;
         this.bg.width = this.width;
         this.bg.height = this.height;
-        this.bg.scale9Grid = new egret.Rectangle(50, 50, 150, 150);
+        this.bg.scale9Grid = new egret.Rectangle(50, 150, 150, 50);
         this.addChild(this.bg);
 
         // 角色属性相关
@@ -168,7 +174,7 @@ class BattleView extends egret.DisplayObjectContainer {
         
         this.title = new egret.TextField();
         // this.addChild(this.title);
-        this.playerLv = new egret.TextField();
+        // this.playerLv = new egret.TextField();
         this.avatar.name = "avatar";
         // this.addChild(this.playerLv);
 
@@ -228,10 +234,9 @@ class BattleView extends egret.DisplayObjectContainer {
     // 刷新角色信息
     public refreshPlayer() {
         ViewUtils.setTexName(this.avatar, this.player.occupation + "_png");
-        this.playerLv.text = "lv:" + this.player.lv + ", e:" + this.player.exp;
         this.money.text = "⚪:" + this.player.money;
         this.currentStoryLv.text = "📶:" + this.player.currentStoreyPos.lv;
-        // this.deathStep.text = "😈：" + this.player.deathStep;
+        this.deathGod.x = 200 + (this.player.deathStep / this.player.maxDeathStep) * 320;
 
         this.player.bt().calcPlayerAttackerAttrs().then((attackerAttrs) => {
             var power = attackerAttrs.power.b * (1 + attackerAttrs.power.a) + attackerAttrs.power.c;
