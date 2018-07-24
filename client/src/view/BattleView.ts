@@ -172,20 +172,23 @@ class BattleView extends egret.DisplayObjectContainer {
         // 角色属性相关
         this.createPlayerAttrs();
         
-        this.title = new egret.TextField();
-        // this.addChild(this.title);
-        // this.playerLv = new egret.TextField();
-        this.avatar.name = "avatar";
-        // this.addChild(this.playerLv);
-
+        // 战斗区域
         this.mapView = new MapView(w, h);
         this.addChild(this.mapView);
+
+        // 物品栏
         this.propsView = new PropsView(w, 90);
         this.addChild(this.propsView);
+
+        // 格子选择
         this.selView = new SelView();
         this.addChild(this.selView);
+
+        // 录像
         this.repView = new ReplayView(w, h);
         this.addChild(this.repView);
+
+        // 动画
         this.aniView = new AniView(w, h, this);
         this.addChild(this.aniView);
     }
