@@ -165,6 +165,11 @@ class WorldMapView extends egret.DisplayObjectContainer {
         var ptStoreyLv = bmp["ptStoreyLv"];
         var ptStoreyN = bmp["ptStoreyN"];
 
+        // //检查点击的节点是否是当前可到达节点(测试中,暂且屏蔽该检查)
+        // if(!WorldMapView.isValidNode(this.player, ptStoreyN, ptStoreyLv))
+        //     return;
+
+
         // if (!BattleUtils.isStoreyPosSelectable(this.worldmap.player, {lv:ptStoreyLv, n:ptStoreyN}))
         //     return;
 
@@ -261,5 +266,13 @@ class WorldMapView extends egret.DisplayObjectContainer {
         var selsGroup = GCfg.getWorldMapEventSelGroupsCfg(group);
         var sels = this.wmesFact.createGroup(p, selsGroup.sels);
         await this.openEventSels(selsGroup.title, selsGroup.desc, sels);
+    }
+
+    public static isValidNode(p:Player, x, y):boolean{
+        var wm = p.worldmap;
+        var currentNode =  WorldMapNode.getNode(p.currentStoreyPos.n, p.currentStoreyPos.lv, wm.nodes);
+        var targetNode = WorldMapNode.getNode(x, y, wm.nodes);
+
+        return targetNode.isParent(currentNode);
     }
 }
