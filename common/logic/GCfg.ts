@@ -10,4 +10,5 @@ class GCfg {
     public static getShopCfg; // 获取商店配置
     public static getWorldMapEventSelsDesc;
     public static getWorldMapEventSelGroupsCfg; // 获取大地图事件组配置
+    public static getMultiLanguageCfg; // 获取多语言配置
 }
