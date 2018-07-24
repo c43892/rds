@@ -21,6 +21,18 @@
                 "newPlayBtn": { "EN": "New Play", "CNS": "新游戏", "CNT": "新游戏" },
                 "rankBtn": { "EN": "Score Rank >>", "CNS": "排行榜 >>", "CNT": "排行榜 >>" }
             }
+        },
+
+        "battle": {
+            "layout": {
+                "avatarBg": {"x":0, "y":0, "w":150, "h":150},
+                "expBar": {"x":0, "y":0, "w":150, "h":150},
+                "expBarMask": {"x":0, "y":0, "w":150, "h":150},
+                "avatar": {"x":25, "y":25, "w":100, "h":100}
+            },
+
+            "text": {
+            }
         }
     }
 }

@@ -56,6 +56,18 @@ class Player {
         this.exp += dExp;
     }
 
+    // 获取当前经验升级进度 [0, 1]
+    public lvUpProgress() {
+        var exp2Lv = GCfg.playerCfg.exp2Lv;        
+        if (this.lv >= exp2Lv.Length) // 已经满级了
+            return 1;
+
+        if (this.exp >= exp2Lv[this.lv])
+            return 1;
+        
+        return this.exp / exp2Lv[this.lv];
+    }
+
     // 检查是否已经升级
     public checkLevelUp():boolean {
         var exp2Lv = GCfg.playerCfg.exp2Lv;        

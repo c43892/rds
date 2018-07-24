@@ -58,7 +58,7 @@ class LoginView extends egret.DisplayObjectContainer {
         this.btnNewPlay.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onNewPlay, this);
         this.btnOpenRank.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onOpenRank, this);
 
-        ViewUtils.MultiLang(this, this.title, this.btnContinue, this.btnNewPlay, this.btnOpenRank);
+        ViewUtils.multiLang(this, this.title, this.btnContinue, this.btnNewPlay, this.btnOpenRank);
     }
 
     public onClose;

@@ -1,14 +1,21 @@
 // 战斗视图
 class BattleView extends egret.DisplayObjectContainer {    
     public player:Player; // 当前角色
-    public title:egret.TextField; // 战斗名称
+
+    // 头像区域
+    public avatarBg:egret.Bitmap; // 角色头像区域背景
     public avatar:egret.Bitmap; // 角色头像
+    public expBar:egret.Bitmap; // 经验条
+    public hpBar:egret.Bitmap; // 血条
+    public expBarMask:egret.Shape; // 经验条遮罩
+    public power:egret.TextField; // 攻击
+    public dodge:egret.TextField; // 闪避
+
+    public title:egret.TextField; // 战斗名称
     public playerLv:egret.TextField; // 角色等级
     public money:egret.TextField; // 金币
     public deathStep:egret.TextField; // 死神距离
     public hp:egret.TextField; // 血量
-    public power:egret.TextField; // 攻击
-    public dodge:egret.TextField; // 闪避
     public relics:egret.Bitmap[] = []; // 遗物
 
     public mapView:MapView; // 地图视图
@@ -20,19 +27,77 @@ class BattleView extends egret.DisplayObjectContainer {
     public openShop; // 打开商店界面
     public openPlayerLevelUpSels; // 打开角色升级界面
 
+    // 头像、经验条、血条、攻击、闪避
+    createAvatarArea() {
+        // public avatar:egret.Bitmap; // 角色头像
+        // public expBar:egret.Bitmap; // 经验条
+        // public hpBar:egret.Bitmap; // 血条
+        // public expBarMask:egret.Bitmap; // 经验条遮罩
+        // public power:egret.TextField; // 攻击
+        // public dodge:egret.TextField; // 闪避
+
+        this.avatarBg = ViewUtils.createBitmapByName("avatarBg_png");
+        this.avatarBg.name = "avatarBg";
+        this.addChild(this.avatarBg);
+
+        this.expBar = ViewUtils.createBitmapByName("expBar_png");
+        this.expBar.name = "expBar";
+        this.addChild(this.expBar);
+
+        this.expBarMask = new egret.Shape();
+        this.expBarMask.name = "expBarMask";
+        this.expBar.mask = this.expBarMask;
+        this.addChild(this.expBarMask);
+
+        this.avatar = new egret.Bitmap();
+        this.avatar.name = "avatar";
+        this.addChild(this.avatar);
+
+        ViewUtils.multiLang(this, this.avatar, this.expBar);
+        this.refreshExpBar();
+    }
+
+    refreshExpBar() {
+        var shape = this.expBarMask;
+        var p = !this.player ? 0 : this.player.lvUpProgress();
+
+        var pts = [
+            {x: this.expBar.x + this.expBar.width, y: this.expBar.y + this.expBar.height}, // 右下角
+            {x: this.expBar.x, y: this.expBar.y + this.expBar.height} // 左下角
+        ];
+
+        if (p > 0.5) {
+            pts.push({x: this.expBar.x, y: this.expBar.y}); // 左上角
+            pts.push({x: this.expBar.x + this.expBar.width * (p - 0.5) / 0.5, y: this.expBar.y}); // 右上角
+        } else {
+            pts.push({x: this.expBar.x, y: this.expBar.y + this.expBar.height * (0.5 - p) / 0.5}); // 左上角
+        }
+        
+        shape.graphics.beginFill(0xffffff);
+        shape.graphics.moveTo(pts[0].x, pts[0].y);
+        for (var i = 1; i < pts.length; i++)
+            shape.graphics.lineTo(pts[i].x, pts[i].y);
+        shape.graphics.lineTo(pts[0].x, pts[0].y);
+        shape.graphics.endFill();
+    }
+
     public constructor(w:number, h:number) {
         super();
 
+        this.name = "battle";
         this.width = w;
         this.height = h;
+
+        this.createAvatarArea();
         
-        this.avatar = new egret.Bitmap();
-        this.addChild(this.avatar);
+        // 头像
+
         this.title = new egret.TextField();
         this.title.x = this.title.y = 0;
         this.title.width = this.width;
         this.addChild(this.title);
         this.playerLv = new egret.TextField();
+        this.avatar.name = "avatar";
         this.addChild(this.playerLv);
 
         this.money = new egret.TextField();
@@ -103,7 +168,7 @@ class BattleView extends egret.DisplayObjectContainer {
 
     // 刷新角色信息
     public refreshPlayer() {
-        this.avatar.texture = RES.getRes(this.player.occupation + "_png");
+        ViewUtils.setTexName(this.avatar, this.player.occupation + "_png");
         this.playerLv.text = "lv:" + this.player.lv + ", e:" + this.player.exp;
         this.money.text = "💴：" + this.player.money;
         this.deathStep.text = "😈：" + this.player.deathStep;
@@ -119,10 +184,10 @@ class BattleView extends egret.DisplayObjectContainer {
             this.dodge.text = "闪避: " + this.player.dodge + "%";
         });
 
-        this.avatar.anchorOffsetX = 0;
-        this.avatar.anchorOffsetY = 0;
-        this.avatar.x = 20;
-        this.avatar.y = 20;
+        // this.avatar.anchorOffsetX = 0;
+        // this.avatar.anchorOffsetY = 0;
+        // this.avatar.x = 20;
+        // this.avatar.y = 20;
 
         if (this.avatar.texture) {
             this.avatar.width = this.avatar.texture.textureWidth;
@@ -157,6 +222,8 @@ class BattleView extends egret.DisplayObjectContainer {
         this.propsView.width = this.width;
         this.propsView.y = this.height - this.propsView.height;
         this.propsView.refresh(this.player.props);
+
+        ViewUtils.multiLang(this, this.avatarBg, this.avatar);
     }
 
     public refreshRelics() {
