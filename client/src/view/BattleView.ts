@@ -2,6 +2,9 @@
 class BattleView extends egret.DisplayObjectContainer {    
     public player:Player; // 当前角色
 
+    // 战斗界面背景
+    public bg:egret.Bitmap; // 整体背景
+
     // 头像区域
     public avatarBg:egret.Bitmap; // 角色头像区域背景
     public avatar:egret.Bitmap; // 角色头像
@@ -13,29 +16,41 @@ class BattleView extends egret.DisplayObjectContainer {
     public power:egret.TextField; // 攻击
     public dodge:egret.TextField; // 闪避
 
+    public money:egret.TextField; // 金币
+    public currentStoryLv:egret.TextField; // 当前层数
+    public deathStep:egret.TextField; // 死神距离    
+
     public title:egret.TextField; // 战斗名称
     public playerLv:egret.TextField; // 角色等级
-    public money:egret.TextField; // 金币
-    public deathStep:egret.TextField; // 死神距离
+
     public relics:egret.Bitmap[] = []; // 遗物
 
     public mapView:MapView; // 地图视图
     public propsView:PropsView; // 道具视图
     public selView:SelView; // 目标选择视图
-    private repView:ReplayView; // 录像界面
+    public repView:ReplayView; // 录像界面
     public aniView:AniView; // 动画视图
     
     public openShop; // 打开商店界面
     public openPlayerLevelUpSels; // 打开角色升级界面
 
+    // 角色头像区域，以及金钱，层数，死神
+    createPlayerAttrs() {
+        this.createAvatarArea();
+
+        this.money = ViewUtils.createTextField(25, 0xffff00, false);
+        this.money.name = "money";
+        this.addChild(this.money);
+
+        this.currentStoryLv = ViewUtils.createTextField(25, 0xffff00, false);
+        this.currentStoryLv.name = "storeyLv";
+        this.addChild(this.currentStoryLv);
+
+        ViewUtils.multiLang(this, this.money,this.currentStoryLv);
+    }
+
     // 头像、经验条、血条、攻击、闪避
     createAvatarArea() {
-        // public avatar:egret.Bitmap; // 角色头像
-        // public expBar:egret.Bitmap; // 经验条
-        // public hpBar:egret.Bitmap; // 血条
-        // public expBarMask:egret.Bitmap; // 经验条遮罩
-        // public power:egret.TextField; // 攻击
-        // public dodge:egret.TextField; // 闪避
 
         // 头像区域背景
         this.avatarBg = ViewUtils.createBitmapByName("avatarBg_png");
@@ -139,20 +154,23 @@ class BattleView extends egret.DisplayObjectContainer {
         this.width = w;
         this.height = h;
 
-        // 头像区域
-        this.createAvatarArea();
+        // 整体背景
+        this.bg = ViewUtils.createBitmapByName("battleBg_png"); 
+        this.bg.name = "bg";
+        this.bg.x = this.bg.y = 0;
+        this.bg.width = this.width;
+        this.bg.height = this.height;
+        this.bg.scale9Grid = new egret.Rectangle(50, 50, 150, 150);
+        this.addChild(this.bg);
+
+        // 角色属性相关
+        this.createPlayerAttrs();
         
         this.title = new egret.TextField();
         // this.addChild(this.title);
         this.playerLv = new egret.TextField();
         this.avatar.name = "avatar";
         // this.addChild(this.playerLv);
-
-        this.money = new egret.TextField();
-        this.addChild(this.money);
-
-        this.deathStep = new egret.TextField();
-        this.addChild(this.deathStep);
 
         this.mapView = new MapView(w, h);
         this.addChild(this.mapView);
@@ -211,8 +229,9 @@ class BattleView extends egret.DisplayObjectContainer {
     public refreshPlayer() {
         ViewUtils.setTexName(this.avatar, this.player.occupation + "_png");
         this.playerLv.text = "lv:" + this.player.lv + ", e:" + this.player.exp;
-        this.money.text = "💴：" + this.player.money;
-        this.deathStep.text = "😈：" + this.player.deathStep;
+        this.money.text = "⚪:" + this.player.money;
+        this.currentStoryLv.text = "📶:" + this.player.currentStoreyPos.lv;
+        // this.deathStep.text = "😈：" + this.player.deathStep;
 
         this.player.bt().calcPlayerAttackerAttrs().then((attackerAttrs) => {
             var power = attackerAttrs.power.b * (1 + attackerAttrs.power.a) + attackerAttrs.power.c;
@@ -224,25 +243,11 @@ class BattleView extends egret.DisplayObjectContainer {
             this.dodge.text = this.player.dodge + "%";
         });
 
-        if (this.avatar.texture) {
-            this.avatar.width = this.avatar.texture.textureWidth;
-            this.avatar.height = this.avatar.texture.textureHeight;
-
-            this.money.x = this.avatar.x; 
-            this.money.y = this.avatar.y + this.avatar.height + 10;
-            this.deathStep.x = this.money.x + this.money.width + 10;
-            this.deathStep.y = this.money.y;
-        }
-        else {
-            this.avatar.width = 0;
-            this.avatar.width = 0;
-        }
-
-        this.playerLv.x = this.avatar.x;
-        this.playerLv.y = this.avatar.y;
-        this.playerLv.width = this.avatar.width;
-        this.playerLv.height = 30;
-        this.playerLv.textColor = 0xff0000;
+        // this.playerLv.x = this.avatar.x;
+        // this.playerLv.y = this.avatar.y;
+        // this.playerLv.width = this.avatar.width;
+        // this.playerLv.height = 30;
+        // this.playerLv.textColor = 0xff0000;
 
         this.refreshRelics();
         this.propsView.width = this.width;
