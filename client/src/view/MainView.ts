@@ -108,6 +108,8 @@ class MainView extends egret.DisplayObjectContainer {
         ElemView.select1InN = (title, choices, f, cb) => this.bv.select1inN(title, choices, f).then(cb);
         ElemView.try2UncoverAt = bt.try2UncoverAt();
         ElemView.try2BlockGrid = bt.try2BlockGrid();
+        ElemView.notifyLongPressStarted = (time, gx, gy) => {};
+        ElemView.notifyLongPressEnded = () => {};
         PropView.try2UseProp = bt.try2UseProp();
         PropView.selectGrid = (f, cb) => this.bv.selectGrid(f).then(cb);
         PropView.select1InN = (title, choices, f, cb) => this.bv.select1inN(title, choices, f).then(cb);

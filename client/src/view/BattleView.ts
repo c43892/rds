@@ -20,8 +20,6 @@ class BattleView extends egret.DisplayObjectContainer {
     public currentStoryLv:egret.TextField; // 当前层数
     public deathGod:egret.Bitmap; // 死神位置
 
-    public title:egret.TextField; // 战斗名称
-
     public relics:egret.Bitmap[] = []; // 遗物
 
     public mapView:MapView; // 地图视图
@@ -196,7 +194,6 @@ class BattleView extends egret.DisplayObjectContainer {
     // 设置新的地图数据，但并不自动刷新显示，需要手动刷新
     public setMap(map:Map, title:string) {
         this.mapView.setMap(map);
-        this.title.text = title;
     }
 
     // 设置角色数据，但并不刷新显示，需要手动刷新
