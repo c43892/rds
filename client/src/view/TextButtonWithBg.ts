@@ -5,7 +5,7 @@ class TextButtonWithBg extends egret.DisplayObjectContainer {
 
     public text:string;
 
-    public constructor(fontSize:number, textColor:number, bgTexName:string = "btnBg_png") {
+    public constructor(fontSize:number, textColor:number, bgTexName:string) {
         super();
         this.bg = ViewUtils.createBitmapByName(bgTexName);
         this.width = this.bg.width;

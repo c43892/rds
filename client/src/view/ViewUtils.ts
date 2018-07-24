@@ -78,6 +78,11 @@ class ViewUtils {
         t.x = t.y = 0;
         return t;
     }
+    
+    // 创建一个带背景的文字按钮
+    public static createImageBtn(fontSize:number, textColor:number = 0x000000, bgTexName:string = "btnBg_png") {
+        return new TextButtonWithBg(fontSize, textColor, bgTexName);
+    }
 
     // 对给定显示对象进行多语言处理
     static languageCfg;
