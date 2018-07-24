@@ -1,0 +1,30 @@
+{
+    "currentLanguage":"EN",
+    "validLanguages":["EN", "CNS", "CNT"],
+
+    "views": {
+        "login": {
+            "layout": {
+                "title": {"y":150},
+                "continueBtn": {"x": 170, "y": 650, "w": 300, "h": 100},
+                "newPlayBtn": {"x": 170, "y": 800, "w": 300, "h": 100},
+                "rankBtn": {
+                    "EN": {"x": 195, "y": 1016, "w": 250, "h": 50},
+                    "CNS": {"x": 235, "y": 1016, "w": 170, "h": 50},
+                    "CNT": {"x": 235, "y": 1016, "w": 170, "h": 50}
+                }
+            },
+
+            "text": {
+                "title": { "EN": "Zombie Mine", "CNS": "僵尸扫雷", "CNT": "僵尸扫雷" },
+                "continueBtn": { "EN": "Continue ...", "CNS": "继续游戏 ...", "CNT": "继续游戏 ..." },
+                "newPlayBtn": { "EN": "New Play", "CNS": "新游戏", "CNT": "新游戏" },
+                "rankBtn": { "EN": "Score Rank >>", "CNS": "排行榜 >>", "CNT": "排行榜 >>" }
+            },
+
+            "imgs": {
+
+            }
+        }
+    }
+}

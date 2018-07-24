@@ -51,6 +51,7 @@ class ViewUtils {
         return egret.Texture = RES.getRes(name);
     }
 
+    // 将一个显示对象程序置灰
     public static makeGray(e:egret.DisplayObject, gray:boolean = true) {
         if (!gray) {
             e.filters = undefined;
@@ -67,6 +68,7 @@ class ViewUtils {
         e.filters = [colorFlilter];
     }
 
+    // 创建一个显示文本
     public static createTextField(size:number, color:number, alignCenter:boolean = true, vAlignMiddle:boolean = true) {
         var t = new egret.TextField();
         t.size = size;
@@ -75,5 +77,42 @@ class ViewUtils {
         t.verticalAlign = vAlignMiddle ? egret.VerticalAlign.MIDDLE : egret.VerticalAlign.TOP;
         t.x = t.y = 0;
         return t;
+    }
+
+    // 对给定显示对象进行多语言处理
+    static languageCfg;
+    public static MultiLang(view, ...ps) {
+        if (!ViewUtils.languageCfg)
+            ViewUtils.languageCfg = GCfg.getMultiLanguageCfg();
+
+        var mlCfg = ViewUtils.languageCfg;
+        var curCfg = mlCfg.views[view.name];
+        if (!curCfg) return;
+
+        for (var p of ps) {
+            var name = p.name;
+
+            // layout
+            if (curCfg.layout && curCfg.layout[name]) {
+                var lyt = curCfg.layout[name][mlCfg.currentLanguage] ? curCfg.layout[name][mlCfg.currentLanguage] : curCfg.layout[name];
+                p.x = lyt.x ? lyt.x : p.x;
+                p.y = lyt.y ? lyt.y : p.y;
+                p.width = lyt.w ? lyt.w : p.width;
+                p.height = lyt.h ? lyt.h : p.height;
+            }
+
+            // text
+            if ((p instanceof egret.TextField || p instanceof TextButtonWithBg) && curCfg.text && curCfg.text[name])
+                p.text = curCfg.text[name][mlCfg.currentLanguage] ? curCfg.text[name][mlCfg.currentLanguage] : curCfg.text[name];
+
+            // image
+            if ((p instanceof egret.Bitmap || p instanceof TextButtonWithBg) && curCfg.imgs && curCfg.imgs[name]) {
+                var bmp = p instanceof TextButtonWithBg ? p.bg : p;
+                ViewUtils.setTexName(bmp, curCfg.imgs[name][mlCfg.currentLanguage] ? curCfg.imgs[name][mlCfg.currentLanguage] : curCfg.imgs[name]);
+            }
+
+            if (p instanceof TextButtonWithBg)
+                (<TextButtonWithBg>p).refresh();
+        }
     }
 }
