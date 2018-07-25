@@ -113,7 +113,7 @@ class MainView extends egret.DisplayObjectContainer {
         PropView.select1InN = (title, choices, f, cb) => this.bv.select1inN(title, choices, f).then(cb);
         PropView.try2UsePropAt = bt.try2UsePropAt();
 
-        ElemView.notifyLongPressStarted = (time, gx, gy) => { this.startCycleProgrssBar(); };
+        ElemView.notifyLongPressStarted = (gx, gy, time) => { this.startCycleProgrssBar(gx, gy, time); };
         ElemView.notifyLongPressEnded = () => { this.stopCycleProgrssBar(); };
 
         bt.registerEvent("onPlayerOp", (ps) => BattleRecorder.onPlayerOp(ps.op, ps.ps));
@@ -146,13 +146,19 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 开始环形的进度条
-    startCycleProgrssBar() {
-        Utils.log("start");
+    cycleBarImg = ViewUtils.createBitmapByName("circleBar_png");
+    startCycleProgrssBar(x, y, time) {
+        // var ps = { x:x, y:y, time:time };
+        // this.bv.aniView.onCycleStart(this.cycleBarImg, ps);
     }
 
     // 停止环形进度条
     stopCycleProgrssBar() {
-        Utils.log("end");
+        // if (this.cycleBarImg != undefined) {
+        //     egret.Tween.removeTweens(this.cycleBarImg);
+        //     if (this.cycleBarImg.parent)
+        //         this.cycleBarImg.parent.removeChild(this.cycleBarImg);
+        // }
     }
 
     // 开启商店界面

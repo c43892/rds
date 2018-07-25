@@ -242,8 +242,11 @@ class ElemView extends egret.DisplayObjectContainer {
     }
 
     // 按下
-    static readonly LongPressThreshold = 750; // 按下持续 0.75s 算长按
+    static readonly LongPressThreshold = 500; // 按下持续 0.5s 算长按
     onTouchBegin(evt:egret.TouchEvent) {
+        if (!this.map.isGenerallyValid(this.gx, this.gy))
+            return;
+
         ElemView.pressed = true;
         ElemView.longPressed = false;
         ElemView.notifyLongPressEnded();
@@ -256,11 +259,11 @@ class ElemView extends egret.DisplayObjectContainer {
         }
 
         ElemView.pressTimer.start();
-        ElemView.notifyLongPressStarted(ElemView.LongPressThreshold, this.gx, this.gy);
+        ElemView.notifyLongPressStarted(this.gx, this.gy, ElemView.LongPressThreshold);
     }
 
     static onPressTimer() {
-        if (!ElemView.pressed )
+        if (!ElemView.pressed)
             return;
 
         ElemView.longPressed = true;
@@ -268,6 +271,9 @@ class ElemView extends egret.DisplayObjectContainer {
         ElemView.pressTimer.stop();
 
         let g = ElemView.dragFrom.map.getGridAt(ElemView.dragFrom.gx, ElemView.dragFrom.gy);
+        if (!g.isUncoverable())
+            return;
+
         switch (g.status) {
             case GridStatus.Covered:
                 ElemView.try2BlockGrid(g.pos.x, g.pos.y, true);
@@ -320,6 +326,9 @@ class ElemView extends egret.DisplayObjectContainer {
 
     // 结束拖拽
     onTouchEnd(evt:egret.TouchEvent) {
+        if (!this.map.isGenerallyValid(this.gx, this.gy))
+            return;
+
         if (ElemView.dragging) {
             ElemView.dragFrom.elemImg.x = 0;
             ElemView.dragFrom.elemImg.y = 0;

@@ -47,13 +47,31 @@ class AniView extends egret.DisplayObjectContainer {
             this.removeChild(this.aniCover);
     }
 
+    public async onCycleStart(img:egret.Bitmap, ps) {
+        var eImg = this.mv.mapView.getGridViewAt(ps.x, ps.y);
+        ps.r = eImg.width;
+        ps.x = eImg.x + eImg.width / 2;
+        ps.y = eImg.y + eImg.height / 2;
+
+        img.x = eImg.x;
+        img.y = eImg.y;
+        img.width = eImg.width;
+        img.height = eImg.height;
+        eImg.parent.addChild(img);
+        ps.img = img;
+        ps.noWait = true; // 不阻挡操作
+        await this.aniFact.createAni("cycleMask", ps);
+        if (img.parent && img.parent.contains(img))
+            img.parent.removeChild(img);
+    }
+
     // 指定位置发生状态或元素变化
     public async onGridChanged(ps) {
         switch (ps.subType) {
             case "ElemAdded":
-                this.mv.mapView.refreshAt(ps.x, ps.y);
                 var eImg = this.mv.mapView.getElemViewAt(ps.x, ps.y).getImg();
                 await this.aniFact.createAni("fadeIn", {"img": eImg, "time":1000});
+                this.mv.mapView.refreshAt(ps.x, ps.y);
             case "gridBlocked": {
                 var gv = this.mv.mapView.getGridViewAt(ps.x, ps.y);
                 var img = ViewUtils.createBitmapByName("blocked_png");
@@ -66,13 +84,11 @@ class AniView extends egret.DisplayObjectContainer {
                 img.y = gv.y - (img.height - gv.height) / 2;
                 
                 gv.parent.addChild(img);
-
                 await this.aniFact.createAni("gridBlocked", {
-                    img:img, time: 1000,
+                    img:img, time: 500,
                     tx:gv.x, ty:gv.y, tw:gv.width, th:gv.height, ta:1
                 });
                 gv.parent.removeChild(img);
-                Utils.log("blocked: " + ps.subType);
             }
         }
 
