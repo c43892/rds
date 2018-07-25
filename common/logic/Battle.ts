@@ -445,13 +445,12 @@ class Battle {
     public try2BlockGrid() {
         return async (x:number, y:number, mark:boolean) => {
             var g = this.level.map.getGridAt(x, y);
-            if (!g.isUncoverable())
-                return;
                 
             // 操作录像
             this.fireEventSync("onPlayerOp", {op:"try2BlockGrid", ps:{x:x, y:y, mark:mark}});
 
             if (mark) {
+                if (!g.isUncoverable()) return;
                 Utils.assert(g.status == GridStatus.Covered, "only covered grid can be blocked");
                 g.status = GridStatus.Blocked;
                 await this.fireEvent("onGridChanged", {x:x, y:y, subType:"gridBlocked"});

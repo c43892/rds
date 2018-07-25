@@ -244,7 +244,8 @@ class ElemView extends egret.DisplayObjectContainer {
     // 按下
     static readonly LongPressThreshold = 500; // 按下持续 0.5s 算长按
     onTouchBegin(evt:egret.TouchEvent) {
-        if (!this.map.isGenerallyValid(this.gx, this.gy))
+        let g = this.map.getGridAt(this.gx, this.gy);
+        if (!this.map.isGenerallyValid(this.gx, this.gy) && g.status != GridStatus.Blocked)
             return;
 
         ElemView.pressed = true;
@@ -271,12 +272,10 @@ class ElemView extends egret.DisplayObjectContainer {
         ElemView.pressTimer.stop();
 
         let g = ElemView.dragFrom.map.getGridAt(ElemView.dragFrom.gx, ElemView.dragFrom.gy);
-        if (!g.isUncoverable())
-            return;
-
         switch (g.status) {
             case GridStatus.Covered:
-                ElemView.try2BlockGrid(g.pos.x, g.pos.y, true);
+                if (g.isUncoverable())
+                    ElemView.try2BlockGrid(g.pos.x, g.pos.y, true);
             break;
             case GridStatus.Blocked:
                 ElemView.try2BlockGrid(g.pos.x, g.pos.y, false);
