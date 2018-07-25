@@ -286,8 +286,8 @@ class Battle {
     async checkPlayerLevelUpAndDie() {
         // 检查等级提升
         if (this.player.checkLevelUp()) {
-            await this.fireEvent("onPlayerChanged", {subType:"lvUp"});
-            await this.triggerLogicPoint("onPlayerChanged", {subType: "lvUp"});
+            await this.fireEvent("onPlayerChanged", {subType:"lvUp", bt:this});
+            await this.triggerLogicPoint("onPlayerChanged", {subType: "lvUp", bt:this});
         }
 
         // 检查死亡

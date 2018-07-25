@@ -36,8 +36,8 @@ class MainView extends egret.DisplayObjectContainer {
         // 战斗视图
         this.bv = new BattleView(w, h);
         this.bv.x = this.bv.y = 0;
-        this.bv.openShop = async (shop, onBuy, refreshItems) => await this.openShop(shop, onBuy, refreshItems);
-        this.bv.openPlayerLevelUpSels = async () => await this.openPlayerLevelUpSels();
+        this.bv.openShop = async (shop, rand, onBuy, refreshItems) => await this.openShop(shop, rand, onBuy, refreshItems);
+        this.bv.openPlayerLevelUpSels = async (rand) => await this.openPlayerLevelUpSels(rand);
 
         // 宝箱房间
         this.brv = new BoxRoomView(w, h);
@@ -145,16 +145,16 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 开启商店界面
-    public async openShop(shop, onBuy, refreshItems:boolean = true) {
+    public async openShop(shop, rand, onBuy, refreshItems:boolean = true) {
         this.sv.player = this.p;
         this.addChild(this.sv);
-        await this.sv.open(shop, this.p.playerRandom, onBuy, refreshItems);
+        await this.sv.open(shop, rand, onBuy, refreshItems);
         this.removeChild(this.sv);
     }
 
     // 世界地图上开启商店界面
     public async openShopOnWorldMap(shop) {
-        await this.openShop(shop, (elem:Elem) => this.p.addItem(elem));
+        await this.openShop(shop, this.p.playerRandom, (elem:Elem) => this.p.addItem(elem));
     }
 
     // 打开医院界面
@@ -183,10 +183,10 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 打开升级界面
-    public async openPlayerLevelUpSels() {
+    public async openPlayerLevelUpSels(rand) {
         this.pluv.player = this.p;
         this.addChild(this.pluv);
-        await this.pluv.open(GCfg.playerCfg.levelUpChoices);
+        await this.pluv.open(GCfg.playerCfg.levelUpChoices, rand);
         this.removeChild(this.pluv);
     }
 

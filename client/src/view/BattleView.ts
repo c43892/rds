@@ -108,7 +108,6 @@ class BattleView extends egret.DisplayObjectContainer {
     refreshExpBar() {
         var shape = this.expBarMask;
         var p = !this.player ? 0 : this.player.lvUpProgress();
-        Utils.log(p);
 
         var pts = [
             {x: this.expBar.x + this.expBar.width, y: this.expBar.y + this.expBar.height}, // 右下角
@@ -308,8 +307,10 @@ class BattleView extends egret.DisplayObjectContainer {
 
     // 角色变化
     public async onPlayerChanged(ps) {
-        if (ps.subType == "lvUp") // 等级提升
-            await this.openPlayerLevelUpSels();
+        if (ps.subType == "lvUp") { // 等级提升
+            var bt:Battle = ps.bt;
+            await this.openPlayerLevelUpSels(bt.srand);
+        }
     }
 
     // 打开商店
@@ -317,7 +318,8 @@ class BattleView extends egret.DisplayObjectContainer {
         var shop = ps.shopCfg;
         var onBuy = ps.onBuy;
         var refreshItems = ps.refreshItems;
-        await this.openShop(shop, onBuy, refreshItems);
+        var rand = ps.rand;
+        await this.openShop(shop, rand, onBuy, refreshItems);
     }
 
     // n 选 1

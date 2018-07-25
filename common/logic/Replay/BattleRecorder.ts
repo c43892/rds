@@ -58,26 +58,26 @@ class BattleRecorder {
     }
 
     // 推动录像播放前进一步
-    public static currentReplayMoveOneStep():boolean {
+    public static async currentReplayMoveOneStep():Promise<boolean> {
         var r = BattleRecorder.replay;
         var ops = r.ops;
         var op = ops[BattleRecorder.replayIndex++];
         var h = BattleRecorder.replayOpHandlers[op.op];
         Utils.assert(h, "unhandled replay indication: " + op.op);
-        h(op.ps);
+        await h(op.ps);
         BattleRecorder.inRecording = BattleRecorder.replayIndex >= ops.length;
         return BattleRecorder.inRecording; // 返回值表示录像是否已经回放结束（回放结束就是进入录制状态）
     }
 
     // 录像指令处理，基本上就是对应 Battle 中 fireEventSync 的部分
     public static registerReplayIndicatorHandlers(bt:Battle) {
-        BattleRecorder.onReplayOp("try2BlockGrid", (ps) => { ElemView.try2BlockGrid(ps.x, ps.y, ps.mark); });
-        BattleRecorder.onReplayOp("try2UncoverAt", (ps) => { ElemView.try2UncoverAt(ps.x, ps.y); });
-        BattleRecorder.onReplayOp("reposElemTo", (ps) => { ElemView.reposElemTo(bt.level.map.getElemAt(ps.x, ps.y), ps.tox, ps.toy); });
-        BattleRecorder.onReplayOp("try2UseElem", (ps) => { ElemView.try2UseElem(bt.level.map.getElemAt(ps.x, ps.y)); });
-        BattleRecorder.onReplayOp("try2UseElemAt", (ps) => { ElemView.try2UseElemAt(bt.level.map.getElemAt(ps.x, ps.y), ps.tox, ps.toy); });
-        BattleRecorder.onReplayOp("try2UseProp", (ps) => { PropView.try2UseProp(bt.player.props[ps.n]); });
-        BattleRecorder.onReplayOp("try2UsePropAt", (ps) => { PropView.try2UsePropAt(bt.player.props[ps.n], ps.tox, ps.toy); });
+        BattleRecorder.onReplayOp("try2BlockGrid", async (ps) => { await ElemView.try2BlockGrid(ps.x, ps.y, ps.mark); });
+        BattleRecorder.onReplayOp("try2UncoverAt", async (ps) => { await ElemView.try2UncoverAt(ps.x, ps.y); });
+        BattleRecorder.onReplayOp("reposElemTo", async (ps) => { await ElemView.reposElemTo(bt.level.map.getElemAt(ps.x, ps.y), ps.tox, ps.toy); });
+        BattleRecorder.onReplayOp("try2UseElem", async (ps) => { await ElemView.try2UseElem(bt.level.map.getElemAt(ps.x, ps.y)); });
+        BattleRecorder.onReplayOp("try2UseElemAt", async (ps) => { await ElemView.try2UseElemAt(bt.level.map.getElemAt(ps.x, ps.y), ps.tox, ps.toy); });
+        BattleRecorder.onReplayOp("try2UseProp", async (ps) => { await PropView.try2UseProp(bt.player.props[ps.n]); });
+        BattleRecorder.onReplayOp("try2UsePropAt", async (ps) => { await PropView.try2UsePropAt(bt.player.props[ps.n], ps.tox, ps.toy); });
     }
 
     private static replayOpHandlers = {}; // 执行所有录像指令
