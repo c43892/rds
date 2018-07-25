@@ -54,7 +54,26 @@ class AniView extends egret.DisplayObjectContainer {
                 this.mv.mapView.refreshAt(ps.x, ps.y);
                 var eImg = this.mv.mapView.getElemViewAt(ps.x, ps.y).getImg();
                 await this.aniFact.createAni("fadeIn", {"img": eImg, "time":1000});
-            break;
+            case "gridBlocked": {
+                var gv = this.mv.mapView.getGridViewAt(ps.x, ps.y);
+                var img = ViewUtils.createBitmapByName("blocked_png");
+
+                var scale = 3;
+                img.alpha = 0;
+                img.width = gv.width * scale;
+                img.height = gv.height * scale;
+                img.x = gv.x - (img.width - gv.width) / 2;
+                img.y = gv.y - (img.height - gv.height) / 2;
+                
+                gv.parent.addChild(img);
+
+                await this.aniFact.createAni("gridBlocked", {
+                    img:img, time: 1000,
+                    tx:gv.x, ty:gv.y, tw:gv.width, th:gv.height, ta:1
+                });
+                gv.parent.removeChild(img);
+                Utils.log("blocked: " + ps.subType);
+            }
         }
 
         var e:Elem = ps.e;
@@ -65,8 +84,8 @@ class AniView extends egret.DisplayObjectContainer {
     // 怪物属性发生变化
     public async onElemChanged(ps) {
         var e = ps.e;
-        this.mv.mapView.refreshAt(e.pos.x, e.pos.y);
         await this.aniFact.createAni("elemChanged", {"m": ps.m});
+        this.mv.mapView.refreshAt(e.pos.x, e.pos.y);        
         this.mv.refreshPlayer(); // 角色属性受地图上所有东西影响
     }
 

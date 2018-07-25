@@ -18,6 +18,7 @@ class AnimationFactory {
             case "moneyMoving": ani = Utils.delay(100); break;
             case "suckBlood": ani = Utils.delay(100); break;
             case "monsterTakeElem": ani = Utils.delay(100); break;
+            case "gridBlocked": ani = this.fadeIn(ps.img, ps);
         }
         
         Utils.assert(ani != undefined, "unknown aniType: " + aniType);
@@ -63,5 +64,28 @@ class AnimationFactory {
     // 怪物属性变化
     monsterChanged(m:Monster):Promise<void> {
         return Utils.delay(100);
+    }
+
+    // 渐显
+    fadeIn(g:egret.Bitmap, ps):Promise<void> {
+        var tw = egret.Tween.get(g);
+
+        // properties from
+        g.alpha = ps.fa ? ps.fa : g.alpha;
+        g.x = ps.fx ? ps.fx : g.x;
+        g.y = ps.fy ? ps.fy : g.y;
+        g.width = ps.fw ? ps.fw : g.width;
+        g.height = ps.fh ? ps.fh : g.height;
+
+        // properties to
+        var x = ps.tx ? ps.tx : g.x;
+        var y = ps.ty ? ps.ty : g.y;
+        var w = ps.tw ? ps.tw : g.width;
+        var h = ps.th ? ps.th : g.height;
+        var a = ps.ta ? ps.ta : g.alpha;
+        var time = ps.time;
+
+        tw.to({x:x, y:y, width:w, height:h, alpha:a}, time, egret.Ease.backIn);
+        return new Promise<void>((resolve, reject) => tw.call(resolve));
     }
 }

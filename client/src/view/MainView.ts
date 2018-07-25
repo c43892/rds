@@ -108,12 +108,13 @@ class MainView extends egret.DisplayObjectContainer {
         ElemView.select1InN = (title, choices, f, cb) => this.bv.select1inN(title, choices, f).then(cb);
         ElemView.try2UncoverAt = bt.try2UncoverAt();
         ElemView.try2BlockGrid = bt.try2BlockGrid();
-        ElemView.notifyLongPressStarted = (time, gx, gy) => {};
-        ElemView.notifyLongPressEnded = () => {};
         PropView.try2UseProp = bt.try2UseProp();
         PropView.selectGrid = (f, cb) => this.bv.selectGrid(f).then(cb);
         PropView.select1InN = (title, choices, f, cb) => this.bv.select1inN(title, choices, f).then(cb);
         PropView.try2UsePropAt = bt.try2UsePropAt();
+
+        ElemView.notifyLongPressStarted = (time, gx, gy) => { this.startCycleProgrssBar(); };
+        ElemView.notifyLongPressEnded = () => { this.stopCycleProgrssBar(); };
 
         bt.registerEvent("onPlayerOp", (ps) => BattleRecorder.onPlayerOp(ps.op, ps.ps));
         bt.registerEvent("onLevel", (ps) => this.bv.onLevel(ps));
@@ -142,6 +143,16 @@ class MainView extends egret.DisplayObjectContainer {
         for (var ui of uis)
             if (this.contains(ui))
                 this.removeChild(ui);
+    }
+
+    // 开始环形的进度条
+    startCycleProgrssBar() {
+        Utils.log("start");
+    }
+
+    // 停止环形进度条
+    stopCycleProgrssBar() {
+        Utils.log("end");
     }
 
     // 开启商店界面
