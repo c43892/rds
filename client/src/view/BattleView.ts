@@ -9,8 +9,9 @@ class BattleView extends egret.DisplayObjectContainer {
     public avatarBg:egret.Bitmap; // 角色头像区域背景
     public avatar:egret.Bitmap; // 角色头像
     public expBar:egret.Bitmap; // 经验条
-    public hpBar:egret.Bitmap; // 血条
     public expBarMask:egret.Shape; // 经验条遮罩
+    public hp:egret.TextField; // 血量
+    public hpBar:egret.Bitmap; // 血条
     public hpBarMask:egret.Shape; // 血条遮罩
     public powerTitle:egret.Bitmap; // 攻击
     public power:egret.TextField; // 攻击
@@ -19,6 +20,8 @@ class BattleView extends egret.DisplayObjectContainer {
 
     public money:egret.TextField; // 金币
     public currentStoryLv:egret.TextField; // 当前层数
+    public deathGodBarBg:egret.Bitmap; // 死神进度条底条
+    public deathGodBar:egret.Bitmap; // 死神进度条
     public deathGod:egret.Bitmap; // 死神位置
 
     public relics:egret.Bitmap[] = []; // 遗物
@@ -47,11 +50,17 @@ class BattleView extends egret.DisplayObjectContainer {
         this.addChild(this.currentStoryLv);
 
         // 死神符号
+        this.deathGodBarBg = ViewUtils.createBitmapByName("deathGodBarBg_png");
+        this.deathGodBarBg.name = "deathGodBarBg";
+        this.addChild(this.deathGodBarBg);
+        this.deathGodBar = ViewUtils.createBitmapByName("deathGodBar_png");
+        this.deathGodBar.name = "deathGodBar";
+        this.addChild(this.deathGodBar);
         this.deathGod = ViewUtils.createBitmapByName("deathGod_png");
         this.deathGod.name = "deathGod";
         this.addChild(this.deathGod);
 
-        ViewUtils.multiLang(this, this.money,this.currentStoryLv, this.deathGod);
+        ViewUtils.multiLang(this, this.money,this.currentStoryLv, this.deathGodBarBg, this.deathGodBar, this.deathGod);
     }
 
     // 头像、经验条、血条、攻击、闪避
@@ -82,6 +91,9 @@ class BattleView extends egret.DisplayObjectContainer {
         this.hpBar = ViewUtils.createBitmapByName("hpBar_png");
         this.hpBar.name = "hpBar";
         this.addChild(this.hpBar);
+        this.hp = ViewUtils.createTextField(20, 0xffffff);
+        this.hp.name = "hp";
+        this.addChild(this.hp);
 
         // 血条遮罩
         this.hpBarMask = new egret.Shape();
@@ -103,7 +115,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.dodge.name = "dodge";
         this.addChild(this.dodge);
 
-        ViewUtils.multiLang(this, this.avatarBg, this.avatar, this.expBar, this.hpBar, 
+        ViewUtils.multiLang(this, this.avatarBg, this.avatar, this.expBar, this.hp, this.hpBar, 
             this.powerTitle, this.power, this.dodgeTitle, this.dodge);
         this.refreshExpBar();
         this.refreshHpBar();
@@ -137,6 +149,7 @@ class BattleView extends egret.DisplayObjectContainer {
 
     // 刷新血条遮罩
     refreshHpBar() {
+        this.hp.text = !this.player ? "0" : this.player.hp.toString();
         var shape = this.hpBarMask;
         var p = !this.player ? 0 : (this.player.hp / this.player.maxHp);
 
@@ -226,11 +239,18 @@ class BattleView extends egret.DisplayObjectContainer {
     }
 
     // 刷新角色信息
+    deathGodBarPosX;
+    deathGodBarWidth;
     public refreshPlayer() {
         ViewUtils.setTexName(this.avatar, this.player.occupation + "_png");
         this.money.text = "⚪:" + this.player.money;
         this.currentStoryLv.text = "📶:" + this.player.currentStoreyPos.lv;
-        this.deathGod.x = 200 + (this.player.deathStep / this.player.maxDeathStep) * 320;
+
+        if (!this.deathGodBarPosX) this.deathGodBarPosX = this.deathGodBar.x
+        if (!this.deathGodBarWidth) this.deathGodBarWidth = this.deathGodBar.width;
+        var p = this.player.deathStep / this.player.maxDeathStep;
+        this.deathGod.x = this.deathGodBarPosX + p * this.deathGodBarWidth - this.deathGod.width / 2;
+        this.deathGodBar.width = this.deathGodBarWidth * p;
 
         this.player.bt().calcPlayerAttackerAttrs().then((attackerAttrs) => {
             var power = attackerAttrs.power.b * (1 + attackerAttrs.power.a) + attackerAttrs.power.c;
