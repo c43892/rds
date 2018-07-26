@@ -9,6 +9,7 @@ class Buff {
     }
 
     public cnt = undefined; // 剩余回合数，undefined 表示永远不结束
+    public addBuffCnt; // 回合数叠加方式
 
     // 生效一次（可以用来手动生效）
     public doEffect;
@@ -18,7 +19,5 @@ class Buff {
     public onLevelInited;
     public beforeGoOutLevel1;
     public beforeGoOutLevel2;
-    public onGridChanged; // 形如 function(x:number, y:number, statusBeforeUncoverd:GridStatus)
-
-    public addBuffCnt;
+    public onGridChanged; // 形如 function(x:number, y:number, statusBeforeUncoverd:GridStatus)    
 }

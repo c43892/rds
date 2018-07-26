@@ -11,7 +11,7 @@ class BuffNurse extends Buff {
             // 随机找个揭开了的空白格子
             var g = BattleUtils.findRandomEmptyGrid(bt);
             if (g) {
-                var hpPotion = bt.level.createElem("HpPotion", {dhp:20});
+                var hpPotion = bt.level.createElem("HpPotion");
                 await Utils.delay(1000);
                 await bt.implAddElemAt(hpPotion, g.pos.x, g.pos.y);
             }

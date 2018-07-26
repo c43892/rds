@@ -35,7 +35,7 @@ class Player {
         p.finishedStoreyPos = [{lv:0, n:0}];
         p.occupation = "Nurse";
         p.deathStep = 100;
-        p.hp = 10;
+        p.hp = 20;
         p.maxHp = 20;
         p.power = [3, 0];
         p.playerRandom = new SRandom();
