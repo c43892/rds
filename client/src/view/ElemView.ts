@@ -287,7 +287,7 @@ class ElemView extends egret.DisplayObjectContainer {
     onTouchMove(evt:egret.TouchEvent) {
         if (ElemView.longPressed 
             || this.map.getGridAt(this.gx, this.gy).isCovered() 
-            || !this.map.isGenerallyValid(ElemView.dragFrom.gx, ElemView.dragFrom.gy))
+            || !this.map.isGenerallyValid(this.gx, this.gy))
             return;
 
         var px = evt.localX + this.x;

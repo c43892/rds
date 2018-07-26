@@ -8,7 +8,7 @@ class GridView extends egret.DisplayObjectContainer {
     private coveredImg:egret.Bitmap; // 被覆盖
     private uncoverableImg:egret.Bitmap; // 被覆盖，但可以揭开
     private blockedImg:egret.Bitmap; // 危险
-    private coveredHazardNum:egret.TextField; // 数字
+    private coveredHazardNum:egret.Bitmap; // 数字
 
     public constructor() {
         super();
@@ -18,15 +18,7 @@ class GridView extends egret.DisplayObjectContainer {
         this.uncoverableImg = ViewUtils.createBitmapByName("uncoverable_png"); // 覆盖图
         
         // 数字
-        this.coveredHazardNum = new egret.TextField();
-        this.coveredHazardNum.textColor = 0xffffff;
-        this.coveredHazardNum.size = 50;
-        this.coveredHazardNum.anchorOffsetX = 0;
-        this.coveredHazardNum.anchorOffsetY = 0;
-        this.coveredHazardNum.x = 0;
-        this.coveredHazardNum.y = 0;
-        this.coveredHazardNum.textAlign = egret.HorizontalAlign.CENTER;
-        this.coveredHazardNum.verticalAlign = egret.VerticalAlign.MIDDLE;
+        this.coveredHazardNum = new egret.Bitmap();
 
         this.anchorOffsetX = 0;
         this.anchorOffsetY = 0;
@@ -51,17 +43,22 @@ class GridView extends egret.DisplayObjectContainer {
                 var num = this.map.getCoveredHazardNum(this.gx, this.gy);
                 if (num > 0) {
                     this.addChild(this.coveredHazardNum);
-                    this.coveredHazardNum.text = num.toString();
+                    ViewUtils.setTexName(this.coveredHazardNum, "num" + num + "_png");
                 } else if (num < 0) { // 显示 ?
                     this.addChild(this.coveredHazardNum);
-                    this.coveredHazardNum.text = "?";
+                    ViewUtils.setTexName(this.coveredHazardNum, "questionMark_png");
+                }
+
+                if (num != 0) {
+                    this.coveredHazardNum.x = (this.width - this.coveredHazardNum.width) / 2;
+                    this.coveredHazardNum.y = (this.height - this.coveredHazardNum.height) / 2;
                 }
             break;
         }
 
         var w = this.width;
         var h = this.height;
-        var arr = [this.blockedImg, this.coveredImg, this.uncoverableImg, this.coveredHazardNum];
+        var arr = [this.blockedImg, this.coveredImg, this.uncoverableImg];
         arr.forEach((a) => { a.x = 0; a.y = 0; a.width = w; a.height = h; });
     }
 

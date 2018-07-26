@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "description_json,levelconfig_json,Bunny_png,elemattrsconfig_json,DeathGod_png,MedicineBox_png,playerconfig_json,Hawkeye_png,TimeMachine_png,Coins_png,Door_png,Gun_png,HpPotion_png,Key_png,NextLevelPort_png,TreasureBox_png,Clock_png,HpCapsule_png,Magazine_png,Hole_png,Apple3_png,Apple2_png,Apple1_png,Steak3_png,Steak2_png,Steak1_png,RandomEgg_png,Apple12_png,Apple22_png,Apple32_png,Steak12_png,Steak22_png,Steak32_png,RayGun_png,IceBlock_png,IceGun_png,randomdropconfig_json,BombAbomination_png,DancerZombie_png,EyeDemon_png,GluttonyZombie_png,HoundZombie_png,IronZombie_png,LustZombie_png,NormalZombie_png,ori_png,RandomEggZombie_png,Gengar_png,GoblinThief_png,Vampire_png,Shield1_png,Shield2_png,WorldMapBg_png,WorldMapBg2_png,worldmap_json,normal_png,boss_png,senior_png,camp_png,box_png,event_png,shop_png,worldmapstart_png,Sword_png,translucent_png,shopconfig_json,goBack_png,soldout_png,btnCure_png,btnReinforce_png,btnMutate_png,goBack2_png,Endurance_png,Power_png,Fierce_png,Cloak_png,Unback2Sneak_png,BoxRoomBox_png,BoxRoomBoxOpened_png,ShopNpc_png,worldmapeventsels_json,turntableBg_png,turntableAddHp_png,turntableMinusHp_png,turntableBox_png,turntableCoin_png,turntableItem_png,turntableBoxOpended_png,turntableStartBtn_png,turntableGoOutBtn_png,turntableSign_png,CommanderZombie_png,turntableTipBg_png,RageZombie_png,HideZombie_png,GuardZombie_png,ReviveZombie_png,CowardZombie_png,MarkZombie_png,ConfusionZombie_png,GreedyZombie_png,Mummy_png,PoisonJellyfish_png,HeadBone_png,SkeletonKing_png,Cocoon_png,SwatheZombie_png,BoxMonster_png,Nurse_png,loginBackground_png,multilanguage_json,btnBg_png,avatarBg_png,expBar_png,hpBar_png,battleBg_png,deathGod_png,anicover_png,ban_png,blocked_png,blackcover_png,bg_png,covered_png,circleBar_png,selectable_png,replaybg_png,unselectable_png,uncoverable_png",
+			"keys": "description_json,levelconfig_json,Bunny_png,elemattrsconfig_json,DeathGod_png,MedicineBox_png,playerconfig_json,Hawkeye_png,TimeMachine_png,Coins_png,Door_png,Gun_png,HpPotion_png,Key_png,NextLevelPort_png,TreasureBox_png,Clock_png,HpCapsule_png,Magazine_png,Hole_png,Apple3_png,Apple2_png,Apple1_png,Steak3_png,Steak2_png,Steak1_png,RandomEgg_png,Apple12_png,Apple22_png,Apple32_png,Steak12_png,Steak22_png,Steak32_png,RayGun_png,IceBlock_png,IceGun_png,randomdropconfig_json,BombAbomination_png,DancerZombie_png,EyeDemon_png,GluttonyZombie_png,HoundZombie_png,IronZombie_png,LustZombie_png,NormalZombie_png,ori_png,RandomEggZombie_png,Gengar_png,GoblinThief_png,Vampire_png,Shield1_png,Shield2_png,WorldMapBg_png,WorldMapBg2_png,worldmap_json,normal_png,boss_png,senior_png,camp_png,box_png,event_png,shop_png,worldmapstart_png,Sword_png,translucent_png,shopconfig_json,goBack_png,soldout_png,btnCure_png,btnReinforce_png,btnMutate_png,goBack2_png,Endurance_png,Power_png,Fierce_png,Cloak_png,Unback2Sneak_png,BoxRoomBox_png,BoxRoomBoxOpened_png,ShopNpc_png,worldmapeventsels_json,turntableBg_png,turntableAddHp_png,turntableMinusHp_png,turntableBox_png,turntableCoin_png,turntableItem_png,turntableBoxOpended_png,turntableStartBtn_png,turntableGoOutBtn_png,turntableSign_png,CommanderZombie_png,turntableTipBg_png,RageZombie_png,HideZombie_png,GuardZombie_png,ReviveZombie_png,CowardZombie_png,MarkZombie_png,ConfusionZombie_png,GreedyZombie_png,Mummy_png,PoisonJellyfish_png,HeadBone_png,SkeletonKing_png,Cocoon_png,SwatheZombie_png,BoxMonster_png,Nurse_png,loginBackground_png,multilanguage_json,btnBg_png,avatarBg_png,expBar_png,hpBar_png,battleBg_png,deathGod_png,anicover_png,ban_png,blocked_png,blackcover_png,bg_png,covered_png,circleBar_png,selectable_png,replaybg_png,unselectable_png,uncoverable_png,num1_png,num2_png,num3_png,num5_png,questionMark_png,num4_png,powerTitle_png,dodgeTitle_png,deathGodBar_png",
 			"name": "preload"
 		}
 	],
@@ -645,6 +645,51 @@
 			"url": "assets/ui/battle/selectable.png",
 			"type": "image",
 			"name": "selectable_png"
+		},
+		{
+			"url": "assets/ui/battle/num1.png",
+			"type": "image",
+			"name": "num1_png"
+		},
+		{
+			"url": "assets/ui/battle/num2.png",
+			"type": "image",
+			"name": "num2_png"
+		},
+		{
+			"url": "assets/ui/battle/num3.png",
+			"type": "image",
+			"name": "num3_png"
+		},
+		{
+			"url": "assets/ui/battle/num5.png",
+			"type": "image",
+			"name": "num5_png"
+		},
+		{
+			"url": "assets/ui/battle/questionMark.png",
+			"type": "image",
+			"name": "questionMark_png"
+		},
+		{
+			"url": "assets/ui/battle/num4.png",
+			"type": "image",
+			"name": "num4_png"
+		},
+		{
+			"url": "assets/ui/battle/powerTitle.png",
+			"type": "image",
+			"name": "powerTitle_png"
+		},
+		{
+			"url": "assets/ui/battle/dodgeTitle.png",
+			"type": "image",
+			"name": "dodgeTitle_png"
+		},
+		{
+			"name": "deathGodBar_png",
+			"type": "image",
+			"url": "assets/ui/battle/deathGodBar.png"
 		}
 	]
 }

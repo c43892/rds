@@ -12,7 +12,9 @@ class BattleView extends egret.DisplayObjectContainer {
     public hpBar:egret.Bitmap; // 血条
     public expBarMask:egret.Shape; // 经验条遮罩
     public hpBarMask:egret.Shape; // 血条遮罩
+    public powerTitle:egret.Bitmap; // 攻击
     public power:egret.TextField; // 攻击
+    public dodgeTitle:egret.Bitmap; // 闪避
     public dodge:egret.TextField; // 闪避
 
     public money:egret.TextField; // 金币
@@ -88,14 +90,21 @@ class BattleView extends egret.DisplayObjectContainer {
         this.addChild(this.hpBarMask);
 
         // 攻击闪避属性
-        this.power = ViewUtils.createTextField(20, 0xff0000, false);
+        this.powerTitle = ViewUtils.createBitmapByName("powerTitle_png");
+        this.powerTitle.name = "powerTitle";
+        this.addChild(this.powerTitle);
+        this.power = ViewUtils.createTextField(20, 0xffffff, false);
         this.power.name = "power";
         this.addChild(this.power);
-        this.dodge = ViewUtils.createTextField(20, 0xff0000, false);
+        this.dodgeTitle = ViewUtils.createBitmapByName("dodgeTitle_png");
+        this.dodgeTitle.name = "dodgeTitle";
+        this.addChild(this.dodgeTitle);
+        this.dodge = ViewUtils.createTextField(20, 0xffffff, false);
         this.dodge.name = "dodge";
         this.addChild(this.dodge);
 
-        ViewUtils.multiLang(this, this.avatarBg, this.avatar, this.expBar, this.hpBar, this.power, this.dodge);
+        ViewUtils.multiLang(this, this.avatarBg, this.avatar, this.expBar, this.hpBar, 
+            this.powerTitle, this.power, this.dodgeTitle, this.dodge);
         this.refreshExpBar();
         this.refreshHpBar();
     }
@@ -313,9 +322,8 @@ class BattleView extends egret.DisplayObjectContainer {
     // 打开目标选择界面
     public async selectGrid(f) {
         return this.selView.selGrid(this.mapView.gw, this.mapView.gh, 
-                            this.mapView.gsize.w, this.mapView.gsize.h, 
-                             /* mapView 是下面中间对齐的，我们需要计算左上角 */
-                            this.mapView.x - this.mapView.width / 2, this.mapView.y - this.mapView.height,
-                            f);
+            this.mapView.gsize.w, this.mapView.gsize.h, 
+                /* mapView 是下面中间对齐的，我们需要计算左上角 */
+            this.mapView.x - this.mapView.width / 2, this.mapView.y - this.mapView.height, f);
     }
 }
