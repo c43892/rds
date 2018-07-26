@@ -1,14 +1,15 @@
 // 道具视图
 class PropsView extends egret.DisplayObjectContainer {
 
-    public static readonly ViewGridSize = 100; // 道具格子大小
     public static readonly ViewGridNum = 6; // 道具格子数
+    static ViewGridSize = 90; // 道具格子大小
 
     private pvs:PropView[]; // 所有元素视图
 
     public constructor(w:number, h:number) {
         super();
 
+        PropsView.ViewGridSize = h;
         this.pvs = [];
         for(var i = 0; i < PropsView.ViewGridNum; i++) {
             let pv = new PropView();

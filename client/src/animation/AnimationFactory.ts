@@ -18,10 +18,14 @@ class AnimationFactory {
             case "moneyMoving": ani = Utils.delay(100); break;
             case "suckBlood": ani = Utils.delay(100); break;
             case "monsterTakeElem": ani = Utils.delay(100); break;
+            case "gridBlocked": ani = this.fadeIn(ps.img, ps); break;
+            case "cycleMask": ani = this.cycleMask(ps.img, ps); break;
         }
         
         Utils.assert(ani != undefined, "unknown aniType: " + aniType);
-        this.notifyAniStarted(ani, aniType, ps);
+        if (ps && !ps.noWait)
+            this.notifyAniStarted(ani, aniType, ps);
+
         return ani;
     }
 
@@ -63,5 +67,61 @@ class AnimationFactory {
     // 怪物属性变化
     monsterChanged(m:Monster):Promise<void> {
         return Utils.delay(100);
+    }
+
+    // 渐显
+    fadeIn(g:egret.Bitmap, ps):Promise<void> {
+        // properties from
+        g.alpha = ps.fa ? ps.fa : g.alpha;
+        g.x = ps.fx ? ps.fx : g.x;
+        g.y = ps.fy ? ps.fy : g.y;
+        g.width = ps.fw ? ps.fw : g.width;
+        g.height = ps.fh ? ps.fh : g.height;
+
+        // properties to
+        var x = ps.tx ? ps.tx : g.x;
+        var y = ps.ty ? ps.ty : g.y;
+        var w = ps.tw ? ps.tw : g.width;
+        var h = ps.th ? ps.th : g.height;
+        var a = ps.ta ? ps.ta : g.alpha;
+        var time = ps.time;
+
+        var tw = egret.Tween.get(g);
+        tw.to({x:x, y:y, width:w, height:h, alpha:a}, time, egret.Ease.backIn);
+        return new Promise<void>((resolve, reject) => tw.call(resolve));
+    }
+
+    // 环形转圈
+    cycleMask(g:egret.Bitmap, ps) : Promise<void> {
+        var r = ps.r;
+        var x = ps.x;
+        var y = ps.y;
+        
+        g.alpha = ps.fa ? ps.fa : g.alpha;
+        g["p"] = 0;
+
+        var shape = new egret.Shape();
+        g.mask = shape;
+        g.parent.addChild(shape);
+        var refresh = (p) => {
+            var arc = p * Math.PI * 2;            
+            shape.graphics.clear();
+            shape.graphics.beginFill(0xffffff);
+            shape.graphics.moveTo(x, y);
+            shape.graphics.lineTo(x + r, y);
+            shape.graphics.drawArc(x, y, r, 0, arc);
+            shape.graphics.lineTo(x + Math.cos(arc) * r, y + Math.sin(arc) * r);
+            shape.graphics.endFill();
+        };
+
+        var a = ps.ta ? ps.ta : g.alpha;
+        var time = ps.time;
+        refresh(0);
+        var tw = egret.Tween.get(g, { onChange:() => refresh(g["p"]) });
+        tw.to({alpha:a, p:1}, time);
+        return new Promise<void>((resolve, reject) => tw.call(() => {
+            shape.parent.removeChild(shape);
+            resolve();
+        }));
     }
 }

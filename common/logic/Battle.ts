@@ -286,8 +286,8 @@ class Battle {
     async checkPlayerLevelUpAndDie() {
         // 检查等级提升
         if (this.player.checkLevelUp()) {
-            await this.fireEvent("onPlayerChanged", {subType:"lvUp"});
-            await this.triggerLogicPoint("onPlayerChanged", {subType: "lvUp"});
+            await this.fireEvent("onPlayerChanged", {subType:"lvUp", bt:this});
+            await this.triggerLogicPoint("onPlayerChanged", {subType: "lvUp", bt:this});
         }
 
         // 检查死亡
@@ -444,18 +444,20 @@ class Battle {
     // 尝试设置/取消一个危险标记，该操作不算角色行动
     public try2BlockGrid() {
         return async (x:number, y:number, mark:boolean) => {
+            var g = this.level.map.getGridAt(x, y);
+                
             // 操作录像
             this.fireEventSync("onPlayerOp", {op:"try2BlockGrid", ps:{x:x, y:y, mark:mark}});
 
-            var b = this.level.map.getGridAt(x, y);
             if (mark) {
-                Utils.assert(b.status == GridStatus.Covered, "only covered grid can be blocked");
-                b.status = GridStatus.Blocked;
+                if (!g.isUncoverable()) return;
+                Utils.assert(g.status == GridStatus.Covered, "only covered grid can be blocked");
+                g.status = GridStatus.Blocked;
                 await this.fireEvent("onGridChanged", {x:x, y:y, subType:"gridBlocked"});
             }
             else {
-                Utils.assert(b.status == GridStatus.Blocked, "only blocked grid can be unblocked");
-                b.status = GridStatus.Covered;
+                Utils.assert(g.status == GridStatus.Blocked, "only blocked grid can be unblocked");
+                g.status = GridStatus.Covered;
                 await this.fireEvent("onGridChanged", {x:x, y:y, subType:"gridUnblocked"});
             }
         };

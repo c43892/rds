@@ -112,6 +112,10 @@ class MapView extends egret.DisplayObjectContainer {
         }
     }
 
+    public getGridViewAt(x:number, y:number):GridView {
+        return this.mgvs[x][y];
+    }
+
     // 获取指定位置的显示元素
     public getElemViewAt(x:number, y:number):ElemView {
         return this.mevs[x][y];

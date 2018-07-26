@@ -200,6 +200,8 @@ class ElemView extends egret.DisplayObjectContainer {
     public static reposElemTo; // 将物品放到指定空位
     public static try2UncoverAt; // 尝试解开指定位置
     public static try2BlockGrid; // 尝试设置/取消一个危险标志
+    public static notifyLongPressStarted; // 通知长按开始计时
+    public static notifyLongPressEnded; // 通知长按计时结束
 
     // 点击
     onTouchGrid(evt:egret.TouchEvent) {
@@ -240,31 +242,40 @@ class ElemView extends egret.DisplayObjectContainer {
     }
 
     // 按下
+    static readonly LongPressThreshold = 500; // 按下持续 0.5s 算长按
     onTouchBegin(evt:egret.TouchEvent) {
+        let g = this.map.getGridAt(this.gx, this.gy);
+        if (!this.map.isGenerallyValid(this.gx, this.gy) && g.status != GridStatus.Blocked)
+            return;
+
         ElemView.pressed = true;
         ElemView.longPressed = false;
+        ElemView.notifyLongPressEnded();
         ElemView.dragging = false;
         ElemView.dragFrom = this;
 
         if (!ElemView.pressTimer) {
-            ElemView.pressTimer = new egret.Timer(1000, 1); // 持续 1s 算长按
+            ElemView.pressTimer = new egret.Timer(ElemView.LongPressThreshold, 1);
             ElemView.pressTimer.addEventListener(egret.TimerEvent.TIMER, ElemView.onPressTimer, this);
         }
 
         ElemView.pressTimer.start();
+        ElemView.notifyLongPressStarted(this.gx, this.gy, ElemView.LongPressThreshold);
     }
 
     static onPressTimer() {
-        if (!ElemView.pressed )
+        if (!ElemView.pressed)
             return;
 
         ElemView.longPressed = true;
+        ElemView.notifyLongPressEnded();
         ElemView.pressTimer.stop();
 
         let g = ElemView.dragFrom.map.getGridAt(ElemView.dragFrom.gx, ElemView.dragFrom.gy);
         switch (g.status) {
             case GridStatus.Covered:
-                ElemView.try2BlockGrid(g.pos.x, g.pos.y, true);
+                if (g.isUncoverable())
+                    ElemView.try2BlockGrid(g.pos.x, g.pos.y, true);
             break;
             case GridStatus.Blocked:
                 ElemView.try2BlockGrid(g.pos.x, g.pos.y, false);
@@ -314,6 +325,9 @@ class ElemView extends egret.DisplayObjectContainer {
 
     // 结束拖拽
     onTouchEnd(evt:egret.TouchEvent) {
+        if (!this.map.isGenerallyValid(this.gx, this.gy))
+            return;
+
         if (ElemView.dragging) {
             ElemView.dragFrom.elemImg.x = 0;
             ElemView.dragFrom.elemImg.y = 0;
@@ -329,6 +343,9 @@ class ElemView extends egret.DisplayObjectContainer {
         ElemView.pressed = false;
         ElemView.dragging = false;
         ElemView.dragFrom = undefined;
-        if (ElemView.pressTimer) ElemView.pressTimer.stop();
+        if (ElemView.pressTimer) {
+            ElemView.pressTimer.stop();
+            ElemView.notifyLongPressEnded();
+        }
     }
 }

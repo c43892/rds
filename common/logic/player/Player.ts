@@ -5,7 +5,7 @@ class Player {
     // 应该序列化的字段
     private static serializableFields = [
         "currentStoreyPos", "finishedStoreyPos", "battleRandomSeed",  
-        "deathStep", "hp", "maxHp", "power", "defence", "dodge", 
+        "deathStep", "maxDeathStep", "hp", "maxHp", "power", "defence", "dodge", 
         "occupation", "exp", "lv", "money"];
 
     // 所属战斗
@@ -35,7 +35,9 @@ class Player {
         p.finishedStoreyPos = [{lv:0, n:0}];
         p.occupation = "Nurse";
         p.deathStep = 100;
-        p.hp = 20;
+
+        p.maxDeathStep = 120;
+        p.hp = 10;
         p.maxHp = 20;
         p.power = [3, 0];
         p.playerRandom = new SRandom();
@@ -54,6 +56,18 @@ class Player {
     // 加经验，不检查等级变化
     public addExp(dExp:number) {
         this.exp += dExp;
+    }
+
+    // 获取当前经验升级进度 [0, 1]
+    public lvUpProgress() {
+        var exp2Lv = GCfg.playerCfg.exp2Lv;        
+        if (this.lv >= exp2Lv.Length) // 已经满级了
+            return 1;
+
+        if (this.exp >= exp2Lv[this.lv])
+            return 1;
+        
+        return this.exp / exp2Lv[this.lv];
     }
 
     // 检查是否已经升级
@@ -84,6 +98,7 @@ class Player {
 
     // 战斗逻辑
     public deathStep:number; // 死神剩余步数
+    public maxDeathStep:number; // 最大死神步数
     public hp:number;
     public maxHp:number;
 

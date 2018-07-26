@@ -36,8 +36,8 @@ class MainView extends egret.DisplayObjectContainer {
         // 战斗视图
         this.bv = new BattleView(w, h);
         this.bv.x = this.bv.y = 0;
-        this.bv.openShop = async (shop, onBuy, refreshItems) => await this.openShop(shop, onBuy, refreshItems);
-        this.bv.openPlayerLevelUpSels = async () => await this.openPlayerLevelUpSels();
+        this.bv.openShop = async (shop, rand, onBuy, refreshItems) => await this.openShop(shop, rand, onBuy, refreshItems);
+        this.bv.openPlayerLevelUpSels = async (rand) => await this.openPlayerLevelUpSels(rand);
 
         // 宝箱房间
         this.brv = new BoxRoomView(w, h);
@@ -113,6 +113,9 @@ class MainView extends egret.DisplayObjectContainer {
         PropView.select1InN = (title, choices, f, cb) => this.bv.select1inN(title, choices, f).then(cb);
         PropView.try2UsePropAt = bt.try2UsePropAt();
 
+        ElemView.notifyLongPressStarted = (gx, gy, time) => { this.startCycleProgrssBar(gx, gy, time); };
+        ElemView.notifyLongPressEnded = () => { this.stopCycleProgrssBar(); };
+
         bt.registerEvent("onPlayerOp", (ps) => BattleRecorder.onPlayerOp(ps.op, ps.ps));
         bt.registerEvent("onLevel", (ps) => this.bv.onLevel(ps));
         bt.registerEvent("onPlayerChanged", (ps) => this.bv.onPlayerChanged(ps));
@@ -142,17 +145,33 @@ class MainView extends egret.DisplayObjectContainer {
                 this.removeChild(ui);
     }
 
+    // 开始环形的进度条
+    cycleBarImg = ViewUtils.createBitmapByName("circleBar_png");
+    startCycleProgrssBar(x, y, time) {
+        // var ps = { x:x, y:y, time:time };
+        // this.bv.aniView.onCycleStart(this.cycleBarImg, ps);
+    }
+
+    // 停止环形进度条
+    stopCycleProgrssBar() {
+        // if (this.cycleBarImg != undefined) {
+        //     egret.Tween.removeTweens(this.cycleBarImg);
+        //     if (this.cycleBarImg.parent)
+        //         this.cycleBarImg.parent.removeChild(this.cycleBarImg);
+        // }
+    }
+
     // 开启商店界面
-    public async openShop(shop, onBuy, refreshItems:boolean = true) {
+    public async openShop(shop, rand, onBuy, refreshItems:boolean = true) {
         this.sv.player = this.p;
         this.addChild(this.sv);
-        await this.sv.open(shop, this.p.playerRandom, onBuy, refreshItems);
+        await this.sv.open(shop, rand, onBuy, refreshItems);
         this.removeChild(this.sv);
     }
 
     // 世界地图上开启商店界面
     public async openShopOnWorldMap(shop) {
-        await this.openShop(shop, (elem:Elem) => this.p.addItem(elem));
+        await this.openShop(shop, this.p.playerRandom, (elem:Elem) => this.p.addItem(elem));
     }
 
     // 打开医院界面
@@ -181,10 +200,10 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 打开升级界面
-    public async openPlayerLevelUpSels() {
+    public async openPlayerLevelUpSels(rand) {
         this.pluv.player = this.p;
         this.addChild(this.pluv);
-        await this.pluv.open(GCfg.playerCfg.levelUpChoices);
+        await this.pluv.open(GCfg.playerCfg.levelUpChoices, rand);
         this.removeChild(this.pluv);
     }
 

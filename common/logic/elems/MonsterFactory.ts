@@ -657,7 +657,7 @@ class MonsterFactory {
         };
 
         m.use = async () => {
-            await m.bt().fireEvent("onOpenShop", {npc:m, shopCfg:m.attrs.shopCfg, onBuy:onBuy, refreshItems:firstTime});
+            await m.bt().fireEvent("onOpenShop", {npc:m, shopCfg:m.attrs.shopCfg, rand:m.bt().srand, onBuy:onBuy, refreshItems:firstTime});
             firstTime = false;
             return false; // npc 不保留
         };

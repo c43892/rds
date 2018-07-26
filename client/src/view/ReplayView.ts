@@ -79,7 +79,7 @@ class ReplayView extends egret.DisplayObjectContainer {
         this.addChild(this.listArea);
     }
 
-    onTouchTap(evt:egret.TouchEvent) {
+    async onTouchTap(evt:egret.TouchEvent) {
         if (evt.target == this.openBtn) { // 打开关闭录像界面/停止录像播放
             if (BattleRecorder.inRecording) { // 非录像回放状态
                 if (this.getChildByName(this.listArea.name) != undefined) {
@@ -113,7 +113,7 @@ class ReplayView extends egret.DisplayObjectContainer {
             else {
                 Utils.assert(!BattleRecorder.inRecording, "should be in replaying");
                 
-                var ended = BattleRecorder.currentReplayMoveOneStep();
+                var ended = await BattleRecorder.currentReplayMoveOneStep();
                 if (ended) {
                     this.removeChild(this.replaybg);
                     this.openBtn.text = "⚪";

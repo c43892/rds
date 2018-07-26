@@ -69,7 +69,7 @@ class ShopView extends egret.DisplayObjectContainer {
 
     private onCancel;
     private onSel;
-    public async open(shop, rand:SRandom, onBuy, refreshItems:boolean = true):Promise<void> {
+    public async open(shop, rand:SRandom, onBuy, refreshItems:boolean = true):Promise<void> {        
         if (refreshItems) {
             this.defaultPrice = GCfg.getShopCfg("price");
             var cfg = GCfg.getShopCfg(shop);

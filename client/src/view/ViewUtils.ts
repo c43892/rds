@@ -86,7 +86,7 @@ class ViewUtils {
 
     // 对给定显示对象进行多语言处理
     static languageCfg;
-    public static MultiLang(view, ...ps) {
+    public static multiLang(view, ...ps) {
         if (!ViewUtils.languageCfg)
             ViewUtils.languageCfg = GCfg.getMultiLanguageCfg();
 
