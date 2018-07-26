@@ -10,7 +10,6 @@ class BattleView extends egret.DisplayObjectContainer {
     public avatar:egret.Bitmap; // 角色头像
     public expBar:egret.Bitmap; // 经验条
     public hpBar:egret.Bitmap; // 血条
-    public hpBarBg:egret.Bitmap; // 血条底色
     public expBarMask:egret.Shape; // 经验条遮罩
     public hpBarMask:egret.Shape; // 血条遮罩
     public power:egret.TextField; // 攻击
@@ -56,6 +55,11 @@ class BattleView extends egret.DisplayObjectContainer {
     // 头像、经验条、血条、攻击、闪避
     createAvatarArea() {
 
+        // 头像
+        this.avatar = new egret.Bitmap();
+        this.avatar.name = "avatar";
+        this.addChild(this.avatar);
+
         // 头像区域背景
         this.avatarBg = ViewUtils.createBitmapByName("avatarBg_png");
         this.avatarBg.name = "avatarBg";
@@ -73,9 +77,6 @@ class BattleView extends egret.DisplayObjectContainer {
         this.addChild(this.expBarMask);
 
         // 血条
-        this.hpBarBg = ViewUtils.createBitmapByName("hpBarBg_png");
-        this.hpBarBg.name = "hpBarBg";
-        this.addChild(this.hpBarBg);        
         this.hpBar = ViewUtils.createBitmapByName("hpBar_png");
         this.hpBar.name = "hpBar";
         this.addChild(this.hpBar);
@@ -86,11 +87,6 @@ class BattleView extends egret.DisplayObjectContainer {
         this.hpBar.mask = this.hpBarMask;
         this.addChild(this.hpBarMask);
 
-        // 头像
-        this.avatar = new egret.Bitmap();
-        this.avatar.name = "avatar";
-        this.addChild(this.avatar);
-
         // 攻击闪避属性
         this.power = ViewUtils.createTextField(20, 0xff0000, false);
         this.power.name = "power";
@@ -99,7 +95,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.dodge.name = "dodge";
         this.addChild(this.dodge);
 
-        ViewUtils.multiLang(this, this.avatarBg, this.avatar, this.expBar, this.hpBar, this.hpBarBg, this.power, this.dodge);
+        ViewUtils.multiLang(this, this.avatarBg, this.avatar, this.expBar, this.hpBar, this.power, this.dodge);
         this.refreshExpBar();
         this.refreshHpBar();
     }
@@ -140,7 +136,7 @@ class BattleView extends egret.DisplayObjectContainer {
             {x: this.hpBar.x + this.hpBar.width, y: this.hpBar.y + this.hpBar.height} // 右下角
         ];
 
-        var h = p * this.hpBar.height;
+        var h = (1 - p) * this.hpBar.height;
         pts.push({x: this.hpBar.x + this.hpBar.width, y: this.expBar.y + h}); // 右上角
         pts.push({x: this.hpBar.x, y: this.expBar.y + h}); // 左上角
 
@@ -174,6 +170,7 @@ class BattleView extends egret.DisplayObjectContainer {
         
         // 战斗区域
         this.mapView = new MapView(w, h);
+        this.mapView.name = "mapView";
         this.addChild(this.mapView);
 
         // 物品栏
@@ -215,21 +212,7 @@ class BattleView extends egret.DisplayObjectContainer {
 
     // 刷新地图显示
     public refreshMap() {
-        // 地图区域尺寸
-        this.mapView.width = this.width - 20; // 左右两边各留 10 像素
-
-        // 按比例计算高度
-        var mapsize = RES.getRes("levelconfig_json")["mapsize"];
-        this.mapView.height = this.mapView.width * mapsize.h / mapsize.w;
-
-        // 锚点在中间底部，方便定位
-        this.mapView.anchorOffsetX = this.mapView.width / 2; 
-        this.mapView.anchorOffsetY = this.mapView.height;
-
-        // 左右居中，距离底部一个格子高+ 20 像素
-        this.mapView.x = this.width / 2;
-        this.mapView.y = this.height - this.mapView.width / mapsize.w - 20;
-
+        ViewUtils.multiLang(this, this.mapView);
         this.mapView.refresh();
     }
 

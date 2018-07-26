@@ -5,7 +5,6 @@ class GridView extends egret.DisplayObjectContainer {
     public gx:number;
     public gy:number;
     
-    private gridBg:egret.Bitmap; // 格子地图
     private coveredImg:egret.Bitmap; // 被覆盖
     private uncoverableImg:egret.Bitmap; // 被覆盖，但可以揭开
     private blockedImg:egret.Bitmap; // 危险
@@ -14,7 +13,6 @@ class GridView extends egret.DisplayObjectContainer {
     public constructor() {
         super();
 
-        this.gridBg = ViewUtils.createBitmapByName("grid_png"); // 底图
         this.coveredImg = ViewUtils.createBitmapByName("covered_png"); // 覆盖图
         this.blockedImg = ViewUtils.createBitmapByName("blocked_png"); // 危险
         this.uncoverableImg = ViewUtils.createBitmapByName("uncoverable_png"); // 覆盖图
@@ -57,14 +55,13 @@ class GridView extends egret.DisplayObjectContainer {
                 } else if (num < 0) { // 显示 ?
                     this.addChild(this.coveredHazardNum);
                     this.coveredHazardNum.text = "?";
-                } else
-                    this.addChild(this.gridBg);
+                }
             break;
         }
 
         var w = this.width;
         var h = this.height;
-        var arr = [this.gridBg, this.blockedImg, this.coveredImg, this.uncoverableImg, this.coveredHazardNum];
+        var arr = [this.blockedImg, this.coveredImg, this.uncoverableImg, this.coveredHazardNum];
         arr.forEach((a) => { a.x = 0; a.y = 0; a.width = w; a.height = h; });
     }
 

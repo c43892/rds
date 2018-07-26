@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "description_json,levelconfig_json,covered_png,grid_png,bg_png,Bunny_png,blocked_png,uncoverable_png,replaybg_png,blackcover_png,anicover_png,elemattrsconfig_json,DeathGod_png,MedicineBox_png,selectable_png,unselectable_png,playerconfig_json,Hawkeye_png,TimeMachine_png,Coins_png,Door_png,Gun_png,HpPotion_png,Key_png,NextLevelPort_png,TreasureBox_png,Clock_png,HpCapsule_png,ban_png,Magazine_png,Hole_png,Apple3_png,Apple2_png,Apple1_png,Steak3_png,Steak2_png,Steak1_png,RandomEgg_png,Apple12_png,Apple22_png,Apple32_png,Steak12_png,Steak22_png,Steak32_png,RayGun_png,IceBlock_png,IceGun_png,randomdropconfig_json,BombAbomination_png,DancerZombie_png,EyeDemon_png,GluttonyZombie_png,HoundZombie_png,IronZombie_png,LustZombie_png,NormalZombie_png,ori_png,RandomEggZombie_png,Gengar_png,GoblinThief_png,Vampire_png,Shield1_png,Shield2_png,WorldMapBg_png,WorldMapBg2_png,worldmap_json,normal_png,boss_png,senior_png,camp_png,box_png,event_png,shop_png,worldmapstart_png,Sword_png,translucent_png,shopconfig_json,goBack_png,soldout_png,btnCure_png,btnReinforce_png,btnMutate_png,goBack2_png,Endurance_png,Power_png,Fierce_png,Cloak_png,Unback2Sneak_png,BoxRoomBox_png,BoxRoomBoxOpened_png,ShopNpc_png,worldmapeventsels_json,turntableBg_png,turntableAddHp_png,turntableMinusHp_png,turntableBox_png,turntableCoin_png,turntableItem_png,turntableBoxOpended_png,turntableStartBtn_png,turntableGoOutBtn_png,turntableSign_png,CommanderZombie_png,turntableTipBg_png,RageZombie_png,HideZombie_png,GuardZombie_png,ReviveZombie_png,CowardZombie_png,MarkZombie_png,ConfusionZombie_png,GreedyZombie_png,Mummy_png,PoisonJellyfish_png,HeadBone_png,SkeletonKing_png,Cocoon_png,SwatheZombie_png,BoxMonster_png,Nurse_png,loginBackground_png,multilanguage_json,btnBg_png,avatarBg_png,expBar_png,hpBar_png,hpBarBg_png,battleBg_png,deathGod_png,circleBar_png",
+			"keys": "description_json,levelconfig_json,Bunny_png,elemattrsconfig_json,DeathGod_png,MedicineBox_png,playerconfig_json,Hawkeye_png,TimeMachine_png,Coins_png,Door_png,Gun_png,HpPotion_png,Key_png,NextLevelPort_png,TreasureBox_png,Clock_png,HpCapsule_png,Magazine_png,Hole_png,Apple3_png,Apple2_png,Apple1_png,Steak3_png,Steak2_png,Steak1_png,RandomEgg_png,Apple12_png,Apple22_png,Apple32_png,Steak12_png,Steak22_png,Steak32_png,RayGun_png,IceBlock_png,IceGun_png,randomdropconfig_json,BombAbomination_png,DancerZombie_png,EyeDemon_png,GluttonyZombie_png,HoundZombie_png,IronZombie_png,LustZombie_png,NormalZombie_png,ori_png,RandomEggZombie_png,Gengar_png,GoblinThief_png,Vampire_png,Shield1_png,Shield2_png,WorldMapBg_png,WorldMapBg2_png,worldmap_json,normal_png,boss_png,senior_png,camp_png,box_png,event_png,shop_png,worldmapstart_png,Sword_png,translucent_png,shopconfig_json,goBack_png,soldout_png,btnCure_png,btnReinforce_png,btnMutate_png,goBack2_png,Endurance_png,Power_png,Fierce_png,Cloak_png,Unback2Sneak_png,BoxRoomBox_png,BoxRoomBoxOpened_png,ShopNpc_png,worldmapeventsels_json,turntableBg_png,turntableAddHp_png,turntableMinusHp_png,turntableBox_png,turntableCoin_png,turntableItem_png,turntableBoxOpended_png,turntableStartBtn_png,turntableGoOutBtn_png,turntableSign_png,CommanderZombie_png,turntableTipBg_png,RageZombie_png,HideZombie_png,GuardZombie_png,ReviveZombie_png,CowardZombie_png,MarkZombie_png,ConfusionZombie_png,GreedyZombie_png,Mummy_png,PoisonJellyfish_png,HeadBone_png,SkeletonKing_png,Cocoon_png,SwatheZombie_png,BoxMonster_png,Nurse_png,loginBackground_png,multilanguage_json,btnBg_png,avatarBg_png,expBar_png,hpBar_png,battleBg_png,deathGod_png,anicover_png,ban_png,blocked_png,blackcover_png,bg_png,covered_png,circleBar_png,selectable_png,replaybg_png,unselectable_png,uncoverable_png",
 			"name": "preload"
 		}
 	],
@@ -17,49 +17,9 @@
 			"name": "levelconfig_json"
 		},
 		{
-			"url": "assets/covered.png",
-			"type": "image",
-			"name": "covered_png"
-		},
-		{
-			"url": "assets/grid.png",
-			"type": "image",
-			"name": "grid_png"
-		},
-		{
-			"url": "assets/bg.png",
-			"type": "image",
-			"name": "bg_png"
-		},
-		{
 			"url": "assets/monsters/Bunny.png",
 			"type": "image",
 			"name": "Bunny_png"
-		},
-		{
-			"url": "assets/blocked.png",
-			"type": "image",
-			"name": "blocked_png"
-		},
-		{
-			"url": "assets/uncoverable.png",
-			"type": "image",
-			"name": "uncoverable_png"
-		},
-		{
-			"url": "assets/replaybg.png",
-			"type": "image",
-			"name": "replaybg_png"
-		},
-		{
-			"url": "assets/blackcover.png",
-			"type": "image",
-			"name": "blackcover_png"
-		},
-		{
-			"url": "assets/anicover.png",
-			"type": "image",
-			"name": "anicover_png"
 		},
 		{
 			"url": "config/elemattrsconfig.json",
@@ -75,16 +35,6 @@
 			"url": "assets/relics/MedicineBox.png",
 			"type": "image",
 			"name": "MedicineBox_png"
-		},
-		{
-			"url": "assets/selectable.png",
-			"type": "image",
-			"name": "selectable_png"
-		},
-		{
-			"url": "assets/unselectable.png",
-			"type": "image",
-			"name": "unselectable_png"
 		},
 		{
 			"url": "config/playerconfig.json",
@@ -145,11 +95,6 @@
 			"url": "assets/items/HpCapsule.png",
 			"type": "image",
 			"name": "HpCapsule_png"
-		},
-		{
-			"url": "assets/ban.png",
-			"type": "image",
-			"name": "ban_png"
 		},
 		{
 			"url": "assets/items/Magazine.png",
@@ -607,54 +552,99 @@
 			"name": "Nurse_png"
 		},
 		{
-			"name": "loginBackground_png",
+			"url": "assets/ui/mainview/loginBackground.png",
 			"type": "image",
-			"url": "assets/ui/mainview/loginBackground.png"
+			"name": "loginBackground_png"
 		},
 		{
-			"name": "multilanguage_json",
+			"url": "config/multilanguage.json",
 			"type": "json",
-			"url": "config/multilanguage.json"
+			"name": "multilanguage_json"
 		},
 		{
-			"name": "btnBg_png",
+			"url": "assets/ui/common/btnBg.png",
 			"type": "image",
-			"url": "assets/ui/common/btnBg.png"
+			"name": "btnBg_png"
 		},
 		{
-			"name": "avatarBg_png",
+			"url": "assets/ui/battle/avatarBg.png",
 			"type": "image",
-			"url": "assets/ui/battle/avatarBg.png"
+			"name": "avatarBg_png"
 		},
 		{
-			"name": "expBar_png",
+			"url": "assets/ui/battle/expBar.png",
 			"type": "image",
-			"url": "assets/ui/battle/expBar.png"
+			"name": "expBar_png"
 		},
 		{
-			"name": "hpBar_png",
+			"url": "assets/ui/battle/hpBar.png",
 			"type": "image",
-			"url": "assets/ui/battle/hpBar.png"
+			"name": "hpBar_png"
 		},
 		{
-			"name": "hpBarBg_png",
+			"url": "assets/ui/battle/battleBg.png",
 			"type": "image",
-			"url": "assets/ui/battle/hpBarBg.png"
+			"name": "battleBg_png"
 		},
 		{
-			"name": "battleBg_png",
+			"url": "assets/ui/battle/deathGod.png",
 			"type": "image",
-			"url": "assets/ui/battle/battleBg.png"
+			"name": "deathGod_png"
 		},
 		{
-			"name": "deathGod_png",
+			"url": "assets/ui/battle/anicover.png",
 			"type": "image",
-			"url": "assets/ui/battle/deathGod.png"
+			"name": "anicover_png"
 		},
 		{
-			"name": "circleBar_png",
+			"url": "assets/ui/battle/ban.png",
 			"type": "image",
-			"url": "assets/circleBar.png"
+			"name": "ban_png"
+		},
+		{
+			"url": "assets/ui/battle/bg.png",
+			"type": "image",
+			"name": "bg_png"
+		},
+		{
+			"url": "assets/ui/battle/blackcover.png",
+			"type": "image",
+			"name": "blackcover_png"
+		},
+		{
+			"url": "assets/ui/battle/blocked.png",
+			"type": "image",
+			"name": "blocked_png"
+		},
+		{
+			"url": "assets/ui/battle/circleBar.png",
+			"type": "image",
+			"name": "circleBar_png"
+		},
+		{
+			"url": "assets/ui/battle/covered.png",
+			"type": "image",
+			"name": "covered_png"
+		},
+		{
+			"url": "assets/ui/battle/replaybg.png",
+			"type": "image",
+			"name": "replaybg_png"
+		},
+		{
+			"url": "assets/ui/battle/uncoverable.png",
+			"type": "image",
+			"name": "uncoverable_png"
+		},
+		{
+			"url": "assets/ui/battle/unselectable.png",
+			"type": "image",
+			"name": "unselectable_png"
+		},
+		{
+			"url": "assets/ui/battle/selectable.png",
+			"type": "image",
+			"name": "selectable_png"
 		}
 	]
 }
