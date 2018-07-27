@@ -9,6 +9,10 @@ class ElemView extends egret.DisplayObjectContainer {
     private elemImg:egret.Bitmap; // 元素图
     private banImg:egret.Bitmap; // 禁止符号
 
+    private powerBg:egret.Bitmap;
+    private shieldBg:egret.Bitmap;
+    private hpBg:egret.Bitmap;
+
     private hp:egret.TextField; // 怪物血量：右下角
     private dropElemImg:egret.Bitmap; // 掉落物品的图：左上角，这里也可能显示怪物的行动回合数
     private shield:egret.TextField; // 护盾，右上角
@@ -16,7 +20,11 @@ class ElemView extends egret.DisplayObjectContainer {
 
     public constructor() {
         super();
-        this.elemImg = ViewUtils.createBitmapByName(); // 元素图
+        this.powerBg = ViewUtils.createBitmapByName("monsterPowerBg_png");
+        this.hpBg = ViewUtils.createBitmapByName("monsterHpBg_png");
+        this.shieldBg = ViewUtils.createBitmapByName("monsterShieldBg_png");
+
+        this.elemImg = new egret.Bitmap(); // 元素图
         this.banImg = ViewUtils.createBitmapByName("ban_png"); // 禁止符号
         this.showLayer = new egret.DisplayObjectContainer(); // 显示层
         this.addChild(this.showLayer);
@@ -24,20 +32,16 @@ class ElemView extends egret.DisplayObjectContainer {
         this.opLayer = new egret.TextField(); // 事件层
         this.addChild(this.opLayer);
 
-        // 血量，右下角
-        this.hp = new egret.TextField();
-        this.hp.textColor = 0xff0000;
-        this.hp.size = 25;
-
-        // 护盾，右上角
-        this.shield = new egret.TextField();
-        this.shield.textColor = 0x000000;
-        this.shield.size = 25;
-
-        // 攻击力，左下角
-        this.power = new egret.TextField();
-        this.power.textColor = 0x0000ff;
-        this.power.size = 25;
+        // 血量，右下角，护盾，右上角，攻击力，左下角
+        this.hp = ViewUtils.createTextField(20, 0xffffff);
+        this.shield = ViewUtils.createTextField(20, 0xffffff);
+        this.power = ViewUtils.createTextField(20, 0xffffff);
+        this.hp.strokeColor = 0x000000;
+        this.hp.stroke = 1;
+        this.shield.strokeColor = 0x000000;
+        this.shield.stroke = 1;
+        this.power.strokeColor = 0x000000;
+        this.power.stroke = 1;
 
         this.anchorOffsetX = 0;
         this.anchorOffsetY = 0;
@@ -107,29 +111,37 @@ class ElemView extends egret.DisplayObjectContainer {
                         var m = <Monster>e;
 
                         // 血量，右下角
+                        this.showLayer.addChild(this.hpBg);
                         if (m.hp > 0) {
                             this.hp.text = m.hp.toString();
-                            this.hp.x = this.width - this.hp.width;
-                            this.hp.y = this.height - this.hp.height;
+                            this.hp.x = m.hp >= 10 ? this.width - 25 : this.width - 22;
+                            this.hp.y = m.hp >= 10 ? this.height - 26 : this.height - 29;
                             this.hp.filters = colorFilters;
+                            this.hp.size = m.hp >= 10 ? 15 : 20;
                             this.showLayer.addChild(this.hp);
                         }
                         
                         // 护盾，右上角
                         if (m.shield > 0) {
+                            this.showLayer.addChild(this.shieldBg);
                             this.shield.text = m.shield.toString();
-                            this.shield.x = this.width - this.shield.width;
-                            this.shield.y = 0;
+                            this.shield.x = 2;
+                            this.shield.y = 2;
                             this.shield.filters = colorFilters;
+                            this.shield.x = m.shield >= 10 ? 4 : 7;
+                            this.shield.y = m.shield >= 10 ? 5 : 3;
+                            this.shield.size = m.shield >= 10 ? 15 : 20;
                             this.showLayer.addChild(this.shield);
                         }
 
                         // 攻击力，左下角
                         if (m.btAttrs.power > 0) {
+                            this.showLayer.addChild(this.powerBg);
                             this.power.text = m.btAttrs.power.toString();
-                            this.power.x = 0;
-                            this.power.y = this.height - this.power.height;
+                            this.power.x = m.btAttrs.power >= 10 ? 6 : 9;
+                            this.power.y = m.btAttrs.power >= 10 ? this.height - 26 : this.height - 29;
                             this.power.filters = colorFilters;
+                            this.power.size = m.btAttrs.power >= 10 ? 15 : 20;
                             this.showLayer.addChild(this.power);
                         }
 
@@ -144,9 +156,7 @@ class ElemView extends egret.DisplayObjectContainer {
 
         var w = this.width;
         var h = this.height;
-        this.hp.x = this.width - this.hp.width;
-        this.hp.y = this.height - this.hp.height;
-
+        
         var arr = [this.showLayer, this.opLayer, this.elemImg, this.banImg];
         arr.forEach((a) => {
             a.x = 0;

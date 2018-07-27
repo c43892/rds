@@ -1177,7 +1177,7 @@
         "elems":{
             "BossBunny":{"hp":20, "power":3},
             "ShopNpc":{"shopCfg":"inbattle"},
-            "NormalZombie":{"hp":5, "power":1}
+            "NormalZombie":{"hp":9, "power":9, "shield":9}
         },
         "constElems":{
             "Key":1,

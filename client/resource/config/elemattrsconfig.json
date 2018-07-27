@@ -77,8 +77,8 @@
 
     "HpPotion":{"name":"血瓶", "dhp":5, "canOverlap":true},
     "Hole":{"name":"黑洞", "barrier":true},
-    "Apple":{"name":"苹果", "cnt":3, "dhp":1, "tags":["food"]},
-    "Steak":{"name":"牛排", "cnt":3, "dhp":2, "tags":["food"]},
+    "Apple":{"name":"苹果", "cnt":3, "dhp":1, "useWithoutConfirm":true, "tags":["food"]},
+    "Steak":{"name":"牛排", "cnt":3, "dhp":2, "useWithoutConfirm":true, "tags":["food"]},
     "IceBlock":{"name":"冰块", "cnt":2, "useWithoutConfirm":true},
     "Gun":{"name":"枪", "canOverlap":true, "useWithTarget":true, 
         "validTarget":"markedMonster|uncoveredMonster|uncoverable", "attackFlags":["Pierce", "Gun"], 
