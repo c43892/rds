@@ -112,8 +112,8 @@ class AniView extends egret.DisplayObjectContainer {
             }
             break;
             case "gridUncovered": {
-                doRefresh();
                 var gv = this.mv.mapView.getGridViewAt(ps.x, ps.y);
+                doRefresh();
                 var img = gv.getCoveredImg();
                 img.alpha = 1;
                 img.width = gv.width;
@@ -122,7 +122,7 @@ class AniView extends egret.DisplayObjectContainer {
                 img.y = gv.y - (img.height - gv.height) / 2;
                 gv.parent.addChild(img);
                 await this.aniFact.createAni("fade", {
-                    img:img, time: 500, ta:0
+                    img:img, time: 500, ta:0, noWait:true
                 });
                 gv.parent.addChild(img);
             }
