@@ -280,8 +280,8 @@ class BattleView extends egret.DisplayObjectContainer {
         this.relics = [];
 
         const ShowMaxRelicNum = 6;
-        var w = 32;
-        var h = 32;
+        var w = this.relicsBg.width / ShowMaxRelicNum;
+        var h = w;
         var x = this.relicsBg.x;
         var y = this.relicsBg.y;
         var spaceX = (this.relicsBg.width - ShowMaxRelicNum * w) / (ShowMaxRelicNum - 1);

@@ -45,6 +45,9 @@ class Player {
         p.exp = 0;
         p.lv = 0;
 
+        for (var r of ["MedicineBox", "Hawkeye", "Endurance", "Power", "Cloak", "Fierce"])
+            p.addItem(ElemFactory.create(r));
+
         return p;
     }
 
