@@ -13,9 +13,7 @@ class BattleView extends egret.DisplayObjectContainer {
     public hp:egret.TextField; // 血量
     public hpBar:egret.Bitmap; // 血条
     public hpBarMask:egret.Shape; // 血条遮罩
-    public powerTitle:egret.Bitmap; // 攻击
     public power:egret.TextField; // 攻击
-    public dodgeTitle:egret.Bitmap; // 闪避
     public dodge:egret.TextField; // 闪避
 
     public money:egret.TextField; // 金币
@@ -40,16 +38,6 @@ class BattleView extends egret.DisplayObjectContainer {
     createPlayerAttrs() {
         this.createAvatarArea();
 
-        // 金钱
-        this.money = ViewUtils.createTextField(25, 0xffff00, false);
-        this.money.name = "money";
-        this.addChild(this.money);
-
-        // 当前层数
-        this.currentStoryLv = ViewUtils.createTextField(25, 0xffff00, false);
-        this.currentStoryLv.name = "storeyLv";
-        this.addChild(this.currentStoryLv);
-
         // 死神符号
         this.deathGodBarBg = ViewUtils.createBitmapByName("deathGodBarBg_png");
         this.deathGodBarBg.name = "deathGodBarBg";
@@ -61,7 +49,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.deathGod.name = "deathGod";
         this.addChild(this.deathGod);
 
-        ViewUtils.multiLang(this, this.money,this.currentStoryLv, this.deathGodBarBg, this.deathGodBar, this.deathGod);
+        ViewUtils.multiLang(this, this.deathGodBarBg, this.deathGodBar, this.deathGod);
     }
 
     // 头像、经验条、血条、攻击、闪避
@@ -103,21 +91,24 @@ class BattleView extends egret.DisplayObjectContainer {
         this.addChild(this.hpBarMask);
 
         // 攻击闪避属性
-        this.powerTitle = ViewUtils.createBitmapByName("powerTitle_png");
-        this.powerTitle.name = "powerTitle";
-        this.addChild(this.powerTitle);
         this.power = ViewUtils.createTextField(20, 0xffffff, false);
         this.power.name = "power";
         this.addChild(this.power);
-        this.dodgeTitle = ViewUtils.createBitmapByName("dodgeTitle_png");
-        this.dodgeTitle.name = "dodgeTitle";
-        this.addChild(this.dodgeTitle);
         this.dodge = ViewUtils.createTextField(20, 0xffffff, false);
         this.dodge.name = "dodge";
         this.addChild(this.dodge);
 
-        ViewUtils.multiLang(this, this.avatarBg, this.avatar, this.expBar, this.hp, this.hpBar, 
-            this.powerTitle, this.power, this.dodgeTitle, this.dodge);
+        // 金钱
+        this.money = ViewUtils.createTextField(20, 0xffffff, false);
+        this.money.name = "money";
+        this.addChild(this.money);
+
+        // 当前层数
+        this.currentStoryLv = ViewUtils.createTextField(20, 0xffffff, false);
+        this.currentStoryLv.name = "storeyLv";
+        this.addChild(this.currentStoryLv);
+
+        ViewUtils.multiLang(this, this.avatarBg, this.avatar, this.expBar, this.hp, this.hpBar, this.power, this.dodge, this.money, this.currentStoryLv);
         this.refreshExpBar();
         this.refreshHpBar();
     }
@@ -250,8 +241,8 @@ class BattleView extends egret.DisplayObjectContainer {
     deathGodBarWidth;
     public refreshPlayer() {
         ViewUtils.setTexName(this.avatar, this.player.occupation + "_png");
-        this.money.text = "⚪:" + this.player.money;
-        this.currentStoryLv.text = "📶:" + this.player.currentStoreyPos.lv;
+        this.money.text = this.player.money.toString();
+        this.currentStoryLv.text = this.player.currentStoreyPos.lv.toString();
 
         if (!this.deathGodBarPosX) this.deathGodBarPosX = this.deathGodBar.x
         if (!this.deathGodBarWidth) this.deathGodBarWidth = this.deathGodBar.width;

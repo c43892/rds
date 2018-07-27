@@ -75,10 +75,9 @@ class AnimationFactory {
         var h = ps.th != undefined ? ps.th : g.height;
         var a = ps.ta != undefined ? ps.ta : g.alpha;
         var time = ps.time;
-        var mode = ps.mode != undefined ? ps.mode : egret.Ease.backIn;
 
         var tw = egret.Tween.get(g);
-        tw.to({x:x, y:y, width:w, height:h, alpha:a}, time, mode);
+        tw.to({x:x, y:y, width:w, height:h, alpha:a}, time, ps.mode);
         return new Promise<void>((resolve, reject) => tw.call(resolve));
     }
 

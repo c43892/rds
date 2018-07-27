@@ -24,6 +24,10 @@ class GridView extends egret.DisplayObjectContainer {
         this.anchorOffsetY = 0;
     }
 
+    public getCoveredImg() {
+        return this.coveredImg;
+    }
+
     public refresh() {
         this.clear();
         var b = this.map.getGridAt(this.gx, this.gy);

@@ -72,7 +72,7 @@ class AniView extends egret.DisplayObjectContainer {
         switch (ps.subType) {
             case "elemAdded":
                 var eImg = this.mv.mapView.getElemViewAt(ps.x, ps.y).getImg();
-                await this.aniFact.createAni("fade", {img: eImg, fa:0, ta:1, time:1000});
+                await this.aniFact.createAni("fade", {img: eImg, fa:0, ta:1, time:500});
                 doRefresh();
                 break;
             case "gridBlocked": {
@@ -89,7 +89,7 @@ class AniView extends egret.DisplayObjectContainer {
                 gv.parent.addChild(img);
                 await this.aniFact.createAni("fade", {
                     img:img, time: 500,
-                    tx:gv.x, ty:gv.y, tw:gv.width, th:gv.height, ta:1
+                    tx:gv.x, ty:gv.y, tw:gv.width, th:gv.height, ta:1, mode:egret.Ease.backIn
                 });
                 gv.parent.removeChild(img);
                 doRefresh();
@@ -111,6 +111,22 @@ class AniView extends egret.DisplayObjectContainer {
                 gv.parent.removeChild(img);
             }
             break;
+            case "gridUncovered": {
+                var gv = this.mv.mapView.getGridViewAt(ps.x, ps.y);
+                doRefresh();
+                var img = gv.getCoveredImg();
+                img.alpha = 1;
+                img.width = gv.width;
+                img.height = gv.height;
+                img.x = gv.x - (img.width - gv.width) / 2;
+                img.y = gv.y - (img.height - gv.height) / 2;
+                gv.parent.addChild(img);
+                await this.aniFact.createAni("fade", {
+                    img:img, time: 500, ta:0, noWait:true
+                });
+                gv.parent.addChild(img);
+            }
+            break;
             default:
                 doRefresh();
         }
@@ -121,7 +137,7 @@ class AniView extends egret.DisplayObjectContainer {
     // 怪物属性发生变化
     public async onElemChanged(ps) {
         var e = ps.e;
-        await this.aniFact.createAni("elemChanged", {"m": ps.m});
+        // await this.aniFact.createAni("elemChanged", {"m": ps.m});
         this.mv.mapView.refreshAt(e.pos.x, e.pos.y);        
         this.mv.refreshPlayer(); // 角色属性受地图上所有东西影响
     }
