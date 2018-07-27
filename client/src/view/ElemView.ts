@@ -95,9 +95,9 @@ class ElemView extends egret.DisplayObjectContainer {
                 var colorFilters;
                 if (b.status == GridStatus.Marked) {
                     var colorMatrix = [
-                        0.5,0,0,0,0,
-                        0.5,0,0,0,0,
-                        0.5,0,0,0,0,
+                        0.85,0,0,0,0,
+                        0.85,0,0,0,0,
+                        0.85,0,0,0,0,
                         1,0,0,0,0
                     ];
                     colorFilters = [new egret.ColorMatrixFilter(colorMatrix)];
@@ -114,8 +114,8 @@ class ElemView extends egret.DisplayObjectContainer {
                         this.showLayer.addChild(this.hpBg);
                         if (m.hp > 0) {
                             this.hp.text = m.hp.toString();
-                            this.hp.x = m.hp >= 10 ? this.width - 25 : this.width - 22;
-                            this.hp.y = m.hp >= 10 ? this.height - 26 : this.height - 29;
+                            this.hp.x = m.hp >= 10 ? this.width - 23 : this.width - 22;
+                            this.hp.y = m.hp >= 10 ? this.height - 23 : this.height - 25;
                             this.hp.filters = colorFilters;
                             this.hp.size = m.hp >= 10 ? 15 : 20;
                             this.showLayer.addChild(this.hp);
@@ -128,7 +128,7 @@ class ElemView extends egret.DisplayObjectContainer {
                             this.shield.x = 2;
                             this.shield.y = 2;
                             this.shield.filters = colorFilters;
-                            this.shield.x = m.shield >= 10 ? 4 : 7;
+                            this.shield.x = m.shield >= 10 ? this.width - 23 : this.width - 22;
                             this.shield.y = m.shield >= 10 ? 5 : 3;
                             this.shield.size = m.shield >= 10 ? 15 : 20;
                             this.showLayer.addChild(this.shield);
@@ -138,16 +138,16 @@ class ElemView extends egret.DisplayObjectContainer {
                         if (m.btAttrs.power > 0) {
                             this.showLayer.addChild(this.powerBg);
                             this.power.text = m.btAttrs.power.toString();
-                            this.power.x = m.btAttrs.power >= 10 ? 6 : 9;
-                            this.power.y = m.btAttrs.power >= 10 ? this.height - 26 : this.height - 29;
+                            this.power.x = m.btAttrs.power >= 10 ? 4 : 6;
+                            this.power.y = m.btAttrs.power >= 10 ? this.height - 23 : this.height - 25;
                             this.power.filters = colorFilters;
                             this.power.size = m.btAttrs.power >= 10 ? 15 : 20;
                             this.showLayer.addChild(this.power);
                         }
 
                         this.refreshDropItem(); // 刷新掉落物品显示
-                        if (this.dropElemImg)
-                            this.dropElemImg.filters = colorFilters;
+                        // if (this.dropElemImg)
+                        //     this.dropElemImg.filters = colorFilters;
                     } else if (!e.attrs.invisible && !this.map.isGenerallyValid(e.pos.x, e.pos.y) && e.type != "Hole") // 禁止符号
                         this.showLayer.addChild(this.banImg);
                 }
