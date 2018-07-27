@@ -47,11 +47,14 @@ class GridView extends egret.DisplayObjectContainer {
             case GridStatus.Uncovered: // 被揭开
                 if (e != undefined) return; // 有东西占着，就不显示数字
                 var num = this.map.getCoveredHazardNum(this.gx, this.gy);
-                this.addChild(this.coveredHazardNum);
-                if (num > 0)
+                if (num > 0) {
                     ViewUtils.setTexName(this.coveredHazardNum, "num" + num + "_png");
-                else if (num < 0) // 显示 ?
+                    this.addChild(this.coveredHazardNum);
+                }
+                else if (num < 0) { // 显示 ?
                     ViewUtils.setTexName(this.coveredHazardNum, "questionMark_png");
+                    this.addChild(this.coveredHazardNum);
+                }
 
                 if (num != 0) {
                     this.coveredHazardNum.x = (this.width - this.coveredHazardNum.width) / 2;
