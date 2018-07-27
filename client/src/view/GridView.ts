@@ -37,6 +37,7 @@ class GridView extends egret.DisplayObjectContainer {
                     this.addChild(this.coveredImg);
             break;
             case GridStatus.Blocked: // 危险
+                this.addChild(this.coveredImg);
                 this.addChild(this.blockedImg);
             break;
             case GridStatus.Uncovered: // 被揭开

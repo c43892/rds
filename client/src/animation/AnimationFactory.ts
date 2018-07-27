@@ -13,12 +13,10 @@ class AnimationFactory {
             case "playerAttackMonster": ani = this.playerAttackMonster(); break;
             case "monsterAttackPlayer": ani = this.monsterAttackPlayer(); break;
             case "moving": ani = this.moving(ps.obj, ps.path); break;
-            case "fadeIn": ani = this.fade(ps.img, 0, 1, ps.time); break;
-            case "fadeOut": ani = this.fade(ps.img, 1, 0, ps.time); break;
+            case "fade": ani = this.fade(ps.img, ps); break;
             case "moneyMoving": ani = Utils.delay(100); break;
             case "suckBlood": ani = Utils.delay(100); break;
             case "monsterTakeElem": ani = Utils.delay(100); break;
-            case "gridBlocked": ani = this.fadeIn(ps.img, ps); break;
             case "cycleMask": ani = this.cycleMask(ps.img, ps); break;
         }
         
@@ -38,14 +36,6 @@ class AnimationFactory {
             tw = tw.to({x:x, y:y}, 250, egret.Ease.quintInOut);
         }
 
-        return new Promise<void>((resolve, reject) => tw.call(resolve));
-    }
-
-    // 指定对象的 alpha 渐变
-    fade(g:egret.Bitmap, alphaFrom:number, alphaTo:number, time:number) {
-        var tw = egret.Tween.get(g);
-        g.alpha = alphaFrom;
-        tw.to({alpha:alphaTo}, time, egret.Ease.quintOut);
         return new Promise<void>((resolve, reject) => tw.call(resolve));
     }
 
@@ -69,25 +59,26 @@ class AnimationFactory {
         return Utils.delay(100);
     }
 
-    // 渐显
-    fadeIn(g:egret.Bitmap, ps):Promise<void> {
+    // 渐隐渐显
+    fade(g:egret.Bitmap, ps):Promise<void> {
         // properties from
-        g.alpha = ps.fa ? ps.fa : g.alpha;
-        g.x = ps.fx ? ps.fx : g.x;
-        g.y = ps.fy ? ps.fy : g.y;
-        g.width = ps.fw ? ps.fw : g.width;
-        g.height = ps.fh ? ps.fh : g.height;
+        g.alpha = ps.fa != undefined ? ps.fa : g.alpha;
+        g.x = ps.fx != undefined ? ps.fx : g.x;
+        g.y = ps.fy != undefined ? ps.fy : g.y;
+        g.width = ps.fw != undefined ? ps.fw : g.width;
+        g.height = ps.fh != undefined ? ps.fh : g.height;
 
         // properties to
-        var x = ps.tx ? ps.tx : g.x;
-        var y = ps.ty ? ps.ty : g.y;
-        var w = ps.tw ? ps.tw : g.width;
-        var h = ps.th ? ps.th : g.height;
-        var a = ps.ta ? ps.ta : g.alpha;
+        var x = ps.tx != undefined ? ps.tx : g.x;
+        var y = ps.ty != undefined ? ps.ty : g.y;
+        var w = ps.tw != undefined ? ps.tw : g.width;
+        var h = ps.th != undefined ? ps.th : g.height;
+        var a = ps.ta != undefined ? ps.ta : g.alpha;
         var time = ps.time;
+        var mode = ps.mode != undefined ? ps.mode : egret.Ease.backIn;
 
         var tw = egret.Tween.get(g);
-        tw.to({x:x, y:y, width:w, height:h, alpha:a}, time, egret.Ease.backIn);
+        tw.to({x:x, y:y, width:w, height:h, alpha:a}, time, mode);
         return new Promise<void>((resolve, reject) => tw.call(resolve));
     }
 
@@ -97,7 +88,7 @@ class AnimationFactory {
         var x = ps.x;
         var y = ps.y;
         
-        g.alpha = ps.fa ? ps.fa : g.alpha;
+        g.alpha = ps.fa != undefined ? ps.fa : g.alpha;
         g["p"] = 0;
 
         var shape = new egret.Shape();

@@ -67,11 +67,14 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 指定位置发生状态或元素变化
     public async onGridChanged(ps) {
+        var e:Elem = ps.e;
+        var doRefresh = () => this.mv.mapView.refreshAt(ps.x, ps.y, e && e.isBig() ? e.attrs.size : undefined);
         switch (ps.subType) {
-            case "ElemAdded":
+            case "elemAdded":
                 var eImg = this.mv.mapView.getElemViewAt(ps.x, ps.y).getImg();
-                await this.aniFact.createAni("fadeIn", {"img": eImg, "time":1000});
-                this.mv.mapView.refreshAt(ps.x, ps.y);
+                await this.aniFact.createAni("fade", {img: eImg, fa:0, ta:1, time:1000});
+                doRefresh();
+                break;
             case "gridBlocked": {
                 var gv = this.mv.mapView.getGridViewAt(ps.x, ps.y);
                 var img = ViewUtils.createBitmapByName("blocked_png");
@@ -84,16 +87,34 @@ class AniView extends egret.DisplayObjectContainer {
                 img.y = gv.y - (img.height - gv.height) / 2;
                 
                 gv.parent.addChild(img);
-                await this.aniFact.createAni("gridBlocked", {
+                await this.aniFact.createAni("fade", {
                     img:img, time: 500,
                     tx:gv.x, ty:gv.y, tw:gv.width, th:gv.height, ta:1
                 });
                 gv.parent.removeChild(img);
+                doRefresh();
             }
+            break;
+            case "gridUnblocked": {
+                doRefresh();
+                var gv = this.mv.mapView.getGridViewAt(ps.x, ps.y);
+                var img = ViewUtils.createBitmapByName("blocked_png");
+                img.alpha = 1;
+                img.width = gv.width;
+                img.height = gv.height;
+                img.x = gv.x - (img.width - gv.width) / 2;
+                img.y = gv.y - (img.height - gv.height) / 2;
+                gv.parent.addChild(img);
+                await this.aniFact.createAni("fade", {
+                    img:img, time: 300, ta:0, mode:egret.Ease.quintInOut
+                });
+                gv.parent.removeChild(img);
+            }
+            break;
+            default:
+                doRefresh();
         }
 
-        var e:Elem = ps.e;
-        this.mv.mapView.refreshAt(ps.x, ps.y, e && e.isBig() ? e.attrs.size : undefined);
         this.mv.refreshPlayer(); // 角色属性受地图上所有东西影响
     }
 
@@ -212,13 +233,13 @@ class AniView extends egret.DisplayObjectContainer {
 
     async blackIn(removedWhenFinish = false) {
         this.addChild(this.blackCover);
-        await this.aniFact.createAni("fadeIn", {"img": this.blackCover, "time": 1000});
+        await this.aniFact.createAni("fade", {img: this.blackCover, fa:0, ta:1, time: 1000});
         if (removedWhenFinish)
             this.removeChild(this.blackCover);
     }
 
     async blackOut() {
-        await this.aniFact.createAni("fadeOut", {"img": this.blackCover, "time": 1000});
+        await this.aniFact.createAni("fade", {img: this.blackCover, fa:1, toa:0, time: 1000});
         if (this.getChildByName(this.blackCover.name))
             this.removeChild(this.blackCover);
     }

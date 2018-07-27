@@ -358,6 +358,6 @@ class BattleView extends egret.DisplayObjectContainer {
         return this.selView.selGrid(this.mapView.gw, this.mapView.gh, 
             this.mapView.gsize.w, this.mapView.gsize.h, 
                 /* mapView 是下面中间对齐的，我们需要计算左上角 */
-            this.mapView.x - this.mapView.width / 2, this.mapView.y - this.mapView.height, f);
+            this.mapView.x, this.mapView.y, f);
     }
 }
