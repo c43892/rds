@@ -1,6 +1,8 @@
 client/bin-debug
 client/bin-release
 client/src/logic
+client/bin-debug
+client/libs/modules
 client_wxgame
 wxOpenDataContext
 

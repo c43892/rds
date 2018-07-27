@@ -24,6 +24,7 @@ class BattleView extends egret.DisplayObjectContainer {
     public deathGodBar:egret.Bitmap; // 死神进度条
     public deathGod:egret.Bitmap; // 死神位置
 
+    public relicsBg:egret.DisplayObjectContainer; // 遗物区域
     public relics:egret.Bitmap[] = []; // 遗物
 
     public mapView:MapView; // 地图视图
@@ -196,8 +197,14 @@ class BattleView extends egret.DisplayObjectContainer {
         this.addChild(this.mapView);
 
         // 物品栏
-        this.propsView = new PropsView(w, 90);
+        this.propsView = new PropsView();
+        this.propsView.name = "propsView";
         this.addChild(this.propsView);
+
+        // 遗物区域
+        this.relicsBg = new egret.DisplayObjectContainer();
+        this.relicsBg.name = "relicsBg";
+        this.addChild(this.relicsBg);
 
         // 格子选择
         this.selView = new SelView();
@@ -264,30 +271,37 @@ class BattleView extends egret.DisplayObjectContainer {
 
         // 遗物
         this.refreshRelics();
-        
-        // 物品
-        this.propsView.width = this.width - 50;
-        this.propsView.x = (this.width - this.propsView.width) / 2;
-        this.propsView.y = this.height - this.propsView.height - 20;
-        this.propsView.refresh(this.player.props);
 
         this.refreshExpBar();
         this.refreshHpBar();
-        ViewUtils.multiLang(this, this.avatarBg, this.avatar, this.power, this.dodge);
+        ViewUtils.multiLang(this, this.avatarBg, this.avatar, this.power, this.dodge, this.propsView);
+
+        // 物品
+        this.propsView.refresh(this.player.props);
     }
 
     public refreshRelics() {
-        for (var rBmp of this.relics) this.removeChild(rBmp);
+        ViewUtils.multiLang(this, this.relicsBg);
+
+        for (var rBmp of this.relics)
+            this.removeChild(rBmp);
+        
         this.relics = [];
 
-        var x = 200;
-        var y = 120;
-        for (var i = 0; i < this.player.relics.length && i < 6; i++) {
+        const ShowMaxRelicNum = 6;
+        var w = 32;
+        var h = 32;
+        var x = this.relicsBg.x;
+        var y = this.relicsBg.y;
+        var spaceX = (this.relicsBg.width - ShowMaxRelicNum * w) / (ShowMaxRelicNum - 1);
+        for (var i = 0; i < this.player.relics.length && i < ShowMaxRelicNum; i++) {
             var r = this.player.relics[i];
             var rBmp = ViewUtils.createBitmapByName(r.getElemImgRes() + "_png");
-            rBmp.x = x; rBmp.y = y;
-            rBmp.width = rBmp.height = 50;
-            x += rBmp.width + 5;
+            rBmp.x = x;
+            rBmp.y = y;
+            rBmp.width = w;
+            rBmp.height = h;
+            x += w + spaceX;
             this.addChild(rBmp);
             this.relics.push(rBmp);
         }

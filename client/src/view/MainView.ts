@@ -301,7 +301,7 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 按照本地存档继续游戏
     continuePlay() {
-        if (this.p.currentStoreyPos.status == "finished")
+        if (this.p && this.p.currentStoreyPos.status == "finished")
             this.openWorldMap(this.p.worldmap);
         else {
             var lv = this.p.currentStoreyPos.lv;
