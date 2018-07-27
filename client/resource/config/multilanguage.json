@@ -25,6 +25,7 @@
 
         "battle": {
             "layout": {
+				"occupationBg": {"x":20, "y":5, "w":130, "h":132},
 				"avatarBg": {"x":0, "y":0, "w":188, "h":188},
 				"avatar": {"x":20, "y":5, "w":130, "h":132},
                 "expBar": {"x":2, "y":4},

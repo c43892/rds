@@ -7,6 +7,7 @@ class BattleView extends egret.DisplayObjectContainer {
 
     // 头像区域
     public avatarBg:egret.Bitmap; // 角色头像区域背景
+    public occupationBg:egret.Bitmap; // 角色职业背景
     public avatar:egret.Bitmap; // 角色头像
     public expBar:egret.Bitmap; // 经验条
     public expBarMask:egret.Shape; // 经验条遮罩
@@ -56,6 +57,9 @@ class BattleView extends egret.DisplayObjectContainer {
     createAvatarArea() {
 
         // 头像
+        this.occupationBg = new egret.Bitmap();
+        this.occupationBg.name = "occupationBg";
+        this.addChild(this.occupationBg);
         this.avatar = new egret.Bitmap();
         this.avatar.name = "avatar";
         this.addChild(this.avatar);
@@ -108,7 +112,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.currentStoryLv.name = "storeyLv";
         this.addChild(this.currentStoryLv);
 
-        ViewUtils.multiLang(this, this.avatarBg, this.avatar, this.expBar, this.hp, this.hpBar, this.power, this.dodge, this.money, this.currentStoryLv);
+        ViewUtils.multiLang(this, this.occupationBg, this.avatarBg, this.avatar, this.expBar, this.hp, this.hpBar, this.power, this.dodge, this.money, this.currentStoryLv);
         this.refreshExpBar();
         this.refreshHpBar();
     }
@@ -240,6 +244,7 @@ class BattleView extends egret.DisplayObjectContainer {
     deathGodBarPosX;
     deathGodBarWidth;
     public refreshPlayer() {
+        ViewUtils.setTexName(this.occupationBg, this.player.occupation + "Bg_png");
         ViewUtils.setTexName(this.avatar, this.player.occupation + "_png");
         this.money.text = this.player.money.toString();
         this.currentStoryLv.text = this.player.currentStoreyPos.lv.toString();
