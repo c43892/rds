@@ -114,7 +114,7 @@ class AniView extends egret.DisplayObjectContainer {
             case "gridUncovered": {
                 var gv = this.mv.mapView.getGridViewAt(ps.x, ps.y);
                 doRefresh();
-                var img = gv.getCoveredImg();
+                var img = ViewUtils.createBitmapByName("covered_png");
                 img.alpha = 1;
                 img.width = gv.width;
                 img.height = gv.height;
