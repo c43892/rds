@@ -41,9 +41,6 @@ class PropFactory {
             });
         },
 
-        // 枪
-        "Gun": (attrs) => this.createProp(attrs, ElemFactory.weaponLogic(attrs.cnt, true)),
-
         // 火焰射线
         "RayGun": (attrs) => this.createProp(attrs, ElemFactory.weaponLogic(attrs.cnt, true)),
 

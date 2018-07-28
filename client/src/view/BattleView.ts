@@ -25,6 +25,7 @@ class BattleView extends egret.DisplayObjectContainer {
 
     public relicsBg:egret.DisplayObjectContainer; // 遗物区域
     public relics:egret.Bitmap[] = []; // 遗物
+    public moreRelics:egret.Bitmap; // 更多遗物
 
     public mapView:MapView; // 地图视图
     public propsView:PropsView; // 道具视图
@@ -197,6 +198,9 @@ class BattleView extends egret.DisplayObjectContainer {
         this.addChild(this.propsView);
 
         // 遗物区域
+        this.moreRelics = ViewUtils.createBitmapByName("moreRelicsBtn_png");
+        this.moreRelics.name = "moreRelics";
+        this.addChild(this.moreRelics);
         this.relicsBg = new egret.DisplayObjectContainer();
         this.relicsBg.name = "relicsBg";
         this.addChild(this.relicsBg);
@@ -270,7 +274,7 @@ class BattleView extends egret.DisplayObjectContainer {
 
         this.refreshExpBar();
         this.refreshHpBar();
-        ViewUtils.multiLang(this, this.avatarBg, this.avatar, this.power, this.dodge, this.propsView);
+        ViewUtils.multiLang(this, this.avatarBg, this.avatar, this.power, this.dodge, this.propsView, this.moreRelics);
 
         // 物品
         this.propsView.refresh(this.player.props);

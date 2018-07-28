@@ -48,7 +48,6 @@
             "HpCapsule":{"cnt":5, "heal":1},
             "Coins":{"cnt":5},
             "CoinsBig":{"type":"Coins", "cnt":10},
-            "Gun":{"cnt":2, "power":3},
             "RayGun":{"cnt":2, "power":3},
             "MedicineBox": {}
         },
@@ -58,7 +57,7 @@
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
-                "Gun": 10,
+                "Knife": 10,
                 "RayGun": 10,
                 "Clock": 5,
                 "Coins": 20,
@@ -123,7 +122,6 @@
             "HpPotion":{},
             "HpCapsule":{"cnt":5, "heal":1},
             "Coins":{"cnt":5},
-            "Gun":{"cnt":2, "power":3},
             "RayGun":{"cnt":2, "power":3},
             "MedicineBox": {}
         },
@@ -133,7 +131,7 @@
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
-                "Gun": 10,
+                "Knife": 10,
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
@@ -190,7 +188,6 @@
             "HpPotion":{},
             "HpCapsule":{"cnt":5, "heal":1},
             "Coins":{"cnt":5},
-            "Gun":{"cnt":2, "power":3},
             "RayGun":{"cnt":2, "power":3},
             "MedicineBox": {}
         },
@@ -199,7 +196,7 @@
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
-                "Gun": 10,
+                "Knife": 10,
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
@@ -256,7 +253,6 @@
             "HpPotion":{},
             "HpCapsule":{"cnt":5, "heal":1},
             "Coins":{"cnt":5},
-            "Gun":{"cnt":2, "power":3},
             "RayGun":{"cnt":2, "power":3},
             "MedicineBox": {}
         },
@@ -265,7 +261,7 @@
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
-                "Gun": 10,
+                "Knife": 10,
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
@@ -322,7 +318,6 @@
             "HpPotion":{},
             "HpCapsule":{"cnt":5, "heal":1},
             "Coins":{"cnt":5},
-            "Gun":{"cnt":2, "power":3},
             "RayGun":{"cnt":2, "power":3},
             "MedicineBox": {}
         },
@@ -331,7 +326,7 @@
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
-                "Gun": 10,
+                "Knife": 10,
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
@@ -391,7 +386,6 @@
             "HpPotion":{},
             "HpCapsule":{"cnt":5, "heal":1},
             "Coins":{"cnt":5},
-            "Gun":{"cnt":2, "power":3},
             "RayGun":{"cnt":2, "power":3},
             "MedicineBox": {}
         },
@@ -400,7 +394,7 @@
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
-                "Gun": 10,
+                "Knife": 10,
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
@@ -467,7 +461,6 @@
             "HpPotion":{},
             "HpCapsule":{"cnt":5, "heal":1},
             "Coins":{"cnt":5},
-            "Gun":{"cnt":2, "power":3},
             "RayGun":{"cnt":2, "power":3},
             "MedicineBox": {}
         },
@@ -476,7 +469,7 @@
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
-                "Gun": 10,
+                "Knife": 10,
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
@@ -540,7 +533,6 @@
             "HpPotion":{},
             "HpCapsule":{"cnt":5, "heal":1},
             "Coins":{"cnt":5},
-            "Gun":{"cnt":2, "power":3},
             "RayGun":{"cnt":2, "power":3},
             "MedicineBox": {}
         },
@@ -549,7 +541,7 @@
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
-                "Gun": 10,
+                "Knife": 10,
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
@@ -613,7 +605,6 @@
             "HpPotion":{},
             "HpCapsule":{"cnt":5, "heal":1},
             "Coins":{"cnt":5},
-            "Gun":{"cnt":2, "power":3},
             "RayGun":{"cnt":2, "power":3},
             "MedicineBox": {}
         },
@@ -622,7 +613,7 @@
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
-                "Gun": 10,
+                "Knife": 10,
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
@@ -686,7 +677,6 @@
             "HpPotion":{},
             "HpCapsule":{"cnt":5, "heal":1},
             "Coins":{"cnt":5},
-            "Gun":{"cnt":2, "power":3},
             "RayGun":{"cnt":2, "power":3},
             "MedicineBox": {}
         },
@@ -695,7 +685,7 @@
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
-                "Gun": 10,
+                "Knife": 10,
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
@@ -763,7 +753,6 @@
             "HpPotion":{},
             "HpCapsule":{"cnt":5, "heal":1},
             "Coins":{"cnt":5},
-            "Gun":{"cnt":2, "power":3},
             "RayGun":{"cnt":2, "power":3},
             "MedicineBox": {}
         },
@@ -772,7 +761,7 @@
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
-                "Gun": 10,
+                "Knife": 10,
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
@@ -851,7 +840,6 @@
             "HpPotion":{},
             "HpCapsule":{"cnt":5, "heal":1},
             "Coins":{"cnt":5},
-            "Gun":{"cnt":2, "power":3},
             "RayGun":{"cnt":2, "power":3},
             "MedicineBox": {}
         },
@@ -860,7 +848,7 @@
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
-                "Gun": 10,
+                "Knife": 10,
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
@@ -935,7 +923,6 @@
             "HpPotion":{},
             "HpCapsule":{"cnt":5, "heal":1},
             "Coins":{"cnt":5},
-            "Gun":{"cnt":2, "power":3},
             "RayGun":{"cnt":2, "power":3},
             "MedicineBox": {}
         },
@@ -944,7 +931,7 @@
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
-                "Gun": 10,
+                "Knife": 10,
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
@@ -1020,7 +1007,6 @@
             "HpPotion":{},
             "HpCapsule":{"cnt":5, "heal":1},
             "Coins":{"cnt":5},
-            "Gun":{"cnt":2, "power":3},
             "RayGun":{"cnt":2, "power":3},
             "MedicineBox": {}
         },
@@ -1029,7 +1015,7 @@
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
-                "Gun": 10,
+                "Knife": 10,
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
@@ -1104,7 +1090,6 @@
             "HpPotion":{},
             "HpCapsule":{"cnt":5, "heal":1},
             "Coins":{"cnt":5},
-            "Gun":{"cnt":2, "power":3},
             "RayGun":{"cnt":2, "power":3},
             "MedicineBox": {}
         },
@@ -1113,7 +1098,7 @@
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
-                "Gun": 10,
+                "Knife": 10,
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,
@@ -1220,7 +1205,6 @@
             "HpPotion":{},
             "HpCapsule":{"cnt":5, "heal":1},
             "Coins":{"cnt":5},
-            "Gun":{"cnt":2, "power":3},
             "RayGun":{"cnt":2, "power":3},
             "MedicineBox": {}
         },
@@ -1230,7 +1214,7 @@
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
-                "Gun": 10,
+                "Knife": 10,
                 "RayGun": 10,
                 "Clock": 10,
                 "Coins": 10,

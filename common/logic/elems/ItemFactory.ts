@@ -151,6 +151,12 @@ class ItemFactory {
             return e;
         },
 
+        // 小刀
+        "Knife": (attrs) => {
+            var e = this.createItem();
+            return ElemFactory.weaponLogic(1, true)(e);
+        },
+
         // 剑
         "Sword": (attrs) => {
             var e = this.createItem();
