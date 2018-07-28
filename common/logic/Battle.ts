@@ -14,6 +14,7 @@ class Battle {
     private lvCfg; // 当前关卡配置
 
     public openShop; // 执行打开商店的操作
+    public openRelicSel2Add; // 执行升级选择遗物逻辑
 
     constructor(randomseed:number, trueRandomSeed:number) {
         Utils.assert(randomseed != undefined, "the randomseed should be specified");
@@ -288,9 +289,11 @@ class Battle {
     async checkPlayerLevelUpAndDie() {
         // 检查等级提升
         if (this.player.checkLevelUp()) {            
+            await this.fireEvent("onPlayerLevelUp", {bt:this});
+            await this.triggerLogicPoint("onPlayerLevelUp", {bt:this});
+
             var relicChoices = Utils.randomSelectByWeightWithPlayerFilter(this.player, GCfg.playerCfg.levelUpChoices, this.srand, 3, 4, true);
-            await this.fireEvent("onPlayerLevelUp", {bt:this, choices:relicChoices});
-            await this.triggerLogicPoint("onPlayerLevelUp", {bt:this, choices:relicChoices});
+            await this.try2SelRelics(relicChoices);
 
             await this.fireEvent("onPlayerChanged", {subType:"lvUp", bt:this});
             await this.triggerLogicPoint("onPlayerChanged", {subType: "lvUp", bt:this});
@@ -469,7 +472,7 @@ class Battle {
         };
     }
 
-    // 尝试打开商店
+    // 尝试启动商店逻辑
     public async try2openShop(npc:Monster, items, prices, onBuy) {
         var elem;
         var reserveNpc = await this.openShop(items, prices, async (e:Elem) => {
@@ -482,6 +485,14 @@ class Battle {
             await onBuy(elem);
 
         return reserveNpc;
+    }
+
+    // 尝试启动选择遗物逻辑
+    public async try2SelRelics(choices) {
+        await this.openRelicSel2Add(choices, async (relicType) => {
+            this.fireEventSync("onPlayerOp", {op:"try2SelRelics", ps:{relicType:relicType}});
+            await this.implAddPlayerRelic(ElemFactory.create(relicType)); 
+        });
     }
 
     // impl 开头的函数，通常对应具体的逻辑功能实现，提供给 Elem 使用

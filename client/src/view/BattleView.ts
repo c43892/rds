@@ -32,9 +32,6 @@ class BattleView extends egret.DisplayObjectContainer {
     public selView:SelView; // 目标选择视图
     public repView:ReplayView; // 录像界面
     public aniView:AniView; // 动画视图
-    
-    public openShop; // 打开商店界面
-    public openPlayerLevelUpSels; // 打开角色升级界面
 
     // 角色头像区域，以及金钱，层数，死神
     createPlayerAttrs() {
@@ -329,19 +326,6 @@ class BattleView extends egret.DisplayObjectContainer {
         }
 
         await this.aniView.onLevel(ps);
-    }
-
-    // 打开商店
-    public async onOpenShop(ps) {
-        var items = ps.items;
-        var prices = ps.prices;
-        var onBuy = ps.onBuy;
-        await this.openShop(items, prices, onBuy);
-    }
-
-    // 角色等级提升
-    public async onPlayerLevelUp(ps) {
-        await this.openPlayerLevelUpSels(ps.choices);
     }
 
     // n 选 1

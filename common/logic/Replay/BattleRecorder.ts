@@ -83,6 +83,10 @@ class BattleRecorder {
             var g = BattleUtils.findNearestGrid(bt.level.map, {x:ps.x, y:ps.y}, (g:Grid) => !g.isCovered() && !g.getElem());
             if (g) await bt.implAddElemAt(elem, g.pos.x, g.pos.y);
         });
+        BattleRecorder.onReplayOp("try2SelRelics", async (ps) => {
+            var e = bt.level.createElem(ps.relicType);
+            await bt.implAddPlayerRelic(e);
+        });
     }
 
     private static replayOpHandlers = {}; // 执行所有录像指令

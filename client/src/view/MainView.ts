@@ -36,8 +36,6 @@ class MainView extends egret.DisplayObjectContainer {
         // 战斗视图
         this.bv = new BattleView(w, h);
         this.bv.x = this.bv.y = 0;
-        this.bv.openShop = async (items, prices, onBuy) => await this.openShopInBattle(items, prices, onBuy);
-        this.bv.openPlayerLevelUpSels = async (choices) => await this.openPlayerLevelUpSels(choices);
 
         // 宝箱房间
         this.brv = new BoxRoomView(w, h);
@@ -79,6 +77,7 @@ class MainView extends egret.DisplayObjectContainer {
         BattleRecorder.startNewBattleImpl = (p:Player, btType:string, btRandomSeed:number, trueRandomSeed:number) => {
             var bt = Battle.createNewBattle(p, btType, btRandomSeed, trueRandomSeed);
             bt.openShop = async (items, prices, onBuy) => {}; // 录像回放中的战斗内商店特殊处理
+            bt.openRelicSel2Add = async (choices, onSel) => {}; // 录像回放中的升级选择遗物特殊处理
             this.startNewBattle(bt);
         };
 
@@ -87,6 +86,7 @@ class MainView extends egret.DisplayObjectContainer {
             if (btType[0] != "_") btType = btType + "_" + lv;
             var bt = Battle.createNewBattle(p, btType, btRandomSeed);
             bt.openShop = async (items, prices, onBuy) => await this.openShopInBattle(items, prices, onBuy);
+            bt.openRelicSel2Add = async (choices, onSel) => await this.openRelicSel2Add(choices, onSel);
             BattleRecorder.startNew(bt.id, bt.player, bt.btType, bt.btRandomSeed, bt.trueRandomSeed);
             await this.startNewBattle(bt);
         }
@@ -117,8 +117,6 @@ class MainView extends egret.DisplayObjectContainer {
 
         bt.registerEvent("onPlayerOp", (ps) => BattleRecorder.onPlayerOp(ps.op, ps.ps));
         bt.registerEvent("onLevel", (ps) => this.bv.onLevel(ps));
-        bt.registerEvent("onPlayerLevelUp", (ps) => this.bv.onPlayerLevelUp(ps));
-        bt.registerEvent("onOpenShop", (ps) => this.bv.onOpenShop(ps));
         bt.registerEvent("onPlayerDead", () => this.openPlayerDieView());
         Utils.registerEventHandlers(bt, [
             "onGridChanged", "onPlayerChanged", "onAttack", "onElemChanged", "onPropChanged",
@@ -168,12 +166,24 @@ class MainView extends egret.DisplayObjectContainer {
         this.removeChild(this.sv);
     }
 
+    // 打开升级选择要添加的遗物界面
+    public async openRelicSel2Add(choices, onSel) {
+        this.pluv.player = this.p;
+        this.addChild(this.pluv);
+        var sel = await this.pluv.open(choices);
+        this.removeChild(this.pluv);
+        onSel(sel);
+    }
+
     // 世界地图上开启商店界面
     public async openShopOnWorldMap(shop) {
         this.sv.player = this.p;
         this.addChild(this.sv);
         var r = Utils.genRandomShopItems(this.p, shop, this.p.playerRandom, 6);
-        await this.sv.open(r.items, r.prices, (elem:Elem) => this.p.addItem(elem), true);
+        await this.sv.open(r.items, r.prices, (elem:Elem, price:number) => {
+            this.p.addMoney(-price);
+            this.p.addItem(elem)
+        }, true);
         this.removeChild(this.sv);
     }
 
@@ -200,14 +210,6 @@ class MainView extends egret.DisplayObjectContainer {
         this.setChildIndex(this.ttv, -1);
         await this.ttv.open();
         this.removeChild(this.ttv);
-    }
-
-    // 打开升级界面
-    public async openPlayerLevelUpSels(choices) {
-        this.pluv.player = this.p;
-        this.addChild(this.pluv);
-        await this.pluv.open(choices);
-        this.removeChild(this.pluv);
     }
 
     // 打开选项事件界面

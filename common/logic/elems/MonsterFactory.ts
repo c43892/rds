@@ -649,7 +649,8 @@ class MonsterFactory {
         m.isHazard = () => false;
         m.canUse = () => true;
         m.canBeDragDrop = true;
-        var onBuy = async (elem:Elem) => {
+        var onBuy = async (elem:Elem, price:number) => {
+            m.bt().player.addMoney(-price);
             var g = BattleUtils.findNearestGrid(m.bt().level.map, m.pos, (g:Grid) => !g.isCovered() && !g.getElem());
             if (g) await m.bt().implAddElemAt(elem, g.pos.x, g.pos.y);
         };

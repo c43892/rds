@@ -77,13 +77,13 @@ class ShopView extends egret.DisplayObjectContainer {
 
                 var e = this.items[n];
                 var price = this.itemPrices[e];
-                if (!this.player.addMoney(-price)) {
+                if (this.player.money - price < 0) {
                     Utils.log("金币不足");
                     return;
                 }
 
                 var elem = ElemFactory.create(e);
-                var closeShop = await onBuy(elem);
+                var closeShop = await onBuy(elem, price);
                 this.soldOut[n] = true;
                 
                 if (closeShop)

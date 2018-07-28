@@ -18,11 +18,15 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
 
     private choices = [];
 
-    private doClose;
-    public async open(choices):Promise<void> {
+    private doSel;
+    public async open(choices):Promise<string> {
         this.choices = choices;
         this.refresh();
-        return new Promise<void>((resolve, reject) => this.doClose = resolve);
+        return new Promise<string>((resolve, reject) => {
+            this.doSel = async (r) => {
+                resolve(r);
+            };
+        });
     }
 
     private btnChoices:egret.TextField[] = [];
@@ -55,10 +59,8 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
         }
     }
 
-    onSel(evt:egret.TouchEvent) {
-        var r = <Relic>ElemFactory.create(evt.target["choice"]);
-        r.setBattle(this.player.bt());
-        this.player.addRelic(r);
-        this.doClose();
+    async onSel(evt:egret.TouchEvent) {
+        var relicType = evt.target["choice"];
+        await this.doSel(relicType);
     }
 }
