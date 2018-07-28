@@ -206,8 +206,8 @@ class MonsterFactory {
     // 设定偷袭逻辑
     static addSneakAI(act, m:Monster):Monster {
         return <Monster>ElemFactory.addAI("onGridChanged", 
-            async () => await m.bt().implMonsterSneak(act),
-        m, (ps) => ps.x == m.pos.x && ps.y == m.pos.y && ps.subType == "gridUncovered" && ps.stateBeforeUncover != GridStatus.Marked);
+            async () => { Utils.log("sneaked"); await m.bt().implMonsterSneak(act); },
+        m, (ps) => !ps.suppressSneak && ps.x == m.pos.x && ps.y == m.pos.y && ps.subType == "gridUncovered" && ps.stateBeforeUncover != GridStatus.Marked);
     }
 
     // 偷袭：攻击
@@ -362,11 +362,11 @@ class MonsterFactory {
     // 被翻开时act
     static addAIOnUncovered(act, m:Monster, condition = undefined):Monster {
         return <Monster>ElemFactory.addAI("onGridChanged", act, m, (ps) => {
-                if(ps.x == m.pos.x && ps.y == m.pos.y && ps.subType == "gridUncovered")
-                    return condition?condition():true;
-                else 
-                    return false;
-                })
+            if(ps.x == m.pos.x && ps.y == m.pos.y && ps.subType == "gridUncovered")
+                return condition ? condition() : true;
+            else
+                return false;
+            })
     }
 
     // 被盖上时act

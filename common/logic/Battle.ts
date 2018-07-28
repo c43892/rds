@@ -88,7 +88,7 @@ class Battle {
             var x = ep.pos.x + i;
             for (var j = 0; j < ep.attrs.size.h; j++) {
                 var y = ep.pos.y + j;
-                this.uncover(x, y, true);
+                this.uncover(x, y, true, true);
             }
         }
 
@@ -158,16 +158,16 @@ class Battle {
     }
 
     // 揭开指定位置的地块（不再检查条件）
-    public async uncover(x:number, y:number, suppressLogicEvent = false) {
+    public async uncover(x:number, y:number, suppressSneak = false, suppressLogicEvent = false) {
         var g = this.level.map.getGridAt(x, y);
         Utils.assert(g.isCovered(), "uncover action can only be implemented on a covered grid");
         var stateBeforeUncover = g.status;
         g.status = GridStatus.Uncovered;
 
-        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"gridUncovered", stateBeforeUncover:stateBeforeUncover});
+        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"gridUncovered", stateBeforeUncover:stateBeforeUncover, suppressSneak:suppressSneak});
 
         if (!suppressLogicEvent)
-            await this.triggerLogicPoint("onGridChanged", {x:x, y:y, subType:"gridUncovered", stateBeforeUncover:stateBeforeUncover});
+            await this.triggerLogicPoint("onGridChanged", {x:x, y:y, subType:"gridUncovered", stateBeforeUncover:stateBeforeUncover, suppressSneak:suppressSneak});
 
         // 对 8 邻格子进行标记逻辑计算
         var neighbours = [];
@@ -715,7 +715,7 @@ class Battle {
         // 如果目标被标记
         var g = this.level.map.getGridAt(x, y);
         var marked = g.status == GridStatus.Marked;
-        if (g.isCovered()) this.uncover(x, y); // 攻击行为自动揭开地块
+        if (g.isCovered()) this.uncover(x, y, weapon != undefined); // 攻击行为自动揭开地块，如果带道具，则取消偷袭逻辑
 
         var e = g.getElem();
         if (!e || !(e instanceof Monster)) { // 如果打空，则不需要战斗计算过程，有个表现就可以了
