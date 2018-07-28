@@ -13,6 +13,8 @@ class Battle {
     public bc:BattleCalculator; // 战斗计算器
     private lvCfg; // 当前关卡配置
 
+    public implOpenShop; // 执行打开商店的操作
+
     constructor(randomseed:number, trueRandomSeed:number) {
         Utils.assert(randomseed != undefined, "the randomseed should be specified");
         this.btRandomSeed = randomseed;

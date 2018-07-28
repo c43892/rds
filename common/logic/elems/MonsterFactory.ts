@@ -646,7 +646,6 @@ class MonsterFactory {
 
     // 商店 npc 逻辑
     static makeShopNPC(m:Monster):Monster {
-        var firstTime = true;
         m.isHazard = () => false;
         m.canUse = () => true;
         m.canBeDragDrop = true;
@@ -660,9 +659,8 @@ class MonsterFactory {
         m.use = async () => {
             if (!shopItemAndPrice)
                 shopItemAndPrice = Utils.genRandomShopItems(m.bt().player, m.attrs.shopCfg, m.bt().srand, 6);
-            await m.bt().fireEvent("onOpenShop", {npc:m, items:shopItemAndPrice.items, prices:shopItemAndPrice.prices, onBuy:onBuy});
-            firstTime = false;
-            return true; // npc 不保留
+            await m.bt().implOpenShop(shopItemAndPrice.items, shopItemAndPrice.prices, onBuy);
+            return false; // npc 不保留
         };
 
         return m;
