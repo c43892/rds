@@ -341,11 +341,10 @@ class BattleView extends egret.DisplayObjectContainer {
 
     // 打开商店
     public async onOpenShop(ps) {
-        var shop = ps.shopCfg;
+        var items = ps.items;
+        var prices = ps.prices;
         var onBuy = ps.onBuy;
-        var refreshItems = ps.refreshItems;
-        var rand = ps.rand;
-        await this.openShop(shop, rand, onBuy, refreshItems);
+        await this.openShop(items, prices, onBuy);
     }
 
     // n 选 1

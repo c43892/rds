@@ -656,10 +656,13 @@ class MonsterFactory {
             return true; // 购买后关闭商店
         };
 
+        var shopItemAndPrice;
         m.use = async () => {
-            await m.bt().fireEvent("onOpenShop", {npc:m, shopCfg:m.attrs.shopCfg, rand:m.bt().srand, onBuy:onBuy, refreshItems:firstTime});
+            if (!shopItemAndPrice)
+                shopItemAndPrice = Utils.genRandomShopItems(m.bt().player, m.attrs.shopCfg, m.bt().srand, 6);
+            await m.bt().fireEvent("onOpenShop", {npc:m, items:shopItemAndPrice.items, prices:shopItemAndPrice.prices, onBuy:onBuy});
             firstTime = false;
-            return false; // npc 不保留
+            return true; // npc 不保留
         };
 
         return m;

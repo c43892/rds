@@ -36,7 +36,7 @@ class MainView extends egret.DisplayObjectContainer {
         // 战斗视图
         this.bv = new BattleView(w, h);
         this.bv.x = this.bv.y = 0;
-        this.bv.openShop = async (shop, rand, onBuy, refreshItems) => await this.openShop(shop, rand, onBuy, refreshItems);
+        this.bv.openShop = async (items, prices, onBuy) => await this.openShopInBattle(items, prices, onBuy);
         this.bv.openPlayerLevelUpSels = async (rand) => await this.openPlayerLevelUpSels(rand);
 
         // 宝箱房间
@@ -162,16 +162,20 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 开启商店界面
-    public async openShop(shop, rand, onBuy, refreshItems:boolean = true) {
+    public async openShopInBattle(items, prices, onBuy) {
         this.sv.player = this.p;
         this.addChild(this.sv);
-        await this.sv.open(shop, rand, onBuy, refreshItems);
+        await this.sv.open(items, prices, onBuy, false);
         this.removeChild(this.sv);
     }
 
     // 世界地图上开启商店界面
     public async openShopOnWorldMap(shop) {
-        await this.openShop(shop, this.p.playerRandom, (elem:Elem) => this.p.addItem(elem));
+        this.sv.player = this.p;
+        this.addChild(this.sv);
+        var r = Utils.genRandomShopItems(this.p, shop, this.p.playerRandom, 6);
+        await this.sv.open(r.items, r.prices, (elem:Elem) => this.p.addItem(elem), true);
+        this.removeChild(this.sv);
     }
 
     // 打开医院界面

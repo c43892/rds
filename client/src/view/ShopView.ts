@@ -6,6 +6,7 @@ class ShopView extends egret.DisplayObjectContainer {
     private grids:egret.Bitmap[] = []; // 商品格子
     private prices:egret.TextField[] = []; // 商品价格
     private items:string[] = [];
+    private itemPrices = {};    
     private soldOut:boolean[] = [];
     private btnGoBack;
 
@@ -61,29 +62,11 @@ class ShopView extends egret.DisplayObjectContainer {
         this.btnGoBack.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onGoBack, this);
     }
 
-    private defaultPrice;
-    private shopPrice;
-    getPrice(e) {
-        return this.shopPrice[e] ? this.shopPrice[e] : this.defaultPrice[e];
-    }
-
     private onCancel;
     private onSel;
-    public async open(shop, rand:SRandom, onBuy, refreshItems:boolean = true):Promise<void> {        
-        if (refreshItems) {
-            this.defaultPrice = GCfg.getShopCfg("price");
-            var cfg = GCfg.getShopCfg(shop);
-            this.shopPrice = cfg.price;
-            var items = cfg.items;
-            this.items = [];
-            for(var i = 0; i < ShopView.GridNum; i++) {
-                var e = Utils.randomSelectByWeightWithPlayerFilter(this.player, items[i], rand, 1, 2, false)[0];
-                Utils.assert(!!e, "no item in shop " + shop + ":" + i);
-                this.items.push(e);
-                this.soldOut[i] = false;
-            }
-        }
-
+    public async open(items, prices, onBuy, resetSoldout:boolean):Promise<void> {
+        this.items = items;
+        this.itemPrices = prices;
         this.refresh();
         return new Promise<void>((resolve, reject) => {
             this.onSel = (n) => {
@@ -93,7 +76,7 @@ class ShopView extends egret.DisplayObjectContainer {
                 }
 
                 var e = this.items[n];
-                var price = this.getPrice(e);
+                var price = this.itemPrices[e];
                 if (!this.player.addMoney(-price)) {
                     Utils.log("金币不足");
                     return;
@@ -121,7 +104,7 @@ class ShopView extends egret.DisplayObjectContainer {
                 gd.touchEnabled = false;
             } else {
                 var e = this.items[i];
-                this.prices[i].text = this.getPrice(e);
+                this.prices[i].text = this.itemPrices[e];
                 ViewUtils.setTexName(gd, ElemFactory.create(e).getElemImgRes() + "_png");
                 gd.touchEnabled = true;
             }
@@ -135,7 +118,7 @@ class ShopView extends egret.DisplayObjectContainer {
     async onSelItem(evt:egret.TouchEvent) {
         var n = evt.target["itemIndex"];
         var e = this.items[n];
-        var yesno = await this.confirmOkYesNo("确定购买 " + ViewUtils.getElemNameAndDesc(e).name + "，花费 " + this.getPrice(e) + " 金币 ?");
+        var yesno = await this.confirmOkYesNo("确定购买 " + ViewUtils.getElemNameAndDesc(e).name + "，花费 " + this.itemPrices[e] + " 金币 ?");
         if (yesno)
             this.onSel(n);
     }
