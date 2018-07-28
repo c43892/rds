@@ -287,7 +287,11 @@ class Battle {
 
     async checkPlayerLevelUpAndDie() {
         // 检查等级提升
-        if (this.player.checkLevelUp()) {
+        if (this.player.checkLevelUp()) {            
+            var relicChoices = Utils.randomSelectByWeightWithPlayerFilter(this.player, GCfg.playerCfg.levelUpChoices, this.srand, 3, 4, true);
+            await this.fireEvent("onPlayerLevelUp", {bt:this, choices:relicChoices});
+            await this.triggerLogicPoint("onPlayerLevelUp", {bt:this, choices:relicChoices});
+
             await this.fireEvent("onPlayerChanged", {subType:"lvUp", bt:this});
             await this.triggerLogicPoint("onPlayerChanged", {subType: "lvUp", bt:this});
         }

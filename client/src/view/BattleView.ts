@@ -331,20 +331,17 @@ class BattleView extends egret.DisplayObjectContainer {
         await this.aniView.onLevel(ps);
     }
 
-    // 角色变化
-    public async onPlayerChanged(ps) {
-        if (ps.subType == "lvUp") { // 等级提升
-            var bt:Battle = ps.bt;
-            await this.openPlayerLevelUpSels(bt.srand);
-        }
-    }
-
     // 打开商店
     public async onOpenShop(ps) {
         var items = ps.items;
         var prices = ps.prices;
         var onBuy = ps.onBuy;
         await this.openShop(items, prices, onBuy);
+    }
+
+    // 角色等级提升
+    public async onPlayerLevelUp(ps) {
+        await this.openPlayerLevelUpSels(ps.choices);
     }
 
     // n 选 1
