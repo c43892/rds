@@ -120,6 +120,16 @@ class Battle {
             await this.triggerLogicPoint("onGridChanged", {x:shopNpc.pos.x, y:shopNpc.pos.y, e:shopNpc, subType:"moveShopNpc"});
         }
 
+        // 将玩家从上一层带下来的元素置入
+        for(var e of this.player.elems2NextLevel){
+            var g = BattleUtils.findRandomEmptyGrid(this, false);
+            if(!g)
+                return;
+            
+            await this.implAddElemAt(e, g.pos.x, g.pos.y);
+        }
+        this.player.elems2NextLevel = [];
+
         await this.fireEvent("onStartupRegionUncovered");
         await this.triggerLogicPoint("onStartupRegionUncovered");
     }

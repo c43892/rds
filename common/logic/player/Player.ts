@@ -165,6 +165,9 @@ class Player {
             this.shield = 0;
     }
 
+    // 带到下一层去的Elem
+    public elems2NextLevel:Elem[] = [];
+
     // 序列化反序列化
 
     public toString():string {
@@ -176,12 +179,31 @@ class Player {
         for (var p of this.props)
             props.push(p.toString());
 
+        var elems2NextLevel = [];
+        for(var e of this.elems2NextLevel){
+            var elemInfo = {type:{}, attrs:{}, hp:{}, shield:{}};
+            if(e instanceof Relic || e instanceof Item || e instanceof Prop){
+                elemInfo.type = "RelicItemProp";
+                elemInfo.attrs = e.toString();
+                elems2NextLevel.push(elemInfo);
+            }
+            else if(e instanceof Monster){
+                elemInfo.type = e.type;
+                elemInfo.attrs = e.attrs;
+                elemInfo.hp = e.hp;
+                elemInfo.shield = e.shield;
+                elems2NextLevel.push(elemInfo);
+            }
+            else
+                Utils.log("Unknown type in elems2NextLevel");
+        }
+
         // 目前 buff 不参与
 
         var world = this.worldmap.toString();
         var srand = this.playerRandom.toString();
 
-        var pinfo = {relics:relics, props:props, world:world, srand:srand};
+        var pinfo = {relics:relics, props:props, elems2NextLevel:elems2NextLevel, world:world, srand:srand};
         for (var f of Player.serializableFields)
             pinfo[f] = this[f];
 
@@ -202,6 +224,19 @@ class Player {
 
         for (var prop of pinfo.props)
             p.props.push((<Prop>Elem.fromString(prop)).toProp());
+
+        for (var elemInfo of pinfo.elems2NextLevel){
+            if(elemInfo.type == "RelicItemProp"){
+                var e = Elem.fromString(elemInfo.attrs);
+                p.elems2NextLevel.push(e);
+            }
+            else {
+                var m = <Monster>ElemFactory.create(elemInfo.type, elemInfo.attrs);
+                m.hp = elemInfo.hp;
+                m.shield = elemInfo.shield;
+                p.elems2NextLevel.push(m);
+            }
+        }
 
         // 目前 buff 不参与
 
