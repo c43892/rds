@@ -13,7 +13,7 @@ class Battle {
     public bc:BattleCalculator; // 战斗计算器
     private lvCfg; // 当前关卡配置
 
-    public implOpenShop; // 执行打开商店的操作
+    public openShop; // 执行打开商店的操作
 
     constructor(randomseed:number, trueRandomSeed:number) {
         Utils.assert(randomseed != undefined, "the randomseed should be specified");
@@ -463,6 +463,21 @@ class Battle {
                 await this.fireEvent("onGridChanged", {x:x, y:y, subType:"gridUnblocked"});
             }
         };
+    }
+
+    // 尝试打开商店
+    public async try2openShop(npc:Monster, items, prices, onBuy) {
+        var elem;
+        var reserveNpc = await this.openShop(items, prices, async (e:Elem) => {
+            this.fireEventSync("onPlayerOp", {op:"tryBoughtFromShop", ps:{e:e.type, x:npc.pos.x, y:npc.pos.y}});
+            elem = e;
+            return true;
+        });
+
+        if (elem)
+            await onBuy(elem);
+
+        return reserveNpc;
     }
 
     // impl 开头的函数，通常对应具体的逻辑功能实现，提供给 Elem 使用

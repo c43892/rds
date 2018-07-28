@@ -69,7 +69,7 @@ class ShopView extends egret.DisplayObjectContainer {
         this.itemPrices = prices;
         this.refresh();
         return new Promise<void>((resolve, reject) => {
-            this.onSel = (n) => {
+            this.onSel = async (n) => {
                 if (this.soldOut[n]) {
                     Utils.log("已售罄");
                     return;
@@ -83,7 +83,7 @@ class ShopView extends egret.DisplayObjectContainer {
                 }
 
                 var elem = ElemFactory.create(e);
-                var closeShop = onBuy(elem);
+                var closeShop = await onBuy(elem);
                 this.soldOut[n] = true;
                 
                 if (closeShop)
@@ -120,6 +120,6 @@ class ShopView extends egret.DisplayObjectContainer {
         var e = this.items[n];
         var yesno = await this.confirmOkYesNo("确定购买 " + ViewUtils.getElemNameAndDesc(e).name + "，花费 " + this.itemPrices[e] + " 金币 ?");
         if (yesno)
-            this.onSel(n);
+            await this.onSel(n);
     }
 }

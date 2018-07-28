@@ -78,7 +78,7 @@ class MainView extends egret.DisplayObjectContainer {
         // 录像机如何启动新的录像战斗
         BattleRecorder.startNewBattleImpl = (p:Player, btType:string, btRandomSeed:number, trueRandomSeed:number) => {
             var bt = Battle.createNewBattle(p, btType, btRandomSeed, trueRandomSeed);
-            bt.implOpenShop = async (items, prices, onBuy) => {}; // 录像回放中的战斗内商店特殊处理
+            bt.openShop = async (items, prices, onBuy) => {}; // 录像回放中的战斗内商店特殊处理
             this.startNewBattle(bt);
         };
 
@@ -86,7 +86,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.startNewBattle = async (p:Player, btType:string, lv:number, n:number, btRandomSeed:number) => { 
             if (btType[0] != "_") btType = btType + "_" + lv;
             var bt = Battle.createNewBattle(p, btType, btRandomSeed);
-            bt.implOpenShop = async (items, prices, onBuy) => await this.openShopInBattle(items, prices, onBuy);
+            bt.openShop = async (items, prices, onBuy) => await this.openShopInBattle(items, prices, onBuy);
             BattleRecorder.startNew(bt.id, bt.player, bt.btType, bt.btRandomSeed, bt.trueRandomSeed);
             await this.startNewBattle(bt);
         }
