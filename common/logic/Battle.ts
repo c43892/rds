@@ -613,16 +613,12 @@ class Battle {
             return;
         }
 
-
         if (m.isBoss) { // boss 冰冻限制行动
             await m["makeFrozen"](frozenAttrs);
         } else { // 普通怪物生成冰块，转移掉落物品
             var ice = this.level.createElem("IceBlock");
-            ice.dropItems = m.dropItems;
-            m.dropItems = [];
-
+            m.dropItems.unshift(ice);
             await this.implOnElemDie(m);
-            await this.implAddElemAt(ice, m.pos.x, m.pos.y);
         }
         
         // 被冻结
