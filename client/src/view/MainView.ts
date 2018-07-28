@@ -253,6 +253,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.p = p;
         this.lgv.player = p;
         this.addChild(this.lgv);
+        this.lgv.open();
         this.lgv.onClose = (op:string) => {
             if (op == "openRank")
                 this.openRankView();
