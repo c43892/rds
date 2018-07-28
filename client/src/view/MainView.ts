@@ -36,8 +36,8 @@ class MainView extends egret.DisplayObjectContainer {
         // 战斗视图
         this.bv = new BattleView(w, h);
         this.bv.x = this.bv.y = 0;
-        this.bv.openShop = async (shop, rand, onBuy, refreshItems) => await this.openShop(shop, rand, onBuy, refreshItems);
-        this.bv.openPlayerLevelUpSels = async (rand) => await this.openPlayerLevelUpSels(rand);
+        this.bv.openShop = async (items, prices, onBuy) => await this.openShopInBattle(items, prices, onBuy);
+        this.bv.openPlayerLevelUpSels = async (choices) => await this.openPlayerLevelUpSels(choices);
 
         // 宝箱房间
         this.brv = new BoxRoomView(w, h);
@@ -77,22 +77,21 @@ class MainView extends egret.DisplayObjectContainer {
 
         // 录像机如何启动新的录像战斗
         BattleRecorder.startNewBattleImpl = (p:Player, btType:string, btRandomSeed:number, trueRandomSeed:number) => {
-            this.startNewBattle(Battle.createNewBattle(p, btType, btRandomSeed, trueRandomSeed));
+            var bt = Battle.createNewBattle(p, btType, btRandomSeed, trueRandomSeed);
+            bt.openShop = async (items, prices, onBuy) => {}; // 录像回放中的战斗内商店特殊处理
+            this.startNewBattle(bt);
         };
 
+        // 开始一场新战斗
         this.wmv.startNewBattle = async (p:Player, btType:string, lv:number, n:number, btRandomSeed:number) => { 
             if (btType[0] != "_") btType = btType + "_" + lv;
             var bt = Battle.createNewBattle(p, btType, btRandomSeed);
-            await this.startNewBattleWithRecorder(bt);
+            bt.openShop = async (items, prices, onBuy) => await this.openShopInBattle(items, prices, onBuy);
+            BattleRecorder.startNew(bt.id, bt.player, bt.btType, bt.btRandomSeed, bt.trueRandomSeed);
+            await this.startNewBattle(bt);
         }
     }
 
-    // 开始一场新的战斗
-    public async startNewBattleWithRecorder(bt:Battle)
-    {
-        BattleRecorder.startNew(bt.id, bt.player, bt.btType, bt.btRandomSeed, bt.trueRandomSeed);
-        await this.startNewBattle(bt);
-    }
     private battleEndedCallback;
     public async startNewBattle(bt:Battle) {
         Utils.log("start new battle with ", bt.btRandomSeed, bt.trueRandomSeed);
@@ -118,7 +117,7 @@ class MainView extends egret.DisplayObjectContainer {
 
         bt.registerEvent("onPlayerOp", (ps) => BattleRecorder.onPlayerOp(ps.op, ps.ps));
         bt.registerEvent("onLevel", (ps) => this.bv.onLevel(ps));
-        bt.registerEvent("onPlayerChanged", (ps) => this.bv.onPlayerChanged(ps));
+        bt.registerEvent("onPlayerLevelUp", (ps) => this.bv.onPlayerLevelUp(ps));
         bt.registerEvent("onOpenShop", (ps) => this.bv.onOpenShop(ps));
         bt.registerEvent("onPlayerDead", () => this.openPlayerDieView());
         Utils.registerEventHandlers(bt, [
@@ -162,16 +161,20 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 开启商店界面
-    public async openShop(shop, rand, onBuy, refreshItems:boolean = true) {
+    public async openShopInBattle(items, prices, onBuy) {
         this.sv.player = this.p;
         this.addChild(this.sv);
-        await this.sv.open(shop, rand, onBuy, refreshItems);
+        await this.sv.open(items, prices, onBuy, false);
         this.removeChild(this.sv);
     }
 
     // 世界地图上开启商店界面
     public async openShopOnWorldMap(shop) {
-        await this.openShop(shop, this.p.playerRandom, (elem:Elem) => this.p.addItem(elem));
+        this.sv.player = this.p;
+        this.addChild(this.sv);
+        var r = Utils.genRandomShopItems(this.p, shop, this.p.playerRandom, 6);
+        await this.sv.open(r.items, r.prices, (elem:Elem) => this.p.addItem(elem), true);
+        this.removeChild(this.sv);
     }
 
     // 打开医院界面
@@ -200,10 +203,10 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 打开升级界面
-    public async openPlayerLevelUpSels(rand) {
+    public async openPlayerLevelUpSels(choices) {
         this.pluv.player = this.p;
         this.addChild(this.pluv);
-        await this.pluv.open(GCfg.playerCfg.levelUpChoices, rand);
+        await this.pluv.open(choices);
         this.removeChild(this.pluv);
     }
 

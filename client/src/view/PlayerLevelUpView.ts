@@ -19,8 +19,8 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
     private choices = [];
 
     private doClose;
-    public async open(dropCfg, rand):Promise<void> {
-        this.choices = Utils.randomSelectByWeightWithPlayerFilter(this.player, dropCfg, rand, 3, 4, true);
+    public async open(choices):Promise<void> {
+        this.choices = choices;
         this.refresh();
         return new Promise<void>((resolve, reject) => this.doClose = resolve);
     }

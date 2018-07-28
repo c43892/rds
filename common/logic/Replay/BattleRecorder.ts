@@ -78,6 +78,11 @@ class BattleRecorder {
         BattleRecorder.onReplayOp("try2UseElemAt", async (ps) => { await ElemView.try2UseElemAt(bt.level.map.getElemAt(ps.x, ps.y), ps.tox, ps.toy); });
         BattleRecorder.onReplayOp("try2UseProp", async (ps) => { await PropView.try2UseProp(bt.player.props[ps.n]); });
         BattleRecorder.onReplayOp("try2UsePropAt", async (ps) => { await PropView.try2UsePropAt(bt.player.props[ps.n], ps.tox, ps.toy); });
+        BattleRecorder.onReplayOp("tryBoughtFromShop", async (ps) => {
+            var elem = bt.level.createElem(ps.e);
+            var g = BattleUtils.findNearestGrid(bt.level.map, {x:ps.x, y:ps.y}, (g:Grid) => !g.isCovered() && !g.getElem());
+            if (g) await bt.implAddElemAt(elem, g.pos.x, g.pos.y);
+        });
     }
 
     private static replayOpHandlers = {}; // 执行所有录像指令

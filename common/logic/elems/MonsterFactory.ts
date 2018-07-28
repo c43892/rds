@@ -647,20 +647,20 @@ class MonsterFactory {
 
     // 商店 npc 逻辑
     static makeShopNPC(m:Monster):Monster {
-        var firstTime = true;
         m.isHazard = () => false;
         m.canUse = () => true;
         m.canBeDragDrop = true;
         var onBuy = async (elem:Elem) => {
             var g = BattleUtils.findNearestGrid(m.bt().level.map, m.pos, (g:Grid) => !g.isCovered() && !g.getElem());
             if (g) await m.bt().implAddElemAt(elem, g.pos.x, g.pos.y);
-            return true; // 购买后关闭商店
         };
 
+        var shopItemAndPrice;
         m.use = async () => {
-            await m.bt().fireEvent("onOpenShop", {npc:m, shopCfg:m.attrs.shopCfg, rand:m.bt().srand, onBuy:onBuy, refreshItems:firstTime});
-            firstTime = false;
-            return false; // npc 不保留
+            if (!shopItemAndPrice)
+                shopItemAndPrice = Utils.genRandomShopItems(m.bt().player, m.attrs.shopCfg, m.bt().srand, 6);
+            await m.bt().try2openShop(m, shopItemAndPrice.items, shopItemAndPrice.prices, onBuy);
+            return true; // npc 不保留
         };
 
         return m;

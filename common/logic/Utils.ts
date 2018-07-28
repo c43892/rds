@@ -424,4 +424,22 @@ class Utils {
 
         return r;
     }
+
+    // 商店根据配置随机出现商品的逻辑
+    public static genRandomShopItems(player:Player, shop, rand, maxNum:number) {
+        var defaultPrice = GCfg.getShopCfg("price");
+        var cfg = GCfg.getShopCfg(shop);
+        var shopPrices = cfg.price;
+        var items = cfg.items;
+        var dropItems = [];
+        var prices = {};
+        for(var i = 0; i < maxNum; i++) {
+            var e = Utils.randomSelectByWeightWithPlayerFilter(player, items[i], rand, 1, 2, false)[0];
+            Utils.assert(!!e, "no item in shop " + shop + ":" + i);
+            dropItems.push(e);
+            prices[e] = shopPrices[e] != undefined ? shopPrices[e] : defaultPrice[e];
+        }
+
+        return {items:dropItems, prices:prices}
+    }
 }
