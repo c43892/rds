@@ -88,6 +88,13 @@ class RelicFactory {
             });
         },
 
+        // 机敏
+        "Agile": (attrs) => {
+            return this.createRelic(attrs, true, (r:Relic, enable:boolean) => {
+                r.player.dodge += (enable ? attrs.dDodge : -attrs.dDodge);
+            });
+        },
+
         // 凶暴
         "Fierce": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {

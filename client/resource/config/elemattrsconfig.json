@@ -22,6 +22,12 @@
             {"dPower":7}, {"dPower":8}, {"dPower":9}, {"dPower":10}
         ]
     },
+    "Agile":{"name":"机敏", "dDodge":10,
+    "reinforce":[
+            {"dDodge":15}, {"dDodge":20}, {"dDodge":25}, {"dDodge":30}, {"dDodge":35},
+            {"dDodge":40}, {"dDodge":45}, {"dDodge":50}
+        ]
+    },
     "Fierce":{"name":"凶暴", "dSneakCritical":5,
         "reinforce":[
             {"dSneakCritical":10}, {"dSneakCritical":20}, {"dSneakCritical":100}
@@ -70,6 +76,7 @@
     "SkeletonKing":{"name":"骷髅王", "rdp":"SkeletonKing"},
     "SwatheZombie":{"name":"缠绕僵尸", "invalid":["Cocoon"]},
     "BoxMonster":{"name":"愤怒宝箱"},
+    "Ghost":{"name":"幽灵"},
     "ShopNpc":{"name":"商人", "hp":5},
 
     "PlaceHolder":{"name":"Boss精英占位", "hideHazardNum":true, "invisible":true},

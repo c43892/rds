@@ -137,6 +137,7 @@ class MonsterFactory {
         "SkeletonKing": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //骷髅王僵尸
         "SwatheZombie": (attrs) => MonsterFactory.doSwatheItemsOnSneak(MonsterFactory.doAttackBack(this.createMonster(attrs))), //缠绕僵尸
         "BoxMonster": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //宝箱怪
+        "Ghost": (attrs) => MonsterFactory.doChaseToNextLevel(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //幽灵
 
         "ShopNpc": (attrs) => MonsterFactory.makeShopNPC(this.createMonster(attrs)),
 
@@ -615,8 +616,8 @@ class MonsterFactory {
     }
 
     // 会追着玩家进入下一层
-    static doChaseToNextLevel(m:Monster):Monster {
-        return ;
+    static doChaseToNextLevel(m:Monster):Monster {        
+        return <Monster>ElemFactory.addAI("beforeGoOutLevel1", async () => m.bt().player.elems2NextLevel.push(m), m);
     }
 
     // boss 特殊逻辑

@@ -1,7 +1,7 @@
 // 道具
 class Prop extends Elem {
     constructor() { super(); }
-    public toProp; // 从地上的道具物品，变成真正的遗物，这时才具备遗物逻辑
+    public toProp; // 从地上的道具物品，变成真正的物品，这时才具备物品逻辑
 }
 
 // 道具刚被创建时，是一个 item，其拾取操作，才生成一个道具到玩家身上
