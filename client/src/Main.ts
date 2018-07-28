@@ -78,6 +78,8 @@ class Main extends egret.DisplayObjectContainer {
         GCfg.getWorldMapEventSelGroupsCfg = (g) => worldmapeventselsCfg.groups[g];
         var multiLangCfg = RES.getRes("multilanguage_json");
         GCfg.getMultiLanguageCfg = () => multiLangCfg;
+        var elemDescCfg = RES.getRes("elemdesc_json");
+        GCfg.getElemDescCfg = () => elemDescCfg;
     }
 
     private mv:MainView;

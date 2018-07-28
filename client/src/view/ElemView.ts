@@ -233,7 +233,7 @@ class ElemView extends egret.DisplayObjectContainer {
                             ElemView.try2UseElem(e);
                         else {
                             if (!e.attrs.useWithoutConfirm)
-                                PropView.select1InN("确定使用 " + e.attrs.name, ["确定", "取消"], (c) => true, (c) => {
+                                PropView.select1InN("确定使用 " + ViewUtils.getElemNameAndDesc(e.type).name, ["确定", "取消"], (c) => true, (c) => {
                                     if (c == "确定")
                                         ElemView.try2UseElem(e);
                                 });

@@ -125,7 +125,7 @@ class WorldMapEventSelFactory {
                     sel = await this.selRelic("选择要强化的遗物", (r:Relic) => r.canReinfoce());
                     if (sel >= 0) {
                         var e:Relic = <Relic>p.relics[sel];
-                        var yesno = await this.confirmOkYesNo("确定强化 " + e.attrs.name, true);
+                        var yesno = await this.confirmOkYesNo("确定强化 " + ViewUtils.getElemNameAndDesc(e.type).name, true);
                         if (yesno)
                             e.reinforceLvUp();
                         else

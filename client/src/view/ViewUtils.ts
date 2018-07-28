@@ -84,8 +84,18 @@ class ViewUtils {
         return new TextButtonWithBg(fontSize, textColor, bgTexName);
     }
 
-    // 对给定显示对象进行多语言处理
     static languageCfg;
+
+    // 获取元素显示名称和描述信息
+    public static getElemNameAndDesc(e) {
+        if (!ViewUtils.languageCfg)
+            ViewUtils.languageCfg = GCfg.getMultiLanguageCfg();
+
+        var descCfg = GCfg.getElemDescCfg();
+        return descCfg[ViewUtils.languageCfg.currentLanguage][e];
+    }
+
+    // 对给定显示对象进行多语言处理
     public static multiLang(view, ...ps) {
         if (!ViewUtils.languageCfg)
             ViewUtils.languageCfg = GCfg.getMultiLanguageCfg();

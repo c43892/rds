@@ -83,7 +83,7 @@ class HospitalView extends egret.DisplayObjectContainer {
             sel = await this.selRelic("选择要强化的遗物", (r:Relic) => r.canReinfoce());
             if (sel >= 0) {
                 var e:Relic = <Relic>this.player.relics[sel];
-                var yesno = await this.confirmOkYesNo("确定强化 " + e.attrs.name, true);
+                var yesno = await this.confirmOkYesNo("确定强化 " + ViewUtils.getElemNameAndDesc(e.type).name, true);
                 if (yesno) {
                     e.reinforceLvUp();
                     this.doClose();
@@ -105,7 +105,7 @@ class HospitalView extends egret.DisplayObjectContainer {
             sel = await this.selRelic("选择要变异的遗物", (r) => true);
             if (sel >= 0) {
                 var e = this.player.relics[sel];
-                var yesno = await this.confirmOkYesNo("确定变异 " + e.attrs.name, true);
+                var yesno = await this.confirmOkYesNo("确定变异 " + ViewUtils.getElemNameAndDesc(e.type).name, true);
                 if (yesno) {
                     this.doClose();
                 } else

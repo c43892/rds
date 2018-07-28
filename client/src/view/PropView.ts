@@ -75,7 +75,7 @@ class PropView extends egret.DisplayObjectContainer {
     // 点击
     onTouchGrid(evt:egret.TouchEvent) {
         if (this.e.canUse())
-            PropView.select1InN("确定使用 " + this.e.attrs.name, ["确定", "取消"], (c) => true, (c) => {
+            PropView.select1InN("确定使用 " + ViewUtils.getElemNameAndDesc(this.e.type).name, ["确定", "取消"], (c) => true, (c) => {
                 if (c == "确定")
                     PropView.try2UseProp(this.e);
             });

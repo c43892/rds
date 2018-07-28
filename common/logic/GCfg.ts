@@ -11,4 +11,5 @@ class GCfg {
     public static getWorldMapEventSelsDesc;
     public static getWorldMapEventSelGroupsCfg; // 获取大地图事件组配置
     public static getMultiLanguageCfg; // 获取多语言配置
+    public static getElemDescCfg; // 获取元素描述文本配置
 }
