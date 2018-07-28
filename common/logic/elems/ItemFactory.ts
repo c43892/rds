@@ -173,7 +173,7 @@ class ItemFactory {
         "HeadBone": (attrs) => {
             var e = this.createItem();
             e.canBeDragDrop = true;
-            e = ElemFactory.addAI("onSneaking", async () => {
+            e = ElemFactory.addAI("onSneaked", async () => {
                 var grid = e.getGrid();
                 var bt = e.bt();
                 var newSnk = bt.level.createElem("SkeletonKing");

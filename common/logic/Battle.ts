@@ -666,8 +666,10 @@ class Battle {
     public async implMonsterSneak(sneakAct) {
         var sneakPs = {immunized:false}; // 可能被免疫
         await this.triggerLogicPoint("onSneaking", sneakPs);
-        if (!sneakPs.immunized)
+        if (!sneakPs.immunized) {
             await sneakAct();
+            await this.triggerLogicPoint("onSneaked", sneakPs);
+        }
     }
 
     // 角色尝试攻击指定位置
