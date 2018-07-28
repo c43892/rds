@@ -53,7 +53,8 @@
         },
         "constElems":{
             "Key": 1,
-            "Unback2Sneak":1
+            "Unback2Sneak":1,
+            "Bunny":10
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {

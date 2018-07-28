@@ -50,13 +50,10 @@ class ItemFactory {
         "Door": (attrs) => {
             var e = this.createItem();
             e.canBeDragDrop = false;
-            e.use = async () => { // 门被设定为不可以使用，但有一个 use 方法，其实是给 Key 调用的
-                var bt = e.bt();
-                await bt.implRemoveElemAt(e.pos.x, e.pos.y);
-                var pt = bt.level.createElem("NextLevelPort");
-                await bt.implAddElemAt(pt, e.pos.x, e.pos.y);
-            }
-
+            e = ElemFactory.elemCanUseManyTimes(attrs.cnt, async () => {
+                if (e.cnt <= 0) await e.bt().implOnElemDie(e);
+            })(e);
+            e.canUse = () => false; // 门被设定为不可以使用，use 方法是给 Key 调用的
             return e;
         },
 
@@ -132,6 +129,9 @@ class ItemFactory {
 
         // 牛排
         "Steak": (attrs) => ElemFactory.foodLogic(attrs.cnt, attrs.dhp)(this.createItem()),
+
+        // 石块
+        "Rock": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, undefined, true)(this.createItem()),
 
         // 冰冻块
         "IceBlock": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, undefined, true)(this.createItem()),

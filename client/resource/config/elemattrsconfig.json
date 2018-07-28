@@ -32,7 +32,7 @@
     
     "Coins":{"name":"金币", "cnt":1, "canOverlap":true, "useWithoutConfirm":true},
     "Key":{"name":"钥匙", "useWithTarget":true, "validTargets":["Door", "TreasureBox"]},
-    "Door":{"name":"门"},
+    "Door":{"name":"门", "cnt":1, "dropItems":["NextLevelPort"]},
     "TreasureBox":{"name":"宝箱"},
     "RandomEgg":{"name":"彩蛋"},
     "Clock":{"name":"钟表"},
