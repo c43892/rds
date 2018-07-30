@@ -148,7 +148,7 @@ class ItemFactory {
                 await e.bt().implNotifyElemChanged("coldown", e);
             }, e, (ps) => e.isValid() && ps.r.r == "attacked" && ps.subType == "monster2player");
             e = ElemFactory.triggerColdownLogic(e);
-            e.getElemImgRes = () => (e.cd <= 0) ? e.type + "1" : e.type + "2";
+            e.getElemImgRes = () => (e.cd <= 0) ? e.type : e.type + "back";
             return e;
         },
 
