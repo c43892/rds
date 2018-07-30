@@ -5,6 +5,8 @@
         "displayName": "普通战斗1",
 
         "map": {},
+        "doorUnlock": 1,
+        "extraTreasureBox": 20,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
@@ -53,7 +55,7 @@
             "MedicineBox": {}
         },
         "constElems":{
-            "Key": 1,
+            
             "Unback2Sneak":1
         },
         "randomGroups":[{
@@ -73,22 +75,7 @@
                 "Steak": 10,
                 "HpCapsule": 5
         }},{
-            "num":[1, 3], "elems": {
-                "TreasureBox1": 19,
-                "TreasureBox2": 19,
-                "MonsterBox": 2
-        }},{
-            "num":[2, 3], "drops":["Key"], "elems": {
-                "GoblinThief":10,
-                "Vampire":10,
-                "Gengar":10,
-                "BombAbomination":10,
-                "EyeDemon":10,
-                "Mummy":10,
-                "PoisonJellyfish":10,
-                "SkeletonKing":10
-        }},{
-            "num":[6, 7], "elems":{
+            "num":[8, 9], "elems":{
                 "GoblinThief":10,
                 "Vampire":10,
                 "Gengar":10,
@@ -104,6 +91,8 @@
     "normal_2": {
         "displayName": "普通战斗2",
         "map": {},
+        "doorUnlock": 1,
+        "extraTreasureBox": 20,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
@@ -129,7 +118,7 @@
             "MedicineBox": {}
         },
         "constElems":{
-            "Key": 1,
+            
             "Endurance":10
         },
         "randomGroups":[{
@@ -170,6 +159,8 @@
     "normal_3": {
         "displayName": "普通战斗3",
         "map": {},
+        "doorUnlock": 1,
+        "extraTreasureBox": 20,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
@@ -195,7 +186,7 @@
             "MedicineBox": {}
         },
         "constElems":{
-            "Key": 1
+            
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
@@ -235,6 +226,8 @@
     "normal_4": {
         "displayName": "普通战斗4",
         "map": {},
+        "doorUnlock": 1,
+        "extraTreasureBox": 20,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
@@ -260,7 +253,7 @@
             "MedicineBox": {}
         },
         "constElems":{
-            "Key": 1
+            
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
@@ -300,6 +293,8 @@
     "normal_5": {
         "displayName": "普通战斗5",
         "map": {},
+        "doorUnlock": 1,
+        "extraTreasureBox": 20,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
@@ -325,7 +320,7 @@
             "MedicineBox": {}
         },
         "constElems":{
-            "Key": 1
+            
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
@@ -365,6 +360,8 @@
     "normal_6": {
         "displayName": "普通战斗6",
         "map": {},
+        "doorUnlock": 1,
+        "extraTreasureBox": 20,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
@@ -393,7 +390,7 @@
             "MedicineBox": {}
         },
         "constElems":{
-            "Key": 1
+            
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
@@ -440,6 +437,8 @@
     "normal_7": {
         "displayName": "普通战斗7",
         "map": {},
+        "doorUnlock": 1,
+        "extraTreasureBox": 20,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
@@ -468,7 +467,7 @@
             "MedicineBox": {}
         },
         "constElems":{
-            "Key": 1
+            
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
@@ -512,6 +511,8 @@
     "normal_8": {
         "displayName": "普通战斗8",
         "map": {},
+        "doorUnlock": 1,
+        "extraTreasureBox": 20,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
@@ -540,7 +541,7 @@
             "MedicineBox": {}
         },
         "constElems":{
-            "Key": 1
+            
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
@@ -584,6 +585,8 @@
     "normal_9": {
         "displayName": "普通战斗9",
         "map": {},
+        "doorUnlock": 1,
+        "extraTreasureBox": 20,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
@@ -612,7 +615,7 @@
             "MedicineBox": {}
         },
         "constElems":{
-            "Key": 1
+            
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
@@ -656,6 +659,8 @@
     "normal_10": {
         "displayName": "普通战斗10",
         "map": {},
+        "doorUnlock": 1,
+        "extraTreasureBox": 20,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
@@ -684,7 +689,7 @@
             "MedicineBox": {}
         },
         "constElems":{
-            "Key": 1
+            
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
@@ -728,6 +733,8 @@
     "normal_11": {
         "displayName": "普通战斗11",
         "map": {},
+        "doorUnlock": 1,
+        "extraTreasureBox": 20,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
@@ -760,7 +767,7 @@
             "MedicineBox": {}
         },
         "constElems":{
-            "Key": 1
+            
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
@@ -815,6 +822,8 @@
     "normal_12": {
         "displayName": "普通战斗12",
         "map": {},
+        "doorUnlock": 1,
+        "extraTreasureBox": 20,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
@@ -847,7 +856,7 @@
             "MedicineBox": {}
         },
         "constElems":{
-            "Key": 1
+            
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
@@ -899,6 +908,8 @@
     "normal_13": {
         "displayName": "普通战斗13",
         "map": {},
+        "doorUnlock": 1,
+        "extraTreasureBox": 20,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
@@ -930,7 +941,7 @@
             "MedicineBox": {}
         },
         "constElems":{
-            "Key": 1
+            
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
@@ -982,6 +993,8 @@
     "normal_14": {
         "displayName": "普通战斗14",
         "map": {},
+        "doorUnlock": 1,
+        "extraTreasureBox": 20,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
@@ -1014,7 +1027,7 @@
             "MedicineBox": {}
         },
         "constElems":{
-            "Key": 1
+            
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
@@ -1066,10 +1079,13 @@
     "senior_1":{
         "displayName": "精英战斗1",
         "map": {},
+        "doorUnlock": 1,
+        "treasureBoxNum": 3,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
             "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
+            "TreasureBox3":{"type":"TreasureBox", "rdp":"rdp2"},
             "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
             "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
             "Bunny":{
@@ -1097,7 +1113,7 @@
             "MedicineBox": {}
         },
         "constElems":{
-            "Key": 1
+            
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
@@ -1115,23 +1131,7 @@
                 "HpCapsule": 5,
                 "HpPotion": 5
         }},{
-            "num":[1, 3], "elems": {
-                "TreasureBox1": 10,
-                "TreasureBox2": 10
-        }},{
-            "num":[2, 3], "drops":["Key"], "elems": {
-                "NormalZombie": 10,
-                "GoblinThief": 10,
-                "HoundZombie": 10,
-                "Vampire": 10,
-                "DancerZombie": 10,
-                "GluttonyZombie": 10,
-                "Gengar": 10,
-                "BombAbomination": 10,
-                "EyeDemon": 10,
-                "LustZombie": 10
-        }},{
-            "num":[10, 11], "elems":{
+            "num":[12, 13], "elems":{
                 "NormalZombie": 10,
                 "GoblinThief": 10,
                 "HoundZombie": 10,
@@ -1161,8 +1161,15 @@
     "boss_15": {
         "displayName": "Boss战斗15",
         "map": {},
+        "doorUnlock": 1,
+        "treasureBoxNum": 5,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
+            "TreasureBox3":{"type":"TreasureBox", "rdp":"rdp2"},
+            "TreasureBox4":{"type":"TreasureBox", "rdp":"rdp2"},
+            "TreasureBox5":{"type":"TreasureBox", "rdp":"rdp2"},
             "BossBunny":{"hp":20, "power":3},
             "ShopNpc":{"shopCfg":"inbattle"},
             "NormalZombie":{"hp":5, "power":1}
@@ -1180,10 +1187,15 @@
     "_abcd": {
         "displayName": "Boss战斗15",
         "map": {},
+        "doorUnlock": 1,
+        "treasureBoxNum": [5, 6],
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
             "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
+            "TreasureBox3":{"type":"TreasureBox", "rdp":"rdp2"},
+            "TreasureBox4":{"type":"TreasureBox", "rdp":"rdp2"},
+            "TreasureBox5":{"type":"TreasureBox", "rdp":"rdp2"},
             "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
             "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
             "Bunny":{
@@ -1212,7 +1224,7 @@
             "MedicineBox": {}
         },
         "constElems":{
-            "Key": 1,
+            
             "BossBunny": 1
         },
         "randomGroups":[{

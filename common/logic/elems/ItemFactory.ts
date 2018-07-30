@@ -60,6 +60,7 @@ class ItemFactory {
         // 宝箱，设定为不可以使用，但有一个 use 方法，其实是给 Key 调用的
         "TreasureBox": (attrs) => {
             var e = this.createItem();
+            e.canBeDragDrop = false;
             e.use = async () => {
                 await e.bt().implOnElemDie(e);
                 return true;
