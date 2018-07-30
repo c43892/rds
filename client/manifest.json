@@ -79,6 +79,9 @@
 		"bin-debug/view/TurntableView.js",
 		"bin-debug/view/ViewUtils.js",
 		"bin-debug/view/WorldMapSelsEventView.js",
-		"bin-debug/view/WorldMapView.js"
+		"bin-debug/view/WorldMapView.js",
+		"bin-debug/logic/LevelLogic/LevelLogic.js",
+		"bin-debug/logic/LevelLogic/LevelLogicFactory.js",
+		"bin-debug/logic/LevelLogic/LevelLogicBasic.js",
 	]
 }

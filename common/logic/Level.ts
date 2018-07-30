@@ -9,9 +9,10 @@ class Level {
         this.displayName = cfg.displayName;
         this.bt = bt;
         this.InitMap(cfg.map);
-        this.InitElems(cfg.elems, cfg.constElems, cfg.randomGroups, 
+        this.InitElems(bt.btType, cfg.elems, cfg.constElems, cfg.randomGroups, 
             GCfg.mapsize.w * GCfg.mapsize.h + cfg.init_uncovered.w + cfg.init_uncovered.h, 
-            cfg.init_uncovered);
+            cfg.init_uncovered, cfg.doorUnlock, cfg.extraTreasureBox, cfg.treasureBoxNum);
+        this.addLevelLogic(new LevelLogicBasic());
     }
 
     // 创建地图
@@ -53,7 +54,7 @@ class Level {
     }
 
     // 创建初始元素
-    public InitElems(elemsCfg, constElemsCfg, randomGroupsCfg, elemNumLimit, init_uncovered_size) {
+    public InitElems(btType:string, elemsCfg, constElemsCfg, randomGroupsCfg, elemNumLimit, init_uncovered_size, doorUnlock, extraTreasureBox, treasureBoxNum) {
         this.elemsCfgInLevel = elemsCfg;
         var maxNumLimit = 0; // 做最大可能数量的检查
         var elems = [
@@ -61,6 +62,9 @@ class Level {
             this.createElem("EscapePort", {size: init_uncovered_size}), // 逃跑出口
         ];
 
+        // 处理钥匙和宝箱
+        elems = this.addKeyAndTreasureBox(btType, elems, doorUnlock, extraTreasureBox, treasureBoxNum);       
+        
         // 添加固定元素
         for (var e in constElemsCfg) {
             let num = constElemsCfg[e];
@@ -147,6 +151,54 @@ class Level {
             var g = BattleUtils.findRandomEmptyGrid(this.bt, false);
             Utils.assert(!!g, "no more place for elem");
             this.map.addElemAt(e, g.pos.x, g.pos.y);
+        }
+    }
+
+    // 添加本关卡的钥匙和宝箱
+    public addKeyAndTreasureBox(btType:string, elems:Elem[], doorUnlock, extraTreasureBox, treasureBoxNum){
+        // 开门用的钥匙
+        for(var i = 0; i < doorUnlock; i++){
+            elems.push(this.createElem("Key"));
+        }
+       
+        // 开宝箱用的钥匙
+        var index = btType.indexOf("_");
+        var type = btType.substring(0 , index);
+
+        switch(type){
+            case "normal":{
+                elems.push(this.createElem("TreasureBox1"));
+                elems.push(this.createElem("Key"));
+                var tn = this.bt.srand.next100();
+                if(tn < extraTreasureBox){
+                    elems.push(this.createElem("TreasureBox2"));
+                    elems.push(this.createElem("Key"));
+                }
+                break;
+            }
+            default :{
+                for(var i = 0; i < treasureBoxNum; i++){
+                    elems.push(this.createElem("TreasureBox" + (i + 1)));
+                    elems.push(this.createElem("Key"));
+                }
+            }
+        }
+        return elems;
+    }
+
+    // 关卡逻辑
+    public levelLogics:LevelLogic[] = []; // 当前层具有的逻辑
+
+    public addLevelLogic(levelLogic:LevelLogic){
+        this.levelLogics.push(levelLogic);
+    }
+
+    public removeLevelLogic(type:string){
+        var n = Utils.indexOf(this.levelLogics, (l:LevelLogic) => l.type == type);
+        var levelLogic;
+        if (n >= 0) {
+            levelLogic = this.levelLogics[n];
+            this.levelLogics = Utils.removeAt(this.levelLogics, n);
         }
     }
 }

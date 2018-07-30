@@ -61,8 +61,8 @@ class Battle {
         this.level.RandomElemsPos(); // 先随机一下，免得看起来不好看
 
         await this.fireEvent("onLevel", {subType:"levelInited", bt:this});
-        await this.triggerLogicPoint("onLevelInited");
-
+        await this.triggerLogicPoint("onLevelInited", {bt:this});
+            
         this.level.RandomElemsPos(); // 随机元素位置
         await this.coverAllAtInit();
         await this.uncoverStartupRegion();
@@ -236,6 +236,9 @@ class Battle {
             if (e instanceof Monster)
                 hs.push(...e.buffs);
         }
+
+        // 关卡逻辑
+        hs.push(...this.level.levelLogics);
 
         return hs;
     }
