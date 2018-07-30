@@ -44,6 +44,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         }
         else if (e instanceof Relic) {
             uiArr = this.uis["relic"];
+            refresh = (e) => this.refreshRelicDesc(e);
         }
         else {
             uiArr = this.uis["item"];
@@ -57,7 +58,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
 
         refresh(e);
         ViewUtils.multiLang(this, ...uiArr);
-
+        
         return new Promise((resolve, reject) => {
             this.doClose = resolve;
         });
@@ -69,8 +70,31 @@ class ElemDescView extends egret.DisplayObjectContainer {
     }
 
     // 遗物，有头部（包含图标和名称等级描述），属性描述和变异描述三部分
+    relicDescBg:egret.Bitmap; // 背景
+    relicIcon:egret.Bitmap; // 图标
+    relicName:egret.TextField; // 名称
+    // relicLv:egret.TextField; // 等级
+    relicDesc:egret.TextField; // 描述
     buildRelicDescView() {
+        this.relicDescBg = ViewUtils.createBitmapByName("translucent_png");
+        this.relicDescBg.name = "relicDescBg";
+        this.relicIcon = new egret.Bitmap();
+        this.relicIcon.name = "relicIcon";
+        this.relicName = ViewUtils.createTextField(30, 0xff0000, false);
+        this.relicName.name = "relicName";
+        // this.relicLv = ViewUtils.createTextField(30, 0xff0000);
+        // this.relicLv.name = "relicLv";
+        this.relicDesc = ViewUtils.createTextField(18, 0xff0000);
+        this.relicDesc.name = "relicDesc";
+        return [this.relicDescBg, this.relicIcon, this.relicName, this.relicDesc];
+    }
 
+    refreshRelicDesc(e:Elem) {
+        ViewUtils.setTexName(this.relicIcon, e.getElemImgRes() + "_png");
+        var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
+        this.relicDesc.text = ViewUtils.replaceByProperties(nameAndDesc.desc, e);
+        this.relicName.textFlow = [{text: nameAndDesc.name, style:{"textColor":0xff0000, "size":30}},
+            {text: " Lv " + (<Relic>e).reinforceLv, style:{"textColor":0xff0000, "size":30}}];
     }
     
     // 物品只有名称和简单文字描述两部分
