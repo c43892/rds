@@ -6,7 +6,8 @@
         "Power":{"name":"力量", "desc":""},
         "Fierce":{"name":"凶暴", "desc":""},
         "Cloak":{"name":"披风", "desc":""},
-        "Unback2Sneak":{"name":"先动", "desc":"突袭敌人不会被反击"},
+        "Unback2Sneak":{"name":"先动", "desc":"<font color=#000000 size=20>这是一个遗物</font>\n<font color=#ffff00 size=30>先动啊！！</font>"},
+		"Agile":{"name":"敏捷", "desc":"<font color=#000000 size=20>这是一个遗物</font>\n<font color=#ffff00 size=30>敏捷啊！！</font>"},
         
         "Coins":{"name":"金币", "desc":""},
         "Key":{"name":"钥匙", "desc":""},
@@ -44,7 +45,8 @@
         "GreedyZombie":{"name":"贪婪僵尸", "desc":""},
         "ConfusionZombie":{"name":"疑惑僵尸", "desc":""},
         "Mummy":{"name":"木乃伊", "desc":""},
-        "PoisonJellyfish":{"name":"毒性水母", "desc":""},
+		
+        "PoisonJellyfish":{"name":"毒性水母", "desc":"<font color=#0000ff size=40>中毒\n</color><font color=#000000 size=20>水母是一种会使人中毒的生物</font>"},
         "SkeletonKing":{"name":"骷髅王", "desc":""},
         "SwatheZombie":{"name":"缠绕僵尸", "desc":""},
         "BoxMonster":{"name":"愤怒宝箱", "desc":""},
@@ -74,7 +76,8 @@
         "Power":{"name":"力量", "desc":""},
         "Fierce":{"name":"凶暴", "desc":""},
         "Cloak":{"name":"披风", "desc":""},
-        "Unback2Sneak":{"name":"先动", "desc":"突袭敌人不会被反击"},
+        "Unback2Sneak":{"name":"先动", "desc":[]},
+		"Agile":{"name":"敏捷", "desc":[]},
         
         "Coins":{"name":"金币", "desc":""},
         "Key":{"name":"钥匙", "desc":""},
@@ -141,8 +144,8 @@
         "Endurance":{"name":"耐力", "desc":""},
         "Power":{"name":"力量", "desc":""},
         "Fierce":{"name":"凶暴", "desc":""},
-        "Cloak":{"name":"披风", "desc":""},
-        "Unback2Sneak":{"name":"先动", "desc":"突袭敌人不会被反击"},
+        "Unback2Sneak":{"name":"先动", "desc":[]},
+		"Agile":{"name":"敏捷", "desc":[]},
         
         "Coins":{"name":"金币", "desc":""},
         "Key":{"name":"钥匙", "desc":""},

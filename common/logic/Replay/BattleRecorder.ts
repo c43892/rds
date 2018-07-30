@@ -81,10 +81,12 @@ class BattleRecorder {
         BattleRecorder.onReplayOp("tryBoughtFromShop", async (ps) => {
             var elem = bt.level.createElem(ps.e);
             var g = BattleUtils.findNearestGrid(bt.level.map, {x:ps.x, y:ps.y}, (g:Grid) => !g.isCovered() && !g.getElem());
+            elem.setBattle(bt);
             if (g) await bt.implAddElemAt(elem, g.pos.x, g.pos.y);
         });
         BattleRecorder.onReplayOp("try2SelRelics", async (ps) => {
             var e = bt.level.createElem(ps.relicType);
+            e.setBattle(bt);
             await bt.implAddPlayerRelic(e);
         });
     }
