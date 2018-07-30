@@ -7,6 +7,7 @@ class ElemView extends egret.DisplayObjectContainer {
     private showLayer:egret.DisplayObjectContainer; // 装入所有显示内容
     private opLayer:egret.TextField; // 专门用于接收操作事件
     private elemImg:egret.Bitmap; // 元素图
+    private markedImg:egret.Bitmap; // 被标记的怪物上面盖一层
     private banImg:egret.Bitmap; // 禁止符号
 
     private powerBg:egret.Bitmap;
@@ -25,6 +26,7 @@ class ElemView extends egret.DisplayObjectContainer {
         this.shieldBg = ViewUtils.createBitmapByName("monsterShieldBg_png");
 
         this.elemImg = new egret.Bitmap(); // 元素图
+        this.markedImg = ViewUtils.createBitmapByName("marked_png"); // 被标记怪物上面盖一层
         this.banImg = ViewUtils.createBitmapByName("ban_png"); // 禁止符号
         this.showLayer = new egret.DisplayObjectContainer(); // 显示层
         this.addChild(this.showLayer);
@@ -92,42 +94,28 @@ class ElemView extends egret.DisplayObjectContainer {
             case GridStatus.Marked: // 被标记
             case GridStatus.Uncovered: // 被揭开
                 Utils.assert(b.status != GridStatus.Marked || !e || e instanceof Monster, "only monster could be marked");
-                var colorFilters;
-                if (b.status == GridStatus.Marked) {
-                    var colorMatrix = [
-                        0.85,0,0,0,0,
-                        0.85,0,0,0,0,
-                        0.85,0,0,0,0,
-                        1,0,0,0,0
-                    ];
-                    colorFilters = [new egret.ColorMatrixFilter(colorMatrix)];
-                }
-
                 if (e && !e.attrs.invisible) { // 有元素显示元素图片
                     this.elemImg = ViewUtils.createBitmapByName(e.getElemImgRes() + "_png");
-                    this.elemImg.filters = colorFilters;
                     this.showLayer.addChild(this.elemImg);
                     if (e instanceof Monster) { // 怪物
                         var m = <Monster>e;
 
                         // 血量，右下角
-                        this.showLayer.addChild(this.hpBg);
-                        if (m.hp > 0) {
-                            this.hp.text = m.hp.toString();
-                            this.hp.x = m.hp >= 10 ? this.width - 23 : this.width - 22;
-                            this.hp.y = m.hp >= 10 ? this.height - 23 : this.height - 25;
-                            this.hp.filters = colorFilters;
-                            this.hp.size = m.hp >= 10 ? 15 : 20;
-                            this.showLayer.addChild(this.hp);
-                        }
+                        this.hpBg.x = this.width - this.hpBg.width; this.hpBg.y = this.height - this.hpBg.height;
+                        this.showLayer.addChild(this.hpBg);                        
+                        this.hp.text = m.hp.toString();
+                        this.hp.x = m.hp >= 10 ? this.width - 23 : this.width - 22;
+                        this.hp.y = m.hp >= 10 ? this.height - 23 : this.height - 25;
+                        this.hp.size = m.hp >= 10 ? 15 : 20;
+                        this.showLayer.addChild(this.hp);
                         
                         // 护盾，右上角
                         if (m.shield > 0) {
+                            this.shieldBg.x = this.width - this.shieldBg.width; this.shieldBg.y = 0;
                             this.showLayer.addChild(this.shieldBg);
                             this.shield.text = m.shield.toString();
                             this.shield.x = 2;
                             this.shield.y = 2;
-                            this.shield.filters = colorFilters;
                             this.shield.x = m.shield >= 10 ? this.width - 23 : this.width - 22;
                             this.shield.y = m.shield >= 10 ? 5 : 3;
                             this.shield.size = m.shield >= 10 ? 15 : 20;
@@ -136,18 +124,18 @@ class ElemView extends egret.DisplayObjectContainer {
 
                         // 攻击力，左下角
                         if (m.btAttrs.power > 0) {
+                            this.powerBg.x = 0; this.powerBg.y = this.height - this.powerBg.height;
                             this.showLayer.addChild(this.powerBg);
                             this.power.text = m.btAttrs.power.toString();
                             this.power.x = m.btAttrs.power >= 10 ? 4 : 6;
                             this.power.y = m.btAttrs.power >= 10 ? this.height - 23 : this.height - 25;
-                            this.power.filters = colorFilters;
                             this.power.size = m.btAttrs.power >= 10 ? 15 : 20;
                             this.showLayer.addChild(this.power);
                         }
 
                         this.refreshDropItem(); // 刷新掉落物品显示
-                        // if (this.dropElemImg)
-                        //     this.dropElemImg.filters = colorFilters;
+                        if (b.status == GridStatus.Marked) // 被标记怪物上面盖一层
+                            this.showLayer.addChild(this.markedImg);
                     } else if (!e.attrs.invisible && !this.map.isGenerallyValid(e.pos.x, e.pos.y) && e.type != "Hole") // 禁止符号
                         this.showLayer.addChild(this.banImg);
                 }
@@ -157,7 +145,7 @@ class ElemView extends egret.DisplayObjectContainer {
         var w = this.width;
         var h = this.height;
         
-        var arr = [this.showLayer, this.opLayer, this.elemImg, this.banImg];
+        var arr = [this.showLayer, this.opLayer, this.elemImg, this.banImg, this.markedImg];
         arr.forEach((a) => {
             a.x = 0;
             a.y = 0;
@@ -212,6 +200,7 @@ class ElemView extends egret.DisplayObjectContainer {
     public static try2BlockGrid; // 尝试设置/取消一个危险标志
     public static notifyLongPressStarted; // 通知长按开始计时
     public static notifyLongPressEnded; // 通知长按计时结束
+    public static showElemDesc; // 显示元素信息
 
     // 点击
     onTouchGrid(evt:egret.TouchEvent) {
@@ -273,7 +262,7 @@ class ElemView extends egret.DisplayObjectContainer {
         ElemView.notifyLongPressStarted(this.gx, this.gy, ElemView.LongPressThreshold);
     }
 
-    static onPressTimer() {
+    static async onPressTimer() {
         if (!ElemView.pressed)
             return;
 
@@ -289,6 +278,12 @@ class ElemView extends egret.DisplayObjectContainer {
             break;
             case GridStatus.Blocked:
                 ElemView.try2BlockGrid(g.pos.x, g.pos.y, false);
+            break;
+            case GridStatus.Uncovered:
+            case GridStatus.Marked:
+                var e = g.getElem();
+                if (e)
+                    await ElemView.showElemDesc(e);
             break;
         }
     }

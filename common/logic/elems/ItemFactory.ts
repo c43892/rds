@@ -24,6 +24,7 @@ class ItemFactory {
             e.cnt = attrs.cnt;
             e.canUse = () => true;
             e.use = async () => await e.bt().implAddMoney(e, e.cnt);
+            e.getElemImgRes = () => e.cnt >= 9 ? e.type + "9" : e.type + e.cnt;
             return e;
         },
 
@@ -123,7 +124,7 @@ class ItemFactory {
         },
 
         // 经验书
-        "Magazine": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, async (e:Elem) => await e.bt().implAddPlayerExp(attrs.dexp), true)(this.createItem()),
+        "Magazine": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, async (e:Elem) => await e.bt().implAddPlayerExp(attrs.dexp), (e) => e.type)(this.createItem()),
        
         // 苹果
         "Apple": (attrs) => ElemFactory.foodLogic(attrs.cnt, attrs.dhp)(this.createItem()),
@@ -132,10 +133,10 @@ class ItemFactory {
         "Steak": (attrs) => ElemFactory.foodLogic(attrs.cnt, attrs.dhp)(this.createItem()),
 
         // 石块
-        "Rock": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, undefined, true)(this.createItem()),
+        "Rock": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, undefined)(this.createItem()),
 
         // 冰冻块
-        "IceBlock": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, undefined, true)(this.createItem()),
+        "IceBlock": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, undefined, (e) => e.type)(this.createItem()),
 
         // 盾牌
         "Shield": (attrs) => {
@@ -148,7 +149,7 @@ class ItemFactory {
                 await e.bt().implNotifyElemChanged("coldown", e);
             }, e, (ps) => e.isValid() && ps.r.r == "attacked" && ps.subType == "monster2player");
             e = ElemFactory.triggerColdownLogic(e);
-            e.getElemImgRes = () => (e.cd <= 0) ? e.type + "1" : e.type + "2";
+            e.getElemImgRes = () => (e.cd <= 0) ? e.type : e.type + "back";
             return e;
         },
 

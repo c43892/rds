@@ -504,7 +504,9 @@ class Battle {
     public async try2SelRelics(choices) {
         await this.openRelicSel2Add(choices, async (relicType) => {
             this.fireEventSync("onPlayerOp", {op:"try2SelRelics", ps:{relicType:relicType}});
-            await this.implAddPlayerRelic(ElemFactory.create(relicType)); 
+            var r = ElemFactory.create(relicType);
+            r.setBattle(this);
+            await this.implAddPlayerRelic(r);
         });
     }
 
