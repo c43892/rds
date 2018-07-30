@@ -12,6 +12,7 @@ class MainView extends egret.DisplayObjectContainer {
     public pluv:PlayerLevelUpView; // 角色升级界面
     public tcv:TipConfirmView; // 提示确认视图
     public rankv:RankingView; // 排行榜视图
+    public idv:ElemDescView; // 怪物、遗物、物品描述视图
     
     public constructor(w:number, h:number) {
         super();
@@ -60,18 +61,22 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.openBoxRoom = async (openBoxRoom) => await this.openBoxRoom(openBoxRoom);
         this.wmv.openTurntable = async () => await this.openTurntable();
         this.wmv.openEventSels = async (title, desc, sels) => await this.openWorldMapEventSels(title, desc, sels);
-        this.wmv.confirmOkYesNo = (title, yesno) => this.confirmOkYesNo(title, yesno);
-        this.wmv.selRelic = (title, f) => this.openSelRelic(title, f);
-        this.wmv.openPlayerDieView = () => this.openPlayerDieView();
+        this.wmv.confirmOkYesNo = async (title, yesno) => await this.confirmOkYesNo(title, yesno);
+        this.wmv.selRelic = async (title, f) => await this.openSelRelic(title, f);
+        this.wmv.openPlayerDieView = async () => await this.openPlayerDieView();
 
         // 医院视图
         this.hv = new HospitalView(w, h);
         this.hv.x = this.hv.y = 0;
-        this.hv.confirmOkYesNo = (title, yesno) => this.confirmOkYesNo(title, yesno);
-        this.hv.selRelic = (title, f) => this.openSelRelic(title, f);
+        this.hv.confirmOkYesNo = async (title, yesno) => await this.confirmOkYesNo(title, yesno);
+        this.hv.selRelic = async (title, f) => await this.openSelRelic(title, f);
 
         // 排行榜视图
         this.rankv = new RankingView(w, h);
+
+        // 元素描述信息视图
+        this.idv = new ElemDescView(w, h);
+        ElemView.showElemDesc = async (e) => await this.showElemDesc(e);
 
         // 录像机如何启动新的录像战斗
         BattleRecorder.startNewBattleImpl = (p:Player, btType:string, btRandomSeed:number, trueRandomSeed:number) => {
@@ -282,6 +287,14 @@ class MainView extends egret.DisplayObjectContainer {
         await this.confirmOkYesNo("不幸死亡", false);
         this.p = undefined;
         this.openStartup(undefined);
+    }
+
+    // 显示元素描述信息
+    public async showElemDesc(e:Elem) {
+        this.addChild(this.idv);
+        this.setChildIndex(this.idv, -1);
+        await this.idv.open(e);
+        this.removeChild(this.idv);
     }
 
     // yesno

@@ -87,12 +87,12 @@ class ViewUtils {
     static languageCfg;
 
     // 获取元素显示名称和描述信息
-    public static getElemNameAndDesc(e) {
+    public static getElemNameAndDesc(eType:string) {
         if (!ViewUtils.languageCfg)
             ViewUtils.languageCfg = GCfg.getMultiLanguageCfg();
 
         var descCfg = GCfg.getElemDescCfg();
-        return descCfg[ViewUtils.languageCfg.currentLanguage][e];
+        return descCfg[ViewUtils.languageCfg.currentLanguage][eType];
     }
 
     // 对给定显示对象进行多语言处理
@@ -129,5 +129,21 @@ class ViewUtils {
             if (p instanceof TextButtonWithBg)
                 (<TextButtonWithBg>p).refresh();
         }
+    }
+
+    // 根据对象身上的动态属性，替换掉目标字符串中的 {propertyName} 标签
+    public static replaceByProperties(s:string, e):string {
+        const r = /\{*\}/g;
+        const m = r.exec(s);
+        var ss = s;
+        if (m) {
+            m.forEach((value, index) => {
+                var v = e[value];
+                if (v != undefined)
+                    ss = ss.replace(value, v.toString());
+            });
+        }
+
+        return ss;
     }
 }

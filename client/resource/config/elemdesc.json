@@ -17,7 +17,7 @@
         "HpCapsule":{"name":"医疗药剂", "desc":""},
         "DePoison":{"name":"解毒药剂", "desc":""},
         "Magazine":{"name":"自然杂志", "desc":""},
-        "Shield":{"name":"盾牌", "desc":""},
+        "Shield":{"name":"盾牌", "desc":"这是一个英文盾牌"},
         "HeadBone":{"name":"骷髅头", "desc":""},
 
         "DeathGod":{"name":"死神", "desc":""},
@@ -85,7 +85,7 @@
         "HpCapsule":{"name":"医疗药剂", "desc":""},
         "DePoison":{"name":"解毒药剂", "desc":""},
         "Magazine":{"name":"自然杂志", "desc":""},
-        "Shield":{"name":"盾牌", "desc":""},
+        "Shield":{"name":"盾牌", "desc":"这是一个盾牌"},
         "HeadBone":{"name":"骷髅头", "desc":""},
 
         "DeathGod":{"name":"死神", "desc":""},
@@ -153,7 +153,7 @@
         "HpCapsule":{"name":"医疗药剂", "desc":""},
         "DePoison":{"name":"解毒药剂", "desc":""},
         "Magazine":{"name":"自然杂志", "desc":""},
-        "Shield":{"name":"盾牌", "desc":""},
+        "Shield":{"name":"盾牌", "desc":"这是一个盾牌"},
         "HeadBone":{"name":"骷髅头", "desc":""},
 
         "DeathGod":{"name":"死神", "desc":""},

@@ -199,6 +199,7 @@ class ElemView extends egret.DisplayObjectContainer {
     public static try2BlockGrid; // 尝试设置/取消一个危险标志
     public static notifyLongPressStarted; // 通知长按开始计时
     public static notifyLongPressEnded; // 通知长按计时结束
+    public static showElemDesc; // 显示元素信息
 
     // 点击
     onTouchGrid(evt:egret.TouchEvent) {
@@ -260,7 +261,7 @@ class ElemView extends egret.DisplayObjectContainer {
         ElemView.notifyLongPressStarted(this.gx, this.gy, ElemView.LongPressThreshold);
     }
 
-    static onPressTimer() {
+    static async onPressTimer() {
         if (!ElemView.pressed)
             return;
 
@@ -276,6 +277,12 @@ class ElemView extends egret.DisplayObjectContainer {
             break;
             case GridStatus.Blocked:
                 ElemView.try2BlockGrid(g.pos.x, g.pos.y, false);
+            break;
+            case GridStatus.Uncovered:
+            case GridStatus.Marked:
+                var e = g.getElem();
+                if (e)
+                    await ElemView.showElemDesc(e);
             break;
         }
     }
