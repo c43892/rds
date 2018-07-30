@@ -136,7 +136,7 @@ class ElemFactory {
     }
 
     // 可多次直接使用的物品
-    static elemCanUseManyTimes(cnt:number, useAct, fixImgRes = false) {
+    static elemCanUseManyTimes(cnt:number, useAct, getImgResFun = undefined) {
         return (e:Elem) => {
             e.cnt = cnt;         
             e.canUse = () => true;
@@ -145,7 +145,8 @@ class ElemFactory {
                 if (useAct) await useAct(e);
                 return e.cnt > 0;
             };
-            if (!fixImgRes) e.getElemImgRes = () => e.type + e.cnt;
+
+            e.getElemImgRes = getImgResFun ? () => getImgResFun(e) : () => e.type + e.cnt;
             return e;
         };
     }
@@ -166,13 +167,13 @@ class ElemFactory {
     }
 
     // 武器逻辑
-    static weaponLogic(cnt:number, fixImgRes = false) {
-        return ElemFactory.elemCanUseAtManyTimes(cnt, async (e, x, y) => await e.bt().implPlayerAttackAt(x, y, e), fixImgRes);
+    static weaponLogic(cnt:number, getImgResFun = undefined) {
+        return ElemFactory.elemCanUseAtManyTimes(cnt, async (e, x, y) => await e.bt().implPlayerAttackAt(x, y, e), getImgResFun);
     }
 
     // 食物
-    static foodLogic(cnt:number, dhp:number, fixImgRes = false) {
-        return ElemFactory.elemCanUseManyTimes(cnt, async (e:Elem) => await e.bt().implAddPlayerHp(dhp), fixImgRes);
+    static foodLogic(cnt:number, dhp:number, getImgResFun = undefined) {
+        return ElemFactory.elemCanUseManyTimes(cnt, async (e:Elem) => await e.bt().implAddPlayerHp(dhp), getImgResFun);
     }
 
     // cd 逻辑

@@ -10,11 +10,11 @@
 	],
 	"game": [
 		"bin-debug/logic/elems/Elem.js",
+		"bin-debug/logic/elems/MonsterFactory.js",
+		"bin-debug/logic/elems/PropFactory.js",
 		"bin-debug/logic/elems/RelicFactory.js",
 		"bin-debug/logic/buffs/Buff.js",
 		"bin-debug/logic/elems/ItemFactory.js",
-		"bin-debug/logic/elems/MonsterFactory.js",
-		"bin-debug/logic/elems/PropFactory.js",
 		"bin-debug/logic/map/Map.js",
 		"bin-debug/logic/GCfg.js",
 		"bin-debug/logic/Level.js",
@@ -44,7 +44,7 @@
 		"bin-debug/logic/elems/Relic.js",
 		"bin-debug/logic/BattleUtils.js",
 		"bin-debug/logic/map/Grid.js",
-		"bin-debug/view/WorldMapView.js",
+		"bin-debug/Main.js",
 		"bin-debug/logic/player/Occupation.js",
 		"bin-debug/logic/player/Player.js",
 		"bin-debug/logic/Replay/BattleRecorder.js",
@@ -62,6 +62,7 @@
 		"bin-debug/view/ElemView.js",
 		"bin-debug/view/GridView.js",
 		"bin-debug/view/HospitalView.js",
+		"bin-debug/view/ItemDescView.js",
 		"bin-debug/view/LoginView.js",
 		"bin-debug/view/MainView.js",
 		"bin-debug/view/MapView.js",
@@ -78,6 +79,6 @@
 		"bin-debug/view/TurntableView.js",
 		"bin-debug/view/ViewUtils.js",
 		"bin-debug/view/WorldMapSelsEventView.js",
-		"bin-debug/Main.js"
+		"bin-debug/view/WorldMapView.js"
 	]
 }
