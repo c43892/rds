@@ -206,8 +206,8 @@ class MonsterFactory {
     // 设定偷袭逻辑
     static addSneakAI(act, m:Monster):Monster {
         return <Monster>ElemFactory.addAI("onGridChanged", 
-            async () => { Utils.log("sneaked"); await m.bt().implMonsterSneak(act); },
-        m, (ps) => !ps.suppressSneak && ps.x == m.pos.x && ps.y == m.pos.y && ps.subType == "gridUncovered" && ps.stateBeforeUncover != GridStatus.Marked);
+            async () => await m.bt().implMonsterSneak(act), m,
+                (ps) => !ps.suppressSneak && ps.x == m.pos.x && ps.y == m.pos.y && ps.subType == "gridUncovered" && ps.stateBeforeUncover != GridStatus.Marked);
     }
 
     // 偷袭：攻击

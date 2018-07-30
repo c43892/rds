@@ -101,17 +101,17 @@ class ElemView extends egret.DisplayObjectContainer {
                         var m = <Monster>e;
 
                         // 血量，右下角
-                        this.showLayer.addChild(this.hpBg);
-                        if (m.hp > 0) {
-                            this.hp.text = m.hp.toString();
-                            this.hp.x = m.hp >= 10 ? this.width - 23 : this.width - 22;
-                            this.hp.y = m.hp >= 10 ? this.height - 23 : this.height - 25;
-                            this.hp.size = m.hp >= 10 ? 15 : 20;
-                            this.showLayer.addChild(this.hp);
-                        }
+                        this.hpBg.x = this.width - this.hpBg.width; this.hpBg.y = this.height - this.hpBg.height;
+                        this.showLayer.addChild(this.hpBg);                        
+                        this.hp.text = m.hp.toString();
+                        this.hp.x = m.hp >= 10 ? this.width - 23 : this.width - 22;
+                        this.hp.y = m.hp >= 10 ? this.height - 23 : this.height - 25;
+                        this.hp.size = m.hp >= 10 ? 15 : 20;
+                        this.showLayer.addChild(this.hp);
                         
                         // 护盾，右上角
                         if (m.shield > 0) {
+                            this.shieldBg.x = this.width - this.shieldBg.width; this.shieldBg.y = 0;
                             this.showLayer.addChild(this.shieldBg);
                             this.shield.text = m.shield.toString();
                             this.shield.x = 2;
@@ -124,6 +124,7 @@ class ElemView extends egret.DisplayObjectContainer {
 
                         // 攻击力，左下角
                         if (m.btAttrs.power > 0) {
+                            this.powerBg.x = 0; this.powerBg.y = this.height - this.powerBg.height;
                             this.showLayer.addChild(this.powerBg);
                             this.power.text = m.btAttrs.power.toString();
                             this.power.x = m.btAttrs.power >= 10 ? 4 : 6;

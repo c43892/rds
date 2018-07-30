@@ -6,7 +6,7 @@
         "Power":{"name":"力量", "desc":""},
         "Fierce":{"name":"凶暴", "desc":""},
         "Cloak":{"name":"披风", "desc":""},
-        "Unback2Sneak":{"name":"先动", "desc":""},
+        "Unback2Sneak":{"name":"先动", "desc":"突袭敌人不会被反击"},
         
         "Coins":{"name":"金币", "desc":""},
         "Key":{"name":"钥匙", "desc":""},
@@ -74,7 +74,7 @@
         "Power":{"name":"力量", "desc":""},
         "Fierce":{"name":"凶暴", "desc":""},
         "Cloak":{"name":"披风", "desc":""},
-        "Unback2Sneak":{"name":"先动", "desc":""},
+        "Unback2Sneak":{"name":"先动", "desc":"突袭敌人不会被反击"},
         
         "Coins":{"name":"金币", "desc":""},
         "Key":{"name":"钥匙", "desc":""},
@@ -142,7 +142,7 @@
         "Power":{"name":"力量", "desc":""},
         "Fierce":{"name":"凶暴", "desc":""},
         "Cloak":{"name":"披风", "desc":""},
-        "Unback2Sneak":{"name":"先动", "desc":""},
+        "Unback2Sneak":{"name":"先动", "desc":"突袭敌人不会被反击"},
         
         "Coins":{"name":"金币", "desc":""},
         "Key":{"name":"钥匙", "desc":""},

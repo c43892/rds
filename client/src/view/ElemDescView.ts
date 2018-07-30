@@ -41,6 +41,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         var refresh;
         if (e instanceof Monster) {
             uiArr = this.uis["monster"];
+            refresh = (e) => this.refreshMonsterDesc(e);
         }
         else if (e instanceof Relic) {
             uiArr = this.uis["relic"];
@@ -65,15 +66,90 @@ class ElemDescView extends egret.DisplayObjectContainer {
     }
 
     // 怪物，有头部（包含图标和基本属性值），多条属性描述
+    monsterBg:egret.Bitmap; // 背景
+    monsterIcon:egret.Bitmap; // 怪物头像
+    powerBg:egret.Bitmap;
+    powerTxt:egret.TextField;
+    hpBg:egret.Bitmap;
+    hpTxt:egret.TextField;
+    moveRangeBg:egret.Bitmap;
+    moveRangeTxt:egret.TextField;
+    shieldBg:egret.Bitmap;
+    shieldTxt:egret.TextField;
+    attackIntervalBg:egret.Bitmap;
+    attackIntervalTxt:egret.TextField;
     buildMonsterDescView() {
+        this.monsterBg = ViewUtils.createBitmapByName("translucent_png");
+        this.monsterBg.name = "monsterBg";
+        this.monsterIcon = new egret.Bitmap();
+        this.monsterIcon.name = "monsterIcon";
+        
+        this.powerBg = ViewUtils.createBitmapByName("monsterPowerBg_png");
+        this.powerTxt = ViewUtils.createTextField(25, 0xff0000, false);
+        this.hpBg = ViewUtils.createBitmapByName("monsterHpBg_png");
+        this.hpTxt = ViewUtils.createTextField(25, 0xffff00, false);
+        this.moveRangeBg = ViewUtils.createBitmapByName("monsterMoveRangeBg_png");
+        this.moveRangeTxt = ViewUtils.createTextField(25, 0x0000ff, false);
+        this.shieldBg = ViewUtils.createBitmapByName("monsterShieldBg_png");
+        this.shieldTxt = ViewUtils.createTextField(25, 0x0000ff, false);
+        this.attackIntervalBg = ViewUtils.createBitmapByName("monsterAttackIntervalBg_png");
+        this.attackIntervalTxt = ViewUtils.createTextField(25, 0x0000ff, false);
 
+        return [this.monsterBg, this.monsterIcon];
+    }
+
+    refreshMonsterDesc(e:Elem) {
+        var m = <Monster>e;
+        ViewUtils.setTexName(this.monsterIcon, m.getElemImgRes() + "_png");
+
+        var n = 1;
+        var attrs = [];
+        this.powerTxt.text = m.attrs.power.toString();
+        this.powerTxt.name = "attrtxt" + n;
+        this.powerBg.name = "attrbg" + n;
+        attrs.push(this.powerBg, this.powerTxt);
+        n++;
+
+        this.hpTxt.text = m.hp.toString();
+        this.hpTxt.name = "attrtxt" + n;
+        this.hpBg.name = "attrbg" + n;
+        attrs.push(this.hpBg, this.hpTxt);
+        n++;
+
+        if (m.attrs.moveRange > 0) {
+            this.moveRangeTxt.text = m.attrs.moveRange.toString();
+            this.moveRangeTxt.name = "attrtxt" + n;
+            this.moveRangeBg.name = "attrbg" + n;
+            attrs.push(this.moveRangeBg, this.moveRangeTxt);
+            n++;
+        }
+
+        if (m.shield > 0) {
+            this.shieldTxt.text = m.shield.toString();
+            this.shieldTxt.name = "attrtxt" + n;
+            this.shieldBg.name = "attrbg" + n;
+            attrs.push(this.shieldBg, this.shieldTxt);
+            n++;
+        }
+
+        if (m.attrs.attackInterval > 0) {
+            this.attackIntervalTxt.text = m.attrs.attackInterval.toString();
+            this.attackIntervalTxt.name = "attrtxt" + n;
+            this.attackIntervalBg.name = "attrbg" + n;
+            attrs.push(this.attackIntervalBg, this.attackIntervalTxt);
+            n++;
+        }
+
+        for (var ui of attrs)
+            this.addChild(ui);
+
+        ViewUtils.multiLang(this, ...attrs);
     }
 
     // 遗物，有头部（包含图标和名称等级描述），属性描述和变异描述三部分
     relicDescBg:egret.Bitmap; // 背景
     relicIcon:egret.Bitmap; // 图标
     relicName:egret.TextField; // 名称
-    // relicLv:egret.TextField; // 等级
     relicDesc:egret.TextField; // 描述
     buildRelicDescView() {
         this.relicDescBg = ViewUtils.createBitmapByName("translucent_png");
@@ -82,8 +158,6 @@ class ElemDescView extends egret.DisplayObjectContainer {
         this.relicIcon.name = "relicIcon";
         this.relicName = ViewUtils.createTextField(30, 0xff0000, false);
         this.relicName.name = "relicName";
-        // this.relicLv = ViewUtils.createTextField(30, 0xff0000);
-        // this.relicLv.name = "relicLv";
         this.relicDesc = ViewUtils.createTextField(18, 0xff0000);
         this.relicDesc.name = "relicDesc";
         return [this.relicDescBg, this.relicIcon, this.relicName, this.relicDesc];
@@ -94,7 +168,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
         this.relicDesc.text = ViewUtils.replaceByProperties(nameAndDesc.desc, e);
         this.relicName.textFlow = [{text: nameAndDesc.name, style:{"textColor":0xff0000, "size":30}},
-            {text: " Lv " + (<Relic>e).reinforceLv, style:{"textColor":0xff0000, "size":30}}];
+            {text: " Lv " + ((<Relic>e).reinforceLv + 1), style:{"textColor":0xff0000, "size":30}}];
     }
     
     // 物品只有名称和简单文字描述两部分
