@@ -4,7 +4,7 @@ class AniView extends egret.DisplayObjectContainer {
     private blackCover:egret.Bitmap; // 黑屏用的遮挡
 
     private aniCover:egret.Bitmap; // 播放动画时的操作屏蔽层
-    private aniFact:AnimationFactory; // 动画工厂
+    public aniFact:AnimationFactory; // 动画工厂
 
     public constructor(w:number, h:number, mainView:BattleView) {
         super();
@@ -27,14 +27,14 @@ class AniView extends egret.DisplayObjectContainer {
         this.aniCover.width = this.width;
         this.aniCover.height = this.height;
         this.aniCover.touchEnabled = true;
-        if (this.getChildByName(this.aniCover.name) != undefined)
+        if (this.contains(this.aniCover))
             this.removeChild(this.aniCover);
 
         // 黑屏用的遮挡
         this.blackCover.width = this.width;
         this.blackCover.height = this.height;
         this.blackCover.touchEnabled = true;
-        if (this.getChildByName(this.blackCover.name) != undefined)
+        if (this.contains(this.blackCover))
             this.removeChild(this.blackCover);
     }
 
@@ -47,6 +47,7 @@ class AniView extends egret.DisplayObjectContainer {
             this.removeChild(this.aniCover);
     }
 
+    // 开始环形进度条
     public async onCycleStart(img:egret.Bitmap, ps) {
         var eImg = this.mv.mapView.getGridViewAt(ps.x, ps.y);
         ps.r = eImg.width;

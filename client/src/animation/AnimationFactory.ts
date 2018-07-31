@@ -6,7 +6,7 @@ class AnimationFactory {
 
     // 创建指定类型的动画
     public createAni(aniType:string, ps = undefined):Promise<void> {
-        var ani:Promise<void>;
+        var ani:egret.Tween;
         switch (aniType) {
             case "elemChanged": ani = this.monsterChanged(ps.m); break;
             case "playerChanged": ani = this.playerChanged(); break;
@@ -14,21 +14,23 @@ class AnimationFactory {
             case "monsterAttackPlayer": ani = this.monsterAttackPlayer(); break;
             case "moving": ani = this.moving(ps.obj, ps.path); break;
             case "fade": ani = this.fade(ps.img, ps); break;
-            case "moneyMoving": ani = Utils.delay(100); break;
-            case "suckBlood": ani = Utils.delay(100); break;
-            case "monsterTakeElem": ani = Utils.delay(100); break;
+            case "moneyMoving": ani = undefined; break;
+            case "suckBlood": ani = undefined; break;
+            case "monsterTakeElem": ani = undefined; break;
             case "cycleMask": ani = this.cycleMask(ps.img, ps); break;
         }
-        
-        Utils.assert(ani != undefined, "unknown aniType: " + aniType);
-        if (ps && !ps.noWait)
-            this.notifyAniStarted(ani, aniType, ps);
 
-        return ani;
+        if (!ani) Utils.log("unknown aniType: " + aniType);
+        
+        var aw = ani ? new Promise<void>((resolve, rejrect) => ani.call(resolve)) : Utils.delay(10);
+        if (ps && !ps.noWait)
+            this.notifyAniStarted(aw, aniType, ps);
+
+        return aw;
     }
 
     // 创建按指定路径移动的动画
-    moving(g:egret.DisplayObject, path):Promise<void> {
+    moving(g:egret.DisplayObject, path):egret.Tween {
         var tw = egret.Tween.get(g);
         for (var pt of path) {
             var x = pt.x;
@@ -36,31 +38,35 @@ class AnimationFactory {
             tw = tw.to({x:x, y:y}, 250, egret.Ease.quintInOut);
         }
 
-        return new Promise<void>((resolve, reject) => tw.call(resolve));
+        return tw;
     }
 
     // 创建怪物攻击玩家角色的特效
-    monsterAttackPlayer():Promise<void> {
-        return Utils.delay(100);
+    monsterAttackPlayer():egret.Tween {
+        // return Utils.delay(100);
+        return undefined;
     }
 
     // 创建玩家角色攻击怪物的特效
-    playerAttackMonster():Promise<void> {
-        return Utils.delay(100);
+    playerAttackMonster():egret.Tween {
+        // return Utils.delay(100);
+        return undefined;
     }
 
     // 玩家角色属性变化
-    playerChanged():Promise<void> {
-        return Utils.delay(100);
+    playerChanged():egret.Tween {
+        // return Utils.delay(100);
+        return undefined;
     }
 
     // 怪物属性变化
-    monsterChanged(m:Monster):Promise<void> {
-        return Utils.delay(100);
+    monsterChanged(m:Monster):egret.Tween {
+        // return Utils.delay(100);
+        return undefined;
     }
 
     // 渐隐渐显
-    fade(g:egret.Bitmap, ps):Promise<void> {
+    fade(g:egret.DisplayObject, ps):egret.Tween {
         // properties from
         g.alpha = ps.fa != undefined ? ps.fa : g.alpha;
         g.x = ps.fx != undefined ? ps.fx : g.x;
@@ -78,11 +84,11 @@ class AnimationFactory {
 
         var tw = egret.Tween.get(g);
         tw.to({x:x, y:y, width:w, height:h, alpha:a}, time, ps.mode);
-        return new Promise<void>((resolve, reject) => tw.call(resolve));
+        return tw;
     }
 
     // 环形转圈
-    cycleMask(g:egret.Bitmap, ps) : Promise<void> {
+    cycleMask(g:egret.Bitmap, ps):egret.Tween {
         var r = ps.r;
         var x = ps.x;
         var y = ps.y;
@@ -108,10 +114,7 @@ class AnimationFactory {
         var time = ps.time;
         refresh(0);
         var tw = egret.Tween.get(g, { onChange:() => refresh(g["p"]) });
-        tw.to({alpha:a, p:1}, time);
-        return new Promise<void>((resolve, reject) => tw.call(() => {
-            shape.parent.removeChild(shape);
-            resolve();
-        }));
+        tw.to({alpha:a, p:1}, time).call(() => shape.parent.removeChild(shape));
+        return tw;
     }
 }
