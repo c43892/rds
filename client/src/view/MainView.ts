@@ -77,6 +77,7 @@ class MainView extends egret.DisplayObjectContainer {
         // 元素描述信息视图
         this.idv = new ElemDescView(w, h);
         ElemView.showElemDesc = async (e) => await this.showElemDesc(e);
+        PropView.showElemDesc = async (e) => await this.showElemDesc(e);
 
         // 录像机如何启动新的录像战斗
         BattleRecorder.startNewBattleImpl = (p:Player, btType:string, btRandomSeed:number, trueRandomSeed:number) => {

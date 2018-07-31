@@ -23,6 +23,7 @@ class PropView extends egret.DisplayObjectContainer {
         this.num.y = 0;
 
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchGrid, this);
+        this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
     }
 
     public setElem(e:Elem) {
@@ -72,8 +73,19 @@ class PropView extends egret.DisplayObjectContainer {
     public static selectGrid; // 选择目标
     public static select1InN; // n 选 1
 
+    static readonly LongPressThreshold = 500; // 按下持续 0.5s 算长按    
+    static longPressed;
+    static showElemDesc; // 显示元素信息
+    static longPressPropView;
+    static pressTimer:egret.Timer; // 长按计时
+
     // 点击
     onTouchGrid(evt:egret.TouchEvent) {
+        if (PropView.longPressed)
+            return;
+
+        PropView.pressTimer.stop();
+
         if (this.e.canUse())
             PropView.select1InN("确定使用 " + ViewUtils.getElemNameAndDesc(this.e.type).name, ["确定", "取消"], (c) => true, (c) => {
                 if (c == "确定")
@@ -85,5 +97,23 @@ class PropView extends egret.DisplayObjectContainer {
                 PropView.try2UsePropAt(this.e, pos.x, pos.y);
             });
         }
+    }
+
+    // 按下
+    onTouchBegin(evt:egret.TouchEvent) {
+        PropView.longPressed = false;
+        if (!PropView.pressTimer) {
+            PropView.pressTimer = new egret.Timer(PropView.LongPressThreshold, 1);
+            PropView.pressTimer.addEventListener(egret.TimerEvent.TIMER, PropView.onPressTimer, this);
+        }
+
+        PropView.longPressPropView = evt.target;
+        PropView.pressTimer.start();
+    }
+
+    static async onPressTimer() {
+        PropView.longPressed = true;
+        PropView.pressTimer.stop();
+        PropView.showElemDesc(PropView.longPressPropView.e);
     }
 }

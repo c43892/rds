@@ -301,6 +301,11 @@ class BattleView extends egret.DisplayObjectContainer {
             x += w + spaceX;
             this.addChild(rBmp);
             this.relics.push(rBmp);
+            rBmp.touchEnabled = true;
+            rBmp["relic"] = r;
+            rBmp.addEventListener(egret.TouchEvent.TOUCH_TAP, async (evt:egret.TouchEvent) => {
+                await ElemView.showElemDesc(evt.target["relic"]);
+            }, this);
         }
     }
 
