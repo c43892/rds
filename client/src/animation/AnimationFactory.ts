@@ -1,4 +1,3 @@
-
 // 动画工厂
 class AnimationFactory {
 
@@ -6,6 +5,11 @@ class AnimationFactory {
 
     // 创建指定类型的动画
     public createAni(aniType:string, ps = undefined):Promise<void> {
+        if (aniType == "aniSeq")
+            return this.aniSeq(ps);
+        else if (aniType == "aniGroup")
+            return this.aniGroup(ps);
+
         var ani:egret.Tween;
         switch (aniType) {
             case "elemChanged": ani = this.monsterChanged(ps.m); break;
@@ -22,9 +26,23 @@ class AnimationFactory {
 
         if (!ani) Utils.log("unknown aniType: " + aniType);
         
-        var aw = ani ? new Promise<void>((resolve, rejrect) => ani.call(resolve)) : Utils.delay(10);
-        if (ps && !ps.noWait)
-            this.notifyAniStarted(aw, aniType, ps);
+        var aw = ani ? new Promise<void>((r, _) => ani.call(r)) : Utils.delay(10);
+        aw["ani"] = ani;
+
+        var notifyStart = ps && !ps.noWait;
+
+        // 不要自动播放
+        if (ani && ps.manuallyStart) {
+            ani.setPaused(true);
+            aw["start"] = () => {
+                ani.setPaused(false);
+                if (notifyStart)
+                    this.notifyAniStarted(aw, aniType, ps);
+            }
+        } else { // 自动播放
+            if (notifyStart)
+                this.notifyAniStarted(aw, aniType, ps);
+        }
 
         return aw;
     }
@@ -116,5 +134,47 @@ class AnimationFactory {
         var tw = egret.Tween.get(g, { onChange:() => refresh(g["p"]) });
         tw.to({alpha:a, p:1}, time).call(() => shape.parent.removeChild(shape));
         return tw;
+    }
+
+    // 动画序列
+    aniSeq(subAnis:Promise<void>[]):Promise<void> {
+        var aniArr = [];
+        for (var subAni of subAnis) {
+            var ani = subAni["ani"];
+            ani.setPaused(true);
+            aniArr.push(ani);
+        }
+
+        for (var i = 0; i < aniArr.length - 1; i++) {            
+            var curAni = aniArr[i];
+            var nextAni = aniArr[i + 1];
+            var nextSubAni = subAnis[i + 1];
+            var moveOn = () => {
+                Utils.log("move on ani: " + i);
+                nextSubAni["start"]();
+            };
+            curAni.call(moveOn);
+        }
+
+        aniArr[0].setPaused(false);
+        var aw = new Promise<void>((r, _) => aniArr[aniArr.length - 1].call(r));
+
+        return aw;
+    }
+
+    // 同时播放的动画组合
+    aniGroup(subAnis:Promise<void>[]):Promise<void> {
+        var aniArr = [];
+        for (var subAni of subAnis) {
+            var ani = subAni["ani"];
+            ani.setPaused(true);
+            aniArr.push(ani);
+        }
+
+        // todo
+
+        var aw = new Promise<void>((r, _) => aniArr[aniArr.length - 1].call(r));
+
+        return aw;
     }
 }

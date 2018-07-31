@@ -72,9 +72,10 @@ class AniView extends egret.DisplayObjectContainer {
         var doRefresh = () => this.mv.mapView.refreshAt(ps.x, ps.y, e && e.isBig() ? e.attrs.size : undefined);
         switch (ps.subType) {
             case "elemAdded":
+                doRefresh();
                 var eImg = this.mv.mapView.getElemViewAt(ps.x, ps.y).getImg();
                 await this.aniFact.createAni("fade", {img: eImg, fa:0, ta:1, time:500});
-                doRefresh();
+                eImg.alpha = 1;
                 break;
             case "gridBlocked": {
                 var gv = this.mv.mapView.getGridViewAt(ps.x, ps.y);
