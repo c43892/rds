@@ -83,6 +83,19 @@
 			"text": {
 				"closeBtn": { "EN": "Close", "CNS": "返回", "CNT": "返回" }
 			}
+		},
+		
+		"allRelics": {
+			"layout": {
+				"bg": {"x":0, "y":0, "w":640, "h":1136},
+				"closeBtn": {"x":0, "y":1080, "w":100, "h":50},
+				"scrollArea": {"x":10, "y":50, "w":620, "h":886},
+				"scrollBg": {"x":0, "y":0, "w":620, "h":886}
+			},
+			
+			"text": {
+				"closeBtn": { "EN": "Close", "CNS": "返回", "CNT": "返回" }
+			}
 		}
     }
 }

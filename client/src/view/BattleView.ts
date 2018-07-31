@@ -33,6 +33,8 @@ class BattleView extends egret.DisplayObjectContainer {
     public repView:ReplayView; // 录像界面
     public aniView:AniView; // 动画视图
 
+    public openAllRelicsView; // 查看所有遗物
+
     // 角色头像区域，以及金钱，层数，死神
     createPlayerAttrs() {
         this.createAvatarArea();
@@ -195,12 +197,16 @@ class BattleView extends egret.DisplayObjectContainer {
         this.addChild(this.propsView);
 
         // 遗物区域
-        this.moreRelics = ViewUtils.createBitmapByName("moreRelicsBtn_png");
-        this.moreRelics.name = "moreRelics";
-        this.addChild(this.moreRelics);
         this.relicsBg = new egret.DisplayObjectContainer();
         this.relicsBg.name = "relicsBg";
         this.addChild(this.relicsBg);
+        this.moreRelics = ViewUtils.createBitmapByName("moreRelicsBtn_png");
+        this.moreRelics.name = "moreRelics";
+        this.addChild(this.moreRelics);
+        this.moreRelics.touchEnabled = true;
+        this.moreRelics.addEventListener(egret.TouchEvent.TOUCH_TAP, (evt:egret.TouchEvent) => {
+            this.openAllRelicsView(this.player.relics);
+        }, this);
 
         // 格子选择
         this.selView = new SelView();

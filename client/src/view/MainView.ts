@@ -13,6 +13,7 @@ class MainView extends egret.DisplayObjectContainer {
     public tcv:TipConfirmView; // 提示确认视图
     public rankv:RankingView; // 排行榜视图
     public idv:ElemDescView; // 怪物、遗物、物品描述视图
+    public arv:AllRelicsView; // 展示给定的遗物列表
     
     public constructor(w:number, h:number) {
         super();
@@ -78,6 +79,11 @@ class MainView extends egret.DisplayObjectContainer {
         this.idv = new ElemDescView(w, h);
         ElemView.showElemDesc = async (e) => await this.showElemDesc(e);
         PropView.showElemDesc = async (e) => await this.showElemDesc(e);
+
+        // 展示给定的遗物列表
+        this.arv = new AllRelicsView(w, h);
+        AllRelicsView.showElemDesc = async (e) => await this.showElemDesc(e);
+        this.bv.openAllRelicsView = async (relics) => await this.openAllRelicsView(relics);
 
         // 录像机如何启动新的录像战斗
         BattleRecorder.startNewBattleImpl = (p:Player, btType:string, btRandomSeed:number, trueRandomSeed:number) => {
@@ -317,6 +323,14 @@ class MainView extends egret.DisplayObjectContainer {
         this.addChild(this.rankv);
         await this.rankv.open();
         this.removeChild(this.rankv);
+    }
+
+    // all relics view
+    public async openAllRelicsView(relics) {
+        this.addChild(this.arv);
+        this.setChildIndex(this.arv, -1);
+        await this.arv.open(relics);
+        this.removeChild(this.arv);
     }
 
     // 按照本地存档继续游戏
