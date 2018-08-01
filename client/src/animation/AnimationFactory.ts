@@ -27,6 +27,7 @@ class AnimationFactory {
             switch (aniType) {
                 case "fade": ani = this.fade(ps.obj, ps); break;
                 case "moving": ani = this.moving(ps.obj, ps); break;
+                case "jumping": ani = this.jumping(ps.obj, ps); break;
                 case "cycleMask": ani = this.cycleMask(ps.obj, ps); break;
             }
 
@@ -48,7 +49,7 @@ class AnimationFactory {
             for (var cb of aw["onStarted"]) cb();
             if (ani) ani.setPaused(false);
             else if (aw["startimpl"]) aw["startimpl"]();
-            if (notifyStart) this.notifyAniStarted(aw, aniType, ps);
+            if (notifyStart && this.notifyAniStarted) this.notifyAniStarted(aw, aniType, ps);
         };
 
         aw["pause"] = () => {
@@ -82,25 +83,39 @@ class AnimationFactory {
 
         return tw;
     }
+    
+    // 跳动一下
+    jumping(g:egret.DisplayObject, ps):egret.Tween {
+
+        // properties from
+        var psf = {};
+        if (ps.fy != undefined) psf["y"] = ps.fy;
+
+        // properties to
+        var pst = {};
+        if (ps.ty != undefined) pst["y"] = ps.ty;
+
+        return egret.Tween.get(g).to(psf, 0).to(pst, ps.time, egret.Ease.elasticOut);
+    }
 
     // 渐隐渐显
     fade(g:egret.DisplayObject, ps):egret.Tween {
         // properties from
-        var fromAttrs = {};
-        if (ps.fx != undefined) fromAttrs["x"] = ps.fx;
-        if (ps.fy != undefined) fromAttrs["y"] = ps.fy;
-        if (ps.fw != undefined) fromAttrs["width"] = ps.fw;
-        if (ps.fh != undefined) fromAttrs["height"] = ps.fh;
-        if (ps.fa != undefined) fromAttrs["alpha"] = ps.fa;
+        var psf = {};
+        if (ps.fx != undefined) psf["x"] = ps.fx;
+        if (ps.fy != undefined) psf["y"] = ps.fy;
+        if (ps.fw != undefined) psf["width"] = ps.fw;
+        if (ps.fh != undefined) psf["height"] = ps.fh;
+        if (ps.fa != undefined) psf["alpha"] = ps.fa;
 
-        var toAttrs = {};
-        if (ps.tx != undefined) toAttrs["x"] = ps.tx;
-        if (ps.ty != undefined) toAttrs["y"] = ps.ty;
-        if (ps.tw != undefined) toAttrs["width"] = ps.tw;
-        if (ps.th != undefined) toAttrs["height"] = ps.th;
-        if (ps.ta != undefined) toAttrs["alpha"] = ps.ta;
+        var pst = {};
+        if (ps.tx != undefined) pst["x"] = ps.tx;
+        if (ps.ty != undefined) pst["y"] = ps.ty;
+        if (ps.tw != undefined) pst["width"] = ps.tw;
+        if (ps.th != undefined) pst["height"] = ps.th;
+        if (ps.ta != undefined) pst["alpha"] = ps.ta;
 
-        return egret.Tween.get(g).to(fromAttrs, 0).to(toAttrs, ps.time, ps.mode);
+        return egret.Tween.get(g).to(psf, 0).to(pst, ps.time, ps.mode);
     }
 
     // 环形转圈
@@ -110,7 +125,7 @@ class AnimationFactory {
         var y = ps.y;
         
         g.alpha = ps.fa != undefined ? ps.fa : g.alpha;
-        g["p"] = 0;
+        g["$$TweenAniFactor"] = 0;
 
         var shape = new egret.Shape();
         g.mask = shape;
@@ -129,7 +144,7 @@ class AnimationFactory {
         var a = ps.ta ? ps.ta : g.alpha;
         var time = ps.time;
         refresh(0);
-        var tw = egret.Tween.get(g, { onChange:() => refresh(g["p"]) });
+        var tw = egret.Tween.get(g, { onChange:() => refresh(g["$$TweenAniFactor"]) });
         tw.to({alpha:a, p:1}, time).call(() => shape.parent.removeChild(shape));
         return tw;
     }

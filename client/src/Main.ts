@@ -141,5 +141,13 @@ class Main extends egret.DisplayObjectContainer {
         this.mv.x = 0;
         this.mv.y = 0;
         this.addChild(this.mv);
+
+        // 测试试图
+        var tv = new AniTestView(stageW, stageH);
+        tv.anchorOffsetX = 0;
+        tv.anchorOffsetY = 0;
+        tv.x = 0;
+        tv.y = 0;
+        // this.addChild(tv);
     }
 }
