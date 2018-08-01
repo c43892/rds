@@ -9,54 +9,49 @@
         "extraTreasureBox": 20,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
-            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
-            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
             "MonsterBox":{"type":"TreasureBox", "rdp":"MonsterBox"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
                 "dropItems":["RandomEgg1", "RandomEgg2"]
             },
             "NormalZombie":{"hp":5, "power":2},
-            "GoblinThief":{"hp":5, "power":1, "steal":{"percent":20, "num":5}, "dropItems":["Coins"]},
-            "HoundZombie":{"hp":5, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
-            "Vampire":{"hp":5, "power":2, "suckBlood":{"percent":50, "num":0}, "dropItems":["Coins"]},
-            "DancerZombie":{"hp":6, "power":1, "summons":["NormalZombie", "NormalZombie"]},
+            "GoblinThief":{"hp":5, "power":1},
+            "HoundZombie":{"hp":5, "power":1},
+            "Vampire":{"hp":5, "power":2},
+            "DancerZombie":{"hp":6, "power":1},
             "GluttonyZombie":{"hp":9, "power":3},
-            "Gengar":{"hp":5, "power":3, "stealOnPlayerLeave":6, "dropItems":["Coins"]},
-            "BombAbomination":{"hp":8, "power":1, "selfExplode":{"cnt":5, "mult":3}, "dropItems":["Coins"]},
-            "EyeDemon":{"hp":5, "power":2, "dropItems":["Coins"]},
-            "RandomEggZombie":{"hp":9, "power":3, "dropItems":["RandomEgg1"]},
+            "Gengar":{"hp":5, "power":3},
+            "BombAbomination":{"hp":8, "power":1},
+            "EyeDemon":{"hp":5, "power":2},
+            "RandomEggZombie":{"hp":9, "power":3},
             "LustZombie":{"hp":7, "power":2},
             "IronZombie":{"hp":7, "power":3, "sheild":10},
             "CommanderZombie":{"hp":6, "power":1},
             "RageZombie":{"hp":8, "power":1},
             "HideZombie":{"hp":6, "power":1},
             "GuardZombie":{"hp":20, "power":1},
-            "ReviveZombie":{"hp":6, "power":1, "cnt":1},
+            "ReviveZombie":{"hp":6, "power":1},
             "CowardZombie":{"hp":6, "power":1},
             "MarkZombie":{"hp":6, "power":1},
             "ConfusionZombie":{"hp":6, "power":1},
             "GreedyZombie":{"hp":6, "power":1},
-            "Mummy":{"hp":8, "power":1, "dropItems":["CoinsBig"]},
+            "Mummy":{"hp":8, "power":1},
             "PoisonJellyfish":{"hp":6, "power":1},
             "SkeletonKing":{"hp":5, "power":1},
             "SwatheZombie":{"hp":10, "power":1},
             "BoxMonster":{"hp":5, "power":1},
             "Ghost":{"hp":6, "power":1},
 
-            "HpPotion":{},
-            "HpCapsule":{"cnt":5, "heal":1},
-            "Coins":{"cnt":5},
-            "CoinsBig":{"type":"Coins", "cnt":10},
-            "RayGun":{"cnt":2, "power":3},
-            "MedicineBox": {}
+            "Coins":{"cnt":1},
+            "CoinsBig":{"type":"Coins", "cnt":5},
+            "CoinsHuge":{"type":"Coins", "cnt":10}
         },
         "constElems":{
-            
-            "Unback2Sneak":1
         },
         "randomGroups":[{
             "num":[4, 6], "elems": {
@@ -95,10 +90,10 @@
         "extraTreasureBox": 20,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
-            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
-            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -108,19 +103,13 @@
             "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
             "DancerZombie":{"hp":4, "power":2, "summons":["NormalZombie", "NormalZombie"]},
             "EyeDemon":{"hp":6, "power":1},
-            "RandomEggZombie":{"hp":5, "power":1, "dropItems":["RandomEgg1"]},
-
-
-            "HpPotion":{},
-            "HpCapsule":{"cnt":5, "heal":1},
-            "Coins":{"cnt":5},
-            "RayGun":{"cnt":2, "power":3},
-            "MedicineBox": {}
-        },
-        "constElems":{
+            "RandomEggZombie":{"hp":5, "power":1, "dropItems":["RandomEgg1"]},            
             
-            "Endurance":10
+            "Coins":{"cnt":1},
+            "CoinsBig":{"type":"Coins", "cnt":5},
+            "CoinsHuge":{"type":"Coins", "cnt":10}
         },
+        "constElems":{},
         "randomGroups":[{
             "num":[4, 6], "elems": {
                 "Knife": 10,
@@ -163,10 +152,10 @@
         "extraTreasureBox": 20,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
-            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
-            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -177,17 +166,12 @@
             "DancerZombie":{"hp":4, "power":2, "summons":["NormalZombie", "NormalZombie"]},
             "EyeDemon":{"hp":6, "power":1},
             "RandomEggZombie":{"hp":5, "power":1, "dropItems":["RandomEgg1"]},
-
-
-            "HpPotion":{},
-            "HpCapsule":{"cnt":5, "heal":1},
-            "Coins":{"cnt":5},
-            "RayGun":{"cnt":2, "power":3},
-            "MedicineBox": {}
-        },
-        "constElems":{
             
+            "Coins":{"cnt":1},
+            "CoinsBig":{"type":"Coins", "cnt":5},
+            "CoinsHuge":{"type":"Coins", "cnt":10}
         },
+        "constElems":{},
         "randomGroups":[{
             "num":[4, 6], "elems": {
                 "Knife": 10,
@@ -230,10 +214,10 @@
         "extraTreasureBox": 20,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
-            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
-            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -244,17 +228,12 @@
             "DancerZombie":{"hp":5, "power":2, "summons":["NormalZombie", "NormalZombie"]},
             "EyeDemon":{"hp":7, "power":1},
             "RandomEggZombie":{"hp":6, "power":1, "dropItems":["RandomEgg1"]},
-
-
-            "HpPotion":{},
-            "HpCapsule":{"cnt":5, "heal":1},
-            "Coins":{"cnt":5},
-            "RayGun":{"cnt":2, "power":3},
-            "MedicineBox": {}
-        },
-        "constElems":{
             
+            "Coins":{"cnt":1},
+            "CoinsBig":{"type":"Coins", "cnt":5},
+            "CoinsHuge":{"type":"Coins", "cnt":10}
         },
+        "constElems":{},
         "randomGroups":[{
             "num":[4, 6], "elems": {
                 "Knife": 10,
@@ -297,10 +276,10 @@
         "extraTreasureBox": 20,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
-            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
-            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -311,17 +290,12 @@
             "DancerZombie":{"hp":5, "power":2, "summons":["NormalZombie", "NormalZombie"]},
             "EyeDemon":{"hp":7, "power":1},
             "RandomEggZombie":{"hp":6, "power":1, "dropItems":["RandomEgg1"]},
-
-
-            "HpPotion":{},
-            "HpCapsule":{"cnt":5, "heal":1},
-            "Coins":{"cnt":5},
-            "RayGun":{"cnt":2, "power":3},
-            "MedicineBox": {}
-        },
-        "constElems":{
             
+            "Coins":{"cnt":1},
+            "CoinsBig":{"type":"Coins", "cnt":5},
+            "CoinsHuge":{"type":"Coins", "cnt":10}
         },
+        "constElems":{},
         "randomGroups":[{
             "num":[4, 6], "elems": {
                 "Knife": 10,
@@ -364,10 +338,10 @@
         "extraTreasureBox": 20,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
-            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
-            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -377,21 +351,16 @@
             "GoblinThief":{"hp":3, "power":1, "steal":{"percent":20, "num":5}},
             "HoundZombie":{"hp":4, "power":2, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
             "DancerZombie":{"hp":5, "power":3, "summons":["NormalZombie", "NormalZombie"]},
-            "Gengar":{"hp":5, "power":2, "stealOnPlayerLeave":6},
+            "Gengar":{"hp":5, "power":2},
             "EyeDemon":{"hp":7, "power":2},
             "RandomEggZombie":{"hp":6, "power":2, "dropItems":["RandomEgg1"]},
             "IronZombie":{"hp":5, "power":2, "sheild":8},
-
-
-            "HpPotion":{},
-            "HpCapsule":{"cnt":5, "heal":1},
-            "Coins":{"cnt":5},
-            "RayGun":{"cnt":2, "power":3},
-            "MedicineBox": {}
-        },
-        "constElems":{
             
+            "Coins":{"cnt":1},
+            "CoinsBig":{"type":"Coins", "cnt":5},
+            "CoinsHuge":{"type":"Coins", "cnt":10}
         },
+        "constElems":{},
         "randomGroups":[{
             "num":[4, 6], "elems": {
                 "Knife": 10,
@@ -441,10 +410,10 @@
         "extraTreasureBox": 20,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
-            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
-            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -454,21 +423,16 @@
             "GoblinThief":{"hp":3, "power":1, "steal":{"percent":20, "num":5}},
             "HoundZombie":{"hp":5, "power":2, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
             "DancerZombie":{"hp":6, "power":3, "summons":["NormalZombie", "NormalZombie"]},
-            "Gengar":{"hp":5, "power":2, "stealOnPlayerLeave":6},
+            "Gengar":{"hp":5, "power":2},
             "EyeDemon":{"hp":8, "power":2},
             "RandomEggZombie":{"hp":7, "power":2, "dropItems":["RandomEgg1"]},
             "IronZombie":{"hp":5, "power":2, "sheild":8},
-
-
-            "HpPotion":{},
-            "HpCapsule":{"cnt":5, "heal":1},
-            "Coins":{"cnt":5},
-            "RayGun":{"cnt":2, "power":3},
-            "MedicineBox": {}
-        },
-        "constElems":{
             
+            "Coins":{"cnt":1},
+            "CoinsBig":{"type":"Coins", "cnt":5},
+            "CoinsHuge":{"type":"Coins", "cnt":10}
         },
+        "constElems":{},
         "randomGroups":[{
             "num":[4, 6], "elems": {
                 "Knife": 10,
@@ -515,10 +479,10 @@
         "extraTreasureBox": 20,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
-            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
-            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -528,21 +492,16 @@
             "GoblinThief":{"hp":3, "power":1, "steal":{"percent":20, "num":5}},
             "HoundZombie":{"hp":5, "power":2, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
             "DancerZombie":{"hp":6, "power":3, "summons":["NormalZombie", "NormalZombie"]},
-            "Gengar":{"hp":5, "power":2, "stealOnPlayerLeave":6},
+            "Gengar":{"hp":5, "power":2},
             "EyeDemon":{"hp":8, "power":2},
             "RandomEggZombie":{"hp":7, "power":2, "dropItems":["RandomEgg1"]},
             "IronZombie":{"hp":5, "power":2, "sheild":8},
-
-
-            "HpPotion":{},
-            "HpCapsule":{"cnt":5, "heal":1},
-            "Coins":{"cnt":5},
-            "RayGun":{"cnt":2, "power":3},
-            "MedicineBox": {}
-        },
-        "constElems":{
             
+            "Coins":{"cnt":1},
+            "CoinsBig":{"type":"Coins", "cnt":5},
+            "CoinsHuge":{"type":"Coins", "cnt":10}
         },
+        "constElems":{},
         "randomGroups":[{
             "num":[4, 6], "elems": {
                 "Knife": 10,
@@ -589,10 +548,10 @@
         "extraTreasureBox": 20,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
-            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
-            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -602,21 +561,16 @@
             "GoblinThief":{"hp":4, "power":1, "steal":{"percent":20, "num":5}},
             "HoundZombie":{"hp":5, "power":2, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
             "DancerZombie":{"hp":6, "power":3, "summons":["NormalZombie", "NormalZombie"]},
-            "Gengar":{"hp":6, "power":2, "stealOnPlayerLeave":6},
+            "Gengar":{"hp":6, "power":2},
             "EyeDemon":{"hp":8, "power":2},
             "RandomEggZombie":{"hp":7, "power":2, "dropItems":["RandomEgg1"]},
             "IronZombie":{"hp":6, "power":2, "sheild":8},
-
-
-            "HpPotion":{},
-            "HpCapsule":{"cnt":5, "heal":1},
-            "Coins":{"cnt":5},
-            "RayGun":{"cnt":2, "power":3},
-            "MedicineBox": {}
-        },
-        "constElems":{
             
+            "Coins":{"cnt":1},
+            "CoinsBig":{"type":"Coins", "cnt":5},
+            "CoinsHuge":{"type":"Coins", "cnt":10}
         },
+        "constElems":{},
         "randomGroups":[{
             "num":[4, 6], "elems": {
                 "Knife": 10,
@@ -663,10 +617,10 @@
         "extraTreasureBox": 20,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
-            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
-            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -676,21 +630,16 @@
             "GoblinThief":{"hp":4, "power":1, "steal":{"percent":20, "num":5}},
             "HoundZombie":{"hp":6, "power":2, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
             "DancerZombie":{"hp":7, "power":3, "summons":["NormalZombie", "NormalZombie"]},
-            "Gengar":{"hp":6, "power":2, "stealOnPlayerLeave":6},
+            "Gengar":{"hp":6, "power":2},
             "EyeDemon":{"hp":9, "power":2},
             "RandomEggZombie":{"hp":8, "power":2, "dropItems":["RandomEgg1"]},
             "IronZombie":{"hp":6, "power":2, "sheild":9},
 
-
-            "HpPotion":{},
-            "HpCapsule":{"cnt":5, "heal":1},
-            "Coins":{"cnt":5},
-            "RayGun":{"cnt":2, "power":3},
-            "MedicineBox": {}
+            "Coins":{"cnt":1},
+            "CoinsBig":{"type":"Coins", "cnt":5},
+            "CoinsHuge":{"type":"Coins", "cnt":10}
         },
-        "constElems":{
-            
-        },
+        "constElems":{},
         "randomGroups":[{
             "num":[4, 6], "elems": {
                 "Knife": 10,
@@ -737,10 +686,10 @@
         "extraTreasureBox": 20,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
-            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
-            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -749,26 +698,21 @@
             "NormalZombie":{"hp":7, "power":4},
             "GoblinThief":{"hp":4, "power":2, "steal":{"percent":20, "num":5}},
             "HoundZombie":{"hp":6, "power":3, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
-            "Vampire":{"hp":3, "power":2, "suckBlood":{"percent":50, "num":0}},
+            "Vampire":{"hp":3, "power":2},
             "DancerZombie":{"hp":7, "power":4, "summons":["NormalZombie", "NormalZombie"]},
             "GluttonyZombie":{"hp":8, "power":3},
-            "Gengar":{"hp":6, "power":3, "stealOnPlayerLeave":6},
+            "Gengar":{"hp":6, "power":3},
             "BombAbomination":{"hp":4, "power":3, "selfExplode":{"cnt":5, "mult":3}},
             "EyeDemon":{"hp":9, "power":3},
             "RandomEggZombie":{"hp":8, "power":3, "dropItems":["RandomEgg1"]},
             "LustZombie":{"hp":6, "power":2},
             "IronZombie":{"hp":6, "power":3, "sheild":9},
-
-
-            "HpPotion":{},
-            "HpCapsule":{"cnt":5, "heal":1},
-            "Coins":{"cnt":5},
-            "RayGun":{"cnt":2, "power":3},
-            "MedicineBox": {}
-        },
-        "constElems":{
             
+            "Coins":{"cnt":1},
+            "CoinsBig":{"type":"Coins", "cnt":5},
+            "CoinsHuge":{"type":"Coins", "cnt":10}
         },
+        "constElems":{},
         "randomGroups":[{
             "num":[4, 6], "elems": {
                 "Knife": 10,
@@ -826,10 +770,10 @@
         "extraTreasureBox": 20,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
-            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
-            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -838,26 +782,21 @@
             "NormalZombie":{"hp":7, "power":4},
             "GoblinThief":{"hp":5, "power":2, "steal":{"percent":20, "num":5}},
             "HoundZombie":{"hp":6, "power":3, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
-            "Vampire":{"hp":3, "power":2, "suckBlood":{"percent":50, "num":0}},
+            "Vampire":{"hp":3, "power":2},
             "DancerZombie":{"hp":7, "power":4, "summons":["NormalZombie", "NormalZombie"]},
             "GluttonyZombie":{"hp":8, "power":3},
-            "Gengar":{"hp":7, "power":3, "stealOnPlayerLeave":6},
+            "Gengar":{"hp":7, "power":3},
             "BombAbomination":{"hp":4, "power":3, "selfExplode":{"cnt":5, "mult":3}},
             "EyeDemon":{"hp":9, "power":3},
             "RandomEggZombie":{"hp":8, "power":3, "dropItems":["RandomEgg1"]},
             "LustZombie":{"hp":6, "power":2},
             "IronZombie":{"hp":7, "power":3, "sheild":9},
-
-
-            "HpPotion":{},
-            "HpCapsule":{"cnt":5, "heal":1},
-            "Coins":{"cnt":5},
-            "RayGun":{"cnt":2, "power":3},
-            "MedicineBox": {}
-        },
-        "constElems":{
             
+            "Coins":{"cnt":1},
+            "CoinsBig":{"type":"Coins", "cnt":5},
+            "CoinsHuge":{"type":"Coins", "cnt":10}
         },
+        "constElems":{},
         "randomGroups":[{
             "num":[4, 6], "elems": {
                 "Knife": 10,
@@ -912,10 +851,10 @@
         "extraTreasureBox": 20,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
-            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
-            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -924,25 +863,21 @@
             "NormalZombie":{"hp":8, "power":4},
             "GoblinThief":{"hp":5, "power":2, "steal":{"percent":20, "num":5}},
             "HoundZombie":{"hp":7, "power":3, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
-            "Vampire":{"hp":3, "power":2, "suckBlood":{"percent":50, "num":0}},
+            "Vampire":{"hp":3, "power":2},
             "DancerZombie":{"hp":8, "power":4, "summons":["NormalZombie", "NormalZombie"]},
             "GluttonyZombie":{"hp":8, "power":3},
-            "Gengar":{"hp":7, "power":3, "stealOnPlayerLeave":6},
+            "Gengar":{"hp":7, "power":3},
             "BombAbomination":{"hp":4, "power":3, "selfExplode":{"cnt":5, "mult":3}},
             "EyeDemon":{"hp":10, "power":3},
             "RandomEggZombie":{"hp":9, "power":3, "dropItems":["RandomEgg1"]},
             "LustZombie":{"hp":6, "power":2},
             "IronZombie":{"hp":7, "power":3, "sheild":10},
 
-            "HpPotion":{},
-            "HpCapsule":{"cnt":5, "heal":1},
-            "Coins":{"cnt":5},
-            "RayGun":{"cnt":2, "power":3},
-            "MedicineBox": {}
+            "Coins":{"cnt":1},
+            "CoinsBig":{"type":"Coins", "cnt":5},
+            "CoinsHuge":{"type":"Coins", "cnt":10}
         },
-        "constElems":{
-            
-        },
+        "constElems":{},
         "randomGroups":[{
             "num":[4, 6], "elems": {
                 "Knife": 10,
@@ -997,10 +932,10 @@
         "extraTreasureBox": 20,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
-            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
-            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -1009,26 +944,21 @@
             "NormalZombie":{"hp":8, "power":4},
             "GoblinThief":{"hp":5, "power":2, "steal":{"percent":20, "num":5}},
             "HoundZombie":{"hp":7, "power":3, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
-            "Vampire":{"hp":4, "power":2, "suckBlood":{"percent":50, "num":0}},
+            "Vampire":{"hp":4, "power":2},
             "DancerZombie":{"hp":8, "power":4, "summons":["NormalZombie", "NormalZombie"]},
             "GluttonyZombie":{"hp":9, "power":3},
-            "Gengar":{"hp":7, "power":3, "stealOnPlayerLeave":6},
+            "Gengar":{"hp":7, "power":3},
             "BombAbomination":{"hp":5, "power":3, "selfExplode":{"cnt":5, "mult":3}},
             "EyeDemon":{"hp":10, "power":3},
             "RandomEggZombie":{"hp":9, "power":3, "dropItems":["RandomEgg1"]},
             "LustZombie":{"hp":7, "power":2},
             "IronZombie":{"hp":7, "power":3, "sheild":10},
-
-
-            "HpPotion":{},
-            "HpCapsule":{"cnt":5, "heal":1},
-            "Coins":{"cnt":5},
-            "RayGun":{"cnt":2, "power":3},
-            "MedicineBox": {}
-        },
-        "constElems":{
             
+            "Coins":{"cnt":1},
+            "CoinsBig":{"type":"Coins", "cnt":5},
+            "CoinsHuge":{"type":"Coins", "cnt":10}
         },
+        "constElems":{},
         "randomGroups":[{
             "num":[4, 6], "elems": {
                 "Knife": 10,
@@ -1083,11 +1013,11 @@
         "treasureBoxNum": 3,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
-            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
-            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
-            "TreasureBox3":{"type":"TreasureBox", "rdp":"rdp2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
+            "TreasureBox3":{"type":"TreasureBox", "rdp":"treasureBox3"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -1096,25 +1026,21 @@
             "NormalZombie":{"hp":8, "power":4},
             "GoblinThief":{"hp":6, "power":2, "steal":{"percent":20, "num":5}},
             "HoundZombie":{"hp":7, "power":3, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
-            "Vampire":{"hp":4, "power":2, "suckBlood":{"percent":50, "num":0}},
+            "Vampire":{"hp":4, "power":2},
             "DancerZombie":{"hp":8, "power":4, "summons":["NormalZombie", "NormalZombie"]},
             "GluttonyZombie":{"hp":9, "power":3},
-            "Gengar":{"hp":8, "power":3, "stealOnPlayerLeave":6},
+            "Gengar":{"hp":8, "power":3},
             "BombAbomination":{"hp":5, "power":3, "selfExplode":{"cnt":5, "mult":3}},
             "EyeDemon":{"hp":10, "power":3},
             "RandomEggZombie":{"hp":9, "power":3, "dropItems":["RandomEgg1"]},
             "LustZombie":{"hp":7, "power":2},
             "IronZombie":{"hp":8, "power":3, "sheild":10},
 
-            "HpPotion":{},
-            "HpCapsule":{"cnt":5, "heal":1},
-            "Coins":{"cnt":5},
-            "RayGun":{"cnt":2, "power":3},
-            "MedicineBox": {}
+            "Coins":{"cnt":1},
+            "CoinsBig":{"type":"Coins", "cnt":5},
+            "CoinsHuge":{"type":"Coins", "cnt":10}
         },
-        "constElems":{
-            
-        },
+        "constElems":{},
         "randomGroups":[{
             "num":[4, 6], "elems": {
                 "Knife": 10,
@@ -1165,17 +1091,16 @@
         "treasureBoxNum": 5,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
-            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
-            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
-            "TreasureBox3":{"type":"TreasureBox", "rdp":"rdp2"},
-            "TreasureBox4":{"type":"TreasureBox", "rdp":"rdp2"},
-            "TreasureBox5":{"type":"TreasureBox", "rdp":"rdp2"},
+            "BossBox1":{"type":"TreasureBox", "rdp":"bossBox1"},
+            "BossBox2":{"type":"TreasureBox", "rdp":"bossBox2"},
+            "BossBox3":{"type":"TreasureBox", "rdp":"bossBox3"},
+            "BossBox4":{"type":"TreasureBox", "rdp":"bossBox4"},
+            "BossBox5":{"type":"TreasureBox", "rdp":"bossBox5"},
             "BossBunny":{"hp":20, "power":3},
             "ShopNpc":{"shopCfg":"inbattle"},
             "NormalZombie":{"hp":5, "power":1}
         },
         "constElems":{
-            "Key":1,
             "BossBunny": 1,
             "ShopNpc":1,
             "NormalZombie":10,
@@ -1191,13 +1116,13 @@
         "treasureBoxNum": [5, 6],
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
-            "TreasureBox1":{"type":"TreasureBox", "rdp":"rdp1"},
-            "TreasureBox2":{"type":"TreasureBox", "rdp":"rdp2"},
-            "TreasureBox3":{"type":"TreasureBox", "rdp":"rdp2"},
-            "TreasureBox4":{"type":"TreasureBox", "rdp":"rdp2"},
-            "TreasureBox5":{"type":"TreasureBox", "rdp":"rdp2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"rdp1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"rdp2"},
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
+            "TreasureBox3":{"type":"TreasureBox", "rdp":"treasureBox2"},
+            "TreasureBox4":{"type":"TreasureBox", "rdp":"treasureBox2"},
+            "TreasureBox5":{"type":"TreasureBox", "rdp":"treasureBox2"},
+            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
+            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -1206,10 +1131,10 @@
             "NormalZombie":{"hp":8, "power":4},
             "GoblinThief":{"hp":6, "power":2, "steal":{"percent":20, "num":5}},
             "HoundZombie":{"hp":7, "power":3, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
-            "Vampire":{"hp":4, "power":2, "suckBlood":{"percent":50, "num":0}},
+            "Vampire":{"hp":4, "power":2},
             "DancerZombie":{"hp":8, "power":4, "summons":["NormalZombie", "NormalZombie"]},
             "GluttonyZombie":{"hp":9, "power":3},
-            "Gengar":{"hp":8, "power":3, "stealOnPlayerLeave":6},
+            "Gengar":{"hp":8, "power":3},
             "BombAbomination":{"hp":5, "power":3, "selfExplode":{"cnt":5, "mult":3}},
             "EyeDemon":{"hp":10, "power":3},
             "RandomEggZombie":{"hp":9, "power":3, "dropItems":["RandomEgg1"]},
@@ -1217,16 +1142,11 @@
             "IronZombie":{"hp":8, "power":3, "sheild":10},
             "BossBunny":{"hp":20, "power":3},
 
-            "HpPotion":{},
-            "HpCapsule":{"cnt":5, "heal":1},
-            "Coins":{"cnt":5},
-            "RayGun":{"cnt":2, "power":3},
-            "MedicineBox": {}
+            "Coins":{"cnt":1},
+            "CoinsBig":{"type":"Coins", "cnt":5},
+            "CoinsHuge":{"type":"Coins", "cnt":10} 
         },
-        "constElems":{
-            
-            "BossBunny": 1
-        },
+        "constElems":{},
         "randomGroups":[{
             "num":[4, 6], "elems": {
                 "Knife": 10,

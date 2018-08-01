@@ -176,11 +176,19 @@ class Level {
                 }
                 break;
             }
-            default :{
+            case "senior":{
                 for(var i = 0; i < treasureBoxNum; i++){
                     elems.push(this.createElem("TreasureBox" + (i + 1)));
                     elems.push(this.createElem("Key"));
                 }
+                break;
+            }
+            case "boss":{
+                for(var i = 0; i < treasureBoxNum; i++){
+                    elems.push(this.createElem("BossBox" + (i + 1)));
+                    elems.push(this.createElem("Key"));
+                }
+                break;
             }
         }
         return elems;
