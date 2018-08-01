@@ -1,6 +1,8 @@
 // 提示确认视图
 class TipConfirmView extends egret.DisplayObjectContainer {
 
+    private aniFact:AnimationFactory;
+
     private bg;
     constructor(w:number, h:number) {
         super();
@@ -12,15 +14,14 @@ class TipConfirmView extends egret.DisplayObjectContainer {
         this.bg.width = this.width;
         this.bg.height = this.height;
 
-        // 提示信息
-        this.createTipsLayer();
-
         // yesno 选择
         this.createOkYesNoLayer();
+
+        this.aniFact = new AnimationFactory();
     }
     
     clear() {
-        var subLayers = [this.bg, this.tipsPanel, this.okyesnoPanel];
+        var subLayers = [this.bg, this.okyesnoPanel];
         for (var sl of subLayers) {
             if (this.contains(sl))
                 this.removeChild(sl);
@@ -29,13 +30,23 @@ class TipConfirmView extends egret.DisplayObjectContainer {
 
     // tips 部分
 
-    private tipsPanel;
+    tip:egret.TextField;
+    public addTip(str) {
+        if (!this.tip)
+            this.removeChild(this.tip);
+        
+        this.tip = ViewUtils.createTextField(30, 0x000000);
+        this.tip.textFlow = (new egret.HtmlTextParser).parser(str);
+        this.tip.width = this.width;
+        this.addChild(this.tip);
 
-    createTipsLayer() {
-        this.tipsPanel = new egret.DisplayObjectContainer();
-        this.tipsPanel.x = this.tipsPanel.y = 0;
-        this.tipsPanel.width = this.width;
-        this.tipsPanel.heigh = this.height;
+        this.aniFact.createAni("fade", {
+            img:this.tip,
+            fy: this.height / 2 - 150,
+            ty: this.height / 2,
+            fa: 0, ta:1
+        }).then(() => {
+        });
     }
 
     // yesno 部分
