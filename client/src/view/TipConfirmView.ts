@@ -41,7 +41,7 @@ class TipConfirmView extends egret.DisplayObjectContainer {
         this.addChild(this.tip);
 
         this.aniFact.createAni("fade", {
-            img:this.tip,
+            obj: this.tip,
             fy: this.height / 2 - 150,
             ty: this.height / 2,
             fa: 0, ta:1

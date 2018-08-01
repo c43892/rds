@@ -25,16 +25,9 @@ class AnimationFactory {
         else {
             var ani:egret.Tween;
             switch (aniType) {
-                case "elemChanged": ani = this.monsterChanged(ps.m); break;
-                case "playerChanged": ani = this.playerChanged(); break;
-                case "playerAttackMonster": ani = this.playerAttackMonster(); break;
-                case "monsterAttackPlayer": ani = this.monsterAttackPlayer(); break;
-                case "moving": ani = this.moving(ps.obj, ps.path); break;
-                case "fade": ani = this.fade(ps.img, ps); break;
-                case "moneyMoving": ani = undefined; break;
-                case "suckBlood": ani = undefined; break;
-                case "monsterTakeElem": ani = undefined; break;
-                case "cycleMask": ani = this.cycleMask(ps.img, ps); break;
+                case "fade": ani = this.fade(ps.obj, ps); break;
+                case "moving": ani = this.moving(ps.obj, ps); break;
+                case "cycleMask": ani = this.cycleMask(ps.obj, ps); break;
             }
 
             if (!ani) Utils.log("unknown aniType: " + aniType);
@@ -79,39 +72,15 @@ class AnimationFactory {
     }
 
     // 创建按指定路径移动的动画
-    moving(g:egret.DisplayObject, path):egret.Tween {
+    moving(g:egret.DisplayObject, ps):egret.Tween {
         var tw = egret.Tween.get(g);
-        for (var pt of path) {
+        for (var pt of ps.path) {
             var x = pt.x;
             var y = pt.y;
-            tw = tw.to({x:x, y:y}, 250, egret.Ease.quintInOut);
+            tw = tw.to({x:x, y:y}, 250, ps.mode);
         }
 
         return tw;
-    }
-
-    // 创建怪物攻击玩家角色的特效
-    monsterAttackPlayer():egret.Tween {
-        // return Utils.delay(100);
-        return undefined;
-    }
-
-    // 创建玩家角色攻击怪物的特效
-    playerAttackMonster():egret.Tween {
-        // return Utils.delay(100);
-        return undefined;
-    }
-
-    // 玩家角色属性变化
-    playerChanged():egret.Tween {
-        // return Utils.delay(100);
-        return undefined;
-    }
-
-    // 怪物属性变化
-    monsterChanged(m:Monster):egret.Tween {
-        // return Utils.delay(100);
-        return undefined;
     }
 
     // 渐隐渐显
@@ -135,7 +104,7 @@ class AnimationFactory {
     }
 
     // 环形转圈
-    cycleMask(g:egret.Bitmap, ps):egret.Tween {
+    cycleMask(g:egret.DisplayObject, ps):egret.Tween {
         var r = ps.r;
         var x = ps.x;
         var y = ps.y;

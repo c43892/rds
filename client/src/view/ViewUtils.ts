@@ -133,12 +133,13 @@ class ViewUtils {
 
     // 根据对象身上的动态属性，替换掉目标字符串中的 {propertyName} 标签
     public static replaceByProperties(s:string, e):string {
-        const r = /\{*\}/g;
+        const r = /\{[a-z,A-Z,0-9,_,-]*\}/g;
         const m = r.exec(s);
         var ss = s;
         if (m) {
             m.forEach((value, index) => {
-                var v = e[value];
+                var key = value.substr(1, value.length - 2);
+                var v = e[key];
                 if (v != undefined)
                     ss = ss.replace(value, v.toString());
             });
