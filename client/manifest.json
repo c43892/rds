@@ -5,8 +5,7 @@
 		"libs/modules/game/game.js",
 		"libs/modules/tween/tween.js",
 		"libs/modules/assetsmanager/assetsmanager.js",
-		"libs/modules/promise/promise.js",
-		"libs/modules/socket/socket.js"
+		"libs/modules/promise/promise.js"
 	],
 	"game": [
 		"bin-debug/logic/elems/Elem.js",
@@ -58,7 +57,6 @@
 		"bin-debug/logic/WorldMap/WorldMapNode.js",
 		"bin-debug/logic/WorldMap/WorldMapRoute.js",
 		"bin-debug/net/WebClient.js",
-		"bin-debug/net/WSClient.js",
 		"bin-debug/view/AllRelicsView.js",
 		"bin-debug/view/AniView.js",
 		"bin-debug/view/BattleView.js",
