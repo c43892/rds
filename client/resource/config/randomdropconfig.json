@@ -59,6 +59,12 @@
         "IceGun":30
     }},
 
+    "RandomEgg": {"num":[1, 2], "elems":{
+        "Knife":10,
+        "RayGun":20,
+        "IceGun":30
+    }},    
+
     "MonsterBox": {"num":[1, 2], "elems":{
         "BoxMonster":10
     }},

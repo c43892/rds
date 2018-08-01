@@ -12,8 +12,6 @@
             "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
             "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
             "MonsterBox":{"type":"TreasureBox", "rdp":"MonsterBox"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -92,8 +90,6 @@
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
             "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -103,7 +99,7 @@
             "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
             "DancerZombie":{"hp":4, "power":2, "summons":["NormalZombie", "NormalZombie"]},
             "EyeDemon":{"hp":6, "power":1},
-            "RandomEggZombie":{"hp":5, "power":1, "dropItems":["RandomEgg1"]},            
+            "RandomEggZombie":{"hp":5, "power":1, "dropItems":["RandomEgg"]},            
             
             "Coins":{"cnt":1},
             "CoinsBig":{"type":"Coins", "cnt":5},
@@ -154,8 +150,6 @@
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
             "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -165,7 +159,7 @@
             "HoundZombie":{"hp":3, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
             "DancerZombie":{"hp":4, "power":2, "summons":["NormalZombie", "NormalZombie"]},
             "EyeDemon":{"hp":6, "power":1},
-            "RandomEggZombie":{"hp":5, "power":1, "dropItems":["RandomEgg1"]},
+            "RandomEggZombie":{"hp":5, "power":1, "dropItems":["RandomEgg"]},
             
             "Coins":{"cnt":1},
             "CoinsBig":{"type":"Coins", "cnt":5},
@@ -216,8 +210,6 @@
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
             "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -227,7 +219,7 @@
             "HoundZombie":{"hp":4, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
             "DancerZombie":{"hp":5, "power":2, "summons":["NormalZombie", "NormalZombie"]},
             "EyeDemon":{"hp":7, "power":1},
-            "RandomEggZombie":{"hp":6, "power":1, "dropItems":["RandomEgg1"]},
+            "RandomEggZombie":{"hp":6, "power":1, "dropItems":["RandomEgg"]},
             
             "Coins":{"cnt":1},
             "CoinsBig":{"type":"Coins", "cnt":5},
@@ -278,8 +270,6 @@
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
             "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -289,7 +279,7 @@
             "HoundZombie":{"hp":4, "power":1, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
             "DancerZombie":{"hp":5, "power":2, "summons":["NormalZombie", "NormalZombie"]},
             "EyeDemon":{"hp":7, "power":1},
-            "RandomEggZombie":{"hp":6, "power":1, "dropItems":["RandomEgg1"]},
+            "RandomEggZombie":{"hp":6, "power":1, "dropItems":["RandomEgg"]},
             
             "Coins":{"cnt":1},
             "CoinsBig":{"type":"Coins", "cnt":5},
@@ -340,8 +330,6 @@
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
             "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -353,7 +341,7 @@
             "DancerZombie":{"hp":5, "power":3, "summons":["NormalZombie", "NormalZombie"]},
             "Gengar":{"hp":5, "power":2},
             "EyeDemon":{"hp":7, "power":2},
-            "RandomEggZombie":{"hp":6, "power":2, "dropItems":["RandomEgg1"]},
+            "RandomEggZombie":{"hp":6, "power":2, "dropItems":["RandomEgg"]},
             "IronZombie":{"hp":5, "power":2, "sheild":8},
             
             "Coins":{"cnt":1},
@@ -412,8 +400,6 @@
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
             "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -425,7 +411,7 @@
             "DancerZombie":{"hp":6, "power":3, "summons":["NormalZombie", "NormalZombie"]},
             "Gengar":{"hp":5, "power":2},
             "EyeDemon":{"hp":8, "power":2},
-            "RandomEggZombie":{"hp":7, "power":2, "dropItems":["RandomEgg1"]},
+            "RandomEggZombie":{"hp":7, "power":2, "dropItems":["RandomEgg"]},
             "IronZombie":{"hp":5, "power":2, "sheild":8},
             
             "Coins":{"cnt":1},
@@ -481,8 +467,6 @@
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
             "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -494,7 +478,7 @@
             "DancerZombie":{"hp":6, "power":3, "summons":["NormalZombie", "NormalZombie"]},
             "Gengar":{"hp":5, "power":2},
             "EyeDemon":{"hp":8, "power":2},
-            "RandomEggZombie":{"hp":7, "power":2, "dropItems":["RandomEgg1"]},
+            "RandomEggZombie":{"hp":7, "power":2, "dropItems":["RandomEgg"]},
             "IronZombie":{"hp":5, "power":2, "sheild":8},
             
             "Coins":{"cnt":1},
@@ -550,8 +534,6 @@
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
             "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -563,7 +545,7 @@
             "DancerZombie":{"hp":6, "power":3, "summons":["NormalZombie", "NormalZombie"]},
             "Gengar":{"hp":6, "power":2},
             "EyeDemon":{"hp":8, "power":2},
-            "RandomEggZombie":{"hp":7, "power":2, "dropItems":["RandomEgg1"]},
+            "RandomEggZombie":{"hp":7, "power":2, "dropItems":["RandomEgg"]},
             "IronZombie":{"hp":6, "power":2, "sheild":8},
             
             "Coins":{"cnt":1},
@@ -619,8 +601,6 @@
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
             "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -632,7 +612,7 @@
             "DancerZombie":{"hp":7, "power":3, "summons":["NormalZombie", "NormalZombie"]},
             "Gengar":{"hp":6, "power":2},
             "EyeDemon":{"hp":9, "power":2},
-            "RandomEggZombie":{"hp":8, "power":2, "dropItems":["RandomEgg1"]},
+            "RandomEggZombie":{"hp":8, "power":2, "dropItems":["RandomEgg"]},
             "IronZombie":{"hp":6, "power":2, "sheild":9},
 
             "Coins":{"cnt":1},
@@ -688,8 +668,6 @@
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
             "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -704,7 +682,7 @@
             "Gengar":{"hp":6, "power":3},
             "BombAbomination":{"hp":4, "power":3, "selfExplode":{"cnt":5, "mult":3}},
             "EyeDemon":{"hp":9, "power":3},
-            "RandomEggZombie":{"hp":8, "power":3, "dropItems":["RandomEgg1"]},
+            "RandomEggZombie":{"hp":8, "power":3, "dropItems":["RandomEgg"]},
             "LustZombie":{"hp":6, "power":2},
             "IronZombie":{"hp":6, "power":3, "sheild":9},
             
@@ -772,8 +750,6 @@
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
             "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -788,7 +764,7 @@
             "Gengar":{"hp":7, "power":3},
             "BombAbomination":{"hp":4, "power":3, "selfExplode":{"cnt":5, "mult":3}},
             "EyeDemon":{"hp":9, "power":3},
-            "RandomEggZombie":{"hp":8, "power":3, "dropItems":["RandomEgg1"]},
+            "RandomEggZombie":{"hp":8, "power":3, "dropItems":["RandomEgg"]},
             "LustZombie":{"hp":6, "power":2},
             "IronZombie":{"hp":7, "power":3, "sheild":9},
             
@@ -853,8 +829,6 @@
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
             "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -869,7 +843,7 @@
             "Gengar":{"hp":7, "power":3},
             "BombAbomination":{"hp":4, "power":3, "selfExplode":{"cnt":5, "mult":3}},
             "EyeDemon":{"hp":10, "power":3},
-            "RandomEggZombie":{"hp":9, "power":3, "dropItems":["RandomEgg1"]},
+            "RandomEggZombie":{"hp":9, "power":3, "dropItems":["RandomEgg"]},
             "LustZombie":{"hp":6, "power":2},
             "IronZombie":{"hp":7, "power":3, "sheild":10},
 
@@ -934,8 +908,6 @@
         "elems":{
             "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
             "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -950,7 +922,7 @@
             "Gengar":{"hp":7, "power":3},
             "BombAbomination":{"hp":5, "power":3, "selfExplode":{"cnt":5, "mult":3}},
             "EyeDemon":{"hp":10, "power":3},
-            "RandomEggZombie":{"hp":9, "power":3, "dropItems":["RandomEgg1"]},
+            "RandomEggZombie":{"hp":9, "power":3, "dropItems":["RandomEgg"]},
             "LustZombie":{"hp":7, "power":2},
             "IronZombie":{"hp":7, "power":3, "sheild":10},
             
@@ -1016,8 +988,6 @@
             "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
             "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
             "TreasureBox3":{"type":"TreasureBox", "rdp":"treasureBox3"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -1032,7 +1002,7 @@
             "Gengar":{"hp":8, "power":3},
             "BombAbomination":{"hp":5, "power":3, "selfExplode":{"cnt":5, "mult":3}},
             "EyeDemon":{"hp":10, "power":3},
-            "RandomEggZombie":{"hp":9, "power":3, "dropItems":["RandomEgg1"]},
+            "RandomEggZombie":{"hp":9, "power":3, "dropItems":["RandomEgg"]},
             "LustZombie":{"hp":7, "power":2},
             "IronZombie":{"hp":8, "power":3, "sheild":10},
 
@@ -1091,11 +1061,11 @@
         "treasureBoxNum": 5,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
-            "BossBox1":{"type":"TreasureBox", "rdp":"bossBox1"},
-            "BossBox2":{"type":"TreasureBox", "rdp":"bossBox2"},
-            "BossBox3":{"type":"TreasureBox", "rdp":"bossBox3"},
-            "BossBox4":{"type":"TreasureBox", "rdp":"bossBox4"},
-            "BossBox5":{"type":"TreasureBox", "rdp":"bossBox5"},
+            "TreasureBox1":{"type":"TreasureBox", "rdp":"bossBox1"},
+            "TreasureBox2":{"type":"TreasureBox", "rdp":"bossBox2"},
+            "TreasureBox3":{"type":"TreasureBox", "rdp":"bossBox3"},
+            "TreasureBox4":{"type":"TreasureBox", "rdp":"bossBox4"},
+            "TreasureBox5":{"type":"TreasureBox", "rdp":"bossBox5"},
             "BossBunny":{"hp":20, "power":3},
             "ShopNpc":{"shopCfg":"inbattle"},
             "NormalZombie":{"hp":5, "power":1}
@@ -1121,8 +1091,6 @@
             "TreasureBox3":{"type":"TreasureBox", "rdp":"treasureBox2"},
             "TreasureBox4":{"type":"TreasureBox", "rdp":"treasureBox2"},
             "TreasureBox5":{"type":"TreasureBox", "rdp":"treasureBox2"},
-            "RandomEgg1":{"type":"RandomEgg", "rdp":"treasureBox1"},
-            "RandomEgg2":{"type":"RandomEgg", "rdp":"treasureBox2"},
             "Bunny":{
                 "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
                 "selfExplode":{"power":6},
@@ -1137,7 +1105,7 @@
             "Gengar":{"hp":8, "power":3},
             "BombAbomination":{"hp":5, "power":3, "selfExplode":{"cnt":5, "mult":3}},
             "EyeDemon":{"hp":10, "power":3},
-            "RandomEggZombie":{"hp":9, "power":3, "dropItems":["RandomEgg1"]},
+            "RandomEggZombie":{"hp":9, "power":3, "dropItems":["RandomEgg"]},
             "LustZombie":{"hp":7, "power":2},
             "IronZombie":{"hp":8, "power":3, "sheild":10},
             "BossBunny":{"hp":20, "power":3},

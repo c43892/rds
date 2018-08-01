@@ -9,10 +9,10 @@ class Level {
         this.displayName = cfg.displayName;
         this.bt = bt;
         this.InitMap(cfg.map);
+        this.addLevelLogic(new LevelLogicBasic());
         this.InitElems(bt.btType, cfg.elems, cfg.constElems, cfg.randomGroups, 
             GCfg.mapsize.w * GCfg.mapsize.h + cfg.init_uncovered.w + cfg.init_uncovered.h, 
             cfg.init_uncovered, cfg.doorUnlock, cfg.extraTreasureBox, cfg.treasureBoxNum);
-        this.addLevelLogic(new LevelLogicBasic());
     }
 
     // 创建地图
@@ -185,7 +185,7 @@ class Level {
             }
             case "boss":{
                 for(var i = 0; i < treasureBoxNum; i++){
-                    elems.push(this.createElem("BossBox" + (i + 1)));
+                    elems.push(this.createElem("TreasureBox" + (i + 1)));
                     elems.push(this.createElem("Key"));
                 }
                 break;
