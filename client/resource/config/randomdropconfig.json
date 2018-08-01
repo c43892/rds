@@ -1,14 +1,59 @@
 {
-    "rdp1": {"num":[1, 2], "elems":{
-        "Coins":30,
-        "HpPotion":10,
-        "Knife":10,
+    "treasureBox1": {"num":[1, 2], "elems":{
+        "Coins":20,
+        "CoinsBig":10,
+        "CoinsHuge":5
+    }},
+
+    "treasureBox2": {"num":[1, 2], "elems":{
         "MedicineBox":10,
         "Hawkeye":10,
         "TimeMachine":10
     }},
 
-    "rdp2": {"num":[1, 2], "elems":{
+    "treasureBox3": {"num":[1, 2], "elems":{
+        "Knife":10,
+        "RayGun":20,
+        "IceGun":30
+    }},
+
+    "treasureBox4": {"num":[1, 2], "elems":{
+        "Knife":10,
+        "RayGun":20,
+        "IceGun":30
+    }},
+
+    "treasureBox5": {"num":[1, 2], "elems":{
+        "Knife":10,
+        "RayGun":20,
+        "IceGun":30
+    }},
+
+    "bossBox1": {"num":[1, 2], "elems":{
+        "Coins":20,
+        "CoinsBig":10,
+        "CoinsHuge":5
+    }},
+
+    "bossBox2": {"num":[1, 2], "elems":{
+        "MedicineBox":10,
+        "Hawkeye":10,
+        "TimeMachine":10
+    }},
+
+    "bossBox3": {"num":[1, 2], "elems":{
+        "Knife":10,
+        "RayGun":20,
+        "IceGun":30
+    }},
+
+    "bossBox4": {"num":[1, 2], "elems":{
+        "Knife":10,
+        "RayGun":20,
+        "IceGun":30
+    }},
+
+    "bossBox5": {"num":[1, 2], "elems":{
         "Knife":10,
         "RayGun":20,
         "IceGun":30
@@ -30,7 +75,6 @@
 
     "ttrdp2":{"num":[1, 2],"elems":{
         "HpPotion":10,
-        "Knife":10,
         "RayGun":20,
         "IceGun":30
     }}
