@@ -74,7 +74,10 @@ class AniView extends egret.DisplayObjectContainer {
             case "elemAdded":
                 doRefresh();
                 var eImg = this.mv.mapView.getElemViewAt(ps.x, ps.y).getImg();
-                await this.aniFact.createAni("fade", {img: eImg, fa:0, ta:1, time:500});
+                await this.aniFact.createAni("aniGroup", [
+                    this.aniFact.createAni("jumping", {obj:eImg, fy:eImg.y + 50, ty:eImg.y, time:500}),
+                    this.aniFact.createAni("fade", {obj:eImg, fa:0, ta:1, time:100}),
+                ]);
                 eImg.alpha = 1;
                 break;
             case "gridBlocked": {
@@ -90,7 +93,7 @@ class AniView extends egret.DisplayObjectContainer {
                 
                 gv.parent.addChild(img);
                 await this.aniFact.createAni("fade", {
-                    img:img, time: 500,
+                    obj:img, time: 500,
                     tx:gv.x, ty:gv.y, tw:gv.width, th:gv.height, ta:1, mode:egret.Ease.backIn
                 });
                 gv.parent.removeChild(img);
@@ -108,7 +111,7 @@ class AniView extends egret.DisplayObjectContainer {
                 img.y = gv.y - (img.height - gv.height) / 2;
                 gv.parent.addChild(img);
                 await this.aniFact.createAni("fade", {
-                    img:img, time: 300, ta:0, mode:egret.Ease.quintInOut
+                    obj:img, time: 300, ta:0, mode:egret.Ease.quintInOut
                 });
                 gv.parent.removeChild(img);
             }
@@ -124,7 +127,7 @@ class AniView extends egret.DisplayObjectContainer {
                 img.y = gv.y - (img.height - gv.height) / 2;
                 gv.parent.addChild(img);
                 await this.aniFact.createAni("fade", {
-                    img:img, time: 500, ta:0, noWait:true
+                    obj:img, time: 500, ta:0, noWait:true
                 });
                 gv.parent.addChild(img);
             }
@@ -251,13 +254,13 @@ class AniView extends egret.DisplayObjectContainer {
 
     async blackIn(removedWhenFinish = false) {
         this.addChild(this.blackCover);
-        await this.aniFact.createAni("fade", {img: this.blackCover, fa:0, ta:1, time: 1000});
+        await this.aniFact.createAni("fade", {obj: this.blackCover, fa:0, ta:1, time: 1000});
         if (removedWhenFinish)
             this.removeChild(this.blackCover);
     }
 
     async blackOut() {
-        await this.aniFact.createAni("fade", {img: this.blackCover, fa:1, toa:0, time: 1000});
+        await this.aniFact.createAni("fade", {obj: this.blackCover, fa:1, toa:0, time: 1000});
         if (this.getChildByName(this.blackCover.name))
             this.removeChild(this.blackCover);
     }
