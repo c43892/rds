@@ -63,7 +63,7 @@
     "Gengar":{"name":"耿鬼", "canTake":1},
     "BombAbomination":{"name":"自爆憎恶", "selfExplode":{"cnt":5, "mult":3}, "canTake":1},
     "EyeDemon":{"name":"眼魔", "canTake":1},
-    "RandomEggZombie":{"name":"彩蛋僵尸", "dropItems":["RandomEgg1"], "canTake":0},
+    "RandomEggZombie":{"name":"彩蛋僵尸", "dropItems":["RandomEgg"], "canTake":0},
     "LustZombie":{"name":"色欲僵尸", "canTake":1},
     "IronZombie":{"name":"钢铁侠僵尸", "canTake":0},
     "CommanderZombie":{"name":"指挥官僵尸", "canTake":1},

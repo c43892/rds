@@ -104,18 +104,6 @@ class ItemFactory {
             return e;
         },
 
-        // 解毒药剂
-        "DePoison": (attrs) => {
-            var e = this.createItem();
-            e.canUse = () => true;
-            e.use = async () => {
-                var bt = e.bt();
-                await bt.implRemoveBuff(bt.player, "BuffPoison");
-            };
-
-            return e;
-        },
-
         // 黑洞
         "Hole": (attrs) => {
             var e = this.createItem();

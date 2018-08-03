@@ -41,6 +41,19 @@ class PropFactory {
             });
         },
 
+        // 解毒药剂
+        "DePoison": (attrs) => {
+            return this.createProp(attrs, (e:Elem) => {
+                e.canUse = () => true;
+                e.use = async () => {
+                    var bt = e.bt();
+                    await bt.implRemoveBuff(bt.player, "BuffPoison");
+                };
+                
+                return e;
+            });
+        },
+
         // 火焰射线
         "RayGun": (attrs) => this.createProp(attrs, ElemFactory.weaponLogic(attrs.cnt, true)),
 
