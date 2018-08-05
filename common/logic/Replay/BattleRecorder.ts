@@ -82,7 +82,8 @@ class BattleRecorder {
             var elem = bt.level.createElem(ps.e);
             var g = BattleUtils.findNearestGrid(bt.level.map, {x:ps.x, y:ps.y}, (g:Grid) => !g.isCovered() && !g.getElem());
             elem.setBattle(bt);
-            if (g) await bt.implAddElemAt(elem, g.pos.x, g.pos.y);
+            var shopNpc = bt.level.map.findFirstElem((npc) => npc.type == "ShopNpc");
+            if (g) await bt.implAddElemAt(elem, g.pos.x, g.pos.y, shopNpc.pos);
         });
         BattleRecorder.onReplayOp("try2SelRelics", async (ps) => {
             var e = bt.level.createElem(ps.relicType);

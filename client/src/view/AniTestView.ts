@@ -16,7 +16,7 @@ class AniTestView extends BattleView {
     }
 
     async playAniTest() {
-        await this.itemDrop(ElemFactory.create("Coins"));
+        await this.addElem(ElemFactory.create("IceGun"));
     }
 
     newImg(res) {
@@ -28,13 +28,9 @@ class AniTestView extends BattleView {
     }
 
     // 物品掉落
-    public async itemDrop(e:Elem) {
-        var img = this.newImg(e.getElemImgRes() + "_png");
-        await this.aniFact.createAni("aniGroup", [
-            this.aniFact.createAni("jumping", {obj:img, fy:img.y + 50, ty:img.y, time:500}),
-            this.aniFact.createAni("fade", {obj:img, fa:0, ta:1, time:100}),
-        ]);
-
-        this.removeChild(img);
+    public async addElem(e:Elem) {
+        var eImg = this.newImg(e.getElemImgRes() + "_png");
+        await AniUtils.FlyOut(eImg, {x:eImg.x + 200, y:eImg.y + 200});
+        this.removeChild(eImg);
     }
 }

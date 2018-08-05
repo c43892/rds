@@ -95,7 +95,9 @@ class AnimationFactory {
         var pst = {};
         if (ps.ty != undefined) pst["y"] = ps.ty;
 
-        return egret.Tween.get(g).to(psf, 0).to(pst, ps.time, egret.Ease.elasticOut);
+        var mode = ps.mode ? ps.mode : egret.Ease.elasticOut;
+
+        return egret.Tween.get(g).to(psf, 0).to(pst, ps.time, mode);
     }
 
     // 渐隐渐显
@@ -152,10 +154,11 @@ class AnimationFactory {
     // 动画序列
     aniSeq(subAnis:Promise<void>[]):Promise<void> {
         var aw;
-        var curAni;
+        var curAni = subAnis[0];
         for (var i = 0; i < subAnis.length; i++) {
             subAnis[i]["pause"]();
-            (() => subAnis[i]["onStarted"].push(() => curAni = subAnis[i]))();
+            var iAni = subAnis[i];
+            (() => subAnis[i]["onStarted"].push(() => curAni = iAni))();
 
             if (i < subAnis.length - 1)
                 (() => subAnis[i]["onEnded"].push(subAnis[i + 1]["start"]))();
