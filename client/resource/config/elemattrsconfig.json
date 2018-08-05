@@ -107,6 +107,7 @@
     },
     "Sword":{"name":"剑", "powerA":1},
     "Cocoon":{"name":"茧", "useWithoutConfirm":true},
+    "WantedOrder":{"name":"通缉令"},
 
     "NextLevelPort":{"name":"下一层"},
     "EscapePort":{"name":"逃跑", "invisible":true}
