@@ -129,7 +129,7 @@ class Battle {
             if(!g)
                 return;
             
-            await this.implAddElemAt(e, g.pos.x, g.pos.y);
+            await this.implAddElemAt(e, g.pos.x, g.pos.y, ep.pos);
         }
         this.player.elems2NextLevel = [];
 
@@ -545,9 +545,9 @@ class Battle {
     }
 
     // 向地图添加 Elem
-    public async implAddElemAt(e:Elem, x:number, y:number) {
+    public async implAddElemAt(e:Elem, x:number, y:number, fromPos = undefined) {
         this.addElemAt(e, x, y);
-        await this.fireEvent("onGridChanged", {x:x, y:y, e:e, subType:"elemAdded"});
+        await this.fireEvent("onGridChanged", {x:x, y:y, e:e, fromPos:fromPos, subType:"elemAdded"});
         await this.triggerLogicPoint("onGridChanged", {e:e, subType:"elemAdded"});
     }
 

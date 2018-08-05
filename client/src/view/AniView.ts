@@ -71,14 +71,15 @@ class AniView extends egret.DisplayObjectContainer {
         var e:Elem = ps.e;
         var doRefresh = () => this.mv.mapView.refreshAt(ps.x, ps.y, e && e.isBig() ? e.attrs.size : undefined);
         switch (ps.subType) {
-            case "elemAdded":
+            case "elemAdded": // 有元素被添加进地图
                 doRefresh();
                 var eImg = this.mv.mapView.getElemViewAt(ps.x, ps.y).getImg();
-                await this.aniFact.createAni("aniGroup", [
-                    this.aniFact.createAni("jumping", {obj:eImg, fy:eImg.y + 50, ty:eImg.y, time:500}),
-                    this.aniFact.createAni("fade", {obj:eImg, fa:0, ta:1, time:100}),
-                ]);
-                eImg.alpha = 1;
+                if (e instanceof Monster) // 怪物是从地下冒出
+                    await AniUtils.CrawlOut(eImg);
+                else if (!ps.fromPos || (e.pos.x == ps.fromPos.x && e.pos.y == ps.fromPos.y)) // 原地跳出来
+                    await AniUtils.JumpInMap(eImg);
+                else // 飞出来，从跳出来的位置到目标位置有一段距离
+                    await AniUtils.FlyOutLogicPos(eImg, ps.fromPos, this.mv.mapView);
                 break;
             case "gridBlocked": {
                 var gv = this.mv.mapView.getGridViewAt(ps.x, ps.y);

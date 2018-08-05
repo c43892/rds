@@ -139,9 +139,10 @@ class ViewUtils {
         if (m) {
             m.forEach((value, index) => {
                 var key = value.substr(1, value.length - 2);
-                var v = e[key];
-                if (v != undefined)
-                    ss = ss.replace(value, v.toString());
+                if (e[key] != undefined)
+                    ss = ss.replace(value, e[key].toString());
+                else if (e.attrs[key] != undefined)
+                    ss = ss.replace(value, e.attrs[key].toString());
             });
         }
 

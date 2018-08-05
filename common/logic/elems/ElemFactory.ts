@@ -104,7 +104,7 @@ class ElemFactory {
                     g = BattleUtils.findRandomEmptyGrid(e.bt());
 
                 if (!g) return; // 没有空间了
-                await e.bt().implAddElemAt(elem, g.pos.x, g.pos.y);
+                await e.bt().implAddElemAt(elem, g.pos.x, g.pos.y, e.pos);
             }
         }, e);
 
