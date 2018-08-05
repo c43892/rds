@@ -75,10 +75,11 @@ class AnimationFactory {
     // 创建按指定路径移动的动画
     moving(g:egret.DisplayObject, ps):egret.Tween {
         var tw = egret.Tween.get(g);
+        var t = ps.time ? ps.time : 1000;
         for (var pt of ps.path) {
             var x = pt.x;
             var y = pt.y;
-            tw = tw.to({x:x, y:y}, 250, ps.mode);
+            tw = tw.to({x:x, y:y}, t, ps.mode);
         }
 
         return tw;
@@ -109,6 +110,7 @@ class AnimationFactory {
         if (ps.fw != undefined) psf["width"] = ps.fw;
         if (ps.fh != undefined) psf["height"] = ps.fh;
         if (ps.fa != undefined) psf["alpha"] = ps.fa;
+        if (ps.fr != undefined) psf["rotation"] = ps.fr;
 
         var pst = {};
         if (ps.tx != undefined) pst["x"] = ps.tx;
@@ -116,6 +118,7 @@ class AnimationFactory {
         if (ps.tw != undefined) pst["width"] = ps.tw;
         if (ps.th != undefined) pst["height"] = ps.th;
         if (ps.ta != undefined) pst["alpha"] = ps.ta;
+        if (ps.tr != undefined) pst["rotation"] = ps.tr;
 
         return egret.Tween.get(g).to(psf, 0).to(pst, ps.time, ps.mode);
     }

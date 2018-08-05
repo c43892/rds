@@ -14,6 +14,7 @@ class MainView extends egret.DisplayObjectContainer {
     public rankv:RankingView; // 排行榜视图
     public idv:ElemDescView; // 怪物、遗物、物品描述视图
     public arv:AllRelicsView; // 展示给定的遗物列表
+    public av:AniView; // 动画层
     
     public constructor(w:number, h:number) {
         super();
@@ -85,6 +86,13 @@ class MainView extends egret.DisplayObjectContainer {
         AllRelicsView.showElemDesc = async (e) => await this.showElemDesc(e);
         this.bv.openAllRelicsView = async (relics) => await this.openAllRelicsView(relics);
 
+        // 动画层
+        this.av = new AniView(w, h, this.bv);
+        this.addChild(this.av);
+        this.bv.av = this.av;
+        AniUtils.ac = this.bv.av;
+        AniUtils.aniFact = this.bv.av.aniFact;
+
         // 录像机如何启动新的录像战斗
         BattleRecorder.startNewBattleImpl = (p:Player, btType:string, btRandomSeed:number, trueRandomSeed:number) => {
             var bt = Battle.createNewBattle(p, btType, btRandomSeed, trueRandomSeed);
@@ -133,7 +141,7 @@ class MainView extends egret.DisplayObjectContainer {
         Utils.registerEventHandlers(bt, [
             "onGridChanged", "onPlayerChanged", "onAttack", "onElemChanged", "onPropChanged",
             "onElemMoving", "onElemFlying", "onAllCoveredAtInit", "onSuckPlayerBlood", "onMonsterTakeElem",
-        ], (e) => (ps) => this.bv.aniView[e](ps));
+        ], (e) => (ps) => this.bv.av[e](ps));
         bt.registerEvent("onLevel", (ps) => {
             if (ps.subType != "goOutLevel")
                 return;

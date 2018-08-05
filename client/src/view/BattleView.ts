@@ -31,7 +31,7 @@ class BattleView extends egret.DisplayObjectContainer {
     public propsView:PropsView; // 道具视图
     public selView:SelView; // 目标选择视图
     public repView:ReplayView; // 录像界面
-    public aniView:AniView; // 动画视图
+    public av:AniView; // 动画视图
 
     public openAllRelicsView; // 查看所有遗物
 
@@ -209,16 +209,12 @@ class BattleView extends egret.DisplayObjectContainer {
         }, this);
 
         // 格子选择
-        this.selView = new SelView();
+        this.selView = new SelView(w, h);
         this.addChild(this.selView);
 
         // 录像
         this.repView = new ReplayView(w, h);
         this.addChild(this.repView);
-
-        // 动画
-        this.aniView = new AniView(w, h, this);
-        this.addChild(this.aniView);
     }
 
     // 设置新的地图数据，但并不自动刷新显示，需要手动刷新
@@ -234,10 +230,8 @@ class BattleView extends egret.DisplayObjectContainer {
     public refresh() {
         this.refreshMap();
         this.refreshPlayer();
-        this.aniView.refresh(this.width, this.height);
-        this.repView.refresh(this.width, this.height);
-        this.selView.width = this.width; this.selView.height = this.height;
-        this.selView.x = this.selView.y = 0;
+        this.av.refresh();
+        this.repView.refresh();
         this.selView.close();
     }
 
@@ -280,6 +274,11 @@ class BattleView extends egret.DisplayObjectContainer {
         ViewUtils.multiLang(this, this.avatarBg, this.avatar, this.power, this.dodge, this.propsView, this.moreRelics);
 
         // 物品
+        this.refreshProps();
+    }
+
+    // 刷新物品列表
+    public refreshProps() {
         this.propsView.refresh(this.player.props);
     }
 
@@ -318,7 +317,7 @@ class BattleView extends egret.DisplayObjectContainer {
     // 清除所有地图显示元素
     public clear() {
         this.mapView.clear();
-        this.aniView.clear();
+        this.av.clear();
         this.repView.clear();
         this.selView.close();
         this.avatar.texture = undefined;
@@ -336,7 +335,7 @@ class BattleView extends egret.DisplayObjectContainer {
             this.refresh();
         }
 
-        await this.aniView.onLevel(ps);
+        await this.av.onLevel(ps);
     }
 
     // n 选 1

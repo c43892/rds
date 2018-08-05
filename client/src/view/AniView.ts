@@ -1,6 +1,6 @@
 // 主视图下属的动画层
 class AniView extends egret.DisplayObjectContainer {
-    private mv:BattleView; // 主视图
+    private bv:BattleView; // 主视图
     private blackCover:egret.Bitmap; // 黑屏用的遮挡
 
     private aniCover:egret.Bitmap; // 播放动画时的操作屏蔽层
@@ -8,8 +8,10 @@ class AniView extends egret.DisplayObjectContainer {
 
     public constructor(w:number, h:number, mainView:BattleView) {
         super();
+        this.width = w;
+        this.height = h;
         
-        this.mv = mainView;
+        this.bv = mainView;
         this.aniCover = ViewUtils.createBitmapByName("anicover_png");
         this.aniCover.name = "AniCover";
         this.blackCover = ViewUtils.createBitmapByName("blackcover_png");
@@ -19,10 +21,7 @@ class AniView extends egret.DisplayObjectContainer {
         this.aniFact.notifyAniStarted = (ani:Promise<void>, aniType:string, ps) => { this.onAniStarted(ani, aniType, ps); };
     }
 
-    public refresh(w:number, h:number) {
-        this.width = w;
-        this.height = h;
-        
+    public refresh() {
         // 播放动画时阻挡玩家操作
         this.aniCover.width = this.width;
         this.aniCover.height = this.height;
@@ -40,16 +39,16 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 清除所有地图显示元素
     public clear() {
-        if (this.getChildByName(this.blackCover.name) != undefined)
+        if (this.contains(this.blackCover))
             this.removeChild(this.blackCover);
 
-        if (this.getChildByName(this.aniCover.name) != undefined)
+        if (this.contains(this.aniCover))
             this.removeChild(this.aniCover);
     }
 
     // 开始环形进度条
     public async onCycleStart(img:egret.Bitmap, ps) {
-        var eImg = this.mv.mapView.getGridViewAt(ps.x, ps.y);
+        var eImg = this.bv.mapView.getGridViewAt(ps.x, ps.y);
         ps.r = eImg.width;
         ps.x = eImg.x + eImg.width / 2;
         ps.y = eImg.y + eImg.height / 2;
@@ -69,20 +68,20 @@ class AniView extends egret.DisplayObjectContainer {
     // 指定位置发生状态或元素变化
     public async onGridChanged(ps) {
         var e:Elem = ps.e;
-        var doRefresh = () => this.mv.mapView.refreshAt(ps.x, ps.y, e && e.isBig() ? e.attrs.size : undefined);
+        var doRefresh = () => this.bv.mapView.refreshAt(ps.x, ps.y, e && e.isBig() ? e.attrs.size : undefined);
         switch (ps.subType) {
             case "elemAdded": // 有元素被添加进地图
                 doRefresh();
-                var eImg = this.mv.mapView.getElemViewAt(ps.x, ps.y).getImg();
+                var img = this.bv.mapView.getElemViewAt(ps.x, ps.y).getImg();
                 if (e instanceof Monster) // 怪物是从地下冒出
-                    await AniUtils.CrawlOut(eImg);
+                    await AniUtils.CrawlOut(img);
                 else if (!ps.fromPos || (e.pos.x == ps.fromPos.x && e.pos.y == ps.fromPos.y)) // 原地跳出来
-                    await AniUtils.JumpInMap(eImg);
+                    await AniUtils.JumpInMap(img);
                 else // 飞出来，从跳出来的位置到目标位置有一段距离
-                    await AniUtils.FlyOutLogicPos(eImg, ps.fromPos, this.mv.mapView);
+                    await AniUtils.FlyOutLogicPos(img, ps.fromPos, this.bv.mapView);
                 break;
             case "gridBlocked": {
-                var gv = this.mv.mapView.getGridViewAt(ps.x, ps.y);
+                var gv = this.bv.mapView.getGridViewAt(ps.x, ps.y);
                 var img = ViewUtils.createBitmapByName("blocked_png");
 
                 var scale = 3;
@@ -103,7 +102,7 @@ class AniView extends egret.DisplayObjectContainer {
             break;
             case "gridUnblocked": {
                 doRefresh();
-                var gv = this.mv.mapView.getGridViewAt(ps.x, ps.y);
+                var gv = this.bv.mapView.getGridViewAt(ps.x, ps.y);
                 var img = ViewUtils.createBitmapByName("blocked_png");
                 img.alpha = 1;
                 img.width = gv.width;
@@ -118,7 +117,7 @@ class AniView extends egret.DisplayObjectContainer {
             }
             break;
             case "gridUncovered": {
-                var gv = this.mv.mapView.getGridViewAt(ps.x, ps.y);
+                var gv = this.bv.mapView.getGridViewAt(ps.x, ps.y);
                 doRefresh();
                 var img = ViewUtils.createBitmapByName("covered_png");
                 img.alpha = 1;
@@ -137,15 +136,28 @@ class AniView extends egret.DisplayObjectContainer {
                 doRefresh();
         }
 
-        this.mv.refreshPlayer(); // 角色属性受地图上所有东西影响
+        this.bv.refreshPlayer(); // 角色属性受地图上所有东西影响
+    }
+
+    // 道具发生变化
+    public async onPropChanged(ps) {
+        if (ps.subType == "addProp") {
+            var e:Elem = ps.e;
+            var fromImg = this.bv.mapView.getElemViewAt(e.pos.x, e.pos.y).getImg();
+            var n = Utils.indexOf(e.bt().player.props, (p) => p.type == e.type);
+            var pv = this.bv.propsView.getPropViewByIndex(n);
+            var toImg = pv.getImg();
+            await AniUtils.Fly2(fromImg, fromImg, toImg);
+        }
+        this.bv.refreshProps();
     }
 
     // 怪物属性发生变化
     public async onElemChanged(ps) {
         var e = ps.e;
-        // await this.aniFact.createAni("elemChanged", {"m": ps.m});
-        this.mv.mapView.refreshAt(e.pos.x, e.pos.y);        
-        this.mv.refreshPlayer(); // 角色属性受地图上所有东西影响
+        await this.aniFact.createAni("elemChanged", {"m": ps.m});
+        this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
+        this.bv.refreshPlayer(); // 角色属性受地图上所有东西影响
     }
 
     // 角色信息发生变化
@@ -158,17 +170,12 @@ class AniView extends egret.DisplayObjectContainer {
                 await this.aniFact.createAni("playerChanged");
         }
 
-        this.mv.refreshPlayer();
-    }
-
-    // 道具发生变化
-    public async onPropChanged(ps) {
-        this.mv.refreshPlayer();
+        this.bv.refreshPlayer();
     }
 
     // 产生攻击行为
     public async onAttack(ps) {
-        this.mv.refreshPlayer();
+        this.bv.refreshPlayer();
         if (ps.subType == "player2monster")
             await this.aniFact.createAni("monsterAttackPlayer");
         else
@@ -181,13 +188,13 @@ class AniView extends egret.DisplayObjectContainer {
         var toPt = ps.toPos;
 
         // 创建路径动画
-        var showPath = Utils.map([fromPt, toPt], (pt) => this.mv.mapView.logicPos2ShowPos(pt.x - fromPt.x, pt.y - fromPt.y));
+        var showPath = Utils.map([fromPt, toPt], (pt) => this.bv.mapView.logicPos2ShowPos(pt.x - fromPt.x, pt.y - fromPt.y));
         showPath.shift();
-        var ev = this.mv.mapView.getElemViewAt(fromPt.x, fromPt.y).getShowLayer();
-        await this.aniFact.createAni("moving", {"obj": ev, "path": showPath});
-        this.mv.mapView.refreshAt(fromPt.x, fromPt.y);
-        this.mv.mapView.refreshAt(toPt.x, toPt.y);
-        this.mv.refreshPlayer();
+        var ev = this.bv.mapView.getElemViewAt(fromPt.x, fromPt.y).getShowLayer();
+        await this.aniFact.createAni("moving", {obj: ev, path: showPath, time:250, mode:egret.Ease.sineInOut});
+        this.bv.mapView.refreshAt(fromPt.x, fromPt.y);
+        this.bv.mapView.refreshAt(toPt.x, toPt.y);
+        this.bv.refreshPlayer();
     }
 
     // 元素移动
@@ -199,17 +206,17 @@ class AniView extends egret.DisplayObjectContainer {
         var fromPt = path[0];
 
         // 创建路径动画
-        var showPath = Utils.map(path, (pt) => this.mv.mapView.logicPos2ShowPos(pt.x - fromPt.x, pt.y - fromPt.y));
+        var showPath = Utils.map(path, (pt) => this.bv.mapView.logicPos2ShowPos(pt.x - fromPt.x, pt.y - fromPt.y));
         showPath.shift();
-        var ev = this.mv.mapView.getElemViewAt(fromPt.x, fromPt.y).getShowLayer();
-        await this.aniFact.createAni("moving", {"obj": ev, "path": showPath});
+        var ev = this.bv.mapView.getElemViewAt(fromPt.x, fromPt.y).getShowLayer();
+        await this.aniFact.createAni("moving", {obj: ev, path: showPath, time:250, mode:egret.Ease.sineInOut});
         
         // 刷新格子显示
-        this.mv.mapView.refreshAt(fromPt.x, fromPt.y);
+        this.bv.mapView.refreshAt(fromPt.x, fromPt.y);
         if (path.length > 1)
-            this.mv.mapView.refreshAt(path[path.length - 1].x, path[path.length - 1].y);
+            this.bv.mapView.refreshAt(path[path.length - 1].x, path[path.length - 1].y);
 
-        this.mv.refreshPlayer(); // 角色属性受地图上所有东西影响
+        this.bv.refreshPlayer(); // 角色属性受地图上所有东西影响
     }
 
     // 关卡事件
@@ -233,7 +240,7 @@ class AniView extends egret.DisplayObjectContainer {
     // 开局时所有元素盖上
     public async onAllCoveredAtInit(ps) {
         await this.blackIn();
-        this.mv.refresh();
+        this.bv.refresh();
         await this.blackOut();
     }
 
@@ -242,8 +249,8 @@ class AniView extends egret.DisplayObjectContainer {
         var x = ps.m.pos.x;
         var y = ps.m.pos.y
         await this.aniFact.createAni("suckBlood", {x:x, y:y});
-        this.mv.refreshPlayer();
-        this.mv.mapView.refreshAt(x, y);
+        this.bv.refreshPlayer();
+        this.bv.mapView.refreshAt(x, y);
     }
 
     // 怪物拿走物品

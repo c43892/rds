@@ -1,5 +1,4 @@
 class AniTestView extends BattleView {
-    aniFact:AnimationFactory;
     constructor(w, h) {
         super(w, h);
 
@@ -12,11 +11,11 @@ class AniTestView extends BattleView {
             await this.playAniTest();
         }, this);
 
-        this.aniFact = new AnimationFactory();
+        AniUtils.ac = this;
     }
 
     async playAniTest() {
-        await this.addElem(ElemFactory.create("IceGun"));
+        await this.addElem(ElemFactory.create("DeathGod"));
     }
 
     newImg(res) {
@@ -29,8 +28,14 @@ class AniTestView extends BattleView {
 
     // 物品掉落
     public async addElem(e:Elem) {
-        var eImg = this.newImg(e.getElemImgRes() + "_png");
-        await AniUtils.FlyOut(eImg, {x:eImg.x + 200, y:eImg.y + 200});
-        this.removeChild(eImg);
+        var img = this.newImg(e.getElemImgRes() + "_png");
+        var aniFact = AniUtils.aniFact;
+        var to = {x:img.x, y:img.y, width:img.width, height:img.height};
+        img.x = img.x - 100;
+        img.y = img.y - 100;
+        img.width = img.width / 2;
+        img.height = img.height / 2;
+        await AniUtils.Fly2(img, img, to);
+        this.removeChild(img);
     }
 }

@@ -11,12 +11,15 @@ class PropsView extends egret.DisplayObjectContainer {
 
         this.pvs = [];
         for(var i = 0; i < PropsView.ViewGridNum; i++) {
-            let pv = new PropView();
+            let pv = new PropView(PropsView.ViewGridSize, PropsView.ViewGridSize);
             this.addChild(pv);
             this.pvs.push(pv);
-            pv.width = pv.height = PropsView.ViewGridSize;
             pv.touchEnabled = true;
         }
+    }
+
+    public getPropViewByIndex(n) {
+        return this.pvs[n];
     }
 
     // 刷新显示

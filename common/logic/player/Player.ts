@@ -327,15 +327,20 @@ class Player {
 
     public props:Elem[] = []; // 所有道具
 
-    public addProp(e:Prop) {
+    // 添加道具，并返回被添加到的位置
+    public addProp(e:Prop):number {
         var prop = e.toProp();
 
         // 合并可叠加的物品
         var n = Utils.indexOf(this.props, (p:Elem) => p.type == prop.type);
-        if (n >= 0 && e.attrs.canOverlap)
+        if (n >= 0 && e.attrs.canOverlap) {
             this.props[n].cnt += prop.cnt;
-        else
+            return n;
+        }
+        else {
             this.props.push(prop);
+            return this.props.length - 1;
+        }
     }
 
     public removeProp(type:string) {

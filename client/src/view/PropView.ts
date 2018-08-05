@@ -4,10 +4,19 @@ class PropView extends egret.DisplayObjectContainer {
     private elemImg:egret.Bitmap; // 元素图
     private num:egret.TextField; // 数量，右下角
 
-    public constructor() {
-        super();        
+    public constructor(w, h) {
+        super();
+        this.width = w;
+        this.height = h;
+        
         this.elemImg = ViewUtils.createBitmapByName(); // 元素图
         this.elemImg.touchEnabled = true;
+        this.elemImg.alpha = 0;
+        this.elemImg.x = this.elemImg.y = 0;
+        this.elemImg.width = w;
+        this.elemImg.height = h;
+        this.elemImg.name = "elemImg";        
+        this.addChild(this.elemImg);
 
         this.anchorOffsetX = 0;
         this.anchorOffsetY = 0;
@@ -21,6 +30,7 @@ class PropView extends egret.DisplayObjectContainer {
         this.num.anchorOffsetY = 0;
         this.num.x = 0;
         this.num.y = 0;
+        this.addChild(this.num);
 
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchGrid, this);
         this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
@@ -35,28 +45,19 @@ class PropView extends egret.DisplayObjectContainer {
         if (!this.e) return;
 
         var e = this.e;
-        this.elemImg = ViewUtils.createBitmapByName(e.getElemImgRes() + "_png");
-        this.elemImg.name = "elemImg";
-        var w = this.width;
-        var h = this.height;
-        this.elemImg.x = this.elemImg.y = 0;
-        this.elemImg.width = this.width;
-        this.elemImg.height = this.height;
-        this.addChild(this.elemImg);
+        ViewUtils.setTexName(this.elemImg, e.getElemImgRes() + "_png");
+        this.elemImg.alpha = 1;
 
         if (e.attrs.canOverlap && e.cnt > 1) { // 可叠加元素显示数量
             this.num.text = e.cnt.toString();
             this.num.textColor = 0x00ff00;
-            this.addChild(this.num);
+            this.num.alpha = 1;
         }
     }
 
     public clear() {
-        if (this.getChildByName(this.elemImg.name))
-            this.removeChild(this.elemImg);
-
-        if (this.getChildByName(this.num.name))
-            this.removeChild(this.num);
+        this.elemImg.alpha = 0;
+        this.num.alpha = 0;
     }
 
     public getElem():Elem {
@@ -81,7 +82,7 @@ class PropView extends egret.DisplayObjectContainer {
 
     // 点击
     onTouchGrid(evt:egret.TouchEvent) {
-        if (PropView.longPressed)
+        if (PropView.longPressed || !this.e)
             return;
 
         PropView.pressTimer.stop();
@@ -101,6 +102,9 @@ class PropView extends egret.DisplayObjectContainer {
 
     // 按下
     onTouchBegin(evt:egret.TouchEvent) {
+        if (!evt.target.e)
+            return;
+
         PropView.longPressed = false;
         if (!PropView.pressTimer) {
             PropView.pressTimer = new egret.Timer(PropView.LongPressThreshold, 1);

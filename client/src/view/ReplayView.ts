@@ -7,6 +7,8 @@ class ReplayView extends egret.DisplayObjectContainer {
 
     public constructor(w:number, h:number) {
         super();
+        this.width = w;
+        this.height = h;
 
         this.openBtn = new egret.TextField();
         this.openBtn.width = 30;
@@ -22,13 +24,11 @@ class ReplayView extends egret.DisplayObjectContainer {
         this.replaybg.touchEnabled = true;
         this.replaybg.name = "ReplayBg";
 
-        this.refresh(w, h);
+        this.refresh();
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchTap, this);
     }
 
-    public refresh(w:number = 0, h:number = 0) {
-        this.width = w > 0 ? w : this.width;
-        this.height = h > 0 ? h : this.height;
+    public refresh() {        
         this.openBtn.x = this.width - this.openBtn.width - 5;
         this.openBtn.y = 5;
         this.replaybg.width = this.width;

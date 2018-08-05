@@ -1,7 +1,10 @@
 // 选择逻辑视图
 class SelView extends egret.DisplayObjectContainer {
-    public constructor() {
+    public constructor(w, h) {
         super();
+        this.width = w;
+        this.height = h;
+        
         this.touchEnabled = true;
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchGrid, this);
     }
