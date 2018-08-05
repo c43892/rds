@@ -91,7 +91,8 @@ class Elem {
             critical:{a:0, b:this.btAttrs.critical, c:0},
             damageAdd:{a:0, b:this.btAttrs.damageAdd, c:0},
             attackFlags: [...this.btAttrs.attackFlags],
-            addBuffs:[...this.btAttrs.addBuffs]
+            addBuffs:[...this.btAttrs.addBuffs],
+            muiltAttack:(this.btAttrs.muiltAttack ? this.btAttrs.muiltAttack : 1)
         };
     }
 

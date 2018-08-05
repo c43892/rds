@@ -23,6 +23,7 @@ class BattleView extends egret.DisplayObjectContainer {
     public deathGodBar:egret.Bitmap; // 死神进度条
     public deathGod:egret.Bitmap; // 死神位置
 
+    readonly ShowMaxRelicNum = 6;
     public relicsBg:egret.DisplayObjectContainer; // 遗物区域
     public relics:egret.Bitmap[] = []; // 遗物
     public moreRelics:egret.Bitmap; // 更多遗物
@@ -196,6 +197,10 @@ class BattleView extends egret.DisplayObjectContainer {
         this.propsView.name = "propsView";
         this.addChild(this.propsView);
 
+        // 格子选择
+        this.selView = new SelView(w, h);
+        this.addChild(this.selView);
+
         // 遗物区域
         this.relicsBg = new egret.DisplayObjectContainer();
         this.relicsBg.name = "relicsBg";
@@ -208,9 +213,17 @@ class BattleView extends egret.DisplayObjectContainer {
             this.openAllRelicsView(this.player.relics);
         }, this);
 
-        // 格子选择
-        this.selView = new SelView(w, h);
-        this.addChild(this.selView);
+        for (var i = 0; i < this.ShowMaxRelicNum; i++) {
+            var bmp = new egret.Bitmap();
+            bmp.alpha = 0;
+            this.addChild(bmp);
+            this.relics.push(bmp);
+            bmp.touchEnabled = true;
+            bmp.addEventListener(egret.TouchEvent.TOUCH_TAP, async (evt:egret.TouchEvent) => {
+                var r = evt.target["relic"];
+                if (r) await ElemView.showElemDesc(r);
+            }, this);
+        }
 
         // 录像
         this.repView = new ReplayView(w, h);
@@ -285,32 +298,28 @@ class BattleView extends egret.DisplayObjectContainer {
     public refreshRelics() {
         ViewUtils.multiLang(this, this.relicsBg);
 
-        for (var rBmp of this.relics)
-            this.removeChild(rBmp);
-        
-        this.relics = [];
-
-        const ShowMaxRelicNum = 6;
-        var w = this.relicsBg.width / ShowMaxRelicNum;
+        var w = this.relicsBg.width / this.ShowMaxRelicNum;
         var h = w;
         var x = this.relicsBg.x;
         var y = this.relicsBg.y;
-        var spaceX = (this.relicsBg.width - ShowMaxRelicNum * w) / (ShowMaxRelicNum - 1);
-        for (var i = 0; i < this.player.relics.length && i < ShowMaxRelicNum; i++) {
-            var r = this.player.relics[i];
-            var rBmp = ViewUtils.createBitmapByName(r.getElemImgRes() + "_png");
-            rBmp.x = x;
-            rBmp.y = y;
-            rBmp.width = w;
-            rBmp.height = h;
+        var spaceX = (this.relicsBg.width - this.ShowMaxRelicNum * w) / (this.ShowMaxRelicNum - 1);
+        for (var i = 0; i < this.relics.length; i++) {
+            var bmp = this.relics[i];
+            bmp.x = x;
+            bmp.y = y;
+            bmp.width = w;
+            bmp.height = h;
             x += w + spaceX;
-            this.addChild(rBmp);
-            this.relics.push(rBmp);
-            rBmp.touchEnabled = true;
-            rBmp["relic"] = r;
-            rBmp.addEventListener(egret.TouchEvent.TOUCH_TAP, async (evt:egret.TouchEvent) => {
-                await ElemView.showElemDesc(evt.target["relic"]);
-            }, this);
+
+            var r = this.player.relics[i];
+            if (r) {
+                ViewUtils.setTexName(bmp, r.getElemImgRes() + "_png");
+                bmp.alpha = 1;
+                bmp["relic"] = r;
+            } else {
+                bmp.alpha = 0;
+                bmp["relic"] = undefined;
+            }
         }
     }
 
@@ -321,9 +330,10 @@ class BattleView extends egret.DisplayObjectContainer {
         this.repView.clear();
         this.selView.close();
         this.avatar.texture = undefined;
-        for (var rBmp of this.relics)
-            this.removeChild(rBmp);
-        this.relics = [];
+        for (var bmp of this.relics) {
+            bmp.alpha = 0;
+            bmp["relic"] = undefined;
+        }
     }
 
     // 初始化主视图数据

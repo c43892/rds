@@ -152,6 +152,18 @@ class AniView extends egret.DisplayObjectContainer {
         this.bv.refreshProps();
     }
 
+    // 遗物发生变化
+    public async onRelicChanged(ps) {
+        if (ps.subType == "addRelicByPickup") {
+            var e:Elem = ps.e;
+            var fromImg = this.bv.mapView.getElemViewAt(e.pos.x, e.pos.y).getImg();
+            var n = Utils.indexOf(e.bt().player.relics, (p) => p.type == e.type);
+            var toImg = this.bv.relics[n];
+            await AniUtils.Fly2(fromImg, fromImg, toImg);
+        }
+        this.bv.refreshRelics();
+    }
+
     // 怪物属性发生变化
     public async onElemChanged(ps) {
         var e = ps.e;

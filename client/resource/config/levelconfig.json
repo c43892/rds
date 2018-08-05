@@ -95,7 +95,8 @@
                     "IceGun": 1101,
                     "RayGun": 1101,
                     "HpCapsule": 1101,
-                    "DePoison": 1101
+                    "DePoison": 1101,
+                    "SuperPotion": 1101
                 }
             }
         ]

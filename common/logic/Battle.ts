@@ -506,7 +506,7 @@ class Battle {
             this.fireEventSync("onPlayerOp", {op:"try2SelRelics", ps:{relicType:relicType}});
             var r = ElemFactory.create(relicType);
             r.setBattle(this);
-            await this.implAddPlayerRelic(r);
+            await this.implSelRelic(r);
         });
     }
 
@@ -745,20 +745,24 @@ class Battle {
             BattleUtils.mergeBattleAttrsPS(this.player.getAttrsAsAttacker(1), weapon.getAttrsAsAttacker());
 
         var targetAttrs = m.getAttrsAsTarget();
-        if (marked) (<string[]>attackerAttrs.attackFlags).push("Sneak"); // 偷袭标记
+        if (marked && !weapon) (<string[]>attackerAttrs.attackFlags).push("Sneak"); // 偷袭标记
 
-        var r = await this.calcAttack("player2monster", attackerAttrs, targetAttrs);
-        if (r.r == "attacked") {
-            await this.implAddMonsterHp(m, -r.dhp);
-            await this.implAddMonsterShield(m, -r.dShield)
+        var rs:any[] = []; // 存放该次攻击逻辑中产生的所有攻击结果
+        for (var i = 0; i < attackerAttrs.muiltAttack && !m.isDead(); i++){
+            var r = await this.calcAttack("player2monster", attackerAttrs, targetAttrs);
+            if (r.r == "attacked") {
+                await this.implAddMonsterHp(m, -r.dhp);
+                await this.implAddMonsterShield(m, -r.dShield)
+            }
+
+            // 处理附加 buff
+            for (var b of r.addBuffs)
+                await this.implAddBuff(m, "Buff" + b.type, ...b.ps);
+
+            await this.fireEvent("onAttack", {subType:"player2monster", x:m.pos.x, y:m.pos.y, rs:rs, target:m, weapon:weapon, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
         }
 
-        // 处理附加 buff
-        for (var b of r.addBuffs)
-            await this.implAddBuff(m, "Buff" + b.type, ...b.ps);
-
-        await this.fireEvent("onAttack", {subType:"player2monster", x:m.pos.x, y:m.pos.y, r:r, target:m, weapon:weapon, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
-        await this.triggerLogicPoint("onAttack", {subType:"player2monster", x:m.pos.x, y:m.pos.y, r:r, target:m, weapon:weapon, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+        await this.triggerLogicPoint("onAttack", {subType:"player2monster", x:m.pos.x, y:m.pos.y, rs:rs, target:m, weapon:weapon, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
     }
 
     // 指定怪物尝试攻击角色
@@ -774,17 +778,22 @@ class Battle {
             if (!Utils.contains(attackerAttrs.attackFlags, af))
                 attackerAttrs.attackFlags.push(af);
 
-        var r = await this.calcAttack("monster2player", attackerAttrs, targetAttrs);
-        Utils.assert(r.dShield == 0, "player does not support Shield");
-        if (r.r == "attacked")
-            await this.implAddPlayerHp(-r.dhp);
+        var rs:any[] = []; // 存放该次攻击逻辑中产生的所有攻击结果
+        for (var i = 0; i < attackerAttrs.muiltAttack && !this.player.isDead(); i++){
+            var r = await this.calcAttack("monster2player", attackerAttrs, targetAttrs);
+            rs.push(r);
+            Utils.assert(r.dShield == 0, "player does not support Shield");
+            if (r.r == "attacked")
+                await this.implAddPlayerHp(-r.dhp);
 
-        // 处理附加 buff
-        for (var b of r.addBuffs)
-            await this.implAddBuff(this.player, "Buff" + b.type, ...b.ps);
+            // 处理附加 buff
+            for (var b of r.addBuffs)
+                await this.implAddBuff(this.player, "Buff" + b.type, ...b.ps);
+        
+            await this.fireEvent("onAttack", {subType:"monster2player", rs:rs, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+        }
 
-        await this.fireEvent("onAttack", {subType:"monster2player", r:r, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
-        await this.triggerLogicPoint("onAttack", {subType:"monster2player", x:m.pos.x, y:m.pos.x, r:r, target:this.player, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+        await this.triggerLogicPoint("onAttack", {subType:"monster2player", x:m.pos.x, y:m.pos.x, rs:rs, target:this.player, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
 
         if (selfExplode && !m.isDead()) // 自爆还要走死亡逻辑
             await this.implOnElemDie(m);
@@ -804,18 +813,23 @@ class Battle {
         var attackerAttrs = attacker.getAttrsAsAttacker();
         var targetAttrs = target.getAttrsAsTarget();
 
-        var r = await this.calcAttack("monster2monster", attackerAttrs, targetAttrs);
-        if (r.r == "attacked") {
-            await this.implAddMonsterHp(target, -r.dhp);
-            await this.implAddMonsterShield(target, -r.dShield)
+        var rs:any[] = []; // 存放该次攻击逻辑中产生的所有攻击结果
+        for(var i = 0 ; i < attackerAttrs.muiltAttack && !target.isDead(); i++) {
+            var r = await this.calcAttack("monster2monster", attackerAttrs, targetAttrs);
+            rs.push(r);
+            if (r.r == "attacked") {
+                await this.implAddMonsterHp(target, -r.dhp);
+                await this.implAddMonsterShield(target, -r.dShield)
+            }
+
+            // 处理附加 buff
+            for (var b of r.addBuffs)
+                await this.implAddBuff(target, "Buff" + b.type, ...b.ps);
+
+            await this.fireEvent("onAttack", {subType:"monster2monster", x:target.pos.x, y:target.pos.x, rs:rs, target:target, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
         }
 
-        // 处理附加 buff
-        for (var b of r.addBuffs)
-            await this.implAddBuff(target, "Buff" + b.type, ...b.ps);
-
-        await this.fireEvent("onAttack", {subType:"monster2monster", x:target.pos.x, y:target.pos.x, r:r, target:target, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
-        await this.triggerLogicPoint("onAttack", {subType:"monster2monster", x:target.pos.x, y:target.pos.x, r:r, target:target, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+        await this.triggerLogicPoint("onAttack", {subType:"monster2monster", x:target.pos.x, y:target.pos.x, rs:rs, target:target, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
     }
 
     // 角色+经验
@@ -834,17 +848,23 @@ class Battle {
         await this.triggerLogicPoint("onPlayerChanged", {subType: "attrType"});
     }
 
-    // 角色+遗物
-    public async implAddPlayerRelic(e:Elem) {
-        this.player.addRelic(<Relic>e);
-        await this.fireEvent("onPlayerChanged", {subType:"addRelic", e:e});
-        await this.triggerLogicPoint("onPlayerChanged", {subType:"addRelic", e:e});
-    }
-
     // 通知元素属性更新
     public async implNotifyElemChanged(attrType:string, e:Elem) {
         await this.fireEvent("onElemChanged", {subType:attrType, e:e});
         await this.triggerLogicPoint("onElemChanged", {subType:attrType, e:e});
+    }
+
+    // 角色+遗物
+    public async implSelRelic(e:Elem) {
+        this.player.addRelic(<Relic>e);
+        await this.fireEvent("onRelicChanged", {subType:"addRelicBySel", e:e});
+        await this.triggerLogicPoint("onRelicChanged", {subType:"addRelic", e:e});
+    }
+
+    public async implPickupRelic(e:Elem) {
+        this.player.addRelic(<Relic>e);
+        await this.fireEvent("onRelicChanged", {subType:"addRelicByPickup", e:e});
+        await this.triggerLogicPoint("onRelicChanged", {subType:"addRelic", e:e});
     }
 
     // 角色-遗物

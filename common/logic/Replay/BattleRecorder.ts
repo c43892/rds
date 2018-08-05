@@ -88,7 +88,7 @@ class BattleRecorder {
         BattleRecorder.onReplayOp("try2SelRelics", async (ps) => {
             var e = bt.level.createElem(ps.relicType);
             e.setBattle(bt);
-            await bt.implAddPlayerRelic(e);
+            await bt.implSelRelic(e);
         });
     }
 

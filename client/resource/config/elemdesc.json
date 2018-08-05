@@ -57,6 +57,7 @@
         "BossBunny":{"name":"BossBunny", "desc":""},
 
         "HpPotion":{"name":"HpPotion", "desc":"<font color=#000000 size=18>Gain<font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>hp</font>"},
+		"SuperPotion":{"name":"SuperPotion", "desc":""},
         "Hole":{"name":"Hole", "desc":""},
         "Apple":{"name":"Apple", "desc":"<font color=#000000 size=18>Gain<font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>hp</font>"},
         "Steak":{"name":"Steak", "desc":"<font color=#000000 size=18>Gain<font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>hp</font>"},
@@ -66,6 +67,7 @@
         "IceGun":{"name":"IceGun", "desc":"<font color=#000000 size=18>Freeze target after shooting</font>"},
         "Sword":{"name":"Sword", "desc":"<font color=#000000 size=18>Attack <font color=#00ff00 size=18>+1</font>"},
         "Cocoon":{"name":"Cocoon", "desc":"<font color=#000000 size=18>Wrapped items cannot be used</font>"},
+        "WantedOrder":{"name":"通缉令", "desc":""},
 
         "NextLevelPort":{"name":"NextLevelPort", "desc":"<font color=#000000 size=18>To the next floor</font>"},
         "EscapePort":{"name":"EscapePort", "desc":""}
@@ -127,7 +129,7 @@
         "BossBunny":{"name":"boss兔子", "desc":""},
 
         "HpPotion":{"name":"血瓶", "desc":"<font color=#000000 size=18>使用回复<font color=#00ff00 size=18>{dhp}<font color=#000000 size=18>点生命值"},
-        "Hole":{"name":"黑洞", "desc":""},
+        "SuperPotion":{"name":"超能药水", "desc":""},        "Hole":{"name":"黑洞", "desc":""},
         "Apple":{"name":"苹果", "desc":"<font color=#000000 size=18>使用回复<font color=#00ff00 size=18>{dhp}<font color=#000000 size=18>点生命值"},
         "Steak":{"name":"牛排", "desc":"<font color=#000000 size=18>使用回复<font color=#00ff00 size=18>{dhp}<font color=#000000 size=18>点生命值"},
         "IceBlock":{"name":"冰块", "desc":"<font color=#000000 size=18>可以打破消失"},
@@ -136,6 +138,7 @@
         "IceGun":{"name":"冰冻射线", "desc":"<font color=#000000 size=18>射击后冻结目标"},
         "Sword":{"name":"剑", "desc":"<font color=#000000 size=18>攻击<font color=#00ff00 size=18>+1"},
         "Cocoon":{"name":"茧", "desc":"<font color=#000000 size=18>被茧包裹的物品无法使用"},
+        "WantedOrder":{"name":"通缉令", "desc":""},
 
         "NextLevelPort":{"name":"下一层", "desc":"<font color=#000000 size=18>前往下一层"},
         "EscapePort":{"name":"逃跑", "desc":"<font color=#000000 size=18>离开地牢"}
@@ -191,12 +194,13 @@
         "SwatheZombie":{"name":"纏繞僵屍", "desc":"<font color=#3333cc size=20>纏繞\n\n<font color=#000000 size=18>突襲時鎖定三項已顯形物品，死亡後才可解鎖<font color=#3333cc size=20>劇毒\n\n<font color=#000000 size=18>攻擊附帶2層中毒"},
         "BoxMonster":{"name":"憤怒寶箱", "desc":"<font color=#3333cc size=20>憤怒\n\n<font color=#000000 size=18>寶箱的復仇"},
         "ShopNpc":{"name":"商人", "desc":"<font color=#3333cc size=20>商店\n\n<font color=#000000 size=18>這裡出售各種道具"},
+        "WantedOrder":{"name":"通缉令", "desc":""},
 
         "PlaceHolder":{"name":"Boss精英占位", "desc":""},
         "BossBunny":{"name":"boss兔子", "desc":""},
 
         "HpPotion":{"name":"血瓶", "desc":"<font color=#000000 size=18>使用回復<font color=#00ff00 size=18>{dhp}<font color=#000000 size=18>點生命值"},
-        "Hole":{"name":"黑洞", "desc":""},
+        "SuperPotion":{"name":"超能药水", "desc":""},        "Hole":{"name":"黑洞", "desc":""},
         "Apple":{"name":"蘋果", "desc":"<font color=#000000 size=18>使用回復<font color=#00ff00 size=18>{dhp}<font color=#000000 size=18>點生命值"},
         "Steak":{"name":"牛排", "desc":"<font color=#000000 size=18>使用回復<font color=#00ff00 size=18>{dhp}<font color=#000000 size=18>點生命值"},
         "IceBlock":{"name":"冰塊", "desc":"<font color=#000000 size=18>可以打破消失"},

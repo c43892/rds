@@ -20,7 +20,7 @@ class RelicFactory {
         e.use = async () => { 
             var bt = e.bt();
             var p = bt.player;
-            await bt.implAddPlayerRelic(e);
+            await bt.implPickupRelic(e);
         };
         if (attrs.reinforceLv) // 初始强化等级
             e.setReinfoceLv(attrs.reinforceLv);
