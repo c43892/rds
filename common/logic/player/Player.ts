@@ -115,6 +115,7 @@ class Player {
     public dodge:number = 0; // 闪避
     public damageDec:number = 0; // -伤
     public resist:number = 0; // 抗性
+    public muiltAttack:number[] = [1, 0]; // 多重攻击
 
     public isDead = () => this.hp <= 0;
 
@@ -127,7 +128,8 @@ class Player {
             critical:{a:0, b:this.critical[n], c:0},
             damageAdd:{a:0, b:this.damageAdd[n], c:0},
             attackFlags: [...this.attackFlags[n]],
-            addBuffs:[]
+            addBuffs:[],
+            muiltAttack:this.muiltAttack[n],
         };
     }
 

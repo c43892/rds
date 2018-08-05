@@ -46,8 +46,9 @@ class PropFactory {
             return this.createProp(attrs, (e:Elem) => {
                 e.canUse = () => true;
                 e.use = async () => {
-                    var bt = e.bt();
-                    await bt.implRemoveBuff(bt.player, "BuffPoison");
+                    e.cnt--;
+                    await e.bt().implRemoveBuff(e.bt().player, "BuffPoison");
+                    return e.cnt > 0;
                 };
                 
                 return e;
@@ -60,6 +61,19 @@ class PropFactory {
         // 冰冻射线
         "IceGun": (attrs) => this.createProp(attrs, 
                         ElemFactory.elemCanUseAtManyTimes(attrs.cnt, async (e, x, y) => 
-                            await e.bt().implFrozeAt(x, y, e), true))
+                            await e.bt().implFrozeAt(x, y, e), true)),
+
+        // 超能药水
+        "SuperPotion": (attrs) => {
+            return this.createProp(attrs, (e:Elem) => {
+                e.canUse = () => true;
+                e.use = async () => {
+                    e.cnt --;
+                    await e.bt().implAddBuff(e.bt().player, "BuffSuperPotion", attrs.immunizeCnt);
+                    return e.cnt > 0;
+                };
+                return e;
+            });
+        }
     };
 }

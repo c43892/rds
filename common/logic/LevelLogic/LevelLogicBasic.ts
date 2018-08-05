@@ -58,7 +58,6 @@ class LevelLogicBasic extends LevelLogic{
         var ms = <Monster[]>BattleUtils.findRandomElems(bt, takeNum, (e:Elem) => e instanceof Monster && e.attrs.canTake == 1);
         for(var m of ms){
             var key = keys[bt.srand.nextInt(0, keys.length)];
-            Utils.log(m.type, m.pos.x, m.pos.y, "take key at", key.pos.x, key.pos.y);
             keys = Utils.remove(keys, key);
             await bt.implMonsterTakeElems(m, [key]);
             m.addDropItem(key);

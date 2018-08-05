@@ -57,6 +57,7 @@
         "BossBunny":{"name":"BossBunny", "desc":""},
 
         "HpPotion":{"name":"HpPotion", "desc":"<font color=#000000 size=18>Gain<font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>hp</font>"},
+        "SuperPotion":{"name":"SuperPotion", "desc":""},
         "Hole":{"name":"Hole", "desc":""},
         "Apple":{"name":"Apple", "desc":"<font color=#000000 size=18>Gain<font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>hp</font>"},
         "Steak":{"name":"Steak", "desc":"<font color=#000000 size=18>Gain<font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>hp</font>"},
@@ -127,6 +128,7 @@
         "BossBunny":{"name":"boss兔子", "desc":""},
 
         "HpPotion":{"name":"血瓶", "desc":"使用回复5生命"},
+        "SuperPotion":{"name":"超能药水", "desc":""},
         "Hole":{"name":"黑洞", "desc":""},
         "Apple":{"name":"苹果", "desc":""},
         "Steak":{"name":"牛排", "desc":""},
@@ -196,6 +198,7 @@
         "BossBunny":{"name":"boss兔子", "desc":""},
 
         "HpPotion":{"name":"血瓶", "desc":""},
+        "SuperPotion":{"name":"超能药水", "desc":""},
         "Hole":{"name":"黑洞", "desc":""},
         "Apple":{"name":"苹果", "desc":""},
         "Steak":{"name":"牛排", "desc":""},

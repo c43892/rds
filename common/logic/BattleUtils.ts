@@ -105,12 +105,15 @@ class BattleUtils {
             dodge:{a:0, b:0, c:0},
             damageDec:{a:0, b:0, c:0},
             resist:{a:0, b:0, c:0},
+            muiltAttack:0,
         };
 
         for (var k in ps) {
             var v = ps[k];
             if (Array.isArray(v))
                 ps[k] = Utils.mergeSet(ps1 ? ps1[k] : undefined, ps2 ? ps2[k] : undefined); // 合并标记
+            else if (v == 0)
+                ps[k] = ps1[k] + ps2[k];
             else { // 合并 a, b, c 参数
                 var v1 = ps1 ? ps1[k] : undefined;
                 var v2 = ps2 ? ps2[k] : undefined;
@@ -143,6 +146,7 @@ class BattleUtils {
             dodge:0,
             damageDec:0,
             resist:0,
+            muiltAttack:0
         };
 
         for (var k in attrs) {
