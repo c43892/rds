@@ -34,9 +34,9 @@ class AniUtils {
     // 物品添加到地图中，从原地跳出来的效果
     public static async jumpInMap(obj:egret.DisplayObject) {
         var rev = AniUtils.reserveObjTrans(obj);
-        await AniUtils.aniFact.createAni("grp", [
-            AniUtils.aniFact.createAni("trans", {obj:obj, fy:obj.y + 75, ty:obj.y, time:750, mode:egret.Ease.elasticOut}),
-            AniUtils.aniFact.createAni("trans", {obj:obj, fa:0, ta:1, time:250}),
+        await AniUtils.aniFact.createAni("gp", [
+            AniUtils.aniFact.createAni("tr", {obj:obj, fy:obj.y + 75, ty:obj.y, time:750, mode:egret.Ease.elasticOut}),
+            AniUtils.aniFact.createAni("tr", {obj:obj, fa:0, ta:1, time:250}),
         ]);
         rev();
     }
@@ -44,8 +44,8 @@ class AniUtils {
     // 怪物从地下冒出来的效果
     public static async crawlOut(obj:egret.DisplayObject) {
         var rev = AniUtils.reserveObjTrans(obj);
-        await this.aniFact.createAni("grp", [
-            this.aniFact.createAni("trans", {obj:obj, 
+        await this.aniFact.createAni("gp", [
+            this.aniFact.createAni("tr", {obj:obj, 
                 fx:obj.x, fy:obj.y + 50,
                 tx:obj.x, ty:obj.y,
                 fa:0, ta:1, time:250, mode:egret.Ease.circOut}),
@@ -63,19 +63,19 @@ class AniUtils {
         var t = 250;
         var fr = 0;
         var tr = obj.x < fromPos.x ? -360 : 360;
-        await aniFact.createAni("grp", [
+        await aniFact.createAni("gp", [
             aniFact.createAni("seq", [
-                aniFact.createAni("grp", [
-                    aniFact.createAni("trans", {obj:obj, fy:fromPos.y, ty:midY, time:t, mode:egret.Ease.sineOut}),
-                    aniFact.createAni("trans", {obj:obj, fx:fromPos.x, tx:midX, time:t})
+                aniFact.createAni("gp", [
+                    aniFact.createAni("tr", {obj:obj, fy:fromPos.y, ty:midY, time:t, mode:egret.Ease.sineOut}),
+                    aniFact.createAni("tr", {obj:obj, fx:fromPos.x, tx:midX, time:t})
                 ]),
-                aniFact.createAni("grp", [
-                    aniFact.createAni("trans", {obj:obj, fy:midY, ty:obj.y, time:t, mode:egret.Ease.sineIn}),
-                    aniFact.createAni("trans", {obj:obj, fx:midX, tx:obj.x, time:t})
+                aniFact.createAni("gp", [
+                    aniFact.createAni("tr", {obj:obj, fy:midY, ty:obj.y, time:t, mode:egret.Ease.sineIn}),
+                    aniFact.createAni("tr", {obj:obj, fx:midX, tx:obj.x, time:t})
                 ]),
             ]),
-            aniFact.createAni("trans", {obj:obj, fr:fr, tr:tr, time:t * 2}),
-            aniFact.createAni("trans", {obj:obj, fa:0, ta:1, time:100}),
+            aniFact.createAni("tr", {obj:obj, fr:fr, tr:tr, time:t * 2}),
+            aniFact.createAni("tr", {obj:obj, fa:0, ta:1, time:100}),
         ]);
         rev();
     }
@@ -120,17 +120,17 @@ class AniUtils {
         await aniFact.createAniByCfg({
             type:"seq", arr: [ // 一个动画序列
                 {type:"seq", arr: [ // 移动过程，也是一个序列
-                    {type:"grp", arr: [
-                        {type:"trans", fy:fp.y, ty:my, time:250, tsx:msx, tsy:msy, mode:egret.Ease.quartOut}, // 微微放大抬起来
-                        {type:"trans", fr:0, tx:mx, tr:mr, time:250}, // 伴随旋转
+                    {type:"gp", arr: [
+                        {type:"tr", fy:fp.y, ty:my, time:250, tsx:msx, tsy:msy, mode:egret.Ease.quartOut}, // 微微放大抬起来
+                        {type:"tr", fr:0, tx:mx, tr:mr, time:250}, // 伴随旋转
                     ]},
-                    {type:"grp", arr: [
-                        {type:"trans", fy:my, ty:tp.y, time:250, fsx:msx, fsy:msy, tsx:sx, tsy:sy, mode:egret.Ease.quadIn}, // 飞向目标
-                        {type:"trans", fr:mr, tr:tr, fx:mx, tx:tp.x, time:250}, // 伴随旋转
+                    {type:"gp", arr: [
+                        {type:"tr", fy:my, ty:tp.y, time:250, fsx:msx, fsy:msy, tsx:sx, tsy:sy, mode:egret.Ease.quadIn}, // 飞向目标
+                        {type:"tr", fr:mr, tr:tr, fx:mx, tx:tp.x, time:250}, // 伴随旋转
                     ]},
                 ]}, 
-                {type:"trans", fa:1, ta:3, time:200, mode:egret.Ease.quadOut}, // 颜色反白
-                {type:"trans", fa:3, ta:1, time:200, mode:egret.Ease.quadOut}, // 颜色恢复
+                {type:"tr", fa:1, ta:3, time:200, mode:egret.Ease.quadOut}, // 颜色反白
+                {type:"tr", fa:3, ta:1, time:200, mode:egret.Ease.quadOut}, // 颜色恢复
             ]
         }, obj);
 
@@ -156,8 +156,8 @@ class AniUtils {
 
         await AniUtils.aniFact.createAniByCfg({
             type:"seq", arr: [ // 一个动画序列
-                {type:"trans", fx:fp.x, fy:fp.y, tx:mx, ty:my, time:100, mode:egret.Ease.quintIn}, // 先冲过去
-                {type:"trans", fx:mx, fy:my, tx:fp.x, ty:fp.y, time:100, mode:egret.Ease.quintOut}, // 再退回来
+                {type:"tr", fx:fp.x, fy:fp.y, tx:mx, ty:my, time:100, mode:egret.Ease.quintIn}, // 先冲过去
+                {type:"tr", fx:mx, fy:my, tx:fp.x, ty:fp.y, time:100, mode:egret.Ease.quintOut}, // 再退回来
             ]
         }, obj);
 
