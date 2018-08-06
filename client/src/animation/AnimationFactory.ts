@@ -3,8 +3,27 @@ class AnimationFactory {
 
     public notifyAniStarted;
 
+    /*
+        一个动画需要指明一个 type 和一组参数
+        可用的 type 有：
+            "tr": 完成移动，旋转，缩放，透明度变化
+                : f* 表示起始值，t* 标是目标值
+                : *x 是坐标 x，*y 是坐标 y，*w 是宽，*h 是高，*r 是旋转角度，*a 是透明度，*sx 是横轴缩放，*sy 是纵轴缩放
+                : 例如：{type:"tr", fx:0, fy:0, tx:100, ty:100, fr:0, tr:360} 标是从 {0, 0} 移动到 {100, 100} 同时旋转一周
+                : 参数 mode 是 egret.ease 曲线类型，默认是线性，参数 time 是动画持续时间，单位是毫秒
+            "delay": 延迟一段时间
+                : 参数 time 是动画持续时间，单位是毫秒
+            "moveOnPath": 沿着给定路径移动
+                : path 是一组形如 {x:x, y:y} 的数组，表示路径点坐标
+                : 参数 mode 是 egret.ease 曲线类型，默认是线性，作用于每一格移动，参数 time 也是每移动一格所需的时间，单位是毫秒
+            "seq": 一组顺序播放的动画
+                : arr 是一个动画数组，该组动画将被顺序播放，最后一个动画的完成时，整个动画序列完成
+            "gp": 一组同时播放的动画
+                : arr 是一个动画数组，该组动画将同时播放，以最晚结束的动画时间算最终完成时间
+    */
+
     public createAniByCfg(cfg, defaultObj = undefined):Promise<void> {
-        if (cfg.type == "seq" || cfg.type == "grp") {
+        if (cfg.type == "seq" || cfg.type == "gp") {
             var aniArr = [];
             for (var subCfg of cfg.arr) {
                 var subAni = this.createAniByCfg(subCfg, defaultObj);
@@ -24,19 +43,19 @@ class AnimationFactory {
         var aw;
         if (aniType == "seq")
             aw = this.aniSeq(ps);
-        else if (aniType == "grp")
+        else if (aniType == "gp")
             aw = this.aniGroup(ps);
         else {
             var ani:egret.Tween;
             switch (aniType) {
                 case "delay": ani = this.fade(ps.obj, {time:ps.time}); break;
-                case "trans": ani = this.fade(ps.obj, ps); break;
+                case "tr": ani = this.fade(ps.obj, ps); break;
                 case "moveOnPath": ani = this.moveOnPath(ps.obj, ps); break;
                 case "cycleMask": ani = this.cycleMask(ps.obj, ps); break;
             }
 
             if (!ani) Utils.log("unknown aniType: " + aniType);
-            aw = ani ? new Promise<void>((r, _) => ani.call(r)) : Utils.delay(10);
+            aw = ani ? new Promise<void>((r, _) => ani.call(r)) : Utils.delay(1);
         }
         
         aw["name"] = (ps && ps.name) ? ps.name : undefined;
