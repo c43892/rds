@@ -178,8 +178,8 @@ class ElemView extends egret.DisplayObjectContainer {
         return this.showLayer;
     }
 
-    public getImg():egret.Bitmap {
-        return this.elemImg;
+    public getDisplay():egret.DisplayObject {
+        return this.showLayer;
     }
 
     // 各种操作逻辑构建

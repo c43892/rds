@@ -3,29 +3,34 @@ class AnimationFactory {
 
     public notifyAniStarted;
 
-    public createAniByCfg(cfg):Promise<void> {
-        if (cfg.type == "aniSeq" || cfg.type == "aniGroup") {
+    public createAniByCfg(cfg, defaultObj = undefined):Promise<void> {
+        if (cfg.type == "seq" || cfg.type == "grp") {
             var aniArr = [];
-            for (var subCfg of cfg.ps) {
-                var subAni = this.createAniByCfg(subCfg);
+            for (var subCfg of cfg.arr) {
+                var subAni = this.createAniByCfg(subCfg, defaultObj);
                 aniArr.push(subAni);
             }
             return this.createAni(cfg.type, aniArr);
-        } else
-            return this.createAni(cfg.type, cfg.ps);
+        } else {
+            if (!cfg.obj)
+                cfg.obj = defaultObj;
+
+            return this.createAni(cfg.type, cfg);
+        }
     }
 
     // 创建指定类型的动画
     public createAni(aniType:string, ps = undefined):Promise<void> {
         var aw;
-        if (aniType == "aniSeq")
+        if (aniType == "seq")
             aw = this.aniSeq(ps);
-        else if (aniType == "aniGroup")
+        else if (aniType == "grp")
             aw = this.aniGroup(ps);
         else {
             var ani:egret.Tween;
             switch (aniType) {
-                case "fade": ani = this.fade(ps.obj, ps); break;
+                case "delay": ani = this.fade(ps.obj, {time:ps.time}); break;
+                case "trans": ani = this.fade(ps.obj, ps); break;
                 case "moving": ani = this.moving(ps.obj, ps); break;
                 case "jumping": ani = this.jumping(ps.obj, ps); break;
                 case "cycleMask": ani = this.cycleMask(ps.obj, ps); break;
@@ -120,7 +125,8 @@ class AnimationFactory {
         if (ps.ta != undefined) pst["alpha"] = ps.ta;
         if (ps.tr != undefined) pst["rotation"] = ps.tr;
 
-        return egret.Tween.get(g).to(psf, 0).to(pst, ps.time, ps.mode);
+        var t = ps.time != undefined ? ps.time : 1000;
+        return egret.Tween.get(g).to(psf, 0).to(pst, t, ps.mode);
     }
 
     // 环形转圈

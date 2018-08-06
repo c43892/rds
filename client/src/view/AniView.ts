@@ -72,13 +72,13 @@ class AniView extends egret.DisplayObjectContainer {
         switch (ps.subType) {
             case "elemAdded": // 有元素被添加进地图
                 doRefresh();
-                var img = this.bv.mapView.getElemViewAt(ps.x, ps.y).getImg();
+                var obj = this.bv.mapView.getElemViewAt(ps.x, ps.y).getDisplay();
                 if (e instanceof Monster) // 怪物是从地下冒出
-                    await AniUtils.CrawlOut(img);
+                    await AniUtils.crawlOut(obj);
                 else if (!ps.fromPos || (e.pos.x == ps.fromPos.x && e.pos.y == ps.fromPos.y)) // 原地跳出来
-                    await AniUtils.JumpInMap(img);
+                    await AniUtils.jumpInMap(obj);
                 else // 飞出来，从跳出来的位置到目标位置有一段距离
-                    await AniUtils.FlyOutLogicPos(img, ps.fromPos, this.bv.mapView);
+                    await AniUtils.flyOutLogicPos(obj, ps.fromPos, this.bv.mapView);
                 break;
             case "gridBlocked": {
                 var gv = this.bv.mapView.getGridViewAt(ps.x, ps.y);
@@ -92,7 +92,7 @@ class AniView extends egret.DisplayObjectContainer {
                 img.y = gv.y - (img.height - gv.height) / 2;
                 
                 gv.parent.addChild(img);
-                await this.aniFact.createAni("fade", {
+                await this.aniFact.createAni("trans", {
                     obj:img, time: 500,
                     tx:gv.x, ty:gv.y, tw:gv.width, th:gv.height, ta:1, mode:egret.Ease.backIn
                 });
@@ -110,7 +110,7 @@ class AniView extends egret.DisplayObjectContainer {
                 img.x = gv.x - (img.width - gv.width) / 2;
                 img.y = gv.y - (img.height - gv.height) / 2;
                 gv.parent.addChild(img);
-                await this.aniFact.createAni("fade", {
+                await this.aniFact.createAni("trans", {
                     obj:img, time: 300, ta:0, mode:egret.Ease.quintInOut
                 });
                 gv.parent.removeChild(img);
@@ -126,7 +126,7 @@ class AniView extends egret.DisplayObjectContainer {
                 img.x = gv.x - (img.width - gv.width) / 2;
                 img.y = gv.y - (img.height - gv.height) / 2;
                 gv.parent.addChild(img);
-                await this.aniFact.createAni("fade", {
+                await this.aniFact.createAni("trans", {
                     obj:img, time: 500, ta:0, noWait:true
                 });
                 gv.parent.addChild(img);
@@ -143,11 +143,11 @@ class AniView extends egret.DisplayObjectContainer {
     public async onPropChanged(ps) {
         if (ps.subType == "addProp") {
             var e:Elem = ps.e;
-            var fromImg = this.bv.mapView.getElemViewAt(e.pos.x, e.pos.y).getImg();
+            var fromImg = this.bv.mapView.getElemViewAt(e.pos.x, e.pos.y).getDisplay();
             var n = Utils.indexOf(e.bt().player.props, (p) => p.type == e.type);
             var pv = this.bv.propsView.getPropViewByIndex(n);
             var toImg = pv.getImg();
-            await AniUtils.Fly2(fromImg, fromImg, toImg);
+            await AniUtils.fly2(fromImg, fromImg, toImg);
         }
         this.bv.refreshProps();
     }
@@ -156,10 +156,10 @@ class AniView extends egret.DisplayObjectContainer {
     public async onRelicChanged(ps) {
         if (ps.subType == "addRelicByPickup") {
             var e:Elem = ps.e;
-            var fromImg = this.bv.mapView.getElemViewAt(e.pos.x, e.pos.y).getImg();
+            var fromImg = this.bv.mapView.getElemViewAt(e.pos.x, e.pos.y).getDisplay();
             var n = Utils.indexOf(e.bt().player.relics, (p) => p.type == e.type);
             var toImg = this.bv.relics[n];
-            await AniUtils.Fly2(fromImg, fromImg, toImg);
+            await AniUtils.fly2(fromImg, fromImg, toImg);
         }
         this.bv.refreshRelics();
     }
@@ -186,12 +186,16 @@ class AniView extends egret.DisplayObjectContainer {
     }
 
     // 产生攻击行为
-    public async onAttack(ps) {
-        this.bv.refreshPlayer();
-        if (ps.subType == "player2monster")
-            await this.aniFact.createAni("monsterAttackPlayer");
+    public async onAttack(ps) {        
+        if (ps.subType == "monster2player") {
+            var m:Elem = ps.attackerAttrs.owner;
+            var img = this.bv.mapView.getElemViewAt(m.pos.x, m.pos.y).getDisplay();
+            await AniUtils.monsterAttack(img);
+        }
         else
             await this.aniFact.createAni("playerAttackMonster");
+
+        this.bv.refreshPlayer();
     }
     
     // 元素飞行
@@ -274,13 +278,13 @@ class AniView extends egret.DisplayObjectContainer {
 
     async blackIn(removedWhenFinish = false) {
         this.addChild(this.blackCover);
-        await this.aniFact.createAni("fade", {obj: this.blackCover, fa:0, ta:1, time: 1000});
+        await this.aniFact.createAni("trans", {obj: this.blackCover, fa:0, ta:1, time: 1000});
         if (removedWhenFinish)
             this.removeChild(this.blackCover);
     }
 
     async blackOut() {
-        await this.aniFact.createAni("fade", {obj: this.blackCover, fa:1, toa:0, time: 1000});
+        await this.aniFact.createAni("trans", {obj: this.blackCover, fa:1, toa:0, time: 1000});
         if (this.getChildByName(this.blackCover.name))
             this.removeChild(this.blackCover);
     }

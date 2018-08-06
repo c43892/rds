@@ -790,7 +790,7 @@ class Battle {
             for (var b of r.addBuffs)
                 await this.implAddBuff(this.player, "Buff" + b.type, ...b.ps);
         
-            await this.fireEvent("onAttack", {subType:"monster2player", rs:rs, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+            await this.fireEvent("onAttack", {subType:"monster2player", r:r, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
         }
 
         await this.triggerLogicPoint("onAttack", {subType:"monster2player", x:m.pos.x, y:m.pos.x, rs:rs, target:this.player, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
@@ -921,7 +921,6 @@ class Battle {
     // 给角色加钱/减钱, e 是相关元素，比如偷钱的怪物，或者是地上的钱币
     public async implAddMoney(e:Elem, dm:number) {
         this.player.addMoney(dm);
-        
         await this.fireEvent("onPlayerChanged", {subType:"money", e:e});
         await this.triggerLogicPoint("onPlayerChanged", {"subType": "money", e:e});
     }
