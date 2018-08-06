@@ -40,7 +40,7 @@ class TipConfirmView extends egret.DisplayObjectContainer {
         this.tip.width = this.width;
         this.addChild(this.tip);
 
-        this.aniFact.createAni("trans", {
+        this.aniFact.createAni("tr", {
             obj: this.tip,
             fy: this.height / 2 - 150,
             ty: this.height / 2,

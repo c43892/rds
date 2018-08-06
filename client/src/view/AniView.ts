@@ -72,7 +72,7 @@ class AniView extends egret.DisplayObjectContainer {
         switch (ps.subType) {
             case "elemAdded": // 有元素被添加进地图
                 doRefresh();
-                var obj = this.bv.mapView.getElemViewAt(ps.x, ps.y).getDisplay();
+                var obj = this.bv.mapView.getElemViewAt(ps.x, ps.y).getShowLayer();
                 if (e instanceof Monster) // 怪物是从地下冒出
                     await AniUtils.crawlOut(obj);
                 else if (!ps.fromPos || (e.pos.x == ps.fromPos.x && e.pos.y == ps.fromPos.y)) // 原地跳出来
@@ -92,7 +92,7 @@ class AniView extends egret.DisplayObjectContainer {
                 img.y = gv.y - (img.height - gv.height) / 2;
                 
                 gv.parent.addChild(img);
-                await this.aniFact.createAni("trans", {
+                await this.aniFact.createAni("tr", {
                     obj:img, time: 500,
                     tx:gv.x, ty:gv.y, tw:gv.width, th:gv.height, ta:1, mode:egret.Ease.backIn
                 });
@@ -110,7 +110,7 @@ class AniView extends egret.DisplayObjectContainer {
                 img.x = gv.x - (img.width - gv.width) / 2;
                 img.y = gv.y - (img.height - gv.height) / 2;
                 gv.parent.addChild(img);
-                await this.aniFact.createAni("trans", {
+                await this.aniFact.createAni("tr", {
                     obj:img, time: 300, ta:0, mode:egret.Ease.quintInOut
                 });
                 gv.parent.removeChild(img);
@@ -126,7 +126,7 @@ class AniView extends egret.DisplayObjectContainer {
                 img.x = gv.x - (img.width - gv.width) / 2;
                 img.y = gv.y - (img.height - gv.height) / 2;
                 gv.parent.addChild(img);
-                await this.aniFact.createAni("trans", {
+                await this.aniFact.createAni("tr", {
                     obj:img, time: 500, ta:0, noWait:true
                 });
                 gv.parent.addChild(img);
@@ -143,7 +143,7 @@ class AniView extends egret.DisplayObjectContainer {
     public async onPropChanged(ps) {
         if (ps.subType == "addProp") {
             var e:Elem = ps.e;
-            var fromImg = this.bv.mapView.getElemViewAt(e.pos.x, e.pos.y).getDisplay();
+            var fromImg = this.bv.mapView.getElemViewAt(e.pos.x, e.pos.y).getShowLayer();
             var n = Utils.indexOf(e.bt().player.props, (p) => p.type == e.type);
             var pv = this.bv.propsView.getPropViewByIndex(n);
             var toImg = pv.getImg();
@@ -156,7 +156,7 @@ class AniView extends egret.DisplayObjectContainer {
     public async onRelicChanged(ps) {
         if (ps.subType == "addRelicByPickup") {
             var e:Elem = ps.e;
-            var fromImg = this.bv.mapView.getElemViewAt(e.pos.x, e.pos.y).getDisplay();
+            var fromImg = this.bv.mapView.getElemViewAt(e.pos.x, e.pos.y).getShowLayer();
             var n = Utils.indexOf(e.bt().player.relics, (p) => p.type == e.type);
             var toImg = this.bv.relics[n];
             await AniUtils.fly2(fromImg, fromImg, toImg);
@@ -189,7 +189,7 @@ class AniView extends egret.DisplayObjectContainer {
     public async onAttack(ps) {        
         if (ps.subType == "monster2player") {
             var m:Elem = ps.attackerAttrs.owner;
-            var img = this.bv.mapView.getElemViewAt(m.pos.x, m.pos.y).getDisplay();
+            var img = this.bv.mapView.getElemViewAt(m.pos.x, m.pos.y).getShowLayer();
             await AniUtils.monsterAttack(img);
         }
         else
@@ -207,7 +207,7 @@ class AniView extends egret.DisplayObjectContainer {
         var showPath = Utils.map([fromPt, toPt], (pt) => this.bv.mapView.logicPos2ShowPos(pt.x - fromPt.x, pt.y - fromPt.y));
         showPath.shift();
         var ev = this.bv.mapView.getElemViewAt(fromPt.x, fromPt.y).getShowLayer();
-        await this.aniFact.createAni("moving", {obj: ev, path: showPath, time:250, mode:egret.Ease.sineInOut});
+        await this.aniFact.createAni("moveOnPath", {obj: ev, path: showPath, time:250, mode:egret.Ease.sineInOut});
         this.bv.mapView.refreshAt(fromPt.x, fromPt.y);
         this.bv.mapView.refreshAt(toPt.x, toPt.y);
         this.bv.refreshPlayer();
@@ -225,7 +225,7 @@ class AniView extends egret.DisplayObjectContainer {
         var showPath = Utils.map(path, (pt) => this.bv.mapView.logicPos2ShowPos(pt.x - fromPt.x, pt.y - fromPt.y));
         showPath.shift();
         var ev = this.bv.mapView.getElemViewAt(fromPt.x, fromPt.y).getShowLayer();
-        await this.aniFact.createAni("moving", {obj: ev, path: showPath, time:250, mode:egret.Ease.sineInOut});
+        await this.aniFact.createAni("moveOnPath", {obj: ev, path: showPath, time:250, mode:egret.Ease.sineInOut});
         
         // 刷新格子显示
         this.bv.mapView.refreshAt(fromPt.x, fromPt.y);
@@ -278,13 +278,13 @@ class AniView extends egret.DisplayObjectContainer {
 
     async blackIn(removedWhenFinish = false) {
         this.addChild(this.blackCover);
-        await this.aniFact.createAni("trans", {obj: this.blackCover, fa:0, ta:1, time: 1000});
+        await this.aniFact.createAni("tr", {obj: this.blackCover, fa:0, ta:1, time: 1000});
         if (removedWhenFinish)
             this.removeChild(this.blackCover);
     }
 
     async blackOut() {
-        await this.aniFact.createAni("trans", {obj: this.blackCover, fa:1, toa:0, time: 1000});
+        await this.aniFact.createAni("tr", {obj: this.blackCover, fa:1, toa:0, time: 1000});
         if (this.getChildByName(this.blackCover.name))
             this.removeChild(this.blackCover);
     }

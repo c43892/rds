@@ -174,11 +174,11 @@ class ElemView extends egret.DisplayObjectContainer {
         return this.map.getGridAt(this.gx, this.gy);
     }
 
-    public getShowLayer():egret.DisplayObjectContainer {
-        return this.showLayer;
+    public getElemImg():egret.Bitmap {
+        return this.elemImg;
     }
 
-    public getDisplay():egret.DisplayObject {
+    public getShowLayer():egret.DisplayObject {
         return this.showLayer;
     }
 

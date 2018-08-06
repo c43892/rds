@@ -34,7 +34,7 @@ class AniTestView extends BattleView {
         // var to = {x:img.x - 100, y:img.y+500, width:img.width, height:img.height};
         // await AniUtils.fly2(img, img, to);
 
-        await AniUtils.monsterAttack(img, {x:0, y:0});
+        await AniUtils.jumpInMap(img);
 
         this.removeChild(img);
     }
