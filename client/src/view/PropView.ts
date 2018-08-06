@@ -102,7 +102,7 @@ class PropView extends egret.DisplayObjectContainer {
 
     // 按下
     onTouchBegin(evt:egret.TouchEvent) {
-        if (!evt.target.e)
+        if (!this.e)
             return;
 
         PropView.longPressed = false;
@@ -111,7 +111,7 @@ class PropView extends egret.DisplayObjectContainer {
             PropView.pressTimer.addEventListener(egret.TimerEvent.TIMER, PropView.onPressTimer, this);
         }
 
-        PropView.longPressPropView = evt.target;
+        PropView.longPressPropView = this;
         PropView.pressTimer.start();
     }
 
