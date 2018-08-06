@@ -54,7 +54,7 @@
     "DeathGod":{"name":"死神", "hp":10, "power":3, "cannotTake":true},
     "Bunny":{"name":"兔子", "sheild":3},
     "NormalZombie":{"name":"普通僵尸", "moveRange":3, "muiltAttack":2},
-    "GoblinThief":{"name":"哥布林窃贼", "steal":{"percent":20, "num":5}},
+    "GoblinThief":{"name":"哥布林窃贼", "steal":{"percent":20, "num":5}, "cannotTake":true},
     "HoundZombie":{"name":"猎犬僵尸", "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
     "Vampire":{"name":"吸血鬼", "suckBlood":{"percent":50, "num":0}},
     "DancerZombie":{"name":"舞王僵尸", "summons":["NormalZombie", "NormalZombie"]},
@@ -64,7 +64,7 @@
     "EyeDemon":{"name":"眼魔"},
     "RandomEggZombie":{"name":"彩蛋僵尸", "dropItems":["RandomEgg"], "cannotTake":true},
     "LustZombie":{"name":"色欲僵尸"},
-    "IronZombie":{"name":"钢铁侠僵尸", "cannotTake":true},
+    "IronZombie":{"name":"钢铁侠僵尸"},
     "CommanderZombie":{"name":"指挥官僵尸"},
     "RageZombie":{"name":"狂暴僵尸"},
     "HideZombie":{"name":"隐匿僵尸"},
@@ -83,7 +83,7 @@
     
     "ShopNpc":{"name":"商人", "hp":5},
 
-    "PlaceHolder":{"name":"Boss精英占位", "hideHazardNum":true, "invisible":true},
+    "PlaceHolder":{"name":"Boss精英占位", "hideHazardNum":true, "invisible":true, "cannotTake":true},
     "BossBunny":{"name":"boss兔子", "size":{"w":2, "h":2}, "hp":10, "hideHazardNum":true, "attackInterval":2},
 
     "HpPotion":{"name":"血瓶", "dhp":5, "canOverlap":true},

@@ -89,7 +89,6 @@
                     "Knife": 1101,
                     "Magazine": 1101,
                     "Clock": 1101,
-                    "Key": 1101,
                     "Shield": 1101,
                     "HpPotion": 1101,
                     "IceGun": 1101,
@@ -97,6 +96,13 @@
                     "HpCapsule": 1101,
                     "DePoison": 1101,
                     "SuperPotion": 1101
+                }
+            },
+            {
+                "num": [ 1, 3 ],
+                "elems": {
+                    "Apple": 1101,
+                    "Steak": 1101
                 }
             }
         ]
@@ -189,13 +195,20 @@
                     "Knife": 1102,
                     "Magazine": 1102,
                     "Clock": 1102,
-                    "Key": 1102,
                     "Shield": 1102,
                     "HpPotion": 1102,
                     "IceGun": 1102,
                     "RayGun": 1102,
                     "HpCapsule": 1102,
-                    "DePoison": 1102
+                    "DePoison": 1102,
+                    "SuperPotion": 1102
+                }
+            },
+            {
+                "num": [ 1, 3 ],
+                "elems": {
+                    "Apple": 1102,
+                    "Steak": 1102
                 }
             }
         ]
@@ -288,13 +301,20 @@
                     "Knife": 1103,
                     "Magazine": 1103,
                     "Clock": 1103,
-                    "Key": 1103,
                     "Shield": 1103,
                     "HpPotion": 1103,
                     "IceGun": 1103,
                     "RayGun": 1103,
                     "HpCapsule": 1103,
-                    "DePoison": 1103
+                    "DePoison": 1103,
+                    "SuperPotion": 1103
+                }
+            },
+            {
+                "num": [ 1, 3 ],
+                "elems": {
+                    "Apple": 1103,
+                    "Steak": 1103
                 }
             }
         ]
@@ -387,13 +407,20 @@
                     "Knife": 1104,
                     "Magazine": 1104,
                     "Clock": 1104,
-                    "Key": 1104,
                     "Shield": 1104,
                     "HpPotion": 1104,
                     "IceGun": 1104,
                     "RayGun": 1104,
                     "HpCapsule": 1104,
-                    "DePoison": 1104
+                    "DePoison": 1104,
+                    "SuperPotion": 1104
+                }
+            },
+            {
+                "num": [ 1, 3 ],
+                "elems": {
+                    "Apple": 1104,
+                    "Steak": 1104
                 }
             }
         ]
@@ -486,13 +513,20 @@
                     "Knife": 1105,
                     "Magazine": 1105,
                     "Clock": 1105,
-                    "Key": 1105,
                     "Shield": 1105,
                     "HpPotion": 1105,
                     "IceGun": 1105,
                     "RayGun": 1105,
                     "HpCapsule": 1105,
-                    "DePoison": 1105
+                    "DePoison": 1105,
+                    "SuperPotion": 1105
+                }
+            },
+            {
+                "num": [ 1, 3 ],
+                "elems": {
+                    "Apple": 1105,
+                    "Steak": 1105
                 }
             }
         ]
@@ -590,13 +624,20 @@
                     "Knife": 1106,
                     "Magazine": 1106,
                     "Clock": 1106,
-                    "Key": 1106,
                     "Shield": 1106,
                     "HpPotion": 1106,
                     "IceGun": 1106,
                     "RayGun": 1106,
                     "HpCapsule": 1106,
-                    "DePoison": 1106
+                    "DePoison": 1106,
+                    "SuperPotion": 1106
+                }
+            },
+            {
+                "num": [ 1, 3 ],
+                "elems": {
+                    "Apple": 1106,
+                    "Steak": 1106
                 }
             }
         ]
@@ -694,13 +735,20 @@
                     "Knife": 1107,
                     "Magazine": 1107,
                     "Clock": 1107,
-                    "Key": 1107,
                     "Shield": 1107,
                     "HpPotion": 1107,
                     "IceGun": 1107,
                     "RayGun": 1107,
                     "HpCapsule": 1107,
-                    "DePoison": 1107
+                    "DePoison": 1107,
+                    "SuperPotion": 1107
+                }
+            },
+            {
+                "num": [ 1, 3 ],
+                "elems": {
+                    "Apple": 1107,
+                    "Steak": 1107
                 }
             }
         ]
@@ -798,13 +846,20 @@
                     "Knife": 1108,
                     "Magazine": 1108,
                     "Clock": 1108,
-                    "Key": 1108,
                     "Shield": 1108,
                     "HpPotion": 1108,
                     "IceGun": 1108,
                     "RayGun": 1108,
                     "HpCapsule": 1108,
-                    "DePoison": 1108
+                    "DePoison": 1108,
+                    "SuperPotion": 1108
+                }
+            },
+            {
+                "num": [ 1, 3 ],
+                "elems": {
+                    "Apple": 1108,
+                    "Steak": 1108
                 }
             }
         ]
@@ -902,13 +957,20 @@
                     "Knife": 1109,
                     "Magazine": 1109,
                     "Clock": 1109,
-                    "Key": 1109,
                     "Shield": 1109,
                     "HpPotion": 1109,
                     "IceGun": 1109,
                     "RayGun": 1109,
                     "HpCapsule": 1109,
-                    "DePoison": 1109
+                    "DePoison": 1109,
+                    "SuperPotion": 1109
+                }
+            },
+            {
+                "num": [ 1, 3 ],
+                "elems": {
+                    "Apple": 1109,
+                    "Steak": 1109
                 }
             }
         ]
@@ -1006,13 +1068,20 @@
                     "Knife": 1110,
                     "Magazine": 1110,
                     "Clock": 1110,
-                    "Key": 1110,
                     "Shield": 1110,
                     "HpPotion": 1110,
                     "IceGun": 1110,
                     "RayGun": 1110,
                     "HpCapsule": 1110,
-                    "DePoison": 1110
+                    "DePoison": 1110,
+                    "SuperPotion": 1110
+                }
+            },
+            {
+                "num": [ 1, 3 ],
+                "elems": {
+                    "Apple": 1110,
+                    "Steak": 1110
                 }
             }
         ]
@@ -1130,13 +1199,20 @@
                     "Knife": 1111,
                     "Magazine": 1111,
                     "Clock": 1111,
-                    "Key": 1111,
                     "Shield": 1111,
                     "HpPotion": 1111,
                     "IceGun": 1111,
                     "RayGun": 1111,
                     "HpCapsule": 1111,
-                    "DePoison": 1111
+                    "DePoison": 1111,
+                    "SuperPotion": 1111
+                }
+            },
+            {
+                "num": [ 1, 3 ],
+                "elems": {
+                    "Apple": 1111,
+                    "Steak": 1111
                 }
             }
         ]
@@ -1254,13 +1330,20 @@
                     "Knife": 1112,
                     "Magazine": 1112,
                     "Clock": 1112,
-                    "Key": 1112,
                     "Shield": 1112,
                     "HpPotion": 1112,
                     "IceGun": 1112,
                     "RayGun": 1112,
                     "HpCapsule": 1112,
-                    "DePoison": 1112
+                    "DePoison": 1112,
+                    "SuperPotion": 1112
+                }
+            },
+            {
+                "num": [ 1, 3 ],
+                "elems": {
+                    "Apple": 1112,
+                    "Steak": 1112
                 }
             }
         ]
@@ -1378,13 +1461,20 @@
                     "Knife": 1113,
                     "Magazine": 1113,
                     "Clock": 1113,
-                    "Key": 1113,
                     "Shield": 1113,
                     "HpPotion": 1113,
                     "IceGun": 1113,
                     "RayGun": 1113,
                     "HpCapsule": 1113,
-                    "DePoison": 1113
+                    "DePoison": 1113,
+                    "SuperPotion": 1113
+                }
+            },
+            {
+                "num": [ 1, 3 ],
+                "elems": {
+                    "Apple": 1113,
+                    "Steak": 1113
                 }
             }
         ]
@@ -1502,13 +1592,20 @@
                     "Knife": 1114,
                     "Magazine": 1114,
                     "Clock": 1114,
-                    "Key": 1114,
                     "Shield": 1114,
                     "HpPotion": 1114,
                     "IceGun": 1114,
                     "RayGun": 1114,
                     "HpCapsule": 1114,
-                    "DePoison": 1114
+                    "DePoison": 1114,
+                    "SuperPotion": 1114
+                }
+            },
+            {
+                "num": [ 1, 3 ],
+                "elems": {
+                    "Apple": 1114,
+                    "Steak": 1114
                 }
             }
         ]
@@ -1631,13 +1728,20 @@
                     "Knife": 1116,
                     "Magazine": 1116,
                     "Clock": 1116,
-                    "Key": 1116,
                     "Shield": 1116,
                     "HpPotion": 1116,
                     "IceGun": 1116,
                     "RayGun": 1116,
                     "HpCapsule": 1116,
-                    "DePoison": 1116
+                    "DePoison": 1116,
+                    "SuperPotion": 1116
+                }
+            },
+            {
+                "num": [ 1, 3 ],
+                "elems": {
+                    "Apple": 1116,
+                    "Steak": 1116
                 }
             }
         ]
@@ -1760,13 +1864,20 @@
                     "Knife": 1117,
                     "Magazine": 1117,
                     "Clock": 1117,
-                    "Key": 1117,
                     "Shield": 1117,
                     "HpPotion": 1117,
                     "IceGun": 1117,
                     "RayGun": 1117,
                     "HpCapsule": 1117,
-                    "DePoison": 1117
+                    "DePoison": 1117,
+                    "SuperPotion": 1117
+                }
+            },
+            {
+                "num": [ 1, 3 ],
+                "elems": {
+                    "Apple": 1117,
+                    "Steak": 1117
                 }
             }
         ]
@@ -1889,13 +2000,20 @@
                     "Knife": 1118,
                     "Magazine": 1118,
                     "Clock": 1118,
-                    "Key": 1118,
                     "Shield": 1118,
                     "HpPotion": 1118,
                     "IceGun": 1118,
                     "RayGun": 1118,
                     "HpCapsule": 1118,
-                    "DePoison": 1118
+                    "DePoison": 1118,
+                    "SuperPotion": 1118
+                }
+            },
+            {
+                "num": [ 1, 3 ],
+                "elems": {
+                    "Apple": 1118,
+                    "Steak": 1118
                 }
             }
         ]
@@ -2018,13 +2136,20 @@
                     "Knife": 1119,
                     "Magazine": 1119,
                     "Clock": 1119,
-                    "Key": 1119,
                     "Shield": 1119,
                     "HpPotion": 1119,
                     "IceGun": 1119,
                     "RayGun": 1119,
                     "HpCapsule": 1119,
-                    "DePoison": 1119
+                    "DePoison": 1119,
+                    "SuperPotion": 1119
+                }
+            },
+            {
+                "num": [ 1, 3 ],
+                "elems": {
+                    "Apple": 1119,
+                    "Steak": 1119
                 }
             }
         ]
@@ -2147,13 +2272,20 @@
                     "Knife": 1120,
                     "Magazine": 1120,
                     "Clock": 1120,
-                    "Key": 1120,
                     "Shield": 1120,
                     "HpPotion": 1120,
                     "IceGun": 1120,
                     "RayGun": 1120,
                     "HpCapsule": 1120,
-                    "DePoison": 1120
+                    "DePoison": 1120,
+                    "SuperPotion": 1120
+                }
+            },
+            {
+                "num": [ 1, 3 ],
+                "elems": {
+                    "Apple": 1120,
+                    "Steak": 1120
                 }
             }
         ]
@@ -2252,7 +2384,7 @@
         },
         "randomGroups": [
             {
-                "num": [ 14, 15 ],
+                "num": [ 16, 17 ],
                 "elems": {
                     "NormalZombie": 100,
                     "GoblinThief": 100,
@@ -2276,13 +2408,20 @@
                     "Knife": 1121,
                     "Magazine": 1121,
                     "Clock": 1121,
-                    "Key": 1121,
                     "Shield": 1121,
                     "HpPotion": 1121,
                     "IceGun": 1121,
                     "RayGun": 1121,
                     "HpCapsule": 1121,
-                    "DePoison": 1121
+                    "DePoison": 1121,
+                    "SuperPotion": 1121
+                }
+            },
+            {
+                "num": [ 1, 3 ],
+                "elems": {
+                    "Apple": 1121,
+                    "Steak": 1121
                 }
             }
         ]
@@ -2381,7 +2520,7 @@
         },
         "randomGroups": [
             {
-                "num": [ 14, 15 ],
+                "num": [ 16, 17 ],
                 "elems": {
                     "NormalZombie": 100,
                     "GoblinThief": 100,
@@ -2405,13 +2544,20 @@
                     "Knife": 1122,
                     "Magazine": 1122,
                     "Clock": 1122,
-                    "Key": 1122,
                     "Shield": 1122,
                     "HpPotion": 1122,
                     "IceGun": 1122,
                     "RayGun": 1122,
                     "HpCapsule": 1122,
-                    "DePoison": 1122
+                    "DePoison": 1122,
+                    "SuperPotion": 1122
+                }
+            },
+            {
+                "num": [ 1, 3 ],
+                "elems": {
+                    "Apple": 1122,
+                    "Steak": 1122
                 }
             }
         ]
@@ -2510,7 +2656,7 @@
         },
         "randomGroups": [
             {
-                "num": [ 14, 15 ],
+                "num": [ 16, 17 ],
                 "elems": {
                     "NormalZombie": 100,
                     "GoblinThief": 100,
@@ -2534,13 +2680,20 @@
                     "Knife": 1123,
                     "Magazine": 1123,
                     "Clock": 1123,
-                    "Key": 1123,
                     "Shield": 1123,
                     "HpPotion": 1123,
                     "IceGun": 1123,
                     "RayGun": 1123,
                     "HpCapsule": 1123,
-                    "DePoison": 1123
+                    "DePoison": 1123,
+                    "SuperPotion": 1123
+                }
+            },
+            {
+                "num": [ 1, 3 ],
+                "elems": {
+                    "Apple": 1123,
+                    "Steak": 1123
                 }
             }
         ]
@@ -2639,7 +2792,7 @@
         },
         "randomGroups": [
             {
-                "num": [ 14, 15 ],
+                "num": [ 16, 17 ],
                 "elems": {
                     "NormalZombie": 100,
                     "GoblinThief": 100,
@@ -2663,13 +2816,20 @@
                     "Knife": 1124,
                     "Magazine": 1124,
                     "Clock": 1124,
-                    "Key": 1124,
                     "Shield": 1124,
                     "HpPotion": 1124,
                     "IceGun": 1124,
                     "RayGun": 1124,
                     "HpCapsule": 1124,
-                    "DePoison": 1124
+                    "DePoison": 1124,
+                    "SuperPotion": 1124
+                }
+            },
+            {
+                "num": [ 1, 3 ],
+                "elems": {
+                    "Apple": 1124,
+                    "Steak": 1124
                 }
             }
         ]
@@ -2768,7 +2928,7 @@
         },
         "randomGroups": [
             {
-                "num": [ 14, 15 ],
+                "num": [ 16, 17 ],
                 "elems": {
                     "NormalZombie": 100,
                     "GoblinThief": 100,
@@ -2792,13 +2952,20 @@
                     "Knife": 1125,
                     "Magazine": 1125,
                     "Clock": 1125,
-                    "Key": 1125,
                     "Shield": 1125,
                     "HpPotion": 1125,
                     "IceGun": 1125,
                     "RayGun": 1125,
                     "HpCapsule": 1125,
-                    "DePoison": 1125
+                    "DePoison": 1125,
+                    "SuperPotion": 1125
+                }
+            },
+            {
+                "num": [ 1, 3 ],
+                "elems": {
+                    "Apple": 1125,
+                    "Steak": 1125
                 }
             }
         ]
@@ -2897,7 +3064,7 @@
         },
         "randomGroups": [
             {
-                "num": [ 14, 15 ],
+                "num": [ 18, 19 ],
                 "elems": {
                     "NormalZombie": 100,
                     "GoblinThief": 100,
@@ -2921,13 +3088,20 @@
                     "Knife": 1126,
                     "Magazine": 1126,
                     "Clock": 1126,
-                    "Key": 1126,
                     "Shield": 1126,
                     "HpPotion": 1126,
                     "IceGun": 1126,
                     "RayGun": 1126,
                     "HpCapsule": 1126,
-                    "DePoison": 1126
+                    "DePoison": 1126,
+                    "SuperPotion": 1126
+                }
+            },
+            {
+                "num": [ 1, 3 ],
+                "elems": {
+                    "Apple": 1126,
+                    "Steak": 1126
                 }
             }
         ]
@@ -3026,7 +3200,7 @@
         },
         "randomGroups": [
             {
-                "num": [ 14, 15 ],
+                "num": [ 18, 19 ],
                 "elems": {
                     "NormalZombie": 100,
                     "GoblinThief": 100,
@@ -3050,13 +3224,20 @@
                     "Knife": 1127,
                     "Magazine": 1127,
                     "Clock": 1127,
-                    "Key": 1127,
                     "Shield": 1127,
                     "HpPotion": 1127,
                     "IceGun": 1127,
                     "RayGun": 1127,
                     "HpCapsule": 1127,
-                    "DePoison": 1127
+                    "DePoison": 1127,
+                    "SuperPotion": 1127
+                }
+            },
+            {
+                "num": [ 1, 3 ],
+                "elems": {
+                    "Apple": 1127,
+                    "Steak": 1127
                 }
             }
         ]
@@ -3155,7 +3336,7 @@
         },
         "randomGroups": [
             {
-                "num": [ 14, 15 ],
+                "num": [ 18, 19 ],
                 "elems": {
                     "NormalZombie": 100,
                     "GoblinThief": 100,
@@ -3179,13 +3360,20 @@
                     "Knife": 1128,
                     "Magazine": 1128,
                     "Clock": 1128,
-                    "Key": 1128,
                     "Shield": 1128,
                     "HpPotion": 1128,
                     "IceGun": 1128,
                     "RayGun": 1128,
                     "HpCapsule": 1128,
-                    "DePoison": 1128
+                    "DePoison": 1128,
+                    "SuperPotion": 1128
+                }
+            },
+            {
+                "num": [ 1, 3 ],
+                "elems": {
+                    "Apple": 1128,
+                    "Steak": 1128
                 }
             }
         ]
@@ -3284,7 +3472,7 @@
         },
         "randomGroups": [
             {
-                "num": [ 14, 15 ],
+                "num": [ 18, 19 ],
                 "elems": {
                     "NormalZombie": 100,
                     "GoblinThief": 100,
@@ -3308,13 +3496,20 @@
                     "Knife": 1129,
                     "Magazine": 1129,
                     "Clock": 1129,
-                    "Key": 1129,
                     "Shield": 1129,
                     "HpPotion": 1129,
                     "IceGun": 1129,
                     "RayGun": 1129,
                     "HpCapsule": 1129,
-                    "DePoison": 1129
+                    "DePoison": 1129,
+                    "SuperPotion": 1129
+                }
+            },
+            {
+                "num": [ 1, 3 ],
+                "elems": {
+                    "Apple": 1129,
+                    "Steak": 1129
                 }
             }
         ]
