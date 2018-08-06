@@ -31,8 +31,7 @@ class AnimationFactory {
             switch (aniType) {
                 case "delay": ani = this.fade(ps.obj, {time:ps.time}); break;
                 case "trans": ani = this.fade(ps.obj, ps); break;
-                case "moving": ani = this.moving(ps.obj, ps); break;
-                case "jumping": ani = this.jumping(ps.obj, ps); break;
+                case "moveOnPath": ani = this.moveOnPath(ps.obj, ps); break;
                 case "cycleMask": ani = this.cycleMask(ps.obj, ps); break;
             }
 
@@ -78,7 +77,7 @@ class AnimationFactory {
     }
 
     // 创建按指定路径移动的动画
-    moving(g:egret.DisplayObject, ps):egret.Tween {
+    moveOnPath(g:egret.DisplayObject, ps):egret.Tween {
         var tw = egret.Tween.get(g);
         var t = ps.time ? ps.time : 1000;
         for (var pt of ps.path) {
@@ -89,22 +88,6 @@ class AnimationFactory {
 
         return tw;
     }
-    
-    // 跳动一下
-    jumping(g:egret.DisplayObject, ps):egret.Tween {
-
-        // properties from
-        var psf = {};
-        if (ps.fy != undefined) psf["y"] = ps.fy;
-
-        // properties to
-        var pst = {};
-        if (ps.ty != undefined) pst["y"] = ps.ty;
-
-        var mode = ps.mode ? ps.mode : egret.Ease.elasticOut;
-
-        return egret.Tween.get(g).to(psf, 0).to(pst, ps.time, mode);
-    }
 
     // 渐隐渐显
     fade(g:egret.DisplayObject, ps):egret.Tween {
@@ -114,6 +97,8 @@ class AnimationFactory {
         if (ps.fy != undefined) psf["y"] = ps.fy;
         if (ps.fw != undefined) psf["width"] = ps.fw;
         if (ps.fh != undefined) psf["height"] = ps.fh;
+        if (ps.fsx != undefined) psf["scaleX"] = ps.fsx;
+        if (ps.fsy != undefined) psf["scaleY"] = ps.fsy;
         if (ps.fa != undefined) psf["alpha"] = ps.fa;
         if (ps.fr != undefined) psf["rotation"] = ps.fr;
 
@@ -122,6 +107,8 @@ class AnimationFactory {
         if (ps.ty != undefined) pst["y"] = ps.ty;
         if (ps.tw != undefined) pst["width"] = ps.tw;
         if (ps.th != undefined) pst["height"] = ps.th;
+        if (ps.tsx != undefined) pst["scaleX"] = ps.tsx;
+        if (ps.tsy != undefined) pst["scaleY"] = ps.tsy;
         if (ps.ta != undefined) pst["alpha"] = ps.ta;
         if (ps.tr != undefined) pst["rotation"] = ps.tr;
 

@@ -10,8 +10,8 @@ class AniUtils {
         var wp = obj.localToGlobal();
         var ax = obj.anchorOffsetX;
         var ay = obj.anchorOffsetY;
-        obj.anchorOffsetX = obj.width / 2;
-        obj.anchorOffsetY = obj.height / 2;
+        obj.anchorOffsetX = obj.width * obj.scaleX / 2;
+        obj.anchorOffsetY = obj.height * obj.scaleY / 2;
         AniUtils.ac.addChild(obj);
         obj.x = wp.x + obj.anchorOffsetX;
         obj.y = wp.y + obj.anchorOffsetY;
@@ -35,7 +35,7 @@ class AniUtils {
     public static async jumpInMap(obj:egret.DisplayObject) {
         var rev = AniUtils.reserveObjTrans(obj);
         await AniUtils.aniFact.createAni("grp", [
-            AniUtils.aniFact.createAni("jumping", {obj:obj, fy:obj.y + 75, ty:obj.y, time:750}),
+            AniUtils.aniFact.createAni("trans", {obj:obj, fy:obj.y + 75, ty:obj.y, time:750, mode:egret.Ease.elasticOut}),
             AniUtils.aniFact.createAni("trans", {obj:obj, fa:0, ta:1, time:250}),
         ]);
         rev();
@@ -66,11 +66,11 @@ class AniUtils {
         await aniFact.createAni("grp", [
             aniFact.createAni("seq", [
                 aniFact.createAni("grp", [
-                    aniFact.createAni("jumping", {obj:obj, fy:fromPos.y, ty:midY, time:t, mode:egret.Ease.sineOut}),
+                    aniFact.createAni("trans", {obj:obj, fy:fromPos.y, ty:midY, time:t, mode:egret.Ease.sineOut}),
                     aniFact.createAni("trans", {obj:obj, fx:fromPos.x, tx:midX, time:t})
                 ]),
                 aniFact.createAni("grp", [
-                    aniFact.createAni("jumping", {obj:obj, fy:midY, ty:obj.y, time:t, mode:egret.Ease.sineIn}),
+                    aniFact.createAni("trans", {obj:obj, fy:midY, ty:obj.y, time:t, mode:egret.Ease.sineIn}),
                     aniFact.createAni("trans", {obj:obj, fx:midX, tx:obj.x, time:t})
                 ]),
             ]),
@@ -90,36 +90,42 @@ class AniUtils {
     // 加速直线从一个位置飞向目标位置，并在目标位置固定住。比如获得遗物或者物品的效果
     public static async fly2(obj:egret.DisplayObject, from, to, noRotation = false) {
         // 飞行开始和目标位置
-        var fp = from instanceof egret.DisplayObject ? from.localToGlobal() : from;
-        var tp = to instanceof egret.DisplayObject ? to.localToGlobal() : to;
+        var fp = from.localToGlobal();
+        var tp = to.localToGlobal();
+        tp.x = tp.x - to.anchorOffsetX + to.width * to.scaleX / 2;
+        tp.y = tp.y - to.anchorOffsetY + to.height * to.scaleY / 2;
 
-        var rev = AniUtils.reserveObjTrans(obj, fp, tp);
+        var rev = AniUtils.reserveObjTrans(obj, fp);
         var aniFact = AniUtils.aniFact;
 
-        var toUp = tp.y < fp.y; // 是否是向上
+        var toUp = tp.y < fp.y; // 是否是向上，目前向上是钱和遗物，向下是道具
         var toLeft = tp.x < fp.x; // 是否是向左
 
         // 确定旋转方向
         var tr = noRotation ? 0 : (toLeft ? -360 : 360);
 
         // 中间阶段的大小变化
-        var mw = from.width * (toUp ? 0.8: 1.2);
-        var mh = from.height * (toUp ? 0.8: 1.2);
+        var msx = toUp ? 0.8: 1.2;
+        var msy = toUp ? 0.8: 1.2;
 
         // 中间阶段的位置和转动角度
         var mx = (tp.x - fp.x)/5 + fp.x;
         var my = fp.y + (toUp ? 0 : -100);
         var mr = tr / 3;
 
+        // 最终大小
+        var sx = to.width / from.width;
+        var sy = to.height / from.height;
+
         await aniFact.createAniByCfg({
             type:"seq", arr: [ // 一个动画序列
                 {type:"seq", arr: [ // 移动过程，也是一个序列
                     {type:"grp", arr: [
-                        {type:"trans", fy:fp.y, ty:my, time:250, tw:mw, th:mh, mode:egret.Ease.quartOut}, // 微微放大抬起来
+                        {type:"trans", fy:fp.y, ty:my, time:250, tsx:msx, tsy:msy, mode:egret.Ease.quartOut}, // 微微放大抬起来
                         {type:"trans", fr:0, tx:mx, tr:mr, time:250}, // 伴随旋转
                     ]},
                     {type:"grp", arr: [
-                        {type:"trans", fy:my, ty:tp.y, time:250, fw:mw, fh:mh, tw:to.width, th:to.height, mode:egret.Ease.quadIn}, // 飞向目标
+                        {type:"trans", fy:my, ty:tp.y, time:250, fsx:msx, fsy:msy, tsx:sx, tsy:sy, mode:egret.Ease.quadIn}, // 飞向目标
                         {type:"trans", fr:mr, tr:tr, fx:mx, tx:tp.x, time:250}, // 伴随旋转
                     ]},
                 ]}, 
