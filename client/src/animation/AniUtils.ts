@@ -32,7 +32,7 @@ class AniUtils {
     }
 
     // 物品添加到地图中，从原地跳出来的效果
-    public static async JumpInMap(obj:egret.DisplayObject) {
+    public static async jumpInMap(obj:egret.DisplayObject) {
         var rev = AniUtils.reserveObjTrans(obj);
         await AniUtils.aniFact.createAni("grp", [
             AniUtils.aniFact.createAni("jumping", {obj:obj, fy:obj.y + 75, ty:obj.y, time:750}),
@@ -42,7 +42,7 @@ class AniUtils {
     }
 
     // 怪物从地下冒出来的效果
-    public static async CrawlOut(obj:egret.DisplayObject) {
+    public static async crawlOut(obj:egret.DisplayObject) {
         var rev = AniUtils.reserveObjTrans(obj);
         await this.aniFact.createAni("grp", [
             this.aniFact.createAni("trans", {obj:obj, 
@@ -54,7 +54,7 @@ class AniUtils {
     }
 
     // 从一个位置飞出来，到另外一个位置出现
-    public static async FlyOut(obj:egret.DisplayObject, fromPos) {
+    public static async flyOut(obj:egret.DisplayObject, fromPos) {
         var rev = AniUtils.reserveObjTrans(obj, fromPos);        
         var aniFact = AniUtils.aniFact;
         var midX = (fromPos.x + obj.x) / 2;
@@ -81,14 +81,14 @@ class AniUtils {
     }
 
     // 用逻辑坐标来计算 FlyOut 的位置
-    public static async FlyOutLogicPos(obj:egret.DisplayObject, fromLogicPos, mv:MapView) {
+    public static async flyOutLogicPos(obj:egret.DisplayObject, fromLogicPos, mv:MapView) {
         var g = mv.getGridViewAt(fromLogicPos.x, fromLogicPos.y);
         var gwp = g.localToGlobal();
-        await AniUtils.FlyOut(obj, gwp);
+        await AniUtils.flyOut(obj, gwp);
     }
 
     // 加速直线从一个位置飞向目标位置，并在目标位置固定住。比如获得遗物或者物品的效果
-    public static async Fly2(obj:egret.DisplayObject, from, to) {
+    public static async fly2(obj:egret.DisplayObject, from, to, noRotation = false) {
         // 飞行开始和目标位置
         var fp = from instanceof egret.DisplayObject ? from.localToGlobal() : from;
         var tp = to instanceof egret.DisplayObject ? to.localToGlobal() : to;
@@ -96,18 +96,19 @@ class AniUtils {
         var rev = AniUtils.reserveObjTrans(obj, fp, tp);
         var aniFact = AniUtils.aniFact;
 
-        var isUp = tp.y < fp.y; // 是否是向上飞行
+        var toUp = tp.y < fp.y; // 是否是向上
+        var toLeft = tp.x < fp.x; // 是否是向左
 
         // 确定旋转方向
-        var tr = tp.x < fp.x ? -360 : 360;
+        var tr = noRotation ? 0 : (toLeft ? -360 : 360);
 
         // 中间阶段的大小变化
-        var mw = from.width * (isUp ? 0.8: 1.2);
-        var mh = from.height * (isUp ? 0.8: 1.2);
+        var mw = from.width * (toUp ? 0.8: 1.2);
+        var mh = from.height * (toUp ? 0.8: 1.2);
 
         // 中间阶段的位置和转动角度
         var mx = (tp.x - fp.x)/5 + fp.x;
-        var my = fp.y + (isUp ? 0 : -100);
+        var my = fp.y + (toUp ? 0 : -100);
         var mr = tr / 3;
 
         await aniFact.createAniByCfg({
@@ -124,6 +125,33 @@ class AniUtils {
                 ]}, 
                 {type:"trans", fa:1, ta:3, time:200, mode:egret.Ease.quadOut}, // 颜色反白
                 {type:"trans", fa:3, ta:1, time:200, mode:egret.Ease.quadOut}, // 颜色恢复
+            ]
+        }, obj);
+
+        rev();
+    }
+
+    // 怪物的一次攻击动作
+    public static async monsterAttack(obj:egret.DisplayObject, targetPos = undefined) {
+        var fp = obj.localToGlobal();
+        var tp = targetPos ? targetPos : {x:0, y:0};
+        var rev = AniUtils.reserveObjTrans(obj, fp, tp);
+
+        // 确定攻击动作方向
+        var dx = tp.x - fp.x;
+        var dy = tp.y - fp.y;
+        var mag = Math.sqrt(dx * dx + dy * dy);
+        var dir = {x:dx/mag, y:dy/mag};
+
+        // 延攻击方向移动距离
+        var dist = 50;
+        var mx = fp.x + dir.x * dist;
+        var my = fp.y + dir.y * dist;
+
+        await AniUtils.aniFact.createAniByCfg({
+            type:"seq", arr: [ // 一个动画序列
+                {type:"trans", fx:fp.x, fy:fp.y, tx:mx, ty:my, time:100, mode:egret.Ease.quintIn}, // 先冲过去
+                {type:"trans", fx:mx, fy:my, tx:fp.x, ty:fp.y, time:100, mode:egret.Ease.quintOut}, // 再退回来
             ]
         }, obj);
 

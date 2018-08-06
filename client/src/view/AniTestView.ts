@@ -15,7 +15,7 @@ class AniTestView extends BattleView {
     }
 
     async playAniTest() {
-        await this.addElem(ElemFactory.create("HpPotion"));
+        await this.addElem(ElemFactory.create("DeathGod"));
     }
 
     newImg(res) {
@@ -31,10 +31,10 @@ class AniTestView extends BattleView {
         var img = this.newImg(e.getElemImgRes() + "_png");
         var aniFact = AniUtils.aniFact;
         
-        var to = {x:img.x - 100, y:img.y+500, width:img.width, height:img.height};
-        await AniUtils.Fly2(img, img, to);
+        // var to = {x:img.x - 100, y:img.y+500, width:img.width, height:img.height};
+        // await AniUtils.fly2(img, img, to);
 
-        // await AniUtils.FlyOut(img, {x:img.x - 200, y:img.y - 200});
+        await AniUtils.monsterAttack(img, {x:0, y:0});
 
         this.removeChild(img);
     }
