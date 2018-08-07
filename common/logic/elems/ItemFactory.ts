@@ -113,7 +113,14 @@ class ItemFactory {
 
         // 经验书
         "Magazine": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, async (e:Elem) => await e.bt().implAddPlayerExp(attrs.dexp), (e) => e.type)(this.createItem()),
-       
+
+        // 金融杂志
+        "EconomyMagazine": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, async (e:Elem) => {
+            await e.bt().implAddPlayerExp(attrs.dexp);
+            var tc = e.bt().level.createElem("CoinsSmall");
+            await e.bt().implAddMoney(e, tc.cnt);
+        }, (e) => e.type)(this.createItem()),
+
         // 苹果
         "Apple": (attrs) => ElemFactory.foodLogic(attrs.cnt, attrs.dhp)(this.createItem()),
 

@@ -19,6 +19,7 @@
         "HpCapsule":{"name":"HpCapsule", "desc":"<font color=#000000 size=18>Reply per turn<font color=#00ff00 size=18>{heal} <font color=#000000 size=18>Lasts 5 rounds</font>"},
         "DePoison":{"name":"DePoison", "desc":"<font color=#000000 size=18>Remove poisoning effect</font>"},
         "Magazine":{"name":"Magazine", "desc":"<font color=#000000 size=18>1 experience value per click</font>"},
+        "EconomyMagazine":{"name":"EconomyMagazine", "desc":""},
         "Shield":{"name":"Shield", "desc":"<font color=#000000 size=18>Resist an attack damage, Cooling time 3 rounds</font>"},
         "HeadBone":{"name":"HeadBone", "desc":"<font color=#000000 size=18>When attacked by a monster, the resurrection is the king</font>"},
 
@@ -92,6 +93,7 @@
         "HpCapsule":{"name":"医疗药剂", "desc":"<font color=#000000 size=18>每回合回复<font color=#00ff00 size=18>{dhp}<font color=#000000 size=18>生命,持续5回合"},
         "DePoison":{"name":"解毒药剂", "desc":"<font color=#000000 size=18>解除中毒效果"},
         "Magazine":{"name":"自然杂志", "desc":"<font color=#000000 size=18>每次点击获得1经验值"},
+        "EconomyMagazine":{"name":"金融杂志", "desc":""},
         "Shield":{"name":"盾牌", "desc":"<font color=#000000 size=18>抵挡一次攻击伤害，冷却时间3回合"},
         "HeadBone":{"name":"骷髅头", "desc":"<font color=#000000 size=18>每当你被怪物突袭时，骷髅王都会原地复活"},
 
@@ -162,6 +164,7 @@
         "HpCapsule":{"name":"醫療藥劑", "desc":"<font color=#000000 size=18>每回合回復<font color=#00ff00 size=18>{dhp}<font color=#000000 size=18>生命,持續5回合"},
         "DePoison":{"name":"解毒藥劑", "desc":"<font color=#000000 size=18>解除中毒效果"},
         "Magazine":{"name":"自然雜誌", "desc":"<font color=#000000 size=18>每次點擊獲得1經驗值"},
+        "EconomyMagazine":{"name":"金融杂志", "desc":""},
         "Shield":{"name":"盾牌", "desc":"<font color=#000000 size=18>抵擋一次攻擊傷害，冷卻時間3回合"},
         "HeadBone":{"name":"骷髏頭", "desc":"<font color=#000000 size=18>每當你被怪物突襲時，骷髏王都會原地復活"},
 

@@ -37,7 +37,7 @@ class Player {
         p.deathStep = 100;
 
         p.maxDeathStep = 120;
-        p.hp = 10;
+        p.hp = 20;
         p.maxHp = 20;
         p.power = [3, 0];
         p.playerRandom = new SRandom();
