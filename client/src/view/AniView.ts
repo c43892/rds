@@ -278,6 +278,34 @@ class AniView extends egret.DisplayObjectContainer {
         await this.aniFact.createAni("monsterTakeElem", {m:m, e:e});
     }
 
+    // 眼魔死亡时飞几个眼睛出来
+    public async onEyeDemonUncoverGrids(ps) {
+        var m:Elem = ps.m;
+        var eyes = [];
+        var eyeAnis = [];
+        for (var pt of ps.pts) {
+            var e = ViewUtils.createBitmapByName("eyeDemonEye_png");
+            this.addChild(e);
+            eyes.push(e);
+            var ani = AniUtils.flyOutLogicPos(e, this.bv.mapView, m.pos, pt);
+            eyeAnis.push(ani);
+        }
+
+        await this.aniFact.createAniByCfg({
+            type:"seq", arr:eyeAnis
+        })
+    }
+
+    // 物品被拿起等待使用时的悬浮效果
+    public async onElemFloating(ps) {
+        var e:Elem = ps.e;
+        var sv = this.bv.mapView.getElemViewAt(e.pos.x, e.pos.y).getShowLayer();
+        if (ps.stop)
+            await AniUtils.floating(sv);
+        else
+            AniUtils.clearAll(sv);
+    }
+
     // 玩家获得buff
     public async onBuffAdded(ps) {
         if (ps.target instanceof Player)

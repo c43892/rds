@@ -59,27 +59,69 @@ class Main extends egret.DisplayObjectContainer {
 
     // 基础功能装配
     private globalInit() {
+        this.globalConfigInit();
+    }
+
+    // 全局配置初始化
+    private globalConfigInit() {
+        // 关卡
         var lvCfg = RES.getRes("levelconfig_json");
         GCfg.mapsize = lvCfg.mapsize;
-        GCfg.getLevelCfg = (lv) => lvCfg[lv];
+        GCfg.getLevelCfg = (lv) => {
+            Utils.assert(lvCfg[lv], "can not find level: " + lv);
+            return lvCfg[lv];
+        }
+
+        // 元素默认配置
         var elemAttrsCfg = RES.getRes("elemattrsconfig_json");
-        GCfg.getElemAttrsCfg = (e) => elemAttrsCfg[e];
-        var playerCfg = RES.getRes("playerconfig_json");
-        GCfg.playerCfg = playerCfg;
-        var randomDropGroupCfg = RES.getRes("randomdropconfig_json");
-        GCfg.getRandomDropGroupCfg = (e) => randomDropGroupCfg[e];
-        var worldmapCfg = RES.getRes("worldmap_json");
-        GCfg.worldMapConnectionCfg = worldmapCfg.connections;
-        GCfg.getWorldMapCfg = (world) => worldmapCfg[world];
-        var shopCfg = RES.getRes("shopconfig_json");
-        GCfg.getShopCfg = (shop) => shopCfg[shop];
-        var worldmapeventselsCfg = RES.getRes("worldmapeventsels_json");
-        GCfg.getWorldMapEventSelsDesc = (f) => worldmapeventselsCfg.desc[f];
-        GCfg.getWorldMapEventSelGroupsCfg = (g) => worldmapeventselsCfg.groups[g];
-        var multiLangCfg = RES.getRes("multilanguage_json");
-        GCfg.getMultiLanguageCfg = () => multiLangCfg;
+        GCfg.getElemAttrsCfg = (e) => {
+            Utils.assert(elemAttrsCfg[e], "can not find elem attrs: " + e);
+            return elemAttrsCfg[e];
+        };
+
         var elemDescCfg = RES.getRes("elemdesc_json");
         GCfg.getElemDescCfg = () => elemDescCfg;
+
+        // 角色相关
+        var playerCfg = RES.getRes("playerconfig_json");
+        GCfg.playerCfg = playerCfg;
+
+        // 随机掉落组
+        var randomDropGroupCfg = RES.getRes("randomdropconfig_json");
+        GCfg.getRandomDropGroupCfg = (e) => {
+            Utils.assert(randomDropGroupCfg[e], "can not find randomdropground: " + e);
+            return randomDropGroupCfg[e];
+        };
+
+        // 世界地图
+        var worldmapCfg = RES.getRes("worldmap_json");
+        GCfg.worldMapConnectionCfg = worldmapCfg.connections;
+        GCfg.getWorldMapCfg = (world) => {
+            Utils.assert(worldmapCfg[world], "can not find worldmap: " + world);
+            return worldmapCfg[world];
+        }
+
+        // 商店
+        var shopCfg = RES.getRes("shopconfig_json");
+        GCfg.getShopCfg = (shop) => {
+            Utils.assert(shopCfg[shop], "can not find shop: " + shop);
+            return shopCfg[shop];
+        };
+
+        // 世界地图事件
+        var worldmapeventselsCfg = RES.getRes("worldmapeventsels_json");
+        GCfg.getWorldMapEventSelsDesc = (f) => {
+            Utils.assert(worldmapeventselsCfg.desc[f], "can not find worldmap event sels desc: " + f);
+            return worldmapeventselsCfg.desc[f];
+        };
+        GCfg.getWorldMapEventSelGroupsCfg = (g) => {
+            Utils.assert(worldmapeventselsCfg.groups[g], "can not find worldmap event sels group: " + g);
+            return worldmapeventselsCfg.groups[g];
+        };
+
+        // 多语言
+        var multiLangCfg = RES.getRes("multilanguage_json");
+        GCfg.getMultiLanguageCfg = () => multiLangCfg;
     }
 
     private mv:MainView;
