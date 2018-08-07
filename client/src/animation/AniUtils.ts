@@ -56,9 +56,13 @@ class AniUtils {
     }
 
     // 从一个位置飞出来，到另外一个位置出现
-    public static async flyOut(obj:egret.DisplayObject, fromPos) {
+    public static async flyOut(obj:egret.DisplayObject, fromPos, toPos = undefined) {
         var rev = AniUtils.reserveObjTrans(obj, fromPos);        
         var aniFact = AniUtils.aniFact;
+        if (toPos) {
+            obj.x = toPos.x;
+            obj.y = toPos.y;
+        }
 
         // 有一个弹起来的中间过程
         var midX = (fromPos.x + obj.x) / 2;
@@ -87,10 +91,10 @@ class AniUtils {
     }
 
     // 用逻辑坐标来计算 FlyOut 的位置
-    public static async flyOutLogicPos(obj:egret.DisplayObject, fromLogicPos, mv:MapView) {
-        var g = mv.getGridViewAt(fromLogicPos.x, fromLogicPos.y);
-        var gwp = g.localToGlobal();
-        await AniUtils.flyOut(obj, gwp);
+    public static async flyOutLogicPos(obj:egret.DisplayObject, mv:MapView, fromLogicPos, toLogicPos = undefined) {
+        await AniUtils.flyOut(obj, 
+            mv.getGridViewAt(fromLogicPos.x, fromLogicPos.y).localToGlobal(), 
+            toLogicPos ? mv.getGridViewAt(toLogicPos.x, toLogicPos.y).localToGlobal() : undefined);
     }
 
     // 加速直线从一个位置飞向目标位置，并在目标位置固定住。比如获得遗物或者物品的效果
@@ -134,7 +138,7 @@ class AniUtils {
                     {type:"tr", fr:mr, tr:tr, fx:mx, tx:tp.x, time:250}, // 伴随旋转
                 ]},
             ]}, 
-            {type:"tr", fa:1, ta:3, time:500, mode:egret.Ease.quadOut}, // 颜色反白
+            {type:"tr", fa:1, ta:3, time:300, mode:egret.Ease.quadOut}, // 颜色反白
             {type:"tr", fa:3, ta:1, time:100, mode:egret.Ease.quadOut}, // 颜色恢复
         ]}, obj);
 

@@ -2,8 +2,8 @@
 // 战斗相关工具方法
 class BattleUtils {
 
-    // 寻找一个随机的满足条件的位置，f 是形如 function(g:Grid):boolean 的函数
-    public static findRandomGrid(bt:Battle, f):Grid {
+    // 寻找一个随机的满足条件的位置，f 是形如 function(g:Grid):boolean 的函数，最多 maxNum 个
+    public static findRandomGrids(bt:Battle, f, maxNum:number = 1):Grid[] {
         var gs:Grid[] = [];
         var map = bt.level.map;
         map.travelAll((x, y) =>
@@ -13,12 +13,21 @@ class BattleUtils {
                 gs.push(g);
         });
 
-        return  gs.length == 0 ? undefined : gs[bt.srand.nextInt(0, gs.length)];
+        var rs = [];
+        while (rs.length < maxNum && gs.length > 0) {
+            var n = bt.srand.nextInt(0, gs.length - rs.length);
+            var g = gs[n];
+            gs[n] = gs[gs.length - 1];
+            gs[gs.length - 1] = g;
+            rs.push(g);
+        }
+
+        return rs;
     }
 
     // 寻找一个随机的空白位置
     public static findRandomEmptyGrid(bt:Battle, covered:boolean = false, size = {w:1, h:1}):Grid {
-        return BattleUtils.findRandomGrid(bt, (g:Grid) => {
+        return BattleUtils.findRandomGrids(bt, (g:Grid) => {
             if (g.pos.x + size.w > g.map.size.w || g.pos.y + size.h > g.map.size.h) return false;
             for (var i = 0; i < size.w; i++) {
                 for (var j = 0; j < size.h; j++) {
@@ -29,7 +38,7 @@ class BattleUtils {
             }
 
             return true;
-        });
+        })[0];
     }
 
     // 寻找一个离指定位置最近的满足条件的位置
@@ -195,7 +204,7 @@ class BattleUtils {
         var e = bt.level.map.findFirstElem((elem:Elem) => elem.type == elemType);
         if (!e) return e; // 没找到指定元素
 
-        var grid = BattleUtils.findRandomGrid(bt, (g:Grid) => Utils.isInArea(g.pos, areaLeftCorner, areaSize) && !g.getElem());
+        var grid = BattleUtils.findRandomGrids(bt, (g:Grid) => Utils.isInArea(g.pos, areaLeftCorner, areaSize) && !g.getElem())[0];
         if (!grid) return; // 没找到空位置
 
         bt.level.map.switchElems(e.pos.x, e.pos.y, grid.pos.x, grid.pos.y);

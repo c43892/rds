@@ -318,14 +318,11 @@ class MonsterFactory {
     //死亡时翻开N个空地块
     static doUncoverGridOnDeath(n:number, m:Monster):Monster{
         return <Monster>ElemFactory.addDieAI(async () => {
-            for(var i = 0; i < n; i++){
-                var fg = BattleUtils.findRandomEmptyGrid(m.bt(), true);
-                if(!fg)
-                    return;
-
-                var x = fg.pos.x, y = fg.pos.y;
-                await m.bt().implUncoverAt(x, y);
-            }
+            var gs = BattleUtils.findRandomGrids(m.bt(), (g:Grid) => g.isCovered() && !g.getElem(), n);
+            var pts = Utils.map(gs, (g:Grid) => g.pos);
+            await m.bt().fireEvent("onEyeDemonUncoverGrids", {m:m, pts:pts});
+            for (var pt of pts)
+                await m.bt().implUncoverAt(pt.x, pt.y);
         }, m);
     }
 
@@ -456,7 +453,7 @@ class MonsterFactory {
     // 出现后随机隐藏到其他空位，如果没有空位则不会隐藏
     static doHideAfterUncovered(m:Monster):Monster {
         return MonsterFactory.addAIOnUncovered(async () => {
-            var g = BattleUtils.findRandomGrid(m.bt(), (g:Grid) => g.getElem() == undefined && g.isCovered());
+            var g = BattleUtils.findRandomGrids(m.bt(), (g:Grid) => g.getElem() == undefined && g.isCovered())[0];
             if(g)
                 await m.bt().implElemFly(m, g.pos);
 
@@ -483,7 +480,7 @@ class MonsterFactory {
     // 其他怪物死亡时逃进阴影
     static doHideOnOtherMonsterDie(m:Monster):Monster {
         return <Monster>ElemFactory.addAI("onElemChanged", async () => {
-            var g = BattleUtils.findRandomGrid(m.bt(), (g:Grid) => g.getElem() == undefined && g.isCovered());
+            var g = BattleUtils.findRandomGrids(m.bt(), (g:Grid) => g.getElem() == undefined && g.isCovered())[0];
             if(g)
                 await m.bt().implElemFly(m, g.pos);
 
@@ -506,7 +503,7 @@ class MonsterFactory {
     static doMarkMonsterOnHurt(m:Monster):Monster {
         return <Monster>ElemFactory.addAI("onMonsterHurt", async () => {
             var markTarget = <Monster>BattleUtils.findRandomElems(m.bt(), 1, (m:Monster) => m.getGrid().isCovered())[0];
-            var g = BattleUtils.findRandomGrid(m.bt(), (g:Grid) => g.isCovered() && g.getElem() instanceof Monster);
+            var g = BattleUtils.findRandomGrids(m.bt(), (g:Grid) => g.isCovered() && g.getElem() instanceof Monster)[0];
             await m.bt().implMark(g.pos.x, g.pos.y);
         }, m, (ps) => ps.m == m);
     }

@@ -73,14 +73,7 @@
             {
                 "num": [ 8, 9 ],
                 "elems": {
-                    "NormalZombie": 100,
-                    "GoblinThief": 100,
-                    "DancerZombie": 100,
-                    "EyeDemon": 100,
-                    "RandomEggZombie": 100,
-                    "Mummy": 100,
-                    "SkeletonKing": 100,
-                    "PoisonJellyfish": 100
+                    "EyeDemon": 100
                 }
             },
             {

@@ -518,7 +518,8 @@ class Battle {
     }
 
     // 揭开指定位置
-    public async implUncoverAt(x:number, y:number) {
+    public async implUncoverAt(x:number, y:number, type:string = undefined) {
+        Utils.log("un:", x, y);
         await this.uncover(x, y);
     }
 

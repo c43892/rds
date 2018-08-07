@@ -276,6 +276,24 @@ class AniView extends egret.DisplayObjectContainer {
         await this.aniFact.createAni("monsterTakeElem", {m:m, e:e});
     }
 
+    // 眼魔死亡时飞几个眼睛出来
+    public async onEyeDemonUncoverGrids(ps) {
+        var m:Elem = ps.m;
+        var eyes = [];
+        var eyeAnis = [];
+        for (var pt of ps.pts) {
+            var e = ViewUtils.createBitmapByName("eyeDemonEye_png");
+            this.addChild(e);
+            eyes.push(e);
+            var ani = AniUtils.flyOutLogicPos(e, this.bv.mapView, m.pos, pt);
+            eyeAnis.push(ani);
+        }
+
+        await this.aniFact.createAniByCfg({
+            type:"seq", arr:eyeAnis
+        })
+    }
+
     async blackIn(removedWhenFinish = false) {
         this.addChild(this.blackCover);
         await this.aniFact.createAni("tr", {obj: this.blackCover, fa:0, ta:1, time: 1000});
