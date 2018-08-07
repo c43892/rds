@@ -128,6 +128,18 @@ class RelicFactory {
                 }, r, (ps) => ps.subType == "monster2player" && ps.attackerAttrs && Utils.contains(ps.attackerAttrs.attackFlags, "back2sneak"));
             });
         },
+
+        // 十字架,阻止怪物复活
+        "Crucifix": (attrs) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) return;
+                ElemFactory.addAI("onElemRevive", async (ps) => {
+                    if(!ps.achieve) return;
+
+                    ps.achive = false;
+                }, r)
+            })
+        },
         
         "":{}
     };

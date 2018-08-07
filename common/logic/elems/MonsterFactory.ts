@@ -270,6 +270,10 @@ class MonsterFactory {
     // 被攻击时反击一次
     static doAttackBack(m:Monster, condition = () => true):Monster {
         return <Monster>ElemFactory.addAI("onAttack", async (ps) => {
+            var preAttackBackPs = {subType:"monster2player", m:m, achieve:true};
+            await m.bt().triggerLogicPoint("preAttackBack", preAttackBackPs);
+            if (!preAttackBackPs.achieve) return;
+
             var addFlags = [];
             if (Utils.contains(ps.attackerAttrs.attackFlags, "Sneak"))
                 addFlags.push("back2sneak");
@@ -493,11 +497,11 @@ class MonsterFactory {
     // 死亡时在其他地点复活一次
     static doReviveOndie(m:Monster):Monster {
         return <Monster>ElemFactory.addDieAI(async () => {
-            m.cnt = m.attrs.cnt;
-            if(m.cnt > 0){
-                var newM = m.bt().level.createElem(m.type, {"hp":m.attrs.hp, "power":m.attrs.power ,cnt: m.attrs.cnt - 1});
+            if(m["reviveCnt"] > 0 || m["reviveCnt"] == undefined){
                 var g = BattleUtils.findRandomEmptyGrid(m.bt(), false);
-                await m.bt().implAddElemAt(newM, g.pos.x, g.pos.y);
+                var newM = await m.bt().implReviveElemAt(m.type, undefined, g.pos.x, g.pos.y);
+                if(newM)
+                newM["reviveCnt"] = m["reviveCnt"] ? m["reviveCnt"] - 1 : m.attrs.reviveCnt - 1;
             }
         } ,m);
     }
@@ -536,7 +540,7 @@ class MonsterFactory {
 
         var isTargetType = (e:Elem) => { //判断elem是否是当前可用的目标
                 if(!itemTook){
-                    if((e instanceof Prop || e instanceof Item || e instanceof Relic) && e.type != "Door")
+                    if((e instanceof Prop || e instanceof Item || e instanceof Relic) && e.type != "Door" && e.type != "TreasureBox")
                         return true;
                 } else if(e.type == "Coins"){
                     return true;

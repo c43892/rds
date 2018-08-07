@@ -9,6 +9,7 @@
         "Unback2Sneak":{"name":"Unback2Sneak", "desc":"<font color=#3333cc size=20>Enhanced attribute\n\n<font color=#000000 size=18>Will not be countered when attacking the marked monster</font>"},
 		"Agile":{"name":"Agile", "desc":"<font color=#3333cc size=20>Enhanced attribute\n\n<font color=#000000 size=18></font>"},
         "TimeMachine":{"name":"TimeMachine", "desc":"<font color=#3333cc size=20>Enhanced attribute\n\n<font color=#000000 size=18>Leaving this floor, Death returns {deathGodBackStep} rounds</font>"},
+        "Crucifix":{"name":"Crucifix", "desc":""},
         
         "Coins":{"name":"Coins", "desc":"<font color=#00ff00 size=18>{cnt} <font color=#000000 size=18>gold coins</font>"},
         "Key":{"name":"Key", "desc":"<font color=#000000 size=18>Open treasure chest or door</font>"},
@@ -59,6 +60,7 @@
 
         "HpPotion":{"name":"HpPotion", "desc":"<font color=#000000 size=18>Gain<font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>hp</font>"},
 		"SuperPotion":{"name":"SuperPotion", "desc":"<font color=#000000 size=18>In<font color=#00ff00 size=18>{immunizeCnt} <font color=#000000 size=18>rounds, you will not be attacked and immune to all injuries"},
+        "StrangthPotion":{"name":"StrangthPotion", "desc":""},
         "Hole":{"name":"Hole", "desc":""},
         "Apple":{"name":"Apple", "desc":"<font color=#000000 size=18>Gain<font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>hp</font>"},
         "Steak":{"name":"Steak", "desc":"<font color=#000000 size=18>Gain<font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>hp</font>"},
@@ -67,6 +69,7 @@
         "RayGun":{"name":"RayGun", "desc":"<font color=#000000 size=18>Ignite the target after shooting, dealing <font color=#00ff00 size=18>{power} <font color=#000000 size=18>damage</font>"},
         "IceGun":{"name":"IceGun", "desc":"<font color=#000000 size=18>Freeze target after shooting</font>"},
         "Sword":{"name":"Sword", "desc":"<font color=#000000 size=18>Attack <font color=#00ff00 size=18>+1</font>"},
+        "Vest":{"name":"Vest", "desc":""},
         "Cocoon":{"name":"Cocoon", "desc":"<font color=#000000 size=18>Wrapped items cannot be used</font>"},
         "WantedOrder":{"name":"通缉令", "desc":""},
 
@@ -83,6 +86,7 @@
         "Unback2Sneak":{"name":"先动", "desc":"<font color=#3333cc size=20>强化属性\n\n<font color=#000000 size=18>攻击被标记的怪物时不会被反击"},
 		"Agile":{"name":"敏捷", "desc":"<font color=#3333cc size=20>强化属性\n\n<font color=#000000 size=18>闪避 <font color=#00ff00 size=18>+{dDodge}%"},
         "TimeMachine":{"name":"时光机", "desc":"<font color=#3333cc size=20>强化属性\n\n<font color=#000000 size=18>离开本层时，死神后退{deathGodBackStep}步"},
+        "Crucifix":{"name":"十字架", "desc":""},
         
         "Coins":{"name":"金币", "desc":"<font color=#00ff00 size=18>{cnt} <font color=#000000 size=18>个金币"},
         "Key":{"name":"钥匙", "desc":"<font color=#000000 size=18>可打开宝箱或门"},
@@ -132,6 +136,7 @@
 
         "HpPotion":{"name":"血瓶", "desc":"<font color=#000000 size=18>使用回复<font color=#00ff00 size=18>{dhp}<font color=#000000 size=18>点生命值"},
         "SuperPotion":{"name":"超能药水", "desc":"<font color=#000000 size=18>在<font color=#00ff00 size=18>{immunizeCnt}<font color=#000000 size=18>回合内，不会受到突袭，免疫所有伤害"}, 
+        "StrangthPotion":{"name":"力量药水", "desc":""},
         "Hole":{"name":"黑洞", "desc":""},
         "Apple":{"name":"苹果", "desc":"<font color=#000000 size=18>使用回复<font color=#00ff00 size=18>{dhp}<font color=#000000 size=18>点生命值"},
         "Steak":{"name":"牛排", "desc":"<font color=#000000 size=18>使用回复<font color=#00ff00 size=18>{dhp}<font color=#000000 size=18>点生命值"},
@@ -140,6 +145,7 @@
         "RayGun":{"name":"火焰射线", "desc":"<font color=#000000 size=18>射击后点燃目标，造成3点伤害"},
         "IceGun":{"name":"冰冻射线", "desc":"<font color=#000000 size=18>射击后冻结目标"},
         "Sword":{"name":"剑", "desc":"<font color=#000000 size=18>攻击<font color=#00ff00 size=18>+1"},
+        "Vest":{"name":"防护衣", "desc":""},
         "Cocoon":{"name":"茧", "desc":"<font color=#000000 size=18>被茧包裹的物品无法使用"},
         "WantedOrder":{"name":"通缉令", "desc":""},
 
@@ -155,6 +161,7 @@
         "Cloak":{"name":"披風", "desc":"<font color=#3333cc size=20>強化屬性\n\n<font color=#000000 size=18>免疫一次敵方突襲效果"},
         "Unback2Sneak":{"name":"先動", "desc":"<font color=#3333cc size=20>強化屬性\n\n<font color=#000000 size=18>攻擊被標記的怪物時不會被反擊"},
         "TimeMachine":{"name":"時光機", "desc":"<font color=#3333cc size=20>強化屬性\n\n<font color=#000000 size=18>離開本層時，死神後退{deathGodBackStep}步"},
+        "Crucifix":{"name":"十字架", "desc":""},
         
         "Coins":{"name":"金幣", "desc":"<font color=#00ff00 size=18>{cnt} <font color=#000000 size=18>個金幣"},
         "Key":{"name":"鑰匙", "desc":"<font color=#000000 size=18>可打開寶箱或閘"},
@@ -205,6 +212,7 @@
 
         "HpPotion":{"name":"血瓶", "desc":"<font color=#000000 size=18>使用回復<font color=#00ff00 size=18>{dhp}<font color=#000000 size=18>點生命值"},
         "SuperPotion":{"name":"超能藥水", "desc":"<font color=#000000 size=18>在<font color=#00ff00 size=18>{immunizeCnt}<font color=#000000 size=18>回合內，不會受到突襲，免疫所有傷害"},
+        "StrangthPotion":{"name":"力量药水", "desc":""},
         "Hole":{"name":"黑洞", "desc":""},
         "Apple":{"name":"蘋果", "desc":"<font color=#000000 size=18>使用回復<font color=#00ff00 size=18>{dhp}<font color=#000000 size=18>點生命值"},
         "Steak":{"name":"牛排", "desc":"<font color=#000000 size=18>使用回復<font color=#00ff00 size=18>{dhp}<font color=#000000 size=18>點生命值"},
@@ -213,6 +221,7 @@
         "RayGun":{"name":"火焰射線", "desc":"<font color=#000000 size=18>射擊後點燃目標，造成3點傷害"},
         "IceGun":{"name":"冰凍射線", "desc":"<font color=#000000 size=18>射擊後凍結目標"},
         "Sword":{"name":"劍", "desc":"<font color=#000000 size=18>攻擊<font color=#00ff00 size=18>+1"},
+        "Vest":{"name":"防护衣", "desc":""},
         "Cocoon":{"name":"繭", "desc":"<font color=#000000 size=18>被繭包裹的物品無法使用"},
 
         "NextLevelPort":{"name":"下一層", "desc":"<font color=#000000 size=18>前往下一層"},

@@ -74,6 +74,19 @@ class PropFactory {
                 };
                 return e;
             });
+        },
+
+        // 力量药水
+        "StrangthPotion": (attrs) => {
+            return this.createProp(attrs, (e:Elem) => {
+                e.canUse = () => true;
+                e.use = async () => {
+                    e.cnt --;
+                    await e.bt().implAddBuff(e.bt().player, "BuffStrangthPotion", attrs.enhanceCnt);
+                    return e.cnt > 0;
+                };
+                return e;
+            });
         }
     };
 }

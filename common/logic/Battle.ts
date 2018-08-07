@@ -253,6 +253,14 @@ class Battle {
         }
     }
 
+    public triggerLogicPointSync(lpName:string, ps = undefined) {
+        var hs = this.collectAllLogicHandler();
+        for (var h of hs) {
+            if (h[lpName] && h[lpName](ps))
+                return;
+        }
+    }
+
     private eventHandlers = {}; // 事件处理函数
 
     // 注册事件响应函数，这些事件是一个个异步执行的函数，需要一个个 wait 顺序执行，这也是不直接使用 egret.EventDispatcher 的原因
@@ -558,6 +566,21 @@ class Battle {
         await this.triggerLogicPoint("onGridChanged", {x:x, y:y, e:e, subType:"elemRemoved"});
     }
 
+    // Elem 在地图上复活
+    public async implReviveElemAt(type:string, attrs = undefined, x:number, y:number, actBeforeRevive = undefined){
+        var revivePs = {x:x, y:y, type:type, achieve:true};
+        await this.triggerLogicPoint("onElemRevive", revivePs);
+
+        if(!revivePs.achieve) return;
+
+        if(actBeforeRevive) actBeforeRevive();
+
+        var revivedE = this.level.createElem(type, attrs);
+        await this.implAddElemAt(revivedE, x, y);
+
+        return revivedE;
+    }
+
     // 角色+hp
     public async implAddPlayerHp(dhp:number) {
         if (dhp == 0) return;
@@ -599,8 +622,8 @@ class Battle {
     public async implAddBuff(target, buffType:string, ...ps:any[]) {
         var buff = BuffFactory.create(buffType, ...ps);
         target.addBuff(buff);
-        await this.fireEvent("onBuffAdded", {buff:buff});
-        await this.triggerLogicPoint("onBuffAdded", {buff:buff});
+        await this.fireEvent("onBuffAdded", {buff:buff, target:target});
+        await this.triggerLogicPoint("onBuffAdded", {buff:buff, target:target});
     }
 
     // -buff
@@ -692,6 +715,37 @@ class Battle {
     // 计算当前角色受一切地图元素影响所得到的防御属性
     public async calcPlayerTargetAttrs() {
         var targetAttrs = this.player.getAttrsAsTarget();
+        var attackerAttrs = {
+            owner:this,
+            power:{a:0, b:0, c:0},
+            accuracy:{a:0, b:0, c:0},
+            critical:{a:0, b:0, c:0},
+            damageAdd:{a:0, b:0, c:0},
+            attackFlags:["simulation"],
+            addBuffs:[]
+        };
+        await this.triggerLogicPoint("onAttacking", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+        return targetAttrs;
+    }
+
+    // 计算某个怪物受一切地图元素影响所得到的攻击属性
+    public async calcMonsterAttackerAttrs(m:Monster){
+        var attackerAttrs = m.getAttrsAsAttacker();
+        var targetAttrs = {
+            owner:undefined,
+            shield:{a:0, b:0, c:0},
+            dodge:{a:0, b:0, c:0},
+            damageDec:{a:0, b:0, c:0},
+            resist:{a:0, b:0, c:0},
+            immuneFlags:[]
+        };
+        await this.triggerLogicPoint("onAttacking", {subType:"monster2player", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+        return attackerAttrs;
+    }
+
+     // 计算某个怪物受一切地图元素影响所得到的防御属性
+    public async calcMonsterTargetAttrs(m:Monster){
+        var targetAttrs = m.getAttrsAsTarget();
         var attackerAttrs = {
             owner:this,
             power:{a:0, b:0, c:0},

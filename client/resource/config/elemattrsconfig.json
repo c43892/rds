@@ -35,6 +35,7 @@
     },
     "Cloak":{"name":"披风", "cd":100},
     "Unback2Sneak":{"name":"先动"},
+    "Crucifix":{"name":"十字架"},
 
     "CoinsTiny":{"name":"金币", "canOverlap":true, "useWithoutConfirm":true},
     "CoinsSmall":{"name":"金币", "canOverlap":true, "useWithoutConfirm":true},
@@ -70,10 +71,10 @@
     "RageZombie":{"name":"狂暴僵尸", "dropItems":["CoinsSmall"]},
     "HideZombie":{"name":"隐匿僵尸", "dropItems":["CoinsSmall"]},
     "GuardZombie":{"name":"护卫僵尸", "dropItems":["CoinsSmall"]},
-    "ReviveZombie":{"name":"复生僵尸", "cnt":1, "dropItems":["CoinsSmall"]},
+    "ReviveZombie":{"name":"复生僵尸", "reviveCnt":1, "dropItems":["CoinsSmall"]},
     "CowardZombie":{"name":"胆怯僵尸", "dropItems":["CoinsTiny"]},
     "MarkZombie":{"name":"标记僵尸", "dropItems":["CoinsTiny"]},
-    "GreedyZombie":{"name":"贪婪僵尸", "moveRange":3, "dropItems":["CoinsTiny"]},
+    "GreedyZombie":{"name":"贪婪僵尸", "moveRange":3, "dropItems":["CoinsTiny"], "cannotTake":true},
     "ConfusionZombie":{"name":"疑惑僵尸", "hideHazardNum":true, "dropItems":["CoinsSmall"]},
     "Mummy":{"name":"木乃伊", "dropItems":["CoinsSmall"]},
     "PoisonJellyfish":{"name":"毒性水母", "buffCnt":3, "poisonPs":[3, 1], "dropItems":["CoinsSmall"]},
@@ -90,6 +91,7 @@
     "HpPotion":{"name":"血瓶", "dhp":5, "canOverlap":true},
     "DePoison":{"name":"解毒药剂", "canOverlap":true},
     "SuperPotion":{"name":"超能药水", "immunizeCnt":5, "canOverlap":true, "occupations":["Nurse"]},
+    "StrangthPotion":{"name":"力量药水", "enhanceCnt":5, "canOverlap":true},    
     "Hole":{"name":"黑洞", "barrier":true},
     "Apple":{"name":"苹果", "cnt":3, "dhp":1, "useWithoutConfirm":true, "tags":["food"]},
     "Steak":{"name":"牛排", "cnt":3, "dhp":2, "useWithoutConfirm":true, "tags":["food"]},
@@ -107,6 +109,7 @@
         "frozenAttrs":{"rounds":3}
     },
     "Sword":{"name":"剑", "powerA":1},
+    "Vest":{"name":"防护衣", "powerD":-1},
     "Cocoon":{"name":"茧", "useWithoutConfirm":true},
     "WantedOrder":{"name":"通缉令"},
 

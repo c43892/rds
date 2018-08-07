@@ -110,7 +110,12 @@ class ElemView extends egret.DisplayObjectContainer {
                         this.showLayer.addChild(this.hp);
                         
                         // 护盾，右上角
-                        if (m.shield > 0) {
+                        var shield;
+                         m.bt().calcMonsterTargetAttrs(m).then((targetAttrs)=>{
+                             shield = targetAttrs.shield.b * (1 + targetAttrs.shield.a) + targetAttrs.shield.c;
+                            this.shield.text = shield.toString();
+
+                        if (shield > 0) {
                             this.shieldBg.x = this.width - this.shieldBg.width; this.shieldBg.y = 0;
                             this.showLayer.addChild(this.shieldBg);
                             this.shield.text = m.shield.toString();
@@ -122,16 +127,25 @@ class ElemView extends egret.DisplayObjectContainer {
                             this.showLayer.addChild(this.shield);
                         }
 
+                         })
+                        
+
                         // 攻击力，左下角
-                        if (m.btAttrs.power > 0) {
+                        var power;
+                        m.bt().calcMonsterAttackerAttrs(m).then((attackerAttrs)=>{
+                            power = attackerAttrs.power.b * (1 + attackerAttrs.power.a) + attackerAttrs.power.c;
+                            power = power < 1 ? 1 : power;
+                            this.power.text = power.toString();
+                            if (power > 0) {
                             this.powerBg.x = 0; this.powerBg.y = this.height - this.powerBg.height;
                             this.showLayer.addChild(this.powerBg);
-                            this.power.text = m.btAttrs.power.toString();
-                            this.power.x = m.btAttrs.power >= 10 ? 4 : 6;
-                            this.power.y = m.btAttrs.power >= 10 ? this.height - 23 : this.height - 25;
-                            this.power.size = m.btAttrs.power >= 10 ? 15 : 20;
+                            this.power.x = power >= 10 ? 4 : 6;
+                            this.power.y = power >= 10 ? this.height - 23 : this.height - 25;
+                            this.power.size = power >= 10 ? 15 : 20;
                             this.showLayer.addChild(this.power);
-                        }
+                        };
+                        })
+                        
 
                         this.refreshDropItem(); // 刷新掉落物品显示
                         if (b.status == GridStatus.Marked) // 被标记怪物上面盖一层

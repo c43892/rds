@@ -166,6 +166,18 @@ class ItemFactory {
             return e;
         },
 
+        // 防护衣
+        "Vest": (attrs) => {
+            var e = this.createItem();
+            e.canBeDragDrop = true;
+            e = ElemFactory.addAI("onAttacking",async (ps) => {
+                var attackerAttrs = ps.attackerAttrs;
+                if(!(attackerAttrs.owner instanceof Monster)) return;
+                attackerAttrs.power.b += e.attrs.powerD;
+            }, e, () => e.isValid());
+            return e;
+        },
+
         // 骷髅头
         "HeadBone": (attrs) => {
             var e = this.createItem();
@@ -173,9 +185,8 @@ class ItemFactory {
             e = ElemFactory.addAI("onSneaked", async () => {
                 var grid = e.getGrid();
                 var bt = e.bt();
-                var newSnk = bt.level.createElem("SkeletonKing");
-                await bt.implRemoveElemAt(grid.pos.x, grid.pos.y);
-                await bt.implAddElemAt(newSnk, grid.pos.x, grid.pos.y);
+                await bt.implReviveElemAt("SkeletonKing", undefined, grid.pos.x, grid.pos.y, 
+                                            async () => await bt.implRemoveElemAt(grid.pos.x, grid.pos.y));
             }, e);
             return e;
         },

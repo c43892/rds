@@ -137,6 +137,7 @@ class AniView extends egret.DisplayObjectContainer {
         }
 
         this.bv.refreshPlayer(); // 角色属性受地图上所有东西影响
+        this.bv.mapView.refresh();
     }
 
     // 道具发生变化
@@ -196,6 +197,7 @@ class AniView extends egret.DisplayObjectContainer {
             await this.aniFact.createAni("playerAttackMonster");
 
         this.bv.refreshPlayer();
+        this.bv.mapView.refresh();
     }
     
     // 元素飞行
@@ -274,6 +276,16 @@ class AniView extends egret.DisplayObjectContainer {
         var m = ps.m;
         var e = ps.e;
         await this.aniFact.createAni("monsterTakeElem", {m:m, e:e});
+    }
+
+    // 玩家获得buff
+    public async onBuffAdded(ps) {
+        if (ps.target instanceof Player)
+            this.bv.refreshPlayer();
+        else {
+            var e = <Elem>(ps.target);
+            this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
+        }
     }
 
     async blackIn(removedWhenFinish = false) {
