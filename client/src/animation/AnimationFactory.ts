@@ -29,7 +29,8 @@ class AnimationFactory {
                 var subAni = this.createAniByCfg(subCfg, defaultObj);
                 aniArr.push(subAni);
             }
-            return this.createAni(cfg.type, aniArr);
+            cfg.subAniArr = aniArr;
+            return this.createAni(cfg.type, cfg);
         } else {
             if (!cfg.obj)
                 cfg.obj = defaultObj;
@@ -42,14 +43,14 @@ class AnimationFactory {
     public createAni(aniType:string, ps = undefined):Promise<void> {
         var aw;
         if (aniType == "seq")
-            aw = this.aniSeq(ps);
+            aw = this.aniSeq(ps.subAniArr);
         else if (aniType == "gp")
-            aw = this.aniGroup(ps);
+            aw = this.aniGroup(ps.subAniArr);
         else {
             var ani:egret.Tween;
             switch (aniType) {
-                case "delay": ani = this.fade(ps.obj, {time:ps.time}); break;
-                case "tr": ani = this.fade(ps.obj, ps); break;
+                case "delay": ani = this.trans(ps.obj, {time:ps.time}); break;
+                case "tr": ani = this.trans(ps.obj, ps); break;
                 case "moveOnPath": ani = this.moveOnPath(ps.obj, ps); break;
                 case "cycleMask": ani = this.cycleMask(ps.obj, ps); break;
             }
@@ -63,6 +64,8 @@ class AnimationFactory {
         aw["onStarted"] = [
             // () => Utils.log("ani: " + aw["name"] + " started"),
         ];
+        
+        var loop = (ps && ps.loop) ? ps.loop : 0;
         aw["onEnded"] = [
             // () => Utils.log("ani: " + aw["name"] + " ended"),
         ];
@@ -79,6 +82,11 @@ class AnimationFactory {
             // Utils.log("ani: " + aw["name"] + " paused");
             if (ani) ani.setPaused(true);
             else if (aw["pauseimpl"]) aw["pauseimpl"]();
+        };
+
+        aw["stop"] = () => {
+            if (ani) egret.Tween.removeTweens(ps.obj);
+            else if (aw["stopimpl"]) aw["stopimpl"]();
         };
 
         // 不要自动播放
@@ -109,7 +117,7 @@ class AnimationFactory {
     }
 
     // 渐隐渐显
-    fade(g:egret.DisplayObject, ps):egret.Tween {
+    trans(g:egret.DisplayObject, ps):egret.Tween {
         // properties from
         var psf = {};
         if (ps.fx != undefined) psf["x"] = ps.fx;
@@ -183,6 +191,7 @@ class AnimationFactory {
 
         aw["startimpl"] = () => subAnis[0]["start"]();
         aw["pauseimpl"] = () => curAni["pause"]();
+        aw["stopimpl"] = () => curAni["stop"]();
 
         return aw;
     }
@@ -209,6 +218,11 @@ class AnimationFactory {
         aw["pauseimpl"] = () => {
             for (var ani of subAnis)
                 ani["pause"]();
+        };
+
+        aw["stopimpl"] = () => {
+            for (var ani of subAnis)
+                ani["stopimpl"]();
         };
 
         return aw;

@@ -169,4 +169,29 @@ class AniUtils {
 
         rev();
     }
+
+    // 悬浮效果
+    public static async floating(obj:egret.DisplayObject) {
+        var fp = {x:obj.x, y:obj.y};
+        var tp = {x:fp.x, y:fp.y - 25};
+        var aniCfg = {type:"seq", loop:100, arr:[
+            {type:"tr", fx:fp.x, fy:fp.y, tx:tp.x, ty:tp.y, time:750, mode:egret.Ease.quadInOut, manuallyStart:true, noWait:true},
+            {type:"tr", fx:tp.x, fy:tp.y, tx:fp.x, ty:fp.y, time:750, mode:egret.Ease.quadInOut, manuallyStart:true, noWait:true},
+        ], manuallyStart:true, noWait:true};
+
+        var createAni = () => {
+            var aw = AniUtils.aniFact.createAniByCfg(aniCfg, obj);
+            aw["onEnded"].push(() => {
+                createAni();
+            });
+            return aw;
+        };
+
+        return createAni();
+    }
+
+    // 清除所有相关动画
+    public static clearAll(obj:egret.DisplayObject) {
+        egret.Tween.removeTweens(obj);
+    }
 }

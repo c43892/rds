@@ -294,6 +294,16 @@ class AniView extends egret.DisplayObjectContainer {
         })
     }
 
+    // 物品被拿起等待使用时的悬浮效果
+    public async onElemFloating(ps) {
+        var e:Elem = ps.e;
+        var sv = this.bv.mapView.getElemViewAt(e.pos.x, e.pos.y).getShowLayer();
+        if (ps.stop)
+            await AniUtils.floating(sv);
+        else
+            AniUtils.clearAll(sv);
+    }
+
     async blackIn(removedWhenFinish = false) {
         this.addChild(this.blackCover);
         await this.aniFact.createAni("tr", {obj: this.blackCover, fa:0, ta:1, time: 1000});

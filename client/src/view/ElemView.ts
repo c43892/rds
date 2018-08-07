@@ -230,11 +230,14 @@ class ElemView extends egret.DisplayObjectContainer {
                                 ElemView.try2UseElem(e);
                         }
                     }
-                    else if (e.attrs.useWithTarget)
-                        ElemView.selectGrid((x, y) => e.canUseAt(x, y), (pos) => {
+                    else if (e.attrs.useWithTarget) {
+                        e.bt().fireEvent("onElemFloating", {e:e});
+                        ElemView.selectGrid((x, y) => e.canUseAt(x, y), async (pos) => {
+                            e.bt().fireEvent("onElemFloating", {e:e});
                             if (!pos) return; // 取消选择
                             ElemView.try2UseElemAt(e, pos.x, pos.y);
                         });
+                    }
                 }
             }
         }
