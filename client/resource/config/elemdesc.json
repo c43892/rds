@@ -58,7 +58,7 @@
         "BossBunny":{"name":"BossBunny", "desc":""},
 
         "HpPotion":{"name":"HpPotion", "desc":"<font color=#000000 size=18>Gain<font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>hp</font>"},
-		"SuperPotion":{"name":"SuperPotion", "desc":""},
+		"SuperPotion":{"name":"SuperPotion", "desc":"<font color=#000000 size=18>In<font color=#00ff00 size=18>{immunizeCnt} <font color=#000000 size=18>rounds, you will not be attacked and immune to all injuries"},
         "Hole":{"name":"Hole", "desc":""},
         "Apple":{"name":"Apple", "desc":"<font color=#000000 size=18>Gain<font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>hp</font>"},
         "Steak":{"name":"Steak", "desc":"<font color=#000000 size=18>Gain<font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>hp</font>"},
@@ -131,7 +131,8 @@
         "BossBunny":{"name":"boss兔子", "desc":""},
 
         "HpPotion":{"name":"血瓶", "desc":"<font color=#000000 size=18>使用回复<font color=#00ff00 size=18>{dhp}<font color=#000000 size=18>点生命值"},
-        "SuperPotion":{"name":"超能药水", "desc":""},        "Hole":{"name":"黑洞", "desc":""},
+        "SuperPotion":{"name":"超能药水", "desc":"<font color=#000000 size=18>在<font color=#00ff00 size=18>{immunizeCnt}<font color=#000000 size=18>回合内，不会受到突袭，免疫所有伤害"}, 
+        "Hole":{"name":"黑洞", "desc":""},
         "Apple":{"name":"苹果", "desc":"<font color=#000000 size=18>使用回复<font color=#00ff00 size=18>{dhp}<font color=#000000 size=18>点生命值"},
         "Steak":{"name":"牛排", "desc":"<font color=#000000 size=18>使用回复<font color=#00ff00 size=18>{dhp}<font color=#000000 size=18>点生命值"},
         "IceBlock":{"name":"冰块", "desc":"<font color=#000000 size=18>可以打破消失"},
@@ -203,7 +204,8 @@
         "BossBunny":{"name":"boss兔子", "desc":""},
 
         "HpPotion":{"name":"血瓶", "desc":"<font color=#000000 size=18>使用回復<font color=#00ff00 size=18>{dhp}<font color=#000000 size=18>點生命值"},
-        "SuperPotion":{"name":"超能药水", "desc":""},        "Hole":{"name":"黑洞", "desc":""},
+        "SuperPotion":{"name":"超能藥水", "desc":"<font color=#000000 size=18>在<font color=#00ff00 size=18>{immunizeCnt}<font color=#000000 size=18>回合內，不會受到突襲，免疫所有傷害"},
+        "Hole":{"name":"黑洞", "desc":""},
         "Apple":{"name":"蘋果", "desc":"<font color=#000000 size=18>使用回復<font color=#00ff00 size=18>{dhp}<font color=#000000 size=18>點生命值"},
         "Steak":{"name":"牛排", "desc":"<font color=#000000 size=18>使用回復<font color=#00ff00 size=18>{dhp}<font color=#000000 size=18>點生命值"},
         "IceBlock":{"name":"冰塊", "desc":"<font color=#000000 size=18>可以打破消失"},
