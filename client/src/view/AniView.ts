@@ -184,6 +184,11 @@ class AniView extends egret.DisplayObjectContainer {
             if (e.type == "ShopNpc" && (<Monster>e).isDead()) {
                 await AniUtils.flashOut(g);
             }
+        } else if (ps.subType == "monsterHp") {
+            var dhp = ps.dhp;
+            if (dhp > 0) {
+                await AniUtils.tipAt("cure", g.localToGlobal());
+            }
         }
         
         this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
@@ -361,8 +366,7 @@ class AniView extends egret.DisplayObjectContainer {
         var sv = this.bv.mapView.getElemViewAt(e.pos.x, e.pos.y).getShowLayer();
         var pos = sv.localToGlobal();
         pos.y -= sv.height * sv.scaleY / 2;
-        var str = ViewUtils.getTipText(ps.r);
-        await AniUtils.flashAndTipAt(sv, str, pos);
+        await AniUtils.flashAndTipAt(sv, ps.r, pos);
     }
 
     async blackIn(removedWhenFinish = false) {

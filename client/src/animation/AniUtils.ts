@@ -245,6 +245,7 @@ class AniUtils {
 
     // 在指定位置冒出一个文字提示
     public static async tipAt(str:string, pos) {
+        str = ViewUtils.getTipText(str);
         var tip = ViewUtils.createTextField(30, 0x000000);
         tip.textFlow = (new egret.HtmlTextParser).parser(str);
         AniUtils.ac.addChild(tip);

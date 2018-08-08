@@ -607,8 +607,8 @@ class Battle {
         if (m.isDead())
             await this.implOnElemDie(m);
         else {
-            await this.fireEvent("onElemChanged", {subType:"hp", e:m});
-            await this.triggerLogicPoint("onElemChanged", {"subType": "hp", e:m});
+            await this.fireEvent("onElemChanged", {subType:"monsterHp", e:m});
+            await this.triggerLogicPoint("onElemChanged", {"subType": "monsterHp", e:m});
         }
     }
 
