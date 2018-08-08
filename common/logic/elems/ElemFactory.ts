@@ -195,7 +195,7 @@ class ElemFactory {
             Utils.assert(!!e.bt(), "not added to battle yet! " + e.type);
             var priorCD = e.cd;
             if (e.cd > 0) e.cd--;
-            await e.bt().implNotifyElemChanged("colddown", e, {priorCD:priorCD});
+            await e.bt().fireEvent("onColddownChanged", {e:e, priorCD:priorCD});
         }, e, () => true, onlyUncovered);
     }
 

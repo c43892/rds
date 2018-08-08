@@ -904,14 +904,14 @@ class Battle {
         await this.triggerLogicPoint("onPlayerChanged", {subType: "attrType"});
     }
 
-    // 通知元素属性更新
-    public async implNotifyElemChanged(subType:string, e:Elem, ps = undefined) {
-        ps = ps ? ps : {};
-        ps.subType = subType;
-        ps.e = e;
-        await this.fireEvent("onElemChanged", ps);
-        await this.triggerLogicPoint("onElemChanged", ps);
-    }
+    // // 通知元素属性更新
+    // public async implNotifyElemChanged(subType:string, e:Elem, ps = undefined) {
+    //     ps = ps ? ps : {};
+    //     ps.subType = subType;
+    //     ps.e = e;
+    //     await this.fireEvent("onElemChanged", ps);
+    //     await this.triggerLogicPoint("onElemChanged", ps);
+    // }
 
     // 角色+遗物
     public async implSelRelic(e:Elem) {

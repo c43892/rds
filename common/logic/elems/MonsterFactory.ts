@@ -708,7 +708,7 @@ class MonsterFactory {
             if (food.cnt <= 0)
                 await food.bt().implRemoveElemAt(food.pos.x, food.pos.y);
             else
-                await food.bt().implNotifyElemChanged("cnt", food);    
+                await food.bt().fireEvent("onMonsterEatFood", {m:e, food:food});
         }, e);
     }
 }

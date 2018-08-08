@@ -145,8 +145,8 @@ class AniUtils {
         rev();
     }
 
-    // 怪物的一次攻击动作
-    public static async monsterAttack(obj:egret.DisplayObject, targetPos = undefined) {
+    // 向给定目标抖一下，类似一个怪物的攻击动作
+    public static async shakeTo(obj:egret.DisplayObject, targetPos = undefined) {
         var fp = obj.localToGlobal();
         var tp = targetPos ? targetPos : {x:0, y:0};
         var rev = AniUtils.reserveObjTrans(obj, fp, tp);

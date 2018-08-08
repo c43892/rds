@@ -21,6 +21,16 @@ class AniView extends egret.DisplayObjectContainer {
         this.aniFact.notifyAniStarted = (ani:Promise<void>, aniType:string, ps) => { this.onAniStarted(ani, aniType, ps); };
     }
 
+    // 获取一个地图上的元素对应的显示层
+    getSV(e:Elem):egret.DisplayObject {
+        return this.getSVByPos(e.pos.x, e.pos.y);
+    }
+
+    // 获取一个地图上的指定位置元素对应的显示层
+    getSVByPos(x, y):egret.DisplayObject {
+        return this.bv.mapView.getElemViewAt(x, y).getShowLayer();
+    }
+
     public refresh() {
         // 播放动画时阻挡玩家操作
         this.aniCover.width = this.width;
@@ -72,7 +82,7 @@ class AniView extends egret.DisplayObjectContainer {
         switch (ps.subType) {
             case "elemAdded": // 有元素被添加进地图
                 doRefresh();
-                var obj = this.bv.mapView.getElemViewAt(ps.x, ps.y).getShowLayer();
+                var obj = this.getSVByPos(ps.x, ps.y);
                 if (e instanceof Monster) // 怪物是从地下冒出
                     await AniUtils.crawlOut(obj);
                 else if (!ps.fromPos || (e.pos.x == ps.fromPos.x && e.pos.y == ps.fromPos.y)) // 原地跳出来
@@ -144,7 +154,7 @@ class AniView extends egret.DisplayObjectContainer {
     public async onPropChanged(ps) {
         if (ps.subType == "addProp") {
             var e:Elem = ps.e;
-            var fromImg = this.bv.mapView.getElemViewAt(e.pos.x, e.pos.y).getShowLayer();
+            var fromImg = this.getSV(e);
             var n = Utils.indexOf(e.bt().player.props, (p) => p.type == e.type);
             var pv = this.bv.propsView.getPropViewByIndex(n);
             var toImg = pv.getImg();
@@ -157,7 +167,7 @@ class AniView extends egret.DisplayObjectContainer {
     public async onRelicChanged(ps) {
         if (ps.subType == "addRelicByPickup") {
             var e:Elem = ps.e;
-            var fromImg = this.bv.mapView.getElemViewAt(e.pos.x, e.pos.y).getShowLayer();
+            var fromImg = this.getSV(e);
             var n = Utils.indexOf(e.bt().player.relics, (p) => p.type == e.type);
             var toImg = this.bv.relics[n];
             await AniUtils.fly2(fromImg, fromImg, toImg);
@@ -165,22 +175,28 @@ class AniView extends egret.DisplayObjectContainer {
         this.bv.refreshRelics();
     }
 
+    // cd 变化
+    public async onColddownChanged(ps) {
+        var e = ps.e;
+        var g = this.getSV(e);
+
+        // 翻转表达冷却效果
+        if ((e.cd > 0 && ps.priorCD <= 0)
+            || (e.cd <= 0 && ps.priorCD > 0)) {
+            // 这个效果不等待
+            AniUtils.turnover(g, () => {
+                this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
+            });
+        }
+        else
+            this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
+    }
+
     // 怪物属性发生变化
     public async onElemChanged(ps) {
         var e = ps.e;
-        var g = this.bv.mapView.getElemViewAt(e.pos.x, e.pos.y).getShowLayer();
-        if (ps.subType == "colddown") {
-            // 反转表达冷却效果
-            if ((e.cd > 0 && ps.priorCD <= 0)
-                || (e.cd <= 0 && ps.priorCD > 0)) {
-                // 这个效果不等待
-                AniUtils.turnover(g, () => {
-                    this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
-                });
-            }
-            else
-                this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
-        } else if (ps.subType == "useElem") { // 商人使用后闪烁消失
+        var g = this.getSV(e);
+        if (ps.subType == "useElem") { // 商人使用后闪烁消失
             if (e.type == "ShopNpc" && (<Monster>e).isDead()) {
                 await AniUtils.flashOut(g);
             }
@@ -220,7 +236,7 @@ class AniView extends egret.DisplayObjectContainer {
     }
 
     // 玩家攻击
-    async onPlayerAttack(ps) {
+    public async onPlayerAttack(ps) {
         // 有些元素需要表现一下动作
         var itemTypes = ["Sword"];
         var items = this.bv.mapView.getElemViews((e:Elem) => Utils.contains(itemTypes, e.type) && e.isValid());
@@ -236,10 +252,20 @@ class AniView extends egret.DisplayObjectContainer {
     }
 
     // 怪物攻击
-    async onMonsterAttack(ps) {
+    public async onMonsterAttack(ps) {
         var m:Elem = ps.attackerAttrs.owner;
-        var img = this.bv.mapView.getElemViewAt(m.pos.x, m.pos.y).getShowLayer();
-        await AniUtils.monsterAttack(img);
+        var img = this.getSV(m);
+        await AniUtils.shakeTo(img);
+    }
+
+    // 怪物吃食物
+    public async onMonsterEatFood(ps) {
+        var m:Monster = ps.m;
+        var food:Elem = ps.food;
+        var msv = this.getSV(m);
+        var fsv = this.getSV(food);
+        await AniUtils.shakeTo(fsv, msv.localToGlobal());
+        this.bv.mapView.refreshAt(food.pos.x, food.pos.y);
     }
 
     // 元素飞行
@@ -250,7 +276,7 @@ class AniView extends egret.DisplayObjectContainer {
         // 创建路径动画
         var showPath = Utils.map([fromPt, toPt], (pt) => this.bv.mapView.logicPos2ShowPos(pt.x - fromPt.x, pt.y - fromPt.y));
         showPath.shift();
-        var ev = this.bv.mapView.getElemViewAt(fromPt.x, fromPt.y).getShowLayer();
+        var ev = this.getSVByPos(fromPt.x, fromPt.y);
         await this.aniFact.createAni("moveOnPath", {obj: ev, path: showPath, time:250, mode:egret.Ease.sineInOut});
         this.bv.mapView.refreshAt(fromPt.x, fromPt.y);
         this.bv.mapView.refreshAt(toPt.x, toPt.y);
@@ -268,7 +294,7 @@ class AniView extends egret.DisplayObjectContainer {
         // 创建路径动画
         var showPath = Utils.map(path, (pt) => this.bv.mapView.logicPos2ShowPos(pt.x - fromPt.x, pt.y - fromPt.y));
         showPath.shift();
-        var ev = this.bv.mapView.getElemViewAt(fromPt.x, fromPt.y).getShowLayer();
+        var ev = this.getSVByPos(fromPt.x, fromPt.y);
         await this.aniFact.createAni("moveOnPath", {obj: ev, path: showPath, time:250, mode:egret.Ease.sineInOut});
         
         // 刷新格子显示
@@ -341,7 +367,7 @@ class AniView extends egret.DisplayObjectContainer {
     // 物品被拿起等待使用时的悬浮效果
     public async onElemFloating(ps) {
         var e:Elem = ps.e;
-        var sv = this.bv.mapView.getElemViewAt(e.pos.x, e.pos.y).getShowLayer();
+        var sv = this.getSV(e);
         if (ps.stop)
             await AniUtils.floating(sv);
         else
@@ -363,7 +389,7 @@ class AniView extends egret.DisplayObjectContainer {
         if (!ps.r) return;
 
         var e:Elem = ps.e;
-        var sv = this.bv.mapView.getElemViewAt(e.pos.x, e.pos.y).getShowLayer();
+        var sv = this.getSV(e);
         var pos = sv.localToGlobal();
         pos.y -= sv.height * sv.scaleY / 2;
         await AniUtils.flashAndTipAt(sv, ps.r, pos);

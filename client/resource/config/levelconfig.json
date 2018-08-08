@@ -73,7 +73,8 @@
             {
                 "num": [ 28, 29 ],
                 "elems": {
-                    "Apple": 100
+                    "Apple": 100,
+                    "NormalZombie":100
                 }
             },
             {

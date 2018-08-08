@@ -144,7 +144,7 @@ class ItemFactory {
                 e.resetCD();
                 ps.r.r = "blocked";
                 ps.r.dhp = ps.r.dshield = 0;
-                await e.bt().implNotifyElemChanged("colddown", e, {priorCD:priorCD});
+                await e.bt().fireEvent("onColddownChanged", {e:e, priorCD:priorCD});
             }, e, (ps) => e.isValid() && ps.r.r == "attacked" && ps.subType == "monster2player");
             e = ElemFactory.triggerColddownLogic(e);
             e.getElemImgRes = () => (e.cd <= 0) ? e.type : e.type + "back";
