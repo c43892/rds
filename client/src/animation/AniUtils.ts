@@ -211,6 +211,17 @@ class AniUtils {
         rev();
     }
 
+    // 闪烁一下，比如满血的时候吃食物，表示食物不能使用的效果
+    public static async flash(obj:egret.DisplayObject) {
+        var x = obj.x;
+        await AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
+            {type:"tr", fa:1, ta:3, fx:x, tx:x-5, time:50},
+            {type:"tr", fa:3, ta:1, fx:x-5, tx:x+5, time:50},
+            {type:"tr", fa:1, ta:3, fx:x+5, tx:x-5, time:50},
+            {type:"tr", fa:3, ta:1, fx:x-5, tx:x, time:50},
+        ], noWait:true}, obj)
+    }
+
     // 闪烁消失
     public static async flashOut(obj:egret.DisplayObject) {
         await AniUtils.aniFact.createAniByCfg({type:"seq", arr:[

@@ -53,7 +53,9 @@ class ItemFactory {
             e.canBeDragDrop = false;
             e = ElemFactory.elemCanUseManyTimes(attrs.cnt, async () => {
                 if (e.cnt <= 0) await e.bt().implOnElemDie(e);
-            })(e);
+            },
+            () => e.bt().level.map.findFirstElem((elem:Elem) => elem.type == "Key"),
+            () => e.bt().level.map.findFirstElem((elem:Elem) => elem.type == "Key") ? undefined : "noKey")(e);
             e.canUse = () => false; // 门被设定为不可以使用，use 方法是给 Key 调用的
             return e;
         },
@@ -112,14 +114,14 @@ class ItemFactory {
         },
 
         // 经验书
-        "Magazine": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, async (e:Elem) => await e.bt().implAddPlayerExp(attrs.dexp), (e) => e.type)(this.createItem()),
+        "Magazine": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, () => true, () => undefined, async (e:Elem) => await e.bt().implAddPlayerExp(attrs.dexp), (e) => e.type)(this.createItem()),
 
         // 金融杂志
         "EconomyMagazine": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, async (e:Elem) => {
             await e.bt().implAddPlayerExp(attrs.dexp);
             var tc = e.bt().level.createElem("CoinsSmall");
             await e.bt().implAddMoney(e, tc.cnt);
-        }, (e) => e.type)(this.createItem()),
+        }, () => true, () => undefined, (e) => e.type)(this.createItem()),
 
         // 苹果
         "Apple": (attrs) => ElemFactory.foodLogic(attrs.cnt, attrs.dhp)(this.createItem()),
@@ -128,10 +130,10 @@ class ItemFactory {
         "Steak": (attrs) => ElemFactory.foodLogic(attrs.cnt, attrs.dhp)(this.createItem()),
 
         // 石块
-        "Rock": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, undefined)(this.createItem()),
+        "Rock": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, undefined, () => true, () => undefined, (e) => e.type)(this.createItem()),
 
         // 冰冻块
-        "IceBlock": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, undefined, (e) => e.type)(this.createItem()),
+        "IceBlock": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, undefined, () => true, () => undefined, (e) => e.type)(this.createItem()),
 
         // 盾牌
         "Shield": (attrs) => {

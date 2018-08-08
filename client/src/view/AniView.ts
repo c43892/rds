@@ -180,9 +180,8 @@ class AniView extends egret.DisplayObjectContainer {
             }
             else
                 this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
-        } else if (ps.subType == "useElem") {
-            if (e.type == "ShopNpc") { // 商人闪烁一下消失
-                Utils.log("flashout");
+        } else if (ps.subType == "useElem") { // 商人使用后闪烁消失
+            if (e.type == "ShopNpc" && (<Monster>e).isDead()) {
                 await AniUtils.flashOut(g);
             }
         }
@@ -352,6 +351,15 @@ class AniView extends egret.DisplayObjectContainer {
             var e = <Elem>(ps.target);
             this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
         }
+    }
+
+    // 物品不可使用
+    public async canNotUseItem(ps) {
+        if (!ps.r) return;
+
+        var e:Elem = ps.e;
+        var sv = this.bv.mapView.getElemViewAt(e.pos.x, e.pos.y).getShowLayer();
+        await AniUtils.flash(sv);
     }
 
     async blackIn(removedWhenFinish = false) {

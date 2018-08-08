@@ -136,10 +136,11 @@ class ElemFactory {
     }
 
     // 可多次直接使用的物品
-    static elemCanUseManyTimes(cnt:number, useAct, getImgResFun = undefined) {
+    static elemCanUseManyTimes(cnt:number, useAct, canUse, canNotUseReason, getImgResFun = undefined) {
         return (e:Elem) => {
             e.cnt = cnt;         
-            e.canUse = () => true;
+            e.canUse = () => canUse(e);
+            e.canNotUseReason = () => canNotUseReason(e);
             e.use = async () => {
                 e.cnt--;
                 if (useAct) await useAct(e);
@@ -173,7 +174,10 @@ class ElemFactory {
 
     // 食物
     static foodLogic(cnt:number, dhp:number, getImgResFun = undefined) {
-        return ElemFactory.elemCanUseManyTimes(cnt, async (e:Elem) => await e.bt().implAddPlayerHp(dhp), getImgResFun);
+        return ElemFactory.elemCanUseManyTimes(cnt, async (e:Elem) => await e.bt().implAddPlayerHp(dhp),
+            (e:Elem) => e.bt().player.hp < e.bt().player.maxHp,
+            (e:Elem) => e.bt().player.hp < e.bt().player.maxHp ? undefined : "notHungry",
+            getImgResFun);
     }
 
     // cd 逻辑

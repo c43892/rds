@@ -662,7 +662,7 @@ class MonsterFactory {
             if (!shopItemAndPrice)
                 shopItemAndPrice = Utils.genRandomShopItems(m.bt().player, m.attrs.shopCfg, m.bt().srand, 6);
             await m.bt().try2openShop(m, shopItemAndPrice.items, shopItemAndPrice.prices, onBuy);
-            return false; // npc 不保留
+            return true; // npc 保留
         };
 
         return m;

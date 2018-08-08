@@ -24,6 +24,7 @@ class Elem {
 
     // 各逻辑点，挂接的都是函数
     public canUse = () => { return false; } // 一个 function():boolean
+    public canNotUseReason = () => undefined;
     public canUseAt = (x:number, y:number):boolean => {  // 是否可对指定位置使用
         if (!this.attrs.useWithTarget) return false;
         var g = this.map().getGridAt(x, y);
