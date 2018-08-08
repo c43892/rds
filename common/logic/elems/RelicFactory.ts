@@ -109,7 +109,7 @@ class RelicFactory {
         "Cloak": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) return;
-                ElemFactory.triggerColdownLogic(
+                ElemFactory.triggerColddownLogic(
                 ElemFactory.addAI("onSneaking", async (ps) => {
                     if (ps.immunized) return;
                     ps.immunized = true;

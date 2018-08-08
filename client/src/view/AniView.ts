@@ -78,7 +78,7 @@ class AniView extends egret.DisplayObjectContainer {
                 else if (!ps.fromPos || (e.pos.x == ps.fromPos.x && e.pos.y == ps.fromPos.y)) // 原地跳出来
                     await AniUtils.jumpInMap(obj);
                 else // 飞出来，从跳出来的位置到目标位置有一段距离
-                    await AniUtils.flyOutLogicPos(obj, ps.fromPos, this.bv.mapView);
+                    await AniUtils.flyOutLogicPos(obj, this.bv.mapView, ps.fromPos);
                 break;
             case "gridBlocked": {
                 var gv = this.bv.mapView.getGridViewAt(ps.x, ps.y);
@@ -168,7 +168,19 @@ class AniView extends egret.DisplayObjectContainer {
     // 怪物属性发生变化
     public async onElemChanged(ps) {
         var e = ps.e;
-        await this.aniFact.createAni("elemChanged", {"m": ps.m});
+        if (ps.subType == "colddown") {
+            // 反转表达冷却
+            if (e.cd > ps.priorCD) {
+                var g = this.bv.mapView.getElemViewAt(e.pos.x, e.pos.y).getShowLayer();
+                AniUtils.turnover(g, () => {
+                    this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
+                });
+            }
+            else
+                this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
+        } else {
+        }
+        
         this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
         this.bv.refreshPlayer(); // 角色属性受地图上所有东西影响
     }

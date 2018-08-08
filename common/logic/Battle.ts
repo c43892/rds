@@ -904,9 +904,12 @@ class Battle {
     }
 
     // 通知元素属性更新
-    public async implNotifyElemChanged(attrType:string, e:Elem) {
-        await this.fireEvent("onElemChanged", {subType:attrType, e:e});
-        await this.triggerLogicPoint("onElemChanged", {subType:attrType, e:e});
+    public async implNotifyElemChanged(subType:string, e:Elem, ps = undefined) {
+        ps = ps ? ps : {};
+        ps.subType = subType;
+        ps.e = e;
+        await this.fireEvent("onElemChanged", ps);
+        await this.triggerLogicPoint("onElemChanged", ps);
     }
 
     // 角色+遗物

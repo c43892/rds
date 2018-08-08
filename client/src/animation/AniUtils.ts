@@ -192,8 +192,21 @@ class AniUtils {
     public static async rotateAndBack(obj:egret.DisplayObject) {
         var rev = AniUtils.reserveObjTrans(obj);
         await AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
-            {type:"tr", fr:0, tr:90, time:100, noWait:true, manuallyStart:true},
-            {type:"tr", fr:90, tr:0, time:100, noWait:true, manuallyStart:true},
+            {type:"tr", fr:0, tr:90, time:100, noWait:true},
+            {type:"tr", fr:90, tr:0, time:100, noWait:true},
+        ], noWait:true}, obj)
+        rev();
+    }
+
+    // 模拟反转效果
+    public static async turnover(obj:egret.DisplayObject, onMiddle) {
+        var rev = AniUtils.reserveObjTrans(obj);
+        var sx = obj.scaleX;
+        var y = obj.y;
+        await AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
+            {type:"tr", fsx:sx, tsx:0, fy:y, ty:y-15, time:150, noWait:true},
+            {type:"op", op:onMiddle},
+            {type:"tr", fsx:0, tsx:sx, fy:y-15, ty:y, time:150, noWait:true},
         ], noWait:true}, obj)
         rev();
     }

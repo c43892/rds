@@ -26,6 +26,7 @@ class AnimationFactory {
         if (cfg.type == "seq" || cfg.type == "gp") {
             var aniArr = [];
             for (var subCfg of cfg.arr) {
+                subCfg.manuallyStart = true; // 子动画都不是自动播放，要等待顶层动画对象通知播放
                 var subAni = this.createAniByCfg(subCfg, defaultObj);
                 aniArr.push(subAni);
             }
@@ -50,8 +51,9 @@ class AnimationFactory {
         else {
             var ani:egret.Tween;
             switch (aniType) {
-                case "delay": ani = this.trans(ps.obj, {time:ps.time}); break;
+                case "delay": ani = this.delay(ps.obj, {time:ps.time}); break;
                 case "tr": ani = this.trans(ps.obj, ps); break;
+                case "op": ani = this.op(ps.obj, ps.delay, ps.op); break;
                 case "moveOnPath": ani = this.moveOnPath(ps.obj, ps); break;
                 case "cycleMask": ani = this.cycleMask(ps.obj, ps); break;
             }
@@ -232,5 +234,17 @@ class AnimationFactory {
         };
 
         return aw;
+    }
+
+    // 延迟
+    delay(g:egret.DisplayObject, delay):egret.Tween {
+        delay = delay ? delay : 0;
+        return egret.Tween.get(g).wait(delay);
+    }
+
+    // 执行指定动作
+    op(g:egret.DisplayObject, delay, op):egret.Tween {
+        delay = delay ? delay : 0;
+        return egret.Tween.get(g).wait(delay).call(() => op()).wait(0);
     }
 }

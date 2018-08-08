@@ -73,8 +73,8 @@
             {
                 "num": [ 28, 29 ],
                 "elems": {
-                    "Sword": 100,
-                    "GoblinThief": 100
+                    "Shield": 100,
+                    "NormalZombie": 100
                 }
             },
             {

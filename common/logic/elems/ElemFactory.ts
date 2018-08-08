@@ -177,7 +177,7 @@ class ElemFactory {
     }
 
     // cd 逻辑
-    static triggerColdownLogic(e:Elem, onlyUncovered:boolean = true):Elem {
+    static triggerColddownLogic(e:Elem, onlyUncovered:boolean = true):Elem {
         e.cd = 0;
         e.checkCD = () => e.cd <= 0;
         e.resetCD = () => e.cd = e.attrs.cd;
@@ -188,9 +188,10 @@ class ElemFactory {
         };
         return ElemFactory.addAI("onPlayerActed", async () => {
             if (!(e instanceof Prop) && !(e instanceof Relic) && onlyUncovered && e.getGrid().isCovered()) return;
-            Utils.assert(!!e.bt(), "not added to battle yet! " + e.type);            
-            e.cd--;
-            await e.bt().implNotifyElemChanged("coldown", e);
+            Utils.assert(!!e.bt(), "not added to battle yet! " + e.type);
+            var priorCD = e.cd;
+            if (e.cd > 0) e.cd--;
+            await e.bt().implNotifyElemChanged("colddown", e, {priorCD:priorCD});
         }, e, () => true, onlyUncovered);
     }
 

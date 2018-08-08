@@ -15,7 +15,7 @@ class AniTestView extends BattleView {
     }
 
     async playAniTest() {
-        await this.addElem(ElemFactory.create("Knife"));
+        await this.addElem(ElemFactory.create("Shield"));
     }
 
     newImg(res) {
@@ -34,7 +34,9 @@ class AniTestView extends BattleView {
         // var to = {x:img.x - 100, y:img.y+500, width:img.width, height:img.height};
         // await AniUtils.fly2(img, img, to);
 
-        await AniUtils.rotateAndBack(img);
+        await AniUtils.turnover(img, () => {
+            console.log("in middle");
+        });
 
         this.removeChild(img);
     }
