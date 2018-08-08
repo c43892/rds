@@ -95,6 +95,16 @@ class ViewUtils {
         return descCfg[ViewUtils.languageCfg.currentLanguage][eType];
     }
 
+    // 获取指定提示信息
+    public static getTipText(key) {
+        if (!ViewUtils.languageCfg)
+            ViewUtils.languageCfg = GCfg.getMultiLanguageCfg();
+
+        var mlCfg = ViewUtils.languageCfg;
+        var curCfg = mlCfg.tips;
+        return curCfg[key][mlCfg.currentLanguage];
+    }
+
     // 对给定显示对象进行多语言处理
     public static multiLang(view, ...ps) {
         if (!ViewUtils.languageCfg)

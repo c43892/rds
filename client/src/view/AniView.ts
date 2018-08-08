@@ -359,7 +359,10 @@ class AniView extends egret.DisplayObjectContainer {
 
         var e:Elem = ps.e;
         var sv = this.bv.mapView.getElemViewAt(e.pos.x, e.pos.y).getShowLayer();
-        await AniUtils.flash(sv);
+        var pos = sv.localToGlobal();
+        pos.y -= sv.height * sv.scaleY / 2;
+        var str = ViewUtils.getTipText(ps.r);
+        await AniUtils.flashAndTipAt(sv, str, pos);
     }
 
     async blackIn(removedWhenFinish = false) {

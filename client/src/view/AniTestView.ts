@@ -28,14 +28,13 @@ class AniTestView extends BattleView {
 
     // 物品掉落
     public async addElem(e:Elem) {
-        var img = this.newImg(e.getElemImgRes() + "_png");
-        var aniFact = AniUtils.aniFact;
+        // var img = this.newImg(e.getElemImgRes() + "_png");
         
         // var to = {x:img.x - 100, y:img.y+500, width:img.width, height:img.height};
         // await AniUtils.fly2(img, img, to);
 
-        await AniUtils.flashOut(img);
+        await AniUtils.tipAt("这是一个提示", {x:this.width/2, y:this.height/2});
 
-        this.removeChild(img);
+        // this.removeChild(img);
     }
 }

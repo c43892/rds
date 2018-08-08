@@ -12,10 +12,12 @@ class PropFactory {
         var e = new Prop();
         e.canUse = () => true;
         e.canBeDragDrop = true;
+        e.useWithTarget = () => false;
         e.toProp = () => {
             e.use = undefined;
             e.canBeDragDrop = false;
             e.cnt = e.attrs.cnt ? e.attrs.cnt : 1;
+            e.useWithTarget = () => attrs.useWithTarget;
             mountLogic(e);
             return e;
         };

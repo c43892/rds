@@ -231,15 +231,14 @@ class ElemView extends egret.DisplayObjectContainer {
             {
                 let e = this.map.getElemAt(this.gx, this.gy);
                 if (e) {
-                    if (e.attrs.useWithTarget) {
+                    if (e.useWithTarget()) {
                         e.bt().fireEvent("onElemFloating", {e:e});
                         ElemView.selectGrid((x, y) => e.canUseAt(x, y), async (pos) => {
                             e.bt().fireEvent("onElemFloating", {e:e});
                             if (!pos) return; // 取消选择
-                            ElemView.try2UseElemAt(e, pos.x, pos.y);
+                            await ElemView.try2UseElemAt(e, pos.x, pos.y);
                         });
-                    }
-                    else if (e.canUse()) {
+                    } else if (e.canUse()) {
                         if (e instanceof Prop || e instanceof Monster || e instanceof Relic)
                             await ElemView.try2UseElem(e);
                         else {
@@ -251,7 +250,7 @@ class ElemView extends egret.DisplayObjectContainer {
                             else
                                 await ElemView.try2UseElem(e);
                         }
-                    } else {
+                } else {
                         // can not use
                         var r = e.canNotUseReason();
                         if (r)

@@ -22,21 +22,22 @@ class AnimationFactory {
                 : arr 是一个动画数组，该组动画将同时播放，以最晚结束的动画时间算最终完成时间
     */
 
-    public createAniByCfg(cfg, defaultObj = undefined):Promise<void> {
+    public createAniByCfg(cfg):Promise<void> {
         if (cfg.type == "seq" || cfg.type == "gp") {
             var aniArr = [];
+            var defaultObj = cfg.obj;
             for (var subCfg of cfg.arr) {
+                if (!subCfg.obj)
+                    subCfg.obj = defaultObj;
+
                 subCfg.manuallyStart = true; // 子动画都不是自动播放，要等待顶层动画对象通知播放
-                var subAni = this.createAniByCfg(subCfg, defaultObj);
+                var subAni = this.createAniByCfg(subCfg);
                 aniArr.push(subAni);
             }
             Utils.assert(aniArr.length > 0, "no subanis in " + cfg.type);
             cfg.subAniArr = aniArr;
             return this.createAni(cfg.type, cfg);
         } else {
-            if (!cfg.obj)
-                cfg.obj = defaultObj;
-
             return this.createAni(cfg.type, cfg);
         }
     }
@@ -51,7 +52,7 @@ class AnimationFactory {
         else {
             var ani:egret.Tween;
             switch (aniType) {
-                case "delay": ani = this.delay(ps.obj, {time:ps.time}); break;
+                case "delay": ani = this.trans(ps.obj, {time:ps.time}); break;
                 case "tr": ani = this.trans(ps.obj, ps); break;
                 case "op": ani = this.op(ps.obj, ps.delay, ps.op); break;
                 case "moveOnPath": ani = this.moveOnPath(ps.obj, ps); break;
@@ -234,12 +235,6 @@ class AnimationFactory {
         };
 
         return aw;
-    }
-
-    // 延迟
-    delay(g:egret.DisplayObject, delay):egret.Tween {
-        delay = delay ? delay : 0;
-        return egret.Tween.get(g).wait(delay);
     }
 
     // 执行指定动作
