@@ -3593,6 +3593,7 @@
         "treasureBoxNum": 5,
         "init_uncovered": {"w": 3, "h": 3},
         "elems":{
+            "CoinsTiny": {"type": "Coins", "cnt": 1},
             "TreasureBox1":{"type":"TreasureBox", "rdp":"bossBox1"},
             "TreasureBox2":{"type":"TreasureBox", "rdp":"bossBox2"},
             "TreasureBox3":{"type":"TreasureBox", "rdp":"bossBox3"},

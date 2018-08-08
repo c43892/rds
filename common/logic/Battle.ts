@@ -368,12 +368,13 @@ class Battle {
             this.fireEventSync("onPlayerOp", {op:"try2UseElem", ps:{x:e.pos.x, y:e.pos.y}});
 
             var reserve = await e.use(); // 返回值决定是保留还是消耗掉
-            if (!reserve)
-                await this.implOnElemDie(e);
-            else {
-                await this.fireEvent("onElemChanged", {subType:"useElem", e:e});
-                await this.triggerLogicPoint("onElemChanged", {subType:"useElem", e:e});
+            if (!reserve) {
+                this.removeElemAt(e.pos.x, e.pos.y);
+                if (e.onDie) await e.onDie();
             }
+
+            await this.fireEvent("onElemChanged", {subType:"useElem", e:e});
+            await this.triggerLogicPoint("onElemChanged", {subType:"useElem", e:e});
 
             await this.fireEvent("onPlayerActed");
             await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动

@@ -211,6 +211,27 @@ class AniUtils {
         rev();
     }
 
+    // 闪烁消失
+    public static async flashOut(obj:egret.DisplayObject) {
+        await AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
+            {type:"tr", fa:1, ta:3, time:100},
+            {type:"tr", fa:3, ta:1, time:100},
+            {type:"tr", fa:1, ta:3, time:80},
+            {type:"tr", fa:3, ta:1, time:80},
+            {type:"tr", fa:1, ta:3, time:60},
+            {type:"tr", fa:3, ta:1, time:60},
+            {type:"tr", fa:1, ta:3, time:40},
+            {type:"tr", fa:3, ta:1, time:40},
+            {type:"tr", fa:1, ta:3, time:20},
+            {type:"tr", fa:3, ta:1, time:20},
+            {type:"tr", fa:1, ta:3, time:15},
+            {type:"tr", fa:3, ta:1, time:15},
+            {type:"tr", fa:1, ta:3, time:10},
+            {type:"tr", fa:3, ta:1, time:10},
+            {type:"tr", fa:1, ta:3, time:5},
+        ], noWait:true}, obj)
+    }
+
     // 清除所有相关动画
     public static clearAll(obj:egret.DisplayObject) {
         egret.Tween.removeTweens(obj);

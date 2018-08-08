@@ -168,18 +168,23 @@ class AniView extends egret.DisplayObjectContainer {
     // 怪物属性发生变化
     public async onElemChanged(ps) {
         var e = ps.e;
+        var g = this.bv.mapView.getElemViewAt(e.pos.x, e.pos.y).getShowLayer();
         if (ps.subType == "colddown") {
             // 反转表达冷却效果
             if ((e.cd > 0 && ps.priorCD <= 0)
                 || (e.cd <= 0 && ps.priorCD > 0)) {
-                var g = this.bv.mapView.getElemViewAt(e.pos.x, e.pos.y).getShowLayer();
+                // 这个效果不等待
                 AniUtils.turnover(g, () => {
                     this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
                 });
             }
             else
                 this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
-        } else {
+        } else if (ps.subType == "useElem") {
+            if (e.type == "ShopNpc") { // 商人闪烁一下消失
+                Utils.log("flashout");
+                await AniUtils.flashOut(g);
+            }
         }
         
         this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
@@ -221,8 +226,9 @@ class AniView extends egret.DisplayObjectContainer {
             aniArr.push(ani);
         }
         
+        // 这个效果不等待
         if (aniArr.length > 0)
-            await this.aniFact.createAniByCfg({type:"gp", arr:aniArr});
+            this.aniFact.createAniByCfg({type:"gp", arr:aniArr, noWait:true});
     }
 
     // 怪物攻击
