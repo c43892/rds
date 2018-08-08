@@ -169,8 +169,9 @@ class AniView extends egret.DisplayObjectContainer {
     public async onElemChanged(ps) {
         var e = ps.e;
         if (ps.subType == "colddown") {
-            // 反转表达冷却
-            if (e.cd > ps.priorCD) {
+            // 反转表达冷却效果
+            if ((e.cd > 0 && ps.priorCD <= 0)
+                || (e.cd <= 0 && ps.priorCD > 0)) {
                 var g = this.bv.mapView.getElemViewAt(e.pos.x, e.pos.y).getShowLayer();
                 AniUtils.turnover(g, () => {
                     this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
