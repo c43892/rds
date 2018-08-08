@@ -175,19 +175,27 @@ class AniUtils {
         var fp = {x:obj.x, y:obj.y};
         var tp = {x:fp.x, y:fp.y - 25};
         var aniCfg = {type:"seq", loop:100, arr:[
-            {type:"tr", fx:fp.x, fy:fp.y, tx:tp.x, ty:tp.y, time:750, mode:egret.Ease.quadInOut, manuallyStart:true, noWait:true},
-            {type:"tr", fx:tp.x, fy:tp.y, tx:fp.x, ty:fp.y, time:750, mode:egret.Ease.quadInOut, manuallyStart:true, noWait:true},
-        ], manuallyStart:true, noWait:true};
+            {type:"tr", fx:fp.x, fy:fp.y, tx:tp.x, ty:tp.y, time:750, mode:egret.Ease.quadInOut, noWait:true},
+            {type:"tr", fx:tp.x, fy:tp.y, tx:fp.x, ty:fp.y, time:750, mode:egret.Ease.quadInOut, noWait:true},
+        ], noWait:true};
 
         var createAni = () => {
             var aw = AniUtils.aniFact.createAniByCfg(aniCfg, obj);
-            aw["onEnded"].push(() => {
-                createAni();
-            });
+            aw["onEnded"].push(createAni);
             return aw;
         };
 
         return createAni();
+    }
+
+    // 原地转动一下再恢复，比如剑在玩家攻击时的效果
+    public static async rotateAndBack(obj:egret.DisplayObject) {
+        var rev = AniUtils.reserveObjTrans(obj);
+        await AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
+            {type:"tr", fr:0, tr:90, time:100, noWait:true, manuallyStart:true},
+            {type:"tr", fr:90, tr:0, time:100, noWait:true, manuallyStart:true},
+        ], noWait:true}, obj)
+        rev();
     }
 
     // 清除所有相关动画

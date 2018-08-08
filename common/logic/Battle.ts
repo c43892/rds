@@ -806,6 +806,8 @@ class Battle {
         for (var i = 0; i < attackerAttrs.muiltAttack && !m.isDead(); i++){
             var r = await this.calcAttack("player2monster", attackerAttrs, targetAttrs);
             if (r.r == "attacked") {
+                await this.fireEvent("onAttack", {subType:"player2monster", x:m.pos.x, y:m.pos.y, rs:rs, target:m, weapon:weapon, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+
                 await this.implAddMonsterHp(m, -r.dhp);
                 await this.implAddMonsterShield(m, -r.dShield)
             }
@@ -813,8 +815,6 @@ class Battle {
             // 处理附加 buff
             for (var b of r.addBuffs)
                 await this.implAddBuff(m, "Buff" + b.type, ...b.ps);
-
-            await this.fireEvent("onAttack", {subType:"player2monster", x:m.pos.x, y:m.pos.y, rs:rs, target:m, weapon:weapon, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
         }
 
         await this.triggerLogicPoint("onAttack", {subType:"player2monster", x:m.pos.x, y:m.pos.y, rs:rs, target:m, weapon:weapon, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});

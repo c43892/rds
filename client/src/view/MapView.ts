@@ -121,6 +121,19 @@ class MapView extends egret.DisplayObjectContainer {
         return this.mevs[x][y];
     }
 
+    // 获取所有满足条件的显示元素
+    public getElemViews(f, includingCovered = false):ElemView[] {
+        var evs = [];
+        Utils.NDimentionArrayForeach(this.mevs, (ev:ElemView) => {
+            if (!includingCovered && ev.getGrid().isCovered()) return;
+            var e = ev.getElem();
+            if (e && f(e))
+                evs.push(ev);
+        });
+
+        return evs;
+    }
+
     // 逻辑坐标变换为显示坐标
     public logicPos2ShowPos(gx:number, gy:number) {
         var gw = this.width / this.map.size.w;

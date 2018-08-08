@@ -29,6 +29,7 @@ class AnimationFactory {
                 var subAni = this.createAniByCfg(subCfg, defaultObj);
                 aniArr.push(subAni);
             }
+            Utils.assert(aniArr.length > 0, "no subanis in " + cfg.type);
             cfg.subAniArr = aniArr;
             return this.createAni(cfg.type, cfg);
         } else {
@@ -189,7 +190,11 @@ class AnimationFactory {
                 aw = new Promise<void>((r, _) => subAnis[subAnis.length - 1]["onEnded"].push(r));
         }
 
-        aw["startimpl"] = () => subAnis[0]["start"]();
+        aw["startimpl"] = () => {
+            Utils.assert(subAnis.length > 0, "no sub ani in seq");
+            subAnis[0]["start"]();
+        };
+
         aw["pauseimpl"] = () => curAni["pause"]();
         aw["stopimpl"] = () => curAni["stop"]();
 
@@ -211,6 +216,7 @@ class AnimationFactory {
         });
 
         aw["startimpl"] = () => {
+            Utils.assert(subAnis.length > 0, "no sub ani in gp");
             for (var ani of subAnis)
                 ani["start"]();
         };

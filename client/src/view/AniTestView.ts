@@ -15,7 +15,7 @@ class AniTestView extends BattleView {
     }
 
     async playAniTest() {
-        await this.addElem(ElemFactory.create("DeathGod"));
+        await this.addElem(ElemFactory.create("Knife"));
     }
 
     newImg(res) {
@@ -34,7 +34,7 @@ class AniTestView extends BattleView {
         // var to = {x:img.x - 100, y:img.y+500, width:img.width, height:img.height};
         // await AniUtils.fly2(img, img, to);
 
-        await AniUtils.jumpInMap(img);
+        await AniUtils.rotateAndBack(img);
 
         this.removeChild(img);
     }

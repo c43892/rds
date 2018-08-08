@@ -71,9 +71,10 @@
         },
         "randomGroups": [
             {
-                "num": [ 8, 9 ],
+                "num": [ 28, 29 ],
                 "elems": {
-                    "Knife": 100
+                    "Sword": 100,
+                    "GoblinThief": 100
                 }
             },
             {

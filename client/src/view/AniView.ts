@@ -188,18 +188,37 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 产生攻击行为
     public async onAttack(ps) {        
-        if (ps.subType == "monster2player") {
-            var m:Elem = ps.attackerAttrs.owner;
-            var img = this.bv.mapView.getElemViewAt(m.pos.x, m.pos.y).getShowLayer();
-            await AniUtils.monsterAttack(img);
-        }
+        if (ps.subType == "player2monster")
+            await this.onPlayerAttack(ps);
         else
-            await this.aniFact.createAni("playerAttackMonster");
+            await this.onMonsterAttack(ps);
 
         this.bv.refreshPlayer();
         this.bv.mapView.refresh();
     }
-    
+
+    // 玩家攻击
+    async onPlayerAttack(ps) {
+        // 有些元素需要表现一下动作
+        var itemTypes = ["Sword"];
+        var items = this.bv.mapView.getElemViews((e:Elem) => Utils.contains(itemTypes, e.type) && e.isValid());
+        var aniArr = [];
+        for (var it of items) {
+            var ani = AniUtils.rotateAndBack(it.getShowLayer());
+            aniArr.push(ani);
+        }
+        
+        if (aniArr.length > 0)
+            await this.aniFact.createAniByCfg({type:"gp", arr:aniArr});
+    }
+
+    // 怪物攻击
+    async onMonsterAttack(ps) {
+        var m:Elem = ps.attackerAttrs.owner;
+        var img = this.bv.mapView.getElemViewAt(m.pos.x, m.pos.y).getShowLayer();
+        await AniUtils.monsterAttack(img);
+    }
+
     // 元素飞行
     public async onElemFlying(ps) {
         var fromPt = ps.fromPos;

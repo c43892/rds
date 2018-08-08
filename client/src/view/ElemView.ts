@@ -111,42 +111,40 @@ class ElemView extends egret.DisplayObjectContainer {
                         
                         // 护盾，右上角
                         var shield;
-                         m.bt().calcMonsterTargetAttrs(m).then((targetAttrs)=>{
-                             shield = targetAttrs.shield.b * (1 + targetAttrs.shield.a) + targetAttrs.shield.c;
+                        m.bt().calcMonsterTargetAttrs(m).then((targetAttrs) => {
+                            shield = targetAttrs.shield.b * (1 + targetAttrs.shield.a) + targetAttrs.shield.c;
                             this.shield.text = shield.toString();
 
-                        if (shield > 0) {
-                            this.shieldBg.x = this.width - this.shieldBg.width; this.shieldBg.y = 0;
-                            this.showLayer.addChild(this.shieldBg);
-                            this.shield.text = m.shield.toString();
-                            this.shield.x = 2;
-                            this.shield.y = 2;
-                            this.shield.x = m.shield >= 10 ? this.width - 23 : this.width - 22;
-                            this.shield.y = m.shield >= 10 ? 5 : 3;
-                            this.shield.size = m.shield >= 10 ? 15 : 20;
-                            this.showLayer.addChild(this.shield);
-                        }
-
-                         })
+                            if (shield > 0 && !m.isDead()) {
+                                this.shieldBg.x = this.width - this.shieldBg.width; this.shieldBg.y = 0;
+                                this.showLayer.addChild(this.shieldBg);
+                                this.shield.text = m.shield.toString();
+                                this.shield.x = 2;
+                                this.shield.y = 2;
+                                this.shield.x = m.shield >= 10 ? this.width - 23 : this.width - 22;
+                                this.shield.y = m.shield >= 10 ? 5 : 3;
+                                this.shield.size = m.shield >= 10 ? 15 : 20;
+                                this.showLayer.addChild(this.shield);
+                            }
+                        });
                         
 
                         // 攻击力，左下角
                         var power;
-                        m.bt().calcMonsterAttackerAttrs(m).then((attackerAttrs)=>{
+                        m.bt().calcMonsterAttackerAttrs(m).then((attackerAttrs) => {
                             power = attackerAttrs.power.b * (1 + attackerAttrs.power.a) + attackerAttrs.power.c;
-                            power = power < 1 ? 1 : power;
-                            this.power.text = power.toString();
-                            if (power > 0) {
-                            this.powerBg.x = 0; this.powerBg.y = this.height - this.powerBg.height;
-                            this.showLayer.addChild(this.powerBg);
-                            this.power.x = power >= 10 ? 4 : 6;
-                            this.power.y = power >= 10 ? this.height - 23 : this.height - 25;
-                            this.power.size = power >= 10 ? 15 : 20;
-                            this.showLayer.addChild(this.power);
-                        };
+                            power = power < 1 ? 1 : power;                            
+                            if (power > 0 && !m.isDead()) {
+                                this.power.text = power.toString();
+                                this.powerBg.x = 0; this.powerBg.y = this.height - this.powerBg.height;
+                                this.showLayer.addChild(this.powerBg);
+                                this.power.x = power >= 10 ? 4 : 6;
+                                this.power.y = power >= 10 ? this.height - 23 : this.height - 25;
+                                this.power.size = power >= 10 ? 15 : 20;
+                                this.showLayer.addChild(this.power);
+                            };
                         })
                         
-
                         this.refreshDropItem(); // 刷新掉落物品显示
                         if (b.status == GridStatus.Marked) // 被标记怪物上面盖一层
                             this.showLayer.addChild(this.markedImg);
@@ -158,8 +156,14 @@ class ElemView extends egret.DisplayObjectContainer {
 
         var w = this.width;
         var h = this.height;
-        
-        var arr = [this.showLayer, this.opLayer, this.elemImg, this.banImg, this.markedImg];
+
+        if (this.contains(this.showLayer)) {
+            this.showLayer.x = this.showLayer.y = 0;
+            this.showLayer.width = w;
+            this.showLayer.height = h;
+        }
+
+        var arr = [this.opLayer, this.elemImg, this.banImg, this.markedImg];
         arr.forEach((a) => {
             a.x = 0;
             a.y = 0;
@@ -186,10 +190,6 @@ class ElemView extends egret.DisplayObjectContainer {
 
     public getGrid():Grid {
         return this.map.getGridAt(this.gx, this.gy);
-    }
-
-    public getElemImg():egret.Bitmap {
-        return this.elemImg;
     }
 
     public getShowLayer():egret.DisplayObject {
