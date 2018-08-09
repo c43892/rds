@@ -33,7 +33,7 @@ class AniTestView extends BattleView {
         // var to = {x:img.x - 100, y:img.y+500, width:img.width, height:img.height};
         // await AniUtils.fly2(img, img, to);
 
-        await AniUtils.jumpingTip("5", {x:this.width/2, y:this.height/2});
+        await AniUtils.popupTipAt("5", "popupTipBg_png", {x:this.width/2, y:this.height/2});
 
         // this.removeChild(img);
     }

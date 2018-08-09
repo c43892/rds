@@ -270,7 +270,7 @@ class AniUtils {
         ], obj:obj});
     }
 
-    // 向右跳动着飘一个数字
+    // 向右跳动着飘一个提示
     public static async jumpingTip(str:string, pos) {
         var tip = ViewUtils.createTextField(30, 0x000000);
         tip.textFlow = (new egret.HtmlTextParser).parser(str);
@@ -298,6 +298,34 @@ class AniUtils {
                 {type:"tr", fy:y+50, ty:y, time:200, mode:egret.Ease.sineOut, noWait:true}
             ], noWait:true},
         ], obj:tip, noWait:true});
+        AniUtils.ac.removeChild(tip);
+    }
+
+    // 爆出来一个提示
+    public static async popupTipAt(str:string, bgTex:string, pos) {
+        var bg = ViewUtils.createBitmapByName(bgTex);
+        bg.anchorOffsetX = bg.width / 2;
+        bg.anchorOffsetY = bg.height / 2;
+        bg.x = pos.x;
+        bg.y = pos.y;
+        AniUtils.ac.addChild(bg);
+        var tip = ViewUtils.createTextField(30, 0x000000);
+        tip.textFlow = (new egret.HtmlTextParser).parser(str);
+        AniUtils.ac.addChild(tip);
+        tip.x = pos.x;
+        tip.y = pos.y;
+        tip.anchorOffsetX = tip.width / 2;
+        tip.anchorOffsetY = tip.height / 2;
+        await AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
+            {type:"gp", arr:[
+                {type:"tr", fa:0, ta:1, time:100, obj:tip, noWait:true},
+                {type:"tr", fa:0, ta:1, time:100, obj:bg, noWait:true},
+                {type:"tr", fsx:0, tsx:1, fsy:0, tsy:1, time:100, obj:tip, noWait:true, mode:egret.Ease.quadIn},
+                {type:"tr", fsx:0, tsx:1, fsy:0, tsy:1, time:100, obj:bg, noWait:true, mode:egret.Ease.quadIn},
+            ], noWait:true},
+            {type:"delay", obj:tip, time:500, noWait:true}
+        ], noWait:true});
+        AniUtils.ac.removeChild(bg);
         AniUtils.ac.removeChild(tip);
     }
 

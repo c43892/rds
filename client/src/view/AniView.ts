@@ -265,8 +265,16 @@ class AniView extends egret.DisplayObjectContainer {
     // 怪物攻击
     public async onMonsterAttack(ps) {
         var m:Elem = ps.attackerAttrs.owner;
-        var img = this.getSV(m);
-        await AniUtils.shakeTo(img);
+        var sv = this.getSV(m);
+        
+        var dhp = ps.r.dhp;
+        if (dhp < 0) {
+            var p = sv.localToGlobal();
+            AniUtils.popupTipAt((-dhp).toString(), "popupTipBg_png", {x:p.x-25, y:p.y-25});
+        }
+
+        await AniUtils.shakeTo(sv);
+        await AniUtils.delay(100);
     }
 
     // 怪物吃食物

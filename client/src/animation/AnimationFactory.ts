@@ -122,6 +122,8 @@ class AnimationFactory {
 
     // 渐隐渐显
     trans(g:egret.DisplayObject, ps):egret.Tween {
+        Utils.assert(!!g, "the transform object should not be undefined");
+        
         // properties from
         var psf = {};
         if (ps.fx != undefined) psf["x"] = ps.fx;
