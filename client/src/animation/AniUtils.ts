@@ -245,22 +245,33 @@ class AniUtils {
 
     // 在指定位置冒出一个文字提示
     public static async tipAt(str:string, pos) {
-        str = ViewUtils.getTipText(str);
         var tip = ViewUtils.createTextField(30, 0x000000);
         tip.textFlow = (new egret.HtmlTextParser).parser(str);
         AniUtils.ac.addChild(tip);
+        tip.anchorOffsetX = tip.width / 2;
         tip.x = pos.x;
         tip.y = pos.y;
         await AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
-            {type:"tr", fa:0, ta:1, fy:pos.y, ty:pos.y-25, time:150},
-            {type:"delay", time:700},
-            {type:"tr", fa:1, ta:0, fy:pos.y-25, ty:pos.y-50, time:150}
-        ], obj:tip});
+            {type:"tr", fa:0, ta:1, fy:pos.y, ty:pos.y-25, time:150, noWait:true},
+            {type:"delay", time:700, noWait:true},
+            {type:"tr", fa:1, ta:0, fy:pos.y-25, ty:pos.y-50, time:150, noWait:true}
+        ], obj:tip, noWait:true});
         AniUtils.ac.removeChild(tip);
     }
 
+    // 闪一下并抖一下
+    public static async flashAndShake(obj:egret.DisplayObject) {
+        var x = obj.x;
+        await AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
+            {type:"tr", fa:1, ta:3, fx:x, tx:x-5, time:50},
+            {type:"tr", fa:3, ta:1, fx:x-5, tx:x+5, time:50},
+            {type:"tr", fa:1, ta:3, fx:x+5, tx:x-5, time:50},
+            {type:"tr", fa:3, ta:1, fx:x-5, tx:x, time:50},
+        ], obj:obj});
+    }
+
     // 闪一下并伴随一个文字提示
-    public static async flashAndTipAt(obj:egret.DisplayObject, str:string, pos) {
+    public static async flashShakeAndTipAt(obj:egret.DisplayObject, str:string, pos) {
         var tip = ViewUtils.createTextField(30, 0x000000);
         tip.textAlign = egret.HorizontalAlign.CENTER;
         tip.textFlow = (new egret.HtmlTextParser).parser(str);
@@ -285,6 +296,41 @@ class AniUtils {
         ], noWait:true});
 
         AniUtils.ac.removeChild(tip);
+    }
+
+    // 向右跳动着飘一个数字
+    public static async jumpingTip(str:string, pos) {
+        var tip = ViewUtils.createTextField(30, 0x000000);
+        tip.textFlow = (new egret.HtmlTextParser).parser(str);
+        AniUtils.ac.addChild(tip);
+        var x = pos.x;
+        var y = pos.y;
+        tip.x = x;
+        tip.y = y;
+        await AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
+            {type:"gp", arr:[
+                {type:"tr", fa:0, ta:1, time:100, noWait:true},
+                {type:"tr", fx:x, tx:x+25, time:200, noWait:true},
+                {type:"tr", fy:y, ty:y+50, time:200, mode:egret.Ease.sineIn, noWait:true}
+            ], noWait:true},
+            {type:"gp", arr:[
+                {type:"tr", fx:x+25, tx:x+50, time:200, noWait:true},
+                {type:"tr", fy:y+50, ty:y, time:200, mode:egret.Ease.sineOut, noWait:true}
+            ], noWait:true},
+            {type:"gp", arr:[
+                {type:"tr", fx:x+50, tx:x+75, time:200, noWait:true},
+                {type:"tr", fy:y, ty:y+50, time:200, mode:egret.Ease.sineIn, noWait:true}
+            ], noWait:true},
+            {type:"gp", arr:[                
+                {type:"tr", fa:1, ta:0, fx:x+75, tx:x+100, time:200, noWait:true},
+                {type:"tr", fy:y+50, ty:y, time:200, mode:egret.Ease.sineOut, noWait:true}
+            ], noWait:true},
+        ], obj:tip, noWait:true});
+        AniUtils.ac.removeChild(tip);
+    }
+
+    public static async delay(time) {
+        await AniUtils.aniFact.createAni("delay", {obj:AniUtils.ac, time:time});
     }
 
     // 清除所有相关动画

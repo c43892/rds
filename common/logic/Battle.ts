@@ -603,12 +603,16 @@ class Battle {
     public async implAddMonsterHp(m:Monster, dhp:number) {
         if (dhp == 0) return;
         m.addHp(dhp);
-        if (dhp < 0) await this.triggerLogicPoint("onMonsterHurt", {"dhp": dhp, m:m});
+        if (dhp < 0) {
+            await this.fireEvent("onMonsterHurt", {dhp:dhp, m:m});
+            await this.triggerLogicPoint("onMonsterHurt", {dhp:dhp, m:m});
+        }
+        
         if (m.isDead())
             await this.implOnElemDie(m);
         else {
-            await this.fireEvent("onElemChanged", {subType:"monsterHp", e:m});
-            await this.triggerLogicPoint("onElemChanged", {"subType": "monsterHp", e:m});
+            await this.fireEvent("onElemChanged", {subType:"monsterHp", e:m, dhp:dhp});
+            await this.triggerLogicPoint("onElemChanged", {"subType": "monsterHp", e:m, dhp:dhp});
         }
     }
 

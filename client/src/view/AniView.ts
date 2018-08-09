@@ -192,6 +192,17 @@ class AniView extends egret.DisplayObjectContainer {
             this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
     }
 
+    // 怪物受到伤害
+    public async onMonsterHurt(ps) {
+        var m = ps.m;
+        var g = this.getSV(m);
+        var dhp = ps.dhp;
+        var p = g.localToGlobal();
+        AniUtils.jumpingTip((-dhp).toString(), {x:p.x+g.width,  y:p.y});
+        await AniUtils.flashAndShake(g);
+        await AniUtils.delay(100);
+    }
+
     // 怪物属性发生变化
     public async onElemChanged(ps) {
         var e = ps.e;
@@ -202,9 +213,9 @@ class AniView extends egret.DisplayObjectContainer {
             }
         } else if (ps.subType == "monsterHp") {
             var dhp = ps.dhp;
-            if (dhp > 0) {
-                await AniUtils.tipAt("cure", g.localToGlobal());
-            }
+            var p = g.localToGlobal();
+            if (dhp > 0)
+                await AniUtils.tipAt("cure", p);
         }
         
         this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
@@ -391,8 +402,10 @@ class AniView extends egret.DisplayObjectContainer {
         var e:Elem = ps.e;
         var sv = this.getSV(e);
         var pos = sv.localToGlobal();
-        pos.y -= sv.height * sv.scaleY / 2;
-        await AniUtils.flashAndTipAt(sv, ps.r, pos);
+        pos.x += sv.width / 2
+        pos.y -= sv.height / 2;
+        AniUtils.tipAt(ViewUtils.getTipText(ps.r), pos);
+        await AniUtils.flashAndShake(sv);
     }
 
     async blackIn(removedWhenFinish = false) {
