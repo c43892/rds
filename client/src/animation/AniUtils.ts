@@ -174,7 +174,7 @@ class AniUtils {
     public static async floating(obj:egret.DisplayObject) {
         var fp = {x:obj.x, y:obj.y};
         var tp = {x:fp.x, y:fp.y - 25};
-        var aniCfg = {type:"seq", loop:100, arr:[
+        var aniCfg = {type:"seq", loop:1000, arr:[
             {type:"tr", fx:fp.x, fy:fp.y, tx:tp.x, ty:tp.y, time:750, mode:egret.Ease.quadInOut, noWait:true},
             {type:"tr", fx:tp.x, fy:tp.y, tx:fp.x, ty:fp.y, time:750, mode:egret.Ease.quadInOut, noWait:true},
         ], noWait:true, obj:obj};
@@ -268,34 +268,6 @@ class AniUtils {
             {type:"tr", fa:1, ta:3, fx:x+5, tx:x-5, time:50},
             {type:"tr", fa:3, ta:1, fx:x-5, tx:x, time:50},
         ], obj:obj});
-    }
-
-    // 闪一下并伴随一个文字提示
-    public static async flashShakeAndTipAt(obj:egret.DisplayObject, str:string, pos) {
-        var tip = ViewUtils.createTextField(30, 0x000000);
-        tip.textAlign = egret.HorizontalAlign.CENTER;
-        tip.textFlow = (new egret.HtmlTextParser).parser(str);
-        AniUtils.ac.addChild(tip);
-        tip.anchorOffsetX = tip.width / 2;
-        tip.x = pos.x + obj.width / 2;
-        tip.y = pos.y;
-
-        var x = obj.x;
-        await AniUtils.aniFact.createAniByCfg({type:"gp", arr:[
-            {type:"seq", arr:[
-                {type:"tr", fa:1, ta:3, fx:x, tx:x-5, time:50},
-                {type:"tr", fa:3, ta:1, fx:x-5, tx:x+5, time:50},
-                {type:"tr", fa:1, ta:3, fx:x+5, tx:x-5, time:50},
-                {type:"tr", fa:3, ta:1, fx:x-5, tx:x, time:50},
-            ], obj:obj},
-            {type:"seq", arr:[
-                {type:"tr", fa:0, ta:1, fy:pos.y, ty:pos.y-25, time:150},
-                {type:"delay", time:700},
-                {type:"tr", fa:1, ta:0, fy:pos.y-25, ty:pos.y-50, time:150}
-            ], obj:tip, noWait:true},
-        ], noWait:true});
-
-        AniUtils.ac.removeChild(tip);
     }
 
     // 向右跳动着飘一个数字

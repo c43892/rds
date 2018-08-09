@@ -215,7 +215,7 @@ class AniView extends egret.DisplayObjectContainer {
             var dhp = ps.dhp;
             var p = g.localToGlobal();
             if (dhp > 0)
-                await AniUtils.tipAt("cure", p);
+                await AniUtils.tipAt(ViewUtils.getTipText("cure"), p);
         }
         
         this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
