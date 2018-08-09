@@ -4,7 +4,7 @@ class BuffBasic extends Buff {
     constructor() {
         super("BuffUncoveringAddExp");
         this.onGridChanged = async (ps) => {
-            if (ps.stateBeforeUncover == "gridUncovered" || ps.subType != "gridUncovered")
+            if (ps.stateBeforeUncover == GridStatus.Uncovered || ps.subType != "gridUncovered")
                 return;
 
             var bt = this.getOwner().bt();

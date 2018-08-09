@@ -158,4 +158,15 @@ class ViewUtils {
 
         return ss;
     }
+
+    // 获取全局缩放值
+    public static getGlobalScale(obj:egret.DisplayObject) {
+        var s = {scaleX:obj.scaleX, scaleY:obj.scaleY};
+        if (obj.parent) {
+            var ps = ViewUtils.getGlobalScale(obj.parent);
+            s = {scaleX:s.scaleX*ps.scaleX, scaleY:s.scaleY*ps.scaleY};
+        }
+
+        return s;
+    }
 }

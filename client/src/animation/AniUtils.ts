@@ -98,12 +98,13 @@ class AniUtils {
     }
 
     // 加速直线从一个位置飞向目标位置，并在目标位置固定住。比如获得遗物或者物品的效果
-    public static async fly2(obj:egret.DisplayObject, from, to, noRotation = false) {
+    public static async fly2(obj:egret.DisplayObject, from:egret.DisplayObject, to:egret.DisplayObject, noRotation = false) {
         // 飞行开始和目标位置
         var fp = from.localToGlobal();
         var tp = to.localToGlobal();
-        tp.x = tp.x - to.anchorOffsetX + to.width * to.scaleX / 2;
-        tp.y = tp.y - to.anchorOffsetY + to.height * to.scaleY / 2;
+        var toObjScale = ViewUtils.getGlobalScale(to);
+        tp.x = tp.x - to.anchorOffsetX + to.width * toObjScale.scaleX / 2;
+        tp.y = tp.y - to.anchorOffsetY + to.height * toObjScale.scaleY / 2;
 
         var rev = AniUtils.reserveObjTrans(obj, fp);
         var aniFact = AniUtils.aniFact;
@@ -124,8 +125,8 @@ class AniUtils {
         var mr = tr / 3;
 
         // 最终大小
-        var sx = to.width / from.width;
-        var sy = to.height / from.height;
+        var sx = to.width * toObjScale.scaleX / from.width;
+        var sy = to.height * toObjScale.scaleY / from.height;
 
         await aniFact.createAniByCfg({type:"seq", arr: [ // 一个动画序列
             {type:"seq", arr: [ // 移动过程，也是一个序列
@@ -331,6 +332,17 @@ class AniUtils {
 
     public static async delay(time) {
         await AniUtils.aniFact.createAni("delay", {obj:AniUtils.ac, time:time});
+    }
+
+    // 直线飞向目标位置并消失
+    public static async flyAndFadeout(obj:egret.DisplayObject, toPos) {
+        var rev = AniUtils.reserveObjTrans(obj, toPos);
+        await AniUtils.aniFact.createAniByCfg({
+            type:"tr", fx:obj.x, fy:obj.y, tx:toPos.x, ty:toPos.y, fa:1, ta:0,
+            fsx:1, fsy:1, tsx:0.5, tsy:0.5,
+            time:500, mode:egret.Ease.quintIn, obj:obj
+        });
+        rev();
     }
 
     // 清除所有相关动画

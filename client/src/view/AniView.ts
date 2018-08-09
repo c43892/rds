@@ -361,8 +361,27 @@ class AniView extends egret.DisplayObjectContainer {
     // 怪物拿走物品
     public async onMonsterTakeElem(ps) {
         var m = ps.m;
-        var e = ps.e;
-        await this.aniFact.createAni("monsterTakeElem", {m:m, e:e});
+        var es:Elem[] = ps.es;
+        var toDropList = ps.toDropList;
+
+        var msv = this.getSV(m);
+        if (es[0].type != "Coins" && toDropList) { // 抛物线飞到左上角
+            Utils.assert(es.length == 1, "can not take more than 1 item toDropList");
+            var e = es[0];
+            var dropItemImg = this.bv.mapView.getElemViewAt(m.pos.x, m.pos.y).getDropItemImg();
+            var g = this.getSV(e)
+            await AniUtils.fly2(g, g, dropItemImg);
+        } else { // 直线飞向怪物消失
+            var aniArr = [];
+            for (var e of es) {
+                var g = this.getSV(e);
+                var ani = AniUtils.flyAndFadeout(g, msv.localToGlobal());
+            }
+            await this.aniFact.createAni("gp", {subAniArr:aniArr});
+        }
+
+        for (var e of es)
+            this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
     }
 
     // 眼魔死亡时飞几个眼睛出来

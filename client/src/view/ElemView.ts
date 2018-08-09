@@ -31,6 +31,15 @@ class ElemView extends egret.DisplayObjectContainer {
         this.showLayer = new egret.DisplayObjectContainer(); // 显示层
         this.addChild(this.showLayer);
 
+        // 掉落物品
+        this.dropElemImg = new egret.Bitmap();
+        this.dropElemImg.name = "DropElem";
+        this.dropElemImg.anchorOffsetX = 0;
+        this.dropElemImg.anchorOffsetY = 0;
+        this.dropElemImg.x = this.dropElemImg.y = 0;
+        this.dropElemImg.width = this.dropElemImg.height = 32;
+        this.showLayer.addChild(this.dropElemImg);
+
         this.opLayer = new egret.TextField(); // 事件层
         this.addChild(this.opLayer);
 
@@ -54,46 +63,38 @@ class ElemView extends egret.DisplayObjectContainer {
         this.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd, this);
     }
 
+    // 获取左上角用于显示掉落物品的图
+    public getDropItemImg() {
+        return this.dropElemImg;
+    }
+
     // 刷新掉落物品显示
-    dropElemImgExists = () => this.dropElemImg && this.getChildByName(this.dropElemImg.name);
+    dropElemImgExists = () => !!this.dropElemImg.texture;
     public refreshDropItem() {
-        var b = this.map.getGridAt(this.gx, this.gy);
+        var g = this.map.getGridAt(this.gx, this.gy);
         var e = this.map.getElemAt(this.gx, this.gy);
         var dpe;
-        if (e.dropItems) {
+        if (e && e.dropItems) {
             var n = Utils.indexOf(e.dropItems, (dpe) => dpe.type != "Coins" && (dpe instanceof Item || dpe instanceof Prop || dpe instanceof Relic));
             if (n >= 0)
                 dpe = e.dropItems[n];
         }
 
-        var show = (!b.isCovered() || b.isCovered()) && dpe;
-
-        if (!show && this.dropElemImgExists()) {
-            this.removeChild(this.dropElemImg);
-            this.dropElemImg = undefined;
-        } else if (show && !this.dropElemImgExists()) {
-            this.dropElemImg = ViewUtils.createBitmapByName(dpe.getElemImgRes() + "_png");
-            this.dropElemImg.name = "DropElem";
-            this.dropElemImg.anchorOffsetX = 0;
-            this.dropElemImg.anchorOffsetY = 0;
-            this.dropElemImg.x = this.dropElemImg.y = 0;
-            this.dropElemImg.width = this.dropElemImg.height = 32;
-            this.showLayer.addChild(this.dropElemImg);
-        } else if (show && this.dropElemImgExists()) {
-            var tex = ViewUtils.loadTex(dpe.getElemImgRes() + "_png");
-            if (this.dropElemImg.texture != tex)
-                this.dropElemImg.texture = tex;
-        }
+        var show = !g.isCovered() && dpe;
+        if (show)
+            ViewUtils.setTexName(this.dropElemImg, dpe.getElemImgRes() + "_png");
+        else
+            this.dropElemImg.texture = undefined;
     }
 
     public refresh() {
         this.clear();
-        var b = this.map.getGridAt(this.gx, this.gy);
+        var g = this.map.getGridAt(this.gx, this.gy);
         var e = this.map.getElemAt(this.gx, this.gy);
-        switch (b.status) {
+        switch (g.status) {
             case GridStatus.Marked: // 被标记
             case GridStatus.Uncovered: // 被揭开
-                Utils.assert(b.status != GridStatus.Marked || !e || e instanceof Monster, "only monster could be marked");
+                Utils.assert(g.status != GridStatus.Marked || !e || e instanceof Monster, "only monster could be marked");
                 if (e && !e.attrs.invisible) { // 有元素显示元素图片
                     this.elemImg = ViewUtils.createBitmapByName(e.getElemImgRes() + "_png");
                     this.showLayer.addChild(this.elemImg);
@@ -145,8 +146,7 @@ class ElemView extends egret.DisplayObjectContainer {
                             };
                         })
                         
-                        this.refreshDropItem(); // 刷新掉落物品显示
-                        if (b.status == GridStatus.Marked) // 被标记怪物上面盖一层
+                        if (g.status == GridStatus.Marked) // 被标记怪物上面盖一层
                             this.showLayer.addChild(this.markedImg);
                     } else if (!e.attrs.invisible && !this.map.isGenerallyValid(e.pos.x, e.pos.y) && e.type != "Hole") // 禁止符号
                         this.showLayer.addChild(this.banImg);
@@ -154,6 +154,8 @@ class ElemView extends egret.DisplayObjectContainer {
             break;
         }
 
+        this.refreshDropItem(); // 刷新掉落物品显示
+        
         var w = this.width;
         var h = this.height;
 
@@ -182,6 +184,7 @@ class ElemView extends egret.DisplayObjectContainer {
 
     public clear() {
         this.showLayer.removeChildren();
+        this.showLayer.addChild(this.dropElemImg);
     }
 
     public getElem():Elem {
