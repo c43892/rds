@@ -273,14 +273,26 @@ class BattleView extends egret.DisplayObjectContainer {
         return this.deathGod;
     }
 
+    // 刷新金钱显示
+    public refreshMoneyAt(num:number = undefined) {
+        num = num ? num : this.player.money;
+        this.money.text = num.toString();
+    }
+
+    // 获取金钱显示对象
+    public getMoneyText() {
+        return this.money;
+    }
+
     // 刷新角色信息
     deathGodBarPosX;
     deathGodBarWidth;
     public refreshPlayer() {
         ViewUtils.setTexName(this.occupationBg, this.player.occupation + "Bg_png");
         ViewUtils.setTexName(this.avatar, this.player.occupation + "_png");
-        this.money.text = this.player.money.toString();
         this.currentStoryLv.text = this.player.currentStoreyPos.lv.toString();
+
+        this.refreshMoneyAt();
 
         // 刷新死神位置
         if (!this.deathGodBarPosX) this.deathGodBarPosX = this.deathGodBar.x

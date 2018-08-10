@@ -4,7 +4,8 @@
         "Knife":5,
         "IceGun":5,
         "RayGun":5,
-        "MedicineBox":5
+        "MedicineBox":5,
+        "Power":5
     },
 
     "inbattle": {

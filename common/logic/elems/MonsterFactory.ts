@@ -219,7 +219,7 @@ class MonsterFactory {
     // 偷袭：偷钱
     static doSneakStealMoney(giveback:Boolean, m:Monster):Monster {
         return MonsterFactory.addSneakAI(async () => {
-            await m.bt().implAddMoney(m, - Math.floor(m.bt().player.money * m.attrs.steal.percent / 100) - m.attrs.steal.num);
+            await m.bt().implAddMoney(-Math.floor(m.bt().player.money * m.attrs.steal.percent / 100) - m.attrs.steal.num, m);
             if(giveback)
                 m.addDropItem(m.bt().level.createElem("Coins"));
 
@@ -652,7 +652,7 @@ class MonsterFactory {
         m.canUse = () => true;
         m.canBeDragDrop = true;
         var onBuy = async (elem:Elem, price:number) => {
-            m.bt().player.addMoney(-price);
+            m.bt().implAddMoney(-price, m);
             var g = BattleUtils.findNearestGrid(m.bt().level.map, m.pos, (g:Grid) => !g.isCovered() && !g.getElem());
             if (g) await m.bt().implAddElemAt(elem, g.pos.x, g.pos.y, m.pos);
         };

@@ -270,13 +270,29 @@ class AniView extends egret.DisplayObjectContainer {
     public async onPlayerChanged(ps) {
         switch (ps.subType) {
             case "money":
-                await this.aniFact.createAni("moneyMoving");
+                await this.onMoneyChanged(ps);
             break;
             default:
                 await this.aniFact.createAni("playerChanged");
         }
 
         this.bv.refreshPlayer();
+    }
+
+    // 金钱变化
+    public async onMoneyChanged(ps) {
+        var dm = Math.abs(ps.d);
+        var txt = this.bv.getMoneyText();
+
+        var d = ps.d > 0 ? 1 : -1;
+        var subAniArr = [];
+        for (var i = 0; i < dm; i++) {
+            var v = this.bv.player.money - (dm - i) * d;
+            this.bv.refreshMoneyAt(v);
+            await AniUtils.delay(1);
+        }
+
+        this.bv.refreshMoneyAt();
     }
 
     // 产生攻击行为

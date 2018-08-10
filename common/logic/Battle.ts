@@ -497,14 +497,16 @@ class Battle {
     // 尝试启动商店逻辑
     public async try2openShop(npc:Monster, items, prices, onBuy) {
         var elem;
-        var reserveNpc = await this.openShop(items, prices, async (e:Elem) => {
+        var price;
+        var reserveNpc = await this.openShop(items, prices, async (e:Elem, p:number) => {
             this.fireEventSync("onPlayerOp", {op:"tryBoughtFromShop", ps:{e:e.type, x:npc.pos.x, y:npc.pos.y}});
             elem = e;
+            price = p;
             return true;
         });
 
         if (elem)
-            await onBuy(elem);
+            await onBuy(elem, price);
 
         return reserveNpc;
     }
@@ -977,10 +979,10 @@ class Battle {
     }
 
     // 给角色加钱/减钱, e 是相关元素，比如偷钱的怪物，或者是地上的钱币
-    public async implAddMoney(e:Elem, dm:number) {
+    public async implAddMoney(dm:number, e:Elem = undefined) {
         this.player.addMoney(dm);
-        await this.fireEvent("onPlayerChanged", {subType:"money", e:e});
-        await this.triggerLogicPoint("onPlayerChanged", {"subType": "money", e:e});
+        await this.fireEvent("onPlayerChanged", {subType:"money", e:e, d:dm});
+        await this.triggerLogicPoint("onPlayerChanged", {"subType": "money", e:e, d:dm});
     }
 
     // 吸血，e 是相关元素

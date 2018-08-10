@@ -23,7 +23,7 @@ class ItemFactory {
             var e = this.createItem();
             e.cnt = attrs.cnt;
             e.canUse = () => true;
-            e.use = async () => await e.bt().implAddMoney(e, e.cnt);
+            e.use = async () => await e.bt().implAddMoney(e.cnt, e);
             e.getElemImgRes = () => e.cnt >= 9 ? e.type + "9" : e.type + e.cnt;
             return e;
         },
@@ -120,7 +120,7 @@ class ItemFactory {
         "EconomyMagazine": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, async (e:Elem) => {
             await e.bt().implAddPlayerExp(attrs.dexp);
             var tc = e.bt().level.createElem("CoinsSmall");
-            await e.bt().implAddMoney(e, tc.cnt);
+            await e.bt().implAddMoney(tc.cnt, e);
         }, () => true, () => undefined, (e) => e.type)(this.createItem()),
 
         // 苹果
