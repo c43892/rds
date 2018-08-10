@@ -157,6 +157,12 @@ class ItemFactory {
             return ElemFactory.weaponLogic(1, true)(e);
         },
 
+        // 小石块
+        "SmallRock": (attr) => {
+            var e = this.createItem();
+            return ElemFactory.weaponLogic(1, true)(e);
+        },
+
         // 剑
         "Sword": (attrs) => {
             var e = this.createItem();

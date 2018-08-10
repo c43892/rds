@@ -814,7 +814,6 @@ class Battle {
             var r = await this.calcAttack("player2monster", attackerAttrs, targetAttrs);
             if (r.r == "attacked") {
                 await this.fireEvent("onAttack", {subType:"player2monster", x:m.pos.x, y:m.pos.y, rs:rs, target:m, weapon:weapon, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
-
                 await this.implAddMonsterHp(m, -r.dhp);
                 await this.implAddMonsterShield(m, -r.dShield)
             }

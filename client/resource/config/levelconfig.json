@@ -73,7 +73,9 @@
             {
                 "num": [ 28, 29 ],
                 "elems": {
-                    "CoinsBig": 100
+                    "Knife": 100,
+                    "SmallRock": 100,
+                    "NormalZombie": 100
                 }
             },
             {

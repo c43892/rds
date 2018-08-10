@@ -442,4 +442,22 @@ class Utils {
 
         return {items:dropItems, prices:prices}
     }
+
+    // 计算从 from 指向 to 的角度
+    public static getRotationFromTo(from, to) {
+        var dx = to.x - from.x;
+        var dy = to.y - from.y;
+        if (Math.abs(dx) < 0.001)
+            return dx >= 0 ? 0 : 180;
+        else {
+            var tan = Math.tan(dy / dx);
+            var atan = Math.atan(tan);
+            if (dx < 0) 
+                return atan * 180 / Math.PI + 180;
+            else if (dy >= 0)
+                return atan * 180 / Math.PI;
+            else
+                return atan * 180 / Math.PI + 360;
+        }
+    }
 }

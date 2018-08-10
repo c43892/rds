@@ -308,18 +308,36 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 玩家攻击
     public async onPlayerAttack(ps) {
-        // 有些元素需要表现一下动作
-        var itemTypes = ["Sword"];
-        var items = this.bv.mapView.getElemViews((e:Elem) => Utils.contains(itemTypes, e.type) && e.isValid());
-        var aniArr = [];
-        for (var it of items) {
-            var ani = AniUtils.rotateAndBack(it.getShowLayer());
-            aniArr.push(ani);
+        var weapon = ps.weapon;
+
+        if (!weapon) {
+            // 平砍时有些元素需要表现一下动作
+            var itemTypes = ["Sword"];
+            var items = this.bv.mapView.getElemViews((e:Elem) => Utils.contains(itemTypes, e.type) && e.isValid());
+            var aniArr = [];
+            for (var it of items) {
+                var ani = AniUtils.rotateAndBack(it.getShowLayer());
+                aniArr.push(ani);
+            }
+            
+            // 这个效果不等待
+            if (aniArr.length > 0)
+                this.aniFact.createAniByCfg({type:"gp", arr:aniArr, noWait:true});
         }
-        
-        // 这个效果不等待
-        if (aniArr.length > 0)
-            this.aniFact.createAniByCfg({type:"gp", arr:aniArr, noWait:true});
+        else if (weapon && (weapon.type == "Knife" || weapon.type == "SmallRock")) {
+            // 武器飞向目标
+            var g = this.getSV(weapon);
+            var target = ps.target;
+            var tg = this.bv.mapView.getGridViewAt(ps.x, ps.y);
+            AniUtils.clearAll(g);
+            var rot = Utils.getRotationFromTo(g.localToGlobal(), tg.localToGlobal());
+            if (weapon.type == "Knife") // 小刀正常样子就是右上 45 度
+                rot += 45;
+
+            g.rotation = rot;
+            await AniUtils.flyAndFadeout(g, tg.localToGlobal(), 150, 1, 1);
+            this.bv.mapView.refreshAt(weapon.pos.x, weapon.pos.y);
+        }
     }
 
     // 怪物攻击
@@ -435,7 +453,7 @@ class AniView extends egret.DisplayObjectContainer {
             var aniArr = [];
             for (var e of es) {
                 var g = this.getSV(e);
-                var ani = AniUtils.flyAndFadeout(g, msv.localToGlobal());
+                var ani = AniUtils.flyAndFadeout(g, msv.localToGlobal(), 500, 0.5, 0);
             }
             await this.aniFact.createAni("gp", {subAniArr:aniArr});
         }
