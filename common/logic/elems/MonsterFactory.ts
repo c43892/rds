@@ -618,7 +618,7 @@ class MonsterFactory {
 
     // 会追着玩家进入下一层
     static doChaseToNextLevel(m:Monster):Monster {        
-        return <Monster>ElemFactory.addAI("beforeGoOutLevel1", async () => m.bt().player.elems2NextLevel.push(m), m);
+        return <Monster>ElemFactory.addAI("beforeGoOutLevel1", async () => m.bt().implElemFollow2NextLevel(m), m);
     }
 
     // boss 特殊逻辑

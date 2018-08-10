@@ -36,7 +36,7 @@
                 "type": "TreasureBox",
                 "rdp": "treasureBox2"
             },
-            "CowardZombie": {
+            "Ghost": {
                 "hp": 1
             },
             "NormalZombie": {
@@ -76,8 +76,9 @@
             {
                 "num": [ 28, 29 ],
                 "elems": {
-                    "Knife": 100,
-                    "CowardZombie": 100
+                    "Key": 100,
+                    "Door": 100,
+                    "Ghost": 100
                 }
             },
             {

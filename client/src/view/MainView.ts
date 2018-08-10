@@ -142,7 +142,7 @@ class MainView extends egret.DisplayObjectContainer {
             "onGridChanged", "onPlayerChanged", "onAttack", "onElemChanged", "onPropChanged", "onRelicChanged",
             "onElemMoving", "onElemFlying", "onAllCoveredAtInit", "onSuckPlayerBlood", "onMonsterTakeElem", "onBuffAdded",
             "onEyeDemonUncoverGrids", "onElemFloating", "canNotUseItem", "onColddownChanged", "onMonsterEatFood",
-            "onMonsterHurt", "onAddDeathGodStep",
+            "onMonsterHurt", "onAddDeathGodStep", "onElem2NextLevel",
         ], (e) => (ps) => this.bv.av[e](ps));
         bt.registerEvent("onLevel", (ps) => {
             if (ps.subType != "goOutLevel")

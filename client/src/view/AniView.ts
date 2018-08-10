@@ -375,6 +375,17 @@ class AniView extends egret.DisplayObjectContainer {
         this.bv.refreshPlayer();
     }
 
+    // 元素跟去下一层
+    public async onElem2NextLevel(ps) {
+        var e = ps.e;
+        var sv = this.getSV(e);
+        var tosv = this.bv.mapView.getElemViews((elem:Elem) => elem.type == "NextLevelPort", false)[0];
+        if (e instanceof Monster)
+            await AniUtils.flyAndFadeout(sv, tosv.localToGlobal(), 1000, 1, 0);
+        else
+            await AniUtils.fly2(sv, sv, tosv, false, 0);
+    }
+
     // 元素移动
     public async onElemMoving(ps) {
         var path = ps.path;

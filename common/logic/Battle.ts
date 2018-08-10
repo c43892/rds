@@ -860,7 +860,7 @@ class Battle {
             await this.implOnElemDie(m);
     }
 
-    // 指定怪物尝试指定怪物
+    // 指定怪物尝试攻击指定怪物
     public async implMonsterAttackMonster(attacker:Monster, target:Monster, selfExplode = false, addFlags:string[] = []) {
         if (target["linkTo"]) // 是 boss 占位符，更换目标
             target = target["linkTo"];
@@ -891,6 +891,13 @@ class Battle {
         }
 
         await this.triggerLogicPoint("onAttack", {subType:"monster2monster", x:target.pos.x, y:target.pos.x, rs:rs, target:target, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+    }
+
+    public async implElemFollow2NextLevel(e:Elem) {
+        this.removeElemAt(e.pos.x, e.pos.y);
+        this.player.elems2NextLevel.push(e);
+        await this.fireEvent("onElem2NextLevel", {e:e});
+        await this.triggerLogicPoint("onElem2NextLevel", {e:e});
     }
 
     // 角色+经验
