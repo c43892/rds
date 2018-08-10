@@ -335,7 +335,7 @@ class AniView extends egret.DisplayObjectContainer {
                 rot += 45;
 
             g.rotation = rot;
-            await AniUtils.flyAndFadeout(g, tg.localToGlobal(), 150, 1, 1);
+            await AniUtils.flyAndFadeout(g, tg.localToGlobal(), 150, 1, 1, egret.Ease.quintIn);
             this.bv.mapView.refreshAt(weapon.pos.x, weapon.pos.y);
         }
     }
@@ -371,7 +371,7 @@ class AniView extends egret.DisplayObjectContainer {
         var sv = this.getSVByPos(ps.fromPos.x, ps.fromPos.y);
         var tosv = this.getSVByPos(ps.toPos.x, ps.toPos.y);
         var ta = e.type == "CowardZombie" ? 0 : 1; // 贪婪僵尸的飞行是带隐藏效果的
-        await AniUtils.flyAndFadeout(sv, tosv.localToGlobal(), 500, 1, ta);
+        await AniUtils.flyAndFadeout(sv, tosv.localToGlobal(), 500, 1, ta, egret.Ease.quintIn);
         this.bv.refreshPlayer();
     }
 
@@ -381,9 +381,11 @@ class AniView extends egret.DisplayObjectContainer {
         var sv = this.getSV(e);
         var tosv = this.bv.mapView.getElemViews((elem:Elem) => elem.type == "NextLevelPort", false)[0];
         if (e instanceof Monster)
-            await AniUtils.flyAndFadeout(sv, tosv.localToGlobal(), 1000, 1, 0);
+            await AniUtils.flyAndFadeout(sv, tosv.localToGlobal(), 1000, 1, 0, undefined);
         else
             await AniUtils.fly2(sv, sv, tosv, false, 0);
+
+        this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
     }
 
     // 元素移动
@@ -459,7 +461,7 @@ class AniView extends egret.DisplayObjectContainer {
             var aniArr = [];
             for (var e of es) {
                 var g = this.getSV(e);
-                await AniUtils.flyAndFadeout(g, msv.localToGlobal(), 500, 0.5, 0);
+                await AniUtils.flyAndFadeout(g, msv.localToGlobal(), 500, 0.5, 0, egret.Ease.quintIn);
             }
             await this.aniFact.createAni("gp", {subAniArr:aniArr});
         }

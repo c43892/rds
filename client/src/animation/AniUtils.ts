@@ -335,12 +335,11 @@ class AniUtils {
     }
 
     // 直线飞向目标位置并消失
-    public static async flyAndFadeout(obj:egret.DisplayObject, toPos, time, toScale, toAlpha) {
+    public static async flyAndFadeout(obj:egret.DisplayObject, toPos, time, toScale, toAlpha, mode) {
         var rev = AniUtils.reserveObjTrans(obj, toPos);
-        Utils.log(obj.x, obj.y, " => ", toPos.x, toPos.y);
         await AniUtils.aniFact.createAniByCfg({
             type:"tr", tx:toPos.x, ty:toPos.y, ta:toAlpha, tsx:toScale, tsy:toScale,
-            time:time, mode:egret.Ease.quintIn, obj:obj
+            time:time, obj:obj, mode:mode
         });
         obj.alpha = 0;
         rev();
