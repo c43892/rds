@@ -900,14 +900,16 @@ class Battle {
     }
 
     // 角色+属性，除了hp
-    public async implAddDeathGodStep(d:number, e:Elem = undefined) {
+    public async implAddDeathGodStep(d:number, e:Elem = undefined, subType:string = undefined) {
         var v = this.player.deathStep;
         if (d + v > this.player.maxDeathStep)
             d = this.player.maxDeathStep - v;
+        else if (d + v < 0)
+            d = -v;
         
         this.player.deathStep += d;
-        await this.fireEvent("onAddDeathGodStep", {d:d, e:e});
-        await this.triggerLogicPoint("onAddDeathGodStep", {d:d, e:e});
+        await this.fireEvent("onAddDeathGodStep", {d:d, e:e, subType:subType});
+        await this.triggerLogicPoint("onAddDeathGodStep", {d:d, e:e, subType:subType});
     }
 
     // 角色+遗物

@@ -223,43 +223,39 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 死神步数发生变化
     public async onAddDeathGodStep(ps) {
-        var d = ps.d
+        var d = Math.abs(ps.d);
         var e = ps.e;
-
         var deathImg = this.bv.getDeathGodImg();
+        
+        if (ps.subType == "deathGodBuff"){ // 这个最频繁的操作不产生需要等待的动画
+            this.aniFact.createAniByCfg({type:"seq", arr: [
+                {type:"tr", fa:1, ta:3, time:25, noWait:true},
+                {type:"tr", fa:3, ta:1, time:25, noWait:true},
+            ], obj:deathImg, noWait:true}).then(() => this.bv.refreshDeathGod());
+            return;
+        }
+
         if (e) {
             var sv = this.getSV(e);
 
-            if (d > 0) {
-                // 死神闪烁后退，道具闪烁
-                this.bv.player.deathStep -= d;
-                for (var i = 0; i < d; i++) {
-                    this.bv.refreshDeathGod();
-                    this.bv.player.deathStep++;
-                    await this.aniFact.createAniByCfg({type:"seq", arr: [
-                        {type:"tr", fa:1, ta:3, time:25, obj:deathImg},
-                        {type:"tr", fa:3, ta:1, time:25, obj:deathImg},
-                        {type:"tr", fa:1, ta:3, time:25, obj:sv},
-                        {type:"tr", fa:3, ta:1, time:25, obj:sv},
-                    ]});
-                }
-            }
-            else // 道具闪两下
+            var flashCnt = d < 3 ? 3 : d; // 至少闪三下
+            // 死神闪烁后退，道具闪烁;
+            for (var i = 0; i < flashCnt; i++) {
+                this.bv.refreshDeathGod(this.bv.player.deathStep - d + i);
                 await this.aniFact.createAniByCfg({type:"seq", arr: [
-                    {type:"tr", fa:1, ta:3, time:25, obj:sv},
-                    {type:"tr", fa:3, ta:1, time:25, obj:sv},
+                    {type:"tr", fa:1, ta:3, time:25, obj:deathImg},
+                    {type:"tr", fa:3, ta:1, time:25, obj:deathImg},
                     {type:"tr", fa:1, ta:3, time:25, obj:sv},
                     {type:"tr", fa:3, ta:1, time:25, obj:sv},
                 ]});
+            }
 
             this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
         }
         else {
             // 死神闪烁后退
-            this.bv.player.deathStep -= d;
             for (var i = 0; i < d; i++) {
-                this.bv.refreshDeathGod();
-                this.bv.player.deathStep++;
+                this.bv.refreshDeathGod(this.bv.player.deathStep - d + i);
                 await this.aniFact.createAniByCfg({type:"seq", arr: [
                     {type:"tr", fa:1, ta:3, time:25},
                     {type:"tr", fa:3, ta:1, time:25},

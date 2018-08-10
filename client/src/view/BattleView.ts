@@ -255,8 +255,14 @@ class BattleView extends egret.DisplayObjectContainer {
     }
 
     // 刷新死神位置
-    public refreshDeathGod() {
-        var p = this.player.deathStep / this.player.maxDeathStep;
+    public refreshDeathGod(stepAt = undefined) {
+        stepAt = stepAt ? stepAt : this.player.deathStep;
+        if (stepAt >= this.player.maxDeathStep)
+            stepAt = this.player.maxDeathStep;
+        else if (stepAt < 0)
+            stepAt = 0;
+
+        var p = stepAt / this.player.maxDeathStep;
         this.deathGod.x = this.deathGodBarPosX + p * this.deathGodBarWidth - this.deathGod.width / 2;
         this.deathGodBar.width = this.deathGodBarWidth * p;
         this.deathGod.alpha = 1;
