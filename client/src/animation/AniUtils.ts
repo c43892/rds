@@ -98,7 +98,7 @@ class AniUtils {
     }
 
     // 加速直线从一个位置飞向目标位置，并在目标位置固定住。比如获得遗物或者物品的效果
-    public static async fly2(obj:egret.DisplayObject, from:egret.DisplayObject, to:egret.DisplayObject, noRotation = false) {
+    public static async fly2(obj:egret.DisplayObject, from:egret.DisplayObject, to:egret.DisplayObject, withFlash, toAlpha, noRotation = false) {
         // 飞行开始和目标位置
         var fp = from.localToGlobal();
         var tp = to.localToGlobal();
@@ -136,11 +136,11 @@ class AniUtils {
                 ]},
                 {type:"gp", arr: [
                     {type:"tr", fy:my, ty:tp.y, time:250, fsx:msx, fsy:msy, tsx:sx, tsy:sy, mode:egret.Ease.quadIn}, // 飞向目标
-                    {type:"tr", fr:mr, tr:tr, fx:mx, tx:tp.x, time:250}, // 伴随旋转
+                    {type:"tr", fr:mr, tr:tr, fx:mx, tx:tp.x, ta:toAlpha, time:250}, // 伴随旋转
                 ]},
             ]}, 
-            {type:"tr", fa:1, ta:3, time:300, mode:egret.Ease.quadOut}, // 颜色反白
-            {type:"tr", fa:3, ta:1, time:100, mode:egret.Ease.quadOut}, // 颜色恢复
+            {type:"tr", fa:1, ta:withFlash?3:1, time:withFlash?300:0, mode:egret.Ease.quadOut}, // 颜色反白
+            {type:"tr", fa:withFlash?3:1, ta:1, time:withFlash?100:1, mode:egret.Ease.quadOut}, // 颜色恢复
         ], obj:obj});
 
         rev();
@@ -337,9 +337,9 @@ class AniUtils {
     // 直线飞向目标位置并消失
     public static async flyAndFadeout(obj:egret.DisplayObject, toPos, time, toScale, toAlpha) {
         var rev = AniUtils.reserveObjTrans(obj, toPos);
+        Utils.log(obj.x, obj.y, " => ", toPos.x, toPos.y);
         await AniUtils.aniFact.createAniByCfg({
-            type:"tr", fx:obj.x, fy:obj.y, tx:toPos.x, ty:toPos.y, ta:toAlpha,
-            fsx:1, fsy:1, tsx:toScale, tsy:toScale,
+            type:"tr", tx:toPos.x, ty:toPos.y, ta:toAlpha, tsx:toScale, tsy:toScale,
             time:time, mode:egret.Ease.quintIn, obj:obj
         });
         obj.alpha = 0;

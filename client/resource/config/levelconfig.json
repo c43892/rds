@@ -36,6 +36,9 @@
                 "type": "TreasureBox",
                 "rdp": "treasureBox2"
             },
+            "CowardZombie": {
+                "hp": 1
+            },
             "NormalZombie": {
                 "hp": 4,
                 "power": 2
@@ -74,8 +77,7 @@
                 "num": [ 28, 29 ],
                 "elems": {
                     "Knife": 100,
-                    "SmallRock": 100,
-                    "NormalZombie": 100
+                    "CowardZombie": 100
                 }
             },
             {

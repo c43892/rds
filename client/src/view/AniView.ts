@@ -158,7 +158,7 @@ class AniView extends egret.DisplayObjectContainer {
             var n = Utils.indexOf(e.bt().player.props, (p) => p.type == e.type);
             var pv = this.bv.propsView.getPropViewByIndex(n);
             var toImg = pv.getImg();
-            await AniUtils.fly2(fromImg, fromImg, toImg);
+            await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
         }
         this.bv.refreshProps();
     }
@@ -170,7 +170,7 @@ class AniView extends egret.DisplayObjectContainer {
             var fromImg = this.getSV(e);
             var n = Utils.indexOf(e.bt().player.relics, (p) => p.type == e.type);
             var toImg = this.bv.relics[n];
-            await AniUtils.fly2(fromImg, fromImg, toImg);
+            await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
         }
         this.bv.refreshRelics();
     }
@@ -367,16 +367,11 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 元素飞行
     public async onElemFlying(ps) {
-        var fromPt = ps.fromPos;
-        var toPt = ps.toPos;
-
-        // 创建路径动画
-        var showPath = Utils.map([fromPt, toPt], (pt) => this.bv.mapView.logicPos2ShowPos(pt.x - fromPt.x, pt.y - fromPt.y));
-        showPath.shift();
-        var ev = this.getSVByPos(fromPt.x, fromPt.y);
-        await this.aniFact.createAni("moveOnPath", {obj: ev, path: showPath, time:250, mode:egret.Ease.sineInOut});
-        this.bv.mapView.refreshAt(fromPt.x, fromPt.y);
-        this.bv.mapView.refreshAt(toPt.x, toPt.y);
+        var e = ps.e;
+        var sv = this.getSVByPos(ps.fromPos.x, ps.fromPos.y);
+        var tosv = this.getSVByPos(ps.toPos.x, ps.toPos.y);
+        var ta = e.type == "CowardZombie" ? 0 : 1; // 贪婪僵尸的飞行是带隐藏效果的
+        await AniUtils.flyAndFadeout(sv, tosv.localToGlobal(), 500, 1, ta);
         this.bv.refreshPlayer();
     }
 
@@ -448,12 +443,12 @@ class AniView extends egret.DisplayObjectContainer {
             var e = es[0];
             var dropItemImg = this.bv.mapView.getElemViewAt(m.pos.x, m.pos.y).getDropItemImg();
             var g = this.getSV(e)
-            await AniUtils.fly2(g, g, dropItemImg);
+            await AniUtils.fly2(g, g, dropItemImg, false, 1);
         } else { // 直线飞向怪物消失
             var aniArr = [];
             for (var e of es) {
                 var g = this.getSV(e);
-                var ani = AniUtils.flyAndFadeout(g, msv.localToGlobal(), 500, 0.5, 0);
+                await AniUtils.flyAndFadeout(g, msv.localToGlobal(), 500, 0.5, 0);
             }
             await this.aniFact.createAni("gp", {subAniArr:aniArr});
         }

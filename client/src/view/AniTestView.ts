@@ -37,7 +37,7 @@ class AniTestView extends BattleView {
         smallImg.alpha = 0;
 
         var to = {x:img.x+100, y:img.y+100};
-        await AniUtils.fly2(img, img, smallImg);
+        await AniUtils.fly2(img, img, smallImg, true, 1);
 
         this.removeChild(img);
     }
