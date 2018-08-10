@@ -88,7 +88,7 @@ class ItemFactory {
             e.canUse = () => true;
             e.use = async () => {
                 var bt = e.bt();
-                await bt.implAddPlayerAttr("deathStep", 15);
+                await bt.implAddDeathGodStep(15, e);
             }
 
             return e;

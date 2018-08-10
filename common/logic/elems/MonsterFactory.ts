@@ -75,7 +75,7 @@ class MonsterFactory {
         // 死神每回合攻击玩家，并随机移动，死亡时给玩家 +10 死神时间
         "DeathGod": (attrs) => {
             var m = this.createMonster(attrs);
-            m = <Monster>ElemFactory.addDieAI(async () => m.bt().implAddPlayerAttr("deathStep", 10), m);
+            m = <Monster>ElemFactory.addDieAI(async () => m.bt().implAddDeathGodStep(10, m), m);
             m = MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player);
             m = MonsterFactory.doRandomFly("onPlayerActed", m);
             return m;
@@ -263,7 +263,7 @@ class MonsterFactory {
     //偷袭：死神提前N回合到来
     static doSneakReduseDeathStep(n:number, m:Monster):Monster {
         return MonsterFactory.addSneakAI(async () => {
-            await m.bt().implAddPlayerAttr("deathStep", -n);
+            await m.bt().implAddDeathGodStep(-n, m);
         }, m);
     }
 

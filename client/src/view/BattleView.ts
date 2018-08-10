@@ -254,6 +254,19 @@ class BattleView extends egret.DisplayObjectContainer {
         this.mapView.refresh();
     }
 
+    // 刷新死神位置
+    public refreshDeathGod() {
+        var p = this.player.deathStep / this.player.maxDeathStep;
+        this.deathGod.x = this.deathGodBarPosX + p * this.deathGodBarWidth - this.deathGod.width / 2;
+        this.deathGodBar.width = this.deathGodBarWidth * p;
+        this.deathGod.alpha = 1;
+    }
+
+    // 获取死神图片，做动画效果用
+    public getDeathGodImg() {
+        return this.deathGod;
+    }
+
     // 刷新角色信息
     deathGodBarPosX;
     deathGodBarWidth;
@@ -263,11 +276,10 @@ class BattleView extends egret.DisplayObjectContainer {
         this.money.text = this.player.money.toString();
         this.currentStoryLv.text = this.player.currentStoreyPos.lv.toString();
 
+        // 刷新死神位置
         if (!this.deathGodBarPosX) this.deathGodBarPosX = this.deathGodBar.x
         if (!this.deathGodBarWidth) this.deathGodBarWidth = this.deathGodBar.width;
-        var p = this.player.deathStep / this.player.maxDeathStep;
-        this.deathGod.x = this.deathGodBarPosX + p * this.deathGodBarWidth - this.deathGod.width / 2;
-        this.deathGodBar.width = this.deathGodBarWidth * p;
+        this.refreshDeathGod();
 
         this.player.bt().calcPlayerAttackerAttrs().then((attackerAttrs) => {
             var power = attackerAttrs.power.b * (1 + attackerAttrs.power.a) + attackerAttrs.power.c;

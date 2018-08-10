@@ -900,22 +900,15 @@ class Battle {
     }
 
     // 角色+属性，除了hp
-    public async implAddPlayerAttr(attrType:string, dv:number, min:number = 0) {
-        var v = this.player[attrType];
-        v += dv;
-        this.player[attrType] = v < min ? min : v;
-        await this.fireEvent("onPlayerChanged", {subType:"attrType"});
-        await this.triggerLogicPoint("onPlayerChanged", {subType: "attrType"});
+    public async implAddDeathGodStep(d:number, e:Elem = undefined) {
+        var v = this.player.deathStep;
+        if (d + v > this.player.maxDeathStep)
+            d = this.player.maxDeathStep - v;
+        
+        this.player.deathStep += d;
+        await this.fireEvent("onAddDeathGodStep", {d:d, e:e});
+        await this.triggerLogicPoint("onAddDeathGodStep", {d:d, e:e});
     }
-
-    // // 通知元素属性更新
-    // public async implNotifyElemChanged(subType:string, e:Elem, ps = undefined) {
-    //     ps = ps ? ps : {};
-    //     ps.subType = subType;
-    //     ps.e = e;
-    //     await this.fireEvent("onElemChanged", ps);
-    //     await this.triggerLogicPoint("onElemChanged", ps);
-    // }
 
     // 角色+遗物
     public async implSelRelic(e:Elem) {

@@ -6,7 +6,7 @@ class BuffDeathGod extends Buff {
         this.onPlayerActed = async () => {
             var p = <Player>this.getOwner();            
             var bt:Battle = p.bt();
-            await bt.implAddPlayerAttr("deathStep", -1);
+            await bt.implAddDeathGodStep(-1);
             if (p.deathStep == 0 && !bt.level.map.findFirstUncoveredElem((e:Elem) => e.type == "DeathGod"))
                 await this.doEffect();
         };

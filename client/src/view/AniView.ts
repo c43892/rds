@@ -208,9 +208,8 @@ class AniView extends egret.DisplayObjectContainer {
         var e = ps.e;
         var g = this.getSV(e);
         if (ps.subType == "useElem") { // 商人使用后闪烁消失
-            if (e.type == "ShopNpc" && (<Monster>e).isDead()) {
+            if (e.type == "ShopNpc" && (<Monster>e).isDead())
                 await AniUtils.flashOut(g);
-            }
         } else if (ps.subType == "monsterHp") {
             var dhp = ps.dhp;
             var p = g.localToGlobal();
@@ -220,6 +219,55 @@ class AniView extends egret.DisplayObjectContainer {
         
         this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
         this.bv.refreshPlayer(); // 角色属性受地图上所有东西影响
+    }
+
+    // 死神步数发生变化
+    public async onAddDeathGodStep(ps) {
+        var d = ps.d
+        var e = ps.e;
+
+        var deathImg = this.bv.getDeathGodImg();
+        if (e) {
+            var sv = this.getSV(e);
+
+            if (d > 0) {
+                // 死神闪烁后退，道具闪烁
+                this.bv.player.deathStep -= d;
+                for (var i = 0; i < d; i++) {
+                    this.bv.refreshDeathGod();
+                    this.bv.player.deathStep++;
+                    await this.aniFact.createAniByCfg({type:"seq", arr: [
+                        {type:"tr", fa:1, ta:3, time:25, obj:deathImg},
+                        {type:"tr", fa:3, ta:1, time:25, obj:deathImg},
+                        {type:"tr", fa:1, ta:3, time:25, obj:sv},
+                        {type:"tr", fa:3, ta:1, time:25, obj:sv},
+                    ]});
+                }
+            }
+            else // 道具闪两下
+                await this.aniFact.createAniByCfg({type:"seq", arr: [
+                    {type:"tr", fa:1, ta:3, time:25, obj:sv},
+                    {type:"tr", fa:3, ta:1, time:25, obj:sv},
+                    {type:"tr", fa:1, ta:3, time:25, obj:sv},
+                    {type:"tr", fa:3, ta:1, time:25, obj:sv},
+                ]});
+
+            this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
+        }
+        else {
+            // 死神闪烁后退
+            this.bv.player.deathStep -= d;
+            for (var i = 0; i < d; i++) {
+                this.bv.refreshDeathGod();
+                this.bv.player.deathStep++;
+                await this.aniFact.createAniByCfg({type:"seq", arr: [
+                    {type:"tr", fa:1, ta:3, time:25},
+                    {type:"tr", fa:3, ta:1, time:25},
+                ], obj:deathImg});
+            }
+        }
+
+        this.bv.refreshDeathGod();
     }
 
     // 角色信息发生变化
