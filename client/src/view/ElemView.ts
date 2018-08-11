@@ -165,14 +165,18 @@ class ElemView extends egret.DisplayObjectContainer {
             this.showLayer.x = this.showLayer.y = 0;
             this.showLayer.width = w;
             this.showLayer.height = h;
+            this.showLayer.alpha = 1;
+            this.showLayer.rotation = 0;
         }
 
         var arr = [this.opLayer, this.elemImg, this.banImg, this.markedImg];
         arr.forEach((a) => {
+            a.alpha = 1;
             a.x = 0;
             a.y = 0;
             a.width = w;
             a.height = h;
+            a.rotation = 0;
         });
 
         if (e && e.isBig()) {

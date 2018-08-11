@@ -373,14 +373,17 @@ class Utils {
     }
 
     // 判断物品和角色的职业兼容性
-    public static occupationCompatible(occupation, type) {
-        var eCfg = GCfg.getElemAttrsCfg(type);
+    public static occupationCompatible(occupation, type, customGetConfigFun = undefined) {
+        var eCfg = customGetConfigFun ? customGetConfigFun(type) : GCfg.getElemAttrsCfg(type);
         return !eCfg.occupations || Utils.contains(eCfg.occupations, occupation);
     }
 
     // 在 randomSelectByWeight 之前，从掉落列表中，过滤掉玩家有携带遗物并且已经到达顶级强化等级的遗物，如果
     // 过滤后列表为空，则填入一个指定的替代品
-    public static randomSelectByWeightWithPlayerFilter(p:Player, elemsWithWeight, srand:SRandom, numMin:number, numMax:number, noDuplicated:boolean, defaultRelicType:string = undefined) {
+    public static randomSelectByWeightWithPlayerFilter(p:Player, elemsWithWeight, srand:SRandom, 
+                                numMin:number, numMax:number, noDuplicated:boolean, 
+                                defaultRelicType:string = undefined, 
+                                customGetConfigFun = undefined) {
         var cnt = 0;
         var elems = {};
 
@@ -388,7 +391,7 @@ class Utils {
         for (var e in elemsWithWeight) {
 
             // 检查职业冲突
-            if (!Utils.occupationCompatible(p.occupation, e))
+            if (!Utils.occupationCompatible(p.occupation, e, customGetConfigFun))
                 continue;
 
             // 检查遗物强化等级

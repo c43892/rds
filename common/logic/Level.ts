@@ -22,24 +22,33 @@ class Level {
 
     // 创建指定元素，如果未明确指定配置属性，则默认参考本关卡配置
     private elemsCfgInLevel;
-    public createElem(type:string, attrs = undefined):Elem {
-        if (!attrs) { // 如果指定配置属性，则不再参考本关卡配置
-            attrs = this.elemsCfgInLevel[type];
-            while (attrs && attrs.type) {
-                type = attrs.type;
-                var tAttrs = this.elemsCfgInLevel[type];
-                if (tAttrs) {
-                    for (var k in attrs)
-                        if (k != "type")
-                            tAttrs[k] = attrs[k];
+    public getElemCfg(type:string) {
+        var attrs = this.elemsCfgInLevel[type];
+        while (attrs && attrs.type) {
+            type = attrs.type;
+            var tAttrs = this.elemsCfgInLevel[type];
+            tAttrs = tAttrs ? tAttrs : GCfg.getElemAttrsCfg(type);
+            if (tAttrs) {
+                for (var k in attrs)
+                    if (k != "type")
+                        tAttrs[k] = attrs[k];
 
-                    attrs = tAttrs;
-                } else
-                    break;
-            }
+                attrs = tAttrs;
+            } else
+                break;
         }
 
-        var attrs =  attrs ? attrs : {};
+        return {type:type, attrs:attrs};
+    }
+
+    public createElem(type:string, attrs = undefined):Elem {
+        if (!attrs) { // 如果指定配置属性，则不再参考本关卡配置
+            var r = this.getElemCfg(type);
+            type = r.type;
+            attrs = r.attrs;
+        }
+
+        attrs = attrs ? attrs : {};
         var e = ElemFactory.create(type, attrs);
 
         // 处理携带物品
@@ -79,7 +88,7 @@ class Level {
             maxNumLimit += group.num[1] - 1;
             Utils.assert(maxNumLimit <= elemNumLimit, "elem overflow in map: " + this.displayName);
 
-            var arr = Utils.randomSelectByWeightWithPlayerFilter(this.bt.player, group.elems, this.bt.srand, group.num[0], group.num[1], false);
+            var arr = Utils.randomSelectByWeightWithPlayerFilter(this.bt.player, group.elems, this.bt.srand, group.num[0], group.num[1], false, undefined, (type) => this.getElemCfg(type));
             for (var et of arr) {
                 var elem = this.createElem(et)
                 if (group.drops) {

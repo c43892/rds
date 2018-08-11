@@ -76,7 +76,7 @@
             {
                 "num": [ 20, 21 ],
                 "elems": {
-                    "Door": 100,
+                    "TreasureBox1": 100,
                     "Key": 100
                 }
             },

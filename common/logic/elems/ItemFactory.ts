@@ -74,10 +74,17 @@ class ItemFactory {
         "TreasureBox": (attrs) => {
             var e = this.createItem();
             e.canBeDragDrop = false;
+            e.canUse = () => !!e.bt().level.map.findFirstElem((elem:Elem) => elem.type == "Key" && !elem.getGrid().isCovered());
+            e.canNotUseReason = () => e.canUse() ? undefined : "noKey";
             e.use = async () => {
-                await e.bt().implOnElemDie(e);
+                var key = e.bt().level.map.findFirstElem((elem:Elem) => elem.type == "Key" && !elem.getGrid().isCovered());
+                Utils.assert(!!key, "no key for door");
+                await e.bt().impl2UseElemAt(key, e.pos.x, e.pos.y);
                 return true;
-            }
+            };
+            e["useWithKey"] = async (key) => {
+                await e.bt().implOnElemDie(e);
+            };
             return e;
         },
 
