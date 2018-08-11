@@ -235,7 +235,7 @@ class AniView extends egret.DisplayObjectContainer {
             return;
         }
 
-        if (e) {
+        if (e && !(e instanceof Relic)) {
             var sv = this.getSV(e);
 
             var flashCnt = d < 3 ? 3 : d; // 至少闪三下

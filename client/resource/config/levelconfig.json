@@ -76,8 +76,7 @@
             {
                 "num": [ 3, 4 ],
                 "elems": {
-                    "Key": 100,
-                    "EyeDemon": 100
+                    "Clock": 100
                 }
             },
             {
