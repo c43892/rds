@@ -88,7 +88,7 @@ class MainView extends egret.DisplayObjectContainer {
 
         // 动画层
         this.av = new AniView(w, h, this.bv);
-        this.addChild(this.av);
+        // 动画层没有直接加如 MainView，而是被其父节点添加到最后，这样保证动画层在所有 MainView 上面
         this.bv.av = this.av;
         AniUtils.ac = this.bv.av;
         AniUtils.aniFact = this.bv.av.aniFact;

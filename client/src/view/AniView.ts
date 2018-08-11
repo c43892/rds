@@ -13,7 +13,14 @@ class AniView extends egret.DisplayObjectContainer {
         
         this.bv = mainView;
         this.aniCover = ViewUtils.createBitmapByName("anicover_png");
+        this.aniCover.width = this.width;
+        this.aniCover.height = this.height;
+        this.aniCover.touchEnabled = true;
+
         this.blackCover = ViewUtils.createBitmapByName("blackcover_png");
+        this.blackCover.width = this.width;
+        this.blackCover.height = this.height;
+        this.blackCover.touchEnabled = true;
 
         this.aniFact = new AnimationFactory();
         this.aniFact.notifyAniStarted = (ani:Promise<void>, aniType:string, ps) => { this.onAniStarted(ani, aniType, ps); };
@@ -30,17 +37,11 @@ class AniView extends egret.DisplayObjectContainer {
     }
 
     public refresh() {
-        // 播放动画时阻挡玩家操作
-        this.aniCover.width = this.width;
-        this.aniCover.height = this.height;
-        this.aniCover.touchEnabled = true;
+        // 播放动画时阻挡玩家操作        
         if (this.contains(this.aniCover))
             this.removeChild(this.aniCover);
 
         // 黑屏用的遮挡
-        this.blackCover.width = this.width;
-        this.blackCover.height = this.height;
-        this.blackCover.touchEnabled = true;
         if (this.contains(this.blackCover))
             this.removeChild(this.blackCover);
     }
@@ -410,7 +411,6 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 管卡初始化
     public async onLevelInited(ps) {
-        Utils.log("onLevelInited");
         await this.blackOut();
     }
 
