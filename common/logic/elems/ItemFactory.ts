@@ -41,7 +41,7 @@ class ItemFactory {
             e.useAt = async (x:number, y:number) => {
                 var map = e.bt().level.map;
                 var toe:Elem = map.getElemAt(x, y);
-                await toe.use(); // 调用开锁对象的 use 方法
+                await toe["useWithKey"](e); // 调用开锁对象的 use 方法
             }
 
             return e;
@@ -51,12 +51,22 @@ class ItemFactory {
         "Door": (attrs) => {
             var e = this.createItem();
             e.canBeDragDrop = false;
-            e = ElemFactory.elemCanUseManyTimes(attrs.cnt, async () => {
-                if (e.cnt <= 0) await e.bt().implOnElemDie(e);
-            },
-            () => e.bt().level.map.findFirstElem((elem:Elem) => elem.type == "Key"),
-            () => e.bt().level.map.findFirstElem((elem:Elem) => elem.type == "Key") ? undefined : "noKey")(e);
-            e.canUse = () => false; // 门被设定为不可以使用，use 方法是给 Key 调用的
+            e = this.createItem();
+            e.cnt = attrs.cnt;
+            e.canUse = () => !!e.bt().level.map.findFirstElem((elem:Elem) => elem.type == "Key" && !elem.getGrid().isCovered());
+            e.canNotUseReason = () => e.canUse() ? undefined : "noKey";
+            e.getElemImgRes = () => e.type + e.cnt;
+            e.use = async () => {
+                var key = e.bt().level.map.findFirstElem((elem:Elem) => elem.type == "Key" && !elem.getGrid().isCovered());
+                Utils.assert(!!key, "no key for door");
+                await e.bt().impl2UseElemAt(key, e.pos.x, e.pos.y);
+                return true;
+            };
+            e["useWithKey"] = async (key) => {
+                e.cnt--;
+                if (e.cnt <= 0)
+                    await e.bt().implOnElemDie(e);
+            };
             return e;
         },
 

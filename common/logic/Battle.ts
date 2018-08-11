@@ -368,7 +368,7 @@ class Battle {
             this.fireEventSync("onPlayerOp", {op:"try2UseElem", ps:{x:e.pos.x, y:e.pos.y}});
 
             await this.fireEvent("onElemChanged", {subType:"useElem", e:e});
-            
+
             var reserve = await e.use(); // 返回值决定是保留还是消耗掉
             if (!reserve) {
                 this.removeElemAt(e.pos.x, e.pos.y);
@@ -444,18 +444,29 @@ class Battle {
             // 操作录像
             this.fireEventSync("onPlayerOp", {op:"try2UseElemAt", ps:{x:e.pos.x, y:e.pos.y, tox:x, toy:y}});
 
-            await this.fireEvent("onElemChanged", {subType:"useElemAt", e:e, toPos:{x:x, y:y}});
-
-            var reserve = await e.useAt(x, y); // 返回值决定是保留还是消耗掉
-            if (!reserve) await this.implOnElemDie(e);
-
-            await this.triggerLogicPoint("onElemChanged", {subType:"useElemAt", e:e, toPos:{x:x, y:y}});
-
-            await this.fireEvent("onPlayerActed");
-            await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
-
-            this.checkPlayerLevelUpAndDie();
+            await this.impl2UseElemAt(e, x, y);
         };
+    }
+
+    // 对指定位置使用物品
+    public async impl2UseElemAt(e:Elem, x:number, y:number) {
+        var map = this.level.map;
+        var fx = e.pos.x;
+        var fy = e.pos.y;
+        var canUse = e.isValid() && e.canUseAt(x, y);
+        if (!canUse) return;
+
+        await this.fireEvent("onElemChanged", {subType:"useElemAt", e:e, toPos:{x:x, y:y}});
+
+        var reserve = await e.useAt(x, y); // 返回值决定是保留还是消耗掉
+        if (!reserve) await this.implOnElemDie(e);
+
+        await this.triggerLogicPoint("onElemChanged", {subType:"useElemAt", e:e, toPos:{x:x, y:y}});
+
+        await this.fireEvent("onPlayerActed");
+        await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
+
+        this.checkPlayerLevelUpAndDie();
     }
 
     // 尝试使用一个道具，将一个坐标设定为目标

@@ -74,10 +74,10 @@
         },
         "randomGroups": [
             {
-                "num": [ 10, 11 ],
+                "num": [ 20, 21 ],
                 "elems": {
-                    "Knife": 100,
-                    "NormalZombie": 100
+                    "Door": 100,
+                    "Key": 100
                 }
             },
             {
