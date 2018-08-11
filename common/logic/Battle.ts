@@ -814,8 +814,8 @@ class Battle {
             var r = await this.calcAttack("player2monster", attackerAttrs, targetAttrs);
             if (r.r == "attacked") {
                 await this.fireEvent("onAttack", {subType:"player2monster", x:m.pos.x, y:m.pos.y, rs:rs, target:m, weapon:weapon, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
-                await this.implAddMonsterHp(m, -r.dhp);
-                await this.implAddMonsterShield(m, -r.dShield)
+                await this.implAddMonsterHp(m, r.dhp);
+                await this.implAddMonsterShield(m, r.dShield)
             }
 
             // 处理附加 buff
@@ -845,7 +845,7 @@ class Battle {
             rs.push(r);
             Utils.assert(r.dShield == 0, "player does not support Shield");
             if (r.r == "attacked")
-                await this.implAddPlayerHp(-r.dhp);
+                await this.implAddPlayerHp(r.dhp);
 
             // 处理附加 buff
             for (var b of r.addBuffs)
@@ -879,8 +879,8 @@ class Battle {
             var r = await this.calcAttack("monster2monster", attackerAttrs, targetAttrs);
             rs.push(r);
             if (r.r == "attacked") {
-                await this.implAddMonsterHp(target, -r.dhp);
-                await this.implAddMonsterShield(target, -r.dShield)
+                await this.implAddMonsterHp(target, r.dhp);
+                await this.implAddMonsterShield(target, r.dShield)
             }
 
             // 处理附加 buff

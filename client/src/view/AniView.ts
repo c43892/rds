@@ -13,9 +13,7 @@ class AniView extends egret.DisplayObjectContainer {
         
         this.bv = mainView;
         this.aniCover = ViewUtils.createBitmapByName("anicover_png");
-        this.aniCover.name = "AniCover";
         this.blackCover = ViewUtils.createBitmapByName("blackcover_png");
-        this.blackCover.name = "BlackColver";
 
         this.aniFact = new AnimationFactory();
         this.aniFact.notifyAniStarted = (ani:Promise<void>, aniType:string, ps) => { this.onAniStarted(ani, aniType, ps); };
@@ -198,7 +196,7 @@ class AniView extends egret.DisplayObjectContainer {
         var g = this.getSV(m);
         var dhp = ps.dhp;
         var p = g.localToGlobal();
-        AniUtils.jumpingTip((-dhp).toString(), {x:p.x+g.width,  y:p.y});
+        AniUtils.jumpingTip(dhp.toString(), {x:p.x+g.width,  y:p.y});
         await AniUtils.flashAndShake(g);
         await AniUtils.delay(100);
     }
@@ -348,7 +346,7 @@ class AniView extends egret.DisplayObjectContainer {
         var dhp = ps.r.dhp;
         if (dhp < 0) {
             var p = sv.localToGlobal();
-            AniUtils.popupTipAt((-dhp).toString(), "popupTipBg_png", {x:p.x-25, y:p.y-25});
+            AniUtils.popupTipAt(dhp.toString(), "popupTipBg_png", {x:p.x-25, y:p.y-25});
         }
 
         await AniUtils.shakeTo(sv);
@@ -412,6 +410,8 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 管卡初始化
     public async onLevelInited(ps) {
+        Utils.log("onLevelInited");
+        await this.blackOut();
     }
 
     // 关卡事件
@@ -516,6 +516,7 @@ class AniView extends egret.DisplayObjectContainer {
         await AniUtils.flashAndShake(sv);
     }
 
+    // 黑幕开启
     async blackIn(removedWhenFinish = false) {
         this.addChild(this.blackCover);
         await this.aniFact.createAni("tr", {obj: this.blackCover, fa:0, ta:1, time: 1000});
@@ -523,10 +524,12 @@ class AniView extends egret.DisplayObjectContainer {
             this.removeChild(this.blackCover);
     }
 
+    // 黑幕退出
     async blackOut() {
-        await this.aniFact.createAni("tr", {obj: this.blackCover, fa:1, toa:0, time: 1000});
-        if (this.getChildByName(this.blackCover.name))
-            this.removeChild(this.blackCover);
+        if (!this.contains(this.blackCover))
+            this.addChild(this.blackCover);
+        await this.aniFact.createAni("tr", {obj: this.blackCover, fa:1, ta:0, time: 1000});
+        this.removeChild(this.blackCover);
     }
 
     // 动画开始播放时，阻止玩家操作

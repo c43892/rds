@@ -62,13 +62,13 @@ class BattleCalculator {
             // 没有穿刺，就计算护盾
             if (!Utils.contains(attackFlags, "Pierce") && shield > 0)
             {
-                r.dShield = damage > shield ? shield : damage;
+                r.dShield = -(damage > shield ? shield : damage);
                 damage = 0;
             }
 
             // 计算最终伤害
             r.r = "attacked";
-            r.dhp = damage;
+            r.dhp = -damage;
         }
 
         // 根据概率计算 buff 效果
