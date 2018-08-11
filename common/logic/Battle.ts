@@ -60,7 +60,7 @@ class Battle {
         this.loadCurrentLevel(this.btType);
         this.level.RandomElemsPos(); // 先随机一下，免得看起来不好看
 
-        await this.fireEvent("onLevel", {subType:"levelInited", bt:this});
+        await this.fireEvent("onLevelInited", {bt:this});
         await this.triggerLogicPoint("onLevelInited", {bt:this});
             
         this.level.RandomElemsPos(); // 随机元素位置
@@ -309,7 +309,7 @@ class Battle {
 
     async checkPlayerLevelUpAndDie() {
         // 检查等级提升
-        if (this.player.checkLevelUp()) {            
+        if (this.player.checkLevelUp()) {
             await this.fireEvent("onPlayerLevelUp", {bt:this});
             await this.triggerLogicPoint("onPlayerLevelUp", {bt:this});
 
@@ -350,7 +350,7 @@ class Battle {
             this.fireEventSync("onPlayerOp", {op:"try2UncoverAt", ps:{x:x, y:y}});
 
             var stateBeforeUncover = this.level.map.grids[x][y].status;
-            this.uncover(x, y);
+            await this.uncover(x, y);
             await this.fireEvent("onPlayerActed");
             await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
             
@@ -543,7 +543,7 @@ class Battle {
     public async implGo2NextLevel() {
         await this.triggerLogicPoint("beforeGoOutLevel1");
         await this.triggerLogicPoint("beforeGoOutLevel2");
-        await this.fireEvent("onLevel", {subType:"goOutLevel", bt:this});
+        await this.fireEvent("onGoOutLevel", {bt:this});
     }
 
     // 替换一个元素

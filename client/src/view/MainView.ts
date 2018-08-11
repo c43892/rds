@@ -98,7 +98,7 @@ class MainView extends egret.DisplayObjectContainer {
             var bt = Battle.createNewBattle(p, btType, btRandomSeed, trueRandomSeed);
             bt.openShop = async (items, prices, onBuy) => {}; // 录像回放中的战斗内商店特殊处理
             bt.openRelicSel2Add = async (choices, onSel) => {}; // 录像回放中的升级选择遗物特殊处理
-            this.startNewBattle(bt);
+            this.startNewBattle(bt).then(() => this.openWorldMap(p.worldmap));
         };
 
         // 开始一场新战斗
@@ -136,18 +136,16 @@ class MainView extends egret.DisplayObjectContainer {
         ElemView.notifyLongPressEnded = () => { this.stopCycleProgrssBar(); };
 
         bt.registerEvent("onPlayerOp", (ps) => BattleRecorder.onPlayerOp(ps.op, ps.ps));
-        bt.registerEvent("onLevel", (ps) => this.bv.onLevel(ps));
-        bt.registerEvent("onPlayerDead", () => this.openPlayerDieView());
+        bt.registerEvent("onLevelInited", (ps) => this.bv.initBattleView(ps));
+        bt.registerEvent("onPlayerDead", async () => this.openPlayerDieView());
         Utils.registerEventHandlers(bt, [
             "onGridChanged", "onPlayerChanged", "onAttack", "onElemChanged", "onPropChanged", "onRelicChanged",
             "onElemMoving", "onElemFlying", "onAllCoveredAtInit", "onSuckPlayerBlood", "onMonsterTakeElem", "onBuffAdded",
             "onEyeDemonUncoverGrids", "onElemFloating", "canNotUseItem", "onColddownChanged", "onMonsterEatFood",
-            "onMonsterHurt", "onAddDeathGodStep", "onElem2NextLevel",
+            "onMonsterHurt", "onAddDeathGodStep", "onElem2NextLevel", "onLevelInited",
         ], (e) => (ps) => this.bv.av[e](ps));
-        bt.registerEvent("onLevel", (ps) => {
-            if (ps.subType != "goOutLevel")
-                return;
-
+        bt.registerEvent("onGoOutLevel", async (ps) => {
+            await this.av.onGoOutLevel(ps);
             this.removeChild(this.bv);
             this.battleEndedCallback(bt);
         })

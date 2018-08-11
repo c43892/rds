@@ -410,17 +410,13 @@ class AniView extends egret.DisplayObjectContainer {
         this.bv.refreshPlayer(); // 角色属性受地图上所有东西影响
     }
 
+    // 管卡初始化
+    public async onLevelInited(ps) {
+    }
+
     // 关卡事件
-    public async onLevel(ps) {
-        switch (ps.subType) {
-            case "levelInited": // 进关卡
-                break;
-            case "goOutLevel": // 出关卡
-                await this.blackIn(true);
-                break;
-            default:
-                Utils.assert(false, "unhandled LevelEvent: " + ps.subType);            
-        }    
+    public async onGoOutLevel(ps) {
+        await this.blackIn(true);
     }
 
     // 偷钱

@@ -366,16 +366,11 @@ class BattleView extends egret.DisplayObjectContainer {
         }
     }
 
-    // 初始化主视图数据
-    public async onLevel(ps) {
-        if (ps.subType == "levelInited") {
-            var bt:Battle = ps.bt;
-            this.setMap(bt.level.map, bt.displayName);
-            this.setPlayer(bt.player);
-            this.refresh();
-        }
-
-        await this.av.onLevel(ps);
+    public initBattleView (ps) {
+        var bt:Battle = ps.bt;
+        this.setMap(bt.level.map, bt.displayName);
+        this.setPlayer(bt.player);
+        this.refresh();
     }
 
     // n 选 1
