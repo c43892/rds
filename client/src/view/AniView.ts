@@ -483,9 +483,8 @@ class AniView extends egret.DisplayObjectContainer {
             eyeAnis.push(ani);
         }
 
-        await this.aniFact.createAniByCfg({
-            type:"seq", arr:eyeAnis
-        })
+        if (eyeAnis.length > 0)
+            await this.aniFact.createAniByCfg({type:"seq", arr:eyeAnis});
     }
 
     // 物品被拿起等待使用时的悬浮效果

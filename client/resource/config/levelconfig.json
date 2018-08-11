@@ -74,11 +74,10 @@
         },
         "randomGroups": [
             {
-                "num": [ 28, 29 ],
+                "num": [ 3, 4 ],
                 "elems": {
                     "Key": 100,
-                    "Door": 100,
-                    "Ghost": 100
+                    "EyeDemon": 100
                 }
             },
             {
