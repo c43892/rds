@@ -367,13 +367,14 @@ class Battle {
             // 操作录像
             this.fireEventSync("onPlayerOp", {op:"try2UseElem", ps:{x:e.pos.x, y:e.pos.y}});
 
+            await this.fireEvent("onElemChanged", {subType:"useElem", e:e});
+            
             var reserve = await e.use(); // 返回值决定是保留还是消耗掉
             if (!reserve) {
                 this.removeElemAt(e.pos.x, e.pos.y);
                 if (e.onDie) await e.onDie();
             }
 
-            await this.fireEvent("onElemChanged", {subType:"useElem", e:e});
             await this.triggerLogicPoint("onElemChanged", {subType:"useElem", e:e});
 
             await this.fireEvent("onPlayerActed");
@@ -443,9 +444,17 @@ class Battle {
             // 操作录像
             this.fireEventSync("onPlayerOp", {op:"try2UseElemAt", ps:{x:e.pos.x, y:e.pos.y, tox:x, toy:y}});
 
+            await this.fireEvent("onElemChanged", {subType:"useElemAt", e:e, toPos:{x:x, y:y}});
+
             var reserve = await e.useAt(x, y); // 返回值决定是保留还是消耗掉
             if (!reserve) await this.implOnElemDie(e);
-            await this.triggerLogicPoint("onUseElemAt", {x:e.pos.x, y:e.pos.y, e:e, tox:x, toy:y});
+
+            await this.triggerLogicPoint("onElemChanged", {subType:"useElemAt", e:e, toPos:{x:x, y:y}});
+
+            await this.fireEvent("onPlayerActed");
+            await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
+
+            this.checkPlayerLevelUpAndDie();
         };
     }
 

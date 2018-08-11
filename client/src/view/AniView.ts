@@ -206,9 +206,27 @@ class AniView extends egret.DisplayObjectContainer {
     public async onElemChanged(ps) {
         var e = ps.e;
         var g = this.getSV(e);
-        if (ps.subType == "useElem") { // 商人使用后闪烁消失
-            if (e.type == "ShopNpc" && (<Monster>e).isDead())
+        if (ps.subType == "useElem") {
+            if (e.type == "ShopNpc" && (<Monster>e).isDead()) // 商人使用后闪烁消失
                 await AniUtils.flashOut(g);
+        }
+        else if (ps.subType == "useElemAt") {
+            if (e.type == "Key" || e.type == "Knife" || e.type == "SmallRock") { // 钥匙飞向目标
+                // 飞向目标
+                var g = this.getSV(e);
+                var target = ps.target;
+                var tg = this.bv.mapView.getGridViewAt(ps.toPos.x, ps.toPos.y);
+                AniUtils.clearAll(g);
+                var rot = Utils.getRotationFromTo(g.localToGlobal(), tg.localToGlobal());
+                if (e.type == "Knife") // 小刀正常样子就是右上 45 度
+                    rot += 45;
+
+                g.rotation = rot;
+                await AniUtils.flyAndFadeout(g, tg.localToGlobal(), 
+                    e.type == "Key" ? 300 : 150, 1, 1, 
+                    e.type == "Key" ? undefined : egret.Ease.quintIn);
+                this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
+            }
         } else if (ps.subType == "monsterHp") {
             var dhp = ps.dhp;
             var p = g.localToGlobal();
@@ -322,20 +340,6 @@ class AniView extends egret.DisplayObjectContainer {
             // 这个效果不等待
             if (aniArr.length > 0)
                 this.aniFact.createAniByCfg({type:"gp", arr:aniArr, noWait:true});
-        }
-        else if (weapon && (weapon.type == "Knife" || weapon.type == "SmallRock")) {
-            // 武器飞向目标
-            var g = this.getSV(weapon);
-            var target = ps.target;
-            var tg = this.bv.mapView.getGridViewAt(ps.x, ps.y);
-            AniUtils.clearAll(g);
-            var rot = Utils.getRotationFromTo(g.localToGlobal(), tg.localToGlobal());
-            if (weapon.type == "Knife") // 小刀正常样子就是右上 45 度
-                rot += 45;
-
-            g.rotation = rot;
-            await AniUtils.flyAndFadeout(g, tg.localToGlobal(), 150, 1, 1, egret.Ease.quintIn);
-            this.bv.mapView.refreshAt(weapon.pos.x, weapon.pos.y);
         }
     }
 
