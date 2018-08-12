@@ -116,7 +116,7 @@ class MonsterFactory {
         "HoundZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //猎犬僵尸
         "Vampire": (attrs) => MonsterFactory.doSneakSuckBlood(MonsterFactory.doAttackBack(this.createMonster(attrs))), //吸血鬼
         "DancerZombie": (attrs) => MonsterFactory.doSneakSummon(MonsterFactory.doAttackBack(this.createMonster(attrs))), //舞王僵尸
-        "GluttonyZombie": (attrs) => MonsterFactory.doSneakEatItems(MonsterFactory.doAttackBack(this.createMonster(attrs)), false), //暴食僵尸
+        "GluttonyZombie": (attrs) => MonsterFactory.doSneakTakeItems(MonsterFactory.doAttackBack(this.createMonster(attrs)), false), //暴食僵尸
         "Gengar": (attrs) => MonsterFactory.doAttackOnPlayerLeave(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //耿鬼
         "BombAbomination": (attrs) => MonsterFactory.doSelfExplodeAfterNRound(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //自爆憎恶
         "EyeDemon": (attrs) => MonsterFactory.doUncoverGridOnDeath(2, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //眼魔
@@ -234,10 +234,30 @@ class MonsterFactory {
     }
 
     // 偷袭：拿走道具
-    static doSneakEatItems(m:Monster, dropOnDie:boolean):Monster {
+    static doSneakTakeItems(m:Monster, dropOnDie:boolean):Monster {
         return MonsterFactory.addSneakAI(async () => {
+            // 当怪物身上有非金币的掉落物时,不要再能拿走东西.出现的话需要修改该怪物配置以避免这种情况.
+            var canTake = () => {
+                if(!dropOnDie) return true;
+                else 
+                    for(var d of m.dropItems){
+                        if(d.type != "Coins") return false;
+                    }
+                    return true;
+            };
+            Utils.assert(canTake(), m.type + "has a dropItem that isn't Coins, cannot take any Item.");
             var eatNum = m.attrs.eatNum ? m.attrs.eatNum : 1;
-            var es = BattleUtils.findRandomElems(m.bt(), eatNum, (e:Elem) => !(e instanceof Monster) && !e.getGrid().isCovered() && e.type != "Door");
+            // 一些相对有较为固定的感觉的物品不要被拿走了,比如后续可能出现的祭坛等.
+            var fobiddenItems = ["Key", "Door", "Cocoon", "TreasureBox"];
+            var fobiddenItemsDropOnDie = ["Door", "Cocoon", "TreasureBox"];
+            var es = BattleUtils.findRandomElems(m.bt(), eatNum, (e:Elem) => {
+                if(dropOnDie)
+                    !(e instanceof Monster) && !e.getGrid().isCovered() && Utils.indexOf(fobiddenItemsDropOnDie, (s:string) => e.type == s) < 0;
+                else
+                    !(e instanceof Monster) && !e.getGrid().isCovered() && Utils.indexOf(fobiddenItems, (s:string) => e.type == s) < 0;
+            });
+            if(es.length == 0) return;
+
             await m.bt().implMonsterTakeElems(m, es, dropOnDie);
             if (dropOnDie) {
                 for(var e of es)
