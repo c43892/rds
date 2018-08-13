@@ -345,6 +345,11 @@ class AniUtils {
         rev();
     }
 
+    // 所有元素随机移动并不等待动画
+    public static async LoopMoveAll(gs:egret.DisplayObject[]) {
+        
+    }
+
     // 开场盖住所有格子
     public static async coverAll(mapView:MapView) {
         // 牌背随机从四面八方飞过来盖住
@@ -362,11 +367,6 @@ class AniUtils {
 
                 bg["fgx"] = mapsize.w;
                 bg["fgy"] = 0;
-
-                // var fgx = // rand.nextInt(0, mapsize.w);
-                // bg["fgx"] = fgx > mapsize.w / 2 ? -fgx : mapsize.w + fgx; 
-                // var fgy = rand.nextInt(0, mapsize.h);
-                // bg["fgy"] = fgy > mapsize.h / 2 ? -fgy : mapsize.h + fgy; 
                 
                 AniUtils.ac.addChild(bg);
                 gbgs.push(bg);                
@@ -401,7 +401,7 @@ class AniUtils {
             aniArr.push(ani);
         });
 
-        // 把所有动画组合起来       
+        // 把所有动画组合起来
         var ani = this.aniFact.createAni("gp", {subAniArr:aniArr});
         await ani;
         await AniUtils.delay(1000);
