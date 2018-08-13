@@ -6,6 +6,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 20,
+        "monsterBox": 6,
         "init_uncovered": {
             "w": 3,
             "h": 3
@@ -24,10 +25,6 @@
                 "type": "Coins",
                 "cnt": 5
             },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
-            },
             "TreasureBox1": {
                 "type": "TreasureBox",
                 "rdp": "treasureBox1"
@@ -35,9 +32,6 @@
             "TreasureBox2": {
                 "type": "TreasureBox",
                 "rdp": "treasureBox2"
-            },
-            "Ghost": {
-                "hp": 1
             },
             "NormalZombie": {
                 "hp": 4,
@@ -70,14 +64,25 @@
             "PoisonJellyfish": {
                 "hp": 6,
                 "power": 1
+            },
+            "BoxMonster": {
+                "hp": 8,
+                "power": 1
             }
         },
         "randomGroups": [
             {
-                "num": [ 20, 21 ],
+                "num": [ 8, 9 ],
                 "elems": {
-                    "TreasureBox1": 100,
-                    "Key": 100
+                    "NormalZombie": 100,
+                    "GoblinThief": 100,
+                    "DancerZombie": 100,
+                    "EyeDemon": 100,
+                    "RandomEggZombie": 100,
+                    "Mummy": 100,
+                    "SkeletonKing": 100,
+                    "PoisonJellyfish": 100,
+                    "BoxMonster": 0
                 }
             },
             {
@@ -85,6 +90,7 @@
                 "elems": {
                     "Knife": 1101,
                     "Magazine": 1101,
+                    "EconomyMagazine": 1101,
                     "Clock": 1101,
                     "Shield": 1101,
                     "HpPotion": 1101,
@@ -93,7 +99,7 @@
                     "HpCapsule": 1101,
                     "DePoison": 1101,
                     "SuperPotion": 1101,
-                    "EconomyMagazine":1101
+                    "StrangthPotion": 1101
                 }
             },
             {
@@ -110,6 +116,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 20,
+        "monsterBox": 6,
         "init_uncovered": {
             "w": 3,
             "h": 3
@@ -127,10 +134,6 @@
             "CoinsBig": {
                 "type": "Coins",
                 "cnt": 5
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
             },
             "TreasureBox1": {
                 "type": "TreasureBox",
@@ -171,6 +174,10 @@
             "PoisonJellyfish": {
                 "hp": 6,
                 "power": 1
+            },
+            "BoxMonster": {
+                "hp": 8,
+                "power": 1
             }
         },
         "randomGroups": [
@@ -184,7 +191,8 @@
                     "RandomEggZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100
+                    "PoisonJellyfish": 100,
+                    "BoxMonster": 0
                 }
             },
             {
@@ -192,6 +200,7 @@
                 "elems": {
                     "Knife": 1102,
                     "Magazine": 1102,
+                    "EconomyMagazine": 1102,
                     "Clock": 1102,
                     "Shield": 1102,
                     "HpPotion": 1102,
@@ -199,7 +208,8 @@
                     "RayGun": 1102,
                     "HpCapsule": 1102,
                     "DePoison": 1102,
-                    "SuperPotion": 1102
+                    "SuperPotion": 1102,
+                    "StrangthPotion": 1102
                 }
             },
             {
@@ -216,6 +226,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 20,
+        "monsterBox": 6,
         "init_uncovered": {
             "w": 3,
             "h": 3
@@ -233,10 +244,6 @@
             "CoinsBig": {
                 "type": "Coins",
                 "cnt": 5
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
             },
             "TreasureBox1": {
                 "type": "TreasureBox",
@@ -277,6 +284,10 @@
             "PoisonJellyfish": {
                 "hp": 7,
                 "power": 1
+            },
+            "BoxMonster": {
+                "hp": 9,
+                "power": 1
             }
         },
         "randomGroups": [
@@ -290,7 +301,8 @@
                     "RandomEggZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100
+                    "PoisonJellyfish": 100,
+                    "BoxMonster": 0
                 }
             },
             {
@@ -298,6 +310,7 @@
                 "elems": {
                     "Knife": 1103,
                     "Magazine": 1103,
+                    "EconomyMagazine": 1103,
                     "Clock": 1103,
                     "Shield": 1103,
                     "HpPotion": 1103,
@@ -305,7 +318,8 @@
                     "RayGun": 1103,
                     "HpCapsule": 1103,
                     "DePoison": 1103,
-                    "SuperPotion": 1103
+                    "SuperPotion": 1103,
+                    "StrangthPotion": 1103
                 }
             },
             {
@@ -322,6 +336,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 20,
+        "monsterBox": 7,
         "init_uncovered": {
             "w": 3,
             "h": 3
@@ -339,10 +354,6 @@
             "CoinsBig": {
                 "type": "Coins",
                 "cnt": 5
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
             },
             "TreasureBox1": {
                 "type": "TreasureBox",
@@ -383,6 +394,10 @@
             "PoisonJellyfish": {
                 "hp": 7,
                 "power": 1
+            },
+            "BoxMonster": {
+                "hp": 10,
+                "power": 1
             }
         },
         "randomGroups": [
@@ -396,7 +411,8 @@
                     "RandomEggZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100
+                    "PoisonJellyfish": 100,
+                    "BoxMonster": 0
                 }
             },
             {
@@ -404,6 +420,7 @@
                 "elems": {
                     "Knife": 1104,
                     "Magazine": 1104,
+                    "EconomyMagazine": 1104,
                     "Clock": 1104,
                     "Shield": 1104,
                     "HpPotion": 1104,
@@ -411,7 +428,8 @@
                     "RayGun": 1104,
                     "HpCapsule": 1104,
                     "DePoison": 1104,
-                    "SuperPotion": 1104
+                    "SuperPotion": 1104,
+                    "StrangthPotion": 1104
                 }
             },
             {
@@ -428,6 +446,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 20,
+        "monsterBox": 7,
         "init_uncovered": {
             "w": 3,
             "h": 3
@@ -445,10 +464,6 @@
             "CoinsBig": {
                 "type": "Coins",
                 "cnt": 5
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
             },
             "TreasureBox1": {
                 "type": "TreasureBox",
@@ -489,6 +504,10 @@
             "PoisonJellyfish": {
                 "hp": 8,
                 "power": 1
+            },
+            "BoxMonster": {
+                "hp": 11,
+                "power": 1
             }
         },
         "randomGroups": [
@@ -502,7 +521,8 @@
                     "RandomEggZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100
+                    "PoisonJellyfish": 100,
+                    "BoxMonster": 0
                 }
             },
             {
@@ -510,6 +530,7 @@
                 "elems": {
                     "Knife": 1105,
                     "Magazine": 1105,
+                    "EconomyMagazine": 1105,
                     "Clock": 1105,
                     "Shield": 1105,
                     "HpPotion": 1105,
@@ -517,7 +538,8 @@
                     "RayGun": 1105,
                     "HpCapsule": 1105,
                     "DePoison": 1105,
-                    "SuperPotion": 1105
+                    "SuperPotion": 1105,
+                    "StrangthPotion": 1105
                 }
             },
             {
@@ -534,6 +556,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 20,
+        "monsterBox": 7,
         "init_uncovered": {
             "w": 3,
             "h": 3
@@ -551,10 +574,6 @@
             "CoinsBig": {
                 "type": "Coins",
                 "cnt": 5
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
             },
             "TreasureBox1": {
                 "type": "TreasureBox",
@@ -599,6 +618,18 @@
             "PoisonJellyfish": {
                 "hp": 9,
                 "power": 1
+            },
+            "SwatheZombie": {
+                "hp": 5,
+                "power": 1
+            },
+            "BoxMonster": {
+                "hp": 12,
+                "power": 1
+            },
+            "Ghost": {
+                "hp": 6,
+                "power": 1
             }
         },
         "randomGroups": [
@@ -613,7 +644,10 @@
                     "RandomEggZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100
+                    "PoisonJellyfish": 100,
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100
                 }
             },
             {
@@ -621,6 +655,7 @@
                 "elems": {
                     "Knife": 1106,
                     "Magazine": 1106,
+                    "EconomyMagazine": 1106,
                     "Clock": 1106,
                     "Shield": 1106,
                     "HpPotion": 1106,
@@ -628,7 +663,8 @@
                     "RayGun": 1106,
                     "HpCapsule": 1106,
                     "DePoison": 1106,
-                    "SuperPotion": 1106
+                    "SuperPotion": 1106,
+                    "StrangthPotion": 1106
                 }
             },
             {
@@ -645,6 +681,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 20,
+        "monsterBox": 7,
         "init_uncovered": {
             "w": 3,
             "h": 3
@@ -662,10 +699,6 @@
             "CoinsBig": {
                 "type": "Coins",
                 "cnt": 5
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
             },
             "TreasureBox1": {
                 "type": "TreasureBox",
@@ -710,6 +743,18 @@
             "PoisonJellyfish": {
                 "hp": 9,
                 "power": 1
+            },
+            "SwatheZombie": {
+                "hp": 5,
+                "power": 1
+            },
+            "BoxMonster": {
+                "hp": 12,
+                "power": 1
+            },
+            "Ghost": {
+                "hp": 6,
+                "power": 1
             }
         },
         "randomGroups": [
@@ -724,7 +769,10 @@
                     "RandomEggZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100
+                    "PoisonJellyfish": 100,
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100
                 }
             },
             {
@@ -732,6 +780,7 @@
                 "elems": {
                     "Knife": 1107,
                     "Magazine": 1107,
+                    "EconomyMagazine": 1107,
                     "Clock": 1107,
                     "Shield": 1107,
                     "HpPotion": 1107,
@@ -739,7 +788,8 @@
                     "RayGun": 1107,
                     "HpCapsule": 1107,
                     "DePoison": 1107,
-                    "SuperPotion": 1107
+                    "SuperPotion": 1107,
+                    "StrangthPotion": 1107
                 }
             },
             {
@@ -756,6 +806,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 20,
+        "monsterBox": 7,
         "init_uncovered": {
             "w": 3,
             "h": 3
@@ -773,10 +824,6 @@
             "CoinsBig": {
                 "type": "Coins",
                 "cnt": 5
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
             },
             "TreasureBox1": {
                 "type": "TreasureBox",
@@ -821,6 +868,18 @@
             "PoisonJellyfish": {
                 "hp": 10,
                 "power": 1
+            },
+            "SwatheZombie": {
+                "hp": 6,
+                "power": 1
+            },
+            "BoxMonster": {
+                "hp": 13,
+                "power": 1
+            },
+            "Ghost": {
+                "hp": 7,
+                "power": 1
             }
         },
         "randomGroups": [
@@ -835,7 +894,10 @@
                     "RandomEggZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100
+                    "PoisonJellyfish": 100,
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100
                 }
             },
             {
@@ -843,6 +905,7 @@
                 "elems": {
                     "Knife": 1108,
                     "Magazine": 1108,
+                    "EconomyMagazine": 1108,
                     "Clock": 1108,
                     "Shield": 1108,
                     "HpPotion": 1108,
@@ -850,7 +913,8 @@
                     "RayGun": 1108,
                     "HpCapsule": 1108,
                     "DePoison": 1108,
-                    "SuperPotion": 1108
+                    "SuperPotion": 1108,
+                    "StrangthPotion": 1108
                 }
             },
             {
@@ -867,6 +931,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 20,
+        "monsterBox": 8,
         "init_uncovered": {
             "w": 3,
             "h": 3
@@ -884,10 +949,6 @@
             "CoinsBig": {
                 "type": "Coins",
                 "cnt": 5
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
             },
             "TreasureBox1": {
                 "type": "TreasureBox",
@@ -932,6 +993,18 @@
             "PoisonJellyfish": {
                 "hp": 10,
                 "power": 1
+            },
+            "SwatheZombie": {
+                "hp": 6,
+                "power": 1
+            },
+            "BoxMonster": {
+                "hp": 14,
+                "power": 1
+            },
+            "Ghost": {
+                "hp": 7,
+                "power": 1
             }
         },
         "randomGroups": [
@@ -946,7 +1019,10 @@
                     "RandomEggZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100
+                    "PoisonJellyfish": 100,
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100
                 }
             },
             {
@@ -954,6 +1030,7 @@
                 "elems": {
                     "Knife": 1109,
                     "Magazine": 1109,
+                    "EconomyMagazine": 1109,
                     "Clock": 1109,
                     "Shield": 1109,
                     "HpPotion": 1109,
@@ -961,7 +1038,8 @@
                     "RayGun": 1109,
                     "HpCapsule": 1109,
                     "DePoison": 1109,
-                    "SuperPotion": 1109
+                    "SuperPotion": 1109,
+                    "StrangthPotion": 1109
                 }
             },
             {
@@ -978,6 +1056,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 20,
+        "monsterBox": 8,
         "init_uncovered": {
             "w": 3,
             "h": 3
@@ -995,10 +1074,6 @@
             "CoinsBig": {
                 "type": "Coins",
                 "cnt": 5
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
             },
             "TreasureBox1": {
                 "type": "TreasureBox",
@@ -1043,6 +1118,18 @@
             "PoisonJellyfish": {
                 "hp": 11,
                 "power": 1
+            },
+            "SwatheZombie": {
+                "hp": 7,
+                "power": 1
+            },
+            "BoxMonster": {
+                "hp": 15,
+                "power": 1
+            },
+            "Ghost": {
+                "hp": 8,
+                "power": 1
             }
         },
         "randomGroups": [
@@ -1057,7 +1144,10 @@
                     "RandomEggZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100
+                    "PoisonJellyfish": 100,
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100
                 }
             },
             {
@@ -1065,6 +1155,7 @@
                 "elems": {
                     "Knife": 1110,
                     "Magazine": 1110,
+                    "EconomyMagazine": 1110,
                     "Clock": 1110,
                     "Shield": 1110,
                     "HpPotion": 1110,
@@ -1072,7 +1163,8 @@
                     "RayGun": 1110,
                     "HpCapsule": 1110,
                     "DePoison": 1110,
-                    "SuperPotion": 1110
+                    "SuperPotion": 1110,
+                    "StrangthPotion": 1110
                 }
             },
             {
@@ -1089,6 +1181,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 20,
+        "monsterBox": 8,
         "init_uncovered": {
             "w": 3,
             "h": 3
@@ -1106,10 +1199,6 @@
             "CoinsBig": {
                 "type": "Coins",
                 "cnt": 5
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
             },
             "TreasureBox1": {
                 "type": "TreasureBox",
@@ -1170,6 +1259,18 @@
             "PoisonJellyfish": {
                 "hp": 12,
                 "power": 2
+            },
+            "SwatheZombie": {
+                "hp": 7,
+                "power": 1
+            },
+            "BoxMonster": {
+                "hp": 16,
+                "power": 2
+            },
+            "Ghost": {
+                "hp": 9,
+                "power": 1
             }
         },
         "randomGroups": [
@@ -1188,7 +1289,10 @@
                     "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100
+                    "PoisonJellyfish": 100,
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100
                 }
             },
             {
@@ -1196,6 +1300,7 @@
                 "elems": {
                     "Knife": 1111,
                     "Magazine": 1111,
+                    "EconomyMagazine": 1111,
                     "Clock": 1111,
                     "Shield": 1111,
                     "HpPotion": 1111,
@@ -1203,7 +1308,8 @@
                     "RayGun": 1111,
                     "HpCapsule": 1111,
                     "DePoison": 1111,
-                    "SuperPotion": 1111
+                    "SuperPotion": 1111,
+                    "StrangthPotion": 1111
                 }
             },
             {
@@ -1220,6 +1326,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 20,
+        "monsterBox": 8,
         "init_uncovered": {
             "w": 3,
             "h": 3
@@ -1237,10 +1344,6 @@
             "CoinsBig": {
                 "type": "Coins",
                 "cnt": 5
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
             },
             "TreasureBox1": {
                 "type": "TreasureBox",
@@ -1301,6 +1404,18 @@
             "PoisonJellyfish": {
                 "hp": 12,
                 "power": 2
+            },
+            "SwatheZombie": {
+                "hp": 8,
+                "power": 1
+            },
+            "BoxMonster": {
+                "hp": 16,
+                "power": 2
+            },
+            "Ghost": {
+                "hp": 9,
+                "power": 1
             }
         },
         "randomGroups": [
@@ -1319,7 +1434,10 @@
                     "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100
+                    "PoisonJellyfish": 100,
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100
                 }
             },
             {
@@ -1327,6 +1445,7 @@
                 "elems": {
                     "Knife": 1112,
                     "Magazine": 1112,
+                    "EconomyMagazine": 1112,
                     "Clock": 1112,
                     "Shield": 1112,
                     "HpPotion": 1112,
@@ -1334,7 +1453,8 @@
                     "RayGun": 1112,
                     "HpCapsule": 1112,
                     "DePoison": 1112,
-                    "SuperPotion": 1112
+                    "SuperPotion": 1112,
+                    "StrangthPotion": 1112
                 }
             },
             {
@@ -1351,6 +1471,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 20,
+        "monsterBox": 8,
         "init_uncovered": {
             "w": 3,
             "h": 3
@@ -1368,10 +1489,6 @@
             "CoinsBig": {
                 "type": "Coins",
                 "cnt": 5
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
             },
             "TreasureBox1": {
                 "type": "TreasureBox",
@@ -1432,6 +1549,18 @@
             "PoisonJellyfish": {
                 "hp": 13,
                 "power": 2
+            },
+            "SwatheZombie": {
+                "hp": 8,
+                "power": 1
+            },
+            "BoxMonster": {
+                "hp": 17,
+                "power": 2
+            },
+            "Ghost": {
+                "hp": 10,
+                "power": 1
             }
         },
         "randomGroups": [
@@ -1450,7 +1579,10 @@
                     "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100
+                    "PoisonJellyfish": 100,
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100
                 }
             },
             {
@@ -1458,6 +1590,7 @@
                 "elems": {
                     "Knife": 1113,
                     "Magazine": 1113,
+                    "EconomyMagazine": 1113,
                     "Clock": 1113,
                     "Shield": 1113,
                     "HpPotion": 1113,
@@ -1465,7 +1598,8 @@
                     "RayGun": 1113,
                     "HpCapsule": 1113,
                     "DePoison": 1113,
-                    "SuperPotion": 1113
+                    "SuperPotion": 1113,
+                    "StrangthPotion": 1113
                 }
             },
             {
@@ -1482,6 +1616,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 20,
+        "monsterBox": 8,
         "init_uncovered": {
             "w": 3,
             "h": 3
@@ -1500,10 +1635,6 @@
                 "type": "Coins",
                 "cnt": 5
             },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
-            },
             "TreasureBox1": {
                 "type": "TreasureBox",
                 "rdp": "treasureBox1"
@@ -1563,6 +1694,18 @@
             "PoisonJellyfish": {
                 "hp": 13,
                 "power": 2
+            },
+            "SwatheZombie": {
+                "hp": 9,
+                "power": 1
+            },
+            "BoxMonster": {
+                "hp": 18,
+                "power": 2
+            },
+            "Ghost": {
+                "hp": 10,
+                "power": 1
             }
         },
         "randomGroups": [
@@ -1581,7 +1724,10 @@
                     "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100
+                    "PoisonJellyfish": 100,
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100
                 }
             },
             {
@@ -1589,6 +1735,7 @@
                 "elems": {
                     "Knife": 1114,
                     "Magazine": 1114,
+                    "EconomyMagazine": 1114,
                     "Clock": 1114,
                     "Shield": 1114,
                     "HpPotion": 1114,
@@ -1596,7 +1743,8 @@
                     "RayGun": 1114,
                     "HpCapsule": 1114,
                     "DePoison": 1114,
-                    "SuperPotion": 1114
+                    "SuperPotion": 1114,
+                    "StrangthPotion": 1114
                 }
             },
             {
@@ -1613,6 +1761,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 30,
+        "monsterBox": 9,
         "init_uncovered": {
             "w": 3,
             "h": 2
@@ -1630,10 +1779,6 @@
             "CoinsBig": {
                 "type": "Coins",
                 "cnt": 10
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 20
             },
             "TreasureBox1": {
                 "type": "TreasureBox",
@@ -1698,6 +1843,18 @@
             "PoisonJellyfish": {
                 "hp": 15,
                 "power": 2
+            },
+            "SwatheZombie": {
+                "hp": 10,
+                "power": 2
+            },
+            "BoxMonster": {
+                "hp": 20,
+                "power": 2
+            },
+            "Ghost": {
+                "hp": 12,
+                "power": 2
             }
         },
         "randomGroups": [
@@ -1717,7 +1874,10 @@
                     "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100
+                    "PoisonJellyfish": 100,
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100
                 }
             },
             {
@@ -1725,6 +1885,7 @@
                 "elems": {
                     "Knife": 1116,
                     "Magazine": 1116,
+                    "EconomyMagazine": 1116,
                     "Clock": 1116,
                     "Shield": 1116,
                     "HpPotion": 1116,
@@ -1732,7 +1893,8 @@
                     "RayGun": 1116,
                     "HpCapsule": 1116,
                     "DePoison": 1116,
-                    "SuperPotion": 1116
+                    "SuperPotion": 1116,
+                    "StrangthPotion": 1116
                 }
             },
             {
@@ -1749,6 +1911,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 30,
+        "monsterBox": 9,
         "init_uncovered": {
             "w": 3,
             "h": 2
@@ -1766,10 +1929,6 @@
             "CoinsBig": {
                 "type": "Coins",
                 "cnt": 10
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 20
             },
             "TreasureBox1": {
                 "type": "TreasureBox",
@@ -1834,6 +1993,18 @@
             "PoisonJellyfish": {
                 "hp": 15,
                 "power": 2
+            },
+            "SwatheZombie": {
+                "hp": 10,
+                "power": 2
+            },
+            "BoxMonster": {
+                "hp": 20,
+                "power": 2
+            },
+            "Ghost": {
+                "hp": 12,
+                "power": 2
             }
         },
         "randomGroups": [
@@ -1853,7 +2024,10 @@
                     "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100
+                    "PoisonJellyfish": 100,
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100
                 }
             },
             {
@@ -1861,6 +2035,7 @@
                 "elems": {
                     "Knife": 1117,
                     "Magazine": 1117,
+                    "EconomyMagazine": 1117,
                     "Clock": 1117,
                     "Shield": 1117,
                     "HpPotion": 1117,
@@ -1868,7 +2043,8 @@
                     "RayGun": 1117,
                     "HpCapsule": 1117,
                     "DePoison": 1117,
-                    "SuperPotion": 1117
+                    "SuperPotion": 1117,
+                    "StrangthPotion": 1117
                 }
             },
             {
@@ -1885,6 +2061,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 30,
+        "monsterBox": 9,
         "init_uncovered": {
             "w": 3,
             "h": 2
@@ -1902,10 +2079,6 @@
             "CoinsBig": {
                 "type": "Coins",
                 "cnt": 10
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 20
             },
             "TreasureBox1": {
                 "type": "TreasureBox",
@@ -1970,6 +2143,18 @@
             "PoisonJellyfish": {
                 "hp": 16,
                 "power": 2
+            },
+            "SwatheZombie": {
+                "hp": 11,
+                "power": 2
+            },
+            "BoxMonster": {
+                "hp": 21,
+                "power": 2
+            },
+            "Ghost": {
+                "hp": 13,
+                "power": 2
             }
         },
         "randomGroups": [
@@ -1989,7 +2174,10 @@
                     "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100
+                    "PoisonJellyfish": 100,
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100
                 }
             },
             {
@@ -1997,6 +2185,7 @@
                 "elems": {
                     "Knife": 1118,
                     "Magazine": 1118,
+                    "EconomyMagazine": 1118,
                     "Clock": 1118,
                     "Shield": 1118,
                     "HpPotion": 1118,
@@ -2004,7 +2193,8 @@
                     "RayGun": 1118,
                     "HpCapsule": 1118,
                     "DePoison": 1118,
-                    "SuperPotion": 1118
+                    "SuperPotion": 1118,
+                    "StrangthPotion": 1118
                 }
             },
             {
@@ -2021,6 +2211,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 30,
+        "monsterBox": 9,
         "init_uncovered": {
             "w": 3,
             "h": 2
@@ -2038,10 +2229,6 @@
             "CoinsBig": {
                 "type": "Coins",
                 "cnt": 10
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 20
             },
             "TreasureBox1": {
                 "type": "TreasureBox",
@@ -2106,6 +2293,18 @@
             "PoisonJellyfish": {
                 "hp": 16,
                 "power": 2
+            },
+            "SwatheZombie": {
+                "hp": 11,
+                "power": 2
+            },
+            "BoxMonster": {
+                "hp": 22,
+                "power": 2
+            },
+            "Ghost": {
+                "hp": 13,
+                "power": 2
             }
         },
         "randomGroups": [
@@ -2125,7 +2324,10 @@
                     "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100
+                    "PoisonJellyfish": 100,
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100
                 }
             },
             {
@@ -2133,6 +2335,7 @@
                 "elems": {
                     "Knife": 1119,
                     "Magazine": 1119,
+                    "EconomyMagazine": 1119,
                     "Clock": 1119,
                     "Shield": 1119,
                     "HpPotion": 1119,
@@ -2140,7 +2343,8 @@
                     "RayGun": 1119,
                     "HpCapsule": 1119,
                     "DePoison": 1119,
-                    "SuperPotion": 1119
+                    "SuperPotion": 1119,
+                    "StrangthPotion": 1119
                 }
             },
             {
@@ -2157,6 +2361,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 30,
+        "monsterBox": 9,
         "init_uncovered": {
             "w": 3,
             "h": 2
@@ -2174,10 +2379,6 @@
             "CoinsBig": {
                 "type": "Coins",
                 "cnt": 10
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 20
             },
             "TreasureBox1": {
                 "type": "TreasureBox",
@@ -2241,6 +2442,18 @@
             },
             "PoisonJellyfish": {
                 "hp": 17,
+                "power": 2
+            },
+            "SwatheZombie": {
+                "hp": 12,
+                "power": 2
+            },
+            "BoxMonster": {
+                "hp": 23,
+                "power": 2
+            },
+            "Ghost": {
+                "hp": 14,
                 "power": 2
             }
         },
@@ -2261,7 +2474,10 @@
                     "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100
+                    "PoisonJellyfish": 100,
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100
                 }
             },
             {
@@ -2269,6 +2485,7 @@
                 "elems": {
                     "Knife": 1120,
                     "Magazine": 1120,
+                    "EconomyMagazine": 1120,
                     "Clock": 1120,
                     "Shield": 1120,
                     "HpPotion": 1120,
@@ -2276,7 +2493,8 @@
                     "RayGun": 1120,
                     "HpCapsule": 1120,
                     "DePoison": 1120,
-                    "SuperPotion": 1120
+                    "SuperPotion": 1120,
+                    "StrangthPotion": 1120
                 }
             },
             {
@@ -2293,6 +2511,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 30,
+        "monsterBox": 9,
         "init_uncovered": {
             "w": 3,
             "h": 2
@@ -2310,10 +2529,6 @@
             "CoinsBig": {
                 "type": "Coins",
                 "cnt": 10
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 20
             },
             "TreasureBox1": {
                 "type": "TreasureBox",
@@ -2378,6 +2593,18 @@
             "PoisonJellyfish": {
                 "hp": 18,
                 "power": 3
+            },
+            "SwatheZombie": {
+                "hp": 12,
+                "power": 2
+            },
+            "BoxMonster": {
+                "hp": 24,
+                "power": 3
+            },
+            "Ghost": {
+                "hp": 15,
+                "power": 2
             }
         },
         "randomGroups": [
@@ -2397,7 +2624,10 @@
                     "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100
+                    "PoisonJellyfish": 100,
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100
                 }
             },
             {
@@ -2405,6 +2635,7 @@
                 "elems": {
                     "Knife": 1121,
                     "Magazine": 1121,
+                    "EconomyMagazine": 1121,
                     "Clock": 1121,
                     "Shield": 1121,
                     "HpPotion": 1121,
@@ -2412,7 +2643,8 @@
                     "RayGun": 1121,
                     "HpCapsule": 1121,
                     "DePoison": 1121,
-                    "SuperPotion": 1121
+                    "SuperPotion": 1121,
+                    "StrangthPotion": 1121
                 }
             },
             {
@@ -2429,6 +2661,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 30,
+        "monsterBox": 9,
         "init_uncovered": {
             "w": 3,
             "h": 2
@@ -2446,10 +2679,6 @@
             "CoinsBig": {
                 "type": "Coins",
                 "cnt": 10
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 20
             },
             "TreasureBox1": {
                 "type": "TreasureBox",
@@ -2514,6 +2743,18 @@
             "PoisonJellyfish": {
                 "hp": 18,
                 "power": 3
+            },
+            "SwatheZombie": {
+                "hp": 13,
+                "power": 2
+            },
+            "BoxMonster": {
+                "hp": 24,
+                "power": 3
+            },
+            "Ghost": {
+                "hp": 15,
+                "power": 2
             }
         },
         "randomGroups": [
@@ -2533,7 +2774,10 @@
                     "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100
+                    "PoisonJellyfish": 100,
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100
                 }
             },
             {
@@ -2541,6 +2785,7 @@
                 "elems": {
                     "Knife": 1122,
                     "Magazine": 1122,
+                    "EconomyMagazine": 1122,
                     "Clock": 1122,
                     "Shield": 1122,
                     "HpPotion": 1122,
@@ -2548,7 +2793,8 @@
                     "RayGun": 1122,
                     "HpCapsule": 1122,
                     "DePoison": 1122,
-                    "SuperPotion": 1122
+                    "SuperPotion": 1122,
+                    "StrangthPotion": 1122
                 }
             },
             {
@@ -2565,6 +2811,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 30,
+        "monsterBox": 9,
         "init_uncovered": {
             "w": 3,
             "h": 2
@@ -2582,10 +2829,6 @@
             "CoinsBig": {
                 "type": "Coins",
                 "cnt": 10
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 20
             },
             "TreasureBox1": {
                 "type": "TreasureBox",
@@ -2650,6 +2893,18 @@
             "PoisonJellyfish": {
                 "hp": 19,
                 "power": 3
+            },
+            "SwatheZombie": {
+                "hp": 13,
+                "power": 2
+            },
+            "BoxMonster": {
+                "hp": 25,
+                "power": 3
+            },
+            "Ghost": {
+                "hp": 16,
+                "power": 2
             }
         },
         "randomGroups": [
@@ -2669,7 +2924,10 @@
                     "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100
+                    "PoisonJellyfish": 100,
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100
                 }
             },
             {
@@ -2677,6 +2935,7 @@
                 "elems": {
                     "Knife": 1123,
                     "Magazine": 1123,
+                    "EconomyMagazine": 1123,
                     "Clock": 1123,
                     "Shield": 1123,
                     "HpPotion": 1123,
@@ -2684,7 +2943,8 @@
                     "RayGun": 1123,
                     "HpCapsule": 1123,
                     "DePoison": 1123,
-                    "SuperPotion": 1123
+                    "SuperPotion": 1123,
+                    "StrangthPotion": 1123
                 }
             },
             {
@@ -2701,6 +2961,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 30,
+        "monsterBox": 9,
         "init_uncovered": {
             "w": 3,
             "h": 2
@@ -2718,10 +2979,6 @@
             "CoinsBig": {
                 "type": "Coins",
                 "cnt": 10
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 20
             },
             "TreasureBox1": {
                 "type": "TreasureBox",
@@ -2786,6 +3043,18 @@
             "PoisonJellyfish": {
                 "hp": 19,
                 "power": 3
+            },
+            "SwatheZombie": {
+                "hp": 14,
+                "power": 2
+            },
+            "BoxMonster": {
+                "hp": 26,
+                "power": 3
+            },
+            "Ghost": {
+                "hp": 16,
+                "power": 2
             }
         },
         "randomGroups": [
@@ -2805,7 +3074,10 @@
                     "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100
+                    "PoisonJellyfish": 100,
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100
                 }
             },
             {
@@ -2813,6 +3085,7 @@
                 "elems": {
                     "Knife": 1124,
                     "Magazine": 1124,
+                    "EconomyMagazine": 1124,
                     "Clock": 1124,
                     "Shield": 1124,
                     "HpPotion": 1124,
@@ -2820,7 +3093,8 @@
                     "RayGun": 1124,
                     "HpCapsule": 1124,
                     "DePoison": 1124,
-                    "SuperPotion": 1124
+                    "SuperPotion": 1124,
+                    "StrangthPotion": 1124
                 }
             },
             {
@@ -2837,6 +3111,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 30,
+        "monsterBox": 10,
         "init_uncovered": {
             "w": 3,
             "h": 2
@@ -2854,10 +3129,6 @@
             "CoinsBig": {
                 "type": "Coins",
                 "cnt": 10
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 20
             },
             "TreasureBox1": {
                 "type": "TreasureBox",
@@ -2922,6 +3193,18 @@
             "PoisonJellyfish": {
                 "hp": 20,
                 "power": 3
+            },
+            "SwatheZombie": {
+                "hp": 14,
+                "power": 2
+            },
+            "BoxMonster": {
+                "hp": 27,
+                "power": 3
+            },
+            "Ghost": {
+                "hp": 17,
+                "power": 2
             }
         },
         "randomGroups": [
@@ -2941,7 +3224,10 @@
                     "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100
+                    "PoisonJellyfish": 100,
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100
                 }
             },
             {
@@ -2949,6 +3235,7 @@
                 "elems": {
                     "Knife": 1125,
                     "Magazine": 1125,
+                    "EconomyMagazine": 1125,
                     "Clock": 1125,
                     "Shield": 1125,
                     "HpPotion": 1125,
@@ -2956,7 +3243,8 @@
                     "RayGun": 1125,
                     "HpCapsule": 1125,
                     "DePoison": 1125,
-                    "SuperPotion": 1125
+                    "SuperPotion": 1125,
+                    "StrangthPotion": 1125
                 }
             },
             {
@@ -2973,6 +3261,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 30,
+        "monsterBox": 10,
         "init_uncovered": {
             "w": 3,
             "h": 2
@@ -2990,10 +3279,6 @@
             "CoinsBig": {
                 "type": "Coins",
                 "cnt": 10
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 20
             },
             "TreasureBox1": {
                 "type": "TreasureBox",
@@ -3058,6 +3343,18 @@
             "PoisonJellyfish": {
                 "hp": 21,
                 "power": 3
+            },
+            "SwatheZombie": {
+                "hp": 15,
+                "power": 3
+            },
+            "BoxMonster": {
+                "hp": 28,
+                "power": 3
+            },
+            "Ghost": {
+                "hp": 18,
+                "power": 3
             }
         },
         "randomGroups": [
@@ -3077,7 +3374,10 @@
                     "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100
+                    "PoisonJellyfish": 100,
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100
                 }
             },
             {
@@ -3085,6 +3385,7 @@
                 "elems": {
                     "Knife": 1126,
                     "Magazine": 1126,
+                    "EconomyMagazine": 1126,
                     "Clock": 1126,
                     "Shield": 1126,
                     "HpPotion": 1126,
@@ -3092,7 +3393,8 @@
                     "RayGun": 1126,
                     "HpCapsule": 1126,
                     "DePoison": 1126,
-                    "SuperPotion": 1126
+                    "SuperPotion": 1126,
+                    "StrangthPotion": 1126
                 }
             },
             {
@@ -3109,6 +3411,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 30,
+        "monsterBox": 10,
         "init_uncovered": {
             "w": 3,
             "h": 2
@@ -3126,10 +3429,6 @@
             "CoinsBig": {
                 "type": "Coins",
                 "cnt": 10
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 20
             },
             "TreasureBox1": {
                 "type": "TreasureBox",
@@ -3194,6 +3493,18 @@
             "PoisonJellyfish": {
                 "hp": 21,
                 "power": 3
+            },
+            "SwatheZombie": {
+                "hp": 15,
+                "power": 3
+            },
+            "BoxMonster": {
+                "hp": 28,
+                "power": 3
+            },
+            "Ghost": {
+                "hp": 18,
+                "power": 3
             }
         },
         "randomGroups": [
@@ -3213,7 +3524,10 @@
                     "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100
+                    "PoisonJellyfish": 100,
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100
                 }
             },
             {
@@ -3221,6 +3535,7 @@
                 "elems": {
                     "Knife": 1127,
                     "Magazine": 1127,
+                    "EconomyMagazine": 1127,
                     "Clock": 1127,
                     "Shield": 1127,
                     "HpPotion": 1127,
@@ -3228,7 +3543,8 @@
                     "RayGun": 1127,
                     "HpCapsule": 1127,
                     "DePoison": 1127,
-                    "SuperPotion": 1127
+                    "SuperPotion": 1127,
+                    "StrangthPotion": 1127
                 }
             },
             {
@@ -3245,6 +3561,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 30,
+        "monsterBox": 10,
         "init_uncovered": {
             "w": 3,
             "h": 2
@@ -3262,10 +3579,6 @@
             "CoinsBig": {
                 "type": "Coins",
                 "cnt": 10
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 20
             },
             "TreasureBox1": {
                 "type": "TreasureBox",
@@ -3330,6 +3643,18 @@
             "PoisonJellyfish": {
                 "hp": 22,
                 "power": 3
+            },
+            "SwatheZombie": {
+                "hp": 16,
+                "power": 3
+            },
+            "BoxMonster": {
+                "hp": 29,
+                "power": 3
+            },
+            "Ghost": {
+                "hp": 19,
+                "power": 3
             }
         },
         "randomGroups": [
@@ -3349,7 +3674,10 @@
                     "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100
+                    "PoisonJellyfish": 100,
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100
                 }
             },
             {
@@ -3357,6 +3685,7 @@
                 "elems": {
                     "Knife": 1128,
                     "Magazine": 1128,
+                    "EconomyMagazine": 1128,
                     "Clock": 1128,
                     "Shield": 1128,
                     "HpPotion": 1128,
@@ -3364,7 +3693,8 @@
                     "RayGun": 1128,
                     "HpCapsule": 1128,
                     "DePoison": 1128,
-                    "SuperPotion": 1128
+                    "SuperPotion": 1128,
+                    "StrangthPotion": 1128
                 }
             },
             {
@@ -3381,6 +3711,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 30,
+        "monsterBox": 10,
         "init_uncovered": {
             "w": 3,
             "h": 2
@@ -3398,10 +3729,6 @@
             "CoinsBig": {
                 "type": "Coins",
                 "cnt": 10
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 20
             },
             "TreasureBox1": {
                 "type": "TreasureBox",
@@ -3466,6 +3793,18 @@
             "PoisonJellyfish": {
                 "hp": 22,
                 "power": 3
+            },
+            "SwatheZombie": {
+                "hp": 16,
+                "power": 3
+            },
+            "BoxMonster": {
+                "hp": 30,
+                "power": 3
+            },
+            "Ghost": {
+                "hp": 19,
+                "power": 3
             }
         },
         "randomGroups": [
@@ -3485,7 +3824,10 @@
                     "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100
+                    "PoisonJellyfish": 100,
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100
                 }
             },
             {
@@ -3493,6 +3835,7 @@
                 "elems": {
                     "Knife": 1129,
                     "Magazine": 1129,
+                    "EconomyMagazine": 1129,
                     "Clock": 1129,
                     "Shield": 1129,
                     "HpPotion": 1129,
@@ -3500,7 +3843,8 @@
                     "RayGun": 1129,
                     "HpCapsule": 1129,
                     "DePoison": 1129,
-                    "SuperPotion": 1129
+                    "SuperPotion": 1129,
+                    "StrangthPotion": 1129
                 }
             },
             {
