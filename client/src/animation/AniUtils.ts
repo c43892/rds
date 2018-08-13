@@ -404,8 +404,7 @@ class AniUtils {
         // 把所有动画组合起来       
         var ani = this.aniFact.createAni("gp", {subAniArr:aniArr});
         await ani;
-        await AniUtils.delay(5000);
-
+        await AniUtils.delay(1000);
         gbgs.forEach((g, _) => {
             AniUtils.ac.removeChild(g);
         });
