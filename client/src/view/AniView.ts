@@ -468,12 +468,13 @@ class AniView extends egret.DisplayObjectContainer {
             var g = this.getSV(e)
             await AniUtils.fly2(g, g, dropItemImg, false, 1);
         } else { // 直线飞向怪物消失
-            var aniArr = [];
+            var svArr = [];
             for (var e of es) {
                 var g = this.getSV(e);
-                await AniUtils.flyAndFadeout(g, msv.localToGlobal(), 500, 0.5, 0, egret.Ease.quintIn);
+                svArr.push(g);
             }
-            await this.aniFact.createAni("gp", {subAniArr:aniArr});
+            
+            await AniUtils.flyAndFadeoutArr(svArr, msv.localToGlobal(), 500, 0.5, 0, egret.Ease.quintIn);
         }
 
         for (var e of es)

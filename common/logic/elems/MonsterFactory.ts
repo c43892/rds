@@ -136,7 +136,7 @@ class MonsterFactory {
         "PoisonJellyfish": (attrs) => MonsterFactory.doMakeCoveredGridsPoison(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //毒性水母
         "SkeletonKing": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //骷髅王僵尸
         "SwatheZombie": (attrs) => MonsterFactory.doSwatheItemsOnSneak(MonsterFactory.doAttackBack(this.createMonster(attrs))), //缠绕僵尸
-        "BoxMonster": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //宝箱怪
+        "BoxMonster": (attrs) => MonsterFactory.addRandomOnDie(2, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //宝箱怪
         "Ghost": (attrs) => MonsterFactory.doChaseToNextLevel(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //幽灵
 
         "ShopNpc": (attrs) => MonsterFactory.makeShopNPC(this.createMonster(attrs)),
@@ -252,10 +252,10 @@ class MonsterFactory {
             var fobiddenItemsDropOnDie = ["Door", "Cocoon", "TreasureBox"];
             var es = BattleUtils.findRandomElems(m.bt(), eatNum, (e:Elem) => {
                 if(dropOnDie)
-                    !(e instanceof Monster) && !e.getGrid().isCovered() && Utils.indexOf(fobiddenItemsDropOnDie, (s:string) => e.type == s) < 0;
+                    return !(e instanceof Monster) && !e.getGrid().isCovered() && (Utils.indexOf(fobiddenItemsDropOnDie, (s:string) => e.type == s) < 0);
                 else
-                    !(e instanceof Monster) && !e.getGrid().isCovered() && Utils.indexOf(fobiddenItems, (s:string) => e.type == s) < 0;
-            });
+                    return !(e instanceof Monster) && !e.getGrid().isCovered() && (Utils.indexOf(fobiddenItems, (s:string) => e.type == s) < 0);
+            });            
             if(es.length == 0) return;
 
             await m.bt().implMonsterTakeElems(m, es, dropOnDie);
@@ -344,9 +344,10 @@ class MonsterFactory {
         return <Monster>ElemFactory.addDieAI(async () => {
             var gs = BattleUtils.findRandomGrids(m.bt(), (g:Grid) => g.isCovered() && !g.getElem(), n);
             var pts = Utils.map(gs, (g:Grid) => g.pos);
+
             await m.bt().fireEvent("onEyeDemonUncoverGrids", {m:m, pts:pts});
             for (var pt of pts)
-                await m.bt().implUncoverAt(pt.x, pt.y);
+                await m.bt().uncover(pt.x, pt.y, true, true);
         }, m);
     }
 
@@ -639,6 +640,31 @@ class MonsterFactory {
     // 会追着玩家进入下一层
     static doChaseToNextLevel(m:Monster):Monster {        
         return <Monster>ElemFactory.addAI("beforeGoOutLevel1", async () => m.bt().implElemFollow2NextLevel(m), m);
+    }
+
+    // 死亡时添加随机掉落
+    static addRandomOnDie(n:number, m:Monster):Monster {
+        return <Monster>ElemFactory.addDieAI(async () => {
+            var rdps = m.attrs.rdps;
+            if(rdps.length > n){
+                var dnum = rdps.length - n
+                for(var i = 0; i < dnum; i++){
+                    var rdps = Utils.removeAt(rdps, m.bt().srand.nextInt(0, rdps.length));
+                }
+            }
+            for (var rdp of rdps){
+                var dropItems = [];
+                var rdp = GCfg.getRandomDropGroupCfg(rdp);
+                var dropItems = Utils.randomSelectByWeightWithPlayerFilter(m.bt().player, rdp.elems, m.bt().srand, rdp.num[0], rdp.num[1], true, undefined);
+                for(var dpType of dropItems){
+                    var g = BattleUtils.findRandomEmptyGrid(m.bt(), false);
+                    if(!g) return;
+
+                    var dropItem = m.bt().level.createElem(dpType);
+                    await m.bt().implAddElemAt(dropItem, g.pos.x, g.pos.y);
+                }
+            }
+        }, m);
     }
 
     // boss 特殊逻辑

@@ -335,14 +335,29 @@ class AniUtils {
     }
 
     // 直线飞向目标位置并消失
-    public static async flyAndFadeout(obj:egret.DisplayObject, toPos, time, toScale, toAlpha, mode) {
-        var rev = AniUtils.reserveObjTrans(obj, toPos);
-        await AniUtils.aniFact.createAniByCfg({
-            type:"tr", tx:toPos.x, ty:toPos.y, ta:toAlpha, tsx:toScale, tsy:toScale,
-            time:time, obj:obj, mode:mode
+    public static async flyAndFadeoutArr(objArr:egret.DisplayObject[], toPos, time, toScale, toAlpha, mode) {
+        var aniArr = [];
+        var revArr = []
+        objArr.forEach((obj, i) => {
+            revArr.push(AniUtils.reserveObjTrans(obj, toPos));
+            aniArr.push(AniUtils.aniFact.createAniByCfg({
+                type:"tr", tx:toPos.x, ty:toPos.y, ta:toAlpha, tsx:toScale, tsy:toScale,
+                time:time, obj:obj, mode:mode
+            }));
         });
-        obj.alpha = 0;
-        rev();
+
+        await AniUtils.aniFact.createAni("gp", {subAniArr:aniArr});
+        revArr.forEach((rev, _) => {
+            rev();
+        });
+
+        objArr.forEach((obj, _) => {
+            obj.alpha = 0;
+        });
+    }
+
+    public static async flyAndFadeout(obj:egret.DisplayObject, toPos, time, toScale, toAlpha, mode) {
+        await AniUtils.flyAndFadeoutArr([obj], toPos, time, toScale, toAlpha, mode);
     }
 
     // 所有元素随机移动并不等待动画
