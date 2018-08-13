@@ -722,6 +722,24 @@ class Battle {
         await this.fireEvent("onGridChanged", {x:e.pos.x, y:e.pos.y, e:e, subType:"frozen"}); 
     }
 
+    // 尝试消灭目标
+    public async implDestoryAt(x:number, y:number, weapon:Elem = undefined){
+        var g = this.level.map.getGridAt(x, y);
+        var m = <Monster>g.getElem();
+        if (g.isCovered()) this.uncover(x, y); // 攻击行为自动揭开地块
+        
+        // 通知准备攻击,提供给援护怪进行判断是否要行动
+        var preAttackPs = {subType:"player2monster", x:x, y:y, target:m};
+        await this.fireEvent("preAttack", preAttackPs);
+        await this.triggerLogicPoint("preAttack", preAttackPs);
+        m = preAttackPs.target;
+
+        await this.implOnElemDie(m);
+
+        await this.fireEvent("onAttack", {subType:"player2monster", x:m.pos.x, y:m.pos.y, r:{r:"destroyed"}, target:m, weapon:weapon});
+        await this.triggerLogicPoint("onAttack", {subType:"player2monster", x:m.pos.x, y:m.pos.y, r:{r:"destroyed"}, target:m, weapon:weapon});
+    }
+
     // 计算当前角色受一切地图元素影响所得到的攻击属性
     public async calcPlayerAttackerAttrs() {
         var attackerAttrs = this.player.getAttrsAsAttacker(0);

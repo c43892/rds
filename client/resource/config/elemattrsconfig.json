@@ -43,7 +43,7 @@
     "CoinsBig":{"name":"金币", "canOverlap":true, "useWithoutConfirm":true},
     "CoinsHuge":{"name":"金币", "canOverlap":true, "useWithoutConfirm":true},
     "Key":{"name":"钥匙", "useWithTarget":true, "validTargets":["Door", "TreasureBox"]},
-    "Door":{"name":"门", "cnt":1, "useWithoutConfirm":true, "dropItems":["NextLevelPort"]},
+    "Door":{"name":"门", "cnt":1, "useWithoutConfirm":true, "dropItems":["NextLevelPort"], "hideDropItems":true},
     "TreasureBox":{"name":"宝箱", "useWithoutConfirm":true},
     "RandomEgg":{"name":"彩蛋","rdp":"RandomEgg"},
     "Clock":{"name":"钟表"},
@@ -109,9 +109,10 @@
         "attackFlags":["Ice", "Knife"],
         "frozenAttrs":{"rounds":3}
     },
+    "CandyCannon":{"name":"糖果炮弹", "canOverlap":true, "useWithTarget":true},
     "Sword":{"name":"剑", "powerA":1},
     "Vest":{"name":"防护衣", "powerD":-1},
-    "Cocoon":{"name":"茧", "useWithoutConfirm":true},
+    "Cocoon":{"name":"茧", "useWithoutConfirm":true, "hideDropItems":true},
     "WantedOrder":{"name":"通缉令"},
 
     "NextLevelPort":{"name":"下一层"},
