@@ -669,6 +669,13 @@ class MonsterFactory {
         }, m);
     }
 
+    // 普通攻击额外消耗一个回合
+    static costOneMoreRoundOnNormalAttack(m:Monster){
+        return <Monster>ElemFactory.addAI("onAttack", async() => {
+            await m.bt().implAddDeathGodStep(-1, m);
+        }, m , (ps) => ps.target == m && !ps.weapon);
+    }
+
     // boss 特殊逻辑
     static makeBoss(m:Monster):Monster {
         var frozenRound = 0;
