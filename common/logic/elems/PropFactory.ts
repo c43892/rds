@@ -89,6 +89,29 @@ class PropFactory {
                 };
                 return e;
             });
+        },
+
+        // 糖果炮弹
+        "CandyCannon":(attrs) => {
+            return this.createProp(attrs, (e:Elem) => {
+                e.canUse = () => false;
+                e.canUseAt = (x:number, y:number) => {
+                    var map = e.bt().level.map;
+                    var tog:Grid = map.getGridAt(x, y);
+                    var toe:Elem = map.getElemAt(x, y);
+                    return (!tog.isCovered() || tog.isMarked()) && toe && toe instanceof Monster && !toe.isBig() && toe.type != "PlaceHolder" 
+                            && e.bt().player.money >= toe.hp * 3;
+                }
+                e.useAt = async (x:number, y:number) => {
+                    e.cnt --;
+                    var map = e.bt().level.map;
+                    var m = <Monster>map.getElemAt(x, y);
+                    await e.bt().implAddMoney(- m.hp * 3, e);
+                    await e.bt().implDestoryAt(x, y, e);
+                    return e.cnt > 0;
+                }
+                return e;
+            })
         }
     };
 }

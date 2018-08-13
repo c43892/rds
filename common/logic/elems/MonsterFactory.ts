@@ -558,7 +558,7 @@ class MonsterFactory {
 
         var isTargetType = (e:Elem) => { //判断elem是否是当前可用的目标
                 if(!itemTook){
-                    if((e instanceof Prop || e instanceof Item || e instanceof Relic) && e.type != "Door" && e.type != "TreasureBox")
+                    if((e instanceof Prop || e instanceof Item || e instanceof Relic) && e.type != "Door" && e.type != "TreasureBox" && e.type != "Cocoon" )
                         return true;
                 } else if(e.type == "Coins"){
                     return true;
@@ -657,6 +657,8 @@ class MonsterFactory {
                 var rdp = GCfg.getRandomDropGroupCfg(rdp);
                 var dropItems = Utils.randomSelectByWeightWithPlayerFilter(m.bt().player, rdp.elems, m.bt().srand, rdp.num[0], rdp.num[1], true, undefined);
                 for(var dpType of dropItems){
+                    if(!dpType) return;
+
                     var g = BattleUtils.findRandomEmptyGrid(m.bt(), false);
                     if(!g) return;
 
@@ -665,6 +667,13 @@ class MonsterFactory {
                 }
             }
         }, m);
+    }
+
+    // 普通攻击额外消耗一个回合
+    static costOneMoreRoundOnNormalAttack(m:Monster){
+        return <Monster>ElemFactory.addAI("onAttack", async() => {
+            await m.bt().implAddDeathGodStep(-1, m);
+        }, m , (ps) => ps.target == m && !ps.weapon);
     }
 
     // boss 特殊逻辑
