@@ -345,6 +345,72 @@ class AniUtils {
         rev();
     }
 
+    // 开场盖住所有格子
+    public static async coverAll(mapView:MapView) {
+        // 牌背随机从四面八方飞过来盖住
+        var rand = new SRandom();
+        var eachTime = 1000;
+        var mapsize = GCfg.mapsize;
+        var gbgs:egret.Bitmap[] = [];
+        for (var x = 0; x < mapsize.w; x++) {
+            for (var y = 0; y < mapsize.h; y++) {
+                var bg = ViewUtils.createBitmapByName("covered_png");
+                bg["gx"] = x;
+                bg["gy"] = y;                
+                // 随机一个起始位置
+                bg["rn"] = Math.abs(x - mapsize.w) + y;
+
+                bg["fgx"] = mapsize.w;
+                bg["fgy"] = 0;
+
+                // var fgx = // rand.nextInt(0, mapsize.w);
+                // bg["fgx"] = fgx > mapsize.w / 2 ? -fgx : mapsize.w + fgx; 
+                // var fgy = rand.nextInt(0, mapsize.h);
+                // bg["fgy"] = fgy > mapsize.h / 2 ? -fgy : mapsize.h + fgy; 
+                
+                AniUtils.ac.addChild(bg);
+                gbgs.push(bg);                
+            }
+        }
+
+        // 随机排序
+        gbgs.sort((g1, g2) => {
+            var x1 = g1["rn"];
+            var x2 = g2["rn"];
+            if(x1 < x2)
+                return 1;
+            else if(x1 > x2)
+                return -1;
+            else
+                return 0;
+        });
+
+        // 构建单个动画
+        var aniArr = [];
+        gbgs.forEach((g, i) => {
+            var delay = i * eachTime / 30;
+            var fromPos = mapView.logicPos2ShowPos(g["fgx"], g["fgy"]);
+            fromPos = mapView.localToGlobal(fromPos.x, fromPos.y);
+            var toPos = mapView.logicPos2ShowPos(g["gx"], g["gy"]);
+            toPos = mapView.localToGlobal(toPos.x, toPos.y);
+            var dist = Math.abs((fromPos.x - toPos.x) * (fromPos.x - toPos.x) + (fromPos.y - toPos.y) * (fromPos.y - toPos.y))
+            var ani = this.aniFact.createAniByCfg({type:"seq", obj:g, arr:[
+                {type:"delay", time:delay},
+                {type:"tr", fx:fromPos.x, fy:fromPos.y, tx:toPos.x, ty:toPos.y, time:eachTime*Math.sqrt(bg["rn"])/10}
+            ]});
+            aniArr.push(ani);
+        });
+
+        // 把所有动画组合起来       
+        var ani = this.aniFact.createAni("gp", {subAniArr:aniArr});
+        await ani;
+        await AniUtils.delay(5000);
+
+        gbgs.forEach((g, _) => {
+            AniUtils.ac.removeChild(g);
+        });
+    }
+
     // 清除所有相关动画
     public static clearAll(obj:egret.DisplayObject) {
         egret.Tween.removeTweens(obj);

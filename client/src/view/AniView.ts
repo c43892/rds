@@ -424,20 +424,7 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 管卡初始化
     public async onLevelInited(ps) {
-        // 牌背随机从四面八方飞过来盖住
-        var rand = new SRandom();
-        var mapsize = GCfg.mapsize.w;
-        var gbgs = [];
-        for (var x = 0; x < mapsize.w; x++) {
-            for (var y = 0; y < mapsize.h; y++) {
-                var bg = ViewUtils.createBitmapByName("covered_png");
-                bg["gx"] = x;
-                bg["gy"] = y;
-                gbgs.push(bg);
-                // 随机一个起始位置和一个动画延迟
-                gbgs["fgx"] = rand.nextInt(0, mapsize.w);
-            }
-        }
+        await AniUtils.coverAll(this.bv.mapView);
     }
 
     // 关卡事件
