@@ -259,7 +259,7 @@ class ElemView extends egret.DisplayObjectContainer {
                             else
                                 await ElemView.try2UseElem(e);
                         }
-                } else {
+                    } else {
                         // can not use
                         var r = e.canNotUseReason();
                         if (r)

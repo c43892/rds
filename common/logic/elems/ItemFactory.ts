@@ -131,7 +131,7 @@ class ItemFactory {
         },
 
         // 经验书
-        "Magazine": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, () => true, () => undefined, async (e:Elem) => await e.bt().implAddPlayerExp(attrs.dexp), (e) => e.type)(this.createItem()),
+        "Magazine": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, async (e:Elem) => await e.bt().implAddPlayerExp(attrs.dexp), () => true, () => undefined, (e) => e.type)(this.createItem()),
 
         // 金融杂志
         "EconomyMagazine": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, async (e:Elem) => {

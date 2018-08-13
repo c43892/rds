@@ -424,7 +424,7 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 管卡初始化
     public async onLevelInited(ps) {
-        await this.blackOut();
+        await AniUtils.coverAll(this.bv.mapView);
     }
 
     // 关卡事件
