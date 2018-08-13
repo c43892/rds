@@ -5,7 +5,7 @@ class BuffNurse extends Buff {
         super("BuffNurse");
 
         // 开局 +1 HpPotion
-        this.onLevelInited = async (x:number, y:number, statusBeforeUncovered:GridStatus) => {
+        this.onLevelInited = async (x:number, y:number) => {
             var bt:Battle = this.getOwner().bt();
 
             // 随机找个揭开了的空白格子

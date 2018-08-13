@@ -1,6 +1,7 @@
 
 class AniUtils {
     public static ac:egret.DisplayObjectContainer;
+    public static wait4clickImpl;
     public static aniFact:AnimationFactory;
 
     public static reserveObjTrans(obj:egret.DisplayObject, ...poses) {
@@ -175,7 +176,7 @@ class AniUtils {
     public static async floating(obj:egret.DisplayObject) {
         var fp = {x:obj.x, y:obj.y};
         var tp = {x:fp.x, y:fp.y - 25};
-        var aniCfg = {type:"seq", loop:1000, arr:[
+        var aniCfg = {type:"seq", arr:[
             {type:"tr", fx:fp.x, fy:fp.y, tx:tp.x, ty:tp.y, time:750, mode:egret.Ease.quadInOut, noWait:true},
             {type:"tr", fx:tp.x, fy:tp.y, tx:fp.x, ty:fp.y, time:750, mode:egret.Ease.quadInOut, noWait:true},
         ], noWait:true, obj:obj};
@@ -361,8 +362,33 @@ class AniUtils {
     }
 
     // 所有元素随机移动并不等待动画
-    public static async LoopMoveAll(gs:egret.DisplayObject[]) {
-        
+    public static LoopMoveAll(gs:egret.DisplayObject[], mapview:MapView) {
+        var revArr = [];
+        var speed = 1;
+        gs.forEach((g, _) => {
+            var fromPos = mapview.getGridViewAt(g["gx"], g["gy"]).localToGlobal();
+            var toPos1 = mapview.getGridViewAt(g["tgx1"], g["tgy1"]).localToGlobal();
+            var toPos2 = mapview.getGridViewAt(g["tgx2"], g["tgy2"]).localToGlobal();
+            var toPos3 = mapview.getGridViewAt(g["tgx3"], g["tgy3"]).localToGlobal();
+            var parent = g.parent;
+            AniUtils.ac.addChild(g);
+            revArr.push(() => parent.addChild(g));
+            var delay1 = g["delay1"];
+            var delay2 = g["delay2"];
+            var delay3 = g["delay3"];
+            var delay4 = g["delay4"];
+            var t1 = Utils.getDist(fromPos, toPos1) / speed;
+            var t2 = Utils.getDist(toPos1, toPos2) / speed;
+            var t3 = Utils.getDist(toPos2, toPos3) / speed;
+            var t4 = Utils.getDist(toPos3, fromPos) / speed;
+            egret.Tween.get(g, {loop:true}).to({x:fromPos.x, y:fromPos.y}, 0)
+                .to({x:toPos1.x, y:toPos1.y}, t1, egret.Ease.circOut).to({}, delay1)
+                .to({x:toPos2.x, y:toPos2.y}, t2, egret.Ease.circOut).to({}, delay2)
+                .to({x:toPos3.x, y:toPos3.y}, t3, egret.Ease.circOut).to({}, delay3)
+                .to({x:fromPos.x, y:fromPos.y}, t4, egret.Ease.circOut).to({}, delay4);
+        });
+
+        return revArr;
     }
 
     // 开场盖住所有格子
@@ -375,20 +401,17 @@ class AniUtils {
         for (var x = 0; x < mapsize.w; x++) {
             for (var y = 0; y < mapsize.h; y++) {
                 var bg = ViewUtils.createBitmapByName("covered_png");
-                bg["gx"] = x;
-                bg["gy"] = y;                
-                // 随机一个起始位置
                 bg["rn"] = Math.abs(x - mapsize.w) + y;
-
                 bg["fgx"] = mapsize.w;
                 bg["fgy"] = 0;
-                
+                bg["gx"] = x;
+                bg["gy"] = y;                
                 AniUtils.ac.addChild(bg);
                 gbgs.push(bg);                
             }
         }
 
-        // 随机排序
+        // 排序
         gbgs.sort((g1, g2) => {
             var x1 = g1["rn"];
             var x2 = g2["rn"];
@@ -408,7 +431,6 @@ class AniUtils {
             fromPos = mapView.localToGlobal(fromPos.x, fromPos.y);
             var toPos = mapView.logicPos2ShowPos(g["gx"], g["gy"]);
             toPos = mapView.localToGlobal(toPos.x, toPos.y);
-            var dist = Math.abs((fromPos.x - toPos.x) * (fromPos.x - toPos.x) + (fromPos.y - toPos.y) * (fromPos.y - toPos.y))
             var ani = this.aniFact.createAniByCfg({type:"seq", obj:g, arr:[
                 {type:"delay", time:delay},
                 {type:"tr", fx:fromPos.x, fy:fromPos.y, tx:toPos.x, ty:toPos.y, time:eachTime*Math.sqrt(bg["rn"])/10}
@@ -423,6 +445,11 @@ class AniUtils {
         gbgs.forEach((g, _) => {
             AniUtils.ac.removeChild(g);
         });
+    }
+
+    // 等待点击
+    public static async wait4click() {
+        await AniUtils.wait4clickImpl();
     }
 
     // 清除所有相关动画

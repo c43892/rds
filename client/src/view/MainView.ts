@@ -24,7 +24,6 @@ class MainView extends egret.DisplayObjectContainer {
         // 提示确认视图
         this.tcv = new TipConfirmView(w, h);
         this.tcv.x = this.tcv.y = 0;
-        this.addChild(this.tcv);
 
         // 商店视图
         this.sv = new ShopView(w, h);
@@ -142,7 +141,7 @@ class MainView extends egret.DisplayObjectContainer {
             "onGridChanged", "onPlayerChanged", "onAttack", "onElemChanged", "onPropChanged", "onRelicChanged",
             "onElemMoving", "onElemFlying", "onAllCoveredAtInit", "onSuckPlayerBlood", "onMonsterTakeElem", "onBuffAdded",
             "onEyeDemonUncoverGrids", "onElemFloating", "canNotUseItem", "onColddownChanged", "onMonsterEatFood",
-            "onMonsterHurt", "onAddDeathGodStep", "onElem2NextLevel", "onLevelInited", "onUseElemAt", "onUseElem",
+            "onMonsterHurt", "onAddDeathGodStep", "onElem2NextLevel", "onUseElemAt", "onUseElem",
         ], (e) => (ps) => this.bv.av[e](ps));
         bt.registerEvent("onGoOutLevel", async (ps) => {
             await this.av.onGoOutLevel(ps);

@@ -69,7 +69,6 @@ class AnimationFactory {
             // () => Utils.log("ani: " + aw["name"] + " started"),
         ];
         
-        var loop = (ps && ps.loop) ? ps.loop : 0;
         aw["onEnded"] = [
             // () => Utils.log("ani: " + aw["name"] + " ended"),
         ];
@@ -121,7 +120,7 @@ class AnimationFactory {
     }
 
     // 渐隐渐显
-    trans(g:egret.DisplayObject, ps):egret.Tween {
+    public trans(g:egret.DisplayObject, ps):egret.Tween {
         Utils.assert(!!g, "the transform object should not be undefined");
         
         // properties from

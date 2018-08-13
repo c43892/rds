@@ -58,6 +58,7 @@ class Battle {
     // 开始当前战斗
     public async Start() {
         this.loadCurrentLevel(this.btType);
+        BattleUtils.randomElemsPosInMap(this);
         this.level.RandomElemsPos(); // 先随机一下，免得看起来不好看
 
         await this.fireEvent("onLevelInited", {bt:this});
@@ -71,8 +72,8 @@ class Battle {
     // 初始盖住所有格子
     public async coverAllAtInit() {
         this.level.map.travelAll((x, y) => this.level.map.getGridAt(x, y).status = GridStatus.Covered);
-        await this.fireEvent("onAllCoveredAtInit");
-        await this.triggerLogicPoint("onAllCoveredAtInit");
+        await this.fireEvent("onAllCoveredAtInit", {bt:this});
+        await this.triggerLogicPoint("onAllCoveredAtInit", {bt:this});
     }
 
     // 揭开起始区域

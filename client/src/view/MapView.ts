@@ -122,12 +122,12 @@ class MapView extends egret.DisplayObjectContainer {
     }
 
     // 获取所有满足条件的显示元素
-    public getElemViews(f, includingCovered = false):ElemView[] {
+    public getElemViews(f = undefined, includingCovered = false):ElemView[] {
         var evs = [];
         Utils.NDimentionArrayForeach(this.mevs, (ev:ElemView) => {
             if (!includingCovered && ev.getGrid().isCovered()) return;
             var e = ev.getElem();
-            if (e && f(e))
+            if (e && (!f || f(e)))
                 evs.push(ev);
         });
 
