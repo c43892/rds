@@ -402,6 +402,9 @@ class Battle {
                     await this.triggerLogicPoint("onPropChanged", {subType:"useProp", type:e.type});
                 }
             }
+
+        await this.fireEvent("onPlayerActed");
+        await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
         };
     }
 
@@ -488,6 +491,9 @@ class Battle {
                     await this.fireEvent("onPropChanged", {type:e.type});
                     await this.triggerLogicPoint("onPropChanged", {type:e.type});
                 }
+                
+                await this.fireEvent("onPlayerActed");
+                await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
             }
         };
     }
