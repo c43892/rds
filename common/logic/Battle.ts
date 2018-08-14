@@ -817,6 +817,7 @@ class Battle {
 
     // 角色尝试攻击指定位置
     public async implPlayerAttackAt(x:number, y:number, weapon:Elem = undefined) {
+
         // 如果目标被标记
         var g = this.level.map.getGridAt(x, y);
         var marked = g.status == GridStatus.Marked;

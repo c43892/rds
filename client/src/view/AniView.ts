@@ -575,13 +575,22 @@ class AniView extends egret.DisplayObjectContainer {
     // 动画开始播放时，阻止玩家操作
     aniLayerCnt = 0;
     onAniStarted(ani:Promise<void>, aniType:string, ps = undefined) {
+        this.addBlockLayer();
+        ani.then(() => this.decBlockLayer());
+    }
+
+    // 增加阻挡点击的操作层数（类似自旋），只要结果 >0 就会阻挡操作
+    public addBlockLayer() {
         this.addChild(this.aniCover);
         this.aniLayerCnt++;
-        ani.then(() => {
-            Utils.assert(this.aniLayerCnt > 0, "aniLayerCnt corrupted");
-            this.aniLayerCnt--;
-            if (this.aniLayerCnt == 0)
-                this.removeChild(this.aniCover);
-        });
+    }
+
+    // 减少阻挡点击的操作层数，只有结果 == 0 才会解除阻挡
+    public decBlockLayer() {
+        Utils.assert(this.aniLayerCnt > 0, "aniLayerCnt corrupted");
+        this.aniLayerCnt--;
+        if (this.aniLayerCnt == 0)
+            this.removeChild(this.aniCover);
+        Utils.assert(this.aniLayerCnt >= 0, "aniLayerCnt corrupted");
     }
 }

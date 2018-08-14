@@ -97,6 +97,7 @@ class ElemFactory {
             for (var elem of drops) {
                 var g:Grid; // 掉落位置，优先掉在原地
                 var eInPlace = e.bt().level.map.getElemAt(e.pos.x, e.pos.y);
+
                 if (dropInPosition && (eInPlace == undefined || eInPlace == e)) {
                     g = e.bt().level.map.getGridAt(e.pos.x, e.pos.y);
                     dropInPosition = false;
