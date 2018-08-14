@@ -14,7 +14,7 @@ class BattleUtils {
         });
 
         var rs = [];
-        while (rs.length < maxNum && gs.length > 0) {
+        while (gs.length > 0 && rs.length < maxNum && rs.length < gs.length) {
             var n = bt.srand.nextInt(0, gs.length - rs.length);
             var g = gs[n];
             gs[n] = gs[gs.length - 1];
