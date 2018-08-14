@@ -14,7 +14,7 @@ class BattleUtils {
         });
 
         var rs = [];
-        while (rs.length < maxNum && gs.length > 0) {
+        while (gs.length > 0 && rs.length < maxNum && rs.length < gs.length) {
             var n = bt.srand.nextInt(0, gs.length - rs.length);
             var g = gs[n];
             gs[n] = gs[gs.length - 1];
@@ -241,5 +241,52 @@ class BattleUtils {
             return isAroundForBig(e, gridB.pos);
         } else (e)
         return isAroundPos(gridA.pos, gridB.pos);
+    }
+
+    // 乱序地图上所有元素
+    public static randomElemsPosInMap(bt:Battle) {
+
+        var biggerElems = [];
+        var normalElems = [];
+        var map = bt.level.map;
+
+        // 先分开大尺寸元素和普通元素
+        map.travelAll((x, y) => {
+            var e = map.getElemAt(x, y);
+            if (!e || e.type == "PlaceHolder") return;
+
+            if (e.isBig())
+                biggerElems.push(e);
+            else
+                normalElems.push(e);
+
+            map.removeElemAt(e.pos.x, e.pos.y);
+        });
+
+        // 先给大尺寸元素找到随机位置
+        for (var e of biggerElems) {
+            var esize = e.attrs.size;
+            var g = BattleUtils.findRandomEmptyGrid(bt, false, esize);
+            Utils.assert(!!g, "can not place big " + e.type + " with size of " + esize);
+            map.addElemAt(e, g.pos.x, g.pos.y);
+            var hds:Elem[] = e["placeHolders"]();
+            Utils.assert(hds.length == esize.w * esize.h - 1, "big elem size mismatch the number of it's placeholders");
+            for (var i = 0; i < esize.w; i++) {
+                for (var j = 0; j < esize.h; j++) {
+                    if (i == 0 && j == 0) continue;
+                    var hd = hds.shift();
+                    map.switchElems(hd.pos.x, hd.pos.y, e.pos.x + i, e.pos.y + j);
+                }
+            }
+            Utils.assert(hds.length == 0, "more placehodlers need to be placed");
+        }
+
+        // 再放置普通元素
+        for (var e of normalElems) {
+            Utils.assert(e.type != "PlaceHolder", "place holders should be placed already");
+            var g = BattleUtils.findRandomEmptyGrid(bt, false);
+            Utils.assert(!!g, "no more place for elem");
+            map.addElemAt(e, g.pos.x, g.pos.y);
+        }
     }
 }

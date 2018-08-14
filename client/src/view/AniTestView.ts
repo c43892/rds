@@ -1,5 +1,5 @@
 class AniTestView extends BattleView {
-    constructor(w, h) {
+constructor(w, h) {
         super(w, h);
 
         ViewUtils.multiLang(this, this.bg, this.avatarBg, this.occupationBg, this.avatar, this.expBar, 

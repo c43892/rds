@@ -200,7 +200,8 @@ class Map {
     public removeElemAt(x:number, y:number):Elem {
         this.assertBound(x, y);
         var e = this.getElemAt(x, y);
-        if (!e) throw new Error("no element at [" + x + "][" + y + "]");
+        if (!e)
+            throw new Error("no element at [" + x + "][" + y + "]");
 
         this.elems[x][y] = undefined;
 

@@ -422,9 +422,42 @@ class AniView extends egret.DisplayObjectContainer {
         this.bv.refreshPlayer(); // 角色属性受地图上所有东西影响
     }
 
-    // 管卡初始化
-    public async onLevelInited(ps) {
+    // 关卡初始化乱序动画
+    public async onAllCoveredAtInit(ps) {
+        // 等待点击屏幕
+        await AniUtils.wait4click();
+
+        var rand = new SRandom();
+        var svArr = [];
+        var evs = this.bv.mapView.getElemViews(undefined, true);
+        evs.forEach((ev, _) => {
+            var sv = ev.getShowLayer();
+            sv["gx"] = ev.getElem().pos.x;
+            sv["gy"] = ev.getElem().pos.y;
+            sv["tgx1"] = rand.nextInt(0, GCfg.mapsize.w);
+            sv["tgy1"] = rand.nextInt(0, GCfg.mapsize.h);
+            sv["tgx2"] = rand.nextInt(0, GCfg.mapsize.w);
+            sv["tgy2"] = rand.nextInt(0, GCfg.mapsize.h);
+            sv["tgx3"] = rand.nextInt(0, GCfg.mapsize.w);
+            sv["tgy3"] = rand.nextInt(0, GCfg.mapsize.h);
+            sv["delay1"] = rand.nextInt(100, 1000);
+            sv["delay2"] = rand.nextInt(100, 1000);
+            sv["delay3"] = rand.nextInt(100, 1000);
+            sv["delay4"] = rand.nextInt(100, 1000);
+            svArr.push(sv);
+        });
+
+        // 开始乱窜
+        var revArr = AniUtils.LoopMoveAll(svArr, this.bv.mapView);
+        await AniUtils.delay(2000);
+
+        // 开始发牌盖住所有格子
         await AniUtils.coverAll(this.bv.mapView);
+        
+        svArr.forEach((sv, _) => AniUtils.clearAll(sv));
+        revArr.forEach((rev, _) => rev());
+        this.bv.refresh();
+        await AniUtils.delay(1000);
     }
 
     // 关卡事件
@@ -435,13 +468,6 @@ class AniView extends egret.DisplayObjectContainer {
     // 偷钱
     public async onMoneyStolen(ps) {
         await this.aniFact.createAni("stealMoney", {"dm":ps.dm});
-    }
-
-    // 开局时所有元素盖上
-    public async onAllCoveredAtInit(ps) {
-        await this.blackIn();
-        this.bv.refresh();
-        await this.blackOut();
     }
 
     // 吸血
@@ -554,6 +580,7 @@ class AniView extends egret.DisplayObjectContainer {
         ani.then(() => {
             Utils.assert(this.aniLayerCnt > 0, "aniLayerCnt corrupted");
             this.aniLayerCnt--;
+            Utils.log("<=:", this.aniLayerCnt);
             if (this.aniLayerCnt == 0)
                 this.removeChild(this.aniCover);
         });

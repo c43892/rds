@@ -3,7 +3,7 @@ class TipConfirmView extends egret.DisplayObjectContainer {
 
     private aniFact:AnimationFactory;
 
-    private bg;
+    private bg:egret.Bitmap;
     constructor(w:number, h:number) {
         super();
         this.width = w;
@@ -13,11 +13,14 @@ class TipConfirmView extends egret.DisplayObjectContainer {
         this.bg.x = this.bg.y = 0;
         this.bg.width = this.width;
         this.bg.height = this.height;
+        this.bg.touchEnabled = true;
+        this.bg.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onBg, this);
 
         // yesno 选择
         this.createOkYesNoLayer();
 
         this.aniFact = new AnimationFactory();
+        AniUtils.wait4clickImpl = async () => this.wait4clickAny();
     }
     
     clear() {
@@ -26,6 +29,19 @@ class TipConfirmView extends egret.DisplayObjectContainer {
             if (this.contains(sl))
                 this.removeChild(sl);
         }
+    }
+
+    // 等待点击一下
+    onBgClicked;
+    public wait4clickAny():Promise<void> {
+        this.addChild(this.bg);
+        return new Promise<void>((resolve, reject) => this.onBgClicked = resolve);
+    }
+
+    onBg(evt:egret.TouchEvent) {
+        if (!this.onBgClicked) return;
+        this.removeChild(this.bg);
+        this.onBgClicked();
     }
 
     // tips 部分
