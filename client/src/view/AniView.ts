@@ -385,6 +385,8 @@ class AniView extends egret.DisplayObjectContainer {
         var ta = e.type == "CowardZombie" ? 0 : 1; // 贪婪僵尸的飞行是带隐藏效果的
         await AniUtils.flyAndFadeout(sv, tosv.localToGlobal(), 500, 1, ta, egret.Ease.quintIn);
         this.bv.refreshPlayer();
+        this.bv.mapView.refreshAt(ps.fromPos.x, ps.fromPos.y);
+        this.bv.mapView.refreshAt(ps.toPos.x, ps.toPos.y);
     }
 
     // 元素跟去下一层

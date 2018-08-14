@@ -402,6 +402,9 @@ class Battle {
                     await this.triggerLogicPoint("onPropChanged", {subType:"useProp", type:e.type});
                 }
             }
+
+        await this.fireEvent("onPlayerActed");
+        await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
         };
     }
 
@@ -488,6 +491,9 @@ class Battle {
                     await this.fireEvent("onPropChanged", {type:e.type});
                     await this.triggerLogicPoint("onPropChanged", {type:e.type});
                 }
+                
+                await this.fireEvent("onPlayerActed");
+                await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
             }
         };
     }
@@ -723,10 +729,11 @@ class Battle {
         await this.fireEvent("onGridChanged", {x:e.pos.x, y:e.pos.y, e:e, subType:"frozen"}); 
     }
 
-    // 尝试消灭目标
+    // 尝试消灭目标,只能对某个怪使用
     public async implDestoryAt(x:number, y:number, weapon:Elem = undefined){
         var g = this.level.map.getGridAt(x, y);
         var m = <Monster>g.getElem();
+        Utils.assert(!!m, "there is no monster at pos" + x + "," + y);
         if (g.isCovered()) this.uncover(x, y); // 攻击行为自动揭开地块
         
         // 通知准备攻击,提供给援护怪进行判断是否要行动
