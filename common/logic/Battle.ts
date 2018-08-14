@@ -491,7 +491,7 @@ class Battle {
                     await this.fireEvent("onPropChanged", {type:e.type});
                     await this.triggerLogicPoint("onPropChanged", {type:e.type});
                 }
-                
+
                 await this.fireEvent("onPlayerActed");
                 await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
             }
@@ -824,7 +824,6 @@ class Battle {
 
     // 角色尝试攻击指定位置
     public async implPlayerAttackAt(x:number, y:number, weapon:Elem = undefined) {
-
         // 如果目标被标记
         var g = this.level.map.getGridAt(x, y);
         var marked = g.status == GridStatus.Marked;

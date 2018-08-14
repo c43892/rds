@@ -81,7 +81,7 @@
     "SkeletonKing":{"name":"骷髅王", "rdp":"SkeletonKing", "dropItems":["CoinsSmall"], "cannotTake":true},
     "SwatheZombie":{"name":"缠绕僵尸", "invalid":["Cocoon"], "dropItems":["CoinsSmall"]},
     "BoxMonster":{"name":"愤怒宝箱", "rdps":["treasureBox1", "treasureBox2", "treasureBox2"]},
-    "Ghost":{"name":"幽灵", "dropItems":["CoinsSmall"], "cannotTake":true},
+    "Ghost":{"name":"幽灵", "attackFlags":["AmorPenetrate"], "dropItems":["CoinsSmall"], "cannotTake":true},
     
     "ShopNpc":{"name":"商人", "hp":5},
 
