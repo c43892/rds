@@ -580,7 +580,6 @@ class AniView extends egret.DisplayObjectContainer {
         ani.then(() => {
             Utils.assert(this.aniLayerCnt > 0, "aniLayerCnt corrupted");
             this.aniLayerCnt--;
-            Utils.log("<=:", this.aniLayerCnt);
             if (this.aniLayerCnt == 0)
                 this.removeChild(this.aniCover);
         });
