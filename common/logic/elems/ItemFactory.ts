@@ -157,6 +157,9 @@ class ItemFactory {
             var e = this.createItem();
             e.canBeDragDrop = true;
             e = ElemFactory.addAI("onAttackResult", async (ps) => {
+                var fs = ps.attackerAttrs.attackFlags;
+                if (Utils.indexOf(fs, (s:string) => s == "AmorPenetrate") > -1) return;
+
                 var priorCD = e.cd;
                 e.resetCD();
                 ps.r.r = "blocked";
@@ -197,6 +200,9 @@ class ItemFactory {
             var e = this.createItem();
             e.canBeDragDrop = true;
             e = ElemFactory.addAI("onAttacking",async (ps) => {
+                var fs = ps.attackerAttrs.attackFlags;
+                if (Utils.indexOf(fs, (s:string) => s == "AmorPenetrate") > -1) return;
+
                 var attackerAttrs = ps.attackerAttrs;
                 if(!(attackerAttrs.owner instanceof Monster)) return;
                 attackerAttrs.power.b += e.attrs.powerD;
