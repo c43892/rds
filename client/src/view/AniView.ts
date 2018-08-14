@@ -135,10 +135,9 @@ class AniView extends egret.DisplayObjectContainer {
                 img.x = gv.x - (img.width - gv.width) / 2;
                 img.y = gv.y - (img.height - gv.height) / 2;
                 gv.parent.addChild(img);
-                await this.aniFact.createAni("tr", {
+                this.aniFact.createAni("tr", {
                     obj:img, time: 500, ta:0, noWait:true
-                });
-                gv.parent.addChild(img);
+                }).then(() => gv.parent.removeChild(img));
             }
             break;
             default:
