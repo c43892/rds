@@ -80,7 +80,7 @@ class ElemView extends egret.DisplayObjectContainer {
                 dpe = e.dropItems[n];
         }
 
-        var show = (!g.isCovered() || g.isMarked()) && dpe && !e.attrs.hideDropItems;
+        var show = (!g.isCovered() || g.isMarked()) && !!dpe && !e.attrs.hideDropItems;
         if (show) {
             ViewUtils.setTexName(this.dropElemImg, dpe.getElemImgRes() + "_png");
             this.showLayer.setChildIndex(this.dropElemImg, -1);

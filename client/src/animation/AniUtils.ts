@@ -429,6 +429,8 @@ class AniUtils {
             var delay = i * eachTime / 30;
             var fromPos = mapView.logicPos2ShowPos(g["fgx"], g["fgy"]);
             fromPos = mapView.localToGlobal(fromPos.x, fromPos.y);
+            g.x = fromPos.x;
+            g.y = fromPos.y;
             var toPos = mapView.logicPos2ShowPos(g["gx"], g["gy"]);
             toPos = mapView.localToGlobal(toPos.x, toPos.y);
             var ani = this.aniFact.createAniByCfg({type:"seq", obj:g, arr:[

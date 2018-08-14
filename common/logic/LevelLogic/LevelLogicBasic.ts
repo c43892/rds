@@ -23,7 +23,6 @@ class LevelLogicBasic extends LevelLogic{
                                 var key = bt.level.map.findFirstElem((e:Elem) => e.type == "Key");
                                 await bt.implMonsterTakeElems(elite, [key], true);
                                 keys = Utils.remove(keys, key);
-                                elite.addDropItem(key);
                             }
                         }
                     }
@@ -33,7 +32,6 @@ class LevelLogicBasic extends LevelLogic{
                             var key = bt.level.map.findFirstElem((e:Elem) => e.type == "Key");
                             await bt.implMonsterTakeElems(elite, [key], true);
                             keys = Utils.remove(keys, key);
-                            elite.addDropItem(key);
                         }
                     }
                     if(keys.length > 0){
@@ -44,10 +42,8 @@ class LevelLogicBasic extends LevelLogic{
                 }
                 case "boss":{
                     var boss = <Monster>bt.level.map.findAllElems((e:Elem) => e instanceof Monster && e.isBig())[0];
-                    for(var key of keys){
+                    for(var key of keys)
                         await bt.implMonsterTakeElems(boss, [key], true);
-                        boss.addDropItem(key);
-                    }
                     break;
                 }
             }    
@@ -60,7 +56,6 @@ class LevelLogicBasic extends LevelLogic{
             var key = keys[bt.srand.nextInt(0, keys.length)];
             keys = Utils.remove(keys, key);
             await bt.implMonsterTakeElems(m, [key], true);
-            m.addDropItem(key);
         }
     }
 }

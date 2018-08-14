@@ -258,11 +258,7 @@ class MonsterFactory {
             });            
             if(es.length == 0) return;
 
-            await m.bt().implMonsterTakeElems(m, es, dropOnDie);
-            if (dropOnDie) {
-                for(var e of es)
-                    m.addDropItem(e);
-            }
+            await m.bt().implMonsterTakeElems(m, es, dropOnDie);            
         }, m);
     }
 
@@ -549,7 +545,6 @@ class MonsterFactory {
         var takeTarget = async () => { //在周围8格中随机拿走一个物品
                 var targetElem = targetElems[m.bt().srand.nextInt(0, targetElems.length)];
                 await m.bt().implMonsterTakeElems(m, [targetElem], true);
-                m.addDropItem(targetElem);
                 await m.bt().fireEvent("onElemChanged", {subType:"takeItem", e:m});
                 if(targetElem.type != "Coins"){
                     itemTook = true;

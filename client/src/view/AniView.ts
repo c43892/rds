@@ -135,6 +135,7 @@ class AniView extends egret.DisplayObjectContainer {
                 img.x = gv.x - (img.width - gv.width) / 2;
                 img.y = gv.y - (img.height - gv.height) / 2;
                 gv.parent.addChild(img);
+                // 这个动画不等
                 this.aniFact.createAni("tr", {
                     obj:img, time: 500, ta:0, noWait:true
                 }).then(() => gv.parent.removeChild(img));
@@ -493,6 +494,7 @@ class AniView extends egret.DisplayObjectContainer {
             var dropItemImg = this.bv.mapView.getElemViewAt(m.pos.x, m.pos.y).getDropItemImg();
             var g = this.getSV(e)
             await AniUtils.fly2(g, g, dropItemImg, false, 1);
+            this.bv.mapView.refreshAt(m.pos.x, m.pos.y);
         } else { // 直线飞向怪物消失
             var svArr = [];
             for (var e of es) {
