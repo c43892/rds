@@ -352,8 +352,8 @@ class Battle {
 
             var stateBeforeUncover = this.level.map.grids[x][y].status;
             await this.uncover(x, y);
-            await this.fireEvent("onPlayerActed");
-            await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
+            await this.fireEvent("onPlayerActed", {subType:"uncoverAt", num:-1});
+            await this.triggerLogicPoint("onPlayerActed", {subType:"uncoverAt", num:-1}); // 算一次角色行动
             
             await this.checkPlayerLevelUpAndDie();
         };
@@ -376,8 +376,8 @@ class Battle {
             await this.fireEvent("onElemChanged", {subType:"useElem", e:e});
             await this.triggerLogicPoint("onElemChanged", {subType:"useElem", e:e});
 
-            await this.fireEvent("onPlayerActed");
-            await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
+            await this.fireEvent("onPlayerActed", {subType:"useElem", e:e, num:-1});
+            await this.triggerLogicPoint("onPlayerActed", {subType:"useElem", e:e, num:-1}); // 算一次角色行动
 
             await this.checkPlayerLevelUpAndDie();
         };
@@ -403,8 +403,8 @@ class Battle {
                 }
             }
 
-        await this.fireEvent("onPlayerActed");
-        await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
+        await this.fireEvent("onPlayerActed", {subType:"useProp", e:e, num:-1});
+        await this.triggerLogicPoint("onPlayerActed", {subType:"useProp", e:e, num:-1}); // 算一次角色行动
         };
     }
 
@@ -466,8 +466,8 @@ class Battle {
         await this.fireEvent("onElemChanged", {subType:"useElemAt", e:e, toPos:{x:x, y:y}});
         await this.triggerLogicPoint("onElemChanged", {subType:"useElemAt", e:e, toPos:{x:x, y:y}});
 
-        await this.fireEvent("onPlayerActed");
-        await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
+        await this.fireEvent("onPlayerActed", {subType:"useElemAt", e:e, num:-1});
+        await this.triggerLogicPoint("onPlayerActed", {subType:"useElemAt", e:e, num:-1}); // 算一次角色行动
 
         this.checkPlayerLevelUpAndDie();
     }
@@ -492,8 +492,8 @@ class Battle {
                     await this.triggerLogicPoint("onPropChanged", {type:e.type});
                 }
 
-                await this.fireEvent("onPlayerActed");
-                await this.triggerLogicPoint("onPlayerActed"); // 算一次角色行动
+                await this.fireEvent("onPlayerActed", {subType:"usePropAt", e:e, num:-1});
+                await this.triggerLogicPoint("onPlayerActed", {subType:"usePropAt", e:e, num:-1}); // 算一次角色行动
             }
         };
     }

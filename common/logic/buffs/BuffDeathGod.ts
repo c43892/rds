@@ -3,10 +3,16 @@
 class BuffDeathGod extends Buff {
     constructor() {
         super("BuffDeathGod");
-        this.onPlayerActed = async () => {
-            var p = <Player>this.getOwner();            
+        this.onPlayerActed = async (ps) => {
+            var p = <Player>this.getOwner();
             var bt:Battle = p.bt();
-            await bt.implAddDeathGodStep(-1, undefined, "deathGodBuff");
+            var num = ps.num;
+            if(ps.subType == "useElem"){
+                var extra = ps.e.attrs.esOnNormalAttack;
+                num = extra ? num - extra : num;
+            }
+
+            await bt.implAddDeathGodStep(num, undefined, "deathGodBuff");
             if (p.deathStep == 0 && !bt.level.map.findFirstUncoveredElem((e:Elem) => e.type == "DeathGod"))
                 await this.doEffect();
         };

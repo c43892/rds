@@ -47,7 +47,7 @@
     "TreasureBox":{"name":"宝箱", "useWithoutConfirm":true},
     "RandomEgg":{"name":"彩蛋","rdp":"RandomEgg"},
     "Clock":{"name":"钟表"},
-    "HpCapsule":{"name":"医疗药剂", "cnt":5, "heal":1},    
+    "HpCapsule":{"name":"医疗药剂", "cnt":5, "heal":1},
     "Magazine":{"name":"自然杂志", "cnt":3, "dexp":2, "useWithoutConfirm":true},
     "EconomyMagazine":{"name":"金融杂志", "cnt":3, "dexp":2, "useWithoutConfirm":true},
     "Shield":{"name":"盾牌", "cd":3},
@@ -70,7 +70,7 @@
     "CommanderZombie":{"name":"指挥官僵尸", "dropItems":["CoinsSmall"]},
     "RageZombie":{"name":"狂暴僵尸", "dropItems":["CoinsSmall"]},
     "HideZombie":{"name":"隐匿僵尸", "dropItems":["CoinsSmall"]},
-    "GuardZombie":{"name":"护卫僵尸", "dropItems":["CoinsSmall"]},
+    "BallShito":{"name":"圆球使徒", "dropItems":["CoinsSmall"]},
     "ReviveZombie":{"name":"复生僵尸", "reviveCnt":1, "dropItems":["CoinsSmall"]},
     "CowardZombie":{"name":"胆怯僵尸", "dropItems":["CoinsTiny"]},
     "MarkZombie":{"name":"标记僵尸", "dropItems":["CoinsTiny"]},
@@ -82,6 +82,7 @@
     "SwatheZombie":{"name":"缠绕僵尸", "invalid":["Cocoon"], "dropItems":["CoinsSmall"]},
     "BoxMonster":{"name":"愤怒宝箱", "rdps":["treasureBox1", "treasureBox2", "treasureBox2"]},
     "Ghost":{"name":"幽灵", "attackFlags":["AmorPenetrate"], "dropItems":["CoinsSmall"], "cannotTake":true},
+    "Slime":{"name":"史莱姆", "esOnNormalAttack":1, "dropItems":["CoinsTiny"]},
     
     "ShopNpc":{"name":"商人", "hp":5},
 

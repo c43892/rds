@@ -126,7 +126,7 @@ class MonsterFactory {
         "CommanderZombie": (attrs) => MonsterFactory.doEnhanceAura(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //指挥官僵尸
         "RageZombie": (attrs) => MonsterFactory.doAddPowerOnHurt(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //狂暴僵尸
         "HideZombie": (attrs) => MonsterFactory.doHideAfterUncovered(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //隐匿僵尸
-        "GuardZombie": (attrs) => MonsterFactory.doProtectMonsterAround(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //护卫僵尸
+        "BallShito": (attrs) => MonsterFactory.doProtectMonsterAround(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //圆球使徒
         "ReviveZombie": (attrs) => MonsterFactory.doReviveOndie(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //复生僵尸
         "CowardZombie": (attrs) => MonsterFactory.doHideOnOtherMonsterDie(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //胆怯僵尸
         "MarkZombie":  (attrs) => MonsterFactory.doMarkMonsterOnHurt(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //标记僵尸
@@ -138,6 +138,7 @@ class MonsterFactory {
         "SwatheZombie": (attrs) => MonsterFactory.doSwatheItemsOnSneak(MonsterFactory.doAttackBack(this.createMonster(attrs))), //缠绕僵尸
         "BoxMonster": (attrs) => MonsterFactory.addRandomOnDie(2, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //宝箱怪
         "Ghost": (attrs) => MonsterFactory.doChaseToNextLevel(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //幽灵
+        "Slime": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //史莱姆
 
         "ShopNpc": (attrs) => MonsterFactory.makeShopNPC(this.createMonster(attrs)),
 
@@ -416,8 +417,7 @@ class MonsterFactory {
                 if(n == 0){
                     var ms:Elem[]= [];
                     ms = m.map().findAllElems((e:Elem) => e instanceof Monster && e != m && e.type != "CommanderZombie");
-                    for(var i = 0; i < ms.length; i++){
-                        var theMonster = <Monster>ms[i];
+                    for(var theMonster of <Monster[]>ms){
                         theMonster.hp *= 2;
                         await m.bt().fireEvent("onElemChanged", {subType:"hp", e:theMonster});
                         theMonster.btAttrs.power *= 2;
@@ -450,8 +450,7 @@ class MonsterFactory {
             if(n == 0){
                 var ms:Elem[]= [];
                 ms = m.map().findAllElems((e:Elem) => e instanceof Monster && e != m && e.type != "CommanderZombie");
-                for(var i = 0; i < ms.length; i++){
-                    var theMonster = <Monster>ms[i];
+                for(var theMonster of <Monster[]>ms){
                     theMonster.hp = Math.round(theMonster.hp * 0.5);
                     await m.bt().fireEvent("onElemChanged", {subType:"hp", e:theMonster});
                     theMonster.btAttrs.power =Math.round(theMonster.btAttrs.power * 0.5);
@@ -493,7 +492,7 @@ class MonsterFactory {
             ps.x = m.pos.x;
             ps.y = m.pos.y;
         }, m, (ps) => 
-            (ps.subType == "player2monster" || ps.subType == "monster2monster") && ps.target.type != "GuardZombie" 
+            (ps.subType == "player2monster" || ps.subType == "monster2monster") && ps.target.type != "BallShito" 
             && ps.target.isHazard() && BattleUtils.isAround(m.map().getGridAt(ps.x, ps.y), m.getGrid())
         );
     }
@@ -662,13 +661,6 @@ class MonsterFactory {
                 }
             }
         }, m);
-    }
-
-    // 普通攻击额外消耗一个回合
-    static costOneMoreRoundOnNormalAttack(m:Monster){
-        return <Monster>ElemFactory.addAI("onAttack", async() => {
-            await m.bt().implAddDeathGodStep(-1, m);
-        }, m , (ps) => ps.target == m && !ps.weapon);
     }
 
     // boss 特殊逻辑
