@@ -902,7 +902,7 @@ class Battle {
             if (tar.getGrid().isMarked() && !weapon)
                 (<string[]>attackerAttrs.attackFlags).push("Sneak"); // 突袭标记
 
-            for (var i = 0; i < attackerAttrs.muiltAttack && !tar.isDead(); i++){
+            for (var j = 0; j < attackerAttrs.muiltAttack && !tar.isDead(); j++) {
                 var r = await this.calcAttack("player2monster", attackerAttrs, targetAttrs);
                 if (r.r == "attacked") {
                     await this.implAddMonsterHp(tar, r.dhp);
@@ -969,7 +969,7 @@ class Battle {
 
             // 目标属性
             var targetAttrs = tar.getAttrsAsTarget();
-            for (var i = 0; i < attackerAttrs.muiltAttack && !tar.isDead(); i++) {
+            for (var j = 0; j < attackerAttrs.muiltAttack && !tar.isDead(); j++) {
                 var r = await this.calcAttack("monster2targets", attackerAttrs, targetAttrs);
                 if (r.r == "attacked") {
                     if (tar instanceof Player) {
