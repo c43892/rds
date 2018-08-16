@@ -191,17 +191,6 @@ class AniView extends egret.DisplayObjectContainer {
             this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
     }
 
-    // 怪物受到伤害
-    public async onMonsterHurt(ps) {
-        var m = ps.m;
-        var g = this.getSV(m);
-        var dhp = ps.dhp;
-        var p = g.localToGlobal();
-        AniUtils.jumpingTip(dhp.toString(), {x:p.x+g.width,  y:p.y});
-        await AniUtils.flashAndShake(g);
-        await AniUtils.delay(100);
-    }
-
     // 使用物品
     public async onUseElem(ps) {
         var e = ps.e;
@@ -334,8 +323,27 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 得到攻击结果
     public async onAttacked(ps) {
+        if (ps.targetAttrs.owner instanceof Player)
+            await this.onPlayerGotAttacked(ps);
+        else 
+            await this.onMonsterGotAttacked(ps);
+
         this.bv.refreshPlayer();
         this.bv.mapView.refresh();
+    }
+
+    // 玩家受到攻击
+    async onPlayerGotAttacked(ps) {
+
+    }
+
+    // 怪物受到攻击
+    async onMonsterGotAttacked(ps) {
+        var g = this.getSV(ps.targetAttrs.owner);
+        var dhp = ps.r.dhp;
+        var p = g.localToGlobal();
+        AniUtils.jumpingTip(dhp.toString(), {x:p.x+g.width,  y:p.y});
+        await AniUtils.flashAndShake(g);
     }
 
     // 玩家攻击
