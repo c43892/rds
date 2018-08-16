@@ -66,7 +66,6 @@
     "EyeDemon":{"name":"眼魔", "dropItems":["CoinsTiny"]},
     "RandomEggZombie":{"name":"彩蛋僵尸", "dropItems":["RandomEgg", "CoinsTiny"], "cannotTake":true},
     "LustZombie":{"name":"色欲僵尸", "dropItems":["CoinsTiny"]},
-    "IronZombie":{"name":"钢铁侠僵尸", "dropItems":["CoinsBig"]},
     "CommanderZombie":{"name":"指挥官僵尸", "dropItems":["CoinsSmall"]},
     "RageZombie":{"name":"狂暴僵尸", "dropItems":["CoinsSmall"]},
     "HideZombie":{"name":"隐匿僵尸", "dropItems":["CoinsSmall"]},
@@ -82,7 +81,8 @@
     "SwatheZombie":{"name":"缠绕僵尸", "invalid":["Cocoon"], "dropItems":["CoinsSmall"]},
     "BoxMonster":{"name":"愤怒宝箱", "rdps":["treasureBox1", "treasureBox2", "treasureBox2"]},
     "Ghost":{"name":"幽灵", "attackFlags":["AmorPenetrate"], "dropItems":["CoinsSmall"], "cannotTake":true},
-    "Slime":{"name":"史莱姆", "esOnNormalAttack":1, "dropItems":["CoinsTiny"]},
+    "RedSlime":{"name":"红色史莱姆", "esOnNormalAttack":1, "dropItems":["CoinsTiny"]},
+    "GreenSlime":{"name":"绿色史莱姆", "dropItems":["CoinsTiny"]},
     
     "ShopNpc":{"name":"商人", "hp":5},
 
