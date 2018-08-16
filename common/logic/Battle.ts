@@ -724,8 +724,12 @@ class Battle {
             await m["makeFrozen"](frozenAttrs);
         } else { // 普通怪物生成冰块，转移掉落物品
             var ice = this.level.createElem("IceBlock");
-            m.dropItems.unshift(ice);
+            for (var dp of m.dropItems)
+                ice.addDropItem(dp);
+
+            m.dropItems = [];
             await this.implOnElemDie(m);
+            await this.implAddElemAt(ice, m.pos.x, m.pos.y);
         }
         
         // 被冻结
@@ -917,7 +921,7 @@ class Battle {
     }
 
     // 怪物尝试攻击指定目标
-    public async implMonsterAttackTargets(m:Monster, targets, extraPowerABC = {a:1, b:0, c:0}, selfExplode = false, addFlags:string[] = []) {
+    public async implMonsterAttackTargets(m:Monster, targets, extraPowerABC = {a:0, b:0, c:0}, selfExplode = false, addFlags:string[] = []) {
         var map = this.level.map;
         var mapsize = map.size;
 
