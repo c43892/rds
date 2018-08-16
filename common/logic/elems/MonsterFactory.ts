@@ -296,7 +296,9 @@ class MonsterFactory {
                 addFlags.push("back2sneak");
 
             await m.bt().implMonsterAttackTargets(m, [m.bt().player], undefined, false, addFlags);
-        }, m, (ps) => !ps.weapon && ps.target == m && !m.isDead() && condition());
+        }, m, (ps) => {
+            return !ps.weapon && ps.targetAttrs.owner == m && !m.isDead() && condition()
+        });
     }
 
     // 攻击一次
