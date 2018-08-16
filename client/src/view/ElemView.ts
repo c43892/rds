@@ -9,6 +9,7 @@ class ElemView extends egret.DisplayObjectContainer {
     private elemImg:egret.Bitmap; // 元素图
     private markedImg:egret.Bitmap; // 被标记的怪物上面盖一层
     private banImg:egret.Bitmap; // 禁止符号
+    private cdImg:egret.Bitmap; // cd 计数
 
     private powerBg:egret.Bitmap;
     private shieldBg:egret.Bitmap;
@@ -28,6 +29,7 @@ class ElemView extends egret.DisplayObjectContainer {
         this.elemImg = new egret.Bitmap(); // 元素图
         this.markedImg = ViewUtils.createBitmapByName("marked_png"); // 被标记怪物上面盖一层
         this.banImg = ViewUtils.createBitmapByName("ban_png"); // 禁止符号
+        this.cdImg = new egret.Bitmap(); // cd 计数
         this.showLayer = new egret.DisplayObjectContainer(); // 显示层
         this.addChild(this.showLayer);
 
@@ -150,8 +152,16 @@ class ElemView extends egret.DisplayObjectContainer {
                         
                         if (g.status == GridStatus.Marked) // 被标记怪物上面盖一层
                             this.showLayer.addChild(this.markedImg);
-                    } else if (!e.attrs.invisible && !this.map.isGenerallyValid(e.pos.x, e.pos.y) && e.type != "Hole") // 禁止符号
-                        this.showLayer.addChild(this.banImg);
+                    } else {    
+                        if (e.attrs.showCDNum && e.cd > 0) { // 显示 cd 计数
+                            ViewUtils.setTexName(this.cdImg, "cd" + e.cd + "_png");
+                            this.showLayer.addChild(this.cdImg);
+                        }
+
+                        // 禁止符号
+                        if (!e.attrs.invisible && !this.map.isGenerallyValid(e.pos.x, e.pos.y) && e.type != "Hole")
+                            this.showLayer.addChild(this.banImg);
+                    }
                 }
             break;
         }
@@ -169,7 +179,7 @@ class ElemView extends egret.DisplayObjectContainer {
             this.showLayer.rotation = 0;
         }
 
-        var arr = [this.opLayer, this.elemImg, this.banImg, this.markedImg];
+        var arr = [this.opLayer, this.elemImg, this.banImg, this.markedImg, this.cdImg];
         arr.forEach((a) => {
             a.alpha = 1;
             a.x = 0;
