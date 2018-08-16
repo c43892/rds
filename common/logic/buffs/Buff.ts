@@ -21,7 +21,7 @@ class Buff {
     public beforeGoOutLevel2;
     public onGridChanged; // 形如 function(x:number, y:number, statusBeforeUncoverd:GridStatus)    
     public onSneaking;
-    public onAttacking;
+    public onCalcAttacking;
     public preAttack;
     public preAttackBack;
 }

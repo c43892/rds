@@ -214,7 +214,7 @@ class MonsterFactory {
     // 偷袭：攻击
     static doSneakAttack(m:Monster):Monster {
         // 怪物偷袭，其实并没有 Sneak 标记，不影响战斗计算过程
-        return MonsterFactory.addSneakAI(async () => m.bt().implMonsterAttackPlayer(m), m);
+        return MonsterFactory.addSneakAI(async () => m.bt().implMonsterAttackTargets(m, [m.bt().player]), m);
     }
 
     // 偷袭：偷钱
@@ -286,8 +286,8 @@ class MonsterFactory {
 
     // 被攻击时反击一次
     static doAttackBack(m:Monster, condition = () => true):Monster {
-        return <Monster>ElemFactory.addAI("onAttack", async (ps) => {
-            var preAttackBackPs = {subType:"monster2player", m:m, achieve:true};
+        return <Monster>ElemFactory.addAI("onAttacked", async (ps) => {
+            var preAttackBackPs = {subType:"monster2targets", m:m, achieve:true};
             await m.bt().triggerLogicPoint("preAttackBack", preAttackBackPs);
             if (!preAttackBackPs.achieve) return;
 
@@ -295,7 +295,7 @@ class MonsterFactory {
             if (Utils.contains(ps.attackerAttrs.attackFlags, "Sneak"))
                 addFlags.push("back2sneak");
 
-            await m.bt().implMonsterAttackPlayer(m, false, addFlags);
+            await m.bt().implMonsterAttackTargets(m, [m.bt().player], undefined, false, addFlags);
         }, m, (ps) => !ps.weapon && ps.target == m && !m.isDead() && condition());
     }
 
@@ -310,14 +310,11 @@ class MonsterFactory {
                 var target = findTarget();
                 if (!target) return;
 
-                // 判断射程
-                if (!m.inAttackRange(target)) return;
+                // 如果是打怪，需要判断射程
+                if (target instanceof Monster && !m.inAttackRange(target)) return;
 
                 interval = 0;
-                if (target instanceof Player)
-                    await m.bt().implMonsterAttackPlayer(m);
-                else if (target instanceof Monster)
-                    await m.bt().implMonsterAttackMonster(m, target);
+                await m.bt().implMonsterAttackTargets(m, [target]);
             }
         }, m);
     }
@@ -332,7 +329,7 @@ class MonsterFactory {
                     await m.bt().fireEvent("onGridChanged", {x:m.pos.x, y:m.pos.y, subType:"gridUncovered", stateBeforeUncover:stateBeforeUncover});
                 }
 
-                await m.bt().implMonsterAttackPlayer(m);
+                await m.bt().implMonsterAttackTargets(m, [m.bt().player]);
             }, m);
     }
 
@@ -353,10 +350,9 @@ class MonsterFactory {
         var cnt = 0;
         return <Monster>ElemFactory.addAI("onPlayerActed", async () => {
             cnt++;
-            if(cnt > m.attrs.selfExplode.cnt)
-            {
+            if(cnt > m.attrs.selfExplode.cnt) {
                 m.btAttrs.power = m.btAttrs.power * m.attrs.selfExplode.mult;
-                await m.bt().implMonsterAttackPlayer(m, true);
+                await m.bt().implMonsterAttackTargets(m, [m.bt().player], {a:m.attrs.selfExplode.mult, b:0, c:0}, true);
             }
         }, m);
     }
@@ -482,19 +478,19 @@ class MonsterFactory {
 
     // 援护逻辑
     static doProtectMonsterAround(m:Monster):Monster {
-        return <Monster>ElemFactory.addAIEvenCovered("preAttack", async (ps) => {
-            if(m.getGrid().isCovered()){ //如果护卫所在地块还没被揭开,要揭开它但不要触发偷袭逻辑
-                var stateBeforeUncover = m.getGrid().status;
-                m.getGrid().status = GridStatus.Uncovered;
-                await m.bt().fireEvent("onGridChanged", {x:m.pos.x, y:m.pos.y, subType:"gridUncovered", stateBeforeUncover:stateBeforeUncover});
-            }
-            ps.target = m;
-            ps.x = m.pos.x;
-            ps.y = m.pos.y;
-        }, m, (ps) => 
-            (ps.subType == "player2monster" || ps.subType == "monster2monster") && ps.target.type != "BallShito" 
-            && ps.target.isHazard() && BattleUtils.isAround(m.map().getGridAt(ps.x, ps.y), m.getGrid())
-        );
+        var filter = (tar) => !(tar instanceof Player) 
+                && tar.type != "BallShito"
+                && tar.isHazard() && BattleUtils.isAround(m.map().getGridAt(tar.pos.x, tar.pos.y), m.getGrid());
+
+        return <Monster>ElemFactory.addAIEvenCovered("onAttacking", async (ps) => {
+            var tarN = Utils.indexOf(ps.targets, filter);
+            Utils.assert(tarN >= 0, "can not find the protect aim");
+
+            if(m.getGrid().isCovered()) //如果护卫所在地块还没被揭开,要揭开它但不要触发偷袭逻辑
+                await m.bt().uncover(m.pos.x, m.pos.y, false);
+            
+            ps.targets[tarN] = m; // 变更目标
+        }, m, (ps) => Utils.contains(ps.targets, filter));
     }
 
     // 其他怪物死亡时逃进阴影

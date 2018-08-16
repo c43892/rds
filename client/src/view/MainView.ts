@@ -138,7 +138,7 @@ class MainView extends egret.DisplayObjectContainer {
         bt.registerEvent("onLevelInited", (ps) => this.bv.initBattleView(ps));
         bt.registerEvent("onPlayerDead", async () => this.openPlayerDieView());
         Utils.registerEventHandlers(bt, [
-            "onGridChanged", "onPlayerChanged", "onAttack", "onElemChanged", "onPropChanged", "onRelicChanged",
+            "onGridChanged", "onPlayerChanged", "onAttacking", "onAttacked", "onElemChanged", "onPropChanged", "onRelicChanged",
             "onElemMoving", "onElemFlying", "onAllCoveredAtInit", "onSuckPlayerBlood", "onMonsterTakeElem", "onBuffAdded",
             "onEyeDemonUncoverGrids", "onElemFloating", "canNotUseItem", "onColddownChanged", "onMonsterEatFood",
             "onMonsterHurt", "onAddDeathGodStep", "onElem2NextLevel", "onUseElemAt", "onUseElem",

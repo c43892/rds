@@ -322,7 +322,7 @@ class AniView extends egret.DisplayObjectContainer {
     }
 
     // 产生攻击行为
-    public async onAttack(ps) {        
+    public async onAttacking(ps) {        
         if (ps.subType == "player2monster")
             await this.onPlayerAttack(ps);
         else

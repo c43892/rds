@@ -156,7 +156,7 @@ class ItemFactory {
         "Shield": (attrs) => {
             var e = this.createItem();
             e.canBeDragDrop = true;
-            e = ElemFactory.addAI("onAttackResult", async (ps) => {
+            e = ElemFactory.addAI("onCalcAttackResult", async (ps) => {
                 var fs = ps.attackerAttrs.attackFlags;
                 if (Utils.indexOf(fs, (s:string) => s == "AmorPenetrate") > -1) return;
 
@@ -165,7 +165,7 @@ class ItemFactory {
                 ps.r.r = "blocked";
                 ps.r.dhp = ps.r.dshield = 0;
                 await e.bt().fireEvent("onColddownChanged", {e:e, priorCD:priorCD});
-            }, e, (ps) => e.isValid() && ps.r.r == "attacked" && ps.subType == "monster2player");
+            }, e, (ps) => e.isValid() && ps.r.r == "attacked" && ps.subType == "monster2targets" && ps.attackerAttrs.owner instanceof Player);
             e = ElemFactory.triggerColddownLogic(e);
             e.getElemImgRes = () => (e.cd <= 0) ? e.type : e.type + "back";
             return e;
@@ -187,7 +187,7 @@ class ItemFactory {
         "Sword": (attrs) => {
             var e = this.createItem();
             e.canBeDragDrop = true;
-            e = ElemFactory.addAI("onAttacking", async (ps) => {
+            e = ElemFactory.addAI("onCalcAttacking", async (ps) => {
                 var attackerAttrs = ps.attackerAttrs;
                 if (!(attackerAttrs.owner instanceof Player)) return;
                 attackerAttrs.power.b += e.attrs.powerA;
@@ -199,7 +199,7 @@ class ItemFactory {
         "Vest": (attrs) => {
             var e = this.createItem();
             e.canBeDragDrop = true;
-            e = ElemFactory.addAI("onAttacking",async (ps) => {
+            e = ElemFactory.addAI("onCalcAttacking",async (ps) => {
                 var fs = ps.attackerAttrs.attackFlags;
                 if (Utils.indexOf(fs, (s:string) => s == "AmorPenetrate") > -1) return;
 

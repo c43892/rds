@@ -99,7 +99,7 @@ class RelicFactory {
         "Fierce": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) return;
-                ElemFactory.addAI("onAttacking", async (ps) => {
+                ElemFactory.addAI("onCalcAttacking", async (ps) => {
                     ps.attackerAttrs.critical.b += attrs.dSneakCritical; // 增加暴击率
                 }, r, (ps) => ps.subType == "player2monster" && Utils.contains(ps.attackerAttrs.attackFlags, "Sneak"));
             });
@@ -123,9 +123,9 @@ class RelicFactory {
         "Unback2Sneak": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) return;
-                ElemFactory.addAI("onAttacking", async (ps) => {
+                ElemFactory.addAI("onCalcAttacking", async (ps) => {
                     ps.targetAttrs.immuneFlags.push("cancelAttack");
-                }, r, (ps) => ps.subType == "monster2player" && ps.attackerAttrs && Utils.contains(ps.attackerAttrs.attackFlags, "back2sneak"));
+                }, r, (ps) => ps.subType == "monster2targets" && ps.attackerAttrs && ps.attackerAttrs.owner instanceof Player && Utils.contains(ps.attackerAttrs.attackFlags, "back2sneak"));
             });
         },
 

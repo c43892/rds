@@ -57,6 +57,9 @@ class PropFactory {
             });
         },
 
+        // 火箭筒
+        "Bazooka": (attrs) => this.createProp(attrs, ElemFactory.weaponLogic(attrs.cnt, true)),
+
         // 火焰射线
         "RayGun": (attrs) => this.createProp(attrs, ElemFactory.weaponLogic(attrs.cnt, true)),
 

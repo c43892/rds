@@ -20,8 +20,9 @@ class BuffSuperPotion extends Buff{
         };
 
         // 免疫攻击伤害和buff
-        this.onAttacking = (ps) => {
-            if(ps.subType != "monster2player")  return;
+        this.onCalcAttacking = (ps) => {
+            if(ps.subType != "monster2targets")
+                return;
 
             ps.targetAttrs.immuneFlags.push("cancelAttack");
         };

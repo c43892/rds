@@ -681,9 +681,9 @@ class Battle {
 
     // 进行一次攻击计算
     public async calcAttack(subType:string, attackerAttrs, targetAttrs) {
-        await this.triggerLogicPoint("onAttacking", {subType:subType, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+        await this.triggerLogicPoint("onCalcAttacking", {subType:subType, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
         var r = this.bc.doAttackCalc(attackerAttrs, targetAttrs); // 可能有免疫或者盾牌需要替换掉这个结果
-        await this.triggerLogicPoint("onAttackResult", {subType:subType, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
+        await this.triggerLogicPoint("onCalcAttackResult", {subType:subType, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
         return r;
     }
 
@@ -691,9 +691,11 @@ class Battle {
     public async implFrozeAt(x:number, y:number, weapon:Elem = undefined) {
         var g = this.level.map.getGridAt(x, y);
         var e = g.getElem();
-        if (g.isCovered()) this.uncover(x, y); // 攻击行为自动揭开地块
+        if (g.isCovered())
+            await this.uncover(x, y); // 攻击行为自动揭开地块
+
         if (!e || !(e instanceof Monster)) { // 如果打空，则不需要战斗计算过程，有个表现就可以了
-            await this.fireEvent("onAttack", {subType:"player2monster", x:x, y:y, weapon:weapon});
+            await this.fireEvent("onAttacking", {subType:"player2monster", x:x, y:y, weapon:weapon});
             return;
         }
 
@@ -707,16 +709,17 @@ class Battle {
         var targetAttrs = m.getAttrsAsTarget();
         var attackerAttrs = weapon.getAttrsAsAttacker();
 
-        // 计算冻结参数
-        var frozenAttrs = weapon.attrs.frozenAttrs;
-        await this.triggerLogicPoint("onFrozenAttrs", {attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, frozenAttrs:frozenAttrs});
+        await this.fireEvent("onAttacking", {subType:"player2monster", x:x, y:y, targets:[m], weapon:weapon});
+        await this.triggerLogicPoint("onAttacking", {subType:"player2monster", x:x, y:y, targets:[m], weapon:weapon});
+        
+        // 不受援护逻辑影响
 
         // 检查免疫
-        if (Utils.contains(targetAttrs.immuneFlags, "Frozen")) {
-            await this.fireEvent("onAttack", {subType:"player2monster", x:x, y:y, r:{r:"immunized"}, target:m, weapon:weapon});
+        if (Utils.contains(targetAttrs.immuneFlags, "Frozen"))
             return;
-        }
 
+        // 计算冻结参数
+        var frozenAttrs = weapon.attrs.frozenAttrs;
         if (m.isBoss) { // boss 冰冻限制行动
             await m["makeFrozen"](frozenAttrs);
         } else { // 普通怪物生成冰块，转移掉落物品
@@ -734,18 +737,21 @@ class Battle {
         var g = this.level.map.getGridAt(x, y);
         var m = <Monster>g.getElem();
         Utils.assert(!!m, "there is no monster at pos" + x + "," + y);
-        if (g.isCovered()) this.uncover(x, y); // 攻击行为自动揭开地块
+        if (g.isCovered())
+            await this.uncover(x, y); // 攻击行为自动揭开地块
         
-        // 通知准备攻击,提供给援护怪进行判断是否要行动
-        var preAttackPs = {subType:"player2monster", x:x, y:y, target:m};
-        await this.fireEvent("preAttack", preAttackPs);
-        await this.triggerLogicPoint("preAttack", preAttackPs);
-        m = preAttackPs.target;
+        var targetAttrs = m.getAttrsAsTarget();
+        var attackerAttrs = weapon.getAttrsAsAttacker();
 
+        var targets = [m];
+        await this.fireEvent("onAttacking",  {subType:"player2monster", x:m.pos.x, y:m.pos.y, r:{r:"destroyed"}, targets:targets, weapon:weapon});
+        await this.triggerLogicPoint("onAttacking", {subType:"player2monster", x:m.pos.x, y:m.pos.y, r:{r:"destroyed"}, targets:targets, weapon:weapon});
+
+        // 要受援护逻辑影响！!
+        m = targets[0];
+
+        // 直接死掉
         await this.implOnElemDie(m);
-
-        await this.fireEvent("onAttack", {subType:"player2monster", x:m.pos.x, y:m.pos.y, r:{r:"destroyed"}, target:m, weapon:weapon});
-        await this.triggerLogicPoint("onAttack", {subType:"player2monster", x:m.pos.x, y:m.pos.y, r:{r:"destroyed"}, target:m, weapon:weapon});
     }
 
     // 计算当前角色受一切地图元素影响所得到的攻击属性
@@ -761,7 +767,7 @@ class Battle {
         };
         if (!Utils.contains(attackerAttrs.attackFlags, "simulation"))
             attackerAttrs.attackFlags.push("simulation");
-        await this.triggerLogicPoint("onAttacking", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+        await this.triggerLogicPoint("onCalcAttacking", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
         return attackerAttrs;
     }
 
@@ -777,7 +783,7 @@ class Battle {
             attackFlags:["simulation"],
             addBuffs:[]
         };
-        await this.triggerLogicPoint("onAttacking", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+        await this.triggerLogicPoint("onCalcAttacking", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
         return targetAttrs;
     }
 
@@ -792,7 +798,7 @@ class Battle {
             resist:{a:0, b:0, c:0},
             immuneFlags:[]
         };
-        await this.triggerLogicPoint("onAttacking", {subType:"monster2player", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+        await this.triggerLogicPoint("onCalcAttacking", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
         return attackerAttrs;
     }
 
@@ -808,7 +814,7 @@ class Battle {
             attackFlags:["simulation"],
             addBuffs:[]
         };
-        await this.triggerLogicPoint("onAttacking", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+        await this.triggerLogicPoint("onCalcAttacking", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
         return targetAttrs;
     }
 
@@ -824,118 +830,165 @@ class Battle {
 
     // 角色尝试攻击指定位置
     public async implPlayerAttackAt(x:number, y:number, weapon:Elem = undefined) {
-        // 如果目标被标记
-        var g = this.level.map.getGridAt(x, y);
-        var marked = g.status == GridStatus.Marked;
-        if (g.isCovered()) this.uncover(x, y, weapon != undefined); // 攻击行为自动揭开地块，如果带道具，则取消偷袭逻辑
+        var map = this.level.map;
+        var mapsize = map.size;
 
-        var e = g.getElem();
-        if (!e || !(e instanceof Monster)) { // 如果打空，则不需要战斗计算过程，有个表现就可以了
-            await this.fireEvent("onAttack", {subType:"player2monster", x:x, y:y, target:undefined, weapon:weapon});
-            return;
-        }
-
-        if (e["linkTo"]) { // 是 boss 占位符，更换目标
-            e = e["linkTo"];
-            x = e.pos.x;
-            y = e.pos.y;
-        }
-
-        // 通知准备攻击,提供给援护怪进行判断是否要行动
-        var preAttackPs = {subType:"player2monster", x:x, y:y, target:e};
-        await this.fireEvent("preAttack", preAttackPs);
-        await this.triggerLogicPoint("preAttack", preAttackPs);
-        e = preAttackPs.target;
-
-        var m = <Monster>e;
-        var attackerAttrs = !weapon ? this.player.getAttrsAsAttacker(0) :
-            BattleUtils.mergeBattleAttrsPS(this.player.getAttrsAsAttacker(1), weapon.getAttrsAsAttacker());
-
-        var targetAttrs = m.getAttrsAsTarget();
-        if (marked && !weapon) (<string[]>attackerAttrs.attackFlags).push("Sneak"); // 偷袭标记
-
-        var rs:any[] = []; // 存放该次攻击逻辑中产生的所有攻击结果
-        for (var i = 0; i < attackerAttrs.muiltAttack && !m.isDead(); i++){
-            var r = await this.calcAttack("player2monster", attackerAttrs, targetAttrs);
-            if (r.r == "attacked") {
-                await this.fireEvent("onAttack", {subType:"player2monster", x:m.pos.x, y:m.pos.y, rs:rs, target:m, weapon:weapon, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
-                await this.implAddMonsterHp(m, r.dhp);
-                await this.implAddMonsterShield(m, r.dShield)
+        var poses = [{x:x, y:y}];
+        if (weapon && weapon.attrs.aoe) { // aoe 需要计算覆盖区域
+            var aoe = weapon.attrs.aoe;
+            // aoe 区域尺寸只能是基数
+            Utils.assert(aoe.w%2 == 1 && aoe.h%2 == 1, "do not support aoe size for: " + aoe.w + ", " + aoe.h);
+            poses = [];
+            for (var i = -(aoe.w-1)/2; i < aoe.w/2; i++) {
+                for (var j = -(aoe.w-1)/2; j < aoe.h/2; j++) {
+                    var pt = {x:x + i, y:y + j};
+                    if (pt.x >= 0 && pt.x < mapsize.w && pt.y >= 0 && pt.y < mapsize.h)
+                        poses.push(pt);
+                }
             }
-
-            // 处理附加 buff
-            for (var b of r.addBuffs)
-                await this.implAddBuff(m, "Buff" + b.type, ...b.ps);
         }
 
-        await this.triggerLogicPoint("onAttack", {subType:"player2monster", x:m.pos.x, y:m.pos.y, rs:rs, target:m, weapon:weapon, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+        // 至此，poses 就是攻击区域了，同时 x, y 是玩家选择的原始目标位置
+
+        // 统计被攻击的怪物
+        var tars:Monster[] = [];
+        for (var i = 0; i < poses.length; i++) {
+            var pos = poses[i];
+            var g = map.getGridAt(pos.x, pos.y);
+            var e = g.getElem();
+            if (e && e instanceof Monster) {
+                if (e["linkTo"]) // 如果是 boss 占位符，更换目标
+                    e = e["linkTo"];
+
+                // 需要考虑大体积怪物的去重问题
+                if (!Utils.contains(tars, e))
+                    tars.push(<Monster>e);
+            }
+        }
+
+        // 攻击行为启动
+        await this.fireEvent("onAttacking", {subType:"player2monster", x:x, y:y, weapon:weapon, targets:tars});
+
+        // 攻击行为自动揭开地块
+        for (var i = 0; i < poses.length; i++) {
+            var pos = poses[i];
+            var g = map.getGridAt(pos.x, pos.y);
+            if (g.isCovered())
+                await this.uncover(pos.x, pos.y, weapon != undefined);
+        };
+
+        await this.triggerLogicPoint("onAttacking", {subType:"player2monster", x:x, y:y, weapon:weapon, targets:tars});
+
+        // tars 可能在这里发生变化了，比如援护，就会更改攻击目标
+
+        // 如果打空，则不需要战斗计算过程，有个表现就可以了
+        if (tars.length == 0)
+            return;
+
+        // 攻击属性只需要计算一次
+        var attackerAttrs = !weapon ? this.player.getAttrsAsAttacker(0) :
+                BattleUtils.mergeBattleAttrsPS(this.player.getAttrsAsAttacker(1), weapon.getAttrsAsAttacker());
+
+        // 这里开始循环处理每一个目标的相关逻辑，至此，targets 分散成为单个 target 处理
+        for (var i = 0; i < tars.length; i++) {
+            var tar = tars[i];
+
+            // 目标属性
+            var targetAttrs = tar.getAttrsAsTarget();
+            if (tar.getGrid().isMarked() && !weapon)
+                (<string[]>attackerAttrs.attackFlags).push("Sneak"); // 突袭标记
+
+            for (var i = 0; i < attackerAttrs.muiltAttack && !tar.isDead(); i++){
+                var r = await this.calcAttack("player2monster", attackerAttrs, targetAttrs);
+                if (r.r == "attacked") {
+                    await this.implAddMonsterHp(tar, r.dhp);
+                    await this.implAddMonsterShield(tar, r.dShield)
+                }
+
+                // 这里可能是各种攻击结果，成功，闪避，无敌等
+                await this.fireEvent("onAttacked", {attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
+
+                // 处理附加 buff
+                for (var b of r.addBuffs)
+                    await this.implAddBuff(tar, "Buff" + b.type, ...b.ps);
+            }
+        }
     }
 
-    // 指定怪物尝试攻击角色
-    public async implMonsterAttackPlayer(m:Monster, selfExplode = false, addFlags:string[] = []) {
-        // 自爆逻辑的攻击属性要特别处理一下
-        var weaponAttrs = selfExplode ? m.attrs.selfExplode : undefined;
-        Utils.assert(!selfExplode || weaponAttrs, "self explode needs specific attr: selfExplode");
+    // 怪物尝试攻击指定目标
+    public async implMonsterAttackTargets(m:Monster, targets, extraPowerABC = {a:1, b:0, c:0}, selfExplode = false, addFlags:string[] = []) {
+        var map = this.level.map;
+        var mapsize = map.size;
 
+        // 至此，poses 就是攻击区域了，同时 x, y 是玩家选择的原始目标位置
+
+        // 统计被攻击的目标
+        var tars = [];
+        for (var i = 0; i < targets.length; i++) {
+            var e = targets[i];
+            if (e && e instanceof Monster) {
+                if (e["linkTo"]) // 如果是 boss 占位符，更换目标
+                    e = e["linkTo"];
+
+                // 需要考虑大体积怪物的去重问题
+                if (!Utils.contains(tars, e))
+                    tars.push(<Monster>e);
+            } else {
+                Utils.assert(e instanceof Player, "the targets should be monsters or the player");
+                tars.push(e);
+            }
+        }
+
+        // 攻击行为启动
+        await this.fireEvent("onAttacking", {subType:"monstar2targets", m:m, targets:tars});
+        await this.triggerLogicPoint("onAttacking", {subType:"monstar2targets", targets:tars});
+
+        // tars 可能在这里发生变化了，比如援护，就会更改攻击目标
+
+        // 如果打空，则不需要战斗计算过程，有个表现就可以了
+        if (tars.length == 0)
+            return;
+
+        // 攻击属性需要特别处理，攻击力要计算两次
         var attackerAttrs = m.getAttrsAsAttacker();
-        var targetAttrs = this.player.getAttrsAsTarget();
+        var powerValue = this.bc.doCalc(attackerAttrs, "power");
+        attackerAttrs.power = {a:extraPowerABC.a, b:extraPowerABC.b + powerValue, c:extraPowerABC.c};
 
         for (var af of addFlags)
             if (!Utils.contains(attackerAttrs.attackFlags, af))
                 attackerAttrs.attackFlags.push(af);
 
-        var rs:any[] = []; // 存放该次攻击逻辑中产生的所有攻击结果
-        for (var i = 0; i < attackerAttrs.muiltAttack && !this.player.isDead(); i++){
-            var r = await this.calcAttack("monster2player", attackerAttrs, targetAttrs);
-            rs.push(r);
-            Utils.assert(r.dShield == 0, "player does not support Shield");
-            if (r.r == "attacked")
-                await this.implAddPlayerHp(r.dhp);
+        // 这里开始循环处理每一个目标的相关逻辑，至此，targets 分散成为单个 target 处理
+        for (var i = 0; i < tars.length; i++) {
+            var tar = tars[i];
 
-            // 处理附加 buff
-            for (var b of r.addBuffs)
-                await this.implAddBuff(this.player, "Buff" + b.type, ...b.ps);
-        
-            await this.fireEvent("onAttack", {subType:"monster2player", r:r, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+            // 目标属性
+            var targetAttrs = tar.getAttrsAsTarget();
+            for (var i = 0; i < attackerAttrs.muiltAttack && !tar.isDead(); i++) {
+                var r = await this.calcAttack("monster2targets", attackerAttrs, targetAttrs);
+                if (r.r == "attacked") {
+                    if (tar instanceof Player) {
+                        Utils.assert(r.dShield == 0, "the player has no shield");
+                        await this.implAddPlayerHp(r.dhp);
+                    } else {
+                        Utils.assert(tar instanceof Monster, "the target should monster, but got " + tar.type);
+                        await this.implAddMonsterHp(tar, r.dhp);
+                        await this.implAddMonsterShield(tar, r.dShield)
+                    }
+                }
+
+                // 这里可能是各种攻击结果，成功，闪避，无敌等
+                await this.fireEvent("onAttacked", {attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
+                await this.triggerLogicPoint("onAttacked", {attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
+
+                // 处理附加 buff
+                for (var b of r.addBuffs)
+                    await this.implAddBuff(m, "Buff" + b.type, ...b.ps);
+            }
         }
-
-        await this.triggerLogicPoint("onAttack", {subType:"monster2player", x:m.pos.x, y:m.pos.x, rs:rs, target:this.player, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
 
         if (selfExplode && !m.isDead()) // 自爆还要走死亡逻辑
             await this.implOnElemDie(m);
-    }
-
-    // 指定怪物尝试攻击指定怪物
-    public async implMonsterAttackMonster(attacker:Monster, target:Monster, selfExplode = false, addFlags:string[] = []) {
-        if (target["linkTo"]) // 是 boss 占位符，更换目标
-            target = target["linkTo"];
-
-        // 通知准备攻击,提供给援护怪进行判断是否要行动
-        var preAttackPs = {subType:"monster2monster", x:target.pos.x, y:target.pos.y, target:target};
-        await this.fireEvent("preAttack", preAttackPs);
-        await this.triggerLogicPoint("preAttack", preAttackPs);
-        target = preAttackPs.target;
-        
-        var attackerAttrs = attacker.getAttrsAsAttacker();
-        var targetAttrs = target.getAttrsAsTarget();
-
-        var rs:any[] = []; // 存放该次攻击逻辑中产生的所有攻击结果
-        for(var i = 0 ; i < attackerAttrs.muiltAttack && !target.isDead(); i++) {
-            var r = await this.calcAttack("monster2monster", attackerAttrs, targetAttrs);
-            rs.push(r);
-            if (r.r == "attacked") {
-                await this.implAddMonsterHp(target, r.dhp);
-                await this.implAddMonsterShield(target, r.dShield)
-            }
-
-            // 处理附加 buff
-            for (var b of r.addBuffs)
-                await this.implAddBuff(target, "Buff" + b.type, ...b.ps);
-
-            await this.fireEvent("onAttack", {subType:"monster2monster", x:target.pos.x, y:target.pos.x, rs:rs, target:target, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
-        }
-
-        await this.triggerLogicPoint("onAttack", {subType:"monster2monster", x:target.pos.x, y:target.pos.x, rs:rs, target:target, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
     }
 
     public async implElemFollow2NextLevel(e:Elem) {

@@ -12,7 +12,7 @@ class BuffStrangthPotion extends Buff{
                 await bt.implRemoveBuff(this.getOwner(), this.type);
         };
 
-        this.onAttacking = async (ps) => {
+        this.onCalcAttacking = async (ps) => {
             var attackerAttrs = ps.attackerAttrs;
             if (!(attackerAttrs.owner instanceof Player)) return;
             attackerAttrs.power.b += 1;
