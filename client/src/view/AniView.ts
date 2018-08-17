@@ -332,13 +332,25 @@ class AniView extends egret.DisplayObjectContainer {
         this.bv.mapView.refresh();
     }
 
+    // 攻击时显示怪物伤害值
+    showMonsterAttackValue(m, dhp) {
+        var sv = this.getSV(m);
+        if (dhp < 0) {
+            var p = sv.localToGlobal();
+            AniUtils.popupTipAt(dhp.toString(), "popupTipBg_png", {x:p.x-25, y:p.y-25});
+        }
+    }
+
     // 玩家受到攻击
     async onPlayerGotAttacked(ps) {
-
+        this.showMonsterAttackValue(ps.attackerAttrs.owner, ps.r.dhp);
     }
 
     // 怪物受到攻击
     async onMonsterGotAttacked(ps) {
+        if (ps.attackerAttrs.owner instanceof Monster)
+            this.showMonsterAttackValue(ps.attackerAttrs.owner, ps.r.dhp);
+        
         var g = this.getSV(ps.targetAttrs.owner);
         var dhp = ps.r.dhp;
         var p = g.localToGlobal();
@@ -370,15 +382,7 @@ class AniView extends egret.DisplayObjectContainer {
     public async onMonsterAttack(ps) {
         var m:Elem = ps.m;
         var sv = this.getSV(m);
-        
-        // var dhp = ps.r.dhp;
-        // if (dhp < 0) {
-        //     var p = sv.localToGlobal();
-        //     AniUtils.popupTipAt(dhp.toString(), "popupTipBg_png", {x:p.x-25, y:p.y-25});
-        // }
-
         await AniUtils.shakeTo(sv);
-        // await AniUtils.delay(100);
     }
 
     // 怪物吃食物
