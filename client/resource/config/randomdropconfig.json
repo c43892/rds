@@ -8,7 +8,14 @@
     "treasureBox2": {"num":[1, 2], "elems":{
         "MedicineBox":10,
         "Hawkeye":10,
-        "TimeMachine":10
+        "TimeMachine":10,
+        "Endurance":10,
+        "Power":10,
+        "Agile":10,
+        "Fierce":10,        
+        "Cloak":10,
+        "Unback2Sneak":10,
+        "Crucifix":10
     }},
 
     "treasureBox3": {"num":[1, 2], "elems":{
