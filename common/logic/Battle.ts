@@ -521,7 +521,7 @@ class Battle {
     }
 
     // 尝试启动商店逻辑
-    public async try2openShop(npc:Monster, items, prices, onBuy) {
+    public async try2OpenShop(npc:Monster, items, prices, onBuy) {
         var elem;
         var price;
         var reserveNpc = await this.openShop(items, prices, async (e:Elem, p:number) => {

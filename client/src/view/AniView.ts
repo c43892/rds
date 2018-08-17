@@ -351,7 +351,10 @@ class AniView extends egret.DisplayObjectContainer {
         if (ps.attackerAttrs.owner instanceof Monster)
             this.showMonsterAttackValue(ps.attackerAttrs.owner, ps.r.dhp);
         
-        var g = this.getSV(ps.targetAttrs.owner);
+        var m:Monster = ps.targetAttrs.owner;
+        if (m.isDead()) return; // 死了就不播放受创表现了
+
+        var g = this.getSV(m);
         var dhp = ps.r.dhp;
         var p = g.localToGlobal();
         AniUtils.jumpingTip(dhp.toString(), {x:p.x+g.width,  y:p.y});
