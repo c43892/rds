@@ -287,9 +287,7 @@ class MonsterFactory {
     // 被攻击时反击一次
     static doAttackBack(m:Monster, condition = () => true):Monster {
         return <Monster>ElemFactory.addAI("onAttacked", async (ps) => {
-            var preAttackBackPs = {subType:"monster2targets", m:m, achieve:true};
-            await m.bt().triggerLogicPoint("preAttackBack", preAttackBackPs);
-            if (!preAttackBackPs.achieve) return;
+            if (Utils.contains(ps.attackerAttrs.attackFlags, "immuneAttackBack")) return;
 
             var addFlags = [];
             if (Utils.contains(ps.attackerAttrs.attackFlags, "Sneak"))
@@ -347,14 +345,26 @@ class MonsterFactory {
         }, m);
     }
 
-    // N 回合后自爆,对玩家造成攻击力的 N 倍伤害
+    // N 回合后自爆,对玩家和一个区域内造成攻击力的 N 倍伤害
     static doSelfExplodeAfterNRound(m:Monster):Monster {
         var cnt = 0;
         return <Monster>ElemFactory.addAI("onPlayerActed", async () => {
             cnt++;
             if(cnt > m.attrs.selfExplode.cnt) {
-                m.btAttrs.power = m.btAttrs.power * m.attrs.selfExplode.mult;
-                await m.bt().implMonsterAttackTargets(m, [m.bt().player], {a:m.attrs.selfExplode.mult - 1, b:0, c:0}, true);
+                var mapsize = m.map().size;
+                var aoe = m.attrs.selfExplode.aoe;
+                Utils.assert(aoe.w%2 == 1 && aoe.h%2 == 1, "do not support aoe size for: " + aoe.w + ", " + aoe.h);
+                var poses = [];
+                var x = m.pos.x;
+                var y = m.pos.y;
+                for (var i = - (aoe.w - 1) / 2; i < aoe.w / 2; i++) {
+                    for (var j = - (aoe.w - 1) / 2; j < aoe.h / 2; j++) {
+                        var pt = {x:x + i, y:y + j};
+                        if (pt.x >= 0 && pt.x < mapsize.w && pt.y >= 0 && pt.y < mapsize.h && !(pt.x ==x && pt.y == y))
+                            poses.push(pt);
+                    }
+                }
+                await m.bt().implMonsterAttackPoses(m, poses, {a:m.attrs.selfExplode.mult - 1, b:0, c:0}, true, ["immuneAttackBack"], true);
             }
         }, m);
     }
@@ -480,19 +490,20 @@ class MonsterFactory {
 
     // 援护逻辑
     static doProtectMonsterAround(m:Monster):Monster {
-        var filter = (tar) => !(tar instanceof Player) 
+        var filter = (tar) => {            
+            return !(tar instanceof Player) 
                 && tar.type != "BallShito"
-                && tar.isHazard() && BattleUtils.isAround(m.map().getGridAt(tar.pos.x, tar.pos.y), m.getGrid());
+                && tar.isHazard() && BattleUtils.isAround(m.map().getGridAt(tar.pos.x, tar.pos.y), m.getGrid());}
 
         return <Monster>ElemFactory.addAIEvenCovered("onAttacking", async (ps) => {
             var tarN = Utils.indexOf(ps.targets, filter);
             Utils.assert(tarN >= 0, "can not find the protect aim");
 
             if(m.getGrid().isCovered()) //如果护卫所在地块还没被揭开,要揭开它但不要触发偷袭逻辑
-                await m.bt().uncover(m.pos.x, m.pos.y, false);
+                await m.bt().uncover(m.pos.x, m.pos.y, true);
             
             ps.targets[tarN] = m; // 变更目标
-        }, m, (ps) => Utils.contains(ps.targets, filter));
+        }, m, (ps) => Utils.filter(ps.targets, filter).length > 0);
     }
 
     // 其他怪物死亡时逃进阴影

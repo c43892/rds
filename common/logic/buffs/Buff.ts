@@ -23,5 +23,5 @@ class Buff {
     public onSneaking;
     public onCalcAttacking;
     public preAttack;
-    public preAttackBack;
+    public onAttacking;
 }
