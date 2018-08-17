@@ -45,9 +45,29 @@
                 "hp": 3,
                 "power": 1
             },
+            "HoundZombie": {
+                "hp": 3,
+                "power": 1
+            },
+            "Vampire": {
+                "hp": 3,
+                "power": 2
+            },
             "DancerZombie": {
                 "hp": 4,
                 "power": 2
+            },
+            "GluttonyZombie": {
+                "hp": 8,
+                "power": 3
+            },
+            "Gengar": {
+                "hp": 5,
+                "power": 2
+            },
+            "BombAbomination": {
+                "hp": 4,
+                "power": 3
             },
             "EyeDemon": {
                 "hp": 6,
@@ -56,6 +76,10 @@
             "RandomEggZombie": {
                 "hp": 5,
                 "power": 1
+            },
+            "LustZombie": {
+                "hp": 6,
+                "power": 2
             },
             "Mummy": {
                 "hp": 6,
@@ -69,8 +93,33 @@
                 "hp": 6,
                 "power": 1
             },
+            "SwatheZombie": {
+                "hp": 5,
+                "power": 1
+            },
             "BoxMonster": {
                 "hp": 8,
+                "power": 1
+            },
+            "Ghost": {
+                "hp": 6,
+                "power": 1
+            },
+            "RedSlime": {
+                "hp": 4,
+                "power": 1
+            },
+            "BallShito": {
+                "hp": 10,
+                "power": 1,
+                "sheild": 8
+            },
+            "GreenSlime": {
+                "hp": 4,
+                "power": 1
+            },
+            "ReviveZombie": {
+                "hp": 4,
                 "power": 1
             }
         },
@@ -80,13 +129,25 @@
                 "elems": {
                     "NormalZombie": 100,
                     "GoblinThief": 100,
+                    "HoundZombie": 100,
+                    "Vampire": 100,
                     "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "Gengar": 100,
+                    "BombAbomination": 100,
                     "EyeDemon": 100,
                     "RandomEggZombie": 100,
+                    "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
-                    "BoxMonster": 0
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
@@ -105,11 +166,13 @@
                     "SuperPotion": 1101,
                     "StrangthPotion": 1101,
                     "CandyCannon": 1101,
-                    "Vest": 1101
+                    "Vest": 1101,
+                    "Bazooka": 1101,
+                    "WantedOrder": 1101
                 }
             },
             {
-                "num": [ 10, 30 ],
+                "num": [ 1, 3 ],
                 "elems": {
                     "Apple": 1101,
                     "Steak": 1101
@@ -161,9 +224,29 @@
                 "hp": 3,
                 "power": 1
             },
+            "HoundZombie": {
+                "hp": 3,
+                "power": 1
+            },
+            "Vampire": {
+                "hp": 3,
+                "power": 2
+            },
             "DancerZombie": {
                 "hp": 4,
                 "power": 2
+            },
+            "GluttonyZombie": {
+                "hp": 8,
+                "power": 3
+            },
+            "Gengar": {
+                "hp": 5,
+                "power": 2
+            },
+            "BombAbomination": {
+                "hp": 4,
+                "power": 3
             },
             "EyeDemon": {
                 "hp": 6,
@@ -172,6 +255,10 @@
             "RandomEggZombie": {
                 "hp": 5,
                 "power": 1
+            },
+            "LustZombie": {
+                "hp": 6,
+                "power": 2
             },
             "Mummy": {
                 "hp": 6,
@@ -185,8 +272,33 @@
                 "hp": 6,
                 "power": 1
             },
+            "SwatheZombie": {
+                "hp": 5,
+                "power": 1
+            },
             "BoxMonster": {
                 "hp": 8,
+                "power": 1
+            },
+            "Ghost": {
+                "hp": 6,
+                "power": 1
+            },
+            "RedSlime": {
+                "hp": 4,
+                "power": 1
+            },
+            "BallShito": {
+                "hp": 11,
+                "power": 1,
+                "sheild": 8
+            },
+            "GreenSlime": {
+                "hp": 4,
+                "power": 1
+            },
+            "ReviveZombie": {
+                "hp": 4,
                 "power": 1
             }
         },
@@ -196,13 +308,25 @@
                 "elems": {
                     "NormalZombie": 100,
                     "GoblinThief": 100,
+                    "HoundZombie": 100,
+                    "Vampire": 100,
                     "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "Gengar": 100,
+                    "BombAbomination": 100,
                     "EyeDemon": 100,
                     "RandomEggZombie": 100,
+                    "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
-                    "BoxMonster": 0
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
@@ -221,7 +345,9 @@
                     "SuperPotion": 1102,
                     "StrangthPotion": 1102,
                     "CandyCannon": 1102,
-                    "Vest": 1102
+                    "Vest": 1102,
+                    "Bazooka": 1102,
+                    "WantedOrder": 1102
                 }
             },
             {
@@ -277,9 +403,29 @@
                 "hp": 3,
                 "power": 1
             },
+            "HoundZombie": {
+                "hp": 3,
+                "power": 1
+            },
+            "Vampire": {
+                "hp": 3,
+                "power": 2
+            },
             "DancerZombie": {
                 "hp": 4,
                 "power": 2
+            },
+            "GluttonyZombie": {
+                "hp": 9,
+                "power": 3
+            },
+            "Gengar": {
+                "hp": 6,
+                "power": 2
+            },
+            "BombAbomination": {
+                "hp": 4,
+                "power": 3
             },
             "EyeDemon": {
                 "hp": 7,
@@ -288,6 +434,10 @@
             "RandomEggZombie": {
                 "hp": 6,
                 "power": 1
+            },
+            "LustZombie": {
+                "hp": 7,
+                "power": 2
             },
             "Mummy": {
                 "hp": 7,
@@ -301,8 +451,33 @@
                 "hp": 7,
                 "power": 1
             },
+            "SwatheZombie": {
+                "hp": 6,
+                "power": 1
+            },
             "BoxMonster": {
                 "hp": 9,
+                "power": 1
+            },
+            "Ghost": {
+                "hp": 7,
+                "power": 1
+            },
+            "RedSlime": {
+                "hp": 4,
+                "power": 1
+            },
+            "BallShito": {
+                "hp": 12,
+                "power": 1,
+                "sheild": 9
+            },
+            "GreenSlime": {
+                "hp": 4,
+                "power": 1
+            },
+            "ReviveZombie": {
+                "hp": 4,
                 "power": 1
             }
         },
@@ -312,13 +487,25 @@
                 "elems": {
                     "NormalZombie": 100,
                     "GoblinThief": 100,
+                    "HoundZombie": 100,
+                    "Vampire": 100,
                     "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "Gengar": 100,
+                    "BombAbomination": 100,
                     "EyeDemon": 100,
                     "RandomEggZombie": 100,
+                    "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
-                    "BoxMonster": 0
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
@@ -337,7 +524,9 @@
                     "SuperPotion": 1103,
                     "StrangthPotion": 1103,
                     "CandyCannon": 1103,
-                    "Vest": 1103
+                    "Vest": 1103,
+                    "Bazooka": 1103,
+                    "WantedOrder": 1103
                 }
             },
             {
@@ -393,9 +582,29 @@
                 "hp": 3,
                 "power": 1
             },
+            "HoundZombie": {
+                "hp": 3,
+                "power": 1
+            },
+            "Vampire": {
+                "hp": 3,
+                "power": 2
+            },
             "DancerZombie": {
                 "hp": 5,
                 "power": 2
+            },
+            "GluttonyZombie": {
+                "hp": 10,
+                "power": 3
+            },
+            "Gengar": {
+                "hp": 6,
+                "power": 2
+            },
+            "BombAbomination": {
+                "hp": 5,
+                "power": 3
             },
             "EyeDemon": {
                 "hp": 7,
@@ -404,6 +613,10 @@
             "RandomEggZombie": {
                 "hp": 6,
                 "power": 1
+            },
+            "LustZombie": {
+                "hp": 7,
+                "power": 2
             },
             "Mummy": {
                 "hp": 7,
@@ -417,8 +630,33 @@
                 "hp": 7,
                 "power": 1
             },
+            "SwatheZombie": {
+                "hp": 6,
+                "power": 1
+            },
             "BoxMonster": {
                 "hp": 10,
+                "power": 1
+            },
+            "Ghost": {
+                "hp": 7,
+                "power": 1
+            },
+            "RedSlime": {
+                "hp": 5,
+                "power": 1
+            },
+            "BallShito": {
+                "hp": 13,
+                "power": 1,
+                "sheild": 10
+            },
+            "GreenSlime": {
+                "hp": 5,
+                "power": 1
+            },
+            "ReviveZombie": {
+                "hp": 5,
                 "power": 1
             }
         },
@@ -428,13 +666,25 @@
                 "elems": {
                     "NormalZombie": 100,
                     "GoblinThief": 100,
+                    "HoundZombie": 100,
+                    "Vampire": 100,
                     "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "Gengar": 100,
+                    "BombAbomination": 100,
                     "EyeDemon": 100,
                     "RandomEggZombie": 100,
+                    "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
-                    "BoxMonster": 0
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
@@ -453,7 +703,9 @@
                     "SuperPotion": 1104,
                     "StrangthPotion": 1104,
                     "CandyCannon": 1104,
-                    "Vest": 1104
+                    "Vest": 1104,
+                    "Bazooka": 1104,
+                    "WantedOrder": 1104
                 }
             },
             {
@@ -509,9 +761,29 @@
                 "hp": 4,
                 "power": 1
             },
+            "HoundZombie": {
+                "hp": 4,
+                "power": 1
+            },
+            "Vampire": {
+                "hp": 4,
+                "power": 2
+            },
             "DancerZombie": {
                 "hp": 5,
                 "power": 2
+            },
+            "GluttonyZombie": {
+                "hp": 11,
+                "power": 4
+            },
+            "Gengar": {
+                "hp": 7,
+                "power": 2
+            },
+            "BombAbomination": {
+                "hp": 5,
+                "power": 4
             },
             "EyeDemon": {
                 "hp": 8,
@@ -520,6 +792,10 @@
             "RandomEggZombie": {
                 "hp": 7,
                 "power": 1
+            },
+            "LustZombie": {
+                "hp": 8,
+                "power": 2
             },
             "Mummy": {
                 "hp": 8,
@@ -533,8 +809,33 @@
                 "hp": 8,
                 "power": 1
             },
+            "SwatheZombie": {
+                "hp": 7,
+                "power": 1
+            },
             "BoxMonster": {
                 "hp": 11,
+                "power": 1
+            },
+            "Ghost": {
+                "hp": 8,
+                "power": 1
+            },
+            "RedSlime": {
+                "hp": 5,
+                "power": 1
+            },
+            "BallShito": {
+                "hp": 14,
+                "power": 1,
+                "sheild": 11
+            },
+            "GreenSlime": {
+                "hp": 5,
+                "power": 1
+            },
+            "ReviveZombie": {
+                "hp": 5,
                 "power": 1
             }
         },
@@ -544,13 +845,25 @@
                 "elems": {
                     "NormalZombie": 100,
                     "GoblinThief": 100,
+                    "HoundZombie": 100,
+                    "Vampire": 100,
                     "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "Gengar": 100,
+                    "BombAbomination": 100,
                     "EyeDemon": 100,
                     "RandomEggZombie": 100,
+                    "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
-                    "BoxMonster": 0
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
@@ -569,7 +882,9 @@
                     "SuperPotion": 1105,
                     "StrangthPotion": 1105,
                     "CandyCannon": 1105,
-                    "Vest": 1105
+                    "Vest": 1105,
+                    "Bazooka": 1105,
+                    "WantedOrder": 1105
                 }
             },
             {
@@ -625,13 +940,29 @@
                 "hp": 4,
                 "power": 1
             },
+            "HoundZombie": {
+                "hp": 4,
+                "power": 1
+            },
+            "Vampire": {
+                "hp": 4,
+                "power": 3
+            },
             "DancerZombie": {
                 "hp": 6,
                 "power": 3
             },
+            "GluttonyZombie": {
+                "hp": 12,
+                "power": 4
+            },
             "Gengar": {
-                "hp": 5,
-                "power": 2
+                "hp": 7,
+                "power": 3
+            },
+            "BombAbomination": {
+                "hp": 6,
+                "power": 4
             },
             "EyeDemon": {
                 "hp": 9,
@@ -640,6 +971,10 @@
             "RandomEggZombie": {
                 "hp": 7,
                 "power": 1
+            },
+            "LustZombie": {
+                "hp": 9,
+                "power": 3
             },
             "Mummy": {
                 "hp": 9,
@@ -654,7 +989,7 @@
                 "power": 1
             },
             "SwatheZombie": {
-                "hp": 5,
+                "hp": 7,
                 "power": 1
             },
             "BoxMonster": {
@@ -662,6 +997,23 @@
                 "power": 1
             },
             "Ghost": {
+                "hp": 9,
+                "power": 1
+            },
+            "RedSlime": {
+                "hp": 6,
+                "power": 1
+            },
+            "BallShito": {
+                "hp": 15,
+                "power": 1,
+                "sheild": 12
+            },
+            "GreenSlime": {
+                "hp": 6,
+                "power": 1
+            },
+            "ReviveZombie": {
                 "hp": 6,
                 "power": 1
             }
@@ -672,16 +1024,25 @@
                 "elems": {
                     "NormalZombie": 100,
                     "GoblinThief": 100,
+                    "HoundZombie": 100,
+                    "Vampire": 100,
                     "DancerZombie": 100,
+                    "GluttonyZombie": 100,
                     "Gengar": 100,
+                    "BombAbomination": 100,
                     "EyeDemon": 100,
                     "RandomEggZombie": 100,
+                    "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
                     "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
@@ -700,7 +1061,9 @@
                     "SuperPotion": 1106,
                     "StrangthPotion": 1106,
                     "CandyCannon": 1106,
-                    "Vest": 1106
+                    "Vest": 1106,
+                    "Bazooka": 1106,
+                    "WantedOrder": 1106
                 }
             },
             {
@@ -756,13 +1119,29 @@
                 "hp": 4,
                 "power": 1
             },
+            "HoundZombie": {
+                "hp": 4,
+                "power": 1
+            },
+            "Vampire": {
+                "hp": 4,
+                "power": 3
+            },
             "DancerZombie": {
                 "hp": 6,
                 "power": 3
             },
+            "GluttonyZombie": {
+                "hp": 12,
+                "power": 4
+            },
             "Gengar": {
-                "hp": 5,
-                "power": 2
+                "hp": 8,
+                "power": 3
+            },
+            "BombAbomination": {
+                "hp": 6,
+                "power": 4
             },
             "EyeDemon": {
                 "hp": 9,
@@ -771,6 +1150,10 @@
             "RandomEggZombie": {
                 "hp": 8,
                 "power": 1
+            },
+            "LustZombie": {
+                "hp": 9,
+                "power": 3
             },
             "Mummy": {
                 "hp": 9,
@@ -785,7 +1168,7 @@
                 "power": 1
             },
             "SwatheZombie": {
-                "hp": 5,
+                "hp": 8,
                 "power": 1
             },
             "BoxMonster": {
@@ -793,6 +1176,23 @@
                 "power": 1
             },
             "Ghost": {
+                "hp": 9,
+                "power": 1
+            },
+            "RedSlime": {
+                "hp": 6,
+                "power": 1
+            },
+            "BallShito": {
+                "hp": 16,
+                "power": 1,
+                "sheild": 12
+            },
+            "GreenSlime": {
+                "hp": 6,
+                "power": 1
+            },
+            "ReviveZombie": {
                 "hp": 6,
                 "power": 1
             }
@@ -803,16 +1203,25 @@
                 "elems": {
                     "NormalZombie": 100,
                     "GoblinThief": 100,
+                    "HoundZombie": 100,
+                    "Vampire": 100,
                     "DancerZombie": 100,
+                    "GluttonyZombie": 100,
                     "Gengar": 100,
+                    "BombAbomination": 100,
                     "EyeDemon": 100,
                     "RandomEggZombie": 100,
+                    "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
                     "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
@@ -831,7 +1240,9 @@
                     "SuperPotion": 1107,
                     "StrangthPotion": 1107,
                     "CandyCannon": 1107,
-                    "Vest": 1107
+                    "Vest": 1107,
+                    "Bazooka": 1107,
+                    "WantedOrder": 1107
                 }
             },
             {
@@ -887,13 +1298,29 @@
                 "hp": 5,
                 "power": 1
             },
+            "HoundZombie": {
+                "hp": 5,
+                "power": 1
+            },
+            "Vampire": {
+                "hp": 5,
+                "power": 3
+            },
             "DancerZombie": {
                 "hp": 6,
                 "power": 3
             },
+            "GluttonyZombie": {
+                "hp": 13,
+                "power": 5
+            },
             "Gengar": {
+                "hp": 8,
+                "power": 3
+            },
+            "BombAbomination": {
                 "hp": 6,
-                "power": 2
+                "power": 5
             },
             "EyeDemon": {
                 "hp": 10,
@@ -902,6 +1329,10 @@
             "RandomEggZombie": {
                 "hp": 8,
                 "power": 1
+            },
+            "LustZombie": {
+                "hp": 10,
+                "power": 3
             },
             "Mummy": {
                 "hp": 10,
@@ -916,7 +1347,7 @@
                 "power": 1
             },
             "SwatheZombie": {
-                "hp": 6,
+                "hp": 8,
                 "power": 1
             },
             "BoxMonster": {
@@ -924,7 +1355,24 @@
                 "power": 1
             },
             "Ghost": {
-                "hp": 7,
+                "hp": 10,
+                "power": 1
+            },
+            "RedSlime": {
+                "hp": 6,
+                "power": 1
+            },
+            "BallShito": {
+                "hp": 17,
+                "power": 1,
+                "sheild": 13
+            },
+            "GreenSlime": {
+                "hp": 6,
+                "power": 1
+            },
+            "ReviveZombie": {
+                "hp": 6,
                 "power": 1
             }
         },
@@ -934,16 +1382,25 @@
                 "elems": {
                     "NormalZombie": 100,
                     "GoblinThief": 100,
+                    "HoundZombie": 100,
+                    "Vampire": 100,
                     "DancerZombie": 100,
+                    "GluttonyZombie": 100,
                     "Gengar": 100,
+                    "BombAbomination": 100,
                     "EyeDemon": 100,
                     "RandomEggZombie": 100,
+                    "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
                     "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
@@ -962,7 +1419,9 @@
                     "SuperPotion": 1108,
                     "StrangthPotion": 1108,
                     "CandyCannon": 1108,
-                    "Vest": 1108
+                    "Vest": 1108,
+                    "Bazooka": 1108,
+                    "WantedOrder": 1108
                 }
             },
             {
@@ -1018,13 +1477,29 @@
                 "hp": 5,
                 "power": 1
             },
+            "HoundZombie": {
+                "hp": 5,
+                "power": 1
+            },
+            "Vampire": {
+                "hp": 5,
+                "power": 3
+            },
             "DancerZombie": {
                 "hp": 7,
                 "power": 3
             },
+            "GluttonyZombie": {
+                "hp": 14,
+                "power": 5
+            },
             "Gengar": {
-                "hp": 6,
-                "power": 2
+                "hp": 9,
+                "power": 3
+            },
+            "BombAbomination": {
+                "hp": 7,
+                "power": 5
             },
             "EyeDemon": {
                 "hp": 10,
@@ -1033,6 +1508,10 @@
             "RandomEggZombie": {
                 "hp": 9,
                 "power": 1
+            },
+            "LustZombie": {
+                "hp": 10,
+                "power": 3
             },
             "Mummy": {
                 "hp": 10,
@@ -1047,7 +1526,7 @@
                 "power": 1
             },
             "SwatheZombie": {
-                "hp": 6,
+                "hp": 9,
                 "power": 1
             },
             "BoxMonster": {
@@ -1055,6 +1534,23 @@
                 "power": 1
             },
             "Ghost": {
+                "hp": 10,
+                "power": 1
+            },
+            "RedSlime": {
+                "hp": 7,
+                "power": 1
+            },
+            "BallShito": {
+                "hp": 18,
+                "power": 1,
+                "sheild": 14
+            },
+            "GreenSlime": {
+                "hp": 7,
+                "power": 1
+            },
+            "ReviveZombie": {
                 "hp": 7,
                 "power": 1
             }
@@ -1065,16 +1561,25 @@
                 "elems": {
                     "NormalZombie": 100,
                     "GoblinThief": 100,
+                    "HoundZombie": 100,
+                    "Vampire": 100,
                     "DancerZombie": 100,
+                    "GluttonyZombie": 100,
                     "Gengar": 100,
+                    "BombAbomination": 100,
                     "EyeDemon": 100,
                     "RandomEggZombie": 100,
+                    "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
                     "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
@@ -1093,7 +1598,9 @@
                     "SuperPotion": 1109,
                     "StrangthPotion": 1109,
                     "CandyCannon": 1109,
-                    "Vest": 1109
+                    "Vest": 1109,
+                    "Bazooka": 1109,
+                    "WantedOrder": 1109
                 }
             },
             {
@@ -1149,13 +1656,29 @@
                 "hp": 5,
                 "power": 1
             },
+            "HoundZombie": {
+                "hp": 5,
+                "power": 1
+            },
+            "Vampire": {
+                "hp": 5,
+                "power": 3
+            },
             "DancerZombie": {
                 "hp": 7,
                 "power": 3
             },
+            "GluttonyZombie": {
+                "hp": 15,
+                "power": 5
+            },
             "Gengar": {
+                "hp": 9,
+                "power": 3
+            },
+            "BombAbomination": {
                 "hp": 7,
-                "power": 2
+                "power": 5
             },
             "EyeDemon": {
                 "hp": 11,
@@ -1164,6 +1687,10 @@
             "RandomEggZombie": {
                 "hp": 9,
                 "power": 1
+            },
+            "LustZombie": {
+                "hp": 11,
+                "power": 3
             },
             "Mummy": {
                 "hp": 11,
@@ -1178,7 +1705,7 @@
                 "power": 1
             },
             "SwatheZombie": {
-                "hp": 7,
+                "hp": 9,
                 "power": 1
             },
             "BoxMonster": {
@@ -1186,7 +1713,24 @@
                 "power": 1
             },
             "Ghost": {
-                "hp": 8,
+                "hp": 11,
+                "power": 1
+            },
+            "RedSlime": {
+                "hp": 7,
+                "power": 1
+            },
+            "BallShito": {
+                "hp": 19,
+                "power": 1,
+                "sheild": 15
+            },
+            "GreenSlime": {
+                "hp": 7,
+                "power": 1
+            },
+            "ReviveZombie": {
+                "hp": 7,
                 "power": 1
             }
         },
@@ -1196,16 +1740,25 @@
                 "elems": {
                     "NormalZombie": 100,
                     "GoblinThief": 100,
+                    "HoundZombie": 100,
+                    "Vampire": 100,
                     "DancerZombie": 100,
+                    "GluttonyZombie": 100,
                     "Gengar": 100,
+                    "BombAbomination": 100,
                     "EyeDemon": 100,
                     "RandomEggZombie": 100,
+                    "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
                     "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
@@ -1224,7 +1777,9 @@
                     "SuperPotion": 1110,
                     "StrangthPotion": 1110,
                     "CandyCannon": 1110,
-                    "Vest": 1110
+                    "Vest": 1110,
+                    "Bazooka": 1110,
+                    "WantedOrder": 1110
                 }
             },
             {
@@ -1280,25 +1835,29 @@
                 "hp": 6,
                 "power": 2
             },
-            "Vampire": {
-                "hp": 3,
+            "HoundZombie": {
+                "hp": 6,
                 "power": 2
+            },
+            "Vampire": {
+                "hp": 6,
+                "power": 4
             },
             "DancerZombie": {
                 "hp": 8,
                 "power": 4
             },
             "GluttonyZombie": {
-                "hp": 8,
-                "power": 3
+                "hp": 16,
+                "power": 6
             },
             "Gengar": {
-                "hp": 7,
-                "power": 3
+                "hp": 10,
+                "power": 4
             },
             "BombAbomination": {
-                "hp": 4,
-                "power": 3
+                "hp": 8,
+                "power": 6
             },
             "EyeDemon": {
                 "hp": 12,
@@ -1309,8 +1868,8 @@
                 "power": 2
             },
             "LustZombie": {
-                "hp": 6,
-                "power": 2
+                "hp": 12,
+                "power": 4
             },
             "Mummy": {
                 "hp": 12,
@@ -1325,16 +1884,33 @@
                 "power": 2
             },
             "SwatheZombie": {
-                "hp": 7,
-                "power": 1
+                "hp": 10,
+                "power": 2
             },
             "BoxMonster": {
                 "hp": 16,
                 "power": 2
             },
             "Ghost": {
-                "hp": 9,
-                "power": 1
+                "hp": 12,
+                "power": 2
+            },
+            "RedSlime": {
+                "hp": 8,
+                "power": 2
+            },
+            "BallShito": {
+                "hp": 20,
+                "power": 2,
+                "sheild": 16
+            },
+            "GreenSlime": {
+                "hp": 8,
+                "power": 2
+            },
+            "ReviveZombie": {
+                "hp": 8,
+                "power": 2
             }
         },
         "randomGroups": [
@@ -1343,6 +1919,7 @@
                 "elems": {
                     "NormalZombie": 100,
                     "GoblinThief": 100,
+                    "HoundZombie": 100,
                     "Vampire": 100,
                     "DancerZombie": 100,
                     "GluttonyZombie": 100,
@@ -1356,7 +1933,11 @@
                     "PoisonJellyfish": 100,
                     "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
@@ -1375,7 +1956,9 @@
                     "SuperPotion": 1111,
                     "StrangthPotion": 1111,
                     "CandyCannon": 1111,
-                    "Vest": 1111
+                    "Vest": 1111,
+                    "Bazooka": 1111,
+                    "WantedOrder": 1111
                 }
             },
             {
@@ -1431,25 +2014,29 @@
                 "hp": 6,
                 "power": 2
             },
-            "Vampire": {
-                "hp": 3,
+            "HoundZombie": {
+                "hp": 6,
                 "power": 2
+            },
+            "Vampire": {
+                "hp": 6,
+                "power": 4
             },
             "DancerZombie": {
                 "hp": 8,
                 "power": 4
             },
             "GluttonyZombie": {
-                "hp": 8,
-                "power": 3
+                "hp": 16,
+                "power": 6
             },
             "Gengar": {
-                "hp": 8,
-                "power": 3
+                "hp": 10,
+                "power": 4
             },
             "BombAbomination": {
-                "hp": 4,
-                "power": 3
+                "hp": 8,
+                "power": 6
             },
             "EyeDemon": {
                 "hp": 12,
@@ -1460,8 +2047,8 @@
                 "power": 2
             },
             "LustZombie": {
-                "hp": 6,
-                "power": 2
+                "hp": 12,
+                "power": 4
             },
             "Mummy": {
                 "hp": 12,
@@ -1476,16 +2063,33 @@
                 "power": 2
             },
             "SwatheZombie": {
-                "hp": 8,
-                "power": 1
+                "hp": 10,
+                "power": 2
             },
             "BoxMonster": {
                 "hp": 16,
                 "power": 2
             },
             "Ghost": {
-                "hp": 9,
-                "power": 1
+                "hp": 12,
+                "power": 2
+            },
+            "RedSlime": {
+                "hp": 8,
+                "power": 2
+            },
+            "BallShito": {
+                "hp": 21,
+                "power": 2,
+                "sheild": 16
+            },
+            "GreenSlime": {
+                "hp": 8,
+                "power": 2
+            },
+            "ReviveZombie": {
+                "hp": 8,
+                "power": 2
             }
         },
         "randomGroups": [
@@ -1494,6 +2098,7 @@
                 "elems": {
                     "NormalZombie": 100,
                     "GoblinThief": 100,
+                    "HoundZombie": 100,
                     "Vampire": 100,
                     "DancerZombie": 100,
                     "GluttonyZombie": 100,
@@ -1507,7 +2112,11 @@
                     "PoisonJellyfish": 100,
                     "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
@@ -1526,7 +2135,9 @@
                     "SuperPotion": 1112,
                     "StrangthPotion": 1112,
                     "CandyCannon": 1112,
-                    "Vest": 1112
+                    "Vest": 1112,
+                    "Bazooka": 1112,
+                    "WantedOrder": 1112
                 }
             },
             {
@@ -1582,25 +2193,29 @@
                 "hp": 6,
                 "power": 2
             },
-            "Vampire": {
-                "hp": 3,
+            "HoundZombie": {
+                "hp": 6,
                 "power": 2
+            },
+            "Vampire": {
+                "hp": 6,
+                "power": 4
             },
             "DancerZombie": {
                 "hp": 8,
                 "power": 4
             },
             "GluttonyZombie": {
-                "hp": 9,
-                "power": 3
+                "hp": 17,
+                "power": 6
             },
             "Gengar": {
-                "hp": 8,
-                "power": 3
+                "hp": 11,
+                "power": 4
             },
             "BombAbomination": {
-                "hp": 4,
-                "power": 3
+                "hp": 8,
+                "power": 6
             },
             "EyeDemon": {
                 "hp": 13,
@@ -1611,8 +2226,8 @@
                 "power": 2
             },
             "LustZombie": {
-                "hp": 7,
-                "power": 2
+                "hp": 13,
+                "power": 4
             },
             "Mummy": {
                 "hp": 13,
@@ -1627,16 +2242,33 @@
                 "power": 2
             },
             "SwatheZombie": {
-                "hp": 8,
-                "power": 1
+                "hp": 11,
+                "power": 2
             },
             "BoxMonster": {
                 "hp": 17,
                 "power": 2
             },
             "Ghost": {
-                "hp": 10,
-                "power": 1
+                "hp": 13,
+                "power": 2
+            },
+            "RedSlime": {
+                "hp": 8,
+                "power": 2
+            },
+            "BallShito": {
+                "hp": 22,
+                "power": 2,
+                "sheild": 17
+            },
+            "GreenSlime": {
+                "hp": 8,
+                "power": 2
+            },
+            "ReviveZombie": {
+                "hp": 8,
+                "power": 2
             }
         },
         "randomGroups": [
@@ -1645,6 +2277,7 @@
                 "elems": {
                     "NormalZombie": 100,
                     "GoblinThief": 100,
+                    "HoundZombie": 100,
                     "Vampire": 100,
                     "DancerZombie": 100,
                     "GluttonyZombie": 100,
@@ -1658,7 +2291,11 @@
                     "PoisonJellyfish": 100,
                     "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
@@ -1677,7 +2314,9 @@
                     "SuperPotion": 1113,
                     "StrangthPotion": 1113,
                     "CandyCannon": 1113,
-                    "Vest": 1113
+                    "Vest": 1113,
+                    "Bazooka": 1113,
+                    "WantedOrder": 1113
                 }
             },
             {
@@ -1733,25 +2372,29 @@
                 "hp": 6,
                 "power": 2
             },
-            "Vampire": {
-                "hp": 3,
+            "HoundZombie": {
+                "hp": 6,
                 "power": 2
+            },
+            "Vampire": {
+                "hp": 6,
+                "power": 4
             },
             "DancerZombie": {
                 "hp": 9,
                 "power": 4
             },
             "GluttonyZombie": {
-                "hp": 10,
-                "power": 3
+                "hp": 18,
+                "power": 6
             },
             "Gengar": {
-                "hp": 9,
-                "power": 3
+                "hp": 11,
+                "power": 4
             },
             "BombAbomination": {
-                "hp": 5,
-                "power": 3
+                "hp": 9,
+                "power": 6
             },
             "EyeDemon": {
                 "hp": 13,
@@ -1762,8 +2405,8 @@
                 "power": 2
             },
             "LustZombie": {
-                "hp": 7,
-                "power": 2
+                "hp": 13,
+                "power": 4
             },
             "Mummy": {
                 "hp": 13,
@@ -1778,16 +2421,33 @@
                 "power": 2
             },
             "SwatheZombie": {
-                "hp": 9,
-                "power": 1
+                "hp": 11,
+                "power": 2
             },
             "BoxMonster": {
                 "hp": 18,
                 "power": 2
             },
             "Ghost": {
-                "hp": 10,
-                "power": 1
+                "hp": 13,
+                "power": 2
+            },
+            "RedSlime": {
+                "hp": 9,
+                "power": 2
+            },
+            "BallShito": {
+                "hp": 23,
+                "power": 2,
+                "sheild": 18
+            },
+            "GreenSlime": {
+                "hp": 9,
+                "power": 2
+            },
+            "ReviveZombie": {
+                "hp": 9,
+                "power": 2
             }
         },
         "randomGroups": [
@@ -1796,6 +2456,7 @@
                 "elems": {
                     "NormalZombie": 100,
                     "GoblinThief": 100,
+                    "HoundZombie": 100,
                     "Vampire": 100,
                     "DancerZombie": 100,
                     "GluttonyZombie": 100,
@@ -1809,7 +2470,11 @@
                     "PoisonJellyfish": 100,
                     "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
@@ -1828,7 +2493,9 @@
                     "SuperPotion": 1114,
                     "StrangthPotion": 1114,
                     "CandyCannon": 1114,
-                    "Vest": 1114
+                    "Vest": 1114,
+                    "Bazooka": 1114,
+                    "WantedOrder": 1114
                 }
             },
             {
@@ -1885,28 +2552,28 @@
                 "power": 2
             },
             "HoundZombie": {
-                "hp": 3,
-                "power": 1
+                "hp": 7,
+                "power": 2
             },
             "Vampire": {
-                "hp": 4,
-                "power": 3
+                "hp": 7,
+                "power": 5
             },
             "DancerZombie": {
                 "hp": 10,
                 "power": 5
             },
             "GluttonyZombie": {
-                "hp": 12,
-                "power": 4
+                "hp": 20,
+                "power": 7
             },
             "Gengar": {
-                "hp": 10,
-                "power": 4
+                "hp": 12,
+                "power": 5
             },
             "BombAbomination": {
-                "hp": 6,
-                "power": 4
+                "hp": 10,
+                "power": 7
             },
             "EyeDemon": {
                 "hp": 15,
@@ -1917,8 +2584,8 @@
                 "power": 2
             },
             "LustZombie": {
-                "hp": 9,
-                "power": 3
+                "hp": 15,
+                "power": 5
             },
             "Mummy": {
                 "hp": 15,
@@ -1933,7 +2600,7 @@
                 "power": 2
             },
             "SwatheZombie": {
-                "hp": 10,
+                "hp": 12,
                 "power": 2
             },
             "BoxMonster": {
@@ -1941,7 +2608,24 @@
                 "power": 2
             },
             "Ghost": {
-                "hp": 12,
+                "hp": 15,
+                "power": 2
+            },
+            "RedSlime": {
+                "hp": 10,
+                "power": 2
+            },
+            "BallShito": {
+                "hp": 25,
+                "power": 2,
+                "sheild": 20
+            },
+            "GreenSlime": {
+                "hp": 10,
+                "power": 2
+            },
+            "ReviveZombie": {
+                "hp": 10,
                 "power": 2
             }
         },
@@ -1965,7 +2649,11 @@
                     "PoisonJellyfish": 100,
                     "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
@@ -1984,7 +2672,9 @@
                     "SuperPotion": 1116,
                     "StrangthPotion": 1116,
                     "CandyCannon": 1116,
-                    "Vest": 1116
+                    "Vest": 1116,
+                    "Bazooka": 1116,
+                    "WantedOrder": 1116
                 }
             },
             {
@@ -2041,28 +2731,28 @@
                 "power": 2
             },
             "HoundZombie": {
-                "hp": 3,
-                "power": 1
+                "hp": 7,
+                "power": 2
             },
             "Vampire": {
-                "hp": 4,
-                "power": 3
+                "hp": 7,
+                "power": 5
             },
             "DancerZombie": {
                 "hp": 10,
                 "power": 5
             },
             "GluttonyZombie": {
-                "hp": 12,
-                "power": 4
+                "hp": 20,
+                "power": 7
             },
             "Gengar": {
-                "hp": 10,
-                "power": 4
+                "hp": 13,
+                "power": 5
             },
             "BombAbomination": {
-                "hp": 6,
-                "power": 4
+                "hp": 10,
+                "power": 7
             },
             "EyeDemon": {
                 "hp": 15,
@@ -2073,8 +2763,8 @@
                 "power": 2
             },
             "LustZombie": {
-                "hp": 9,
-                "power": 3
+                "hp": 15,
+                "power": 5
             },
             "Mummy": {
                 "hp": 15,
@@ -2089,7 +2779,7 @@
                 "power": 2
             },
             "SwatheZombie": {
-                "hp": 10,
+                "hp": 13,
                 "power": 2
             },
             "BoxMonster": {
@@ -2097,7 +2787,24 @@
                 "power": 2
             },
             "Ghost": {
-                "hp": 12,
+                "hp": 15,
+                "power": 2
+            },
+            "RedSlime": {
+                "hp": 10,
+                "power": 2
+            },
+            "BallShito": {
+                "hp": 26,
+                "power": 2,
+                "sheild": 20
+            },
+            "GreenSlime": {
+                "hp": 10,
+                "power": 2
+            },
+            "ReviveZombie": {
+                "hp": 10,
                 "power": 2
             }
         },
@@ -2121,7 +2828,11 @@
                     "PoisonJellyfish": 100,
                     "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
@@ -2140,7 +2851,9 @@
                     "SuperPotion": 1117,
                     "StrangthPotion": 1117,
                     "CandyCannon": 1117,
-                    "Vest": 1117
+                    "Vest": 1117,
+                    "Bazooka": 1117,
+                    "WantedOrder": 1117
                 }
             },
             {
@@ -2197,28 +2910,28 @@
                 "power": 2
             },
             "HoundZombie": {
-                "hp": 3,
-                "power": 1
+                "hp": 8,
+                "power": 2
             },
             "Vampire": {
-                "hp": 5,
-                "power": 3
+                "hp": 8,
+                "power": 5
             },
             "DancerZombie": {
                 "hp": 10,
                 "power": 5
             },
             "GluttonyZombie": {
+                "hp": 21,
+                "power": 8
+            },
+            "Gengar": {
                 "hp": 13,
                 "power": 5
             },
-            "Gengar": {
-                "hp": 11,
-                "power": 4
-            },
             "BombAbomination": {
-                "hp": 6,
-                "power": 5
+                "hp": 10,
+                "power": 8
             },
             "EyeDemon": {
                 "hp": 16,
@@ -2229,8 +2942,8 @@
                 "power": 2
             },
             "LustZombie": {
-                "hp": 10,
-                "power": 3
+                "hp": 16,
+                "power": 5
             },
             "Mummy": {
                 "hp": 16,
@@ -2245,7 +2958,7 @@
                 "power": 2
             },
             "SwatheZombie": {
-                "hp": 11,
+                "hp": 13,
                 "power": 2
             },
             "BoxMonster": {
@@ -2253,7 +2966,24 @@
                 "power": 2
             },
             "Ghost": {
-                "hp": 13,
+                "hp": 16,
+                "power": 2
+            },
+            "RedSlime": {
+                "hp": 10,
+                "power": 2
+            },
+            "BallShito": {
+                "hp": 27,
+                "power": 2,
+                "sheild": 21
+            },
+            "GreenSlime": {
+                "hp": 10,
+                "power": 2
+            },
+            "ReviveZombie": {
+                "hp": 10,
                 "power": 2
             }
         },
@@ -2277,7 +3007,11 @@
                     "PoisonJellyfish": 100,
                     "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
@@ -2296,7 +3030,9 @@
                     "SuperPotion": 1118,
                     "StrangthPotion": 1118,
                     "CandyCannon": 1118,
-                    "Vest": 1118
+                    "Vest": 1118,
+                    "Bazooka": 1118,
+                    "WantedOrder": 1118
                 }
             },
             {
@@ -2353,28 +3089,28 @@
                 "power": 2
             },
             "HoundZombie": {
-                "hp": 4,
-                "power": 1
+                "hp": 8,
+                "power": 2
             },
             "Vampire": {
-                "hp": 5,
-                "power": 3
+                "hp": 8,
+                "power": 5
             },
             "DancerZombie": {
                 "hp": 11,
                 "power": 5
             },
             "GluttonyZombie": {
+                "hp": 22,
+                "power": 8
+            },
+            "Gengar": {
                 "hp": 14,
                 "power": 5
             },
-            "Gengar": {
-                "hp": 11,
-                "power": 4
-            },
             "BombAbomination": {
-                "hp": 7,
-                "power": 5
+                "hp": 11,
+                "power": 8
             },
             "EyeDemon": {
                 "hp": 16,
@@ -2385,8 +3121,8 @@
                 "power": 2
             },
             "LustZombie": {
-                "hp": 10,
-                "power": 3
+                "hp": 16,
+                "power": 5
             },
             "Mummy": {
                 "hp": 16,
@@ -2401,7 +3137,7 @@
                 "power": 2
             },
             "SwatheZombie": {
-                "hp": 11,
+                "hp": 14,
                 "power": 2
             },
             "BoxMonster": {
@@ -2409,7 +3145,24 @@
                 "power": 2
             },
             "Ghost": {
-                "hp": 13,
+                "hp": 16,
+                "power": 2
+            },
+            "RedSlime": {
+                "hp": 11,
+                "power": 2
+            },
+            "BallShito": {
+                "hp": 28,
+                "power": 2,
+                "sheild": 22
+            },
+            "GreenSlime": {
+                "hp": 11,
+                "power": 2
+            },
+            "ReviveZombie": {
+                "hp": 11,
                 "power": 2
             }
         },
@@ -2433,7 +3186,11 @@
                     "PoisonJellyfish": 100,
                     "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
@@ -2452,7 +3209,9 @@
                     "SuperPotion": 1119,
                     "StrangthPotion": 1119,
                     "CandyCannon": 1119,
-                    "Vest": 1119
+                    "Vest": 1119,
+                    "Bazooka": 1119,
+                    "WantedOrder": 1119
                 }
             },
             {
@@ -2509,28 +3268,28 @@
                 "power": 2
             },
             "HoundZombie": {
-                "hp": 4,
-                "power": 1
+                "hp": 8,
+                "power": 2
             },
             "Vampire": {
-                "hp": 5,
-                "power": 3
+                "hp": 8,
+                "power": 5
             },
             "DancerZombie": {
                 "hp": 11,
                 "power": 5
             },
             "GluttonyZombie": {
-                "hp": 15,
-                "power": 5
+                "hp": 23,
+                "power": 8
             },
             "Gengar": {
-                "hp": 12,
-                "power": 4
+                "hp": 14,
+                "power": 5
             },
             "BombAbomination": {
-                "hp": 7,
-                "power": 5
+                "hp": 11,
+                "power": 8
             },
             "EyeDemon": {
                 "hp": 17,
@@ -2541,8 +3300,8 @@
                 "power": 2
             },
             "LustZombie": {
-                "hp": 11,
-                "power": 3
+                "hp": 17,
+                "power": 5
             },
             "Mummy": {
                 "hp": 17,
@@ -2557,7 +3316,7 @@
                 "power": 2
             },
             "SwatheZombie": {
-                "hp": 12,
+                "hp": 14,
                 "power": 2
             },
             "BoxMonster": {
@@ -2565,7 +3324,24 @@
                 "power": 2
             },
             "Ghost": {
-                "hp": 14,
+                "hp": 17,
+                "power": 2
+            },
+            "RedSlime": {
+                "hp": 11,
+                "power": 2
+            },
+            "BallShito": {
+                "hp": 29,
+                "power": 2,
+                "sheild": 23
+            },
+            "GreenSlime": {
+                "hp": 11,
+                "power": 2
+            },
+            "ReviveZombie": {
+                "hp": 11,
                 "power": 2
             }
         },
@@ -2589,7 +3365,11 @@
                     "PoisonJellyfish": 100,
                     "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
@@ -2608,7 +3388,9 @@
                     "SuperPotion": 1120,
                     "StrangthPotion": 1120,
                     "CandyCannon": 1120,
-                    "Vest": 1120
+                    "Vest": 1120,
+                    "Bazooka": 1120,
+                    "WantedOrder": 1120
                 }
             },
             {
@@ -2665,28 +3447,28 @@
                 "power": 3
             },
             "HoundZombie": {
-                "hp": 4,
-                "power": 1
+                "hp": 9,
+                "power": 3
             },
             "Vampire": {
-                "hp": 6,
-                "power": 4
+                "hp": 9,
+                "power": 6
             },
             "DancerZombie": {
                 "hp": 12,
                 "power": 6
             },
             "GluttonyZombie": {
-                "hp": 16,
-                "power": 6
+                "hp": 24,
+                "power": 9
             },
             "Gengar": {
-                "hp": 12,
-                "power": 5
+                "hp": 15,
+                "power": 6
             },
             "BombAbomination": {
-                "hp": 8,
-                "power": 6
+                "hp": 12,
+                "power": 9
             },
             "EyeDemon": {
                 "hp": 18,
@@ -2697,8 +3479,8 @@
                 "power": 3
             },
             "LustZombie": {
-                "hp": 12,
-                "power": 4
+                "hp": 18,
+                "power": 6
             },
             "Mummy": {
                 "hp": 18,
@@ -2713,16 +3495,33 @@
                 "power": 3
             },
             "SwatheZombie": {
-                "hp": 12,
-                "power": 2
+                "hp": 15,
+                "power": 3
             },
             "BoxMonster": {
                 "hp": 24,
                 "power": 3
             },
             "Ghost": {
-                "hp": 15,
-                "power": 2
+                "hp": 18,
+                "power": 3
+            },
+            "RedSlime": {
+                "hp": 12,
+                "power": 3
+            },
+            "BallShito": {
+                "hp": 30,
+                "power": 3,
+                "sheild": 24
+            },
+            "GreenSlime": {
+                "hp": 12,
+                "power": 3
+            },
+            "ReviveZombie": {
+                "hp": 12,
+                "power": 3
             }
         },
         "randomGroups": [
@@ -2745,7 +3544,11 @@
                     "PoisonJellyfish": 100,
                     "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
@@ -2764,7 +3567,9 @@
                     "SuperPotion": 1121,
                     "StrangthPotion": 1121,
                     "CandyCannon": 1121,
-                    "Vest": 1121
+                    "Vest": 1121,
+                    "Bazooka": 1121,
+                    "WantedOrder": 1121
                 }
             },
             {
@@ -2821,28 +3626,28 @@
                 "power": 3
             },
             "HoundZombie": {
-                "hp": 5,
-                "power": 1
+                "hp": 9,
+                "power": 3
             },
             "Vampire": {
-                "hp": 6,
-                "power": 4
+                "hp": 9,
+                "power": 6
             },
             "DancerZombie": {
                 "hp": 12,
                 "power": 6
             },
             "GluttonyZombie": {
-                "hp": 16,
-                "power": 6
+                "hp": 24,
+                "power": 9
             },
             "Gengar": {
-                "hp": 13,
-                "power": 5
+                "hp": 15,
+                "power": 6
             },
             "BombAbomination": {
-                "hp": 8,
-                "power": 6
+                "hp": 12,
+                "power": 9
             },
             "EyeDemon": {
                 "hp": 18,
@@ -2853,8 +3658,8 @@
                 "power": 3
             },
             "LustZombie": {
-                "hp": 12,
-                "power": 4
+                "hp": 18,
+                "power": 6
             },
             "Mummy": {
                 "hp": 18,
@@ -2869,16 +3674,33 @@
                 "power": 3
             },
             "SwatheZombie": {
-                "hp": 13,
-                "power": 2
+                "hp": 15,
+                "power": 3
             },
             "BoxMonster": {
                 "hp": 24,
                 "power": 3
             },
             "Ghost": {
-                "hp": 15,
-                "power": 2
+                "hp": 18,
+                "power": 3
+            },
+            "RedSlime": {
+                "hp": 12,
+                "power": 3
+            },
+            "BallShito": {
+                "hp": 31,
+                "power": 3,
+                "sheild": 24
+            },
+            "GreenSlime": {
+                "hp": 12,
+                "power": 3
+            },
+            "ReviveZombie": {
+                "hp": 12,
+                "power": 3
             }
         },
         "randomGroups": [
@@ -2901,7 +3723,11 @@
                     "PoisonJellyfish": 100,
                     "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
@@ -2920,7 +3746,9 @@
                     "SuperPotion": 1122,
                     "StrangthPotion": 1122,
                     "CandyCannon": 1122,
-                    "Vest": 1122
+                    "Vest": 1122,
+                    "Bazooka": 1122,
+                    "WantedOrder": 1122
                 }
             },
             {
@@ -2977,28 +3805,28 @@
                 "power": 3
             },
             "HoundZombie": {
-                "hp": 5,
-                "power": 1
+                "hp": 9,
+                "power": 3
             },
             "Vampire": {
-                "hp": 6,
-                "power": 4
+                "hp": 9,
+                "power": 6
             },
             "DancerZombie": {
                 "hp": 12,
                 "power": 6
             },
             "GluttonyZombie": {
-                "hp": 17,
-                "power": 6
+                "hp": 25,
+                "power": 9
             },
             "Gengar": {
-                "hp": 13,
-                "power": 5
+                "hp": 16,
+                "power": 6
             },
             "BombAbomination": {
-                "hp": 8,
-                "power": 6
+                "hp": 12,
+                "power": 9
             },
             "EyeDemon": {
                 "hp": 19,
@@ -3009,8 +3837,8 @@
                 "power": 3
             },
             "LustZombie": {
-                "hp": 13,
-                "power": 4
+                "hp": 19,
+                "power": 6
             },
             "Mummy": {
                 "hp": 19,
@@ -3025,16 +3853,33 @@
                 "power": 3
             },
             "SwatheZombie": {
-                "hp": 13,
-                "power": 2
+                "hp": 16,
+                "power": 3
             },
             "BoxMonster": {
                 "hp": 25,
                 "power": 3
             },
             "Ghost": {
-                "hp": 16,
-                "power": 2
+                "hp": 19,
+                "power": 3
+            },
+            "RedSlime": {
+                "hp": 12,
+                "power": 3
+            },
+            "BallShito": {
+                "hp": 32,
+                "power": 3,
+                "sheild": 25
+            },
+            "GreenSlime": {
+                "hp": 12,
+                "power": 3
+            },
+            "ReviveZombie": {
+                "hp": 12,
+                "power": 3
             }
         },
         "randomGroups": [
@@ -3057,7 +3902,11 @@
                     "PoisonJellyfish": 100,
                     "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
@@ -3076,7 +3925,9 @@
                     "SuperPotion": 1123,
                     "StrangthPotion": 1123,
                     "CandyCannon": 1123,
-                    "Vest": 1123
+                    "Vest": 1123,
+                    "Bazooka": 1123,
+                    "WantedOrder": 1123
                 }
             },
             {
@@ -3133,28 +3984,28 @@
                 "power": 3
             },
             "HoundZombie": {
-                "hp": 5,
-                "power": 1
+                "hp": 9,
+                "power": 3
             },
             "Vampire": {
-                "hp": 6,
-                "power": 4
+                "hp": 9,
+                "power": 6
             },
             "DancerZombie": {
                 "hp": 13,
                 "power": 6
             },
             "GluttonyZombie": {
-                "hp": 18,
-                "power": 6
+                "hp": 26,
+                "power": 9
             },
             "Gengar": {
-                "hp": 14,
-                "power": 5
+                "hp": 16,
+                "power": 6
             },
             "BombAbomination": {
-                "hp": 9,
-                "power": 6
+                "hp": 13,
+                "power": 9
             },
             "EyeDemon": {
                 "hp": 19,
@@ -3165,8 +4016,8 @@
                 "power": 3
             },
             "LustZombie": {
-                "hp": 13,
-                "power": 4
+                "hp": 19,
+                "power": 6
             },
             "Mummy": {
                 "hp": 19,
@@ -3181,16 +4032,33 @@
                 "power": 3
             },
             "SwatheZombie": {
-                "hp": 14,
-                "power": 2
+                "hp": 16,
+                "power": 3
             },
             "BoxMonster": {
                 "hp": 26,
                 "power": 3
             },
             "Ghost": {
-                "hp": 16,
-                "power": 2
+                "hp": 19,
+                "power": 3
+            },
+            "RedSlime": {
+                "hp": 13,
+                "power": 3
+            },
+            "BallShito": {
+                "hp": 33,
+                "power": 3,
+                "sheild": 26
+            },
+            "GreenSlime": {
+                "hp": 13,
+                "power": 3
+            },
+            "ReviveZombie": {
+                "hp": 13,
+                "power": 3
             }
         },
         "randomGroups": [
@@ -3213,7 +4081,11 @@
                     "PoisonJellyfish": 100,
                     "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
@@ -3232,7 +4104,9 @@
                     "SuperPotion": 1124,
                     "StrangthPotion": 1124,
                     "CandyCannon": 1124,
-                    "Vest": 1124
+                    "Vest": 1124,
+                    "Bazooka": 1124,
+                    "WantedOrder": 1124
                 }
             },
             {
@@ -3289,28 +4163,28 @@
                 "power": 3
             },
             "HoundZombie": {
-                "hp": 6,
-                "power": 2
+                "hp": 10,
+                "power": 3
             },
             "Vampire": {
-                "hp": 7,
-                "power": 4
+                "hp": 10,
+                "power": 6
             },
             "DancerZombie": {
                 "hp": 13,
                 "power": 6
             },
             "GluttonyZombie": {
-                "hp": 19,
-                "power": 7
+                "hp": 27,
+                "power": 10
             },
             "Gengar": {
-                "hp": 14,
-                "power": 5
+                "hp": 17,
+                "power": 6
             },
             "BombAbomination": {
-                "hp": 9,
-                "power": 7
+                "hp": 13,
+                "power": 10
             },
             "EyeDemon": {
                 "hp": 20,
@@ -3321,8 +4195,8 @@
                 "power": 3
             },
             "LustZombie": {
-                "hp": 14,
-                "power": 4
+                "hp": 20,
+                "power": 6
             },
             "Mummy": {
                 "hp": 20,
@@ -3337,16 +4211,33 @@
                 "power": 3
             },
             "SwatheZombie": {
-                "hp": 14,
-                "power": 2
+                "hp": 17,
+                "power": 3
             },
             "BoxMonster": {
                 "hp": 27,
                 "power": 3
             },
             "Ghost": {
-                "hp": 17,
-                "power": 2
+                "hp": 20,
+                "power": 3
+            },
+            "RedSlime": {
+                "hp": 13,
+                "power": 3
+            },
+            "BallShito": {
+                "hp": 34,
+                "power": 3,
+                "sheild": 27
+            },
+            "GreenSlime": {
+                "hp": 13,
+                "power": 3
+            },
+            "ReviveZombie": {
+                "hp": 13,
+                "power": 3
             }
         },
         "randomGroups": [
@@ -3369,7 +4260,11 @@
                     "PoisonJellyfish": 100,
                     "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
@@ -3388,7 +4283,9 @@
                     "SuperPotion": 1125,
                     "StrangthPotion": 1125,
                     "CandyCannon": 1125,
-                    "Vest": 1125
+                    "Vest": 1125,
+                    "Bazooka": 1125,
+                    "WantedOrder": 1125
                 }
             },
             {
@@ -3445,28 +4342,28 @@
                 "power": 3
             },
             "HoundZombie": {
-                "hp": 6,
-                "power": 2
+                "hp": 10,
+                "power": 3
             },
             "Vampire": {
-                "hp": 7,
-                "power": 5
+                "hp": 10,
+                "power": 7
             },
             "DancerZombie": {
                 "hp": 14,
                 "power": 7
             },
             "GluttonyZombie": {
-                "hp": 20,
-                "power": 7
+                "hp": 28,
+                "power": 10
             },
             "Gengar": {
-                "hp": 15,
-                "power": 6
+                "hp": 17,
+                "power": 7
             },
             "BombAbomination": {
-                "hp": 10,
-                "power": 7
+                "hp": 14,
+                "power": 10
             },
             "EyeDemon": {
                 "hp": 21,
@@ -3477,8 +4374,8 @@
                 "power": 3
             },
             "LustZombie": {
-                "hp": 15,
-                "power": 5
+                "hp": 21,
+                "power": 7
             },
             "Mummy": {
                 "hp": 21,
@@ -3493,7 +4390,7 @@
                 "power": 3
             },
             "SwatheZombie": {
-                "hp": 15,
+                "hp": 17,
                 "power": 3
             },
             "BoxMonster": {
@@ -3501,7 +4398,24 @@
                 "power": 3
             },
             "Ghost": {
-                "hp": 18,
+                "hp": 21,
+                "power": 3
+            },
+            "RedSlime": {
+                "hp": 14,
+                "power": 3
+            },
+            "BallShito": {
+                "hp": 35,
+                "power": 3,
+                "sheild": 28
+            },
+            "GreenSlime": {
+                "hp": 14,
+                "power": 3
+            },
+            "ReviveZombie": {
+                "hp": 14,
                 "power": 3
             }
         },
@@ -3525,7 +4439,11 @@
                     "PoisonJellyfish": 100,
                     "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
@@ -3544,7 +4462,9 @@
                     "SuperPotion": 1126,
                     "StrangthPotion": 1126,
                     "CandyCannon": 1126,
-                    "Vest": 1126
+                    "Vest": 1126,
+                    "Bazooka": 1126,
+                    "WantedOrder": 1126
                 }
             },
             {
@@ -3601,28 +4521,28 @@
                 "power": 3
             },
             "HoundZombie": {
-                "hp": 6,
-                "power": 2
+                "hp": 10,
+                "power": 3
             },
             "Vampire": {
-                "hp": 7,
-                "power": 5
+                "hp": 10,
+                "power": 7
             },
             "DancerZombie": {
                 "hp": 14,
                 "power": 7
             },
             "GluttonyZombie": {
-                "hp": 20,
-                "power": 7
+                "hp": 28,
+                "power": 10
             },
             "Gengar": {
-                "hp": 15,
-                "power": 6
+                "hp": 18,
+                "power": 7
             },
             "BombAbomination": {
-                "hp": 10,
-                "power": 7
+                "hp": 14,
+                "power": 10
             },
             "EyeDemon": {
                 "hp": 21,
@@ -3633,8 +4553,8 @@
                 "power": 3
             },
             "LustZombie": {
-                "hp": 15,
-                "power": 5
+                "hp": 21,
+                "power": 7
             },
             "Mummy": {
                 "hp": 21,
@@ -3649,7 +4569,7 @@
                 "power": 3
             },
             "SwatheZombie": {
-                "hp": 15,
+                "hp": 18,
                 "power": 3
             },
             "BoxMonster": {
@@ -3657,7 +4577,24 @@
                 "power": 3
             },
             "Ghost": {
-                "hp": 18,
+                "hp": 21,
+                "power": 3
+            },
+            "RedSlime": {
+                "hp": 14,
+                "power": 3
+            },
+            "BallShito": {
+                "hp": 36,
+                "power": 3,
+                "sheild": 28
+            },
+            "GreenSlime": {
+                "hp": 14,
+                "power": 3
+            },
+            "ReviveZombie": {
+                "hp": 14,
                 "power": 3
             }
         },
@@ -3681,7 +4618,11 @@
                     "PoisonJellyfish": 100,
                     "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
@@ -3700,7 +4641,9 @@
                     "SuperPotion": 1127,
                     "StrangthPotion": 1127,
                     "CandyCannon": 1127,
-                    "Vest": 1127
+                    "Vest": 1127,
+                    "Bazooka": 1127,
+                    "WantedOrder": 1127
                 }
             },
             {
@@ -3757,28 +4700,28 @@
                 "power": 3
             },
             "HoundZombie": {
-                "hp": 6,
-                "power": 2
+                "hp": 11,
+                "power": 3
             },
             "Vampire": {
-                "hp": 8,
-                "power": 5
+                "hp": 11,
+                "power": 7
             },
             "DancerZombie": {
                 "hp": 14,
                 "power": 7
             },
             "GluttonyZombie": {
-                "hp": 21,
-                "power": 8
+                "hp": 29,
+                "power": 11
             },
             "Gengar": {
-                "hp": 16,
-                "power": 6
+                "hp": 18,
+                "power": 7
             },
             "BombAbomination": {
-                "hp": 10,
-                "power": 8
+                "hp": 14,
+                "power": 11
             },
             "EyeDemon": {
                 "hp": 22,
@@ -3789,8 +4732,8 @@
                 "power": 3
             },
             "LustZombie": {
-                "hp": 16,
-                "power": 5
+                "hp": 22,
+                "power": 7
             },
             "Mummy": {
                 "hp": 22,
@@ -3805,7 +4748,7 @@
                 "power": 3
             },
             "SwatheZombie": {
-                "hp": 16,
+                "hp": 18,
                 "power": 3
             },
             "BoxMonster": {
@@ -3813,7 +4756,24 @@
                 "power": 3
             },
             "Ghost": {
-                "hp": 19,
+                "hp": 22,
+                "power": 3
+            },
+            "RedSlime": {
+                "hp": 14,
+                "power": 3
+            },
+            "BallShito": {
+                "hp": 37,
+                "power": 3,
+                "sheild": 29
+            },
+            "GreenSlime": {
+                "hp": 14,
+                "power": 3
+            },
+            "ReviveZombie": {
+                "hp": 14,
                 "power": 3
             }
         },
@@ -3837,7 +4797,11 @@
                     "PoisonJellyfish": 100,
                     "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
@@ -3856,7 +4820,9 @@
                     "SuperPotion": 1128,
                     "StrangthPotion": 1128,
                     "CandyCannon": 1128,
-                    "Vest": 1128
+                    "Vest": 1128,
+                    "Bazooka": 1128,
+                    "WantedOrder": 1128
                 }
             },
             {
@@ -3913,28 +4879,28 @@
                 "power": 3
             },
             "HoundZombie": {
-                "hp": 7,
-                "power": 2
+                "hp": 11,
+                "power": 3
             },
             "Vampire": {
-                "hp": 8,
-                "power": 5
+                "hp": 11,
+                "power": 7
             },
             "DancerZombie": {
                 "hp": 15,
                 "power": 7
             },
             "GluttonyZombie": {
-                "hp": 22,
-                "power": 8
+                "hp": 30,
+                "power": 11
             },
             "Gengar": {
-                "hp": 16,
-                "power": 6
+                "hp": 19,
+                "power": 7
             },
             "BombAbomination": {
-                "hp": 11,
-                "power": 8
+                "hp": 15,
+                "power": 11
             },
             "EyeDemon": {
                 "hp": 22,
@@ -3945,8 +4911,8 @@
                 "power": 3
             },
             "LustZombie": {
-                "hp": 16,
-                "power": 5
+                "hp": 22,
+                "power": 7
             },
             "Mummy": {
                 "hp": 22,
@@ -3961,7 +4927,7 @@
                 "power": 3
             },
             "SwatheZombie": {
-                "hp": 16,
+                "hp": 19,
                 "power": 3
             },
             "BoxMonster": {
@@ -3969,7 +4935,24 @@
                 "power": 3
             },
             "Ghost": {
-                "hp": 19,
+                "hp": 22,
+                "power": 3
+            },
+            "RedSlime": {
+                "hp": 15,
+                "power": 3
+            },
+            "BallShito": {
+                "hp": 38,
+                "power": 3,
+                "sheild": 30
+            },
+            "GreenSlime": {
+                "hp": 15,
+                "power": 3
+            },
+            "ReviveZombie": {
+                "hp": 15,
                 "power": 3
             }
         },
@@ -3993,7 +4976,11 @@
                     "PoisonJellyfish": 100,
                     "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
@@ -4012,7 +4999,9 @@
                     "SuperPotion": 1129,
                     "StrangthPotion": 1129,
                     "CandyCannon": 1129,
-                    "Vest": 1129
+                    "Vest": 1129,
+                    "Bazooka": 1129,
+                    "WantedOrder": 1129
                 }
             },
             {
