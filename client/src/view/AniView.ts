@@ -230,6 +230,13 @@ class AniView extends egret.DisplayObjectContainer {
             var p = g.localToGlobal();
             if (dhp > 0)
                 await AniUtils.tipAt(ViewUtils.getTipText("cure"), p);
+        } else if (ps.subType == "die" && e instanceof Monster) {
+            // 怪物死亡时候抖一下消失
+            var sv = this.getSV(e);
+            var pos = sv.localToGlobal();
+            pos.x += sv.width / 2
+            pos.y -= sv.height / 2;
+            await AniUtils.flashAndShake(sv);
         }
         
         this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
@@ -318,7 +325,6 @@ class AniView extends egret.DisplayObjectContainer {
             await this.onMonsterAttack(ps);
 
         this.bv.refreshPlayer();
-        this.bv.mapView.refresh();
     }
 
     // 得到攻击结果
@@ -332,14 +338,29 @@ class AniView extends egret.DisplayObjectContainer {
         this.bv.mapView.refresh();
     }
 
+    // 攻击时显示怪物伤害值
+    showMonsterAttackValue(m, dhp) {
+        var sv = this.getSV(m);
+        if (dhp < 0) {
+            var p = sv.localToGlobal();
+            AniUtils.popupTipAt(dhp.toString(), "popupTipBg_png", {x:p.x-25, y:p.y-25});
+        }
+    }
+
     // 玩家受到攻击
     async onPlayerGotAttacked(ps) {
-
+        this.showMonsterAttackValue(ps.attackerAttrs.owner, ps.r.dhp);
     }
 
     // 怪物受到攻击
     async onMonsterGotAttacked(ps) {
-        var g = this.getSV(ps.targetAttrs.owner);
+        if (ps.attackerAttrs.owner instanceof Monster)
+            this.showMonsterAttackValue(ps.attackerAttrs.owner, ps.r.dhp);
+        
+        var m:Monster = ps.targetAttrs.owner;
+        if (m.isDead()) return; // 死了就不播放受创表现了
+
+        var g = this.getSV(m);
         var dhp = ps.r.dhp;
         var p = g.localToGlobal();
         AniUtils.jumpingTip(dhp.toString(), {x:p.x+g.width,  y:p.y});
@@ -370,15 +391,7 @@ class AniView extends egret.DisplayObjectContainer {
     public async onMonsterAttack(ps) {
         var m:Elem = ps.m;
         var sv = this.getSV(m);
-        
-        // var dhp = ps.r.dhp;
-        // if (dhp < 0) {
-        //     var p = sv.localToGlobal();
-        //     AniUtils.popupTipAt(dhp.toString(), "popupTipBg_png", {x:p.x-25, y:p.y-25});
-        // }
-
         await AniUtils.shakeTo(sv);
-        // await AniUtils.delay(100);
     }
 
     // 怪物吃食物

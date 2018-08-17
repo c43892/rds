@@ -521,7 +521,7 @@ class Battle {
     }
 
     // 尝试启动商店逻辑
-    public async try2openShop(npc:Monster, items, prices, onBuy) {
+    public async try2OpenShop(npc:Monster, items, prices, onBuy) {
         var elem;
         var price;
         var reserveNpc = await this.openShop(items, prices, async (e:Elem, p:number) => {
@@ -672,11 +672,9 @@ class Battle {
     // 执行元素死亡逻辑
     public async implOnElemDie(e:Elem) {
         this.removeElemAt(e.pos.x, e.pos.y);
-        if (e.onDie) await e.onDie();
         await this.fireEvent("onElemChanged", {subType:"die", e:e});
+        if (e.onDie) await e.onDie();
         await this.triggerLogicPoint("onElemChanged", {"subType": "die", e:e});
-        await this.fireEvent("onGridChanged", {x:e.pos.x, y:e.pos.y, e:e, subType:"elemDie"});        
-        await this.triggerLogicPoint("onGridChanged", {x:e.pos.x, y:e.pos.y, e:e, subType:"elemDie"});        
     }
 
     // 进行一次攻击计算
