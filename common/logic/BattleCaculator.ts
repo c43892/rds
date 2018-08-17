@@ -20,6 +20,7 @@ class BattleCalculator {
         var addBuffs = attackerAttrs.addBuffs;
 
         var immuneFlags = targetAttrs.immuneFlags;
+        var targetFlags = targetAttrs.targetFlags;
         var shield = this.doCalc(targetAttrs, "shield");
         var dodge = this.doCalc(targetAttrs, "dodge");
         var damageDec = this.doCalc(targetAttrs, "damageDec");
@@ -56,7 +57,7 @@ class BattleCalculator {
             // 计算+-伤害和抵抗
             var damage = power + damageAdd - damageDec;
             damage = (damage + resist.b) * (1 - resist.a) + resist.c;
-            if (Utils.contains(attackFlags, "Sneak")) damage += 2;
+            if (Utils.contains(targetFlags, "Sneaked")) damage += 2;
             if (damage < 0) damage = 0;        
 
             // 没有穿刺，就计算护盾

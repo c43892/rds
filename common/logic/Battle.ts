@@ -872,11 +872,17 @@ class Battle {
         await this.fireEvent("onAttacking", {subType:"player2monster", x:x, y:y, weapon:weapon, targets:tars});
 
         // 攻击行为自动揭开地块
+        var marked = [];
         for (var i = 0; i < poses.length; i++) {
             var pos = poses[i];
             var g = map.getGridAt(pos.x, pos.y);
-            if (g.isCovered())
+            if (g.isCovered()){
+                if (g.isMarked())
+                    marked.push(map.getElemAt(pos.x, pos.y));
+
                 await this.uncover(pos.x, pos.y, weapon != undefined);
+            }
+                
         };
 
         await this.triggerLogicPoint("onAttacking", {subType:"player2monster", x:x, y:y, weapon:weapon, targets:tars});
@@ -897,8 +903,8 @@ class Battle {
 
             // 目标属性
             var targetAttrs = tar.getAttrsAsTarget();
-            if (tar.getGrid().isMarked() && !weapon)
-                (<string[]>attackerAttrs.attackFlags).push("Sneak"); // 突袭标记
+            if (Utils.indexOf(marked, (t) => t == tar) > -1 && !weapon)
+                (<string[]>targetAttrs.targetFlags).push("Sneaked"); // 突袭标记
 
             for (var j = 0; j < attackerAttrs.muiltAttack && !tar.isDead(); j++) {
                 var r = await this.calcAttack("player2monster", attackerAttrs, targetAttrs);
@@ -908,8 +914,8 @@ class Battle {
                 }
 
                 // 这里可能是各种攻击结果，成功，闪避，无敌等
-                await this.fireEvent("onAttacked", {attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon, r:r});
-                await this.triggerLogicPoint("onAttacked", {attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon, r:r});
+                await this.fireEvent("onAttacked", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon, r:r});
+                await this.triggerLogicPoint("onAttacked", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon, r:r});
 
                 // 处理附加 buff
                 for (var b of r.addBuffs)
@@ -981,8 +987,8 @@ class Battle {
                 }
 
                 // 这里可能是各种攻击结果，成功，闪避，无敌等
-                await this.fireEvent("onAttacked", {attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
-                await this.triggerLogicPoint("onAttacked", {attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
+                await this.fireEvent("onAttacked", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
+                await this.triggerLogicPoint("onAttacked", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
 
                 // 处理附加 buff
                 for (var b of r.addBuffs)

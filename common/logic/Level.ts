@@ -67,7 +67,7 @@ class Level {
         this.elemsCfgInLevel = elemsCfg;
         var maxNumLimit = 0; // 做最大可能数量的检查
         var elems = [
-            this.createElem("Door"), // 下一层入口的门
+            this.createElem("Door", {cnt:doorUnlock}), // 下一层入口的门
             this.createElem("EscapePort", {size: init_uncovered_size}), // 逃跑出口
         ];
 

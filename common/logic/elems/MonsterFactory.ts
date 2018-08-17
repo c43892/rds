@@ -26,7 +26,8 @@ class Monster extends Elem {constructor() { super();}
             dodge:{a:0, b:this.btAttrs.dodge, c:0},
             damageDec:{a:0, b:this.btAttrs.damageDec, c:0},
             resist:{a:0, b:0, c:this.btAttrs.resist},
-            immuneFlags:[...this.btAttrs.immuneFlags]
+            immuneFlags:[...this.btAttrs.immuneFlags],
+            targetFlags:[...this.btAttrs.targetFlags]
         };
     }
 
@@ -291,7 +292,7 @@ class MonsterFactory {
             if (Utils.contains(ps.attackerAttrs.attackFlags, "immuneAttackBack")) return;
 
             var addFlags = [];
-            if (Utils.contains(ps.attackerAttrs.attackFlags, "Sneak"))
+            if (Utils.contains(ps.targetAttrs.targetFlags, "Sneaked"))
                 addFlags.push("back2sneak");
 
             await m.bt().implMonsterAttackTargets(m, [m.bt().player], undefined, false, addFlags);
