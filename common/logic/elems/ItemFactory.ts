@@ -165,7 +165,8 @@ class ItemFactory {
                 ps.r.r = "blocked";
                 ps.r.dhp = ps.r.dshield = 0;
                 await e.bt().fireEvent("onColddownChanged", {e:e, priorCD:priorCD});
-            }, e, (ps) => e.isValid() && ps.r.r == "attacked" && ps.subType == "monster2targets" && ps.attackerAttrs.owner instanceof Player);
+            }, e, (ps) => {
+                return e.isValid() && ps.r.r == "attacked" && ps.subType == "monster2targets" && ps.targetAttrs.owner instanceof Player});
             e = ElemFactory.triggerColddownLogic(e);
             e.getElemImgRes = () => (e.cd <= 0) ? e.type : e.type + "back";
             return e;

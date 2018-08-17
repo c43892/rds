@@ -7,7 +7,7 @@ class BuffSuperPotion extends Buff{
         this.onPlayerActed = async () => {
             var bt:Battle = this.getOwner().bt();
             this.cnt --;
-            if(this.cnt = 0)
+            if(this.cnt <= 0)
                 await bt.implRemoveBuff(this.getOwner(), this.type);
         };
 

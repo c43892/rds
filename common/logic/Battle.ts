@@ -994,6 +994,21 @@ class Battle {
             await this.implOnElemDie(m);
     }
 
+    public async implMonsterAttackPoses(m:Monster, poses, extraPowerABC = {a:0, b:0, c:0}, selfExplode = false, addFlags:string[] = [], attackPlayer = false){
+        var targets = [];
+        for(var pos of poses){
+            if(m.map().getGridAt(pos.x, pos.y).isCovered())
+                await m.bt().uncover(pos.x, pos.y, true);
+
+            var e = m.map().getElemAt(pos.x, pos.y);
+            if (e instanceof Monster)
+            targets.push(e);
+        }
+        if (attackPlayer) targets.push(m.bt().player);
+
+        await m.bt().implMonsterAttackTargets(m, targets, extraPowerABC, selfExplode, addFlags);
+    }
+
     public async implElemFollow2NextLevel(e:Elem) {
         this.removeElemAt(e.pos.x, e.pos.y);
         this.player.elems2NextLevel.push(e);
