@@ -39,9 +39,9 @@ class TipConfirmView extends egret.DisplayObjectContainer {
     }
 
     onBg(evt:egret.TouchEvent) {
-        if (!this.onBgClicked) return;
         this.removeChild(this.bg);
-        this.onBgClicked();
+        if (this.onBgClicked)
+            this.onBgClicked();
     }
 
     // tips 部分
@@ -61,8 +61,7 @@ class TipConfirmView extends egret.DisplayObjectContainer {
             fy: this.height / 2 - 150,
             ty: this.height / 2,
             fa: 0, ta:1
-        }).then(() => {
-        });
+        }).then(() => {});
     }
 
     // yesno 部分
