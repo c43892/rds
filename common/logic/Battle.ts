@@ -713,7 +713,7 @@ class Battle {
         // 不受援护逻辑影响
 
         // 检查免疫
-        if (Utils.contains(targetAttrs.immuneFlags, "Frozen"))
+        if (Utils.contains(targetAttrs.targetFlags, "Frozen"))
             return;
 
         // 计算冻结参数
@@ -765,7 +765,7 @@ class Battle {
             dodge:{a:0, b:0, c:0},
             damageDec:{a:0, b:0, c:0},
             resist:{a:0, b:0, c:0},
-            immuneFlags:[]
+            targetFlags:[]
         };
         if (!Utils.contains(attackerAttrs.attackFlags, "simulation"))
             attackerAttrs.attackFlags.push("simulation");
@@ -798,7 +798,7 @@ class Battle {
             dodge:{a:0, b:0, c:0},
             damageDec:{a:0, b:0, c:0},
             resist:{a:0, b:0, c:0},
-            immuneFlags:[]
+            targetFlags:[]
         };
         await this.triggerLogicPoint("onCalcAttacking", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
         return attackerAttrs;

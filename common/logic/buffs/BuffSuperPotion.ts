@@ -24,7 +24,7 @@ class BuffSuperPotion extends Buff{
             if(ps.subType != "monster2targets")
                 return;
 
-            ps.targetAttrs.immuneFlags.push("cancelAttack");
+            ps.targetAttrs.targetFlags.push("cancelAttack");
         };
 
         this.addBuffCnt = (cnt, newCnt) => this.cnt = newCnt;
