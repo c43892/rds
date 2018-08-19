@@ -690,7 +690,7 @@ class Battle {
         var g = this.level.map.getGridAt(x, y);
         var e = g.getElem();
         if (g.isCovered())
-            await this.uncover(x, y); // 攻击行为自动揭开地块
+            await this.uncover(x, y, true); // 攻击行为自动揭开地块
 
         if (!e || !(e instanceof Monster)) { // 如果打空，则不需要战斗计算过程，有个表现就可以了
             await this.fireEvent("onAttacking", {subType:"player2monster", x:x, y:y, weapon:weapon});
@@ -740,7 +740,7 @@ class Battle {
         var m = <Monster>g.getElem();
         Utils.assert(!!m, "there is no monster at pos" + x + "," + y);
         if (g.isCovered())
-            await this.uncover(x, y); // 攻击行为自动揭开地块
+            await this.uncover(x, y, true); // 攻击行为自动揭开地块
         
         var targetAttrs = m.getAttrsAsTarget();
         var attackerAttrs = weapon.getAttrsAsAttacker();
