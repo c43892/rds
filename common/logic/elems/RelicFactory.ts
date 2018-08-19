@@ -42,7 +42,7 @@ class RelicFactory {
         "MedicineBox": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) return;
-                ElemFactory.addAI("beforeGoOutLevel2", async () => r.bt().implAddPlayerHp(r.attrs.dhp), r)
+                ElemFactory.addAI("beforeGoOutLevel2", async () => r.bt().implAddPlayerHp(r.attrs.dhp, r), r)
             });
         },
 
@@ -105,20 +105,6 @@ class RelicFactory {
             });
         },
 
-        // 披风，免疫一次偷袭
-        "Cloak": (attrs) => {
-            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
-                if (!enable) return;
-                ElemFactory.triggerColddownLogic(
-                ElemFactory.addAI("onSneaking", async (ps) => {
-                    if (ps.immunized) return;
-                    ps.immunized = true;
-                    r.resetCD();
-                    Utils.log("immunize sneak");
-                }, r, () => r.checkCD()));
-            });
-        },
-
         // 先动，免疫突袭时的反击
         "Unback2Sneak": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
@@ -138,6 +124,16 @@ class RelicFactory {
                     if(!ps.achieve) return;
 
                     ps.achive = false;
+                }, r)
+            })
+        },
+
+        // 武器大师
+        "WeaponMaster": (attrs) => {
+            return this.createRelic(attrs, true, (r:Relic, enable:boolean) => {
+                if (!enable) return;
+                ElemFactory.addAI("onElemRevive", async (ps) => {
+                    
                 }, r)
             })
         },

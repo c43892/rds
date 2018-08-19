@@ -24,4 +24,5 @@ class Buff {
     public onCalcAttacking;
     public preAttack;
     public onAttacking;
+    public onPlayerHealing;
 }

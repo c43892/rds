@@ -260,6 +260,31 @@ class ItemFactory {
             e.canBeDragDrop = false;
             e.use = async () => await e.bt().implGo2NextLevel(); // 进入下一关卡
             return e;
+        },
+
+        
+        // 披风，免疫一次偷袭
+        "Cloak": (attrs) => {
+            var e = this.createItem();
+            e.canUse = () => false;
+            e.canBeDragDrop = true;
+            e = ElemFactory.addAI("onSneaking", async (ps) => {
+                    if (ps.immunized) return;
+                    ps.immunized = true;
+                    
+                    Utils.log("immunize sneak");
+                    e.bt().implRemoveElemAt(e.pos.x, e.pos.y);
+                }, e, () => e.isValid());
+                return e;
+        },
+
+        // 生命之泉
+        "LifeSpring": (attrs) => {
+            var e = this.createItem();
+            e.canUse = () => e.isValid();
+            e.canBeDragDrop = true;
+            e.use = async () => await e.bt().implAddPlayerHp(e.attrs.dhp, e);
+            return e;
         }
     };
 }

@@ -612,11 +612,18 @@ class Battle {
     }
 
     // 角色+hp
-    public async implAddPlayerHp(dhp:number) {
+    public async implAddPlayerHp(dhp:number, source:any = undefined) {
         if (dhp == 0) return;
+        
+        if (dhp > 0){
+            var onPlayerHealingPs = {dhp:dhp, source:source}
+            await this.triggerLogicPoint("onPlayerHealing", onPlayerHealingPs);
+            dhp = onPlayerHealingPs.dhp;
+        }
+
         this.player.addHp(dhp);
-        await this.fireEvent("onPlayerChanged", {subType:"hp"});
-        await this.triggerLogicPoint("onPlayerChanged", {"subType": "hp"});
+        await this.fireEvent("onPlayerChanged", {subType:"hp", source:source});
+        await this.triggerLogicPoint("onPlayerChanged", {"subType": "hp", source:source});
     }
 
     // 角色+shield
@@ -978,7 +985,7 @@ class Battle {
                 if (r.r == "attacked") {
                     if (tar instanceof Player) {
                         Utils.assert(r.dShield == 0, "the player has no shield");
-                        await this.implAddPlayerHp(r.dhp);
+                        await this.implAddPlayerHp(r.dhp, m);
                     } else {
                         Utils.assert(tar instanceof Monster, "the target should monster, but got " + tar.type);
                         await this.implAddMonsterHp(tar, r.dhp);
