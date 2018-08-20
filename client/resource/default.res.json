@@ -1,8 +1,32 @@
 {
 	"groups": [
 		{
-			"keys": "description_json,levelconfig_json,Bunny_png,elemattrsconfig_json,DeathGod_png,playerconfig_json,Hawkeye_png,TimeMachine_png,HpPotion_png,Key_png,NextLevelPort_png,Clock_png,HpCapsule_png,Magazine_png,Hole_png,Apple3_png,Apple2_png,Apple1_png,Steak3_png,Steak2_png,Steak1_png,RandomEgg_png,Apple12_png,Apple22_png,Apple32_png,Steak12_png,Steak22_png,Steak32_png,RayGun_png,IceBlock_png,IceGun_png,randomdropconfig_json,BombAbomination_png,DancerZombie_png,EyeDemon_png,GluttonyZombie_png,HoundZombie_png,LustZombie_png,NormalZombie_png,ori_png,RandomEggZombie_png,Gengar_png,GoblinThief_png,Vampire_png,Shield2_png,worldmap_json,Baton_png,translucent_png,shopconfig_json,goBack_png,soldout_png,btnCure_png,btnReinforce_png,btnMutate_png,goBack2_png,Power_png,Fierce_png,Cloak_png,Unback2Sneak_png,BoxRoomBox_png,BoxRoomBoxOpened_png,ShopNpc_png,worldmapeventsels_json,turntableBg_png,turntableAddHp_png,turntableMinusHp_png,turntableBox_png,turntableCoin_png,turntableItem_png,turntableBoxOpended_png,turntableStartBtn_png,turntableGoOutBtn_png,turntableSign_png,CommanderZombie_png,turntableTipBg_png,RageZombie_png,HideZombie_png,BallShito_png,ReviveZombie_png,CowardZombie_png,MarkZombie_png,ConfusionZombie_png,GreedyZombie_png,Mummy_png,PoisonJellyfish_png,HeadBone_png,SkeletonKing_png,Cocoon_png,SwatheZombie_png,BoxMonster_png,Nurse_png,loginBackground_png,multilanguage_json,btnBg_png,avatarBg_png,expBar_png,hpBar_png,deathGod_png,anicover_png,ban_png,blocked_png,covered_png,selectable_png,replaybg_png,unselectable_png,uncoverable_png,num1_png,num2_png,num3_png,num5_png,questionMark_png,num4_png,deathGodBar_png,deathGodBarBg_png,blackcover_png,bg_png,num6_png,num7_png,num8_png,Coins2_png,Coins3_png,TreasureBox_png,Knife_png,Ghost_png,moreRelicsBtn_png,monsterHpBg_png,monsterPowerBg_png,monsterShieldBg_png,Door3_png,Door2_png,NurseBg_png,SuperPotion_png,Endurance_png,Agile_png,elemdesc_json,MedicineBox_png,Rock2_png,Rock1_png,Door1_png,marked_png,SmallRock_png,Shield_png,Coins9_png,Coins1_png,Coins4_png,Coins5_png,Coins6_png,Coins7_png,Coins8_png,monsterMoveRangeBg_png,monsterAttackIntervalBg_png,Shieldback_png,DePoison_png,WantedOrder_png,EconomyMagazine_png,Vest_png,StrangthPotion_png,eyeDemonEye_png,popupTipBg_png,CandyCannon_png,cd2_png,cd3_png,cd6_png,cd4_png,cd5_png,cd8_png,cd9_png,cd7_png,cd1_png,cd0_png,Crucifix_png,RedSlime_png,GreenSlime_png,GreenSlime2_png,RedSlime2_png,Crucifix2_png,Bazooka_png,Adopt_png,WorldMapBgCorner_png,BtnSetting_png,Coins_png,Crevice_png,FootPrint_png,SymbolDesc_png,SymbolDescbtn_png,WorldMapBg_png,WorldMapBg1_png,WorldMapBg2_png,WorldMapBg3_png,Nodeboss_png,Nodebox_png,Nodeevent_png,Nodehospital_png,Nodenormal_png,Nodesenior_png,Nodeshop_png,LoadingBar_png,LoadingBg_png,LoadingGhost_png,WeaponMaster_png,UndefinedName1_png,UndefinedName2_png,NutWall_png",
-			"name": "preload"
+			"keys": "description_json,levelconfig_json,Bunny_png,elemattrsconfig_json,DeathGod_png,playerconfig_json,Hawkeye_png,TimeMachine_png,Key_png,NextLevelPort_png,Clock_png,HpCapsule_png,Magazine_png,Hole_png,Apple3_png,Apple2_png,Apple1_png,Steak3_png,Steak2_png,Steak1_png,RandomEgg_png,Apple12_png,Apple22_png,Apple32_png,Steak12_png,Steak22_png,Steak32_png,IceBlock_png,randomdropconfig_json,BombAbomination_png,DancerZombie_png,EyeDemon_png,GluttonyZombie_png,HoundZombie_png,LustZombie_png,NormalZombie_png,ori_png,RandomEggZombie_png,Gengar_png,GoblinThief_png,Vampire_png,worldmap_json,Baton_png,translucent_png,shopconfig_json,goBack_png,soldout_png,btnCure_png,btnReinforce_png,btnMutate_png,goBack2_png,Power_png,Fierce_png,Cloak_png,Unback2Sneak_png,BoxRoomBox_png,BoxRoomBoxOpened_png,ShopNpc_png,worldmapeventsels_json,turntableBg_png,turntableAddHp_png,turntableMinusHp_png,turntableBox_png,turntableCoin_png,turntableItem_png,turntableBoxOpended_png,turntableStartBtn_png,turntableGoOutBtn_png,turntableSign_png,CommanderZombie_png,turntableTipBg_png,RageZombie_png,HideZombie_png,BallShito_png,ReviveZombie_png,CowardZombie_png,MarkZombie_png,ConfusionZombie_png,GreedyZombie_png,Mummy_png,PoisonJellyfish_png,HeadBone_png,SkeletonKing_png,Cocoon_png,SwatheZombie_png,BoxMonster_png,Nurse_png,loginBackground_png,multilanguage_json,btnBg_png,avatarBg_png,expBar_png,hpBar_png,deathGod_png,anicover_png,ban_png,blocked_png,covered_png,selectable_png,replaybg_png,unselectable_png,uncoverable_png,num1_png,num2_png,num3_png,num5_png,questionMark_png,num4_png,deathGodBar_png,deathGodBarBg_png,num6_png,num7_png,num8_png,Coins2_png,Coins3_png,TreasureBox_png,Knife_png,Ghost_png,moreRelicsBtn_png,monsterHpBg_png,monsterPowerBg_png,monsterShieldBg_png,Door3_png,Door2_png,NurseBg_png,Endurance_png,Agile_png,elemdesc_json,MedicineBox_png,Rock2_png,Rock1_png,Door1_png,marked_png,SmallRock_png,Shield_png,Coins9_png,Coins1_png,Coins4_png,Coins5_png,Coins6_png,Coins7_png,Coins8_png,monsterMoveRangeBg_png,monsterAttackIntervalBg_png,Shieldback_png,WantedOrder_png,EconomyMagazine_png,Vest_png,eyeDemonEye_png,popupTipBg_png,cd2_png,cd3_png,cd6_png,cd4_png,cd5_png,cd8_png,cd9_png,cd7_png,cd1_png,cd0_png,Crucifix_png,RedSlime_png,GreenSlime_png,GreenSlime2_png,RedSlime2_png,Crucifix2_png,LoadingBar_png,LoadingBg_png,LoadingGhost_png,WeaponMaster_png,UndefinedName1_png,UndefinedName2_png,NutWall_png,black_png,Adopt_png,BtnSetting_png,Coins_png,Crevice_png,FootPrint_png,Nodeboss_png,Nodebox_png,Nodecamp_png,Nodeevent_png,Nodenormal_png,Nodesenior_png,Nodeshop_png,SymbolDesc_png,SymbolDescbtn_png,WorldMapBg_png,WorldMapBg1_png,WorldMapBg2_png,WorldMapBg3_png,WorldMapBgCorner_png",
+			"name": "all"
+		},
+		{
+			"keys": "LoadingBar_png,LoadingBg_png,LoadingGhost_png",
+			"name": "loading"
+		},
+		{
+			"keys": "description_json,elemattrsconfig_json,elemdesc_json,levelconfig_json,multilanguage_json,playerconfig_json,randomdropconfig_json,shopconfig_json,worldmap_json,worldmapeventsels_json",
+			"name": "configs"
+		},
+		{
+			"keys": "anicover_png,avatarBg_png,ban_png,blocked_png,covered_png,deathGod_png,deathGodBar_png,deathGodBarBg_png,expBar_png,hpBar_png,marked_png,monsterAttackIntervalBg_png,monsterHpBg_png,monsterMoveRangeBg_png,monsterPowerBg_png,monsterShieldBg_png,moreRelicsBtn_png,num1_png,num2_png,num3_png,num4_png,num5_png,num6_png,num7_png,num8_png,popupTipBg_png,questionMark_png,replaybg_png,selectable_png,uncoverable_png,unselectable_png,BoxRoomBox_png,BoxRoomBoxOpened_png,black_png,btnBg_png,goBack_png,goBack2_png,translucent_png,btnCure_png,btnMutate_png,btnReinforce_png,loginBackground_png,soldout_png,turntableAddHp_png,turntableBg_png,turntableBox_png,turntableBoxOpended_png,turntableCoin_png,turntableGoOutBtn_png,turntableItem_png,turntableMinusHp_png,turntableSign_png,turntableStartBtn_png,turntableTipBg_png,Adopt_png,BtnSetting_png,Coins_png,Crevice_png,FootPrint_png,Nodeboss_png,Nodebox_png,Nodecamp_png,Nodeevent_png,Nodenormal_png,Nodesenior_png,Nodeshop_png,SymbolDesc_png,SymbolDescbtn_png,WorldMapBg_png,WorldMapBg1_png,WorldMapBg2_png,WorldMapBg3_png,WorldMapBgCorner_png",
+			"name": "ui"
+		},
+		{
+			"keys": "Agile_png,Cloak_png,Crucifix2_png,Crucifix_png,Endurance_png,Fierce_png,Hawkeye_png,MedicineBox_png,Power_png,TimeMachine_png,Unback2Sneak_png,UndefinedName1_png,UndefinedName2_png,WeaponMaster_png",
+			"name": "relics"
+		},
+		{
+			"keys": "Nurse_png,NurseBg_png",
+			"name": "occupations"
+		},
+		{
+			"keys": "HpPotion_png",
+			"name": "misc"
 		}
 	],
 	"resources": [
@@ -45,11 +69,6 @@
 			"url": "assets/relics/TimeMachine.png",
 			"type": "image",
 			"name": "TimeMachine_png"
-		},
-		{
-			"url": "assets/items/HpPotion.png",
-			"type": "image",
-			"name": "HpPotion_png"
 		},
 		{
 			"url": "assets/items/Key.png",
@@ -147,19 +166,9 @@
 			"name": "Steak32_png"
 		},
 		{
-			"url": "assets/items/RayGun.png",
-			"type": "image",
-			"name": "RayGun_png"
-		},
-		{
 			"url": "assets/items/IceBlock.png",
 			"type": "image",
 			"name": "IceBlock_png"
-		},
-		{
-			"url": "assets/items/IceGun.png",
-			"type": "image",
-			"name": "IceGun_png"
 		},
 		{
 			"url": "config/randomdropconfig.json",
@@ -225,11 +234,6 @@
 			"url": "assets/monsters/Vampire.png",
 			"type": "image",
 			"name": "Vampire_png"
-		},
-		{
-			"url": "assets/items/Shield2.png",
-			"type": "image",
-			"name": "Shield2_png"
 		},
 		{
 			"url": "config/worldmap.json",
@@ -577,16 +581,6 @@
 			"name": "deathGodBarBg_png"
 		},
 		{
-			"url": "assets/ui/common/blackcover.png",
-			"type": "image",
-			"name": "blackcover_png"
-		},
-		{
-			"url": "assets/ui/common/bg.png",
-			"type": "image",
-			"name": "bg_png"
-		},
-		{
 			"url": "assets/ui/battle/num6.png",
 			"type": "image",
 			"name": "num6_png"
@@ -660,11 +654,6 @@
 			"url": "assets/occupationImg/NurseBg.png",
 			"type": "image",
 			"name": "NurseBg_png"
-		},
-		{
-			"url": "assets/items/SuperPotion.png",
-			"type": "image",
-			"name": "SuperPotion_png"
 		},
 		{
 			"url": "assets/relics/Endurance.png",
@@ -767,11 +756,6 @@
 			"name": "Shieldback_png"
 		},
 		{
-			"url": "assets/items/DePoison.png",
-			"type": "image",
-			"name": "DePoison_png"
-		},
-		{
 			"url": "assets/items/WantedOrder.png",
 			"type": "image",
 			"name": "WantedOrder_png"
@@ -787,11 +771,6 @@
 			"name": "Vest_png"
 		},
 		{
-			"url": "assets/items/StrangthPotion.png",
-			"type": "image",
-			"name": "StrangthPotion_png"
-		},
-		{
 			"url": "assets/monsters/eyeDemonEye.png",
 			"type": "image",
 			"name": "eyeDemonEye_png"
@@ -800,11 +779,6 @@
 			"url": "assets/ui/battle/popupTipBg.png",
 			"type": "image",
 			"name": "popupTipBg_png"
-		},
-		{
-			"url": "assets/items/CandyCannon.png",
-			"type": "image",
-			"name": "CandyCannon_png"
 		},
 		{
 			"url": "assets/items/cd2.png",
@@ -887,106 +861,6 @@
 			"name": "Crucifix2_png"
 		},
 		{
-			"url": "assets/items/Bazooka.png",
-			"type": "image",
-			"name": "Bazooka_png"
-		},
-		{
-			"url": "assets/worldmap/Adopt.png",
-			"type": "image",
-			"name": "Adopt_png"
-		},
-		{
-			"url": "assets/worldmap/WorldMapBgCorner.png",
-			"type": "image",
-			"name": "WorldMapBgCorner_png"
-		},
-		{
-			"url": "assets/worldmap/BtnSetting.png",
-			"type": "image",
-			"name": "BtnSetting_png"
-		},
-		{
-			"url": "assets/worldmap/Coins.png",
-			"type": "image",
-			"name": "Coins_png"
-		},
-		{
-			"url": "assets/worldmap/Crevice.png",
-			"type": "image",
-			"name": "Crevice_png"
-		},
-		{
-			"url": "assets/worldmap/FootPrint.png",
-			"type": "image",
-			"name": "FootPrint_png"
-		},
-		{
-			"url": "assets/worldmap/SymbolDesc.png",
-			"type": "image",
-			"name": "SymbolDesc_png"
-		},
-		{
-			"url": "assets/worldmap/SymbolDescbtn.png",
-			"type": "image",
-			"name": "SymbolDescbtn_png"
-		},
-		{
-			"url": "assets/worldmap/WorldMapBg.png",
-			"type": "image",
-			"name": "WorldMapBg_png"
-		},
-		{
-			"url": "assets/worldmap/WorldMapBg1.png",
-			"type": "image",
-			"name": "WorldMapBg1_png"
-		},
-		{
-			"url": "assets/worldmap/WorldMapBg2.png",
-			"type": "image",
-			"name": "WorldMapBg2_png"
-		},
-		{
-			"url": "assets/worldmap/WorldMapBg3.png",
-			"type": "image",
-			"name": "WorldMapBg3_png"
-		},
-		{
-			"url": "assets/worldmap/Nodeboss.png",
-			"type": "image",
-			"name": "Nodeboss_png"
-		},
-		{
-			"url": "assets/worldmap/Nodebox.png",
-			"type": "image",
-			"name": "Nodebox_png"
-		},
-		{
-			"url": "assets/worldmap/Nodeevent.png",
-			"type": "image",
-			"name": "Nodeevent_png"
-		},
-		{
-			"url": "assets/worldmap/Nodehospital.png",
-			"type": "image",
-			"name": "Nodehospital_png"
-		},
-		{
-			"url": "assets/worldmap/Nodenormal.png",
-			"type": "image",
-			"name": "Nodenormal_png"
-		},
-		{
-			"url": "assets/worldmap/Nodesenior.png",
-			"type": "image",
-			"name": "Nodesenior_png"
-		},
-		{
-			"url": "assets/worldmap/Nodeshop.png",
-			"type": "image",
-			"name": "Nodeshop_png"
-		},
-		{
 			"url": "assets/ui/loading/LoadingBar.png",
 			"type": "image",
 			"name": "LoadingBar_png"
@@ -1020,6 +894,146 @@
 			"url": "assets/monsters/NutWall.png",
 			"type": "image",
 			"name": "NutWall_png"
+		},
+		{
+			"url": "assets/ui/common/black.png",
+			"type": "image",
+			"name": "black_png"
+		},
+		{
+			"url": "assets/ui/worldmap/Adopt.png",
+			"type": "image",
+			"name": "Adopt_png"
+		},
+		{
+			"url": "assets/ui/worldmap/BtnSetting.png",
+			"type": "image",
+			"name": "BtnSetting_png"
+		},
+		{
+			"url": "assets/ui/worldmap/Coins.png",
+			"type": "image",
+			"name": "Coins_png"
+		},
+		{
+			"url": "assets/ui/worldmap/Crevice.png",
+			"type": "image",
+			"name": "Crevice_png"
+		},
+		{
+			"url": "assets/ui/worldmap/FootPrint.png",
+			"type": "image",
+			"name": "FootPrint_png"
+		},
+		{
+			"url": "assets/ui/worldmap/Nodeboss.png",
+			"type": "image",
+			"name": "Nodeboss_png"
+		},
+		{
+			"url": "assets/ui/worldmap/Nodebox.png",
+			"type": "image",
+			"name": "Nodebox_png"
+		},
+		{
+			"url": "assets/ui/worldmap/Nodecamp.png",
+			"type": "image",
+			"name": "Nodecamp_png"
+		},
+		{
+			"url": "assets/ui/worldmap/Nodeevent.png",
+			"type": "image",
+			"name": "Nodeevent_png"
+		},
+		{
+			"url": "assets/ui/worldmap/Nodenormal.png",
+			"type": "image",
+			"name": "Nodenormal_png"
+		},
+		{
+			"url": "assets/ui/worldmap/Nodesenior.png",
+			"type": "image",
+			"name": "Nodesenior_png"
+		},
+		{
+			"url": "assets/ui/worldmap/Nodeshop.png",
+			"type": "image",
+			"name": "Nodeshop_png"
+		},
+		{
+			"url": "assets/ui/worldmap/SymbolDesc.png",
+			"type": "image",
+			"name": "SymbolDesc_png"
+		},
+		{
+			"url": "assets/ui/worldmap/SymbolDescbtn.png",
+			"type": "image",
+			"name": "SymbolDescbtn_png"
+		},
+		{
+			"url": "assets/ui/worldmap/WorldMapBg.png",
+			"type": "image",
+			"name": "WorldMapBg_png"
+		},
+		{
+			"url": "assets/ui/worldmap/WorldMapBg1.png",
+			"type": "image",
+			"name": "WorldMapBg1_png"
+		},
+		{
+			"url": "assets/ui/worldmap/WorldMapBg2.png",
+			"type": "image",
+			"name": "WorldMapBg2_png"
+		},
+		{
+			"url": "assets/ui/worldmap/WorldMapBg3.png",
+			"type": "image",
+			"name": "WorldMapBg3_png"
+		},
+		{
+			"url": "assets/ui/worldmap/WorldMapBgCorner.png",
+			"type": "image",
+			"name": "WorldMapBgCorner_png"
+		},
+		{
+			"url": "assets/props/Bazooka.png",
+			"type": "image",
+			"name": "Bazooka_png"
+		},
+		{
+			"url": "assets/props/CandyCannon.png",
+			"type": "image",
+			"name": "CandyCannon_png"
+		},
+		{
+			"url": "assets/props/DePoison.png",
+			"type": "image",
+			"name": "DePoison_png"
+		},
+		{
+			"url": "assets/props/HpPotion.png",
+			"type": "image",
+			"name": "HpPotion_png"
+		},
+		{
+			"url": "assets/props/IceGun.png",
+			"type": "image",
+			"name": "IceGun_png"
+		},
+		{
+			"url": "assets/props/RayGun.png",
+			"type": "image",
+			"name": "RayGun_png"
+		},
+		{
+			"url": "assets/props/StrangthPotion.png",
+			"type": "image",
+			"name": "StrangthPotion_png"
+		},
+		{
+			"url": "assets/props/SuperPotion.png",
+			"type": "image",
+			"name": "SuperPotion_png"
 		}
 	]
 }
