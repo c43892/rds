@@ -31,7 +31,7 @@ class LoadingUI extends egret.DisplayObjectContainer implements RES.PromiseTaskR
 
     // 进度条左起坐标和全宽
     sx = 72;
-    sy = 1040;
+    sy = 1039;
     fw = 615;
 
     // 刷新界面显示

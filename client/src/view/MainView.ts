@@ -95,15 +95,25 @@ class MainView extends egret.DisplayObjectContainer {
         // 录像机如何启动新的录像战斗
         BattleRecorder.startNewBattleImpl = (p:Player, btType:string, btRandomSeed:number, trueRandomSeed:number) => {
             var bt = Battle.createNewBattle(p, btType, btRandomSeed, trueRandomSeed);
-            bt.openShop = async (items, prices, onBuy) => {}; // 录像回放中的战斗内商店特殊处理
-            bt.openRelicSel2Add = async (choices, onSel) => {}; // 录像回放中的升级选择遗物特殊处理
-            this.startNewBattle(bt).then(() => this.openWorldMap(p.worldmap));
+
+            // 加载战斗资源
+            bt.prepare();
+            this.loadBattleRes(bt).then(() => {
+                bt.openShop = async (items, prices, onBuy) => {}; // 录像回放中的战斗内商店特殊处理
+                bt.openRelicSel2Add = async (choices, onSel) => {}; // 录像回放中的升级选择遗物特殊处理
+                this.startNewBattle(bt).then(() => this.openWorldMap(p.worldmap));
+            })
         };
 
         // 开始一场新战斗
         this.wmv.startNewBattle = async (p:Player, btType:string, lv:number, n:number, btRandomSeed:number) => { 
             if (btType[0] != "_") btType = btType + "_" + lv;
             var bt = Battle.createNewBattle(p, btType, btRandomSeed);
+
+            // 加载战斗资源
+            bt.prepare();
+            await this.loadBattleRes(bt);
+
             bt.openShop = async (items, prices, onBuy) => await this.openShopInBattle(items, prices, onBuy);
             bt.openRelicSel2Add = async (choices, onSel) => await this.openRelicSel2Add(choices, onSel);
             BattleRecorder.startNew(bt.id, bt.player, bt.btType, bt.btRandomSeed, bt.trueRandomSeed);
@@ -131,9 +141,6 @@ class MainView extends egret.DisplayObjectContainer {
         PropView.select1InN = (title, choices, f, cb) => this.bv.select1inN(title, choices, f).then(cb);
         PropView.try2UsePropAt = bt.try2UsePropAt();
 
-        ElemView.notifyLongPressStarted = (gx, gy, time) => { this.startCycleProgrssBar(gx, gy, time); };
-        ElemView.notifyLongPressEnded = () => { this.stopCycleProgrssBar(); };
-
         bt.registerEvent("onPlayerOp", (ps) => BattleRecorder.onPlayerOp(ps.op, ps.ps));
         bt.registerEvent("onLevelInited", (ps) => this.bv.initBattleView(ps));
         bt.registerEvent("onPlayerDead", async () => this.openPlayerDieView());
@@ -150,7 +157,7 @@ class MainView extends egret.DisplayObjectContainer {
         })
 
         BattleRecorder.registerReplayIndicatorHandlers(bt);
-        bt.Start();
+        bt.start();
         return new Promise<Battle>((resolve, reject) => this.battleEndedCallback = resolve);
     }
 
@@ -161,21 +168,21 @@ class MainView extends egret.DisplayObjectContainer {
                 this.removeChild(ui);
     }
 
-    // 开始环形的进度条
-    cycleBarImg = ViewUtils.createBitmapByName("circleBar_png");
-    startCycleProgrssBar(x, y, time) {
-        // var ps = { x:x, y:y, time:time };
-        // this.bv.aniView.onCycleStart(this.cycleBarImg, ps);
-    }
+    // // 开始环形的进度条
+    // cycleBarImg = ViewUtils.createBitmapByName("circleBar_png");
+    // startCycleProgrssBar(x, y, time) {
+    //     // var ps = { x:x, y:y, time:time };
+    //     // this.bv.aniView.onCycleStart(this.cycleBarImg, ps);
+    // }
 
-    // 停止环形进度条
-    stopCycleProgrssBar() {
-        // if (this.cycleBarImg != undefined) {
-        //     egret.Tween.removeTweens(this.cycleBarImg);
-        //     if (this.cycleBarImg.parent)
-        //         this.cycleBarImg.parent.removeChild(this.cycleBarImg);
-        // }
-    }
+    // // 停止环形进度条
+    // stopCycleProgrssBar() {
+    //     // if (this.cycleBarImg != undefined) {
+    //     //     egret.Tween.removeTweens(this.cycleBarImg);
+    //     //     if (this.cycleBarImg.parent)
+    //     //         this.cycleBarImg.parent.removeChild(this.cycleBarImg);
+    //     // }
+    // }
 
     // 开启商店界面
     public async openShopInBattle(items, prices, onBuy) {
@@ -340,8 +347,47 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 加载指定资源组并显示加载画面
-    public loadingResGroupImpl;
-    public LoadingResGroup = async (g) => await this.loadingResGroupImpl(g);
+    public loadResGroupImpl;
+    public loadResGroup = async (g) => await this.loadResGroupImpl(g);
+
+    // 加载指定关卡中配置到的资源
+    public async loadBattleRes(bt:Battle) {
+        var resArr = [];
+
+        // 地图上的元素
+        var es:string[] = Utils.map(bt.level.map.findAllElems(), (e) => e.type);
+        while (es.length > 0) {
+            var e = es.shift();
+            var cfg = bt.level.getElemCfg(e);
+            Utils.assert(!!cfg, "no elem config: " + e);
+            var attrs = cfg.attrs;
+            var type = cfg.type;
+            
+            var res = attrs.elemImg ? attrs.elemImg : type;
+            if (!attrs.invisible) {
+                if (attrs.repRes) {
+                    for (var r of attrs.repRes)
+                        resArr.push(r + "_png");
+                } else
+                    resArr.push(res + "_png");
+            }
+
+            // 固定掉落元素
+            var dpElems = attrs.dropItems ? attrs.dropItems : [];
+            for (var dpe of dpElems)
+                es.push(dpe);
+
+            // 随机掉落组
+            var rdpElems = attrs.rdp ? GCfg.getRandomDropGroupCfg(attrs.rdp).elems : [];
+            for (var dpe of rdpElems)
+                es.push(dpe);
+        }
+
+        // 将所有需要加载的资源打包成要给临时资源组
+        var g = bt.id + "_resourcegroup";
+        RES.createGroup(g, resArr);
+        await this.loadResGroup(g);
+    }
 
     // 按照本地存档继续游戏
     continuePlay() {

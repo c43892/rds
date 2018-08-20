@@ -8,6 +8,7 @@ class RelicFactory {
         e.canUse = () => true;
         e.canBeDragDrop = true;
         var cd = 0;
+        // 要么是 1 个功能，不可变异，要么是 6 个，可以提供变异逻辑
         Utils.assert(funcs.length == 1 || funcs.length == 6, "invalid relic functors number: " + funcs.length);
         e.funcs = funcs;
         e.toRelic = (p:Player) => {

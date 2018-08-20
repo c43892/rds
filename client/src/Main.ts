@@ -126,9 +126,10 @@ class Main extends egret.DisplayObjectContainer {
 
     // 加载指定资源组
     ldv = new LoadingUI(); // loading 界面    
-    async loadResGroup(g) {
+    async loadResGroup(...gs) {
         ViewUtils.asFullBg(this.ldv);
-        await this.ldv.loadResGroup(g);
+        for (var i = 0; i < gs.length; i++)
+            await this.ldv.loadResGroup(gs[i]);
         this.ldv.setProgress(1);
         this.ldv.parent.removeChild(this.ldv);
     }
@@ -142,10 +143,10 @@ class Main extends egret.DisplayObjectContainer {
         await this.loadResGroup("loading"); // 加载加载界面资源
         this.ldv.refresh();
 
-        await this.loadResGroup("preload"); // 加载初始资源
+        await this.loadResGroup("configs", "ui", "relics", "occupations"); // 加载初始资源
         this.globalInit(); // 初始化全局配置
         this.mv = this.createMainView(); // 创建主场景
-        this.mv.loadingResGroupImpl = async (g) => await this.loadResGroup(g);
+        this.mv.loadResGroupImpl = async (...gs) => await this.loadResGroup(...gs);
 
         // 排行榜服务器通信用
         if (platform instanceof DebugPlatform)

@@ -176,7 +176,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.height = h;
 
         // 整体背景
-        this.bg = ViewUtils.createBitmapByName("battleBg_png"); 
+        this.bg = ViewUtils.createBitmapByName("black_png"); 
         this.bg.name = "bg";
         this.bg.x = this.bg.y = 0;
         this.bg.width = this.width;

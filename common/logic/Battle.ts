@@ -55,12 +55,19 @@ class Battle {
         return this.level;
     }
 
-    // 开始当前战斗
-    public async Start() {
+    prepared = false;
+    public prepare() {
+        if (this.prepared) return;
         this.loadCurrentLevel(this.btType);
         BattleUtils.randomElemsPosInMap(this);
-        this.level.RandomElemsPos(); // 先随机一下，免得看起来不好看
+        this.prepared = true;
+    }
 
+    // 开始当前战斗
+    public async start() {
+        Utils.assert(this.prepared, "call battle.prepare() first");
+        
+        this.level.RandomElemsPos(); // 先随机一下，免得看起来不好看
         await this.fireEvent("onLevelInited", {bt:this});
         await this.triggerLogicPoint("onLevelInited", {bt:this});
             

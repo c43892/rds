@@ -38,7 +38,7 @@ class AllRelicsView extends egret.DisplayObjectContainer {
         this.scrollArea.bounces = false;        
         this.addChild(this.scrollArea);
 
-        this.scrollAreaBg = ViewUtils.createBitmapByName("bg_png");
+        this.scrollAreaBg = ViewUtils.createBitmapByName("black_png");
         this.scrollAreaBg.name = "scrollBg";
         this.scrollAreaBg.fillMode = egret.BitmapFillMode.REPEAT;
         this.viewContent.addChild(this.scrollAreaBg);
