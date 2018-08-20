@@ -339,6 +339,10 @@ class MainView extends egret.DisplayObjectContainer {
         this.removeChild(this.arv);
     }
 
+    // 加载指定资源组并显示加载画面
+    public loadingResGroupImpl;
+    public LoadingResGroup = async (g) => await this.loadingResGroupImpl(g);
+
     // 按照本地存档继续游戏
     continuePlay() {
         if (!this.p) return;

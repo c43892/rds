@@ -27,25 +27,60 @@
 //
 //////////////////////////////////////////////////////////////////////////////////////
 
-class LoadingUI extends egret.Sprite implements RES.PromiseTaskReporter {
+class LoadingUI extends egret.DisplayObjectContainer implements RES.PromiseTaskReporter {
 
-    public constructor() {
-        super();
-        this.createView();
+    // 进度条左起坐标和全宽
+    sx = 72;
+    sy = 1040;
+    fw = 615;
+
+    // 刷新界面显示
+    bg:egret.Bitmap;
+    loadingBar:egret.Bitmap;
+    ghost:egret.Bitmap;
+
+    public refresh() {
+        this.removeChildren();
+
+        // 背景
+        this.bg = ViewUtils.createBitmapByName("LoadingBg_png");
+        this.bg.x = this.bg.y = 0;
+        this.bg.width = this.width;
+        this.bg.height = this.height;
+        this.addChild(this.bg);
+
+        // 进度条
+        this.loadingBar = ViewUtils.createBitmapByName("LoadingBar_png");
+        this.loadingBar.x = this.sx;
+        this.loadingBar.y = this.sy;
+        this.loadingBar.width = 0;
+        this.addChild(this.loadingBar);
+
+        // 进度条上的幽灵
+        this.ghost = ViewUtils.createBitmapByName("LoadingGhost_png");
+        this.ghost.anchorOffsetX = this.ghost.width / 2;
+        this.ghost.anchorOffsetY = this.ghost.height / 2;
+        this.ghost.x = this.sx;
+        this.ghost.y = this.sy;
+        this.addChild(this.ghost);
     }
 
-    private textField: egret.TextField;
-
-    private createView(): void {
-        this.textField = new egret.TextField();
-        this.addChild(this.textField);
-        this.textField.y = 300;
-        this.textField.width = 480;
-        this.textField.height = 100;
-        this.textField.textAlign = "center";
+    onProgress(current: number, total: number): void {
+        Utils.log("loading... " + current + "/" + total);
+        this.setProgress(current / total);
     }
 
-    public onProgress(current: number, total: number): void {
-        this.textField.text = `Loading...${current}/${total}`;
+    // 加载指定资源组
+    public async loadResGroup(g) {
+        await RES.loadGroup(g, 0, this);
+    }
+
+    // 手动设置为 100% 
+    public setProgress(p) {
+        let w = this.fw * p;
+        if (this.loadingBar) {
+            this.loadingBar.width = w;
+            this.ghost.x = this.loadingBar.x + this.loadingBar.width;
+        }
     }
 }
