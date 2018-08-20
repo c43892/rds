@@ -185,7 +185,7 @@ class ItemFactory {
         },
 
         // 剑
-        "Sword": (attrs) => {
+        "Baton": (attrs) => {
             var e = this.createItem();
             e.canBeDragDrop = true;
             e = ElemFactory.addAI("onCalcAttacking", async (ps) => {

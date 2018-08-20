@@ -24,9 +24,10 @@ class BattleCalculator {
         var dodge = this.doCalc(targetAttrs, "dodge");
         var damageDec = this.doCalc(targetAttrs, "damageDec");
         var resist = targetAttrs.resist;
+        var damageShared = targetAttrs.damageShared;
 
         // 战斗计算结果
-        var r = {r:"attacked", dhp:0, dShield:0, addBuffs:[]};
+        var r = {r:"attacked", dhp:0, dShield:0, dShared:0, addBuffs:[]};
 
         if (Utils.contains(targetFlags, "cancelAttack")) { // 攻击动作不取消,但攻击不产生结果
             r.r = "canceled";
@@ -57,6 +58,13 @@ class BattleCalculator {
             var damage = power + damageAdd - damageDec;
             damage = (damage + resist.b) * (1 - resist.a) + resist.c;
             if (Utils.contains(targetFlags, "Sneaked")) damage += 2;
+
+            var dShared = Math.floor(damage - ((damage - damageShared.b) * (1 - damageShared.a) - damageShared.c)); // 伤害分担
+            r.dShared = - dShared;
+
+            damage = damage - dShared;
+
+            // 最终伤害
             if (damage < 0) damage = 0;
 
             // 没有穿刺，就计算护盾

@@ -36,6 +36,17 @@
     "Cloak":{"name":"披风", "cd":100},
     "Unback2Sneak":{"name":"先动"},
     "Crucifix":{"name":"十字架"},
+    "WeaponMaster":{"name":"武器大师"},
+    "UndefinedName1":{"name":"未命名1", "uncoverCnt":5,
+    "reinforce":[
+            {"uncoverCnt":4}, {"uncoverCnt":3}, {"uncoverCnt":14}, {"uncoverCnt":12}
+        ]
+    },
+    "UndefinedName2":{"name":"未命名2", "dexp":1,
+    "reinforce":[
+            {"dexp":2}, {"dexp":3}, {"dexp":4}, {"dexp":5}
+        ]
+    },
 
     "CoinsTiny":{"name":"金币", "canOverlap":true, "useWithoutConfirm":true},
     "CoinsSmall":{"name":"金币", "canOverlap":true, "useWithoutConfirm":true},
@@ -83,8 +94,9 @@
     "Ghost":{"name":"幽灵", "attackFlags":["AmorPenetrate"], "dropItems":["CoinsSmall"], "cannotTake":true},
     "RedSlime":{"name":"红色史莱姆", "esOnNormalAttack":1, "dropItems":["CoinsTiny"]},
     "GreenSlime":{"name":"绿色史莱姆", "dropItems":["CoinsTiny"]},
+    "NutWall":{"name":"坚果墙", "hp":15, "damageShared":0.5, "cannotTake":true},
     
-    "ShopNpc":{"name":"商人", "hp":5},
+    "ShopNpc":{"name":"商人", "hp":5, "cannotTake":true},
 
     "PlaceHolder":{"name":"Boss精英占位", "hideHazardNum":true, "invisible":true, "cannotTake":true},
     "BossBunny":{"name":"boss兔子", "size":{"w":2, "h":2}, "hp":10, "hideHazardNum":true, "attackInterval":2},
@@ -118,7 +130,7 @@
         "frozenAttrs":{"rounds":3}
     },
     "CandyCannon":{"name":"糖果炮弹", "canOverlap":true, "useWithTarget":true},
-    "Sword":{"name":"剑", "powerA":1},
+    "Baton":{"name":"剑", "powerA":1},
     "Vest":{"name":"防护衣", "powerD":-1},
     "Cocoon":{"name":"茧", "useWithoutConfirm":true, "hideDropItems":true},
     "WantedOrder":{"name":"通缉令"},

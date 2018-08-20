@@ -1,6 +1,7 @@
 class Monster extends Elem {constructor() { super();}
     public hp:number; // 血量
     public shield:number; // 护盾
+    public damageShared; // 伤害被分担
 
     public isDead = () => this.hp <= 0; // 是否已经死亡
     public isBoss = false;
@@ -26,6 +27,7 @@ class Monster extends Elem {constructor() { super();}
             dodge:{a:0, b:this.btAttrs.dodge, c:0},
             damageDec:{a:0, b:this.btAttrs.damageDec, c:0},
             resist:{a:0, b:0, c:this.btAttrs.resist},
+            damageShared:{a:0, b:this.btAttrs.damageShared, c:0},
             targetFlags:[...this.btAttrs.targetFlags]
         };
     }
@@ -139,7 +141,8 @@ class MonsterFactory {
         "BoxMonster": (attrs) => MonsterFactory.addRandomOnDie(2, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //宝箱怪
         "Ghost": (attrs) => MonsterFactory.doChaseToNextLevel(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //幽灵
         "RedSlime": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //红色史莱姆
-        "GreenSlime": (attrs) => MonsterFactory.doAddHpPerRound(Math.round(attrs.hp * 0.2) > 0 ? Math.round(attrs.hp * 0.2) : 1, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //绿色史莱姆        
+        "GreenSlime": (attrs) => MonsterFactory.doAddHpPerRound(Math.floor(attrs.hp * 0.2) > 1 ? Math.floor(attrs.hp * 0.2) : 1, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //绿色史莱姆
+        "NutWall": (attrs) => MonsterFactory.doShareDamageOnPlayerHurt(this.createMonster(attrs)),// 坚果墙
 
         "ShopNpc": (attrs) => MonsterFactory.makeShopNPC(this.createMonster(attrs)),
 
@@ -460,9 +463,9 @@ class MonsterFactory {
                 var ms:Elem[]= [];
                 ms = m.map().findAllElems((e:Elem) => e instanceof Monster && e != m && e.type != "CommanderZombie");
                 for(var theMonster of <Monster[]>ms){
-                    theMonster.hp = Math.round(theMonster.hp * 0.5);
+                    theMonster.hp = Math.ceil(theMonster.hp * 0.5);
                     await m.bt().fireEvent("onElemChanged", {subType:"hp", e:theMonster});
-                    theMonster.btAttrs.power =Math.round(theMonster.btAttrs.power * 0.5);
+                    theMonster.btAttrs.power = Math.ceil(theMonster.btAttrs.power * 0.5);
                     await m.bt().fireEvent("onElemChanged", {subType:"power", e:theMonster});
                 }
             }
@@ -646,7 +649,7 @@ class MonsterFactory {
         return <Monster>ElemFactory.addAI("beforeGoOutLevel1", async () => m.bt().implElemFollow2NextLevel(m), m);
     }
 
-    // 死亡时添加随机掉落
+    // 宝箱怪死亡时添加随机掉落
     static addRandomOnDie(n:number, m:Monster):Monster {
         return <Monster>ElemFactory.addDieAI(async () => {
             var rdps = m.attrs.rdps;
@@ -671,6 +674,18 @@ class MonsterFactory {
                 }
             }
         }, m);
+    }
+
+    // 坚果墙,为玩家分摊50%的伤害
+    static doShareDamageOnPlayerHurt(m:Monster):Monster {
+        m.isHazard = () => false;
+        m = <Monster>ElemFactory.addAI("onCalcAttacking", (ps) => {
+            ps.targetAttrs.damageShared.a += m.attrs.damageShared;
+            ps["damageShared"] = true;
+            ps.targetAttrs["damageSharedMonster"] = m;
+        }, m, (ps) => {
+            return ps.subType == "monster2targets" && ps.targetAttrs.owner instanceof Player && !ps["damageShared"]});
+        return m;
     }
 
     // boss 特殊逻辑

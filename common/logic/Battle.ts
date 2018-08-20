@@ -224,9 +224,6 @@ class Battle {
         // 玩家遗物
         hs.push(...this.player.relics);
 
-        for (var i = 0; i < this.player.relics.length; i++) 
-            hs.push(this.player.relics[i]);
-
         // 地图上的元素
         var es = [];
         this.level.map.foreachElem((e) => { es.push(e); return false; });
@@ -627,9 +624,9 @@ class Battle {
     }
 
     // 角色+shield
-    public async implAddPlayerShield(m:Monster, ds:number) {
+    public async implAddPlayerShield(ds:number) {
         if (ds == 0) return;
-        m.addShield(ds);
+        this.player.addShield(ds);
         await this.fireEvent("onPlayerChanged", {subType:"shield"});
         await this.triggerLogicPoint("onPlayerChanged", {"subType": "shield"});
     }
@@ -680,6 +677,8 @@ class Battle {
     public async implOnElemDie(e:Elem) {
         this.removeElemAt(e.pos.x, e.pos.y);
         await this.fireEvent("onElemChanged", {subType:"die", e:e});
+        await this.triggerLogicPoint("onElemChanged", {"subType": "preDie", e:e});
+
         if (e.onDie) await e.onDie();
         await this.triggerLogicPoint("onElemChanged", {"subType": "die", e:e});
     }
@@ -688,7 +687,7 @@ class Battle {
     public async calcAttack(subType:string, attackerAttrs, targetAttrs) {
         await this.triggerLogicPoint("onCalcAttacking", {subType:subType, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
         var r = this.bc.doAttackCalc(attackerAttrs, targetAttrs); // 可能有免疫或者盾牌需要替换掉这个结果
-        await this.triggerLogicPoint("onCalcAttackResult", {subType:subType, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
+        await this.triggerLogicPoint("onCalcAttackResult", {subType:subType, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r}); // 提供盾牌使用
         return r;
     }
 
@@ -784,7 +783,7 @@ class Battle {
     public async calcPlayerTargetAttrs() {
         var targetAttrs = this.player.getAttrsAsTarget();
         var attackerAttrs = {
-            owner:this,
+            owner:undefined,
             power:{a:0, b:0, c:0},
             accuracy:{a:0, b:0, c:0},
             critical:{a:0, b:0, c:0},
@@ -792,7 +791,9 @@ class Battle {
             attackFlags:["simulation"],
             addBuffs:[]
         };
-        await this.triggerLogicPoint("onCalcAttacking", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+        if (!Utils.contains(attackerAttrs.attackFlags, "simulation"))
+            attackerAttrs.attackFlags.push("simulation");
+        await this.triggerLogicPoint("onCalcAttacking", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
         return targetAttrs;
     }
 
@@ -807,6 +808,8 @@ class Battle {
             resist:{a:0, b:0, c:0},
             targetFlags:[]
         };
+        if (!Utils.contains(attackerAttrs.attackFlags, "simulation"))
+            attackerAttrs.attackFlags.push("simulation");
         await this.triggerLogicPoint("onCalcAttacking", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
         return attackerAttrs;
     }
@@ -823,6 +826,8 @@ class Battle {
             attackFlags:["simulation"],
             addBuffs:[]
         };
+        if (!Utils.contains(attackerAttrs.attackFlags, "simulation"))
+            attackerAttrs.attackFlags.push("simulation");
         await this.triggerLogicPoint("onCalcAttacking", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
         return targetAttrs;
     }
@@ -984,12 +989,17 @@ class Battle {
                 var r = await this.calcAttack("monster2targets", attackerAttrs, targetAttrs);
                 if (r.r == "attacked") {
                     if (tar instanceof Player) {
-                        Utils.assert(r.dShield == 0, "the player has no shield");
                         await this.implAddPlayerHp(r.dhp, m);
+                        await this.implAddPlayerShield(r.dShield);
+                        if (r.dShared != 0) { // 处理伤害被分担的情况
+                            var dSharedMonster = targetAttrs.damageSharedMonster;
+                            Utils.assert(dSharedMonster instanceof Monster, "damage should be shared by monster but got" + dSharedMonster.type);
+                            await this.implAddMonsterHp(dSharedMonster, r.dShared);
+                        }
                     } else {
                         Utils.assert(tar instanceof Monster, "the target should monster, but got " + tar.type);
                         await this.implAddMonsterHp(tar, r.dhp);
-                        await this.implAddMonsterShield(tar, r.dShield)
+                        await this.implAddMonsterShield(tar, r.dShield);
                     }
                 }
 

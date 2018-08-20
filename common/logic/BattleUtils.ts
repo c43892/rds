@@ -155,7 +155,8 @@ class BattleUtils {
             dodge:0,
             damageDec:0,
             resist:0,
-            muiltAttack:0
+            muiltAttack:0,
+            damageShared:0
         };
 
         for (var k in attrs) {

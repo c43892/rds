@@ -12,6 +12,7 @@ class BattleView extends egret.DisplayObjectContainer {
     public expBar:egret.Bitmap; // 经验条
     public expBarMask:egret.Shape; // 经验条遮罩
     public hp:egret.TextField; // 血量
+    public shield:egret.TextField; // 护盾
     public hpBar:egret.Bitmap; // 血条
     public hpBarMask:egret.Shape; // 血条遮罩
     public power:egret.TextField; // 攻击
@@ -89,6 +90,11 @@ class BattleView extends egret.DisplayObjectContainer {
         this.hp.name = "hp";
         this.addChild(this.hp);
 
+        // 护盾
+        this.shield = ViewUtils.createTextField(20, 0xffffff);
+        this.shield.name = "shield";
+        // this.addChild(this.shield);
+
         // 血条遮罩
         this.hpBarMask = new egret.Shape();
         this.hpBarMask.name = "expBarMask";
@@ -146,7 +152,7 @@ class BattleView extends egret.DisplayObjectContainer {
 
     // 刷新血条遮罩
     refreshHpBar() {
-        this.hp.text = !this.player ? "0" : this.player.hp.toString();
+        this.hp.text = !this.player ? "0" : this.player.hp.toString() + "/" + this.player.shield.toString();
         var shape = this.hpBarMask;
         var p = !this.player ? 0 : (this.player.hp / this.player.maxHp);
 
@@ -166,6 +172,11 @@ class BattleView extends egret.DisplayObjectContainer {
             shape.graphics.lineTo(pts[i].x, pts[i].y);
         shape.graphics.lineTo(pts[0].x, pts[0].y);
         shape.graphics.endFill();
+    }
+
+    // 刷新护盾
+    refreshShield() {
+        this.shield.text = !this.player ? "0" : this.player.shield.toString();
     }
 
     public constructor(w:number, h:number) {

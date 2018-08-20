@@ -39,6 +39,7 @@ class Player {
         p.maxDeathStep = 120;
         p.hp = 20;
         p.maxHp = 20;
+        p.shield = 100;
         p.power = [3, 0];
         p.playerRandom = new SRandom();
         p.money = 50;
@@ -104,7 +105,7 @@ class Player {
 
     public attackFlags:string[][] = [[], ["item"]]; // 攻击属性
     public resistFlags:string[][] = [[], []]; // 抵抗属性
-    public targetFlags:string[][] = [[], []]; // 免疫属性
+    public targetFlags:string[][] = [[], []]; // 被攻击时的属性
 
     public power:number[] = [0, 0]; // 攻击力
     public accuracy:number[] = [0, 0]; // 命中
@@ -115,6 +116,7 @@ class Player {
     public dodge:number = 0; // 闪避
     public damageDec:number = 0; // -伤
     public resist:number = 0; // 抗性
+    public damageShared:number = 0; // 伤害分担
     public muiltAttack:number[] = [1, 0]; // 多重攻击
 
     public isDead = () => this.hp <= 0;
@@ -140,7 +142,8 @@ class Player {
             dodge:{a:0, b:this.dodge, c:0},
             damageDec:{a:0, b:this.damageDec, c:0},
             resist:{a:0, b:0, c:this.resist},
-            targetFlags:[...this.targetFlags]
+            damageShared:{a:0, b:this.damageShared, c:0},
+            targetFlags:[...this.targetFlags]            
         };
     }
 

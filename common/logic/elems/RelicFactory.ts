@@ -132,9 +132,53 @@ class RelicFactory {
         "WeaponMaster": (attrs) => {
             return this.createRelic(attrs, true, (r:Relic, enable:boolean) => {
                 if (!enable) return;
-                ElemFactory.addAI("onElemRevive", async (ps) => {
-                    
+                ElemFactory.addAI("onLevelInited", async () => {
+                   var bt = r.bt();
+                    var g = BattleUtils.findRandomEmptyGrid(bt);
+                    if(g)
+                        await bt.implAddElemAt(bt.level.createElem("Baton"), g.pos.x, g.pos.y);
                 }, r)
+            })
+        },
+
+        // 每翻开20个空格，角色获得一点护甲（每升一级降低2个空格，最高5）
+        "UndefinedName1": (attrs) => {
+            var thisRelic = this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) return;
+                r["roundCnt"] = 0;                
+                ElemFactory.addAI("onGridChanged", async () => {
+                   var bt = r.bt();
+                   r["roundCnt"] += 1;
+                   if(r["roundCnt"] >= attrs.uncoverCnt){
+                       r["roundCnt"] = 0;
+                       await bt.implAddPlayerShield(1);
+                   }
+                }, r, (ps) => ps.subType == "gridUncovered");
+            })
+            thisRelic = <Relic>ElemFactory.addAI("beforeGoOutLevel2", () => thisRelic["roundCnt"] = 0, thisRelic);
+            return thisRelic;
+        },
+
+        // 杀死怪物可以额外获得1点经验，每升一级提高1，最高5
+        "UndefinedName2": (attrs) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) return;
+                ElemFactory.addAI("onElemChanged", async () => {
+                    await r.bt().implAddPlayerExp(attrs.dexp);
+                }, r, (ps) => ps.subType = "die" && ps.e instanceof Monster && ps.e.isHazard())
+            })
+        },
+
+        // 每个怪物掉落的金钱增加1，每升一级提高1，最高5
+        "UndefinedName3": (attrs) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) return;
+                ElemFactory.addAI("onElemChanged", async (ps) => {
+                    var m = <Monster>ps.e;
+                    if(Utils.indexOf(m.dropItems, (e:Elem) => e.type == "Coins") < 0) return;
+                                        
+                    m.addDropItem(m.bt().level.createElem("Coins", {cnt:1}));
+                }, r, (ps) => ps.subType = "preDie" && ps.e instanceof Monster)
             })
         },
         

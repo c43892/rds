@@ -373,7 +373,7 @@ class AniView extends egret.DisplayObjectContainer {
 
         if (!weapon) {
             // 平砍时有些元素需要表现一下动作
-            var itemTypes = ["Sword"];
+            var itemTypes = ["Baton"];
             var items = this.bv.mapView.getElemViews((e:Elem) => Utils.contains(itemTypes, e.type) && e.isValid());
             var aniArr = [];
             for (var it of items) {

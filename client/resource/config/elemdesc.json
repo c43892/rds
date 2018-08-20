@@ -10,6 +10,9 @@
 		"Agile":{"name":"Agile", "desc":"<font color=#3333cc size=20>Enhanced attribute\n\n<font color=#000000 size=18></font>"},
         "TimeMachine":{"name":"TimeMachine", "desc":"<font color=#3333cc size=20>Enhanced attribute\n\n<font color=#000000 size=18>Leaving this floor, Death returns {deathGodBackStep} rounds</font>"},
         "Crucifix":{"name":"Crucifix", "desc":""},
+        "WeaponMaster":{"name":"WeaponMaster", "desc":""},
+        "UndefinedName1":{"name":"UndefinedName1", "desc":""},
+        "UndefinedName2":{"name":"未命名2", "desc":""},
         
         "Coins":{"name":"Coins", "desc":"<font color=#00ff00 size=18>{cnt} <font color=#000000 size=18>gold coins</font>"},
         "Key":{"name":"Key", "desc":"<font color=#000000 size=18>Open treasure chest or door</font>"},
@@ -55,6 +58,7 @@
         "Ghost":{"name":"Ghost", "desc":""},
         "RedSlime":{"name":"RedSlime", "desc":""},
         "GreenSlime":{"name":"GreenSlime", "desc":""},
+        "NutWall":{"name":"坚果墙", "desc":""},
         "ShopNpc":{"name":"ShopNpc", "desc":"<font color=#3333cc size=20>Shop\n\n<font color=#000000 size=18>Sell all kinds of props here;<font>"},
 
         "PlaceHolder":{"name":"PlaceHolder", "desc":""},
@@ -74,7 +78,7 @@
         "RayGun":{"name":"RayGun", "desc":"<font color=#000000 size=18>Ignite the target after shooting, dealing <font color=#00ff00 size=18>{power} <font color=#000000 size=18>damage</font>"},
         "IceGun":{"name":"IceGun", "desc":"<font color=#000000 size=18>Freeze target after shooting</font>"},
         "CandyCannon":{"name":"CandyCannon", "desc":""},
-        "Sword":{"name":"Sword", "desc":"<font color=#000000 size=18>Attack <font color=#00ff00 size=18>+1</font>"},
+        "Baton":{"name":"Baton", "desc":"<font color=#000000 size=18>Attack <font color=#00ff00 size=18>+1</font>"},
         "Vest":{"name":"Vest", "desc":""},
         "Cocoon":{"name":"Cocoon", "desc":"<font color=#000000 size=18>Wrapped items cannot be used</font>"},
         "WantedOrder":{"name":"通缉令", "desc":""},
@@ -93,6 +97,9 @@
 		"Agile":{"name":"敏捷", "desc":"<font color=#3333cc size=20>强化属性\n\n<font color=#000000 size=18>闪避 <font color=#00ff00 size=18>+{dDodge}%"},
         "TimeMachine":{"name":"时光机", "desc":"<font color=#3333cc size=20>强化属性\n\n<font color=#000000 size=18>离开本层时，死神后退{deathGodBackStep}步"},
         "Crucifix":{"name":"十字架", "desc":""},
+        "WeaponMaster":{"name":"武器大师", "desc":""},
+        "UndefinedName1":{"name":"未命名1", "desc":""},
+        "UndefinedName2":{"name":"未命名2", "desc":""},
         
         "Coins":{"name":"金币", "desc":"<font color=#00ff00 size=18>{cnt} <font color=#000000 size=18>个金币"},
         "Key":{"name":"钥匙", "desc":"<font color=#000000 size=18>可打开宝箱或门"},
@@ -137,6 +144,7 @@
         "Ghost":{"name":"幽灵", "desc":""},
         "RedSlime":{"name":"红色史莱姆", "desc":""},
         "GreenSlime":{"name":"绿色史莱姆", "desc":""},
+        "NutWall":{"name":"坚果墙", "desc":""},
         "ShopNpc":{"name":"商人", "desc":"<font color=#3333cc size=20>商店\n\n<font color=#000000 size=18>这里出售各种道具"},
 
         "PlaceHolder":{"name":"Boss精英占位", "desc":""},
@@ -156,7 +164,7 @@
         "RayGun":{"name":"火焰射线", "desc":"<font color=#000000 size=18>射击后点燃目标，造成3点伤害"},
         "IceGun":{"name":"冰冻射线", "desc":"<font color=#000000 size=18>射击后冻结目标"},
         "CandyCannon":{"name":"糖果炮弹", "desc":""},
-        "Sword":{"name":"剑", "desc":"<font color=#000000 size=18>攻击<font color=#00ff00 size=18>+1"},
+        "Baton":{"name":"剑", "desc":"<font color=#000000 size=18>攻击<font color=#00ff00 size=18>+1"},
         "Vest":{"name":"防护衣", "desc":""},
         "Cocoon":{"name":"茧", "desc":"<font color=#000000 size=18>被茧包裹的物品无法使用"},
         "WantedOrder":{"name":"通缉令", "desc":""},
@@ -174,6 +182,9 @@
         "Unback2Sneak":{"name":"先動", "desc":"<font color=#3333cc size=20>強化屬性\n\n<font color=#000000 size=18>攻擊被標記的怪物時不會被反擊"},
         "TimeMachine":{"name":"時光機", "desc":"<font color=#3333cc size=20>強化屬性\n\n<font color=#000000 size=18>離開本層時，死神後退{deathGodBackStep}步"},
         "Crucifix":{"name":"十字架", "desc":""},
+        "WeaponMaster":{"name":"武器大师", "desc":""},
+        "UndefinedName1":{"name":"未命名1", "desc":""},
+        "UndefinedName2":{"name":"未命名2", "desc":""},
         
         "Coins":{"name":"金幣", "desc":"<font color=#00ff00 size=18>{cnt} <font color=#000000 size=18>個金幣"},
         "Key":{"name":"鑰匙", "desc":"<font color=#000000 size=18>可打開寶箱或閘"},
@@ -218,6 +229,7 @@
         "Ghost":{"name":"幽灵", "desc":""},
         "RedSlime":{"name":"红色史莱姆", "desc":""},
         "GreenSlime":{"name":"绿色史莱姆", "desc":""},
+        "NutWall":{"name":"坚果墙", "desc":""},
         "ShopNpc":{"name":"商人", "desc":"<font color=#3333cc size=20>商店\n\n<font color=#000000 size=18>這裡出售各種道具"},
         "WantedOrder":{"name":"通缉令", "desc":""},
 
@@ -238,7 +250,7 @@
         "RayGun":{"name":"火焰射線", "desc":"<font color=#000000 size=18>射擊後點燃目標，造成3點傷害"},
         "IceGun":{"name":"冰凍射線", "desc":"<font color=#000000 size=18>射擊後凍結目標"},
         "CandyCannon":{"name":"糖果炮弹", "desc":""},
-        "Sword":{"name":"劍", "desc":"<font color=#000000 size=18>攻擊<font color=#00ff00 size=18>+1"},
+        "Baton":{"name":"劍", "desc":"<font color=#000000 size=18>攻擊<font color=#00ff00 size=18>+1"},
         "Vest":{"name":"防护衣", "desc":""},
         "Cocoon":{"name":"繭", "desc":"<font color=#000000 size=18>被繭包裹的物品無法使用"},
 

@@ -17,6 +17,13 @@ class BuffBasic extends Buff {
             await bt.implAddDeathGodStep(40);
         }
 
+        // 过关时清零玩家当前拥有的护甲
+        this.beforeGoOutLevel2 = async() => {
+            var bt:Battle = this.getOwner().bt();
+            if(bt.player.shield != 0)
+                await bt.implAddPlayerShield(-bt.player.shield);
+        }
+
         this.doEffect = async () => {
         };
     }
