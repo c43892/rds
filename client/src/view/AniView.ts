@@ -245,7 +245,7 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 死神步数发生变化
     public async onAddDeathGodStep(ps) {
-        var d = Math.abs(ps.d);
+        var d = -Math.abs(ps.d);
         var e = ps.e;
         var deathImg = this.bv.getDeathGodImg();
         
