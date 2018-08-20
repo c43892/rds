@@ -143,7 +143,7 @@ class Main extends egret.DisplayObjectContainer {
         await this.loadResGroup("loading"); // 加载加载界面资源
         this.ldv.refresh();
 
-        await this.loadResGroup("configs", "ui", "relics", "occupations"); // 加载初始资源
+        await this.loadResGroup("configs", "ui", "relics", "occupations", "misc"); // 加载初始资源
         this.globalInit(); // 初始化全局配置
         this.mv = this.createMainView(); // 创建主场景
         this.mv.loadResGroupImpl = async (...gs) => await this.loadResGroup(...gs);

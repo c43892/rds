@@ -40,8 +40,7 @@ class ViewUtils {
     public static setTexName(bmp:egret.Bitmap, name:string, resetSize:boolean = false, fillMode = egret.BitmapFillMode.SCALE):egret.Bitmap {
         if (name) {
             let tex: egret.Texture = RES.getRes(name);
-            if (!tex)
-                Utils.log("no texture created: " + name);
+            Utils.assert(!!tex, "no texture created: " + name);
             ViewUtils.setTex(bmp, tex, resetSize, fillMode);
         }
 

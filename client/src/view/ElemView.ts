@@ -393,7 +393,8 @@ class ElemView extends egret.DisplayObjectContainer {
         ElemView.dragFrom = undefined;
         if (ElemView.pressTimer) {
             ElemView.pressTimer.stop();
-            ElemView.notifyLongPressEnded();
+            if (ElemView.notifyLongPressEnded)
+                ElemView.notifyLongPressEnded();
         }
     }
 }
