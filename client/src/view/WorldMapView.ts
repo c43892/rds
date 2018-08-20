@@ -2,7 +2,8 @@
 class WorldMapView extends egret.DisplayObjectContainer {
     public player:Player;
     private viewContent:egret.DisplayObjectContainer;
-    private bg:egret.Bitmap;
+    private bg1:egret.Bitmap;
+    private bg2:egret.Bitmap;
     private mapArea:egret.ScrollView;
 
     public openShop; // 打开商店
@@ -21,18 +22,26 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.width = w;
         this.height = h;
 
-        this.bg = ViewUtils.createBitmapByName("WorldMapBg_png");
-        this.bg.x = 0;
-        this.bg.y = 0;
-        this.bg.width = w;
-        this.bg.height = h;
+        this.bg1 = ViewUtils.createBitmapByName("WorldMapBg_png", egret.BitmapFillMode.REPEAT);
+        this.bg1.x = 0;
+        this.bg1.y = 0;
+        this.bg1.width = w / 2;
+        this.bg1.height = h;
+
+        this.bg2 = ViewUtils.createBitmapByName("WorldMapBg_png", egret.BitmapFillMode.REPEAT);
+        this.bg2.x = w;
+        this.bg2.y = 0;
+        this.bg2.width = w / 2;
+        this.bg2.height = h;
+        this.bg2.scaleX = -1;
 
         this.viewContent = new egret.DisplayObjectContainer();
         this.viewContent.x = 0;
         this.viewContent.y = 0;
         this.viewContent.width = w;
         this.viewContent.height = h;
-        this.viewContent.addChild(this.bg);
+        this.viewContent.addChild(this.bg1);
+        this.viewContent.addChild(this.bg2);
 
         this.mapArea = new egret.ScrollView();
         this.mapArea.verticalScrollPolicy = "auto";
@@ -61,7 +70,8 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.mapArea.y = 10;
 
         this.viewContent.removeChildren();
-        this.viewContent.addChild(this.bg);
+        this.viewContent.addChild(this.bg1);
+        this.viewContent.addChild(this.bg2);
 
         if (!this.worldmap)
             return;
@@ -83,7 +93,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
             for (var j = 0; j < wp.nodes[i].length; j++) {
                 if(wp.nodes[i][j].parents.length != 0){
                     var pt = wp.nodes[i][j].roomType;
-                    var img = ViewUtils.createBitmapByName(pt + "_png");
+                    var img = ViewUtils.createBitmapByName("Node" + pt + "_png");
                     if(i == wp.nodes.length - 1){
                         img.x = (wp.nodes[i].length - 1) / 2 * xGap + xEdgeBlank;// boss点位置特殊处理
                         img.y = WorldMapNode.getNodeYposOnView(wp.nodes[i][j], this.viewContent.height, yGap, 0);
@@ -116,7 +126,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                         l.graphics.moveTo(imgs[i][j].x ,imgs[i][j].y);
                         if(i == wp.nodes.length - 2){
                             l.graphics.lineTo((wp.nodes[i].length - 1) / 2 * xGap + xEdgeBlank, 
-                                               WorldMapNode.getNodeYposOnView(n.routes[k].dstNode, this.viewContent.height, yGap, 0));//通往boss点的路线
+                                               WorldMapNode.getNodeYposOnView(n.routes[k].dstNode, this.viewContent.height, yGap, 0)); //通往boss点的路线
                         } else{
                             l.graphics.lineTo(WorldMapNode.getNodeXposOnView(n.routes[k].dstNode, xEdgeBlank, xGap, xSwing), 
                                               WorldMapNode.getNodeYposOnView(n.routes[k].dstNode, this.viewContent.height, yGap, ySwing));
