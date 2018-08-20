@@ -39,7 +39,7 @@ class Player {
         p.maxDeathStep = 120;
         p.hp = 20;
         p.maxHp = 20;
-        p.shield = 100;
+        p.shield = 0;
         p.power = [3, 0];
         p.playerRandom = new SRandom();
         p.money = 50;

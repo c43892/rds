@@ -124,7 +124,7 @@ class RelicFactory {
                 ElemFactory.addAI("onElemRevive", async (ps) => {
                     if(!ps.achieve) return;
 
-                    ps.achive = false;
+                    ps.achieve = false;
                 }, r)
             })
         },
