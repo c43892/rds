@@ -19,7 +19,6 @@ class BattleCalculator {
         var damageAdd = this.doCalc(attackerAttrs, "damageAdd");
         var addBuffs = attackerAttrs.addBuffs;
 
-        var immuneFlags = targetAttrs.immuneFlags;
         var targetFlags = targetAttrs.targetFlags;
         var shield = this.doCalc(targetAttrs, "shield");
         var dodge = this.doCalc(targetAttrs, "dodge");
@@ -29,7 +28,7 @@ class BattleCalculator {
         // 战斗计算结果
         var r = {r:"attacked", dhp:0, dShield:0, addBuffs:[]};
 
-        if (Utils.contains(immuneFlags, "cancelAttack")) { // 攻击行为被取消
+        if (Utils.contains(targetFlags, "cancelAttack")) { // 攻击动作不取消,但攻击不产生结果
             r.r = "canceled";
             return r;
         }
@@ -42,7 +41,7 @@ class BattleCalculator {
 
         // 判断免疫
         for (var af of attackFlags) {
-            if (Utils.contains(immuneFlags, af)) {
+            if (Utils.contains(targetFlags, af)) {
                 r.r = "immunized";
                 break;
             }
@@ -58,7 +57,7 @@ class BattleCalculator {
             var damage = power + damageAdd - damageDec;
             damage = (damage + resist.b) * (1 - resist.a) + resist.c;
             if (Utils.contains(targetFlags, "Sneaked")) damage += 2;
-            if (damage < 0) damage = 0;        
+            if (damage < 0) damage = 0;
 
             // 没有穿刺，就计算护盾
             if (!Utils.contains(attackFlags, "Pierce") && shield > 0)

@@ -612,11 +612,18 @@ class Battle {
     }
 
     // 角色+hp
-    public async implAddPlayerHp(dhp:number) {
+    public async implAddPlayerHp(dhp:number, source:any = undefined) {
         if (dhp == 0) return;
+        
+        if (dhp > 0){
+            var onPlayerHealingPs = {dhp:dhp, source:source}
+            await this.triggerLogicPoint("onPlayerHealing", onPlayerHealingPs);
+            dhp = onPlayerHealingPs.dhp;
+        }
+
         this.player.addHp(dhp);
-        await this.fireEvent("onPlayerChanged", {subType:"hp"});
-        await this.triggerLogicPoint("onPlayerChanged", {"subType": "hp"});
+        await this.fireEvent("onPlayerChanged", {subType:"hp", source:source});
+        await this.triggerLogicPoint("onPlayerChanged", {"subType": "hp", source:source});
     }
 
     // 角色+shield
@@ -690,7 +697,7 @@ class Battle {
         var g = this.level.map.getGridAt(x, y);
         var e = g.getElem();
         if (g.isCovered())
-            await this.uncover(x, y); // 攻击行为自动揭开地块
+            await this.uncover(x, y, true); // 攻击行为自动揭开地块
 
         if (!e || !(e instanceof Monster)) { // 如果打空，则不需要战斗计算过程，有个表现就可以了
             await this.fireEvent("onAttacking", {subType:"player2monster", x:x, y:y, weapon:weapon});
@@ -713,7 +720,7 @@ class Battle {
         // 不受援护逻辑影响
 
         // 检查免疫
-        if (Utils.contains(targetAttrs.immuneFlags, "Frozen"))
+        if (Utils.contains(targetAttrs.targetFlags, "Frozen"))
             return;
 
         // 计算冻结参数
@@ -740,7 +747,7 @@ class Battle {
         var m = <Monster>g.getElem();
         Utils.assert(!!m, "there is no monster at pos" + x + "," + y);
         if (g.isCovered())
-            await this.uncover(x, y); // 攻击行为自动揭开地块
+            await this.uncover(x, y, true); // 攻击行为自动揭开地块
         
         var targetAttrs = m.getAttrsAsTarget();
         var attackerAttrs = weapon.getAttrsAsAttacker();
@@ -765,7 +772,7 @@ class Battle {
             dodge:{a:0, b:0, c:0},
             damageDec:{a:0, b:0, c:0},
             resist:{a:0, b:0, c:0},
-            immuneFlags:[]
+            targetFlags:[]
         };
         if (!Utils.contains(attackerAttrs.attackFlags, "simulation"))
             attackerAttrs.attackFlags.push("simulation");
@@ -798,7 +805,7 @@ class Battle {
             dodge:{a:0, b:0, c:0},
             damageDec:{a:0, b:0, c:0},
             resist:{a:0, b:0, c:0},
-            immuneFlags:[]
+            targetFlags:[]
         };
         await this.triggerLogicPoint("onCalcAttacking", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
         return attackerAttrs;
@@ -978,7 +985,7 @@ class Battle {
                 if (r.r == "attacked") {
                     if (tar instanceof Player) {
                         Utils.assert(r.dShield == 0, "the player has no shield");
-                        await this.implAddPlayerHp(r.dhp);
+                        await this.implAddPlayerHp(r.dhp, m);
                     } else {
                         Utils.assert(tar instanceof Monster, "the target should monster, but got " + tar.type);
                         await this.implAddMonsterHp(tar, r.dhp);

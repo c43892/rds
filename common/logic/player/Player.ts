@@ -104,7 +104,7 @@ class Player {
 
     public attackFlags:string[][] = [[], ["item"]]; // 攻击属性
     public resistFlags:string[][] = [[], []]; // 抵抗属性
-    public immuneFlags:string[][] = [[], []]; // 免疫属性
+    public targetFlags:string[][] = [[], []]; // 免疫属性
 
     public power:number[] = [0, 0]; // 攻击力
     public accuracy:number[] = [0, 0]; // 命中
@@ -140,7 +140,7 @@ class Player {
             dodge:{a:0, b:this.dodge, c:0},
             damageDec:{a:0, b:this.damageDec, c:0},
             resist:{a:0, b:0, c:this.resist},
-            immuneFlags:[...this.immuneFlags]
+            targetFlags:[...this.targetFlags]
         };
     }
 

@@ -26,7 +26,6 @@ class Monster extends Elem {constructor() { super();}
             dodge:{a:0, b:this.btAttrs.dodge, c:0},
             damageDec:{a:0, b:this.btAttrs.damageDec, c:0},
             resist:{a:0, b:0, c:this.btAttrs.resist},
-            immuneFlags:[...this.btAttrs.immuneFlags],
             targetFlags:[...this.btAttrs.targetFlags]
         };
     }

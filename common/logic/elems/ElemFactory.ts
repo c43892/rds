@@ -175,7 +175,7 @@ class ElemFactory {
 
     // 食物
     static foodLogic(cnt:number, dhp:number, getImgResFun = undefined) {
-        return ElemFactory.elemCanUseManyTimes(cnt, async (e:Elem) => await e.bt().implAddPlayerHp(dhp),
+        return ElemFactory.elemCanUseManyTimes(cnt, async (e:Elem) => await e.bt().implAddPlayerHp(dhp, e),
             (e:Elem) => e.bt().player.hp < e.bt().player.maxHp,
             (e:Elem) => e.bt().player.hp < e.bt().player.maxHp ? undefined : "notHungry",
             getImgResFun);

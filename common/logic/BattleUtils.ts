@@ -109,7 +109,6 @@ class BattleUtils {
             critical:{a:0, b:0, c:0},
             damageAdd:{a:0, b:0, c:0},
 
-            immuneFlags:[],
             targetFlags:[],
             shield:{a:0, b:0, c:0},
             dodge:{a:0, b:0, c:0},
@@ -151,7 +150,6 @@ class BattleUtils {
             critical:0,
             damageAdd:0,
 
-            immuneFlags:[],
             targetFlags:[],
             shield:0,
             dodge:0,

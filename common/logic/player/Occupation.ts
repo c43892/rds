@@ -18,8 +18,9 @@ class Occupation {
     
     // 护士
     static makeNurse(p:Player):Player {
-        p.addBuff(new BuffNurse());
-        p["forHpPotion"] = {a:0, b:0, c:1}; // 使用血瓶时加成
+        p.addBuff(new BuffNurse()); // 职业buff
+        p.addRelic(<Relic>ElemFactory.create("MedicineBox")); // 初始遗物
+        p.addItem(<Prop>ElemFactory.create("HpPotion")); // 初始物品
         return p;
     }
 
