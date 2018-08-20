@@ -18,7 +18,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         this.uis["item"] = this.buildItemDescView();
 
         // 背景压暗，点击不能穿透
-        this.bg = ViewUtils.createBitmapByName("bg_png");
+        this.bg = ViewUtils.createBitmapByName("black_png");
         this.bg.name = "bg";
         this.bg.x = this.bg.y = 0;
         this.bg.width = w;

@@ -289,7 +289,8 @@ class ElemView extends egret.DisplayObjectContainer {
 
         ElemView.pressed = true;
         ElemView.longPressed = false;
-        ElemView.notifyLongPressEnded();
+        if (ElemView.notifyLongPressEnded)
+            ElemView.notifyLongPressEnded();
         ElemView.dragging = false;
         ElemView.dragFrom = this;
 
@@ -299,7 +300,8 @@ class ElemView extends egret.DisplayObjectContainer {
         }
 
         ElemView.pressTimer.start();
-        ElemView.notifyLongPressStarted(this.gx, this.gy, ElemView.LongPressThreshold);
+        if (ElemView.notifyLongPressStarted)
+            ElemView.notifyLongPressStarted(this.gx, this.gy, ElemView.LongPressThreshold);
     }
 
     static async onPressTimer() {
@@ -307,7 +309,8 @@ class ElemView extends egret.DisplayObjectContainer {
             return;
 
         ElemView.longPressed = true;
-        ElemView.notifyLongPressEnded();
+        if (ElemView.notifyLongPressEnded)
+            ElemView.notifyLongPressEnded();
         ElemView.pressTimer.stop();
 
         let g = ElemView.dragFrom.map.getGridAt(ElemView.dragFrom.gx, ElemView.dragFrom.gy);
@@ -390,7 +393,8 @@ class ElemView extends egret.DisplayObjectContainer {
         ElemView.dragFrom = undefined;
         if (ElemView.pressTimer) {
             ElemView.pressTimer.stop();
-            ElemView.notifyLongPressEnded();
+            if (ElemView.notifyLongPressEnded)
+                ElemView.notifyLongPressEnded();
         }
     }
 }

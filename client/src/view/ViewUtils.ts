@@ -40,8 +40,7 @@ class ViewUtils {
     public static setTexName(bmp:egret.Bitmap, name:string, resetSize:boolean = false, fillMode = egret.BitmapFillMode.SCALE):egret.Bitmap {
         if (name) {
             let tex: egret.Texture = RES.getRes(name);
-            if (!tex)
-                Utils.log("no texture created: " + name);
+            Utils.assert(!!tex, "no texture created: " + name);
             ViewUtils.setTex(bmp, tex, resetSize, fillMode);
         }
 
@@ -160,9 +159,24 @@ class ViewUtils {
         return ss;
     }
 
+    // 安全显示区域，去掉刘海部分，比主显示区域大，非标准纵横比
+    public static FullArea:egret.DisplayObjectContainer;
+
+    // 主显示区域，标准纵横比
+    public static MainArea:egret.DisplayObjectContainer;
+
+    // 作为背景填充安全显示区域
+    public static asFullBg(obj:egret.DisplayObject) {
+        ViewUtils.MainArea.addChild(obj);
+        obj.width = 758;
+        obj.height = 1280;
+        obj.x = (ViewUtils.MainArea.width - obj.width) / 2;
+        obj.y = (ViewUtils.MainArea.height - obj.height) / 2;
+    }
+
     // 获取全局缩放值
     public static getGlobalScale(obj:egret.DisplayObject) {
-        if (obj instanceof egret.Stage)
+        if (obj == ViewUtils.MainArea)
             return {scaleX:1, scaleY:1};
 
         var s = {scaleX:obj.scaleX, scaleY:obj.scaleY};

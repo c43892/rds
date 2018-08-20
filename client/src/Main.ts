@@ -124,20 +124,31 @@ class Main extends egret.DisplayObjectContainer {
         GCfg.getMultiLanguageCfg = () => multiLangCfg;
     }
 
+    // 加载指定资源组
+    ldv = new LoadingUI(); // loading 界面    
+    async loadResGroup(...gs) {
+        ViewUtils.asFullBg(this.ldv);
+        for (var i = 0; i < gs.length; i++)
+            await this.ldv.loadResGroup(gs[i]);
+        this.ldv.setProgress(1);
+        this.ldv.parent.removeChild(this.ldv);
+    }
+
     private mv:MainView;
-
     private async runGame() {
-        // var c = new WSClient();
-        // c.connect2srv("localhost", 80)
-        // .onError(() => console.log("net error"))
-        // .onConnected(() => c.request({"msg":"echo", "content":"hello"}, (r) => console.log("echo: " + r["content"])));
+        this.calcArea(); // 计算屏幕适配
 
-        await this.loadResource() // 加载初始资源
-        this.globalInit(); // 全局基础功能初始化
+        await RES.loadConfig("resource/default.res.json", "resource/"); // 加载资源配置
+        this.ldv = new LoadingUI(); // 准备加载界面
+        await this.loadResGroup("loading"); // 加载加载界面资源
+        this.ldv.refresh();
 
-        // 创建场景
-        this.createGameScene();
+        await this.loadResGroup("configs", "ui", "relics", "occupations", "misc"); // 加载初始资源
+        this.globalInit(); // 初始化全局配置
+        this.mv = this.createMainView(); // 创建主场景
+        this.mv.loadResGroupImpl = async (...gs) => await this.loadResGroup(...gs);
 
+        // 排行榜服务器通信用
         if (platform instanceof DebugPlatform)
             (<DebugPlatform>platform).wc = new WebClient("http://127.0.0.1:81");
 
@@ -147,44 +158,69 @@ class Main extends egret.DisplayObjectContainer {
         this.mv.openStartup(p);
     }
 
-    private async loadResource() {
-        try {
-            const loadingView = new LoadingUI();
-            this.stage.addChild(loadingView);
-            await RES.loadConfig("resource/default.res.json", "resource/");
-            await RES.loadGroup("preload", 0, loadingView);
-            this.stage.removeChild(loadingView);
-        }
-        catch (e) {
-            console.error(e);
-        }
-    }
-
-    /**
-     * 创建游戏场景
-     * Create a game scene
-     */
-    private createGameScene() {
+    // 计算安全区域和主显示区域
+    calcArea() {
         let stageW = this.stage.stageWidth;
         let stageH = this.stage.stageHeight;
 
-        // 背景图
-        let bg = ViewUtils.createBitmapByName("bg_png");
-        bg.width = stageW;
-        bg.height = stageH;
-        bg.x = 0;
-        bg.y = 0;
-        this.addChild(bg);
+        // 先计算 fullArea 把刘海空出来，比例是固定 2:1，也是所有全屏背景图的制作比例
+        let fullArea = new egret.DisplayObjectContainer();
+        this.addChild(fullArea);
+        let ar = stageH / stageW;
+        if (ar > 2) { // 支持最长屏幕比例，靠下对其，顶上留空
+            fullArea.width = stageW;
+            fullArea.height = stageW * 2;
+            fullArea.x = 0;
+            fullArea.y = stageH - fullArea.height;
+        } else if (ar < 1.5) { // 支持最宽屏幕，左右留空
+            fullArea.height = stageH;
+            fullArea.width = stageH / 2;
+            fullArea.x = (stageH - fullArea.width) / 2;
+            fullArea.y = 0;
+        }
+        else {
+            fullArea.width = stageW;
+            fullArea.height = stageH;
+            fullArea.x = 0;
+            fullArea.y = 0;
+        }
 
+        // 计算主区域
+        let mainArea = new egret.DisplayObjectContainer();
+        mainArea.height = 1136;
+        mainArea.width = 640;
+        fullArea.addChild(mainArea);
+        let standardAspectRatio = 1136/640; // 标准纵横比
+        let r = fullArea.height / fullArea.width;
+        if (r > standardAspectRatio) { // 长屏
+            var scale = fullArea.width / mainArea.width;
+            mainArea.scaleX = scale;
+            mainArea.scaleY = scale;
+            mainArea.x = 0;
+            mainArea.y = (fullArea.height - fullArea.width * standardAspectRatio) / 2;
+        } else { // 宽屏
+            var scale = fullArea.height / mainArea.height;
+            mainArea.scaleX = scale;
+            mainArea.scaleY = scale;
+            mainArea.x = (fullArea.width - mainArea.height / standardAspectRatio) / 2;
+            mainArea.y = 0;            
+        }
+
+        ViewUtils.FullArea = fullArea;
+        ViewUtils.MainArea = mainArea;
+    }
+
+    // 创建游戏场景主视图
+    private createMainView():MainView {
         // 主视图
-        this.mv = new MainView(stageW, stageH);
-        this.mv.anchorOffsetX = 0;
-        this.mv.anchorOffsetY = 0;
-        this.mv.x = 0;
-        this.mv.y = 0;
-        this.addChild(this.mv);
-        this.addChild(this.mv.tcv); // 提示层在动画层之下，其它所有 MainView 层的上面
-        this.addChild(this.mv.av); // 动画层在所有 MainView 层的上面
+        var mainArea = ViewUtils.MainArea;
+        let mv = new MainView(mainArea.width, mainArea.height);
+        mv.x = 0;
+        mv.y = 0;
+        mainArea.addChild(mv);
+        mainArea.addChild(mv.tcv); // 提示层在动画层之下，其它所有 MainView 层的上面
+        mainArea.addChild(mv.av); // 动画层在所有 MainView 层的上面
+        return mv;
 
         // 测试试图
         // var tv = new AniTestView(stageW, stageH);

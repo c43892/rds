@@ -17,7 +17,7 @@ class AniView extends egret.DisplayObjectContainer {
         this.aniCover.height = this.height;
         this.aniCover.touchEnabled = true;
 
-        this.blackCover = ViewUtils.createBitmapByName("blackcover_png");
+        this.blackCover = ViewUtils.createBitmapByName("black_png");
         this.blackCover.width = this.width;
         this.blackCover.height = this.height;
         this.blackCover.touchEnabled = true;

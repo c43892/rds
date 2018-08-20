@@ -24,6 +24,9 @@ class Level {
     private elemsCfgInLevel;
     public getElemCfg(type:string) {
         var attrs = this.elemsCfgInLevel[type];
+        if (!attrs)
+            attrs = GCfg.getElemAttrsCfg(type);
+
         while (attrs && attrs.type) {
             type = attrs.type;
             var tAttrs = this.elemsCfgInLevel[type];

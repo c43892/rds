@@ -275,7 +275,7 @@ class Map {
     }
 
     // 寻找所有满足条件的 Elem, f 是一个函数表示过滤条件，形如 function(e:elem):boolean
-    public findAllElems(f):Elem[] {
+    public findAllElems(f = undefined):Elem[] {
         var es = [];
         this.travelAll((x, y) =>
         {

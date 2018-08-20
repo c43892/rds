@@ -168,7 +168,7 @@ class ItemFactory {
             }, e, (ps) => {
                 return e.isValid() && ps.r.r == "attacked" && ps.subType == "monster2targets" && ps.targetAttrs.owner instanceof Player});
             e = ElemFactory.triggerColddownLogic(e);
-            e.getElemImgRes = () => (e.cd <= 0) ? e.type : e.type + "back";
+            e.getElemImgRes = () => (e.cd <= 0) ? e.type : e.type + "Back";
             return e;
         },
 
