@@ -59,6 +59,22 @@
             {"discount":10}, {"discount":15}, {"discount":20}, {"discount":25}
         ]
     },
+    "TreasureBoxDetector":{"name":"宝箱探测"},
+    "KnifeMaster":{"name":"飞刀大师", "dpower":1,
+        "reinforce":[
+            {"dpower":2}, {"dpower":3}, {"dpower":4}, {"dpower":5}
+        ]
+    },
+    "MonsterHunter":{"name":"怪物猎人", "markNum":1,
+        "reinforce":[
+            {"markNum":2}, {"markNum":3}, {"markNum":4}, {"markNum":5}
+        ]
+    },
+    "KnifeProficient":{"name":"飞刀专精"},
+    "Explorer":{"name":"探险家"},
+    "Horticulturist":{"name":"园艺师"},
+    "SmellEnhanced":{"name":"嗅觉强化"},
+    "Storer":{"name":"囤积居奇"},
 
     "CoinsTiny":{"name":"金币", "canOverlap":true, "useWithoutConfirm":true},
     "CoinsSmall":{"name":"金币", "canOverlap":true, "useWithoutConfirm":true},

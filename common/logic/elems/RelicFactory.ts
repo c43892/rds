@@ -186,10 +186,95 @@ class RelicFactory {
                 ElemFactory.addAI("onOpenShop", (ps) => ps.discount += r.attrs.discount, r)
         })},
 
+        // 宝箱探测,每进入一层新的战斗地图，都可以标记一个宝箱的位置
+        "TreasureBoxDetector": (attrs) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) return;
+                ElemFactory.addAI("onStartupRegionUncovered", async () => {
+                    var tb = BattleUtils.findRandomElems(r.bt(), 1, (e:Elem) => e.getGrid().isCovered() && e.type == "TreasureBox")[0];
+                    if(tb)
+                        await r.bt().implMark(tb.pos.x, tb.pos.y);
+                }, r)
+            })
+        },
+
+        // 飞刀大师,每场战斗增加一把飞刀，飞刀造成的伤害+X（最高5级）
+        "KnifeMaster": (attrs) => {
+            var r = this.doAddElemOnLevelInited(attrs, ["Knife"], 1);
+            return ElemFactory.addAI("onCalcAttacking", (ps) => {
+                ps.attackerAttrs.power.b += attrs.dpower;
+            }, r, (ps) => ps.subType == "player2monster" && ps.weapon.type == "Knife")
+        },
+
+        // 怪物猎人,每场战斗开始时标记X个怪物（最多5级）
+        "MonsterHunter": (attrs) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) return;
+                ElemFactory.addAI("onStartupRegionUncovered", async () => {                    
+                    var ms = BattleUtils.findRandomElems(r.bt(), attrs.markNum, (e:Elem) => e.getGrid().isCovered() && e instanceof Monster && e.isHazard());
+                    for (var m of ms)
+                        await r.bt().implMark(m.pos.x, m.pos.y);
+                }, r)
+            })
+        },
+
+        // 飞刀专精	每场战斗增加一把飞刀，飞刀攻击时无视护甲
+        "KnifeProficient": (attrs) => {
+            var r = this.doAddElemOnLevelInited(attrs, ["Knife"], 1);
+            return ElemFactory.addAI("onCalcAttacking", (ps) => {
+                ps.attackerAttrs.attackFlags.push("Pierce");
+            }, r,  (ps) => ps.subType == "player2monster" && ps.weapon.type == "Knife")
+        },
+
+        // 探险家	每当你杀死一只怪物，则随机显示一件物品的位置
+        "Explorer": (attrs) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) return;
+                ElemFactory.addAI("onElemChanged", async () => {
+                    var e = BattleUtils.findRandomElems(r.bt(), 1, (e:Elem) => e.getGrid().isCovered() && !(e instanceof Monster))[0];
+                    if (e)
+                        await r.bt().implMark(e.pos.x, e.pos.y);
+                }, r, (ps) => ps.subType == "die" && ps.e instanceof Monster && ps.e.isHazard())
+            })
+        },
+
+        // 园艺师	每场战斗增加一个苹果，每次使用苹果额外回复一点生命
+        "Horticulturist": (attrs) => {
+            var r = this.doAddElemOnLevelInited(attrs, ["Apple"], 1);
+            return ElemFactory.addAI("onPlayerHealing", (ps) => {
+                ps.onPlayerHealingPs.dhpPs.b += 1;
+            }, r, (ps) => ps.source && ps.source.type == "Apple");
+        },
+
+        // 嗅觉强化	你知道所有食物的位置
+        "SmellEnhanced": (attrs) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) return;
+                ElemFactory.addAI("onStartupRegionUncovered", async () => {
+                    var fs = r.map().findAllElems((e:Elem) => e.getGrid().isCovered() && Utils.contains(e.attrs.tags, "food"));
+                    for (var f of fs)
+                        await r.bt().implMark(f.pos.x, f.pos.y);
+                }, r)
+            })
+        },
+
+        // 囤积居奇	每当离开一场战斗地图，都可以带走随机一件非金钱物品到下一场战斗
+        "Storer": (attrs) => {
+             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) return;
+                ElemFactory.addAI("beforeGoOutLevel1", async () => {
+                    var e = BattleUtils.findRandomElems(r.bt(), 1, (e:Elem) => {
+                        return !e.getGrid().isCovered() && e instanceof Item && e.type != "Door" && e.type != "TreasureBox" && e.type != "Cocoon"
+                    })[0];
+                    await r.bt().implElemFollow2NextLevel(e);
+                }, r)
+            })
+        },
+
         "":{}
     };
 
-    // 每层增加n个Elem,Elem从给定的Elems里随机选取
+    // 每层增加n个相同Elem,Elem从给定的Elems里随机选取
     public doAddElemOnLevelInited(attrs, elemTypes:string[], n:number):Relic {
         return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) return;

@@ -6,7 +6,7 @@ class BuffNurse extends Buff {
 
         this.onPlayerHealing = (ps) => {
             if(ps.source && ps.source.type == "HpPotion")
-                ps.dhp += 1;
+                ps.onPlayerHealingPs.dhpPs.b += 1;
         }
 
         // // 整场战斗的开局 +1 HpPotion

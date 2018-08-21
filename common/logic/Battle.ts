@@ -633,10 +633,11 @@ class Battle {
     public async implAddPlayerHp(dhp:number, source:any = undefined) {
         if (dhp == 0) return;
         
+        //玩家被治疗时受到的加成
         if (dhp > 0){
-            var onPlayerHealingPs = {dhp:dhp, source:source}
+            var onPlayerHealingPs = {dhp:dhp, source:source, dhpPs:{a:0, b:0, c:0}}
             await this.triggerLogicPoint("onPlayerHealing", onPlayerHealingPs);
-            dhp = onPlayerHealingPs.dhp;
+            dhp = (dhp + onPlayerHealingPs.dhpPs.b) * (1 + onPlayerHealingPs.dhpPs.a) + onPlayerHealingPs.dhpPs.c;
         }
 
         this.player.addHp(dhp);
@@ -705,8 +706,8 @@ class Battle {
     }
 
     // 进行一次攻击计算
-    public async calcAttack(subType:string, attackerAttrs, targetAttrs) {
-        await this.triggerLogicPoint("onCalcAttacking", {subType:subType, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+    public async calcAttack(subType:string, attackerAttrs, targetAttrs, weapon:Elem = undefined) {
+        await this.triggerLogicPoint("onCalcAttacking", {subType:subType, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon});
         var r = this.bc.doAttackCalc(attackerAttrs, targetAttrs); // 可能有免疫或者盾牌需要替换掉这个结果
         await this.triggerLogicPoint("onCalcAttackResult", {subType:subType, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r}); // 提供盾牌使用
         return r;
@@ -940,7 +941,7 @@ class Battle {
                 (<string[]>targetAttrs.targetFlags).push("Sneaked"); // 突袭标记
 
             for (var j = 0; j < attackerAttrs.muiltAttack && !tar.isDead(); j++) {
-                var r = await this.calcAttack("player2monster", attackerAttrs, targetAttrs);
+                var r = await this.calcAttack("player2monster", attackerAttrs, targetAttrs, weapon);
                 if (r.r == "attacked") {
                     await this.implAddMonsterHp(tar, r.dhp);
                     await this.implAddMonsterShield(tar, r.dShield)
