@@ -148,7 +148,6 @@ class MonsterFactory {
 
         "BossBunny": (attrs) => {
             var m = this.createMonster(attrs);
-            m.getElemImgRes = () => "Bunny";
             MonsterFactory.makeBoss(
                 MonsterFactory.doSneakAttack(
                     MonsterFactory.doAttackBack(

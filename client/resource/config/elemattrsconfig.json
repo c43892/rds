@@ -67,7 +67,6 @@
     "HeadBone":{"name":"骷髅头"},
 
     "DeathGod":{"name":"死神", "hp":10, "power":3, "cannotTake":true},
-    "Bunny":{"name":"兔子", "sheild":3},
     "NormalZombie":{"name":"普通僵尸", "moveRange":3, "dropItems":["CoinsTiny"]},
     "GoblinThief":{"name":"哥布林窃贼", "steal":{"percent":20, "num":5}, "dropItems":["CoinsTiny"], "cannotTake":true},
     "HoundZombie":{"name":"猎犬僵尸", "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}], "muiltAttack":2, "dropItems":["CoinsTiny"]},

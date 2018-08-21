@@ -5330,11 +5330,6 @@
             "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
             "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
             "TreasureBox3":{"type":"TreasureBox", "rdp":"treasureBox3"},
-            "Bunny":{
-                "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
-                "selfExplode":{"power":6},
-                "dropItems":["RandomEgg", "RandomEgg"]
-            },
             "NormalZombie":{"hp":8, "power":4},
             "GoblinThief":{"hp":6, "power":2, "steal":{"percent":20, "num":5}},
             "HoundZombie":{"hp":7, "power":3, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
@@ -5440,11 +5435,6 @@
             "TreasureBox3":{"type":"TreasureBox", "rdp":"treasureBox2"},
             "TreasureBox4":{"type":"TreasureBox", "rdp":"treasureBox2"},
             "TreasureBox5":{"type":"TreasureBox", "rdp":"treasureBox2"},
-            "Bunny":{
-                "hp":5, "sheild":3, "power":1, "suckBlood":3, "summons":["Bunny"], 
-                "selfExplode":{"power":6},
-                "dropItems":["RandomEgg", "RandomEgg"]
-            },
             "NormalZombie":{"hp":8, "power":4},
             "GoblinThief":{"hp":6, "power":2, "steal":{"percent":20, "num":5}},
             "HoundZombie":{"hp":7, "power":3, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},

@@ -187,6 +187,7 @@ class MainView extends egret.DisplayObjectContainer {
     // 开启商店界面
     public async openShopInBattle(items, prices, onBuy) {
         this.sv.player = this.p;
+        await this.loadResources(Utils.map(items, (it) => it + "_png"));
         this.addChild(this.sv);
         await this.sv.open(items, prices, onBuy, false);
         this.removeChild(this.sv);
@@ -206,6 +207,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.sv.player = this.p;
         this.addChild(this.sv);
         var r = Utils.genRandomShopItems(this.p, shop, this.p.playerRandom, 6);
+        await this.loadResources(Utils.map(r.items, (it) => it + "_png"));
         await this.sv.open(r.items, r.prices, (elem:Elem, price:number) => {
             this.p.addMoney(-price);
             this.p.addItem(elem)
@@ -349,6 +351,13 @@ class MainView extends egret.DisplayObjectContainer {
     // 加载指定资源组并显示加载画面
     public loadResGroupsImpl;
     public loadResGroups = async (g) => await this.loadResGroupsImpl(g);
+    public async loadResources(resArr) {
+        // 将所有需要加载的资源打包成要给临时资源组
+        var r = new SRandom();
+        var g = "resourcegroup_" + r.nextDouble().toString();
+        RES.createGroup(g, resArr);
+        await this.loadResGroups(g);
+    }
 
     // 加载指定关卡中配置到的资源
     public async loadBattleRes(bt:Battle) {
@@ -383,10 +392,7 @@ class MainView extends egret.DisplayObjectContainer {
                 es.push(dpe);
         }
 
-        // 将所有需要加载的资源打包成要给临时资源组
-        var g = bt.id + "_resourcegroup";
-        RES.createGroup(g, resArr);
-        await this.loadResGroups(g);
+        await this.loadResources(resArr);
     }
 
     // 按照本地存档继续游戏
