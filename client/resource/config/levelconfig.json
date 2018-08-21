@@ -12,6 +12,7 @@
             "h": 3
         },
         "elems": {
+            "ShopNpc":{"shopCfg":"inbattle"},
             "CoinsTiny": {
                 "type": "Coins",
                 "cnt": 1
@@ -123,6 +124,7 @@
                 "power": 1
             }
         },
+        "constElems":{"ShopNpc":1},
         "randomGroups": [
             {
                 "num": [ 8, 9 ],

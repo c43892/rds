@@ -36,7 +36,7 @@
     "Cloak":{"name":"披风", "cd":100},
     "Unback2Sneak":{"name":"先动"},
     "Crucifix":{"name":"十字架"},
-    "WeaponMaster":{"name":"武器大师"},
+    "WeaponMaster":{"name":"武器大师", "repRes":["WeaponMaster", "Baton"]},
     "UndefinedName1":{"name":"未命名1", "uncoverCnt":5,
         "reinforce":[
             {"uncoverCnt":4}, {"uncoverCnt":3}, {"uncoverCnt":14}, {"uncoverCnt":12}
@@ -52,9 +52,9 @@
             {"num":2}, {"num":3}, {"num":4}, {"num":5}
         ]
     },
-    "DefenseMaster":{"name":"防护大师"},
-    "BookMaster":{"name":"图书大师"},
-    "TradeMaster":{"name":"交易大师", "discount":5,
+    "DefenseMaster":{"name":"防护大师", "repRes":["DefenseMaster", "Vest"]},
+    "BookMaster":{"name":"图书大师", "repRes":["BookMaster", "Magazine", "EconomyMagazine"]},
+    "TradeMaster":{"name":"交易大师", "discount":50,
         "reinforce":[
             {"discount":10}, {"discount":15}, {"discount":20}, {"discount":25}
         ]

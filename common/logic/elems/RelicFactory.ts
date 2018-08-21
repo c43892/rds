@@ -169,12 +169,12 @@ class RelicFactory {
                     if(Utils.indexOf(m.dropItems, (e:Elem) => e.type == "Coins") < 0) return;
                                         
                     m.addDropItem(m.bt().level.createElem("Coins", {cnt:attrs.num}));
-                }, r, (ps) => ps.subType = "preDie" && ps.e instanceof Monster)
+                }, r, (ps) => ps.subType == "preDie" && ps.e instanceof Monster)
             })
         },
 
         // 防护专精,每层额外增加一件防护服
-        "DefenseMaster": (attrs) => this.doAddElemOnLevelInited(attrs, ["Vast"], 1),
+        "DefenseMaster": (attrs) => this.doAddElemOnLevelInited(attrs, ["Vest"], 1),
 
         // 图书大师,每层额外增加一本书
         "BookMaster": (attrs) => this.doAddElemOnLevelInited(attrs, ["Magazine", "EconomyMagazine"], 1),

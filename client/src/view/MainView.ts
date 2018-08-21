@@ -188,14 +188,6 @@ class MainView extends egret.DisplayObjectContainer {
     public async openShopInBattle(items, prices, onBuy) {
         this.sv.player = this.p;
         this.addChild(this.sv);
-
-        // 处理打折
-        var onOpenShopPs = {discount:0};
-        this.p.triggerLogicPointSync("onOpenShop", onOpenShopPs);
-        if(onOpenShopPs.discount != 0)
-            for (var item of items)
-                prices[item] = prices[item] * (1 - onOpenShopPs.discount)            
-        
         await this.sv.open(items, prices, onBuy, false);
         this.removeChild(this.sv);
     }
@@ -214,6 +206,20 @@ class MainView extends egret.DisplayObjectContainer {
         this.sv.player = this.p;
         this.addChild(this.sv);
         var r = Utils.genRandomShopItems(this.p, shop, this.p.playerRandom, 6);
+
+        // 处理打折
+        var onOpenShopPs = {discount:0};
+        this.p.triggerLogicPointSync("onOpenShop", onOpenShopPs);
+        if(onOpenShopPs.discount != 0){
+            var discounted = [];
+            for (var item of r.items){
+                if(Utils.indexOf(discounted, (i) => i == item) < 0){
+                    r.prices[item] = Math.ceil(r.prices[item] * (1 - onOpenShopPs.discount / 100));
+                    discounted.push(item);
+                }
+            }
+        }
+        
         await this.sv.open(r.items, r.prices, (elem:Elem, price:number) => {
             this.p.addMoney(-price);
             this.p.addItem(elem)
@@ -362,8 +368,11 @@ class MainView extends egret.DisplayObjectContainer {
     public async loadBattleRes(bt:Battle) {
         var resArr = [];
 
-        // 地图上的元素
-        var es:string[] = Utils.map(bt.level.map.findAllElems(), (e) => e.type);
+        // 所有已经加入的元素
+        var items:string[] = Utils.map(bt.level.map.findAllElems(), (e) => e.type);
+        var relics:string[] = Utils.map(bt.player.relics, (r) => r.type);
+        var props:string[] = Utils.map(bt.player.props, (r) => r.type);
+        var es = [...items, ...relics, ...props];
         while (es.length > 0) {
             var e = es.shift();
             var cfg = bt.level.getElemCfg(e);
