@@ -226,7 +226,6 @@
         "HeadBone":{"name":"骷髏頭", "desc":"<font color=#000000 size=18>每當你被怪物突襲時，骷髏王都會原地復活"},
 
         "DeathGod":{"name":"死神", "desc":"<font color=#3333cc size=20>漂浮\n\n<font color=#000000 size=18>每回合都會移動位置;<font color=#3333cc size=20>殺戮 <font color=#3333cc size=20>每回合都會攻擊"},
-        "Bunny":{"name":"兔子", "desc":""},
         "NormalZombie":{"name":"普通僵屍", "desc":"<font color=#3333cc size=20>平淡\n\n<font color=#000000 size=18>沒有特殊能力"},
         "GoblinThief":{"name":"哥布林竊賊", "desc":"<font color=#3333cc size=20>偷竊\n\n<font color=#000000 size=18>突襲時偷取<font color=#00ff00 size=18>{percent}%<font color=#000000 size=18>的金幣"},
         "HoundZombie":{"name":"獵犬僵屍", "desc":"<font color=#3333cc size=20>屍毒\n\n<font color=#000000 size=18>攻擊附帶2層中毒"},
