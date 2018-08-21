@@ -412,6 +412,7 @@ class MainView extends egret.DisplayObjectContainer {
     // 开始新游戏，本地存档被新游戏覆盖
     newPlay() {
         var p = Player.createTestPlayer();
+        p = Occupation.makeOccupation(p);
         p.worldmap = WorldMap.buildFromConfig("world1");
         p.worldmap.player = p;
         this.p = p;

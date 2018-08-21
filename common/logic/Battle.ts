@@ -30,7 +30,7 @@ class Battle {
 
         var bt = new Battle(btRandomSeed, trueRandomSeed);
         bt.id = "bt_" + bt.btType + "_" + Math.random();
-        bt.player = Occupation.makeOccupation(p);
+        bt.player = p;
         bt.btType = btType;
         p.setBattle(bt);
         return bt;
