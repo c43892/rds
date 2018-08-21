@@ -355,8 +355,8 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 加载指定资源组并显示加载画面
-    public loadResGroupImpl;
-    public loadResGroup = async (g) => await this.loadResGroupImpl(g);
+    public loadResGroupsImpl;
+    public loadResGroups = async (g) => await this.loadResGroupsImpl(g);
 
     // 加载指定关卡中配置到的资源
     public async loadBattleRes(bt:Battle) {
@@ -394,7 +394,7 @@ class MainView extends egret.DisplayObjectContainer {
         // 将所有需要加载的资源打包成要给临时资源组
         var g = bt.id + "_resourcegroup";
         RES.createGroup(g, resArr);
-        await this.loadResGroup(g);
+        await this.loadResGroups(g);
     }
 
     // 按照本地存档继续游戏

@@ -27,13 +27,6 @@ class ViewUtils {
             bmp.height = tex.textureHeight;
         }
 
-        if (resetSize) {
-            bmp.anchorOffsetX = 0;
-            bmp.anchorOffsetY = 0;
-            bmp.x = 0;
-            bmp.y = 0;
-        }
-
         return bmp;
     }
 
@@ -105,6 +98,17 @@ class ViewUtils {
         return curCfg[key][mlCfg.currentLanguage];
     }
 
+    // 创建一批图像对象并赋值
+    public static createImgs(view:egret.DisplayObjectContainer, varNames:string[], texNames:string[]) {
+        Utils.assert(varNames.length == texNames.length, "var nubmer mismatched the tex number");
+        varNames.forEach((vn, i) => {
+            var img = ViewUtils.createBitmapByName(texNames[i]);
+            img.name = vn;
+            view[vn] = img;
+            view.addChild(img);
+        });
+    }
+
     // 对给定显示对象进行多语言处理
     public static multiLang(view, ...ps) {
         if (!ViewUtils.languageCfg)
@@ -135,9 +139,6 @@ class ViewUtils {
                 var bmp = p instanceof TextButtonWithBg ? p.bg : p;
                 ViewUtils.setTexName(bmp, curCfg.imgs[name][mlCfg.currentLanguage] ? curCfg.imgs[name][mlCfg.currentLanguage] : curCfg.imgs[name]);
             }
-
-            if (p instanceof TextButtonWithBg)
-                (<TextButtonWithBg>p).refresh();
         }
     }
 
