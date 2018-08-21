@@ -188,6 +188,14 @@ class MainView extends egret.DisplayObjectContainer {
     public async openShopInBattle(items, prices, onBuy) {
         this.sv.player = this.p;
         this.addChild(this.sv);
+
+        // 处理打折
+        var onOpenShopPs = {discount:0};
+        this.p.triggerLogicPointSync("onOpenShop", onOpenShopPs);
+        if(onOpenShopPs.discount != 0)
+            for (var item of items)
+                prices[item] = prices[item] * (1 - onOpenShopPs.discount)            
+        
         await this.sv.open(items, prices, onBuy, false);
         this.removeChild(this.sv);
     }

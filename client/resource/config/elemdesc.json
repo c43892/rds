@@ -13,6 +13,10 @@
         "WeaponMaster":{"name":"WeaponMaster", "desc":""},
         "UndefinedName1":{"name":"UndefinedName1", "desc":""},
         "UndefinedName2":{"name":"未命名2", "desc":""},
+        "UndefinedName3":{"name":"未命名3", "desc":""},
+        "DefenseMaster":{"name":"防护大师", "desc":""},
+        "BookMaster":{"name":"图书大师", "desc":""},
+        "TradeMaster":{"name":"交易大师", "desc":""},
         
         "Coins":{"name":"Coins", "desc":"<font color=#00ff00 size=18>{cnt} <font color=#000000 size=18>gold coins</font>"},
         "Key":{"name":"Key", "desc":"<font color=#000000 size=18>Open treasure chest or door</font>"},
@@ -100,6 +104,11 @@
         "WeaponMaster":{"name":"武器大师", "desc":""},
         "UndefinedName1":{"name":"未命名1", "desc":""},
         "UndefinedName2":{"name":"未命名2", "desc":""},
+        "UndefinedName3":{"name":"未命名3", "desc":""},
+        "DefenseMaster":{"name":"防护大师", "desc":""},
+        "BookMaster":{"name":"图书大师", "desc":""},
+        "TradeMaster":{"name":"交易大师", "desc":""},
+        
         
         "Coins":{"name":"金币", "desc":"<font color=#00ff00 size=18>{cnt} <font color=#000000 size=18>个金币"},
         "Key":{"name":"钥匙", "desc":"<font color=#000000 size=18>可打开宝箱或门"},
@@ -185,6 +194,10 @@
         "WeaponMaster":{"name":"武器大师", "desc":""},
         "UndefinedName1":{"name":"未命名1", "desc":""},
         "UndefinedName2":{"name":"未命名2", "desc":""},
+        "UndefinedName3":{"name":"未命名3", "desc":""},
+        "DefenseMaster":{"name":"防护大师", "desc":""},
+        "BookMaster":{"name":"图书大师", "desc":""},
+        "TradeMaster":{"name":"交易大师", "desc":""},
         
         "Coins":{"name":"金幣", "desc":"<font color=#00ff00 size=18>{cnt} <font color=#000000 size=18>個金幣"},
         "Key":{"name":"鑰匙", "desc":"<font color=#000000 size=18>可打開寶箱或閘"},

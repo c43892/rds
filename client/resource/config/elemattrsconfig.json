@@ -38,13 +38,25 @@
     "Crucifix":{"name":"十字架"},
     "WeaponMaster":{"name":"武器大师"},
     "UndefinedName1":{"name":"未命名1", "uncoverCnt":5,
-    "reinforce":[
+        "reinforce":[
             {"uncoverCnt":4}, {"uncoverCnt":3}, {"uncoverCnt":14}, {"uncoverCnt":12}
         ]
     },
     "UndefinedName2":{"name":"未命名2", "dexp":1,
-    "reinforce":[
+        "reinforce":[
             {"dexp":2}, {"dexp":3}, {"dexp":4}, {"dexp":5}
+        ]
+    },
+    "UndefinedName3":{"name":"未命名3", "num":1,
+        "reinforce":[
+            {"num":2}, {"num":3}, {"num":4}, {"num":5}
+        ]
+    },
+    "DefenseMaster":{"name":"防护大师"},
+    "BookMaster":{"name":"图书大师"},
+    "TradeMaster":{"name":"交易大师", "discount":5,
+        "reinforce":[
+            {"discount":10}, {"discount":15}, {"discount":20}, {"discount":25}
         ]
     },
 

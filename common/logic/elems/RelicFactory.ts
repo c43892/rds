@@ -130,17 +130,7 @@ class RelicFactory {
         },
 
         // 武器大师
-        "WeaponMaster": (attrs) => {
-            return this.createRelic(attrs, true, (r:Relic, enable:boolean) => {
-                if (!enable) return;
-                ElemFactory.addAI("onLevelInited", async () => {
-                   var bt = r.bt();
-                    var g = BattleUtils.findRandomEmptyGrid(bt);
-                    if(g)
-                        await bt.implAddElemAt(bt.level.createElem("Baton"), g.pos.x, g.pos.y);
-                }, r)
-            })
-        },
+        "WeaponMaster": (attrs) => this.doAddElemOnLevelInited(attrs, ["Baton"], 1),
 
         // 每翻开20个空格，角色获得一点护甲（每升一级降低2个空格，最高5）
         "UndefinedName1": (attrs) => {
@@ -178,11 +168,41 @@ class RelicFactory {
                     var m = <Monster>ps.e;
                     if(Utils.indexOf(m.dropItems, (e:Elem) => e.type == "Coins") < 0) return;
                                         
-                    m.addDropItem(m.bt().level.createElem("Coins", {cnt:1}));
+                    m.addDropItem(m.bt().level.createElem("Coins", {cnt:attrs.num}));
                 }, r, (ps) => ps.subType = "preDie" && ps.e instanceof Monster)
             })
         },
+
+        // 防护专精,每层额外增加一件防护服
+        "DefenseMaster": (attrs) => this.doAddElemOnLevelInited(attrs, ["Vast"], 1),
+
+        // 图书大师,每层额外增加一本书
+        "BookMaster": (attrs) => this.doAddElemOnLevelInited(attrs, ["Magazine", "EconomyMagazine"], 1),
         
+        // 交易大师,你购买物品的价格优惠5%（每升一级5%，最高5级）
+        "TradeMaster": (attrs) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) return;
+                ElemFactory.addAI("onOpenShop", (ps) => ps.discount += r.attrs.discount, r)
+        })},
+
         "":{}
     };
+
+    // 每层增加n个Elem,Elem从给定的Elems里随机选取
+    public doAddElemOnLevelInited(attrs, elemTypes:string[], n:number):Relic {
+        return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) return;
+                ElemFactory.addAI("onLevelInited", async () => {
+                    var bt = r.bt();
+                    for(var i = 0; i < n; i++){
+                        var g = BattleUtils.findRandomEmptyGrid(bt);
+                        if(g){
+                            var elemType = elemTypes[r.bt().srand.nextInt(0, elemTypes.length)];
+                            await bt.implAddElemAt(bt.level.createElem(elemType), g.pos.x, g.pos.y);
+                        }                        
+                    }
+                }, r)
+            })
+    }
 }

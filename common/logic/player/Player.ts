@@ -173,6 +173,65 @@ class Player {
     // 带到下一层去的Elem
     public elems2NextLevel:Elem[] = [];
 
+    collectAllLogicHandler() {
+        var hs = [];
+
+        hs.push(...this.relics);
+
+        return hs;
+    }
+
+    // 触发逻辑点，参数为逻辑点名称，该名称直接字面对应个各元素对逻辑点的处理函数，
+    // 处理函数的返回值表示是否需要截获该事件，不再传递给其它元素
+    public async triggerLogicPoint(lpName:string, ps = undefined) {
+        var hs = this.collectAllLogicHandler();
+        for (var h of hs) {
+            if (h[lpName] && await h[lpName](ps))
+                return;
+        }
+    }
+
+    public triggerLogicPointSync(lpName:string, ps = undefined) {
+        var hs = this.collectAllLogicHandler();
+        for (var h of hs) {
+            if (h[lpName] && h[lpName](ps))
+                return;
+        }
+    }
+
+    private eventHandlers = {}; // 事件处理函数
+
+    // 注册事件响应函数，这些事件是一个个异步执行的函数，需要一个个 wait 顺序执行，这也是不直接使用 egret.EventDispatcher 的原因
+    public registerEvent(eventType:string, h) {
+        var handlers = this.eventHandlers[eventType];
+        if (handlers == undefined) {
+            handlers = [];
+            this.eventHandlers[eventType] = handlers;
+        }
+
+        handlers.push(h);
+    }
+
+    // 触发事件，这些事件是一个个异步执行的函数，需要一个个 wait 顺序执行，这也是不直接使用 egret.EventDispatcher 的原因    
+    public async fireEvent(eventType:string, ps = undefined) {
+        var handlers = this.eventHandlers[eventType];
+        if (handlers == undefined)
+            return;
+
+        for (var h of handlers)
+            await h(ps);
+    }
+
+    // 同步触发事件，不会使用协程等待，典型的用途是录像
+    public fireEventSync(eventType:string, ps = undefined) {
+        var handlers = this.eventHandlers[eventType];
+        if (handlers == undefined)
+            return;
+
+        for (var h of handlers)
+            h(ps);
+    }
+
     // 序列化反序列化
 
     public toString():string {

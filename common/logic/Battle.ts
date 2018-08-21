@@ -528,10 +528,12 @@ class Battle {
     public async try2OpenShop(npc:Monster, items, prices, onBuy) {
         var elem;
         var price;
+        var onOpenShopPs = {discount:0};
+        this.triggerLogicPointSync("onOpenShop", onOpenShopPs);
         var reserveNpc = await this.openShop(items, prices, async (e:Elem, p:number) => {
             this.fireEventSync("onPlayerOp", {op:"tryBoughtFromShop", ps:{e:e.type, x:npc.pos.x, y:npc.pos.y}});
             elem = e;
-            price = p;
+            price = p * (1 - onOpenShopPs.discount);
             return true;
         });
 

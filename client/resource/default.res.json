@@ -17,7 +17,7 @@
 			"name": "ui"
 		},
 		{
-			"keys": "Agile_png,Cloak_png,Crucifix2_png,Crucifix_png,Endurance_png,Fierce_png,Hawkeye_png,MedicineBox_png,Power_png,TimeMachine_png,Unback2Sneak_png,UndefinedName1_png,UndefinedName2_png,WeaponMaster_png",
+			"keys": "Agile_png,Cloak_png,Crucifix2_png,Crucifix_png,Endurance_png,Fierce_png,Hawkeye_png,MedicineBox_png,Power_png,TimeMachine_png,Unback2Sneak_png,UndefinedName1_png,UndefinedName2_png,WeaponMaster_png,TradeMaster_png,BookMaster_png,UndefinedName3_png,DefenseMaster_png",
 			"name": "relics"
 		},
 		{
@@ -1034,6 +1034,26 @@
 			"url": "assets/items/ShieldBack.png",
 			"type": "image",
 			"name": "ShieldBack_png"
+		},
+		{
+			"url": "assets/relics/TradeMaster.png",
+			"type": "image",
+			"name": "TradeMaster_png"
+		},
+		{
+			"url": "assets/relics/BookMaster.png",
+			"type": "image",
+			"name": "BookMaster_png"
+		},
+		{
+			"url": "assets/relics/UndefinedName3.png",
+			"type": "image",
+			"name": "UndefinedName3_png"
+		},
+		{
+			"url": "assets/relics/DefenseMaster.png",
+			"type": "image",
+			"name": "DefenseMaster_png"
 		}
 	]
 }
