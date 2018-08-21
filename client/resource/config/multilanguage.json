@@ -1,5 +1,5 @@
 {
-    "currentLanguage":"EN",
+    "currentLanguage":"CNS",
     "validLanguages":["EN", "CNS", "CNT"],
 
     "views": {
@@ -91,6 +91,29 @@
 				"closeBtn": {"x":0, "y":1080, "w":100, "h":50},
 				"scrollArea": {"x":10, "y":50, "w":620, "h":886},
 				"scrollBg": {"x":0, "y":0, "w":620, "h":886}
+			},
+			
+			"text": {
+				"closeBtn": { "EN": "Close", "CNS": "返回", "CNT": "返回" }
+			}
+		},
+
+		"playerLevelUpView": {
+			"layout": {
+				"bg": {"x":0, "y":0, "w":640, "h":1136},
+				"lvBg": {"x":50, "y":145},
+				"lvBg2": {"x":285, "y":642},
+				"btnOk": {"x":242, "y":928},
+				"btnOkBg": {"x":242, "y":969},
+				"btnSel0": {"x":120, "y":514},
+				"btnSel1": {"x":120, "y":632},
+				"btnSel2": {"x":120, "y":750},
+				"imgSel0": {"x":155, "y":532},
+				"imgSel1": {"x":155, "y":650},
+				"imgSel2": {"x":155, "y":768},
+				"txtSel0": {"x":250, "y":532, "w":270, "h":100},
+				"txtSel1": {"x":250, "y":650, "w":270, "h":100},
+				"txtSel2": {"x":250, "y":768, "w":270, "h":100}
 			},
 			
 			"text": {

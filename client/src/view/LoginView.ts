@@ -6,7 +6,7 @@ class LoginView extends egret.DisplayObjectContainer {
     title:egret.TextField;
     btnContinue:TextButtonWithBg;
     btnNewPlay:TextButtonWithBg;
-    btnOpenRank:egret.TextField;
+    btnOpenRank:TextButtonWithBg;
 
     public constructor(w:number, h:number) {
         super();
@@ -47,16 +47,16 @@ class LoginView extends egret.DisplayObjectContainer {
         this.addChild(this.btnNewPlay);
 
         // 排行榜按钮
-        this.btnOpenRank = ViewUtils.createTextField(30, 0x000000);
+        this.btnOpenRank = ViewUtils.createImageBtn(30, 0x000000);
         this.btnOpenRank.touchEnabled = true;
         this.btnOpenRank.text = "Rank";
         this.btnOpenRank.name = "rankBtn";
         this.btnOpenRank.x = (this.width - this.btnOpenRank.width) / 2;
         this.addChild(this.btnOpenRank);
 
-        this.btnContinue.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onContinuePlay, this);
-        this.btnNewPlay.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onNewPlay, this);
-        this.btnOpenRank.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onOpenRank, this);
+        this.btnContinue.onClicked = () => this.onClose("continuePlay");
+        this.btnNewPlay.onClicked = () => this.onClose("newPlay");
+        this.btnOpenRank.onClicked = () => this.onClose("openRank");
 
         ViewUtils.multiLang(this, this.title, this.btnContinue, this.btnNewPlay, this.btnOpenRank);
     }
@@ -71,17 +71,5 @@ class LoginView extends egret.DisplayObjectContainer {
             this.btnContinue.touchEnabled = true;
             ViewUtils.makeGray(this.btnContinue, false);
         }
-    }
-
-    onContinuePlay(evt:egret.TouchEvent) {
-        this.onClose("continuePlay");
-    }
-
-    onNewPlay(evt:egret.TouchEvent) {
-        this.onClose("newPlay");
-    }
-
-    onOpenRank(evt:egret.TouchEvent) {
-        this.onClose("openRank");
     }
 }
