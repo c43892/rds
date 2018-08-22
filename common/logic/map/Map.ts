@@ -128,6 +128,9 @@ class Map {
         if (g.status == GridStatus.Uncovered || g.status == GridStatus.Blocked)
             return false;
 
+        if (g.status == GridStatus.Marked) // 被标记的地块总是可以揭开
+            return true;
+
         var uncoverable = false; // 检查 4 邻是否有揭开，且不阻挡
         this.travel4Neighbours(x, y, (x, y, g:Grid) => {
             var e = g.getElem();

@@ -126,6 +126,7 @@ class ItemFactory {
         // 黑洞
         "Hole": (attrs) => {
             var e = this.createItem();
+            e.barrier = true;
             e.canBeDragDrop = false;
             return e;
         },
