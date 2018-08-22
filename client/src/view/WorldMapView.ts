@@ -4,6 +4,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
     private viewContent:egret.DisplayObjectContainer;
     private bg1:egret.Bitmap;
     private bg2:egret.Bitmap;
+    private bgc:egret.DisplayObjectContainer;
     private mapArea:egret.ScrollView;
 
     public openShop; // 打开商店
@@ -17,41 +18,26 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
     private wmesFact:WorldMapEventSelFactory;
 
-    public constructor(w:number, h:number) {
+    public constructor(w, h) {
         super();
         this.width = w;
         this.height = h;
 
         this.bg1 = ViewUtils.createBitmapByName("WorldMapBg_png", egret.BitmapFillMode.REPEAT);
-        this.bg1.x = 0;
-        this.bg1.y = 0;
-        this.bg1.width = w / 2;
-        this.bg1.height = h;
-
         this.bg2 = ViewUtils.createBitmapByName("WorldMapBg_png", egret.BitmapFillMode.REPEAT);
-        this.bg2.x = w;
-        this.bg2.y = 0;
-        this.bg2.width = w / 2;
-        this.bg2.height = h;
-        this.bg2.scaleX = -1;
-
+        this.bgc = new egret.DisplayObjectContainer();
+        this.bgc.addChild(this.bg1);
+        this.bgc.addChild(this.bg2);
         this.viewContent = new egret.DisplayObjectContainer();
-        this.viewContent.x = 0;
-        this.viewContent.y = 0;
-        this.viewContent.width = w;
-        this.viewContent.height = h;
-        this.viewContent.addChild(this.bg1);
-        this.viewContent.addChild(this.bg2);
 
         this.mapArea = new egret.ScrollView();
         this.mapArea.verticalScrollPolicy = "auto";
         this.mapArea.horizontalScrollPolicy = "off";
         this.mapArea.setContent(this.viewContent);
-        this.mapArea.bounces = false;        
+        this.mapArea.bounces = false;
         this.addChild(this.mapArea);
 
         this.refresh();
-        this.mapArea.scrollTop = this.viewContent.height - this.mapArea.height;
 
         this.touchEnabled = false;
         this.mapArea.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchGrid, this);
@@ -64,14 +50,37 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
     pts = [];
     public refresh() {
-        this.mapArea.width = this.width - 20;
-        this.mapArea.height = this.height - 110;
+
+        w = this.width;
+        h = this.height;
+
+        this.mapArea.width = w - 20;
+        this.mapArea.height = h - 110;
         this.mapArea.x = 10;
         this.mapArea.y = 10;
 
+        this.viewContent.x = 0;
+        this.viewContent.y = 0;
+        this.viewContent.width = w;
+        this.viewContent.height = this.mapArea.height * 2;        
+
         this.viewContent.removeChildren();
-        this.viewContent.addChild(this.bg1);
-        this.viewContent.addChild(this.bg2);
+        this.viewContent.addChild(this.bgc);
+        ViewUtils.asFullBg(this.bgc);
+        this.bgc.y = 0;
+
+        this.bg1.x = 0;
+        this.bg1.y = 0;
+        this.bg1.width = this.bgc.width / 2;
+        this.bg1.height = this.viewContent.height;
+
+        this.bg2.x = this.bgc.width;
+        this.bg2.y = 0;
+        this.bg2.width = this.bgc.width / 2;
+        this.bg2.height = this.viewContent.height;
+        this.bg2.scaleX = -1;
+
+        this.mapArea.scrollTop = this.viewContent.height - this.mapArea.height;
 
         if (!this.worldmap)
             return;

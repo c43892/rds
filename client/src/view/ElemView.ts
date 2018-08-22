@@ -224,6 +224,7 @@ class ElemView extends egret.DisplayObjectContainer {
     static longPressed:boolean = false; // 是否产生了长按事件
     static dragging:boolean = false; // 开始拖拽，和 pressed 是互斥的
     static dragFrom:ElemView;
+    static draggingElemImgTex:egret.RenderTexture;
     static draggingElemImg:egret.Bitmap; // 拖拽中的元素图
     static pressTimer:egret.Timer; // 长按计时
 
@@ -370,11 +371,15 @@ class ElemView extends egret.DisplayObjectContainer {
                     ElemView.draggingElemImg.height = ElemView.dragFrom.height;
                 }
 
-                ElemView.draggingElemImg.texture = ElemView.dragFrom.elemImg.texture;                
+                if (!ElemView.draggingElemImgTex)
+                    ElemView.draggingElemImgTex = new egret.RenderTexture();
+
+                ElemView.draggingElemImgTex.drawToTexture(this);
+                ElemView.draggingElemImg.texture = ElemView.draggingElemImgTex;
                 ElemView.draggingElemImg.x = px - ElemView.draggingElemImg.width / 2;
                 ElemView.draggingElemImg.y = py - ElemView.draggingElemImg.height / 2;
                 this.parent.addChild(ElemView.draggingElemImg);
-                ElemView.dragFrom.elemImg.alpha = 0;
+                ElemView.dragFrom.showLayer.alpha = 0;
             }
         }
         else if (ElemView.draggingElemImg) {
@@ -389,9 +394,7 @@ class ElemView extends egret.DisplayObjectContainer {
             return;
 
         if (ElemView.dragging) {
-            ElemView.dragFrom.elemImg.x = 0;
-            ElemView.dragFrom.elemImg.y = 0;
-            ElemView.dragFrom.elemImg.alpha = 1;
+            ElemView.dragFrom.showLayer.alpha = 1;
             this.parent.removeChild(ElemView.draggingElemImg);
             ElemView.draggingElemImg.texture = undefined;
 

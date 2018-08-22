@@ -41,6 +41,10 @@ class ViewUtils {
         return bmp;
     }
 
+    public static getFont(fnt) {
+        return RES.getRes(fnt);
+    }
+
     public static loadTex(name: string) {
         return egret.Texture = RES.getRes(name);
     }
@@ -71,11 +75,6 @@ class ViewUtils {
         t.verticalAlign = vAlignMiddle ? egret.VerticalAlign.MIDDLE : egret.VerticalAlign.TOP;
         t.x = t.y = 0;
         return t;
-    }
-    
-    // 创建一个带背景的文字按钮
-    public static createImageBtn(fontSize:number, textColor:number = 0x000000, bgTexName:string = "btnBg_png") {
-        return new TextButtonWithBg(fontSize, textColor, bgTexName);
     }
 
     static languageCfg;
@@ -168,12 +167,15 @@ class ViewUtils {
     public static MainArea:egret.DisplayObjectContainer;
 
     // 作为背景填充安全显示区域
+    public static fullSize = {w:758, h:1280};
     public static asFullBg(obj:egret.DisplayObject) {
-        ViewUtils.MainArea.addChild(obj);
-        obj.width = 758;
-        obj.height = 1280;
-        obj.x = (ViewUtils.MainArea.width - obj.width) / 2;
-        obj.y = (ViewUtils.MainArea.height - obj.height) / 2;
+        var parent = obj.parent;
+        var parentScale = ViewUtils.getGlobalScale(parent);
+        var parentPos = parent.localToGlobal();
+        obj.width = ViewUtils.fullSize.w / parentScale.scaleX;
+        obj.height = ViewUtils.fullSize.h / parentScale.scaleY;
+        obj.x = (ViewUtils.MainArea.height - obj.height) / 2 - parentPos.x;
+        obj.y = (ViewUtils.MainArea.height - obj.height) / 2 - parentPos.y;
     }
 
     // 获取全局缩放值

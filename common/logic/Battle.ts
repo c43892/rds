@@ -158,7 +158,7 @@ class Battle {
     public async mark(x:number, y:number) {
         var g = this.level.map.getGridAt(x, y);
         var e = g.getElem();
-        Utils.assert(g.isCovered() && !!e, "only covered element could be marked");
+        Utils.assert(g.isCovered() && !g.isMarked() && !!e, "only covered element could be marked");
 
         g.status = GridStatus.Marked;
         await this.fireEvent("onGridChanged", {x:x, y:y, e:e, subType:"elemMarked"});
@@ -569,6 +569,9 @@ class Battle {
 
     // 标记指定位置的地块
     public async implMark(x:number, y:number) {
+        if (this.level.map.getGridAt(x, y).isMarked())
+            return;
+
         await this.mark(x, y);
     }
 
