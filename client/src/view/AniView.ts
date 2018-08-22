@@ -308,7 +308,6 @@ class AniView extends egret.DisplayObjectContainer {
                 await this.onMoneyChanged(ps);
             break;
             default:
-                this.bv.refreshPlayer();
         }
     }
 
