@@ -16,7 +16,7 @@ class LoginView extends egret.DisplayObjectContainer {
         this.height = h;
 
         // 背景
-        this.bg = ViewUtils.createBitmapByName("loginBackground_png");
+        this.bg = ViewUtils.createBitmapByName("loginBackground_png"); 
         this.bg.width = this.width;
         this.bg.height = this.height;
         this.bg.touchEnabled = true;

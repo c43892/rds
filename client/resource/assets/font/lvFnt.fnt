@@ -1,0 +1,11 @@
+{"file":"lvFnt.png","frames":{
+"0":{"x":138,"y":184,"w":64,"h":85,"offX":0,"offY":0,"sourceW":64,"sourceH":85},
+"1":{"x":202,"y":184,"w":44,"h":77,"offX":0,"offY":0,"sourceW":44,"sourceH":77},
+"2":{"x":71,"y":93,"w":83,"h":79,"offX":7,"offY":9,"sourceW":93,"sourceH":93},
+"3":{"x":0,"y":182,"w":71,"h":85,"offX":12,"offY":6,"sourceW":93,"sourceH":93},
+"4":{"x":88,"y":0,"w":79,"h":93,"offX":9,"offY":0,"sourceW":93,"sourceH":93},
+"5":{"x":0,"y":0,"w":88,"h":89,"offX":5,"offY":4,"sourceW":93,"sourceH":93},
+"6":{"x":154,"y":93,"w":71,"h":91,"offX":9,"offY":1,"sourceW":93,"sourceH":93},
+"7":{"x":0,"y":89,"w":71,"h":93,"offX":14,"offY":0,"sourceW":93,"sourceH":93},
+"8":{"x":167,"y":0,"w":75,"h":93,"offX":13,"offY":0,"sourceW":93,"sourceH":93},
+"9":{"x":71,"y":172,"w":67,"h":93,"offX":9,"offY":0,"sourceW":93,"sourceH":93}}}

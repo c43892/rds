@@ -41,6 +41,10 @@ class ViewUtils {
         return bmp;
     }
 
+    public static getFont(fnt) {
+        return RES.getRes(fnt);
+    }
+
     public static loadTex(name: string) {
         return egret.Texture = RES.getRes(name);
     }
