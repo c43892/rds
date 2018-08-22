@@ -164,13 +164,24 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 遗物发生变化
     public async onRelicChanged(ps) {
+        var e:Elem = ps.e;
+        var n = Utils.indexOf(e.bt().player.relics, (p) => p.type == e.type);
+        var toImg = this.bv.relics[n];
+        
         if (ps.subType == "addRelicByPickup") {
+            var fromObj = this.getSV(e);
+            await AniUtils.fly2(fromObj, fromObj, toImg, true, 1);
+        } else if (ps.subType == "addRelicBySel") {
             var e:Elem = ps.e;
-            var fromImg = this.getSV(e);
-            var n = Utils.indexOf(e.bt().player.relics, (p) => p.type == e.type);
-            var toImg = this.bv.relics[n];
+            var fromImg = AniUtils.createImg(e.getElemImgRes() + "_png");
+            var fromPos = PlayerLevelUpView.lastSelectedRelicImgGlobalPos;
+            fromImg.x = fromPos.x;
+            fromImg.y = fromPos.y;
+            await AniUtils.flash(fromImg, 100);
             await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
+            fromImg["dispose"]();
         }
+
         this.bv.refreshRelics();
     }
 
@@ -295,10 +306,8 @@ class AniView extends egret.DisplayObjectContainer {
                 await this.onMoneyChanged(ps);
             break;
             default:
-                await this.aniFact.createAni("playerChanged");
+                this.bv.refreshPlayer();
         }
-
-        this.bv.refreshPlayer();
     }
 
     // 金钱变化

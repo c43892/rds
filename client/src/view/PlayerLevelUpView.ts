@@ -55,9 +55,7 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
         this.btnOk.onClicked = async () => await this.doSel(this.choices[this.curSel]);
         this.addChild(this.btnOk);
 
-        this.btnSels[0].onClicked = () => this.setCurSel(0);
-        this.btnSels[1].onClicked = () => this.setCurSel(1);
-        this.btnSels[2].onClicked = () => this.setCurSel(2);
+        this.btnSels.forEach((btn, i) => btn.onClicked = (() => () => this.setCurSel(i))());
 
         ViewUtils.multiLang(this, this.bg, this.lvBg, this.lvBg2, this.btnOk, this.lvTxt,
             this.btnSels[0], this.btnSels[1], this.btnSels[2], 
@@ -89,11 +87,11 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
         }       
     }
 
-    async setCurSel(n) {
+    public static lastSelectedRelicImgGlobalPos; // 构建动画要用这个
+    setCurSel(n) {
         this.curSel = n;
-        this.btnSels[0].setTexName("lvSelBarNormal_png");
-        this.btnSels[1].setTexName("lvSelBarNormal_png");
-        this.btnSels[2].setTexName("lvSelBarNormal_png");
+        this.btnSels.forEach((btn, _) => btn.setTexName("lvSelBarNormal_png"));
         this.btnSels[n].setTexName("lvSelBarSel_png");
+        PlayerLevelUpView.lastSelectedRelicImgGlobalPos = this.btnSelsRelicImgs[n].localToGlobal();
     }
 }

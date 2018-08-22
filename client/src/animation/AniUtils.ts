@@ -213,17 +213,6 @@ class AniUtils {
         rev();
     }
 
-    // 闪烁一下，比如满血的时候吃食物，表示食物不能使用的效果
-    public static async flash(obj:egret.DisplayObject) {
-        var x = obj.x;
-        await AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
-            {type:"tr", fa:1, ta:3, fx:x, tx:x-5, time:50},
-            {type:"tr", fa:3, ta:1, fx:x-5, tx:x+5, time:50},
-            {type:"tr", fa:1, ta:3, fx:x+5, tx:x-5, time:50},
-            {type:"tr", fa:3, ta:1, fx:x-5, tx:x, time:50},
-        ], noWait:true, obj:obj})
-    }
-
     // 闪烁消失
     public static async flashOut(obj:egret.DisplayObject) {
         await AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
@@ -259,6 +248,17 @@ class AniUtils {
             {type:"tr", fa:1, ta:0, fy:pos.y-25, ty:pos.y-50, time:150, noWait:true}
         ], obj:tip, noWait:true});
         AniUtils.ac.removeChild(tip);
+    }
+
+    
+
+    // 闪烁一下，比如满血的时候吃食物，表示食物不能使用的效果
+    public static async flash(obj:egret.DisplayObject, t:number) {
+        var x = obj.x;
+        await AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
+            {type:"tr", fa:1, ta:3, time:t},
+            {type:"tr", fa:3, ta:1, time:t},
+        ], noWait:true, obj:obj})
     }
 
     // 闪一下并抖一下
@@ -460,6 +460,14 @@ class AniUtils {
         Utils.assert(!!av, "need AniView layer");
         av.addBlockLayer();
         return () => av.decBlockLayer();
+    }
+
+    // 创建一个只用于动画显示的图片
+    public static createImg(texName:string) {
+        var img = ViewUtils.createBitmapByName(texName);
+        AniUtils.ac.addChild(img);
+        img["dispose"] = () => AniUtils.ac.removeChild(img);
+        return img;
     }
 
     // 清除所有相关动画
