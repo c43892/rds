@@ -37,6 +37,8 @@ class Elem {
                 return !g.isCovered() && !e;
             case "markedMonster|uncoveredMonster|uncoverable":
                 return (e instanceof Monster && g.isUncoveredOrMarked()) || g.isUncoverable();
+            case "markedHazardMonster|uncoveredHazardMonster|uncoverable":
+                return (e instanceof Monster && g.isUncoveredOrMarked() && (e.isHazard() || (e["linkTo"] && e["linkTo"].isHazard())) || g.isUncoverable());
             case "uncoveredMonser":
                 return e instanceof Monster && !g.isCovered();
             case "markedMonster|uncoveredMonser":

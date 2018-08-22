@@ -158,7 +158,7 @@ class Battle {
     public async mark(x:number, y:number) {
         var g = this.level.map.getGridAt(x, y);
         var e = g.getElem();
-        Utils.assert(g.isCovered() && !g.isMarked() && !!e, "only covered element could be marked");
+        Utils.assert(g.isCovered() && !g.isMarked() && !!e, "only covered element could be marked but got" + x + "," + y);
 
         g.status = GridStatus.Marked;
         await this.fireEvent("onGridChanged", {x:x, y:y, e:e, subType:"elemMarked"});
@@ -218,8 +218,10 @@ class Battle {
     // 计算标记
     public async calcMarkPos(x:number, y:number) {
         var markPos = MonsterMarker.CalcMonsterMarkSignAt(this.level.map, x, y);
-        for (var p of markPos)
-            await this.mark(p[0], p[1]);
+        for (var p of markPos){
+            if(!this.level.map.getGridAt(p[0], p[1]).isMarked())
+                await this.mark(p[0], p[1]);
+        }            
     }
 
     collectAllLogicHandler() {
@@ -894,7 +896,7 @@ class Battle {
             var pos = poses[i];
             var g = map.getGridAt(pos.x, pos.y);
             var e = g.getElem();
-            if (e && e instanceof Monster && (e.isHazard() || e["linkTo"].isHazard())) {
+            if (e && e instanceof Monster) {
                 if (e["linkTo"]) // 如果是 boss 占位符，更换目标
                     e = e["linkTo"];
 
