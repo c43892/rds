@@ -172,14 +172,16 @@ class AniView extends egret.DisplayObjectContainer {
             var fromObj = this.getSV(e);
             await AniUtils.fly2(fromObj, fromObj, toImg, true, 1);
         } else if (ps.subType == "addRelicBySel") {
-            var e:Elem = ps.e;
-            var fromImg = AniUtils.createImg(e.getElemImgRes() + "_png");
+            var e:Elem = ps.e;            
             var fromPos = PlayerLevelUpView.lastSelectedRelicImgGlobalPos;
-            fromImg.x = fromPos.x;
-            fromImg.y = fromPos.y;
-            await AniUtils.flash(fromImg, 200);
-            await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
-            fromImg["dispose"]();
+            if (fromPos) {
+                var fromImg = AniUtils.createImg(e.getElemImgRes() + "_png");
+                fromImg.x = fromPos.x;
+                fromImg.y = fromPos.y;
+                await AniUtils.flash(fromImg, 200);
+                await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
+                fromImg["dispose"]();
+            }
         }
 
         this.bv.refreshRelics();
