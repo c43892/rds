@@ -98,7 +98,8 @@ class ElemView extends egret.DisplayObjectContainer {
         switch (g.status) {
             case GridStatus.Marked: // 被标记
             case GridStatus.Uncovered: // 被揭开
-                Utils.assert(g.status != GridStatus.Marked || !e || e instanceof Monster, "only monster could be marked");
+                // Utils.assert(g.status != GridStatus.Marked || !e || e instanceof Monster, "only monster could be marked"); // 道具等也需要可以被标记             
+                
                 if (e && !e.attrs.invisible) { // 有元素显示元素图片
                     this.elemImg = ViewUtils.createBitmapByName(e.getElemImgRes() + "_png");
                     this.showLayer.addChild(this.elemImg);
@@ -107,7 +108,7 @@ class ElemView extends egret.DisplayObjectContainer {
 
                         // 血量，右下角
                         this.hpBg.x = this.width - this.hpBg.width; this.hpBg.y = this.height - this.hpBg.height;
-                        this.showLayer.addChild(this.hpBg);                        
+                        this.showLayer.addChild(this.hpBg);
                         this.hp.text = m.hp.toString();
                         this.hp.x = m.hp >= 10 ? this.width - 23 : this.width - 22;
                         this.hp.y = m.hp >= 10 ? this.height - 23 : this.height - 25;
@@ -149,9 +150,9 @@ class ElemView extends egret.DisplayObjectContainer {
                                 this.showLayer.addChild(this.power);
                             };
                         })
-                        
-                        if (g.status == GridStatus.Marked) // 被标记怪物上面盖一层
-                            this.showLayer.addChild(this.markedImg);
+
+                        // if (g.status == GridStatus.Marked) // 被标记怪物上面盖一层
+                        //     this.showLayer.addChild(this.markedImg);
                     } else {    
                         if (e.attrs.showCDNum && e.cd > 0) { // 显示 cd 计数
                             ViewUtils.setTexName(this.cdImg, "cd" + e.cd + "_png");
@@ -162,6 +163,8 @@ class ElemView extends egret.DisplayObjectContainer {
                         if (!e.attrs.invisible && !this.map.isGenerallyValid(e.pos.x, e.pos.y) && e.type != "Hole")
                             this.showLayer.addChild(this.banImg);
                     }
+                    if (g.status == GridStatus.Marked) // 被标记的格子上面盖一层
+                        this.showLayer.addChild(this.markedImg);
                 }
             break;
         }
@@ -246,6 +249,15 @@ class ElemView extends egret.DisplayObjectContainer {
                 ElemView.try2UncoverAt(b.pos.x, b.pos.y);
             break;
             case GridStatus.Marked:
+            {
+                let e = this.map.getElemAt(this.gx, this.gy);
+                Utils.assert(!!e, "empty grid cannot be marked");
+                if ((e instanceof Prop || e instanceof Item || e instanceof Relic) || (e instanceof Monster && !e.isHazard()))
+                    ElemView.try2UncoverAt(b.pos.x, b.pos.y);
+                else
+                    await ElemView.try2UseElem(e);
+                break;
+            }
             case GridStatus.Uncovered:
             {
                 let e = this.map.getElemAt(this.gx, this.gy);

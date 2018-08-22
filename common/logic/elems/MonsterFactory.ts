@@ -535,7 +535,7 @@ class MonsterFactory {
     static doMarkMonsterOnHurt(m:Monster):Monster {
         return <Monster>ElemFactory.addAI("onMonsterHurt", async () => {
             var markTarget = <Monster>BattleUtils.findRandomElems(m.bt(), 1, (m:Monster) => m.getGrid().isCovered())[0];
-            var g = BattleUtils.findRandomGrids(m.bt(), (g:Grid) => g.isCovered() && g.getElem() instanceof Monster)[0];
+            var g = BattleUtils.findRandomGrids(m.bt(), (g:Grid) => g.isCovered() && !g.isMarked() && g.getElem() instanceof Monster)[0];
             await m.bt().implMark(g.pos.x, g.pos.y);
         }, m, (ps) => ps.m == m);
     }
@@ -717,6 +717,7 @@ class MonsterFactory {
         m.isHazard = () => false;
         m.canUse = () => true;
         m.canBeDragDrop = true;
+        m.barrier = false;
         var onBuy = async (elem:Elem, price:number) => {
             m.bt().implAddMoney(-price, m);
             var g = BattleUtils.findNearestGrid(m.bt().level.map, m.pos, (g:Grid) => !g.isCovered() && !g.getElem());

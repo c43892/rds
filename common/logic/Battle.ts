@@ -574,7 +574,6 @@ class Battle {
 
     // 揭开指定位置
     public async implUncoverAt(x:number, y:number, type:string = undefined) {
-        Utils.log("un:", x, y);
         await this.uncover(x, y);
     }
 
@@ -892,7 +891,7 @@ class Battle {
             var pos = poses[i];
             var g = map.getGridAt(pos.x, pos.y);
             var e = g.getElem();
-            if (e && e instanceof Monster) {
+            if (e && e instanceof Monster && (e.isHazard() || e["linkTo"].isHazard())) {
                 if (e["linkTo"]) // 如果是 boss 占位符，更换目标
                     e = e["linkTo"];
 
@@ -1057,6 +1056,8 @@ class Battle {
     public async implElemFollow2NextLevel(e:Elem) {
         this.removeElemAt(e.pos.x, e.pos.y);
         this.player.elems2NextLevel.push(e);
+        // var NextLevelPort = this.level.map.findAllElems((e:Elem) => e.type == "NextLevelPort")[0];
+        // await this.fireEvent("onElemFlying", {e:e, fromPos:e.pos, toPos:NextLevelPort.pos})
         await this.fireEvent("onElem2NextLevel", {e:e});
         await this.triggerLogicPoint("onElem2NextLevel", {e:e});
     }

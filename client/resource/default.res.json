@@ -17,7 +17,7 @@
 			"name": "ui"
 		},
 		{
-			"keys": "Agile_png,Cloak_png,Crucifix2_png,Crucifix_png,Endurance_png,Fierce_png,Hawkeye_png,MedicineBox_png,Power_png,TimeMachine_png,Unback2Sneak_png,UndefinedName1_png,UndefinedName2_png,WeaponMaster_png,TradeMaster_png,DefenseMaster_png,BookMaster_png,UndefinedName3_png",
+			"keys": "Agile_png,Cloak_png,Crucifix2_png,Crucifix_png,Endurance_png,Fierce_png,Hawkeye_png,MedicineBox_png,Power_png,TimeMachine_png,Unback2Sneak_png,UndefinedName1_png,UndefinedName2_png,WeaponMaster_png,TradeMaster_png,DefenseProficient_png,BookMaster_png,UndefinedName3_png,HorticultureProficient_png,KnifeProficient_png,SmellEnhanced_png,MonsterHunter_png,Storer_png,KnifeMaster_png,TreasureBoxDetector_png,ExploreEnhanced_png",
 			"name": "relics"
 		},
 		{
@@ -1121,9 +1121,9 @@
 			"name": "TradeMaster_png"
 		},
 		{
-			"url": "assets/relics/DefenseMaster.png",
+			"url": "assets/relics/DefenseProficient.png",
 			"type": "image",
-			"name": "DefenseMaster_png"
+			"name": "DefenseProficient_png"
 		},
 		{
 			"url": "assets/relics/BookMaster.png",
@@ -1134,6 +1134,46 @@
 			"url": "assets/relics/UndefinedName3.png",
 			"type": "image",
 			"name": "UndefinedName3_png"
+		},
+		{
+			"url": "assets/relics/HorticultureProficient.png",
+			"type": "image",
+			"name": "HorticultureProficient_png"
+		},
+		{
+			"url": "assets/relics/KnifeProficient.png",
+			"type": "image",
+			"name": "KnifeProficient_png"
+		},
+		{
+			"url": "assets/relics/SmellEnhanced.png",
+			"type": "image",
+			"name": "SmellEnhanced_png"
+		},
+		{
+			"url": "assets/relics/MonsterHunter.png",
+			"type": "image",
+			"name": "MonsterHunter_png"
+		},
+		{
+			"url": "assets/relics/Storer.png",
+			"type": "image",
+			"name": "Storer_png"
+		},
+		{
+			"url": "assets/relics/KnifeMaster.png",
+			"type": "image",
+			"name": "KnifeMaster_png"
+		},
+		{
+			"url": "assets/relics/TreasureBoxDetector.png",
+			"type": "image",
+			"name": "TreasureBoxDetector_png"
+		},
+		{
+			"url": "assets/relics/ExploreEnhanced.png",
+			"type": "image",
+			"name": "ExploreEnhanced_png"
 		}
 	]
 }
