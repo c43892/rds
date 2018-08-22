@@ -43,7 +43,7 @@ class AllRelicsView extends egret.DisplayObjectContainer {
         this.scrollAreaBg.fillMode = egret.BitmapFillMode.REPEAT;
         this.viewContent.addChild(this.scrollAreaBg);
 
-        this.closeBtn = new TextButtonWithBg(30, 0x000000, "btnBg_png");
+        this.closeBtn = new TextButtonWithBg("btnBg_png", 30);
         this.closeBtn.name = "closeBtn";
         this.closeBtn.touchEnabled = true;
         this.closeBtn.onClicked = () => this.doClose();

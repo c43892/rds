@@ -14,7 +14,7 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
 
     public constructor(w:number, h:number) { 
         super();
-        this.name = "playerLevelUpView";
+        this.name = "playerLevelUp";
 
         this.width = w;
         this.height = h;
@@ -26,7 +26,7 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
         this.btnSelsRelicImgs = [];
         this.btnSelsRelicTxts = [];
         for (var i = 0; i < 3; i++) {
-            this.btnSels[i] = ViewUtils.createImageBtn(0, 0x0000000, "lvSelBarNormal_png");
+            this.btnSels[i] = new TextButtonWithBg("lvSelBarNormal_png");
             this.btnSels[i].name = "btnSel" + i.toString();
             this.addChild(this.btnSels[i]);
 
@@ -49,7 +49,7 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
         this.lvTxt.verticalAlign = egret.VerticalAlign.MIDDLE;
         this.addChild(this.lvTxt);
 
-        this.btnOk = ViewUtils.createImageBtn(0, 0x0000000, "lvBtnOk_png");
+        this.btnOk = new TextButtonWithBg("lvBtnOk_png");
         this.btnOk.name = "btnOk";
         this.btnOk.setFloatingEffectBg("lvBtnOkBg_png", 10);
         this.btnOk.onClicked = async () => await this.doSel(this.choices[this.curSel]);

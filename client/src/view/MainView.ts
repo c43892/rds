@@ -56,7 +56,6 @@ class MainView extends egret.DisplayObjectContainer {
 
         // 世界地图
         this.wmv = new WorldMapView(w, h);
-        this.wmv.x = this.wmv.y = 0;
         this.wmv.openShop = async (shop) => await this.openShopOnWorldMap(shop);
         this.wmv.openHospital = async () => await this.openHospital();
         this.wmv.openBoxRoom = async (openBoxRoom) => await this.openBoxRoom(openBoxRoom);
@@ -271,6 +270,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.player = this.p;
         this.wmv.setWorldMap(worldmap);
         this.addChild(this.wmv);
+        this.wmv.refresh();
     }
 
     // 登录
@@ -295,7 +295,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.p = p;
         this.lgv.player = p;
         this.addChild(this.lgv);
-        this.lgv.open();
+        this.lgv.refresh();
         this.lgv.onClose = (op:string) => {
             if (op == "openRank")
                 this.openRankView();

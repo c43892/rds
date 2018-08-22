@@ -1,16 +1,46 @@
 // 带背景的文字按钮
 class TextButtonWithBg extends egret.DisplayObjectContainer {
-    public bg:egret.Bitmap;
+    public ft:egret.Bitmap; // 前景
+    public bg:egret.Bitmap; // 背景
     public textField:egret.TextField;
+
+    public constructor(bgTexName:string, fontSize:number = 0) {
+        super();
+        
+        this.bg = ViewUtils.createBitmapByName(bgTexName);
+        this.addChild(this.bg);
+        this.width = this.bg.width;
+        this.height = this.bg.height;
+
+        if (fontSize > 0) {
+            this.textField = ViewUtils.createTextField(fontSize, 0x000000);
+            this.addChild(this.textField);
+        }
+
+        this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClickBtn, this);
+        this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onBtnDown, this);
+        this.addEventListener(egret.TouchEvent.TOUCH_END, this.onBtnUp, this);
+        this.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.onBtnUp, this);
+
+        this.enabled = true;
+        this.refresh();
+    }
+
+    public get textColor() {
+        return this.textField ? this.textField.textColor : 0x000000;
+    }
+
+    public set textColor(color:number) {
+        if (this.textField) this.textField.textColor = color;
+    }
 
     txt:string;
     public get text() {
-        return this.txt;
+        return this.textField ? this.textField.text : undefined;
     }
 
     public set text(txt:string) {
-        this.txt = txt;
-        this.refresh();
+        if (this.textField) this.textField.text = txt;
     }
 
     public setTexName(bgTexName:string) {
@@ -28,22 +58,49 @@ class TextButtonWithBg extends egret.DisplayObjectContainer {
         this.refresh();
     }
 
-    public constructor(fontSize:number, textColor:number, bgTexName:string) {
-        super();
-        this.bg = ViewUtils.createBitmapByName(bgTexName);
-        this.width = this.bg.width;
-        this.height = this.bg.height;
-        this.textField = ViewUtils.createTextField(fontSize, textColor);
-        this.addChild(this.bg);
-        this.addChild(this.textField);
-
-        this.touchEnabled = true;
-        this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClickBtn, this);
-        this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onBtnDown, this);
-        this.addEventListener(egret.TouchEvent.TOUCH_END, this.onBtnUp, this);
-        this.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.onBtnUp, this);
-
+    // 设置前景图片
+    public setFrontImg(ftTexName:string) {
+        if (this.ft) this.removeChild(this.ft);
+        this.ft = ftTexName ? ViewUtils.createBitmapByName(ftTexName) : undefined;
+        if (this.ft) this.addChild(this.ft);
         this.refresh();
+    }
+
+    // 鼠标按下效果
+    downBg:egret.Bitmap;
+    public setDownBg(bgTexName:string) {
+        if (this.downBg) this.removeChild(this.downBg);
+        this.downBg = bgTexName ? ViewUtils.createBitmapByName(bgTexName) : undefined;
+        if (this.downBg) this.downBg.alpha = 0;
+        if (this.downBg) this.addChild(this.downBg);
+        this.refresh();
+    }
+
+    // 不可用效果
+    disabledBg:egret.Bitmap;
+    public setDisableBg(bgTexName:string) {
+        if (this.disabledBg) this.removeChild(this.disabledBg);
+        this.disabledBg = bgTexName ? ViewUtils.createBitmapByName(bgTexName) : undefined;
+        if (this.disabledBg) this.disabledBg.alpha = 0;
+        if (this.disabledBg) this.addChild(this.disabledBg);
+        this.refresh();
+    }
+
+    public get enabled() {
+        return this.touchEnabled;
+    }
+
+    public set enabled(b:boolean) {
+        this.touchEnabled = b;
+        if (b) {
+            this.bg.alpha = 1;
+            if (this.disabledBg) this.disabledBg.alpha = 0;
+        } else {
+            if (this.disabledBg) {
+                this.bg.alpha = 0;
+                this.disabledBg.alpha = 1;
+            }
+        }
     }
 
     public onClicked;
@@ -53,29 +110,45 @@ class TextButtonWithBg extends egret.DisplayObjectContainer {
     }
 
     onBtnDown(evt:egret.TouchEvent) {
-        this.bg.y += this.floatingOffset;
+        var objs = [this.bg, this.downBg, this.disabledBg, this.ft, this.textField];
+        objs.forEach((obj, _) => {
+            if (obj) obj.y += this.floatingOffset;
+        });
+
+        if (this.downBg) {
+            this.bg.alpha = 0;
+            this.downBg.alpha = 1;
+        }
     }
 
     onBtnUp(evt:egret.TouchEvent) {
-        this.bg.y -= this.floatingOffset;
+        var objs = [this.bg, this.downBg, this.disabledBg, this.ft, this.textField];
+        objs.forEach((obj, _) => {
+            if (obj) obj.y -= this.floatingOffset;
+        });
+
+        this.bg.alpha = 1;        
+        if (this.downBg)
+            this.downBg.alpha = 0;
     }
 
     private refresh() {
-        this.bg.x = this.bg.y = 0;
-        this.bg.width = this.width;
-        this.bg.height = this.height;
-
-        this.textField.x = this.textField.y = 0;
-        this.textField.width = this.width;
-        this.textField.height = this.height;
-        this.textField.text = this.txt;
+        var objs = [this.bg, this.downBg, this.disabledBg, this.ft, this.textField];
+        objs.forEach((obj, i) => {
+            if (obj) {
+                obj.x = this.bg.y = 0;
+                this.setChildIndex(obj, i);
+            }
+        });
 
         if (this.floatingBg) { // 下对齐
             this.floatingBg.y = this.bg.y + (this.bg.height - this.floatingBg.height);
             this.floatingBg.x = this.bg.x + (this.bg.width - this.floatingBg.width) / 2;
             this.setChildIndex(this.floatingBg, 0);
 
-            this.bg.y = -this.floatingOffset;
+            objs.forEach((obj, _) => {
+                if (obj) obj.y -= this.floatingOffset;
+            });
         }
     }
 }

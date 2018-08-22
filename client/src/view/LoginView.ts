@@ -3,10 +3,10 @@ class LoginView extends egret.DisplayObjectContainer {
     public player:Player;
 
     bg:egret.Bitmap;
-    title:egret.TextField;
     btnContinue:TextButtonWithBg;
     btnNewPlay:TextButtonWithBg;
     btnOpenRank:TextButtonWithBg;
+    btnAchievement:TextButtonWithBg;
 
     public constructor(w:number, h:number) {
         super();
@@ -16,60 +16,47 @@ class LoginView extends egret.DisplayObjectContainer {
         this.height = h;
 
         // 背景
-        this.bg = ViewUtils.createBitmapByName("loginBackground_png"); 
-        this.bg.width = this.width;
-        this.bg.height = this.height;
+        this.bg = ViewUtils.createBitmapByName("lgbg_png");
         this.bg.touchEnabled = true;
         this.addChild(this.bg);
-        this.bg.name = "bg";
-
-        // 标题
-        this.title = ViewUtils.createTextField(100, 0x0000ff);
-        this.title.text = "Zombie Mine";
-        this.title.width = this.width;
-        this.title.name = "title";
-        this.addChild(this.title);
+        ViewUtils.asFullBg(this.bg);
 
         // 继续游戏按钮
-        this.btnContinue = ViewUtils.createImageBtn(50, 0x000000);
-        this.btnContinue.touchEnabled = true;
-        this.btnContinue.text = "Continue Play ...";
+        this.btnContinue = new TextButtonWithBg("ContinueNormal_png", 0);
         this.btnContinue.name = "continueBtn";
+        this.btnContinue.setDisableBg("ContinueDisabled_png");
+        this.btnContinue.setDownBg("ContinueDown_png");
         this.addChild(this.btnContinue);
 
         // 开始新游戏按钮
-        this.btnNewPlay = ViewUtils.createImageBtn(50, 0x000000);
-        this.btnNewPlay.x = this.btnContinue.x;
-        this.btnNewPlay.y = this.btnContinue.y + this.btnNewPlay.height + 100;
-        this.btnNewPlay.touchEnabled = true;
-        this.btnNewPlay.text = "New Play";
+        this.btnNewPlay = new TextButtonWithBg("NewGameNormal_png", 0);
         this.btnNewPlay.name = "newPlayBtn";
+        this.btnNewPlay.setDownBg("NewGameDown_png");
         this.addChild(this.btnNewPlay);
 
         // 排行榜按钮
-        this.btnOpenRank = ViewUtils.createImageBtn(30, 0x000000);
-        this.btnOpenRank.touchEnabled = true;
-        this.btnOpenRank.text = "Rank";
+        this.btnOpenRank = new TextButtonWithBg("HerosNormal_png", 0);
         this.btnOpenRank.name = "rankBtn";
-        this.btnOpenRank.x = (this.width - this.btnOpenRank.width) / 2;
+        this.btnOpenRank.setDownBg("HerosDown_png");
         this.addChild(this.btnOpenRank);
+
+        // 成就按钮
+        this.btnAchievement = new TextButtonWithBg("AchievementNormal_png", 0);
+        this.btnAchievement.name = "achievementBtn";
+        this.btnAchievement.setDisableBg("AchievementDisabled_png");
+        this.btnAchievement.setDownBg("AchievementDown_png");
+        this.addChild(this.btnAchievement);
 
         this.btnContinue.onClicked = () => this.onClose("continuePlay");
         this.btnNewPlay.onClicked = () => this.onClose("newPlay");
         this.btnOpenRank.onClicked = () => this.onClose("openRank");
 
-        ViewUtils.multiLang(this, this.title, this.btnContinue, this.btnNewPlay, this.btnOpenRank);
+        ViewUtils.multiLang(this, this.btnContinue, this.btnNewPlay, this.btnOpenRank, this.btnAchievement);
     }
 
     public onClose;
-    public open() {
-        this.btnNewPlay.touchEnabled = true;
-        if (!this.player) {
-            this.btnContinue.touchEnabled = false;
-            ViewUtils.makeGray(this.btnContinue);
-        } else {
-            this.btnContinue.touchEnabled = true;
-            ViewUtils.makeGray(this.btnContinue, false);
-        }
+    public refresh() {
+        this.btnContinue.enabled = !!this.player;
+        this.btnAchievement.enabled = false; // 暂时不可用        
     }
 }

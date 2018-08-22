@@ -127,6 +127,7 @@ class Main extends egret.DisplayObjectContainer {
     // 加载指定资源组
     ldv = new LoadingUI(); // loading 界面    
     async loadResGroups(...gs) {
+        this.addChild(this.ldv);
         ViewUtils.asFullBg(this.ldv);
         await this.ldv.loadResGroups(...gs);
         this.ldv.setProgress(1);

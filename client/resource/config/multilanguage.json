@@ -5,14 +5,10 @@
     "views": {
         "login": {
             "layout": {
-                "title": {"y":150},
-                "continueBtn": {"x": 170, "y": 650, "w": 300, "h": 100},
-                "newPlayBtn": {"x": 170, "y": 800, "w": 300, "h": 100},
-                "rankBtn": {
-                    "EN": {"x": 195, "y": 1016, "w": 250, "h": 50},
-                    "CNS": {"x": 235, "y": 1016, "w": 170, "h": 50},
-                    "CNT": {"x": 235, "y": 1016, "w": 170, "h": 50}
-                }
+                "newPlayBtn": {"x": 155, "y": 820},
+				"continueBtn": {"x": 142, "y": 900},
+                "rankBtn": {"x": 150, "y": 1000},
+				"achievementBtn": {"x": 315, "y": 1000}
             },
 
             "text": {
@@ -98,7 +94,7 @@
 			}
 		},
 
-		"playerLevelUpView": {
+		"playerLevelUp": {
 			"layout": {
 				"bg": {"x":0, "y":0, "w":640, "h":1136},
 				"lvBg": {"x":50, "y":145},
