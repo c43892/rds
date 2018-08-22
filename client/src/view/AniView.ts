@@ -177,7 +177,7 @@ class AniView extends egret.DisplayObjectContainer {
             var fromPos = PlayerLevelUpView.lastSelectedRelicImgGlobalPos;
             fromImg.x = fromPos.x;
             fromImg.y = fromPos.y;
-            await AniUtils.flash(fromImg, 100);
+            await AniUtils.flash(fromImg, 200);
             await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
             fromImg["dispose"]();
         }
