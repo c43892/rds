@@ -391,15 +391,16 @@ class MainView extends egret.DisplayObjectContainer {
             
             var res = attrs.elemImg ? attrs.elemImg : type;
             if (!attrs.invisible) {
-                if (attrs.refElems) {
-                    for (var re of attrs.refElems)
-                        es.push(re);
-                }
-                else if (attrs.repRes) {
+                if (attrs.repRes) {
                     for (var r of attrs.repRes)
                         resArr.push(r + "_png");
                 } else
                     resArr.push(res + "_png");
+            }
+
+            if (attrs.refElems) {
+                for (var re of attrs.refElems)
+                    es.push(re);
             }
 
             // 固定掉落元素
