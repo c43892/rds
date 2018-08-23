@@ -17,7 +17,7 @@
 			"name": "ui"
 		},
 		{
-			"keys": "Agile_png,Cloak_png,Crucifix_png,Endurance_png,Fierce_png,Hawkeye_png,MedicineBox_png,Power_png,TimeMachine_png,Unback2Sneak_png,UndefinedName1_png,UndefinedName2_png,WeaponMaster_png,TradeMaster_png,BookMaster_png,UndefinedName3_png,DefenseProficient_png,ExploreEnhanced_png,HorticultureProficient_png,KnifeMaster_png,KnifeProficient_png,MonsterHunter_png,SmellEnhanced_png,Storer_png,TreasureBoxDetector_png",
+			"keys": "Agile_png,Cloak_png,Crucifix_png,Endurance_png,Fierce_png,Hawkeye_png,MedicineBox_png,Power_png,TimeMachine_png,Unback2Sneak_png,UndefinedName1_png,UndefinedName2_png,WeaponMaster_png,TradeMaster_png,BookMaster_png,UndefinedName3_png,DefenseProficient_png,ExploreEnhanced_png,HorticultureProficient_png,KnifeMaster_png,KnifeProficient_png,MonsterHunter_png,SmellEnhanced_png,Storer_png,TreasureBoxDetector_png,ShieldProficient_png",
 			"name": "relics"
 		},
 		{
@@ -1153,6 +1153,11 @@
 			"url": "assets/relics/TreasureBoxDetector.png",
 			"type": "image",
 			"name": "TreasureBoxDetector_png"
+		},
+		{
+			"url": "assets/relics/ShieldProficient.png",
+			"type": "image",
+			"name": "ShieldProficient_png"
 		}
 	]
 }

@@ -75,6 +75,7 @@
     "HorticultureProficient":{"name":"园艺专精", "refElems":["Apple"]},
     "SmellEnhanced":{"name":"嗅觉强化"},
     "Storer":{"name":"囤积居奇"},
+    "ShieldProficient":{"name":"盾牌专精", "dcd":-1, "refElems":["Shield"]},
 
     "CoinsTiny":{"name":"金币", "canOverlap":true, "useWithoutConfirm":true},
     "CoinsSmall":{"name":"金币", "canOverlap":true, "useWithoutConfirm":true},

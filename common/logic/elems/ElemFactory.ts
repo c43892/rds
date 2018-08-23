@@ -185,13 +185,23 @@ class ElemFactory {
     static triggerColddownLogic(e:Elem, onlyUncovered:boolean = true):Elem {
         e.cd = 0;
         e.checkCD = () => e.cd <= 0;
-        e.resetCD = () => e.cd = e.attrs.cd;
+        e.resetCD = () => {
+            var cdPs = {subType:"resetCD", e:e, dcd:{a:0, b:0, c:0}};
+            e.bt().triggerLogicPointSync("onCalcCD", cdPs);
+            e.cd = (e.attrs.cd + cdPs.dcd.b) * (1 + cdPs.dcd.a) + cdPs.dcd.c;
+            e.cd = e.cd < 0 ? 0 : e.cd;
+            e["beginCD"] = false;
+        }
         var priorIsValid = e.isValid;
         e.isValid = () => {
             if (priorIsValid && !priorIsValid()) return false;
             return e.checkCD();
         };
         return ElemFactory.addAI("onPlayerActed", async () => {
+            if(!e["beginCD"]) {
+                e["beginCD"] = true;
+                return;
+            }
             if (!(e instanceof Prop) && !(e instanceof Relic) && onlyUncovered && e.getGrid().isCovered()) return;
             Utils.assert(!!e.bt(), "not added to battle yet! " + e.type);
             var priorCD = e.cd;

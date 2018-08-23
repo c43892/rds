@@ -201,7 +201,7 @@ class RelicFactory {
         // 飞刀大师,每场战斗增加一把飞刀，飞刀造成的伤害+X（最高5级）
         "KnifeMaster": (attrs) => {
             var r = this.doAddElemOnLevelInited(attrs, ["Knife"], 1);
-            return ElemFactory.addAI("onCalcAttacking", (ps) => {
+            return <Relic>ElemFactory.addAI("onCalcAttacking", (ps) => {
                 ps.attackerAttrs.power.b += attrs.dpower;
             }, r, (ps) => ps.subType == "player2monster" && ps.weapon && ps.weapon.type == "Knife")
         },
@@ -221,7 +221,7 @@ class RelicFactory {
         // 飞刀专精	每场战斗增加一把飞刀，飞刀攻击时无视护甲
         "KnifeProficient": (attrs) => {
             var r = this.doAddElemOnLevelInited(attrs, ["Knife"], 1);
-            return ElemFactory.addAI("onCalcAttacking", (ps) => {
+            return <Relic>ElemFactory.addAI("onCalcAttacking", (ps) => {
                 ps.attackerAttrs.attackFlags.push("Pierce");
             }, r,  (ps) => ps.subType == "player2monster" && ps.weapon && ps.weapon.type == "Knife")
         },
@@ -242,7 +242,7 @@ class RelicFactory {
         // 园艺专精	每场战斗增加一个苹果，每次使用苹果额外回复一点生命
         "HorticultureProficient": (attrs) => {
             var r = this.doAddElemOnLevelInited(attrs, ["Apple"], 1);
-            return ElemFactory.addAI("onPlayerHealing", (ps) => {
+            return <Relic>ElemFactory.addAI("onPlayerHealing", (ps) => {
                 ps.onPlayerHealingPs.dhpPs.b += 1;
             }, r, (ps) => ps.source && ps.source.type == "Apple");
         },
@@ -272,10 +272,18 @@ class RelicFactory {
             })
         },
 
+        // 盾牌专精	每场战斗增加一面盾牌，盾牌的恢复时间减少一回合
+        "ShieldProficient": (attrs) => {
+            var r = this.doAddElemOnLevelInited(attrs, ["Shield"], 3);
+            return <Relic>ElemFactory.addAI("onCalcCD", (ps) => {
+                ps.dcd.b += r.attrs.dcd;
+            }, r, (ps) => ps.subType == "resetCD" && ps.e.type == "Shield");
+        },
+
         "":{}
     };
 
-    // 每层增加n个相同Elem,Elem从给定的Elems里随机选取
+    // 每层增加n个相同Elem,Elem从给定的elemTypes里随机选取
     public doAddElemOnLevelInited(attrs, elemTypes:string[], n:number):Relic {
         return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) return;
@@ -285,6 +293,7 @@ class RelicFactory {
                         var g = BattleUtils.findRandomEmptyGrid(bt);
                         if(g){
                             var elemType = elemTypes[r.bt().srand.nextInt(0, elemTypes.length)];
+                            await Utils.delay(500);
                             await bt.implAddElemAt(bt.level.createElem(elemType), g.pos.x, g.pos.y);
                         }                        
                     }
