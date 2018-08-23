@@ -241,7 +241,7 @@ class ElemView extends egret.DisplayObjectContainer {
 
     // 点击
     async onTouchGrid(evt:egret.TouchEvent) {
-        if (ElemView.longPressed || ElemView.dragging || !this.map.isGenerallyValid(this.gx, this.gy))
+        if (ElemView.longPressed || ElemView.gestureChecked || ElemView.dragging || !this.map.isGenerallyValid(this.gx, this.gy))
             return;
 
         let b = this.map.getGridAt(this.gx, this.gy);
@@ -304,6 +304,13 @@ class ElemView extends egret.DisplayObjectContainer {
     // 按下
     static readonly LongPressThreshold = 500; // 按下持续 0.5s 算长按
     onTouchBegin(evt:egret.TouchEvent) {
+        ElemView.gesturePts = [];
+        ElemView.gestureOnElemView = this;
+        ElemView.gestureChecked = false;
+		
+		if (ElemView.gesturePts)
+            ElemView.gesturePts.push({x:evt.stageX, y:evt.stageY});    
+
         let g = this.map.getGridAt(this.gx, this.gy);
         if (!this.map.isGenerallyValid(this.gx, this.gy) && g.status != GridStatus.Blocked)
             return;
@@ -354,6 +361,8 @@ class ElemView extends egret.DisplayObjectContainer {
 
     // 拖拽移动
     onTouchMove(evt:egret.TouchEvent) {
+        if (ElemView.gesturePts) ElemView.gesturePts.push({x:evt.stageX, y:evt.stageY});
+
         if (ElemView.longPressed 
             || this.map.getGridAt(this.gx, this.gy).isCovered() 
             || !this.map.isGenerallyValid(this.gx, this.gy))
@@ -398,8 +407,12 @@ class ElemView extends egret.DisplayObjectContainer {
 
     // 结束拖拽
     onTouchEnd(evt:egret.TouchEvent) {
-        if (!this.map.isGenerallyValid(this.gx, this.gy))
-            return;
+        ElemView.gestureChecked = false;
+        if (ElemView.gesturePts && ElemView.onGesture)
+            ElemView.gestureChecked = ElemView.onGesture(ElemView.gesturePts);
+
+        ElemView.gesturePts = undefined;
+        ElemView.gestureOnElemView = undefined;
 
         if (ElemView.dragging) {
             ElemView.dragFrom.showLayer.alpha = 1;
@@ -420,4 +433,33 @@ class ElemView extends egret.DisplayObjectContainer {
                 ElemView.notifyLongPressEnded();
         }
     }
+
+    // 记录一次按下弹起所经过的路径点，用于手势判断
+    public static gesturePts;
+    public static gestureOnElemView:ElemView;
+    public static gestureChecked:boolean;
+    public static onGesture(pts):boolean { // 响应手势操作
+        if (pts.length < 10) return;
+        // 统计四边和中心位置
+        var l = pts[0].x; var r = l;
+        var t = pts[0].y; var b = t;
+        pts.forEach((pt, _) => {
+            if (pt.x < l) l = pt.x;
+            if (pt.x > r) r = pt.x;
+            if (pt.y < t) t = pt.y;
+            if (pt.y > b) b = pt.y;
+        });
+
+        if (r - l < 30 && b - t < 30) return;
+        var g = ElemView.gestureOnElemView.getGrid();
+        if (g.isUncoverable() && g.status != GridStatus.Marked) {
+            ElemView.try2BlockGrid(g.pos.x, g.pos.y, true);
+            return true;
+        } else if (g.status == GridStatus.Blocked) {
+            ElemView.try2BlockGrid(g.pos.x, g.pos.y, false);
+            return true;
+        }
+        
+        return false;
+    };
 }

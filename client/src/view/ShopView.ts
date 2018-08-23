@@ -27,7 +27,7 @@ class ShopView extends egret.DisplayObjectContainer {
         this.bg.width = this.width;
         this.bg.height = this.height;
 
-        this.bg1 = ViewUtils.createBitmapByName("svbg_png");
+        this.bg1 = ViewUtils.createBitmapByName("translucent_png");
         this.bg1.name = "bg1";
         this.addChild(this.bg1);
 
