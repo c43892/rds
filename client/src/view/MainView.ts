@@ -270,7 +270,6 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.player = this.p;
         this.wmv.setWorldMap(worldmap);
         this.addChild(this.wmv);
-        this.wmv.refresh();
     }
 
     // 登录

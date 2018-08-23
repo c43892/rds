@@ -453,14 +453,15 @@ class Utils {
         if (Math.abs(dx) < 0.001)
             return dx >= 0 ? 0 : 180;
         else {
-            var tan = Math.tan(dy / dx);
-            var atan = Math.atan(tan);
-            if (dx < 0) 
-                return atan * 180 / Math.PI + 180;
-            else if (dy >= 0)
+            var atan = Math.atan(Math.abs(dy / dx));
+            if (dx > 0 && dy > 0)
                 return atan * 180 / Math.PI;
+            else if (dx < 0 && dy > 0)
+                return 180 - atan * 180 / Math.PI;
+            else if (dx < 0 && dy < 0)
+                return 180 + atan * 180 / Math.PI;
             else
-                return atan * 180 / Math.PI + 360;
+                return 360 - atan * 180 / Math.PI;
         }
     }
 

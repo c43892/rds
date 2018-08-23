@@ -37,8 +37,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.mapArea.bounces = false;
         this.addChild(this.mapArea);
 
-        this.refresh();
-
         this.touchEnabled = false;
         this.mapArea.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchGrid, this);
 
@@ -48,16 +46,14 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.wmesFact.openEventSels = async (p:Player, group) => await this.openSelGroup(p, group);
     }
 
-    pts = [];
-    public refresh() {
+    private refreshUI() {
+        var w = this.width;
+        var h = this.height;
 
-        w = this.width;
-        h = this.height;
-
-        this.mapArea.width = w - 20;
-        this.mapArea.height = h - 110;
-        this.mapArea.x = 10;
-        this.mapArea.y = 10;
+        this.mapArea.width = w;
+        this.mapArea.height = h;
+        this.mapArea.x = 0;
+        this.mapArea.y = 0;
 
         this.viewContent.x = 0;
         this.viewContent.y = 0;
@@ -80,15 +76,80 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.bg2.height = this.viewContent.height;
         this.bg2.scaleX = -1;
 
+        // 外框
+
+        var xSpace = 10;
+        var ySpace = 30;
+
+        var head = ViewUtils.createBitmapByName("WorldMapBg2_png");
+        head.x = this.viewContent.width / 2 - head.width;
+        head.y = ySpace - 15;
+        this.viewContent.addChild(head);
+
+        var head2 = ViewUtils.createBitmapByName("WorldMapBg2_png");
+        head2.x = this.viewContent.width / 2 + head.width;
+        head2.y = head.y;
+        head2.scaleX = -1;        
+        this.viewContent.addChild(head2);
+
+        var head3 = ViewUtils.createBitmapByName("WorldMapBg2_png");
+        head3.x = head.x;
+        head3.y = this.viewContent.height - (ySpace - 15);
+        head3.scaleY = -1;
+        this.viewContent.addChild(head3);
+
+        var head4 = ViewUtils.createBitmapByName("WorldMapBg2_png");
+        head4.x = head2.x;
+        head4.y = head3.y;
+        head4.scaleX = -1;
+        head4.scaleY = -1;
+        this.viewContent.addChild(head4);
+
+        var clt = ViewUtils.createBitmapByName("WorldMapBgCorner_png");
+        clt.x = this.viewContent.width - this.width + xSpace;
+        clt.y = ySpace;
+        clt.scale9Grid = new egret.Rectangle(clt.width - 2, clt.height - 2, 1, 1);
+        clt.width = this.width / 2 - head.width - clt.x;
+        clt.height = this.viewContent.height / 2 - clt.y;
+        this.viewContent.addChild(clt);
+
+        var crt = ViewUtils.createBitmapByName("WorldMapBgCorner_png");
+        crt.width = clt.width;
+        crt.height = clt.height;        
+        crt.scale9Grid = clt.scale9Grid;
+        crt.x = this.viewContent.width / 2 + crt.width + head.width;
+        crt.y = ySpace;
+        crt.scaleX = -1;
+        this.viewContent.addChild(crt);
+
+        var clb = ViewUtils.createBitmapByName("WorldMapBgCorner_png");
+        clb.x = clt.x;
+        clb.y = this.viewContent.height - ySpace;
+        clb.scale9Grid = clt.scale9Grid;
+        clb.width = clt.width;
+        clb.height = clt.height;
+        clb.scaleY = -1;
+        this.viewContent.addChild(clb);
+
+        var crb = ViewUtils.createBitmapByName("WorldMapBgCorner_png");
+        crb.width = clt.width;
+        crb.height = clt.height;
+        crb.scale9Grid = clt.scale9Grid;
+        crb.x = crt.x;
+        crb.y = clb.y;
+        crb.scaleX = -1;
+        crb.scaleY = -1;
+        this.viewContent.addChild(crb);
+
         this.mapArea.scrollTop = this.viewContent.height - this.mapArea.height;
+    }
 
-        if (!this.worldmap)
-            return;
-
+    private refreshNodes() {
         var wp = this.worldmap;
 
         // 显示每个节点
         var imgs = [];
+        var adoptImgs = [];
         var xEdgeBlank = 100; // 节点与左右边缘留白大小
         var yGap = this.viewContent.height / wp.nodes.length;
         var xGap = (this.mapArea.width - 2 * xEdgeBlank) / (wp.cfg.width - 1);
@@ -99,6 +160,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         for (var i = 0; i < wp.nodes.length; i++) {
             var y = yGap * i;
             var row = [];
+            var adoptRow = [];
             for (var j = 0; j < wp.nodes[i].length; j++) {
                 if(wp.nodes[i][j].parents.length != 0){
                     var pt = wp.nodes[i][j].roomType;
@@ -117,33 +179,67 @@ class WorldMapView extends egret.DisplayObjectContainer {
                     img["ptStoreyN"] = j;
                     img.touchEnabled = true;
                     row.push(img);
-                } else 
+
+                    var adpImg = ViewUtils.createBitmapByName("Adopt_png");
+                    adpImg.x = img.x;
+                    adpImg.y = img.y;
+                    adpImg.anchorOffsetX = adpImg.width / 2;
+                    adpImg.anchorOffsetY = adpImg.height / 2;
+                    adoptRow.push(adpImg);
+                } else {
                     row.push(undefined);
+                    adoptRow.push(undefined);
+                }
             }
             imgs.push(row);
+            adoptImgs.push(adoptRow);
         }
 
-        // 遍历所有可用节点的所有边,根据边的起始节点和目标节点的坐标画线
+        // 遍历所有可用节点的所有边,根据边的起始节点和目标节点的坐标绘制脚印
         for(var i = 0; i < wp.nodes.length; i++){
             for(var j = 0; j < wp.nodes[i].length; j++){
                 if (!wp.nodes[i][j]) continue;
                 if(wp.nodes[i][j].parents.length != 0){
                     for(var k = 0; k < wp.nodes[i][j].routes.length; k++){
                         var n = wp.nodes[i][j];
-                        var l:egret.Shape = new egret.Shape();
-                        l.graphics.lineStyle(3, 0x888888);
-                        l.graphics.moveTo(imgs[i][j].x ,imgs[i][j].y);
-                        if(i == wp.nodes.length - 2){
-                            l.graphics.lineTo((wp.nodes[i].length - 1) / 2 * xGap + xEdgeBlank, 
-                                               WorldMapNode.getNodeYposOnView(n.routes[k].dstNode, this.viewContent.height, yGap, 0)); //通往boss点的路线
-                        } else{
-                            l.graphics.lineTo(WorldMapNode.getNodeXposOnView(n.routes[k].dstNode, xEdgeBlank, xGap, xSwing), 
-                                              WorldMapNode.getNodeYposOnView(n.routes[k].dstNode, this.viewContent.height, yGap, ySwing));
+
+                        var pt1x = imgs[i][j].x;
+                        var pt1y = imgs[i][j].y;
+                        var pt2x, pt2y;
+                        if(i == wp.nodes.length - 2) {
+                            pt2x = (wp.nodes[i].length - 1) / 2 * xGap + xEdgeBlank;
+                            pt2y = WorldMapNode.getNodeYposOnView(n.routes[k].dstNode, this.viewContent.height, yGap, 0);
+                        } else {
+                            pt2x = WorldMapNode.getNodeXposOnView(n.routes[k].dstNode, xEdgeBlank, xGap, xSwing);
+                            pt2y = WorldMapNode.getNodeYposOnView(n.routes[k].dstNode, this.viewContent.height, yGap, ySwing);
                         }
-                        l.graphics.endFill();
-                        this.viewContent.addChild(l);
+
+                        var pt1 = {x:pt1x, y:pt1y};
+                        var pt2 = {x:pt2x, y:pt2y};
+                        var dist = Utils.getDist(pt1, pt2);
+                        var steps = dist / 20; // 根据距离确定步数
+                        var stepsDx = (pt2x - pt1x) / steps;
+                        var stepsDy = (pt2y - pt1y) / steps;
+                        var stepRotation = Utils.getRotationFromTo(pt1, pt2); // 确定脚步方向
+
+                        // 根据方向计算左右距离中心线的位置偏移
+                        var dPosX1 = Math.cos((stepRotation - 90) * Math.PI / 180) * 5;
+                        var dPosY1 = Math.sin((stepRotation - 90) * Math.PI / 180) * 5;
+                        var dPosX2 = Math.cos((stepRotation + 90) * Math.PI / 180) * 5;
+                        var dPosY2 = Math.sin((stepRotation + 90) * Math.PI / 180) * 5;
+
+                        for (var st = 0; st < steps; st++) {
+                            var stepImg = ViewUtils.createBitmapByName("FootPrint_png");
+                            stepImg.x = pt1x + stepsDx * st + (st%2==0?dPosX1:dPosX2);
+                            stepImg.y = pt1y + stepsDy * st + (st%2==0?dPosY1:dPosY2);
+                            stepImg.anchorOffsetX = stepImg.width / 2;
+                            stepImg.anchorOffsetY = stepImg.height / 2;
+                            stepImg.rotation = stepRotation + (st%2==0?-15:15);
+                            stepImg.scaleX = st%2==0?1:-1; // 左右脚印需要对称反转
+                            this.viewContent.addChild(stepImg);
+                        }
                     }
-                this.viewContent.addChild(imgs[i][j]);
+                    this.viewContent.addChild(imgs[i][j]);
                 }
             }
         }
@@ -163,8 +259,14 @@ class WorldMapView extends egret.DisplayObjectContainer {
         // 显示可经过的节点
         for (var sp of this.worldmap.player.finishedStoreyPos) {
             if (!imgs[sp.lv][sp.n]) continue;
-            ViewUtils.makeGray(imgs[sp.lv][sp.n]);
+            this.viewContent.addChild(adoptImgs[sp.lv][sp.n]);
         }
+    }
+
+    public refresh() {
+        if (!this.worldmap) return;
+        this.refreshUI();
+        this.refreshNodes();
     }
 
     worldmap:WorldMap;
