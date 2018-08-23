@@ -104,7 +104,7 @@
     "Gengar":{"name":"耿鬼", "dropItems":["CoinsSmall"]},
     "BombAbomination":{"name":"自爆憎恶", "selfExplode":{"cnt":5, "mult":3, "aoe":{"w":3, "h":3}}, "dropItems":["CoinsTiny"]},
     "EyeDemon":{"name":"眼魔", "dropItems":["CoinsTiny"], "repRes":["EyeDemon", "eyeDemonEye"]},
-    "RandomEggZombie":{"name":"彩蛋僵尸", "dropItems":["RandomEgg", "CoinsTiny"], "cannotTake":true},
+    "RandomEggZombie":{"name":"彩蛋僵尸", "dropItems":["RandomEgg", "CoinsTiny"], "cannotTake":true, "refElems":["RandomEgg"]},
     "LustZombie":{"name":"色欲僵尸", "dropItems":["CoinsTiny"]},
     "CommanderZombie":{"name":"指挥官僵尸", "dropItems":["CoinsSmall"]},
     "RageZombie":{"name":"狂暴僵尸", "dropItems":["CoinsSmall"]},
