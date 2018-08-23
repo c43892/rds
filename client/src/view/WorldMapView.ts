@@ -22,6 +22,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         super();
         this.width = w;
         this.height = h;
+        this.name = "worldmap";
 
         this.bg1 = ViewUtils.createBitmapByName("WorldMapBg_png", egret.BitmapFillMode.REPEAT);
         this.bg2 = ViewUtils.createBitmapByName("WorldMapBg_png", egret.BitmapFillMode.REPEAT);
@@ -46,7 +47,48 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.wmesFact.openEventSels = async (p:Player, group) => await this.openSelGroup(p, group);
     }
 
+    btnSetting:TextButtonWithBg; // 设置按钮
+    coins:egret.Bitmap; // 金币图标
+    crevices:egret.Bitmap[] = []; // 裂缝
+    btnSymbolDesc:TextButtonWithBg; // 图例按钮
+    symbolDesc:egret.Bitmap; // 图例
     private refreshUI() {
+        this.refreshFrame();
+
+        this.btnSetting = new TextButtonWithBg("BtnSetting_png", 0);
+        this.btnSetting.name = "btnSetting";
+        this.coins = ViewUtils.createBitmapByName("Coins_png");
+        this.coins.name = "coins";
+        for (var i = 0; i < 7; i++) {
+            this.crevices[i] = ViewUtils.createBitmapByName("Crevice_png");
+            this.crevices[i].name = "crevice" + i.toString();
+        }
+        this.btnSymbolDesc = new TextButtonWithBg("SymbolDescbtn_png", 0);
+        this.btnSymbolDesc.name = "btnSymbolDesc";
+        this.symbolDesc = ViewUtils.createBitmapByName("SymbolDesc_png");
+        this.symbolDesc.name = "symbolDesc";
+
+        var objs = [this.btnSetting, this.coins, this.btnSymbolDesc, this.symbolDesc];
+        objs.forEach((obj, _) => this.addChild(obj));
+        ViewUtils.multiLang(this, ...objs);
+
+        this.crevices.forEach((obj, _) => this.viewContent.addChild(obj));
+        ViewUtils.multiLang(this, ...this.crevices);
+
+        this.removeChild(this.symbolDesc); // 初始不显示图例
+        this.btnSymbolDesc.onClicked = () => {
+            if (this.contains(this.symbolDesc)) {
+                this.removeChild(this.symbolDesc);
+                ViewUtils.multiLang(this, this.btnSymbolDesc);
+            } else {
+                this.addChild(this.symbolDesc);
+                ViewUtils.multiLang(this, this.symbolDesc);
+                this.btnSymbolDesc.y = this.symbolDesc.y + this.symbolDesc.height;
+            }
+        };
+    }
+
+    private refreshFrame() {
         var w = this.width;
         var h = this.height;
 
@@ -79,7 +121,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         // 外框
 
         var xSpace = 10;
-        var ySpace = 30;
+        var ySpace = 20;
 
         var head = ViewUtils.createBitmapByName("WorldMapBg2_png");
         head.x = this.viewContent.width / 2 - head.width;
@@ -140,6 +182,30 @@ class WorldMapView extends egret.DisplayObjectContainer {
         crb.scaleX = -1;
         crb.scaleY = -1;
         this.viewContent.addChild(crb);
+
+        var cn1 = ViewUtils.createBitmapByName("WorldMapBg1_png");
+        cn1.x = clt.x + 20;
+        cn1.y = clt.y + 12;
+        this.viewContent.addChild(cn1);
+
+        var cn2= ViewUtils.createBitmapByName("WorldMapBg1_png");
+        cn2.x = crt.x - 20;
+        cn2.y = cn1.y;
+        cn2.scaleX = -1;
+        this.viewContent.addChild(cn2);
+
+        var cn3 = ViewUtils.createBitmapByName("WorldMapBg1_png");
+        cn3.x = cn1.x;
+        cn3.y = clb.y - 12;
+        cn3.scaleY = -1;
+        this.viewContent.addChild(cn3);
+
+        var cn4 = ViewUtils.createBitmapByName("WorldMapBg1_png");
+        cn4.x = cn2.x;
+        cn4.y = cn3.y;
+        cn4.scaleX = -1;
+        cn4.scaleY = -1;
+        this.viewContent.addChild(cn4);
 
         this.mapArea.scrollTop = this.viewContent.height - this.mapArea.height;
     }
