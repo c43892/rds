@@ -318,8 +318,8 @@ class WorldMapView extends egret.DisplayObjectContainer {
             var tw = egret.Tween.get(img, {loop:true});
             var w = img.width;
             var h = img.height;
-            tw.to({width:w*1.5, height:h*1.5}, 1000, egret.Ease.quadInOut)
-                .to({width:w, height:w}, 1000, egret.Ease.quadInOut);
+            tw.to({scaleX:1.5, scaleY:1.5}, 1000, egret.Ease.quadInOut)
+                .to({scaleX:1, scaleY:1}, 1000, egret.Ease.quadInOut);
         }
 
         // 显示可经过的节点
