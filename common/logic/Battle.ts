@@ -1035,7 +1035,7 @@ class Battle {
 
                 // 处理附加 buff
                 for (var b of r.addBuffs)
-                    await this.implAddBuff(m, "Buff" + b.type, ...b.ps);
+                    await this.implAddBuff(tar, "Buff" + b.type, ...b.ps);
             }
         }
 
