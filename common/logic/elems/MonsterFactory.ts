@@ -142,7 +142,47 @@ class MonsterFactory {
         "Ghost": (attrs) => MonsterFactory.doChaseToNextLevel(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //幽灵
         "RedSlime": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //红色史莱姆
         "GreenSlime": (attrs) => MonsterFactory.doAddHpPerRound(Math.floor(attrs.hp * 0.2) > 1 ? Math.floor(attrs.hp * 0.2) : 1, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //绿色史莱姆
-        "NutWall": (attrs) => MonsterFactory.doShareDamageOnPlayerHurt(this.createMonster(attrs)),// 坚果墙
+        "NutWall": (attrs) => { // 坚果墙
+            var m = MonsterFactory.doShareDamageOnPlayerHurt(this.createMonster(attrs));
+            m.isHazard = () => false;
+            m.canUse = () => true;
+            m.barrier = false;
+            return m;
+        },
+        "Peashooter": (attrs) => { // 豌豆射手
+            var m = MonsterFactory.doAttackBack(this.createMonster(attrs));
+            m.isHazard = () => false;
+            m.canUse = () => true;
+            m.barrier = false;
+            return MonsterFactory.doAttack("onPlayerActed", m, () => {
+                var ms = m.map().findAllElems((e:Elem) => e instanceof Monster && !e.getGrid().isCovered() && e.isHazard());
+                if (ms.length == 0) return undefined;
+
+                return ms[m.bt().srand.nextInt(0, ms.length)];
+            }, attrs.attackInterval);
+        }, 
+        "CherryBomb": (attrs) => { // 樱桃炸弹
+            var m = this.createMonster(attrs);
+            m.isHazard = () => false;
+            m.canUse = () => true;
+            m.barrier = false;
+            m.use = async () => { 
+                await m.bt().implMonsterDoSelfExplode(m, undefined, false); 
+                return true;
+            }
+            return m;
+        },
+        "Sunflower": (attrs) => { // 太阳花
+            var m = this.createMonster(attrs);
+            m.isHazard = () => false;
+            m.canUse = () => true;
+            m.barrier = false;
+            m.use = async () => { 
+                await m.bt().implAddPlayerHp(Math.floor(m.bt().player.maxHp * attrs.dhpPercent / 100), m);
+                return false;
+            }
+            return m;
+        },
 
         "ShopNpc": (attrs) => MonsterFactory.makeShopNPC(this.createMonster(attrs)),
 
@@ -353,22 +393,8 @@ class MonsterFactory {
         var cnt = 0;
         return <Monster>ElemFactory.addAI("onPlayerActed", async () => {
             cnt++;
-            if(cnt > m.attrs.selfExplode.cnt) {
-                var mapsize = m.map().size;
-                var aoe = m.attrs.selfExplode.aoe;
-                Utils.assert(aoe.w%2 == 1 && aoe.h%2 == 1, "do not support aoe size for: " + aoe.w + ", " + aoe.h);
-                var poses = [];
-                var x = m.pos.x;
-                var y = m.pos.y;
-                for (var i = - (aoe.w - 1) / 2; i < aoe.w / 2; i++) {
-                    for (var j = - (aoe.w - 1) / 2; j < aoe.h / 2; j++) {
-                        var pt = {x:x + i, y:y + j};
-                        if (pt.x >= 0 && pt.x < mapsize.w && pt.y >= 0 && pt.y < mapsize.h && !(pt.x ==x && pt.y == y))
-                            poses.push(pt);
-                    }
-                }
-                await m.bt().implMonsterAttackPoses(m, poses, {a:m.attrs.selfExplode.mult - 1, b:0, c:0}, true, ["immuneAttackBack"], true);
-            }
+            if(cnt > m.attrs.selfExplode.cnt) 
+                await m.bt().implMonsterDoSelfExplode(m, {a:m.attrs.selfExplode.mult - 1, b:0, c:0}, true);            
         }, m);
     }
 

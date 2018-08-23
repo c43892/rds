@@ -72,6 +72,9 @@
         "RedSlime":{"name":"RedSlime", "desc":""},
         "GreenSlime":{"name":"GreenSlime", "desc":""},
         "NutWall":{"name":"坚果墙", "desc":""},
+        "Peashooter":{"name":"豌豆射手", "desc":""},
+        "CherryBomb":{"name":"樱桃炸弹", "desc":""},
+        "Sunflower":{"name":"太阳花", "desc":""},
         "ShopNpc":{"name":"ShopNpc", "desc":"<font color=#3333cc size=20>Shop\n\n<font color=#000000 size=18>Sell all kinds of props here;<font>"},
 
         "PlaceHolder":{"name":"PlaceHolder", "desc":""},
@@ -185,6 +188,9 @@
         "RedSlime":{"name":"红色史莱姆", "desc":""},
         "GreenSlime":{"name":"绿色史莱姆", "desc":""},
         "NutWall":{"name":"坚果墙", "desc":""},
+        "Peashooter":{"name":"豌豆射手", "desc":""},
+        "CherryBomb":{"name":"樱桃炸弹", "desc":""},
+        "Sunflower":{"name":"太阳花", "desc":""},
         "ShopNpc":{"name":"商人", "desc":"<font color=#3333cc size=20>商店\n\n<font color=#000000 size=18>这里出售各种道具"},
 
         "PlaceHolder":{"name":"Boss精英占位", "desc":""},
@@ -282,6 +288,9 @@
         "RedSlime":{"name":"红色史莱姆", "desc":""},
         "GreenSlime":{"name":"绿色史莱姆", "desc":""},
         "NutWall":{"name":"坚果墙", "desc":""},
+        "Peashooter":{"name":"豌豆射手", "desc":""},
+        "CherryBomb":{"name":"樱桃炸弹", "desc":""},
+        "Sunflower":{"name":"太阳花", "desc":""},
         "ShopNpc":{"name":"商人", "desc":"<font color=#3333cc size=20>商店\n\n<font color=#000000 size=18>這裡出售各種道具"},
         "WantedOrder":{"name":"通缉令", "desc":""},
 

@@ -253,7 +253,7 @@ class ElemView extends egret.DisplayObjectContainer {
             {
                 let e = this.map.getElemAt(this.gx, this.gy);
                 Utils.assert(!!e, "empty grid cannot be marked");
-                if ((e instanceof Prop || e instanceof Item || e instanceof Relic) || (e instanceof Monster && !e.isHazard()))
+                if ((e instanceof Prop || e instanceof Item || e instanceof Relic) || (e instanceof Monster && !(e.isHazard() || e["linkTo"] && e["linkTo"].isHazard())))
                     ElemView.try2UncoverAt(b.pos.x, b.pos.y);
                 else
                     await ElemView.try2UseElem(e);
@@ -271,16 +271,24 @@ class ElemView extends egret.DisplayObjectContainer {
                             await ElemView.try2UseElemAt(e, pos.x, pos.y);
                         });
                     } else if (e.canUse()) {
-                        if (e instanceof Prop || e instanceof Monster || e instanceof Relic)
-                            await ElemView.try2UseElem(e);
-                        else {
-                            if (!e.attrs.useWithoutConfirm)
-                                PropView.select1InN("确定使用 " + ViewUtils.getElemNameAndDesc(e.type).name, ["确定", "取消"], (c) => true, (c) => {
+                        if(e.attrs.useWithConfirm){
+                            PropView.select1InN("确定使用 " + ViewUtils.getElemNameAndDesc(e.type).name, ["确定", "取消"], (c) => true, (c) => {
                                     if (c == "确定")
                                         ElemView.try2UseElem(e);
-                                });
-                            else
-                                await ElemView.try2UseElem(e);
+                            });
+                        }
+                        else {
+                            if (e instanceof Prop || e instanceof Monster || e instanceof Relic)
+                            await ElemView.try2UseElem(e);
+                            else {
+                                if (!e.attrs.useWithoutConfirm)
+                                    PropView.select1InN("确定使用 " + ViewUtils.getElemNameAndDesc(e.type).name, ["确定", "取消"], (c) => true, (c) => {
+                                        if (c == "确定")
+                                            ElemView.try2UseElem(e);
+                                    });
+                                else
+                                    await ElemView.try2UseElem(e);
+                            }
                         }
                     } else {
                         // can not use

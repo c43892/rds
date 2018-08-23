@@ -993,52 +993,51 @@ class Battle {
         // tars 可能在这里发生变化了，比如援护，就会更改攻击目标
 
         // 如果打空，则不需要战斗计算过程，有个表现就可以了
-        if (tars.length == 0)
-            return;
+        if (tars.length != 0) {
 
-        // 攻击属性需要特别处理，攻击力要计算两次
-        var attackerAttrs = m.getAttrsAsAttacker();
-        var powerValue = this.bc.doCalc(attackerAttrs, "power");
-        attackerAttrs.power = {a:extraPowerABC.a, b:extraPowerABC.b + powerValue, c:extraPowerABC.c};
+            // 攻击属性需要特别处理，攻击力要计算两次
+            var attackerAttrs = m.getAttrsAsAttacker();
+            var powerValue = this.bc.doCalc(attackerAttrs, "power");
+            attackerAttrs.power = {a:extraPowerABC.a, b:extraPowerABC.b + powerValue, c:extraPowerABC.c};
 
-        for (var af of addFlags)
-            if (!Utils.contains(attackerAttrs.attackFlags, af))
-                attackerAttrs.attackFlags.push(af);
+            for (var af of addFlags)
+                if (!Utils.contains(attackerAttrs.attackFlags, af))
+                    attackerAttrs.attackFlags.push(af);
 
-        // 这里开始循环处理每一个目标的相关逻辑，至此，targets 分散成为单个 target 处理
-        for (var i = 0; i < tars.length; i++) {
-            var tar = tars[i];
+            // 这里开始循环处理每一个目标的相关逻辑，至此，targets 分散成为单个 target 处理
+            for (var i = 0; i < tars.length; i++) {
+                var tar = tars[i];
 
-            // 目标属性
-            var targetAttrs = tar.getAttrsAsTarget();
-            for (var j = 0; j < attackerAttrs.muiltAttack && !tar.isDead(); j++) {
-                var r = await this.calcAttack("monster2targets", attackerAttrs, targetAttrs);
-                if (r.r == "attacked") {
-                    if (tar instanceof Player) {
-                        await this.implAddPlayerHp(r.dhp, m);
-                        await this.implAddPlayerShield(r.dShield);
-                        if (r.dShared != 0) { // 处理伤害被分担的情况
-                            var dSharedMonster = targetAttrs.damageSharedMonster;
-                            Utils.assert(dSharedMonster instanceof Monster, "damage should be shared by monster but got" + dSharedMonster.type);
-                            await this.implAddMonsterHp(dSharedMonster, r.dShared);
+                // 目标属性
+                var targetAttrs = tar.getAttrsAsTarget();
+                for (var j = 0; j < attackerAttrs.muiltAttack && !tar.isDead(); j++) {
+                    var r = await this.calcAttack("monster2targets", attackerAttrs, targetAttrs);
+                    if (r.r == "attacked") {
+                        if (tar instanceof Player) {
+                            await this.implAddPlayerHp(r.dhp, m);
+                            await this.implAddPlayerShield(r.dShield);
+                            if (r.dShared != 0) { // 处理伤害被分担的情况
+                                var dSharedMonster = targetAttrs.damageSharedMonster;
+                                Utils.assert(dSharedMonster instanceof Monster, "damage should be shared by monster but got" + dSharedMonster.type);
+                                await this.implAddMonsterHp(dSharedMonster, r.dShared);
+                            }
+                        } else {
+                            Utils.assert(tar instanceof Monster, "the target should monster, but got " + tar.type);
+                            await this.implAddMonsterHp(tar, r.dhp);
+                            await this.implAddMonsterShield(tar, r.dShield);
                         }
-                    } else {
-                        Utils.assert(tar instanceof Monster, "the target should monster, but got " + tar.type);
-                        await this.implAddMonsterHp(tar, r.dhp);
-                        await this.implAddMonsterShield(tar, r.dShield);
                     }
+
+                    // 这里可能是各种攻击结果，成功，闪避，无敌等
+                    await this.fireEvent("onAttacked", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
+                    await this.triggerLogicPoint("onAttacked", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
+
+                    // 处理附加 buff
+                    for (var b of r.addBuffs)
+                        await this.implAddBuff(tar, "Buff" + b.type, ...b.ps);
                 }
-
-                // 这里可能是各种攻击结果，成功，闪避，无敌等
-                await this.fireEvent("onAttacked", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
-                await this.triggerLogicPoint("onAttacked", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
-
-                // 处理附加 buff
-                for (var b of r.addBuffs)
-                    await this.implAddBuff(tar, "Buff" + b.type, ...b.ps);
             }
         }
-
         if (selfExplode && !m.isDead()) // 自爆还要走死亡逻辑
             await this.implOnElemDie(m);
     }
@@ -1056,6 +1055,24 @@ class Battle {
         if (attackPlayer) targets.push(m.bt().player);
 
         await m.bt().implMonsterAttackTargets(m, targets, extraPowerABC, selfExplode, addFlags);
+    }
+
+    public async implMonsterDoSelfExplode(m:Monster, extraPowerABC, attackPlayer = false){
+        var mapsize = m.map().size;
+        var aoe = m.attrs.selfExplode.aoe;
+        Utils.assert(aoe.w%2 == 1 && aoe.h%2 == 1, "do not support aoe size for: " + aoe.w + ", " + aoe.h);
+        var poses = [];
+        var x = m.pos.x;
+        var y = m.pos.y;
+        for (var i = - (aoe.w - 1) / 2; i < aoe.w / 2; i++) {
+            for (var j = - (aoe.w - 1) / 2; j < aoe.h / 2; j++) {
+                var pt = {x:x + i, y:y + j};
+                if (pt.x >= 0 && pt.x < mapsize.w && pt.y >= 0 && pt.y < mapsize.h && !(pt.x ==x && pt.y == y))
+                    poses.push(pt);
+            }
+        }
+        extraPowerABC = extraPowerABC ? extraPowerABC : {a:0, b:0, c:0};
+        await m.bt().implMonsterAttackPoses(m, poses, extraPowerABC, true, ["immuneAttackBack"], attackPlayer);
     }
 
     public async implElemFollow2NextLevel(e:Elem) {
