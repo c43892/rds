@@ -3,6 +3,7 @@ class ShopView extends egret.DisplayObjectContainer {
     private static readonly GridNum = 6;
     
     private bg:egret.Bitmap; // 背景
+    private bg1:egret.Bitmap; // 底图
     private grids:egret.Bitmap[] = []; // 商品格子
     private prices:egret.TextField[] = []; // 商品价格
     private items:string[] = [];
@@ -18,36 +19,33 @@ class ShopView extends egret.DisplayObjectContainer {
 
         this.width = w;
         this.height = h;
-        this.touchEnabled = true;
+        this.name = "shop";
 
         this.bg = ViewUtils.createBitmapByName("translucent_png");
         this.addChild(this.bg);
+        this.bg.touchEnabled = true;
         this.bg.width = this.width;
         this.bg.height = this.height;
 
-        var gdw = this.width / 5;
-        var space = gdw / 2;
-        var gdh = gdw;
+        this.bg1 = ViewUtils.createBitmapByName("svbg_png");
+        this.bg1.name = "bg1";
+        this.addChild(this.bg1);
+
         for (var i = 0; i < ShopView.GridNum; i++) {
             var gd = ViewUtils.createBitmapByName("soldout_png");
             this.grids.push(gd);
             gd.touchEnabled = true;
-            gd.width = gdw;
-            gd.height = gdh;
-            gd.x = space + (i % 3) * (space + gdw);
-            gd.y = this.height / 2 + (i >= 3 ? space : -gdh - space);
             gd["itemIndex"] = i;
+            gd.name = "grid" + i.toString();
             this.addChild(gd);
             gd.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onSelItem, this);
 
             var pt = new egret.TextField();
-            pt.x = gd.x;
-            pt.y = gd.y + gd.height;
-            pt.width = gd.width;
             pt.textColor = 0x000000;
             pt.size = 30;
             pt.textAlign = egret.HorizontalAlign.CENTER;
             pt.verticalAlign = egret.VerticalAlign.MIDDLE;
+            pt.name = "price" + i.toString();
             this.prices.push(pt);
             this.addChild(pt);
 
@@ -55,11 +53,12 @@ class ShopView extends egret.DisplayObjectContainer {
         }
 
         this.btnGoBack = ViewUtils.createBitmapByName("goBack_png")
-        this.btnGoBack.x = 10;
-        this.btnGoBack.y = this.height - this.btnGoBack.height - 10;
+        this.btnGoBack.name = "btnGoBack";
         this.btnGoBack.touchEnabled = true;
         this.addChild(this.btnGoBack);
         this.btnGoBack.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onGoBack, this);
+
+        ViewUtils.multiLang(this, this.bg1, ...this.grids, ...this.prices, this.btnGoBack);
     }
 
     private onCancel;
