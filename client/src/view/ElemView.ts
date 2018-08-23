@@ -239,6 +239,27 @@ class ElemView extends egret.DisplayObjectContainer {
     public static notifyLongPressEnded; // 通知长按计时结束
     public static showElemDesc; // 显示元素信息
 
+    // 记录一次按下弹起所经过的路径点，用于手势判断
+    public static gesturePts;
+    public static gestureOnElemView:ElemView;
+    public static async onGesture(pts) { // 响应手势操作
+        if (pts.length < 10) return;
+        // 统计四边和中心位置
+        var l = pts[0].x; var r = l;
+        var t = pts[0].y; var b = t;
+        pts.forEach((pt, _) => {
+            if (pt.x < l) l = pt.x;
+            if (pt.x > r) r = pt.x;
+            if (pt.y < t) t = pt.y;
+            if (pt.y > b) b = pt.y;
+        });
+
+        if (r - l < 30 && b - t < 30) return;
+        var g = ElemView.gestureOnElemView.getGrid();
+        if (g.isUncoverable())
+            await ElemView.try2BlockGrid(g.pos.x, g.pos.y, true);
+    };
+
     // 点击
     async onTouchGrid(evt:egret.TouchEvent) {
         if (ElemView.longPressed || ElemView.dragging || !this.map.isGenerallyValid(this.gx, this.gy))
@@ -247,14 +268,14 @@ class ElemView extends egret.DisplayObjectContainer {
         let b = this.map.getGridAt(this.gx, this.gy);
         switch (b.status) {
             case GridStatus.Covered:
-                ElemView.try2UncoverAt(b.pos.x, b.pos.y);
+                await ElemView.try2UncoverAt(b.pos.x, b.pos.y);
             break;
             case GridStatus.Marked:
             {
                 let e = this.map.getElemAt(this.gx, this.gy);
                 Utils.assert(!!e, "empty grid cannot be marked");
                 if ((e instanceof Prop || e instanceof Item || e instanceof Relic) || (e instanceof Monster && !e.isHazard()))
-                    ElemView.try2UncoverAt(b.pos.x, b.pos.y);
+                    await ElemView.try2UncoverAt(b.pos.x, b.pos.y);
                 else
                     await ElemView.try2UseElem(e);
                 break;
@@ -275,9 +296,9 @@ class ElemView extends egret.DisplayObjectContainer {
                             await ElemView.try2UseElem(e);
                         else {
                             if (!e.attrs.useWithoutConfirm)
-                                PropView.select1InN("确定使用 " + ViewUtils.getElemNameAndDesc(e.type).name, ["确定", "取消"], (c) => true, (c) => {
+                                PropView.select1InN("确定使用 " + ViewUtils.getElemNameAndDesc(e.type).name, ["确定", "取消"], (c) => true, async (c) => {
                                     if (c == "确定")
-                                        ElemView.try2UseElem(e);
+                                        await ElemView.try2UseElem(e);
                                 });
                             else
                                 await ElemView.try2UseElem(e);
@@ -296,6 +317,9 @@ class ElemView extends egret.DisplayObjectContainer {
     // 按下
     static readonly LongPressThreshold = 500; // 按下持续 0.5s 算长按
     onTouchBegin(evt:egret.TouchEvent) {
+        ElemView.gesturePts = [];
+        ElemView.gestureOnElemView = this;
+
         let g = this.map.getGridAt(this.gx, this.gy);
         if (!this.map.isGenerallyValid(this.gx, this.gy) && g.status != GridStatus.Blocked)
             return;
@@ -330,10 +354,10 @@ class ElemView extends egret.DisplayObjectContainer {
         switch (g.status) {
             case GridStatus.Covered:
                 if (g.isUncoverable())
-                    ElemView.try2BlockGrid(g.pos.x, g.pos.y, true);
+                    await ElemView.try2BlockGrid(g.pos.x, g.pos.y, true);
             break;
             case GridStatus.Blocked:
-                ElemView.try2BlockGrid(g.pos.x, g.pos.y, false);
+                await ElemView.try2BlockGrid(g.pos.x, g.pos.y, false);
             break;
             case GridStatus.Uncovered:
             case GridStatus.Marked:
@@ -346,6 +370,9 @@ class ElemView extends egret.DisplayObjectContainer {
 
     // 拖拽移动
     onTouchMove(evt:egret.TouchEvent) {
+        if (ElemView.gesturePts)
+            ElemView.gesturePts.push({x:evt.stageX, y:evt.stageY});       
+
         if (ElemView.longPressed 
             || this.map.getGridAt(this.gx, this.gy).isCovered() 
             || !this.map.isGenerallyValid(this.gx, this.gy))
@@ -390,6 +417,12 @@ class ElemView extends egret.DisplayObjectContainer {
 
     // 结束拖拽
     onTouchEnd(evt:egret.TouchEvent) {
+        if (ElemView.gesturePts && ElemView.onGesture)
+            ElemView.onGesture(ElemView.gesturePts);
+
+        ElemView.gesturePts = undefined;
+        ElemView.gestureOnElemView = undefined;
+
         if (!this.map.isGenerallyValid(this.gx, this.gy))
             return;
 
