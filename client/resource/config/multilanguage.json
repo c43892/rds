@@ -122,6 +122,7 @@
 			"layout": {
 				"btnSetting": {"x":20, "y":25},
 				"coins": {"x":130, "y":30},
+				"numCoins": {"x":200, "y":40, "w":200, "h":50},
 				"btnSymbolDesc": {"x":400, "y":10},
 				"symbolDesc": {"x":355, "y":10},
 				"crevice0": {"x":-10, "y":70},
