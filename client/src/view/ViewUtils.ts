@@ -77,6 +77,15 @@ class ViewUtils {
         return t;
     }
 
+    // 获取全局坐标和尺寸
+    public static getGlobalPosAndSize(obj:egret.DisplayObject) {
+        var pos = obj.localToGlobal();
+        var s = ViewUtils.getGlobalScale(obj);
+        var w = obj.width * s.scaleX;
+        var h = obj.height * s.scaleY;
+        return {x:pos.x, y:pos.y, w:w, h:h};
+    }
+
     static languageCfg;
 
     // 获取元素显示名称和描述信息

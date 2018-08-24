@@ -95,7 +95,7 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
 
         if (n >= 0 && n < this.btnSels.length) {
             this.btnSels[n].setTexName("lvSelBarSel_png");
-            PlayerLevelUpView.lastSelectedRelicImgGlobalPos = this.btnSelsRelicImgs[n].localToGlobal();
+            PlayerLevelUpView.lastSelectedRelicImgGlobalPos = ViewUtils.getGlobalPosAndSize(this.btnSelsRelicImgs[n]);
         }
     }
 }

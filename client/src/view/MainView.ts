@@ -85,7 +85,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.bv.openAllRelicsView = async (relics) => await this.openAllRelicsView(relics);
 
         // 动画层
-        this.av = new AniView(w, h, this.bv);
+        this.av = new AniView(w, h, this);
         // 动画层没有直接加如 MainView，而是被其父节点添加到最后，这样保证动画层在所有 MainView 上面
         this.bv.av = this.av;
         AniUtils.ac = this.bv.av;
@@ -147,7 +147,7 @@ class MainView extends egret.DisplayObjectContainer {
             "onGridChanged", "onPlayerChanged", "onAttacking", "onAttacked", "onElemChanged", "onPropChanged", "onRelicChanged",
             "onElemMoving", "onElemFlying", "onAllCoveredAtInit", "onSuckPlayerBlood", "onMonsterTakeElem", "onBuffAdded",
             "onEyeDemonUncoverGrids", "onElemFloating", "canNotUseItem", "onColddownChanged", "onMonsterEatFood",
-            "onAddDeathGodStep", "onElem2NextLevel", "onUseElemAt", "onUseElem",
+            "onAddDeathGodStep", "onElem2NextLevel", "onUseElemAt", "onUseElem"
         ], (e) => (ps) => this.bv.av[e](ps));
         bt.registerEvent("onGoOutLevel", async (ps) => {
             await this.av.onGoOutLevel(ps);
@@ -188,7 +188,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.sv.player = this.p;
         await this.loadResources(Utils.map(items, (it) => it + "_png"));
         this.addChild(this.sv);
-        await this.sv.open(items, prices, onBuy, false);
+        await this.sv.open(items, prices, onBuy);
         this.removeChild(this.sv);
     }
 
@@ -221,10 +221,13 @@ class MainView extends egret.DisplayObjectContainer {
             }
         }
         
-        await this.sv.open(r.items, r.prices, (elem:Elem, price:number) => {
+        await this.sv.open(r.items, r.prices, async (elem:Elem, price:number) => {
             this.p.addMoney(-price);
-            this.p.addItem(elem)
-        }, true);
+            this.p.addItem(elem);
+            this.sv.refresh();
+            await this.p.fireEvent("onBuyElemFromWorldmapShop", {e:elem, price:price});
+        });
+
         this.removeChild(this.sv);
     }
 
@@ -420,6 +423,7 @@ class MainView extends egret.DisplayObjectContainer {
     continuePlay() {
         if (!this.p) return;
 
+        this.registerPlayerEvents();
         if (this.p.currentStoreyPos.status == "finished")
             this.openWorldMap(this.p.worldmap);
         else {
@@ -437,7 +441,14 @@ class MainView extends egret.DisplayObjectContainer {
         p.worldmap = WorldMap.buildFromConfig("world1");
         p.worldmap.player = p;
         this.p = p;
+        this.registerPlayerEvents();
         this.openWorldMap(p.worldmap);
         Utils.savePlayer(p);
+    }
+
+    registerPlayerEvents() {
+        Utils.registerEventHandlers(this.p, [
+            "onBuyElemFromWorldmapShop"
+        ], (e) => (ps) => this.bv.av[e](ps));
     }
 }
