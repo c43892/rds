@@ -128,7 +128,8 @@
     "Peashooter":{"name":"豌豆射手", "attackInterval":3, "attackFlags":["immuneAttackBack"], "rangedAttacker":true, "tags":["plant"]},
     "CherryBomb":{"name":"樱桃炸弹", "selfExplode":{"aoe":{"w":3, "h":3}} ,"useWithConfirm":true, "tags":["plant"]},
     "Sunflower":{"name":"太阳花", "dhpPercent":50, "useWithConfirm":true, "tags":["plant"]},
-    "CharmingMushroom":{"name":"魅惑菇", "hp":10},
+    "CharmingMushroom":{"name":"魅惑菇", "hp":10, "useWithTarget":true},
+    "CharmedMonster":{},
 
     "ShopNpc":{"name":"商人", "hp":5, "cannotTake":true},
 

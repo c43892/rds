@@ -188,17 +188,16 @@ class MonsterFactory {
         "CharmingMushroom": (attrs) => { // 魅惑菇
             var m = this.createMonster(attrs);
             m.isHazard = () => false;
-            m.canUse = () => false;
+            m.barrier = false;
             m.canUseAt = (x:number, y:number) => {
                 var e = m.map().getElemAt(x, y);
                 var g = m.map().getGridAt(x, y);
-                return (!g.isCovered() || g.isMarked()) && e && e instanceof Monster && !e.isHazard() && !e.isBoss;
+                return (!g.isCovered() || g.isMarked()) && e && e instanceof Monster && e.isHazard() && !e.isBoss;
             };
-            m.barrier = false;
             
             m.useAt = async (x:number, y:number) => { 
                 var tarm = <Monster>m.map().getElemAt(x, y);
-                var cm = this.createCharmedMonster(m);
+                var cm = this.createCharmedMonster(tarm);
                 await m.bt().implCharmMonster(tarm, cm);
                 return false;
             }
@@ -217,6 +216,7 @@ class MonsterFactory {
             return m;
         }, 
 
+        "CharmedMonster": (attrs) => this.createMonster(attrs),
         "PlaceHolder": (attrs) => this.createMonster(attrs)
     };
 
@@ -239,15 +239,28 @@ class MonsterFactory {
     }
 
     // 创建被魅惑的怪物
-    createCharmedMonster(m:Monster):Monster {
-        var cm;
-        var attrs = m.btAttrs;
+    createCharmedMonster(m:Monster) :Monster{
+        var attrs;
+        var cm:Monster;
+        attrs = m.attrs;
         attrs["hp"] = m.hp;
         attrs["shield"] = m.shield;
-        cm = this.createMonster(attrs);
-        cm.isHazard = () => false;
-        cm.use = () => false;        
-        cm = MonsterFactory.doAttackBack(cm); // 能反击
+
+        var power;
+
+        m.bt().calcMonsterAttackerAttrs(m).then((attackerAttrs) => {
+            power = attackerAttrs.power.b * (1 + attackerAttrs.power.a) + attackerAttrs.power.c;
+            attrs["power"] = power;
+        })
+        
+        cm = <Monster>m.bt().level.createElem("CharmedMonster", attrs);
+        cm.type = m.type + "Charmed";
+        cm.getElemImgRes = m.getElemImgRes;
+        cm.canUse = () => false;
+        cm.hazard = false;
+        cm.barrier = false;
+        cm.use = () => false;
+        cm = MonsterFactory.doAttackBack(cm);// 能反击
         return MonsterFactory.doAttack("onPlayerActed", cm, () => {
                 var ms = m.map().findAllElems((e:Elem) => {
                     return e instanceof Monster && !e.getGrid().isCovered() && (e.isHazard() || e["linkTo"] && e["linkTo"].isHazard()) && m.inAttackRange(e)
@@ -476,8 +489,8 @@ class MonsterFactory {
         })
     }
 
-    // 有新的怪物加入战场时act
-    static addAIOnNewMonsterJoin(act, m:Monster, condition = undefined):Monster{
+    // 有新的元素加入战场时act
+    static addAIOnNewElemsJoin(act, m:Monster, condition = undefined):Monster{
         return <Monster>ElemFactory.addAI("onGridChanged", act, m, (ps) => ps.subType == "elemAdded" && (condition?condition():true));
     }
 
@@ -494,7 +507,7 @@ class MonsterFactory {
                 var n = m.map().findAllElems((e:Elem) => e.type == "CommanderZombie" && !e.getGrid().isCovered() && e != m).length;                
                 if(n == 0){
                     var ms:Elem[]= [];
-                    ms = m.map().findAllElems((e:Elem) => e instanceof Monster && e != m && e.type != "CommanderZombie");
+                    ms = m.map().findAllElems((e:Elem) => e instanceof Monster && e != m && ps.e.isHazard() && e.type != "CommanderZombie");
                     for(var theMonster of <Monster[]>ms){
                         theMonster.hp *= 2;
                         await m.bt().fireEvent("onElemChanged", {subType:"hp", e:theMonster});
@@ -508,8 +521,8 @@ class MonsterFactory {
 
     // 指挥官僵尸将新加入的怪血量攻击翻倍
     static doEnhanceOtherNewMonster(m:Monster):Monster{
-        return MonsterFactory.addAIOnNewMonsterJoin(async (ps) => {
-            if(ps.e instanceof Monster){
+        return MonsterFactory.addAIOnNewElemsJoin(async (ps) => {
+            if(ps.e instanceof Monster && ps.e.isHazard()){
                 if(!ps.commandZombieActed){
                     var theMonster = ps.e;
                     theMonster.hp *= 2;
@@ -527,7 +540,7 @@ class MonsterFactory {
             var n = m.map().findAllElems((e:Elem) => e.type == "CommanderZombie" && !e.getGrid().isCovered() && e != m).length;
             if(n == 0){
                 var ms:Elem[]= [];
-                ms = m.map().findAllElems((e:Elem) => e instanceof Monster && e != m && e.type != "CommanderZombie");
+                ms = m.map().findAllElems((e:Elem) => e instanceof Monster && e.isHazard() && e != m && e.type != "CommanderZombie");
                 for(var theMonster of <Monster[]>ms){
                     theMonster.hp = Math.ceil(theMonster.hp * 0.5);
                     await m.bt().fireEvent("onElemChanged", {subType:"hp", e:theMonster});
@@ -667,7 +680,8 @@ class MonsterFactory {
         return <Monster>ElemFactory.addAI("onPlayerActed", async () => {
             uncoveredGrids = [];
             m.map().travel8Neighbours(m.pos.x, m.pos.y, (x, y, g:Grid) => {
-                if(!g.isCovered()){
+                var e = g.getElem();
+                if(!g.isCovered() &&  (!e || (!e.isBig() && !e["linkTo"] && (!(e instanceof Monster) || e.isHazard())))){
                     uncoveredGrids.push(g);
                 }
             });
