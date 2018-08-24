@@ -952,13 +952,13 @@ class Battle {
                 }
 
                 // 这里可能是各种攻击结果，成功，闪避，无敌等
-                await this.fireEvent("onAttacked", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon, r:r});
-                await this.triggerLogicPoint("onAttacked", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon, r:r});
+                await this.fireEvent("onAttacked", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon, r:r});                
 
                 // 处理附加 buff
                 for (var b of r.addBuffs)
                     await this.implAddBuff(tar, "Buff" + b.type, ...b.ps);
             }
+            await this.triggerLogicPoint("onAttacked", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon, r:r});
         }
     }
 
@@ -1029,13 +1029,13 @@ class Battle {
                     }
 
                     // 这里可能是各种攻击结果，成功，闪避，无敌等
-                    await this.fireEvent("onAttacked", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
-                    await this.triggerLogicPoint("onAttacked", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
+                    await this.fireEvent("onAttacked", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});                    
 
                     // 处理附加 buff
                     for (var b of r.addBuffs)
                         await this.implAddBuff(tar, "Buff" + b.type, ...b.ps);
                 }
+                await this.triggerLogicPoint("onAttacked", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
             }
         }
         if (selfExplode && !m.isDead()) // 自爆还要走死亡逻辑

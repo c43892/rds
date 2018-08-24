@@ -197,7 +197,7 @@ class MonsterFactory {
             
             m.useAt = async (x:number, y:number) => { 
                 var tarm = <Monster>m.map().getElemAt(x, y);
-                var cm = this.createCharmedMonster(tarm);
+                var cm = await this.createCharmedMonster(tarm);
                 await m.bt().implCharmMonster(tarm, cm);
                 return false;
             }
@@ -239,19 +239,16 @@ class MonsterFactory {
     }
 
     // 创建被魅惑的怪物
-    createCharmedMonster(m:Monster) :Monster{
+    async createCharmedMonster(m:Monster) {
         var attrs;
         var cm:Monster;
         attrs = m.attrs;
         attrs["hp"] = m.hp;
         attrs["shield"] = m.shield;
 
-        var power;
-
-        m.bt().calcMonsterAttackerAttrs(m).then((attackerAttrs) => {
-            power = attackerAttrs.power.b * (1 + attackerAttrs.power.a) + attackerAttrs.power.c;
-            attrs["power"] = power;
-        })
+        var attackerAttrs = await m.bt().calcMonsterAttackerAttrs(m);
+        var power = attackerAttrs.power.b * (1 + attackerAttrs.power.a) + attackerAttrs.power.c;
+        attrs["power"] = power;
         
         cm = <Monster>m.bt().level.createElem("CharmedMonster", attrs);
         cm.type = m.type + "Charmed";
@@ -262,13 +259,13 @@ class MonsterFactory {
         cm.use = () => false;
         cm = MonsterFactory.doAttackBack(cm);// 能反击
         return MonsterFactory.doAttack("onPlayerActed", cm, () => {
-                var ms = m.map().findAllElems((e:Elem) => {
-                    return e instanceof Monster && !e.getGrid().isCovered() && (e.isHazard() || e["linkTo"] && e["linkTo"].isHazard()) && m.inAttackRange(e)
-                });
-                if (ms.length == 0) return undefined;
-
-                return ms[m.bt().srand.nextInt(0, ms.length)];
+            var ms = m.map().findAllElems((e:Elem) => {
+                return e instanceof Monster && !e.getGrid().isCovered() && (e.isHazard() || e["linkTo"] && e["linkTo"].isHazard()) && m.inAttackRange(e)
             });
+            if (ms.length == 0) return undefined;
+
+            return ms[m.bt().srand.nextInt(0, ms.length)];
+        });
     }
 
     // 随机移动一次，dist 表示移动几格
@@ -356,7 +353,7 @@ class MonsterFactory {
             });            
             if(es.length == 0) return;
 
-            await m.bt().implMonsterTakeElems(m, es, dropOnDie);            
+            await m.bt().implMonsterTakeElems(m, es, dropOnDie);
         }, m);
     }
 
@@ -385,12 +382,13 @@ class MonsterFactory {
     static doAttackBack(m:Monster, condition = () => true):Monster {
         return <Monster>ElemFactory.addAI("onAttacked", async (ps) => {
             if (Utils.contains(ps.attackerAttrs.attackFlags, "immuneAttackBack")) return;
+            if (Utils.contains(ps.attackerAttrs.attackFlags, "attackBack")) return;
 
-            var addFlags = [];
+            var addFlags = ["attackBack"];
             if (Utils.contains(ps.targetAttrs.targetFlags, "Sneaked"))
                 addFlags.push("back2sneak");
 
-            await m.bt().implMonsterAttackTargets(m, [m.bt().player], undefined, false, addFlags);
+            await m.bt().implMonsterAttackTargets(m, [ps.attackerAttrs.owner], undefined, false, addFlags);
         }, m, (ps) => {
             return !ps.weapon && ps.targetAttrs.owner == m && !m.isDead() && condition()
         });
