@@ -116,30 +116,25 @@ class ElemView extends egret.DisplayObjectContainer {
                         this.showLayer.addChild(this.hp);
                         
                         // 护盾，右上角
-                        var shield;
-                        m.bt().calcMonsterTargetAttrs(m).then((targetAttrs) => {
-                            shield = targetAttrs.shield.b * (1 + targetAttrs.shield.a) + targetAttrs.shield.c;
-                            this.shield.text = shield.toString();
-
-                            if (shield > 0 && !m.isDead()) {
-                                this.shieldBg.x = this.width - this.shieldBg.width; this.shieldBg.y = 0;
-                                this.showLayer.addChild(this.shieldBg);
-                                this.shield.text = m.shield.toString();
-                                this.shield.x = 2;
-                                this.shield.y = 2;
-                                this.shield.x = m.shield >= 10 ? this.width - 23 : this.width - 22;
-                                this.shield.y = m.shield >= 10 ? 5 : 3;
-                                this.shield.size = m.shield >= 10 ? 15 : 20;
-                                this.showLayer.addChild(this.shield);
-                            }
-                        });
-                        
+                        if (m.shield > 0 && !m.isDead()) {
+                            this.shieldBg.x = this.width - this.shieldBg.width; this.shieldBg.y = 0;
+                            this.showLayer.addChild(this.shieldBg);
+                            this.shield.text = m.shield.toString();
+                            this.shield.x = 2;
+                            this.shield.y = 2;
+                            this.shield.x = m.shield >= 10 ? this.width - 23 : this.width - 22;
+                            this.shield.y = m.shield >= 10 ? 5 : 3;
+                            this.shield.size = m.shield >= 10 ? 15 : 20;
+                            this.showLayer.addChild(this.shield);
+                        }
 
                         // 攻击力，左下角
                         var power;
                         m.bt().calcMonsterAttackerAttrs(m).then((attackerAttrs) => {
                             power = attackerAttrs.power.b * (1 + attackerAttrs.power.a) + attackerAttrs.power.c;
-                            power = power < 1 ? 1 : power;                            
+                            if (power)
+                                power = power < 1 ? 1 : power;
+                                
                             if (power > 0 && !m.isDead()) {
                                 this.power.text = power.toString();
                                 this.powerBg.x = 0; this.powerBg.y = this.height - this.powerBg.height;

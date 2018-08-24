@@ -109,12 +109,14 @@ class ElemDescView extends egret.DisplayObjectContainer {
         ViewUtils.setTexName(this.monsterIcon, m.getElemImgRes() + "_png");
 
         var n = 1;
-        var attrs = [];
-        this.powerTxt.text = m.attrs.power.toString();
-        this.powerTxt.name = "attrtxt" + n;
-        this.powerBg.name = "attrbg" + n;
-        attrs.push(this.powerBg, this.powerTxt);
-        n++;
+        var attrs = [];        
+        if (m.attrs.power){
+            this.powerTxt.text = m.attrs.power.toString();
+            this.powerTxt.name = "attrtxt" + n;
+            this.powerBg.name = "attrbg" + n;
+            attrs.push(this.powerBg, this.powerTxt);
+            n++;
+        }
 
         this.hpTxt.text = m.hp.toString();
         this.hpTxt.name = "attrtxt" + n;

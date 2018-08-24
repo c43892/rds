@@ -13,7 +13,7 @@ class BattleCalculator {
     // 具体结果数值附加在其它结果参数中
     public doAttackCalc(attackerAttrs, targetAttrs):any {
         var attackFlags = attackerAttrs.attackFlags;
-        var power = this.doCalc(attackerAttrs, "power") < 1 ? 1 :this.doCalc(attackerAttrs, "power");
+        var power = this.doCalc(attackerAttrs, "power");
         var accuracy = this.doCalc(attackerAttrs, "accuracy");
         var critical = this.doCalc(attackerAttrs, "critical");
         var damageAdd = this.doCalc(attackerAttrs, "damageAdd");
