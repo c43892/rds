@@ -120,7 +120,7 @@
     "PoisonJellyfish":{"name":"毒性水母", "buffCnt":3, "poisonPs":[3, 1], "dropItems":["CoinsSmall"]},
     "SkeletonKing":{"name":"骷髅王", "rdp":"SkeletonKing", "dropItems":["CoinsSmall"], "cannotTake":true, "repRes":["SkeletonKing","HeadBone"]},
     "SwatheZombie":{"name":"缠绕僵尸", "invalid":["Cocoon"], "dropItems":["CoinsSmall"], "repRes":["SwatheZombie", "Cocoon"]},
-    "BoxMonster":{"name":"愤怒宝箱", "rdps":["treasureBox1", "treasureBox2", "treasureBox2"]},
+    "BoxMonster":{"name":"愤怒宝箱", "rdpsOnDie":["treasureBox1", "treasureBox2", "treasureBox2"]},
     "Ghost":{"name":"幽灵", "attackFlags":["AmorPenetrate"], "dropItems":["CoinsSmall"], "cannotTake":true},
     "RedSlime":{"name":"红色史莱姆", "esOnNormalAttack":1, "dropItems":["CoinsTiny"]},
     "GreenSlime":{"name":"绿色史莱姆", "dropItems":["CoinsTiny"]},

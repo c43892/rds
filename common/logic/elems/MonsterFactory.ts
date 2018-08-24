@@ -252,7 +252,9 @@ class MonsterFactory {
         
         cm = <Monster>m.bt().level.createElem("CharmedMonster", attrs);
         cm.type = m.type + "Charmed";
+        cm["CharmedNormal"] = true;
         cm.getElemImgRes = m.getElemImgRes;
+        cm.dropItems = m.dropItems;        
         cm.canUse = () => false;
         cm.hazard = false;
         cm.barrier = false;
@@ -730,17 +732,17 @@ class MonsterFactory {
     // 宝箱怪死亡时添加随机掉落
     static addRandomOnDie(n:number, m:Monster):Monster {
         return <Monster>ElemFactory.addDieAI(async () => {
-            var rdps = m.attrs.rdps;
-            if(rdps.length > n){
-                var dnum = rdps.length - n
+            var rdpsOnDie = m.attrs.rdpsOnDie;
+            if(rdpsOnDie.length > n){
+                var dnum = rdpsOnDie.length - n
                 for(var i = 0; i < dnum; i++){
-                    var rdps = Utils.removeAt(rdps, m.bt().srand.nextInt(0, rdps.length));
+                    var rdpsOnDie = Utils.removeAt(rdpsOnDie, m.bt().srand.nextInt(0, rdpsOnDie.length));
                 }
             }
-            for (var rdp of rdps){
+            for (var rdpOnDie of rdpsOnDie){
                 var dropItems = [];
-                var rdp = GCfg.getRandomDropGroupCfg(rdp);
-                var dropItems = Utils.randomSelectByWeightWithPlayerFilter(m.bt().player, rdp.elems, m.bt().srand, rdp.num[0], rdp.num[1], true, undefined);
+                var rdpOnDie = GCfg.getRandomDropGroupCfg(rdpOnDie);
+                var dropItems = Utils.randomSelectByWeightWithPlayerFilter(m.bt().player, rdpOnDie.elems, m.bt().srand, rdpOnDie.num[0], rdpOnDie.num[1], true, undefined);
                 for(var dpType of dropItems){
                     if(!dpType) return;
 

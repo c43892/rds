@@ -153,10 +153,21 @@ class ElemDescView extends egret.DisplayObjectContainer {
 
         ViewUtils.multiLang(this, ...attrs);
 
-        var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
-        this.monsterName.text = nameAndDesc.name;
-        var txt = ViewUtils.replaceByProperties(nameAndDesc.desc, e);
-        this.monsterDesc.textFlow = ViewUtils.fromHtml(txt);
+        if(e["CharmedNormal"]){
+            var index = e.type.indexOf("Charmed");
+            var type = e.type.substring(0 , index);
+            this.monsterName.text = ViewUtils.getElemNameAndDesc(type).name;
+            var CharmedNormalDesc = ViewUtils.getElemNameAndDesc("CharmedNormal");
+            var txt = ViewUtils.replaceByProperties(CharmedNormalDesc.desc, e);
+            this.monsterDesc.textFlow = ViewUtils.fromHtml(txt);
+        }
+        else{
+            var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
+            this.monsterName.text = nameAndDesc.name;
+            var txt = ViewUtils.replaceByProperties(nameAndDesc.desc, e);
+            this.monsterDesc.textFlow = ViewUtils.fromHtml(txt);
+        }
+        
     }
 
     // 遗物，有头部（包含图标和名称等级描述），属性描述和变异描述三部分

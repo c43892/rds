@@ -1086,6 +1086,9 @@ class Battle {
     public async implCharmMonster(m:Monster, cm:Monster){
         Utils.assert(m.isHazard(), "only hazard monster can be charmed");
         var pos = m.pos;
+        if(m.getGrid().isCovered())
+            this.uncover(pos.x, pos.y, true);
+        
         this.removeElemAt(pos.x, pos.y);
         await this.fireEvent("onMonsterCharmed", {m:m, cm:cm});
         await this.implAddElemAt(cm, pos.x, pos.y);
