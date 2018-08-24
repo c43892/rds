@@ -237,7 +237,7 @@ class AniUtils {
     // 在指定位置冒出一个文字提示
     public static async tipAt(str:string, pos) {
         var tip = ViewUtils.createTextField(30, 0x000000);
-        tip.textFlow = (new egret.HtmlTextParser).parser(str);
+        tip.textFlow = ViewUtils.fromHtml(str);
         AniUtils.ac.addChild(tip);
         tip.anchorOffsetX = tip.width / 2;
         tip.x = pos.x;
@@ -275,7 +275,7 @@ class AniUtils {
     // 向右跳动着飘一个提示
     public static async jumpingTip(str:string, pos) {
         var tip = ViewUtils.createTextField(30, 0x000000);
-        tip.textFlow = (new egret.HtmlTextParser).parser(str);
+        tip.textFlow = ViewUtils.fromHtml(str);
         AniUtils.ac.addChild(tip);
         var x = pos.x;
         var y = pos.y;
@@ -312,7 +312,7 @@ class AniUtils {
         bg.y = pos.y;
         AniUtils.ac.addChild(bg);
         var tip = ViewUtils.createTextField(30, 0x000000);
-        tip.textFlow = (new egret.HtmlTextParser).parser(str);
+        tip.textFlow = ViewUtils.fromHtml(str);
         AniUtils.ac.addChild(tip);
         tip.x = pos.x;
         tip.y = pos.y;
