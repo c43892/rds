@@ -155,7 +155,9 @@ class MonsterFactory {
             m.canUse = () => true;
             m.barrier = false;
             return MonsterFactory.doAttack("onPlayerActed", m, () => {
-                var ms = m.map().findAllElems((e:Elem) => e instanceof Monster && !e.getGrid().isCovered() && e.isHazard());
+                var ms = m.map().findAllElems((e:Elem) => {
+                    return e instanceof Monster && !e.getGrid().isCovered() && (e.isHazard() || e["linkTo"] && e["linkTo"].isHazard()) && m.inAttackRange(e)
+                });
                 if (ms.length == 0) return undefined;
 
                 return ms[m.bt().srand.nextInt(0, ms.length)];
@@ -179,6 +181,25 @@ class MonsterFactory {
             m.barrier = false;
             m.use = async () => { 
                 await m.bt().implAddPlayerHp(Math.floor(m.bt().player.maxHp * attrs.dhpPercent / 100), m);
+                return false;
+            }
+            return m;
+        },
+        "CharmingMushroom": (attrs) => { // 魅惑菇
+            var m = this.createMonster(attrs);
+            m.isHazard = () => false;
+            m.canUse = () => false;
+            m.canUseAt = (x:number, y:number) => {
+                var e = m.map().getElemAt(x, y);
+                var g = m.map().getGridAt(x, y);
+                return (!g.isCovered() || g.isMarked()) && e && e instanceof Monster && !e.isHazard() && !e.isBoss;
+            };
+            m.barrier = false;
+            
+            m.useAt = async (x:number, y:number) => { 
+                var tarm = <Monster>m.map().getElemAt(x, y);
+                var cm = this.createCharmedMonster(m);
+                await m.bt().implCharmMonster(tarm, cm);
                 return false;
             }
             return m;
@@ -215,6 +236,26 @@ class MonsterFactory {
         };
 
         return m;
+    }
+
+    // 创建被魅惑的怪物
+    createCharmedMonster(m:Monster):Monster {
+        var cm;
+        var attrs = m.btAttrs;
+        attrs["hp"] = m.hp;
+        attrs["shield"] = m.shield;
+        cm = this.createMonster(attrs);
+        cm.isHazard = () => false;
+        cm.use = () => false;        
+        cm = MonsterFactory.doAttackBack(cm); // 能反击
+        return MonsterFactory.doAttack("onPlayerActed", cm, () => {
+                var ms = m.map().findAllElems((e:Elem) => {
+                    return e instanceof Monster && !e.getGrid().isCovered() && (e.isHazard() || e["linkTo"] && e["linkTo"].isHazard()) && m.inAttackRange(e)
+                });
+                if (ms.length == 0) return undefined;
+
+                return ms[m.bt().srand.nextInt(0, ms.length)];
+            });
     }
 
     // 随机移动一次，dist 表示移动几格

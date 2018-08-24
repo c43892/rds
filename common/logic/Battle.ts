@@ -1078,10 +1078,16 @@ class Battle {
     public async implElemFollow2NextLevel(e:Elem) {
         this.removeElemAt(e.pos.x, e.pos.y);
         this.player.elems2NextLevel.push(e);
-        // var NextLevelPort = this.level.map.findAllElems((e:Elem) => e.type == "NextLevelPort")[0];
-        // await this.fireEvent("onElemFlying", {e:e, fromPos:e.pos, toPos:NextLevelPort.pos})
         await this.fireEvent("onElem2NextLevel", {e:e});
         await this.triggerLogicPoint("onElem2NextLevel", {e:e});
+    }
+
+    // 魅惑怪物
+    public async implCharmMonster(m:Monster, cm:Monster){
+        var pos = m.pos;
+        this.removeElemAt(pos.x, pos.y);
+        await this.fireEvent("onMonsterCharmed", {m:m, cm:cm});
+        await this.implAddElemAt(cm, pos.x, pos.y);
     }
 
     // 角色+经验
