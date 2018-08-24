@@ -139,6 +139,9 @@ class ViewUtils {
                 var bmp = p instanceof TextButtonWithBg ? p.bg : p;
                 ViewUtils.setTexName(bmp, curCfg.imgs[name][mlCfg.currentLanguage] ? curCfg.imgs[name][mlCfg.currentLanguage] : curCfg.imgs[name]);
             }
+
+            if (p instanceof TextButtonWithBg)
+                (<TextButtonWithBg>p).refresh();
         }
     }
 

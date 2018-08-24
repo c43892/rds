@@ -27,7 +27,7 @@ class ShopView extends egret.DisplayObjectContainer {
         this.bg.width = this.width;
         this.bg.height = this.height;
 
-        this.bg1 = ViewUtils.createBitmapByName("translucent_png");
+        this.bg1 = ViewUtils.createBitmapByName("svbg_png");
         this.bg1.name = "bg1";
         this.addChild(this.bg1);
 
@@ -41,9 +41,9 @@ class ShopView extends egret.DisplayObjectContainer {
             gd.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onSelItem, this);
 
             var pt = new egret.TextField();
-            pt.textColor = 0x000000;
-            pt.size = 30;
-            pt.textAlign = egret.HorizontalAlign.CENTER;
+            pt.textColor = 0xffffff;
+            pt.size = 20;
+            pt.textAlign = egret.HorizontalAlign.LEFT;
             pt.verticalAlign = egret.VerticalAlign.MIDDLE;
             pt.name = "price" + i.toString();
             this.prices.push(pt);
@@ -117,7 +117,7 @@ class ShopView extends egret.DisplayObjectContainer {
     async onSelItem(evt:egret.TouchEvent) {
         var n = evt.target["itemIndex"];
         var e = this.items[n];
-        var yesno = await this.confirmOkYesNo("确定购买 " + ViewUtils.getElemNameAndDesc(e).name + "，花费 " + this.itemPrices[e] + " 金币 ?");
+        var yesno = await this.confirmOkYesNo(ViewUtils.getElemNameAndDesc(e).name, "花费 " + this.itemPrices[e] + " 金币 ?", true);
         if (yesno)
             await this.onSel(n);
     }

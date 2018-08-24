@@ -132,11 +132,13 @@ class TextButtonWithBg extends egret.DisplayObjectContainer {
             this.downBg.alpha = 0;
     }
 
-    private refresh() {
+    public refresh() {
         var objs = [this.bg, this.downBg, this.disabledBg, this.ft, this.textField];
         objs.forEach((obj, i) => {
             if (obj) {
                 obj.x = this.bg.y = 0;
+                obj.width = this.width;
+                obj.height = this.height;
                 this.setChildIndex(obj, i);
             }
         });

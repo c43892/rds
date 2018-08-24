@@ -8,6 +8,7 @@ class TipConfirmView extends egret.DisplayObjectContainer {
         super();
         this.width = w;
         this.height = h;
+        this.name = "tipConfirm";
 
         this.bg = ViewUtils.createBitmapByName("translucent_png");
         this.bg.x = this.bg.y = 0;
@@ -32,14 +33,16 @@ class TipConfirmView extends egret.DisplayObjectContainer {
     }
 
     // 等待点击一下
-    onBgClicked;
     public wait4clickAny():Promise<void> {
         this.addChild(this.bg);
-        return new Promise<void>((resolve, reject) => this.onBgClicked = resolve);
+        return new Promise<void>((resolve, reject) => this.onBgClicked = () => {
+            this.removeChild(this.bg);
+            resolve();
+        });
     }
 
+    onBgClicked;
     onBg(evt:egret.TouchEvent) {
-        this.removeChild(this.bg);
         if (this.onBgClicked)
             this.onBgClicked();
     }
@@ -67,10 +70,13 @@ class TipConfirmView extends egret.DisplayObjectContainer {
     // yesno 部分
 
     private okyesnoPanel:egret.DisplayObjectContainer;
+    private yesnoBg:egret.Bitmap;
     private yesnoTitle:egret.TextField;
-    private btnOk:egret.TextField;
-    private btnYes:egret.TextField;
-    private btnNo:egret.TextField;
+    private yesnoContent:egret.TextField;
+    private btnOk:TextButtonWithBg;
+    private btnYes:TextButtonWithBg;
+    private btnNo:TextButtonWithBg;
+    private yesnoObjs:egret.DisplayObject[];
 
     createOkYesNoLayer() {
         this.okyesnoPanel = new egret.DisplayObjectContainer();
@@ -78,77 +84,73 @@ class TipConfirmView extends egret.DisplayObjectContainer {
         this.okyesnoPanel.width = this.width;
         this.okyesnoPanel.height = this.height;
 
-        this.yesnoTitle = new egret.TextField();
-        this.yesnoTitle.x = this.yesnoTitle.y = 0;
-        this.yesnoTitle.textAlign = egret.HorizontalAlign.CENTER;
-        this.yesnoTitle.verticalAlign = egret.VerticalAlign.MIDDLE;
-        this.yesnoTitle.textColor = 0x000000;
-        this.yesnoTitle.size = 50;
-        this.yesnoTitle.width = this.width;
-        this.yesnoTitle.height = this.height / 2;
-        this.okyesnoPanel.addChild(this.yesnoTitle);
+        this.yesnoBg = ViewUtils.createBitmapByName("confirmBg_png");
+        this.yesnoBg.name = "yesnoBg";
 
-        this.btnOk = ViewUtils.createTextField(30, 0x000000);
-        this.btnYes = ViewUtils.createTextField(30, 0x000000);
-        this.btnNo = ViewUtils.createTextField(30, 0x000000);
+        this.yesnoTitle = ViewUtils.createTextField(30, 0xff0000);
+        this.yesnoTitle.bold = true;
+        this.yesnoTitle.name = "yesnoTitle";
 
-        this.btnOk.touchEnabled = true;
-        this.btnYes.touchEnabled = true;
-        this.btnNo.touchEnabled = true;
-        this.btnOk.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onConfirmOk, this);
-        this.btnYes.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onConfirmYes, this);
-        this.btnNo.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onConfirmNo, this);
+        this.yesnoContent = ViewUtils.createTextField(25, 0x00000);
+        this.yesnoContent.name = "yesnoContent";
+
+        this.btnOk = new TextButtonWithBg("btnBg_png", 30); this.btnOk.name = "btnOk";
+        this.btnYes = new TextButtonWithBg("btnBg_png", 30); this.btnYes.name = "btnYes";
+        this.btnNo = new TextButtonWithBg("btnBg_png", 30); this.btnNo.name = "btnNo";
+
+        this.yesnoObjs = [this.yesnoBg, this.yesnoTitle, this.yesnoContent, this.btnOk, this.btnYes, this.btnNo];
+        this.yesnoObjs.forEach((obj, _) => this.okyesnoPanel.addChild(obj));
+        ViewUtils.multiLang(this, ...this.yesnoObjs);
+
+        this.btnOk.onClicked = () => this.onConfirmOk();
+        this.btnYes.onClicked = () => this.onConfirmYes();
+        this.btnNo.onClicked = () => this.onConfirmNo();
     }
 
     private confirmOkCallback;
     private confirmYesNoCallback;
-    private confirmCancelCallback;
-    public confirmOkYesNo(title:string, yesno:boolean, btnText):Promise<boolean> {
+    public confirmOkYesNo(title:string, content:string, yesno:boolean, btnText):Promise<boolean> {
         this.clear();
         this.addChild(this.bg);
         this.yesnoTitle.text = title;
+        this.yesnoContent.text = content;
         this.addChild(this.okyesnoPanel);
+
+        this.okyesnoPanel.addChild(this.btnYes);
+        this.okyesnoPanel.addChild(this.btnNo);
+        this.okyesnoPanel.addChild(this.btnOk);
 
         if (yesno) {
             this.btnYes.text = btnText.yes;
             this.btnNo.text = btnText.no;
-            this.okyesnoPanel.addChild(this.btnYes);
-            this.okyesnoPanel.addChild(this.btnNo);
+            this.okyesnoPanel.removeChild(this.btnOk);
         } else {
             this.btnOk.text = btnText.ok;
-            this.okyesnoPanel.addChild(this.btnOk);
+            this.okyesnoPanel.removeChild(this.btnYes);
+            this.okyesnoPanel.removeChild(this.btnNo);
         }
 
-        this.btnOk.x = this.width / 2 - this.btnOk.width / 2;
-        this.btnOk.y = this.height / 2 + this.btnOk.height / 2;
-        this.btnYes.x = this.width / 2 - this.btnYes.width * 1.5;
-        this.btnYes.y = this.height / 2 + this.btnYes.height / 2;
-        this.btnNo.x = this.width / 2 + this.btnNo.width / 2;
-        this.btnNo.y = this.height / 2 + this.btnNo.height / 2;
+        this.onBgClicked = this.onConfirmNo;
 
         return new Promise<boolean>((resolve, reject) => {
             this.confirmOkCallback = resolve;
             this.confirmYesNoCallback = resolve;
-            this.confirmCancelCallback = reject;
         });
     }
 
-    onConfirmOk(evt:egret.TouchEvent) {
-        this.okyesnoPanel.removeChild(this.btnOk);
+    onConfirmOk() {
         this.removeChild(this.okyesnoPanel);
         this.removeChild(this.bg);
         this.confirmOkCallback(true);
     }
 
-    onConfirmYes(evt:egret.TouchEvent) {
-        this.okyesnoPanel.removeChild(this.btnYes);
+    onConfirmYes() {
         this.removeChild(this.okyesnoPanel);
         this.removeChild(this.bg);
         this.confirmYesNoCallback(true);
     }
 
-    onConfirmNo(evt:egret.TouchEvent) {
-        this.okyesnoPanel.removeChild(this.btnNo);
+    onConfirmNo() {
         this.removeChild(this.okyesnoPanel);
         this.removeChild(this.bg);
         this.confirmYesNoCallback(false);

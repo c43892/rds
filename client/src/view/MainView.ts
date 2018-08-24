@@ -28,12 +28,12 @@ class MainView extends egret.DisplayObjectContainer {
         // 商店视图
         this.sv = new ShopView(w, h);
         this.sv.x = this.sv.y = 0;
-        this.sv.confirmOkYesNo = (title, yesno) => this.confirmOkYesNo(title, yesno);
+        this.sv.confirmOkYesNo = (title, content, yesno) => this.confirmOkYesNo(title, content, yesno);
 
         // 遗物选择视图
         this.rsv = new RelicSelView(w, h);
         this.rsv.x = this.rsv.y = 0;
-        this.rsv.confirmOkYesNo = (title, yesno) => this.confirmOkYesNo(title, yesno);
+        this.rsv.confirmOkYesNo = (title, content, yesno) => this.confirmOkYesNo(title, content, yesno);
 
         // 战斗视图
         this.bv = new BattleView(w, h);
@@ -61,14 +61,14 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.openBoxRoom = async (openBoxRoom) => await this.openBoxRoom(openBoxRoom);
         this.wmv.openTurntable = async () => await this.openTurntable();
         this.wmv.openEventSels = async (title, desc, sels) => await this.openWorldMapEventSels(title, desc, sels);
-        this.wmv.confirmOkYesNo = async (title, yesno) => await this.confirmOkYesNo(title, yesno);
+        this.wmv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
         this.wmv.selRelic = async (title, f) => await this.openSelRelic(title, f);
         this.wmv.openPlayerDieView = async () => await this.openPlayerDieView();
 
         // 医院视图
         this.hv = new HospitalView(w, h);
         this.hv.x = this.hv.y = 0;
-        this.hv.confirmOkYesNo = async (title, yesno) => await this.confirmOkYesNo(title, yesno);
+        this.hv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
         this.hv.selRelic = async (title, f) => await this.openSelRelic(title, f);
 
         // 排行榜视图
@@ -279,7 +279,7 @@ class MainView extends egret.DisplayObjectContainer {
             var r = await platform.login();
 
             if (!r.ok)
-                retry = await this.confirmOkYesNo("连接服务器失败", true, {yes:"重试", no:"取消"});
+                retry = await this.confirmOkYesNo(undefined, "连接服务器失败", true, {yes:"重试", no:"取消"});
             else
                 return r;
         }
@@ -320,7 +320,7 @@ class MainView extends egret.DisplayObjectContainer {
     // 打开角色死亡界面
     public async openPlayerDieView() {
         Utils.savePlayer(undefined);
-        await this.confirmOkYesNo("不幸死亡", false);
+        await this.confirmOkYesNo("不幸死亡", "有些情况也许你能复活", false);
         this.p = undefined;
         this.openStartup(undefined);
     }
@@ -334,9 +334,9 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // yesno
-    public async confirmOkYesNo(title, yesno:boolean, btnText = {}) {
+    public async confirmOkYesNo(title, content, yesno:boolean, btnText = {}) {
         btnText = Utils.merge({"yes":"yes", "no":"no", "ok":"ok"}, btnText);
-        return await this.tcv.confirmOkYesNo(title, yesno, btnText);
+        return await this.tcv.confirmOkYesNo(title, content, yesno, btnText);
     }
 
     // ranking
