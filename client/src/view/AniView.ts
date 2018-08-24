@@ -1,17 +1,19 @@
 // 主视图下属的动画层
 class AniView extends egret.DisplayObjectContainer {
-    private bv:BattleView; // 主视图
+    private bv:BattleView; // 战斗视图
+    private wmv:WorldMapView; // 大地图
     private blackCover:egret.Bitmap; // 黑屏用的遮挡
 
     private aniCover:egret.Bitmap; // 播放动画时的操作屏蔽层
     public aniFact:AnimationFactory; // 动画工厂
 
-    public constructor(w:number, h:number, mainView:BattleView) {
+    public constructor(w:number, h:number, mainView:MainView) {
         super();
         this.width = w;
         this.height = h;
         
-        this.bv = mainView;
+        this.bv = mainView.bv;
+        this.wmv = mainView.wmv;
         this.aniCover = ViewUtils.createBitmapByName("anicover_png");
         this.aniCover.width = this.width;
         this.aniCover.height = this.height;
@@ -172,19 +174,45 @@ class AniView extends egret.DisplayObjectContainer {
             var fromObj = this.getSV(e);
             await AniUtils.fly2(fromObj, fromObj, toImg, true, 1);
         } else if (ps.subType == "addRelicBySel") {
-            var e:Elem = ps.e;            
-            var fromPos = PlayerLevelUpView.lastSelectedRelicImgGlobalPos;
+            var e:Elem = ps.e;
+            var fromPos = PlayerLevelUpView.lastSelectedRelicImgGlobalPos
             if (fromPos) {
                 var fromImg = AniUtils.createImg(e.getElemImgRes() + "_png");
                 fromImg.x = fromPos.x;
                 fromImg.y = fromPos.y;
+                fromImg.width = fromPos.w;
+                fromImg.height = fromPos.h;
                 await AniUtils.flash(fromImg, 200);
+                var toImg = this.bv.relics[n];
                 await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
                 fromImg["dispose"]();
             }
         }
 
         this.bv.refreshRelics();
+    }
+
+    // 从大地图的商店买东西
+    public async onBuyElemFromWorldmapShop(ps) {
+        var e:Elem = ps.e;
+        var fromPos = ShopView.lastSelectedElemGlobalPos;
+
+        var fromImg = AniUtils.createImg(e.getElemImgRes() + "_png");
+        fromImg.x = fromPos.x;
+        fromImg.y = fromPos.y;
+        fromImg.width = fromPos.w;
+        fromImg.height = fromPos.h;
+
+        var toImg = AniUtils.createImg(e.getElemImgRes() + "_png");
+        toImg.x = this.wmv.btnSetting.x;
+        toImg.y = this.wmv.btnSetting.y;
+        toImg.width = toImg.height = 0;
+        toImg.alpha = 0;
+
+        await AniUtils.flash(fromImg, 200);
+        await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
+        fromImg["dispose"]();
+        toImg["dispose"]();
     }
 
     // cd 变化

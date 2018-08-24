@@ -63,7 +63,7 @@ class ShopView extends egret.DisplayObjectContainer {
 
     private onCancel;
     private onSel;
-    public async open(items, prices, onBuy, resetSoldout:boolean):Promise<void> {
+    public async open(items, prices, onBuy):Promise<void> {
         this.items = items;
         this.itemPrices = prices;
         this.refresh();
@@ -82,8 +82,8 @@ class ShopView extends egret.DisplayObjectContainer {
                 }
 
                 var elem = ElemFactory.create(e);
-                var closeShop = await onBuy(elem, price);
                 this.soldOut[n] = true;
+                var closeShop = await onBuy(elem, price);
                 
                 if (closeShop)
                     resolve();
@@ -114,11 +114,14 @@ class ShopView extends egret.DisplayObjectContainer {
         this.onCancel();
     }
 
+    public static lastSelectedElemGlobalPos;
     async onSelItem(evt:egret.TouchEvent) {
         var n = evt.target["itemIndex"];
         var e = this.items[n];
-        var yesno = await this.confirmOkYesNo(ViewUtils.getElemNameAndDesc(e).name, "花费 " + this.itemPrices[e] + " 金币 ?", true);
-        if (yesno)
+        var yesno = await this.confirmOkYesNo(ViewUtils.getElemNameAndDesc(e).name, ViewUtils.formatTip("makeSureBuy", this.itemPrices[e]), true);
+        if (yesno) {
+            ShopView.lastSelectedElemGlobalPos = ViewUtils.getGlobalPosAndSize(this.grids[n]);
             await this.onSel(n);
+        }
     }
 }

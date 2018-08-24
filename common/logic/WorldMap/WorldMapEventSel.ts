@@ -122,10 +122,10 @@ class WorldMapEventSelFactory {
             this.exec(async () => {
                 var sel = -1;
                 while (sel < 0) {
-                    sel = await this.selRelic("选择要强化的遗物", (r:Relic) => r.canReinfoce());
+                    sel = await this.selRelic(ViewUtils.getTipText("selRelic"), (r:Relic) => r.canReinfoce());
                     if (sel >= 0) {
                         var e:Relic = <Relic>p.relics[sel];
-                        var yesno = await this.confirmOkYesNo(undefined, "确定强化 " + ViewUtils.getElemNameAndDesc(e.type).name, true);
+                        var yesno = await this.confirmOkYesNo(undefined, ViewUtils.formatTip("makeSureReinforceRelic", ViewUtils.getElemNameAndDesc(e.type).name), true);
                         if (yesno)
                             e.reinforceLvUp();
                         else
