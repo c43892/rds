@@ -50,7 +50,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.btnSetting.name = "btnSetting";
         this.coins = ViewUtils.createBitmapByName("Coins_png");
         this.coins.name = "coins";
-        this.numCoins = ViewUtils.createTextField(40, 0xffffff, false, false);
+        this.numCoins = ViewUtils.createTextField(33, 0xffffff, false, false);
         this.numCoins.name = "numCoins";
         this.btnSymbolDesc = new TextButtonWithBg("SymbolDescbtn_png", 0);
         this.btnSymbolDesc.name = "btnSymbolDesc";
