@@ -118,7 +118,7 @@ class ShopView extends egret.DisplayObjectContainer {
     async onSelItem(evt:egret.TouchEvent) {
         var n = evt.target["itemIndex"];
         var e = this.items[n];
-        var yesno = await this.confirmOkYesNo(ViewUtils.getElemNameAndDesc(e).name, "花费 " + this.itemPrices[e] + " 金币 ?", true);
+        var yesno = await this.confirmOkYesNo(ViewUtils.getElemNameAndDesc(e).name, ViewUtils.formatTip("makeSureBuy", this.itemPrices[e]), true);
         if (yesno) {
             ShopView.lastSelectedElemGlobalPos = ViewUtils.getGlobalPosAndSize(this.grids[n]);
             await this.onSel(n);

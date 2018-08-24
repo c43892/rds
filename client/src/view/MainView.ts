@@ -338,7 +338,7 @@ class MainView extends egret.DisplayObjectContainer {
 
     // yesno
     public async confirmOkYesNo(title, content, yesno:boolean, btnText = {}) {
-        btnText = Utils.merge({"yes":"yes", "no":"no", "ok":"ok"}, btnText);
+        btnText = Utils.merge({"yes":"yes", "no":"cancel", "ok":"ok"}, btnText);
         return await this.tcv.confirmOkYesNo(title, content, yesno, btnText);
     }
 

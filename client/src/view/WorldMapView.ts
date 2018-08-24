@@ -45,6 +45,22 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.wmesFact.confirmOkYesNo = this.confirmOkYesNo;
         this.wmesFact.selRelic = this.selRelic;
         this.wmesFact.openEventSels = async (p:Player, group) => await this.openSelGroup(p, group);
+
+        this.btnSetting = new TextButtonWithBg("BtnSetting_png", 0);
+        this.btnSetting.name = "btnSetting";
+        this.coins = ViewUtils.createBitmapByName("Coins_png");
+        this.coins.name = "coins";
+        this.numCoins = ViewUtils.createTextField(40, 0xffffff, false, false);
+        this.numCoins.name = "numCoins";
+        this.btnSymbolDesc = new TextButtonWithBg("SymbolDescbtn_png", 0);
+        this.btnSymbolDesc.name = "btnSymbolDesc";
+        this.symbolDesc = ViewUtils.createBitmapByName("SymbolDesc_png");
+        this.symbolDesc.name = "symbolDesc";
+        
+        for (var i = 0; i < 7; i++) {
+            this.crevices[i] = ViewUtils.createBitmapByName("Crevice_png");
+            this.crevices[i].name = "crevice" + i.toString();
+        }
     }
 
     btnSetting:TextButtonWithBg; // 设置按钮
@@ -56,27 +72,12 @@ class WorldMapView extends egret.DisplayObjectContainer {
     private refreshUI() {
         this.refreshFrame();
 
-        this.btnSetting = new TextButtonWithBg("BtnSetting_png", 0);
-        this.btnSetting.name = "btnSetting";
-        this.coins = ViewUtils.createBitmapByName("Coins_png");
-        this.coins.name = "coins";
-        this.numCoins = ViewUtils.createTextField(40, 0xffffff, false, false);
-        this.numCoins.name = "numCoins";
-        for (var i = 0; i < 7; i++) {
-            this.crevices[i] = ViewUtils.createBitmapByName("Crevice_png");
-            this.crevices[i].name = "crevice" + i.toString();
-        }
-        this.btnSymbolDesc = new TextButtonWithBg("SymbolDescbtn_png", 0);
-        this.btnSymbolDesc.name = "btnSymbolDesc";
-        this.symbolDesc = ViewUtils.createBitmapByName("SymbolDesc_png");
-        this.symbolDesc.name = "symbolDesc";
-
         var objs = [this.btnSetting, this.coins, this.btnSymbolDesc, this.symbolDesc, this.numCoins];
-        objs.forEach((obj, _) => this.addChild(obj));
+        objs.forEach((obj, _) => {
+            if (!this.contains(obj))
+                this.addChild(obj);
+        });
         ViewUtils.multiLang(this, ...objs);
-
-        this.crevices.forEach((obj, _) => this.viewContent.addChild(obj));
-        ViewUtils.multiLang(this, ...this.crevices);
 
         this.removeChild(this.symbolDesc); // 初始不显示图例
         this.btnSymbolDesc.onClicked = () => {
@@ -211,6 +212,10 @@ class WorldMapView extends egret.DisplayObjectContainer {
         cn4.scaleX = -1;
         cn4.scaleY = -1;
         this.viewContent.addChild(cn4);
+
+        // 裂纹
+        this.crevices.forEach((obj, _) => this.viewContent.addChild(obj));
+        ViewUtils.multiLang(this, ...this.crevices);
 
         this.mapArea.scrollTop = this.viewContent.height - this.mapArea.height;
     }

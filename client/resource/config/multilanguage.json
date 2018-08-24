@@ -164,9 +164,15 @@
     },
 
 	"tips": {
+		"yes": { "EN": "yes", "CNS": "确定", "CNT": "确定" },
+		"cancel": { "EN": "no", "CNS": "取消", "CNT": "取消" },
+		"ok": { "EN": "OK", "CNS": "确定", "CNT": "确定" },
 		"notHungry": { "EN": "I'm not hungry", "CNS": "我不饿", "CNT": "人家不饿" },
 		"noKey": { "EN": "I have no key", "CNS": "没有钥匙", "CNT": "人家没有钥匙" },
 		"cure": { "EN": "cure", "CNS": "愈合", "CNT": "愈合" },
+		"selRelic": {"EN": "select relic", "CNS": "选择遗物", "CNT": "選擇遺物" },
+		"makeSureReinforceRelic": {"EN": "", "CNS": "确定强化{0}?", "CNT": "确定强化{0}?" },
+		"makeSureBuy": {"EN": "", "CNS": "花费{0}金币?", "CNT": ""},
 		"": {}
 	}
 }

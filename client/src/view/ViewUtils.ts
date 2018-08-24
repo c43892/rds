@@ -172,6 +172,17 @@ class ViewUtils {
         return ss;
     }
 
+    // 格式化字符串
+    public static formatString(fmt, ...ps):string {
+        return fmt.replace(/{(\d+)}/g, (match, number) => typeof ps[number] != 'undefined' ? ps[number] : match);
+    }
+
+    // 格式化提示字符串
+    public static formatTip(tip, ...ps):string {
+        var fmt = ViewUtils.getTipText(tip);
+        return ViewUtils.formatString(fmt, ...ps);
+    }
+
     // 安全显示区域，去掉刘海部分，比主显示区域大，非标准纵横比
     public static FullArea:egret.DisplayObjectContainer;
 

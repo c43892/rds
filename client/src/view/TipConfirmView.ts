@@ -121,11 +121,11 @@ class TipConfirmView extends egret.DisplayObjectContainer {
         this.okyesnoPanel.addChild(this.btnOk);
 
         if (yesno) {
-            this.btnYes.text = btnText.yes;
-            this.btnNo.text = btnText.no;
+            this.btnYes.text = ViewUtils.getTipText(btnText.yes);
+            this.btnNo.text = ViewUtils.getTipText(btnText.no);
             this.okyesnoPanel.removeChild(this.btnOk);
         } else {
-            this.btnOk.text = btnText.ok;
+            this.btnOk.text = ViewUtils.getTipText(btnText.ok);
             this.okyesnoPanel.removeChild(this.btnYes);
             this.okyesnoPanel.removeChild(this.btnNo);
         }
