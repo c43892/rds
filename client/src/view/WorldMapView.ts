@@ -404,8 +404,10 @@ class WorldMapView extends egret.DisplayObjectContainer {
             case "box":
                 await this.openBoxRoom(this.worldmap.cfg.boxroomDrops);
                 break;
-            case "event": 
+            case "event":
+                parent.addChild(this);
                 await this.openMapEventSels(lv, n);
+                parent.removeChild(this);
                 break;                
             default:
                 Utils.log("not support " + nodeType + " yet");
