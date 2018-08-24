@@ -214,4 +214,9 @@ class ViewUtils {
 
         return s;
     }
+
+    // 解析 xml 为 textflow
+    public static fromHtml(txt):egret.ITextElement[] {
+        return (new egret.HtmlTextParser).parser(txt);
+    }
 }

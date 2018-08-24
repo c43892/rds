@@ -55,7 +55,7 @@ class TipConfirmView extends egret.DisplayObjectContainer {
             this.removeChild(this.tip);
         
         this.tip = ViewUtils.createTextField(30, 0x000000);
-        this.tip.textFlow = (new egret.HtmlTextParser).parser(str);
+        this.tip.textFlow = ViewUtils.fromHtml(str);
         this.tip.width = this.width;
         this.addChild(this.tip);
 

@@ -34,6 +34,14 @@ class TextButtonWithBg extends egret.DisplayObjectContainer {
         if (this.textField) this.textField.textColor = color;
     }
 
+    public get textFlow() {
+        return this.textField.textFlow;
+    }
+
+    public set textFlow(tf:egret.ITextElement[]) {
+        this.textField.textFlow = tf;
+    }
+
     txt:string;
     public get text() {
         return this.textField ? this.textField.text : undefined;
