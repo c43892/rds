@@ -292,7 +292,7 @@ class RelicFactory {
                 if(contains(ps.attackerAttrs)){                    
                     var plantType = ps.attackerAttrs.owner.type;
                     var enhances = GCfg.getOccupationCfg(r.bt().player.occupation).relics.HorticultureMaster[plantType];
-                    for (var i = 0; i < r.reinforceLv + 2; i++){
+                    for (var i = 0; i < r.reinforceLv; i++){
                         var type = enhances[i].type;
                         var enhance = enhances[i].enhance;                        
                         switch (type){
@@ -320,7 +320,7 @@ class RelicFactory {
                 if (contains(ps.targetAttrs)){
                     var plantType = ps.attackerAttrs.owner.type;
                     var enhances = GCfg.getOccupationCfg(r.bt().player.occupation).relics.HorticultureMaster[plantType];
-                    for (var i = 0; i < r.reinforceLv + 2; i++){
+                    for (var i = 0; i < r.reinforceLv; i++){
                         var type = enhances[i].type;
                         var enhance = enhances[i].enhance;
                         switch (type){
@@ -348,7 +348,7 @@ class RelicFactory {
                 // 在此处理hp,shield
                 var m = <Monster>ps.e;
                 var enhances = GCfg.getOccupationCfg(r.bt().player.occupation).relics.HorticultureMaster[m.type];
-                for (var i = 0; i < r.reinforceLv + 2; i++){
+                for (var i = 0; i < r.reinforceLv; i++){
                     var type = enhances[i].type;
                     var enhance = enhances[i].enhance;                    
                     if(type == "hp") 
@@ -361,7 +361,7 @@ class RelicFactory {
             // 处理攻击间隔
             r = <Relic>ElemFactory.addAI("onCalcAttackInterval", async (ps) => {
                 var enhances = GCfg.getOccupationCfg(r.bt().player.occupation).relics.HorticultureMaster[ps.m.type];
-                for (var i = 0; i < r.reinforceLv + 2; i++){
+                for (var i = 0; i < r.reinforceLv; i++){
                     var type = enhances[i].type;
                     var enhance = enhances[i].enhance;                    
                     if(type == "attackInterval"){

@@ -9,7 +9,7 @@
                     {"type":"shield", "enhance":2}
                 ], 
                 "Peashooter":[
-                    {"type":"hp", "enhance":2}, 
+                    {"type":"power", "enhance":{"a":0, "b":1, "c":0}}, 
                     {"type":"attackInterval", "enhance":{"a":0, "b":-1, "c":0}}, 
                     {"type":"power", "enhance":{"a":0, "b":1, "c":0}}, 
                     {"type":"attackInterval", "enhance":{"a":0, "b":-1, "c":0}}
