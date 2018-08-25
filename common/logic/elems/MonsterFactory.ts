@@ -277,6 +277,7 @@ class MonsterFactory {
             switch(m.type){
                 case "BombAbomination":{                    
                     cm = MonsterFactory.doSelfExplodeAfterNRound(cm);
+                    cm["cnt"] = m["cnt"];
                     break;
                 }
                 case "EyeDemon":{
@@ -463,10 +464,10 @@ class MonsterFactory {
 
     // N 回合后自爆,对玩家和一个区域内造成攻击力的 N 倍伤害
     static doSelfExplodeAfterNRound(m:Monster):Monster {
-        var cnt = 0;
+        m["cnt"] = 0;
         return <Monster>ElemFactory.addAI("onPlayerActed", async () => {
-            cnt++;
-            if(cnt > m.attrs.selfExplode.cnt) 
+            m["cnt"]++;
+            if(m["cnt"] > m.attrs.selfExplode.cnt)
                 await m.bt().implMonsterDoSelfExplode(m, {a:m.attrs.selfExplode.mult - 1, b:0, c:0}, true);            
         }, m);
     }
@@ -775,7 +776,7 @@ class MonsterFactory {
         }, m);
     }
 
-    // 坚果墙,为玩家分摊50%的伤害
+    // 为玩家分摊伤害
     static doShareDamageOnPlayerHurt(m:Monster):Monster {
         m.isHazard = () => false;
         m = <Monster>ElemFactory.addAI("onCalcAttacking", (ps) => {

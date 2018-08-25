@@ -226,7 +226,7 @@ class RelicFactory {
             }, r,  (ps) => ps.subType == "player2monster" && ps.weapon && ps.weapon.type == "Knife")
         },
 
-        // 探索强化	每当你杀死一只怪物，则随机显示一件物品的位置
+        // 探索强化	一只怪物死亡，则随机显示一件物品的位置
         "ExploreEnhanced": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) return;

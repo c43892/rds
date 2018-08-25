@@ -208,7 +208,7 @@ class ItemFactory {
                 var attackerAttrs = ps.attackerAttrs;
                 if(!(attackerAttrs.owner instanceof Monster)) return;
                 attackerAttrs.power.b += e.attrs.powerD;
-            }, e, () => e.isValid());
+            }, e, (ps) => e.isValid() && ps.attackerAttrs.owner instanceof Monster && ps.attackerAttrs.owner.isHazard());
             return e;
         },
 
@@ -246,7 +246,7 @@ class ItemFactory {
             e.canBeDragDrop = true;
             e.canUse = () => true;
             e.use = async () => {
-                var m = BattleUtils.findRandomElems(e.bt(), 1, (e:Elem)=> e instanceof Monster)[0];                
+                var m = BattleUtils.findRandomElems(e.bt(), 1, (e:Elem)=> e instanceof Monster && e.isHazard())[0];                
                 await e.bt().fireEvent("onElemFlying", {e:e, fromPos:e.pos, toPos:m.pos});
                 var cnt = m.dropItems[Utils.indexOf(m.dropItems, (e:Elem) => e.type == "Coins")].cnt;
                 m.addDropItem(ElemFactory.create("Coins", {cnt:cnt * 9}));
