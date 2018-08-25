@@ -78,6 +78,8 @@
         "CharmingMushroom":{"name":"魅惑菇", "desc":""},
         "ShopNpc":{"name":"ShopNpc", "desc":"<font color=#3333cc size=20>Shop\n\n<font color=#000000 size=18>Sell all kinds of props here;<font>"},
         "CharmedNormal":{"desc":"<font color=#3333cc size=20>attack monster in its attack range, attack back after being hurt"},
+        "BombAbominationCharmed":{"name":"自曝憎恶", "desc":"<font color=#3333cc size=20>explode after 2 rounds\n\n<font color=#3333cc size=20>attack monster in its attack range, attack back after being hurt"},
+        "EyeDemonCharmed":{"name":"眼魔", "desc":"<font color=#3333cc size=20>透視\n\n<font color=#000000 size=18>死亡時探索2個空方格\n\n<font color=#3333cc size=20>attack monster in its attack range, attack back after being hurt"},
 
         "PlaceHolder":{"name":"PlaceHolder", "desc":""},
         "BossBunny":{"name":"BossBunny", "desc":""},
@@ -196,6 +198,8 @@
         "CharmingMushroom":{"name":"魅惑菇", "desc":""},
         "ShopNpc":{"name":"商人", "desc":"<font color=#3333cc size=20>商店\n\n<font color=#000000 size=18>这里出售各种道具"},
         "CharmedNormal":{"desc":"<font color=#3333cc size=20>attack monster in its attack range, attack back after being hurt"},
+        "BombAbominationCharmed":{"name":"自曝憎恶", "desc":"<font color=#3333cc size=20>explode after 2 rounds\n\n<font color=#3333cc size=20>attack monster in its attack range, attack back after being hurt"},
+        "EyeDemonCharmed":{"name":"眼魔", "desc":"<font color=#3333cc size=20>透視\n\n<font color=#000000 size=18>死亡時探索2個空方格\n\n<font color=#3333cc size=20>attack monster in its attack range, attack back after being hurt"},
 
         "PlaceHolder":{"name":"Boss精英占位", "desc":""},
         "BossBunny":{"name":"boss兔子", "desc":""},
@@ -298,6 +302,8 @@
         "CharmingMushroom":{"name":"魅惑菇", "desc":""},
         "ShopNpc":{"name":"商人", "desc":"<font color=#3333cc size=20>商店\n\n<font color=#000000 size=18>這裡出售各種道具"},
         "CharmedNormal":{"desc":"<font color=#3333cc size=20>attack monster in its attack range, attack back after being hurt"},
+        "BombAbominationCharmed":{"name":"自曝憎恶", "desc":"<font color=#3333cc size=20>explode after 2 rounds\n\n<font color=#3333cc size=20>attack monster in its attack range, attack back after being hurt"},
+        "EyeDemonCharmed":{"name":"眼魔", "desc":"<font color=#3333cc size=20>透視\n\n<font color=#000000 size=18>死亡時探索2個空方格\n\n<font color=#3333cc size=20>attack monster in its attack range, attack back after being hurt"},
 
         "PlaceHolder":{"name":"Boss精英占位", "desc":""},
         "BossBunny":{"name":"boss兔子", "desc":""},

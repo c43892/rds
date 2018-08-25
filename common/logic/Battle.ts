@@ -1083,11 +1083,13 @@ class Battle {
     }
 
     // 魅惑怪物
-    public async implCharmMonster(m:Monster, cm:Monster){
-        Utils.assert(m.isHazard(), "only hazard monster can be charmed");
+    public async implCharmMonster(m:Monster){
+        Utils.assert(m.isHazard() && !m.isBoss, "only hazard monster can be charmed");
         var pos = m.pos;
         if(m.getGrid().isCovered())
             this.uncover(pos.x, pos.y, true);
+        
+        var cm = await MonsterFactory.createCharmedMonster(m);
         
         this.removeElemAt(pos.x, pos.y);
         await this.fireEvent("onMonsterCharmed", {m:m, cm:cm});

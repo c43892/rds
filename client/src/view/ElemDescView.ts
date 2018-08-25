@@ -153,10 +153,10 @@ class ElemDescView extends egret.DisplayObjectContainer {
 
         ViewUtils.multiLang(this, ...attrs);
 
-        if(e["CharmedNormal"]){
+        if(e["Charmed"] == "normal"){
             var index = e.type.indexOf("Charmed");
             var type = e.type.substring(0 , index);
-            this.monsterName.text = ViewUtils.getElemNameAndDesc(type).name;
+            this.monsterName.text = ViewUtils.getElemNameAndDesc(type).name;            
             var CharmedNormalDesc = ViewUtils.getElemNameAndDesc("CharmedNormal");
             var txt = ViewUtils.replaceByProperties(CharmedNormalDesc.desc, e);
             this.monsterDesc.textFlow = ViewUtils.fromHtml(txt);

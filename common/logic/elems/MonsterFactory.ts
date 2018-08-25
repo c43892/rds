@@ -122,7 +122,7 @@ class MonsterFactory {
         "GluttonyZombie": (attrs) => MonsterFactory.doSneakTakeItems(MonsterFactory.doAttackBack(this.createMonster(attrs)), false), //暴食僵尸
         "Gengar": (attrs) => MonsterFactory.doAttackOnPlayerLeave(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //耿鬼
         "BombAbomination": (attrs) => MonsterFactory.doSelfExplodeAfterNRound(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //自爆憎恶
-        "EyeDemon": (attrs) => MonsterFactory.doUncoverGridOnDeath(2, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //眼魔
+        "EyeDemon": (attrs) => MonsterFactory.doUncoverGridOnDie(2, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //眼魔
         "RandomEggZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //彩蛋僵尸
         "LustZombie": (attrs) => MonsterFactory.doSneakReduseDeathStep(15, MonsterFactory.doAttackBack(this.createMonster(attrs))), //色欲僵尸
         "CommanderZombie": (attrs) => MonsterFactory.doEnhanceAura(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //指挥官僵尸
@@ -162,7 +162,7 @@ class MonsterFactory {
 
                 return ms[m.bt().srand.nextInt(0, ms.length)];
             }, attrs.attackInterval);
-        }, 
+        },
         "CherryBomb": (attrs) => { // 樱桃炸弹
             var m = this.createMonster(attrs);
             m.isHazard = () => false;
@@ -197,8 +197,7 @@ class MonsterFactory {
             
             m.useAt = async (x:number, y:number) => { 
                 var tarm = <Monster>m.map().getElemAt(x, y);
-                var cm = await this.createCharmedMonster(tarm);
-                await m.bt().implCharmMonster(tarm, cm);
+                await m.bt().implCharmMonster(tarm);
                 return false;
             }
             return m;
@@ -214,7 +213,7 @@ class MonsterFactory {
                         MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player, attrs.attackInterval, () => !m.trapped), 
                     () => !m.trapped)));
             return m;
-        }, 
+        },
 
         "CharmedMonster": (attrs) => this.createMonster(attrs),
         "PlaceHolder": (attrs) => this.createMonster(attrs)
@@ -238,8 +237,8 @@ class MonsterFactory {
         return m;
     }
 
-    // 创建被魅惑的怪物
-    async createCharmedMonster(m:Monster) {
+    // 获取怪物的当前attrs
+    static async getCurrentAttrs(m:Monster) {
         var attrs;
         var cm:Monster;
         attrs = m.attrs;
@@ -249,18 +248,23 @@ class MonsterFactory {
         var attackerAttrs = await m.bt().calcMonsterAttackerAttrs(m);
         var power = attackerAttrs.power.b * (1 + attackerAttrs.power.a) + attackerAttrs.power.c;
         attrs["power"] = power;
-        
-        cm = <Monster>m.bt().level.createElem("CharmedMonster", attrs);
+        return attrs;
+    }
+
+    // 创建被魅惑的怪物
+    static async createCharmedMonster(m:Monster) {
+        var attrs = await this.getCurrentAttrs(m);
+        var cm = <Monster>m.bt().level.createElem("CharmedMonster", attrs);
         cm.type = m.type + "Charmed";
-        cm["CharmedNormal"] = true;
+        cm["Charmed"] = "normal";
         cm.getElemImgRes = m.getElemImgRes;
-        cm.dropItems = m.dropItems;        
+        cm.dropItems = m.dropItems;
         cm.canUse = () => false;
         cm.hazard = false;
         cm.barrier = false;
         cm.use = () => false;
         cm = MonsterFactory.doAttackBack(cm);// 能反击
-        return MonsterFactory.doAttack("onPlayerActed", cm, () => {
+        cm = MonsterFactory.doAttack("onPlayerActed", cm, () => {
             var ms = m.map().findAllElems((e:Elem) => {
                 return e instanceof Monster && !e.getGrid().isCovered() && (e.isHazard() || e["linkTo"] && e["linkTo"].isHazard()) && m.inAttackRange(e)
             });
@@ -268,6 +272,21 @@ class MonsterFactory {
 
             return ms[m.bt().srand.nextInt(0, ms.length)];
         });
+        if (m.attrs.specialCharmed){
+            cm["Charmed"] = "special";
+            switch(m.type){
+                case "BombAbomination":{                    
+                    cm = MonsterFactory.doSelfExplodeAfterNRound(cm);
+                    break;
+                }
+                case "EyeDemon":{
+                    cm = MonsterFactory.doUncoverGridOnDie(2, cm);
+                    break;
+                }
+            }
+
+        }
+        return cm;
     }
 
     // 随机移动一次，dist 表示移动几格
@@ -431,7 +450,7 @@ class MonsterFactory {
     }
 
     //死亡时翻开N个空地块
-    static doUncoverGridOnDeath(n:number, m:Monster):Monster{
+    static doUncoverGridOnDie(n:number, m:Monster):Monster{
         return <Monster>ElemFactory.addDieAI(async () => {
             var gs = BattleUtils.findRandomGrids(m.bt(), (g:Grid) => g.isCovered() && !g.getElem(), n);
             var pts = Utils.map(gs, (g:Grid) => g.pos);
