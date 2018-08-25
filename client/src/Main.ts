@@ -86,6 +86,13 @@ class Main extends egret.DisplayObjectContainer {
         var playerCfg = RES.getRes("playerconfig_json");
         GCfg.playerCfg = playerCfg;
 
+        // 职业相关
+        var occupationCfg = RES.getRes("occupationconfig_json");
+        GCfg.getOccupationCfg = (occupation:string) => {
+            Utils.assert(occupationCfg[occupation], "can not find occupationCfg of" + occupation);
+            return occupationCfg[occupation];
+        };
+
         // 随机掉落组
         var randomDropGroupCfg = RES.getRes("randomdropconfig_json");
         GCfg.getRandomDropGroupCfg = (e) => {

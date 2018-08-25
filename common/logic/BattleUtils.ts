@@ -108,13 +108,13 @@ class BattleUtils {
             accuracy:{a:0, b:0, c:0},
             critical:{a:0, b:0, c:0},
             damageAdd:{a:0, b:0, c:0},
+            muiltAttack:0,
 
             targetFlags:[],
             shield:{a:0, b:0, c:0},
             dodge:{a:0, b:0, c:0},
             damageDec:{a:0, b:0, c:0},
-            resist:{a:0, b:0, c:0},
-            muiltAttack:0,
+            resist:{a:0, b:0, c:0},            
         };
 
         for (var k in ps) {

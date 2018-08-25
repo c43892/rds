@@ -124,7 +124,7 @@
                 "power": 1
             }
         },
-        "constElems":{"ShopNpc":1, "CharmingMushroom":6},
+        "constElems":{"ShopNpc":1},
         "randomGroups": [
             {
                 "num": [ 8, 9 ],

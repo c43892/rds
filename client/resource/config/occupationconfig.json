@@ -1,0 +1,38 @@
+{
+    "Nurse":{
+        "relics":{
+            "HorticultureMaster":{
+                "NutWall":[
+                    {"type":"hp", "enhance":2}, 
+                    {"type":"shield", "enhance":2}, 
+                    {"type":"hp", "enhance":2}, 
+                    {"type":"shield", "enhance":2}
+                ], 
+                "Peashooter":[
+                    {"type":"hp", "enhance":2}, 
+                    {"type":"attackInterval", "enhance":{"a":0, "b":-1, "c":0}}, 
+                    {"type":"power", "enhance":{"a":0, "b":1, "c":0}}, 
+                    {"type":"attackInterval", "enhance":{"a":0, "b":-1, "c":0}}
+                ], 
+                "CherryBomb":[
+                    {"type":"power", "enhance":{"a":0, "b":1, "c":0}}, 
+                    {"type":"hp", "enhance":2}, 
+                    {"type":"power", "enhance":{"a":0, "b":1, "c":0}}, 
+                    {"type":"hp", "enhance":2}
+                ], 
+                "Sunflower":[
+                    {"type":"dhpPercent", "enhance":5}, 
+                    {"type":"dhpPercent", "enhance":5}, 
+                    {"type":"dhpPercent", "enhance":5}, 
+                    {"type":"dhpPercent", "enhance":5}
+                ], 
+                "CharmingMushroom":[
+                    {"type":"hp", "enhance":2}, 
+                    {"type":"shield", "enhance":2}, 
+                    {"type":"hp", "enhance":2}, 
+                    {"type":"shield", "enhance":2}
+                ]
+            }
+        }
+    }
+}

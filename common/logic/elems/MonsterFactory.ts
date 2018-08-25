@@ -419,9 +419,15 @@ class MonsterFactory {
     // 攻击一次
     static doAttack(logicPoint:string, m:Monster, findTarget, attackInterval:number = 0, condition = () => true):Monster {
         attackInterval = attackInterval ? attackInterval : 0;
-        var interval = 0; // 攻击行为的间隔回合数
+        var interval = 0; // 攻击行为的间隔回合记数
         return <Monster>ElemFactory.addAI(logicPoint, async () => {
-            if (interval < attackInterval)
+            // 计算攻击间隔
+            var attackIntervalPs = {subType:"setAttackInterval", m:m, dattackInterval:{a:0, b:0, c:0}};
+            m.bt().triggerLogicPointSync("onCalcAttackInterval", attackIntervalPs);
+            var caledAttackInterval = (attackInterval + attackIntervalPs.dattackInterval.b) * (1 + attackIntervalPs.dattackInterval.a) + attackIntervalPs.dattackInterval.c;        
+            caledAttackInterval = caledAttackInterval < 0 ? 0 : caledAttackInterval;
+
+            if (interval < caledAttackInterval)
                 interval++;
             else if (condition()) {
                 var target = findTarget();
@@ -878,5 +884,40 @@ class MonsterFactory {
             else
                 await food.bt().fireEvent("onMonsterEatFood", {m:e, food:food});
         }, e);
+    }
+
+    // 根据园艺大师遗物等级强化植物
+    static enhancePlantByHorticultureMaster(bt:Battle, plantType, attrs){
+        var relics = bt.player.relics;
+        var r = relics[Utils.indexOf(relics, (tar:Relic) => tar.type == "HorticultureMaster")];
+        Utils.assert(!!r, "player don't have the relic:HorticultureMaster"); // 植物来源为园艺大师遗物
+
+        var level = r.reinforceLv;
+        var enhances = GCfg.getOccupationCfg(bt.player.occupation).relics.HorticultureMaster[plantType]; // 获取该植物的增强配置
+
+        // 用于判断增强方式
+        var abcTypes = ["power", "accuracy", "critical", "damageAdd", "dodge"];
+        var valueType = ["hp", "shield", "attackInterval"]
+        var enhanceType = (type:string) => {
+            if (Utils.contains(abcTypes, type)) return "abcTypes";
+            else if (Utils.contains(valueType, type)) return "valueType";
+            else return "special";
+        }
+
+        for (var i = 0; i < level; i++){
+            var enhance = enhances[i].enhance;
+            var type = enhance.type;
+            if(enhanceType(type) == "abcTypes"){
+                if(!attrs[type]) attrs[type] = 0;
+                attrs[type] = (attrs[type] + enhance.b) * (1 + enhance.a) + enhance.c;
+            }
+            else if(enhanceType(type) == "valueType"){
+                if(!attrs[type]) attrs[type] = 0;
+                attrs[type] += enhance;
+            }
+            else Utils.log("can not enhance like this now" + type);
+        }
+        
+        return attrs;
     }
 }

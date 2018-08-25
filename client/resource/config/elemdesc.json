@@ -26,6 +26,7 @@
         "SmellEnhanced":{"name":"嗅觉强化", "desc":""},
         "Storer":{"name":"囤积居奇", "desc":""},
         "ShieldProficient":{"name":"盾牌专精", "desc":""},
+        "HorticultureMaster":{"name":"园艺大师", "desc":""},
         
         "Coins":{"name":"Coins", "desc":"<font color=#00ff00 size=18>{cnt} <font color=#000000 size=18>gold coins</font>"},
         "Key":{"name":"Key", "desc":"<font color=#000000 size=18>Open treasure chest or door</font>"},
@@ -146,6 +147,7 @@
         "SmellEnhanced":{"name":"嗅觉强化", "desc":""},
         "Storer":{"name":"囤积居奇", "desc":""},
         "ShieldProficient":{"name":"盾牌专精", "desc":""},
+        "HorticultureMaster":{"name":"园艺大师", "desc":""},
         
         
         "Coins":{"name":"金币", "desc":"<font color=#00ff00 size=18>{cnt} <font color=#000000 size=18>个金币"},
@@ -252,6 +254,7 @@
         "SmellEnhanced":{"name":"嗅觉强化", "desc":""},
         "Storer":{"name":"囤积居奇", "desc":""},
         "ShieldProficient":{"name":"盾牌专精", "desc":""},
+        "HorticultureMaster":{"name":"园艺大师", "desc":""},
         
         "Coins":{"name":"金幣", "desc":"<font color=#00ff00 size=18>{cnt} <font color=#000000 size=18>個金幣"},
         "Key":{"name":"鑰匙", "desc":"<font color=#000000 size=18>可打開寶箱或閘"},
