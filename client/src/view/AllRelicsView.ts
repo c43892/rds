@@ -2,21 +2,21 @@
 class AllRelicsView extends egret.DisplayObjectContainer {
     private viewContent:egret.DisplayObjectContainer;
     private bg:egret.Bitmap;
+    private bg1:egret.Bitmap;
+    private title:egret.TextField;
     private scrollArea:egret.ScrollView;
-    private scrollAreaBg:egret.Bitmap;
     private closeBtn:TextButtonWithBg;
 
     public static showElemDesc;
 
     public constructor(w:number, h:number) {
         super();
-        this.name = "allRelics";
 
+        this.name = "allRelics";
         this.width = w;
         this.height = h;
 
         this.bg = ViewUtils.createBitmapByName("translucent_png");
-        this.bg.name = "bg";
         this.bg.x = 0;
         this.bg.y = 0;
         this.bg.width = w;
@@ -24,38 +24,32 @@ class AllRelicsView extends egret.DisplayObjectContainer {
         this.bg.touchEnabled = true;
         this.addChild(this.bg);
 
-        this.viewContent = new egret.DisplayObjectContainer();
-        this.viewContent.x = 0;
-        this.viewContent.y = 0;
-        this.viewContent.width = w;
-        this.viewContent.height = h;
+        this.bg1 = ViewUtils.createBitmapByName("bigBg_png");
+        this.bg1.name = "bg1";
 
+        // 标题
+        this.title = ViewUtils.createTextField(50, 0xff0000);
+        this.title.text = ViewUtils.getTipText("relics");
+        this.title.name = "title";
+
+        // 滚动窗口区域
+        this.viewContent = new egret.DisplayObjectContainer(); // 这个是滚动区域内完整尺寸的显示区域
         this.scrollArea = new egret.ScrollView();
         this.scrollArea.name = "scrollArea";
         this.scrollArea.verticalScrollPolicy = "auto";
         this.scrollArea.horizontalScrollPolicy = "off";
         this.scrollArea.setContent(this.viewContent);
-        this.scrollArea.bounces = false;        
-        this.addChild(this.scrollArea);
-
-        this.scrollAreaBg = ViewUtils.createBitmapByName("black_png");
-        this.scrollAreaBg.name = "scrollBg";
-        this.scrollAreaBg.fillMode = egret.BitmapFillMode.REPEAT;
-        this.viewContent.addChild(this.scrollAreaBg);
+        this.scrollArea.bounces = false;
 
         this.closeBtn = new TextButtonWithBg("btnBg_png", 30);
         this.closeBtn.name = "closeBtn";
         this.closeBtn.touchEnabled = true;
         this.closeBtn.onClicked = () => this.doClose();
-        this.addChild(this.closeBtn);
-        
-        this.scrollArea.scrollTop = 0;
 
-        ViewUtils.multiLang(this, this.scrollArea, this.closeBtn, this.scrollAreaBg);
+        var objs = [this.bg1, this.title, this.scrollArea, this.closeBtn]
+        objs.forEach((obj, _) => this.addChild(obj));
+        ViewUtils.multiLang(this, ...objs);
     }
-
-    readonly ColNum = 5;
-    readonly GridSize = 84;
 
     doClose;
     public async open(relics) {
@@ -65,14 +59,17 @@ class AllRelicsView extends egret.DisplayObjectContainer {
         });
     }
 
+    readonly ColNum = 4; // 每一行 4 个
+    readonly GridSize = 84; // 图标大小
+
     refresh(relics:Relic[]) {
         this.viewContent.removeChildren();
-        this.viewContent.addChild(this.scrollAreaBg);
-        ViewUtils.multiLang(this, this.scrollArea, this.closeBtn, this.scrollAreaBg);        
 
+        // 根据宽度和每行数量自动计算平均的间隔大小，横竖间隔保持相同
         var space = (this.scrollArea.width - (this.ColNum * this.GridSize)) / (this.ColNum + 1);
         var x = space;
         var y = space;
+
         for (var i = 0; i < relics.length; i++) {
             var r = relics[i];
 
@@ -84,13 +81,6 @@ class AllRelicsView extends egret.DisplayObjectContainer {
             g["relic"] = r;
             g.touchEnabled = true;
             g.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTapRelic, this);
-            
-            var lv = ViewUtils.createTextField(15, 0xffffff);
-            lv.textAlign = egret.HorizontalAlign.RIGHT;
-            lv.verticalAlign = egret.VerticalAlign.BOTTOM;
-            lv.x = g.x; lv.y = g.y; lv.width = g.width; lv.height = g.height;
-            lv.text = "Lv" + r.reinforceLv;
-            this.viewContent.addChild(lv);
 
             x += this.GridSize + space;
             if (x >= this.scrollArea.width) {
@@ -100,6 +90,9 @@ class AllRelicsView extends egret.DisplayObjectContainer {
         }
 
         this.viewContent.height = y + space;
+
+        // 初始化滚动条位置
+        this.scrollArea.scrollTop = 0;
     }
 
     async onTapRelic(evt:egret.TouchEvent) {
