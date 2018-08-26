@@ -23,7 +23,7 @@ class BattleCalculator {
         var shield = this.doCalc(targetAttrs, "shield");
         var dodge = this.doCalc(targetAttrs, "dodge");
         var damageDec = this.doCalc(targetAttrs, "damageDec");
-        var resist = targetAttrs.resist;
+        var resist = this.doCalc(targetAttrs, "resist");
         var damageShared = targetAttrs.damageShared;
 
         // 战斗计算结果
@@ -56,7 +56,7 @@ class BattleCalculator {
 
             // 计算+-伤害和抵抗
             var damage = power + damageAdd - damageDec;
-            damage = (damage + resist.b) * (1 - resist.a) + resist.c;
+            damage = Math.floor(damage * (100 - resist) / 100);
             if (Utils.contains(targetFlags, "Sneaked")) damage += 2;
 
             var dShared = Math.floor(damage - ((damage - damageShared.b) * (1 - damageShared.a) - damageShared.c)); // 伤害分担

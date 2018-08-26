@@ -282,95 +282,119 @@ class RelicFactory {
 
         // 园艺大师	获得植物的援护，每升一级提高植物属性
         "HorticultureMaster": (attrs) => {
-            var r = this.doAddElemOnLevelInited(attrs, ["NutWall", "Peashooter", "CherryBomb", "Sunflower", "CharmingMushroom"], 1);
-            r = <Relic>ElemFactory.addAI("onCalcAttacking", async (ps) => { 
-                var contains = (attrs) => {
-                    if (attrs.owner && attrs.owner instanceof Monster && Utils.contains(attrs.owner.attrs["tags"], "plant"))
-                    return true;
-                }
-                // 处理需要计算的攻击属性
-                if(contains(ps.attackerAttrs)){                    
-                    var plantType = ps.attackerAttrs.owner.type;
-                    var enhances = GCfg.getOccupationCfg(r.bt().player.occupation).relics.HorticultureMaster[plantType];
-                    for (var i = 0; i < r.reinforceLv; i++){
-                        var type = enhances[i].type;
-                        var enhance = enhances[i].enhance;                        
-                        switch (type){
-                            case "power":
-                            case "accuracy":
-                            case "critical":
-                            case "damageAdd":
-                                ps.attackerAttrs[type].a += enhance.a;
-                                ps.attackerAttrs[type].b += enhance.b;
-                                ps.attackerAttrs[type].c += enhance.c;
-                                break;
-                            case "attackFlags":
-                            case "addBuffs":
-                                ps.attackerAttrs[type].push(enhance);
-                                break;
-                            case "muiltAttack":
-                                ps.attackerAttrs[type] += enhance;
-                                break;
-                            default:                                
-                                break;
-                        }
-                    }
-                }
-                // 处理需要计算的防御属性
-                if (contains(ps.targetAttrs)){
-                    var plantType = ps.attackerAttrs.owner.type;
-                    var enhances = GCfg.getOccupationCfg(r.bt().player.occupation).relics.HorticultureMaster[plantType];
-                    for (var i = 0; i < r.reinforceLv; i++){
-                        var type = enhances[i].type;
-                        var enhance = enhances[i].enhance;
-                        switch (type){
-                            case "dodge":
-                                ps.attackerAttrs[type].a += enhance.a;
-                                ps.attackerAttrs[type].b += enhance.b;
-                                ps.attackerAttrs[type].c += enhance.c;
-                                break;
-                            case "targetFlags":
-                                ps.attackerAttrs[type].push(enhance);
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                }
-            }, r, (ps) => {
-                if(ps.attackerAttrs.owner && ps.attackerAttrs.owner instanceof Monster && Utils.contains(ps.attackerAttrs.owner.attrs["tags"], "plant")) return true;
-                else if(ps.targetAttrs.owner && ps.targetAttrs.owner instanceof Monster && Utils.contains(ps.targetAttrs.owner.attrs["tags"], "plant")) return true;
-                else return false;
-            });
+            var r = this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) return;
+                ElemFactory.addAI("onLevelInited", async () => {
+                    var bt = r.bt();
+                    var level = Utils.filter(bt.player.relics, (r:Relic) => r.type == "HorticultureMaster")[0].reinforceLv;
+                    var pTypes = ["NutWall"];
+                    var elemTypes = [];
+                    for (var pType of pTypes)
+                        elemTypes.push(pType + (level + 5).toString());
 
-            // 在怪物被添加的时候处理直接固定在怪物身上的属性
-            r = <Relic>ElemFactory.addAI("onGridChanged", async (ps) => {
-                // 在此处理hp,shield
-                var m = <Monster>ps.e;
-                var enhances = GCfg.getOccupationCfg(r.bt().player.occupation).relics.HorticultureMaster[m.type];
-                for (var i = 0; i < r.reinforceLv; i++){
-                    var type = enhances[i].type;
-                    var enhance = enhances[i].enhance;                    
-                    if(type == "hp") 
-                        await r.bt().implAddMonsterHp(m, enhance);
-                    else if(type == "shield") 
-                        await r.bt().implAddMonsterShield(m, enhance);
-                }
-            }, r, (ps) => ps.subType == "elemAdded" && ps.e instanceof Monster && Utils.contains(ps.e.attrs["tags"], "plant"));
+                    var g = BattleUtils.findRandomEmptyGrid(bt);
+                    if(g){
+                        var elemType = elemTypes[r.bt().srand.nextInt(0, elemTypes.length)];
+                        await Utils.delay(500);
+                        await bt.implAddElemAt(bt.level.createElem(elemType, undefined, r.bt().player), g.pos.x, g.pos.y);
+                    }
+                    
+                }, r)
+            })
+            // var r = this.doAddElemOnLevelInited(attrs, ["NutWall", "Peashooter", "CherryBomb", "Sunflower", "CharmingMushroom"], 1);
+            // r = <Relic>ElemFactory.addAI("onCalcAttacking", async (ps) => { 
+            //     var contains = (attrs) => {
+            //         if (attrs.owner && attrs.owner instanceof Monster && Utils.contains(attrs.owner.attrs["tags"], "plant"))
+            //         return true;
+            //     }
+            //     // 处理需要计算的攻击属性
+            //     if(contains(ps.attackerAttrs)){
+            //         var plantType = ps.attackerAttrs.owner.type;
+            //         var enhances = GCfg.getOccupationCfg(r.bt().player.occupation).relics.HorticultureMaster[plantType];
+            //         for (var i = 0; i < r.reinforceLv; i++){
+            //             var type = enhances[i].type;
+            //             var enhance = enhances[i].enhance;                        
+            //             switch (type){
+            //                 case "power":
+            //                 case "accuracy":
+            //                 case "critical":
+            //                 case "damageAdd":
+            //                     ps.attackerAttrs[type].a += enhance.a;
+            //                     ps.attackerAttrs[type].b += enhance.b;
+            //                     ps.attackerAttrs[type].c += enhance.c;
+            //                     break;
+            //                 case "attackFlags":
+            //                 case "addBuffs":
+            //                     ps.attackerAttrs[type].push(enhance);
+            //                     break;
+            //                 case "muiltAttack":
+            //                     ps.attackerAttrs[type] += enhance;
+            //                     break;
+            //                 default:
+            //                     break;
+            //             }
+            //         }
+            //     }
+            //     // 处理需要计算的防御属性
+            //     if (contains(ps.targetAttrs)){
+            //         var plantType = ps.attackerAttrs.owner.type;
+            //         var enhances = GCfg.getOccupationCfg(r.bt().player.occupation).relics.HorticultureMaster[plantType];
+            //         for (var i = 0; i < r.reinforceLv; i++){
+            //             var type = enhances[i].type;
+            //             var enhance = enhances[i].enhance;
+            //             switch (type){
+            //                 case "resist":
+            //                 case "dodge":
+            //                     ps.attackerAttrs[type].a += enhance.a;
+            //                     ps.attackerAttrs[type].b += enhance.b;
+            //                     ps.attackerAttrs[type].c += enhance.c;
+            //                     break;
+            //                 case "targetFlags":
+            //                     ps.attackerAttrs[type].push(enhance);
+            //                     break; 
+            //                 case "probImmunized":
+            //                     if (r.bt().srand.next100() < enhance)
+            //                         ps.targetAttrs.targetFlags.push("cancelAttack");
+            //                     break;
+            //                 default:
+            //                     break;
+            //             }
+            //         }
+            //     }
+            // }, r, (ps) => {
+            //     if(ps.attackerAttrs.owner && ps.attackerAttrs.owner instanceof Monster && Utils.contains(ps.attackerAttrs.owner.attrs["tags"], "plant")) return true;
+            //     else if(ps.targetAttrs.owner && ps.targetAttrs.owner instanceof Monster && Utils.contains(ps.targetAttrs.owner.attrs["tags"], "plant")) return true;
+            //     else return false;
+            // });
 
-            // 处理攻击间隔
-            r = <Relic>ElemFactory.addAI("onCalcAttackInterval", async (ps) => {
-                var enhances = GCfg.getOccupationCfg(r.bt().player.occupation).relics.HorticultureMaster[ps.m.type];
-                for (var i = 0; i < r.reinforceLv; i++){
-                    var type = enhances[i].type;
-                    var enhance = enhances[i].enhance;                    
-                    if(type == "attackInterval"){
-                        ps.dattackInterval.a += enhance.a;
-                        ps.dattackInterval.b += enhance.b;
-                        ps.dattackInterval.c += enhance.c;
-                    }                        
-                }
-            }, r, (ps) => ps.subType == "setAttackInterval" && ps.m instanceof Monster && Utils.contains(ps.m.attrs["tags"], "plant"))
+            // // 在怪物被添加的时候处理直接固定在怪物身上的属性
+            // r = <Relic>ElemFactory.addAI("onGridChanged", async (ps) => {
+            //     // 在此处理hp,shield
+            //     var m = <Monster>ps.e;
+            //     var enhances = GCfg.getOccupationCfg(r.bt().player.occupation).relics.HorticultureMaster[m.type];
+            //     for (var i = 0; i < r.reinforceLv; i++){
+            //         var type = enhances[i].type;
+            //         var enhance = enhances[i].enhance;                    
+            //         if(type == "hp") 
+            //             await r.bt().implAddMonsterHp(m, enhance);
+            //         else if(type == "shield") 
+            //             await r.bt().implAddMonsterShield(m, enhance);
+            //     }
+            // }, r, (ps) => ps.subType == "elemAdded" && ps.e instanceof Monster && Utils.contains(ps.e.attrs["tags"], "plant"));
+
+            // // 处理攻击间隔
+            // r = <Relic>ElemFactory.addAI("onCalcAttackInterval", async (ps) => {
+            //     var enhances = GCfg.getOccupationCfg(r.bt().player.occupation).relics.HorticultureMaster[ps.m.type];
+            //     for (var i = 0; i < r.reinforceLv; i++){
+            //         var type = enhances[i].type;
+            //         var enhance = enhances[i].enhance;                    
+            //         if(type == "attackInterval"){
+            //             ps.dattackInterval.a += enhance.a;
+            //             ps.dattackInterval.b += enhance.b;
+            //             ps.dattackInterval.c += enhance.c;
+            //         }
+            //     }
+            // }, r, (ps) => ps.subType == "setAttackInterval" && ps.m instanceof Monster && Utils.contains(ps.m.attrs["tags"], "plant"))
             return r;
         },
 
@@ -388,7 +412,7 @@ class RelicFactory {
                         if(g){
                             var elemType = elemTypes[r.bt().srand.nextInt(0, elemTypes.length)];
                             await Utils.delay(500);
-                            await bt.implAddElemAt(bt.level.createElem(elemType), g.pos.x, g.pos.y);
+                            await bt.implAddElemAt(bt.level.createElem(elemType, undefined, r.bt().player), g.pos.x, g.pos.y);
                         }                        
                     }
                 }, r)
