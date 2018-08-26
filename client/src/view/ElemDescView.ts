@@ -154,14 +154,10 @@ class ElemDescView extends egret.DisplayObjectContainer {
             var type = e.type.substring(0 , index);
             this.monsterName.text = ViewUtils.getElemNameAndDesc(type).name;            
             descArr = ViewUtils.getElemNameAndDesc("CharmedNormal").desc;
-            // var txt = ViewUtils.replaceByProperties(CharmedNormalDesc.desc, e);
-            // this.monsterDesc.textFlow = ViewUtils.fromHtml(txt);
         } else {
             var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
             this.monsterName.text = nameAndDesc.name;
             descArr = nameAndDesc.desc;
-            // var txt = ViewUtils.replaceByProperties(, e);
-            // this.monsterDesc.textFlow = ViewUtils.fromHtml(txt);
         }
 
         descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(ViewUtils.replaceByProperties(desc, e)));
@@ -172,7 +168,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         monsterDescTxt0.textFlow = descArr[0];
         this.addChild(monsterDescTxt0);
         var bgFrame0 = ViewUtils.createBitmapByName("bgFrame_png");
-        bgFrame0.name = "bgFrame0";
+        bgFrame0.name = "monsterDescBgFrame0";
         bgFrame0.scale9Grid = new egret.Rectangle(45, 45, 225, 1);
         this.addChild(bgFrame0);
         ViewUtils.multiLang(this, monsterDescTxt0, bgFrame0);
@@ -207,27 +203,61 @@ class ElemDescView extends egret.DisplayObjectContainer {
     relicDescBg:egret.Bitmap; // 背景
     relicIcon:egret.Bitmap; // 图标
     relicName:egret.TextField; // 名称
-    relicDesc:egret.TextField; // 描述
     buildRelicDescView() {
-        this.relicDescBg = ViewUtils.createBitmapByName("translucent_png");
+        this.relicDescBg = ViewUtils.createBitmapByName("confirmBg_png");
         this.relicDescBg.name = "relicDescBg";
         this.relicIcon = new egret.Bitmap();
         this.relicIcon.name = "relicIcon";
         this.relicName = ViewUtils.createTextField(30, 0xff0000, false, false);
         this.relicName.name = "relicName";
-        this.relicDesc = ViewUtils.createTextField(18, 0xff0000, false, false);
-        this.relicDesc.name = "relicDesc";
-        return [this.relicDescBg, this.relicIcon, this.relicName, this.relicDesc];
+        return [this.relicDescBg, this.relicIcon, this.relicName];
     }
 
     refreshRelicDesc(e:Elem) {
         ViewUtils.setTexName(this.relicIcon, e.getElemImgRes() + "_png");
         var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
+        this.relicName.textAlign = egret.HorizontalAlign.LEFT;
         this.relicName.textFlow = [{text: nameAndDesc.name, style:{"textColor":0xff0000, "size":30}},
             {text: " Lv " + ((<Relic>e).reinforceLv + 1), style:{"textColor":0xff0000, "size":30}}];
 
-        var txt = ViewUtils.replaceByProperties(nameAndDesc.desc, e);
-        this.relicDesc.textFlow = ViewUtils.fromHtml(txt);
+        var descArr = ViewUtils.getElemNameAndDesc(e.type).desc;
+        descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(ViewUtils.replaceByProperties(desc, e)));
+
+        // 第一组描述文字根据配置排版，后续的对齐第一组
+        var relicDescTxt0 = new egret.TextField();
+        relicDescTxt0.name = "relicDesc0";
+        relicDescTxt0.textFlow = descArr[0];
+        this.addChild(relicDescTxt0);
+        var bgFrame0 = ViewUtils.createBitmapByName("bgFrame_png");
+        bgFrame0.name = "relicDescBgFrame0";
+        bgFrame0.scale9Grid = new egret.Rectangle(45, 45, 225, 1);
+        this.addChild(bgFrame0);
+        ViewUtils.multiLang(this, relicDescTxt0, bgFrame0);
+
+        var yInterval = 25;
+        bgFrame0.height = relicDescTxt0.height + 65;
+        var currentY = bgFrame0.y + bgFrame0.height + yInterval;
+
+        for (var i = 1; i < descArr.length; i++) {
+            var txt = new egret.TextField();
+            txt.textFlow = descArr[i];
+            txt.x = relicDescTxt0.x;
+            txt.width = relicDescTxt0.width;
+            txt.y = currentY;
+            this.addChild(txt);
+
+            var bgFrame = ViewUtils.createBitmapByName("bgFrame_png");
+            bgFrame.x = bgFrame0.x;
+            bgFrame.width = bgFrame0.width;
+            bgFrame.y = txt.y + bgFrame0.y - relicDescTxt0.y;
+            bgFrame.height = txt.height + 65;
+            bgFrame.scale9Grid = new egret.Rectangle(45, 45, 225, 1);
+            this.addChild(bgFrame);
+
+            currentY = bgFrame.y + bgFrame.height + yInterval;
+        }
+
+        this.relicDescBg.height = currentY - this.relicDescBg.y + 70;
     }
     
     // 物品只有名称和简单文字描述两部分

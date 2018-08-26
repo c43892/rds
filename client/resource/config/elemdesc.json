@@ -1,6 +1,9 @@
 {
     "EN": {
-        "MedicineBox":{"name":"MedicineBox", "desc":"<font color=#3333cc size=20>Enhanced attribute\n\n<font color=#000000 size=18>heal up to <font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>damage when you leave a floor</font>" },
+        "MedicineBox":{"name":"MedicineBox", "desc":[
+            "<font color=#3333cc size=20>Enhanced attribute\n\n<font color=#000000 size=18>heal up to <font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>damage when you leave a floor</font>",
+            "<font color=#3333cc size=20>Enhanced attribute\n\n<font color=#000000 size=18>heal up to <font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>damage when you leave a floor</font>"
+        ]},
         "Hawkeye":{"name":"Hawkeye", "desc":"<font color=#3333cc size=20>Enhanced attribute\n\n<font color=#000000 size=18>Mark a monster with a key at the beginning of each level</font>"},
         "Endurance":{"name":"Endurance", "desc":"<font color=#3333cc size=20>Enhanced attribute\n\n<font color=#000000 size=18>Increase <font color=#00ff00 size=18>{dMaxHp} <font color=#000000 size=18> max hp</font>"},
         "Power":{"name":"Power", "desc":"<font color=#3333cc size=20>Enhanced attribute\n\n<font color=#000000 size=18>Attack power <font color=#00ff00 size=18>+{dPower} <font color=#000000 size=18></font>"},
@@ -110,8 +113,11 @@
         "EscapePort":{"name":"EscapePort", "desc":""}
     },
     "CNS": {
-        "MedicineBox":{"name":"医药箱", "desc":"<font color=#3333cc size=20>强化属性\n\n<font color=#000000 size=18>离开每层时回复<font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>点生命值", 
-            "shortDesc":"这里是一个短描述，会用在升级界面"},
+        "MedicineBox":{"name":"医药箱", "desc":[
+            "<font color=#3333cc size=20>强化属性\n\n<font color=#000000 size=18>离开每层时回复<font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>点生命值", 
+            "<font color=#3333cc size=20>强化属性\n\n<font color=#000000 size=18>离开每层时回复<font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>点生命值"
+        ],
+        "shortDesc":"这里是一个短描述，会用在升级界面"},
         "Hawkeye":{"name":"鹰眼", "desc":"<font color=#3333cc size=20>强化属性\n\n<font color=#000000 size=18>每关开始时标记一个带钥匙的怪物", 
             "shortDesc":"这里是一个短描述，会用在升级界面"},
         "Endurance":{"name":"耐力", "desc":"<font color=#3333cc size=20>强化属性\n\n<font color=#000000 size=18>耐力：增加<font color=#00ff00 size=18>{dMaxHp} <font color=#000000 size=18>点最大生命值", 
@@ -234,7 +240,10 @@
         "EscapePort":{"name":"逃跑", "desc":"<font color=#000000 size=18>离开地牢"}
     },
     "CNT": {
-        "MedicineBox":{"name":"醫藥箱", "desc":"<font color=#3333cc size=20>強化屬性\n\n<font color=#000000 size=18>離開每層時回復<font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>點生命值" },
+        "MedicineBox":{"name":"醫藥箱", "desc":[
+            "<font color=#3333cc size=20>強化屬性\n\n<font color=#000000 size=18>離開每層時回復<font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>點生命值",
+            "<font color=#3333cc size=20>強化屬性\n\n<font color=#000000 size=18>離開每層時回復<font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>點生命值"
+        ]},
         "Hawkeye":{"name":"鷹眼", "desc":"<font color=#3333cc size=20>強化屬性\n\n<font color=#000000 size=18>每關開始時標記一個帶鑰匙的怪物"},
         "Endurance":{"name":"耐力", "desc":"<font color=#3333cc size=20>強化屬性\n\n<font color=#000000 size=18>耐力：增加<font color=#00ff00 size=18>{dMaxHp} <font color=#000000 size=18>點最大生命值"},
         "Power":{"name":"力量", "desc":"<font color=#3333cc size=20>強化屬性\n\n<font color=#000000 size=18>攻擊力 <font color=#00ff00 size=18>+{dPower}"},
