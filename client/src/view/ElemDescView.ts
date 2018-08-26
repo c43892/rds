@@ -172,13 +172,14 @@ class ElemDescView extends egret.DisplayObjectContainer {
         monsterDescTxt0.textFlow = descArr[0];
         this.addChild(monsterDescTxt0);
         var bgFrame0 = ViewUtils.createBitmapByName("bgFrame_png");
-        bgFrame0.name = "bgFrame";
+        bgFrame0.name = "bgFrame0";
         bgFrame0.scale9Grid = new egret.Rectangle(45, 45, 225, 1);
         this.addChild(bgFrame0);
         ViewUtils.multiLang(this, monsterDescTxt0, bgFrame0);
 
+        var yInterval = 25;
         bgFrame0.height = monsterDescTxt0.height + 65;
-        var currentY = bgFrame0.y + bgFrame0.height;
+        var currentY = bgFrame0.y + bgFrame0.height + yInterval;
 
         for (var i = 1; i < descArr.length; i++) {
             var txt = new egret.TextField();
@@ -196,7 +197,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
             bgFrame.scale9Grid = new egret.Rectangle(45, 45, 225, 1);
             this.addChild(bgFrame);
 
-            currentY = bgFrame.y + bgFrame.height;
+            currentY = bgFrame.y + bgFrame.height + yInterval;
         }
 
         this.monsterBg.height = currentY - this.monsterBg.y + 70;
@@ -250,7 +251,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
     refreshItemDesc(e:Elem) {
         var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
         this.itemName.text = nameAndDesc.name;
-        var txt = ViewUtils.replaceByProperties(nameAndDesc.desc, e);
+        var txt = ViewUtils.replaceByProperties(nameAndDesc.desc[0], e);
         this.itemDesc.textFlow = ViewUtils.fromHtml(txt);
         ViewUtils.setTexName(this.itemIcon, e.getElemImgRes() + "_png");
     }
