@@ -83,10 +83,10 @@ class AllRelicsView extends egret.DisplayObjectContainer {
             g.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTapRelic, this);
 
             // 等级星星
-            var starOffsetX = 12;
+            var starOffsetX = 13;
             var starOffsetY = 60;
             var xStride = 11;
-            for (var j = 0; j < r.reinforceLv * 5; j++) {
+            for (var j = 0; j < r.reinforceLv; j++) {
                 var star = ViewUtils.createBitmapByName("relicLvSign_png");
                 star.x = g.x + starOffsetX + xStride * j;
                 star.y = g.y + starOffsetY;
