@@ -54,8 +54,8 @@ class ElemDescView extends egret.DisplayObjectContainer {
         uiArr.unshift(this.bg);
         uiArr.push(this.closeBtn);
         uiArr.forEach((ui, _) => this.addChild(ui));
-        refresh(e);
         ViewUtils.multiLang(this, ...uiArr);
+        refresh(e);
         
         return new Promise((resolve, reject) => {
             this.doClose = resolve;
@@ -148,21 +148,58 @@ class ElemDescView extends egret.DisplayObjectContainer {
 
         ViewUtils.multiLang(this, ...attrs);
 
+        var descArr;
         if(e["Charmed"] == "normal"){
             var index = e.type.indexOf("Charmed");
             var type = e.type.substring(0 , index);
             this.monsterName.text = ViewUtils.getElemNameAndDesc(type).name;            
-            var CharmedNormalDesc = ViewUtils.getElemNameAndDesc("CharmedNormal");
+            descArr = ViewUtils.getElemNameAndDesc("CharmedNormal").desc;
             // var txt = ViewUtils.replaceByProperties(CharmedNormalDesc.desc, e);
             // this.monsterDesc.textFlow = ViewUtils.fromHtml(txt);
-        }
-        else{
+        } else {
             var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
             this.monsterName.text = nameAndDesc.name;
-            // var txt = ViewUtils.replaceByProperties(nameAndDesc.desc, e);
+            descArr = nameAndDesc.desc;
+            // var txt = ViewUtils.replaceByProperties(, e);
             // this.monsterDesc.textFlow = ViewUtils.fromHtml(txt);
         }
-        
+
+        descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(ViewUtils.replaceByProperties(desc, e)));
+
+        // 第一组描述文字根据配置排版，后续的对齐第一组
+        var monsterDescTxt0 = new egret.TextField();
+        monsterDescTxt0.name = "monsterDesc0";
+        monsterDescTxt0.textFlow = descArr[0];
+        this.addChild(monsterDescTxt0);
+        var bgFrame0 = ViewUtils.createBitmapByName("bgFrame_png");
+        bgFrame0.name = "bgFrame";
+        bgFrame0.scale9Grid = new egret.Rectangle(45, 45, 225, 1);
+        this.addChild(bgFrame0);
+        ViewUtils.multiLang(this, monsterDescTxt0, bgFrame0);
+
+        bgFrame0.height = monsterDescTxt0.height + 65;
+        var currentY = bgFrame0.y + bgFrame0.height;
+
+        for (var i = 1; i < descArr.length; i++) {
+            var txt = new egret.TextField();
+            txt.textFlow = descArr[i];
+            txt.x = monsterDescTxt0.x;
+            txt.width = monsterDescTxt0.width;
+            txt.y = currentY;
+            this.addChild(txt);
+
+            var bgFrame = ViewUtils.createBitmapByName("bgFrame_png");
+            bgFrame.x = bgFrame0.x;
+            bgFrame.width = bgFrame0.width;
+            bgFrame.y = txt.y + bgFrame0.y - monsterDescTxt0.y;
+            bgFrame.height = txt.height + 65;
+            bgFrame.scale9Grid = new egret.Rectangle(45, 45, 225, 1);
+            this.addChild(bgFrame);
+
+            currentY = bgFrame.y + bgFrame.height;
+        }
+
+        this.monsterBg.height = currentY - this.monsterBg.y + 70;
     }
 
     // 遗物，有头部（包含图标和名称等级描述），属性描述和变异描述三部分
