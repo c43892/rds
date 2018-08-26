@@ -60,17 +60,13 @@ class TurntableView extends egret.DisplayObjectContainer {
         this.tipBg.anchorOffsetY = this.tipBg.height / 2;
         this.addChild(this.tipBg);
 
-        this.tipContent = new egret.TextField;
+        this.tipContent = ViewUtils.createTextField(30, 0x000000);
         this.tipContent.x = this.bg.x + this.bg.width / 2;
         this.tipContent.y = this.bg.y + this.bg.height / 2;
         this.tipContent.width = this.tipBg.width - 100;
         this.tipContent.height = this.tipBg.height;
         this.tipContent.anchorOffsetX = this.tipContent.width / 2;
         this.tipContent.anchorOffsetY = this.tipContent.height / 2;
-        this.tipContent.textColor = 0X000000;
-        this.tipContent.size = 30;
-        this.tipContent.textAlign = egret.HorizontalAlign.CENTER;
-        this.tipContent.verticalAlign = egret.VerticalAlign.MIDDLE;
         this.addChild(this.tipContent);
 
         this.goOutBtn = ViewUtils.createBitmapByName("turntableGoOutBtn_png");

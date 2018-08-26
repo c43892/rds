@@ -163,7 +163,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(ViewUtils.replaceByProperties(desc, e)));
 
         // 第一组描述文字根据配置排版，后续的对齐第一组
-        var monsterDescTxt0 = new egret.TextField();
+        var monsterDescTxt0 = ViewUtils.createTextField(0, 0x000000);
         monsterDescTxt0.name = "monsterDesc0";
         monsterDescTxt0.textFlow = descArr[0];
         this.addChild(monsterDescTxt0);
@@ -178,7 +178,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         var currentY = bgFrame0.y + bgFrame0.height + yInterval;
 
         for (var i = 1; i < descArr.length; i++) {
-            var txt = new egret.TextField();
+            var txt = ViewUtils.createTextField(0, 0x000000);
             txt.textFlow = descArr[i];
             txt.x = monsterDescTxt0.x;
             txt.width = monsterDescTxt0.width;
@@ -224,7 +224,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(ViewUtils.replaceByProperties(desc, e)));
 
         // 第一组描述文字根据配置排版，后续的对齐第一组
-        var relicDescTxt0 = new egret.TextField();
+        var relicDescTxt0 = ViewUtils.createTextField(0, 0x000000);
         relicDescTxt0.name = "relicDesc0";
         relicDescTxt0.textFlow = descArr[0];
         this.addChild(relicDescTxt0);
@@ -239,7 +239,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         var currentY = bgFrame0.y + bgFrame0.height + yInterval;
 
         for (var i = 1; i < descArr.length; i++) {
-            var txt = new egret.TextField();
+            var txt = ViewUtils.createTextField(0, 0x000000);
             txt.textFlow = descArr[i];
             txt.x = relicDescTxt0.x;
             txt.width = relicDescTxt0.width;

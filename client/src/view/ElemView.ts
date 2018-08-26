@@ -5,7 +5,7 @@ class ElemView extends egret.DisplayObjectContainer {
     public gy:number;
 
     private showLayer:egret.DisplayObjectContainer; // 装入所有显示内容
-    private opLayer:egret.TextField; // 专门用于接收操作事件
+    private opLayer:egret.Bitmap; // 专门用于接收操作事件
     private elemImg:egret.Bitmap; // 元素图
     private markedImg:egret.Bitmap; // 被标记的怪物上面盖一层
     private banImg:egret.Bitmap; // 禁止符号
@@ -42,7 +42,7 @@ class ElemView extends egret.DisplayObjectContainer {
         this.dropElemImg.width = this.dropElemImg.height = 32;
         this.showLayer.addChild(this.dropElemImg);
 
-        this.opLayer = new egret.TextField(); // 事件层
+        this.opLayer = new egret.Bitmap(); // 事件层
         this.addChild(this.opLayer);
 
         // 血量，右下角，护盾，右上角，攻击力，左下角

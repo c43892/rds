@@ -22,10 +22,8 @@ class PropView extends egret.DisplayObjectContainer {
         this.anchorOffsetY = 0;
 
         // 叠加数量
-        this.num = new egret.TextField();
+        this.num = ViewUtils.createTextField(25, 0xffffff);
         this.num.name = "num";
-        this.num.textColor = 0xffffff;
-        this.num.size = 25;
         this.num.anchorOffsetX = 0;
         this.num.anchorOffsetY = 0;
         this.num.x = 0;

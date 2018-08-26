@@ -10,7 +10,7 @@ class ReplayView extends egret.DisplayObjectContainer {
         this.width = w;
         this.height = h;
 
-        this.openBtn = new egret.TextField();
+        this.openBtn = ViewUtils.createTextField(30, 0x000000);
         this.openBtn.width = 30;
         this.openBtn.height = 30;
         this.openBtn.size = 30;
@@ -57,14 +57,12 @@ class ReplayView extends egret.DisplayObjectContainer {
         
         for (var i = 0; i < rs.length; i++) {
             var r = rs[rs.length - i - 1];
-            var rt = new egret.TextField();
+            var rt = ViewUtils.createTextField(45, 0x00ff00);
             rt.width = this.listArea.width;
             rt.height = 50;
             rt.text = r.time;
-            rt.textColor = 0x00ff00;
             rt.stroke = 1;
             rt.strokeColor = 0x888888;
-            rt.size = 45;
             rt.textAlign = egret.HorizontalAlign.CENTER;
             rt.x = 0;
             rt.y = rt.height * i;
