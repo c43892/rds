@@ -1,6 +1,9 @@
 {
     "EN": {
-        "MedicineBox":{"name":"MedicineBox", "desc":"<font color=#3333cc size=20>Enhanced attribute\n\n<font color=#000000 size=18>heal up to <font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>damage when you leave a floor</font>" },
+        "MedicineBox":{"name":"MedicineBox", "desc":[
+            "<font color=#3333cc size=20>Enhanced attribute\n\n<font color=#000000 size=18>heal up to <font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>damage when you leave a floor</font>",
+            "<font color=#3333cc size=20>Enhanced attribute\n\n<font color=#000000 size=18>heal up to <font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>damage when you leave a floor</font>"
+        ]},
         "Hawkeye":{"name":"Hawkeye", "desc":"<font color=#3333cc size=20>Enhanced attribute\n\n<font color=#000000 size=18>Mark a monster with a key at the beginning of each level</font>"},
         "Endurance":{"name":"Endurance", "desc":"<font color=#3333cc size=20>Enhanced attribute\n\n<font color=#000000 size=18>Increase <font color=#00ff00 size=18>{dMaxHp} <font color=#000000 size=18> max hp</font>"},
         "Power":{"name":"Power", "desc":"<font color=#3333cc size=20>Enhanced attribute\n\n<font color=#000000 size=18>Attack power <font color=#00ff00 size=18>+{dPower} <font color=#000000 size=18></font>"},
@@ -77,7 +80,9 @@
         "CherryBomb":{"name":"樱桃炸弹", "desc":""},
         "Sunflower":{"name":"太阳花", "desc":""},
         "CharmingMushroom":{"name":"魅惑菇", "desc":""},
-        "ShopNpc":{"name":"ShopNpc", "desc":"<font color=#3333cc size=20>Shop\n\n<font color=#000000 size=18>Sell all kinds of props here;<font>"},
+        "ShopNpc":{"name":"ShopNpc", "desc":[
+            "<font color=#3333cc size=20>Shop\n\n<font color=#000000 size=18>Sell all kinds of props here;<font>"
+        ]},
         "CharmedNormal":{"desc":"<font color=#3333cc size=20>attack monster in its attack range, attack back after being hurt"},
         "BombAbominationCharmed":{"name":"自曝憎恶", "desc":"<font color=#3333cc size=20>explode after 2 rounds\n\n<font color=#3333cc size=20>attack monster in its attack range, attack back after being hurt"},
         "EyeDemonCharmed":{"name":"眼魔", "desc":"<font color=#3333cc size=20>透視\n\n<font color=#000000 size=18>死亡時探索2個空方格\n\n<font color=#3333cc size=20>attack monster in its attack range, attack back after being hurt"},
@@ -114,7 +119,7 @@
 		"SuperPotion":{"name":"SuperPotion", "desc":"<font color=#000000 size=18>In<font color=#00ff00 size=18>{immunizeCnt} <font color=#000000 size=18>rounds, you will not be attacked and immune to all injuries"},
         "StrangthPotion":{"name":"StrangthPotion", "desc":""},
         "Hole":{"name":"Hole", "desc":""},
-        "Apple":{"name":"Apple", "desc":"<font color=#000000 size=18>Gain<font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>hp</font>"},
+        "Apple":{"name":"Apple", "desc":["<font color=#000000 size=18>Gain<font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>hp</font>"]},
         "Steak":{"name":"Steak", "desc":"<font color=#000000 size=18>Gain<font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>hp</font>"},
         "IceBlock":{"name":"IceBlock", "desc":"<font color=#000000 size=18>Can be broken and disappear</font>"},
         "Knife":{"name":"Knife", "desc":"<font color=#000000 size=18>Throw a weapon, dealing <font color=#00ff00 size=18>{power} <font color=#000000 size=18>damage</font>"},
@@ -133,8 +138,11 @@
         "EscapePort":{"name":"EscapePort", "desc":""}
     },
     "CNS": {
-        "MedicineBox":{"name":"医药箱", "desc":"<font color=#3333cc size=20>强化属性\n\n<font color=#000000 size=18>离开每层时回复<font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>点生命值", 
-            "shortDesc":"这里是一个短描述，会用在升级界面"},
+        "MedicineBox":{"name":"医药箱", "desc":[
+            "<font color=#3333cc size=20>强化属性\n\n<font color=#000000 size=18>离开每层时回复<font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>点生命值", 
+            "<font color=#3333cc size=20>强化属性\n\n<font color=#000000 size=18>离开每层时回复<font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>点生命值"
+        ],
+        "shortDesc":"这里是一个短描述，会用在升级界面"},
         "Hawkeye":{"name":"鹰眼", "desc":"<font color=#3333cc size=20>强化属性\n\n<font color=#000000 size=18>每关开始时标记一个带钥匙的怪物", 
             "shortDesc":"这里是一个短描述，会用在升级界面"},
         "Endurance":{"name":"耐力", "desc":"<font color=#3333cc size=20>强化属性\n\n<font color=#000000 size=18>耐力：增加<font color=#00ff00 size=18>{dMaxHp} <font color=#000000 size=18>点最大生命值", 
@@ -223,7 +231,10 @@
         "CherryBomb":{"name":"樱桃炸弹", "desc":""},
         "Sunflower":{"name":"太阳花", "desc":""},
         "CharmingMushroom":{"name":"魅惑菇", "desc":""},
-        "ShopNpc":{"name":"商人", "desc":"<font color=#3333cc size=20>商店\n\n<font color=#000000 size=18>这里出售各种道具"},
+        "ShopNpc":{"name":"商人", "desc":[
+            "<font color=#3333cc size=20>Shop\n\n<font color=#000000 size=38>Sell all kinds of props here;<font>",
+            "<font color=#3333cc size=20>Shop\n\n<font color=#000000 size=38>Sell all kinds of props here;<font>"
+        ]},
         "CharmedNormal":{"desc":"<font color=#3333cc size=20>attack monster in its attack range, attack back after being hurt"},
         "BombAbominationCharmed":{"name":"自曝憎恶", "desc":"<font color=#3333cc size=20>explode after 2 rounds\n\n<font color=#3333cc size=20>attack monster in its attack range, attack back after being hurt"},
         "EyeDemonCharmed":{"name":"眼魔", "desc":"<font color=#3333cc size=20>透視\n\n<font color=#000000 size=18>死亡時探索2個空方格\n\n<font color=#3333cc size=20>attack monster in its attack range, attack back after being hurt"},
@@ -260,7 +271,7 @@
         "SuperPotion":{"name":"超能药水", "desc":"<font color=#000000 size=18>在<font color=#00ff00 size=18>{immunizeCnt}<font color=#000000 size=18>回合内，不会受到突袭，免疫所有伤害"}, 
         "StrangthPotion":{"name":"力量药水", "desc":""},
         "Hole":{"name":"黑洞", "desc":""},
-        "Apple":{"name":"苹果", "desc":"<font color=#000000 size=18>使用回复<font color=#00ff00 size=18>{dhp}<font color=#000000 size=18>点生命值"},
+        "Apple":{"name":"苹果", "desc":["<font color=#000000 size=18>使用回复<font color=#00ff00 size=18>{dhp}<font color=#000000 size=18>点生命值"]},
         "Steak":{"name":"牛排", "desc":"<font color=#000000 size=18>使用回复<font color=#00ff00 size=18>{dhp}<font color=#000000 size=18>点生命值"},
         "IceBlock":{"name":"冰块", "desc":"<font color=#000000 size=18>可以打破消失"},
         "Knife":{"name":"小刀", "desc":"<font color=#000000 size=18>投掷武器，造成1点伤害"},
@@ -279,7 +290,10 @@
         "EscapePort":{"name":"逃跑", "desc":"<font color=#000000 size=18>离开地牢"}
     },
     "CNT": {
-        "MedicineBox":{"name":"醫藥箱", "desc":"<font color=#3333cc size=20>強化屬性\n\n<font color=#000000 size=18>離開每層時回復<font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>點生命值" },
+        "MedicineBox":{"name":"醫藥箱", "desc":[
+            "<font color=#3333cc size=20>強化屬性\n\n<font color=#000000 size=18>離開每層時回復<font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>點生命值",
+            "<font color=#3333cc size=20>強化屬性\n\n<font color=#000000 size=18>離開每層時回復<font color=#00ff00 size=18>{dhp} <font color=#000000 size=18>點生命值"
+        ]},
         "Hawkeye":{"name":"鷹眼", "desc":"<font color=#3333cc size=20>強化屬性\n\n<font color=#000000 size=18>每關開始時標記一個帶鑰匙的怪物"},
         "Endurance":{"name":"耐力", "desc":"<font color=#3333cc size=20>強化屬性\n\n<font color=#000000 size=18>耐力：增加<font color=#00ff00 size=18>{dMaxHp} <font color=#000000 size=18>點最大生命值"},
         "Power":{"name":"力量", "desc":"<font color=#3333cc size=20>強化屬性\n\n<font color=#000000 size=18>攻擊力 <font color=#00ff00 size=18>+{dPower}"},
@@ -353,7 +367,9 @@
         "CherryBomb":{"name":"樱桃炸弹", "desc":""},
         "Sunflower":{"name":"太阳花", "desc":""},
         "CharmingMushroom":{"name":"魅惑菇", "desc":""},
-        "ShopNpc":{"name":"商人", "desc":"<font color=#3333cc size=20>商店\n\n<font color=#000000 size=18>這裡出售各種道具"},
+        "ShopNpc":{"name":"商人", "desc":[
+            "<font color=#3333cc size=20>Shop\n\n<font color=#000000 size=18>Sell all kinds of props here;<font>"
+        ]},
         "CharmedNormal":{"desc":"<font color=#3333cc size=20>attack monster in its attack range, attack back after being hurt"},
         "BombAbominationCharmed":{"name":"自曝憎恶", "desc":"<font color=#3333cc size=20>explode after 2 rounds\n\n<font color=#3333cc size=20>attack monster in its attack range, attack back after being hurt"},
         "EyeDemonCharmed":{"name":"眼魔", "desc":"<font color=#3333cc size=20>透視\n\n<font color=#000000 size=18>死亡時探2個空方格\n\n<font color=#3333cc size=20>attack monster in its attack range, attack back after being hurt"},
@@ -390,7 +406,7 @@
         "SuperPotion":{"name":"超能藥水", "desc":"<font color=#000000 size=18>在<font color=#00ff00 size=18>{immunizeCnt}<font color=#000000 size=18>回合內，不會受到突襲，免疫所有傷害"},
         "StrangthPotion":{"name":"力量药水", "desc":""},
         "Hole":{"name":"黑洞", "desc":""},
-        "Apple":{"name":"蘋果", "desc":"<font color=#000000 size=18>使用回復<font color=#00ff00 size=18>{dhp}<font color=#000000 size=18>點生命值"},
+        "Apple":{"name":"蘋果", "desc":["<font color=#000000 size=18>使用回復<font color=#00ff00 size=18>{dhp}<font color=#000000 size=18>點生命值"]},
         "Steak":{"name":"牛排", "desc":"<font color=#000000 size=18>使用回復<font color=#00ff00 size=18>{dhp}<font color=#000000 size=18>點生命值"},
         "IceBlock":{"name":"冰塊", "desc":"<font color=#000000 size=18>可以打破消失"},
         "Knife":{"name":"小刀", "desc":"<font color=#000000 size=18>投擲武器，造成1點傷害"},

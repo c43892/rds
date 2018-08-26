@@ -18,7 +18,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         this.uis["item"] = this.buildItemDescView();
 
         // 背景压暗，点击不能穿透
-        this.bg = ViewUtils.createBitmapByName("black_png");
+        this.bg = ViewUtils.createBitmapByName("translucent_png");
         this.bg.name = "bg";
         this.bg.x = this.bg.y = 0;
         this.bg.width = w;
@@ -53,11 +53,9 @@ class ElemDescView extends egret.DisplayObjectContainer {
 
         uiArr.unshift(this.bg);
         uiArr.push(this.closeBtn);
-        for (var ui of uiArr)
-            this.addChild(ui);
-
-        refresh(e);
+        uiArr.forEach((ui, _) => this.addChild(ui));
         ViewUtils.multiLang(this, ...uiArr);
+        refresh(e);
         
         return new Promise((resolve, reject) => {
             this.doClose = resolve;
@@ -77,31 +75,39 @@ class ElemDescView extends egret.DisplayObjectContainer {
     shieldTxt:egret.TextField;
     attackIntervalBg:egret.Bitmap;
     attackIntervalTxt:egret.TextField;
-    monsterDesc:egret.TextField;
     monsterName:egret.TextField;
     buildMonsterDescView() {
-        this.monsterBg = ViewUtils.createBitmapByName("translucent_png");
+        this.monsterBg = ViewUtils.createBitmapByName("confirmBg_png");
         this.monsterBg.name = "monsterBg";
         this.monsterName = ViewUtils.createTextField(40, 0x00ffff);
         this.monsterName.name = "monsterName";
         this.monsterIcon = new egret.Bitmap();
         this.monsterIcon.name = "monsterIcon";
         
-        this.powerBg = ViewUtils.createBitmapByName("monsterPowerBg_png");
-        this.powerTxt = ViewUtils.createTextField(25, 0xff0000, false);
-        this.hpBg = ViewUtils.createBitmapByName("monsterHpBg_png");
-        this.hpTxt = ViewUtils.createTextField(25, 0xffff00, false);
-        this.moveRangeBg = ViewUtils.createBitmapByName("monsterMoveRangeBg_png");
-        this.moveRangeTxt = ViewUtils.createTextField(25, 0x0000ff, false);
-        this.shieldBg = ViewUtils.createBitmapByName("monsterShieldBg_png");
-        this.shieldTxt = ViewUtils.createTextField(25, 0x0000ff, false);
-        this.attackIntervalBg = ViewUtils.createBitmapByName("monsterAttackIntervalBg_png");
-        this.attackIntervalTxt = ViewUtils.createTextField(25, 0x0000ff, false);
+        this.powerBg = ViewUtils.createBitmapByName("attrsBgPower_png");
+        this.powerBg.name = "powerBg";
+        this.powerTxt = ViewUtils.createTextField(25, 0x000000, false);
+        this.powerTxt.name = "powerTxt";
+        this.hpBg = ViewUtils.createBitmapByName("attrsBgHp_png");
+        this.hpBg.name = "hpBg";
+        this.hpTxt = ViewUtils.createTextField(25, 0x000000, false);
+        this.hpTxt.name = "hpTxt";
+        this.moveRangeBg = ViewUtils.createBitmapByName("attrsBgMoveRange_png");
+        this.moveRangeBg.name = "moveRangeBg";
+        this.moveRangeTxt = ViewUtils.createTextField(25, 0x000000, false);
+        this.moveRangeTxt.name = "moveRangeTxt";
+        this.shieldBg = ViewUtils.createBitmapByName("attrsBgShield_png");
+        this.shieldBg.name = "shieldBg";
+        this.shieldTxt = ViewUtils.createTextField(25, 0x000000, false);
+        this.shieldTxt.name = "shieldTxt";
+        this.attackIntervalBg = ViewUtils.createBitmapByName("attrsBgAttackInterval_png");
+        this.attackIntervalBg.name = "attackIntervalBg";
+        this.attackIntervalTxt = ViewUtils.createTextField(25, 0x000000, false);
+        this.attackIntervalTxt.name = "attackIntervalTxt";
 
-        this.monsterDesc = ViewUtils.createTextField(25, 0x000000, false, false);
-        this.monsterDesc.name = "monsterDesc";
-
-        return [this.monsterBg, this.monsterName, this.monsterIcon, this.monsterDesc];
+        return [this.monsterBg, this.monsterName, this.monsterIcon, 
+            this.powerBg, this.powerTxt, this.hpBg, this.hpTxt, this.moveRangeBg, this.moveRangeTxt,
+            this.shieldBg, this.shieldTxt, this.attackIntervalBg, this.attackIntervalTxt];
     }
 
     refreshMonsterDesc(e:Elem) {
@@ -110,112 +116,174 @@ class ElemDescView extends egret.DisplayObjectContainer {
 
         var n = 1;
         var attrs = [];        
-        if (m.attrs.power){
-            this.powerTxt.text = m.attrs.power.toString();
-            this.powerTxt.name = "attrtxt" + n;
-            this.powerBg.name = "attrbg" + n;
-            attrs.push(this.powerBg, this.powerTxt);
-            n++;
-        }
+        this.powerTxt.text = m.attrs.power ? m.attrs.power.toString() : 0;
+        attrs.push(this.powerBg, this.powerTxt);
+        n++;
 
         this.hpTxt.text = m.hp.toString();
-        this.hpTxt.name = "attrtxt" + n;
-        this.hpBg.name = "attrbg" + n;
         attrs.push(this.hpBg, this.hpTxt);
         n++;
 
-        if (m.attrs.moveRange > 0) {
-            this.moveRangeTxt.text = m.attrs.moveRange.toString();
-            this.moveRangeTxt.name = "attrtxt" + n;
-            this.moveRangeBg.name = "attrbg" + n;
-            attrs.push(this.moveRangeBg, this.moveRangeTxt);
-            n++;
-        }
+        this.moveRangeTxt.text = m.attrs.moveRange ? m.attrs.moveRange.toString() : 0;
+        attrs.push(this.moveRangeBg, this.moveRangeTxt);
+        n++;
 
         if (m.shield > 0) {
             this.shieldTxt.text = m.shield.toString();
-            this.shieldTxt.name = "attrtxt" + n;
-            this.shieldBg.name = "attrbg" + n;
             attrs.push(this.shieldBg, this.shieldTxt);
             n++;
+        } else {
+            this.removeChild(this.shieldBg);
+            this.removeChild(this.shieldTxt);
         }
 
         if (m.attrs.attackInterval > 0) {
             this.attackIntervalTxt.text = m.attrs.attackInterval.toString();
-            this.attackIntervalTxt.name = "attrtxt" + n;
-            this.attackIntervalBg.name = "attrbg" + n;
             attrs.push(this.attackIntervalBg, this.attackIntervalTxt);
             n++;
+        } else {
+            this.removeChild(this.attackIntervalBg);
+            this.removeChild(this.attackIntervalTxt);
         }
-
-        for (var ui of attrs)
-            this.addChild(ui);
 
         ViewUtils.multiLang(this, ...attrs);
 
+        var descArr;
         if(e["Charmed"] == "normal"){
             var index = e.type.indexOf("Charmed");
             var type = e.type.substring(0 , index);
             this.monsterName.text = ViewUtils.getElemNameAndDesc(type).name;            
-            var CharmedNormalDesc = ViewUtils.getElemNameAndDesc("CharmedNormal");
-            var txt = ViewUtils.replaceByProperties(CharmedNormalDesc.desc, e);
-            this.monsterDesc.textFlow = ViewUtils.fromHtml(txt);
-        }
-        else{
+            descArr = ViewUtils.getElemNameAndDesc("CharmedNormal").desc;
+        } else {
             var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
             this.monsterName.text = nameAndDesc.name;
-            var txt = ViewUtils.replaceByProperties(nameAndDesc.desc, e);
-            this.monsterDesc.textFlow = ViewUtils.fromHtml(txt);
+            descArr = nameAndDesc.desc;
         }
-        
+
+        descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(ViewUtils.replaceByProperties(desc, e)));
+
+        // 第一组描述文字根据配置排版，后续的对齐第一组
+        var monsterDescTxt0 = ViewUtils.createTextField(0, 0x000000);
+        monsterDescTxt0.name = "monsterDesc0";
+        monsterDescTxt0.textFlow = descArr[0];
+        this.addChild(monsterDescTxt0);
+        var bgFrame0 = ViewUtils.createBitmapByName("bgFrame_png");
+        bgFrame0.name = "monsterDescBgFrame0";
+        bgFrame0.scale9Grid = new egret.Rectangle(45, 45, 225, 1);
+        this.addChild(bgFrame0);
+        ViewUtils.multiLang(this, monsterDescTxt0, bgFrame0);
+
+        var yInterval = 25;
+        bgFrame0.height = monsterDescTxt0.height + 65;
+        var currentY = bgFrame0.y + bgFrame0.height + yInterval;
+
+        for (var i = 1; i < descArr.length; i++) {
+            var txt = ViewUtils.createTextField(0, 0x000000);
+            txt.textFlow = descArr[i];
+            txt.x = monsterDescTxt0.x;
+            txt.width = monsterDescTxt0.width;
+            txt.y = currentY;
+            this.addChild(txt);
+
+            var bgFrame = ViewUtils.createBitmapByName("bgFrame_png");
+            bgFrame.x = bgFrame0.x;
+            bgFrame.width = bgFrame0.width;
+            bgFrame.y = txt.y + bgFrame0.y - monsterDescTxt0.y;
+            bgFrame.height = txt.height + 65;
+            bgFrame.scale9Grid = new egret.Rectangle(45, 45, 225, 1);
+            this.addChild(bgFrame);
+
+            currentY = bgFrame.y + bgFrame.height + yInterval;
+        }
+
+        this.monsterBg.height = currentY - this.monsterBg.y + 70;
     }
 
     // 遗物，有头部（包含图标和名称等级描述），属性描述和变异描述三部分
     relicDescBg:egret.Bitmap; // 背景
     relicIcon:egret.Bitmap; // 图标
     relicName:egret.TextField; // 名称
-    relicDesc:egret.TextField; // 描述
     buildRelicDescView() {
-        this.relicDescBg = ViewUtils.createBitmapByName("translucent_png");
+        this.relicDescBg = ViewUtils.createBitmapByName("confirmBg_png");
         this.relicDescBg.name = "relicDescBg";
         this.relicIcon = new egret.Bitmap();
         this.relicIcon.name = "relicIcon";
         this.relicName = ViewUtils.createTextField(30, 0xff0000, false, false);
         this.relicName.name = "relicName";
-        this.relicDesc = ViewUtils.createTextField(18, 0xff0000, false, false);
-        this.relicDesc.name = "relicDesc";
-        return [this.relicDescBg, this.relicIcon, this.relicName, this.relicDesc];
+        return [this.relicDescBg, this.relicIcon, this.relicName];
     }
 
     refreshRelicDesc(e:Elem) {
         ViewUtils.setTexName(this.relicIcon, e.getElemImgRes() + "_png");
         var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
+        this.relicName.textAlign = egret.HorizontalAlign.LEFT;
         this.relicName.textFlow = [{text: nameAndDesc.name, style:{"textColor":0xff0000, "size":30}},
             {text: " Lv " + ((<Relic>e).reinforceLv + 1), style:{"textColor":0xff0000, "size":30}}];
 
-        var txt = ViewUtils.replaceByProperties(nameAndDesc.desc, e);
-        this.relicDesc.textFlow = ViewUtils.fromHtml(txt);
+        var descArr = ViewUtils.getElemNameAndDesc(e.type).desc;
+        descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(ViewUtils.replaceByProperties(desc, e)));
+
+        // 第一组描述文字根据配置排版，后续的对齐第一组
+        var relicDescTxt0 = ViewUtils.createTextField(0, 0x000000);
+        relicDescTxt0.name = "relicDesc0";
+        relicDescTxt0.textFlow = descArr[0];
+        this.addChild(relicDescTxt0);
+        var bgFrame0 = ViewUtils.createBitmapByName("bgFrame_png");
+        bgFrame0.name = "relicDescBgFrame0";
+        bgFrame0.scale9Grid = new egret.Rectangle(45, 45, 225, 1);
+        this.addChild(bgFrame0);
+        ViewUtils.multiLang(this, relicDescTxt0, bgFrame0);
+
+        var yInterval = 25;
+        bgFrame0.height = relicDescTxt0.height + 65;
+        var currentY = bgFrame0.y + bgFrame0.height + yInterval;
+
+        for (var i = 1; i < descArr.length; i++) {
+            var txt = ViewUtils.createTextField(0, 0x000000);
+            txt.textFlow = descArr[i];
+            txt.x = relicDescTxt0.x;
+            txt.width = relicDescTxt0.width;
+            txt.y = currentY;
+            this.addChild(txt);
+
+            var bgFrame = ViewUtils.createBitmapByName("bgFrame_png");
+            bgFrame.x = bgFrame0.x;
+            bgFrame.width = bgFrame0.width;
+            bgFrame.y = txt.y + bgFrame0.y - relicDescTxt0.y;
+            bgFrame.height = txt.height + 65;
+            bgFrame.scale9Grid = new egret.Rectangle(45, 45, 225, 1);
+            this.addChild(bgFrame);
+
+            currentY = bgFrame.y + bgFrame.height + yInterval;
+        }
+
+        this.relicDescBg.height = currentY - this.relicDescBg.y + 70;
     }
     
     // 物品只有名称和简单文字描述两部分
     itemDescBg:egret.Bitmap; // 背景
+    itemIcon:egret.Bitmap; // 物品图标
     itemName:egret.TextField; // 名称
     itemDesc:egret.TextField; // 描述
     buildItemDescView() {
-        this.itemDescBg = ViewUtils.createBitmapByName("translucent_png");
+        this.itemDescBg = ViewUtils.createBitmapByName("confirmBg_png");
         this.itemDescBg.name = "itemDescBg";
+        this.itemIcon = new egret.Bitmap();
+        this.itemIcon.name = "itemIcon";
         this.itemName = ViewUtils.createTextField(30, 0xff0000);
         this.itemName.name = "itemName";
+        this.itemName.textAlign = egret.HorizontalAlign.LEFT;
         this.itemDesc = ViewUtils.createTextField(18, 0x000000);
         this.itemDesc.name = "itemDesc";
-        return [this.itemDescBg, this.itemName, this.itemDesc];
+        return [this.itemDescBg, this.itemIcon, this.itemName, this.itemDesc];
     }
 
     refreshItemDesc(e:Elem) {
         var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
         this.itemName.text = nameAndDesc.name;
-        var txt = ViewUtils.replaceByProperties(nameAndDesc.desc, e);
+        var txt = ViewUtils.replaceByProperties(nameAndDesc.desc[0], e);
         this.itemDesc.textFlow = ViewUtils.fromHtml(txt);
+        ViewUtils.setTexName(this.itemIcon, e.getElemImgRes() + "_png");
     }
 
     onClose(evt:egret.TouchEvent) {

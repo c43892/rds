@@ -40,11 +40,8 @@ class ShopView extends egret.DisplayObjectContainer {
             this.addChild(gd);
             gd.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onSelItem, this);
 
-            var pt = new egret.TextField();
-            pt.textColor = 0xffffff;
-            pt.size = 20;
+            var pt = ViewUtils.createTextField(20, 0xffffff);
             pt.textAlign = egret.HorizontalAlign.LEFT;
-            pt.verticalAlign = egret.VerticalAlign.MIDDLE;
             pt.name = "price" + i.toString();
             this.prices.push(pt);
             this.addChild(pt);

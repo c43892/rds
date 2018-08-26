@@ -15,17 +15,16 @@ class SelView extends egret.DisplayObjectContainer {
     // N选一，f 是形如 f(c:string):boolean 表示某个指定的选项是否有效
     public sel1inN(title:string, choices:string[], f):Promise<any> {
         this.removeChildren();
-        var cw = 100, ch = 50; // 选项按钮的宽高
+        var cw = 100;
+        var ch = 50; // 选项按钮的宽高
         var space = (this.width - (cw * choices.length)) / (choices.length + 1);
         var x = space;
         var y = (this.height - ch) / 2;
         // 标题
-        var tt = new egret.TextField();
+        var tt = ViewUtils.createTextField(50, 0x00ff00);
         tt.text = title;
-        tt.size = 50;
-        tt.textColor = 0x00ff00;
-        tt.width = this.width; tt.height = ch;
-        tt.textAlign = egret.HorizontalAlign.CENTER;
+        tt.width = this.width;
+        tt.height = ch;
         tt.y = y - 100;
         this.addChild(tt);
         // 选项
@@ -33,11 +32,12 @@ class SelView extends egret.DisplayObjectContainer {
         for (var i = 0; i < choices.length; i++) {
             var n = i;
             var c = choices[n];
-            var btn = new egret.TextField();
+            var btn = ViewUtils.createTextField(50, 0x00ff00);
             btn.text = c;
-            btn.textColor = 0x00ff00;
-            btn.x = x; btn.y = y;
-            btn.width = cw; btn.height = ch;
+            btn.x = x;
+            btn.y = y;
+            btn.width = cw;
+            btn.height = ch;
             x += (cw + space);
             btn.touchEnabled = true;
             btn["n"] = n;
