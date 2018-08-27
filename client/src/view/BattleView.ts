@@ -385,9 +385,9 @@ class BattleView extends egret.DisplayObjectContainer {
     }
 
     // n 选 1
-    public async select1inN(title:string, choices:string[], f) {
-        return this.selView.sel1inN(title, choices, f);
-    }
+    // public async select1inN(title:string, choices:string[], f) {
+    //     return this.selView.sel1inN(title, choices, f);
+    // }
 
     // 打开目标选择界面
     public async selectGrid(f) {

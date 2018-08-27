@@ -112,8 +112,8 @@ class TipConfirmView extends egret.DisplayObjectContainer {
     public confirmOkYesNo(title:string, content:string, yesno:boolean, btnText):Promise<boolean> {
         this.clear();
         this.addChild(this.bg);
-        this.yesnoTitle.text = title;
-        this.yesnoContent.text = content;
+        this.yesnoTitle.textFlow = title ? ViewUtils.fromHtml(title) : [];
+        this.yesnoContent.textFlow = content ? ViewUtils.fromHtml(content) : [];
         this.addChild(this.okyesnoPanel);
 
         this.okyesnoPanel.addChild(this.btnYes);

@@ -70,7 +70,7 @@ class PropView extends egret.DisplayObjectContainer {
     public static try2UseProp; // 尝试无目标使用道具，会挂接形如 function(e:Elem) 的函数
     public static try2UsePropAt; // 尝试使用一个道具，将坐标为目标
     public static selectGrid; // 选择目标
-    public static select1InN; // n 选 1
+    public static confirmOkYesNo; // 确认选择
 
     static readonly LongPressThreshold = 500; // 按下持续 0.5s 算长按    
     static longPressed;
@@ -79,22 +79,19 @@ class PropView extends egret.DisplayObjectContainer {
     static pressTimer:egret.Timer; // 长按计时
 
     // 点击
-    onTouchGrid(evt:egret.TouchEvent) {
+    async onTouchGrid(evt:egret.TouchEvent) {
         if (PropView.longPressed || !this.e)
             return;
 
         PropView.pressTimer.stop();
 
         if (this.e.canUse())
-            PropView.select1InN("确定使用 " + ViewUtils.getElemNameAndDesc(this.e.type).name, ["确定", "取消"], (c) => true, (c) => {
-                if (c == "确定")
-                    PropView.try2UseProp(this.e);
-            });
+            var content = ViewUtils.formatString(ViewUtils.getTipText("makeSureUseProp"), ViewUtils.getElemNameAndDesc(this.e.type).name);
+            var ok = await PropView.confirmOkYesNo(undefined, content, true, ["确定", "取消"]);
+            if (ok) PropView.try2UseProp(this.e);
         else if (this.e.useWithTarget()) {
-            PropView.selectGrid((x, y) => this.e.canUseAt(x, y), (pos) => {
-                if (!pos) return; // 取消选择
-                PropView.try2UsePropAt(this.e, pos.x, pos.y);
-            });
+            var pos = await PropView.selectGrid((x, y) => this.e.canUseAt(x, y));
+            if (pos) PropView.try2UsePropAt(this.e, pos.x, pos.y);
         }
     }
 

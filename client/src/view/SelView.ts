@@ -12,41 +12,41 @@ class SelView extends egret.DisplayObjectContainer {
     private clickHandler;
     private getClickPs;
 
-    // N选一，f 是形如 f(c:string):boolean 表示某个指定的选项是否有效
-    public sel1inN(title:string, choices:string[], f):Promise<any> {
-        this.removeChildren();
-        var cw = 100;
-        var ch = 50; // 选项按钮的宽高
-        var space = (this.width - (cw * choices.length)) / (choices.length + 1);
-        var x = space;
-        var y = (this.height - ch) / 2;
-        // 标题
-        var tt = ViewUtils.createTextField(50, 0x00ff00);
-        tt.text = title;
-        tt.width = this.width;
-        tt.height = ch;
-        tt.y = y - 100;
-        this.addChild(tt);
-        // 选项
-        var btn2c = [];
-        for (var i = 0; i < choices.length; i++) {
-            var n = i;
-            var c = choices[n];
-            var btn = ViewUtils.createTextField(50, 0x00ff00);
-            btn.text = c;
-            btn.x = x;
-            btn.y = y;
-            btn.width = cw;
-            btn.height = ch;
-            x += (cw + space);
-            btn.touchEnabled = true;
-            btn["n"] = n;
-            this.addChild(btn);
-        }
+    // // N选一，f 是形如 f(c:string):boolean 表示某个指定的选项是否有效
+    // public sel1inN(title:string, choices:string[], f):Promise<any> {
+    //     this.removeChildren();
+    //     var cw = 100;
+    //     var ch = 50; // 选项按钮的宽高
+    //     var space = (this.width - (cw * choices.length)) / (choices.length + 1);
+    //     var x = space;
+    //     var y = (this.height - ch) / 2;
+    //     // 标题
+    //     var tt = ViewUtils.createTextField(50, 0x00ff00);
+    //     tt.text = title;
+    //     tt.width = this.width;
+    //     tt.height = ch;
+    //     tt.y = y - 100;
+    //     this.addChild(tt);
+    //     // 选项
+    //     var btn2c = [];
+    //     for (var i = 0; i < choices.length; i++) {
+    //         var n = i;
+    //         var c = choices[n];
+    //         var btn = ViewUtils.createTextField(50, 0x00ff00);
+    //         btn.text = c;
+    //         btn.x = x;
+    //         btn.y = y;
+    //         btn.width = cw;
+    //         btn.height = ch;
+    //         x += (cw + space);
+    //         btn.touchEnabled = true;
+    //         btn["n"] = n;
+    //         this.addChild(btn);
+    //     }
 
-        this.getClickPs = (btn) => choices[btn["n"]];
-        return new Promise<any>((resolve, reject) => this.clickHandler = (ps) => resolve(ps));
-    }
+    //     this.getClickPs = (btn) => choices[btn["n"]];
+    //     return new Promise<any>((resolve, reject) => this.clickHandler = (ps) => resolve(ps));
+    // }
 
     // 选择一个格子，f 形如 function(x:number, y:number):Boolean 表示指定位置是否可选，返回值表示选中的位置
     public selGrid(gw:number, gh:number, w:number, h:number, offsetx:number, offsety:number, f):Promise<any> {
