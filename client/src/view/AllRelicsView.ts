@@ -28,7 +28,7 @@ class AllRelicsView extends egret.DisplayObjectContainer {
         this.bg1.name = "bg1";
 
         // 标题
-        this.title = ViewUtils.createTextField(50, 0xff0000);
+        this.title = ViewUtils.createTextField(45, 0x7d0403);
         this.title.text = ViewUtils.getTipText("relics");
         this.title.name = "title";
 

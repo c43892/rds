@@ -166,6 +166,8 @@ class ElemDescView extends egret.DisplayObjectContainer {
         var monsterDescTxt0 = ViewUtils.createTextField(0, 0x000000);
         monsterDescTxt0.name = "monsterDesc0";
         monsterDescTxt0.textFlow = descArr[0];
+        monsterDescTxt0.textAlign = egret.HorizontalAlign.LEFT;
+        monsterDescTxt0.lineSpacing = 8;
         this.addChild(monsterDescTxt0);
         var bgFrame0 = ViewUtils.createBitmapByName("bgFrame_png");
         bgFrame0.name = "monsterDescBgFrame0";
@@ -180,6 +182,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         for (var i = 1; i < descArr.length; i++) {
             var txt = ViewUtils.createTextField(0, 0x000000);
             txt.textAlign = egret.HorizontalAlign.LEFT;
+            txt.lineSpacing = 8;
             txt.textFlow = descArr[i];
             txt.x = monsterDescTxt0.x;
             txt.width = monsterDescTxt0.width;
@@ -229,6 +232,8 @@ class ElemDescView extends egret.DisplayObjectContainer {
         var relicDescTxt0 = ViewUtils.createTextField(0, 0x000000);
         relicDescTxt0.name = "relicDesc0";
         relicDescTxt0.textFlow = descArr[0];
+        relicDescTxt0.textAlign = egret.HorizontalAlign.LEFT;
+        relicDescTxt0.lineSpacing = 8;
         this.addChild(relicDescTxt0);
         var bgFrame0 = ViewUtils.createBitmapByName("bgFrame_png");
         bgFrame0.name = "relicDescBgFrame0";
@@ -243,6 +248,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         for (var i = 1; i < descArr.length; i++) {
             var txt = ViewUtils.createTextField(0, 0x000000);
             txt.textAlign = egret.HorizontalAlign.LEFT;
+            txt.lineSpacing = 8;
             txt.textFlow = descArr[i];
             txt.x = relicDescTxt0.x;
             txt.width = relicDescTxt0.width;
@@ -273,7 +279,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         this.itemDescBg.name = "itemDescBg";
         this.itemIcon = new egret.Bitmap();
         this.itemIcon.name = "itemIcon";
-        this.itemName = ViewUtils.createTextField(30, 0xff0000);
+        this.itemName = ViewUtils.createTextField(30, 0x7d0403);
         this.itemName.name = "itemName";
         this.itemName.textAlign = egret.HorizontalAlign.LEFT;
         this.itemDesc = ViewUtils.createTextField(18, 0x000000);

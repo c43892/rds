@@ -34,7 +34,9 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
             this.btnSelsRelicImgs[i].name = "imgSel" + i.toString();
             this.addChild(this.btnSelsRelicImgs[i]);
             
-            this.btnSelsRelicTxts[i] = ViewUtils.createTextField(30, 0xffffff);
+            this.btnSelsRelicTxts[i] = ViewUtils.createTextField(24, 0x000000);
+            this.btnSelsRelicTxts[i].textAlign = egret.HorizontalAlign.LEFT;
+            this.btnSelsRelicTxts[i].lineSpacing = 10;
             this.btnSelsRelicTxts[i].name = "txtSel" + i.toString();
             this.addChild(this.btnSelsRelicTxts[i]);
         }
