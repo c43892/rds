@@ -787,10 +787,10 @@ class MonsterFactory {
     }
 
     // 为玩家分摊伤害
-    static doShareDamageOnPlayerHurt(m:Monster):Monster {
+    static doShareDamageOnPlayerHurt(damageShared:number, m:Monster):Monster {
         m.isHazard = () => false;
         m = <Monster>ElemFactory.addAI("onCalcAttacking", (ps) => {
-            ps.targetAttrs.damageShared.a += m.attrs.damageShared;
+            ps.targetAttrs.damageShared.a += damageShared;
             ps["damageShared"] = true;
             ps.targetAttrs["damageSharedMonster"] = m;
         }, m, (ps) => {

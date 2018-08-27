@@ -9,7 +9,7 @@ class PlantFactory {
             var attrs = level.getElemCfg("NutWall").attrs;
             attrs = Utils.clone(attrs);
             var p = this.createPlant(attrs);
-            p = MonsterFactory.doShareDamageOnPlayerHurt(p);
+            p = MonsterFactory.doShareDamageOnPlayerHurt(30, p);
             p.getElemImgRes = () => "NutWall";
             return p;
         },
@@ -20,46 +20,42 @@ class PlantFactory {
             attrs = Utils.clone(attrs);
             attrs = this.addNumberTypeAttr(attrs, "hp", 5);
             var p = this.createPlant(attrs);
-            p = MonsterFactory.doShareDamageOnPlayerHurt(p);
+            p = MonsterFactory.doShareDamageOnPlayerHurt(30, p);
             p.getElemImgRes = () => "NutWall";
             return p;
         },
 
-        "NutWall3": (player:Player) => { // 坚果墙3 初始增加X点护甲
+        "NutWall3": (player:Player) => { // 坚果墙3 承担伤害提升为40%
             var level = player.bt().level;
             var attrs = level.getElemCfg("NutWall").attrs;
             attrs = Utils.clone(attrs);
             attrs = this.addNumberTypeAttr(attrs, "hp", 5);
-            attrs = this.addNumberTypeAttr(attrs, "shield", 5);
             var p = this.createPlant(attrs);
-            p = MonsterFactory.doShareDamageOnPlayerHurt(p);
+            p = MonsterFactory.doShareDamageOnPlayerHurt(40, p);
             p.getElemImgRes = () => "NutWall";
             return p;
         },
 
-        "NutWall4": (player:Player) => { // 坚果墙4 伤害减免+X%
+        "NutWall4": (player:Player) => { // 坚果墙4 坚果墙 生命值+X
             var level = player.bt().level;
             var attrs = level.getElemCfg("NutWall").attrs;
             attrs = Utils.clone(attrs);
             attrs = this.addNumberTypeAttr(attrs, "hp", 5);
-            attrs = this.addNumberTypeAttr(attrs, "shield", 5);
-            attrs = this.addNumberTypeAttr(attrs, "resist", 30);
+            attrs = this.addNumberTypeAttr(attrs, "hp", 5);
             var p = this.createPlant(attrs);
-            p = MonsterFactory.doShareDamageOnPlayerHurt(p);
+            p = MonsterFactory.doShareDamageOnPlayerHurt(40, p);
             p.getElemImgRes = () => "NutWall";
             return p;
         },
 
-        "NutWall5": (player:Player) => { // 坚果墙5 有X%的几率免疫伤害
+        "NutWall5": (player:Player) => { // 坚果墙5 承担伤害提升为50%
             var level = player.bt().level;
             var attrs = level.getElemCfg("NutWall").attrs;
             attrs = Utils.clone(attrs);
             attrs = this.addNumberTypeAttr(attrs, "hp", 5);
-            attrs = this.addNumberTypeAttr(attrs, "shield", 5);
-            attrs = this.addNumberTypeAttr(attrs, "resist", 30);
+            attrs = this.addNumberTypeAttr(attrs, "hp", 5);
             var p = this.createPlant(attrs);
-            p = MonsterFactory.doImmunizeDamageProb(30, p);
-            p = MonsterFactory.doShareDamageOnPlayerHurt(p);
+            p = MonsterFactory.doShareDamageOnPlayerHurt(50, p);
             p.getElemImgRes = () => "NutWall";
             return p;
         },
@@ -170,6 +166,15 @@ class PlantFactory {
                 await p.bt().implMonsterDoSelfExplode(p, undefined, false); 
                 return true;
             }
+            p = MonsterFactory.doAttack("onPlayerActed", p, () => {
+                var ms = p.map().findAllElems((e:Elem) => {
+                    if(e instanceof Monster && !e.getGrid().isCovered())
+                        return (e.isHazard() || e["linkTo"] && e["linkTo"].isHazard()) && p.inAttackRange(e)
+                });
+                if (ms.length == 0) return undefined;
+
+                return ms[p.bt().srand.nextInt(0, ms.length)];
+            });
             p.getElemImgRes = () => "CherryBomb";
             return p;
         },
@@ -185,6 +190,15 @@ class PlantFactory {
                 await p.bt().implMonsterDoSelfExplode(p, undefined, false); 
                 return true;
             }
+            p = MonsterFactory.doAttack("onPlayerActed", p, () => {
+                var ms = p.map().findAllElems((e:Elem) => {
+                    if(e instanceof Monster && !e.getGrid().isCovered())
+                        return (e.isHazard() || e["linkTo"] && e["linkTo"].isHazard()) && p.inAttackRange(e)
+                });
+                if (ms.length == 0) return undefined;
+
+                return ms[p.bt().srand.nextInt(0, ms.length)];
+            });
             p.getElemImgRes = () => "CherryBomb";
             return p;
         },
@@ -201,6 +215,15 @@ class PlantFactory {
                 await p.bt().implMonsterDoSelfExplode(p, undefined, false); 
                 return true;
             }
+            p = MonsterFactory.doAttack("onPlayerActed", p, () => {
+                var ms = p.map().findAllElems((e:Elem) => {
+                    if(e instanceof Monster && !e.getGrid().isCovered())
+                        return (e.isHazard() || e["linkTo"] && e["linkTo"].isHazard()) && p.inAttackRange(e)
+                });
+                if (ms.length == 0) return undefined;
+
+                return ms[p.bt().srand.nextInt(0, ms.length)];
+            });
             p.getElemImgRes = () => "CherryBomb";
             return p;
         },
@@ -217,6 +240,15 @@ class PlantFactory {
                 await p.bt().implMonsterDoSelfExplode(p, {a:0.5, b:0, c:0}, false); 
                 return true;
             }
+            p = MonsterFactory.doAttack("onPlayerActed", p, () => {
+                var ms = p.map().findAllElems((e:Elem) => {
+                    if(e instanceof Monster && !e.getGrid().isCovered())
+                        return (e.isHazard() || e["linkTo"] && e["linkTo"].isHazard()) && p.inAttackRange(e)
+                });
+                if (ms.length == 0) return undefined;
+
+                return ms[p.bt().srand.nextInt(0, ms.length)];
+            });
             p.getElemImgRes = () => "CherryBomb";
             return p;
         },
@@ -234,6 +266,15 @@ class PlantFactory {
                 await p.bt().implMonsterDoSelfExplode(p, {a:0.5, b:0, c:0}, false); 
                 return true;
             }
+            p = MonsterFactory.doAttack("onPlayerActed", p, () => {
+                var ms = p.map().findAllElems((e:Elem) => {
+                    if(e instanceof Monster && !e.getGrid().isCovered())
+                        return (e.isHazard() || e["linkTo"] && e["linkTo"].isHazard()) && p.inAttackRange(e)
+                });
+                if (ms.length == 0) return undefined;
+
+                return ms[p.bt().srand.nextInt(0, ms.length)];
+            });
             p.getElemImgRes = () => "CherryBomb";
             return p;
         },
