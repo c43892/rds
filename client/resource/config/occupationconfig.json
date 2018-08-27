@@ -6,6 +6,42 @@
                     {"type":"hp", "enhance":2}, 
                     {"type":"shield", "enhance":2}, 
                     {"type":"hp", "enhance":2}, 
+                    {"type":" probImmunized", "enhance":30}
+                ], 
+                "Peashooter":[
+                    {"type":"power", "enhance":{"a":0, "b":1, "c":0}}, 
+                    {"type":"critical", "enhance":{"a":0, "b":30, "c":0}}, 
+                    {"type":"attackInterval", "enhance":{"a":0, "b":-1, "c":0}}, 
+                    {"type":"muiltAttack", "enhance":1}
+                ], 
+                "CherryBomb":[
+                    {"type":"power", "enhance":{"a":0, "b":1, "c":0}}, 
+                    {"type":"critical", "enhance":{"a":0, "b":30, "c":0}},
+                    {"type":"power", "enhance":{"a":0, "b":1, "c":0}}, 
+                    {"type":"hp", "enhance":2}
+                ], 
+                "Sunflower":[
+                    {"type":"dhpPercent", "enhance":5}, 
+                    {"type":"dhpPercent", "enhance":5}, 
+                    {"type":"dhpPercent", "enhance":5}, 
+                    {"type":"dhpPercent", "enhance":5}
+                ], 
+                "CharmingMushroom":[
+                    {"type":"hp", "enhance":2}, 
+                    {"type":"shield", "enhance":2}, 
+                    {"type":"hp", "enhance":2}, 
+                    {"type":"shield", "enhance":2}
+                ]
+            }
+        }
+    },
+    "Horticulturist":{
+        "relics":{
+            "HorticultureMaster":{
+                "NutWall":[
+                    {"type":"hp", "enhance":2}, 
+                    {"type":"shield", "enhance":2}, 
+                    {"type":"hp", "enhance":2}, 
                     {"type":"shield", "enhance":2}
                 ], 
                 "Peashooter":[

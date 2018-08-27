@@ -4,22 +4,29 @@ class ElemFactory {
         new ItemFactory(),
         new PropFactory(),
         new RelicFactory(),
-        new MonsterFactory()
+        new MonsterFactory(),
+        new PlantFactory()
     ];
 
     // 创建指定类型元素
     private static $$idSeqNo = 1; // 给 $$id 计数
-    public static create(type:string, attrs = undefined) {
-        attrs = attrs ? attrs : {};
+    public static create(type:string, attrs = undefined, player:Player = undefined) {
+        attrs = attrs ? attrs : {};        
         for (var factory of ElemFactory.creators) {
             if(factory.creators[type]) {
-                var e:Elem = factory.creators[type](ElemFactory.mergeAttrs(type, attrs));
+                var e:Elem;
+                if (factory instanceof PlantFactory)
+                    e = factory.creators[type](player);
+                else{
+                    e = factory.creators[type](ElemFactory.mergeAttrs(type, attrs));
+                    e.attrs = attrs;
+                }
                 Utils.assert(!!e, "unknown elem type: " + type);
                 e.type = type;
-                e.attrs = attrs;
-                e.btAttrs = BattleUtils.mergeBattleAttrs({}, attrs);
+                e.btAttrs = BattleUtils.mergeBattleAttrs({}, e.attrs);
                 e.$$id = type + ":" + (ElemFactory.$$idSeqNo++);
-                if (e.isBig()) e = ElemFactory.makeElemBigger(e, e.attrs.size);
+                if (e.isBig()) 
+                    e = ElemFactory.makeElemBigger(e, e.attrs.size);
                 return e;
             }
         }
@@ -34,7 +41,6 @@ class ElemFactory {
             if (!attrs[k])
                 attrs[k] = v;
         }
-
         attrs.size = attrs.size ? attrs.size : {w:1, h:1};
         return attrs;
     }

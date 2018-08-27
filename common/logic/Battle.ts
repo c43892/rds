@@ -649,6 +649,15 @@ class Battle {
         await this.triggerLogicPoint("onPlayerChanged", {"subType": "hp", source:source});
     }
 
+    // 角色+maxhp
+    public async implAddPlayerMaxHp(dhp:number, source:any = undefined) {
+        Utils.assert(dhp > 0, "add maxhp should > 0")
+
+        this.player.addMaxHp(dhp);
+        await this.fireEvent("onPlayerChanged", {subType:"maxHp", source:source});
+        await this.triggerLogicPoint("onPlayerChanged", {"subType": "maxHp", source:source});
+    }
+
     // 角色+shield
     public async implAddPlayerShield(ds:number) {
         if (ds == 0) return;
@@ -1083,13 +1092,13 @@ class Battle {
     }
 
     // 魅惑怪物
-    public async implCharmMonster(m:Monster){
+    public async implCharmMonster(m:Monster, dattrs = undefined){
         Utils.assert(m.isHazard() && !m.isBoss, "only hazard monster can be charmed");
         var pos = m.pos;
         if(m.getGrid().isCovered())
             this.uncover(pos.x, pos.y, true);
         
-        var cm = await MonsterFactory.createCharmedMonster(m);
+        var cm = await MonsterFactory.createCharmedMonster(m, dattrs);
         
         this.removeElemAt(pos.x, pos.y);
         await this.fireEvent("onMonsterCharmed", {m:m, cm:cm});
@@ -1199,11 +1208,10 @@ class Battle {
 
     // 怪物拿走一批元素
     public async implMonsterTakeElems(m:Monster, es:Elem[], toDropList:boolean) {
-        if (toDropList) {
-            for (var e of es) {
+        for (var e of es) {
+            this.removeElemAt(e.pos.x, e.pos.y);
+            if (toDropList) 
                 m.addDropItem(e);
-                this.removeElemAt(e.pos.x, e.pos.y);
-            }
         }
 
         await this.fireEvent("onMonsterTakeElem", {m:m, es:es, toDropList:toDropList})

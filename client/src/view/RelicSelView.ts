@@ -22,7 +22,7 @@ class RelicSelView extends egret.DisplayObjectContainer {
         this.bg.width = this.width;
         this.bg.height = this.height;
 
-        this.title = ViewUtils.createTextField(50, 0x000000);
+        this.title = ViewUtils.createTextField(12, 0xff0000);
         this.title.x = this.title.y = 0;
         this.addChild(this.title);
         this.title.textAlign = egret.HorizontalAlign.CENTER;

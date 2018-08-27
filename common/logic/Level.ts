@@ -44,7 +44,7 @@ class Level {
         return {type:type, attrs:attrs};
     }
 
-    public createElem(type:string, attrs = undefined):Elem {
+    public createElem(type:string, attrs = undefined, player:Player = undefined):Elem {
         if (!attrs) { // 如果指定配置属性，则不再参考本关卡配置
             var r = this.getElemCfg(type);
             type = r.type;
@@ -52,7 +52,7 @@ class Level {
         }
 
         attrs = attrs ? attrs : {};
-        var e = ElemFactory.create(type, attrs);
+        var e = ElemFactory.create(type, attrs, player);
 
         // 处理携带物品
         if (attrs.dropItems) {

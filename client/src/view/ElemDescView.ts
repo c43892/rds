@@ -79,7 +79,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
     buildMonsterDescView() {
         this.monsterBg = ViewUtils.createBitmapByName("confirmBg_png");
         this.monsterBg.name = "monsterBg";
-        this.monsterName = ViewUtils.createTextField(40, 0x00ffff);
+        this.monsterName = ViewUtils.createTextField(40, 0x7d0403);
         this.monsterName.name = "monsterName";
         this.monsterIcon = new egret.Bitmap();
         this.monsterIcon.name = "monsterIcon";
@@ -179,6 +179,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
 
         for (var i = 1; i < descArr.length; i++) {
             var txt = ViewUtils.createTextField(0, 0x000000);
+            txt.textAlign = egret.HorizontalAlign.LEFT;
             txt.textFlow = descArr[i];
             txt.x = monsterDescTxt0.x;
             txt.width = monsterDescTxt0.width;
@@ -208,7 +209,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         this.relicDescBg.name = "relicDescBg";
         this.relicIcon = new egret.Bitmap();
         this.relicIcon.name = "relicIcon";
-        this.relicName = ViewUtils.createTextField(30, 0xff0000, false, false);
+        this.relicName = ViewUtils.createTextField(30, 0x200000, false, false);
         this.relicName.name = "relicName";
         return [this.relicDescBg, this.relicIcon, this.relicName];
     }
@@ -217,8 +218,9 @@ class ElemDescView extends egret.DisplayObjectContainer {
         ViewUtils.setTexName(this.relicIcon, e.getElemImgRes() + "_png");
         var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
         this.relicName.textAlign = egret.HorizontalAlign.LEFT;
-        this.relicName.textFlow = [{text: nameAndDesc.name, style:{"textColor":0xff0000, "size":30}},
-            {text: " Lv " + ((<Relic>e).reinforceLv + 1), style:{"textColor":0xff0000, "size":30}}];
+        this.relicName.bold =true;
+        this.relicName.textFlow = [{text: nameAndDesc.name, style:{"textColor":0x7d0403, "size":30}},
+            {text: " Lv " + ((<Relic>e).reinforceLv + 1), style:{"textColor":0x7d0403, "size":30}}];
 
         var descArr = ViewUtils.getElemNameAndDesc(e.type).desc;
         descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(ViewUtils.replaceByProperties(desc, e)));
@@ -240,6 +242,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
 
         for (var i = 1; i < descArr.length; i++) {
             var txt = ViewUtils.createTextField(0, 0x000000);
+            txt.textAlign = egret.HorizontalAlign.LEFT;
             txt.textFlow = descArr[i];
             txt.x = relicDescTxt0.x;
             txt.width = relicDescTxt0.width;

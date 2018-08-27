@@ -142,66 +142,66 @@ class MonsterFactory {
         "Ghost": (attrs) => MonsterFactory.doChaseToNextLevel(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //幽灵
         "RedSlime": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //红色史莱姆
         "GreenSlime": (attrs) => MonsterFactory.doAddHpPerRound(Math.floor(attrs.hp * 0.2) > 1 ? Math.floor(attrs.hp * 0.2) : 1, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //绿色史莱姆
-        "NutWall": (attrs) => { // 坚果墙
-            var m = MonsterFactory.doShareDamageOnPlayerHurt(this.createMonster(attrs));
-            m.isHazard = () => false;
-            m.canUse = () => true;
-            m.barrier = false;
-            return m;
-        },
-        "Peashooter": (attrs) => { // 豌豆射手
-            var m = MonsterFactory.doAttackBack(this.createMonster(attrs));
-            m.isHazard = () => false;
-            m.canUse = () => true;
-            m.barrier = false;
-            return MonsterFactory.doAttack("onPlayerActed", m, () => {
-                var ms = m.map().findAllElems((e:Elem) => {
-                    return e instanceof Monster && !e.getGrid().isCovered() && (e.isHazard() || e["linkTo"] && e["linkTo"].isHazard()) && m.inAttackRange(e)
-                });
-                if (ms.length == 0) return undefined;
+        // "NutWall": (attrs) => { // 坚果墙
+        //     var m = MonsterFactory.doShareDamageOnPlayerHurt(this.createMonster(attrs));
+        //     m.hazard = false;
+        //     m.canUse = () => true;
+        //     m.barrier = false;
+        //     return m;
+        // },
+        // "Peashooter": (attrs) => { // 豌豆射手
+        //     var m = MonsterFactory.doAttackBack(this.createMonster(attrs));
+        //     m.hazard = false;
+        //     m.canUse = () => true;
+        //     m.barrier = false;
+        //     return MonsterFactory.doAttack("onPlayerActed", m, () => {
+        //         var ms = m.map().findAllElems((e:Elem) => {
+        //             return e instanceof Monster && !e.getGrid().isCovered() && (e.isHazard() || e["linkTo"] && e["linkTo"].isHazard()) && m.inAttackRange(e)
+        //         });
+        //         if (ms.length == 0) return undefined;
 
-                return ms[m.bt().srand.nextInt(0, ms.length)];
-            }, attrs.attackInterval);
-        },
-        "CherryBomb": (attrs) => { // 樱桃炸弹
-            var m = this.createMonster(attrs);
-            m.isHazard = () => false;
-            m.canUse = () => true;
-            m.barrier = false;
-            m.use = async () => { 
-                await m.bt().implMonsterDoSelfExplode(m, undefined, false); 
-                return true;
-            }
-            return m;
-        },
-        "Sunflower": (attrs) => { // 太阳花
-            var m = this.createMonster(attrs);
-            m.isHazard = () => false;
-            m.canUse = () => true;
-            m.barrier = false;
-            m.use = async () => { 
-                await m.bt().implAddPlayerHp(Math.floor(m.bt().player.maxHp * attrs.dhpPercent / 100), m);
-                return false;
-            }
-            return m;
-        },
-        "CharmingMushroom": (attrs) => { // 魅惑菇
-            var m = this.createMonster(attrs);
-            m.isHazard = () => false;
-            m.barrier = false;
-            m.canUseAt = (x:number, y:number) => {
-                var e = m.map().getElemAt(x, y);
-                var g = m.map().getGridAt(x, y);
-                return (!g.isCovered() || g.isMarked()) && e && e instanceof Monster && e.isHazard() && !e.isBoss;
-            };
+        //         return ms[m.bt().srand.nextInt(0, ms.length)];
+        //     }, attrs.attackInterval);
+        // },
+        // "CherryBomb": (attrs) => { // 樱桃炸弹
+        //     var m = this.createMonster(attrs);
+        //     m.hazard = false;
+        //     m.canUse = () => true;
+        //     m.barrier = false;
+        //     m.use = async () => { 
+        //         await m.bt().implMonsterDoSelfExplode(m, undefined, false); 
+        //         return true;
+        //     }
+        //     return m;
+        // },
+        // "Sunflower": (attrs) => { // 太阳花
+        //     var m = this.createMonster(attrs);
+        //     m.hazard = false;
+        //     m.canUse = () => true;
+        //     m.barrier = false;
+        //     m.use = async () => { 
+        //         await m.bt().implAddPlayerHp(Math.floor(m.bt().player.maxHp * attrs.dhpPercent / 100), m);
+        //         return false;
+        //     }
+        //     return m;
+        // },
+        // "CharmingMushroom": (attrs) => { // 魅惑菇
+        //     var m = this.createMonster(attrs);
+        //     m.hazard = false;
+        //     m.barrier = false;
+        //     m.canUseAt = (x:number, y:number) => {
+        //         var e = m.map().getElemAt(x, y);
+        //         var g = m.map().getGridAt(x, y);
+        //         return (!g.isCovered() || g.isMarked()) && e && e instanceof Monster && e.isHazard() && !e.isBoss;
+        //     };
             
-            m.useAt = async (x:number, y:number) => { 
-                var tarm = <Monster>m.map().getElemAt(x, y);
-                await m.bt().implCharmMonster(tarm);
-                return false;
-            }
-            return m;
-        },
+        //     m.useAt = async (x:number, y:number) => { 
+        //         var tarm = <Monster>m.map().getElemAt(x, y);
+        //         await m.bt().implCharmMonster(tarm);
+        //         return false;
+        //     }
+        //     return m;
+        // },
 
         "ShopNpc": (attrs) => MonsterFactory.makeShopNPC(this.createMonster(attrs)),
 
@@ -252,8 +252,12 @@ class MonsterFactory {
     }
 
     // 创建被魅惑的怪物
-    static async createCharmedMonster(m:Monster) {
+    static async createCharmedMonster(m:Monster, dattrs) {
         var attrs = await this.getCurrentAttrs(m);
+        if(dattrs)
+            for (var dattr of dattrs)
+                attrs[dattr.type] += dattr.num;
+                
         var cm = <Monster>m.bt().level.createElem("CharmedMonster", attrs);
         cm.type = m.type + "Charmed";
         cm["Charmed"] = "normal";
@@ -365,8 +369,8 @@ class MonsterFactory {
             Utils.assert(canTake(), m.type + "has a dropItem that isn't Coins, cannot take any Item.");
             var eatNum = m.attrs.eatNum ? m.attrs.eatNum : 1;
             // 一些相对有较为固定的感觉的物品不要被拿走了,比如后续可能出现的祭坛等.
-            var fobiddenItems = ["Key", "Door", "Cocoon", "TreasureBox"];
-            var fobiddenItemsDropOnDie = ["Door", "Cocoon", "TreasureBox"];
+            var fobiddenItems = ["Key", "Door", "Cocoon", "TreasureBox", "Hole", "Rock"];
+            var fobiddenItemsDropOnDie = ["Door", "Cocoon", "TreasureBox", "Hole", "Rock"];
             var es = BattleUtils.findRandomElems(m.bt(), eatNum, (e:Elem) => {
                 if(dropOnDie)
                     return !(e instanceof Monster) && !e.getGrid().isCovered() && (Utils.indexOf(fobiddenItemsDropOnDie, (s:string) => e.type == s) < 0);
@@ -783,15 +787,23 @@ class MonsterFactory {
     }
 
     // 为玩家分摊伤害
-    static doShareDamageOnPlayerHurt(m:Monster):Monster {
+    static doShareDamageOnPlayerHurt(damageShared:number, m:Monster):Monster {
         m.isHazard = () => false;
         m = <Monster>ElemFactory.addAI("onCalcAttacking", (ps) => {
-            ps.targetAttrs.damageShared.a += m.attrs.damageShared;
+            ps.targetAttrs.damageShared.a += damageShared;
             ps["damageShared"] = true;
             ps.targetAttrs["damageSharedMonster"] = m;
         }, m, (ps) => {
             return ps.subType == "monster2targets" && ps.targetAttrs.owner instanceof Player && !ps["damageShared"]});
         return m;
+    }
+
+    // 受攻击时有x%的几率免疫伤害
+    static doImmunizeDamageProb(n:number, m:Monster):Monster {
+        return <Monster>ElemFactory.addAI("onCalcAttacking", async (ps) => {
+            if(m.bt().srand.next100() < n)
+                ps.targetAttrs.targetFlags.push("cancelAttack");
+        }, m, (ps) => ps.targetAttrs.owner == m);
     }
 
     // boss 特殊逻辑
@@ -884,40 +896,5 @@ class MonsterFactory {
             else
                 await food.bt().fireEvent("onMonsterEatFood", {m:e, food:food});
         }, e);
-    }
-
-    // 根据园艺大师遗物等级强化植物
-    static enhancePlantByHorticultureMaster(bt:Battle, plantType, attrs){
-        var relics = bt.player.relics;
-        var r = relics[Utils.indexOf(relics, (tar:Relic) => tar.type == "HorticultureMaster")];
-        Utils.assert(!!r, "player don't have the relic:HorticultureMaster"); // 植物来源为园艺大师遗物
-
-        var level = r.reinforceLv;
-        var enhances = GCfg.getOccupationCfg(bt.player.occupation).relics.HorticultureMaster[plantType]; // 获取该植物的增强配置
-
-        // 用于判断增强方式
-        var abcTypes = ["power", "accuracy", "critical", "damageAdd", "dodge"];
-        var valueType = ["hp", "shield", "attackInterval"]
-        var enhanceType = (type:string) => {
-            if (Utils.contains(abcTypes, type)) return "abcTypes";
-            else if (Utils.contains(valueType, type)) return "valueType";
-            else return "special";
-        }
-
-        for (var i = 0; i < level; i++){
-            var enhance = enhances[i].enhance;
-            var type = enhance.type;
-            if(enhanceType(type) == "abcTypes"){
-                if(!attrs[type]) attrs[type] = 0;
-                attrs[type] = (attrs[type] + enhance.b) * (1 + enhance.a) + enhance.c;
-            }
-            else if(enhanceType(type) == "valueType"){
-                if(!attrs[type]) attrs[type] = 0;
-                attrs[type] += enhance;
-            }
-            else Utils.log("can not enhance like this now" + type);
-        }
-        
-        return attrs;
     }
 }

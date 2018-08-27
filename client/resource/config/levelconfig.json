@@ -113,7 +113,7 @@
             "BallShito": {
                 "hp": 10,
                 "power": 1,
-                "sheild": 8
+                "shield": 8
             },
             "GreenSlime": {
                 "hp": 4,
@@ -299,7 +299,7 @@
             "BallShito": {
                 "hp": 11,
                 "power": 1,
-                "sheild": 8
+                "shield": 8
             },
             "GreenSlime": {
                 "hp": 4,
@@ -484,7 +484,7 @@
             "BallShito": {
                 "hp": 12,
                 "power": 1,
-                "sheild": 9
+                "shield": 9
             },
             "GreenSlime": {
                 "hp": 4,
@@ -669,7 +669,7 @@
             "BallShito": {
                 "hp": 13,
                 "power": 1,
-                "sheild": 10
+                "shield": 10
             },
             "GreenSlime": {
                 "hp": 5,
@@ -854,7 +854,7 @@
             "BallShito": {
                 "hp": 14,
                 "power": 1,
-                "sheild": 11
+                "shield": 11
             },
             "GreenSlime": {
                 "hp": 5,
@@ -1039,7 +1039,7 @@
             "BallShito": {
                 "hp": 15,
                 "power": 1,
-                "sheild": 12
+                "shield": 12
             },
             "GreenSlime": {
                 "hp": 6,
@@ -1230,7 +1230,7 @@
             "BallShito": {
                 "hp": 16,
                 "power": 1,
-                "sheild": 12
+                "shield": 12
             },
             "GreenSlime": {
                 "hp": 6,
@@ -1421,7 +1421,7 @@
             "BallShito": {
                 "hp": 17,
                 "power": 1,
-                "sheild": 13
+                "shield": 13
             },
             "GreenSlime": {
                 "hp": 6,
@@ -1612,7 +1612,7 @@
             "BallShito": {
                 "hp": 18,
                 "power": 1,
-                "sheild": 14
+                "shield": 14
             },
             "GreenSlime": {
                 "hp": 7,
@@ -1803,7 +1803,7 @@
             "BallShito": {
                 "hp": 19,
                 "power": 1,
-                "sheild": 15
+                "shield": 15
             },
             "GreenSlime": {
                 "hp": 7,
@@ -1994,7 +1994,7 @@
             "BallShito": {
                 "hp": 20,
                 "power": 2,
-                "sheild": 16
+                "shield": 16
             },
             "GreenSlime": {
                 "hp": 8,
@@ -2185,7 +2185,7 @@
             "BallShito": {
                 "hp": 21,
                 "power": 2,
-                "sheild": 16
+                "shield": 16
             },
             "GreenSlime": {
                 "hp": 8,
@@ -2376,7 +2376,7 @@
             "BallShito": {
                 "hp": 22,
                 "power": 2,
-                "sheild": 17
+                "shield": 17
             },
             "GreenSlime": {
                 "hp": 8,
@@ -2567,7 +2567,7 @@
             "BallShito": {
                 "hp": 23,
                 "power": 2,
-                "sheild": 18
+                "shield": 18
             },
             "GreenSlime": {
                 "hp": 9,
@@ -2758,7 +2758,7 @@
             "BallShito": {
                 "hp": 25,
                 "power": 2,
-                "sheild": 20
+                "shield": 20
             },
             "GreenSlime": {
                 "hp": 10,
@@ -2949,7 +2949,7 @@
             "BallShito": {
                 "hp": 26,
                 "power": 2,
-                "sheild": 20
+                "shield": 20
             },
             "GreenSlime": {
                 "hp": 10,
@@ -3140,7 +3140,7 @@
             "BallShito": {
                 "hp": 27,
                 "power": 2,
-                "sheild": 21
+                "shield": 21
             },
             "GreenSlime": {
                 "hp": 10,
@@ -3331,7 +3331,7 @@
             "BallShito": {
                 "hp": 28,
                 "power": 2,
-                "sheild": 22
+                "shield": 22
             },
             "GreenSlime": {
                 "hp": 11,
@@ -3522,7 +3522,7 @@
             "BallShito": {
                 "hp": 29,
                 "power": 2,
-                "sheild": 23
+                "shield": 23
             },
             "GreenSlime": {
                 "hp": 11,
@@ -3713,7 +3713,7 @@
             "BallShito": {
                 "hp": 30,
                 "power": 3,
-                "sheild": 24
+                "shield": 24
             },
             "GreenSlime": {
                 "hp": 12,
@@ -3904,7 +3904,7 @@
             "BallShito": {
                 "hp": 31,
                 "power": 3,
-                "sheild": 24
+                "shield": 24
             },
             "GreenSlime": {
                 "hp": 12,
@@ -4095,7 +4095,7 @@
             "BallShito": {
                 "hp": 32,
                 "power": 3,
-                "sheild": 25
+                "shield": 25
             },
             "GreenSlime": {
                 "hp": 12,
@@ -4286,7 +4286,7 @@
             "BallShito": {
                 "hp": 33,
                 "power": 3,
-                "sheild": 26
+                "shield": 26
             },
             "GreenSlime": {
                 "hp": 13,
@@ -4477,7 +4477,7 @@
             "BallShito": {
                 "hp": 34,
                 "power": 3,
-                "sheild": 27
+                "shield": 27
             },
             "GreenSlime": {
                 "hp": 13,
@@ -4668,7 +4668,7 @@
             "BallShito": {
                 "hp": 35,
                 "power": 3,
-                "sheild": 28
+                "shield": 28
             },
             "GreenSlime": {
                 "hp": 14,
@@ -4859,7 +4859,7 @@
             "BallShito": {
                 "hp": 36,
                 "power": 3,
-                "sheild": 28
+                "shield": 28
             },
             "GreenSlime": {
                 "hp": 14,
@@ -5050,7 +5050,7 @@
             "BallShito": {
                 "hp": 37,
                 "power": 3,
-                "sheild": 29
+                "shield": 29
             },
             "GreenSlime": {
                 "hp": 14,
@@ -5241,7 +5241,7 @@
             "BallShito": {
                 "hp": 38,
                 "power": 3,
-                "sheild": 30
+                "shield": 30
             },
             "GreenSlime": {
                 "hp": 15,
@@ -5343,7 +5343,7 @@
             "EyeDemon":{"hp":10, "power":3},
             "RandomEggZombie":{"hp":9, "power":3, "dropItems":["RandomEgg"]},
             "LustZombie":{"hp":7, "power":2},
-            "IronZombie":{"hp":8, "power":3, "sheild":10},
+            "IronZombie":{"hp":8, "power":3, "shield":10},
 
             "CoinsTiny":{"type":"Coins", "cnt":1},
             "CoinsSmall":{"type":"Coins", "cnt":1},
@@ -5448,7 +5448,7 @@
             "EyeDemon":{"hp":10, "power":3},
             "RandomEggZombie":{"hp":9, "power":3, "dropItems":["RandomEgg"]},
             "LustZombie":{"hp":7, "power":2},
-            "IronZombie":{"hp":8, "power":3, "sheild":10},
+            "IronZombie":{"hp":8, "power":3, "shield":10},
             "BossBunny":{"hp":20, "power":3},
 
             "Coins":{"cnt":1},
