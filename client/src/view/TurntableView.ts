@@ -2,9 +2,10 @@ class TurntableView extends egret.DisplayObjectContainer {
     public player:Player;
     
     private bg:egret.Bitmap;
+    private bg1:egret.Bitmap;
     private rewards:egret.DisplayObjectContainer; //奖励内容
-    private startBtn:egret.Bitmap;
-    private goOutBtn:egret.Bitmap;
+    private startBtn:TextButtonWithBg;
+    private goOutBtn:TextButtonWithBg;
     private imgs:egret.Bitmap[] = []; //候选奖励
     private rewardCount = 6;
     private sign:egret.Bitmap;
@@ -15,68 +16,48 @@ class TurntableView extends egret.DisplayObjectContainer {
         super();
         this.width = w;
         this.height = h;
-        this.touchEnabled = true;
+        this.name = "turntable";
 
-        this.bg = ViewUtils.createBitmapByName("turntableBg_png");
+        this.bg = ViewUtils.createBitmapByName("translucent_png");
         this.addChild(this.bg);
-        this.bg.x = (this.width - this.bg.width) / 2;
-        this.bg.y = (this.height - this.bg.height) / 2;
+        this.bg.x = this.bg.y = 0;
+        this.bg.width = this.width;
+        this.bg.height = this.height;
+        this.bg.touchEnabled = true;
+
+        this.bg1 = ViewUtils.createBitmapByName("turntableBg_png");
+        this.bg1.name = "bg1";
 
         this.sign = ViewUtils.createBitmapByName("turntableSign_png");
-        this.sign.x = this.bg.x;
-        this.sign.y = this.bg.y;
+        this.sign.name = "sign";
         
         this.rewards = new egret.DisplayObjectContainer;
-        this.addChild(this.rewards);
-        this.rewards.x = this.bg.x + this.bg.width / 2;
-        this.rewards.y = this.bg.y + this.bg.height / 2;
-        this.rewards.width = this.bg.width;
-        this.rewards.height = this.bg.height;
-        this.rewards.anchorOffsetX = this.rewards.width / 2;
-        this.rewards.anchorOffsetY = this.rewards.height / 2;
-        this.rewards.width = this.bg.width;
-        this.rewards.height = this.bg.height;
+        this.rewards.name = "rewards";
 
         //奖励物品的Bitmap
         for(var i = 0; i < this.rewardCount; i++){
-            var img = new egret.Bitmap;
+            var img = new egret.Bitmap();
             this.imgs.push(img);
             this.rewards.addChild(this.imgs[i]);
         }
 
-        this.startBtn = ViewUtils.createBitmapByName("turntableStartBtn_png");
-        this.addChild(this.startBtn);
-        this.startBtn.x = this.bg.x + this.bg.width / 2;
-        this.startBtn.y = this.bg.y + this.bg.height / 2;
-        this.startBtn.anchorOffsetX = this.startBtn.width / 2;
-        this.startBtn.anchorOffsetY = this.startBtn.height / 2;
-        this.startBtn.touchEnabled = true;
-        this.startBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onStart, this);
+        this.startBtn = new TextButtonWithBg("turntableStartBtn_png");
+        this.startBtn.name = "startBtn";
+        this.startBtn.onClicked = () => this.onStart();
 
         this.tipBg = ViewUtils.createBitmapByName("turntableTipBg_png");
-        this.tipBg.x = this.bg.x + this.bg.width / 2;
-        this.tipBg.y = this.bg.y + this.bg.height / 2;
-        this.tipBg.anchorOffsetX = this.tipBg.width / 2;
-        this.tipBg.anchorOffsetY = this.tipBg.height / 2;
-        this.addChild(this.tipBg);
+        this.tipBg.name = "tipBg";
 
         this.tipContent = ViewUtils.createTextField(30, 0x000000);
-        this.tipContent.x = this.bg.x + this.bg.width / 2;
-        this.tipContent.y = this.bg.y + this.bg.height / 2;
-        this.tipContent.width = this.tipBg.width - 100;
-        this.tipContent.height = this.tipBg.height;
-        this.tipContent.anchorOffsetX = this.tipContent.width / 2;
-        this.tipContent.anchorOffsetY = this.tipContent.height / 2;
-        this.addChild(this.tipContent);
+        this.tipContent.name = "tipContent";
 
-        this.goOutBtn = ViewUtils.createBitmapByName("turntableGoOutBtn_png");
-        this.addChild(this.goOutBtn);
-        this.goOutBtn.x = this.tipBg.x + this.tipBg.width / 2 - this.goOutBtn.width;
-        this.goOutBtn.y = this.tipBg.y + this.tipBg.height / 2 - this.goOutBtn.height;
-        this.goOutBtn.anchorOffsetX = this.goOutBtn.width / 2;
-        this.goOutBtn.anchorOffsetY = this.goOutBtn.height / 2;
-        this.goOutBtn.touchEnabled = true;
-        this.goOutBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onGoOut, this);
+        this.goOutBtn = new TextButtonWithBg("turntableGoOutBtn_png");
+        this.goOutBtn.name = "goOutBtn";
+        this.goOutBtn.onClicked = () => this.doClsoe();
+
+        var objs = [this.bg1, this.rewards, this.startBtn, this.tipBg, this.tipContent, this.goOutBtn];
+        objs.forEach((obj, _) => this.addChild(obj));
+        ViewUtils.multiLang(this, ...objs);
     }
 
     private doClsoe;
@@ -143,7 +124,7 @@ class TurntableView extends egret.DisplayObjectContainer {
     }
 
     // 转动转盘,获取随机奖励
-    private onStart(evt:egret.TouchEvent){
+    private onStart(){
         this.removeChild(this.startBtn);
         var cfg = this.player.worldmap.cfg.turntable;
         var randomIndex = this.getRandomIndexByWeight(cfg);
@@ -188,10 +169,6 @@ class TurntableView extends egret.DisplayObjectContainer {
             this.addChild(this.goOutBtn);
             });// 3秒动画后出现前进按钮
 
-    }
-
-    private onGoOut(evt:egret.TouchEvent){
-        this.doClsoe();
     }
 
     // 根据配置的物品和权重随机奖励内容的索引
