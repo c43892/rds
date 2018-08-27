@@ -1208,11 +1208,10 @@ class Battle {
 
     // 怪物拿走一批元素
     public async implMonsterTakeElems(m:Monster, es:Elem[], toDropList:boolean) {
-        if (toDropList) {
-            for (var e of es) {
+        for (var e of es) {
+            this.removeElemAt(e.pos.x, e.pos.y);
+            if (toDropList) 
                 m.addDropItem(e);
-                this.removeElemAt(e.pos.x, e.pos.y);
-            }
         }
 
         await this.fireEvent("onMonsterTakeElem", {m:m, es:es, toDropList:toDropList})

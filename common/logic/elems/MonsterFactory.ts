@@ -254,7 +254,6 @@ class MonsterFactory {
     // 创建被魅惑的怪物
     static async createCharmedMonster(m:Monster, dattrs) {
         var attrs = await this.getCurrentAttrs(m);
-        attrs = Utils.clone(attrs);
         if(dattrs)
             for (var dattr of dattrs)
                 attrs[dattr.type] += dattr.num;
@@ -370,8 +369,8 @@ class MonsterFactory {
             Utils.assert(canTake(), m.type + "has a dropItem that isn't Coins, cannot take any Item.");
             var eatNum = m.attrs.eatNum ? m.attrs.eatNum : 1;
             // 一些相对有较为固定的感觉的物品不要被拿走了,比如后续可能出现的祭坛等.
-            var fobiddenItems = ["Key", "Door", "Cocoon", "TreasureBox"];
-            var fobiddenItemsDropOnDie = ["Door", "Cocoon", "TreasureBox"];
+            var fobiddenItems = ["Key", "Door", "Cocoon", "TreasureBox", "Hole", "Rock"];
+            var fobiddenItemsDropOnDie = ["Door", "Cocoon", "TreasureBox", "Hole", "Rock"];
             var es = BattleUtils.findRandomElems(m.bt(), eatNum, (e:Elem) => {
                 if(dropOnDie)
                     return !(e instanceof Monster) && !e.getGrid().isCovered() && (Utils.indexOf(fobiddenItemsDropOnDie, (s:string) => e.type == s) < 0);

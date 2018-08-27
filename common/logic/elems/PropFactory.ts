@@ -28,17 +28,15 @@ class PropFactory {
     }
 
     public creators = {
-        // 红药水
-        "HpPotion": (attrs) => {
+        // 医疗药剂
+        "HpCapsule": (attrs) => {
             return this.createProp(attrs, (e:Elem) => {
                 e.canUse = () => true;
                 e.use = async () => {
-                    // 搜集所有参数，过公式算一下最终值
-                    e.cnt--;
-                    await e.bt().implAddPlayerHp(attrs.dhp, e);
+                    var bt = e.bt();
+                    await bt.implAddBuff(bt.player, "BuffAddHp", e.attrs.rounds, e.attrs.heal);
                     return e.cnt > 0;
-                }
-
+                };
                 return e;
             });
         },
