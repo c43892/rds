@@ -62,7 +62,11 @@ class GridView extends egret.DisplayObjectContainer {
         var w = this.width;
         var h = this.height;
         var arr = [this.blockedImg, this.coveredImg, this.uncoverableImg];
-        arr.forEach((a) => { a.alpha = 1; a.x = 0; a.y = 0; a.width = w; a.height = h; });
+        arr.forEach((a) => {
+            a.alpha = 1;
+            a.x = (w - a.width) / 2;
+            a.y = (h - a.height) / 2;
+        });
     }
 
     public clear() {

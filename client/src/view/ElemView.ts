@@ -7,9 +7,9 @@ class ElemView extends egret.DisplayObjectContainer {
     private showLayer:egret.DisplayObjectContainer; // 装入所有显示内容
     private opLayer:egret.Bitmap; // 专门用于接收操作事件
     private elemImg:egret.Bitmap; // 元素图
-    private markedImg:egret.Bitmap; // 被标记的怪物上面盖一层
     private banImg:egret.Bitmap; // 禁止符号
     private cdImg:egret.Bitmap; // cd 计数
+    private coveredImg:egret.Bitmap; // 标记时，要在上面盖上牌背
 
     private powerBg:egret.Bitmap;
     private shieldBg:egret.Bitmap;
@@ -27,8 +27,8 @@ class ElemView extends egret.DisplayObjectContainer {
         this.shieldBg = ViewUtils.createBitmapByName("monsterShieldBg_png");
 
         this.elemImg = new egret.Bitmap(); // 元素图
-        this.markedImg = ViewUtils.createBitmapByName("marked_png"); // 被标记怪物上面盖一层
         this.banImg = ViewUtils.createBitmapByName("ban_png"); // 禁止符号
+        this.coveredImg = ViewUtils.createBitmapByName("uncoverable_png");
         this.cdImg = new egret.Bitmap(); // cd 计数
         this.showLayer = new egret.DisplayObjectContainer(); // 显示层
         this.addChild(this.showLayer);
@@ -97,9 +97,7 @@ class ElemView extends egret.DisplayObjectContainer {
         var e = this.map.getElemAt(this.gx, this.gy);
         switch (g.status) {
             case GridStatus.Marked: // 被标记
-            case GridStatus.Uncovered: // 被揭开
-                // Utils.assert(g.status != GridStatus.Marked || !e || e instanceof Monster, "only monster could be marked"); // 道具等也需要可以被标记             
-                
+            case GridStatus.Uncovered: { // 被揭开
                 if (e && !e.attrs.invisible) { // 有元素显示元素图片
                     this.elemImg = ViewUtils.createBitmapByName(e.getElemImgRes() + "_png");
                     this.showLayer.addChild(this.elemImg);
@@ -145,9 +143,6 @@ class ElemView extends egret.DisplayObjectContainer {
                                 this.showLayer.addChild(this.power);
                             };
                         })
-
-                        // if (g.status == GridStatus.Marked) // 被标记怪物上面盖一层
-                        //     this.showLayer.addChild(this.markedImg);
                     } else {    
                         if (e.attrs.showCDNum && e.cd > 0) { // 显示 cd 计数
                             ViewUtils.setTexName(this.cdImg, "cd" + e.cd + "_png");
@@ -158,13 +153,34 @@ class ElemView extends egret.DisplayObjectContainer {
                         if (!e.attrs.invisible && !this.map.isGenerallyValid(e.pos.x, e.pos.y) && e.type != "Hole")
                             this.showLayer.addChild(this.banImg);
                     }
-                    if (g.status == GridStatus.Marked) // 被标记的格子上面盖一层
-                        this.showLayer.addChild(this.markedImg);
                 }
+            }
             break;
         }
 
         this.refreshDropItem(); // 刷新掉落物品显示
+
+        if (g.status == GridStatus.Marked) {
+            var colorFilter = new egret.ColorMatrixFilter([
+                0.2, 0.3, 0.2, 0, 0,
+                0.2, 0.3, 0.2, 0, 0,
+                0.2, 0.3, 0.2, 0, 0,
+                0, 0, 0, 1, 0
+            ]);
+
+            this.addChild(this.coveredImg);
+            this.setChildIndex(this.coveredImg, 0);
+            this.coveredImg.x = (this.width - this.coveredImg.width) / 2;
+            this.coveredImg.y = (this.height - this.coveredImg.height) / 2;
+            this.showLayer.filters = [colorFilter];
+            this.showLayer.blendMode = egret.BlendMode.ADD;
+            this.showLayer.alpha = 0.5;
+        } else {
+            if (this.contains(this.coveredImg)) this.removeChild(this.coveredImg);
+            this.showLayer.filters = undefined;
+            this.showLayer.blendMode = egret.BlendMode.NORMAL;
+            this.showLayer.alpha = 1;
+        }
         
         var w = this.width;
         var h = this.height;
@@ -177,7 +193,7 @@ class ElemView extends egret.DisplayObjectContainer {
             this.showLayer.rotation = 0;
         }
 
-        var arr = [this.opLayer, this.elemImg, this.banImg, this.markedImg, this.cdImg];
+        var arr = [this.opLayer, this.elemImg, this.banImg, this.cdImg];
         arr.forEach((a) => {
             a.alpha = 1;
             a.x = 0;
