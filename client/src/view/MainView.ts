@@ -59,7 +59,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.openShop = async (shop) => await this.openShopOnWorldMap(shop);
         this.wmv.openHospital = async () => await this.openHospital();
         this.wmv.openBoxRoom = async (openBoxRoom) => await this.openBoxRoom(openBoxRoom);
-        this.wmv.openTurntable = async () => await this.openTurntable();
+        this.wmv.openTurntable = async (turntable) => await this.openTurntable(turntable);
         this.wmv.openEventSels = async (title, desc, sels) => await this.openWorldMapEventSels(title, desc, sels);
         this.wmv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
         this.wmv.selRelic = async (title, f) => await this.openSelRelic(title, f);
@@ -248,8 +248,18 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 打开转盘界面
-    public async openTurntable() {
+    public async openTurntable(turntable) {
         this.ttv.player = this.p;
+        var res = ["TreasureBox_png", "Coins9_png"]
+        for(var reward of turntable){
+            if (reward.type == "item" || reward.type == "box"){
+                var rdpElems = GCfg.getRandomDropGroupCfg(reward.attrs).elems;
+                for (var dpe in rdpElems){
+                    res.push(dpe + "_png");
+                }
+            }
+        }
+        await this.loadResources(res);
         this.addChild(this.ttv); 
         this.setChildIndex(this.ttv, -1);
         await this.ttv.open();

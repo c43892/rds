@@ -4,11 +4,12 @@ class TurntableView extends egret.DisplayObjectContainer {
     private bg:egret.Bitmap;
     private bg1:egret.Bitmap;
     private rewards:egret.DisplayObjectContainer; //奖励内容
+    private rewardsBg:egret.Bitmap;
     private startBtn:TextButtonWithBg;
+    private pointer:egret.Bitmap;
     private goOutBtn:TextButtonWithBg;
     private imgs:egret.Bitmap[] = []; //候选奖励
     private rewardCount = 6;
-    private sign:egret.Bitmap;
     private tipBg:egret.Bitmap;
     private tipContent:egret.TextField;
 
@@ -27,12 +28,14 @@ class TurntableView extends egret.DisplayObjectContainer {
 
         this.bg1 = ViewUtils.createBitmapByName("turntableBg_png");
         this.bg1.name = "bg1";
-
-        this.sign = ViewUtils.createBitmapByName("turntableSign_png");
-        this.sign.name = "sign";
         
         this.rewards = new egret.DisplayObjectContainer;
         this.rewards.name = "rewards";
+        this.rewards.anchorOffsetX = this.rewards.anchorOffsetY = 268;
+
+        this.rewardsBg = ViewUtils.createBitmapByName("rewardsBg_png");
+        this.rewardsBg.name = "rewardsBg";
+        this.rewards.addChild(this.rewardsBg);
 
         //奖励物品的Bitmap
         for(var i = 0; i < this.rewardCount; i++){
@@ -42,10 +45,18 @@ class TurntableView extends egret.DisplayObjectContainer {
         }
 
         this.startBtn = new TextButtonWithBg("turntableStartBtn_png");
+        this.startBtn.setDisableBg("turntableStartBtn2_png");
         this.startBtn.name = "startBtn";
+        this.startBtn.anchorOffsetX = this.startBtn.width / 2;
+        this.startBtn.anchorOffsetY = this.startBtn.height / 2;
         this.startBtn.onClicked = () => this.onStart();
 
-        this.tipBg = ViewUtils.createBitmapByName("turntableTipBg_png");
+        this.pointer = ViewUtils.createBitmapByName("pointer_png");
+        this.pointer.name = "pointer";
+        this.pointer.anchorOffsetX = this.pointer.width / 2;
+        this.pointer.anchorOffsetY = this.pointer.height / 2;
+
+        this.tipBg = ViewUtils.createBitmapByName("confirmBg_png");
         this.tipBg.name = "tipBg";
 
         this.tipContent = ViewUtils.createTextField(30, 0x000000);
@@ -55,7 +66,7 @@ class TurntableView extends egret.DisplayObjectContainer {
         this.goOutBtn.name = "goOutBtn";
         this.goOutBtn.onClicked = () => this.doClsoe();
 
-        var objs = [this.bg1, this.rewards, this.startBtn, this.tipBg, this.tipContent, this.goOutBtn];
+        var objs = [this.bg1, this.rewards, this.pointer, this.startBtn, this.tipBg, this.tipContent, this.goOutBtn];
         objs.forEach((obj, _) => this.addChild(obj));
         ViewUtils.multiLang(this, ...objs);
     }
@@ -67,8 +78,8 @@ class TurntableView extends egret.DisplayObjectContainer {
         this.refresh();
         
         var cfg = this.player.worldmap.cfg.turntable;
-        var xOrigin = this.bg.width / 2;
-        var yOrigin = this.bg.height / 2;
+        var xOrigin = this.rewardsBg.x + this.rewardsBg.width / 2;
+        var yOrigin = this.rewardsBg.y + this.rewardsBg.height / 2;
         
         // 根据奖励内容获取对应Bitmap并调整其位置
         for(var i = 0; i < this.rewardCount; i++){
@@ -81,10 +92,10 @@ class TurntableView extends egret.DisplayObjectContainer {
                 this.imgs[i] = ViewUtils.setTexName(this.imgs[i], "turntableMinusHp_png");
                 break;
                 case "box":
-                this.imgs[i] = ViewUtils.setTexName(this.imgs[i], "turntableBox_png");
+                this.imgs[i] = ViewUtils.setTexName(this.imgs[i], "TreasureBox_png");
                 break;
                 case "coins":
-                this.imgs[i] = ViewUtils.setTexName(this.imgs[i], "turntableCoin_png");
+                this.imgs[i] = ViewUtils.setTexName(this.imgs[i], "Coins9_png");
                 break;
                 case "item":
                 var rdp = GCfg.getRandomDropGroupCfg(cfg[i].attrs);
@@ -92,9 +103,9 @@ class TurntableView extends egret.DisplayObjectContainer {
                 this.imgs[i] = ViewUtils.setTexName(this.imgs[i], dropItem + "_png");
                 break;
             }
-            this.imgs[i].x = xOrigin + 200 * Math.cos(i * 2 * Math.PI / this.rewardCount);
-            this.imgs[i].y = yOrigin - 200 * Math.sin(i * 2 * Math.PI / this.rewardCount);
-            this.imgs[i].rotation = 90 - 360 / this.rewardCount * i;
+            this.imgs[i].x = xOrigin + 160 * Math.cos(i * 2 * Math.PI / this.rewardCount + 0.5 * Math.PI);
+            this.imgs[i].y = yOrigin - 160 * Math.sin(i * 2 * Math.PI / this.rewardCount + 0.5 * Math.PI);
+            this.imgs[i].rotation = - 360 / this.rewardCount * i;
             this.imgs[i].anchorOffsetX = this.imgs[i].width / 2;
             this.imgs[i].anchorOffsetY = this.imgs[i].height / 2;
             this.imgs[i]["type"] = type;
@@ -106,17 +117,16 @@ class TurntableView extends egret.DisplayObjectContainer {
             this.imgs[i]["weight"] = cfg.weight;
             this.rewards.addChild(this.imgs[i]);
         }
-        this.addChild(this.sign);
 
         return new Promise<void>((resolve, reject) => this.doClsoe = resolve);
     }
 
-    // 刷新界面,加入开始按钮,去掉前进按钮,重置奖励轮盘
-    private refresh(){        
-        this.addChild(this.startBtn);
+    // 刷新界面,重置开始按钮,去掉前进按钮,重置奖励轮盘
+    private refresh(){    
+        this.changeStartbtnStatus("init");
         this.removeChild(this.goOutBtn);
         this.removeChild(this.tipBg);
-        this.removeChild(this.tipContent);        
+        this.removeChild(this.tipContent);
         for(var i = 0; i < this.rewardCount; i++){
             this.rewards.removeChild(this.imgs[i]);
         }
@@ -125,7 +135,7 @@ class TurntableView extends egret.DisplayObjectContainer {
 
     // 转动转盘,获取随机奖励
     private onStart(){
-        this.removeChild(this.startBtn);
+        this.changeStartbtnStatus("used");
         var cfg = this.player.worldmap.cfg.turntable;
         var randomIndex = this.getRandomIndexByWeight(cfg);
 
@@ -163,12 +173,14 @@ class TurntableView extends egret.DisplayObjectContainer {
             }
 
         var rr = egret.Tween.get(this.rewards, {loop:false});
-        rr.to({rotation:rotateAngels}, 3000, egret.Ease.circInOut).call(() => {            
-            this.addChild(this.tipBg);
-            this.addChild(this.tipContent);
-            this.addChild(this.goOutBtn);
-            });// 3秒动画后出现前进按钮
+        // 3秒动画后出现前进按钮W
+        rr.to({rotation:rotateAngels}, 3000, egret.Ease.circInOut).call(this.fff);
+    }
 
+    private fff():any {
+        this.addChild(this.tipBg);
+        this.addChild(this.tipContent);
+        this.addChild(this.goOutBtn);
     }
 
     // 根据配置的物品和权重随机奖励内容的索引
@@ -189,4 +201,11 @@ class TurntableView extends egret.DisplayObjectContainer {
     return j;
     }
 
+    changeStartbtnStatus(type:string){
+        if(type == "init")
+            this.startBtn.enabled = true;        
+        else if(type == "used")
+            this.startBtn.enabled = false;
+        
+    }
 }

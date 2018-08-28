@@ -446,7 +446,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 await this.openShop(this.worldmap.cfg.shop);
                 break;
             case "turntable":
-                await this.openTurntable();
+                await this.openTurntable(this.worldmap.cfg.turntable);
                 break;
             default: {
                 // 此外就都认为是地图选项事件

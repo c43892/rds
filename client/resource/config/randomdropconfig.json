@@ -86,7 +86,6 @@
     }},
 
     "ttrdp2":{"num":[1, 2],"elems":{
-        "HpPotion":10,
         "RayGun":20,
         "IceGun":30
     }}
