@@ -46,15 +46,15 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.wmesFact.selRelic = this.selRelic;
         this.wmesFact.openEventSels = async (p:Player, group) => await this.openSelGroup(p, group);
 
-        this.btnSetting = new TextButtonWithBg("BtnSetting_png", 0);
+        this.btnSetting = new TextButtonWithBg("BtnSetting_png");
         this.btnSetting.name = "btnSetting";
         this.coins = ViewUtils.createBitmapByName("Coins_png");
         this.coins.name = "coins";
         this.numCoins = ViewUtils.createTextField(33, 0xffffff, false, false);
         this.numCoins.name = "numCoins";
-        this.btnSymbolDesc = new TextButtonWithBg("SymbolDescbtn_png", 0);
+        this.btnSymbolDesc = new TextButtonWithBg("SymbolDescbtn_png");
         this.btnSymbolDesc.name = "btnSymbolDesc";
-        this.symbolDesc = ViewUtils.createBitmapByName("SymbolDesc_png");
+        this.symbolDesc = new TextButtonWithBg("SymbolDesc_png");
         this.symbolDesc.name = "symbolDesc";
         
         for (var i = 0; i < 7; i++) {
@@ -68,7 +68,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
     numCoins:egret.TextField; // 金币数量
     crevices:egret.Bitmap[] = []; // 裂缝
     btnSymbolDesc:TextButtonWithBg; // 图例按钮
-    symbolDesc:egret.Bitmap; // 图例
+    symbolDesc:TextButtonWithBg; // 图例
     private refreshUI() {
         this.refreshFrame();
 
@@ -80,18 +80,21 @@ class WorldMapView extends egret.DisplayObjectContainer {
         ViewUtils.multiLang(this, ...objs);
 
         this.removeChild(this.symbolDesc); // 初始不显示图例
-        this.btnSymbolDesc.onClicked = () => {
-            if (this.contains(this.symbolDesc)) {
-                this.removeChild(this.symbolDesc);
-                ViewUtils.multiLang(this, this.btnSymbolDesc);
-            } else {
-                this.addChild(this.symbolDesc);
-                ViewUtils.multiLang(this, this.symbolDesc);
-                this.btnSymbolDesc.y = this.symbolDesc.y + this.symbolDesc.height;
-            }
-        };
+        this.btnSymbolDesc.onClicked = () => this.onClickSymbolDesc();
+        this.symbolDesc.onClicked = () => this.onClickSymbolDesc();
 
         this.numCoins.text = this.player.money.toString();
+    }
+
+    private onClickSymbolDesc() {
+        if (this.contains(this.symbolDesc)) {
+            this.removeChild(this.symbolDesc);
+            ViewUtils.multiLang(this, this.btnSymbolDesc);
+        } else {
+            this.addChild(this.symbolDesc);
+            ViewUtils.multiLang(this, this.symbolDesc);
+            this.btnSymbolDesc.y = this.symbolDesc.y + this.symbolDesc.height;
+        }
     }
 
     private refreshFrame() {

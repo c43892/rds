@@ -25,7 +25,7 @@
             "shop":10,
             "normal":10,
             "box":10,
-            "turntable":10,
+            "turntable":100000,
             "g1": 10,
             "g2": 10,
             "g3": 10,

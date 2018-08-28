@@ -1,6 +1,7 @@
 // 道具
 class PropView extends egret.DisplayObjectContainer {
     private e:Elem;
+    private bg:egret.Bitmap; // 底图
     private elemImg:egret.Bitmap; // 元素图
     private num:egret.TextField; // 数量，右下角
 
@@ -8,14 +9,21 @@ class PropView extends egret.DisplayObjectContainer {
         super();
         this.width = w;
         this.height = h;
+
+        // 底图
+        this.bg = ViewUtils.createBitmapByName("skillGrid_png");
+        this.bg.x = this.bg.y = 0;
+        this.bg.width = this.width;
+        this.bg.height = this.height;
+        this.addChild(this.bg);
         
-        this.elemImg = ViewUtils.createBitmapByName(); // 元素图
+        this.elemImg = new egret.Bitmap(); // 元素图
         this.elemImg.touchEnabled = true;
         this.elemImg.alpha = 0;
         this.elemImg.x = this.elemImg.y = 0;
         this.elemImg.width = w;
         this.elemImg.height = h;
-        this.elemImg.name = "elemImg";        
+        this.elemImg.name = "elemImg";
         this.addChild(this.elemImg);
 
         this.anchorOffsetX = 0;

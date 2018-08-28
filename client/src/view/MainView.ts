@@ -421,9 +421,9 @@ class MainView extends egret.DisplayObjectContainer {
                 es.push(dpe);
 
             // 随机掉落组
-            var rdpElems = attrs.rdp ? GCfg.getRandomDropGroupCfg(attrs.rdp).elems : [];
-            for (var dpe of rdpElems)
-                es.push(dpe);
+            var rdpElems = attrs.rdp ? GCfg.getRandomDropGroupCfg(attrs.rdp).elems : {};
+            for (var dpe1 in rdpElems)
+                es.push(dpe1);
         }
 
         await this.loadResources(resArr);

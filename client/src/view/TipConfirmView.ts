@@ -10,7 +10,7 @@ class TipConfirmView extends egret.DisplayObjectContainer {
         this.height = h;
         this.name = "tipConfirm";
 
-        this.bg = ViewUtils.createBitmapByName("translucent_png");
+        this.bg = new egret.Bitmap();
         this.bg.x = this.bg.y = 0;
         this.bg.width = this.width;
         this.bg.height = this.height;

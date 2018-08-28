@@ -4,6 +4,8 @@ class BattleView extends egret.DisplayObjectContainer {
 
     // 战斗界面背景
     public bg:egret.Bitmap; // 整体背景
+    public mapViewBg:egret.Bitmap; // 格子区域底图
+    public bgGrids:egret.Bitmap; // 背景格子
 
     // 头像区域
     public avatarBg:egret.Bitmap; // 角色头像区域背景
@@ -187,13 +189,20 @@ class BattleView extends egret.DisplayObjectContainer {
         this.height = h;
 
         // 整体背景
-        this.bg = ViewUtils.createBitmapByName("black_png"); 
+        this.bg = ViewUtils.createBitmapByName("battleBg_png"); 
         this.bg.name = "bg";
-        this.bg.x = this.bg.y = 0;
-        this.bg.width = this.width;
-        this.bg.height = this.height;
-        this.bg.scale9Grid = new egret.Rectangle(50, 150, 150, 50);
         this.addChild(this.bg);
+        ViewUtils.asFullBg(this.bg);
+
+        // 格子区域底图
+        this.mapViewBg = ViewUtils.createBitmapByName("mapViewbg_png"); 
+        this.mapViewBg.name = "mapViewBg";
+        this.addChild(this.mapViewBg);
+
+        // 背景格子
+        this.bgGrids = ViewUtils.createBitmapByName("bgGrids_png");
+        this.bgGrids.name = "bgGrids";
+        this.addChild(this.bgGrids);
 
         // 角色属性相关
         this.createPlayerAttrs();
@@ -239,6 +248,8 @@ class BattleView extends egret.DisplayObjectContainer {
         // 录像
         this.repView = new ReplayView(w, h);
         this.addChild(this.repView);
+
+        ViewUtils.multiLang(this, this.bgGrids, this.mapViewBg);
     }
 
     // 设置新的地图数据，但并不自动刷新显示，需要手动刷新

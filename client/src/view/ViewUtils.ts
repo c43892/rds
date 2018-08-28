@@ -198,14 +198,13 @@ class ViewUtils {
         var parentPos = parent.localToGlobal();
         obj.width = ViewUtils.fullSize.w / parentScale.scaleX;
         obj.height = ViewUtils.fullSize.h / parentScale.scaleY;
-        obj.x = (ViewUtils.MainArea.height - obj.height) / 2 - parentPos.x;
+        obj.x = (ViewUtils.MainArea.width - obj.width) / 2 - parentPos.x;
         obj.y = (ViewUtils.MainArea.height - obj.height) / 2 - parentPos.y;
     }
 
     // 获取全局缩放值
     public static getGlobalScale(obj:egret.DisplayObject) {
-        if (obj == ViewUtils.MainArea)
-            return {scaleX:1, scaleY:1};
+        if (obj instanceof Main) return {scaleX:1, scaleY:1};
 
         var s = {scaleX:obj.scaleX, scaleY:obj.scaleY};
         if (obj.parent) {

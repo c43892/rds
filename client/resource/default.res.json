@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "description_json,levelconfig_json,Bunny_png,elemattrsconfig_json,DeathGod_png,playerconfig_json,Hawkeye_png,TimeMachine_png,Key_png,NextLevelPort_png,Clock_png,HpCapsule_png,Magazine_png,Hole_png,Apple3_png,Apple2_png,Apple1_png,Steak3_png,Steak2_png,Steak1_png,RandomEgg_png,IceBlock_png,randomdropconfig_json,BombAbomination_png,DancerZombie_png,EyeDemon_png,GluttonyZombie_png,HoundZombie_png,LustZombie_png,NormalZombie_png,RandomEggZombie_png,Gengar_png,GoblinThief_png,Vampire_png,worldmap_json,Baton_png,translucent_png,shopconfig_json,goBack_png,soldout_png,btnCure_png,btnReinforce_png,btnMutate_png,goBack2_png,Power_png,Fierce_png,Cloak_png,Unback2Sneak_png,BoxRoomBox_png,BoxRoomBoxOpened_png,ShopNpc_png,worldmapeventsels_json,turntableBg_png,turntableAddHp_png,turntableMinusHp_png,turntableGoOutBtn_png,CommanderZombie_png,turntableTipBg_png,RageZombie_png,HideZombie_png,BallShito_png,ReviveZombie_png,CowardZombie_png,MarkZombie_png,ConfusionZombie_png,GreedyZombie_png,Mummy_png,PoisonJellyfish_png,HeadBone_png,SkeletonKing_png,Cocoon_png,SwatheZombie_png,BoxMonster_png,Nurse_png,multilanguage_json,btnBg_png,avatarBg_png,expBar_png,hpBar_png,deathGod_png,anicover_png,ban_png,blocked_png,covered_png,selectable_png,replaybg_png,unselectable_png,uncoverable_png,num1_png,num2_png,num3_png,num5_png,questionMark_png,num4_png,deathGodBar_png,deathGodBarBg_png,num6_png,num7_png,num8_png,Coins2_png,Coins3_png,TreasureBox_png,Knife_png,Ghost_png,moreRelicsBtn_png,monsterHpBg_png,monsterPowerBg_png,monsterShieldBg_png,Door3_png,Door2_png,NurseBg_png,Endurance_png,Agile_png,elemdesc_json,MedicineBox_png,Rock2_png,Rock1_png,Door1_png,marked_png,SmallRock_png,Shield_png,Coins9_png,Coins1_png,Coins4_png,Coins5_png,Coins6_png,Coins7_png,Coins8_png,monsterMoveRangeBg_png,monsterAttackIntervalBg_png,WantedOrder_png,EconomyMagazine_png,Vest_png,eyeDemonEye_png,popupTipBg_png,cd2_png,cd3_png,cd6_png,cd4_png,cd5_png,cd8_png,cd9_png,cd7_png,cd1_png,cd0_png,Crucifix_png,RedSlime_png,GreenSlime_png,LoadingBar_png,LoadingBg_png,LoadingGhost_png,WeaponMaster_png,UndefinedName1_png,UndefinedName2_png,NutWall_png,black_png,Adopt_png,BtnSetting_png,Coins_png,Crevice_png,FootPrint_png,Nodeboss_png,Nodebox_png,Nodecamp_png,Nodeevent_png,Nodenormal_png,Nodesenior_png,Nodeshop_png,SymbolDesc_png,SymbolDescbtn_png,WorldMapBg_png,WorldMapBg1_png,WorldMapBg2_png,WorldMapBgCorner_png,ShieldBack_png,BossBunny_png,Peashooter_png,CherryBomb_png,Sunflower_png,confirmBg_png,CharmingMushroom_png,occupationconfig_json,rewardsBg_png,turntableStartBtn2_png",
+			"keys": "description_json,levelconfig_json,Bunny_png,elemattrsconfig_json,DeathGod_png,playerconfig_json,Hawkeye_png,TimeMachine_png,Key_png,NextLevelPort_png,Clock_png,HpCapsule_png,Magazine_png,Hole_png,Apple3_png,Apple2_png,Apple1_png,Steak3_png,Steak2_png,Steak1_png,RandomEgg_png,IceBlock_png,randomdropconfig_json,BombAbomination_png,DancerZombie_png,EyeDemon_png,GluttonyZombie_png,HoundZombie_png,LustZombie_png,NormalZombie_png,RandomEggZombie_png,Gengar_png,GoblinThief_png,Vampire_png,worldmap_json,Baton_png,translucent_png,shopconfig_json,goBack_png,soldout_png,btnCure_png,btnReinforce_png,btnMutate_png,goBack2_png,Power_png,Fierce_png,Cloak_png,Unback2Sneak_png,BoxRoomBox_png,BoxRoomBoxOpened_png,ShopNpc_png,worldmapeventsels_json,turntableBg_png,turntableAddHp_png,turntableMinusHp_png,turntableStartBtn_png,turntableGoOutBtn_png,CommanderZombie_png,RageZombie_png,HideZombie_png,BallShito_png,ReviveZombie_png,CowardZombie_png,MarkZombie_png,ConfusionZombie_png,GreedyZombie_png,Mummy_png,PoisonJellyfish_png,HeadBone_png,SkeletonKing_png,Cocoon_png,SwatheZombie_png,BoxMonster_png,Nurse_png,multilanguage_json,btnBg_png,avatarBg_png,expBar_png,hpBar_png,deathGod_png,anicover_png,ban_png,blocked_png,covered_png,selectable_png,replaybg_png,unselectable_png,uncoverable_png,num1_png,num2_png,num3_png,num5_png,questionMark_png,num4_png,deathGodBar_png,deathGodBarBg_png,num6_png,num7_png,num8_png,Coins2_png,Coins3_png,TreasureBox_png,Knife_png,Ghost_png,moreRelicsBtn_png,monsterHpBg_png,monsterPowerBg_png,monsterShieldBg_png,Door3_png,Door2_png,NurseBg_png,Endurance_png,Agile_png,elemdesc_json,MedicineBox_png,Rock2_png,Rock1_png,Door1_png,marked_png,SmallRock_png,Shield_png,Coins9_png,Coins1_png,Coins4_png,Coins5_png,Coins6_png,Coins7_png,Coins8_png,monsterMoveRangeBg_png,monsterAttackIntervalBg_png,WantedOrder_png,EconomyMagazine_png,Vest_png,eyeDemonEye_png,popupTipBg_png,cd2_png,cd3_png,cd6_png,cd4_png,cd5_png,cd8_png,cd9_png,cd7_png,cd1_png,cd0_png,Crucifix_png,RedSlime_png,GreenSlime_png,LoadingBar_png,LoadingBg_png,LoadingGhost_png,WeaponMaster_png,UndefinedName1_png,UndefinedName2_png,NutWall_png,black_png,Adopt_png,BtnSetting_png,Coins_png,Crevice_png,FootPrint_png,Nodeboss_png,Nodebox_png,Nodecamp_png,Nodeevent_png,Nodenormal_png,Nodesenior_png,Nodeshop_png,SymbolDesc_png,SymbolDescbtn_png,WorldMapBg_png,WorldMapBg1_png,WorldMapBg2_png,WorldMapBgCorner_png,ShieldBack_png,BossBunny_png,Peashooter_png,CherryBomb_png,Sunflower_png,confirmBg_png,CharmingMushroom_png,occupationconfig_json",
 			"name": "all"
 		},
 		{
@@ -13,7 +13,7 @@
 			"name": "configs"
 		},
 		{
-			"keys": "anicover_png,avatarBg_png,ban_png,blocked_png,covered_png,deathGod_png,deathGodBar_png,deathGodBarBg_png,expBar_png,hpBar_png,marked_png,monsterAttackIntervalBg_png,monsterHpBg_png,monsterMoveRangeBg_png,monsterPowerBg_png,monsterShieldBg_png,moreRelicsBtn_png,num1_png,num2_png,num3_png,num4_png,num5_png,num6_png,num7_png,num8_png,popupTipBg_png,questionMark_png,replaybg_png,selectable_png,uncoverable_png,unselectable_png,BoxRoomBox_png,BoxRoomBoxOpened_png,black_png,btnBg_png,goBack_png,goBack2_png,translucent_png,btnCure_png,btnMutate_png,btnReinforce_png,soldout_png,turntableAddHp_png,turntableBg_png,turntableGoOutBtn_png,turntableMinusHp_png,turntableTipBg_png,Adopt_png,BtnSetting_png,Coins_png,Crevice_png,FootPrint_png,Nodeboss_png,Nodebox_png,Nodecamp_png,Nodeevent_png,Nodenormal_png,Nodesenior_png,Nodeshop_png,SymbolDesc_png,SymbolDescbtn_png,WorldMapBg_png,WorldMapBg1_png,WorldMapBg2_png,WorldMapBgCorner_png,lvBg_png,lvBg2_png,lvBtnOk_png,lvBtnOkBg_png,lvSelBarNormal_png,lvSelBarSel_png,cd9_png,cd8_png,cd7_png,cd6_png,cd5_png,cd4_png,cd3_png,cd2_png,cd1_png,cd0_png,AchievementDisabled_png,AchievementDown_png,AchievementNormal_png,ContinueDisabled_png,ContinueDown_png,ContinueNormal_png,lgbg_png,NewGameDown_png,NewGameNormal_png,HerosDown_png,HerosNormal_png,svbg_png,confirmBg_png,attrsBgShield_png,attrsBgPower_png,attrsBgMoveRange_png,attrsBgHp_png,attrsBgAttackInterval_png,bgFrame_png,bigBg_png,relicLvSign_png,rewardsBg_png,pointer_png,turntableStartBtn_png,turntableStartBtn2_png",
+			"keys": "anicover_png,avatarBg_png,ban_png,blocked_png,covered_png,deathGod_png,deathGodBar_png,deathGodBarBg_png,expBar_png,hpBar_png,marked_png,monsterAttackIntervalBg_png,monsterHpBg_png,monsterMoveRangeBg_png,monsterPowerBg_png,monsterShieldBg_png,moreRelicsBtn_png,num1_png,num2_png,num3_png,num4_png,num5_png,num6_png,num7_png,num8_png,popupTipBg_png,questionMark_png,replaybg_png,selectable_png,uncoverable_png,unselectable_png,BoxRoomBox_png,BoxRoomBoxOpened_png,black_png,btnBg_png,goBack_png,goBack2_png,translucent_png,btnCure_png,btnMutate_png,btnReinforce_png,soldout_png,turntableAddHp_png,turntableBg_png,turntableGoOutBtn_png,turntableMinusHp_png,turntableStartBtn_png,Adopt_png,BtnSetting_png,Coins_png,Crevice_png,FootPrint_png,Nodeboss_png,Nodebox_png,Nodecamp_png,Nodeevent_png,Nodenormal_png,Nodesenior_png,Nodeshop_png,SymbolDesc_png,SymbolDescbtn_png,WorldMapBg_png,WorldMapBg1_png,WorldMapBg2_png,WorldMapBgCorner_png,lvBg_png,lvBg2_png,lvBtnOk_png,lvBtnOkBg_png,lvSelBarNormal_png,lvSelBarSel_png,cd9_png,cd8_png,cd7_png,cd6_png,cd5_png,cd4_png,cd3_png,cd2_png,cd1_png,cd0_png,AchievementDisabled_png,AchievementDown_png,AchievementNormal_png,ContinueDisabled_png,ContinueDown_png,ContinueNormal_png,lgbg_png,NewGameDown_png,NewGameNormal_png,HerosDown_png,HerosNormal_png,svbg_png,confirmBg_png,attrsBgShield_png,attrsBgPower_png,attrsBgMoveRange_png,attrsBgHp_png,attrsBgAttackInterval_png,bgFrame_png,bigBg_png,relicLvSign_png,battleBg_png,bgGrids_png,mapViewbg_png,skillGrid_png,pointer_png,rewardsBg_png,turntableStartBtn2_png",
 			"name": "ui"
 		},
 		{
@@ -310,6 +310,11 @@
 			"name": "turntableMinusHp_png"
 		},
 		{
+			"url": "assets/ui/turntable/turntableStartBtn.png",
+			"type": "image",
+			"name": "turntableStartBtn_png"
+		},
+		{
 			"url": "assets/ui/turntable/turntableGoOutBtn.png",
 			"type": "image",
 			"name": "turntableGoOutBtn_png"
@@ -318,11 +323,6 @@
 			"url": "assets/monsters/CommanderZombie.png",
 			"type": "image",
 			"name": "CommanderZombie_png"
-		},
-		{
-			"url": "assets/ui/turntable/turntableTipBg.png",
-			"type": "image",
-			"name": "turntableTipBg_png"
 		},
 		{
 			"url": "assets/monsters/RageZombie.png",
@@ -1195,9 +1195,24 @@
 			"name": "relicLvSign_png"
 		},
 		{
-			"url": "assets/ui/turntable/rewardsBg.png",
+			"url": "assets/ui/battle/battleBg.png",
 			"type": "image",
-			"name": "rewardsBg_png"
+			"name": "battleBg_png"
+		},
+		{
+			"url": "assets/ui/battle/bgGrids.png",
+			"type": "image",
+			"name": "bgGrids_png"
+		},
+		{
+			"url": "assets/ui/battle/mapViewbg.png",
+			"type": "image",
+			"name": "mapViewbg_png"
+		},
+		{
+			"url": "assets/ui/battle/skillGrid.png",
+			"type": "image",
+			"name": "skillGrid_png"
 		},
 		{
 			"url": "assets/ui/turntable/pointer.png",
@@ -1205,9 +1220,9 @@
 			"name": "pointer_png"
 		},
 		{
-			"url": "assets/ui/turntable/turntableStartBtn.png",
+			"url": "assets/ui/turntable/rewardsBg.png",
 			"type": "image",
-			"name": "turntableStartBtn_png"
+			"name": "rewardsBg_png"
 		},
 		{
 			"url": "assets/ui/turntable/turntableStartBtn2.png",
