@@ -19,7 +19,7 @@ class Occupation {
     // 护士
     static makeNurse(p:Player):Player {
         p.addBuff(new BuffNurse()); // 职业buff
-        p.addRelic(<Relic>ElemFactory.create("MedicineBox")); // 初始遗物
+        p.addRelic(<Relic>ElemFactory.create("HorticultureMaster")); // 初始遗物
         p.addItem(<Prop>ElemFactory.create("HpCapsule")); // 初始物品
         return p;
     }
