@@ -198,7 +198,7 @@ class ViewUtils {
         var parentPos = parent.localToGlobal();
         obj.width = ViewUtils.fullSize.w / parentScale.scaleX;
         obj.height = ViewUtils.fullSize.h / parentScale.scaleY;
-        obj.x = (ViewUtils.MainArea.height - obj.height) / 2 - parentPos.x;
+        obj.x = (ViewUtils.MainArea.width - obj.width) / 2 - parentPos.x;
         obj.y = (ViewUtils.MainArea.height - obj.height) / 2 - parentPos.y;
     }
 
