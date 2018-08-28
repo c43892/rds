@@ -84,7 +84,7 @@ class TurntableView extends egret.DisplayObjectContainer {
 
     private async onGoOut(){
         var e:Elem = this.tipReward["e"];
-        if (e) {
+        if (this.getChildIndex(this.tipReward) > -1 && e) {
             this.removeChild(this.tipReward);
             var fromImg = AniUtils.createImg(e.getElemImgRes() + "_png");
             fromImg.x = this.tipReward.x;
@@ -154,13 +154,15 @@ class TurntableView extends egret.DisplayObjectContainer {
         objs.forEach((obj, _) => this.addChild(obj));
         ViewUtils.multiLang(this, ...objs);
 
+        if (this.getChildIndex(this.tipReward) > -1 )
+            this.removeChild(this.tipReward);
+
         this.changeStartbtnStatus("init");
         this.removeChild(this.rewardsBgShadow);
         this.removeChild(this.goOutBtn);
         this.removeChild(this.tipBg);
         this.removeChild(this.tipContent);
-        if(this.getChildIndex(this.tipReward) > -1)
-            this.removeChild(this.tipReward);
+        
         for(var i = 0; i < this.rewardCount; i++){
             this.rewards.removeChild(this.imgs[i]);
         }
@@ -180,34 +182,34 @@ class TurntableView extends egret.DisplayObjectContainer {
         var showRewardIcon:boolean = false;
         switch(award["type"]){
                 case "+hp":
-                var hpBefore = this.player.hp;
-                this.player.addHp(Math.ceil(this.player.hp * award["attrs"] / 100));
-                this.tipContent.text = "+" + (this.player.hp - hpBefore) + " hp";
-                break;
+                    var hpBefore = this.player.hp;
+                    this.player.addHp(Math.ceil(this.player.hp * award["attrs"] / 100));
+                    this.tipContent.text = "+" + (this.player.hp - hpBefore) + " hp";
+                    break;
                 case "-hp":
-                var hpBefore = this.player.hp;
-                this.player.addHp(Math.floor(this.player.hp * award["attrs"] / 100));
-                this.tipContent.text = "-" + (hpBefore - this.player.hp) + "hp";
-                break;
+                    var hpBefore = this.player.hp;
+                    this.player.addHp(Math.floor(this.player.hp * award["attrs"] / 100));
+                    this.tipContent.text = "-" + (hpBefore - this.player.hp) + "hp";
+                    break;
                 case "box":
-                var rdp = GCfg.getRandomDropGroupCfg(award["attrs"]);
-                var dropItem = Utils.randomSelectByWeightWithPlayerFilter(this.player, rdp.elems, this.player.playerRandom, 1, 2, false)[0];
-                var e = ElemFactory.create(dropItem);
-                this.player.addItem(e);
-                this.tipContent.text = ViewUtils.getElemNameAndDesc(dropItem).name;
-                showRewardIcon = this.setTipReward(e);
-                break;
+                    var rdp = GCfg.getRandomDropGroupCfg(award["attrs"]);
+                    var dropItem = Utils.randomSelectByWeightWithPlayerFilter(this.player, rdp.elems, this.player.playerRandom, 1, 2, false)[0];
+                    var e = ElemFactory.create(dropItem);
+                    this.player.addItem(e);
+                    this.tipContent.text = ViewUtils.getElemNameAndDesc(dropItem).name;
+                    showRewardIcon = this.setTipReward(e);
+                    break;
                 case "coins":
-                this.player.addMoney(award["attrs"]);
-                this.tipContent.text = "+" + award["attrs"] + ViewUtils.getTipText("coins");
-                showRewardIcon = this.setTipReward(ElemFactory.create("Coins",{cnt:award["attrs"]}));
-                break;
+                    this.player.addMoney(award["attrs"]);
+                    this.tipContent.text = "+" + award["attrs"] + ViewUtils.getTipText("coins");
+                    showRewardIcon = this.setTipReward(ElemFactory.create("Coins",{cnt:award["attrs"]}));
+                    break;
                 case "item":
-                var e = ElemFactory.create(award["attrs"]);
-                this.player.addItem(e);
-                this.tipContent.text = ViewUtils.getElemNameAndDesc(e.type).name;
-                showRewardIcon = this.setTipReward(e);
-                break;
+                    var e = ElemFactory.create(award["attrs"]);
+                    this.player.addItem(e);
+                    this.tipContent.text = ViewUtils.getElemNameAndDesc(e.type).name;
+                    showRewardIcon = this.setTipReward(e);
+                    break;
             }        
             
         var rr = egret.Tween.get(this.rewards, {loop:false});
