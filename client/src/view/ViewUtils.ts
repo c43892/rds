@@ -204,8 +204,7 @@ class ViewUtils {
 
     // 获取全局缩放值
     public static getGlobalScale(obj:egret.DisplayObject) {
-        if (obj == ViewUtils.MainArea)
-            return {scaleX:1, scaleY:1};
+        if (obj instanceof Main) return {scaleX:1, scaleY:1};
 
         var s = {scaleX:obj.scaleX, scaleY:obj.scaleY};
         if (obj.parent) {
