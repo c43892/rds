@@ -425,7 +425,7 @@
         "Cocoon":{"name":"茧", "desc":[""]},
         "WantedOrder":{"name":"通缉令", "desc":[""]},
 
-        "NextLevelPort":{"name":"下一层", "desc":[""],
+        "NextLevelPort":{"name":"下一层", "desc":[""]},
         "EscapePort":{"name":"逃跑", "desc":[""]}
     },
     "CNT": {
