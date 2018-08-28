@@ -13,7 +13,9 @@ class TurntableView extends egret.DisplayObjectContainer {
     private tipBg:egret.Bitmap;
     private tipContent:egret.TextField;
     private tipReward:egret.Bitmap;
-    private rewardDesc = new ElemDescView(this.width, this.height);
+    private destination:egret.Bitmap; // 用于获得表现
+    public static showElemDesc; // 显示元素信息
+    private rewardsBgShadow:egret.Bitmap; // 用于遮挡转盘
 
     public constructor(w:number, h:number){
         super();
@@ -58,6 +60,11 @@ class TurntableView extends egret.DisplayObjectContainer {
         this.pointer.anchorOffsetX = this.pointer.width / 2;
         this.pointer.anchorOffsetY = this.pointer.height / 2;
 
+        this.rewardsBgShadow = ViewUtils.createBitmapByName("rewardsBgShadow_png");
+        this.rewardsBgShadow.name = "rewardsBgShadow";
+        this.rewardsBgShadow.anchorOffsetX = this.rewardsBgShadow.anchorOffsetY = 268;
+        this.rewardsBgShadow.touchEnabled = true;
+
         this.tipBg = ViewUtils.createBitmapByName("lvSelBarNormal_png");
         this.tipBg.name = "tipBg";
 
@@ -69,11 +76,26 @@ class TurntableView extends egret.DisplayObjectContainer {
 
         this.goOutBtn = new TextButtonWithBg("turntableGoOutBtn_png");
         this.goOutBtn.name = "goOutBtn";
-        this.goOutBtn.onClicked = () => this.doClsoe();
+        this.goOutBtn.onClicked = async () => await this.onGoOut();
 
-        // var objs = [this.bg1, this.rewards, this.pointer, this.startBtn, this.tipBg, this.tipContent, this.tipReward, this.goOutBtn];
-        // objs.forEach((obj, _) => this.addChild(obj));
-        // ViewUtils.multiLang(this, ...objs);
+        this.destination = new egret.Bitmap();
+        this.destination.name = "destination";
+    }
+
+    private async onGoOut(){
+        var e:Elem = this.tipReward["e"];
+        if (e) {
+            this.removeChild(this.tipReward);
+            var fromImg = AniUtils.createImg(e.getElemImgRes() + "_png");
+            fromImg.x = this.tipReward.x;
+            fromImg.y = this.tipReward.y;
+            fromImg.width = this.tipReward.width;
+            fromImg.height = this.tipReward.height;
+            await AniUtils.flash(fromImg, 200);
+            var toImg = this.destination;
+            await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
+        }
+        this.doClsoe()
     }
 
     private doClsoe;
@@ -128,11 +150,12 @@ class TurntableView extends egret.DisplayObjectContainer {
 
     // 刷新界面,重置开始按钮,去掉前进按钮,重置奖励轮盘
     private refresh(){
-        var objs = [this.bg1, this.rewards, this.pointer, this.startBtn, this.tipBg, this.tipContent, this.tipReward, this.goOutBtn];
+        var objs = [this.bg1, this.rewards, this.pointer, this.startBtn, this.rewardsBgShadow, this.tipBg, this.tipContent, this.tipReward, this.goOutBtn, this.destination];
         objs.forEach((obj, _) => this.addChild(obj));
         ViewUtils.multiLang(this, ...objs);
 
         this.changeStartbtnStatus("init");
+        this.removeChild(this.rewardsBgShadow);
         this.removeChild(this.goOutBtn);
         this.removeChild(this.tipBg);
         this.removeChild(this.tipContent);
@@ -191,9 +214,11 @@ class TurntableView extends egret.DisplayObjectContainer {
         // 3秒动画后出现前进按钮
         rr.to({rotation:rotateAngels}, 3000, egret.Ease.circInOut).call(((b:boolean) => () => {
                 var p = this;
+                p.addChild(p.rewardsBgShadow);
                 p.addChild(p.tipBg);
                 p.addChild(p.tipContent);
                 p.addChild(p.goOutBtn);
+                
                 if(b){                    
                     p.tipReward.x = 171;
                     p.tipReward.y = 743; 
@@ -228,21 +253,16 @@ class TurntableView extends egret.DisplayObjectContainer {
             this.startBtn.enabled = false;        
     }
 
-    setTipReward(e:Elem){        
+    setTipReward(e:Elem){
         this.tipContent.x = this.tipContent.x + 40;
         this.tipReward = ViewUtils.createBitmapByName(e.getElemImgRes() + "_png");
         this.tipReward["e"] = e;
-        this.tipReward.width = this.tipReward.height = 84;        
+        this.tipReward.width = this.tipReward.height = 84;
         if(e.type != "Coins"){
             this.tipReward.touchEnabled = true;
-            this.tipReward.addEventListener(egret.TouchEvent.TOUCH_TAP, () => this.openDescView(), this);
+            this.tipReward.addEventListener(egret.TouchEvent.TOUCH_TAP, async () => await TurntableView.showElemDesc(e), this);
         }
         else this.tipReward.touchEnabled = false;
         return true;
-    }
-
-    openDescView(){
-        Utils.log("log");
-        this.rewardDesc.open(this.tipReward["e"]);
     }
 }

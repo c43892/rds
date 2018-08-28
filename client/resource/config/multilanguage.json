@@ -1,5 +1,5 @@
 {
-    "currentLanguage":"EN",
+    "currentLanguage":"CNS",
     "validLanguages":["EN", "CNS", "CNT"],
 
     "views": {
@@ -190,10 +190,12 @@
 				"rewards": {"x":320, "y":430},
 				"startBtn": {"x":320, "y":430},
 				"pointer": {"x":320, "y":407},
-				"tipBg":{"x":111, "y":730},								
+				"rewardsBgShadow":{"x":320, "y":430},
+				"tipBg":{"x":111, "y":730},
 				"tipContent":{"x":171, "y":740, "w":300, "h":90},
 				"tipReward":{"x":171, "y":743},
-				"goOutBtn":{"x":365, "y":850}
+				"goOutBtn":{"x":365, "y":850},
+				"destination":{"x":320, "y":0}
 			}
 		}
     },

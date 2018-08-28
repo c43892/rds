@@ -78,6 +78,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.idv = new ElemDescView(w, h);
         ElemView.showElemDesc = async (e) => await this.showElemDesc(e);
         PropView.showElemDesc = async (e) => await this.showElemDesc(e);
+        TurntableView.showElemDesc = async (e) => await this.showElemDesc(e);
 
         // 展示给定的遗物列表
         this.arv = new AllRelicsView(w, h);
