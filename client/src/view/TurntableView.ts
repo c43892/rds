@@ -12,6 +12,8 @@ class TurntableView extends egret.DisplayObjectContainer {
     private rewardCount = 6;
     private tipBg:egret.Bitmap;
     private tipContent:egret.TextField;
+    private tipReward:egret.Bitmap;
+    private rewardDesc = new ElemDescView(this.width, this.height);
 
     public constructor(w:number, h:number){
         super();
@@ -56,19 +58,22 @@ class TurntableView extends egret.DisplayObjectContainer {
         this.pointer.anchorOffsetX = this.pointer.width / 2;
         this.pointer.anchorOffsetY = this.pointer.height / 2;
 
-        this.tipBg = ViewUtils.createBitmapByName("confirmBg_png");
+        this.tipBg = ViewUtils.createBitmapByName("lvSelBarNormal_png");
         this.tipBg.name = "tipBg";
 
         this.tipContent = ViewUtils.createTextField(30, 0x000000);
         this.tipContent.name = "tipContent";
 
+        this.tipReward = new egret.Bitmap();
+        this.tipReward.name = "tipReward";
+
         this.goOutBtn = new TextButtonWithBg("turntableGoOutBtn_png");
         this.goOutBtn.name = "goOutBtn";
         this.goOutBtn.onClicked = () => this.doClsoe();
 
-        var objs = [this.bg1, this.rewards, this.pointer, this.startBtn, this.tipBg, this.tipContent, this.goOutBtn];
-        objs.forEach((obj, _) => this.addChild(obj));
-        ViewUtils.multiLang(this, ...objs);
+        // var objs = [this.bg1, this.rewards, this.pointer, this.startBtn, this.tipBg, this.tipContent, this.tipReward, this.goOutBtn];
+        // objs.forEach((obj, _) => this.addChild(obj));
+        // ViewUtils.multiLang(this, ...objs);
     }
 
     private doClsoe;
@@ -122,11 +127,17 @@ class TurntableView extends egret.DisplayObjectContainer {
     }
 
     // 刷新界面,重置开始按钮,去掉前进按钮,重置奖励轮盘
-    private refresh(){    
+    private refresh(){
+        var objs = [this.bg1, this.rewards, this.pointer, this.startBtn, this.tipBg, this.tipContent, this.tipReward, this.goOutBtn];
+        objs.forEach((obj, _) => this.addChild(obj));
+        ViewUtils.multiLang(this, ...objs);
+
         this.changeStartbtnStatus("init");
         this.removeChild(this.goOutBtn);
         this.removeChild(this.tipBg);
         this.removeChild(this.tipContent);
+        if(this.getChildIndex(this.tipReward) > -1)
+            this.removeChild(this.tipReward);
         for(var i = 0; i < this.rewardCount; i++){
             this.rewards.removeChild(this.imgs[i]);
         }
@@ -143,44 +154,53 @@ class TurntableView extends egret.DisplayObjectContainer {
 
                 // 将奖励添加到角色身上
         var award = this.imgs[randomIndex];
+        var showRewardIcon:boolean = false;
         switch(award["type"]){
                 case "+hp":
                 var hpBefore = this.player.hp;
-                this.player.addHp(Math.round(this.player.hp * award["attrs"] / 100));
-                this.tipContent.text = "恭喜你恢复了" +  (this.player.hp - hpBefore) + "点生命值.";
+                this.player.addHp(Math.ceil(this.player.hp * award["attrs"] / 100));
+                this.tipContent.text = "+" + (this.player.hp - hpBefore) + " hp";
                 break;
                 case "-hp":
                 var hpBefore = this.player.hp;
-                this.player.addHp(Math.round(this.player.hp * award["attrs"] / 100));
-                this.tipContent.text = "很不幸你失去了" +  (hpBefore - this.player.hp) + "点生命值.";
+                this.player.addHp(Math.floor(this.player.hp * award["attrs"] / 100));
+                this.tipContent.text = "-" + (hpBefore - this.player.hp) + "hp";
                 break;
                 case "box":
                 var rdp = GCfg.getRandomDropGroupCfg(award["attrs"]);
                 var dropItem = Utils.randomSelectByWeightWithPlayerFilter(this.player, rdp.elems, this.player.playerRandom, 1, 2, false)[0];
                 var e = ElemFactory.create(dropItem);
                 this.player.addItem(e);
-                this.tipContent.text = "恭喜你,在宝箱中得到了" + dropItem + ".";
+                this.tipContent.text = ViewUtils.getElemNameAndDesc(dropItem).name;
+                showRewardIcon = this.setTipReward(e);
                 break;
                 case "coins":
-                this.player.addMoney(award["attrs"]);                
-                this.tipContent.text = "恭喜你获得了" + award["attrs"] + "金币.";
+                this.player.addMoney(award["attrs"]);
+                this.tipContent.text = "+" + award["attrs"] + ViewUtils.getTipText("coins");
+                showRewardIcon = this.setTipReward(ElemFactory.create("Coins",{cnt:award["attrs"]}));
                 break;
                 case "item":
                 var e = ElemFactory.create(award["attrs"]);
                 this.player.addItem(e);
-                this.tipContent.text = "恭喜你获得了" + award["attrs"];
+                this.tipContent.text = ViewUtils.getElemNameAndDesc(e.type).name;
+                showRewardIcon = this.setTipReward(e);
                 break;
-            }
-
+            }        
+            
         var rr = egret.Tween.get(this.rewards, {loop:false});
-        // 3秒动画后出现前进按钮W
-        rr.to({rotation:rotateAngels}, 3000, egret.Ease.circInOut).call(this.fff);
-    }
-
-    private fff():any {
-        this.addChild(this.tipBg);
-        this.addChild(this.tipContent);
-        this.addChild(this.goOutBtn);
+        // 3秒动画后出现前进按钮
+        rr.to({rotation:rotateAngels}, 3000, egret.Ease.circInOut).call(((b:boolean) => () => {
+                var p = this;
+                p.addChild(p.tipBg);
+                p.addChild(p.tipContent);
+                p.addChild(p.goOutBtn);
+                if(b){                    
+                    p.tipReward.x = 171;
+                    p.tipReward.y = 743; 
+                    p.addChild(p.tipReward);
+                }                    
+            })(showRewardIcon)
+        );
     }
 
     // 根据配置的物品和权重随机奖励内容的索引
@@ -203,9 +223,26 @@ class TurntableView extends egret.DisplayObjectContainer {
 
     changeStartbtnStatus(type:string){
         if(type == "init")
-            this.startBtn.enabled = true;        
+            this.startBtn.enabled = true;
         else if(type == "used")
-            this.startBtn.enabled = false;
-        
+            this.startBtn.enabled = false;        
+    }
+
+    setTipReward(e:Elem){        
+        this.tipContent.x = this.tipContent.x + 40;
+        this.tipReward = ViewUtils.createBitmapByName(e.getElemImgRes() + "_png");
+        this.tipReward["e"] = e;
+        this.tipReward.width = this.tipReward.height = 84;        
+        if(e.type != "Coins"){
+            this.tipReward.touchEnabled = true;
+            this.tipReward.addEventListener(egret.TouchEvent.TOUCH_TAP, () => this.openDescView(), this);
+        }
+        else this.tipReward.touchEnabled = false;
+        return true;
+    }
+
+    openDescView(){
+        Utils.log("log");
+        this.rewardDesc.open(this.tipReward["e"]);
     }
 }

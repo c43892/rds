@@ -1,5 +1,5 @@
 {
-    "currentLanguage":"CNS",
+    "currentLanguage":"EN",
     "validLanguages":["EN", "CNS", "CNT"],
 
     "views": {
@@ -186,11 +186,13 @@
 		
 		"turntable": {
 			"layout": {
-				"bg1": {"x":0, "y":168},
-				"rewards": {"x":320, "y":480},
-				"startBtn": {"x":320, "y":480},
-				"pointer": {"x":320, "y":455},
-				"tipBg":{"x":111, "y":230},
+				"bg1": {"x":0, "y":118},
+				"rewards": {"x":320, "y":430},
+				"startBtn": {"x":320, "y":430},
+				"pointer": {"x":320, "y":407},
+				"tipBg":{"x":111, "y":730},								
+				"tipContent":{"x":171, "y":740, "w":300, "h":90},
+				"tipReward":{"x":171, "y":743},
 				"goOutBtn":{"x":365, "y":850}
 			}
 		}
@@ -209,6 +211,7 @@
 		"relics": {"EN": "Relics", "CNS": "技能", "CNT": "技能"},
 		"makeSureUseElem": {"EN": "be sure to use {0}?", "CNS": "确定使用<font color=#ff0000>{0}</font>?", "CNT": "确定使用{0}?"},
 		"makeSureUseProp": {"EN": "be sure to use {0}?", "CNS": "确定使用<font color=#ff0000>{0}</font>?", "CNT": "确定使用{0}?"},
+		"coins":{"EN": "coins", "CNS": "金币", "CNT": "金幣" },
 		"": {}
 	}
 }
