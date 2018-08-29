@@ -167,8 +167,8 @@ class AniView extends egret.DisplayObjectContainer {
     // 遗物发生变化
     public async onRelicChanged(ps) {
         var e:Elem = ps.e;
-        var n = Utils.indexOf(e.bt().player.relics, (p) => p.type == e.type);
-        var toImg = this.bv.relics[n];
+        var n = Utils.indexOf(e.bt().player.relics, (p) => p.type == e.type);        
+        var toImg = n < 6 ? this.bv.relics[n] : this.bv.moreRelics;
         
         if (ps.subType == "addRelicByPickup") {
             var fromObj = this.getSV(e);
@@ -183,7 +183,6 @@ class AniView extends egret.DisplayObjectContainer {
                 fromImg.width = fromPos.w;
                 fromImg.height = fromPos.h;
                 await AniUtils.flash(fromImg, 200);
-                var toImg = this.bv.relics[n];
                 await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
                 fromImg["dispose"]();
             }
