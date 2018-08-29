@@ -16,7 +16,6 @@
         "boxroomDrops":{
             "MedicineBox":10,
             "Hawkeye":10,
-            "Endurance":10,
             "Power":10,
             "Fierce":10,            
             "Unback2Sneak":10
@@ -25,7 +24,7 @@
             "shop":10,
             "normal":10,
             "box":10,
-            "turntable":100000,
+            "turntable":10,
             "g1": 10,
             "g2": 10,
             "g3": 10,

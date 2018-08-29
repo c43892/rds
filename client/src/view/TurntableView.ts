@@ -94,6 +94,7 @@ class TurntableView extends egret.DisplayObjectContainer {
             await AniUtils.flash(fromImg, 200);
             var toImg = this.destination;
             await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
+            fromImg["dispose"]();
         }
         this.doClsoe()
     }
