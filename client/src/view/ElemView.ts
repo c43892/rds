@@ -264,7 +264,7 @@ class ElemView extends egret.DisplayObjectContainer {
             {
                 let e = this.map.getElemAt(this.gx, this.gy);
                 Utils.assert(!!e, "empty grid cannot be marked");
-                if ((e instanceof Prop || e instanceof Item || e instanceof Relic) || (e instanceof Monster && !(e.isHazard() || e["linkTo"] && e["linkTo"].isHazard())))
+                if ((e instanceof Prop || e instanceof Item || e instanceof Relic) || (e instanceof Monster && !(e.isHazard() || (e["linkTo"] && e["linkTo"].isHazard()))))
                     ElemView.try2UncoverAt(b.pos.x, b.pos.y);
                 else
                     await ElemView.try2UseElem(e);
@@ -290,10 +290,11 @@ class ElemView extends egret.DisplayObjectContainer {
                             if (e instanceof Prop || e instanceof Monster || e instanceof Relic)
                             await ElemView.try2UseElem(e);
                             else {
-                                if (!e.attrs.useWithoutConfirm)
+                                if (!e.attrs.useWithoutConfirm){
                                     var content = ViewUtils.formatString(ViewUtils.getTipText("makeSureUseElem"), ViewUtils.getElemNameAndDesc(e.type).name);
                                     var ok = await PropView.confirmOkYesNo(undefined, content, true, ["确定", "取消"]);
                                     if (ok) ElemView.try2UseElem(e);
+                                }
                                 else
                                     await ElemView.try2UseElem(e);
                             }
