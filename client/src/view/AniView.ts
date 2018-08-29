@@ -354,7 +354,7 @@ class AniView extends egret.DisplayObjectContainer {
                 this.aniFact.createAni("seq", {subAniArr:[
                     this.aniFact.createAni("tr", {obj:coinsImg, fx:coinSV.localToGlobal().x, fy:coinSV.localToGlobal().y,
                         tx:txt.localToGlobal().x, ty:txt.localToGlobal().y,
-                        fsx:1, fsy:1, tsx:0.6, tsy:0.6, time:300}),
+                        fsx:1, fsy:1, tsx:0.6, tsy:0.6, time:500}),
                     this.aniFact.createAni("tr", {obj:coinsImg, fa:1, ta:0, time:1})
                 ]});
 
@@ -363,16 +363,16 @@ class AniView extends egret.DisplayObjectContainer {
                     this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
                 else
                     coinSV.alpha = 0;
-            } else {
+            } else if (ps.e.type != "ShopNpc") {
                 this.aniFact.createAni("seq", {subAniArr:[
                     this.aniFact.createAni("tr", {obj:coinsImg, tx:txt.localToGlobal().x, ty:txt.localToGlobal().y,
                         fx:coinSV.localToGlobal().x, fy:coinSV.localToGlobal().y,
-                        fsx:0.6, fsy:0.6, tsx:1, tsy:1, time:300}),
+                        fsx:0.6, fsy:0.6, tsx:1, tsy:1, time:500}),
                     this.aniFact.createAni("tr", {obj:coinsImg, fa:1, ta:0, time:1})
                 ]});
             }
             
-            await AniUtils.delay(100);
+            await AniUtils.delay(150);
             this.bv.refreshMoneyAt(v);
         }
 
