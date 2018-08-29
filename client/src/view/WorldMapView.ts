@@ -380,8 +380,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
     }
 
     public async enterNode(lv:number, n:number) {
-        var parent = this.parent;
-        parent.removeChild(this);
         
         // 保存进度
         this.player.notifyStoreyPosIn(lv, n);
@@ -397,9 +395,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 await this.startNewBattle(p, nodeType, lv, n, btRandonSeed);
                 break;
             case "shop":
-                parent.addChild(this);
                 await this.openShop(this.worldmap.cfg.shop);
-                parent.removeChild(this);
                 break;
             case "camp":
                 await this.openHospital();
@@ -408,9 +404,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 await this.openBoxRoom(this.worldmap.cfg.boxroomDrops);
                 break;
             case "event":
-                parent.addChild(this);
                 await this.openMapEventSels(lv, n);
-                parent.removeChild(this);
                 break;                
             default:
                 Utils.log("not support " + nodeType + " yet");
@@ -427,7 +421,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
         } else {
             // 更新最高分
             window.platform.setUserCloudStorage({"score": this.player.currentStoreyPos.lv});
-            parent.addChild(this);
             this.refresh();
         }
     }
