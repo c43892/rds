@@ -14,9 +14,7 @@ class AniView extends egret.DisplayObjectContainer {
         
         this.bv = mainView.bv;
         this.wmv = mainView.wmv;
-        this.aniCover = ViewUtils.createBitmapByName("anicover_png");
-        this.aniCover.width = this.width;
-        this.aniCover.height = this.height;
+        this.aniCover = new egret.Bitmap();
         this.aniCover.touchEnabled = true;
 
         this.blackCover = ViewUtils.createBitmapByName("black_png");
@@ -677,7 +675,10 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 增加阻挡点击的操作层数（类似自旋），只要结果 >0 就会阻挡操作
     public addBlockLayer() {
-        this.addChild(this.aniCover);
+        if (this.aniLayerCnt == 0) {
+            this.addChild(this.aniCover);
+            ViewUtils.asFullBg(this.aniCover);
+        }
         this.aniLayerCnt++;
     }
 

@@ -152,9 +152,11 @@ class MainView extends egret.DisplayObjectContainer {
         ], (e) => (ps) => this.bv.av[e](ps));
         bt.registerEvent("onGoOutLevel", async (ps) => {
             await this.av.onGoOutLevel(ps);
+        });
+        bt.registerEvent("onBattleEnded", async (ps) => {
             this.removeChild(this.bv);
             this.battleEndedCallback(bt);
-        })
+        });
 
         BattleRecorder.registerReplayIndicatorHandlers(bt);
         bt.start();

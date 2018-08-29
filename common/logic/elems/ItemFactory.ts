@@ -255,7 +255,11 @@ class ItemFactory {
             var e = this.createItem();
             e.canUse = () => true;
             e.canBeDragDrop = false;
-            e.use = async () => await e.bt().implGo2NextLevel(); // 进入下一关卡
+            e.use = async () => {
+                await e.bt().implGo2NextLevel(); // 离开当前战斗
+                e.bt().ended = true;
+                return true;
+            };
             return e;
         },
 

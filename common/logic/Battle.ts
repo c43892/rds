@@ -57,7 +57,7 @@ class Battle {
 
     prepared = false;
     public prepare() {
-        if (this.prepared) return;
+        if (this.prepared) return;        
         this.loadCurrentLevel(this.btType);
         BattleUtils.randomElemsPosInMap(this);
         this.prepared = true;
@@ -67,6 +67,7 @@ class Battle {
     public async start() {
         Utils.assert(this.prepared, "call battle.prepare() first");
         
+        this.ended = false;
         this.level.RandomElemsPos(); // 先随机一下，免得看起来不好看
         await this.fireEvent("onLevelInited", {bt:this});
         await this.triggerLogicPoint("onLevelInited", {bt:this});
@@ -365,6 +366,8 @@ class Battle {
         };
     }
 
+    public ended = false; // 战斗结束标记
+
     // 尝试无目标使用元素
     public try2UseElem() {
         return async (e:Elem) => {
@@ -386,6 +389,12 @@ class Battle {
             await this.triggerLogicPoint("onPlayerActed", {subType:"useElem", e:e, num:-1}); // 算一次角色行动
 
             await this.checkPlayerLevelUpAndDie();
+
+            if (this.ended) {
+                this.player.setBattle(undefined);
+                this.player = undefined;
+                await this.fireEvent("onBattleEnded", {bt:this});
+            }
         };
     }
 
