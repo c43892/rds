@@ -15,7 +15,7 @@
             "ShopNpc":{"shopCfg":"inbattle"},
             "CoinsTiny": {
                 "type": "Coins",
-                "cnt": 1
+                "cnt": 100
             },
             "CoinsSmall": {
                 "type": "Coins",

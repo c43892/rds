@@ -343,14 +343,42 @@ class AniView extends egret.DisplayObjectContainer {
     public async onMoneyChanged(ps) {
         var dm = Math.abs(ps.d);
         var txt = this.bv.getMoneyText();
+        var e = ps.e;
+        var coinSV = this.getSV(ps.e);
 
         var d = ps.d > 0 ? 1 : -1;
-        var subAniArr = [];
-        for (var i = 0; i < dm; i++) {
-            var v = this.bv.player.money - (dm - i) * d;
+        var coinsImgArr = [];
+        for (var i = dm > 15 ? dm - 15 : 0; i < dm; i++) {
+            var v = this.bv.player.money - (dm - i) * d;            
+            var coinsImg = AniUtils.createImg("Coins_png");
+            coinsImgArr.push(coinsImg);
+            if (d > 0) {
+                this.aniFact.createAni("seq", {subAniArr:[
+                    this.aniFact.createAni("tr", {obj:coinsImg, fx:coinSV.localToGlobal().x, fy:coinSV.localToGlobal().y,
+                        tx:txt.localToGlobal().x, ty:txt.localToGlobal().y,
+                        fsx:1, fsy:1, tsx:0.6, tsy:0.6, time:300}),
+                    this.aniFact.createAni("tr", {obj:coinsImg, fa:1, ta:0, time:1})
+                ]});
+
+                ps.e.cnt = dm - i;
+                if (ps.e.cnt > 0)
+                    this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
+                else
+                    coinSV.alpha = 0;
+            } else {
+                this.aniFact.createAni("seq", {subAniArr:[
+                    this.aniFact.createAni("tr", {obj:coinsImg, tx:txt.localToGlobal().x, ty:txt.localToGlobal().y,
+                        fx:coinSV.localToGlobal().x, fy:coinSV.localToGlobal().y,
+                        fsx:0.6, fsy:0.6, tsx:1, tsy:1, time:300}),
+                    this.aniFact.createAni("tr", {obj:coinsImg, fa:1, ta:0, time:1})
+                ]});
+            }
+            
+            await AniUtils.delay(100);
             this.bv.refreshMoneyAt(v);
-            await AniUtils.delay(1);
         }
+
+        coinsImgArr.forEach((img, _) => img["dispose"]());
 
         this.bv.refreshMoneyAt();
     }

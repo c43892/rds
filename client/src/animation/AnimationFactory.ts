@@ -133,6 +133,8 @@ class AnimationFactory {
         if (ps.fsy != undefined) psf["scaleY"] = ps.fsy;
         if (ps.fa != undefined) psf["alpha"] = ps.fa;
         if (ps.fr != undefined) psf["rotation"] = ps.fr;
+        if (ps.fskx != undefined) psf["skewX"] = ps.fskx;
+        if (ps.fsky != undefined) psf["skewY"] = ps.fsky;
 
         var pst = {};
         if (ps.tx != undefined) pst["x"] = ps.tx;
@@ -143,6 +145,8 @@ class AnimationFactory {
         if (ps.tsy != undefined) pst["scaleY"] = ps.tsy;
         if (ps.ta != undefined) pst["alpha"] = ps.ta;
         if (ps.tr != undefined) pst["rotation"] = ps.tr;
+        if (ps.tskx != undefined) pst["skewX"] = ps.fskx;
+        if (ps.tsky != undefined) pst["skewY"] = ps.fsky;
 
         var t = ps.time != undefined ? ps.time : 1000;
         return egret.Tween.get(g).to(psf, 0).to(pst, t, ps.mode);
