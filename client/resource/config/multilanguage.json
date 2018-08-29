@@ -21,24 +21,25 @@
 
         "battle": {
             "layout": {
-				"occupationBg": {"x":20, "y":5, "w":130, "h":132},
-				"avatarBg": {"x":0, "y":0, "w":188, "h":188},
-				"avatar": {"x":20, "y":5, "w":130, "h":132},
+				"occupationBg": {"x":20, "y":0},
+				"avatarBg": {"x":0, "y":0},
+				"avatar": {"x":20, "y":0},
                 "expBar": {"x":2, "y":4},
                 "hpBar": {"x":150, "y":12},
 				"hp": {"x":150, "y":113, "w":30, "h":30},
 				
-                "power": {"x":45, "y":124, "w":50, "h":30},
-                "dodge": {"x":102, "y":124, "w":50, "h":30},
-                "money": {"x":45, "y":144, "w":50, "h":30},
-                "storeyLv": {"x":102, "y":144, "w":50, "h":30},
+                "power": {"x":53, "y":115, "w":50, "h":30},
+                "dodge": {"x":115, "y":115, "w":50, "h":30},
+                "money": {"x":285, "w":50, "h":30},
+                "storeyLv": {"x":350, "w":50, "h":30},
+				"moneyAndStoriesBg": {"x":245},
 				
 				"deathGodBarBg": {"x":200, "y":44},
 				"deathGodBar": {"x":227, "y":70},
                 "deathGod": {"x":200, "y":35},
 				
-				"relicsBg": {"x":218, "y":82, "w":310, "h":50},
-				"moreRelics": {"x":522, "y":83},
+				"relicsBg": {"x":216, "y":82, "w":290, "h":45},
+				"moreRelics": {"x":509, "y":81},
 				"propsView": {"x":41, "y":1027, "w":535, "h":84},
 				
 				"mapView": {"x":20, "y":182, "w":602, "h":774},

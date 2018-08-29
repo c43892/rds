@@ -202,6 +202,17 @@ class ViewUtils {
         obj.y = (ViewUtils.MainArea.height - obj.height) / 2 - parentPos.y;
     }
 
+    // 获取全屏幕安全区域相对主参考区域的四边距离，一般都是负值，因为会比主参考区域大
+    public static getScreenEdges() {
+        var mainAreaPos = ViewUtils.MainArea.localToGlobal();
+        var left = -mainAreaPos.x;
+        var top = -mainAreaPos.y;
+        var right = ViewUtils.MainArea.width - left;
+        var bottom = ViewUtils.MainArea.height - top;
+
+        return {left:left, right:right, top:top, bottom:bottom};
+    }
+
     // 获取全局缩放值
     public static getGlobalScale(obj:egret.DisplayObject) {
         if (obj instanceof Main) return {scaleX:1, scaleY:1};

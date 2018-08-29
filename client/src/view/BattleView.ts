@@ -14,11 +14,14 @@ class BattleView extends egret.DisplayObjectContainer {
     public expBar:egret.Bitmap; // 经验条
     public expBarMask:egret.Shape; // 经验条遮罩
     public hp:egret.TextField; // 血量
-    public shield:egret.TextField; // 护盾
+    // public shield:egret.TextField; // 护盾
     public hpBar:egret.Bitmap; // 血条
     public hpBarMask:egret.Shape; // 血条遮罩
     public power:egret.TextField; // 攻击
     public dodge:egret.TextField; // 闪避
+
+    // 金钱和当前层数显示背景，需要置顶
+    public moneyAndStoriesBg:egret.Bitmap;
 
     public money:egret.TextField; // 金币
     public currentStoryLv:egret.TextField; // 当前层数
@@ -93,9 +96,15 @@ class BattleView extends egret.DisplayObjectContainer {
         this.addChild(this.hp);
 
         // 护盾
-        this.shield = ViewUtils.createTextField(20, 0xffffff);
-        this.shield.name = "shield";
+        // this.shield = ViewUtils.createTextField(20, 0xffffff);
+        // this.shield.name = "shield";
         // this.addChild(this.shield);
+
+        // 金钱等背景
+        this.moneyAndStoriesBg = ViewUtils.createBitmapByName("moneyAndStoriesBg_png");
+        this.moneyAndStoriesBg.name = "moneyAndStoriesBg";
+        this.addChild(this.moneyAndStoriesBg);
+        this.moneyAndStoriesBg.y = ViewUtils.getScreenEdges().top;
 
         // 血条遮罩
         this.hpBarMask = new egret.Shape();
@@ -115,13 +124,15 @@ class BattleView extends egret.DisplayObjectContainer {
         this.money = ViewUtils.createTextField(20, 0xffffff, false);
         this.money.name = "money";
         this.addChild(this.money);
+        this.money.y = this.moneyAndStoriesBg.y + 10;
 
         // 当前层数
         this.currentStoryLv = ViewUtils.createTextField(20, 0xffffff, false);
         this.currentStoryLv.name = "storeyLv";
         this.addChild(this.currentStoryLv);
+        this.currentStoryLv.y = this.moneyAndStoriesBg.y + 10;
 
-        ViewUtils.multiLang(this, this.occupationBg, this.avatarBg, this.avatar, this.expBar, this.hp, this.hpBar, this.power, this.dodge, this.money, this.currentStoryLv);
+        ViewUtils.multiLang(this, this.occupationBg, this.avatarBg, this.avatar, this.expBar, this.hp, this.hpBar, this.power, this.dodge, this.money, this.currentStoryLv, this.moneyAndStoriesBg);
         this.refreshExpBar();
         this.refreshHpBar();
     }
@@ -154,7 +165,7 @@ class BattleView extends egret.DisplayObjectContainer {
 
     // 刷新血条遮罩
     refreshHpBar() {
-        this.hp.text = !this.player ? "0" : this.player.hp.toString() + "/" + this.player.shield.toString();
+        this.hp.text = !this.player ? "0" : this.player.hp.toString();
         var shape = this.hpBarMask;
         var p = !this.player ? 0 : (this.player.hp / this.player.maxHp);
 
@@ -178,7 +189,7 @@ class BattleView extends egret.DisplayObjectContainer {
 
     // 刷新护盾
     refreshShield() {
-        this.shield.text = !this.player ? "0" : this.player.shield.toString();
+        // this.shield.text = !this.player ? "0" : this.player.shield.toString();
     }
 
     public constructor(w:number, h:number) {
@@ -310,8 +321,8 @@ class BattleView extends egret.DisplayObjectContainer {
     deathGodBarPosX;
     deathGodBarWidth;
     public refreshPlayer() {
-        ViewUtils.setTexName(this.occupationBg, this.player.occupation + "Bg_png");
-        ViewUtils.setTexName(this.avatar, this.player.occupation + "_png");
+        ViewUtils.setTexName(this.occupationBg, this.player.occupation + "Bg_png", true);
+        ViewUtils.setTexName(this.avatar, this.player.occupation + "_png", true);
         this.currentStoryLv.text = this.player.currentStoreyPos.lv.toString();
 
         this.refreshMoneyAt();
@@ -350,7 +361,7 @@ class BattleView extends egret.DisplayObjectContainer {
     public refreshRelics() {
         ViewUtils.multiLang(this, this.relicsBg);
 
-        var w = this.relicsBg.width / this.ShowMaxRelicNum;
+        var w = this.relicsBg.height;
         var h = w;
         var x = this.relicsBg.x;
         var y = this.relicsBg.y;
