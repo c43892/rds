@@ -288,7 +288,7 @@ class ElemView extends egret.DisplayObjectContainer {
                             if (ok) ElemView.try2UseElem(e);
                         } else {
                             if (e instanceof Prop || e instanceof Monster || e instanceof Relic)
-                            await ElemView.try2UseElem(e);
+                                await ElemView.try2UseElem(e);
                             else {
                                 if (!e.attrs.useWithoutConfirm){
                                     var content = ViewUtils.formatString(ViewUtils.getTipText("makeSureUseElem"), ViewUtils.getElemNameAndDesc(e.type).name);
