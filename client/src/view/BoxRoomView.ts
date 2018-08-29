@@ -73,10 +73,8 @@ class BoxRoomView extends egret.DisplayObjectContainer {
         for(var i = 0; i < arr.length; i++){
             let elem = new TextButtonWithBg(arr[i] + "_png");
             elem.touchEnabled = true;
-            elem.x = 320 + (i - (arr.length - 1) / 2) * 114;
-            elem.y = 430;
-            elem.anchorOffsetX = elem.width / 2;
-            elem.anchorOffsetY = elem.height / 2;
+            elem.x = 320 + (i - (arr.length - 1) / 2) * 114 - 42;
+            elem.y = 430 - 42;
             elem["eType"] = arr[i];
             elem.onClicked = () => this.getDropItem(elem);
             this.elems.push(elem);
@@ -103,8 +101,6 @@ class BoxRoomView extends egret.DisplayObjectContainer {
 
         for (var elem of this.elems){
             var fromImg = AniUtils.createImg(elem["eType"] + "_png");
-            fromImg.anchorOffsetX = fromImg.width / 2;
-            fromImg.anchorOffsetY = fromImg.height / 2;
             fromImg.x = this.startingPoint.x;
             fromImg.y = this.startingPoint.y;
             fromImg.width = elem.width / 2;
@@ -122,8 +118,6 @@ class BoxRoomView extends egret.DisplayObjectContainer {
         this.removeChild(elem);
         this.elems = Utils.remove(this.elems, elem);
         var fromImg = AniUtils.createImg(elem["eType"] + "_png");
-        fromImg.anchorOffsetX = fromImg.width / 2;
-        fromImg.anchorOffsetY = fromImg.height / 2;
         fromImg.x = elem.x;
         fromImg.y = elem.y;
         fromImg.width = elem.width;
