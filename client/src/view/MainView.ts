@@ -195,6 +195,9 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 打开升级选择要添加的遗物界面
     public async openRelicSel2Add(choices, onSel) {
+        if (choices.length == 0)
+            return;
+
         this.pluv.player = this.p;
         this.addChild(this.pluv);
         var sel = await this.pluv.open(choices);

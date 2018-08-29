@@ -81,6 +81,16 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
 
     refresh() {
         for (var i = 0; i < 3; i++) {
+            this.removeChild(this.btnSels[i]);
+            this.removeChild(this.btnSelsRelicImgs[i]);
+            this.removeChild(this.btnSelsRelicTxts[i]);
+        }
+        
+        for (var i = 0; i < this.choices.length; i++) {
+            this.addChild(this.btnSels[i]);
+            this.addChild(this.btnSelsRelicImgs[i]);
+            this.addChild(this.btnSelsRelicTxts[i]);
+
             ViewUtils.setTexName(this.btnSelsRelicImgs[i], this.choices[i] + "_png", true);
             this.btnSelsRelicTxts[i].text = ViewUtils.getElemNameAndDesc(this.choices[i]).shortDesc;
         }       
