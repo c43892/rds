@@ -656,6 +656,8 @@ class Battle {
         this.player.addMaxHp(dhp);
         await this.fireEvent("onPlayerChanged", {subType:"maxHp", source:source});
         await this.triggerLogicPoint("onPlayerChanged", {"subType": "maxHp", source:source});
+
+        await this.implAddPlayerHp(dhp, source);
     }
 
     // 角色+shield
