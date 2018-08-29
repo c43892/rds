@@ -189,6 +189,7 @@ class AniView extends egret.DisplayObjectContainer {
         }
 
         this.bv.refreshRelics();
+        this.bv.refreshPlayer();
     }
 
     // 从大地图的商店买东西

@@ -78,7 +78,7 @@ class RelicFactory {
         // 耐力
         "Endurance": (attrs) => {
             return this.createRelic(attrs, true, (r:Relic, enable:boolean) => {
-                r.player.addMaxHp(enable ? attrs.dMaxHp : -attrs.dMaxHp);
+                r.bt().implAddPlayerMaxHp(enable ? attrs.dMaxHp : -attrs.dMaxHp, r)
             });
         },
 
