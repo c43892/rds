@@ -38,7 +38,7 @@
 				"deathGodBar": {"x":227, "y":70},
                 "deathGod": {"x":200, "y":35},
 				
-				"relicsBg": {"x":216, "y":82, "w":290, "h":45},
+				"relicsBg": {"x":216, "y":82, "w":296, "h":45},
 				"moreRelics": {"x":509, "y":81},
 				"propsView": {"x":41, "y":1027, "w":535, "h":84},
 				

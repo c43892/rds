@@ -40,6 +40,8 @@ class BattleView extends egret.DisplayObjectContainer {
     public repView:ReplayView; // 录像界面
     public av:AniView; // 动画视图
 
+    public monsterTip; // 新出现的怪物信息提示
+
     public openAllRelicsView; // 查看所有遗物
 
     // 角色头像区域，以及金钱，层数，死神
@@ -259,6 +261,9 @@ class BattleView extends egret.DisplayObjectContainer {
         // 录像
         this.repView = new ReplayView(w, h);
         this.addChild(this.repView);
+
+        // 新怪的图例提示
+        this.monsterTip = new 
 
         ViewUtils.multiLang(this, this.bgGrids, this.mapViewBg);
     }
