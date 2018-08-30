@@ -12,15 +12,15 @@ class ElemView extends egret.DisplayObjectContainer {
     private coveredImg:egret.Bitmap; // 标记时，要在上面盖上牌背
 
     private powerBg:egret.Bitmap;
-    private shieldBg:egret.Bitmap;
-    private hpBg:egret.Bitmap;
+    private shieldBg:egret.Bitmap;    
     private attackIntervalBg:egret.Bitmap;
+    private hpBg:egret.Bitmap;
 
     private hp:egret.TextField; // 怪物血量：右下角
     private dropElemImg:egret.Bitmap; // 掉落物品的图：左上角，这里也可能显示怪物的行动回合数
     private shield:egret.TextField; // 护盾，右上角
+    private attackInterval:egret.TextField; // 攻击间隔，右上角，与护盾互斥
     private power:egret.TextField; // 攻击力，左下角
-    private attackInterval:egret.TextField; // 攻击间隔,右上角,与护盾互斥
 
     public constructor() {
         super();
@@ -133,7 +133,7 @@ class ElemView extends egret.DisplayObjectContainer {
                             this.showLayer.addChild(this.shield);
                         }
 
-                        // 攻击间隔
+                        // 攻击间隔，右上角
                         if (m["attackInterval"] && !m.isDead()){
                             this.attackIntervalBg.x = this.width - this.attackIntervalBg.width; this.attackIntervalBg.y = 0;
                             this.showLayer.addChild(this.attackIntervalBg);

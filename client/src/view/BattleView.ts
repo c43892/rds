@@ -42,7 +42,7 @@ class BattleView extends egret.DisplayObjectContainer {
 
     public monsterTip; // 新出现的怪物信息提示
 
-    public openAllRelicsView; // 查看所有遗物
+    public openAllElemsView; // 查看所有的某类元素如玩家的遗物或者道具
 
     // 角色头像区域，以及金钱，层数，死神
     createPlayerAttrs() {
@@ -243,7 +243,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.addChild(this.moreRelics);
         this.moreRelics.touchEnabled = true;
         this.moreRelics.addEventListener(egret.TouchEvent.TOUCH_TAP, (evt:egret.TouchEvent) => {
-            this.openAllRelicsView(this.player.relics);
+            this.openAllElemsView(this.player.relics);
         }, this);
 
         for (var i = 0; i < this.ShowMaxRelicNum; i++) {
