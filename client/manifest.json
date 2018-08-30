@@ -61,7 +61,7 @@
 		"bin-debug/logic/WorldMap/WorldMapNode.js",
 		"bin-debug/logic/WorldMap/WorldMapRoute.js",
 		"bin-debug/net/WebClient.js",
-		"bin-debug/view/AllRelicsView.js",
+		"bin-debug/view/AllElemsView.js",
 		"bin-debug/view/AniTestView.js",
 		"bin-debug/view/AniView.js",
 		"bin-debug/logic/Level.js",

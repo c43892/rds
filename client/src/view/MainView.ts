@@ -13,7 +13,7 @@ class MainView extends egret.DisplayObjectContainer {
     public tcv:TipConfirmView; // 提示确认视图
     public rankv:RankingView; // 排行榜视图
     public idv:ElemDescView; // 怪物、遗物、物品描述视图
-    public arv:AllRelicsView; // 展示给定的遗物列表
+    public arv:AllElemsView; // 展示给定的遗物列表
     public av:AniView; // 动画层
     
     public constructor(w:number, h:number) {
@@ -75,9 +75,9 @@ class MainView extends egret.DisplayObjectContainer {
         BoxRoomView.showElemDesc = async (e) => await this.showElemDesc(e);
 
         // 展示给定的遗物列表
-        this.arv = new AllRelicsView(w, h);
-        AllRelicsView.showElemDesc = async (e) => await this.showElemDesc(e);
-        this.bv.openAllRelicsView = async (relics) => await this.openAllRelicsView(relics);
+        this.arv = new AllElemsView(w, h);
+        AllElemsView.showElemDesc = async (e) => await this.showElemDesc(e);
+        this.bv.openAllElemsView = async (relics) => await this.openAllElemsView(relics);
 
         // 动画层
         this.av = new AniView(w, h, this);
@@ -364,7 +364,7 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // all relics view
-    public async openAllRelicsView(relics) {
+    public async openAllElemsView(relics) {
         this.addChild(this.arv);
         this.setChildIndex(this.arv, -1);
         await this.arv.open(relics);

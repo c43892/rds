@@ -212,6 +212,7 @@
 		"makeSureReinforceRelic": {"EN": "", "CNS": "确定强化{0}?", "CNT": "确定强化{0}?" },
 		"makeSureBuy": {"EN": "", "CNS": "花费{0}金币?", "CNT": ""},
 		"relics": {"EN": "Relics", "CNS": "技能", "CNT": "技能"},
+		"props": {"EN": "Props", "CNS": "道具", "CNT": "道具"},
 		"makeSureUseElem": {"EN": "be sure to use {0}?", "CNS": "确定使用<font color=#ff0000>{0}</font>?", "CNT": "确定使用{0}?"},
 		"makeSureUseProp": {"EN": "be sure to use {0}?", "CNS": "确定使用<font color=#ff0000>{0}</font>?", "CNT": "确定使用{0}?"},
 		"coins": {"EN": "coins", "CNS": "金币", "CNT": "金幣" },

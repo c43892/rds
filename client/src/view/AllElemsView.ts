@@ -1,5 +1,5 @@
 // 查看所有遗物界面
-class AllRelicsView extends egret.DisplayObjectContainer {
+class AllElemsView extends egret.DisplayObjectContainer {
     private viewContent:egret.DisplayObjectContainer;
     private bg:egret.Bitmap;
     private bg1:egret.Bitmap;
@@ -29,7 +29,7 @@ class AllRelicsView extends egret.DisplayObjectContainer {
 
         // 标题
         this.title = ViewUtils.createTextField(45, 0x7d0403);
-        this.title.text = ViewUtils.getTipText("relics");
+        // this.title.text = ViewUtils.getTipText("relics");
         this.title.name = "title";
 
         // 滚动窗口区域
@@ -52,8 +52,8 @@ class AllRelicsView extends egret.DisplayObjectContainer {
     }
 
     doClose;
-    public async open(relics) {
-        this.refresh(relics);
+    public async open(elems) {
+        this.refresh(elems);
         return new Promise<void>((resolve, reject) => {
             this.doClose = resolve;
         });
@@ -62,29 +62,38 @@ class AllRelicsView extends egret.DisplayObjectContainer {
     readonly ColNum = 4; // 每一行 4 个
     readonly GridSize = 84; // 图标大小
 
-    refresh(relics:Relic[]) {
+    refresh(elems:Elem[]) {
         this.viewContent.removeChildren();
+
+        // 根据传进来的elems类型确定标题内容
+        if(elems[0] instanceof Relic)
+            this.title.text = ViewUtils.getTipText("relics");
+        else if(elems[0] instanceof Prop)
+            this.title.text = ViewUtils.getTipText("props");
 
         // 根据宽度和每行数量自动计算平均的间隔大小，横竖间隔保持相同
         var space = (this.scrollArea.width - (this.ColNum * this.GridSize)) / (this.ColNum + 1);
         var x = space;
         var y = space;
 
-        for (var i = 0; i < relics.length; i++) {
-            var r = relics[i];
+        for (var i = 0; i < elems.length; i++) {
+            var e = elems[i];
 
-            var g = ViewUtils.createBitmapByName(r.getElemImgRes() + "_png");
+            var g = ViewUtils.createBitmapByName(e.getElemImgRes() + "_png");
             g.x = x;
             g.y = y;
             g.width = g.height = this.GridSize;
             this.viewContent.addChild(g);
-            g["relic"] = r;
+            g["elem"] = e;
             g.touchEnabled = true;
             g.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTapRelic, this);
 
             // 等级星星
-            var stars = ViewUtils.createRelicLevelStars(r, g);
-            stars.forEach((star, _) => this.viewContent.addChild(star));
+            if(e instanceof Relic) {
+                var r = e;
+                var stars = ViewUtils.createRelicLevelStars(r, g);
+                stars.forEach((star, _) => this.viewContent.addChild(star));
+            }
 
             x += this.GridSize + space;
             if (x >= this.scrollArea.width) {
@@ -100,7 +109,7 @@ class AllRelicsView extends egret.DisplayObjectContainer {
     }
 
     async onTapRelic(evt:egret.TouchEvent) {
-        var r:Relic = evt.target["relic"];
-        await AllRelicsView.showElemDesc(r);
+        var e:Elem = evt.target["elem"];
+        await AllElemsView.showElemDesc(e);
     }
 }
