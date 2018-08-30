@@ -36,6 +36,7 @@ class MainView extends egret.DisplayObjectContainer {
 
         // 宝箱房间
         this.brv = new BoxRoomView(w, h);
+        this.brv.confirmOkYesNo = (title, content, yesno) => this.confirmOkYesNo(title, content, yesno);
 
         //转盘事件
         this.ttv = new TurntableView(w, h);
@@ -71,6 +72,7 @@ class MainView extends egret.DisplayObjectContainer {
         ElemView.showElemDesc = async (e) => await this.showElemDesc(e);
         PropView.showElemDesc = async (e) => await this.showElemDesc(e);
         TurntableView.showElemDesc = async (e) => await this.showElemDesc(e);
+        BoxRoomView.showElemDesc = async (e) => await this.showElemDesc(e);
 
         // 展示给定的遗物列表
         this.arv = new AllRelicsView(w, h);
