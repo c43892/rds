@@ -230,4 +230,20 @@ class ViewUtils {
     public static fromHtml(txt):egret.ITextElement[] {
         return (new egret.HtmlTextParser).parser(txt);
     }
+
+    // 针对给定遗物生成等级符号并布局
+    public static createRelicLevelStars(r:Relic, g:egret.DisplayObject):egret.Bitmap[] {
+        var starOffsetX = 13;
+        var starOffsetY = 60;
+        var xStride = 11;
+        var bmps = [];
+        for (var j = 0; j < r.reinforceLv; j++) {
+            var star = ViewUtils.createBitmapByName("relicLvSign_png");
+            star.x = g.x + starOffsetX + xStride * j;
+            star.y = g.y + starOffsetY;
+            bmps.push(star);
+        }
+
+        return bmps;
+    }
 }

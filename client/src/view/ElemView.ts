@@ -145,7 +145,9 @@ class ElemView extends egret.DisplayObjectContainer {
                         })
                     } else {    
                         if (e.attrs.showCDNum && e.cd > 0) { // 显示 cd 计数
-                            ViewUtils.setTexName(this.cdImg, "cd" + e.cd + "_png");
+                            ViewUtils.setTexName(this.cdImg, "cd" + e.cd + "_png", true);
+                            this.cdImg.x = (this.showLayer.width - this.cdImg.width) / 2;
+                            this.cdImg.y = (this.showLayer.height - this.cdImg.height) / 2;
                             this.showLayer.addChild(this.cdImg);
                         }
 
@@ -193,7 +195,7 @@ class ElemView extends egret.DisplayObjectContainer {
             this.showLayer.rotation = 0;
         }
 
-        var arr = [this.opLayer, this.elemImg, this.banImg, this.cdImg];
+        var arr = [this.opLayer, this.elemImg, this.banImg];
         arr.forEach((a) => {
             a.alpha = 1;
             a.x = 0;
@@ -202,6 +204,9 @@ class ElemView extends egret.DisplayObjectContainer {
             a.height = h;
             a.rotation = 0;
         });
+
+        this.cdImg.x = (this.showLayer.width - this.cdImg.width) / 2;
+        this.cdImg.y = (this.showLayer.height - this.cdImg.height) / 2;
 
         if (e && e.isBig()) {
             this.showLayer.scaleX = e.attrs.size.w;
