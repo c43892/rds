@@ -14,17 +14,20 @@ class ElemView extends egret.DisplayObjectContainer {
     private powerBg:egret.Bitmap;
     private shieldBg:egret.Bitmap;
     private hpBg:egret.Bitmap;
+    private attackIntervalBg:egret.Bitmap;
 
     private hp:egret.TextField; // 怪物血量：右下角
     private dropElemImg:egret.Bitmap; // 掉落物品的图：左上角，这里也可能显示怪物的行动回合数
     private shield:egret.TextField; // 护盾，右上角
     private power:egret.TextField; // 攻击力，左下角
+    private attackInterval:egret.TextField; // 攻击间隔,右上角,与护盾互斥
 
     public constructor() {
         super();
         this.powerBg = ViewUtils.createBitmapByName("monsterPowerBg_png");
         this.hpBg = ViewUtils.createBitmapByName("monsterHpBg_png");
         this.shieldBg = ViewUtils.createBitmapByName("monsterShieldBg_png");
+        this.attackIntervalBg = ViewUtils.createBitmapByName("monsterAttackIntervalBg_png");
 
         this.elemImg = new egret.Bitmap(); // 元素图
         this.banImg = ViewUtils.createBitmapByName("ban_png"); // 禁止符号
@@ -48,11 +51,14 @@ class ElemView extends egret.DisplayObjectContainer {
         // 血量，右下角，护盾，右上角，攻击力，左下角
         this.hp = ViewUtils.createTextField(20, 0xffffff);
         this.shield = ViewUtils.createTextField(20, 0xffffff);
+        this.attackInterval = ViewUtils.createTextField(20, 0xffffff);
         this.power = ViewUtils.createTextField(20, 0xffffff);
         this.hp.strokeColor = 0x000000;
         this.hp.stroke = 1;
         this.shield.strokeColor = 0x000000;
         this.shield.stroke = 1;
+        this.attackInterval.strokeColor = 0x000000;
+        this.attackInterval.stroke = 1;
         this.power.strokeColor = 0x000000;
         this.power.stroke = 1;
 
@@ -103,6 +109,7 @@ class ElemView extends egret.DisplayObjectContainer {
                     this.showLayer.addChild(this.elemImg);
                     if (e instanceof Monster) { // 怪物
                         var m = <Monster>e;
+                        Utils.assert(!(m.shield && m.shield != 0 && m["attackInterval"]), "shield can not coexist with attackInterval on:" + m.type);
 
                         // 血量，右下角
                         this.hpBg.x = this.width - this.hpBg.width; this.hpBg.y = this.height - this.hpBg.height;
@@ -126,6 +133,19 @@ class ElemView extends egret.DisplayObjectContainer {
                             this.showLayer.addChild(this.shield);
                         }
 
+                        // 攻击间隔
+                        if (m["attackInterval"] && !m.isDead()){
+                            this.attackIntervalBg.x = this.width - this.attackIntervalBg.width; this.attackIntervalBg.y = 0;
+                            this.showLayer.addChild(this.attackIntervalBg);
+                            this.attackInterval.text = m["attackInterval"].toString();
+                            this.attackInterval.x = 2;
+                            this.attackInterval.y = 2;
+                            this.attackInterval.x = m["attackInterval"] >= 10 ? this.width - 23 : this.width - 22;
+                            this.attackInterval.y = m["attackInterval"] >= 10 ? 5 : 3;
+                            this.attackInterval.size = m["attackInterval"] >= 10 ? 15 : 20;
+                            this.showLayer.addChild(this.attackInterval);
+                        }
+
                         // 攻击力，左下角
                         var power;
                         m.bt().calcMonsterAttackerAttrs(m).then((attackerAttrs) => {
@@ -143,7 +163,7 @@ class ElemView extends egret.DisplayObjectContainer {
                                 this.showLayer.addChild(this.power);
                             };
                         })
-                    } else {    
+                    } else {
                         if (e.attrs.showCDNum && e.cd > 0) { // 显示 cd 计数
                             ViewUtils.setTexName(this.cdImg, "cd" + e.cd + "_png", true);
                             this.cdImg.x = (this.showLayer.width - this.cdImg.width) / 2;

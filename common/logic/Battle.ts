@@ -667,8 +667,6 @@ class Battle {
 
     // 角色+maxhp
     public async implAddPlayerMaxHp(dhp:number, source:any = undefined) {
-        Utils.assert(dhp > 0, "add maxhp should > 0")
-
         this.player.addMaxHp(dhp);
         await this.fireEvent("onPlayerChanged", {subType:"maxHp", source:source});
         await this.triggerLogicPoint("onPlayerChanged", {"subType": "maxHp", source:source});
