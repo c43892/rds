@@ -298,10 +298,27 @@ class AniView extends egret.DisplayObjectContainer {
             pos.x += sv.width / 2
             pos.y -= sv.height / 2;
             await AniUtils.flashAndShake(sv);
-        }
+        } else if (ps.subType == "useElem")
+            await this.onElemUsed(ps);
         
         this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
         this.bv.refreshPlayer(); // 角色属性受地图上所有东西影响
+    }
+
+    // 有物品被使用
+    public async onElemUsed(ps) {
+        var e = ps.e;
+        var foods = ["Apple", "Steak"];
+        var books = ["EconomyMagazine", "Magazine"];
+        var type = e.type;
+        var sv = this.getSV(e);
+
+        if (Utils.contains(books, type) && e.cnt > 0) { // 书籍需要提示还剩几次
+            var p = sv.localToGlobal();
+            AniUtils.tipAt((e.attrs.cnt - e.cnt) + "/" + e.attrs.cnt, {x:p.x+25, y:p.y-25});
+        } else if (Utils.contains(foods, type)) { // 食物抖一下
+            await AniUtils.flashAndShake(this.getSV(e));
+        }
     }
 
     // 死神步数发生变化
@@ -364,7 +381,7 @@ class AniView extends egret.DisplayObjectContainer {
         var dm = Math.abs(ps.d);
         var txt = this.bv.getMoneyText();
         var e = ps.e;
-        var coinSV = this.getSV(ps.e);
+        var coinSV = this.getSV(e);
 
         var d = ps.d > 0 ? 1 : -1;
         var coinsImgArr = [];
@@ -380,12 +397,12 @@ class AniView extends egret.DisplayObjectContainer {
                     this.aniFact.createAni("tr", {obj:coinsImg, fa:1, ta:0, time:1})
                 ]});
 
-                ps.e.cnt = dm - i;
-                if (ps.e.cnt > 0)
+                var cnt = dm - i;
+                if (cnt > 0)
                     this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
                 else
                     coinSV.alpha = 0;
-            } else if (ps.e.type != "ShopNpc") {
+            } else if (e.type != "ShopNpc") {
                 this.aniFact.createAni("seq", {subAniArr:[
                     this.aniFact.createAni("tr", {obj:coinsImg, tx:txt.localToGlobal().x, ty:txt.localToGlobal().y,
                         fx:coinSV.localToGlobal().x, fy:coinSV.localToGlobal().y,

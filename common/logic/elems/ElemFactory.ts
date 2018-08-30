@@ -154,7 +154,9 @@ class ElemFactory {
             e.canNotUseReason = () => canNotUseReason(e);
             e.use = async () => {
                 e.cnt--;
+                Utils.log("+", e.type, e.cnt, e.attrs.cnt);
                 if (useAct) await useAct(e);
+                Utils.log("-", e.type, e.cnt, e.attrs.cnt);
                 return e.cnt > 0;
             };
 
