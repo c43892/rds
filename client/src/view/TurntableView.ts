@@ -74,7 +74,7 @@ class TurntableView extends egret.DisplayObjectContainer {
         this.tipReward = new egret.Bitmap();
         this.tipReward.name = "tipReward";
 
-        this.goOutBtn = new TextButtonWithBg("turntableGoOutBtn_png");
+        this.goOutBtn = new TextButtonWithBg("goForward_png");
         this.goOutBtn.name = "goOutBtn";
         this.goOutBtn.onClicked = async () => await this.onGoOut();
 
