@@ -246,4 +246,62 @@ class ViewUtils {
 
         return bmps;
     }
+
+    // 创建一个小型的显示遗物信息的区域
+    public static createSmallRelicInfoRect (e:Relic, left:number):egret.DisplayObject[] {
+        // 背景底图
+        var bg = ViewUtils.createBitmapByName("confirmBg_png");
+        bg.width = 300;
+        bg.x = left + 10;
+        bg.y = 200;
+
+        // 图标
+        var icon = ViewUtils.createBitmapByName(e.getElemImgRes() + "_png");
+        icon.x = bg.x + 40;
+        icon.y = bg.y + 20;
+        icon.width *= 0.75;
+        icon.height *= 0.75;
+
+        var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
+
+        // 标题
+        var title = ViewUtils.createTextField(30, 0xff0000);
+        title.text = nameAndDesc.name;
+        title.textAlign = egret.HorizontalAlign.LEFT;
+        title.x = icon.x + icon.width + 20;
+        title.width = bg.width + bg.x - title.x;
+        title.y = bg.y + 35;
+
+        var currentY = title.y + title.height;
+
+        // 多段描述信息，不是简要描述
+
+        var descArr = ViewUtils.getElemNameAndDesc(e.type).desc;
+        descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(ViewUtils.replaceByProperties(desc, e)));
+        var descObjs = [];
+        for (var i = 0; i < descArr.length; i++) {
+            var txt = ViewUtils.createTextField(0, 0x000000);
+            txt.textAlign = egret.HorizontalAlign.LEFT;
+            txt.lineSpacing = 8;
+            txt.textFlow = descArr[i];
+            txt.x = bg.x + 50;
+            txt.width = bg.width - 80;
+
+            var bgFrame = ViewUtils.createBitmapByName("bgFrame_png");
+            bgFrame.x = bg.x + 30;
+            bgFrame.width = bg.width - 60;
+            bgFrame.y = currentY + 50;
+            bgFrame.height = txt.height + 50;
+            bgFrame.scale9Grid = new egret.Rectangle(45, 45, 225, 1);
+            txt.y = bgFrame.y + 20;
+
+            currentY = bgFrame.y + bgFrame.height;
+
+            descObjs.push(bgFrame, txt);
+        }
+
+        bg.height = currentY + 50 - bg.y;
+
+        return [bg, icon, title, title, ...descObjs];
+    }
 }

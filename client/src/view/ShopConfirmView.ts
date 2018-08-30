@@ -33,7 +33,7 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
                 this.createNewRelicConfirm(<Relic>e, price);
             else {
                 var r1 = player.relics[rn];
-                var r2 = <Relic>ElemFactory.create(r1.type);
+                var r2 = (<Relic>ElemFactory.create(r1.type)).toRelic();
                 var lv = r1.reinforceLv + (<Relic>e).reinforceLv + 1;
                 var maxLv = r1.attrs.reinforce.length;
                 lv = lv > maxLv ? maxLv : lv;
@@ -194,47 +194,17 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
 
     // 购买新遗物时的确认界面
     private createRelicUpgradeConfirm(r1:Relic, r2:Relic, price:number) {
-        
-        var createRelicInfoRect = (e:Relic, left:number) => {
-            // 背景底图
-            var bg = ViewUtils.createBitmapByName("confirmBg_png");
-            bg.width = 300;
-            bg.x = left + 10;
-            bg.y = 200;
-            this.addChild(bg);
 
-            // 图标
-            var icon = ViewUtils.createBitmapByName(e.getElemImgRes() + "_png");
-            icon.x = bg.x + 40;
-            icon.y = bg.y + 20;
-            icon.width *= 0.75;
-            icon.height *= 0.75;
-            this.addChild(icon);
-
-            var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
-
-            // 标题
-            var title = ViewUtils.createTextField(30, 0xff0000);
-            title.text = nameAndDesc.name;
-            title.textAlign = egret.HorizontalAlign.LEFT;
-            title.x = icon.x + icon.width + 20;
-            title.width = bg.width - title.x;
-            title.y = bg.y + 40;
-            this.addChild(title);
-
-            var currentY = title.y + title.height;
-
-            // 多段描述信息，不是简要描述
-
-            bg.height = currentY + 50 - bg.y;
-        };
+        var objs = [];
 
         // 左边的遗物信息
-        createRelicInfoRect(r1, 0);
+        objs.push(...ViewUtils.createSmallRelicInfoRect(r1, 0));
 
         // 右边的遗物信息
-        createRelicInfoRect(r2, 320);
+        objs.push(...ViewUtils.createSmallRelicInfoRect(r2, 320));
 
         // 余下部分
+
+        objs.forEach((obj, _) => this.addChild(obj));
     }
 }
