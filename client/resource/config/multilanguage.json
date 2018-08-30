@@ -198,16 +198,6 @@
 				"goOutBtn":{"x":365, "y":850},
 				"destination":{"x":320, "y":0}
 			}
-		},
-		
-		"boxRoomView": {
-			"layout": {
-				"bg1": {"x":20, "y":220, "w":600},
-				"openBoxBtn": {"x":320, "y":750},
-				"goOutBtn": {"x":365, "y":850},
-				"destination":{"x":320, "y":0},
-				"startingPoint":{"x":320, "y":700}				
-			}
 		}
     },
 
@@ -224,8 +214,10 @@
 		"relics": {"EN": "Relics", "CNS": "技能", "CNT": "技能"},
 		"makeSureUseElem": {"EN": "be sure to use {0}?", "CNS": "确定使用<font color=#ff0000>{0}</font>?", "CNT": "确定使用{0}?"},
 		"makeSureUseProp": {"EN": "be sure to use {0}?", "CNS": "确定使用<font color=#ff0000>{0}</font>?", "CNT": "确定使用{0}?"},
-		"coins":{"EN": "coins", "CNS": "金币", "CNT": "金幣" },
-		"openBox":{"EN": "open it", "CNS": "打开宝箱", "CNT": "打開寶箱" },
+		"coins": {"EN": "coins", "CNS": "金币", "CNT": "金幣" },
+		"costCoins": {"EN": "cost {0} coins", "CNS": "花费金币<font color=#00ff00>({0})</font>", "CNT": "花费金幣<font color=#00ff00>({0})</font>"},
+		"numHold": {"EN": "hold {0}", "CNS": "当前拥有{0}个", "CNT": "当前拥有{0}个"},
+		"openBox": {"EN": "open the box", "CNS": "打开宝箱", "CNT": "打开宝箱"},
 		"": {}
 	}
 }
