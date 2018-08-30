@@ -142,67 +142,7 @@ class MonsterFactory {
         "Ghost": (attrs) => MonsterFactory.doChaseToNextLevel(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //幽灵
         "RedSlime": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //红色史莱姆
         "GreenSlime": (attrs) => MonsterFactory.doAddHpPerRound(Math.floor(attrs.hp * 0.2) > 1 ? Math.floor(attrs.hp * 0.2) : 1, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //绿色史莱姆
-        // "NutWall": (attrs) => { // 坚果墙
-        //     var m = MonsterFactory.doShareDamageOnPlayerHurt(this.createMonster(attrs));
-        //     m.hazard = false;
-        //     m.canUse = () => true;
-        //     m.barrier = false;
-        //     return m;
-        // },
-        // "Peashooter": (attrs) => { // 豌豆射手
-        //     var m = MonsterFactory.doAttackBack(this.createMonster(attrs));
-        //     m.hazard = false;
-        //     m.canUse = () => true;
-        //     m.barrier = false;
-        //     return MonsterFactory.doAttack("onPlayerActed", m, () => {
-        //         var ms = m.map().findAllElems((e:Elem) => {
-        //             return e instanceof Monster && !e.getGrid().isCovered() && (e.isHazard() || e["linkTo"] && e["linkTo"].isHazard()) && m.inAttackRange(e)
-        //         });
-        //         if (ms.length == 0) return undefined;
-
-        //         return ms[m.bt().srand.nextInt(0, ms.length)];
-        //     }, attrs.attackInterval);
-        // },
-        // "CherryBomb": (attrs) => { // 樱桃炸弹
-        //     var m = this.createMonster(attrs);
-        //     m.hazard = false;
-        //     m.canUse = () => true;
-        //     m.barrier = false;
-        //     m.use = async () => { 
-        //         await m.bt().implMonsterDoSelfExplode(m, undefined, false); 
-        //         return true;
-        //     }
-        //     return m;
-        // },
-        // "Sunflower": (attrs) => { // 太阳花
-        //     var m = this.createMonster(attrs);
-        //     m.hazard = false;
-        //     m.canUse = () => true;
-        //     m.barrier = false;
-        //     m.use = async () => { 
-        //         await m.bt().implAddPlayerHp(Math.floor(m.bt().player.maxHp * attrs.dhpPercent / 100), m);
-        //         return false;
-        //     }
-        //     return m;
-        // },
-        // "CharmingMushroom": (attrs) => { // 魅惑菇
-        //     var m = this.createMonster(attrs);
-        //     m.hazard = false;
-        //     m.barrier = false;
-        //     m.canUseAt = (x:number, y:number) => {
-        //         var e = m.map().getElemAt(x, y);
-        //         var g = m.map().getGridAt(x, y);
-        //         return (!g.isCovered() || g.isMarked()) && e && e instanceof Monster && e.isHazard() && !e.isBoss;
-        //     };
-            
-        //     m.useAt = async (x:number, y:number) => { 
-        //         var tarm = <Monster>m.map().getElemAt(x, y);
-        //         await m.bt().implCharmMonster(tarm);
-        //         return false;
-        //     }
-        //     return m;
-        // },
-
+        
         "ShopNpc": (attrs) => MonsterFactory.makeShopNPC(this.createMonster(attrs)),
 
         "BossBunny": (attrs) => {
@@ -837,10 +777,12 @@ class MonsterFactory {
         m.canUse = () => true;
         m.canBeDragDrop = true;
         m.barrier = false;
+        m["bought"] = false;
         var onBuy = async (elem:Elem, price:number) => {
             m.bt().implAddMoney(-price, m);
             var g = BattleUtils.findNearestGrid(m.bt().level.map, m.pos, (g:Grid) => !g.isCovered() && !g.getElem());
             if (g) await m.bt().implAddElemAt(elem, g.pos.x, g.pos.y, m.pos);
+            m["bought"] = true;
         };
 
         var shopItemAndPrice;
@@ -848,7 +790,7 @@ class MonsterFactory {
             if (!shopItemAndPrice)
                 shopItemAndPrice = Utils.genRandomShopItems(m.bt().player, m.attrs.shopCfg, m.bt().srand, 6);
             await m.bt().try2OpenShop(m, shopItemAndPrice.items, shopItemAndPrice.prices, onBuy);
-            return true; // npc 保留
+            return !m["bought"]; // 成功购买后,NPC不再保留
         };
 
         return m;
