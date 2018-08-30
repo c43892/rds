@@ -307,7 +307,8 @@ class WorldMapView extends egret.DisplayObjectContainer {
                         var dPosX2 = Math.cos((stepRotation + 90) * Math.PI / 180) * 5;
                         var dPosY2 = Math.sin((stepRotation + 90) * Math.PI / 180) * 5;
 
-                        for (var st = 0; st < steps; st++) {
+                        // 首尾让出来几步，避免盖住节点图标
+                        for (var st = 2; st < steps - 1; st++) {
                             var stepImg = ViewUtils.createBitmapByName("FootPrint_png");
                             stepImg.x = pt1x + stepsDx * st + (st%2==0?dPosX1:dPosX2);
                             stepImg.y = pt1y + stepsDy * st + (st%2==0?dPosY1:dPosY2);
