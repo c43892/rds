@@ -76,7 +76,7 @@ class TextButtonWithBg extends egret.DisplayObjectContainer {
 
     static pressTimer:egret.Timer; // 长按计时
     static pressed:boolean = false; // 按钮被按下
-    static longPressed:boolean = false; // 产生长按事件    
+    static longPressed:boolean = false; // 产生长按事件
     static readonly LongPressThreshold = 500; // 按下持续 0.5s 算长按
     public onPressTimer // 长按事件行为
 

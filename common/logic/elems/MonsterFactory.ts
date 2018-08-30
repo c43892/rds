@@ -369,20 +369,28 @@ class MonsterFactory {
             var attackIntervalPs = {subType:"setAttackInterval", m:m, dattackInterval:{a:0, b:0, c:0}};
             m.bt().triggerLogicPointSync("onCalcAttackInterval", attackIntervalPs);
             var caledAttackInterval = (attackInterval + attackIntervalPs.dattackInterval.b) * (1 + attackIntervalPs.dattackInterval.a) + attackIntervalPs.dattackInterval.c;        
-            caledAttackInterval = caledAttackInterval < 0 ? 0 : caledAttackInterval;
+            caledAttackInterval = caledAttackInterval < 0 ? 0 : caledAttackInterval;            
 
-            if (interval < caledAttackInterval)
+            if (interval < caledAttackInterval){
                 interval++;
-            else if (condition()) {
-                var target = findTarget();
-                if (!target) return;
-
-                // 如果是打怪，需要判断射程
-                if (target instanceof Monster && !m.inAttackRange(target)) return;
-
-                interval = 0;
-                await m.bt().implMonsterAttackTargets(m, [target]);
+                m["attackInterval"] = caledAttackInterval - interval + 1;
+                await m.bt().fireEvent("onElemChanged", {subType:"attackInterval", e:m});
             }
+            else{
+                interval = interval - caledAttackInterval + 1;
+                m["attackInterval"] = caledAttackInterval - interval + 1;
+                await m.bt().fireEvent("onElemChanged", {subType:"attackInterval", e:m});
+                if (condition()) {
+                    var target = findTarget();
+                    if (!target) return;
+
+                    // 如果是打怪，需要判断射程
+                    if (target instanceof Monster && !m.inAttackRange(target)) return;
+                    
+                    await m.bt().implMonsterAttackTargets(m, [target]);
+                }
+            }
+            
         }, m);
     }
 
@@ -417,6 +425,8 @@ class MonsterFactory {
         m["cnt"] = 0;
         return <Monster>ElemFactory.addAI("onPlayerActed", async () => {
             m["cnt"]++;
+            m["attackInterval"] = m.attrs.selfExplode.cnt - m["cnt"] + 1; 
+            await m.bt().fireEvent("onElemChanged", {subType:"attackInterval", e:m})
             if(m["cnt"] > m.attrs.selfExplode.cnt)
                 await m.bt().implMonsterDoSelfExplode(m, {a:m.attrs.selfExplode.mult - 1, b:0, c:0}, true);            
         }, m);
