@@ -26,6 +26,11 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
         this.clear();
         if (e instanceof Prop || e instanceof Item)
             this.createItemPropConfirm(player, e, price);
+        else {
+            Utils.assert(e instanceof Relic, "only prop, item, relic should be in shop");
+            if (Utils.indexOf(player.relics, (r) => r.type == e.type) < 0)
+                this.createNewRelicConfirm(<Relic>e, price);
+        }
 
         return new Promise<boolean>((resolve, reject) => {
             this.onYes = () => resolve(true);
@@ -52,7 +57,7 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
         title.y = bg.y + 40;
         this.addChild(title);
 
-        // 简要描述
+        // 描述
         var desc = ViewUtils.createTextField(30, 0x000000);
         desc.textFlow = ViewUtils.fromHtml(ViewUtils.replaceByProperties(nameAndDesc.desc[0], e));
         desc.width = bg.width;
@@ -78,6 +83,77 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
             currentY = numHold.y + numHold.height;
             this.addChild(numHold);
         }
+
+        // 确定取消按钮
+
+        var btnCancel = new TextButtonWithBg("btnBg_png", 25);
+        btnCancel.width = 120;
+        btnCancel.height = 50;
+        btnCancel.refresh();
+        btnCancel.x = bg.x + bg.width / 2 - btnCancel.width - 50;
+        btnCancel.y = currentY + 20;
+        btnCancel.text = ViewUtils.getTipText("cancel");
+        this.addChild(btnCancel);
+
+        var btnYes = new TextButtonWithBg("btnBg_png", 25);
+        btnYes.width = 120;
+        btnYes.height = 50;
+        btnYes.refresh();
+        btnYes.x = bg.x + bg.width / 2 + 50;
+        btnYes.y = currentY + 20;
+        btnYes.text = ViewUtils.getTipText("yes");
+        this.addChild(btnYes);
+
+        btnYes.onClicked = () => this.onYes();
+        btnCancel.onClicked = () => this.onCancel();
+
+        var currentY = btnYes.y + btnYes.height;
+        bg.height = currentY + 50 - bg.y;
+    }
+
+    // 购买新遗物时的确认界面
+    private createNewRelicConfirm(e:Elem, price:number) {
+        // 背景底图
+        var bg = ViewUtils.createBitmapByName("confirmBg_png");
+        bg.width = 600;
+        bg.x = 20;
+        bg.y = 400;
+        this.addChild(bg);
+
+        // 图标
+        var icon = ViewUtils.createBitmapByName(e.getElemImgRes() + "_png");
+        icon.x = bg.x + icon.width + 40;
+        icon.y = bg.y + 30;
+        this.addChild(icon);
+
+        var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
+
+        // 标题
+        var title = ViewUtils.createTextField(50, 0xff0000);
+        title.text = nameAndDesc.name;
+        title.textAlign = egret.HorizontalAlign.LEFT;
+        title.x = icon.x + icon.width + 20;
+        title.width = bg.width - title.x;
+        title.y = bg.y + 40;
+        this.addChild(title);
+
+        // 简要描述
+        var desc = ViewUtils.createTextField(30, 0x000000);
+        desc.textFlow = ViewUtils.fromHtml(ViewUtils.replaceByProperties(nameAndDesc.shortDesc, e));
+        desc.width = bg.width;
+        desc.x = bg.x;
+        desc.y = title.y + title.height + 20;
+        this.addChild(desc);
+
+        // 费用
+        var cost = ViewUtils.createTextField(20, 0x000000);
+        cost.textFlow = ViewUtils.fromHtml(ViewUtils.formatTip("costCoins", price.toString()));
+        cost.width = bg.width;
+        cost.x = bg.x;
+        cost.y = desc.y + desc.height + 20;
+        this.addChild(cost);
+
+        var currentY = cost.y + cost.height;
 
         // 确定取消按钮
 
