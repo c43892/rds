@@ -198,6 +198,15 @@
 				"goOutBtn":{"x":365, "y":850},
 				"destination":{"x":320, "y":0}
 			}
+		},		
+		"boxRoomView": {
+			"layout": {
+				"bg1": {"x":20, "y":220, "w":600},
+				"openBoxBtn": {"x":320, "y":750},
+				"goOutBtn": {"x":365, "y":850},
+				"destination":{"x":320, "y":0},
+				"startingPoint":{"x":299, "y":579}				
+			}
 		}
     },
 
@@ -218,6 +227,7 @@
 		"costCoins": {"EN": "cost {0} coins", "CNS": "花费金币<font color=#00ff00>({0})</font>", "CNT": "花费金幣<font color=#00ff00>({0})</font>"},
 		"numHold": {"EN": "hold {0}", "CNS": "当前拥有{0}个", "CNT": "当前拥有{0}个"},
 		"openBox": {"EN": "open the box", "CNS": "打开宝箱", "CNT": "打开宝箱"},
+		"makeSureGoOutBoxRoom":{"EN": "be sure to leave without left items?", "CNS": "确定放弃余下的物品?", "CNT": "確定放棄餘下的物品?"},
 		"": {}
 	}
 }

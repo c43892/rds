@@ -74,6 +74,13 @@ class TextButtonWithBg extends egret.DisplayObjectContainer {
         this.refresh();
     }
 
+    static pressTimer:egret.Timer; // 长按计时
+    static pressed:boolean = false; // 按钮被按下
+    static longPressed:boolean = false; // 产生长按事件    
+    static readonly LongPressThreshold = 500; // 按下持续 0.5s 算长按
+    public static showElemDesc; // 显示元素信息
+    public onPressTimer // 长按事件行为
+
     // 鼠标按下效果
     downBg:egret.Bitmap;
     public setDownBg(bgTexName:string) {
@@ -127,9 +134,20 @@ class TextButtonWithBg extends egret.DisplayObjectContainer {
             this.bg.alpha = 0;
             this.downBg.alpha = 1;
         }
+
+        TextButtonWithBg.pressed = true;
+        TextButtonWithBg.longPressed = false;
+
+        if(this.onPressTimer){
+            if (!TextButtonWithBg.pressTimer) {
+                TextButtonWithBg.pressTimer = new egret.Timer(TextButtonWithBg.LongPressThreshold, 1);
+                TextButtonWithBg.pressTimer.addEventListener(egret.TimerEvent.TIMER, this.onPressTimer, this);
+            }
+            TextButtonWithBg.pressTimer.start();
+        }        
     }
 
-    onBtnUp(evt:egret.TouchEvent) {
+    onBtnUp(evt:egret.TouchEvent) {        
         var objs = [this.bg, this.downBg, this.disabledBg, this.ft, this.textField];
         objs.forEach((obj, _) => {
             if (obj) obj.y -= this.floatingOffset;
@@ -138,6 +156,11 @@ class TextButtonWithBg extends egret.DisplayObjectContainer {
         this.bg.alpha = 1;        
         if (this.downBg)
             this.downBg.alpha = 0;
+
+        TextButtonWithBg.pressed = false;
+        TextButtonWithBg.longPressed = false;
+        if(TextButtonWithBg.pressTimer)
+            TextButtonWithBg.pressTimer.stop();
     }
 
     public refresh() {

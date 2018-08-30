@@ -11,6 +11,8 @@ class BoxRoomView extends egret.DisplayObjectContainer {
     private goOutBtn:egret.Bitmap;
     private startingPoint:egret.Bitmap;
     private destination:egret.Bitmap;
+    public confirmOkYesNo;
+    public static showElemDesc;
     
     public constructor(w:number, h:number) {
         super();
@@ -66,7 +68,9 @@ class BoxRoomView extends egret.DisplayObjectContainer {
 
         this.elems = [];
         this.openBoxBtn.touchEnabled = true;
-        var onOpenBoxRoomPs = {num :4};
+        this.addChild(this.openBoxBtn)
+        
+        var onOpenBoxRoomPs = {num:3};
         await this.player.fireEvent("onOpenBoxRoom", onOpenBoxRoomPs);
         var num = onOpenBoxRoomPs.num;
         var arr = Utils.randomSelectByWeightWithPlayerFilter(this.player, dropCfg, this.player.playerRandom, num, num + 1, true, "Coins");
@@ -81,6 +85,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
             this.addChild(elem);
             elem.alpha = 0;
             elem.touchEnabled = false;
+            elem.onPressTimer = () => BoxRoomView.showElemDesc(ElemFactory.create(elem["eType"]));
         }
 
         ViewUtils.setTexName(this.box, "BoxRoomBox_png");
@@ -89,11 +94,19 @@ class BoxRoomView extends egret.DisplayObjectContainer {
     }
 
     async onClose() {
-        this.doClose();
+        if(this.elems.length != 0){
+            var content = ViewUtils.formatString(ViewUtils.getTipText("makeSureGoOutBoxRoom"));
+            var ok = await this.confirmOkYesNo(undefined, content, true, ["确定", "取消"]);
+            if (ok) 
+                this.doClose();
+        }
+        else
+            this.doClose();
     }
 
     async onOpenBox() {
         this.openBoxBtn.touchEnabled = false;
+        this.removeChild(this.openBoxBtn);
 
         if (this.elems.length == 0) return;
 
