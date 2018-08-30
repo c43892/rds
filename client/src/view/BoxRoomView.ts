@@ -43,7 +43,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
         this.openBoxBtn.name = "openBoxBtn";
         this.openBoxBtn.onClicked = async () => await this.onOpenBox();
 
-        this.goOutBtn = ViewUtils.createBitmapByName("turntableGoOutBtn_png");
+        this.goOutBtn = ViewUtils.createBitmapByName("goForward_png");
         this.goOutBtn.name = "goOutBtn"
         this.addChild(this.goOutBtn);
         this.goOutBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClose, this);

@@ -53,7 +53,7 @@ class HospitalView extends egret.DisplayObjectContainer {
         this.btnMutate.touchEnabled = true;
         this.btnMutate.addEventListener(egret.TouchEvent.TOUCH_TAP, this.openMutate, this);
 
-        this.btnCancel = ViewUtils.createBitmapByName("goBack2_png");
+        this.btnCancel = ViewUtils.createBitmapByName("goForward_png");
         this.btnCancel.x = this.width - this.btnCancel.width;
         this.btnCancel.y = this.height - this.btnCancel.height;
         this.addChild(this.btnCancel);

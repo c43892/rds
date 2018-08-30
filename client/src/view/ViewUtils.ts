@@ -247,6 +247,25 @@ class ViewUtils {
         return bmps;
     }
 
+    public static createRelicUpgradeSubView(r1:Relic, r2:Relic):egret.DisplayObject[] {
+        var objs = [];
+
+        // 左边的遗物信息
+        objs.push(...ViewUtils.createSmallRelicInfoRect(r1, 0));
+
+        // 右边的遗物信息
+        objs.push(...ViewUtils.createSmallRelicInfoRect(r2, 320));
+
+        // 箭头
+        var arrow = ViewUtils.createBitmapByName("relicUpgradeArrow_png");
+        arrow.x = 320 - arrow.width / 2;
+        var bg = objs[0];
+        arrow.y = bg.y + bg.height - 50;
+        objs.push(arrow);
+
+        return objs;
+    }
+
     // 创建一个小型的显示遗物信息的区域
     public static createSmallRelicInfoRect (e:Relic, left:number):egret.DisplayObject[] {
         // 背景底图

@@ -195,16 +195,31 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
     // 购买新遗物时的确认界面
     private createRelicUpgradeConfirm(r1:Relic, r2:Relic, price:number) {
 
-        var objs = [];
-
-        // 左边的遗物信息
-        objs.push(...ViewUtils.createSmallRelicInfoRect(r1, 0));
-
-        // 右边的遗物信息
-        objs.push(...ViewUtils.createSmallRelicInfoRect(r2, 320));
-
-        // 余下部分
-
+        var objs = ViewUtils.createRelicUpgradeSubView(r1, r2);
         objs.forEach((obj, _) => this.addChild(obj));
+
+        // 费用
+        var cost = ViewUtils.createTextField(20, 0x000000);
+        cost.textFlow = ViewUtils.fromHtml(ViewUtils.formatTip("costCoins", price.toString()));
+        cost.width = this.width;
+        cost.x = 0;
+        cost.y = this.height - 350;
+        this.addChild(cost);
+
+        // 确定返回按钮
+        var btnCancel = new TextButtonWithBg("goBack_png", 30);
+        btnCancel.x = 50;
+        btnCancel.y = this.height - btnCancel.height - 100;
+        btnCancel.text = ViewUtils.getTipText("cancel");
+        this.addChild(btnCancel);
+
+        var btnYes = new TextButtonWithBg("goForward_png", 30);
+        btnYes.x = this.width - btnYes.width - 50;
+        btnYes.y = this.height - btnYes.height - 100;
+        btnYes.text = ViewUtils.getTipText("yes");
+        this.addChild(btnYes);
+
+        btnYes.onClicked = () => this.onYes();
+        btnCancel.onClicked = () => this.onCancel();
     }
 }
