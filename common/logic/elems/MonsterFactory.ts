@@ -790,7 +790,8 @@ class MonsterFactory {
             if (!shopItemAndPrice)
                 shopItemAndPrice = Utils.genRandomShopItems(m.bt().player, m.attrs.shopCfg, m.bt().srand, 6);
             await m.bt().try2OpenShop(m, shopItemAndPrice.items, shopItemAndPrice.prices, onBuy);
-            return !m["bought"]; // 成功购买后,NPC不再保留
+            // 成功购买后，NPC不再保留，才消耗死神步数
+            return {reserve: !m["bought"], consumeDeathStep: !!m["bought"]};
         };
 
         return m;

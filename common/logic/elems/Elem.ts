@@ -54,7 +54,7 @@ class Elem {
     
     // 以下关于 use 相关的逻辑，都不考虑未揭开情况，因为 Elem 并不包含揭开这个逻辑，
     // 也不考虑被其它元素的影响的情况，这种影响属于地图整体逻辑的一部分
-    public use; // 一个 function():boolean, 返回值表示是否要保留（不消耗）
+    public use; // 一个 function():{boolean, boolean}, 返回值表示是否要保留（不消耗），消耗死神步数
     public useAt; // 一个 function(x:number, y:number):boolean, 返回值表示是否要保留（不消耗）
 
     // 各种逻辑点，Elem 应该在此作响应逻辑

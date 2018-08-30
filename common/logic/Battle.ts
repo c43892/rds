@@ -379,14 +379,20 @@ class Battle {
 
             await this.fireEvent("onUseElem", {e:e});
 
-            var reserve = await e.use(); // 返回值决定是保留还是消耗掉
+            var r = await e.use(); // 返回值决定是保留还是消耗掉;
+            var reserve = r instanceof Object ? r.reserve : r;
+            var consumeDeathStep = r instanceof Object ? r.consumeDeathStep : true;
+
             if (!reserve) await this.implOnElemDie(e);
 
             await this.fireEvent("onElemChanged", {subType:"useElem", e:e});
             await this.triggerLogicPoint("onElemChanged", {subType:"useElem", e:e});
 
-            await this.fireEvent("onPlayerActed", {subType:"useElem", e:e, num:-1});
-            await this.triggerLogicPoint("onPlayerActed", {subType:"useElem", e:e, num:-1}); // 算一次角色行动
+            // 算一次角色行动
+            if (consumeDeathStep) {
+                await this.fireEvent("onPlayerActed", {subType:"useElem", e:e, num:-1});
+                await this.triggerLogicPoint("onPlayerActed", {subType:"useElem", e:e, num:-1});
+            }
 
             await this.checkPlayerLevelUpAndDie();
 
@@ -418,8 +424,8 @@ class Battle {
                 }
             }
 
-        await this.fireEvent("onPlayerActed", {subType:"useProp", e:e, num:-1});
-        await this.triggerLogicPoint("onPlayerActed", {subType:"useProp", e:e, num:-1}); // 算一次角色行动
+            await this.fireEvent("onPlayerActed", {subType:"useProp", e:e, num:-1});
+            await this.triggerLogicPoint("onPlayerActed", {subType:"useProp", e:e, num:-1}); // 算一次角色行动
         };
     }
 
