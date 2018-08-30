@@ -620,6 +620,13 @@ class Battle {
         await this.triggerLogicPoint("onGridChanged", {e:e, subType:"elemAdded"});
     }
 
+    // 通知一批物品掉落
+    public async notifyElemsDropped(es:Elem[], fromPos) {
+        await this.fireEvent("onNotifyElemsDropped", {es:es, fromPos:fromPos});
+        for (var i = 0; i < es.length; i++)
+            await this.triggerLogicPoint("onGridChanged", {e:es[i], subType:"elemAdded"});
+    }
+
     // 从地图移除 Elem
     public async implRemoveElemAt(x:number, y:number) {
         var e = this.removeElemAt(x, y);

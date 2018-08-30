@@ -74,6 +74,28 @@ class AniView extends egret.DisplayObjectContainer {
             img.parent.removeChild(img);
     }
 
+    // 批量物品掉落
+    public async onNotifyElemsDropped(ps) {
+        var lastAni;
+        var es = ps.es;
+        var fromPos = ps.fromPos;
+        for (var i = 0; i < es.length; i++) {
+            var e = es[i];
+            this.bv.mapView.refreshAt(e.pos.x, e.pos.y, e && e.isBig() ? e.attrs.size : undefined);
+            var obj = this.getSVByPos(e.pos.x, e.pos.y);
+            if (!fromPos || (e.pos.x == fromPos.x && e.pos.y == fromPos.y)) // 原地跳出来
+                lastAni = AniUtils.jumpInMap(obj);
+            else
+                lastAni = AniUtils.flyOutLogicPos(obj, this.bv.mapView, fromPos);
+        }
+
+        if (lastAni)
+            await lastAni;
+
+        this.bv.refreshPlayer(); // 角色属性受地图上所有东西影响
+        this.bv.mapView.refresh();
+    }
+
     // 指定位置发生状态或元素变化
     public async onGridChanged(ps) {
         var e:Elem = ps.e;
@@ -354,7 +376,7 @@ class AniView extends egret.DisplayObjectContainer {
                 this.aniFact.createAni("seq", {subAniArr:[
                     this.aniFact.createAni("tr", {obj:coinsImg, fx:coinSV.localToGlobal().x, fy:coinSV.localToGlobal().y,
                         tx:txt.localToGlobal().x, ty:txt.localToGlobal().y,
-                        fsx:1, fsy:1, tsx:0.6, tsy:0.6, time:500}),
+                        fsx:1, fsy:1, tsx:0.6, tsy:0.6, time:350}),
                     this.aniFact.createAni("tr", {obj:coinsImg, fa:1, ta:0, time:1})
                 ]});
 
@@ -367,12 +389,12 @@ class AniView extends egret.DisplayObjectContainer {
                 this.aniFact.createAni("seq", {subAniArr:[
                     this.aniFact.createAni("tr", {obj:coinsImg, tx:txt.localToGlobal().x, ty:txt.localToGlobal().y,
                         fx:coinSV.localToGlobal().x, fy:coinSV.localToGlobal().y,
-                        fsx:0.6, fsy:0.6, tsx:1, tsy:1, time:500}),
+                        fsx:0.6, fsy:0.6, tsx:1, tsy:1, time:350}),
                     this.aniFact.createAni("tr", {obj:coinsImg, fa:1, ta:0, time:1})
                 ]});
             }
             
-            await AniUtils.delay(150);
+            await AniUtils.delay(100);
             this.bv.refreshMoneyAt(v);
         }
 

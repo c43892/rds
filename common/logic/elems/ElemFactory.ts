@@ -100,6 +100,7 @@ class ElemFactory {
 
             var dropInPosition = true;
             var drops = [...e.dropItems, ...randomDrops];
+            var droppedElems = [];
             for (var elem of drops) {
                 var g:Grid; // 掉落位置，优先掉在原地
                 var eInPlace = e.bt().level.map.getElemAt(e.pos.x, e.pos.y);
@@ -110,9 +111,12 @@ class ElemFactory {
                 } else
                     g = BattleUtils.findRandomEmptyGrid(e.bt());
 
-                if (!g) return; // 没有空间了
-                await e.bt().implAddElemAt(elem, g.pos.x, g.pos.y, e.pos);
+                if (!g) break; // 没有空间了
+                e.bt().addElemAt(elem, g.pos.x, g.pos.y);
+                droppedElems.push(elem);
             }
+
+            e.bt().notifyElemsDropped(droppedElems, e.pos);
         }, e);
 
         return e;
