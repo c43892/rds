@@ -23,33 +23,25 @@ class MainView extends egret.DisplayObjectContainer {
 
         // 提示确认视图
         this.tcv = new TipConfirmView(w, h);
-        this.tcv.x = this.tcv.y = 0;
 
         // 商店视图
         this.sv = new ShopView(w, h);
-        this.sv.x = this.sv.y = 0;
-        this.sv.confirmOkYesNo = (title, content, yesno) => this.confirmOkYesNo(title, content, yesno);
 
         // 遗物选择视图
         this.rsv = new RelicSelView(w, h);
-        this.rsv.x = this.rsv.y = 0;
         this.rsv.confirmOkYesNo = (title, content, yesno) => this.confirmOkYesNo(title, content, yesno);
 
         // 战斗视图
         this.bv = new BattleView(w, h);
-        this.bv.x = this.bv.y = 0;
 
         // 宝箱房间
         this.brv = new BoxRoomView(w, h);
-        this.brv.x = this.brv.y = 0;
 
         //转盘事件
         this.ttv = new TurntableView(w, h);
-        this.ttv.x = this.ttv.y = 0;
 
         // 角色升级界面
         this.pluv = new PlayerLevelUpView(w, h);
-        this.pluv.x = this.pluv.y = 0;
 
         // 登录界面
         this.lgv = new LoginView(w, h);

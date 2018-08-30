@@ -429,7 +429,7 @@ class AniView extends egret.DisplayObjectContainer {
         var sv = this.getSV(m);
         if (dhp < 0) {
             var p = sv.localToGlobal();
-            AniUtils.popupTipAt(dhp.toString(), "popupTipBg_png", {x:p.x-25, y:p.y-25});
+            AniUtils.popupTipAt(dhp.toString(), "popupTipBg_png", {x:p.x, y:p.y-25});
         }
     }
 
