@@ -78,7 +78,6 @@ class TextButtonWithBg extends egret.DisplayObjectContainer {
     static pressed:boolean = false; // 按钮被按下
     static longPressed:boolean = false; // 产生长按事件    
     static readonly LongPressThreshold = 500; // 按下持续 0.5s 算长按
-    public static showElemDesc; // 显示元素信息
     public onPressTimer // 长按事件行为
 
     // 鼠标按下效果
@@ -153,7 +152,7 @@ class TextButtonWithBg extends egret.DisplayObjectContainer {
             if (obj) obj.y -= this.floatingOffset;
         });
 
-        this.bg.alpha = 1;        
+        this.bg.alpha = 1;
         if (this.downBg)
             this.downBg.alpha = 0;
 
