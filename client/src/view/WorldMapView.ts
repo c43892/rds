@@ -48,6 +48,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
         this.btnSetting = new TextButtonWithBg("BtnSetting_png");
         this.btnSetting.name = "btnSetting";
+        this.btnSetting.onClicked = () => this.openSettingView();
         this.coins = ViewUtils.createBitmapByName("Coins_png");
         this.coins.name = "coins";
         this.numCoins = ViewUtils.createTextField(33, 0xffffff, false, false);
@@ -64,6 +65,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
     }
 
     btnSetting:TextButtonWithBg; // 设置按钮
+    openSettingView; // 打开设置界面
     coins:egret.Bitmap; // 金币图标
     numCoins:egret.TextField; // 金币数量
     crevices:egret.Bitmap[] = []; // 裂缝
