@@ -14,6 +14,7 @@ class MainView extends egret.DisplayObjectContainer {
     public rankv:RankingView; // 排行榜视图
     public idv:ElemDescView; // 怪物、遗物、物品描述视图
     public arv:AllElemsView; // 展示给定的遗物列表
+    public st:SettingView; // 设置视图
     public av:AniView; // 动画层
     
     public constructor(w:number, h:number) {
@@ -47,6 +48,11 @@ class MainView extends egret.DisplayObjectContainer {
         // 登录界面
         this.lgv = new LoginView(w, h);
 
+        // 设置界面
+        this.st = new SettingView(w, h);
+        this.st.confirmOkYesNo = (title, content, yesno) => this.confirmOkYesNo(title, content, yesno);
+        this.st.openStartup = () => this.openStartup(undefined);
+
         // 世界地图
         this.wmv = new WorldMapView(w, h);
         this.wmv.openShop = async (shop) => await this.openShopOnWorldMap(shop);
@@ -57,6 +63,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
         this.wmv.selRelic = async (title, f) => await this.openSelRelic(title, f);
         this.wmv.openPlayerDieView = async () => await this.openPlayerDieView();
+        this.wmv.openSettingView = async () => await this.openSettingView();
 
         // 医院视图
         this.hv = new HospitalView(w, h);
@@ -78,6 +85,8 @@ class MainView extends egret.DisplayObjectContainer {
         this.arv = new AllElemsView(w, h);
         AllElemsView.showElemDesc = async (e) => await this.showElemDesc(e);
         this.bv.openAllElemsView = async (relics) => await this.openAllElemsView(relics);
+        this.st.openAllRelicsView = async (relics) => await this.openAllElemsView(relics);
+        this.st.openAllPropsView = async (props) => await this.openAllElemsView(props);
 
         // 动画层
         this.av = new AniView(w, h, this);
@@ -369,6 +378,15 @@ class MainView extends egret.DisplayObjectContainer {
         this.setChildIndex(this.arv, -1);
         await this.arv.open(relics);
         this.removeChild(this.arv);
+    }
+
+    // 打开设置界面
+    public async openSettingView() {
+        this.st.player = this.p;
+        this.addChild(this.st);
+        this.setChildIndex(this.st, -1);
+        await this.st.open();
+        this.removeChild(this.st);
     }
 
     // 加载指定资源组并显示加载画面

@@ -198,6 +198,28 @@
 				"goOutBtn":{"x":365, "y":850},
 				"destination":{"x":320, "y":0}
 			}
+		},		
+		
+		"boxRoomView": {
+			"layout": {
+				"bg1": {"x":20, "y":220, "w":600},
+				"openBoxBtn": {"x":320, "y":750},
+				"goOutBtn": {"x":365, "y":850},
+				"destination":{"x":320, "y":0},
+				"startingPoint":{"x":299, "y":579}				
+			}
+		},
+		
+		"settingView":{
+			"layout": {
+				"bg1": {"x":20, "y":220, "w":600},
+				"title":{"x":70, "y":215, "w":500, "h":50},
+				"volumeBtn":{"x":122, "y":403},
+				"relicsBtn":{"x":229, "y":400},
+				"propsBtn":{"x":340, "y":396},
+				"exitBtn":{"x":461, "y":398},
+				"goBackBtn": {"x":0, "y":1080, "w":100, "h":50}				
+			}
 		}
     },
 
@@ -219,6 +241,9 @@
 		"costCoins": {"EN": "cost {0} coins", "CNS": "<font color=#ffffff>花费金币<font color=#00ff00>({0})</font></font>", "CNT": "花费金幣<font color=#00ff00>({0})</font>"},
 		"numHold": {"EN": "hold {0}", "CNS": "当前拥有{0}个", "CNT": "当前拥有{0}个"},
 		"openBox": {"EN": "open the box", "CNS": "打开宝箱", "CNT": "打开宝箱"},
+		"makeSureGoOutBoxRoom":{"EN": "be sure to leave without left items?", "CNS": "确定放弃余下的物品?", "CNT": "確定放棄餘下的物品?"},
+		"setting": {"EN": "setting", "CNS": "设置", "CNT": "設置"},
+		"makeSureExitThisGame":{"EN": "be sure to give up this game?", "CNS": "确定放弃此局游戏?", "CNT": "確定放棄此局遊戲?"},
 		"": {}
 	}
 }

@@ -48,7 +48,7 @@
 		"bin-debug/logic/BattleUtils.js",
 		"bin-debug/logic/GCfg.js",
 		"bin-debug/logic/LevelLogic/LevelLogicBasic.js",
-		"bin-debug/Main.js",
+		"bin-debug/view/WorldMapView.js",
 		"bin-debug/logic/map/Grid.js",
 		"bin-debug/logic/map/Map.js",
 		"bin-debug/logic/player/Occupation.js",
@@ -80,6 +80,7 @@
 		"bin-debug/view/RelicSelView.js",
 		"bin-debug/view/ReplayView.js",
 		"bin-debug/view/SelView.js",
+		"bin-debug/view/SettingView.js",
 		"bin-debug/view/ShopConfirmView.js",
 		"bin-debug/view/ShopView.js",
 		"bin-debug/view/TextButtonWithBg.js",
@@ -87,6 +88,6 @@
 		"bin-debug/view/TurntableView.js",
 		"bin-debug/view/ViewUtils.js",
 		"bin-debug/view/WorldMapSelsEventView.js",
-		"bin-debug/view/WorldMapView.js"
+		"bin-debug/Main.js"
 	]
 }

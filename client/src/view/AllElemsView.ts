@@ -29,7 +29,6 @@ class AllElemsView extends egret.DisplayObjectContainer {
 
         // 标题
         this.title = ViewUtils.createTextField(45, 0x7d0403);
-        // this.title.text = ViewUtils.getTipText("relics");
         this.title.name = "title";
 
         // 滚动窗口区域
