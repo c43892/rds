@@ -32,8 +32,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
         this.bg1.name = "bg1";
 
         this.box = ViewUtils.createBitmapByName("BoxRoomBox_png");
-        this.box.x = (this.width - this.box.width) / 2;
-        this.box.y = (this.height - this.box.height) / 2;
+        this.box.name = "box";
         this.box.touchEnabled = true;
 
         this.openBoxBtn = new TextButtonWithBg("btnBg_png", 30);
@@ -78,7 +77,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
             let elem = new TextButtonWithBg(arr[i] + "_png");
             elem.touchEnabled = true;
             elem.x = 320 + (i - (arr.length - 1) / 2) * 114 - 42;
-            elem.y = 430 - 42;
+            elem.y = 380 - 42;
             elem["eType"] = arr[i];
             elem.onClicked = () => this.getDropItem(elem);
             this.elems.push(elem);

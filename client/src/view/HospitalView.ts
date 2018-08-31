@@ -5,60 +5,70 @@ class HospitalView extends egret.DisplayObjectContainer {
     public selRelic; // 选择遗物
 
     private bg:egret.Bitmap; // 背景
-    private btnCure:egret.Bitmap; // 治疗
-    private btnReinforce:egret.Bitmap; // 强化
-    private btnMutate:egret.Bitmap; // 变异
-    private btnCancel:egret.Bitmap;
+    private bg1:egret.Bitmap; // 背景羊皮纸
+    private bg2:egret.Bitmap; // 营火
+    private title:egret.TextField;
+    private tip:egret.TextField;
+    private btnCure:TextButtonWithBg; // 治疗
+    private btnReinforce:TextButtonWithBg; // 强化
+    private btnMutate:TextButtonWithBg; // 变异
+    private btnGoOn:TextButtonWithBg;
 
     public constructor(w:number, h:number) {
         super();
 
         this.width = w;
         this.height = h;
+        this.name = "hospitalView";
 
         this.bg = ViewUtils.createBitmapByName("translucent_png");
         this.bg.width = this.width;
         this.bg.height = this.height;
+        this.bg.touchEnabled = true;
         this.addChild(this.bg);
+
+        this.bg1 = ViewUtils.createBitmapByName("bigBg_png");
+        this.bg1.name = "bg1";
+
+        this.bg2 = ViewUtils.createBitmapByName("campfire_png");
+        this.bg2.name = "bg2";
+
+        this.title = ViewUtils.createTextField(45, 0x7d0403);
+        this.title.text = ViewUtils.getTipText("hospitalTitle");
+        this.title.name = "title";
+
+        this.tip = ViewUtils.createTextField(30, 0x000000);
+        this.tip.text = ViewUtils.getTipText("hospitalTip");
+        this.tip.name = "tip";
 
         // 三个功能选项
 
         // 治疗
-        this.btnCure = ViewUtils.createBitmapByName("btnCure_png");
-        this.btnCure.width = this.width;
-        this.btnCure.height = 250;
-        this.btnCure.x = 0;
-        this.btnCure.y = 0;
-        this.addChild(this.btnCure);
-        this.btnCure.touchEnabled = true;
-        this.btnCure.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onCure, this);
+        this.btnCure = new TextButtonWithBg("btnBg_png", 30);
+        this.btnCure.text = ViewUtils.getTipText("hospitalCure");
+        this.btnCure.name = "btnCure";
+        this.btnCure.onClicked = () => this.onCure();
 
         // 强化
-        this.btnReinforce = ViewUtils.createBitmapByName("btnReinforce_png");
-        this.btnReinforce.width = this.width;
-        this.btnReinforce.height = 250;
-        this.btnReinforce.x = 0;
-        this.btnReinforce.y = 300;
-        this.addChild(this.btnReinforce);
-        this.btnReinforce.touchEnabled = true;
-        this.btnReinforce.addEventListener(egret.TouchEvent.TOUCH_TAP, this.openReinforce, this);
+        this.btnReinforce = new TextButtonWithBg("btnBg_png", 30);
+        this.btnReinforce.text = ViewUtils.getTipText("hospitalReinforce");
+        this.btnReinforce.name = "btnReinforce";
+        this.btnReinforce.onClicked = () => this.openReinforce();
 
-        // 变异
-        this.btnMutate = ViewUtils.createBitmapByName("btnMutate_png");
-        this.btnMutate.width = this.width;
-        this.btnMutate.height = 250;
-        this.btnMutate.x = 0;
-        this.btnMutate.y = 600;
-        this.addChild(this.btnMutate);
-        this.btnMutate.touchEnabled = true;
-        this.btnMutate.addEventListener(egret.TouchEvent.TOUCH_TAP, this.openMutate, this);
+        // // 变异
+        // this.btnMutate = new TextButtonWithBg("btnBg_png", 30);
+        // this.btnMutate.text = ViewUtils.getTipText("hospitalMutate");
+        // this.btnMutate.name = "btnMutate";
+        // this.btnMutate.onClicked = async () => await this.openMutate();
 
-        this.btnCancel = ViewUtils.createBitmapByName("goForward_png");
-        this.btnCancel.x = this.width - this.btnCancel.width;
-        this.btnCancel.y = this.height - this.btnCancel.height;
-        this.addChild(this.btnCancel);
-        this.btnCancel.touchEnabled = true;
-        this.btnCancel.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onCancel, this);
+        this.btnGoOn = new TextButtonWithBg("goForward_png", 30);
+        this.btnGoOn.text = ViewUtils.getTipText("continueBtn");
+        this.btnGoOn.name = "btnGoOn";
+        this.btnGoOn.onClicked = () => this.onGoOn();
+
+        var objs = [this.bg1, this.bg2, this.title, this.tip, this.btnCure, this.btnReinforce, this.btnGoOn];        
+        ViewUtils.multiLang(this, ...objs);
+        objs.forEach((obj, _) => this.addChild(obj));
     }
 
     private doClose;
@@ -66,15 +76,15 @@ class HospitalView extends egret.DisplayObjectContainer {
         return new Promise<void>((resolve, reject) => this.doClose = resolve);
     }
 
-    async onCure(evt:egret.TouchEvent) {
-        var yesno = await this.confirmOkYesNo(undefined, "确定治疗？(回复最多 50% 生命)", true);
+    async onCure() {
+        var yesno = await this.confirmOkYesNo(undefined, "确定治疗？(回复最多 30% 生命)", true);
         if (yesno) {
             this.player.addHp(this.player.maxHp / 2);
             this.doClose();
         }
     }
 
-    async openReinforce(evt:egret.TouchEvent) {
+    async openReinforce() {
         var parent = this.parent;
         parent.removeChild(this);
         
@@ -96,7 +106,7 @@ class HospitalView extends egret.DisplayObjectContainer {
         parent.addChild(this);
     }
 
-    async openMutate(evt:egret.TouchEvent) {
+    async openMutate() {
         var parent = this.parent;
         parent.removeChild(this);
 
@@ -117,7 +127,7 @@ class HospitalView extends egret.DisplayObjectContainer {
         parent.addChild(this);
     }
 
-    onCancel(evt:egret.TouchEvent) {
+    onGoOn() {
         this.doClose();
     }
 }

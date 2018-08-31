@@ -195,7 +195,7 @@
 				"tipBg":{"x":111, "y":730},
 				"tipContent":{"x":171, "y":740, "w":300, "h":90},
 				"tipReward":{"x":171, "y":743},
-				"goOutBtn":{"x":365, "y":850},
+				"goOutBtn":{"x":427, "y":970},
 				"destination":{"x":320, "y":0}
 			}
 		},		
@@ -203,22 +203,36 @@
 		"boxRoomView": {
 			"layout": {
 				"bg1": {"x":20, "y":220, "w":600},
-				"openBoxBtn": {"x":320, "y":750},
-				"goOutBtn": {"x":365, "y":850},
+				"box": {"x":133, "y":300},
+				"openBoxBtn": {"x":320, "y":780},
+				"goOutBtn": {"x":427, "y":970},
 				"destination":{"x":320, "y":0},
-				"startingPoint":{"x":299, "y":579}				
+				"startingPoint":{"x":299, "y":479}				
 			}
 		},
 		
 		"settingView":{
 			"layout": {
 				"bg1": {"x":20, "y":220, "w":600},
-				"title":{"x":70, "y":215, "w":500, "h":50},
+				"title":{"x":70, "y":235, "w":500, "h":50},
 				"volumeBtn":{"x":122, "y":403},
 				"relicsBtn":{"x":229, "y":400},
 				"propsBtn":{"x":340, "y":396},
 				"exitBtn":{"x":461, "y":398},
 				"goBackBtn": {"x":0, "y":1080, "w":100, "h":50}				
+			}
+		},
+		
+		"hospitalView":{
+			"layout": {
+				"bg1": {"x":20, "y":220, "w":600},
+				"bg2": {"x":172, "y":320},		
+				"title":{"x":70, "y":235, "w":500, "h":50},		
+				"tip":{"x":70, "y":285, "w":500, "h":50},	
+				"btnMutate":{"x":119, "y":560},
+				"btnCure":{"x":119, "y":645},
+				"btnReinforce":{"x":119, "y":730},
+				"btnGoOn":{"x":427, "y":970} 
 			}
 		}
     },
@@ -244,6 +258,12 @@
 		"makeSureGoOutBoxRoom":{"EN": "be sure to leave without left items?", "CNS": "确定放弃余下的物品?", "CNT": "確定放棄餘下的物品?"},
 		"setting": {"EN": "setting", "CNS": "设置", "CNT": "設置"},
 		"makeSureExitThisGame":{"EN": "be sure to give up this game?", "CNS": "确定放弃此局游戏?", "CNT": "確定放棄此局遊戲?"},
+		"hospitalTitle": {"EN": "safe house", "CNS": "安全屋", "CNT": "安全屋"},
+		"hospitalTip": {"EN": "what's your choice?", "CNS": "你想要做什么?", "CNT": "你想要做什麼?"},
+		"hospitalCure":{"EN": "cure", "CNS": "休息（恢复30%生命）", "CNT": "治療"},
+		"hospitalReinforce":{"EN": "reinforce", "CNS": "强化（升级某项技能）", "CNT": "強化"},
+		"hospitalMutate":{"EN": "mutate", "CNS": "变异", "CNT": "變異"},
+		"continueBtn":{"EN": "continue", "CNS": "继续", "CNT": "繼續"},
 		"": {}
 	}
 }
