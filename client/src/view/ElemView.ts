@@ -189,11 +189,6 @@ class ElemView extends egret.DisplayObjectContainer {
             this.setChildIndex(this.coveredImg, 0);
             ViewUtils.makeElemShaderGray(this.elemImg, true);
             this.elemImg.blendMode = egret.BlendMode.NORMAL;
-            // this.coveredImg.filters = [filter];
-            
-            // this.showLayer.filters = [colorFilter];
-            // this.showLayer.blendMode = egret.BlendMode.ADD;
-            // this.showLayer.alpha = 0.5;
         } else {
             if (this.contains(this.coveredImg)) this.removeChild(this.coveredImg);
             this.showLayer.filters = undefined;
