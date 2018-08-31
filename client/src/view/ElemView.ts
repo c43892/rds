@@ -183,20 +183,17 @@ class ElemView extends egret.DisplayObjectContainer {
         this.refreshDropItem(); // 刷新掉落物品显示
 
         if (g.status == GridStatus.Marked) {
-            var colorFilter = new egret.ColorMatrixFilter([
-                0.2, 0.3, 0.2, 0, 0,
-                0.2, 0.3, 0.2, 0, 0,
-                0.2, 0.3, 0.2, 0, 0,
-                0, 0, 0, 1, 0
-            ]);
-
             this.addChild(this.coveredImg);
-            this.setChildIndex(this.coveredImg, 0);
             this.coveredImg.x = (this.width - this.coveredImg.width) / 2;
             this.coveredImg.y = (this.height - this.coveredImg.height) / 2;
-            this.showLayer.filters = [colorFilter];
-            this.showLayer.blendMode = egret.BlendMode.ADD;
-            this.showLayer.alpha = 0.5;
+            this.setChildIndex(this.coveredImg, 0);
+            ViewUtils.makeElemShaderGray(this.elemImg, true);
+            this.elemImg.blendMode = egret.BlendMode.NORMAL;
+            // this.coveredImg.filters = [filter];
+            
+            // this.showLayer.filters = [colorFilter];
+            // this.showLayer.blendMode = egret.BlendMode.ADD;
+            // this.showLayer.alpha = 0.5;
         } else {
             if (this.contains(this.coveredImg)) this.removeChild(this.coveredImg);
             this.showLayer.filters = undefined;

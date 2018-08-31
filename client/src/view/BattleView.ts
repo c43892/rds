@@ -263,7 +263,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.addChild(this.repView);
 
         // 新怪的图例提示
-        this.monsterTip = new 
+        // this.monsterTip = new
 
         ViewUtils.multiLang(this, this.bgGrids, this.mapViewBg);
     }
