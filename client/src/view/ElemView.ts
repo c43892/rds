@@ -187,13 +187,11 @@ class ElemView extends egret.DisplayObjectContainer {
             this.coveredImg.x = (this.width - this.coveredImg.width) / 2;
             this.coveredImg.y = (this.height - this.coveredImg.height) / 2;
             this.setChildIndex(this.coveredImg, 0);
-            ViewUtils.makeElemShaderGray(this.elemImg, true);
-            this.elemImg.blendMode = egret.BlendMode.NORMAL;
+            ViewUtils.makeGray(this.elemImg, true);
         } else {
+            this.elemImg.alpha = 1;
             if (this.contains(this.coveredImg)) this.removeChild(this.coveredImg);
-            this.showLayer.filters = undefined;
-            this.showLayer.blendMode = egret.BlendMode.NORMAL;
-            this.showLayer.alpha = 1;
+            ViewUtils.makeGray(this.elemImg, false);            
         }
         
         var w = this.width;
