@@ -49,6 +49,50 @@ class ViewUtils {
         return egret.Texture = RES.getRes(name);
     }
 
+    // // 测试置灰
+    // static grayShaderFilter;
+    // public static makeElemShaderGray(obj:egret.DisplayObject, makeGray:boolean) {
+    //     if (!makeGray)
+    //         obj.filters = undefined;
+
+    //     if (!ViewUtils.grayShaderFilter) {
+    //         let vertexSrc =
+    //             "attribute vec2 aVertexPosition;\n" +
+    //             "attribute vec2 aTextureCoord;\n" +
+    //             "attribute vec2 aColor;\n" +
+    //             "uniform vec2 projectionVector;\n" +
+    //             "varying vec2 vTextureCoord;\n" +
+    //             "varying vec4 vColor;\n" +
+    //             "const vec2 center = vec2(-1.0, 1.0);\n" +
+    //             "void main(void) {\n" +
+    //             "   gl_Position = vec4( (aVertexPosition / projectionVector) + center , 0.0, 1.0);\n" +
+    //             "   vTextureCoord = aTextureCoord;\n" +
+    //             "   vColor = vec4(aColor.x, aColor.x, aColor.x, aColor.x);\n" +
+    //             "}";
+                
+    //         let fragmentSrc =
+    //             "precision lowp float;\n"+ 
+    //             "varying vec2 vTextureCoord;\n"+
+    //             "uniform sampler2D uSampler;\n"+
+    //             "uniform float tw;\n"+
+    //             "uniform float th;\n"+
+    //             "void main() {\n"+
+    //             "   vec2 tex = vTextureCoord;\n"+
+    //             "   vec2 upLeftUV = vec2(tex.x-1.0/tw,tex.y-1.0/th);\n"+
+    //             "   vec4 curColor = texture2D(uSampler,tex);\n"+
+    //             "   vec4 upLeftColor = texture2D(uSampler,upLeftUV);\n"+
+    //             "   vec4 delColor = curColor - upLeftColor;\n"+
+    //             "   float h = 0.3*delColor.x + 0.59*delColor.y + 0.11*delColor.z;\n"+
+    //             "   h = (0.25+h)*curColor.w;\n"+
+    //             "   gl_FragColor = vec4(h,h,h,curColor.w/2.0);\n"+
+    //             "}\n";
+
+    //         ViewUtils.grayShaderFilter = new egret.CustomFilter(vertexSrc, fragmentSrc, {tw:obj.width, th:obj.height});
+    //     }
+        
+    //     obj.filters = [ViewUtils.grayShaderFilter];
+    // }
+
     // 将一个显示对象程序置灰
     public static makeGray(e:egret.DisplayObject, gray:boolean = true) {
         if (!gray) {
