@@ -372,7 +372,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
         // if(!WorldMapView.isValidNode(this.player, ptStoreyN, ptStoreyLv))
         //     return;
 
-
         // if (!BattleUtils.isStoreyPosSelectable(this.worldmap.player, {lv:ptStoreyLv, n:ptStoreyN}))
         //     return;
 
@@ -387,7 +386,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         // 保存进度
         this.player.notifyStoreyPosIn(lv, n);
         Utils.savePlayer(this.player);
-        
+
         var nodeType = this.worldmap.nodes[lv][n].roomType;
         switch(nodeType) {
             case "normal":
@@ -408,7 +407,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 break;
             case "event":
                 await this.openMapEventSels(lv, n);
-                break;                
+                break;
             default:
                 Utils.log("not support " + nodeType + " yet");
             break;
