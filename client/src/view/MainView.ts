@@ -117,7 +117,7 @@ class MainView extends egret.DisplayObjectContainer {
             bt.prepare();
             await this.loadBattleRes(bt);
 
-            bt.openShop = async (items, prices, onBuy) => await this.openShopInBattle(items, prices, onBuy);
+            bt.openShop = async (items, prices, onBuy, onRob) => await this.openShopInBattle(items, prices, onBuy, onRob);
             bt.openRelicSel2Add = async (choices, onSel) => await this.openRelicSel2Add(choices, onSel);
             BattleRecorder.startNew(bt.id, bt.player, bt.btType, bt.btRandomSeed, bt.trueRandomSeed);
             await this.startNewBattle(bt);
@@ -187,11 +187,11 @@ class MainView extends egret.DisplayObjectContainer {
     // }
 
     // 开启商店界面
-    public async openShopInBattle(items, prices, onBuy) {
+    public async openShopInBattle(items, prices, onBuy, onRob) {
         this.sv.player = this.p;
         await this.loadResources(Utils.map(items, (it) => it + "_png"));
         this.addChild(this.sv);
-        await this.sv.open(items, prices, onBuy);
+        await this.sv.open(items, prices, onBuy, onRob);
         this.removeChild(this.sv);
     }
 
@@ -232,6 +232,8 @@ class MainView extends egret.DisplayObjectContainer {
             this.p.addItem(elem);
             this.sv.refresh();
             await this.p.fireEvent("onBuyElemFromWorldmapShop", {e:elem, price:price});
+        }, () => {
+            // 抢劫逻辑
         });
 
         this.removeChild(this.sv);

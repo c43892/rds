@@ -7,10 +7,11 @@ class ShopView extends egret.DisplayObjectContainer {
     private grids:egret.Bitmap[] = []; // 商品格子
     private prices:egret.TextField[] = []; // 商品价格
     private items:Elem[] = [];
+    private soldout:boolean[] = [];
     private itemPrices = {};    
-    private soldOut:boolean[] = [];
     private btnGoBack;
     private saleIndex;1
+    private btnRob:TextButtonWithBg; // 抢劫按钮
 
     public player:Player;
     public confirmView:ShopConfirmView;
@@ -48,7 +49,7 @@ class ShopView extends egret.DisplayObjectContainer {
             this.prices.push(pt);
             this.addChild(pt);
 
-            this.soldOut.push(false);
+            this.soldout.push(false);
         }
 
         this.btnGoBack = ViewUtils.createBitmapByName("goBack_png")
@@ -57,18 +58,27 @@ class ShopView extends egret.DisplayObjectContainer {
         this.addChild(this.btnGoBack);
         this.btnGoBack.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onGoBack, this);
 
-        ViewUtils.multiLang(this, this.bg1, ...this.grids, ...this.prices, this.btnGoBack);
+        this.btnRob = new TextButtonWithBg("btnBg_png", 30);
+        this.btnRob.name = "btnRob";
+        this.btnRob.text = ViewUtils.getTipText("rob");
+        this.btnRob.onClicked = async () => await this.doRob();
+        this.addChild(this.btnRob);
+
+        ViewUtils.multiLang(this, this.bg1, ...this.grids, ...this.prices, this.btnGoBack, this.btnRob);
     }
 
     private onCancel;
     private onSel;
-    public async open(items, prices, onBuy):Promise<void> {
+    private onRob;
+    public async open(items, prices, onBuy, onRob):Promise<void> {
         this.items = Utils.map(items, (it) => ElemFactory.create(it));
+        this.items.forEach((it, i) => this.items[i] = this.soldout[i] ? undefined : this.items[i]);
         this.itemPrices = prices;
+        this.onRob = onRob;
         this.refresh();
         return new Promise<void>((resolve, reject) => {
             this.onSel = async (n) => {
-                if (this.soldOut[n]) {
+                if (!this.items[n]) {
                     Utils.log("已售罄");
                     return;
                 }
@@ -80,7 +90,8 @@ class ShopView extends egret.DisplayObjectContainer {
                     return;
                 }
 
-                this.soldOut[n] = true;
+                this.items[n] = undefined;
+                this.soldout[n] = true;
                 var closeShop = await onBuy(e, price);
                 
                 if (closeShop)
@@ -95,7 +106,7 @@ class ShopView extends egret.DisplayObjectContainer {
     public refresh() {
         for(var gd of this.grids) {
             var i = gd["itemIndex"];
-            if (this.soldOut[i]) {
+            if (!this.items[i]) {
                 this.prices[i].text = "";
                 ViewUtils.setTexName(gd, "soldout_png");
                 gd.touchEnabled = false;
@@ -106,10 +117,15 @@ class ShopView extends egret.DisplayObjectContainer {
                 gd.touchEnabled = true;
             }
         }
+
+        if (this.onRob && !this.contains(this.btnRob))
+            this.addChild(this.btnRob);
+        else if (!this.onRob && this.contains(this.btnRob))
+            this.removeChild(this.btnRob);
     }
 
-    onGoBack(evt:egret.TouchEvent) {
-        this.onCancel();
+    async onGoBack(evt:egret.TouchEvent) {
+        await this.onCancel();
     }
 
     public static lastSelectedElemGlobalPos;
@@ -123,5 +139,22 @@ class ShopView extends egret.DisplayObjectContainer {
             ShopView.lastSelectedElemGlobalPos = ViewUtils.getGlobalPosAndSize(this.grids[n]);
             await this.onSel(n);
         }
+    }
+
+    // 抢劫
+    async doRob() {
+        var es = await this.onRob(this.items);
+        es.forEach(e => {
+            var n = Utils.indexOf(this.items, (it) => it == e);
+            Utils.assert(n >= 0 && n < this.items.length && !!this.items[n], "incorrect rob elem index:" + n);
+            this.items[n] = undefined;
+            this.soldout[n] = true;
+            this.refresh();
+        });
+
+        if (this.contains(this.btnRob))
+            this.removeChild(this.btnRob);
+
+        await this.onCancel();
     }
 }

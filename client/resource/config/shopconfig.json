@@ -9,6 +9,7 @@
     },
 
     "inbattle": {
+        "rob": "inShop",
         "price": {
             "Key":10
         },

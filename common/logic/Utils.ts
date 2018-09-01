@@ -413,6 +413,22 @@ class Utils {
         return Utils.randomSelectByWeight(elems, srand, numMin, numMax, noDuplicated);
     }
 
+    // 执行商店抢劫逻辑计算
+    public static doRobInShop(items, cfg, srand:SRandom) {
+        // 先确定抢几个东西
+        var num = parseInt(Utils.randomSelectByWeight(cfg.robNum, srand, 1, 1)[0]) + 1;
+
+        // 构造好权重表，然后随机 num 个
+        var itemsWithWeights = {};
+        items.forEach((it, i) => {
+            if (it && cfg.robItems[i])
+                itemsWithWeights[i] = cfg.robItems[i];
+        });
+        var sels = Utils.randomSelectByWeight(itemsWithWeights, srand, num, num, true);
+        sels = Utils.map(sels, (i) => items[i]);
+        return sels;
+    }
+
     // 给定坐标是否在指定范围内
     public static isInArea(pt, areaLeftCorner, areaSize) {
         return pt.x >= areaLeftCorner.x && pt.x < areaLeftCorner.x + areaSize.w

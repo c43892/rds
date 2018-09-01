@@ -156,7 +156,8 @@
 				"price2": {"x":472, "y":575, "w":100, "h":20},
 				"price3": {"x":151, "y":760, "w":100, "h":20},
 				"price4": {"x":311, "y":760, "w":100, "h":20},
-				"price5": {"x":472, "y":760, "w":100, "h":20}
+				"price5": {"x":472, "y":760, "w":100, "h":20},
+				"btnRob": {"x":300, "y":860, "w":100, "h":50}
 			}
 		},
 		
@@ -264,6 +265,7 @@
 		"hospitalReinforce":{"EN": "reinforce", "CNS": "强化（升级某项技能）", "CNT": "強化"},
 		"hospitalMutate":{"EN": "mutate", "CNS": "变异", "CNT": "變異"},
 		"continueBtn":{"EN": "continue", "CNS": "继续", "CNT": "繼續"},
+		"rob":{"EN": "Rob", "CNS": "抢劫", "CNT": ""},
 		"": {}
 	}
 }
