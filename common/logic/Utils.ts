@@ -453,8 +453,14 @@ class Utils {
         var dropItems = [];
         var prices = {};
         for(var i = 0; i < maxNum; i++) {
-            var e = Utils.randomSelectByWeightWithPlayerFilter(player, items[i], rand, 1, 2, false)[0];
-            Utils.assert(!!e, "no item in shop " + shop + ":" + i);
+            var iw = Utils.clone(items[i]);
+            // 去掉已经生成的，保证商店内容不重复
+            dropItems.forEach((dpe, _) => {
+                if (iw[dpe])
+                    delete iw[dpe];
+            });
+
+            var e = Utils.randomSelectByWeightWithPlayerFilter(player, iw, rand, 1, 2, false)[0];
             dropItems.push(e);
             prices[e] = shopPrices[e] != undefined ? shopPrices[e] : defaultPrice[e];
         }

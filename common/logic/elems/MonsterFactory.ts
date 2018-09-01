@@ -793,7 +793,7 @@ class MonsterFactory {
         var onBuy = async (elem:Elem, price:number) => {
             var n = Utils.indexOf(shopItemAndPrice.items, (it) => it == elem.type);
             Utils.assert(n >= 0, "no such item in shop:" + elem.type);
-            Utils.assert(shopItemAndPrice.prices[n] == price, "incorrect price for item in shop:" + elem.type + ", " + price + ", " + shopItemAndPrice.prices[n]);
+            Utils.assert(shopItemAndPrice.prices[elem.type] == price, "incorrect price for item in shop:" + elem.type + ", " + price + ", " + shopItemAndPrice.prices[n]);
             m.bt().implAddMoney(-price, m);
             var g = BattleUtils.findNearestGrid(m.bt().level.map, m.pos, (g:Grid) => !g.isCovered() && !g.getElem());
             if (g) await m.bt().implAddElemAt(elem, g.pos.x, g.pos.y, m.pos);
@@ -804,6 +804,7 @@ class MonsterFactory {
         m["robbed"] = false;
         var onRob = async (elems) => {
             Utils.assert(!m["robbed"], "can not be robbed one time");
+            m["robbed"] = true;
             var shopCfg = GCfg.getShopCfg(m.attrs.shopCfg);
             var robCfg = GCfg.getRobCfg(shopCfg.rob);
             var es = Utils.doRobInShop(elems, robCfg, m.bt().srand);
@@ -816,10 +817,8 @@ class MonsterFactory {
                 }
             });
 
-            if (droppedElems.length > 0) {
+            if (droppedElems.length > 0)
                 m.bt().notifyElemsDropped(droppedElems, m.pos);
-                m["robbed"] = true;
-            }
 
             return droppedElems;
         };

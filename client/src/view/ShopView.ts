@@ -70,12 +70,20 @@ class ShopView extends egret.DisplayObjectContainer {
     private onCancel;
     private onSel;
     private onRob;
-    public async open(items, prices, onBuy, onRob):Promise<void> {
-        this.items = Utils.map(items, (it) => ElemFactory.create(it));
-        this.items.forEach((it, i) => this.items[i] = this.soldout[i] ? undefined : this.items[i]);
+    private autoCloseOnRob;
+    public async open(items, prices, onBuy, onRob, autoCloseOnRob:boolean):Promise<void> {
+        this.items = Utils.map(items, (it) => !it ? undefined : ElemFactory.create(it));
+        this.items.forEach((it, i) => !this.items[i] || this.soldout[i] ? undefined : this.items[i]);
         this.itemPrices = prices;
         this.onRob = onRob;
+        this.autoCloseOnRob = autoCloseOnRob;
         this.refresh();
+
+        if (this.onRob && !this.contains(this.btnRob))
+            this.addChild(this.btnRob);
+        else if (!this.onRob && this.contains(this.btnRob))
+            this.removeChild(this.btnRob);
+
         return new Promise<void>((resolve, reject) => {
             this.onSel = async (n) => {
                 if (!this.items[n]) {
@@ -103,25 +111,24 @@ class ShopView extends egret.DisplayObjectContainer {
         });
     }
 
-    public refresh() {
-        for(var gd of this.grids) {
-            var i = gd["itemIndex"];
-            if (!this.items[i]) {
-                this.prices[i].text = "";
-                ViewUtils.setTexName(gd, "soldout_png");
-                gd.touchEnabled = false;
-            } else {
-                var e = this.items[i];
-                this.prices[i].text = this.itemPrices[e.type];
-                ViewUtils.setTexName(gd, e.getElemImgRes() + "_png");
-                gd.touchEnabled = true;
-            }
+    public refreshAt(n) {
+        var gd = this.grids[n];
+        var i = gd["itemIndex"];
+        if (!this.items[i]) {
+            this.prices[i].text = "";
+            ViewUtils.setTexName(gd, "soldout_png");
+            gd.touchEnabled = false;
+        } else {
+            var e = this.items[i];
+            this.prices[i].text = this.itemPrices[e.type];
+            ViewUtils.setTexName(gd, e.getElemImgRes() + "_png");
+            gd.touchEnabled = true;
         }
+    }
 
-        if (this.onRob && !this.contains(this.btnRob))
-            this.addChild(this.btnRob);
-        else if (!this.onRob && this.contains(this.btnRob))
-            this.removeChild(this.btnRob);
+    public refresh() {
+        for (var i = 0; i < this.grids.length; i++)
+            this.refreshAt(i);
     }
 
     async onGoBack(evt:egret.TouchEvent) {
@@ -149,12 +156,31 @@ class ShopView extends egret.DisplayObjectContainer {
             Utils.assert(n >= 0 && n < this.items.length && !!this.items[n], "incorrect rob elem index:" + n);
             this.items[n] = undefined;
             this.soldout[n] = true;
-            this.refresh();
         });
 
         if (this.contains(this.btnRob))
             this.removeChild(this.btnRob);
 
-        await this.onCancel();
+        if (this.autoCloseOnRob)
+            await this.onCancel();
+    }
+
+    // 在指定位置上刷一个假的显示物品，做动画表现需要用
+    public refreshFakeElemAt(n:number, e:Elem, price:number) {
+        var gd = this.grids[n];
+        var i = gd["itemIndex"];
+        if (!e) {
+            this.prices[i].text = "";
+            ViewUtils.setTexName(gd, "soldout_png");
+            gd.touchEnabled = false;
+        } else {
+            this.prices[i].text = price.toString();
+            ViewUtils.setTexName(gd, e.getElemImgRes() + "_png");
+            gd.touchEnabled = true;
+        }
+    }
+
+    public getGlobaPosAndSize(n) {
+        return ViewUtils.getGlobalPosAndSize(this.grids[n]);
     }
 }

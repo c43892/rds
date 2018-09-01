@@ -189,9 +189,9 @@ class MainView extends egret.DisplayObjectContainer {
     // 开启商店界面
     public async openShopInBattle(items, prices, onBuy, onRob) {
         this.sv.player = this.p;
-        await this.loadResources(Utils.map(items, (it) => it + "_png"));
+        await this.loadResources(Utils.map(Utils.filter(items, (it) => !!it), (it) => it + "_png"));
         this.addChild(this.sv);
-        await this.sv.open(items, prices, onBuy, onRob);
+        await this.sv.open(items, prices, onBuy, onRob, true);
         this.removeChild(this.sv);
     }
 
@@ -212,7 +212,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.sv.player = this.p;
         this.addChild(this.sv);
         var r = Utils.genRandomShopItems(this.p, shop, this.p.playerRandom, 6);
-        await this.loadResources(Utils.map(r.items, (it) => it + "_png"));
+        await this.loadResources(Utils.map(Utils.filter(r.items, (it) => !!it), (it) => it + "_png"));
 
         // 处理打折
         var onOpenShopPs = {discount:0};
@@ -227,15 +227,35 @@ class MainView extends egret.DisplayObjectContainer {
             }
         }
         
-        await this.sv.open(r.items, r.prices, async (elem:Elem, price:number) => {
+        var robbed = false;
+        var robbedElems = [];
+        var onBuy = async (elem:Elem, price:number) => {
             this.p.addMoney(-price);
             this.p.addItem(elem);
             this.sv.refresh();
             await this.p.fireEvent("onBuyElemFromWorldmapShop", {e:elem, price:price});
-        }, () => {
+        };
+        var onRob = async (elems) => {
             // 抢劫逻辑
-        });
+            Utils.assert(!robbed, "can only be robbed one time");
+            robbed = true;
+            var shopCfg = GCfg.getShopCfg(shop);
+            var robCfg = GCfg.getRobCfg(shopCfg.rob);
+            var es = Utils.doRobInShop(elems, robCfg, this.p.playerRandom);
+            for (var i = 0; i < es.length; i++) {
+                var e = es[i];
+                this.p.addItem(e);
+                var n = Utils.indexOf(r.items, (it) => it == e.type);
+                ShopView.lastSelectedElemGlobalPos = this.sv.getGlobaPosAndSize(n);
+                this.sv.refreshFakeElemAt(n, undefined, 0);
+                await this.p.fireEvent("onBuyElemFromWorldmapShop", {e:e, price:r.prices[n]});
+            }
 
+            robbedElems = es;
+            return es;
+        };
+
+        await this.sv.open(r.items, r.prices, onBuy, robbed ? undefined : onRob, false);
         this.removeChild(this.sv);
     }
 
