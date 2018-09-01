@@ -121,16 +121,14 @@ class WorldMapEventSelFactory {
         "reinfoceRelic": (sel:WMES, p:Player, ps) => this.valid(() => p.getReinfoceableRelics().length > 0, 
             this.exec(async () => {
                 var sel = -1;
-                while (sel < 0) {
-                    sel = await this.selRelic(ViewUtils.getTipText("selRelic"), (r:Relic) => r.canReinfoce());
+                var rs = Utils.filter(p.relics, (r:Relic) => r.canReinfoce());
+                while (sel < 0) {                    
+                    sel = await this.selRelic(rs, "selRelic", ViewUtils.getTipText("selRelic"), ViewUtils.getTipText("makeSureSelRelic"));
                     if (sel >= 0) {
                         var e:Relic = <Relic>p.relics[sel];
-                        var yesno = await this.confirmOkYesNo(undefined, ViewUtils.formatTip("makeSureReinforceRelic", ViewUtils.getElemNameAndDesc(e.type).name), true);
-                        if (yesno)
-                            e.reinforceLvUp();
-                        else
-                            sel = -1;
-                    } else
+                        e.reinforceLvUp();
+                        break;
+                    } else if (sel == -2)
                         break;
                 }
         }, sel)),

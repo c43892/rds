@@ -6,14 +6,14 @@ class MainView extends egret.DisplayObjectContainer {
     public sv:ShopView; // 商店视图
     public hv:HospitalView; // 医院视图
     public wmv:WorldMapView; // 大地图视图
-    public rsv:RelicSelView; // 遗物选择视图
+    // public rsv:RelicSelView; // 遗物选择视图
     public brv:BoxRoomView; // 宝箱房间
     public ttv:TurntableView; //转盘事件
     public pluv:PlayerLevelUpView; // 角色升级界面
     public tcv:TipConfirmView; // 提示确认视图
     public rankv:RankingView; // 排行榜视图
     public idv:ElemDescView; // 怪物、遗物、物品描述视图
-    public arv:AllElemsView; // 展示给定的遗物列表
+    public aev:AllElemsView; // 展示给定的Elems列表
     public st:SettingView; // 设置视图
     public av:AniView; // 动画层
     
@@ -28,9 +28,9 @@ class MainView extends egret.DisplayObjectContainer {
         // 商店视图
         this.sv = new ShopView(w, h);
 
-        // 遗物选择视图
-        this.rsv = new RelicSelView(w, h);
-        this.rsv.confirmOkYesNo = (title, content, yesno) => this.confirmOkYesNo(title, content, yesno);
+        // // 遗物选择视图
+        // this.rsv = new RelicSelView(w, h);
+        // this.rsv.confirmOkYesNo = (title, content, yesno) => this.confirmOkYesNo(title, content, yesno);
 
         // 战斗视图
         this.bv = new BattleView(w, h);
@@ -61,15 +61,15 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.openTurntable = async (turntable) => await this.openTurntable(turntable);
         this.wmv.openEventSels = async (title, desc, sels) => await this.openWorldMapEventSels(title, desc, sels);
         this.wmv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
-        this.wmv.selRelic = async (title, f) => await this.openSelRelic(title, f);
+        this.wmv.selRelic = async (elems, funcOnClinked, title, tip) => await this.openAllElemsView(elems, funcOnClinked, title, tip);
         this.wmv.openPlayerDieView = async () => await this.openPlayerDieView();
         this.wmv.openSettingView = async () => await this.openSettingView();
 
         // 医院视图
         this.hv = new HospitalView(w, h);
         this.hv.x = this.hv.y = 0;
-        this.hv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
-        this.hv.selRelic = async (title, f) => await this.openSelRelic(title, f);
+        this.hv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);        
+        this.hv.selRelic = async (elems, funcOnClinked, title, tip) => await this.openAllElemsView(elems, funcOnClinked, title, tip);
 
         // 排行榜视图
         this.rankv = new RankingView(w, h);
@@ -81,10 +81,11 @@ class MainView extends egret.DisplayObjectContainer {
         TurntableView.showElemDesc = async (e) => await this.showElemDesc(e);
         BoxRoomView.showElemDesc = async (e) => await this.showElemDesc(e);
 
-        // 展示给定的遗物列表
-        this.arv = new AllElemsView(w, h);
+        // 展示给定的Elem列表
+        this.aev = new AllElemsView(w, h);
+        this.aev.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
         AllElemsView.showElemDesc = async (e) => await this.showElemDesc(e);
-        this.bv.openAllElemsView = async (relics) => await this.openAllElemsView(relics);
+        this.bv.openAllElemsView = async (elems) => await this.openAllElemsView(elems);
         this.st.openAllRelicsView = async (relics) => await this.openAllElemsView(relics);
         this.st.openAllPropsView = async (props) => await this.openAllElemsView(props);
 
@@ -327,14 +328,14 @@ class MainView extends egret.DisplayObjectContainer {
         };
     }
 
-    // 打开选择遗物界面
-    public async openSelRelic(title, f) {
-        this.rsv.player = this.p;
-        this.addChild(this.rsv);
-        var sel = await this.rsv.open(title, f);
-        this.removeChild(this.rsv);
-        return sel;
-    }
+    // // 打开选择遗物界面
+    // public async openSelRelic(title, f) {
+    //     this.rsv.player = this.p;
+    //     this.addChild(this.rsv);
+    //     var sel = await this.rsv.open(title, f);
+    //     this.removeChild(this.rsv);
+    //     return sel;
+    // }
 
     // 打开角色死亡界面
     public async openPlayerDieView() {
@@ -373,11 +374,13 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // all relics view
-    public async openAllElemsView(relics) {
-        this.addChild(this.arv);
-        this.setChildIndex(this.arv, -1);
-        await this.arv.open(relics);
-        this.removeChild(this.arv);
+    public async openAllElemsView(elems:Elem[], funcOnClinked = undefined, title:string = undefined, tip:string = undefined) {
+        this.addChild(this.aev);
+        this.setChildIndex(this.aev, -1);
+        this.aev.player = this.p;
+        var sel = await this.aev.open(elems, funcOnClinked, title, tip);
+        this.removeChild(this.aev);
+        return sel;
     }
 
     // 打开设置界面

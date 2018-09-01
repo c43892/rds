@@ -1,18 +1,22 @@
 // 查看所有遗物界面
 class AllElemsView extends egret.DisplayObjectContainer {
+    public player:Player;
     private viewContent:egret.DisplayObjectContainer;
     private bg:egret.Bitmap;
     private bg1:egret.Bitmap;
     private title:egret.TextField;
     private scrollArea:egret.ScrollView;
     private closeBtn:TextButtonWithBg;
+    private funcOnClinked; // 点击的操作,默认为显示点击对象的详情
+    private tip;
+    public confirmOkYesNo;    
 
     public static showElemDesc;
 
     public constructor(w:number, h:number) {
         super();
 
-        this.name = "allRelics";
+        this.name = "allElems";
         this.width = w;
         this.height = h;
 
@@ -21,7 +25,6 @@ class AllElemsView extends egret.DisplayObjectContainer {
         this.bg.y = 0;
         this.bg.width = w;
         this.bg.height = h;
-        this.bg.touchEnabled = true;
         this.addChild(this.bg);
 
         this.bg1 = ViewUtils.createBitmapByName("bigBg_png");
@@ -38,60 +41,76 @@ class AllElemsView extends egret.DisplayObjectContainer {
         this.scrollArea.verticalScrollPolicy = "auto";
         this.scrollArea.horizontalScrollPolicy = "off";
         this.scrollArea.setContent(this.viewContent);
-        this.scrollArea.bounces = false;
+        this.scrollArea.bounces = true;
 
         this.closeBtn = new TextButtonWithBg("btnBg_png", 30);
         this.closeBtn.name = "closeBtn";
         this.closeBtn.touchEnabled = true;
-        this.closeBtn.onClicked = () => this.doClose();
+        this.closeBtn.onClicked = () => this.onGoBack();
 
         var objs = [this.bg1, this.title, this.scrollArea, this.closeBtn]
         objs.forEach((obj, _) => this.addChild(obj));
         ViewUtils.multiLang(this, ...objs);
+        this.viewContent.width = this.scrollArea.width;
     }
 
     doClose;
-    public async open(elems) {
-        this.refresh(elems);
-        return new Promise<void>((resolve, reject) => {
+    public async open(elems:Elem[], funcOnClinked = undefined, title:string = undefined, tip:string = undefined) {
+        this.funcOnClinked = funcOnClinked;
+        this.tip = tip;
+        this.refresh(elems, title);
+        return new Promise<number>((resolve, reject) => {
             this.doClose = resolve;
         });
     }
 
     readonly ColNum = 4; // 每一行 4 个
     readonly GridSize = 84; // 图标大小
+    readonly GridCount = 48;
 
-    refresh(elems:Elem[]) {
+    refresh(elems:Elem[], title:string = undefined) {
         this.viewContent.removeChildren();
 
-        // 根据传进来的elems类型确定标题内容
-        if(elems[0] instanceof Relic)
-            this.title.text = ViewUtils.getTipText("relics");
-        else if(elems[0] instanceof Prop)
-            this.title.text = ViewUtils.getTipText("props");
+        // 如果没有传入标题则根据传进来的elems类型确定标题内容
+        if (!title){
+            if(elems[0] instanceof Relic)
+                this.title.text = ViewUtils.getTipText("relics");
+            else if(elems[0] instanceof Prop)
+                this.title.text = ViewUtils.getTipText("props");
+            }
+        else
+            this.title.text = title;
 
         // 根据宽度和每行数量自动计算平均的间隔大小，横竖间隔保持相同
         var space = (this.scrollArea.width - (this.ColNum * this.GridSize)) / (this.ColNum + 1);
         var x = space;
         var y = space;
 
-        for (var i = 0; i < elems.length; i++) {
-            var e = elems[i];
+        for (var i = 0; i < this.GridCount; i++) {
+            if(i < elems.length){
+                var e = elems[i];
+                let g = new TextButtonWithBg(e.getElemImgRes() + "_png");                
+                g.x = x;
+                g.y = y;
+                g.width = g.height = this.GridSize;
+                this.viewContent.addChild(g);
+                g["elem"] = e;
+                g.onClicked = () => this.onClickedElem(g);
 
-            var g = ViewUtils.createBitmapByName(e.getElemImgRes() + "_png");
-            g.x = x;
-            g.y = y;
-            g.width = g.height = this.GridSize;
-            this.viewContent.addChild(g);
-            g["elem"] = e;
-            g.touchEnabled = true;
-            g.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTapRelic, this);
-
-            // 等级星星
-            if(e instanceof Relic) {
-                var r = e;
-                var stars = ViewUtils.createRelicLevelStars(r, g);
-                stars.forEach((star, _) => this.viewContent.addChild(star));
+                // 等级星星
+                if(e instanceof Relic) {
+                    var r = e;
+                    var stars = ViewUtils.createRelicLevelStars(r, g);
+                    stars.forEach((star, _) => this.viewContent.addChild(star));
+                }
+            }
+            // 超过的部分填满空洞底盘
+            else{
+                let g = ViewUtils.createBitmapByName("aevNoElem_png")
+                g.x = x;
+                g.y = y;
+                g.width = g.height = this.GridSize;
+                this.viewContent.addChild(g);
             }
 
             x += this.GridSize + space;
@@ -103,12 +122,36 @@ class AllElemsView extends egret.DisplayObjectContainer {
 
         this.viewContent.height = y + space;
 
+        // 增加一个看不见的底图为了覆盖整个滚动区域响应事件
+        var bgx = new egret.Bitmap();
+        bgx.width = this.viewContent.width;
+        bgx.height = this.viewContent.height;
+        this.viewContent.addChild(bgx);
+        this.viewContent.setChildIndex(bgx, 0);
+
         // 初始化滚动条位置
         this.scrollArea.scrollTop = 0;
     }
 
-    async onTapRelic(evt:egret.TouchEvent) {
-        var e:Elem = evt.target["elem"];
-        await AllElemsView.showElemDesc(e);
+
+    async onClickedElem(g){
+        var e:Elem = g["elem"];
+        switch(this.funcOnClinked){
+            case "selRelic":{
+                var n = Utils.indexOf(this.player.relics, (r:Relic) => r.type == g["elem"].type);
+                var yesno = await this.confirmOkYesNo(undefined, this.tip + g["elem"].type + "?", true);
+                if(yesno)
+                    this.doClose(n);
+                else
+                    this.doClose(-1);
+                break;
+            }
+            default:
+                await AllElemsView.showElemDesc(e);
+        }
+    }
+
+    onGoBack(){
+        this.doClose(-2);
     }
 }

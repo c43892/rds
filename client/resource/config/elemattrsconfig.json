@@ -18,14 +18,12 @@
     },
     "Power":{"name":"力量", "dPower":1,
     "reinforce":[
-            {"dPower":2}, {"dPower":3}, {"dPower":4}, {"dPower":5}, {"dPower":6},
-            {"dPower":7}, {"dPower":8}, {"dPower":9}, {"dPower":10}
+            {"dPower":2}, {"dPower":3}, {"dPower":4}, {"dPower":5}
         ]
     },
     "Agile":{"name":"机敏", "dDodge":10,
     "reinforce":[
-            {"dDodge":15}, {"dDodge":20}, {"dDodge":25}, {"dDodge":30}, {"dDodge":35},
-            {"dDodge":40}, {"dDodge":45}, {"dDodge":50}
+            {"dDodge":15}, {"dDodge":20}, {"dDodge":25}, {"dDodge":30}
         ]
     },
     "Fierce":{"name":"凶暴", "dSneakCritical":5,

@@ -454,6 +454,8 @@ class WorldMapView extends egret.DisplayObjectContainer {
                     await this.startNewBattle(p, battleType, lv, n, btRandonSeed);
                 };
 
+                this.wmesFact.selRelic = this.selRelic;
+
                 await this.openSelGroup(p, evt);
 
                 // 这一类事件是出现一次就移出候选集

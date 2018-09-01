@@ -8,7 +8,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
     private box:egret.Bitmap;
     private e:egret.Bitmap;
     private elems:TextButtonWithBg[];
-    private goOutBtn:egret.Bitmap;
+    private goOutBtn:TextButtonWithBg;
     private startingPoint:egret.Bitmap;
     private destination:egret.Bitmap;
     public confirmOkYesNo;
@@ -42,10 +42,10 @@ class BoxRoomView extends egret.DisplayObjectContainer {
         this.openBoxBtn.name = "openBoxBtn";
         this.openBoxBtn.onClicked = async () => await this.onOpenBox();
 
-        this.goOutBtn = ViewUtils.createBitmapByName("goForward_png");
+        this.goOutBtn = new TextButtonWithBg("goForward_png", 30);
+        this.goOutBtn.text = ViewUtils.getTipText("continueBtn");
         this.goOutBtn.name = "goOutBtn"
-        this.addChild(this.goOutBtn);
-        this.goOutBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClose, this);
+        this.goOutBtn.onClicked = async () => await this.onClose();
         this.goOutBtn.touchEnabled = true;
 
         this.destination = new egret.Bitmap();
