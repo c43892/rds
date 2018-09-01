@@ -73,11 +73,11 @@ class BattleRecorder {
 
     // 录像指令处理，基本上就是对应 Battle 中 fireEventSync 的部分
     public static registerReplayIndicatorHandlers(bt:Battle) {
-        BattleRecorder.onReplayOp("try2BlockGrid", async (ps) => { await ElemView.try2BlockGrid(ps.x, ps.y, ps.mark); });
-        BattleRecorder.onReplayOp("try2UncoverAt", async (ps) => { await ElemView.try2UncoverAt(ps.x, ps.y); });
-        BattleRecorder.onReplayOp("reposElemTo", async (ps) => { await ElemView.reposElemTo(bt.level.map.getElemAt(ps.x, ps.y), ps.tox, ps.toy); });
-        BattleRecorder.onReplayOp("try2UseElem", async (ps) => { await ElemView.try2UseElem(bt.level.map.getElemAt(ps.x, ps.y)); });
-        BattleRecorder.onReplayOp("try2UseElemAt", async (ps) => { await ElemView.try2UseElemAt(bt.level.map.getElemAt(ps.x, ps.y), ps.tox, ps.toy); });
+        BattleRecorder.onReplayOp("try2BlockGrid", async (ps) => { await GridView.try2BlockGrid(ps.x, ps.y, ps.mark); });
+        BattleRecorder.onReplayOp("try2UncoverAt", async (ps) => { await GridView.try2UncoverAt(ps.x, ps.y); });
+        BattleRecorder.onReplayOp("reposElemTo", async (ps) => { await GridView.reposElemTo(bt.level.map.getElemAt(ps.x, ps.y), ps.tox, ps.toy); });
+        BattleRecorder.onReplayOp("try2UseElem", async (ps) => { await GridView.try2UseElem(bt.level.map.getElemAt(ps.x, ps.y)); });
+        BattleRecorder.onReplayOp("try2UseElemAt", async (ps) => { await GridView.try2UseElemAt(bt.level.map.getElemAt(ps.x, ps.y), ps.tox, ps.toy); });
         BattleRecorder.onReplayOp("try2UseProp", async (ps) => { await PropView.try2UseProp(bt.player.props[ps.n]); });
         BattleRecorder.onReplayOp("try2UsePropAt", async (ps) => { await PropView.try2UsePropAt(bt.player.props[ps.n], ps.tox, ps.toy); });
         BattleRecorder.onReplayOp("tryBoughtFromShop", async (ps) => {

@@ -76,7 +76,7 @@ class MainView extends egret.DisplayObjectContainer {
 
         // 元素描述信息视图
         this.idv = new ElemDescView(w, h);
-        ElemView.showElemDesc = async (e) => await this.showElemDesc(e);
+        GridView.showElemDesc = async (e) => await this.showElemDesc(e);
         PropView.showElemDesc = async (e) => await this.showElemDesc(e);
         TurntableView.showElemDesc = async (e) => await this.showElemDesc(e);
         BoxRoomView.showElemDesc = async (e) => await this.showElemDesc(e);
@@ -132,13 +132,13 @@ class MainView extends egret.DisplayObjectContainer {
         this.bv.height = this.height;
         this.addChild(this.bv);
 
-        ElemView.try2UseElem = bt.try2UseElem();
-        ElemView.try2UseElemAt = bt.try2UseElemAt();
-        ElemView.reposElemTo = bt.try2ReposElemTo();
-        ElemView.selectGrid = (f, cb) => this.bv.selectGrid(f).then(cb);
-        ElemView.confirmOkYesNo = async (title, content, yesno) => this.confirmOkYesNo(title, content, yesno);
-        ElemView.try2UncoverAt = bt.try2UncoverAt();
-        ElemView.try2BlockGrid = bt.try2BlockGrid();
+        GridView.try2UseElem = bt.try2UseElem();
+        GridView.try2UseElemAt = bt.try2UseElemAt();
+        GridView.reposElemTo = bt.try2ReposElemTo();
+        GridView.selectGrid = (f, cb) => this.bv.selectGrid(f).then(cb);
+        GridView.confirmOkYesNo = async (title, content, yesno) => this.confirmOkYesNo(title, content, yesno);
+        GridView.try2UncoverAt = bt.try2UncoverAt();
+        GridView.try2BlockGrid = bt.try2BlockGrid();
         PropView.try2UseProp = bt.try2UseProp();
         PropView.selectGrid = (f, cb) => this.bv.selectGrid(f).then(cb);
         PropView.confirmOkYesNo = async (title, content, yesno) => this.confirmOkYesNo(title, content, yesno);

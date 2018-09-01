@@ -67,7 +67,6 @@
 		"bin-debug/logic/Level.js",
 		"bin-debug/view/BoxRoomView.js",
 		"bin-debug/view/ElemDescView.js",
-		"bin-debug/view/ElemView.js",
 		"bin-debug/view/GridView.js",
 		"bin-debug/view/HospitalView.js",
 		"bin-debug/view/LoginView.js",

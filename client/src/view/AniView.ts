@@ -33,7 +33,7 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 获取一个地图上的指定位置元素对应的显示层
     getSVByPos(x, y):egret.DisplayObject {
-        return this.bv.mapView.getElemViewAt(x, y).getShowLayer();
+        return this.bv.mapView.getGridViewAt(x, y).getShowLayer();
     }
 
     public refresh() {
@@ -481,7 +481,7 @@ class AniView extends egret.DisplayObjectContainer {
         if (!weapon) {
             // 平砍时有些元素需要表现一下动作
             var itemTypes = ["Baton"];
-            var items = this.bv.mapView.getElemViews((e:Elem) => Utils.contains(itemTypes, e.type) && e.isValid());
+            var items = this.bv.mapView.getGridViews((e:Elem) => Utils.contains(itemTypes, e.type) && e.isValid());
             var aniArr = [];
             for (var it of items) {
                 var ani = AniUtils.rotateAndBack(it.getShowLayer());
@@ -527,7 +527,7 @@ class AniView extends egret.DisplayObjectContainer {
     public async onElem2NextLevel(ps) {
         var e = ps.e;
         var sv = this.getSV(e);
-        var tosv = this.bv.mapView.getElemViews((elem:Elem) => elem.type == "NextLevelPort", false)[0];
+        var tosv = this.bv.mapView.getGridViews((elem:Elem) => elem.type == "NextLevelPort", false)[0];
         if (e instanceof Monster)
             await AniUtils.flyAndFadeout(sv, tosv.localToGlobal(), 1000, 1, 0, undefined);
         else
@@ -565,7 +565,7 @@ class AniView extends egret.DisplayObjectContainer {
 
         var rand = new SRandom();
         var svArr = [];
-        var evs = this.bv.mapView.getElemViews(undefined, true);
+        var evs = this.bv.mapView.getGridViews(undefined, true);
         evs.forEach((ev, _) => {
             var sv = ev.getShowLayer();
             sv["gx"] = ev.getElem().pos.x;
@@ -625,7 +625,7 @@ class AniView extends egret.DisplayObjectContainer {
         if (es[0].type != "Coins" && toDropList) { // 抛物线飞到左上角
             Utils.assert(es.length == 1, "can not take more than 1 item toDropList");
             var e = es[0];
-            var dropItemImg = this.bv.mapView.getElemViewAt(m.pos.x, m.pos.y).getDropItemImg();
+            var dropItemImg = this.bv.mapView.getGridViewAt(m.pos.x, m.pos.y).getDropItemImg();
             var g = this.getSV(e)
             await AniUtils.fly2(g, g, dropItemImg, false, 1);
             this.bv.mapView.refreshAt(m.pos.x, m.pos.y);

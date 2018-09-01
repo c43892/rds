@@ -254,7 +254,7 @@ class BattleView extends egret.DisplayObjectContainer {
             bmp.touchEnabled = true;
             bmp.addEventListener(egret.TouchEvent.TOUCH_TAP, async (evt:egret.TouchEvent) => {
                 var r = evt.target["relic"];
-                if (r) await ElemView.showElemDesc(r);
+                if (r) await GridView.showElemDesc(r);
             }, this);
         }
 

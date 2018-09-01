@@ -1,8 +1,7 @@
 // 地图视图
 class MapView extends egret.DisplayObjectContainer {
     private map:Map; // 对应地图数据
-    private mgvs:GridView[][]; // 所有地图格子视图
-    private mevs:ElemView[][]; // 所有元素视图
+    private mevs:GridView[][]; // 所有元素视图
 
     public gsize = {w:0, h:0};
     public gw = 0;
@@ -17,25 +16,11 @@ class MapView extends egret.DisplayObjectContainer {
         this.removeChildren();
 
         this.gsize = {w: w, h: h};
-
-        this.mgvs = [];
-        for(var i = 0; i < w; i++) {
-            this.mgvs[i] = [];
-            for (var j = 0; j < h; j++) {
-                let mgv = new GridView();
-                mgv.gx = i;
-                mgv.gy = j;
-                this.addChild(mgv);
-                this.mgvs[i].push(mgv);
-                mgv.touchEnabled = false;
-            }
-        }
-
         this.mevs = [];
         for(var i = 0; i < w; i++) {
             this.mevs[i] = [];
             for (var j = 0; j < h; j++) {
-                let mev = new ElemView();
+                let mev = new GridView();
                 mev.gx = i;
                 mev.gy = j;
                 this.addChild(mev);
@@ -51,7 +36,6 @@ class MapView extends egret.DisplayObjectContainer {
             this.rebuildMapGridView(map.size.w, map.size.h);
 
         this.map = map;
-        Utils.NDimentionArrayForeach(this.mgvs, (mgv) => { mgv.map = map; });
         Utils.NDimentionArrayForeach(this.mevs, (mev) => { mev.map = map; });
     }
 
@@ -60,15 +44,7 @@ class MapView extends egret.DisplayObjectContainer {
         this.gw = this.width / this.map.size.w;
         this.gh = this.height / this.map.size.h;
 
-        Utils.NDimentionArrayForeach(this.mgvs, (gv:GridView) => {
-            gv.x = gv.gx * this.gw;
-            gv.y = gv.gy * this.gh;
-            gv.width = this.gw;
-            gv.height = this.gh;
-            gv.refresh();
-        });
-
-        Utils.NDimentionArrayForeach(this.mevs, (ev:ElemView) => {
+        Utils.NDimentionArrayForeach(this.mevs, (ev:GridView) => {
             ev.x = ev.gx * this.gw;
             ev.y = ev.gy * this.gh;
             ev.width = this.gw;
@@ -79,7 +55,6 @@ class MapView extends egret.DisplayObjectContainer {
 
     // 清除所有地图显示元素
     public clear() {
-        Utils.NDimentionArrayForeach(this.mgvs, (mgv) => mgv.clear());
         Utils.NDimentionArrayForeach(this.mevs, (mev) => mev.clear());
     }
 
@@ -107,24 +82,18 @@ class MapView extends egret.DisplayObjectContainer {
         }
 
         for (var pt of poses) {
-            this.mgvs[pt.x][pt.y].refresh();
             this.mevs[pt.x][pt.y].refresh();
         }
     }
 
     public getGridViewAt(x:number, y:number):GridView {
-        return this.mgvs[x][y];
-    }
-
-    // 获取指定位置的显示元素
-    public getElemViewAt(x:number, y:number):ElemView {
         return this.mevs[x][y];
     }
 
     // 获取所有满足条件的显示元素
-    public getElemViews(f = undefined, includingCovered = false):ElemView[] {
+    public getGridViews(f = undefined, includingCovered = false):GridView[] {
         var evs = [];
-        Utils.NDimentionArrayForeach(this.mevs, (ev:ElemView) => {
+        Utils.NDimentionArrayForeach(this.mevs, (ev:GridView) => {
             if (!includingCovered && ev.getGrid().isCovered()) return;
             var e = ev.getElem();
             if (e && (!f || f(e)))
