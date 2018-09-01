@@ -413,6 +413,22 @@ class Utils {
         return Utils.randomSelectByWeight(elems, srand, numMin, numMax, noDuplicated);
     }
 
+    // 执行商店抢劫逻辑计算
+    public static doRobInShop(items, cfg, srand:SRandom) {
+        // 先确定抢几个东西
+        var num = parseInt(Utils.randomSelectByWeight(cfg.robNum, srand, 1, 1)[0]) + 1;
+
+        // 构造好权重表，然后随机 num 个
+        var itemsWithWeights = {};
+        items.forEach((it, i) => {
+            if (it && cfg.robItems[i])
+                itemsWithWeights[i] = cfg.robItems[i];
+        });
+        var sels = Utils.randomSelectByWeight(itemsWithWeights, srand, num, num, true);
+        sels = Utils.map(sels, (i) => items[i]);
+        return sels;
+    }
+
     // 给定坐标是否在指定范围内
     public static isInArea(pt, areaLeftCorner, areaSize) {
         return pt.x >= areaLeftCorner.x && pt.x < areaLeftCorner.x + areaSize.w
@@ -437,8 +453,14 @@ class Utils {
         var dropItems = [];
         var prices = {};
         for(var i = 0; i < maxNum; i++) {
-            var e = Utils.randomSelectByWeightWithPlayerFilter(player, items[i], rand, 1, 2, false)[0];
-            Utils.assert(!!e, "no item in shop " + shop + ":" + i);
+            var iw = Utils.clone(items[i]);
+            // 去掉已经生成的，保证商店内容不重复
+            dropItems.forEach((dpe, _) => {
+                if (iw[dpe])
+                    delete iw[dpe];
+            });
+
+            var e = Utils.randomSelectByWeightWithPlayerFilter(player, iw, rand, 1, 2, false)[0];
             dropItems.push(e);
             prices[e] = shopPrices[e] != undefined ? shopPrices[e] : defaultPrice[e];
         }

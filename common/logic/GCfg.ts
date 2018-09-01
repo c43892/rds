@@ -8,6 +8,7 @@ class GCfg {
     public static worldMapConnectionCfg; // 世界地图连接配置
     public static getWorldMapCfg; // 获取指定世界地图配置
     public static getShopCfg; // 获取商店配置
+    public static getRobCfg; // 获取抢劫配置
     public static getWorldMapEventSelsDesc;
     public static getWorldMapEventSelGroupsCfg; // 获取大地图事件组配置
     public static getMultiLanguageCfg; // 获取多语言配置

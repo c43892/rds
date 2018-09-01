@@ -9,6 +9,7 @@
     },
 
     "inbattle": {
+        "rob": "inShop",
         "price": {
             "Key":10
         },
@@ -22,15 +23,16 @@
     ]},
 
     "world1shop": {
+        "rob": "inShop",
         "price": {
             "Knife":10
         },
         "items":[
-            {"Knife":10, "MedicineBox":10, "Power":100},
+            {"MedicineBox":10, "Power":100},
             {"IceGun":10},
-            {"RayGun":10, "Knife":10},
-            {"MedicineBox":10, "Knife":10},
-            {"MedicineBox":10, "Knife":10},
-            {"MedicineBox":10, "Knife":10}
+            {"RayGun":10},
+            {"MedicineBox":10},
+            {"MedicineBox":10},
+            {"MedicineBox":10}
     ]}
 }

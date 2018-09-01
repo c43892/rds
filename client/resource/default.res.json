@@ -9,7 +9,7 @@
 			"name": "loading"
 		},
 		{
-			"keys": "description_json,elemattrsconfig_json,elemdesc_json,levelconfig_json,multilanguage_json,playerconfig_json,randomdropconfig_json,shopconfig_json,worldmap_json,worldmapeventsels_json,occupationconfig_json",
+			"keys": "description_json,elemattrsconfig_json,elemdesc_json,levelconfig_json,multilanguage_json,playerconfig_json,randomdropconfig_json,shopconfig_json,worldmap_json,worldmapeventsels_json,occupationconfig_json,robconfig_json",
 			"name": "configs"
 		},
 		{
@@ -1248,6 +1248,11 @@
 			"url": "assets/ui/hospital/campfire.png",
 			"type": "image",
 			"name": "campfire_png"
+		},
+		{
+			"url": "config/robconfig.json",
+			"type": "json",
+			"name": "robconfig_json"
 		},
 		{
 			"url": "assets/ui/common/aevNoElem.png",

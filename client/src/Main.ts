@@ -115,6 +115,13 @@ class Main extends egret.DisplayObjectContainer {
             return shopCfg[shop];
         };
 
+        // 抢劫
+        var robCfg = RES.getRes("robconfig_json");
+        GCfg.getRobCfg = (rob) => {
+            Utils.assert(robCfg[rob], "can not find rob: " + rob);
+            return robCfg[rob];
+        };
+
         // 世界地图事件
         var worldmapeventselsCfg = RES.getRes("worldmapeventsels_json");
         GCfg.getWorldMapEventSelsDesc = (f) => {

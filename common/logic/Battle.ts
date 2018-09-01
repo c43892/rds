@@ -542,14 +542,14 @@ class Battle {
     }
 
     // 尝试启动商店逻辑
-    public async try2OpenShop(npc:Monster, items, prices, onBuy) {
+    public async try2OpenShop(npc:Monster, items, prices, onBuy, onRob) {
         var elem;
         var price;
 
         // 处理打折
         var onOpenShopPs = {discount:0};
         this.triggerLogicPointSync("onOpenShop", onOpenShopPs);
-        if(onOpenShopPs.discount != 0){            
+        if(onOpenShopPs.discount != 0) {            
             var discounted = [];
             for (var item of items){
                 if(Utils.indexOf(discounted, (i) => i == item) < 0){
@@ -558,13 +558,13 @@ class Battle {
                 }
             }
         }
-            
+
         var reserveNpc = await this.openShop(items, prices, async (e:Elem, p:number) => {
             this.fireEventSync("onPlayerOp", {op:"tryBoughtFromShop", ps:{e:e.type, x:npc.pos.x, y:npc.pos.y}});
             elem = e;
             price = p;
             return true;
-        });
+        }, onRob);
 
         if (elem)
             await onBuy(elem, price);

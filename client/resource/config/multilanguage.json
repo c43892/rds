@@ -156,7 +156,8 @@
 				"price2": {"x":472, "y":575, "w":100, "h":20},
 				"price3": {"x":151, "y":760, "w":100, "h":20},
 				"price4": {"x":311, "y":760, "w":100, "h":20},
-				"price5": {"x":472, "y":760, "w":100, "h":20}
+				"price5": {"x":472, "y":760, "w":100, "h":20},
+				"btnRob": {"x":300, "y":860, "w":100, "h":50}
 			}
 		},
 		
@@ -274,6 +275,7 @@
 		"selRelic": {"EN": "select a skill", "CNS": "选择一个技能", "CNT": "選擇一個技能"},
 		"makeSureSelRelic": {"EN": "be sure to select ", "CNS": "确定选择", "CNT": "確定選擇"},
 		"continueBtn":{"EN": "continue", "CNS": "继续", "CNT": "繼續"},
+		"rob":{"EN": "Rob", "CNS": "抢劫", "CNT": ""},
 		"goBackBtn":{"EN": "go back", "CNS": "返回", "CNT": "返回"},
 		"": {}
 	}

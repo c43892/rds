@@ -787,19 +787,47 @@ class MonsterFactory {
         m.canUse = () => true;
         m.canBeDragDrop = true;
         m.barrier = false;
+
+        // 购买
         m["bought"] = false;
         var onBuy = async (elem:Elem, price:number) => {
+            var n = Utils.indexOf(shopItemAndPrice.items, (it) => it == elem.type);
+            Utils.assert(n >= 0, "no such item in shop:" + elem.type);
+            Utils.assert(shopItemAndPrice.prices[elem.type] == price, "incorrect price for item in shop:" + elem.type + ", " + price + ", " + shopItemAndPrice.prices[n]);
             m.bt().implAddMoney(-price, m);
             var g = BattleUtils.findNearestGrid(m.bt().level.map, m.pos, (g:Grid) => !g.isCovered() && !g.getElem());
             if (g) await m.bt().implAddElemAt(elem, g.pos.x, g.pos.y, m.pos);
             m["bought"] = true;
         };
 
+        // 抢劫
+        m["robbed"] = false;
+        var onRob = async (elems) => {
+            Utils.assert(!m["robbed"], "can not be robbed one time");
+            m["robbed"] = true;
+            var shopCfg = GCfg.getShopCfg(m.attrs.shopCfg);
+            var robCfg = GCfg.getRobCfg(shopCfg.rob);
+            var es = Utils.doRobInShop(elems, robCfg, m.bt().srand);
+            var droppedElems = [];
+            es.forEach((e, _) => {
+                var g = BattleUtils.findNearestGrid(m.bt().level.map, m.pos, (g:Grid) => !g.isCovered() && !g.getElem());
+                if (g) {
+                    m.bt().addElemAt(e, g.pos.x, g.pos.y);
+                    droppedElems.push(e);
+                }
+            });
+
+            if (droppedElems.length > 0)
+                m.bt().notifyElemsDropped(droppedElems, m.pos);
+
+            return droppedElems;
+        };
+
         var shopItemAndPrice;
         m.use = async () => {
             if (!shopItemAndPrice)
                 shopItemAndPrice = Utils.genRandomShopItems(m.bt().player, m.attrs.shopCfg, m.bt().srand, 6);
-            await m.bt().try2OpenShop(m, shopItemAndPrice.items, shopItemAndPrice.prices, onBuy);
+            await m.bt().try2OpenShop(m, shopItemAndPrice.items, shopItemAndPrice.prices, onBuy, m["robbed"] ? undefined :onRob);
             // 成功购买后，NPC不再保留，才消耗死神步数
             return {reserve: !m["bought"], consumeDeathStep: !!m["bought"]};
         };
