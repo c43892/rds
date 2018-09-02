@@ -33,7 +33,7 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
                 this.createNewRelicConfirm(<Relic>e, price);
             else {
                 var r1 = player.relics[rn];
-                var r2 = (<Relic>ElemFactory.create(r1.type)).toRelic();
+                var r2 = (<Relic>ElemFactory.create(r1.type)).toRelic(player);
                 var lv = r1.reinforceLv + (<Relic>e).reinforceLv + 1;
                 var maxLv = r1.attrs.reinforce.length;
                 lv = lv > maxLv ? maxLv : lv;
