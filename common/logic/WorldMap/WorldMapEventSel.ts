@@ -95,7 +95,7 @@ class WorldMapEventSelFactory {
 
     // 加减血
     async implAddHp(p:Player, dhp) {
-        p.addHp(dhp);        
+        p.addHp(dhp);
     }
 
     // 加减最大血量
