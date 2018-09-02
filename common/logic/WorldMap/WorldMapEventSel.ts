@@ -87,36 +87,61 @@ class WorldMapEventSelFactory {
         return sel;
     }
 
+    // 加减钱
+    async implAddMoney(p:Player, dm) {
+        p.addMoney(dm);
+    }
+
+    // 加减血
+    async implAddHp(p:Player, dhp) {
+        p.addHp(dhp);        
+    }
+
+    // 加减最大血量
+    async implAddMaxHp(p:Player, dMaxHp) {
+        p.addMaxHp(dMaxHp);
+    }
+
+    // 获得东西
+    async implAddItem(p:Player, e:Elem) {
+        p.addItem(e);
+    }
+
+    // 强化遗物
+    async implReinforceRelic(p:Player, r:Relic) {
+        r.reinforceLvUp();
+    }
+
     creators = {
         "exit": (sel:WMES, p:Player, ps) => { sel.exit = () => true; return sel; },
         "battle": (sel:WMES, p:Player, ps) => this.exec(async () => await this.startBattle(ps.battleType), sel),
         "-money": (sel:WMES, p:Player, ps) => this.valid(() => p.money >= ps.money, 
-            this.exec(async () => p.addMoney(-ps.money), sel)),
-        "+money": (sel:WMES, p:Player, ps) => this.exec(async () => p.addMoney(ps.money), sel),
-        "-allMoney": (sel:WMES, p:Player, ps) => this.exec(async () => p.addMoney(-p.money), sel),
-        "-hp": (sel:WMES, p:Player, ps) => this.exec(async () => p.addHp(-ps.hp), sel),
-        "+hp": (sel:WMES, p:Player, ps) => this.exec(async () => p.addHp(ps.hp), sel),
+            this.exec(async () => await this.implAddMoney(p, -ps.money), sel)),
+        "+money": (sel:WMES, p:Player, ps) => this.exec(async () => await this.implAddMoney(p, ps.money), sel),
+        "-allMoney": (sel:WMES, p:Player, ps) => this.exec(async () => await this.implAddMoney(p, -p.money), sel),
+        "-hp": (sel:WMES, p:Player, ps) => this.exec(async () => await this.implAddHp(p, -ps.hp), sel),
+        "+hp": (sel:WMES, p:Player, ps) => this.exec(async () => await this.implAddHp(p, ps.hp), sel),
         "-hpPrecentage": (sel:WMES, p:Player, ps) => { 
             var hp = Math.ceil(p.maxHp * ps.hpPrecentage / 100);
             ps["hp"] = hp;
-            return this.exec(async () => p.addHp(-hp), sel);
+            return this.exec(async () => await this.implAddHp(p, -hp), sel);
         },
         "-maxHpPrecentage": (sel:WMES, p:Player, ps) => {
             var maxHp = Math.ceil(p.maxHp * ps.maxHpPrecentage / 100);
             ps["maxHp"] = maxHp;
-            return this.exec(async () => p.addMaxHp(-maxHp), sel)
+            return this.exec(async () => await this.implAddHp(p, -maxHp), sel)
         },
-        "-maxHp": (sel:WMES, p:Player, ps) => this.exec(async () => p.addMaxHp(-ps.maxHp), sel),
-        "+maxHp": (sel:WMES, p:Player, ps) => this.exec(async () => p.addMaxHp(ps.maxHp), sel),
+        "-maxHp": (sel:WMES, p:Player, ps) => this.exec(async () => await this.implAddMaxHp(p, -ps.maxHp), sel),
+        "+maxHp": (sel:WMES, p:Player, ps) => this.exec(async () => await this.implAddMaxHp(p, ps.maxHp), sel),
         "+item": (sel:WMES, p:Player, ps) => this.valid(() => Utils.occupationCompatible(p.occupation, ps.item), 
-            this.exec(async () => p.addItem(ElemFactory.create(ps.item)), sel)),
+            this.exec(async () => await this.implAddItem(p, ElemFactory.create(ps.item)), sel)),
         "reinforceRandomRelics": (sel:WMES, p:Player, ps) => this.valid(() => p.getReinfoceableRelics().length > 0, 
             this.exec(async () => {
                 var relics = p.getReinfoceableRelics();
                 var rs = p.playerRandom.selectN(relics, 2);
                 Utils.assert(rs.length > 0, "no relic can be reinforced");
                 for (var relic of rs)
-                    p.addRelic(<Relic>ElemFactory.create(relic.type));
+                    await this.implAddItem(p, <Relic>ElemFactory.create(relic.type));
         }, sel)),
         "reinfoceRelic": (sel:WMES, p:Player, ps) => this.valid(() => p.getReinfoceableRelics().length > 0, 
             this.exec(async () => {
@@ -126,7 +151,7 @@ class WorldMapEventSelFactory {
                     sel = await this.selRelic(rs, "selRelic", ViewUtils.getTipText("selRelic"), ViewUtils.getTipText("makeSureSelRelic"));
                     if (sel >= 0) {
                         var e:Relic = <Relic>p.relics[sel];
-                        e.reinforceLvUp();
+                        await this.implReinforceRelic(p, e);
                         break;
                     } else if (sel == -2)
                         break;
@@ -134,23 +159,29 @@ class WorldMapEventSelFactory {
         }, sel)),
         "gambling": (sel:WMES, p:Player, ps) => this.valid(() => p.money >= ps.wager,
             this.exec(async () => {
-                p.addMoney(-ps.wager);
+                await this.implAddMoney(p, -ps.wager);
                 if (p.playerRandom.next100() < ps.rate)
-                    p.addMoney(ps.award);
+                    await this.implAddMoney(p, ps.award);
         }, sel)),
         "+randomItems": (sel:WMES, p:Player, ps) => this.exec(async () => {
             var es = Utils.randomSelectByWeightWithPlayerFilter(p, ps.items, p.playerRandom, ps.randomNum, ps.randomNum+1, true);
             for (var et of es) {
                 var e = ElemFactory.create(et);
                 delete ps.items[et];
-                p.addItem(e);
+                await this.implAddItem(p, e);
             }
         }, sel),
         "redirectSelGroup": (sel:WMES, p:Player, ps) => this.exec(async () => {
-             if (p.isDead())
+            if (p.isDead())
                 sel.exit = () => true;
             else
                 await this.openEventSels(p, ps.group);
+        }, sel),
+        "rob": (sel:WMES, p:Player, ps) => this.exec(async () => {
+            var robCfg = GCfg.getRobCfg(ps.rob);
+            var robItems = Utils.doRobEvent(p, robCfg, p.playerRandom);
+            for (var e of robItems)
+                await this.implAddItem(p, ElemFactory.create(e));
         }, sel),
         "sequence": (sel:WMES, p:Player, ps) => {
             var subSels = [];

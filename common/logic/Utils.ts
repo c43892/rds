@@ -374,6 +374,10 @@ class Utils {
 
     // 判断物品和角色的职业兼容性
     public static occupationCompatible(occupation, type, customGetConfigFun = undefined) {
+        // coin 兼容任何职业，这里必须特殊处理，及避开 CoinsTiny 之类的特殊类型造成的障碍
+        if (Utils.checkCatalogues(type, "coin"))
+            return true;
+
         var eCfg = customGetConfigFun ? customGetConfigFun(type) : GCfg.getElemAttrsCfg(type);
         return !eCfg.occupations || Utils.contains(eCfg.occupations, occupation);
     }
@@ -426,6 +430,15 @@ class Utils {
         });
         var sels = Utils.randomSelectByWeight(itemsWithWeights, srand, num, num, true);
         sels = Utils.map(sels, (i) => items[i]);
+        return sels;
+    }
+
+    // 执行大地图事件抢劫逻辑
+    public static doRobEvent(p, cfg, srand:SRandom) {
+        var drop2 = srand.next100() < cfg.drop2Weight;
+        var dps = drop2 ? cfg.drop2 : cfg.drop1;
+        var dpCfg = GCfg.getRandomDropGroupCfg(dps);
+        var sels = Utils.randomSelectByWeightWithPlayerFilter(p, dpCfg.elems, srand, dpCfg.num[0], dpCfg.num[1], true);
         return sels;
     }
 
@@ -492,5 +505,22 @@ class Utils {
         var dx = p1.x - p2.x;
         var dy = p1.y - p2.y;
         return Math.sqrt(dx*dx + dy*dy);
+    }
+
+    // 判断是否是指定类型
+    public static checkCatalogues(type, ...catalogues):boolean {
+        var catalogueDict = {
+            food : ["Apple", "Steak"],
+            book : ["EconomyMagazine", "Magazine"],
+            coin : ["CoinsTiny", "CoinsSmall", "Coins", "CoinsBig", "CoinsHuge"],
+            gun : ["RayGun", "IceGun"]
+        };
+
+        for (var i = 0; i < catalogues.length; i++) {
+            if (catalogueDict[catalogues[i]] && Utils.contains(catalogueDict[catalogues[i]], type))
+                return true;
+        }
+
+        return false;
     }
 }

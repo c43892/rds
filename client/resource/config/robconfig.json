@@ -9,9 +9,9 @@
     },
 
     "inEvent": {
-        "robItems1": {"HpPtion":1, "PowerPotoin":1},
-        "robItems2": {"HpPtion":1, "PowerPotoin":1},
-        "robItem2Weight" : 0.5
+        "drop1": "bossBox2",
+        "drop2": "treasureBox2",
+        "drop2Weight" : 0.5
     },
 
     "": {}

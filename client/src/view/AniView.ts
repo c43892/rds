@@ -308,16 +308,14 @@ class AniView extends egret.DisplayObjectContainer {
     // 有物品被使用
     public async onElemUsed(ps) {
         var e = ps.e;
-        var foods = ["Apple", "Steak"];
-        var books = ["EconomyMagazine", "Magazine"];
         var type = e.type;
         var sv = this.getSV(e);
 
-        if (Utils.contains(books, type) && e.cnt > 0) { // 书籍需要提示还剩几次
+        if (Utils.checkCatalogues(type, "book") && e.cnt > 0) { // 书籍需要提示还剩几次
             var p = sv.localToGlobal();
             AniUtils.tipAt((e.attrs.cnt - e.cnt) + "/" + e.attrs.cnt, {x:p.x+25, y:p.y-25});
             await AniUtils.flashAndShake(this.getSV(e));
-        } else if (Utils.contains(foods, type)) { // 食物抖一下
+        } else if (Utils.checkCatalogues(type, "food")) { // 食物抖一下
             await AniUtils.flashAndShake(this.getSV(e));
         }
     }
@@ -379,7 +377,6 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 金钱变化
     public async onMoneyChanged(ps) {
-        var coins = ["CoinsTiny", "CoinsSmall", "Coins", "CoinsBig", "CoinsHuge"];
         var dm = Math.abs(ps.d);
         var txt = this.bv.getMoneyText();
         var e = ps.e;
@@ -400,7 +397,7 @@ class AniView extends egret.DisplayObjectContainer {
                 ]});
 
                 var cnt = dm - i;
-                if (cnt > 0 && Utils.contains(coins, e.type)) {
+                if (cnt > 0 && Utils.checkCatalogues(e.type, "coin")) {
                     e.cnt = cnt;
                     this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
                 }
