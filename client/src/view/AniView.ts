@@ -212,11 +212,11 @@ class AniView extends egret.DisplayObjectContainer {
         this.bv.refreshPlayer();
     }
 
-    // 从大地图的商店买东西
-    public async onBuyElemFromWorldmapShop(ps) {
+    // 在大地图获取东西
+    public async onGetElemInWorldmap(ps) {
         var e:Elem = ps.e;
-        var fromPos = ShopView.lastSelectedElemGlobalPos;
-
+        var fromPos = ps.fromPos ? ps.fromPos : {x:this.width/2, y:this.height/2};
+        
         var fromImg = AniUtils.createImg(e.getElemImgRes() + "_png");
         fromImg.x = fromPos.x;
         fromImg.y = fromPos.y;

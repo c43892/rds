@@ -104,7 +104,12 @@ class WorldMapEventSelFactory {
 
     // 获得东西
     async implAddItem(p:Player, e:Elem) {
-        p.addItem(e);
+        if (Utils.checkCatalogues(e.type, "coin"))
+            await this.implAddMoney(p, e.cnt);
+        else {
+            p.addItem(e);
+            await p.fireEvent("onGetElemInWorldmap", {e:e});
+        }
     }
 
     // 强化遗物
