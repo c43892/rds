@@ -152,7 +152,8 @@ class ElemDescView extends egret.DisplayObjectContainer {
         if(e["Charmed"] == "normal"){
             var index = e.type.indexOf("Charmed");
             var type = e.type.substring(0 , index);
-            this.monsterName.text = ViewUtils.getElemNameAndDesc(type).name;            
+            this.monsterName.text = ViewUtils.getElemNameAndDesc(type).name;
+            this.monsterName.bold = true;            
             descArr = ViewUtils.getElemNameAndDesc("CharmedNormal").desc;
         } else {
             var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
