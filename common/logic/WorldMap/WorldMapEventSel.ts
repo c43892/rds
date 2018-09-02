@@ -90,6 +90,7 @@ class WorldMapEventSelFactory {
     // 加减钱
     async implAddMoney(p:Player, dm) {
         p.addMoney(dm);
+        await p.fireEvent("onGetMoneyInWorldmap", {dm:dm});
     }
 
     // 加减血

@@ -235,6 +235,18 @@ class AniView extends egret.DisplayObjectContainer {
         toImg["dispose"]();
     }
 
+    // 在大地图上获得金钱
+    public async onGetMoneyInWorldmap(ps) {
+        var d = ps.dm > 0 ? 1 : -1
+        var p = this.wmv.player;
+        for (var i = 0; i != ps.dm; i+=d) {
+            this.wmv.getMoneyText().text = (p.money - ps.dm + i).toString();
+            await AniUtils.delay(30);
+        }
+
+        this.wmv.refreshMoney();
+    }
+
     // cd 变化
     public async onColddownChanged(ps) {
         var e = ps.e;
@@ -413,12 +425,11 @@ class AniView extends egret.DisplayObjectContainer {
             }
             
             await AniUtils.delay(100);
-            this.bv.refreshMoneyAt(v);
+            this.bv.getMoneyText().text = v.toString();
         }
 
         coinsImgArr.forEach((img, _) => img["dispose"]());
-
-        this.bv.refreshMoneyAt();
+        this.bv.refreshMoney();
     }
 
     // 产生攻击行为
