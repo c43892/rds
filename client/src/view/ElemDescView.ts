@@ -5,6 +5,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
     bg:egret.Bitmap;
     doClose;
     uis = {};
+    player:Player
 
     constructor(w:number, h:number) {
         super();
@@ -161,7 +162,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
             descArr = nameAndDesc.desc;
         }
 
-        descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(ViewUtils.replaceByProperties(desc, e)));
+        descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(ViewUtils.replaceByProperties(desc, e, this.player)));
 
         // 第一组描述文字根据配置排版，后续的对齐第一组
         var monsterDescTxt0 = ViewUtils.createTextField(0, 0x000000);
@@ -227,7 +228,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
             {text: " Lv " + ((<Relic>e).reinforceLv + 1), style:{"textColor":0x7d0403, "size":30}}];
 
         var descArr = ViewUtils.getElemNameAndDesc(e.type).desc;
-        descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(ViewUtils.replaceByProperties(desc, e)));
+        descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(ViewUtils.replaceByProperties(desc, e, this.player)));
 
         // 第一组描述文字根据配置排版，后续的对齐第一组
         var relicDescTxt0 = ViewUtils.createTextField(0, 0x000000);
@@ -291,7 +292,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
     refreshItemDesc(e:Elem) {
         var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
         this.itemName.text = nameAndDesc.name;
-        var txt = ViewUtils.replaceByProperties(nameAndDesc.desc[0], e);
+        var txt = ViewUtils.replaceByProperties(nameAndDesc.desc[0], e, this.player);
         this.itemDesc.textFlow = ViewUtils.fromHtml(txt);
         ViewUtils.setTexName(this.itemIcon, e.getElemImgRes() + "_png");
     }

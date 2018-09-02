@@ -200,18 +200,22 @@ class ViewUtils {
     }
 
     // 根据对象身上的动态属性，替换掉目标字符串中的 {propertyName} 标签
-    public static replaceByProperties(s:string, e):string {
+    public static replaceByProperties(s:string, e, player):string {
         const r = /\{[a-z,A-Z,0-9,_,-]*\}/g;
         const m = r.exec(s);
         var ss = s;
+        var elemActiveDesc = new ElemActiveDesc(player);
         if (m) {
-            m.forEach((value, index) => {
+            for (var i = 0; i < m.length; i++) {
+                var value = m[i];
                 var key = value.substr(1, value.length - 2);
-                if (e[key] != undefined)
+                if(!!elemActiveDesc.elems[e.type][key])
+                    ss = ss.replace(value, elemActiveDesc.elems[e.type][key](e));                
+                else if (e[key] != undefined)
                     ss = ss.replace(value, e[key].toString());
                 else if (e.attrs[key] != undefined)
                     ss = ss.replace(value, e.attrs[key].toString());
-            });
+            };
         }
 
         return ss;
@@ -342,7 +346,7 @@ class ViewUtils {
         // 多段描述信息，不是简要描述
 
         var descArr = ViewUtils.getElemNameAndDesc(e.type).desc;
-        descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(ViewUtils.replaceByProperties(desc, e)));
+        descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(ViewUtils.replaceByProperties(desc, e, e.player)));
         var descObjs = [];
         for (var i = 0; i < descArr.length; i++) {
             var txt = ViewUtils.createTextField(0, 0x000000);

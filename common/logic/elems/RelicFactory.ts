@@ -200,10 +200,12 @@ class RelicFactory {
 
         // 飞刀大师,每场战斗增加一把飞刀，飞刀造成的伤害+X（最高5级）
         "KnifeMaster": (attrs) => {
-            var r = this.doAddElemOnLevelInited(attrs, ["Knife"], 1);
-            return <Relic>ElemFactory.addAI("onCalcAttacking", (ps) => {
-                ps.attackerAttrs.power.b += attrs.dpower;
-            }, r, (ps) => ps.subType == "player2monster" && ps.weapon && ps.weapon.type == "Knife")
+            return this.doAddElemOnLevelInited(attrs, ["Knife"], 1, (r) => {
+                <Relic>ElemFactory.addAI("onCalcAttacking", (ps) => {
+                    ps.attackerAttrs.power.b += attrs.dpower;
+                }, r, (ps) => ps.subType == "player2monster" && ps.weapon && ps.weapon.type == "Knife")
+                return r;
+            });             
         },
 
         // 怪物猎人,每场战斗开始时标记X个怪物（最多5级）
@@ -220,10 +222,12 @@ class RelicFactory {
 
         // 飞刀专精	每场战斗增加一把飞刀，飞刀攻击时无视护甲
         "KnifeProficient": (attrs) => {
-            var r = this.doAddElemOnLevelInited(attrs, ["Knife"], 1);
-            return <Relic>ElemFactory.addAI("onCalcAttacking", (ps) => {
-                ps.attackerAttrs.attackFlags.push("Pierce");
-            }, r,  (ps) => ps.subType == "player2monster" && ps.weapon && ps.weapon.type == "Knife")
+            return this.doAddElemOnLevelInited(attrs, ["Knife"], 1, (r) => {
+                <Relic>ElemFactory.addAI("onCalcAttacking", (ps) => {
+                    ps.attackerAttrs.attackFlags.push("Pierce");
+                }, r,  (ps) => ps.subType == "player2monster" && ps.weapon && ps.weapon.type == "Knife")
+                return r;
+            });             
         },
 
         // 探索强化	一只怪物死亡，则随机显示一件物品的位置
@@ -241,10 +245,13 @@ class RelicFactory {
 
         // 园艺专精	每场战斗增加一个苹果，每次使用苹果额外回复一点生命
         "HorticultureProficient": (attrs) => {
-            var r = this.doAddElemOnLevelInited(attrs, ["Apple"], 1);
-            return <Relic>ElemFactory.addAI("onPlayerHealing", (ps) => {
-                ps.dhpPs.b += 1;
-            }, r, (ps) => ps.source && ps.source.type == "Apple");
+            return this.doAddElemOnLevelInited(attrs, ["Apple"], 1, (r) => {
+                <Relic>ElemFactory.addAI("onPlayerHealing", (ps) => {
+                    ps.dhpPs.b += 1;
+                }, r, (ps) => ps.source && ps.source.type == "Apple");
+                return r;
+            });
+             
         },
 
         // 嗅觉强化	你知道所有食物的位置
@@ -274,10 +281,12 @@ class RelicFactory {
 
         // 盾牌专精	每场战斗增加一面盾牌，盾牌的恢复时间减少一回合
         "ShieldProficient": (attrs) => {
-            var r = this.doAddElemOnLevelInited(attrs, ["Shield"], 3);
-            return <Relic>ElemFactory.addAI("onCalcCD", (ps) => {
-                ps.dcd.b += r.attrs.dcd;
-            }, r, (ps) => ps.subType == "resetCD" && ps.e.type == "Shield");
+            return this.doAddElemOnLevelInited(attrs, ["Shield"], 3, (r) => {
+                <Relic>ElemFactory.addAI("onCalcCD", (ps) => {
+                    ps.dcd.b += r.attrs.dcd;
+                }, r, (ps) => ps.subType == "resetCD" && ps.e.type == "Shield")
+                return r;
+            });             
         },
 
         // 园艺大师	获得植物的援护，每升一级提高植物属性
@@ -308,9 +317,11 @@ class RelicFactory {
     };
 
     // 每层增加n个相同Elem,Elem从给定的elemTypes里随机选取
-    public doAddElemOnLevelInited(attrs, elemTypes:string[], n:number):Relic {
+    public doAddElemOnLevelInited(attrs, elemTypes:string[], n:number, func = undefined):Relic {
         return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) return;
+                if(func)
+                    r = func(r);
                 ElemFactory.addAI("onLevelInited", async () => {
                     var bt = r.bt();
                     for(var i = 0; i < n; i++){
