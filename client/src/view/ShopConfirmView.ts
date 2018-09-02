@@ -60,7 +60,7 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
         var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
 
         // 标题
-        var title = ViewUtils.createTextField(50, 0xff0000);
+        var title = ViewUtils.createTextField(35, 0x7d0403);
         title.text = nameAndDesc.name;
         title.width = bg.width;
         title.x = bg.x;
@@ -68,11 +68,11 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
         this.addChild(title);
 
         // 描述
-        var desc = ViewUtils.createTextField(30, 0x000000);
+        var desc = ViewUtils.createTextField(20, 0x000000);
         desc.textFlow = ViewUtils.fromHtml(ViewUtils.replaceByProperties(nameAndDesc.desc[0], e));
         desc.width = bg.width;
         desc.x = bg.x;
-        desc.y = title.y + title.height + 20;
+        desc.y = title.y + title.height + 30;
         this.addChild(desc);
 
         // 费用
@@ -139,20 +139,20 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
         var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
 
         // 标题
-        var title = ViewUtils.createTextField(50, 0xff0000);
+        var title = ViewUtils.createTextField(35, 0x7d0403);
         title.text = nameAndDesc.name;
         title.textAlign = egret.HorizontalAlign.LEFT;
         title.x = icon.x + icon.width + 20;
         title.width = bg.width - title.x;
-        title.y = bg.y + 40;
+        title.y = bg.y + 55;
         this.addChild(title);
 
         // 简要描述
-        var desc = ViewUtils.createTextField(30, 0x000000);
+        var desc = ViewUtils.createTextField(20, 0x000000);
         desc.textFlow = ViewUtils.fromHtml(ViewUtils.replaceByProperties(nameAndDesc.shortDesc, e));
         desc.width = bg.width;
         desc.x = bg.x;
-        desc.y = title.y + title.height + 20;
+        desc.y = title.y + title.height + 35;
         this.addChild(desc);
 
         // 费用
