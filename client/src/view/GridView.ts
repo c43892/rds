@@ -36,7 +36,7 @@ class GridView extends egret.DisplayObjectContainer {
 
         this.elemImg = new egret.Bitmap(); // 元素图
         this.banImg = ViewUtils.createBitmapByName("ban_png"); // 禁止符号
-        this.coveredImg = ViewUtils.createBitmapByName("uncoverable_png");
+        this.coveredImg = ViewUtils.createBitmapByName("covered_png");
         this.cdImg = new egret.Bitmap(); // cd 计数
         this.showLayer = new egret.DisplayObjectContainer(); // 显示层
         this.addChild(this.showLayer);
@@ -110,14 +110,6 @@ class GridView extends egret.DisplayObjectContainer {
         // this.coveredImg.y = (this.height - this.coveredImg.height) / 2;
         this.showLayer.setChildIndex(this.coveredImg, 0);
         ViewUtils.makeGray(this.elemImg, true);
-    }
-
-    private refreshCovered(g:Grid) {
-        // 如果附近有怪物，或者四临没有揭开的格子，则不可揭开
-        if (this.map.isUncoverable(g.pos.x, g.pos.y))
-            this.showLayer.addChild(this.uncoverableImg);
-        else
-            this.showLayer.addChild(this.coveredImg);
     }
 
     private refreshElemShowLayer(g:Grid, e:Elem) {
@@ -210,23 +202,36 @@ class GridView extends egret.DisplayObjectContainer {
         }
     }
 
+    public setCoverImg(covered:boolean) {
+        if (this.uncoverableImg.parent != null) this.uncoverableImg.parent.removeChild(this.uncoverableImg);
+        if (this.coveredImg.parent != null) this.coveredImg.parent.removeChild(this.coveredImg);
+
+        if (covered) {
+            if (this.getGrid().isUncoverable())
+                this.addChild(this.uncoverableImg);
+            else
+                this.addChild(this.coveredImg);
+        }
+    }
+
     public refresh() {
         this.clear();
         var g = this.map.getGridAt(this.gx, this.gy);
         var e = this.map.getElemAt(this.gx, this.gy);
         switch (g.status) {
             case GridStatus.Covered: // 被覆盖                
-                this.refreshCovered(g);
+                this.setCoverImg(true);
             break;
             case GridStatus.Blocked: // 危险
-                this.showLayer.addChild(this.coveredImg);
-                this.showLayer.addChild(this.blockedImg);
+                this.setCoverImg(true);
+                this.addChild(this.blockedImg);
             break;
             case GridStatus.Marked: // 被标记
                 this.refreshElemShowLayer(g, e);
                 this.refreshMarkedEffect(g);
             break;
             case GridStatus.Uncovered: // 被揭开
+                this.setCoverImg(false);
                 this.refreshElemShowLayer(g, e);
                 // if (this.showLayer.contains(this.coveredImg)) this.showLayer.removeChild(this.coveredImg);
             break;
