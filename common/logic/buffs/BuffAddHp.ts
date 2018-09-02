@@ -16,7 +16,7 @@ class BuffAddHp extends Buff {
         this.doEffect = async () => {
             var bt = this.getOwner().bt();
             if (this.getOwner() instanceof Player)
-                await bt.implAddPlayerHp(heal);
+                await bt.implAddPlayerHp(heal, this);
             else
                 await bt.implAddMonsterHp(this.getOwner(), heal);
         };

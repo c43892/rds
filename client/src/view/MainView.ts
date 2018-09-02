@@ -371,6 +371,7 @@ class MainView extends egret.DisplayObjectContainer {
     public async showElemDesc(e:Elem) {
         this.addChild(this.idv);
         this.setChildIndex(this.idv, -1);
+        this.idv.player = this.p;
         await this.idv.open(e);
         this.removeChild(this.idv);
     }

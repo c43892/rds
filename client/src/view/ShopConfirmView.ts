@@ -30,7 +30,7 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
             Utils.assert(e instanceof Relic, "only prop, item, relic should be in shop");
             var rn = Utils.indexOf(player.relics, (r) => r.type == e.type);
             if (rn < 0)
-                this.createNewRelicConfirm(<Relic>e, price);
+                this.createNewRelicConfirm(<Relic>e, price, player);
             else {
                 var r1 = player.relics[rn];
                 var r2 = (<Relic>ElemFactory.create(r1.type)).toRelic(player);
@@ -69,7 +69,7 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
 
         // 描述
         var desc = ViewUtils.createTextField(30, 0x000000);
-        desc.textFlow = ViewUtils.fromHtml(ViewUtils.replaceByProperties(nameAndDesc.desc[0], e));
+        desc.textFlow = ViewUtils.fromHtml(ViewUtils.replaceByProperties(nameAndDesc.desc[0], e, player));
         desc.width = bg.width;
         desc.x = bg.x;
         desc.y = title.y + title.height + 20;
@@ -122,7 +122,7 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
     }
 
     // 购买新遗物时的确认界面
-    private createNewRelicConfirm(e:Elem, price:number) {
+    private createNewRelicConfirm(e:Elem, price:number, player:Player) {
         // 背景底图
         var bg = ViewUtils.createBitmapByName("confirmBg_png");
         bg.width = 600;
@@ -149,7 +149,7 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
 
         // 简要描述
         var desc = ViewUtils.createTextField(30, 0x000000);
-        desc.textFlow = ViewUtils.fromHtml(ViewUtils.replaceByProperties(nameAndDesc.shortDesc, e));
+        desc.textFlow = ViewUtils.fromHtml(ViewUtils.replaceByProperties(nameAndDesc.shortDesc, e, player));
         desc.width = bg.width;
         desc.x = bg.x;
         desc.y = title.y + title.height + 20;
