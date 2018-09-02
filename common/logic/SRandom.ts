@@ -39,7 +39,7 @@ class SRandom {
 
         var sels = [...collection];
         var rs = [];
-        for (var i = 0; i < n; i++) {
+        for (var i = 0; i < n && i < sels.length; i++) {
             var rn = this.nextInt(0, sels.length - i);
             rs.push(sels[rn]);
             var tmp = sels[rn];
