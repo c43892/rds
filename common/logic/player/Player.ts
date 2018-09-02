@@ -359,14 +359,17 @@ class Player {
     }
 
     public addItem(e:Elem) {
+        if (Utils.checkCatalogues(e.type, "coin")) {
+            this.addMoney(e.cnt);
+            return;
+        }
+
         e.setBattle(this.bt());
         if (e instanceof Relic)
             this.addRelic(<Relic>e);
         else if (e instanceof Prop)
             this.addProp(<Prop>e);
-        else if (e.type == "Coins")
-            this.addMoney(e.cnt);
-        else
+        else 
             Utils.assert(false, "player can not take: " + e.type);
     }
 

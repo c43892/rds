@@ -99,6 +99,14 @@ class WorldMapView extends egret.DisplayObjectContainer {
         }
     }
 
+    public getMoneyText():egret.TextField {
+        return this.numCoins;
+    }
+
+    public refreshMoney() {
+        this.numCoins.text = this.player.money.toString();
+    }
+
     private refreshFrame() {
         var w = this.width;
         var h = this.height;

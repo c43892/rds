@@ -76,12 +76,8 @@
     "ShieldProficient":{"name":"盾牌专精", "dcd":-1, "refElems":["Shield"]},
     "HorticultureMaster":{"name":"园艺大师", "refElems":["NutWall", "Peashooter", "CherryBomb", "Sunflower", "CharmingMushroom"]},
 
-    "CoinsTiny":{"name":"金币", "canOverlap":true, "useWithoutConfirm":true},
-    "CoinsSmall":{"name":"金币", "canOverlap":true, "useWithoutConfirm":true},
     "Coins":{"name":"金币", "cnt":1, "canOverlap":true, "useWithoutConfirm":true, 
         "repRes":["Coins1", "Coins2", "Coins3", "Coins4", "Coins5", "Coins6", "Coins7", "Coins8", "Coins9"]},
-    "CoinsBig":{"name":"金币", "canOverlap":true, "useWithoutConfirm":true},
-    "CoinsHuge":{"name":"金币", "canOverlap":true, "useWithoutConfirm":true},
     "Key":{"name":"钥匙", "useWithTarget":true, "validTargets":["Door", "TreasureBox"]},
     "Door":{"name":"门", "cnt":1, "useWithoutConfirm":true, "dropItems":["NextLevelPort"], "hideDropItems":true,
         "repRes":["Door1", "Door2", "Door3"]},

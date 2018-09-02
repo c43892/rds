@@ -234,7 +234,7 @@ class MainView extends egret.DisplayObjectContainer {
             this.p.addMoney(-price);
             this.p.addItem(elem);
             this.sv.refresh();
-            await this.p.fireEvent("onBuyElemFromWorldmapShop", {e:elem, price:price});
+            await this.p.fireEvent("onGetElemInWorldmap", {e:elem, price:price, fromPos:ShopView.lastSelectedElemGlobalPos});
         };
         var onRob = async (elems) => {
             // 抢劫逻辑
@@ -249,7 +249,7 @@ class MainView extends egret.DisplayObjectContainer {
                 var n = Utils.indexOf(r.items, (it) => it == e.type);
                 ShopView.lastSelectedElemGlobalPos = this.sv.getGlobaPosAndSize(n);
                 this.sv.refreshFakeElemAt(n, undefined, 0);
-                await this.p.fireEvent("onBuyElemFromWorldmapShop", {e:e, price:r.prices[n]});
+                await this.p.fireEvent("onGetElemInWorldmap", {e:e, price:r.prices[n], fromPos:ShopView.lastSelectedElemGlobalPos});
             }
 
             robbedElems = es;
@@ -499,7 +499,7 @@ class MainView extends egret.DisplayObjectContainer {
 
     registerPlayerEvents() {
         Utils.registerEventHandlers(this.p, [
-            "onBuyElemFromWorldmapShop"
+            "onGetElemInWorldmap", "onGetMoneyInWorldmap"
         ], (e) => (ps) => this.bv.av[e](ps));
     }
 }

@@ -212,11 +212,11 @@ class AniView extends egret.DisplayObjectContainer {
         this.bv.refreshPlayer();
     }
 
-    // 从大地图的商店买东西
-    public async onBuyElemFromWorldmapShop(ps) {
+    // 在大地图获取东西
+    public async onGetElemInWorldmap(ps) {
         var e:Elem = ps.e;
-        var fromPos = ShopView.lastSelectedElemGlobalPos;
-
+        var fromPos = ps.fromPos ? ps.fromPos : {x:this.width/2, y:this.height/2};
+        
         var fromImg = AniUtils.createImg(e.getElemImgRes() + "_png");
         fromImg.x = fromPos.x;
         fromImg.y = fromPos.y;
@@ -233,6 +233,18 @@ class AniView extends egret.DisplayObjectContainer {
         await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
         fromImg["dispose"]();
         toImg["dispose"]();
+    }
+
+    // 在大地图上获得金钱
+    public async onGetMoneyInWorldmap(ps) {
+        var d = ps.dm > 0 ? 1 : -1
+        var p = this.wmv.player;
+        for (var i = 0; i != ps.dm; i+=d) {
+            this.wmv.getMoneyText().text = (p.money - ps.dm + i).toString();
+            await AniUtils.delay(30);
+        }
+
+        this.wmv.refreshMoney();
     }
 
     // cd 变化
@@ -308,16 +320,14 @@ class AniView extends egret.DisplayObjectContainer {
     // 有物品被使用
     public async onElemUsed(ps) {
         var e = ps.e;
-        var foods = ["Apple", "Steak"];
-        var books = ["EconomyMagazine", "Magazine"];
         var type = e.type;
         var sv = this.getSV(e);
 
-        if (Utils.contains(books, type) && e.cnt > 0) { // 书籍需要提示还剩几次
+        if (Utils.checkCatalogues(type, "book") && e.cnt > 0) { // 书籍需要提示还剩几次
             var p = sv.localToGlobal();
             AniUtils.tipAt((e.attrs.cnt - e.cnt) + "/" + e.attrs.cnt, {x:p.x+25, y:p.y-25});
             await AniUtils.flashAndShake(this.getSV(e));
-        } else if (Utils.contains(foods, type)) { // 食物抖一下
+        } else if (Utils.checkCatalogues(type, "food")) { // 食物抖一下
             await AniUtils.flashAndShake(this.getSV(e));
         }
     }
@@ -379,7 +389,6 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 金钱变化
     public async onMoneyChanged(ps) {
-        var coins = ["CoinsTiny", "CoinsSmall", "Coins", "CoinsBig", "CoinsHuge"];
         var dm = Math.abs(ps.d);
         var txt = this.bv.getMoneyText();
         var e = ps.e;
@@ -400,7 +409,7 @@ class AniView extends egret.DisplayObjectContainer {
                 ]});
 
                 var cnt = dm - i;
-                if (cnt > 0 && Utils.contains(coins, e.type)) {
+                if (cnt > 0 && Utils.checkCatalogues(e.type, "coin")) {
                     e.cnt = cnt;
                     this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
                 }
@@ -416,12 +425,11 @@ class AniView extends egret.DisplayObjectContainer {
             }
             
             await AniUtils.delay(100);
-            this.bv.refreshMoneyAt(v);
+            this.bv.getMoneyText().text = v.toString();
         }
 
         coinsImgArr.forEach((img, _) => img["dispose"]());
-
-        this.bv.refreshMoneyAt();
+        this.bv.refreshMoney();
     }
 
     // 产生攻击行为

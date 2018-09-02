@@ -274,7 +274,7 @@ class ItemFactory {
                     ps.immunized = true;
                     
                     Utils.log("immunize sneak");
-                    e.bt().implRemoveElemAt(e.pos.x, e.pos.y);
+                    await e.bt().implRemoveElemAt(e.pos.x, e.pos.y);
                 }, e, () => e.isValid());
                 return e;
         },

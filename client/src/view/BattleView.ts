@@ -312,8 +312,8 @@ class BattleView extends egret.DisplayObjectContainer {
     }
 
     // 刷新金钱显示
-    public refreshMoneyAt(num:number = undefined) {
-        num = num ? num : this.player.money;
+    public refreshMoney() {
+        var num = this.player.money;
         this.money.text = num.toString();
     }
 
@@ -330,7 +330,7 @@ class BattleView extends egret.DisplayObjectContainer {
         ViewUtils.setTexName(this.avatar, this.player.occupation + "_png", true);
         this.currentStoryLv.text = this.player.currentStoreyPos.lv.toString();
 
-        this.refreshMoneyAt();
+        this.refreshMoney();
 
         // 刷新死神位置
         if (!this.deathGodBarPosX) this.deathGodBarPosX = this.deathGodBar.x

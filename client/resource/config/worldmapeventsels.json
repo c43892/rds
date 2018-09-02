@@ -16,6 +16,7 @@
         "reinforceRandomRelics": "随机强化 {reinforceNum} 件遗物",
         "reinfoceRelic": "强化一件遗物",
         "gambling": "压 {wager} 金币，{rate}% 胜利获得 {award} 金币",
+        "rob": "抢劫物品",
         "redirectSelGroup": "重建选项列表"
     },
 
@@ -30,6 +31,9 @@
                 "desc": "获得一个 {item}，但你会失去所有金币",
                 "func": ["-allMoney", "+item"],
                 "ps": {"item": "MedicineBox"}
+            }, {
+                "func": ["rob"],
+                "ps": {"rob":"inEvent"}
             }, {
                 "func": ["exit"]
             }]
