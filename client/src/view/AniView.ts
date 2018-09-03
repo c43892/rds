@@ -417,8 +417,8 @@ class AniView extends egret.DisplayObjectContainer {
                     coinSV.alpha = 0;
             } else if (e.type != "ShopNpc") {
                 this.aniFact.createAni("seq", {subAniArr:[
-                    this.aniFact.createAni("tr", {obj:coinsImg, tx:txt.localToGlobal().x, ty:txt.localToGlobal().y,
-                        fx:coinSV.localToGlobal().x, fy:coinSV.localToGlobal().y,
+                    this.aniFact.createAni("tr", {obj:coinsImg, tx:coinSV.localToGlobal().x, ty:coinSV.localToGlobal().y,
+                        fx:txt.localToGlobal().x, fy:txt.localToGlobal().y,
                         fsx:0.6, fsy:0.6, tsx:1, tsy:1, time:350}),
                     this.aniFact.createAni("tr", {obj:coinsImg, fa:1, ta:0, time:1})
                 ]});
