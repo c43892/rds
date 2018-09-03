@@ -9,7 +9,8 @@ class GridView extends egret.DisplayObjectContainer {
     private elemImg:egret.Bitmap; // 元素图
     private banImg:egret.Bitmap; // 禁止符号
     private cdImg:egret.Bitmap; // cd 计数
-    private coveredImg:egret.Bitmap; // 标记时，要在上面盖上牌背
+    private coveredImg:egret.Bitmap; // 不可揭开
+    private markedBg:egret.Bitmap; // 标记时的底
     private uncoverableImg:egret.Bitmap; // 被覆盖，但可以揭开
     private blockedImg:egret.Bitmap; // 危险
     private coveredHazardNum:egret.Bitmap; // 数字
@@ -37,6 +38,7 @@ class GridView extends egret.DisplayObjectContainer {
         this.elemImg = new egret.Bitmap(); // 元素图
         this.banImg = ViewUtils.createBitmapByName("ban_png"); // 禁止符号
         this.coveredImg = ViewUtils.createBitmapByName("covered_png");
+        this.markedBg = ViewUtils.createBitmapByName("covered_png");
         this.cdImg = new egret.Bitmap(); // cd 计数
         this.showLayer = new egret.DisplayObjectContainer(); // 显示层
         this.addChild(this.showLayer);
@@ -105,10 +107,8 @@ class GridView extends egret.DisplayObjectContainer {
     }
 
     private refreshMarkedEffect(g:Grid) {
-        this.showLayer.addChild(this.coveredImg);
-        // this.coveredImg.x = (this.width - this.coveredImg.width) / 2;
-        // this.coveredImg.y = (this.height - this.coveredImg.height) / 2;
-        this.showLayer.setChildIndex(this.coveredImg, 0);
+        this.showLayer.addChild(this.markedBg);
+        this.showLayer.setChildIndex(this.markedBg, 0);
         ViewUtils.makeGray(this.elemImg, true);
     }
 
@@ -205,6 +205,7 @@ class GridView extends egret.DisplayObjectContainer {
     public setCoverImg(covered:boolean) {
         if (this.uncoverableImg.parent != null) this.uncoverableImg.parent.removeChild(this.uncoverableImg);
         if (this.coveredImg.parent != null) this.coveredImg.parent.removeChild(this.coveredImg);
+        if (this.markedBg.parent != null) this.markedBg.parent.removeChild(this.markedBg);
 
         if (covered) {
             if (this.getGrid().isUncoverable())
@@ -227,6 +228,7 @@ class GridView extends egret.DisplayObjectContainer {
                 this.addChild(this.blockedImg);
             break;
             case GridStatus.Marked: // 被标记
+                this.setCoverImg(false);
                 this.refreshElemShowLayer(g, e);
                 this.refreshMarkedEffect(g);
             break;
@@ -250,7 +252,7 @@ class GridView extends egret.DisplayObjectContainer {
             this.showLayer.rotation = 0;
         }
 
-        var arr = [this.opLayer, this.elemImg, this.banImg, this.blockedImg, this.coveredImg, this.uncoverableImg];
+        var arr = [this.opLayer, this.elemImg, this.banImg, this.blockedImg, this.coveredImg, this.markedBg, this.uncoverableImg];
         arr.forEach((a) => {
             a.alpha = 1;
             a.x = 0;
