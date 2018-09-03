@@ -9,7 +9,7 @@ class ShopView extends egret.DisplayObjectContainer {
     private items:Elem[] = [];
     private soldout:boolean[] = [];
     private itemPrices = {};    
-    private btnGoBack;
+    private btnGoBack:TextButtonWithBg;
     private saleIndex;1
     private btnRob:TextButtonWithBg; // 抢劫按钮
 
@@ -52,11 +52,12 @@ class ShopView extends egret.DisplayObjectContainer {
             this.soldout.push(false);
         }
 
-        this.btnGoBack = ViewUtils.createBitmapByName("goBack_png")
+        this.btnGoBack = new TextButtonWithBg("goBack_png", 30)
         this.btnGoBack.name = "btnGoBack";
         this.btnGoBack.touchEnabled = true;
         this.addChild(this.btnGoBack);
-        this.btnGoBack.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onGoBack, this);
+        this.btnGoBack.text = ViewUtils.getTipText("goBackBtn");
+        this.btnGoBack.onClicked = () => this.onGoBack();
 
         this.btnRob = new TextButtonWithBg("btnBg_png", 30);
         this.btnRob.name = "btnRob";
@@ -131,7 +132,7 @@ class ShopView extends egret.DisplayObjectContainer {
             this.refreshAt(i);
     }
 
-    async onGoBack(evt:egret.TouchEvent) {
+    async onGoBack() {
         await this.onCancel();
     }
 
