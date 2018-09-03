@@ -277,6 +277,7 @@
 		"continueBtn":{"EN": "continue", "CNS": "继续", "CNT": "繼續"},
 		"rob":{"EN": "Rob", "CNS": "抢劫", "CNT": ""},
 		"goBackBtn":{"EN": "go back", "CNS": "返回", "CNT": "返回"},
+		"showDeathGodStep":{"EN": "{0}", "CNS": "死神距离你还有{0}步", "CNT": "{0}"},
 		"": {}
 	}
 }

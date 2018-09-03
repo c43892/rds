@@ -34,6 +34,7 @@ class MainView extends egret.DisplayObjectContainer {
 
         // 战斗视图
         this.bv = new BattleView(w, h);
+        this.bv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
 
         // 宝箱房间
         this.brv = new BoxRoomView(w, h);

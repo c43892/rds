@@ -93,10 +93,11 @@ class PropView extends egret.DisplayObjectContainer {
 
         PropView.pressTimer.stop();
 
-        if (this.e.canUse())
+        if (this.e.canUse()){
             var content = ViewUtils.formatString(ViewUtils.getTipText("makeSureUseProp"), ViewUtils.getElemNameAndDesc(this.e.type).name);
             var ok = await PropView.confirmOkYesNo(undefined, content, true, ["确定", "取消"]);
             if (ok) PropView.try2UseProp(this.e);
+        }
         else if (this.e.useWithTarget()) {
             var pos = await PropView.selectGrid((x, y) => this.e.canUseAt(x, y));
             if (pos) PropView.try2UsePropAt(this.e, pos.x, pos.y);

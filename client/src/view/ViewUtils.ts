@@ -204,13 +204,12 @@ class ViewUtils {
         const r = /\{[a-z,A-Z,0-9,_,-]*\}/g;
         const m = r.exec(s);
         var ss = s;
-        var elemActiveDesc = new ElemActiveDesc(player);
         if (m) {
             for (var i = 0; i < m.length; i++) {
                 var value = m[i];
                 var key = value.substr(1, value.length - 2);
-                if(!!elemActiveDesc.elems[e.type][key])
-                    ss = ss.replace(value, elemActiveDesc.elems[e.type][key](e));                
+                if(ElemActiveDesc.elems[e.type] && ElemActiveDesc.elems[e.type][key])
+                    ss = ss.replace(value, ElemActiveDesc.elems[e.type][key](player, e));                
                 else if (e[key] != undefined)
                     ss = ss.replace(value, e[key].toString());
                 else if (e.attrs[key] != undefined)

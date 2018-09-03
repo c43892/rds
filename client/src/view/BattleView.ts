@@ -28,6 +28,7 @@ class BattleView extends egret.DisplayObjectContainer {
     public deathGodBarBg:egret.Bitmap; // 死神进度条底条
     public deathGodBar:egret.Bitmap; // 死神进度条
     public deathGod:egret.Bitmap; // 死神位置
+    public deathGodStepBtn:egret.Bitmap; // 用于点击后提示死神剩余步数
 
     readonly ShowMaxRelicNum = 6;
     public relicsBg:egret.DisplayObjectContainer; // 遗物区域
@@ -43,6 +44,7 @@ class BattleView extends egret.DisplayObjectContainer {
     public monsterTip; // 新出现的怪物信息提示
 
     public openAllElemsView; // 查看所有的某类元素如玩家的遗物或者道具
+    public confirmOkYesNo;  
 
     // 角色头像区域，以及金钱，层数，死神
     createPlayerAttrs() {
@@ -58,6 +60,13 @@ class BattleView extends egret.DisplayObjectContainer {
         this.deathGod = ViewUtils.createBitmapByName("deathGod_png");
         this.deathGod.name = "deathGod";
         this.addChild(this.deathGod);
+        this.deathGodStepBtn = new egret.Bitmap();
+        this.deathGodStepBtn.width = this.deathGod.width + 10;
+        this.deathGodStepBtn.height = this.deathGod.height + 10;
+        this.deathGodStepBtn.touchEnabled = true;
+        this.deathGodStepBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, async (evt:egret.TouchEvent) => await this.showDeathGodStep(evt), this);
+        this.addChild(this.deathGodStepBtn);
+        
 
         ViewUtils.multiLang(this, this.deathGodBarBg, this.deathGodBar, this.deathGod);
     }
@@ -206,6 +215,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.bg.name = "bg";
         this.addChild(this.bg);
         ViewUtils.asFullBg(this.bg);
+        this.bg.touchEnabled = true;
 
         // 格子区域底图
         this.mapViewBg = ViewUtils.createBitmapByName("mapViewbg_png"); 
@@ -304,6 +314,10 @@ class BattleView extends egret.DisplayObjectContainer {
         this.deathGod.x = this.deathGodBarPosX + p * this.deathGodBarWidth - this.deathGod.width / 2;
         this.deathGodBar.width = this.deathGodBarWidth * p;
         this.deathGod.alpha = 1;
+
+        this.deathGodStepBtn.x = this.deathGod.x - 5;
+        this.deathGodStepBtn.y = this.deathGod.y - 5;
+        
     }
 
     // 获取死神图片，做动画效果用
@@ -337,15 +351,15 @@ class BattleView extends egret.DisplayObjectContainer {
         if (!this.deathGodBarWidth) this.deathGodBarWidth = this.deathGodBar.width;
         this.refreshDeathGod();
 
-        this.player.bt().calcPlayerAttackerAttrs().then((attackerAttrs) => {
-            var power = attackerAttrs.power.b * (1 + attackerAttrs.power.a) + attackerAttrs.power.c;
-            this.power.text = power.toString();
-        })
+        var attackerAttrs = this.player.bt().calcPlayerAttackerAttrs();
+        var power = attackerAttrs.power.b * (1 + attackerAttrs.power.a) + attackerAttrs.power.c;
+        this.power.text = power.toString();
+        
 
-        this.player.bt().calcPlayerTargetAttrs().then((targetAttrs) => {
-            var dodge = targetAttrs.dodge.b * (1 + targetAttrs.dodge.a) + targetAttrs.dodge.c;
-            this.dodge.text = this.player.dodge + "%";
-        });
+        var targetAttrs = this.player.bt().calcPlayerTargetAttrs();
+        var dodge = targetAttrs.dodge.b * (1 + targetAttrs.dodge.a) + targetAttrs.dodge.c;
+        this.dodge.text = this.player.dodge + "%";
+        
 
         // 遗物
         this.refreshRelics();
@@ -422,5 +436,10 @@ class BattleView extends egret.DisplayObjectContainer {
             this.mapView.gsize.w, this.mapView.gsize.h, 
                 /* mapView 是下面中间对齐的，我们需要计算左上角 */
             this.mapView.x, this.mapView.y, f);
+    }
+
+    public async showDeathGodStep(evt:egret.TouchEvent){
+        var tip = ViewUtils.formatString(ViewUtils.getTipText("showDeathGodStep"), this.player.deathStep);
+        await this.confirmOkYesNo("", tip, false);
     }
 }

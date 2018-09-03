@@ -820,38 +820,40 @@ class Battle {
     }
 
     // 计算当前角色受一切地图元素影响所得到的攻击属性
-    public async calcPlayerAttackerAttrs() {
-        var attackerAttrs = this.player.getAttrsAsAttacker(0);
-        var targetAttrs = {
-            owner:undefined,
-            shield:{a:0, b:0, c:0},
-            dodge:{a:0, b:0, c:0},
-            damageDec:{a:0, b:0, c:0},
-            resist:{a:0, b:0, c:0},
-            targetFlags:[]
-        };
-        if (!Utils.contains(attackerAttrs.attackFlags, "simulation"))
-            attackerAttrs.attackFlags.push("simulation");
-        await this.triggerLogicPoint("onCalcAttacking", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
-        return attackerAttrs;
+    public calcPlayerAttackerAttrs() {
+        // var attackerAttrs = this.player.getAttrsAsAttacker(0);
+        // var targetAttrs = {
+        //     owner:undefined,
+        //     shield:{a:0, b:0, c:0},
+        //     dodge:{a:0, b:0, c:0},
+        //     damageDec:{a:0, b:0, c:0},
+        //     resist:{a:0, b:0, c:0},
+        //     targetFlags:[]
+        // };
+        // if (!Utils.contains(attackerAttrs.attackFlags, "simulation"))
+        //     attackerAttrs.attackFlags.push("simulation");
+        // await this.triggerLogicPoint("onCalcAttacking", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+        // return attackerAttrs;
+        return BattleUtils.calcPlayerAttackerAttrs(this.player);
     }
 
     // 计算当前角色受一切地图元素影响所得到的防御属性
-    public async calcPlayerTargetAttrs() {
-        var targetAttrs = this.player.getAttrsAsTarget();
-        var attackerAttrs = {
-            owner:undefined,
-            power:{a:0, b:0, c:0},
-            accuracy:{a:0, b:0, c:0},
-            critical:{a:0, b:0, c:0},
-            damageAdd:{a:0, b:0, c:0},
-            attackFlags:["simulation"],
-            addBuffs:[]
-        };
-        if (!Utils.contains(attackerAttrs.attackFlags, "simulation"))
-            attackerAttrs.attackFlags.push("simulation");
-        await this.triggerLogicPoint("onCalcAttacking", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
-        return targetAttrs;
+    public calcPlayerTargetAttrs() {
+        // var targetAttrs = this.player.getAttrsAsTarget();
+        // var attackerAttrs = {
+        //     owner:undefined,
+        //     power:{a:0, b:0, c:0},
+        //     accuracy:{a:0, b:0, c:0},
+        //     critical:{a:0, b:0, c:0},
+        //     damageAdd:{a:0, b:0, c:0},
+        //     attackFlags:["simulation"],
+        //     addBuffs:[]
+        // };
+        // if (!Utils.contains(attackerAttrs.attackFlags, "simulation"))
+        //     attackerAttrs.attackFlags.push("simulation");
+        // await this.triggerLogicPoint("onCalcAttacking", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+        // return targetAttrs;
+        return BattleUtils.calcPlayerTargetAttrs(this.player);
     }
 
     // 计算某个怪物受一切地图元素影响所得到的攻击属性

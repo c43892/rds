@@ -177,6 +177,41 @@ class BattleUtils {
         return attrs;
     }
 
+    // 计算当前角色的攻击属性
+    public static calcPlayerAttackerAttrs(p:Player) {
+        var attackerAttrs = p.getAttrsAsAttacker(0);
+        var targetAttrs = {
+            owner:undefined,
+            shield:{a:0, b:0, c:0},
+            dodge:{a:0, b:0, c:0},
+            damageDec:{a:0, b:0, c:0},
+            resist:{a:0, b:0, c:0},
+            targetFlags:[]
+        };
+        if (!Utils.contains(attackerAttrs.attackFlags, "simulation"))
+            attackerAttrs.attackFlags.push("simulation");
+        p.triggerLogicPointSync("onCalcAttacking", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+        return attackerAttrs;
+    }
+
+    // 计算当前角色受一切地图元素影响所得到的防御属性
+    public static calcPlayerTargetAttrs(p:Player) {
+        var targetAttrs = p.getAttrsAsTarget();
+        var attackerAttrs = {
+            owner:undefined,
+            power:{a:0, b:0, c:0},
+            accuracy:{a:0, b:0, c:0},
+            critical:{a:0, b:0, c:0},
+            damageAdd:{a:0, b:0, c:0},
+            attackFlags:["simulation"],
+            addBuffs:[]
+        };
+        if (!Utils.contains(attackerAttrs.attackFlags, "simulation"))
+            attackerAttrs.attackFlags.push("simulation");
+        p.triggerLogicPoint("onCalcAttacking", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+        return targetAttrs;
+    }
+
     // 获取玩家在世界地图上可以选择的节点
     public static getSelectableStoreyPos(p:Player) {
         var lv = p.currentStoreyPos.lv;

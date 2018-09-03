@@ -1,25 +1,22 @@
-class ElemActiveDesc {
-    player:Player;
-
-    constructor(p:Player){
-        this.player = p;
-    }
-    
-    public elems = {
+class ElemActiveDesc {    
+    static elems = {
         "Shield" : {
-            "cd": (e:Elem) => this.getCD(e),
+            "cd": (p:Player, e:Elem) => ElemActiveDesc.getCD(p, e),
         },
         "HpCapsule" : {
-            "heal": (e:Elem) => this.getHealPlayer(e, "heal"),
+            "heal": (p:Player, e:Elem) => ElemActiveDesc.getBuffAddHp(p, e, "heal"),
+        },
+        "Bazooka" : {
+            "power": (p:Player, e:Elem) => ElemActiveDesc.getWeaponPower(p, e)
         }
     }
     
     // 获取elem受各因素影响后的cd
-    getCD(e:Elem){
+    static getCD(p:Player, e:Elem){
         var cd;
         var cdPs = {subType:"resetCD", e:e, dcd:{a:0, b:0, c:0}};
-        if(this.player){
-            this.player.triggerLogicPointSync("onCalcCD", cdPs)
+        if(p){
+            p.triggerLogicPointSync("onCalcCD", cdPs)
             cd = (e.attrs.cd + cdPs.dcd.b) * (1 + cdPs.dcd.a) + cdPs.dcd.c;
             cd = cd < 0 ? 0 : cd;
         }
@@ -27,19 +24,43 @@ class ElemActiveDesc {
         return cd;
     }
 
-    getHealPlayer(e:Elem, addType){
+    // 获取通过BuffAddHp治疗玩家的Elem受各因素影响后对玩家的治疗量
+    static getBuffAddHp(p:Player, e:Elem, addType){
         var buff = BuffFactory.create("BuffAddHp", e.attrs.rounds, e.attrs[addType]);
         var dhp = e.attrs[addType];
         var onPlayerHealingPs = {dhp:dhp, source:buff, dhpPs:{a:0, b:0, c:0}}
-        if(this.player){
-            this.player.triggerLogicPointSync("onPlayerHealing", onPlayerHealingPs);
+        if(p){
+            p.triggerLogicPointSync("onPlayerHealing", onPlayerHealingPs);
             dhp = (dhp + onPlayerHealingPs.dhpPs.b) * (1 + onPlayerHealingPs.dhpPs.a) + onPlayerHealingPs.dhpPs.c;
         }
         return dhp;
     }
 
-    getPowerOnAttack(e:Elem){
-        var attackerAttrs = e.getAttrsAsAttacker;
-        
+    // 获取武器类Elem在受影响后的攻击类属性
+    static getWeaponAttackAttrs(p:Player, weapon:Elem){
+        if(p){
+            var attackerAttrs = BattleUtils.mergeBattleAttrsPS(p.getAttrsAsAttacker(1), weapon.getAttrsAsAttacker());
+            var targetAttrs = {
+                owner:undefined,
+                shield:{a:0, b:0, c:0},
+                dodge:{a:0, b:0, c:0},
+                damageDec:{a:0, b:0, c:0},
+                resist:{a:0, b:0, c:0},
+                targetFlags:[]
+            };        
+            if (!Utils.contains(attackerAttrs.attackFlags, "simulation"))
+                attackerAttrs.attackFlags.push("simulation");
+
+            p.triggerLogicPointSync("onCalcAttacking", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon});
+            return attackerAttrs;
+        }
+        else
+            return weapon.getAttrsAsAttacker();
+    }
+
+    // 获取武器类Elem在受影响后的攻击力
+    static getWeaponPower(p:Player, weapon:Elem){
+        var powerABC = ElemActiveDesc.getWeaponAttackAttrs(p, weapon).power;
+        return powerABC.b * (1 + powerABC.a) + powerABC.c;
     }
 }
