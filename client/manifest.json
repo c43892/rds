@@ -17,7 +17,7 @@
 		"bin-debug/logic/elems/RelicFactory.js",
 		"bin-debug/logic/LevelLogic/LevelLogic.js",
 		"bin-debug/view/BattleView.js",
-		"bin-debug/logic/LevelLogic/LevelLogicFactory.js",
+		"bin-debug/logic/map/Grid.js",
 		"bin-debug/logic/MonsterMarker.js",
 		"bin-debug/logic/SRandom.js",
 		"bin-debug/logic/User.js",
@@ -48,8 +48,8 @@
 		"bin-debug/logic/BattleUtils.js",
 		"bin-debug/logic/GCfg.js",
 		"bin-debug/logic/LevelLogic/LevelLogicBasic.js",
-		"bin-debug/Main.js",
-		"bin-debug/logic/map/Grid.js",
+		"bin-debug/logic/LevelLogic/LevelLogicFactory.js",
+		"bin-debug/view/WorldMapView.js",
 		"bin-debug/logic/map/Map.js",
 		"bin-debug/logic/player/Occupation.js",
 		"bin-debug/logic/player/Player.js",
@@ -73,6 +73,7 @@
 		"bin-debug/view/LoginView.js",
 		"bin-debug/view/MainView.js",
 		"bin-debug/view/MapView.js",
+		"bin-debug/view/NewMonsterTipView.js",
 		"bin-debug/view/PlayerLevelUpView.js",
 		"bin-debug/view/PropsView.js",
 		"bin-debug/view/PropView.js",
@@ -88,6 +89,6 @@
 		"bin-debug/view/TurntableView.js",
 		"bin-debug/view/ViewUtils.js",
 		"bin-debug/view/WorldMapSelsEventView.js",
-		"bin-debug/view/WorldMapView.js"
+		"bin-debug/Main.js"
 	]
 }

@@ -328,6 +328,16 @@ class Utils {
             return {ver:oldVer, player:undefined};
     }
 
+    // 载入指定数据
+    public static loadLocalData(key:string) {
+        return JSON.parse(Utils.$$loadItem(key));
+    }
+
+    // 保存指定数据
+    public static saveLocalData(key:string, data) {
+        Utils.$$saveItem(key, JSON.stringify(data));
+    }
+
     // 根据指定权重，随机选取若干目标，集合格式为 {type:weight, type:weight, ...}
     public static randomSelectByWeight(elemsWithWeight, srand:SRandom, numMin:number, numMax:number, noDuplicated:boolean = false) {
         var r = [];

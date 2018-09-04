@@ -67,7 +67,6 @@ class BattleView extends egret.DisplayObjectContainer {
         this.deathGodStepBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, async (evt:egret.TouchEvent) => await this.showDeathGodStep(evt), this);
         this.addChild(this.deathGodStepBtn);
         
-
         ViewUtils.multiLang(this, this.deathGodBarBg, this.deathGodBar, this.deathGod);
     }
 

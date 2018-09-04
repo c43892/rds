@@ -3,6 +3,7 @@ class MainView extends egret.DisplayObjectContainer {
     private p:Player; // 当前玩家数据
     public lgv:LoginView; // 主界面菜单
     public bv:BattleView; // 战斗视图
+    public nmtip:NewMonsterTipView; // 新怪物提示
     public sv:ShopView; // 商店视图
     public hv:HospitalView; // 医院视图
     public wmv:WorldMapView; // 大地图视图
@@ -35,6 +36,9 @@ class MainView extends egret.DisplayObjectContainer {
         // 战斗视图
         this.bv = new BattleView(w, h);
         this.bv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
+
+        // 新怪物提示
+        this.nmtip = new NewMonsterTipView(w, h, this.bv);
 
         // 宝箱房间
         this.brv = new BoxRoomView(w, h);
@@ -81,6 +85,7 @@ class MainView extends egret.DisplayObjectContainer {
         PropView.showElemDesc = async (e) => await this.showElemDesc(e);
         TurntableView.showElemDesc = async (e) => await this.showElemDesc(e);
         BoxRoomView.showElemDesc = async (e) => await this.showElemDesc(e);
+        this.nmtip.showElemDesc = async (e) => await this.showElemDesc(e);
 
         // 展示给定的Elem列表
         this.aev = new AllElemsView(w, h);
@@ -146,9 +151,9 @@ class MainView extends egret.DisplayObjectContainer {
         PropView.confirmOkYesNo = async (title, content, yesno) => this.confirmOkYesNo(title, content, yesno);
         PropView.try2UsePropAt = bt.try2UsePropAt();
 
-        bt.registerEvent("onPlayerOp", (ps) => BattleRecorder.onPlayerOp(ps.op, ps.ps));
-        bt.registerEvent("onLevelInited", (ps) => this.bv.initBattleView(ps));
-        bt.registerEvent("onPlayerDead", async () => this.openPlayerDieView());
+        bt.registerEvent("onPlayerOp", async (ps) => await BattleRecorder.onPlayerOp(ps.op, ps.ps));
+        bt.registerEvent("onLevelInited", async (ps) => await this.bv.initBattleView(ps));
+        bt.registerEvent("onPlayerDead", async () => await this.openPlayerDieView());
         Utils.registerEventHandlers(bt, [
             "onGridChanged", "onPlayerChanged", "onAttacking", "onAttacked", "onElemChanged", "onPropChanged", "onRelicChanged",
             "onElemMoving", "onElemFlying", "onAllCoveredAtInit", "onSuckPlayerBlood", "onMonsterTakeElem", "onBuffAdded",
@@ -160,6 +165,7 @@ class MainView extends egret.DisplayObjectContainer {
             this.removeChild(this.bv);
             this.battleEndedCallback(bt);
         });
+        bt.registerEvent("onGridChanged", async (ps) => await this.nmtip.onGridChanged(ps));
 
         BattleRecorder.registerReplayIndicatorHandlers(bt);
         bt.start();

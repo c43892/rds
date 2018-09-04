@@ -5,7 +5,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
     bg:egret.Bitmap;
     doClose;
     uis = {};
-    player:Player
+    player:Player;
 
     constructor(w:number, h:number) {
         super();
