@@ -107,7 +107,9 @@ class PropFactory {
                     e.cnt --;
                     var map = e.bt().level.map;
                     var m = <Monster>map.getElemAt(x, y);
-                    await e.bt().implAddMoney(- m.hp * 3, e);
+                    var dm = - m.hp * 3;
+                    await e.bt().implAddMoney(dm);
+                    await e.bt().fireEvent("onCandyCannon", {e:e, tar:m, dm:dm})
                     await e.bt().implDestoryAt(x, y, e);
                     return e.cnt > 0;
                 }

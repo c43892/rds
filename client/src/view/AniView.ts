@@ -389,45 +389,55 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 金钱变化
     public async onMoneyChanged(ps) {
-        var dm = Math.abs(ps.d);
         var txt = this.bv.getMoneyText();
+   
         var e = ps.e;
+        var d = ps.d > 0 ? 1 : -1;
         var coinSV = this.getSV(e);
 
-        var d = ps.d > 0 ? 1 : -1;
+        if (d > 0) 
+            await this.coinsFly(e, coinSV, txt, ps.d, 350)
+        else if (e.type != "ShopNpc")
+            await this.coinsFly(e, txt, coinSV, ps.d, 350)
+    }
+
+    // 糖衣炮弹
+    public async onCandyCannon(ps) {
+        var index = Utils.indexOf(this.bv.player.props, (p:Prop) => p.type == "CandyCannon");
+        var tarMonsterSV = this.getSV(ps.tar);
+        if(index == -1) return;
+        var ccView = this.bv.propsView.getPropViewByIndex(index);
+        await this.coinsFly(undefined, ccView, tarMonsterSV, ps.dm, 150, {fx:0, fy:0, tx:16, ty:16});
+    }
+
+    public async coinsFly(e:Elem = undefined, fromImg:egret.DisplayObject, toImg:egret.DisplayObject, d:number, time:number, offset = {fx:0, fy:0, tx:0, ty:0}){
+        var dm = Math.abs(d);
+
+        var dir = d > 0 ? 1 : -1;
         var coinsImgArr = [];
         for (var i = dm > 15 ? dm - 15 : 0; i < dm; i++) {
-            var v = this.bv.player.money - (dm - i) * d;            
+            var v = this.bv.player.money - (dm - i) * dir;
             var coinsImg = AniUtils.createImg("Coins_png");
             coinsImgArr.push(coinsImg);
-            if (d > 0) {
-                this.aniFact.createAni("seq", {subAniArr:[
-                    this.aniFact.createAni("tr", {obj:coinsImg, fx:coinSV.localToGlobal().x, fy:coinSV.localToGlobal().y,
-                        tx:txt.localToGlobal().x, ty:txt.localToGlobal().y,
-                        fsx:1, fsy:1, tsx:0.6, tsy:0.6, time:350}),
+            this.aniFact.createAni("seq", {subAniArr:[
+                    this.aniFact.createAni("tr", {obj:coinsImg, fx:fromImg.localToGlobal().x + offset.fx, fy:fromImg.localToGlobal().y + offset.fy,
+                        tx:toImg.localToGlobal().x + offset.tx, ty:toImg.localToGlobal().y + offset.ty,
+                        fsx:1, fsy:1, tsx:0.6, tsy:0.6, time:time}),
                     this.aniFact.createAni("tr", {obj:coinsImg, fa:1, ta:0, time:1})
                 ]});
+            var cnt = dm - i;
+                if (e && Utils.checkCatalogues(e.type, "coin")) {
+                    if(cnt > 0){
+                        e.cnt = cnt;
+                        this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
+                    }
+                    else
+                        fromImg.alpha = 0;
+                    }
 
-                var cnt = dm - i;
-                if (cnt > 0 && Utils.checkCatalogues(e.type, "coin")) {
-                    e.cnt = cnt;
-                    this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
-                }
-                else
-                    coinSV.alpha = 0;
-            } else if (e.type != "ShopNpc") {
-                this.aniFact.createAni("seq", {subAniArr:[
-                    this.aniFact.createAni("tr", {obj:coinsImg, tx:coinSV.localToGlobal().x, ty:coinSV.localToGlobal().y,
-                        fx:txt.localToGlobal().x, fy:txt.localToGlobal().y,
-                        fsx:0.6, fsy:0.6, tsx:1, tsy:1, time:350}),
-                    this.aniFact.createAni("tr", {obj:coinsImg, fa:1, ta:0, time:1})
-                ]});
-            }
-            
             await AniUtils.delay(100);
-            this.bv.getMoneyText().text = v.toString();
+                this.bv.getMoneyText().text = v.toString();
         }
-
         coinsImgArr.forEach((img, _) => img["dispose"]());
         this.bv.refreshMoney();
     }
