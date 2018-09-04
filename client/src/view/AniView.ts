@@ -688,6 +688,13 @@ class AniView extends egret.DisplayObjectContainer {
             AniUtils.clearAll(sv);
     }
 
+    // 通缉令
+    public async onMakeWanted(ps) {
+        await this.onElemFlying(ps);
+        var g = this.bv.mapView.getGridViewAt(ps.toPos.x, ps.toPos.y);
+        g.addEffect("effWantedOrder");
+    }
+
     // 玩家获得buff
     public async onBuffAdded(ps) {
         if (ps.target instanceof Player)
