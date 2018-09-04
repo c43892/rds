@@ -51,7 +51,6 @@ class ItemFactory {
         "Door": (attrs) => {
             var e = this.createItem();
             e.canBeDragDrop = false;
-            e = this.createItem();
             e.cnt = attrs.cnt;
             e.canUse = () => !!e.bt().level.map.findFirstElem((elem:Elem) => elem.type == "Key" && !elem.getGrid().isCovered());
             e.canNotUseReason = () => e.canUse() ? undefined : "noKey";
@@ -242,7 +241,11 @@ class ItemFactory {
             e.canBeDragDrop = true;
             e.canUse = () => true;
             e.use = async () => {
-                var m = BattleUtils.findRandomElems(e.bt(), 1, (e:Elem)=> e instanceof Monster && e.isHazard())[0];                
+                var ms = BattleUtils.findRandomElems(e.bt(), 1, (e:Elem)=> e instanceof Monster && e.isHazard() && !e.isBoss && !e["isWanted"]);
+                if(ms.length == 0) return;
+
+                var m = ms[0];
+                m["isWanted"] = true;
                 await e.bt().fireEvent("onMakeWanted", {e:e, fromPos:e.pos, toPos:m.pos});
                 var cnt = m.dropItems[Utils.indexOf(m.dropItems, (e:Elem) => e.type == "Coins")].cnt;
                 m.addDropItem(ElemFactory.create("Coins", {cnt:cnt * 9}));

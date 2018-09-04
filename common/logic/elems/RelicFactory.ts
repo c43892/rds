@@ -55,6 +55,7 @@ class RelicFactory {
                     var ms = BattleUtils.findRandomElems(r.bt(), 1, (m) => {
                         if (!(m instanceof Monster)) return false;
                         if (!m.getGrid().isCovered() || m.getGrid().isMarked()) return false;
+                        if (m.isBoss) return false;
                         return Utils.indexOf(m.dropItems, (dpi) => dpi.type == "Key") >= 0;
                     });
 
