@@ -151,7 +151,6 @@ class ItemFactory {
         // 盾牌
         "Shield": (attrs) => {
             var e = this.createItem();
-            e.canBeDragDrop = true;
             e = ElemFactory.addAI("onCalcAttackResult", async (ps) => {
                 var fs = ps.attackerAttrs.attackFlags;
                 if (Utils.indexOf(fs, (s:string) => s == "AmorPenetrate") > -1) return;
@@ -183,7 +182,6 @@ class ItemFactory {
         // 剑
         "Baton": (attrs) => {
             var e = this.createItem();
-            e.canBeDragDrop = true;
             e = ElemFactory.addAI("onCalcAttacking", async (ps) => {
                 var attackerAttrs = ps.attackerAttrs;
                 if (!(attackerAttrs.owner instanceof Player)) return;
@@ -195,7 +193,6 @@ class ItemFactory {
         // 防护衣
         "Vest": (attrs) => {
             var e = this.createItem();
-            e.canBeDragDrop = true;
             e = ElemFactory.addAI("onCalcAttacking",async (ps) => {
                 var fs = ps.attackerAttrs.attackFlags;
                 if (Utils.indexOf(fs, (s:string) => s == "AmorPenetrate") > -1) return;
@@ -210,7 +207,6 @@ class ItemFactory {
         // 骷髅头
         "HeadBone": (attrs) => {
             var e = this.createItem();
-            e.canBeDragDrop = true;
             e = ElemFactory.addAI("onSneaked", async () => {
                 var grid = e.getGrid();
                 var bt = e.bt();
@@ -238,7 +234,6 @@ class ItemFactory {
         // 通缉令
         "WantedOrder": (attrs) => {
             var e = this.createItem();
-            e.canBeDragDrop = true;
             e.canUse = () => true;
             e.use = async () => {
                 var ms = BattleUtils.findRandomElems(e.bt(), 1, (e:Elem)=> e instanceof Monster && e.isHazard() && !e.isBoss && !e["isWanted"]);
@@ -257,7 +252,6 @@ class ItemFactory {
         "NextLevelPort": (attrs) => {
             var e = this.createItem();
             e.canUse = () => true;
-            e.canBeDragDrop = false;
             e.use = async () => {
                 await e.bt().implGo2NextLevel(); // 离开当前战斗
                 e.bt().ended = true;
@@ -271,7 +265,6 @@ class ItemFactory {
         "Cloak": (attrs) => {
             var e = this.createItem();
             e.canUse = () => false;
-            e.canBeDragDrop = true;
             e = ElemFactory.addAI("onSneaking", async (ps) => {
                     if (ps.immunized) return;
                     ps.immunized = true;
@@ -286,7 +279,7 @@ class ItemFactory {
         "LifeSpring": (attrs) => {
             var e = this.createItem();
             e.canUse = () => e.isValid();
-            e.canBeDragDrop = true;
+            e.canBeDragDrop = false;
             e.use = async () => await e.bt().implAddPlayerHp(e.attrs.dhp, e);
             return e;
         }
