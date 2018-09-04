@@ -390,8 +390,7 @@ class AniView extends egret.DisplayObjectContainer {
     // 金钱变化
     public async onMoneyChanged(ps) {
         var txt = this.bv.getMoneyText();
-
-        var dm = Math.abs(ps.d);        
+   
         var e = ps.e;
         var d = ps.d > 0 ? 1 : -1;
         var coinSV = this.getSV(e);
@@ -402,7 +401,16 @@ class AniView extends egret.DisplayObjectContainer {
             await this.coinsFly(e, txt, coinSV, ps.d, 350)
     }
 
-    public async coinsFly(e:Elem, fromImg:egret.DisplayObject, toImg:egret.DisplayObject, d:number, time:number){
+    // 糖衣炮弹
+    public async onCandyCannon(ps) {
+        var index = Utils.indexOf(this.bv.player.props, (p:Prop) => p.type == "CandyCannon");
+        var tarMonsterSV = this.getSV(ps.tar);
+        if(index == -1) return;
+        var ccView = this.bv.propsView.getPropViewByIndex(index);
+        await this.coinsFly(undefined, ccView, tarMonsterSV, ps.dm, 150, {fx:0, fy:0, tx:16, ty:16});
+    }
+
+    public async coinsFly(e:Elem = undefined, fromImg:egret.DisplayObject, toImg:egret.DisplayObject, d:number, time:number, offset = {fx:0, fy:0, tx:0, ty:0}){
         var dm = Math.abs(d);
 
         var dir = d > 0 ? 1 : -1;
@@ -412,13 +420,13 @@ class AniView extends egret.DisplayObjectContainer {
             var coinsImg = AniUtils.createImg("Coins_png");
             coinsImgArr.push(coinsImg);
             this.aniFact.createAni("seq", {subAniArr:[
-                    this.aniFact.createAni("tr", {obj:coinsImg, fx:fromImg.localToGlobal().x, fy:fromImg.localToGlobal().y,
-                        tx:toImg.localToGlobal().x, ty:toImg.localToGlobal().y,
-                        fsx:1, fsy:1, tsx:0.6, tsy:0.6, time:350}),
+                    this.aniFact.createAni("tr", {obj:coinsImg, fx:fromImg.localToGlobal().x + offset.fx, fy:fromImg.localToGlobal().y + offset.fy,
+                        tx:toImg.localToGlobal().x + offset.tx, ty:toImg.localToGlobal().y + offset.ty,
+                        fsx:1, fsy:1, tsx:0.6, tsy:0.6, time:time}),
                     this.aniFact.createAni("tr", {obj:coinsImg, fa:1, ta:0, time:1})
                 ]});
             var cnt = dm - i;
-                if (Utils.checkCatalogues(e.type, "coin")) {
+                if (e && Utils.checkCatalogues(e.type, "coin")) {
                     if(cnt > 0){
                         e.cnt = cnt;
                         this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
