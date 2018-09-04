@@ -276,6 +276,8 @@ class GridView extends egret.DisplayObjectContainer {
 
     public clear() {
         this.showLayer.removeChildren();
+        this.setCoverImg(false);
+        if (this.contains(this.blockedImg)) this.removeChild(this.blockedImg);
         ViewUtils.makeGray(this.elemImg, false);
     }
 
@@ -380,7 +382,7 @@ class GridView extends egret.DisplayObjectContainer {
         GridView.gestureChecked = false;
 		
 		if (GridView.gesturePts)
-            GridView.gesturePts.push({x:evt.stageX, y:evt.stageY});    
+            GridView.gesturePts.push({x:evt.stageX, y:evt.stageY});
 
         let g = this.map.getGridAt(this.gx, this.gy);
         if (!this.map.isGenerallyValid(this.gx, this.gy) && g.status != GridStatus.Blocked)
@@ -435,7 +437,7 @@ class GridView extends egret.DisplayObjectContainer {
         if (GridView.gesturePts) GridView.gesturePts.push({x:evt.stageX, y:evt.stageY});
 
         if (GridView.longPressed)
-            // || this.map.getGridAt(this.gx, this.gy).isCovered() 
+            // || this.map.getGridAt(this.gx, this.gy).isCovered()
             // || !this.map.isGenerallyValid(this.gx, this.gy))
             return;
 
@@ -444,7 +446,7 @@ class GridView extends egret.DisplayObjectContainer {
 
         if (!GridView.dragging && GridView.dragFrom) {
             var e = GridView.dragFrom.getElem();
-            if (!e || !e.canBeDragDrop)
+            if (!e || !e.canBeDragDrop || e.getGrid().isCovered())
                 return;
 
             var dx = GridView.dragFrom.x - px;
