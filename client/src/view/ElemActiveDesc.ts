@@ -36,31 +36,9 @@ class ElemActiveDesc {
         return dhp;
     }
 
-    // 获取武器类Elem在受影响后的攻击类属性
-    static getWeaponAttackAttrs(p:Player, weapon:Elem){
-        if(p){
-            var attackerAttrs = BattleUtils.mergeBattleAttrsPS(p.getAttrsAsAttacker(1), weapon.getAttrsAsAttacker());
-            var targetAttrs = {
-                owner:undefined,
-                shield:{a:0, b:0, c:0},
-                dodge:{a:0, b:0, c:0},
-                damageDec:{a:0, b:0, c:0},
-                resist:{a:0, b:0, c:0},
-                targetFlags:[]
-            };        
-            if (!Utils.contains(attackerAttrs.attackFlags, "simulation"))
-                attackerAttrs.attackFlags.push("simulation");
-
-            p.triggerLogicPointSync("onCalcAttacking", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon});
-            return attackerAttrs;
-        }
-        else
-            return weapon.getAttrsAsAttacker();
-    }
-
     // 获取武器类Elem在受影响后的攻击力
     static getWeaponPower(p:Player, weapon:Elem){
-        var powerABC = ElemActiveDesc.getWeaponAttackAttrs(p, weapon).power;
+        var powerABC = BattleUtils.calcWeaponAttackerAttrs(weapon, p).power;
         return powerABC.b * (1 + powerABC.a) + powerABC.c;
     }
 }

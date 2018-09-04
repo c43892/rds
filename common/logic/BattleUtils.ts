@@ -190,11 +190,14 @@ class BattleUtils {
         };
         if (!Utils.contains(attackerAttrs.attackFlags, "simulation"))
             attackerAttrs.attackFlags.push("simulation");
-        p.triggerLogicPointSync("onCalcAttacking", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+            
+        if(p)
+            p.triggerLogicPointSync("onCalcAttacking", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+        
         return attackerAttrs;
     }
 
-    // 计算当前角色受一切地图元素影响所得到的防御属性
+    // 计算当前角色的防御属性
     public static calcPlayerTargetAttrs(p:Player) {
         var targetAttrs = p.getAttrsAsTarget();
         var attackerAttrs = {
@@ -208,8 +211,76 @@ class BattleUtils {
         };
         if (!Utils.contains(attackerAttrs.attackFlags, "simulation"))
             attackerAttrs.attackFlags.push("simulation");
-        p.triggerLogicPoint("onCalcAttacking", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+
+        if(p)
+            p.triggerLogicPoint("onCalcAttacking", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+
         return targetAttrs;
+    }
+
+    // 计算某个怪物的攻击属性
+    public static calcMonsterAttackerAttrs(m:Monster, p:Player){
+        var attackerAttrs = m.getAttrsAsAttacker();
+        var targetAttrs = {
+            owner:undefined,
+            shield:{a:0, b:0, c:0},
+            dodge:{a:0, b:0, c:0},
+            damageDec:{a:0, b:0, c:0},
+            resist:{a:0, b:0, c:0},
+            targetFlags:[]
+        };
+        if (!Utils.contains(attackerAttrs.attackFlags, "simulation"))
+            attackerAttrs.attackFlags.push("simulation");
+
+        if(p)
+            p.triggerLogicPointSync("onCalcAttacking", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+
+        return attackerAttrs;
+    }
+
+     // 计算某个怪物的防御属性
+    public static calcMonsterTargetAttrs(m:Monster, p:Player){
+        var targetAttrs = m.getAttrsAsTarget();
+        var attackerAttrs = {
+            owner:this,
+            power:{a:0, b:0, c:0},
+            accuracy:{a:0, b:0, c:0},
+            critical:{a:0, b:0, c:0},
+            damageAdd:{a:0, b:0, c:0},
+            attackFlags:["simulation"],
+            addBuffs:[]
+        };
+        if (!Utils.contains(attackerAttrs.attackFlags, "simulation"))
+            attackerAttrs.attackFlags.push("simulation");
+
+        if(p)
+            p.triggerLogicPointSync("onCalcAttacking", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+
+        return targetAttrs;
+    }
+
+    // 计算某个武器的攻击属性
+    public static calcWeaponAttackerAttrs(weapon:Elem, p:Player){
+        var attackerAttrs = weapon.getAttrsAsAttacker();
+        var targetAttrs = {
+            owner:undefined,
+            shield:{a:0, b:0, c:0},
+            dodge:{a:0, b:0, c:0},
+            damageDec:{a:0, b:0, c:0},
+            resist:{a:0, b:0, c:0},
+            targetFlags:[]
+        };
+        if (!Utils.contains(attackerAttrs.attackFlags, "simulation"))
+            attackerAttrs.attackFlags.push("simulation");
+
+        if(p){
+            var weaponAttackerAttrs = BattleUtils.mergeBattleAttrsPS(p.getAttrsAsAttacker(1), weapon.getAttrsAsAttacker());
+            weaponAttackerAttrs["owner"] = weapon;            
+            p.triggerLogicPointSync("onCalcAttacking", {subType:"player2monster", attackerAttrs:weaponAttackerAttrs, targetAttrs:targetAttrs, weapon:weapon});
+            return weaponAttackerAttrs;
+        }
+        else             
+            return attackerAttrs;
     }
 
     // 获取玩家在世界地图上可以选择的节点

@@ -157,21 +157,19 @@ class GridView extends egret.DisplayObjectContainer {
 
                 // 攻击力，左下角
                 var power;
-                m.bt().calcMonsterAttackerAttrs(m).then((attackerAttrs) => {
-                    power = attackerAttrs.power.b * (1 + attackerAttrs.power.a) + attackerAttrs.power.c;
-                    if (power)
-                        power = power < 1 ? 1 : power;
-                        
-                    if (power > 0 && !m.isDead()) {
-                        this.power.text = power.toString();
-                        this.powerBg.x = 0; this.powerBg.y = this.height - this.powerBg.height;
-                        this.showLayer.addChild(this.powerBg);
-                        this.power.x = power >= 10 ? 4 : 6;
-                        this.power.y = power >= 10 ? this.height - 23 : this.height - 25;
-                        this.power.size = power >= 10 ? 15 : 20;
-                        this.showLayer.addChild(this.power);
-                    };
-                });
+                var attackerAttrs = m.bt().calcMonsterAttackerAttrs(m);
+                power = attackerAttrs.power.b * (1 + attackerAttrs.power.a) + attackerAttrs.power.c;
+                    
+                if (power > 0 && !m.isDead()) {
+                    this.power.text = power.toString();
+                    this.powerBg.x = 0; this.powerBg.y = this.height - this.powerBg.height;
+                    this.showLayer.addChild(this.powerBg);
+                    this.power.x = power >= 10 ? 4 : 6;
+                    this.power.y = power >= 10 ? this.height - 23 : this.height - 25;
+                    this.power.size = power >= 10 ? 15 : 20;
+                    this.showLayer.addChild(this.power);
+                };
+                
             } else {
                 if (e.attrs.showCDNum && e.cd > 0) { // 显示 cd 计数
                     ViewUtils.setTexName(this.cdImg, "cd" + e.cd + "_png", true);
