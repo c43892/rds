@@ -1216,7 +1216,9 @@ class Battle {
     // 给角色加钱/减钱, e 是相关元素，比如偷钱的怪物，或者是地上的钱币
     public async implAddMoney(dm:number, e:Elem = undefined) {
         this.player.addMoney(dm);
-        await this.fireEvent("onPlayerChanged", {subType:"money", e:e, d:dm});
+        if(e)
+            await this.fireEvent("onPlayerChanged", {subType:"money", e:e, d:dm});
+            
         await this.triggerLogicPoint("onPlayerChanged", {"subType": "money", e:e, d:dm});
     }
 
