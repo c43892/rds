@@ -25,7 +25,6 @@ class GridView extends egret.DisplayObjectContainer {
     private shield:egret.TextField; // 护盾，右上角
     private attackInterval:egret.TextField; // 攻击间隔，右上角，与护盾互斥
     private power:egret.TextField; // 攻击力，左下角
-
     public constructor() {
         super();
         this.powerBg = ViewUtils.createBitmapByName("monsterPowerBg_png");
@@ -209,9 +208,9 @@ class GridView extends egret.DisplayObjectContainer {
 
         if (covered) {
             if (this.getGrid().isUncoverable())
-                this.addChild(this.uncoverableImg);
+                this.showLayer.addChild(this.uncoverableImg);
             else
-                this.addChild(this.coveredImg);
+                this.showLayer.addChild(this.coveredImg);
         }
     }
 
@@ -225,7 +224,7 @@ class GridView extends egret.DisplayObjectContainer {
             break;
             case GridStatus.Blocked: // 危险
                 this.setCoverImg(true);
-                this.addChild(this.blockedImg);
+                this.showLayer.addChild(this.blockedImg);
             break;
             case GridStatus.Marked: // 被标记
                 this.setCoverImg(false);
@@ -265,7 +264,7 @@ class GridView extends egret.DisplayObjectContainer {
         this.cdImg.x = (this.showLayer.width - this.cdImg.width) / 2;
         this.cdImg.y = (this.showLayer.height - this.cdImg.height) / 2;
 
-        if (e && e.isBig()) {
+        if (e && e.isBig() && !e.attrs.invisible) {
             this.showLayer.scaleX = e.attrs.size.w;
             this.showLayer.scaleY = e.attrs.size.h;
         } else {
@@ -291,6 +290,29 @@ class GridView extends egret.DisplayObjectContainer {
 
     public getShowLayer():egret.DisplayObject {
         return this.showLayer;
+    }
+
+    private effects = {}; // 所有挂在这个格子上的特效    
+    public addEffect(effName) {
+        if (this.effects[effName]) return;
+
+        var eff:egret.MovieClip = ViewUtils.createFrameAni(effName);
+        this.effects[effName] = eff;
+
+        this.addChild(eff);
+        eff.anchorOffsetX = eff.width / 2;
+        eff.anchorOffsetY = eff.height / 2;
+        eff.x = this.width / 2;
+        eff.y = this.height / 2;
+        eff.gotoAndPlay(0, -1);
+    }
+
+    public removeEffect(effName) {
+        if (!this.effects[effName]) return;
+        var eff:egret.MovieClip = this.effects[effName];
+        eff.stop();
+        this.removeChild(eff);
+        delete this.effects[effName];
     }
 
     // 各种操作逻辑构建
@@ -324,8 +346,7 @@ class GridView extends egret.DisplayObjectContainer {
             case GridStatus.Covered:
                 GridView.try2UncoverAt(b.pos.x, b.pos.y);
             break;
-            case GridStatus.Marked:
-            {
+            case GridStatus.Marked: {
                 let e = this.map.getElemAt(this.gx, this.gy);
                 Utils.assert(!!e, "empty grid cannot be marked");
                 if ((e instanceof Prop || e instanceof Item || e instanceof Relic) || (e instanceof Monster && !(e.isHazard() || (e["linkTo"] && e["linkTo"].isHazard()))))
@@ -334,8 +355,7 @@ class GridView extends egret.DisplayObjectContainer {
                     await GridView.try2UseElem(e);
                 break;
             }
-            case GridStatus.Uncovered:
-            {
+            case GridStatus.Uncovered: {
                 let e = this.map.getElemAt(this.gx, this.gy);
                 if (e) {
                     if (e.useWithTarget()) {

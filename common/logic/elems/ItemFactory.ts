@@ -243,7 +243,7 @@ class ItemFactory {
             e.canUse = () => true;
             e.use = async () => {
                 var m = BattleUtils.findRandomElems(e.bt(), 1, (e:Elem)=> e instanceof Monster && e.isHazard())[0];                
-                await e.bt().fireEvent("onElemFlying", {e:e, fromPos:e.pos, toPos:m.pos});
+                await e.bt().fireEvent("onMakeWanted", {e:e, fromPos:e.pos, toPos:m.pos});
                 var cnt = m.dropItems[Utils.indexOf(m.dropItems, (e:Elem) => e.type == "Coins")].cnt;
                 m.addDropItem(ElemFactory.create("Coins", {cnt:cnt * 9}));
             }

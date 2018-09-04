@@ -30,6 +30,14 @@ class ViewUtils {
         return bmp;
     }
 
+    public static getTex(name:string) {
+        let tex: egret.Texture = RES.getRes(name);
+        if (!tex)
+            Utils.assert(false, "no texture created: " + name);
+
+        return tex;
+    }
+
     public static setTexName(bmp:egret.Bitmap, name:string, resetSize:boolean = false, fillMode = egret.BitmapFillMode.SCALE):egret.Bitmap {
         if (name) {
             let tex: egret.Texture = RES.getRes(name);
@@ -45,8 +53,16 @@ class ViewUtils {
         return RES.getRes(fnt);
     }
 
-    public static loadTex(name: string) {
+    public static loadTex(name:string) {
         return egret.Texture = RES.getRes(name);
+    }
+
+    // 创建指定帧动画
+    public static createFrameAni(name:string, clipName:string = "default"):egret.MovieClip {
+        var data = RES.getRes(name + "_json");
+        var txtr = RES.getRes(name + "_png");
+        var fact:egret.MovieClipDataFactory = new egret.MovieClipDataFactory(data, txtr);
+        return new egret.MovieClip(fact.generateMovieClipData(clipName));
     }
 
     // // 测试置灰
