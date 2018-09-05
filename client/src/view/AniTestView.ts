@@ -15,7 +15,14 @@ constructor(w, h) {
     }
 
     async playAniTest() {
-        await this.addElem(ElemFactory.create("DeathGod"));
+        // await this.addElem(ElemFactory.create("DeathGod"));
+        var eff:egret.MovieClip = ViewUtils.createFrameAni("effWantedOrder");
+        this.addChild(eff);
+        eff.anchorOffsetX = eff.width / 2;
+        eff.anchorOffsetY = eff.height / 2;
+        eff.x = this.width / 2;
+        eff.y = this.height / 2;
+        eff.gotoAndPlay(0, -1);
     }
 
     newImg(res) {
