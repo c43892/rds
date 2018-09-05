@@ -187,7 +187,7 @@ class GridView extends egret.DisplayObjectContainer {
                 if (!e.attrs.invisible && !this.map.isGenerallyValid(e.pos.x, e.pos.y) && e.type != "Hole")
                     this.showLayer.addChild(this.banImg);
             }
-        } else {
+        } else if (!e) {
             var num = this.map.getCoveredHazardNum(this.gx, this.gy);
             if (num > 0) {
                 ViewUtils.setTexName(this.coveredHazardNum, "num" + num + "_png");

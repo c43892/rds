@@ -29,7 +29,7 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
 
     // 添加一个怪物类型等待显示
     public tryAddNewMonsterTip(m:Monster) {
-        if (Utils.contains(this.newMonsterTipsData, m.type))
+        if (Utils.contains(this.newMonsterTipsData, m.type) || m.attrs.invisible)
             return;
 
         this.newMonsterTipsData.push(m.type);
