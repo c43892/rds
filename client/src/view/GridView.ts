@@ -300,7 +300,7 @@ class GridView extends egret.DisplayObjectContainer {
 
     private effects = {}; // 所有挂在这个格子上的特效    
     public addEffect(effName) {
-        if (this.effects[effName]) return;
+        if (this.effects[effName]) return this.effects[effName];
 
         var eff:egret.MovieClip = ViewUtils.createFrameAni(effName);
         this.effects[effName] = eff;
@@ -311,6 +311,8 @@ class GridView extends egret.DisplayObjectContainer {
         eff.x = this.width / 2;
         eff.y = this.height / 2;
         eff.gotoAndPlay(0, -1);
+
+        return eff;
     }
 
     public removeEffect(effName) {
