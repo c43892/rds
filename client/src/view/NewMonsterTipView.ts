@@ -6,6 +6,7 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
     mapView:MapView;
     newMonsterTipsData:string[];
     readonly LOCAL_DATA_KEY = "NewMonsterTip";
+    btnNext:TextButtonWithBg;
     public constructor(w, h, bv:BattleView) {
         super();
         this.width = w;
@@ -16,6 +17,8 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
             this.newMonsterTipsData = [];
 
         this.numTxt = ViewUtils.createTextField(30, 0xffffff);
+        this.btnNext = new TextButtonWithBg("btnBg_png", 30);
+        this.btnNext.onClicked = () => this.onNext();
     }
 
     // 怪物提示列表
@@ -70,6 +73,18 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
         var type = this.monsterArr.pop();
         Utils.assert(mType == type, "tips array gets corruption");
 
+        this.showDesc(tip);
+    }
+
+    onNext() {
+        var tip = this.monsterTipArr.pop();
+        var mType = tip["monsterType"];
+        var type = this.monsterArr.pop();
+        Utils.assert(mType == type, "tips array gets corruption");
+        this.showDesc(tip);
+    }
+
+    showDesc(tip) {
         this.removeChild(tip);
 
         // 显示怪物信息
@@ -82,6 +97,16 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
         } else {
             this.removeChild(this.numTxt);
         }
+
+        if (this.monsterTipArr.length > 0 && !this.contains(this.btnNext))
+            this.addChild(this.btnNext);
+        else if (this.monsterTipArr.length == 0 && this.contains(this.btnNext))
+            this.removeChild(this.btnNext);
+
+        this.btnNext.width = 100;
+        this.btnNext.text = ViewUtils.getTipText("nextOne");
+        this.btnNext.x = this.width - this.btnNext.width - 50;
+        this.btnNext.y = this.height - this.btnNext.height - 250;
     }
 
     public async onGridChanged(ps) {
