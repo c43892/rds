@@ -167,7 +167,7 @@
         "repRes":["Apple1", "Apple2", "Apple3"]},
     "Steak":{"name":"牛排", "cnt":3, "dhp":2, "useWithoutConfirm":true, "tags":["food"],
         "repRes":["Steak1", "Steak2", "Steak3"]},
-    "IceBlock":{"name":"冰块", "cnt":2, "useWithoutConfirm":true},
+    "IceBlock":{"name":"冰块", "cnt":2, "useWithoutConfirm":true, "repRes":["IceBlock1", "IceBlock2"]},
     "Knife":{"name":"小刀", "useWithTarget":true, "validTarget":"markedHazardMonster|uncoveredHazardMonster|uncoverable", "power":3},
     "SmallRock":{"name":"石块", "useWithTarget":true, "validTarget":"markedHazardMonster|uncoveredHazardMonster|uncoverable", "power":1},
     "Bazooka":{"name":"火箭筒", "canOverlap":true, "useWithTarget":true, 

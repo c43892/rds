@@ -38,7 +38,7 @@ class GridView extends egret.DisplayObjectContainer {
         this.elemImg = new egret.Bitmap(); // 元素图
         this.banImg = ViewUtils.createBitmapByName("ban_png"); // 禁止符号
         this.coveredImg = ViewUtils.createBitmapByName("covered_png");
-        this.markedBg = ViewUtils.createBitmapByName("covered_png");
+        this.markedBg = ViewUtils.createBitmapByName("markedBg_png");
         this.cdImg = new egret.Bitmap(); // cd 计数
         var showLayerContainer = new egret.DisplayObjectContainer(); // 显示层容器
         this.addChild(showLayerContainer);

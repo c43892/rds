@@ -89,7 +89,7 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
             this.showDesc(tip);
         } else {
             this.closeElemDesc();
-            this.removeChildren();
+            this.clear();
         }
     }
 
@@ -130,5 +130,9 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
         var tip = this.tryAddNewMonsterTip(m);
         if (tip)
             await AniUtils.flash(tip, 300);
+    }
+
+    public clear() {
+        this.removeChildren();
     }
 }
