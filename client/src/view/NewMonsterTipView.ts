@@ -2,6 +2,7 @@
 class NewMonsterTipView extends egret.DisplayObjectContainer {
 
     public showElemDesc;
+    public closeElemDesc;
 
     mapView:MapView;
     newMonsterTipsData:string[];
@@ -77,11 +78,16 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
     }
 
     onNext() {
-        var tip = this.monsterTipArr.pop();
-        var mType = tip["monsterType"];
-        var type = this.monsterArr.pop();
-        Utils.assert(mType == type, "tips array gets corruption");
-        this.showDesc(tip);
+        if (this.monsterTipArr.length > 0) {
+            var tip = this.monsterTipArr.pop();
+            var mType = tip["monsterType"];
+            var type = this.monsterArr.pop();
+            Utils.assert(mType == type, "tips array gets corruption");
+            this.showDesc(tip);
+        } else {
+            this.closeElemDesc();
+            this.removeChildren();
+        }
     }
 
     showDesc(tip) {
@@ -100,13 +106,13 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
 
         if (this.monsterTipArr.length > 0 && !this.contains(this.btnNext))
             this.addChild(this.btnNext);
-        else if (this.monsterTipArr.length == 0 && this.contains(this.btnNext))
-            this.removeChild(this.btnNext);
 
-        this.btnNext.width = 100;
-        this.btnNext.text = ViewUtils.getTipText("nextOne");
+        this.btnNext.width = 150;
+        this.btnNext.text = ViewUtils.getTipText(
+            this.monsterTipArr.length > 0 ? "nextOne" : "close");
         this.btnNext.x = this.width - this.btnNext.width - 50;
-        this.btnNext.y = this.height - this.btnNext.height - 250;
+        this.btnNext.y = this.height - this.btnNext.height - 100;
+        this.btnNext.refresh();
     }
 
     public async onGridChanged(ps) {

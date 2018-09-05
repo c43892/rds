@@ -85,7 +85,15 @@ class MainView extends egret.DisplayObjectContainer {
         PropView.showElemDesc = async (e) => await this.showElemDesc(e);
         TurntableView.showElemDesc = async (e) => await this.showElemDesc(e);
         BoxRoomView.showElemDesc = async (e) => await this.showElemDesc(e);
-        this.nmtip.showElemDesc = async (e) => await this.showElemDesc(e);
+        this.nmtip.showElemDesc = (e) => {
+            this.addChild(this.idv);
+            this.setChildIndex(this.idv, -1);
+            this.idv.player = this.p;
+            this.idv.open(e, true);
+        };
+        this.nmtip.closeElemDesc = () => {
+            this.removeChild(this.idv);
+        };
 
         // 展示给定的Elem列表
         this.aev = new AllElemsView(w, h);
