@@ -77,6 +77,9 @@
         "NormalZombie":{"name":"普通僵屍", "desc":[
             "<font color=#7d0403 bold=true size=21>平淡</font>\n<font color=#000000 bold=false size=20>沒有特殊能力</font>"
         ]},
+        "Vampire":{"name":"吸血鬼", "desc":[
+            "<font color=#7d0403 bold=true size=21>吸血</font>\n<font color=#000000 bold=false size=20>每次攻击吸取3点血</font>"
+        ]},
         "GoblinThief":{"name":"哥布林竊賊", "desc":[
             "<font color=#7d0403 bold=true size=21>偷竊</font>\n突襲時偷取<font color=#2d5627 size=20>{percent}%<font color=#000000 size=20>的金幣</font>"
         ]},
@@ -340,6 +343,9 @@
         "NormalZombie":{"name":"普通僵尸", "desc":[
             "<font color=#7d0403 bold=true size=21>平淡</font>\n<font color=#000000 bold=false size=20>没有特殊能力</font>"
         ]},
+        "Vampire":{"name":"吸血鬼", "desc":[
+            "<font color=#7d0403 bold=true size=21>吸血</font>\n<font color=#000000 bold=false size=20>每次攻击吸取3点血</font>"
+        ]},
         "GoblinThief":{"name":"哥布林窃贼", "desc":[
             "<font color=#7d0403 bold=true size=21>偷窃</font>\n<font color=#000000 bold=false size=20>突袭时偷取</font><font color=#2d5627 size=20> {percent} <font color=#000000 size=20>%的金币</font>"
         ]},
@@ -602,6 +608,9 @@
         ]},
         "NormalZombie":{"name":"普通僵屍", "desc":[
             "<font color=#7d0403 bold=true size=21>平淡</font>\n<font color=#000000 bold=false size=20>沒有特殊能力</font>"
+        ]},
+        "Vampire":{"name":"吸血鬼", "desc":[
+            "<font color=#7d0403 bold=true size=21>吸血</font>\n<font color=#000000 bold=false size=20>每次攻击吸取3点血</font>"
         ]},
         "GoblinThief":{"name":"哥布林竊賊", "desc":[
             "<font color=#7d0403 bold=true size=21>偷竊</font>\n突襲時偷取<font color=#2d5627 size=20>{percent}%<font color=#000000 size=20>的金幣</font>"
