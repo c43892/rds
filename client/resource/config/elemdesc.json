@@ -356,7 +356,7 @@
             "<font color=#7d0403 bold=true size=21>伏击</font>\n<font color=#000000 bold=false size=20>离开本层时，进行一次攻击</font>"
         ]},
         "BombAbomination":{"name":"自爆憎恶", "desc":[
-            "<font color=#7d0403 bold=true size=21>自爆</font>\n<font color=#000000 bold=false size=20>出现后 </font><font color=#2d5627 size=20>{attackInterval} </font><font color=#000000 size=20>回合自爆，造成攻击x</font><font color=#2d5627 size=20>3 <font color=#000000 size=20>的伤害</font>"
+            "<font color=#7d0403 bold=true size=21>自爆</font>\n<font color=#000000 bold=false size=20>出现后 </font><font color=#2d5627 size=20>{rounds} </font><font color=#000000 size=20>回合自爆，造成攻击x</font><font color=#2d5627 size=20>3 <font color=#000000 size=20>的伤害</font>"
         ]},
         "EyeDemon":{"name":"眼魔", "desc":[
             "<font color=#7d0403 bold=true size=21>透视</font>\n<font color=#000000 bold=false size=20>死亡时探索2个空方格</font>"

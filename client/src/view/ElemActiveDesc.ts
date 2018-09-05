@@ -1,4 +1,4 @@
-class ElemActiveDesc {    
+class ElemActiveDesc {
     static elems = {
         "Shield" : {
             "cd": (p:Player, e:Elem) => ElemActiveDesc.getCD(p, e),
@@ -8,6 +8,9 @@ class ElemActiveDesc {
         },
         "Bazooka" : {
             "power": (p:Player, e:Elem) => ElemActiveDesc.getWeaponPower(p, e)
+        },
+        "BombAbomination" : {
+            "rounds": (p:Player, e:Elem) => e["attackInterval"] ? e["attackInterval"] : e.attrs.selfExplode.cnt
         }
     }
     
