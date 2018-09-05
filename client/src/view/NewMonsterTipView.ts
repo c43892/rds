@@ -29,7 +29,7 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
 
     // 添加一个怪物类型等待显示
     public tryAddNewMonsterTip(m:Monster) {
-        if (Utils.contains(this.newMonsterTipsData, m.type))
+        if (Utils.contains(this.newMonsterTipsData, m.type) || m.attrs.invisible)
             return;
 
         this.newMonsterTipsData.push(m.type);
@@ -89,7 +89,7 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
             this.showDesc(tip);
         } else {
             this.closeElemDesc();
-            this.removeChildren();
+            this.clear();
         }
     }
 
@@ -130,5 +130,9 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
         var tip = this.tryAddNewMonsterTip(m);
         if (tip)
             await AniUtils.flash(tip, 300);
+    }
+
+    public clear() {
+        this.removeChildren();
     }
 }

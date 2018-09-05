@@ -146,6 +146,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.bv.width = this.width;
         this.bv.height = this.height;
         this.addChild(this.bv);
+        this.nmtip.clear();
 
         GridView.try2UseElem = bt.try2UseElem();
         GridView.try2UseElemAt = bt.try2UseElemAt();
@@ -171,6 +172,7 @@ class MainView extends egret.DisplayObjectContainer {
         ], (e) => (ps) => this.bv.av[e](ps));
         bt.registerEvent("onBattleEnded", async (ps) => {
             this.removeChild(this.bv);
+            this.nmtip.clear();
             this.battleEndedCallback(bt);
         });
         bt.registerEvent("onGridChanged", async (ps) => await this.nmtip.onGridChanged(ps));

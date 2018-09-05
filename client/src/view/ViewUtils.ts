@@ -62,7 +62,8 @@ class ViewUtils {
         var data = RES.getRes(name + "_json");
         var txtr = RES.getRes(name + "_png");
         var fact:egret.MovieClipDataFactory = new egret.MovieClipDataFactory(data, txtr);
-        return new egret.MovieClip(fact.generateMovieClipData(clipName));
+        var eff = new egret.MovieClip(fact.generateMovieClipData(clipName));
+        return eff;
     }
 
     // // 测试置灰

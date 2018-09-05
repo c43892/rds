@@ -146,7 +146,7 @@ class ItemFactory {
         "Rock": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, undefined, () => true, () => undefined, undefined)(this.createItem()),
 
         // 冰冻块
-        "IceBlock": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, undefined, () => true, () => undefined, (e) => e.type)(this.createItem()),
+        "IceBlock": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, undefined, () => true, () => undefined, undefined)(this.createItem()),
 
         // 盾牌
         "Shield": (attrs) => {

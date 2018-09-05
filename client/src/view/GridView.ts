@@ -38,7 +38,7 @@ class GridView extends egret.DisplayObjectContainer {
         this.elemImg = new egret.Bitmap(); // 元素图
         this.banImg = ViewUtils.createBitmapByName("ban_png"); // 禁止符号
         this.coveredImg = ViewUtils.createBitmapByName("covered_png");
-        this.markedBg = ViewUtils.createBitmapByName("covered_png");
+        this.markedBg = ViewUtils.createBitmapByName("markedBg_png");
         this.cdImg = new egret.Bitmap(); // cd 计数
         var showLayerContainer = new egret.DisplayObjectContainer(); // 显示层容器
         this.addChild(showLayerContainer);
@@ -187,7 +187,7 @@ class GridView extends egret.DisplayObjectContainer {
                 if (!e.attrs.invisible && !this.map.isGenerallyValid(e.pos.x, e.pos.y) && e.type != "Hole")
                     this.showLayer.addChild(this.banImg);
             }
-        } else {
+        } else if (!e) {
             var num = this.map.getCoveredHazardNum(this.gx, this.gy);
             if (num > 0) {
                 ViewUtils.setTexName(this.coveredHazardNum, "num" + num + "_png");
@@ -306,8 +306,6 @@ class GridView extends egret.DisplayObjectContainer {
         this.effects[effName] = eff;
 
         this.effLayer.addChild(eff);
-        eff.anchorOffsetX = eff.width / 2;
-        eff.anchorOffsetY = eff.height / 2;
         eff.x = this.width / 2;
         eff.y = this.height / 2;
         eff.gotoAndPlay(0, -1);
