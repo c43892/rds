@@ -49,7 +49,7 @@
 		"bin-debug/logic/GCfg.js",
 		"bin-debug/logic/LevelLogic/LevelLogicBasic.js",
 		"bin-debug/logic/LevelLogic/LevelLogicFactory.js",
-		"bin-debug/view/WorldMapView.js",
+		"bin-debug/Main.js",
 		"bin-debug/logic/map/Map.js",
 		"bin-debug/logic/player/Occupation.js",
 		"bin-debug/logic/player/Player.js",
@@ -89,6 +89,6 @@
 		"bin-debug/view/TurntableView.js",
 		"bin-debug/view/ViewUtils.js",
 		"bin-debug/view/WorldMapSelsEventView.js",
-		"bin-debug/Main.js"
+		"bin-debug/view/WorldMapView.js"
 	]
 }

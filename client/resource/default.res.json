@@ -33,7 +33,7 @@
 			"name": "font"
 		},
 		{
-			"keys": "effWantedOrder_json,effWantedOrder_png",
+			"keys": "effWantedOrder_json,effWantedOrder_png,effSelfExplode_json,effSelfExplode_png",
 			"name": "effect"
 		}
 	],
@@ -1287,6 +1287,16 @@
 			"url": "assets/items/IceBlock2.png",
 			"type": "image",
 			"name": "IceBlock2_png"
+		},
+		{
+			"url": "assets/effect/effSelfExplode.json",
+			"type": "json",
+			"name": "effSelfExplode_json"
+		},
+		{
+			"url": "assets/effect/effSelfExplode.png",
+			"type": "image",
+			"name": "effSelfExplode_png"
 		}
 	]
 }

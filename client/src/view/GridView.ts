@@ -306,8 +306,6 @@ class GridView extends egret.DisplayObjectContainer {
         this.effects[effName] = eff;
 
         this.effLayer.addChild(eff);
-        eff.anchorOffsetX = eff.width / 2;
-        eff.anchorOffsetY = eff.height / 2;
         eff.x = this.width / 2;
         eff.y = this.height / 2;
         eff.gotoAndPlay(0, -1);
