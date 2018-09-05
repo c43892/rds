@@ -4,10 +4,19 @@ class ElemActiveDesc {
             "cd": (p:Player, e:Elem) => ElemActiveDesc.getCD(p, e),
         },
         "HpCapsule" : {
-            "heal": (p:Player, e:Elem) => ElemActiveDesc.getBuffAddHp(p, e, "heal"),
+            "heal": (p:Player, e:Elem) => ElemActiveDesc.getBuffAddHp(p, e, "heal")
         },
         "Bazooka" : {
             "power": (p:Player, e:Elem) => ElemActiveDesc.getWeaponPower(p, e)
+        },
+        "RayGun":{
+            "power": (p:Player, e:Elem) => ElemActiveDesc.getWeaponPower(p, e)
+        },
+        "Knife":{
+            "power": (p:Player, e:Elem) => ElemActiveDesc.getWeaponPower(p, e)
+        },
+        "Baton":{
+            "powerA": (p:Player, e:Elem) => ElemActiveDesc.getWeaponPower(p, e)
         },
         "BombAbomination" : {
             "rounds": (p:Player, e:Elem) => e["attackInterval"] ? e["attackInterval"] : e.attrs.selfExplode.cnt

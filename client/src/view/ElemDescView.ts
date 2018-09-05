@@ -34,7 +34,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         this.closeBtn.onClicked = () => this.doClose();
     }
 
-    public async open(e:Elem) {
+    public async open(e:Elem, withCancelBtn:boolean = true) {
         this.removeChildren();
 
         var uiArr = [];
@@ -57,6 +57,9 @@ class ElemDescView extends egret.DisplayObjectContainer {
         uiArr.forEach((ui, _) => this.addChild(ui));
         ViewUtils.multiLang(this, ...uiArr);
         refresh(e);
+
+        if (withCancelBtn)
+            this.removeChild(this.closeBtn);
         
         return new Promise((resolve, reject) => {
             this.doClose = resolve;
