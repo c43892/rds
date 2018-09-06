@@ -89,7 +89,7 @@ class MainView extends egret.DisplayObjectContainer {
             this.addChild(this.idv);
             this.setChildIndex(this.idv, -1);
             this.idv.player = this.p;
-            this.idv.open(e, true);
+            this.idv.open(e, true, true);
         };
         this.nmtip.closeElemDesc = () => {
             this.removeChild(this.idv);

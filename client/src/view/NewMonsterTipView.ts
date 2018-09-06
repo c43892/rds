@@ -97,7 +97,8 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
         this.removeChild(tip);
 
         // 显示怪物信息
-        var m = tip["monster"];
+        var m = <Monster>tip["monster"];
+        m = <Monster>m.bt().level.createElem(m.type);
         this.showElemDesc(m);
 
         if (this.monsterTipArr.length > 0) {
