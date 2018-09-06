@@ -311,7 +311,7 @@ class AniUtils {
         bg.x = pos.x;
         bg.y = pos.y;
         AniUtils.ac.addChild(bg);
-        var tip = ViewUtils.createTextField(30, 0x000000);
+        var tip = ViewUtils.createTextField(25, 0xffffff);
         tip.textFlow = ViewUtils.fromHtml(str);
         AniUtils.ac.addChild(tip);
         tip.x = pos.x;
