@@ -85,7 +85,15 @@ class MainView extends egret.DisplayObjectContainer {
         PropView.showElemDesc = async (e) => await this.showElemDesc(e);
         TurntableView.showElemDesc = async (e) => await this.showElemDesc(e);
         BoxRoomView.showElemDesc = async (e) => await this.showElemDesc(e);
-        this.nmtip.showElemDesc = async (e) => await this.showElemDesc(e);
+        this.nmtip.showElemDesc = (e) => {
+            this.addChild(this.idv);
+            this.setChildIndex(this.idv, -1);
+            this.idv.player = this.p;
+            this.idv.open(e, true);
+        };
+        this.nmtip.closeElemDesc = () => {
+            this.removeChild(this.idv);
+        };
 
         // 展示给定的Elem列表
         this.aev = new AllElemsView(w, h);
@@ -138,6 +146,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.bv.width = this.width;
         this.bv.height = this.height;
         this.addChild(this.bv);
+        this.nmtip.clear();
 
         GridView.try2UseElem = bt.try2UseElem();
         GridView.try2UseElemAt = bt.try2UseElemAt();
@@ -163,6 +172,7 @@ class MainView extends egret.DisplayObjectContainer {
         ], (e) => (ps) => this.bv.av[e](ps));
         bt.registerEvent("onBattleEnded", async (ps) => {
             this.removeChild(this.bv);
+            this.nmtip.clear();
             this.battleEndedCallback(bt);
         });
         bt.registerEvent("onGridChanged", async (ps) => await this.nmtip.onGridChanged(ps));

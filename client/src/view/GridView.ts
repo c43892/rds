@@ -6,6 +6,7 @@ class GridView extends egret.DisplayObjectContainer {
 
     private showLayer:egret.DisplayObjectContainer; // 装入所有显示内容
     private opLayer:egret.Bitmap; // 专门用于接收操作事件
+    private effLayer:egret.DisplayObjectContainer; // 用于放置最上层特效
     private elemImg:egret.Bitmap; // 元素图
     private banImg:egret.Bitmap; // 禁止符号
     private cdImg:egret.Bitmap; // cd 计数
@@ -37,10 +38,12 @@ class GridView extends egret.DisplayObjectContainer {
         this.elemImg = new egret.Bitmap(); // 元素图
         this.banImg = ViewUtils.createBitmapByName("ban_png"); // 禁止符号
         this.coveredImg = ViewUtils.createBitmapByName("covered_png");
-        this.markedBg = ViewUtils.createBitmapByName("covered_png");
+        this.markedBg = ViewUtils.createBitmapByName("markedBg_png");
         this.cdImg = new egret.Bitmap(); // cd 计数
+        var showLayerContainer = new egret.DisplayObjectContainer(); // 显示层容器
+        this.addChild(showLayerContainer);
         this.showLayer = new egret.DisplayObjectContainer(); // 显示层
-        this.addChild(this.showLayer);
+        showLayerContainer.addChild(this.showLayer);
 
         // 掉落物品
         this.dropElemImg = new egret.Bitmap();
@@ -53,6 +56,9 @@ class GridView extends egret.DisplayObjectContainer {
 
         this.opLayer = new egret.Bitmap(); // 事件层
         this.addChild(this.opLayer);
+
+        this.effLayer = new egret.DisplayObjectContainer(); // 放置特效
+        this.addChild(this.effLayer);
 
         // 血量，右下角，护盾，右上角，攻击力，左下角
         this.hp = ViewUtils.createTextField(20, 0xffffff);
@@ -181,7 +187,7 @@ class GridView extends egret.DisplayObjectContainer {
                 if (!e.attrs.invisible && !this.map.isGenerallyValid(e.pos.x, e.pos.y) && e.type != "Hole")
                     this.showLayer.addChild(this.banImg);
             }
-        } else {
+        } else if (!e) {
             var num = this.map.getCoveredHazardNum(this.gx, this.gy);
             if (num > 0) {
                 ViewUtils.setTexName(this.coveredHazardNum, "num" + num + "_png");
@@ -232,6 +238,7 @@ class GridView extends egret.DisplayObjectContainer {
             case GridStatus.Uncovered: // 被揭开
                 this.setCoverImg(false);
                 this.refreshElemShowLayer(g, e);
+                if (!e) this.removeEffect("effWantedOrder");
                 // if (this.showLayer.contains(this.coveredImg)) this.showLayer.removeChild(this.coveredImg);
             break;
         }
@@ -249,7 +256,7 @@ class GridView extends egret.DisplayObjectContainer {
             this.showLayer.rotation = 0;
         }
 
-        var arr = [this.opLayer, this.elemImg, this.banImg, this.blockedImg, this.coveredImg, this.markedBg, this.uncoverableImg];
+        var arr = [this.opLayer, this.effLayer, this.elemImg, this.banImg, this.blockedImg, this.coveredImg, this.markedBg, this.uncoverableImg];
         arr.forEach((a) => {
             a.alpha = 1;
             a.x = 0;
@@ -274,7 +281,8 @@ class GridView extends egret.DisplayObjectContainer {
     public clear() {
         this.showLayer.removeChildren();
         this.setCoverImg(false);
-        if (this.contains(this.blockedImg)) this.removeChild(this.blockedImg);
+        if (this.showLayer.contains(this.blockedImg))
+            this.showLayer.removeChild(this.blockedImg);
         ViewUtils.makeGray(this.elemImg, false);
     }
 
@@ -292,25 +300,35 @@ class GridView extends egret.DisplayObjectContainer {
 
     private effects = {}; // 所有挂在这个格子上的特效    
     public addEffect(effName) {
-        if (this.effects[effName]) return;
+        if (this.effects[effName]) return this.effects[effName];
 
         var eff:egret.MovieClip = ViewUtils.createFrameAni(effName);
         this.effects[effName] = eff;
 
-        this.addChild(eff);
-        eff.anchorOffsetX = eff.width / 2;
-        eff.anchorOffsetY = eff.height / 2;
+        this.effLayer.addChild(eff);
         eff.x = this.width / 2;
         eff.y = this.height / 2;
         eff.gotoAndPlay(0, -1);
+
+        return eff;
     }
 
     public removeEffect(effName) {
         if (!this.effects[effName]) return;
         var eff:egret.MovieClip = this.effects[effName];
         eff.stop();
-        this.removeChild(eff);
+        this.effLayer.removeChild(eff);
         delete this.effects[effName];
+    }
+
+    public clearAllEffects() {
+        for (var effName in this.effects) {
+            var eff = this.effects[effName];
+            eff.stop();
+        }
+
+        this.effLayer.removeChildren();        
+        this.effects = {};
     }
 
     // 各种操作逻辑构建

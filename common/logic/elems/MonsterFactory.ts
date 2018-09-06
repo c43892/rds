@@ -776,7 +776,7 @@ class MonsterFactory {
         }, m);
         var priorGetElemImgRes = m.getElemImgRes;
         m.getElemImgRes = () => {
-            return frozenRound > 0 ? "IceBlock" : priorGetElemImgRes();
+            return frozenRound > 0 ? "IceBlock1" : priorGetElemImgRes();
         }
         return m;
     }
