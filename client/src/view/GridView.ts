@@ -148,7 +148,7 @@ class GridView extends egret.DisplayObjectContainer {
                 }
 
                 // 攻击间隔，右上角
-                if (m["attackInterval"] && !m.isDead()){
+                if (m["attackInterval"] && !m.isDead() && m.attrs.attackInterval){
                     this.attackIntervalBg.x = this.width - this.attackIntervalBg.width; this.attackIntervalBg.y = 0;
                     this.showLayer.addChild(this.attackIntervalBg);
                     this.attackInterval.text = m["attackInterval"].toString();
