@@ -15,9 +15,6 @@ class ElemActiveDesc {
         "Knife":{
             "power": (p:Player, e:Elem) => ElemActiveDesc.getWeaponPower(p, e)
         },
-        "Baton":{
-            "powerA": (p:Player, e:Elem) => ElemActiveDesc.getWeaponPower(p, e)
-        },
         "BombAbomination" : {
             "rounds": (p:Player, e:Elem) => e["attackInterval"] ? e["attackInterval"] : e.attrs.selfExplode.cnt
         }
