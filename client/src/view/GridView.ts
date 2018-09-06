@@ -111,6 +111,15 @@ class GridView extends egret.DisplayObjectContainer {
         ViewUtils.makeGray(this.elemImg, true);
     }
 
+    putNumOnBg(num, bg) {
+        num.width = bg.width * 2;
+        num.height = bg.height;
+        num.textAlign = egret.HorizontalAlign.CENTER;
+        num.verticalAlign = egret.VerticalAlign.MIDDLE;
+        num.x = bg.x - (num.width - bg.width) / 2;
+        num.y = bg.y;
+    }
+
     private refreshElemShowLayer(g:Grid, e:Elem) {
         if (e && !e.attrs.invisible) { // 有元素显示元素图片
             this.elemImg = ViewUtils.createBitmapByName(e.getElemImgRes() + "_png");
@@ -123,9 +132,7 @@ class GridView extends egret.DisplayObjectContainer {
                 this.hpBg.x = this.width - this.hpBg.width; this.hpBg.y = this.height - this.hpBg.height;
                 this.showLayer.addChild(this.hpBg);
                 this.hp.text = m.hp.toString();
-                this.hp.x = m.hp >= 10 ? this.width - 23 : this.width - 22;
-                this.hp.y = m.hp >= 10 ? this.height - 23 : this.height - 25;
-                this.hp.size = m.hp >= 10 ? 15 : 20;
+                this.putNumOnBg(this.hp, this.hpBg);
                 this.showLayer.addChild(this.hp);
                 
                 // 护盾，右上角
@@ -133,24 +140,17 @@ class GridView extends egret.DisplayObjectContainer {
                     this.shieldBg.x = this.width - this.shieldBg.width; this.shieldBg.y = 0;
                     this.showLayer.addChild(this.shieldBg);
                     this.shield.text = m.shield.toString();
-                    this.shield.x = 2;
-                    this.shield.y = 2;
-                    this.shield.x = m.shield >= 10 ? this.width - 23 : this.width - 22;
-                    this.shield.y = m.shield >= 10 ? 5 : 3;
-                    this.shield.size = m.shield >= 10 ? 15 : 20;
+                    this.putNumOnBg(this.shield, this.shieldBg);
                     this.showLayer.addChild(this.shield);
                 }
 
                 // 攻击间隔，右上角
                 if (m["attackInterval"] && !m.isDead()){
-                    this.attackIntervalBg.x = this.width - this.attackIntervalBg.width; this.attackIntervalBg.y = 0;
+                    this.attackIntervalBg.x = this.width - this.attackIntervalBg.width; 
+                    this.attackIntervalBg.y = 0;
                     this.showLayer.addChild(this.attackIntervalBg);
                     this.attackInterval.text = m["attackInterval"].toString();
-                    this.attackInterval.x = 2;
-                    this.attackInterval.y = 2;
-                    this.attackInterval.x = m["attackInterval"] >= 10 ? this.width - 23 : this.width - 22;
-                    this.attackInterval.y = m["attackInterval"] >= 10 ? 5 : 3;
-                    this.attackInterval.size = m["attackInterval"] >= 10 ? 15 : 20;
+                    this.putNumOnBg(this.attackInterval, this.attackIntervalBg);
                     this.showLayer.addChild(this.attackInterval);
                 }
 
@@ -160,12 +160,12 @@ class GridView extends egret.DisplayObjectContainer {
                 power = attackerAttrs.power.b * (1 + attackerAttrs.power.a) + attackerAttrs.power.c;
                     
                 if (power > 0 && !m.isDead()) {
-                    this.power.text = power.toString();
-                    this.powerBg.x = 0; this.powerBg.y = this.height - this.powerBg.height;
+                    this.powerBg.x = 0; 
+                    this.powerBg.y = this.height - this.powerBg.height;
                     this.showLayer.addChild(this.powerBg);
-                    this.power.x = power >= 10 ? 4 : 6;
-                    this.power.y = power >= 10 ? this.height - 23 : this.height - 25;
-                    this.power.size = power >= 10 ? 15 : 20;
+
+                    this.power.text = power.toString();
+                    this.putNumOnBg(this.power, this.powerBg);
                     this.showLayer.addChild(this.power);
                 };
                 

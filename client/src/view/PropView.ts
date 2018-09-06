@@ -2,6 +2,7 @@
 class PropView extends egret.DisplayObjectContainer {
     private e:Elem;
     private bg:egret.Bitmap; // 底图
+    private bg2:egret.Bitmap; // 数字底
     private elemImg:egret.Bitmap; // 元素图
     private num:egret.TextField; // 数量，右下角
 
@@ -29,13 +30,21 @@ class PropView extends egret.DisplayObjectContainer {
         this.anchorOffsetX = 0;
         this.anchorOffsetY = 0;
 
+        // 数字底
+        this.bg2 = ViewUtils.createBitmapByName("skillGridBg2_png");
+        this.bg2.x = this.width - this.bg2.width - 5;
+        this.bg2.y = this.height - this.bg2.height - 5;
+        this.addChild(this.bg2);
+
         // 叠加数量
         this.num = ViewUtils.createTextField(25, 0xffffff);
         this.num.name = "num";
-        this.num.anchorOffsetX = 0;
-        this.num.anchorOffsetY = 0;
-        this.num.x = 0;
-        this.num.y = 0;
+        this.num.width = this.bg2.width * 2;
+        this.num.textAlign = egret.HorizontalAlign.CENTER;
+        this.num.height = this.bg2.height;
+        this.num.verticalAlign = egret.VerticalAlign.MIDDLE;
+        this.num.x = this.bg2.x - (this.num.width - this.bg2.width) / 2;
+        this.num.y = this.bg2.y;
         this.addChild(this.num);
 
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchGrid, this);
@@ -56,14 +65,16 @@ class PropView extends egret.DisplayObjectContainer {
 
         if (e.attrs.canOverlap && e.cnt > 1) { // 可叠加元素显示数量
             this.num.text = e.cnt.toString();
-            this.num.textColor = 0x00ff00;
+            this.num.textColor = 0xffffff;
             this.num.alpha = 1;
+            this.bg2.alpha = 1;
         }
     }
 
     public clear() {
         this.elemImg.alpha = 0;
         this.num.alpha = 0;
+        this.bg2.alpha = 0;
     }
 
     public getElem():Elem {
