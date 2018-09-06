@@ -26,32 +26,42 @@ class LoginView extends egret.DisplayObjectContainer {
         this.btnContinue.name = "continueBtn";
         this.btnContinue.setDisableBg("ContinueDisabled_png");
         this.btnContinue.setDownBg("ContinueDown_png");
-        this.addChild(this.btnContinue);
 
         // 开始新游戏按钮
         this.btnNewPlay = new TextButtonWithBg("NewGameNormal_png", 0);
         this.btnNewPlay.name = "newPlayBtn";
         this.btnNewPlay.setDownBg("NewGameDown_png");
-        this.addChild(this.btnNewPlay);
 
         // 排行榜按钮
         this.btnOpenRank = new TextButtonWithBg("HerosNormal_png", 0);
         this.btnOpenRank.name = "rankBtn";
         this.btnOpenRank.setDownBg("HerosDown_png");
-        this.addChild(this.btnOpenRank);
 
         // 成就按钮
         this.btnAchievement = new TextButtonWithBg("AchievementNormal_png", 0);
         this.btnAchievement.name = "achievementBtn";
         this.btnAchievement.setDisableBg("AchievementDisabled_png");
         this.btnAchievement.setDownBg("AchievementDown_png");
-        this.addChild(this.btnAchievement);
 
         this.btnContinue.onClicked = () => this.onClose("continuePlay");
-        this.btnNewPlay.onClicked = () => this.onClose("newPlay");
+        this.btnNewPlay.onClicked = () => this.onClose("newPlay"); 
         this.btnOpenRank.onClicked = () => this.onClose("openRank");
 
-        ViewUtils.multiLang(this, this.btnContinue, this.btnNewPlay, this.btnOpenRank, this.btnAchievement);
+        var objs = [this.btnContinue, this.btnNewPlay, this.btnOpenRank, this.btnAchievement];
+        objs.forEach((obj, _) => this.addChild(obj));
+        ViewUtils.multiLang(this, ...objs);
+
+        // var ani = ViewUtils.createSkeletonAni("hero_bone_1");
+        // var disp = ani.getDisplay();
+        // disp.x = this.width / 2;
+        // disp.y = this.height / 2;
+        // this.addChild(disp);
+
+        // ani.animation.play("1_attack", 0);
+        // dragonBones.WorldClock.clock.add(ani);        
+        // egret.Ticker.getInstance().register((frameTime:number) => {
+        //     dragonBones.WorldClock.clock.advanceTime(frameTime/1000);
+        // }, this);
     }
 
     public onClose;

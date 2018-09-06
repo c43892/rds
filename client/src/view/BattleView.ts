@@ -40,11 +40,10 @@ class BattleView extends egret.DisplayObjectContainer {
     public selView:SelView; // 目标选择视图
     public repView:ReplayView; // 录像界面
     public av:AniView; // 动画视图
-
-    public monsterTip; // 新出现的怪物信息提示
+    public monsterTip:NewMonsterTipView; // 新怪物提示
 
     public openAllElemsView; // 查看所有的某类元素如玩家的遗物或者道具
-    public confirmOkYesNo;  
+    public confirmOkYesNo;
 
     // 角色头像区域，以及金钱，层数，死神
     createPlayerAttrs() {
@@ -272,7 +271,8 @@ class BattleView extends egret.DisplayObjectContainer {
         this.addChild(this.repView);
 
         // 新怪的图例提示
-        // this.monsterTip = new
+        this.monsterTip = new NewMonsterTipView(w, h, this);
+        this.addChild(this.monsterTip);
 
         ViewUtils.multiLang(this, this.bgGrids, this.mapViewBg);
     }

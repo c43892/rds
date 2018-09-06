@@ -66,6 +66,18 @@ class ViewUtils {
         return eff;
     }
 
+    // 创建指定的骨骼动画
+    public static createSkeletonAni(name:string):dragonBones.Armature {
+        var skeletonData = RES.getRes(name + "_ske_json");
+        var textureData = RES.getRes(name + "_tex_json");
+        var texture = RES.getRes(name + "_tex_png");
+        var fat:dragonBones.EgretFactory = new dragonBones.EgretFactory();
+        fat.addDragonBonesData(fat.parseDragonBonesData(skeletonData));
+        fat.addTextureAtlasData(fat.parseTextureAtlasData(textureData, texture));
+        var ani:dragonBones.Armature = fat.buildArmature(name);
+        return ani;
+    }
+
     // // 测试置灰
     // static grayShaderFilter;
     // public static makeElemShaderGray(obj:egret.DisplayObject, makeGray:boolean) {
