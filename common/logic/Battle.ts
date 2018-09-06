@@ -839,6 +839,16 @@ class Battle {
         return BattleUtils.calcMonsterTargetAttrs(m, this.player);
     }
 
+    // 计算某个怪物受一切地图元素影响所得到的攻击间隔
+    public calcMonsterAttackInterval(m:Monster){
+        var attackInterval = m.attrs.attackInterval;
+        var attackIntervalPs = {subType:"setAttackInterval", m:m, dattackInterval:{a:0, b:0, c:0}};
+        m.bt().triggerLogicPointSync("onCalcAttackInterval", attackIntervalPs);
+        var caledAttackInterval = (attackInterval + attackIntervalPs.dattackInterval.b) * (1 + attackIntervalPs.dattackInterval.a) + attackIntervalPs.dattackInterval.c;        
+        caledAttackInterval = caledAttackInterval < 0 ? 0 : caledAttackInterval;
+        return caledAttackInterval;
+    }
+
     // 怪物进行偷袭
     public async implMonsterSneak(sneakAct) {
         var sneakPs = {immunized:false}; // 可能被免疫

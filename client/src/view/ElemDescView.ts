@@ -34,22 +34,23 @@ class ElemDescView extends egret.DisplayObjectContainer {
         this.closeBtn.onClicked = () => this.doClose();
     }
 
-    public async open(e:Elem, withCancelBtn:boolean = true) {
+    public async open(e:Elem, withCancelBtn:boolean = false, defaultAttrs:boolean = false) {
         this.removeChildren();
+        Utils.assert(!!e.bt() || defaultAttrs, "can only get default attrs on elem without battle")
 
         var uiArr = [];
         var refresh;
         if (e instanceof Monster) {
             uiArr = this.uis["monster"];
-            refresh = (e) => this.refreshMonsterDesc(e);
+            refresh = (e) => this.refreshMonsterDesc(e, defaultAttrs);
         }
         else if (e instanceof Relic) {
             uiArr = this.uis["relic"];
-            refresh = (e) => this.refreshRelicDesc(e);
+            refresh = (e) => this.refreshRelicDesc(e, defaultAttrs);
         }
         else {
             uiArr = this.uis["item"];
-            refresh = (e) => this.refreshItemDesc(e);
+            refresh = (e) => this.refreshItemDesc(e, defaultAttrs);
         }
 
         uiArr.unshift(this.bg);
@@ -114,13 +115,20 @@ class ElemDescView extends egret.DisplayObjectContainer {
             this.shieldBg, this.shieldTxt, this.attackIntervalBg, this.attackIntervalTxt];
     }
 
-    refreshMonsterDesc(e:Elem) {
+    refreshMonsterDesc(e:Elem, defaultAttrs:boolean = false) {
         var m = <Monster>e;
         ViewUtils.setTexName(this.monsterIcon, m.getElemImgRes() + "_png");
 
         var n = 1;
-        var attrs = [];        
-        this.powerTxt.text = m.attrs.power ? m.attrs.power.toString() : 0;
+        var attrs = [];
+        
+        var power;
+        if(!defaultAttrs){
+            var powerABC = m.bt().calcMonsterAttackerAttrs(m).power;
+            power = powerABC.b * (1 + powerABC.a) + powerABC.c;
+        }
+        else power = m.attrs.power;
+        this.powerTxt.text = power ? m.attrs.power.toString() : 0;
         attrs.push(this.powerBg, this.powerTxt);
         n++;
 
@@ -141,8 +149,11 @@ class ElemDescView extends egret.DisplayObjectContainer {
             this.removeChild(this.shieldTxt);
         }
 
-        if (m.attrs.attackInterval > 0) {
-            this.attackIntervalTxt.text = m.attrs.attackInterval.toString();
+        var attackInterval;
+        if(!defaultAttrs) attackInterval = m.bt().calcMonsterAttackInterval(m);
+        else attackInterval = m.attrs.attackInterva;        
+        if (attackInterval > 0) {
+            this.attackIntervalTxt.text = attackInterval.toString();
             attrs.push(this.attackIntervalBg, this.attackIntervalTxt);
             n++;
         } else {
@@ -165,7 +176,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
             descArr = nameAndDesc.desc;
         }
 
-        descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(ViewUtils.replaceByProperties(desc, e, this.player)));
+        descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(ViewUtils.replaceByProperties(desc, e, defaultAttrs ? undefined : this.player)));
 
         // 第一组描述文字根据配置排版，后续的对齐第一组
         var monsterDescTxt0 = ViewUtils.createTextField(0, 0x000000);
@@ -222,7 +233,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         return [this.relicDescBg, this.relicIcon, this.relicName];
     }
 
-    refreshRelicDesc(e:Elem) {
+    refreshRelicDesc(e:Elem, defaultAttrs:boolean = false) {
         ViewUtils.setTexName(this.relicIcon, e.getElemImgRes() + "_png");
         var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
         this.relicName.textAlign = egret.HorizontalAlign.LEFT;
@@ -231,7 +242,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
             {text: " Lv " + ((<Relic>e).reinforceLv + 1), style:{"textColor":0x7d0403, "size":30}}];
 
         var descArr = ViewUtils.getElemNameAndDesc(e.type).desc;
-        descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(ViewUtils.replaceByProperties(desc, e, this.player)));
+        descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(ViewUtils.replaceByProperties(desc, e, defaultAttrs ? undefined : this.player)));
 
         // 第一组描述文字根据配置排版，后续的对齐第一组
         var relicDescTxt0 = ViewUtils.createTextField(0, 0x000000);
@@ -292,10 +303,10 @@ class ElemDescView extends egret.DisplayObjectContainer {
         return [this.itemDescBg, this.itemIcon, this.itemName, this.itemDesc];
     }
 
-    refreshItemDesc(e:Elem) {
+    refreshItemDesc(e:Elem, defaultAttrs:boolean = false) {
         var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
         this.itemName.text = nameAndDesc.name;
-        var txt = ViewUtils.replaceByProperties(nameAndDesc.desc[0], e, this.player);
+        var txt = ViewUtils.replaceByProperties(nameAndDesc.desc[0], e, defaultAttrs ? undefined : this.player);
         this.itemDesc.textFlow = ViewUtils.fromHtml(txt);
         ViewUtils.setTexName(this.itemIcon, e.getElemImgRes() + "_png");
     }
