@@ -3,6 +3,7 @@ class AniUtils {
     public static ac:egret.DisplayObjectContainer;
     public static wait4clickImpl;
     public static aniFact:AnimationFactory;
+    public static rand = new SRandom();
 
     public static reserveObjTrans(obj:egret.DisplayObject, ...poses) {
         var parent = obj.parent;
@@ -394,7 +395,6 @@ class AniUtils {
     // 开场盖住所有格子
     public static async coverAll(mapView:MapView) {
         // 牌背随机从四面八方飞过来盖住
-        var rand = new SRandom();
         var eachTime = 1000;
         var mapsize = GCfg.mapsize;
         var gbgs:egret.Bitmap[] = [];
@@ -468,6 +468,20 @@ class AniUtils {
         AniUtils.ac.addChild(img);
         img["dispose"] = () => AniUtils.ac.removeChild(img);
         return img;
+    }
+
+    // 经验光效飞行轨迹
+    public static createExpTrack(psw:ParticleSystemWrapper, fromPos, toPos, time) {
+        var r = AniUtils.rand.nextDouble() / 2 + 0.25;
+        var cx = fromPos.x + (toPos.x - fromPos.x) * r;
+        var cy = fromPos.y + (toPos.y - fromPos.y) * r;
+        var dir = Utils.getRotationFromTo(fromPos, toPos);
+        dir += 90;
+        r = (AniUtils.rand.nextDouble() - 0.5) * Utils.getDist(fromPos, toPos) * 2;
+        var dx = r * Math.cos(dir);
+        var dy = r * Math.sin(dir);
+        var controlPos = {x:cx + dx, y:cy + dy};
+        return AniUtils.aniFact.createAni("bezierTrack", {obj:psw, fromPos:fromPos, controlPos:controlPos, toPos:toPos, time:1000});
     }
 
     // 清除所有相关动画

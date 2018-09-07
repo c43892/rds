@@ -57,6 +57,7 @@ class AnimationFactory {
                 case "op": ani = this.op(ps.obj, ps.delay, ps.op); break;
                 case "moveOnPath": ani = this.moveOnPath(ps.obj, ps); break;
                 case "cycleMask": ani = this.cycleMask(ps.obj, ps); break;
+                case "bezierTrack": ani = this.bezierTrack(ps.obj, ps); break;
             }
 
             if (!ani) Utils.log("unknown aniType: " + aniType);
@@ -181,6 +182,15 @@ class AnimationFactory {
         var tw = egret.Tween.get(g, { onChange:() => refresh(g["$$TweenAniFactor"]) });
         tw.to({alpha:a, p:1}, time).call(() => shape.parent.removeChild(shape));
         return tw;
+    }
+
+    // 贝塞尔轨迹
+    bezierTrack(obj, ps):egret.Tween {
+        var fromPos = ps.fromPos;
+        var controlPos = ps.controlPos;
+        var toPos = ps.toPos;
+        obj.setBazierPoints(fromPos, controlPos, toPos);
+        return egret.Tween.get(obj).to({"bezierFactor":0}, 0).to({"bezierFactor":1}, ps.time);
     }
 
     // 动画序列
