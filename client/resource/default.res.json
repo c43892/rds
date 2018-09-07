@@ -33,7 +33,7 @@
 			"name": "font"
 		},
 		{
-			"keys": "effWantedOrder_json,effWantedOrder_png,effSelfExplode_json,effSelfExplode_png",
+			"keys": "effWantedOrder_json,effWantedOrder_png,effSelfExplode_json,effSelfExplode_png,newParticle_json,newParticle_png",
 			"name": "effect"
 		}
 	],
@@ -1302,6 +1302,16 @@
 			"url": "assets/ui/battle/skillGridBg2.png",
 			"type": "image",
 			"name": "skillGridBg2_png"
+		},
+		{
+			"url": "assets/effect/newParticle.json",
+			"type": "json",
+			"name": "newParticle_json"
+		},
+		{
+			"url": "assets/effect/newParticle.png",
+			"type": "image",
+			"name": "newParticle_png"
 		}
 	]
 }

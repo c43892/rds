@@ -58,9 +58,17 @@ class LoginView extends egret.DisplayObjectContainer {
         // this.addChild(disp);
 
         // ani.animation.play("1_attack", 0);
-        // dragonBones.WorldClock.clock.add(ani);        
+        // dragonBones.WorldClock.clock.add(ani);
         // egret.Ticker.getInstance().register((frameTime:number) => {
         //     dragonBones.WorldClock.clock.advanceTime(frameTime/1000);
+        // }, this);
+
+        // var ps = ViewUtils.createParticle("newParticle");
+        // ps.start();
+        // this.addChild(ps);
+        // this.bg.addEventListener(egret.TouchEvent.TOUCH_MOVE, (evt:egret.TouchEvent) => {
+        //     ps.emitterX = evt.stageX;
+        //     ps.emitterY = evt.stageY;
         // }, this);
     }
 

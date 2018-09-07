@@ -78,6 +78,14 @@ class ViewUtils {
         return ani;
     }
 
+    // 创建粒子动画
+    public static createParticle(name:string):particle.GravityParticleSystem {
+        var texture = RES.getRes(name + "_png");
+        var config = RES.getRes(name + "_json");
+        var ps = new particle.GravityParticleSystem(texture, config);
+        return ps;
+    }
+
     // // 测试置灰
     // static grayShaderFilter;
     // public static makeElemShaderGray(obj:egret.DisplayObject, makeGray:boolean) {
