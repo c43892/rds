@@ -78,12 +78,12 @@ class ViewUtils {
         return ani;
     }
 
-    // 创建粒子动画
-    public static createParticle(name:string):particle.GravityParticleSystem {
+    // 创建粒子动画包装对象
+    public static createParticleSystemWrapper(name:string):ParticleSystemWrapper {
         var texture = RES.getRes(name + "_png");
         var config = RES.getRes(name + "_json");
         var ps = new particle.GravityParticleSystem(texture, config);
-        return ps;
+        return ps ? new ParticleSystemWrapper(ps) : undefined;
     }
 
     // // 测试置灰

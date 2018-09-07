@@ -76,6 +76,7 @@
 		"bin-debug/view/MainView.js",
 		"bin-debug/view/MapView.js",
 		"bin-debug/view/NewMonsterTipView.js",
+		"bin-debug/view/ParticleSystemWrapper.js",
 		"bin-debug/view/PlayerLevelUpView.js",
 		"bin-debug/view/PropsView.js",
 		"bin-debug/view/PropView.js",

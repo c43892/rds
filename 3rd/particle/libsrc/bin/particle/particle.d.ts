@@ -266,7 +266,7 @@ declare module particle {
          * 表示粒子出现时的角度，取值范围[-Number.MAX_VALUE,Number.MAX_VALUE]
          * @member {number} particle.GravityParticleSystem#emitAngle
          */
-        private emitAngle;
+        public emitAngle;
         /**
          * 表示粒子出现时的角度差值，取值范围[-Number.MAX_VALUE,Number.MAX_VALUE]
          * @member {number} particle.GravityParticleSystem#emitAngleVariance
