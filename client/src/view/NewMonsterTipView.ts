@@ -1,10 +1,7 @@
 // 战斗中新出怪物提示
 class NewMonsterTipView extends egret.DisplayObjectContainer {
-
-    public showElemDesc;
-    public closeElemDesc;
-
     mapView:MapView;
+    elemDescView:ElemDescView;
     newMonsterTipsData:string[];
     readonly LOCAL_DATA_KEY = "NewMonsterTip";
     btnNext:TextButtonWithBg;
@@ -20,6 +17,7 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
         this.numTxt = ViewUtils.createTextField(25, 0xffffff);
         this.btnNext = new TextButtonWithBg("btnBg_png", 30);
         this.btnNext.onClicked = () => this.onNext();
+        this.elemDescView = new ElemDescView(w, h);
     }
 
     // 怪物提示列表
@@ -88,7 +86,7 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
             Utils.assert(mType == type, "tips array gets corruption");
             this.showDesc(tip);
         } else {
-            this.closeElemDesc();
+            this.removeChild(this.elemDescView);
             this.clear();
         }
     }
@@ -99,7 +97,13 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
         // 显示怪物信息
         var m = <Monster>tip["monster"];
         m = <Monster>m.bt().level.createElem(m.type);
-        this.showElemDesc(m);
+
+        if (!this.contains(this.elemDescView)) {
+            this.addChild(this.elemDescView);
+            this.setChildIndex(this.elemDescView, 0);
+        }
+
+        this.elemDescView.open(m, false, true);
 
         if (this.monsterTipArr.length > 0) {
             tip = this.monsterTipArr[this.monsterTipArr.length - 1];
