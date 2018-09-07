@@ -18,8 +18,8 @@ class LoginView extends egret.DisplayObjectContainer {
         // 背景
         this.bg = ViewUtils.createBitmapByName("lgbg_png");
         this.bg.touchEnabled = true;
-        this.addChild(this.bg);
-        ViewUtils.asFullBg(this.bg);
+        // this.addChild(this.bg);
+        // ViewUtils.asFullBg(this.bg);
 
         // 继续游戏按钮
         this.btnContinue = new TextButtonWithBg("ContinueNormal_png", 0);
@@ -51,14 +51,14 @@ class LoginView extends egret.DisplayObjectContainer {
         objs.forEach((obj, _) => this.addChild(obj));
         ViewUtils.multiLang(this, ...objs);
 
-        // var ani = ViewUtils.createSkeletonAni("hero_bone_1");
-        // var disp = ani.getDisplay();
+        // var ani = ViewUtils.createSkeletonAni("genggui_shenti");
+        // var disp:egret.DisplayObject = ani.getDisplay();
         // disp.x = this.width / 2;
         // disp.y = this.height / 2;
         // this.addChild(disp);
-
-        // ani.animation.play("1_attack", 0);
+        // ani.animation.play("start", 0);
         // dragonBones.WorldClock.clock.add(ani);
+        
         // egret.Ticker.getInstance().register((frameTime:number) => {
         //     dragonBones.WorldClock.clock.advanceTime(frameTime/1000);
         // }, this);
