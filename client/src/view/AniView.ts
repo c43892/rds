@@ -527,17 +527,8 @@ class AniView extends egret.DisplayObjectContainer {
         var sv = this.getSV(m);
         var flags = ps.addFlags;
 
-        if (Utils.contains(flags, "attackOnPlayerLeave") && m.type == "Gengar") {
-            // 耿鬼长舌头攻击: 播一段骨骼动画 + 一段 tr 动画 + 一段骨骼动画
-            var aw = this.aniFact.createAni("skeleton", {name:"genggui_shenti", act:"start", playTimes:1});
-            var disp = aw["getDisplay"]();
-            AniUtils.ac.addChild(disp);
-            var dispPos = sv.localToGlobal();
-            disp.x = dispPos.x;
-            disp.y = dispPos.y;
-            await aw;
-            AniUtils.ac.removeChild(disp);
-        }
+        if (Utils.contains(flags, "attackOnPlayerLeave") && m.type == "Gengar")
+            await this.gengarLick(sv);
         else
             await AniUtils.shakeTo(sv);
     }
@@ -739,6 +730,50 @@ class AniView extends egret.DisplayObjectContainer {
         pos.y -= sv.height / 2;
         AniUtils.tipAt(ViewUtils.getTipText(ps.r), pos);
         await AniUtils.flashAndShake(sv);
+    }
+
+    // 耿鬼长舌头攻击动画
+    async gengarLick(sv:egret.DisplayObject) {
+        var bodyOffset = {x:sv.width / 2, y:sv.height};
+        var tongueOffset = {x:sv.width / 2, y:sv.height};
+
+        // 耿鬼长舌头攻击: 播一段骨骼动画 + 一段 tr 动画 + 一段骨骼动画
+
+        sv.alpha = 0; // 隐藏原怪物形象
+
+        // 播放攻击前段动画
+        var aw1 = this.aniFact.createAni("skeleton", {name:"genggui_shenti", act:"start", playTimes:1});
+        var aw2 = this.aniFact.createAni("skeleton", {name:"genggui_shetou", act:"start", playTimes:1});
+        var disp1 = aw1["getDisplay"]();
+        var disp2 = aw2["getDisplay"]();
+        AniUtils.ac.addChild(disp1);
+        AniUtils.ac.addChild(disp2);
+        var dispPos = sv.localToGlobal();
+        disp1.x = dispPos.x + bodyOffset.x;
+        disp1.y = dispPos.y + bodyOffset.y;
+        disp2.x = dispPos.x + tongueOffset.x;
+        disp2.y = dispPos.y + tongueOffset.y;
+        await this.aniFact.createAni("gp", {subAniArr:[aw1, aw2]});
+        AniUtils.ac.removeChild(disp1);
+        AniUtils.ac.removeChild(disp2);
+
+        // 播放攻击后段动画
+        var aw1 = this.aniFact.createAni("skeleton", {name:"genggui_shenti", act:"back", playTimes:1});
+        var aw2 = this.aniFact.createAni("skeleton", {name:"genggui_shetou", act:"back", playTimes:1});
+        var disp1 = aw1["getDisplay"]();
+        var disp2 = aw2["getDisplay"]();
+        AniUtils.ac.addChild(disp1);
+        AniUtils.ac.addChild(disp2);
+        var dispPos = sv.localToGlobal();
+        disp1.x = dispPos.x + bodyOffset.x;
+        disp1.y = dispPos.y + bodyOffset.y;
+        disp2.x = dispPos.x + tongueOffset.x;
+        disp2.y = dispPos.y + tongueOffset.y;
+        await this.aniFact.createAni("gp", {subAniArr:[aw1, aw2]});
+        AniUtils.ac.removeChild(disp1);
+        AniUtils.ac.removeChild(disp2);
+
+        sv.alpha = 1;
     }
 
     // 黑幕开启
