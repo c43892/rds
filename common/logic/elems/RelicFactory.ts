@@ -106,7 +106,7 @@ class RelicFactory {
         "Fierce": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) return;
-                ElemFactory.addAI("onCalcAttacking", async (ps) => {
+                ElemFactory.addAI("onCalcAttacking", (ps) => {
                     ps.attackerAttrs.critical.b += attrs.dSneakCritical; // 增加暴击率
                 }, r, (ps) => ps.subType == "player2monster" && Utils.contains(ps.targetAttrs.targetFlags, "Sneaked"));
             });
@@ -231,7 +231,7 @@ class RelicFactory {
             return this.doAddElemOnLevelInited(attrs, ["Knife"], 1, (r) => {
                 <Relic>ElemFactory.addAI("onCalcAttacking", (ps) => {
                     ps.attackerAttrs.attackFlags.push("Pierce");
-                }, r,  (ps) => ps.subType == "player2monster" && ps.weapon && ps.weapon.type == "Knife")
+                }, r, (ps) => ps.subType == "player2monster" && ps.weapon && ps.weapon.type == "Knife")
                 return r;
             });             
         },

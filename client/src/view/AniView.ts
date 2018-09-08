@@ -383,6 +383,9 @@ class AniView extends egret.DisplayObjectContainer {
             case "money":
                 await this.onMoneyChanged(ps);
             break;
+            case "exp":
+                this.bv.refreshExpBar();
+            break;
             default:
         }
     }

@@ -739,7 +739,7 @@ class MonsterFactory {
     // 为玩家分摊伤害
     static doShareDamageOnPlayerHurt(damageShared:number, m:Monster):Monster {
         m.isHazard = () => false;
-        m = <Monster>ElemFactory.addAI("onCalcAttacking", async (ps) => {
+        m = <Monster>ElemFactory.addAI("onCalcAttacking", (ps) => {
             ps.targetAttrs.damageShared.a += damageShared;
             ps["damageShared"] = true;
             ps.targetAttrs["damageSharedMonster"] = m;
@@ -750,7 +750,7 @@ class MonsterFactory {
 
     // 受攻击时有x%的几率免疫伤害
     static doImmunizeDamageProb(n:number, m:Monster):Monster {
-        return <Monster>ElemFactory.addAI("onCalcAttacking", async (ps) => {
+        return <Monster>ElemFactory.addAI("onCalcAttacking", (ps) => {
             if(m.bt().srand.next100() < n)
                 ps.targetAttrs.targetFlags.push("cancelAttack");
         }, m, (ps) => ps.targetAttrs.owner == m);

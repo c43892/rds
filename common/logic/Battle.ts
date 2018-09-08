@@ -742,7 +742,7 @@ class Battle {
 
     // 进行一次攻击计算
     public async calcAttack(subType:string, attackerAttrs, targetAttrs, weapon:Elem = undefined) {
-        await this.triggerLogicPoint("onCalcAttacking", {subType:subType, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon});
+        this.triggerLogicPointSync("onCalcAttacking", {subType:subType, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon});
         var r = this.bc.doAttackCalc(attackerAttrs, targetAttrs); // 可能有免疫或者盾牌需要替换掉这个结果
         await this.triggerLogicPoint("onCalcAttackResult", {subType:subType, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r}); // 提供盾牌使用
         return r;
