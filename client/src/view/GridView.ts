@@ -232,7 +232,8 @@ class GridView extends egret.DisplayObjectContainer {
             case GridStatus.Marked: // 被标记
                 this.setCoverImg(false);
                 this.refreshElemShowLayer(g, e);
-                this.refreshMarkedEffect(g);
+                if (!e.attrs.invisible)
+                    this.refreshMarkedEffect(g);
             break;
             case GridStatus.Uncovered: // 被揭开
                 this.setCoverImg(false);
@@ -270,12 +271,13 @@ class GridView extends egret.DisplayObjectContainer {
         this.cdImg.x = (this.showLayer.width - this.cdImg.width) / 2;
         this.cdImg.y = (this.showLayer.height - this.cdImg.height) / 2;
 
-        if (e && e.isBig() && !e.attrs.invisible) {
+        if (e && e.isBig() && g.status != GridStatus.Covered) {
             this.showLayer.scaleX = e.attrs.size.w;
             this.showLayer.scaleY = e.attrs.size.h;
-        } else {
-            this.showLayer.scaleX = 1;
-            this.showLayer.scaleY = 1;
+        }
+        else {
+             this.showLayer.scaleX = 1;
+             this.showLayer.scaleY = 1;
         }
     }
 
