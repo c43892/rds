@@ -132,12 +132,12 @@ class GridView extends egret.DisplayObjectContainer {
             if (e["getElemImgResInIce"]) {
                 var elemInIceRes = e["getElemImgResInIce"]();
                 if (elemInIceRes) {
-                    this.elemImgInIce = ViewUtils.createBitmapByName(elemInIceRes + "_png");
+                    ViewUtils.setTexName(this.elemImgInIce, elemInIceRes + "_png");
                     this.showLayer.addChild(this.elemImgInIce);
                 }
             }
 
-            this.elemImg = ViewUtils.createBitmapByName(e.getElemImgRes() + "_png");
+            ViewUtils.setTexName(this.elemImg, e.getElemImgRes() + "_png");
             this.showLayer.addChild(this.elemImg);
             if (e instanceof Monster) { // 怪物
                 var m = <Monster>e;
@@ -269,14 +269,12 @@ class GridView extends egret.DisplayObjectContainer {
 
         var arr = [this.opLayer, this.effLayer, this.elemImg, this.elemImgInIce, this.banImg, this.blockedImg, this.coveredImg, this.markedBg, this.uncoverableImg];
         arr.forEach((a) => {
-            if (a) {
-                a.alpha = 1;
-                a.x = 0;
-                a.y = 0;
-                a.width = w;
-                a.height = h;
-                a.rotation = 0;
-            }
+            a.alpha = 1;
+            a.x = 0;
+            a.y = 0;
+            a.width = w;
+            a.height = h;
+            a.rotation = 0;
         });
 
         this.cdImg.x = (this.showLayer.width - this.cdImg.width) / 2;
