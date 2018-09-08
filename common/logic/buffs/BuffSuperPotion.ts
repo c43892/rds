@@ -16,7 +16,6 @@ class BuffSuperPotion extends Buff{
             if (ps.immunized) return;
 
             ps.immunized = true;
-            Utils.log("immunize sneak");
         };
 
         // 免疫攻击伤害和buff

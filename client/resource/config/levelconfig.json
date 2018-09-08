@@ -12,10 +12,9 @@
             "h": 3
         },
         "elems": {
-            "ShopNpc":{"shopCfg":"inbattle"},
             "CoinsTiny": {
                 "type": "Coins",
-                "cnt": 100
+                "cnt": 1
             },
             "CoinsSmall": {
                 "type": "Coins",
@@ -99,7 +98,7 @@
                 "power": 1
             },
             "BoxMonster": {
-                "hp": 8,
+                "hp": 6,
                 "power": 1
             },
             "Ghost": {
@@ -107,13 +106,13 @@
                 "power": 1
             },
             "RedSlime": {
-                "hp": 4,
+                "hp": 5,
                 "power": 1
             },
             "BallShito": {
-                "hp": 10,
+                "hp": 3,
                 "power": 1,
-                "shield": 8
+                "shield": 3
             },
             "GreenSlime": {
                 "hp": 4,
@@ -124,24 +123,68 @@
                 "power": 1
             }
         },
-        "constElems":{"ShopNpc":1},
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
                 "elems": {
-                    "Gengar": 100
+                    "NormalZombie": 100,
+                    "GoblinThief": 100,
+                    "HoundZombie": 100,
+                    "Vampire": 100,
+                    "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "Gengar": 100,
+                    "BombAbomination": 100,
+                    "EyeDemon": 100,
+                    "RandomEggZombie": 100,
+                    "LustZombie": 100,
+                    "Mummy": 100,
+                    "SkeletonKing": 100,
+                    "PoisonJellyfish": 100,
+                    "SwatheZombie": 100,
+                    "BoxMonster": 0,
+                    "Ghost": 100,
+                    "RedSlime": 100,
+                    "BallShito": 100,
+                    "GreenSlime": 100,
+                    "ReviveZombie": 100
                 }
             },
             {
-                "num": [ 10, 11 ],
+                "num": [ 4, 6 ],
                 "elems": {
-                    "Key": 1101
+                    "Knife": 1101,
+                    "Magazine": 1101,
+                    "EconomyMagazine": 1101,
+                    "Clock": 1101,
+                    "Shield": 1101,
+                    "HpPotion": 1101,
+                    "IceGun": 1101,
+                    "RayGun": 1101,
+                    "HpCapsule": 1101,
+                    "DePoison": 1101,
+                    "SuperPotion": 1101,
+                    "StrangthPotion": 1101,
+                    "CandyCannon": 1101,
+                    "Vest": 1101,
+                    "Bazooka": 1101,
+                    "WantedOrder": 1101,
+                    "Baton": 1101,
+                    "LifeSpring": 11010000,
+                    "Cloak": 1101
                 }
             },
             {
-                "num": [ 10, 11 ],
+                "num": [ 1, 3 ],
                 "elems": {
-                    "Door": 1101
+                    "Apple": 1101,
+                    "Steak": 1101
+                }
+            },
+            {
+                "num": [ 0, 3 ],
+                "elems": {
+                    "Hole": 1
                 }
             }
         ]
@@ -243,7 +286,7 @@
                 "power": 1
             },
             "BoxMonster": {
-                "hp": 8,
+                "hp": 6,
                 "power": 1
             },
             "Ghost": {
@@ -251,13 +294,13 @@
                 "power": 1
             },
             "RedSlime": {
-                "hp": 4,
+                "hp": 5,
                 "power": 1
             },
             "BallShito": {
-                "hp": 11,
+                "hp": 3,
                 "power": 1,
-                "shield": 8
+                "shield": 3
             },
             "GreenSlime": {
                 "hp": 4,
@@ -313,7 +356,10 @@
                     "CandyCannon": 1102,
                     "Vest": 1102,
                     "Bazooka": 1102,
-                    "WantedOrder": 1102
+                    "WantedOrder": 1102,
+                    "Baton": 1102,
+                    "LifeSpring": 1102,
+                    "Cloak": 1102
                 }
             },
             {
@@ -428,7 +474,7 @@
                 "power": 1
             },
             "BoxMonster": {
-                "hp": 9,
+                "hp": 7,
                 "power": 1
             },
             "Ghost": {
@@ -436,13 +482,13 @@
                 "power": 1
             },
             "RedSlime": {
-                "hp": 4,
+                "hp": 6,
                 "power": 1
             },
             "BallShito": {
-                "hp": 12,
+                "hp": 3,
                 "power": 1,
-                "shield": 9
+                "shield": 3
             },
             "GreenSlime": {
                 "hp": 4,
@@ -498,7 +544,10 @@
                     "CandyCannon": 1103,
                     "Vest": 1103,
                     "Bazooka": 1103,
-                    "WantedOrder": 1103
+                    "WantedOrder": 1103,
+                    "Baton": 1103,
+                    "LifeSpring": 1103,
+                    "Cloak": 1103
                 }
             },
             {
@@ -613,7 +662,7 @@
                 "power": 1
             },
             "BoxMonster": {
-                "hp": 10,
+                "hp": 7,
                 "power": 1
             },
             "Ghost": {
@@ -621,13 +670,13 @@
                 "power": 1
             },
             "RedSlime": {
-                "hp": 5,
+                "hp": 6,
                 "power": 1
             },
             "BallShito": {
-                "hp": 13,
+                "hp": 3,
                 "power": 1,
-                "shield": 10
+                "shield": 3
             },
             "GreenSlime": {
                 "hp": 5,
@@ -683,7 +732,10 @@
                     "CandyCannon": 1104,
                     "Vest": 1104,
                     "Bazooka": 1104,
-                    "WantedOrder": 1104
+                    "WantedOrder": 1104,
+                    "Baton": 1104,
+                    "LifeSpring": 1104,
+                    "Cloak": 1104
                 }
             },
             {
@@ -798,7 +850,7 @@
                 "power": 1
             },
             "BoxMonster": {
-                "hp": 11,
+                "hp": 8,
                 "power": 1
             },
             "Ghost": {
@@ -806,13 +858,13 @@
                 "power": 1
             },
             "RedSlime": {
-                "hp": 5,
+                "hp": 7,
                 "power": 1
             },
             "BallShito": {
-                "hp": 14,
+                "hp": 4,
                 "power": 1,
-                "shield": 11
+                "shield": 4
             },
             "GreenSlime": {
                 "hp": 5,
@@ -868,7 +920,10 @@
                     "CandyCannon": 1105,
                     "Vest": 1105,
                     "Bazooka": 1105,
-                    "WantedOrder": 1105
+                    "WantedOrder": 1105,
+                    "Baton": 1105,
+                    "LifeSpring": 1105,
+                    "Cloak": 1105
                 }
             },
             {
@@ -983,7 +1038,7 @@
                 "power": 1
             },
             "BoxMonster": {
-                "hp": 12,
+                "hp": 9,
                 "power": 1
             },
             "Ghost": {
@@ -991,13 +1046,13 @@
                 "power": 1
             },
             "RedSlime": {
-                "hp": 6,
+                "hp": 7,
                 "power": 1
             },
             "BallShito": {
-                "hp": 15,
+                "hp": 4,
                 "power": 1,
-                "shield": 12
+                "shield": 4
             },
             "GreenSlime": {
                 "hp": 6,
@@ -1053,7 +1108,10 @@
                     "CandyCannon": 1106,
                     "Vest": 1106,
                     "Bazooka": 1106,
-                    "WantedOrder": 1106
+                    "WantedOrder": 1106,
+                    "Baton": 1106,
+                    "LifeSpring": 1106,
+                    "Cloak": 1106
                 }
             },
             {
@@ -1174,7 +1232,7 @@
                 "power": 1
             },
             "BoxMonster": {
-                "hp": 12,
+                "hp": 9,
                 "power": 1
             },
             "Ghost": {
@@ -1182,13 +1240,13 @@
                 "power": 1
             },
             "RedSlime": {
-                "hp": 6,
+                "hp": 8,
                 "power": 1
             },
             "BallShito": {
-                "hp": 16,
+                "hp": 4,
                 "power": 1,
-                "shield": 12
+                "shield": 4
             },
             "GreenSlime": {
                 "hp": 6,
@@ -1244,7 +1302,10 @@
                     "CandyCannon": 1107,
                     "Vest": 1107,
                     "Bazooka": 1107,
-                    "WantedOrder": 1107
+                    "WantedOrder": 1107,
+                    "Baton": 1107,
+                    "LifeSpring": 1107,
+                    "Cloak": 1107
                 }
             },
             {
@@ -1365,7 +1426,7 @@
                 "power": 1
             },
             "BoxMonster": {
-                "hp": 13,
+                "hp": 10,
                 "power": 1
             },
             "Ghost": {
@@ -1373,13 +1434,13 @@
                 "power": 1
             },
             "RedSlime": {
-                "hp": 6,
+                "hp": 8,
                 "power": 1
             },
             "BallShito": {
-                "hp": 17,
+                "hp": 5,
                 "power": 1,
-                "shield": 13
+                "shield": 5
             },
             "GreenSlime": {
                 "hp": 6,
@@ -1435,7 +1496,10 @@
                     "CandyCannon": 1108,
                     "Vest": 1108,
                     "Bazooka": 1108,
-                    "WantedOrder": 1108
+                    "WantedOrder": 1108,
+                    "Baton": 1108,
+                    "LifeSpring": 1108,
+                    "Cloak": 1108
                 }
             },
             {
@@ -1556,7 +1620,7 @@
                 "power": 1
             },
             "BoxMonster": {
-                "hp": 14,
+                "hp": 10,
                 "power": 1
             },
             "Ghost": {
@@ -1564,13 +1628,13 @@
                 "power": 1
             },
             "RedSlime": {
-                "hp": 7,
+                "hp": 9,
                 "power": 1
             },
             "BallShito": {
-                "hp": 18,
+                "hp": 5,
                 "power": 1,
-                "shield": 14
+                "shield": 5
             },
             "GreenSlime": {
                 "hp": 7,
@@ -1626,7 +1690,10 @@
                     "CandyCannon": 1109,
                     "Vest": 1109,
                     "Bazooka": 1109,
-                    "WantedOrder": 1109
+                    "WantedOrder": 1109,
+                    "Baton": 1109,
+                    "LifeSpring": 1109,
+                    "Cloak": 1109
                 }
             },
             {
@@ -1747,7 +1814,7 @@
                 "power": 1
             },
             "BoxMonster": {
-                "hp": 15,
+                "hp": 11,
                 "power": 1
             },
             "Ghost": {
@@ -1755,13 +1822,13 @@
                 "power": 1
             },
             "RedSlime": {
-                "hp": 7,
+                "hp": 9,
                 "power": 1
             },
             "BallShito": {
-                "hp": 19,
+                "hp": 5,
                 "power": 1,
-                "shield": 15
+                "shield": 5
             },
             "GreenSlime": {
                 "hp": 7,
@@ -1817,7 +1884,10 @@
                     "CandyCannon": 1110,
                     "Vest": 1110,
                     "Bazooka": 1110,
-                    "WantedOrder": 1110
+                    "WantedOrder": 1110,
+                    "Baton": 1110,
+                    "LifeSpring": 1110,
+                    "Cloak": 1110
                 }
             },
             {
@@ -1938,7 +2008,7 @@
                 "power": 2
             },
             "BoxMonster": {
-                "hp": 16,
+                "hp": 12,
                 "power": 2
             },
             "Ghost": {
@@ -1946,13 +2016,13 @@
                 "power": 2
             },
             "RedSlime": {
-                "hp": 8,
+                "hp": 10,
                 "power": 2
             },
             "BallShito": {
-                "hp": 20,
+                "hp": 6,
                 "power": 2,
-                "shield": 16
+                "shield": 6
             },
             "GreenSlime": {
                 "hp": 8,
@@ -2008,7 +2078,10 @@
                     "CandyCannon": 1111,
                     "Vest": 1111,
                     "Bazooka": 1111,
-                    "WantedOrder": 1111
+                    "WantedOrder": 1111,
+                    "Baton": 1111,
+                    "LifeSpring": 1111,
+                    "Cloak": 1111
                 }
             },
             {
@@ -2129,7 +2202,7 @@
                 "power": 2
             },
             "BoxMonster": {
-                "hp": 16,
+                "hp": 12,
                 "power": 2
             },
             "Ghost": {
@@ -2137,13 +2210,13 @@
                 "power": 2
             },
             "RedSlime": {
-                "hp": 8,
+                "hp": 10,
                 "power": 2
             },
             "BallShito": {
-                "hp": 21,
+                "hp": 6,
                 "power": 2,
-                "shield": 16
+                "shield": 6
             },
             "GreenSlime": {
                 "hp": 8,
@@ -2199,7 +2272,10 @@
                     "CandyCannon": 1112,
                     "Vest": 1112,
                     "Bazooka": 1112,
-                    "WantedOrder": 1112
+                    "WantedOrder": 1112,
+                    "Baton": 1112,
+                    "LifeSpring": 1112,
+                    "Cloak": 1112
                 }
             },
             {
@@ -2320,7 +2396,7 @@
                 "power": 2
             },
             "BoxMonster": {
-                "hp": 17,
+                "hp": 13,
                 "power": 2
             },
             "Ghost": {
@@ -2328,13 +2404,13 @@
                 "power": 2
             },
             "RedSlime": {
-                "hp": 8,
+                "hp": 11,
                 "power": 2
             },
             "BallShito": {
-                "hp": 22,
+                "hp": 6,
                 "power": 2,
-                "shield": 17
+                "shield": 6
             },
             "GreenSlime": {
                 "hp": 8,
@@ -2390,7 +2466,10 @@
                     "CandyCannon": 1113,
                     "Vest": 1113,
                     "Bazooka": 1113,
-                    "WantedOrder": 1113
+                    "WantedOrder": 1113,
+                    "Baton": 1113,
+                    "LifeSpring": 1113,
+                    "Cloak": 1113
                 }
             },
             {
@@ -2511,7 +2590,7 @@
                 "power": 2
             },
             "BoxMonster": {
-                "hp": 18,
+                "hp": 13,
                 "power": 2
             },
             "Ghost": {
@@ -2519,13 +2598,13 @@
                 "power": 2
             },
             "RedSlime": {
-                "hp": 9,
+                "hp": 11,
                 "power": 2
             },
             "BallShito": {
-                "hp": 23,
+                "hp": 6,
                 "power": 2,
-                "shield": 18
+                "shield": 6
             },
             "GreenSlime": {
                 "hp": 9,
@@ -2581,7 +2660,10 @@
                     "CandyCannon": 1114,
                     "Vest": 1114,
                     "Bazooka": 1114,
-                    "WantedOrder": 1114
+                    "WantedOrder": 1114,
+                    "Baton": 1114,
+                    "LifeSpring": 1114,
+                    "Cloak": 1114
                 }
             },
             {
@@ -2702,7 +2784,7 @@
                 "power": 2
             },
             "BoxMonster": {
-                "hp": 20,
+                "hp": 15,
                 "power": 2
             },
             "Ghost": {
@@ -2710,13 +2792,13 @@
                 "power": 2
             },
             "RedSlime": {
-                "hp": 10,
+                "hp": 12,
                 "power": 2
             },
             "BallShito": {
-                "hp": 25,
+                "hp": 7,
                 "power": 2,
-                "shield": 20
+                "shield": 7
             },
             "GreenSlime": {
                 "hp": 10,
@@ -2772,7 +2854,10 @@
                     "CandyCannon": 1116,
                     "Vest": 1116,
                     "Bazooka": 1116,
-                    "WantedOrder": 1116
+                    "WantedOrder": 1116,
+                    "Baton": 1116,
+                    "LifeSpring": 1116,
+                    "Cloak": 1116
                 }
             },
             {
@@ -2893,7 +2978,7 @@
                 "power": 2
             },
             "BoxMonster": {
-                "hp": 20,
+                "hp": 15,
                 "power": 2
             },
             "Ghost": {
@@ -2901,13 +2986,13 @@
                 "power": 2
             },
             "RedSlime": {
-                "hp": 10,
+                "hp": 13,
                 "power": 2
             },
             "BallShito": {
-                "hp": 26,
+                "hp": 7,
                 "power": 2,
-                "shield": 20
+                "shield": 7
             },
             "GreenSlime": {
                 "hp": 10,
@@ -2963,7 +3048,10 @@
                     "CandyCannon": 1117,
                     "Vest": 1117,
                     "Bazooka": 1117,
-                    "WantedOrder": 1117
+                    "WantedOrder": 1117,
+                    "Baton": 1117,
+                    "LifeSpring": 1117,
+                    "Cloak": 1117
                 }
             },
             {
@@ -3084,7 +3172,7 @@
                 "power": 2
             },
             "BoxMonster": {
-                "hp": 21,
+                "hp": 16,
                 "power": 2
             },
             "Ghost": {
@@ -3092,13 +3180,13 @@
                 "power": 2
             },
             "RedSlime": {
-                "hp": 10,
+                "hp": 13,
                 "power": 2
             },
             "BallShito": {
-                "hp": 27,
+                "hp": 8,
                 "power": 2,
-                "shield": 21
+                "shield": 8
             },
             "GreenSlime": {
                 "hp": 10,
@@ -3154,7 +3242,10 @@
                     "CandyCannon": 1118,
                     "Vest": 1118,
                     "Bazooka": 1118,
-                    "WantedOrder": 1118
+                    "WantedOrder": 1118,
+                    "Baton": 1118,
+                    "LifeSpring": 1118,
+                    "Cloak": 1118
                 }
             },
             {
@@ -3275,7 +3366,7 @@
                 "power": 2
             },
             "BoxMonster": {
-                "hp": 22,
+                "hp": 16,
                 "power": 2
             },
             "Ghost": {
@@ -3283,13 +3374,13 @@
                 "power": 2
             },
             "RedSlime": {
-                "hp": 11,
+                "hp": 14,
                 "power": 2
             },
             "BallShito": {
-                "hp": 28,
+                "hp": 8,
                 "power": 2,
-                "shield": 22
+                "shield": 8
             },
             "GreenSlime": {
                 "hp": 11,
@@ -3345,7 +3436,10 @@
                     "CandyCannon": 1119,
                     "Vest": 1119,
                     "Bazooka": 1119,
-                    "WantedOrder": 1119
+                    "WantedOrder": 1119,
+                    "Baton": 1119,
+                    "LifeSpring": 1119,
+                    "Cloak": 1119
                 }
             },
             {
@@ -3466,7 +3560,7 @@
                 "power": 2
             },
             "BoxMonster": {
-                "hp": 23,
+                "hp": 17,
                 "power": 2
             },
             "Ghost": {
@@ -3474,13 +3568,13 @@
                 "power": 2
             },
             "RedSlime": {
-                "hp": 11,
+                "hp": 14,
                 "power": 2
             },
             "BallShito": {
-                "hp": 29,
+                "hp": 8,
                 "power": 2,
-                "shield": 23
+                "shield": 8
             },
             "GreenSlime": {
                 "hp": 11,
@@ -3536,7 +3630,10 @@
                     "CandyCannon": 1120,
                     "Vest": 1120,
                     "Bazooka": 1120,
-                    "WantedOrder": 1120
+                    "WantedOrder": 1120,
+                    "Baton": 1120,
+                    "LifeSpring": 1120,
+                    "Cloak": 1120
                 }
             },
             {
@@ -3657,7 +3754,7 @@
                 "power": 3
             },
             "BoxMonster": {
-                "hp": 24,
+                "hp": 18,
                 "power": 3
             },
             "Ghost": {
@@ -3665,13 +3762,13 @@
                 "power": 3
             },
             "RedSlime": {
-                "hp": 12,
+                "hp": 15,
                 "power": 3
             },
             "BallShito": {
-                "hp": 30,
+                "hp": 9,
                 "power": 3,
-                "shield": 24
+                "shield": 9
             },
             "GreenSlime": {
                 "hp": 12,
@@ -3727,7 +3824,10 @@
                     "CandyCannon": 1121,
                     "Vest": 1121,
                     "Bazooka": 1121,
-                    "WantedOrder": 1121
+                    "WantedOrder": 1121,
+                    "Baton": 1121,
+                    "LifeSpring": 1121,
+                    "Cloak": 1121
                 }
             },
             {
@@ -3848,7 +3948,7 @@
                 "power": 3
             },
             "BoxMonster": {
-                "hp": 24,
+                "hp": 18,
                 "power": 3
             },
             "Ghost": {
@@ -3856,13 +3956,13 @@
                 "power": 3
             },
             "RedSlime": {
-                "hp": 12,
+                "hp": 15,
                 "power": 3
             },
             "BallShito": {
-                "hp": 31,
+                "hp": 9,
                 "power": 3,
-                "shield": 24
+                "shield": 9
             },
             "GreenSlime": {
                 "hp": 12,
@@ -3918,7 +4018,10 @@
                     "CandyCannon": 1122,
                     "Vest": 1122,
                     "Bazooka": 1122,
-                    "WantedOrder": 1122
+                    "WantedOrder": 1122,
+                    "Baton": 1122,
+                    "LifeSpring": 1122,
+                    "Cloak": 1122
                 }
             },
             {
@@ -4039,7 +4142,7 @@
                 "power": 3
             },
             "BoxMonster": {
-                "hp": 25,
+                "hp": 19,
                 "power": 3
             },
             "Ghost": {
@@ -4047,13 +4150,13 @@
                 "power": 3
             },
             "RedSlime": {
-                "hp": 12,
+                "hp": 16,
                 "power": 3
             },
             "BallShito": {
-                "hp": 32,
+                "hp": 9,
                 "power": 3,
-                "shield": 25
+                "shield": 9
             },
             "GreenSlime": {
                 "hp": 12,
@@ -4109,7 +4212,10 @@
                     "CandyCannon": 1123,
                     "Vest": 1123,
                     "Bazooka": 1123,
-                    "WantedOrder": 1123
+                    "WantedOrder": 1123,
+                    "Baton": 1123,
+                    "LifeSpring": 1123,
+                    "Cloak": 1123
                 }
             },
             {
@@ -4230,7 +4336,7 @@
                 "power": 3
             },
             "BoxMonster": {
-                "hp": 26,
+                "hp": 19,
                 "power": 3
             },
             "Ghost": {
@@ -4238,13 +4344,13 @@
                 "power": 3
             },
             "RedSlime": {
-                "hp": 13,
+                "hp": 16,
                 "power": 3
             },
             "BallShito": {
-                "hp": 33,
+                "hp": 9,
                 "power": 3,
-                "shield": 26
+                "shield": 9
             },
             "GreenSlime": {
                 "hp": 13,
@@ -4300,7 +4406,10 @@
                     "CandyCannon": 1124,
                     "Vest": 1124,
                     "Bazooka": 1124,
-                    "WantedOrder": 1124
+                    "WantedOrder": 1124,
+                    "Baton": 1124,
+                    "LifeSpring": 1124,
+                    "Cloak": 1124
                 }
             },
             {
@@ -4421,7 +4530,7 @@
                 "power": 3
             },
             "BoxMonster": {
-                "hp": 27,
+                "hp": 20,
                 "power": 3
             },
             "Ghost": {
@@ -4429,13 +4538,13 @@
                 "power": 3
             },
             "RedSlime": {
-                "hp": 13,
+                "hp": 17,
                 "power": 3
             },
             "BallShito": {
-                "hp": 34,
+                "hp": 10,
                 "power": 3,
-                "shield": 27
+                "shield": 10
             },
             "GreenSlime": {
                 "hp": 13,
@@ -4491,7 +4600,10 @@
                     "CandyCannon": 1125,
                     "Vest": 1125,
                     "Bazooka": 1125,
-                    "WantedOrder": 1125
+                    "WantedOrder": 1125,
+                    "Baton": 1125,
+                    "LifeSpring": 1125,
+                    "Cloak": 1125
                 }
             },
             {
@@ -4612,7 +4724,7 @@
                 "power": 3
             },
             "BoxMonster": {
-                "hp": 28,
+                "hp": 21,
                 "power": 3
             },
             "Ghost": {
@@ -4620,13 +4732,13 @@
                 "power": 3
             },
             "RedSlime": {
-                "hp": 14,
+                "hp": 17,
                 "power": 3
             },
             "BallShito": {
-                "hp": 35,
+                "hp": 10,
                 "power": 3,
-                "shield": 28
+                "shield": 10
             },
             "GreenSlime": {
                 "hp": 14,
@@ -4682,7 +4794,10 @@
                     "CandyCannon": 1126,
                     "Vest": 1126,
                     "Bazooka": 1126,
-                    "WantedOrder": 1126
+                    "WantedOrder": 1126,
+                    "Baton": 1126,
+                    "LifeSpring": 1126,
+                    "Cloak": 1126
                 }
             },
             {
@@ -4803,7 +4918,7 @@
                 "power": 3
             },
             "BoxMonster": {
-                "hp": 28,
+                "hp": 21,
                 "power": 3
             },
             "Ghost": {
@@ -4811,13 +4926,13 @@
                 "power": 3
             },
             "RedSlime": {
-                "hp": 14,
+                "hp": 18,
                 "power": 3
             },
             "BallShito": {
-                "hp": 36,
+                "hp": 10,
                 "power": 3,
-                "shield": 28
+                "shield": 10
             },
             "GreenSlime": {
                 "hp": 14,
@@ -4873,7 +4988,10 @@
                     "CandyCannon": 1127,
                     "Vest": 1127,
                     "Bazooka": 1127,
-                    "WantedOrder": 1127
+                    "WantedOrder": 1127,
+                    "Baton": 1127,
+                    "LifeSpring": 1127,
+                    "Cloak": 1127
                 }
             },
             {
@@ -4994,7 +5112,7 @@
                 "power": 3
             },
             "BoxMonster": {
-                "hp": 29,
+                "hp": 22,
                 "power": 3
             },
             "Ghost": {
@@ -5002,13 +5120,13 @@
                 "power": 3
             },
             "RedSlime": {
-                "hp": 14,
+                "hp": 18,
                 "power": 3
             },
             "BallShito": {
-                "hp": 37,
+                "hp": 11,
                 "power": 3,
-                "shield": 29
+                "shield": 11
             },
             "GreenSlime": {
                 "hp": 14,
@@ -5064,7 +5182,10 @@
                     "CandyCannon": 1128,
                     "Vest": 1128,
                     "Bazooka": 1128,
-                    "WantedOrder": 1128
+                    "WantedOrder": 1128,
+                    "Baton": 1128,
+                    "LifeSpring": 1128,
+                    "Cloak": 1128
                 }
             },
             {
@@ -5185,7 +5306,7 @@
                 "power": 3
             },
             "BoxMonster": {
-                "hp": 30,
+                "hp": 22,
                 "power": 3
             },
             "Ghost": {
@@ -5193,13 +5314,13 @@
                 "power": 3
             },
             "RedSlime": {
-                "hp": 15,
+                "hp": 19,
                 "power": 3
             },
             "BallShito": {
-                "hp": 38,
+                "hp": 11,
                 "power": 3,
-                "shield": 30
+                "shield": 11
             },
             "GreenSlime": {
                 "hp": 15,
@@ -5255,7 +5376,10 @@
                     "CandyCannon": 1129,
                     "Vest": 1129,
                     "Bazooka": 1129,
-                    "WantedOrder": 1129
+                    "WantedOrder": 1129,
+                    "Baton": 1129,
+                    "LifeSpring": 1129,
+                    "Cloak": 1129
                 }
             },
             {

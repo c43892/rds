@@ -11,8 +11,6 @@
             "shortDesc":"攻擊力+1"},
         "Fierce":{"name":"殺戮專精", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>突襲敵人時，提升<font color=#2d5627 size=20>{dSneakCritical}%<font color=#000000 size=20>的暴擊幾率</font>"],
             "shortDesc":"突襲敵人時，提升5%的暴擊幾率"},
-        "Cloak":{"name":"披風", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>免疫一次敵方突襲效果</font>"],
-            "shortDesc":"免疫一次敵方突襲效果"},
         "Unback2Sneak":{"name":"料敵先機", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>突襲敵人時，敵人不能反擊</font>"],
             "shortDesc":"突襲敵人時，敵人不能反擊"},
         "Agile":{"name":"閃避強化", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>閃避 <font color=#2d5627 size=20>+{dDodge}%</font>"],
@@ -261,6 +259,8 @@
         "Vest":{"name":"防護服", "desc":["<font color=#000000 bold=false size=20>降低敵人1點的攻擊</font>"]},
         "Cocoon":{"name":"繭", "desc":["<font color=#000000 bold=false size=20>被繭包裹的物品無法使用</font>"]},
         "WantedOrder":{"name":"通緝令", "desc":["<font color=#000000 bold=false size=20>標記一個隨機怪物，掉落金錢變為10倍</font>"]},
+        "Cloak":{"name":"披風", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>免疫一次敵方突襲效果</font>"]},
+        "LifeSpring":{"name":"生命之泉", "desc":[""]},
 
         "NextLevelPort":{"name":"下一層", "desc":["<font color=#000000 bold=false size=20>前往下一层</font>"]},
         "EscapePort":{"name":"逃跑", "desc":["<font color=#000000 bold=false size=20>离开地牢</font>"]}
@@ -277,8 +277,6 @@
             "shortDesc":"攻击力+1"},
         "Fierce":{"name":"杀戮专精", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>突袭敌人时，提升</font><font color=#2d5627 size=20> {dSneakCritical}%</font><font color=#000000 size=20>的暴击几率</font>"], 
             "shortDesc":"突袭敌人时，提升5%的暴击几率"},
-        "Cloak":{"name":"披风", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>免疫一次敌方突袭效果</font>"], 
-            "shortDesc":"免疫一次敌方突袭效果"},
         "Unback2Sneak":{"name":"料敌先机", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>突袭敌人时，敌人不能反击</font>"], 
             "shortDesc":"突袭敌人时，敌人不能反击"},
         "Agile":{"name":"闪避强化", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>闪避</font>+<font color=#2d5627 size=20> {dDodge}%</font>"], 
@@ -527,6 +525,8 @@
         "Vest":{"name":"防护服", "desc":["<font color=#000000 size=20>降低敌人</font><font color=#2d5627 size=20> {powerD} </font><font color=#000000 size=20>点的攻击</font>"]},
         "Cocoon":{"name":"茧", "desc":["<font color=#000000 size=20>被茧包裹的物品无法使用</font>"]},
         "WantedOrder":{"name":"通缉令", "desc":["<font color=#000000 size=20>标记一个随机怪物，掉落金钱变为</font><font color=#2d5627 size=20> 10 </font><font color=#000000 size=20>倍</font>"]},
+        "Cloak":{"name":"披风", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>免疫一次敌方突袭效果</font>"]},
+        "LifeSpring":{"name":"生命之泉", "desc":[""]},
 
         "NextLevelPort":{"name":"下一层", "desc":["<font color=#000000 bold=false size=20>离开地牢</font>"]},
         "EscapePort":{"name":"逃跑", "desc":["<font color=#000000 bold=false size=20>离开地牢</font>"]}
@@ -543,8 +543,6 @@
             "shortDesc":"攻擊力+1"},
         "Fierce":{"name":"殺戮專精", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>突襲敵人時，提升<font color=#2d5627 size=20>{dSneakCritical}%<font color=#000000 size=20>的暴擊幾率</font>"],
             "shortDesc":"突襲敵人時，提升5%的暴擊幾率"},
-        "Cloak":{"name":"披風", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>免疫一次敵方突襲效果</font>"],
-            "shortDesc":"免疫一次敵方突襲效果"},
         "Unback2Sneak":{"name":"料敵先機", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>突襲敵人時，敵人不能反擊</font>"],
             "shortDesc":"突襲敵人時，敵人不能反擊"},
         "Agile":{"name":"閃避強化", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>閃避 <font color=#2d5627 size=20>+{dDodge}%</font>"],
@@ -793,6 +791,8 @@
         "Vest":{"name":"防護服", "desc":["<font color=#000000 bold=false size=20>降低敵人1點的攻擊</font>"]},
         "Cocoon":{"name":"繭", "desc":["<font color=#000000 bold=false size=20>被繭包裹的物品無法使用</font>"]},
         "WantedOrder":{"name":"通緝令", "desc":["<font color=#000000 bold=false size=20>標記一個隨機怪物，掉落金錢變為10倍</font>"]},
+        "Cloak":{"name":"披風", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>免疫一次敵方突襲效果</font>"]},
+        "LifeSpring":{"name":"生命之泉", "desc":[""]},
 
         "NextLevelPort":{"name":"下一層", "desc":["<font color=#000000 bold=false size=20>前往下一層</font>"]},
         "EscapePort":{"name":"逃跑", "desc":["<font color=#000000 bold=false size=20>離開地牢</font>"]}
