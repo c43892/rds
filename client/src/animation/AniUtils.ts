@@ -313,10 +313,14 @@ class AniUtils {
         bg.y = pos.y;
         AniUtils.ac.addChild(bg);
         var tip = ViewUtils.createTextField(25, 0xffffff);
+        tip.textAlign = egret.HorizontalAlign.CENTER;
+        tip.verticalAlign = egret.VerticalAlign.MIDDLE;
         tip.textFlow = ViewUtils.fromHtml(str);
-        AniUtils.ac.addChild(tip);
         tip.x = pos.x;
         tip.y = pos.y;
+        tip.width = bg.width;
+        tip.height = bg.height;
+        AniUtils.ac.addChild(tip);
         tip.anchorOffsetX = tip.width / 2;
         tip.anchorOffsetY = tip.height / 2;
         await AniUtils.aniFact.createAniByCfg({type:"seq", arr:[

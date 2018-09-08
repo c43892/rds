@@ -767,8 +767,8 @@ class AniView extends egret.DisplayObjectContainer {
 
         // 舌头伸长进行攻击
         var ys = Utils.getDist(tongueRootPos, avatarCenterPos) / disp2.height;
-        var aw4 = this.aniFact.createAni("tr", {obj:disp2, fsy:1, tsy:ys, time:50, mode:egret.Ease.cubicIn});
-        var aw5 = this.aniFact.createAni("tr", {obj:disp2, fsy:ys, tsy:1, time:50, mode:egret.Ease.cubicOut});
+        var aw4 = this.aniFact.createAni("tr", {obj:disp2, fsy:1, tsy:ys, time:100, mode:egret.Ease.cubicIn});
+        var aw5 = this.aniFact.createAni("tr", {obj:disp2, fsy:ys, tsy:1, time:100, mode:egret.Ease.cubicOut});
         await this.aniFact.createAni("seq", {subAniArr:[aw4, aw5]});
 
         AniUtils.ac.removeChild(disp1);
@@ -790,7 +790,7 @@ class AniView extends egret.DisplayObjectContainer {
         disp2.rotation = r;
         var tongueRootPos = {x:disp2.x + disp2.anchorOffsetX, y:disp2.y + disp2.anchorOffsetY};
         var avatarCenterPos = {x:avatarPos.x + this.bv.avatar.width / 2, y:avatarPos.y + this.bv.avatar.height/2};
-        var aw3 = this.aniFact.createAni("tr", {obj:disp2, fr:r, tr:0, time:250});
+        var aw3 = this.aniFact.createAni("tr", {obj:disp2, fr:-(360-r), tr:0, time:250});
         this.aniFact.createAni("gp", {subAniArr:[aw1, aw2, aw3]}).then(() => {
             AniUtils.ac.removeChild(disp1);
             AniUtils.ac.removeChild(disp2);
