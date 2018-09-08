@@ -269,7 +269,6 @@ class ItemFactory {
                     if (ps.immunized) return;
                     ps.immunized = true;
                     
-                    Utils.log("immunize sneak");
                     await e.bt().implRemoveElemAt(e.pos.x, e.pos.y);
                 }, e, () => e.isValid());
                 return e;
@@ -280,7 +279,10 @@ class ItemFactory {
             var e = this.createItem();
             e.canUse = () => e.isValid();
             e.canBeDragDrop = false;
-            e.use = async () => await e.bt().implAddPlayerHp(e.attrs.dhp, e);
+            e.use = async () => {
+                var dhp = Math.ceil(e.bt().player.hp * e.attrs.percent / 100);
+                await e.bt().implAddPlayerHp(dhp, e);
+                }
             return e;
         }
     };

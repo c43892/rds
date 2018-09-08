@@ -31,7 +31,6 @@
             {"dSneakCritical":10}, {"dSneakCritical":20}, {"dSneakCritical":100}
         ]
     },
-    "Cloak":{"name":"披风", "cd":100},
     "Unback2Sneak":{"name":"先动"},
     "Crucifix":{"name":"十字架"},
     "WeaponMaster":{"name":"武器大师", "refElems":["Baton"]},
@@ -192,6 +191,8 @@
     "Vest":{"name":"防护衣", "powerD":-1},
     "Cocoon":{"name":"茧", "useWithoutConfirm":true, "hideDropItems":true},
     "WantedOrder":{"name":"通缉令"},
+    "Cloak":{"name":"披风"},
+    "LifeSpring":{"name":"生命之泉", "percent":50},
 
     "NextLevelPort":{"name":"下一层"},
     "EscapePort":{"name":"逃跑", "invisible":true}
