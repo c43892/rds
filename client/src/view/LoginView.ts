@@ -18,8 +18,8 @@ class LoginView extends egret.DisplayObjectContainer {
         // 背景
         this.bg = ViewUtils.createBitmapByName("lgbg_png");
         this.bg.touchEnabled = true;
-        // this.addChild(this.bg);
-        // ViewUtils.asFullBg(this.bg);
+        this.addChild(this.bg);
+        ViewUtils.asFullBg(this.bg);
 
         // 继续游戏按钮
         this.btnContinue = new TextButtonWithBg("ContinueNormal_png", 0);
