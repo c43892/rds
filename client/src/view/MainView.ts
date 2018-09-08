@@ -3,7 +3,6 @@ class MainView extends egret.DisplayObjectContainer {
     private p:Player; // 当前玩家数据
     public lgv:LoginView; // 主界面菜单
     public bv:BattleView; // 战斗视图
-    public nmtip:NewMonsterTipView; // 新怪物提示
     public sv:ShopView; // 商店视图
     public hv:HospitalView; // 医院视图
     public wmv:WorldMapView; // 大地图视图
@@ -36,9 +35,6 @@ class MainView extends egret.DisplayObjectContainer {
         // 战斗视图
         this.bv = new BattleView(w, h);
         this.bv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
-
-        // 新怪物提示
-        this.nmtip = new NewMonsterTipView(w, h, this.bv);
 
         // 宝箱房间
         this.brv = new BoxRoomView(w, h);
@@ -85,15 +81,6 @@ class MainView extends egret.DisplayObjectContainer {
         PropView.showElemDesc = async (e) => await this.showElemDesc(e);
         TurntableView.showElemDesc = async (e) => await this.showElemDesc(e);
         BoxRoomView.showElemDesc = async (e) => await this.showElemDesc(e);
-        this.nmtip.showElemDesc = (e) => {
-            this.addChild(this.idv);
-            this.setChildIndex(this.idv, -1);
-            this.idv.player = this.p;
-            this.idv.open(e, true, true);
-        };
-        this.nmtip.closeElemDesc = () => {
-            this.removeChild(this.idv);
-        };
 
         // 展示给定的Elem列表
         this.aev = new AllElemsView(w, h);
@@ -146,7 +133,6 @@ class MainView extends egret.DisplayObjectContainer {
         this.bv.width = this.width;
         this.bv.height = this.height;
         this.addChild(this.bv);
-        this.nmtip.clear();
 
         GridView.try2UseElem = bt.try2UseElem();
         GridView.try2UseElemAt = bt.try2UseElemAt();
@@ -172,10 +158,9 @@ class MainView extends egret.DisplayObjectContainer {
         ], (e) => (ps) => this.bv.av[e](ps));
         bt.registerEvent("onBattleEnded", async (ps) => {
             this.removeChild(this.bv);
-            this.nmtip.clear();
             this.battleEndedCallback(bt);
         });
-        bt.registerEvent("onGridChanged", async (ps) => await this.nmtip.onGridChanged(ps));
+        bt.registerEvent("onGridChanged", async (ps) => await this.bv.monsterTip.onGridChanged(ps));
 
         BattleRecorder.registerReplayIndicatorHandlers(bt);
         bt.start();

@@ -1020,7 +1020,7 @@ class Battle {
                     }
 
                     // 这里可能是各种攻击结果，成功，闪避，无敌等
-                    await this.fireEvent("onAttacked", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});                    
+                    await this.fireEvent("onAttacked", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
 
                     // 处理附加 buff
                     for (var b of r.addBuffs)

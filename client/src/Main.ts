@@ -232,7 +232,6 @@ class Main extends egret.DisplayObjectContainer {
         mv.x = 0;
         mv.y = 0;
         mainArea.addChild(mv);
-        mainArea.addChild(mv.nmtip); // 新怪提示层
         mainArea.addChild(mv.tcv); // 提示层在动画层之下，其它所有 MainView 层的上面
         mainArea.addChild(mv.av); // 动画层在所有 MainView 层的上面
 

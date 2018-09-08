@@ -33,7 +33,7 @@
 			"name": "font"
 		},
 		{
-			"keys": "effWantedOrder_json,effWantedOrder_png,effSelfExplode_json,effSelfExplode_png",
+			"keys": "effWantedOrder_json,effWantedOrder_png,effSelfExplode_json,effSelfExplode_png,newParticle_json,newParticle_png,genggui_shenti_tex_png,genggui_shetou_tex_png,genggui_shetou_ske_json,genggui_shenti_ske_json,genggui_shetou_tex_json,genggui_shenti_tex_json",
 			"name": "effect"
 		}
 	],
@@ -1302,6 +1302,46 @@
 			"url": "assets/ui/battle/skillGridBg2.png",
 			"type": "image",
 			"name": "skillGridBg2_png"
+		},
+		{
+			"url": "assets/effect/newParticle.json",
+			"type": "json",
+			"name": "newParticle_json"
+		},
+		{
+			"url": "assets/effect/newParticle.png",
+			"type": "image",
+			"name": "newParticle_png"
+		},
+		{
+			"url": "assets/effect/genggui_shenti_tex.png",
+			"type": "image",
+			"name": "genggui_shenti_tex_png"
+		},
+		{
+			"url": "assets/effect/genggui_shetou_tex.png",
+			"type": "image",
+			"name": "genggui_shetou_tex_png"
+		},
+		{
+			"url": "assets/effect/genggui_shetou_ske.json",
+			"type": "json",
+			"name": "genggui_shetou_ske_json"
+		},
+		{
+			"url": "assets/effect/genggui_shenti_ske.json",
+			"type": "json",
+			"name": "genggui_shenti_ske_json"
+		},
+		{
+			"url": "assets/effect/genggui_shetou_tex.json",
+			"type": "json",
+			"name": "genggui_shetou_tex_json"
+		},
+		{
+			"url": "assets/effect/genggui_shenti_tex.json",
+			"type": "json",
+			"name": "genggui_shenti_tex_json"
 		}
 	]
 }

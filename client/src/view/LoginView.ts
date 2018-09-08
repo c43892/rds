@@ -26,32 +26,50 @@ class LoginView extends egret.DisplayObjectContainer {
         this.btnContinue.name = "continueBtn";
         this.btnContinue.setDisableBg("ContinueDisabled_png");
         this.btnContinue.setDownBg("ContinueDown_png");
-        this.addChild(this.btnContinue);
 
         // 开始新游戏按钮
         this.btnNewPlay = new TextButtonWithBg("NewGameNormal_png", 0);
         this.btnNewPlay.name = "newPlayBtn";
         this.btnNewPlay.setDownBg("NewGameDown_png");
-        this.addChild(this.btnNewPlay);
 
         // 排行榜按钮
         this.btnOpenRank = new TextButtonWithBg("HerosNormal_png", 0);
         this.btnOpenRank.name = "rankBtn";
         this.btnOpenRank.setDownBg("HerosDown_png");
-        this.addChild(this.btnOpenRank);
 
         // 成就按钮
         this.btnAchievement = new TextButtonWithBg("AchievementNormal_png", 0);
         this.btnAchievement.name = "achievementBtn";
         this.btnAchievement.setDisableBg("AchievementDisabled_png");
         this.btnAchievement.setDownBg("AchievementDown_png");
-        this.addChild(this.btnAchievement);
 
         this.btnContinue.onClicked = () => this.onClose("continuePlay");
-        this.btnNewPlay.onClicked = () => this.onClose("newPlay");
+        this.btnNewPlay.onClicked = () => this.onClose("newPlay"); 
         this.btnOpenRank.onClicked = () => this.onClose("openRank");
 
-        ViewUtils.multiLang(this, this.btnContinue, this.btnNewPlay, this.btnOpenRank, this.btnAchievement);
+        var objs = [this.btnContinue, this.btnNewPlay, this.btnOpenRank, this.btnAchievement];
+        objs.forEach((obj, _) => this.addChild(obj));
+        ViewUtils.multiLang(this, ...objs);
+
+        // var ani = ViewUtils.createSkeletonAni("genggui_shenti");
+        // var disp:egret.DisplayObject = ani.getDisplay();
+        // disp.x = this.width / 2;
+        // disp.y = this.height / 2;
+        // this.addChild(disp);
+        // ani.animation.play("start", 0);
+        // dragonBones.WorldClock.clock.add(ani);
+        
+        // egret.Ticker.getInstance().register((frameTime:number) => {
+        //     dragonBones.WorldClock.clock.advanceTime(frameTime/1000);
+        // }, this);
+
+        // var psw = ViewUtils.createParticleSystemWrapper("newParticle");        
+        // this.addChild(psw);
+        // this.bg.addEventListener(egret.TouchEvent.TOUCH_TAP, async (evt:egret.TouchEvent) => {
+        //     psw.start();
+        //     await AniUtils.createExpTrack(psw, {x:evt.stageX, y:evt.stageY}, {x:this.width/2, y:this.height/2}, 1000);
+        //     psw.stop(); 
+        // }, this);
     }
 
     public onClose;

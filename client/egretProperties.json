@@ -20,6 +20,13 @@
 		},
 		{
 			"name": "promise"
+		},
+		{
+			"name": "dragonBones"
+		},
+		{
+			"name": "particle",
+			"path": "../3rd/particle/libsrc"
 		}
 	],
 	"targets": {

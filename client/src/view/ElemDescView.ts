@@ -34,7 +34,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         this.closeBtn.onClicked = () => this.doClose();
     }
 
-    public async open(e:Elem, withCancelBtn:boolean = false, defaultAttrs:boolean = false) {
+    public async open(e:Elem, withCancelBtn:boolean = true, defaultAttrs:boolean = false) {
         this.removeChildren();
         Utils.assert(!!e.bt() || defaultAttrs, "can only get default attrs on elem without battle")
 
@@ -59,7 +59,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         ViewUtils.multiLang(this, ...uiArr);
         refresh(e);
 
-        if (withCancelBtn)
+        if (!withCancelBtn)
             this.removeChild(this.closeBtn);
         
         return new Promise((resolve, reject) => {

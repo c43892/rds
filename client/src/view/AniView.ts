@@ -468,13 +468,22 @@ class AniView extends egret.DisplayObjectContainer {
         var sv = this.getSV(m);
         if (dhp < 0) {
             var p = sv.localToGlobal();
-            AniUtils.popupTipAt(dhp.toString(), "popupTipBg_png", {x:p.x, y:p.y-25});
+            AniUtils.popupTipAt(Math.abs(dhp).toString(), "popupTipBg_png", {x:p.x, y:p.y-25});
         }
     }
 
     // 玩家受到攻击
     async onPlayerGotAttacked(ps) {
-        this.showMonsterAttackValue(ps.attackerAttrs.owner, ps.r.dhp);
+        if (ps.r.r == "attacked")
+            await this.showMonsterAttackValue(ps.attackerAttrs.owner, ps.r.dhp);
+        else if (ps.r.r == "dodged") {
+            // player dodged
+            var avatar = this.bv.avatar;
+            await this.aniFact.createAniByCfg({type:"seq", arr:[
+                {type:"tr", fx:avatar.x, tx:avatar.x - 50, time:100, mode:egret.Ease.quadIn},
+                {type:"tr", fx:avatar.x - 50, tx:avatar.x, time:100, mode:egret.Ease.quadOut},
+            ], obj:avatar});
+        }
     }
 
     // 怪物受到攻击

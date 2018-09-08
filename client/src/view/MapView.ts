@@ -1,7 +1,7 @@
 // 地图视图
 class MapView extends egret.DisplayObjectContainer {
     private map:Map; // 对应地图数据
-    private mevs:GridView[][]; // 所有元素视图
+    private mgvs:GridView[][]; // 所有元素视图
 
     public gsize = {w:0, h:0};
     public gw = 0;
@@ -16,15 +16,15 @@ class MapView extends egret.DisplayObjectContainer {
         this.removeChildren();
 
         this.gsize = {w: w, h: h};
-        this.mevs = [];
+        this.mgvs = [];
         for(var i = 0; i < w; i++) {
-            this.mevs[i] = [];
+            this.mgvs[i] = [];
             for (var j = 0; j < h; j++) {
                 let mev = new GridView();
                 mev.gx = i;
                 mev.gy = j;
                 this.addChild(mev);
-                this.mevs[i].push(mev);
+                this.mgvs[i].push(mev);
                 mev.touchEnabled = true;
             }
         }
@@ -36,7 +36,10 @@ class MapView extends egret.DisplayObjectContainer {
             this.rebuildMapGridView(map.size.w, map.size.h);
 
         this.map = map;
-        Utils.NDimentionArrayForeach(this.mevs, (mev) => { mev.map = map; });
+        Utils.NDimentionArrayForeach(this.mgvs, (mgv:GridView) => {
+            mgv.map = map;
+            mgv.clearAllEffects();
+        });
     }
 
     // 刷新显示
@@ -44,7 +47,7 @@ class MapView extends egret.DisplayObjectContainer {
         this.gw = this.width / this.map.size.w;
         this.gh = this.height / this.map.size.h;
 
-        Utils.NDimentionArrayForeach(this.mevs, (ev:GridView) => {
+        Utils.NDimentionArrayForeach(this.mgvs, (ev:GridView) => {
             ev.x = ev.gx * this.gw;
             ev.y = ev.gy * this.gh;
             ev.width = this.gw;
@@ -55,7 +58,7 @@ class MapView extends egret.DisplayObjectContainer {
 
     // 清除所有地图显示元素
     public clear() {
-        Utils.NDimentionArrayForeach(this.mevs, (mev) => mev.clear());
+        Utils.NDimentionArrayForeach(this.mgvs, (mev) => mev.clear());
     }
 
     // 指定位置发生状态或元素变化
@@ -82,18 +85,18 @@ class MapView extends egret.DisplayObjectContainer {
         }
 
         for (var pt of poses) {
-            this.mevs[pt.x][pt.y].refresh();
+            this.mgvs[pt.x][pt.y].refresh();
         }
     }
 
     public getGridViewAt(x:number, y:number):GridView {
-        return this.mevs[x][y];
+        return this.mgvs[x][y];
     }
 
     // 获取所有满足条件的显示元素
     public getGridViews(f = undefined, includingCovered = false):GridView[] {
         var evs = [];
-        Utils.NDimentionArrayForeach(this.mevs, (ev:GridView) => {
+        Utils.NDimentionArrayForeach(this.mgvs, (ev:GridView) => {
             if (!includingCovered && ev.getGrid().isCovered()) return;
             var e = ev.getElem();
             if (e && (!f || f(e)))

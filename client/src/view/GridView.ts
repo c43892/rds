@@ -238,10 +238,12 @@ class GridView extends egret.DisplayObjectContainer {
             case GridStatus.Uncovered: // 被揭开
                 this.setCoverImg(false);
                 this.refreshElemShowLayer(g, e);
-                if (!e) this.removeEffect("effWantedOrder");
                 // if (this.showLayer.contains(this.coveredImg)) this.showLayer.removeChild(this.coveredImg);
             break;
         }
+
+        if (!e)
+            this.removeEffect("effWantedOrder");
 
         this.refreshDropItem(); // 刷新掉落物品显示
         
