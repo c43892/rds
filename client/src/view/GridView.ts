@@ -8,6 +8,7 @@ class GridView extends egret.DisplayObjectContainer {
     private opLayer:egret.Bitmap; // 专门用于接收操作事件
     private effLayer:egret.DisplayObjectContainer; // 用于放置最上层特效
     private elemImg:egret.Bitmap; // 元素图
+    private elemImgInIce:egret.Bitmap; // 冰冻中的元素图
     private banImg:egret.Bitmap; // 禁止符号
     private cdImg:egret.Bitmap; // cd 计数
     private coveredImg:egret.Bitmap; // 不可揭开
@@ -36,6 +37,7 @@ class GridView extends egret.DisplayObjectContainer {
         this.uncoverableImg = ViewUtils.createBitmapByName("uncoverable_png"); // 覆盖图
 
         this.elemImg = new egret.Bitmap(); // 元素图
+        this.elemImgInIce = new egret.Bitmap(); // 冰冻中的元素图
         this.banImg = ViewUtils.createBitmapByName("ban_png"); // 禁止符号
         this.coveredImg = ViewUtils.createBitmapByName("covered_png");
         this.markedBg = ViewUtils.createBitmapByName("markedBg_png");
@@ -127,6 +129,14 @@ class GridView extends egret.DisplayObjectContainer {
 
     private refreshElemShowLayer(g:Grid, e:Elem) {
         if (e && !e.attrs.invisible) { // 有元素显示元素图片
+            if (e["getElemImgResInIce"]) {
+                var elemInIceRes = e["getElemImgResInIce"]();
+                if (elemInIceRes) {
+                    this.elemImgInIce = ViewUtils.createBitmapByName(elemInIceRes + "_png");
+                    this.showLayer.addChild(this.elemImgInIce);
+                }
+            }
+
             this.elemImg = ViewUtils.createBitmapByName(e.getElemImgRes() + "_png");
             this.showLayer.addChild(this.elemImg);
             if (e instanceof Monster) { // 怪物
@@ -173,7 +183,6 @@ class GridView extends egret.DisplayObjectContainer {
                     this.putNumOnBg(this.power, this.powerBg);
                     this.showLayer.addChild(this.power);
                 };
-                
             } else {
                 if (e.attrs.showCDNum && e.cd > 0) { // 显示 cd 计数
                     ViewUtils.setTexName(this.cdImg, "cd" + e.cd + "_png", true);
@@ -258,14 +267,16 @@ class GridView extends egret.DisplayObjectContainer {
             this.showLayer.rotation = 0;
         }
 
-        var arr = [this.opLayer, this.effLayer, this.elemImg, this.banImg, this.blockedImg, this.coveredImg, this.markedBg, this.uncoverableImg];
+        var arr = [this.opLayer, this.effLayer, this.elemImg, this.elemImgInIce, this.banImg, this.blockedImg, this.coveredImg, this.markedBg, this.uncoverableImg];
         arr.forEach((a) => {
-            a.alpha = 1;
-            a.x = 0;
-            a.y = 0;
-            a.width = w;
-            a.height = h;
-            a.rotation = 0;
+            if (a) {
+                a.alpha = 1;
+                a.x = 0;
+                a.y = 0;
+                a.width = w;
+                a.height = h;
+                a.rotation = 0;
+            }
         });
 
         this.cdImg.x = (this.showLayer.width - this.cdImg.width) / 2;
