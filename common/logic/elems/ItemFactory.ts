@@ -182,7 +182,7 @@ class ItemFactory {
         // 剑
         "Baton": (attrs) => {
             var e = this.createItem();
-            e = ElemFactory.addAI("onCalcAttacking", async (ps) => {
+            e = ElemFactory.addAI("onCalcAttacking", (ps) => {
                 var attackerAttrs = ps.attackerAttrs;
                 if (!(attackerAttrs.owner instanceof Player)) return;
                 attackerAttrs.power.b += e.attrs.powerA;
@@ -193,7 +193,7 @@ class ItemFactory {
         // 防护衣
         "Vest": (attrs) => {
             var e = this.createItem();
-            e = ElemFactory.addAI("onCalcAttacking",async (ps) => {
+            e = ElemFactory.addAI("onCalcAttacking", (ps) => {
                 var fs = ps.attackerAttrs.attackFlags;
                 if (Utils.indexOf(fs, (s:string) => s == "AmorPenetrate") > -1) return;
 
@@ -210,8 +210,8 @@ class ItemFactory {
             e = ElemFactory.addAI("onSneaked", async () => {
                 var grid = e.getGrid();
                 var bt = e.bt();
-                await bt.implReviveElemAt("SkeletonKing", undefined, grid.pos.x, grid.pos.y, 
-                                            async () => await bt.implRemoveElemAt(grid.pos.x, grid.pos.y));
+                var actBeforeRevive = async () => await bt.implRemoveElemAt(grid.pos.x, grid.pos.y)
+                await bt.implReviveElemAt("SkeletonKing", undefined, grid.pos.x, grid.pos.y, actBeforeRevive);
             }, e);
             return e;
         },

@@ -213,7 +213,7 @@ class BattleUtils {
             attackerAttrs.attackFlags.push("simulation");
 
         if(p)
-            p.triggerLogicPoint("onCalcAttacking", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
+            p.triggerLogicPointSync("onCalcAttacking", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs});
 
         return targetAttrs;
     }
