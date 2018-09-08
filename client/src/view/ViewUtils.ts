@@ -67,7 +67,7 @@ class ViewUtils {
     }
 
     // 创建指定的骨骼动画
-    public static createSkeletonAni(name:string):dragonBones.Armature {
+    public static createSkeletonAni(name:string, onFinished = undefined):dragonBones.Armature {
         var skeletonData = RES.getRes(name + "_ske_json");
         var textureData = RES.getRes(name + "_tex_json");
         var texture = RES.getRes(name + "_tex_png");
@@ -75,6 +75,12 @@ class ViewUtils {
         fat.addDragonBonesData(fat.parseDragonBonesData(skeletonData));
         fat.addTextureAtlasData(fat.parseTextureAtlasData(textureData, texture));
         var ani:dragonBones.Armature = fat.buildArmature(name);
+        if (onFinished)
+            ani.getDisplay().addEventListener(dragonBones.AnimationEvent.COMPLETE, (evt:dragonBones.AnimationEvent) => {
+                onFinished(ani);
+                dragonBones.WorldClock.clock.remove(ani);
+            }, this);
+        dragonBones.WorldClock.clock.add(ani);
         return ani;
     }
 

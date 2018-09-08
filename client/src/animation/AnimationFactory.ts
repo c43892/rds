@@ -3,6 +3,10 @@ class AnimationFactory {
 
     public notifyAniStarted;
 
+    public constructor() {
+        egret.Ticker.getInstance().register((advancedTime) => dragonBones.WorldClock.clock.advanceTime(advancedTime/1000), this);
+    }
+
     /*
         一个动画需要指明一个 type 和一组参数
         可用的 type 有：
@@ -49,6 +53,8 @@ class AnimationFactory {
             aw = this.aniSeq(ps.subAniArr);
         else if (aniType == "gp")
             aw = this.aniGroup(ps.subAniArr);
+        else if (aniType == "skeleton")
+            aw = this.skeleton(ps);
         else {
             var ani:egret.Tween;
             switch (aniType) {
@@ -256,5 +262,21 @@ class AnimationFactory {
     op(g:egret.DisplayObject, delay, op):egret.Tween {
         delay = delay ? delay : 0;
         return egret.Tween.get(g).wait(delay).call(() => op()).wait(0);
+    }
+
+    // 龙骨动画
+    skeleton(ps):Promise<void> {
+        var ani:dragonBones.Armature;
+        var skeName = ps.name;
+        var actName = ps.act;
+        var playTimes = ps.playTimes;
+
+        var aw = new Promise<void>((r, _) => ani = ViewUtils.createSkeletonAni(skeName, () => r()));
+        aw["startimpl"] = () => ani.animation.play(actName, playTimes);
+        aw["pauseimpl"] = () => ani.animation.stop();
+        aw["stopimpl"] = () => { ani.animation.stop(); dragonBones.WorldClock.clock.remove(ani); };
+        aw["getDisplay"] = () => ani.display;
+
+        return aw;
     }
 }

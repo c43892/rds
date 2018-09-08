@@ -525,7 +525,21 @@ class AniView extends egret.DisplayObjectContainer {
     public async onMonsterAttack(ps) {
         var m:Elem = ps.m;
         var sv = this.getSV(m);
-        await AniUtils.shakeTo(sv);
+        var flags = ps.addFlags;
+
+        if (Utils.contains(flags, "attackOnPlayerLeave") && m.type == "Gengar") {
+            // 耿鬼长舌头攻击: 播一段骨骼动画 + 一段 tr 动画 + 一段骨骼动画
+            var aw = this.aniFact.createAni("skeleton", {name:"genggui_shenti", act:"start", playTimes:1});
+            var disp = aw["getDisplay"]();
+            AniUtils.ac.addChild(disp);
+            var dispPos = sv.localToGlobal();
+            disp.x = dispPos.x;
+            disp.y = dispPos.y;
+            await aw;
+            AniUtils.ac.removeChild(disp);
+        }
+        else
+            await AniUtils.shakeTo(sv);
     }
 
     // 怪物吃食物
