@@ -347,8 +347,12 @@ class MainView extends egret.DisplayObjectContainer {
                 this.removeChild(this.lgv);
                 if (op == "continuePlay")
                     this.continuePlay();
-                else if (op == "newPlay")
-                    this.newPlay();
+                else if (op == "newPlay"){
+                    if(Utils.checkRookiePlay())
+                        this.rookiePlay();
+                    else
+                        this.newPlay();
+                }
             }
         };
     }
@@ -498,6 +502,20 @@ class MainView extends egret.DisplayObjectContainer {
         this.registerPlayerEvents();
         this.openWorldMap(p.worldmap);
         Utils.savePlayer(p);
+    }
+
+    // 新手指引
+    rookiePlay() {
+        var p = Player.createTestPlayer();
+        p = Occupation.makeOccupation(p);
+        p.worldmap = WorldMap.buildFromConfig("world1");
+        p.worldmap.player = p;
+        this.p = p;
+        this.registerPlayerEvents();
+
+        var node = Utils.filter(p.worldmap.nodes[1], (n:WorldMapNode) => n.parents.length > 0)[0];
+        this.openWorldMap(this.p.worldmap);
+        this.wmv.enterNode(node.y, node.x);
     }
 
     registerPlayerEvents() {

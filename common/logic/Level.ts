@@ -85,22 +85,24 @@ class Level {
         }
 
         // 添加随机元素
-        for (var group of randomGroupsCfg) {
-            
-            // 累计数量上限检查
-            maxNumLimit += group.num[1] - 1;
-            Utils.assert(maxNumLimit <= elemNumLimit, "elem overflow in map: " + this.displayName);
+        if (randomGroupsCfg) {
+            for (var group of randomGroupsCfg) {
 
-            var arr = Utils.randomSelectByWeightWithPlayerFilter(this.bt.player, group.elems, this.bt.srand, group.num[0], group.num[1], false, undefined, (type) => this.getElemCfg(type));
-            for (var et of arr) {
-                var elem = this.createElem(et)
-                if (group.drops) {
-                    for (var dp of group.drops) {
-                        var dpe = this.createElem(dp);
-                        elem.addDropItem(dpe);
+                // 累计数量上限检查
+                maxNumLimit += group.num[1] - 1;
+                Utils.assert(maxNumLimit <= elemNumLimit, "elem overflow in map: " + this.displayName);
+
+                var arr = Utils.randomSelectByWeightWithPlayerFilter(this.bt.player, group.elems, this.bt.srand, group.num[0], group.num[1], false, undefined, (type) => this.getElemCfg(type));
+                for (var et of arr) {
+                    var elem = this.createElem(et)
+                    if (group.drops) {
+                        for (var dp of group.drops) {
+                            var dpe = this.createElem(dp);
+                            elem.addDropItem(dpe);
+                        }
                     }
+                    elems.push(elem);
                 }
-                elems.push(elem);
             }
         }
 

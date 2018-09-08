@@ -1,6 +1,141 @@
 {
     "mapsize": {"w": 7, "h": 9},
 
+    "rookiePlay_1": {
+        "displayName": "普通战斗1",
+        "map": {},
+        "doorUnlock": 1,
+        "extraTreasureBox": 20,
+        "monsterBox": 0,
+        "init_uncovered": {
+            "w": 3,
+            "h": 3
+        },
+        "elems": {
+            "CoinsTiny": {
+                "type": "Coins",
+                "cnt": 1
+            },
+            "CoinsSmall": {
+                "type": "Coins",
+                "cnt": 2
+            },
+            "Coins": { "cnt": 3 },
+            "CoinsBig": {
+                "type": "Coins",
+                "cnt": 5
+            },
+            "CoinsHuge": {
+                "type": "Coins",
+                "cnt": 10
+            },
+            "TreasureBox1": {
+                "type": "TreasureBox",
+                "rdp": "treasureBox1"
+            },
+            "TreasureBox2": {
+                "type": "TreasureBox",
+                "rdp": "treasureBox2"
+            },
+            "NormalZombie": {
+                "hp": 4,
+                "power": 2
+            },
+            "GoblinThief": {
+                "hp": 3,
+                "power": 1
+            },
+            "HoundZombie": {
+                "hp": 3,
+                "power": 1
+            },
+            "Vampire": {
+                "hp": 3,
+                "power": 2
+            },
+            "DancerZombie": {
+                "hp": 4,
+                "power": 2
+            },
+            "GluttonyZombie": {
+                "hp": 8,
+                "power": 3
+            },
+            "Gengar": {
+                "hp": 5,
+                "power": 2
+            },
+            "BombAbomination": {
+                "hp": 4,
+                "power": 3
+            },
+            "EyeDemon": {
+                "hp": 6,
+                "power": 1
+            },
+            "RandomEggZombie": {
+                "hp": 5,
+                "power": 1
+            },
+            "LustZombie": {
+                "hp": 6,
+                "power": 2
+            },
+            "Mummy": {
+                "hp": 6,
+                "power": 1
+            },
+            "SkeletonKing": {
+                "hp": 4,
+                "power": 1
+            },
+            "PoisonJellyfish": {
+                "hp": 6,
+                "power": 1
+            },
+            "SwatheZombie": {
+                "hp": 5,
+                "power": 1
+            },
+            "BoxMonster": {
+                "hp": 6,
+                "power": 1
+            },
+            "Ghost": {
+                "hp": 6,
+                "power": 1
+            },
+            "RedSlime": {
+                "hp": 5,
+                "power": 1
+            },
+            "BallShito": {
+                "hp": 3,
+                "power": 1,
+                "shield": 3
+            },
+            "GreenSlime": {
+                "hp": 4,
+                "power": 1
+            },
+            "ReviveZombie": {
+                "hp": 4,
+                "power": 1
+            }
+        },
+        "constElems":{
+            "NormalZombie": 1,
+            "GoblinThief": 1,
+            "HoundZombie": 1,
+            "Vampire": 1,
+            "DancerZombie": 1,
+            "GluttonyZombie": 1,
+            "Gengar": 1,
+            "BombAbomination": 1,
+            "EyeDemon": 1            
+            }
+    },
+
     "normal_1": {
         "displayName": "普通战斗1",
         "map": {},
@@ -170,7 +305,7 @@
                     "Bazooka": 1101,
                     "WantedOrder": 1101,
                     "Baton": 1101,
-                    "LifeSpring": 11010000,
+                    "LifeSpring": 1101,
                     "Cloak": 1101
                 }
             },

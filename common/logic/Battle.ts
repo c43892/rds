@@ -40,7 +40,10 @@ class Battle {
     public loadCurrentLevel(btType:string):Level {
         // 创建关卡地图和元素
         this.level = new Level();
-        this.lvCfg = GCfg.getLevelCfg(btType);
+        if(Utils.checkRookiePlay())
+            this.lvCfg = GCfg.getLevelCfg("rookiePlay_1");
+        else
+            this.lvCfg = GCfg.getLevelCfg(btType);
         Utils.assert(!!this.lvCfg, "can not find level config: " + btType);
         while (this.lvCfg.redirect) {
             btType = this.lvCfg.redirect;

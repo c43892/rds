@@ -423,6 +423,11 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
         // 保存进度
         this.player.notifyStoreyPosFinished(this.player.currentStoreyPos.lv, this.player.currentStoreyPos.n);
+
+        // // 如果是新手玩家,要标记为已完成新手指引关
+        // if(Utils.checkRookiePlay())
+        //     Utils.saveLocalData("rookiePlay", "finished");
+
         Utils.savePlayer(this.player);
 
         // 检查死亡
