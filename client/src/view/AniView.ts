@@ -767,8 +767,8 @@ class AniView extends egret.DisplayObjectContainer {
 
         // 舌头伸长进行攻击
         var ys = Utils.getDist(tongueRootPos, avatarCenterPos) / disp2.height;
-        var aw4 = this.aniFact.createAni("tr", {obj:disp2, fsy:1, tsy:ys, time:50, mode:egret.Ease.cubicIn});
-        var aw5 = this.aniFact.createAni("tr", {obj:disp2, fsy:ys, tsy:1, time:50, mode:egret.Ease.cubicOut});
+        var aw4 = this.aniFact.createAni("tr", {obj:disp2, fsy:1, tsy:ys, time:100, mode:egret.Ease.cubicIn});
+        var aw5 = this.aniFact.createAni("tr", {obj:disp2, fsy:ys, tsy:1, time:100, mode:egret.Ease.cubicOut});
         await this.aniFact.createAni("seq", {subAniArr:[aw4, aw5]});
 
         AniUtils.ac.removeChild(disp1);
