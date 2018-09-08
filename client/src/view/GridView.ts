@@ -8,6 +8,7 @@ class GridView extends egret.DisplayObjectContainer {
     private opLayer:egret.Bitmap; // 专门用于接收操作事件
     private effLayer:egret.DisplayObjectContainer; // 用于放置最上层特效
     private elemImg:egret.Bitmap; // 元素图
+    private elemImgInIce:egret.Bitmap; // 冰冻中的元素图
     private banImg:egret.Bitmap; // 禁止符号
     private cdImg:egret.Bitmap; // cd 计数
     private coveredImg:egret.Bitmap; // 不可揭开
@@ -36,6 +37,7 @@ class GridView extends egret.DisplayObjectContainer {
         this.uncoverableImg = ViewUtils.createBitmapByName("uncoverable_png"); // 覆盖图
 
         this.elemImg = new egret.Bitmap(); // 元素图
+        this.elemImgInIce = new egret.Bitmap(); // 冰冻中的元素图
         this.banImg = ViewUtils.createBitmapByName("ban_png"); // 禁止符号
         this.coveredImg = ViewUtils.createBitmapByName("covered_png");
         this.markedBg = ViewUtils.createBitmapByName("markedBg_png");
@@ -127,7 +129,15 @@ class GridView extends egret.DisplayObjectContainer {
 
     private refreshElemShowLayer(g:Grid, e:Elem) {
         if (e && !e.attrs.invisible) { // 有元素显示元素图片
-            this.elemImg = ViewUtils.createBitmapByName(e.getElemImgRes() + "_png");
+            if (e["getElemImgResInIce"]) {
+                var elemInIceRes = e["getElemImgResInIce"]();
+                if (elemInIceRes) {
+                    ViewUtils.setTexName(this.elemImgInIce, elemInIceRes + "_png");
+                    this.showLayer.addChild(this.elemImgInIce);
+                }
+            }
+
+            ViewUtils.setTexName(this.elemImg, e.getElemImgRes() + "_png");
             this.showLayer.addChild(this.elemImg);
             if (e instanceof Monster) { // 怪物
                 var m = <Monster>e;
@@ -173,7 +183,6 @@ class GridView extends egret.DisplayObjectContainer {
                     this.putNumOnBg(this.power, this.powerBg);
                     this.showLayer.addChild(this.power);
                 };
-                
             } else {
                 if (e.attrs.showCDNum && e.cd > 0) { // 显示 cd 计数
                     ViewUtils.setTexName(this.cdImg, "cd" + e.cd + "_png", true);
@@ -232,7 +241,8 @@ class GridView extends egret.DisplayObjectContainer {
             case GridStatus.Marked: // 被标记
                 this.setCoverImg(false);
                 this.refreshElemShowLayer(g, e);
-                this.refreshMarkedEffect(g);
+                if (!e.attrs.invisible)
+                    this.refreshMarkedEffect(g);
             break;
             case GridStatus.Uncovered: // 被揭开
                 this.setCoverImg(false);
@@ -257,7 +267,7 @@ class GridView extends egret.DisplayObjectContainer {
             this.showLayer.rotation = 0;
         }
 
-        var arr = [this.opLayer, this.effLayer, this.elemImg, this.banImg, this.blockedImg, this.coveredImg, this.markedBg, this.uncoverableImg];
+        var arr = [this.opLayer, this.effLayer, this.elemImg, this.elemImgInIce, this.banImg, this.blockedImg, this.coveredImg, this.markedBg, this.uncoverableImg];
         arr.forEach((a) => {
             a.alpha = 1;
             a.x = 0;
@@ -270,12 +280,13 @@ class GridView extends egret.DisplayObjectContainer {
         this.cdImg.x = (this.showLayer.width - this.cdImg.width) / 2;
         this.cdImg.y = (this.showLayer.height - this.cdImg.height) / 2;
 
-        if (e && e.isBig() && !e.attrs.invisible) {
+        if (e && e.isBig() && g.status != GridStatus.Covered) {
             this.showLayer.scaleX = e.attrs.size.w;
             this.showLayer.scaleY = e.attrs.size.h;
-        } else {
-            this.showLayer.scaleX = 1;
-            this.showLayer.scaleY = 1;
+        }
+        else {
+             this.showLayer.scaleX = 1;
+             this.showLayer.scaleY = 1;
         }
     }
 

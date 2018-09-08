@@ -283,6 +283,7 @@ class AnimationFactory {
                 onAniFinished = (evt:dragonBones.AnimationEvent) => {
                     r();
                     ani.getDisplay().removeEventListener(dragonBones.AnimationEvent.COMPLETE, onAniFinished, this);
+                    dragonBones.WorldClock.clock.remove(ani);
                 };
                 ani.getDisplay().addEventListener(dragonBones.AnimationEvent.COMPLETE, onAniFinished, this);
                 ani.animation.play(actName, playTimes);

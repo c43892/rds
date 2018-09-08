@@ -791,6 +791,7 @@ class Battle {
             for (var dp of m.dropItems)
                 ice.addDropItem(dp);
 
+            ice["getElemImgResInIce"] = () => m.getElemImgRes();
             m.dropItems = [];
             await this.implOnElemDie(m);
             await this.implAddElemAt(ice, m.pos.x, m.pos.y);
