@@ -75,11 +75,15 @@ class ViewUtils {
         fat.addDragonBonesData(fat.parseDragonBonesData(skeletonData));
         fat.addTextureAtlasData(fat.parseTextureAtlasData(textureData, texture));
         var ani:dragonBones.Armature = fat.buildArmature(name);
+        var onAniFnished;
+        onAniFnished = (evt:dragonBones.AnimationEvent) => {
+            onFinished(ani);
+            ani.getDisplay().removeEventListener(dragonBones.AnimationEvent.COMPLETE, onAniFnished, this);
+            dragonBones.WorldClock.clock.remove(ani);
+        };
+
         if (onFinished)
-            ani.getDisplay().addEventListener(dragonBones.AnimationEvent.COMPLETE, (evt:dragonBones.AnimationEvent) => {
-                onFinished(ani);
-                dragonBones.WorldClock.clock.remove(ani);
-            }, this);
+            ani.getDisplay().addEventListener(dragonBones.AnimationEvent.COMPLETE, onAniFnished, this);
         dragonBones.WorldClock.clock.add(ani);
         return ani;
     }

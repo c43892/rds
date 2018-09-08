@@ -276,6 +276,18 @@ class AnimationFactory {
         aw["pauseimpl"] = () => ani.animation.stop();
         aw["stopimpl"] = () => { ani.animation.stop(); dragonBones.WorldClock.clock.remove(ani); };
         aw["getDisplay"] = () => ani.display;
+        aw["getArmature"] = () => ani;
+        aw["play"] = async (act) => {
+            return new Promise<void>((r, _) => {
+                var onAniFinished;
+                onAniFinished = (evt:dragonBones.AnimationEvent) => {
+                    r();
+                    ani.getDisplay().removeEventListener(dragonBones.AnimationEvent.COMPLETE, onAniFinished, this);
+                };
+                ani.getDisplay().addEventListener(dragonBones.AnimationEvent.COMPLETE, onAniFinished, this);
+                ani.animation.play(actName, playTimes);
+            });
+        }
 
         return aw;
     }

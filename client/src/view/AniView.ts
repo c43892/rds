@@ -735,7 +735,8 @@ class AniView extends egret.DisplayObjectContainer {
     // 耿鬼长舌头攻击动画
     async gengarLick(sv:egret.DisplayObject) {
         var bodyOffset = {x:sv.width / 2, y:sv.height};
-        var tongueOffset = {x:sv.width / 2, y:sv.height};
+        var tongueAnchorPos = {x:0, y:-30};
+        var avatarPos = this.bv.avatar.localToGlobal();
 
         // 耿鬼长舌头攻击: 播一段骨骼动画 + 一段 tr 动画 + 一段骨骼动画
 
@@ -744,36 +745,54 @@ class AniView extends egret.DisplayObjectContainer {
         // 播放攻击前段动画
         var aw1 = this.aniFact.createAni("skeleton", {name:"genggui_shenti", act:"start", playTimes:1});
         var aw2 = this.aniFact.createAni("skeleton", {name:"genggui_shetou", act:"start", playTimes:1});
-        var disp1 = aw1["getDisplay"]();
-        var disp2 = aw2["getDisplay"]();
+        var disp1:egret.DisplayObject = aw1["getDisplay"]();
+        var disp2:egret.DisplayObject = aw2["getDisplay"]();
         AniUtils.ac.addChild(disp1);
         AniUtils.ac.addChild(disp2);
         var dispPos = sv.localToGlobal();
         disp1.x = dispPos.x + bodyOffset.x;
         disp1.y = dispPos.y + bodyOffset.y;
-        disp2.x = dispPos.x + tongueOffset.x;
-        disp2.y = dispPos.y + tongueOffset.y;
-        await this.aniFact.createAni("gp", {subAniArr:[aw1, aw2]});
+        disp2.x = disp1.x + tongueAnchorPos.x;
+        disp2.y = disp1.y + tongueAnchorPos.y;
+        disp2.anchorOffsetX = tongueAnchorPos.x;
+        disp2.anchorOffsetY = tongueAnchorPos.y;
+        var tongueRootPos = {x:disp2.x + disp2.anchorOffsetX, y:disp2.y + disp2.anchorOffsetY};
+        var avatarCenterPos = {x:avatarPos.x + this.bv.avatar.width / 2, y:avatarPos.y + this.bv.avatar.height/2};
+        var r = Utils.getRotationFromTo(tongueRootPos, avatarCenterPos) + 90;
+        var aw3 = this.aniFact.createAni("tr", {obj:disp2, fr:0, tr:r, time:500});
+        await this.aniFact.createAni("gp", {subAniArr:[aw1, aw2, aw3]});
+
+        // 舌头伸长进行攻击
+        var ys = Utils.getDist(tongueRootPos, avatarCenterPos) / disp2.height;
+        var aw4 = this.aniFact.createAni("tr", {obj:disp2, fsy:1, tsy:ys, time:50, mode:egret.Ease.cubicIn});
+        var aw5 = this.aniFact.createAni("tr", {obj:disp2, fsy:ys, tsy:1, time:50, mode:egret.Ease.cubicOut});
+        await this.aniFact.createAni("seq", {subAniArr:[aw4, aw5]});
+
         AniUtils.ac.removeChild(disp1);
         AniUtils.ac.removeChild(disp2);
 
         // 播放攻击后段动画
         var aw1 = this.aniFact.createAni("skeleton", {name:"genggui_shenti", act:"back", playTimes:1});
         var aw2 = this.aniFact.createAni("skeleton", {name:"genggui_shetou", act:"back", playTimes:1});
-        var disp1 = aw1["getDisplay"]();
-        var disp2 = aw2["getDisplay"]();
+        var disp1:egret.DisplayObject = aw1["getDisplay"]();
+        var disp2:egret.DisplayObject = aw2["getDisplay"]();
         AniUtils.ac.addChild(disp1);
         AniUtils.ac.addChild(disp2);
-        var dispPos = sv.localToGlobal();
         disp1.x = dispPos.x + bodyOffset.x;
         disp1.y = dispPos.y + bodyOffset.y;
-        disp2.x = dispPos.x + tongueOffset.x;
-        disp2.y = dispPos.y + tongueOffset.y;
-        await this.aniFact.createAni("gp", {subAniArr:[aw1, aw2]});
-        AniUtils.ac.removeChild(disp1);
-        AniUtils.ac.removeChild(disp2);
-
-        sv.alpha = 1;
+        disp2.x = disp1.x + tongueAnchorPos.x;
+        disp2.y = disp1.y + tongueAnchorPos.y;
+        disp2.anchorOffsetX = tongueAnchorPos.x;
+        disp2.anchorOffsetY = tongueAnchorPos.y;
+        disp2.rotation = r;
+        var tongueRootPos = {x:disp2.x + disp2.anchorOffsetX, y:disp2.y + disp2.anchorOffsetY};
+        var avatarCenterPos = {x:avatarPos.x + this.bv.avatar.width / 2, y:avatarPos.y + this.bv.avatar.height/2};
+        var aw3 = this.aniFact.createAni("tr", {obj:disp2, fr:r, tr:0, time:250});
+        this.aniFact.createAni("gp", {subAniArr:[aw1, aw2, aw3]}).then(() => {
+            AniUtils.ac.removeChild(disp1);
+            AniUtils.ac.removeChild(disp2);
+            sv.alpha = 1;
+        });
     }
 
     // 黑幕开启
