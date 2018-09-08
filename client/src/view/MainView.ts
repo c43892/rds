@@ -174,22 +174,6 @@ class MainView extends egret.DisplayObjectContainer {
                 this.removeChild(ui);
     }
 
-    // // 开始环形的进度条
-    // cycleBarImg = ViewUtils.createBitmapByName("circleBar_png");
-    // startCycleProgrssBar(x, y, time) {
-    //     // var ps = { x:x, y:y, time:time };
-    //     // this.bv.aniView.onCycleStart(this.cycleBarImg, ps);
-    // }
-
-    // // 停止环形进度条
-    // stopCycleProgrssBar() {
-    //     // if (this.cycleBarImg != undefined) {
-    //     //     egret.Tween.removeTweens(this.cycleBarImg);
-    //     //     if (this.cycleBarImg.parent)
-    //     //         this.cycleBarImg.parent.removeChild(this.cycleBarImg);
-    //     // }
-    // }
-
     // 开启商店界面
     public async openShopInBattle(items, prices, onBuy, onRob) {
         this.sv.player = this.p;
