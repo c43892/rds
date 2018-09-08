@@ -7,7 +7,7 @@ class BuffBasic extends Buff {
             if (ps.stateBeforeUncover == GridStatus.Uncovered || ps.subType != "gridUncovered")
                 return;
 
-            var bt = this.getOwner().bt();
+            var bt = <Battle>this.getOwner().bt();
             await bt.implAddPlayerExp(1);
         }
 

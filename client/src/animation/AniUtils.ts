@@ -191,7 +191,7 @@ class AniUtils {
         return createAni();
     }
 
-    // 原地转动一下再恢复，比如剑在玩家攻击时的效果
+    // 原地转动一下再恢复，比如警棍在玩家攻击时的效果
     public static async rotateAndBack(obj:egret.DisplayObject) {
         var rev = AniUtils.reserveObjTrans(obj);
         await AniUtils.aniFact.createAniByCfg({type:"seq", arr:[

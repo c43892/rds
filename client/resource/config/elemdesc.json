@@ -523,7 +523,7 @@
         "RayGun":{"name":"火焰射线", "desc":["<font color=#000000 size=20>射击后点燃目标，造成</font><font color=#2d5627 size=20> {power} </font><font color=#000000 size=20>点伤害</font>"]},
         "IceGun":{"name":"冰冻射线", "desc":["<font color=#000000 size=20>射击后冻结目标</font>"]},
         "CandyCannon":{"name":"糖果炮弹", "desc":["<font color=#000000 size=20>消耗</font><font color=#2d5627 size=20> 3 </font><font color=#000000 size=20>倍血量的金钱，消灭一个敌人，对精英和boss无效</font>"]},
-        "Baton":{"name":"剑", "desc":["<font color=#000000 size=20>在5回合内，攻击力+</font><font color=#2d5627 size=20> {powerA} </font><font color=#000000 size=20>，怪物无法反击</font>"]},
+        "Baton":{"name":"警棍", "desc":["<font color=#000000 size=20>在5回合内，攻击力+</font><font color=#2d5627 size=20> {powerA} </font><font color=#000000 size=20>，怪物无法反击</font>"]},
         "Vest":{"name":"防护服", "desc":["<font color=#000000 size=20>降低敌人</font><font color=#2d5627 size=20> {powerD} </font><font color=#000000 size=20>点的攻击</font>"]},
         "Cocoon":{"name":"茧", "desc":["<font color=#000000 size=20>被茧包裹的物品无法使用</font>"]},
         "WantedOrder":{"name":"通缉令", "desc":["<font color=#000000 size=20>标记一个随机怪物，掉落金钱变为</font><font color=#2d5627 size=20> 10 </font><font color=#000000 size=20>倍</font>"]},

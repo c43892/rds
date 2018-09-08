@@ -179,7 +179,7 @@ class ItemFactory {
             return ElemFactory.weaponLogic(1, true)(e);
         },
 
-        // 剑
+        // 警棍
         "Baton": (attrs) => {
             var e = this.createItem();
             e = ElemFactory.addAI("onCalcAttacking", (ps) => {

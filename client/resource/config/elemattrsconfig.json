@@ -188,7 +188,7 @@
         "frozenAttrs":{"rounds":3}
     },
     "CandyCannon":{"name":"糖果炮弹", "canOverlap":true, "useWithTarget":true},
-    "Baton":{"name":"剑", "powerA":1},
+    "Baton":{"name":"警棍", "powerA":1},
     "Vest":{"name":"防护衣", "powerD":-1},
     "Cocoon":{"name":"茧", "useWithoutConfirm":true, "hideDropItems":true},
     "WantedOrder":{"name":"通缉令"},
