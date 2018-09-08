@@ -978,8 +978,8 @@ class Battle {
         }
 
         // 攻击行为启动
-        await this.fireEvent("onAttacking", {subType:"monstar2targets", m:m, targets:tars});
-        await this.triggerLogicPoint("onAttacking", {subType:"monstar2targets", targets:tars});
+        await this.fireEvent("onAttacking", {subType:"monstar2targets", m:m, targets:tars, addFlags:addFlags});
+        await this.triggerLogicPoint("onAttacking", {subType:"monstar2targets", targets:tars, addFlags:addFlags});
 
         // tars 可能在这里发生变化了，比如援护，就会更改攻击目标
 

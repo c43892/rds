@@ -104,11 +104,10 @@ class GridView extends egret.DisplayObjectContainer {
         var show = (!g.isCovered() || g.isMarked()) && !!dpe && !e.attrs.hideDropItems;
         if (show) {
             ViewUtils.setTexName(this.dropElemImg, dpe.getElemImgRes() + "_png");
-            if (!this.showLayer.contains(this.dropElemImg)) this.showLayer.addChild(this.dropElemImg);
             this.showLayer.setChildIndex(this.dropElemImg, -1);
         }
         else
-            if (this.showLayer.contains(this.dropElemImg)) this.showLayer.removeChild(this.dropElemImg);
+            this.dropElemImg.texture = undefined;
     }
 
     private refreshMarkedEffect(g:Grid) {
@@ -282,9 +281,8 @@ class GridView extends egret.DisplayObjectContainer {
 
     public clear() {
         this.showLayer.removeChildren();
+        this.showLayer.addChild(this.dropElemImg);
         this.setCoverImg(false);
-        if (this.showLayer.contains(this.blockedImg))
-            this.showLayer.removeChild(this.blockedImg);
         ViewUtils.makeGray(this.elemImg, false);
     }
 

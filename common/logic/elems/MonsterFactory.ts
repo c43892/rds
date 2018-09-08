@@ -404,7 +404,7 @@ class MonsterFactory {
                     await m.bt().fireEvent("onGridChanged", {x:m.pos.x, y:m.pos.y, subType:"gridUncovered", stateBeforeUncover:stateBeforeUncover});
                 }
 
-                await m.bt().implMonsterAttackTargets(m, [m.bt().player]);
+                await m.bt().implMonsterAttackTargets(m, [m.bt().player], undefined, false, ["attackOnPlayerLeave"]);
             }, m);
     }
 

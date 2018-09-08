@@ -129,61 +129,19 @@
             {
                 "num": [ 8, 9 ],
                 "elems": {
-                    "NormalZombie": 100,
-                    "GoblinThief": 100,
-                    "HoundZombie": 100,
-                    "Vampire": 100,
-                    "DancerZombie": 100,
-                    "GluttonyZombie": 100,
-                    "Gengar": 100,
-                    "BombAbomination": 100,
-                    "EyeDemon": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
-                    "Mummy": 100,
-                    "SkeletonKing": 100,
-                    "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
-                    "BoxMonster": 0,
-                    "Ghost": 100,
-                    "RedSlime": 100,
-                    "BallShito": 100,
-                    "GreenSlime": 100,
-                    "ReviveZombie": 100
+                    "Gengar": 100
                 }
             },
             {
-                "num": [ 4, 6 ],
+                "num": [ 10, 11 ],
                 "elems": {
-                    "Knife": 1101,
-                    "Magazine": 1101,
-                    "EconomyMagazine": 1101,
-                    "Clock": 1101,
-                    "Shield": 1101,
-                    "HpPotion": 1101,
-                    "IceGun": 1101,
-                    "RayGun": 1101,
-                    "HpCapsule": 1101,
-                    "DePoison": 1101,
-                    "SuperPotion": 1101,
-                    "StrangthPotion": 1101,
-                    "CandyCannon": 1101,
-                    "Vest": 1101,
-                    "Bazooka": 1101,
-                    "WantedOrder": 1101000
+                    "Key": 1101
                 }
             },
             {
-                "num": [ 1, 3 ],
+                "num": [ 10, 11 ],
                 "elems": {
-                    "Apple": 1101,
-                    "Steak": 1101
-                }
-            },
-            {
-                "num": [ 0, 3 ],
-                "elems": {
-                    "Hole": 1
+                    "Door": 1101
                 }
             }
         ]
