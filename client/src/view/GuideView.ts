@@ -30,7 +30,10 @@ class GuideView extends egret.DisplayObjectContainer {
         }
     }
 
-    // 基本功能单元
+    // 限制点击
+    public async tapAt(x:number, y:number) {
+        this.addChild(this.bg);
+    }
 
     // 剧情对话
 

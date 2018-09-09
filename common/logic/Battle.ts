@@ -74,9 +74,9 @@ class Battle {
         this.level.RandomElemsPos(); // 先随机一下，免得看起来不好看
         await this.fireEvent("onLevelInited", {bt:this});
         await this.triggerLogicPoint("onLevelInited", {bt:this});
-            
-        this.level.RandomElemsPos(); // 随机元素位置
+        
         await this.coverAllAtInit();
+        this.level.RandomElemsPos(); // 随机元素位置
         await this.uncoverStartupRegion();
     }
 
