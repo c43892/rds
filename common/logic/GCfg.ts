@@ -14,4 +14,5 @@ class GCfg {
     public static getMultiLanguageCfg; // 获取多语言配置
     public static getElemDescCfg; // 获取元素描述文本配置
     public static getOccupationCfg; // 获取职业相关配置
+    public static getElemPosCfg; // 获取关卡中指定元素位置的配置
 }

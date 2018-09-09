@@ -71,6 +71,8 @@ class Main extends egret.DisplayObjectContainer {
             Utils.assert(lvCfg[lv], "can not find level: " + lv);
             return lvCfg[lv];
         }
+        var elemPosCfg = RES.getRes("elemPosConfig_json");
+        GCfg.getElemPosCfg = (cfg) => elemPosCfg[cfg];
 
         // 元素默认配置
         var elemAttrsCfg = RES.getRes("elemattrsconfig_json");

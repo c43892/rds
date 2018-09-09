@@ -180,21 +180,15 @@ class Map {
         this.elems[x][y] = e;
 
         if (e.isBig()) {
+            this.assertBound(x + e.attrs.size.w - 1, y + e.attrs.size.h - 1);
             var hds = e["placeHolders"]();
-            for (var hd of hds) {
-                while (this.getElemAt(x, y) != undefined) {
-                    x++;
-                    if (x >= this.size.w) {
-                        x = 0;
-                        y++;
-                        if (y >= this.size.h)
-                            y = 0;
-                    }
-
-                    Utils.assert(x != e.pos.x || y != e.pos.y, "no more place for placeHolder");
+            var index = 0;
+            for (var i = 0; i < e.attrs.size.w; i++) {
+                for (var j = 0; j < e.attrs.size.h; j++) {
+                    if (i == 0 && j == 0) continue;
+                    this.addElemAt(hds[index], x + i, y + j);
+                    index ++;
                 }
-
-                this.addElemAt(hd, x, y);
             }
         }
     }

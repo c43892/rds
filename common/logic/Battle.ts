@@ -41,7 +41,7 @@ class Battle {
         // 创建关卡地图和元素
         this.level = new Level();
         if(Utils.checkRookiePlay())
-            this.lvCfg = GCfg.getLevelCfg("rookiePlay_1");
+            this.lvCfg = GCfg.getLevelCfg("rookiePlay");
         else
             this.lvCfg = GCfg.getLevelCfg(btType);
         Utils.assert(!!this.lvCfg, "can not find level config: " + btType);
@@ -62,7 +62,7 @@ class Battle {
     public prepare() {
         if (this.prepared) return;        
         this.loadCurrentLevel(this.btType);
-        BattleUtils.randomElemsPosInMap(this);
+        this.level.RandomElemsPos();
         this.prepared = true;
     }
 
@@ -76,7 +76,7 @@ class Battle {
         await this.triggerLogicPoint("onLevelInited", {bt:this});
         
         await this.coverAllAtInit();
-        this.level.RandomElemsPos(); // 随机元素位置
+        this.level.setElemPos(); // 随机元素位置
         await this.uncoverStartupRegion();
     }
 

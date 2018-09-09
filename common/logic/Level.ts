@@ -4,10 +4,12 @@ class Level {
     public displayName:string;
     public map:Map;
     private bt:Battle; // 反向引用回所属 battle
+    private cfg;
 
     public Init(bt:Battle, cfg) {
         this.displayName = cfg.displayName;
         this.bt = bt;
+        this.cfg = cfg;
         this.InitMap(cfg.map);
         this.addLevelLogic(new LevelLogicBasic());
         this.InitElems(bt.btType, cfg.elems, cfg.constElems, cfg.randomGroups, 
@@ -110,11 +112,20 @@ class Level {
         var x = 0;
         var y = 0;
         for (var elem of elems) {
-            this.map.addElemAt(elem, x, y);
-            var cnt = elem.isBig() ? elem.attrs.size.w * elem.attrs.size.h : 1;
-            for (var i = 0; i < cnt; i++) {
-                x++;
-                if (x >= this.map.size.w) { y++; x = 0; }
+            if(!elem.isBig()){
+                this.map.addElemAt(elem, x, y);
+                var cnt = 1;
+                for (var i = 0; i < cnt; i++) {
+                    x++;
+                    if (x >= this.map.size.w) { y++; x = 0; }
+                }
+            }
+        }
+        for (var elem of elems) {
+            if(elem.isBig()){
+                var esize = elem.attrs.size;
+                var g = BattleUtils.findRandomEmptyGrid(this.bt, false, esize);
+                this.map.addElemAt(elem, g.pos.x, g.pos.y);
             }
         }
     }
@@ -130,8 +141,8 @@ class Level {
             var e = this.map.getElemAt(x, y);
             if (!e) return;
 
-             if (e.type == "PlaceHolder")
-                return;
+            if (e.type == "PlaceHolder")
+                return;            
 
             if (e.isBig())
                 biggerElems.push(e);
@@ -149,20 +160,83 @@ class Level {
             this.map.addElemAt(e, g.pos.x, g.pos.y);
             var hds:Elem[] = e["placeHolders"]();
             Utils.assert(hds.length == esize.w * esize.h - 1, "big elem size mismatch the number of it's placeholders");
-            for (var i = 0; i < esize.w; i++) {
-                for (var j = 0; j < esize.h; j++) {
-                    if (i == 0 && j == 0) continue;
-                    var hd = hds.shift();
-                    this.map.switchElems(hd.pos.x, hd.pos.y, e.pos.x + i, e.pos.y + j);
-                }
-            }
-            Utils.assert(hds.length == 0, "more placehodlers need to be placed");
         }
 
         // 再放置普通元素
         for (var e of normalElems) {
             Utils.assert(e.type != "PlaceHolder", "place holders should be placed already");
             var g = BattleUtils.findRandomEmptyGrid(this.bt, false);
+            Utils.assert(!!g, "no more place for elem");
+            this.map.addElemAt(e, g.pos.x, g.pos.y);
+        }
+    }
+
+    // 根据配置将部分元素放置在固定位置,其余元素随机
+    public setElemPos(){
+        var biggerElems:Elem[] = [];
+        var normalElems:Elem[] = [];
+
+        // 先分开大尺寸元素和普通元素
+        this.map.travelAll((x, y) => {
+            var e = this.map.getElemAt(x, y);
+            if (!e) return;
+
+            if (e.type == "PlaceHolder")
+                return;
+
+            else if (e.isBig())
+                biggerElems.push(e);
+            else
+                normalElems.push(e);
+
+            this.map.removeElemAt(e.pos.x, e.pos.y);
+        });
+
+        if(this.cfg.elemPosConfig){
+            // 先给大尺寸元素找到指定位置
+            var posCfg = GCfg.getElemPosCfg(this.cfg.elemPosConfig);
+            for(var e of biggerElems){
+                if(posCfg[e.type]){
+                    for(var i = 0; i < posCfg[e.type].length; i++){
+                        var pos = posCfg[e.type][i];
+                        if(!this.map.getElemAt(pos.x, pos.y)){
+                            this.map.addElemAt(e, pos.x, pos.y);
+                            biggerElems = Utils.remove(biggerElems, e);
+                            break;
+                        }
+                    }
+                }
+            }
+            // 给普通元素找到指定位置
+            for(var e of normalElems){
+                if(posCfg[e.type]){
+                    for(var i = 0; i < posCfg[e.type].length; i++){
+                        var pos = posCfg[e.type][i];
+                        if(!this.map.getElemAt(pos.x, pos.y)){
+                            this.map.addElemAt(e, pos.x, pos.y);
+                            normalElems = Utils.remove(normalElems, e);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        
+        // 其余元素随机放置
+        // 先给大尺寸元素找到随机位置
+        for (var e of biggerElems) {
+            var esize = e.attrs.size;
+            var g = BattleUtils.findRandomEmptyGrid(this.bt, true, esize);
+            Utils.assert(!!g, "can not place big " + e.type + " with size of " + esize);
+            this.map.addElemAt(e, g.pos.x, g.pos.y);
+            var hds:Elem[] = e["placeHolders"]();
+            Utils.assert(hds.length == esize.w * esize.h - 1, "big elem size mismatch the number of it's placeholders");
+        }
+
+        // 再放置普通元素
+        for (var e of normalElems) {
+            Utils.assert(e.type != "PlaceHolder", "place holders should be placed already");
+            var g = BattleUtils.findRandomEmptyGrid(this.bt, true);
             Utils.assert(!!g, "no more place for elem");
             this.map.addElemAt(e, g.pos.x, g.pos.y);
         }
