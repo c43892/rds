@@ -1,0 +1,16 @@
+{
+    "rookiePlay":{
+        "GoblinThief": [{"x":6, "y":6}],
+        "HoundZombie": [{"x":4, "y":0}],
+        "Vampire": [{"x":4, "y":1}],
+        "GluttonyZombie": [{"x":4, "y":3}],
+        "Gengar": [{"x":4, "y":7}],
+        "BombAbomination": [{"x":0, "y":8}],
+        "EyeDemon": [{"x":0, "y":1}, {"x":6, "y":8}],
+        "Knife": [{"x":0, "y":0}],
+        "Key": [{"x":2, "y":6}],
+        "Shield": [{"x":3, "y":6}],
+        "Apple": [{"x":2, "y":7}],
+        "Door": [{"x":6, "y":7}]
+    }
+}
