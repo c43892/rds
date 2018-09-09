@@ -39,6 +39,15 @@ class GuideView extends egret.DisplayObjectContainer {
         }
     }
 
+    // 注册所有可能触发指引的事件
+    public registerEvents(bt:Battle) {
+        bt.registerEvent("onStartupRegionUncovered", async (ps) => {
+            var bt = ps.bt;
+            if (bt.btType == "rookiePlay")
+                await this.rookiePlay(ps.bt)
+        });
+    }
+
     // 点击指引
 
     tapBg:egret.Bitmap;
@@ -58,8 +67,8 @@ class GuideView extends egret.DisplayObjectContainer {
         this.tapArea.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClickTapAni, this);
     }
 
-    // 限制点击
-    public async tapAt(target:egret.DisplayObject, offset = {x:0, y:0}) {
+    // 指引点击
+    public async tap(target:egret.DisplayObject, offset = {x:0, y:0}) {
         this.tapTarget = target;
         var targetPos = target.localToGlobal();
 
@@ -95,6 +104,12 @@ class GuideView extends egret.DisplayObjectContainer {
                 r();
             };
         });
+    }
+
+    // 指引点击地图格子
+    public async tapGrid(gx:number, gy:number) {
+        var g = this.bv.mapView.getGridViewAt(gx, gy);
+        await this.tap(g, {x:g.width/2, y:g.height/2});
     }
 
     // 剧情对话
@@ -143,7 +158,7 @@ class GuideView extends egret.DisplayObjectContainer {
         var content = <egret.TextField>this.dlgFrame.getChildByName("content");
 
         if (onLeft) {
-            ViewUtils.setTexName(avatarImg1, tex);
+            ViewUtils.setTexName(avatarImg1, tex + "_png");
             avatarName1.text = name;
             avatarImg1.alpha = 1;
             avatarImg1.scaleX = flipAvatar ? -1 : 1;
@@ -151,7 +166,7 @@ class GuideView extends egret.DisplayObjectContainer {
             avatarImg2.alpha = 0;
             avatarName2.alpha = 0;
         } else {
-            ViewUtils.setTexName(avatarImg2, tex);
+            ViewUtils.setTexName(avatarImg2, tex + "_png");
             avatarName2.text = name;
             avatarImg2.alpha = 1;
             avatarImg2.scaleX = flipAvatar ? -1 : 1;
@@ -179,8 +194,13 @@ class GuideView extends egret.DisplayObjectContainer {
 
     // 测试对话
     public async test(target) {
-        // await this.showDialog("Nurse_png", "护士1", "我是一个护士", 0, 200, true);
-        // await this.showDialog("Nurse_png", "护士2", "我还是一个护士", 140, 500, false, true);
-        await this.tapAt(target, {x:target.width/2, y:target.height/2});
+    }
+
+    // 新手指引
+    async rookiePlay(bt:Battle) {
+        await AniUtils.wait4click(); // 等待点击
+        await this.showDialog("Nurse", "护士", "我是护士，我让你点哪里就点哪里", 0, 200, true);
+        await this.tapGrid(1, 1);
+        await this.showDialog("GoblinThief", "哥布林", "啊啊！干得好！", 140, 500, false);
     }
 }

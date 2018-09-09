@@ -92,7 +92,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.st.openAllPropsView = async (props) => await this.openAllElemsView(props);
 
         // 指引层
-        this.gv = new GuideView(w, h, this.wmv, this);
+        this.gv = new GuideView(w, h, this.wmv, this.bv);
 
         // 动画层
         this.av = new AniView(w, h, this);
@@ -170,6 +170,9 @@ class MainView extends egret.DisplayObjectContainer {
             this.battleEndedCallback(bt);
         });
         bt.registerEvent("onGridChanged", async (ps) => await this.bv.monsterTip.onGridChanged(ps));
+
+        // 新手指引
+        this.gv.registerEvents(bt);
 
         BattleRecorder.registerReplayIndicatorHandlers(bt);
         bt.start();
@@ -348,8 +351,6 @@ class MainView extends egret.DisplayObjectContainer {
                 }
             }
         };
-
-        this.gv.test(this.lgv.btnNewPlay);
     }
 
     // // 打开选择遗物界面
