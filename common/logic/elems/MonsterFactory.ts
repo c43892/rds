@@ -283,7 +283,6 @@ class MonsterFactory {
             await m.bt().implAddMoney(-Math.floor(m.bt().player.money * m.attrs.steal.percent / 100) - m.attrs.steal.num, m);
             if(giveback)
                 m.addDropItem(m.bt().level.createElem("Coins"));
-
         }, m);
     }
 

@@ -11,6 +11,7 @@ class MainView extends egret.DisplayObjectContainer {
     public ttv:TurntableView; //转盘事件
     public pluv:PlayerLevelUpView; // 角色升级界面
     public tcv:TipConfirmView; // 提示确认视图
+    public gv:GuideView; // 指引层
     public rankv:RankingView; // 排行榜视图
     public idv:ElemDescView; // 怪物、遗物、物品描述视图
     public aev:AllElemsView; // 展示给定的Elems列表
@@ -89,6 +90,9 @@ class MainView extends egret.DisplayObjectContainer {
         this.bv.openAllElemsView = async (elems) => await this.openAllElemsView(elems);
         this.st.openAllRelicsView = async (relics) => await this.openAllElemsView(relics);
         this.st.openAllPropsView = async (props) => await this.openAllElemsView(props);
+
+        // 指引层
+        this.gv = new GuideView(w, h, this.wmv, this);
 
         // 动画层
         this.av = new AniView(w, h, this);
@@ -339,6 +343,8 @@ class MainView extends egret.DisplayObjectContainer {
                 }
             }
         };
+
+        this.gv.testDialog();
     }
 
     // // 打开选择遗物界面
