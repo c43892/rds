@@ -1,6 +1,8 @@
 class LevelLogicBasic extends LevelLogic{
-    constructor(){
+    constructor(level){
         super("LevelLogicBasic");
+
+        this.level = level;
 
         this.onLevelInited = async (ps) => {
             var bt:Battle = ps.bt;

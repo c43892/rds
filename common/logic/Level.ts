@@ -11,7 +11,8 @@ class Level {
         this.bt = bt;
         this.cfg = cfg;
         this.InitMap(cfg.map);
-        this.addLevelLogic(new LevelLogicBasic());
+        var levelLogic = LevelLogicFactory.createLevelLogic(this, "levelLogicBasic");
+        this.addLevelLogic(levelLogic);
         this.InitElems(bt.btType, cfg.elems, cfg.constElems, cfg.randomGroups, 
             GCfg.mapsize.w * GCfg.mapsize.h + cfg.init_uncovered.w + cfg.init_uncovered.h, 
             cfg.init_uncovered, cfg.doorUnlock, cfg.extraTreasureBox, cfg.treasureBoxNum, cfg.monsterBox);
