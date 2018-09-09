@@ -50,26 +50,6 @@ class LoginView extends egret.DisplayObjectContainer {
         var objs = [this.btnContinue, this.btnNewPlay, this.btnOpenRank, this.btnAchievement];
         objs.forEach((obj, _) => this.addChild(obj));
         ViewUtils.multiLang(this, ...objs);
-
-        // var ani = ViewUtils.createSkeletonAni("genggui_shenti");
-        // var disp:egret.DisplayObject = ani.getDisplay();
-        // disp.x = this.width / 2;
-        // disp.y = this.height / 2;
-        // this.addChild(disp);
-        // ani.animation.play("start", 0);
-        // dragonBones.WorldClock.clock.add(ani);
-        
-        // egret.Ticker.getInstance().register((frameTime:number) => {
-        //     dragonBones.WorldClock.clock.advanceTime(frameTime/1000);
-        // }, this);
-
-        // var psw = ViewUtils.createParticleSystemWrapper("newParticle");        
-        // this.addChild(psw);
-        // this.bg.addEventListener(egret.TouchEvent.TOUCH_TAP, async (evt:egret.TouchEvent) => {
-        //     psw.start();
-        //     await AniUtils.createExpTrack(psw, {x:evt.stageX, y:evt.stageY}, {x:this.width/2, y:this.height/2}, 1000);
-        //     psw.stop(); 
-        // }, this);
     }
 
     public onClose;

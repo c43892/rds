@@ -628,7 +628,6 @@ class AniView extends egret.DisplayObjectContainer {
         svArr.forEach((sv, _) => AniUtils.clearAll(sv));
         revArr.forEach((rev, _) => rev());
         this.bv.refresh();
-        await AniUtils.delay(1000);
     }
 
     // 关卡事件

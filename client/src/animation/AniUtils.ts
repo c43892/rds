@@ -409,7 +409,7 @@ class AniUtils {
                 bg["fgx"] = mapsize.w;
                 bg["fgy"] = 0;
                 bg["gx"] = x;
-                bg["gy"] = y;                
+                bg["gy"] = y;
                 AniUtils.ac.addChild(bg);
                 gbgs.push(bg);                
             }
