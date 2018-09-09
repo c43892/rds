@@ -5671,6 +5671,8 @@
             "IronZombie":{"hp":8, "power":3, "shield":10},
             "BossBunny":{"hp":20, "power":3},
 
+            "CoinsTiny": {"type": "Coins", "cnt": 1},
+            "CoinsSmall":{"type":"Coins", "cnt":5},
             "Coins":{"cnt":1},
             "CoinsBig":{"type":"Coins", "cnt":5},
             "CoinsHuge":{"type":"Coins", "cnt":10} 
