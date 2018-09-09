@@ -2,7 +2,7 @@
 class GuideView extends egret.DisplayObjectContainer {
     wmv:WorldMapView;
     bv:BattleView;
-
+    
     bg:egret.Bitmap;
     public constructor(w, h, wmv, bv) {
         super();
@@ -20,23 +20,81 @@ class GuideView extends egret.DisplayObjectContainer {
         this.bg.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClickBg, this);
 
         this.buildDialog();
+        this.buildTap();
     }
 
     onBgClicked;
     onClickBg(evt:egret.TouchEvent) {
         if (this.onBgClicked) {
-            this.onBgClicked();
+            this.onBgClicked(evt);
             this.onBgClicked = undefined;
         }
     }
 
+    onTapAniClicked;
+    onClickTapAni(evt:egret.TouchEvent) {
+        if (this.onTapAniClicked) {
+            this.onTapAniClicked(evt);
+            this.onTapAniClicked = undefined;
+        }
+    }
+
+    // 点击指引
+
+    tapBg:egret.Bitmap;
+    tapTarget:egret.DisplayObject;
+    tapFrameAni:egret.MovieClip;
+    tapArea:egret.Bitmap;
+    buildTap() {
+        this.tapBg = new egret.Bitmap();
+        this.tapBg.touchEnabled = true;
+        this.tapFrameAni = ViewUtils.createFrameAni("effWantedOrder");
+        this.tapFrameAni.play(-1);
+        
+        this.tapArea = ViewUtils.createBitmapByName("aevNoElem_png");
+        this.tapArea.anchorOffsetX = this.tapArea.width / 2;
+        this.tapArea.anchorOffsetY = this.tapArea.height / 2;
+        this.tapArea.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClickTapAni, this);
+    }
+
     // 限制点击
-    public async tapAt(x:number, y:number) {
-        this.addChild(this.bg);
+    public async tapAt(target:egret.DisplayObject, offset = {x:0, y:0}) {
+        this.tapTarget = target;
+        var targetPos = target.localToGlobal();
+
+        this.tapArea.x = targetPos.x + offset.x;
+        this.tapArea.y = targetPos.y + offset.y;
+
+        var maskContainer = new egret.DisplayObjectContainer();
+        this.tapArea.blendMode = egret.BlendMode.ERASE;
+        maskContainer.addChild(this.bg);
+        maskContainer.addChild(this.tapArea);
+
+        var rt = new egret.RenderTexture();
+        rt.drawToTexture(maskContainer);
+        ViewUtils.setTex(this.tapBg, rt);
+
+        this.tapArea.blendMode = egret.BlendMode.NORMAL;
+        this.addChild(this.tapBg);
+        this.addChild(this.tapFrameAni);
+        this.addChild(this.tapArea);
+        this.tapFrameAni.x = targetPos.x + offset.x;
+        this.tapFrameAni.y = targetPos.y + offset.y;
+        return new Promise<void>((r, _) => {
+            this.onTapAniClicked = (evt:egret.TouchEvent) => {
+                if (!this.tapTarget.hitTestPoint(evt.stageX, evt.stageY)) return;
+                this.removeChild(this.tapBg);
+                this.removeChild(this.tapFrameAni);
+                this.removeChild(this.tapArea);
+                egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_TAP,
+                    evt.bubbles, evt.cancelable,
+                    evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
+                r();
+            };
+        });
     }
 
     // 剧情对话
-
     dlgFrame:egret.DisplayObjectContainer;
     buildDialog() {
         this.dlgFrame = new egret.DisplayObjectContainer();
@@ -106,7 +164,7 @@ class GuideView extends egret.DisplayObjectContainer {
         this.dlgFrame.x = x;
         this.dlgFrame.y = y;
         return new Promise<void>((r, _) => {
-            this.onBgClicked = () => {
+            this.onBgClicked = (evt:egret.TouchEvent) => {
                 this.removeChild(this.bg);
                 this.removeChild(this.dlgFrame);
                 r();
@@ -117,8 +175,9 @@ class GuideView extends egret.DisplayObjectContainer {
     // 各种引导流程
 
     // 测试对话
-    public async testDialog() {
-        await this.showDialog("Nurse_png", "护士1", "我是一个护士", 0, 200, true);
-        await this.showDialog("Nurse_png", "护士2", "我还是一个护士", 140, 500, false, true);
+    public async test(target) {
+        // await this.showDialog("Nurse_png", "护士1", "我是一个护士", 0, 200, true);
+        // await this.showDialog("Nurse_png", "护士2", "我还是一个护士", 140, 500, false, true);
+        await this.tapAt(target, {x:target.width/2, y:target.height/2});
     }
 }

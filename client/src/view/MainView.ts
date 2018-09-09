@@ -344,7 +344,7 @@ class MainView extends egret.DisplayObjectContainer {
             }
         };
 
-        // this.gv.testDialog();
+        this.gv.test(this.lgv.btnNewPlay);
     }
 
     // // 打开选择遗物界面
