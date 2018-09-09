@@ -51,9 +51,10 @@ class GuideView extends egret.DisplayObjectContainer {
         this.tapFrameAni = ViewUtils.createFrameAni("effWantedOrder");
         this.tapFrameAni.play(-1);
         
-        this.tapArea = ViewUtils.createBitmapByName("aevNoElem_png");
+        this.tapArea = ViewUtils.createBitmapByName("guideTapArea_png");
         this.tapArea.anchorOffsetX = this.tapArea.width / 2;
         this.tapArea.anchorOffsetY = this.tapArea.height / 2;
+        this.tapArea.touchEnabled = true;
         this.tapArea.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClickTapAni, this);
     }
 
@@ -66,6 +67,7 @@ class GuideView extends egret.DisplayObjectContainer {
         this.tapArea.y = targetPos.y + offset.y;
 
         var maskContainer = new egret.DisplayObjectContainer();
+        this.tapArea.alpha = 1;
         this.tapArea.blendMode = egret.BlendMode.ERASE;
         maskContainer.addChild(this.bg);
         maskContainer.addChild(this.tapArea);
@@ -74,6 +76,7 @@ class GuideView extends egret.DisplayObjectContainer {
         rt.drawToTexture(maskContainer);
         ViewUtils.setTex(this.tapBg, rt);
 
+        this.tapArea.alpha = 0;
         this.tapArea.blendMode = egret.BlendMode.NORMAL;
         this.addChild(this.tapBg);
         this.addChild(this.tapFrameAni);
