@@ -1,12 +1,13 @@
 {
     "mapsize": {"w": 7, "h": 9},
 
-    "rookiePlay_1": {
+    "rookiePlay": {
         "displayName": "普通战斗1",
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 20,
         "monsterBox": 0,
+        "elemPosConfig":"rookiePlay",
         "init_uncovered": {
             "w": 3,
             "h": 3
@@ -124,15 +125,17 @@
             }
         },
         "constElems":{
-            "NormalZombie": 1,
             "GoblinThief": 1,
             "HoundZombie": 1,
             "Vampire": 1,
-            "DancerZombie": 1,
             "GluttonyZombie": 1,
             "Gengar": 1,
             "BombAbomination": 1,
-            "EyeDemon": 1            
+            "EyeDemon": 2,
+            "Knife": 1,
+            "Key": 1,
+            "Shield": 1,
+            "Apple": 1
             }
     },
 
