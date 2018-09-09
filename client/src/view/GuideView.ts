@@ -41,7 +41,11 @@ class GuideView extends egret.DisplayObjectContainer {
 
     // 注册所有可能触发指引的事件
     public registerEvents(bt:Battle) {
-        bt.registerEvent("onStartupRegionUncovered", async (ps) => await this.rookiePlay(ps.bt));
+        bt.registerEvent("onStartupRegionUncovered", async (ps) => {
+            var bt = ps.bt;
+            if (bt.btType == "rookiePlay")
+                await this.rookiePlay(ps.bt)
+        });
     }
 
     // 点击指引
