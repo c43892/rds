@@ -145,8 +145,8 @@ class Battle {
         }
         this.player.elems2NextLevel = [];
 
-        await this.fireEvent("onStartupRegionUncovered");
-        await this.triggerLogicPoint("onStartupRegionUncovered");
+        await this.fireEvent("onStartupRegionUncovered", {bt:this});
+        await this.triggerLogicPoint("onStartupRegionUncovered", {bt:this});
     }
 
     // 计算一片指定大小的区域，该区域尽量以逃跑的出口位置为中心，
