@@ -620,7 +620,7 @@ class AniView extends egret.DisplayObjectContainer {
 
         // 开始乱窜
         var revArr = AniUtils.LoopMoveAll(svArr, this.bv.mapView);
-        await AniUtils.delay(20000);
+        await AniUtils.delay(2000);
 
         // 开始发牌盖住所有格子
         await AniUtils.coverAll(this.bv.mapView);
