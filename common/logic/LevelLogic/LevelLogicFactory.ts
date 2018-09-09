@@ -1,8 +1,8 @@
-class LevelCfgFactory{
-    public createLevelCfg(type:string){
+class LevelLogicFactory{
+    public static createLevelLogic(level, type:string):LevelLogic{
         var levelLogic;
         switch(type){
-            case "levelCfgBasic" : levelLogic = new LevelLogicBasic();
+            case "levelLogicBasic" : levelLogic = new LevelLogicBasic(level);
         }
 
         return levelLogic;
