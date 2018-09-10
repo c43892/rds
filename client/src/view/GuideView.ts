@@ -160,6 +160,12 @@ class GuideView extends egret.DisplayObjectContainer {
         await this.tap(g, {x:g.width/2, y:g.height/2});
     }
 
+    // 指引点击格子物品
+    public async tapProp(n:number) {
+        var g = this.bv.propsView.getPropViewByIndex(n);
+        await this.tap(g, {x:g.width/2, y:g.height/2});
+    }
+
     // 指引长按地图格子
     public async pressGrid(gx:number, gy:number) {
         var g = this.bv.mapView.getGridViewAt(gx, gy);
@@ -255,6 +261,7 @@ class GuideView extends egret.DisplayObjectContainer {
         await AniUtils.wait4click(); // 等待点击
         await this.showDialog("Nurse", "护士", "我是护士，我让你点哪里就点哪里", 0, 200, true);
         // await this.tapGrid(0, 0);
+        // await this.tapProp(0);
         await this.pressGrid(0, 0);
         await this.showDialog("GoblinThief", "哥布林", "啊啊！干得好！", 140, 500, false);
     }
