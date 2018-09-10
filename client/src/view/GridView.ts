@@ -359,9 +359,9 @@ class GridView extends egret.DisplayObjectContainer {
     public static reposElemTo; // 将物品放到指定空位
     public static try2UncoverAt; // 尝试解开指定位置
     public static try2BlockGrid; // 尝试设置/取消一个危险标志
-    public static notifyLongPressStarted; // 通知长按开始计时
-    public static notifyLongPressEnded; // 通知长按计时结束
     public static showElemDesc; // 显示元素信息
+
+    public notifyLongPressed; // 通知产生了长按行为
 
     // 点击
     async onTouchGrid(evt:egret.TouchEvent) {
@@ -437,8 +437,6 @@ class GridView extends egret.DisplayObjectContainer {
 
         GridView.pressed = true;
         GridView.longPressed = false;
-        if (GridView.notifyLongPressEnded)
-            GridView.notifyLongPressEnded();
         GridView.dragging = false;
         GridView.dragFrom = this;
 
@@ -448,8 +446,6 @@ class GridView extends egret.DisplayObjectContainer {
         }
 
         GridView.pressTimer.start();
-        if (GridView.notifyLongPressStarted)
-            GridView.notifyLongPressStarted(this.gx, this.gy, GridView.LongPressThreshold);
     }
 
     static async onPressTimer() {
@@ -457,18 +453,18 @@ class GridView extends egret.DisplayObjectContainer {
             return;
 
         GridView.longPressed = true;
-        if (GridView.notifyLongPressEnded)
-            GridView.notifyLongPressEnded();
         GridView.pressTimer.stop();
 
         let g = GridView.dragFrom.map.getGridAt(GridView.dragFrom.gx, GridView.dragFrom.gy);
+        let gv = GridView.dragFrom;
+
         switch (g.status) {
             case GridStatus.Covered:
                 if (g.isUncoverable())
-                    GridView.try2BlockGrid(g.pos.x, g.pos.y, true);
+                    await GridView.try2BlockGrid(g.pos.x, g.pos.y, true);
             break;
             case GridStatus.Blocked:
-                GridView.try2BlockGrid(g.pos.x, g.pos.y, false);
+                await GridView.try2BlockGrid(g.pos.x, g.pos.y, false);
             break;
             case GridStatus.Uncovered:
             case GridStatus.Marked:
@@ -477,6 +473,9 @@ class GridView extends egret.DisplayObjectContainer {
                     await GridView.showElemDesc(e);
             break;
         }
+
+        if (gv.notifyLongPressed)
+            gv.notifyLongPressed();
     }
 
     // 拖拽移动
@@ -547,11 +546,8 @@ class GridView extends egret.DisplayObjectContainer {
         GridView.pressed = false;
         GridView.dragging = false;
         GridView.dragFrom = undefined;
-        if (GridView.pressTimer) {
+        if (GridView.pressTimer)
             GridView.pressTimer.stop();
-            if (GridView.notifyLongPressEnded)
-                GridView.notifyLongPressEnded();
-        }
     }
 
     // 记录一次按下弹起所经过的路径点，用于手势判断

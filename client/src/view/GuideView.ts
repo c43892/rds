@@ -31,12 +31,34 @@ class GuideView extends egret.DisplayObjectContainer {
         }
     }
 
-    onTapAniClicked;
-    onClickTapAni(evt:egret.TouchEvent) {
-        if (this.onTapAniClicked) {
-            this.onTapAniClicked(evt);
-            this.onTapAniClicked = undefined;
+    onTapped;
+    touchTap(evt:egret.TouchEvent) {
+        if (this.onTapped) {
+            this.onTapped(evt);
+            this.onTapped = undefined;
         }
+    }
+
+    onLongPressed;
+    touchBegin(evt:egret.TouchEvent) {
+        if (this.forGuideType != "press") return;
+        egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_BEGIN,
+            evt.bubbles, evt.cancelable,
+            evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
+    }
+
+    touchMove(evt:egret.TouchEvent) {
+        if (this.forGuideType != "press") return;
+        egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_MOVE,
+            evt.bubbles, evt.cancelable,
+            evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
+    }
+
+    touchEnd(evt:egret.TouchEvent) {
+        if (this.forGuideType != "press") return;
+        egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_END,
+            evt.bubbles, evt.cancelable,
+            evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
     }
 
     // 注册所有可能触发指引的事件
@@ -64,11 +86,13 @@ class GuideView extends egret.DisplayObjectContainer {
         this.tapArea.anchorOffsetX = this.tapArea.width / 2;
         this.tapArea.anchorOffsetY = this.tapArea.height / 2;
         this.tapArea.touchEnabled = true;
-        this.tapArea.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClickTapAni, this);
+        this.tapArea.addEventListener(egret.TouchEvent.TOUCH_TAP, this.touchTap, this);
+        this.tapArea.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.touchBegin, this);
+        this.tapArea.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchMove, this);
+        this.tapArea.addEventListener(egret.TouchEvent.TOUCH_END, this.touchEnd, this);
     }
 
-    // 指引点击
-    public async tap(target:egret.DisplayObject, offset = {x:0, y:0}) {
+    tapOrPressPrepare(target:egret.DisplayObject, offset = {x:0, y:0}) {
         this.tapTarget = target;
         var targetPos = target.localToGlobal();
 
@@ -92,15 +116,39 @@ class GuideView extends egret.DisplayObjectContainer {
         this.addChild(this.tapArea);
         this.tapFrameAni.x = targetPos.x + offset.x;
         this.tapFrameAni.y = targetPos.y + offset.y;
+
+        return () => {
+            this.removeChild(this.tapBg);
+            this.removeChild(this.tapFrameAni);
+            this.removeChild(this.tapArea);
+        };
+    }
+
+    forGuideType = undefined; // "tap", "press"
+
+    // 指引点击
+    public async tap(target:egret.DisplayObject, offset = {x:0, y:0}) {
+        this.forGuideType = "tap";
+        var rev = this.tapOrPressPrepare(target, offset);
         return new Promise<void>((r, _) => {
-            this.onTapAniClicked = (evt:egret.TouchEvent) => {
-                if (!this.tapTarget.hitTestPoint(evt.stageX, evt.stageY)) return;
-                this.removeChild(this.tapBg);
-                this.removeChild(this.tapFrameAni);
-                this.removeChild(this.tapArea);
+            this.onTapped = (evt:egret.TouchEvent) => {
+                if (this.forGuideType != "tap" || !this.tapTarget.hitTestPoint(evt.stageX, evt.stageY)) return;
+                rev();
                 egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_TAP,
                     evt.bubbles, evt.cancelable,
                     evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
+                r();
+            };
+        });
+    }
+
+    // 指引长按
+    public async press(target, offset = {x:0, y:0}) {
+        this.forGuideType = "press";
+        var rev = this.tapOrPressPrepare(target, offset);
+        return new Promise<void>((r, _) => {
+            target.notifyLongPressed = () => {
+                rev();
                 r();
             };
         });
@@ -110,6 +158,12 @@ class GuideView extends egret.DisplayObjectContainer {
     public async tapGrid(gx:number, gy:number) {
         var g = this.bv.mapView.getGridViewAt(gx, gy);
         await this.tap(g, {x:g.width/2, y:g.height/2});
+    }
+
+    // 指引长按地图格子
+    public async pressGrid(gx:number, gy:number) {
+        var g = this.bv.mapView.getGridViewAt(gx, gy);
+        await this.press(g, {x:g.width/2, y:g.height/2});
     }
 
     // 剧情对话
@@ -200,7 +254,8 @@ class GuideView extends egret.DisplayObjectContainer {
     async rookiePlay(bt:Battle) {
         await AniUtils.wait4click(); // 等待点击
         await this.showDialog("Nurse", "护士", "我是护士，我让你点哪里就点哪里", 0, 200, true);
-        await this.tapGrid(1, 1);
+        // await this.tapGrid(0, 0);
+        await this.pressGrid(0, 0);
         await this.showDialog("GoblinThief", "哥布林", "啊啊！干得好！", 140, 500, false);
     }
 }
