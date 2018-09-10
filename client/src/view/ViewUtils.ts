@@ -327,18 +327,29 @@ class ViewUtils {
 
     // 针对给定遗物生成等级符号并布局
     public static createRelicLevelStars(r:Relic, g:egret.DisplayObject):egret.Bitmap[] {
-        var totalLevel = GCfg.getElemAttrsCfg(r.type).reinforce.length + 1;
-        totalLevel = totalLevel ? totalLevel : 1;
-        var starOffsetX = 13;
-        var starOffsetY = 60;
+        var totalLevel;
+        if(GCfg.getElemAttrsCfg(r.type).reinforce)
+            totalLevel = GCfg.getElemAttrsCfg(r.type).reinforce.length + 1;
+        else
+            totalLevel = 1;
         var xStride = 11;
-        var bmps = [];
+        var bmps:egret.Bitmap[] = [];
+        var center = (totalLevel - 1) / 2;
+        var radius = 80;
+        var point = {x: g.x + g.width / 2, y:g.y + g.height + radius}
         for (var j = 0; j < totalLevel; j++) {
             var star = ViewUtils.createBitmapByName("relicLvSign_png");
-            star.x = g.x + starOffsetX + xStride * j;
-            star.y = g.y + starOffsetY;
+            star.anchorOffsetX = star.width / 2;
+            star.anchorOffsetY = star.height / 2;
+            var angle = 90 - (j - center) * 8;
+            var radian = angle / 360 * 2 * Math.PI;
+            star.x = point.x + Math.cos(radian) * radius + (j - center) * 1;
+            star.y = point.y - Math.sin(radian) * radius ;
+            star.rotation = 90 - angle;
             bmps.push(star);
         }
+        for (var i = 0; i <= r.reinforceLv; i++)
+            ViewUtils.setTexName(bmps[i], "relicLvSign2_png");
 
         return bmps;
     }

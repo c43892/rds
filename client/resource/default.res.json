@@ -13,7 +13,7 @@
 			"name": "configs"
 		},
 		{
-			"keys": "avatarBg_png,ban_png,blocked_png,covered_png,deathGod_png,deathGodBar_png,deathGodBarBg_png,expBar_png,hpBar_png,monsterAttackIntervalBg_png,monsterHpBg_png,monsterMoveRangeBg_png,monsterPowerBg_png,monsterShieldBg_png,moreRelicsBtn_png,num1_png,num2_png,num3_png,num4_png,num5_png,num6_png,num7_png,num8_png,popupTipBg_png,questionMark_png,replaybg_png,selectable_png,uncoverable_png,unselectable_png,BoxRoomBox_png,BoxRoomBoxOpened_png,black_png,btnBg_png,goBack_png,translucent_png,soldout_png,turntableAddHp_png,turntableBg_png,turntableMinusHp_png,turntableStartBtn_png,Adopt_png,BtnSetting_png,Coins_png,Crevice_png,FootPrint_png,Nodeboss_png,Nodebox_png,Nodecamp_png,Nodeevent_png,Nodenormal_png,Nodesenior_png,Nodeshop_png,SymbolDesc_png,SymbolDescbtn_png,WorldMapBg_png,WorldMapBg1_png,WorldMapBg2_png,WorldMapBgCorner_png,lvBg_png,lvBg2_png,lvBtnOk_png,lvBtnOkBg_png,lvSelBarNormal_png,lvSelBarSel_png,cd9_png,cd8_png,cd7_png,cd6_png,cd5_png,cd4_png,cd3_png,cd2_png,cd1_png,cd0_png,AchievementDisabled_png,AchievementDown_png,AchievementNormal_png,ContinueDisabled_png,ContinueDown_png,ContinueNormal_png,lgbg_png,NewGameDown_png,NewGameNormal_png,HerosDown_png,HerosNormal_png,svbg_png,confirmBg_png,attrsBgShield_png,attrsBgPower_png,attrsBgMoveRange_png,attrsBgHp_png,attrsBgAttackInterval_png,bgFrame_png,bigBg_png,relicLvSign_png,battleBg_png,bgGrids_png,mapViewbg_png,skillGrid_png,pointer_png,rewardsBg_png,turntableStartBtn2_png,rewardsBgShadow_png,moneyAndStoriesBg_png,relicUpgradeArrow_png,goForward_png,stExit_png,stItem_png,stOff_png,stOn_png,stSkill_png,stBtnBg_png,campfire_png,aevNoElem_png,newMonsterTipBg_png,markedBg_png,skillGridBg2_png,guideTapArea_png",
+			"keys": "avatarBg_png,ban_png,blocked_png,covered_png,deathGod_png,deathGodBar_png,deathGodBarBg_png,expBar_png,hpBar_png,monsterAttackIntervalBg_png,monsterHpBg_png,monsterMoveRangeBg_png,monsterPowerBg_png,monsterShieldBg_png,moreRelicsBtn_png,num1_png,num2_png,num3_png,num4_png,num5_png,num6_png,num7_png,num8_png,popupTipBg_png,questionMark_png,replaybg_png,selectable_png,uncoverable_png,unselectable_png,BoxRoomBox_png,BoxRoomBoxOpened_png,black_png,btnBg_png,goBack_png,translucent_png,soldout_png,turntableAddHp_png,turntableBg_png,turntableMinusHp_png,turntableStartBtn_png,Adopt_png,BtnSetting_png,Coins_png,Crevice_png,FootPrint_png,Nodeboss_png,Nodebox_png,Nodecamp_png,Nodeevent_png,Nodenormal_png,Nodesenior_png,Nodeshop_png,SymbolDesc_png,SymbolDescbtn_png,WorldMapBg_png,WorldMapBg1_png,WorldMapBg2_png,WorldMapBgCorner_png,lvBg_png,lvBg2_png,lvBtnOk_png,lvBtnOkBg_png,lvSelBarNormal_png,lvSelBarSel_png,cd9_png,cd8_png,cd7_png,cd6_png,cd5_png,cd4_png,cd3_png,cd2_png,cd1_png,cd0_png,AchievementDisabled_png,AchievementDown_png,AchievementNormal_png,ContinueDisabled_png,ContinueDown_png,ContinueNormal_png,lgbg_png,NewGameDown_png,NewGameNormal_png,HerosDown_png,HerosNormal_png,svbg_png,confirmBg_png,attrsBgShield_png,attrsBgPower_png,attrsBgMoveRange_png,attrsBgHp_png,attrsBgAttackInterval_png,bgFrame_png,bigBg_png,relicLvSign_png,battleBg_png,bgGrids_png,mapViewbg_png,skillGrid_png,pointer_png,rewardsBg_png,turntableStartBtn2_png,rewardsBgShadow_png,moneyAndStoriesBg_png,relicUpgradeArrow_png,goForward_png,stExit_png,stItem_png,stOff_png,stOn_png,stSkill_png,stBtnBg_png,campfire_png,aevNoElem_png,newMonsterTipBg_png,markedBg_png,skillGridBg2_png,guideTapArea_png,relicLvSign2_png",
 			"name": "ui"
 		},
 		{
@@ -1357,6 +1357,11 @@
 			"url": "assets/ui/common/guideTapArea.png",
 			"type": "image",
 			"name": "guideTapArea_png"
+		},
+		{
+			"url": "assets/ui/common/relicLvSign2.png",
+			"type": "image",
+			"name": "relicLvSign2_png"
 		}
 	]
 }

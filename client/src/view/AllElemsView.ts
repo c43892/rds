@@ -81,15 +81,15 @@ class AllElemsView extends egret.DisplayObjectContainer {
         else
             this.title.text = title;
 
-        // 根据宽度和每行数量自动计算平均的间隔大小，横竖间隔保持相同
+        // 根据宽度和每行数量自动计算平均的间隔大小
         var space = (this.scrollArea.width - (this.ColNum * this.GridSize)) / (this.ColNum + 1);
         var x = space;
-        var y = space;
+        var y = space - 20;
 
         for (var i = 0; i < this.GridCount; i++) {
             if(i < elems.length){
                 var e = elems[i];
-                let g = new TextButtonWithBg(e.getElemImgRes() + "_png");                
+                let g = new TextButtonWithBg(e.getElemImgRes() + "_png");
                 g.x = x;
                 g.y = y;
                 g.width = g.height = this.GridSize;
@@ -116,7 +116,7 @@ class AllElemsView extends egret.DisplayObjectContainer {
             x += this.GridSize + space;
             if (x >= this.scrollArea.width) {
                 x = space;
-                y += this.GridSize + space;
+                y += this.GridSize + space - 5;
             }
         }
 

@@ -36,7 +36,6 @@ class ElemDescView extends egret.DisplayObjectContainer {
 
     public async open(e:Elem, withCancelBtn:boolean = true, defaultAttrs:boolean = false) {
         this.removeChildren();
-        Utils.assert(!!e.bt() || defaultAttrs, "can only get default attrs on elem without battle")
 
         var uiArr = [];
         var refresh;

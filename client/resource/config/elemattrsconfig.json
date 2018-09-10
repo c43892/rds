@@ -1,19 +1,19 @@
 {
     "MedicineBox":{"name":"医药箱", "dhp":1, 
         "reinforce":[
-            {"dhp":2}
+            {"dhp":2}, {"dhp":3}
         ],
         "occupations":["Nurse"]
     },
     "Hawkeye":{"name":"鹰眼"},
     "TimeMachine":{"name":"时光机", "deathGodBackStep":5,
         "reinforce":[
-            {"deathGodBackStep":6}, {"deathGodBackStep":7}, {"deathGodBackStep":8}, {"dMaxHp":9}, {"deathGodBackStep":10}
+            {"deathGodBackStep":6}, {"deathGodBackStep":7}, {"deathGodBackStep":8}, {"deathGodBackStep":10}
         ]
     },
     "Endurance":{"name":"耐力", "dMaxHp":5, 
         "reinforce":[
-            {"dMaxHp":6}, {"dMaxHp":7}, {"dMaxHp":8}, {"dMaxHp":9}, {"dMaxHp":10}
+            {"dMaxHp":6}, {"dMaxHp":7}, {"dMaxHp":8}, {"dMaxHp":9}
         ]
     },
     "Power":{"name":"力量", "dPower":1,
@@ -28,7 +28,7 @@
     },
     "Fierce":{"name":"凶暴", "dSneakCritical":5,
         "reinforce":[
-            {"dSneakCritical":10}, {"dSneakCritical":20}, {"dSneakCritical":100}
+            {"dSneakCritical":10}, {"dSneakCritical":20}
         ]
     },
     "Unback2Sneak":{"name":"先动"},
