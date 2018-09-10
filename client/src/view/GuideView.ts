@@ -138,6 +138,7 @@ class GuideView extends egret.DisplayObjectContainer {
                     evt.bubbles, evt.cancelable,
                     evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
                 r();
+                this.onTapped = undefined;
             };
         });
     }
@@ -150,6 +151,7 @@ class GuideView extends egret.DisplayObjectContainer {
             target.notifyLongPressed = () => {
                 rev();
                 r();
+                target.notifyLongPressed = undefined;
             };
         });
     }
