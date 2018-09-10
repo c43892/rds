@@ -153,8 +153,8 @@ class ViewUtils {
             0.3, 0.4, 0.3, 0, 0,
             0, 0, 0, 1, 0
         ];
-        var colorFlilter = new egret.ColorMatrixFilter(colorMatrix);
-        e.filters = [colorFlilter];
+        var colorFilter = new egret.ColorMatrixFilter(colorMatrix);
+        e.filters = [colorFilter];
     }
 
     // 创建一个显示文本

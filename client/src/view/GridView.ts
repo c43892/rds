@@ -475,16 +475,22 @@ class GridView extends egret.DisplayObjectContainer {
         }
 
         if (gv.notifyLongPressed)
-            gv.notifyLongPressed();
+            gv.notifyLongPressed(() => {
+                GridView.pressed = false;
+                GridView.longPressed = false;
+                GridView.dragging = false;
+                GridView.dragFrom = undefined;
+                if (GridView.pressTimer)
+                    GridView.pressTimer.stop();
+            });
     }
 
     // 拖拽移动
     onTouchMove(evt:egret.TouchEvent) {
-        if (GridView.gesturePts) GridView.gesturePts.push({x:evt.stageX, y:evt.stageY});
+        if (GridView.gesturePts)
+            GridView.gesturePts.push({x:evt.stageX, y:evt.stageY});
 
         if (GridView.longPressed)
-            // || this.map.getGridAt(this.gx, this.gy).isCovered()
-            // || !this.map.isGenerallyValid(this.gx, this.gy))
             return;
 
         var px = evt.localX + this.x;
@@ -533,7 +539,7 @@ class GridView extends egret.DisplayObjectContainer {
         GridView.gesturePts = undefined;
         GridView.gestureOnGridView = undefined;
 
-        if (GridView.dragging) {
+        if (!GridView.longPressed && GridView.dragging) {
             GridView.dragFrom.showLayer.alpha = 1;
             this.parent.removeChild(GridView.draggingElemImg);
             GridView.draggingElemImg.texture = undefined;
@@ -544,6 +550,7 @@ class GridView extends egret.DisplayObjectContainer {
         }
 
         GridView.pressed = false;
+        GridView.longPressed = false;
         GridView.dragging = false;
         GridView.dragFrom = undefined;
         if (GridView.pressTimer)
