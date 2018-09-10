@@ -683,7 +683,7 @@ class AniView extends egret.DisplayObjectContainer {
         var eyes = [];
         var eyeAnis = [];
         for (var pt of ps.pts) {
-            var e = ViewUtils.createBitmapByName("eyeDemonEye_png");
+            var e = AniUtils.createImg("eyeDemonEye_png");
             this.addChild(e);
             eyes.push(e);
             var ani = AniUtils.flyOutLogicPos(e, this.bv.mapView, m.pos, pt);
@@ -692,6 +692,8 @@ class AniView extends egret.DisplayObjectContainer {
 
         if (eyeAnis.length > 0)
             await this.aniFact.createAniByCfg({type:"seq", arr:eyeAnis});
+
+        eyes.forEach((e, _) => e["dispose"]());
     }
 
     // 物品被拿起等待使用时的悬浮效果
