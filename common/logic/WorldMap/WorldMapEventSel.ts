@@ -185,6 +185,12 @@ class WorldMapEventSelFactory {
             else
                 await this.openEventSels(p, ps.group);
         }, sel),
+        "redirectSelGroup2": (sel:WMES, p:Player, ps) => this.exec(async () => {
+            if (p.isDead())
+                sel.exit = () => true;
+            else
+                await this.openEventSels(p, ps.group2);
+        }, sel),
         "rob": (sel:WMES, p:Player, ps) => this.exec(async () => {
             var robCfg = GCfg.getRobCfg(ps.rob);
             var robItems = Utils.doRobEvent(p, robCfg, p.playerRandom);
