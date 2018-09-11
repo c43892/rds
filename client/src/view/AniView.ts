@@ -491,12 +491,17 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 玩家受到攻击
     async onPlayerGotAttacked(ps) {
-        if (ps.r.r == "attacked")
-            await this.showMonsterAttackValue(ps.attackerAttrs.owner, ps.r.dhp);
+        if (ps.r.r == "attacked") {
+            var avatar = this.bv.avatar;
+            this.showMonsterAttackValue(ps.attackerAttrs.owner, ps.r.dhp)
+            ViewUtils.setTexName(avatar, this.bv.player.occupation + "Hurt_png", true);
+            await AniUtils.flashAndShake(avatar);
+            ViewUtils.setTexName(avatar, this.bv.player.occupation + "_png");
+        }
         else if (ps.r.r == "dodged") {
             // player dodged
             var avatar = this.bv.avatar;
-            await this.aniFact.createAniByCfg({type:"seq", arr:[
+            this.aniFact.createAniByCfg({type:"seq", arr:[
                 {type:"tr", fx:avatar.x, tx:avatar.x - 50, time:100, mode:egret.Ease.quadIn},
                 {type:"tr", fx:avatar.x - 50, tx:avatar.x, time:100, mode:egret.Ease.quadOut},
             ], obj:avatar});
@@ -695,17 +700,15 @@ class AniView extends egret.DisplayObjectContainer {
     public async onEyeDemonUncoverGrids(ps) {
         var m:Elem = ps.m;
         var eyes = [];
-        var eyeAnis = [];
+        var lastAni;
         for (var pt of ps.pts) {
             var e = AniUtils.createImg("eyeDemonEye_png");
-            this.addChild(e);
             eyes.push(e);
-            var ani = AniUtils.flyOutLogicPos(e, this.bv.mapView, m.pos, pt);
-            eyeAnis.push(ani);
+            lastAni = AniUtils.flyOutLogicPos(e, this.bv.mapView, m.pos, pt);
         }
 
-        if (eyeAnis.length > 0)
-            await this.aniFact.createAniByCfg({type:"seq", arr:eyeAnis});
+        if (lastAni)
+            await lastAni;
 
         eyes.forEach((e, _) => e["dispose"]());
     }

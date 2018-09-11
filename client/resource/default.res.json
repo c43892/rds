@@ -21,7 +21,7 @@
 			"name": "relics"
 		},
 		{
-			"keys": "Nurse_png,NurseBg_png,RogueHurt_png,RogueBg_png,Rogue_png",
+			"keys": "Nurse_png,NurseBg_png,RogueHurt_png,RogueBg_png,Rogue_png,NurseHurt_png",
 			"name": "occupations"
 		},
 		{
@@ -1367,6 +1367,11 @@
 			"url": "assets/occupationImg/RogueBg.png",
 			"type": "image",
 			"name": "RogueBg_png"
+		},
+		{
+			"url": "assets/occupationImg/NurseHurt.png",
+			"type": "image",
+			"name": "NurseHurt_png"
 		}
 	]
 }

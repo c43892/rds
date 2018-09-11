@@ -7,6 +7,7 @@ class AniUtils {
 
     public static reserveObjTrans(obj:egret.DisplayObject, ...poses) {
         var parent = obj.parent;
+        var childIndex = parent.getChildIndex(obj);
         var x = obj.x;
         var y = obj.y;
         var wp = obj.localToGlobal();
@@ -26,6 +27,7 @@ class AniUtils {
 
         return () => {
             parent.addChild(obj);
+            parent.setChildIndex(obj, childIndex);
             obj.anchorOffsetX = ay;
             obj.anchorOffsetY = ax;
             obj.x = x;
