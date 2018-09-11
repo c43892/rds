@@ -22,7 +22,7 @@ class WorldMapEventSelsView extends egret.DisplayObjectContainer {
         this.bg1 = ViewUtils.createBitmapByName("confirmBg_png");
         this.bg1.name = "bg1";
 
-        this.title = ViewUtils.createTextField(50, 0xff0000);
+        this.title = ViewUtils.createTextField(40, 0x7d0403);
         this.title.name = "title";
 
         this.desc = ViewUtils.createTextField(25, 0x000000);
@@ -39,6 +39,7 @@ class WorldMapEventSelsView extends egret.DisplayObjectContainer {
         this.sels = sels;
         this.title.textFlow = ViewUtils.fromHtml(title);
         this.desc.textFlow = ViewUtils.fromHtml(desc);
+        this.desc.textAlign = egret.HorizontalAlign.LEFT;
         this.refresh();
         return new Promise<void>((resolve, reject) => this.doClose = resolve);
     }

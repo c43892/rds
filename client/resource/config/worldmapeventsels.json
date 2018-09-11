@@ -21,6 +21,94 @@
     },
 
     "groups": {
+        "a1": {
+            "title": "闪耀之光",
+            "desc": "你发现一道光束",
+            "sels": [{
+                "desc": "[走进]随机升级2个技能",
+                "func": ["reinforceRandomRelics", "redirectSelGroup"],
+                "ps":{"reinforceNum": 2, "group": "a11"}
+            },{
+                "func": ["exit", "redirectSelGroup"],
+                "ps": {"group": "a12"}
+            }]
+        },
+        "a11": {
+            "title": "闪耀之光",
+            "desc": "热的发烫",
+            "sels": [{
+                "desc":"[离开]",
+                "func": ["exit"]
+            }]
+        },
+        "a12": {
+            "title": "闪耀之光",
+            "desc": "你绕过光锥，有些好奇",
+            "sels": [{
+                "func": ["exit"]
+            }]
+        },
+
+        "a2": {
+            "title": "樱桃炸弹",
+            "desc": "你发现樱桃炸弹正在熟睡，旁边的宝物无人看守，不禁起了邪念。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[偷窃]</font><font color=#00b050 size=20>得到{item}，<font color=#7d0403 size=20>受到樱桃炸弹的报复</font>",
+                "func": ["+item", "redirectSelGroup"],
+                "ps": {"item": "MedicineBox", "group": "a21"}
+            },{
+                "func": ["exit", "redirectSelGroup"],
+                "ps": {"group": "a12"}
+            }]
+        },
+        "a21": {
+            "title": "樱桃炸弹",
+            "desc": "樱桃炸弹被惊醒了，它鼓足力气把自己炸得七零八落，滚烫的热浪直奔你而来。",
+            "sels": [{
+                "des": "<font color=#000000 size=20>[逃跑]</font><font color=#7d0403 size=20>失去{money}</font>",
+                "func": ["-money", "redirectSelGroup"],
+                "ps": {"money": 10, "group": "a211"}
+            },{
+                "des": "<font color=#000000 size=20>[抵挡]</font><font color=#7d0403 size=20>{maxHp}</font>",
+                "func": ["-maxHp", "redirectSelGroup"],
+                "ps": {"maxHp": 5, "group": "a212"}
+            },{
+                "des": "<font color=#000000 size=20>[抵挡]</font><font color=#7d0403 size=20>{maxHp}</font>",
+                "func": ["-hp", "redirectSelGroup"],
+                "ps": {"hp": 5, "group": "a213"}
+            }]
+        },
+        "a211": {
+             "title": "樱桃炸弹",
+             "desc": "<font color=#000000 size=25>你拼命的逃跑，终于逃出了爆炸的范围，事后盘点发现仓皇中</font><font color=#7d0403 size=25>丢失了一些金币</font>。",
+             "sels": [{
+                    "func":["exit"]
+             }]
+        },
+        "a212": {
+            "title": "樱桃炸弹",
+             "desc": "<font color=#000000 size=25>你双手抱头，匍匐在地，爆炸波及到了你，你觉得自己的身体</font><font color=#7d0403 size=25>状态不算太好</font>。",
+             "sels": [{
+                    "func":["exit"]
+             }]
+        },
+        "a213": {
+            "title": "樱桃炸弹",
+             "desc": "<font color=#000000 size=25>你躲在障碍物后逃过一劫，虽然仍然</font><font color=#7d0403 size=25>受了点伤</font>。",
+             "sels": [{
+                    "func":["exit"]
+             }]
+        },
+        "a3": {
+            "title": "强化技能",
+            "desc": "",
+            "sels": [{
+                "desc": "",
+                "func": ["reinfoceRelic"]
+            },{
+                "func":["exit"]
+            }]
+        },
         "g1": {
             "title": "事件标题",
             "desc": "事件描述文字，说说这个事件是什么意思",
