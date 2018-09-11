@@ -53,6 +53,7 @@ class WorldMapEventSelsView extends egret.DisplayObjectContainer {
         this.sels.forEach((sel, i) => {
             var btn = new TextButtonWithBg("btnBg_png", 25);
             btn.name = "sel" + i;
+            btn.textField.textAlign = egret.HorizontalAlign.LEFT;
             btn.textFlow = ViewUtils.fromHtml(sel.desc);
             btn["sel"] = sel;
             btn.enabled = sel.valid();

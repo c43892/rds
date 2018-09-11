@@ -30,7 +30,9 @@ class WorldMapEventSelFactory {
                 s = c(s, player, ps);
             }
             
-            if (!s.desc) s.desc = this.genDesc(sel.desc, func, ps);
+            if (!s.desc)
+                s.desc = this.genDesc(sel.desc, func, ps);
+
             ss.push(s);
         }
 
