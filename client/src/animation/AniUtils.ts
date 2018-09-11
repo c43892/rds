@@ -7,6 +7,7 @@ class AniUtils {
 
     public static reserveObjTrans(obj:egret.DisplayObject, ...poses) {
         var parent = obj.parent;
+        var childIndex = parent.getChildIndex(obj);
         var x = obj.x;
         var y = obj.y;
         var wp = obj.localToGlobal();
@@ -26,6 +27,7 @@ class AniUtils {
 
         return () => {
             parent.addChild(obj);
+            parent.setChildIndex(obj, childIndex);
             obj.anchorOffsetX = ay;
             obj.anchorOffsetY = ax;
             obj.x = x;
@@ -475,17 +477,21 @@ class AniUtils {
     }
 
     // 经验光效飞行轨迹
-    public static createExpTrack(psw:ParticleSystemWrapper, fromPos, toPos, time) {
+    public static createExpTrack(psw:ParticleSystemWrapper, fromPos, toPos, time, endDelay = 0) {
         var r = AniUtils.rand.nextDouble() / 2 + 0.25;
         var cx = fromPos.x + (toPos.x - fromPos.x) * r;
         var cy = fromPos.y + (toPos.y - fromPos.y) * r;
         var dir = Utils.getRotationFromTo(fromPos, toPos);
         dir += 90;
-        r = (AniUtils.rand.nextDouble() - 0.5) * Utils.getDist(fromPos, toPos) * 2;
+        r = (AniUtils.rand.nextDouble() - 0.5) * Utils.getDist(fromPos, toPos) / 2;
         var dx = r * Math.cos(dir);
         var dy = r * Math.sin(dir);
         var controlPos = {x:cx + dx, y:cy + dy};
-        return AniUtils.aniFact.createAni("bezierTrack", {obj:psw, fromPos:fromPos, controlPos:controlPos, toPos:toPos, time:1000});
+        return AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
+            {type:"bezierTrack", fromPos:fromPos, controlPos:controlPos, toPos:toPos, time:time},
+            {type:"op", op:() => psw.stop()},
+            {type:"delay", time:time},
+        ], obj:psw, noWait:true});
     }
 
     // 清除所有相关动画

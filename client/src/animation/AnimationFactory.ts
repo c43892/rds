@@ -35,6 +35,7 @@ class AnimationFactory {
                     subCfg.obj = defaultObj;
 
                 subCfg.manuallyStart = true; // 子动画都不是自动播放，要等待顶层动画对象通知播放
+                subCfg.noWait = subCfg.noWait || cfg.noWait;
                 var subAni = this.createAniByCfg(subCfg);
                 aniArr.push(subAni);
             }

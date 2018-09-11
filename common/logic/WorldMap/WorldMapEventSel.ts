@@ -30,7 +30,9 @@ class WorldMapEventSelFactory {
                 s = c(s, player, ps);
             }
             
-            if (!s.desc) s.desc = this.genDesc(sel.desc, func, ps);
+            if (!s.desc)
+                s.desc = this.genDesc(sel.desc, func, ps);
+
             ss.push(s);
         }
 
@@ -182,6 +184,12 @@ class WorldMapEventSelFactory {
                 sel.exit = () => true;
             else
                 await this.openEventSels(p, ps.group);
+        }, sel),
+        "redirectSelGroup2": (sel:WMES, p:Player, ps) => this.exec(async () => {
+            if (p.isDead())
+                sel.exit = () => true;
+            else
+                await this.openEventSels(p, ps.group2);
         }, sel),
         "rob": (sel:WMES, p:Player, ps) => this.exec(async () => {
             var robCfg = GCfg.getRobCfg(ps.rob);

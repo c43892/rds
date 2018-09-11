@@ -161,7 +161,7 @@ class RelicFactory {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) return;
                 ElemFactory.addAI("onElemChanged", async () => {
-                    await r.bt().implAddPlayerExp(attrs.dexp);
+                    await r.bt().implAddPlayerExp(attrs.dexp, r.pos);
                 }, r, (ps) => ps.subType = "die" && ps.e instanceof Monster && ps.e.isHazard())
             })
         },

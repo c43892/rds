@@ -162,6 +162,7 @@ class TextButtonWithBg extends egret.DisplayObjectContainer {
             TextButtonWithBg.pressTimer.stop();
     }
 
+    public textFieldOffset = {};
     public refresh() {
         var objs = [this.bg, this.downBg, this.disabledBg, this.ft, this.textField];
         objs.forEach((obj, i) => {
@@ -172,6 +173,18 @@ class TextButtonWithBg extends egret.DisplayObjectContainer {
                 this.setChildIndex(obj, i);
             }
         });
+
+        if (this.textField) {
+            var txtOff = this.textFieldOffset ? this.textFieldOffset : {};
+            var dl = this.textFieldOffset["l"] ? this.textFieldOffset["l"] : 0;
+            var dt = this.textFieldOffset["t"] ? this.textFieldOffset["t"] : 0;
+            var dr = this.textFieldOffset["r"] ? this.textFieldOffset["r"] : 0;
+            var db = this.textFieldOffset["b"] ? this.textFieldOffset["b"] : 0;
+            this.textField.x += dl;
+            this.textField.y += dt;
+            this.textField.width += (dr - dl);
+            this.textField.height += (db - dt);
+        }
 
         if (this.floatingBg) { // 下对齐
             this.floatingBg.y = this.bg.y + (this.bg.height - this.floatingBg.height);

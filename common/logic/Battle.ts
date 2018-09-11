@@ -1103,10 +1103,10 @@ class Battle {
     }
 
     // 角色+经验
-    public async implAddPlayerExp(dExp:number) {
+    public async implAddPlayerExp(dExp:number, fromPos) {
         this.player.addExp(dExp);
-        await this.fireEvent("onPlayerChanged", {subType:"exp"});
-        await this.triggerLogicPoint("onPlayerChanged", {subType:"exp"});
+        await this.fireEvent("onPlayerChanged", {subType:"exp", fromPos:fromPos});
+        await this.triggerLogicPoint("onPlayerChanged", {subType:"exp", fromPos:fromPos});
     }
 
     // 角色+属性，除了hp
