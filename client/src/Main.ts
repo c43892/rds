@@ -73,6 +73,9 @@ class Main extends egret.DisplayObjectContainer {
         }
         var elemPosCfg = RES.getRes("elemPosConfig_json");
         GCfg.getElemPosCfg = (cfg) => elemPosCfg[cfg];
+        
+        var levelLogics = RES.getRes("levelLogicConfig_json");
+        GCfg.getLevelLogicCfg = (btType) => levelLogics[btType];
 
         // 元素默认配置
         var elemAttrsCfg = RES.getRes("elemattrsconfig_json");

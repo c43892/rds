@@ -7,5 +7,6 @@ class LevelLogic{
     }
 
     // 各逻辑挂接点
+    public beforeLevelInited;
     public onLevelInited;
 }

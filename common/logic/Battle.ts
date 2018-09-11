@@ -11,7 +11,7 @@ class Battle {
     public level:Level; // 当前关卡
     public player:Player; // 角色数据
     public bc:BattleCalculator; // 战斗计算器
-    private lvCfg; // 当前关卡配置
+    public lvCfg; // 当前关卡配置
 
     public openShop; // 执行打开商店的操作
     public openRelicSel2Add; // 执行升级选择遗物逻辑
@@ -40,6 +40,14 @@ class Battle {
     public loadCurrentLevel(btType:string):Level {
         // 创建关卡地图和元素
         this.level = new Level();
+        // 根据战斗类型装配关卡逻辑
+        var levelLogics = Utils.getLevelLogics(btType);
+        if(levelLogics.length > 0){
+            for(var levelLogic of levelLogics){
+                var ll = LevelLogicFactory.createLevelLogic(levelLogic.type, this.level, levelLogic.ps);
+                this.level.addLevelLogic(ll);
+            }
+        }
         if(Utils.checkRookiePlay())
             this.lvCfg = GCfg.getLevelCfg("rookiePlay");
         else
@@ -72,6 +80,9 @@ class Battle {
         
         this.ended = false;
         this.level.RandomElemsPos(); // 先随机一下，免得看起来不好看
+        await this.fireEvent("onInitBattleView", {bt:this});
+
+        await this.triggerLogicPoint("beforeLevelInited", {bt:this});
         await this.fireEvent("onLevelInited", {bt:this});
         await this.triggerLogicPoint("onLevelInited", {bt:this});
         

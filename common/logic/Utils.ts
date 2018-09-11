@@ -538,4 +538,16 @@ class Utils {
     public static checkRookiePlay():boolean{
         return !Utils.loadLocalData("rookiePlay") || Utils.loadLocalData("rookiePlay") != "finished";
     }
+
+    // 根据btType找到该关卡对应的levelLogics
+    public static getLevelLogics(btType:string) {
+        var levelLogics;
+        if(btType.indexOf("normal") > -1){
+            levelLogics = GCfg.getLevelLogicCfg("normal");
+        }
+        else {
+            levelLogics = GCfg.getLevelLogicCfg("normal");
+        }
+        return levelLogics;
+    }
 }

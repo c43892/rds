@@ -156,7 +156,7 @@ class MainView extends egret.DisplayObjectContainer {
         PropView.try2UsePropAt = bt.try2UsePropAt();
 
         bt.registerEvent("onPlayerOp", async (ps) => await BattleRecorder.onPlayerOp(ps.op, ps.ps));
-        bt.registerEvent("onLevelInited", async (ps) => await this.bv.initBattleView(ps));
+        bt.registerEvent("onInitBattleView", async (ps) => await this.bv.initBattleView(ps));
         bt.registerEvent("onPlayerDead", async () => await this.openPlayerDieView());
         Utils.registerEventHandlers(bt, [
             "onGridChanged", "onPlayerChanged", "onAttacking", "onAttacked", "onElemChanged", "onPropChanged", "onRelicChanged",

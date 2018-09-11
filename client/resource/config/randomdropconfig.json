@@ -88,5 +88,22 @@
     "ttrdp2":{"num":[1, 2],"elems":{
         "RayGun":20,
         "IceGun":30
+    }},
+
+    "searchBody1":{"num":[1, 2],"elems":{
+        "MedicineBox":10,
+        "Hawkeye":10,
+        "TimeMachine":10
+    }},
+
+    "searchBody2":{"num":[1, 2],"elems":{
+        "RayGun":20,
+        "IceGun":30
+    }},
+
+    "searchBody3":{"num":[1, 2],"elems":{
+        "Coins":20,
+        "CoinsBig":10,
+        "CoinsHuge":5
     }}
 }

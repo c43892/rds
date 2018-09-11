@@ -9,7 +9,7 @@
 			"name": "loading"
 		},
 		{
-			"keys": "description_json,elemattrsconfig_json,elemdesc_json,levelconfig_json,multilanguage_json,playerconfig_json,randomdropconfig_json,shopconfig_json,worldmap_json,worldmapeventsels_json,occupationconfig_json,robconfig_json,elemPosConfig_json",
+			"keys": "description_json,elemattrsconfig_json,elemdesc_json,levelconfig_json,multilanguage_json,playerconfig_json,randomdropconfig_json,shopconfig_json,worldmap_json,worldmapeventsels_json,occupationconfig_json,robconfig_json,elemPosConfig_json,levelLogicConfig_json",
 			"name": "configs"
 		},
 		{
@@ -25,7 +25,7 @@
 			"name": "occupations"
 		},
 		{
-			"keys": "DeathGod_png,HpCapsule_png",
+			"keys": "DeathGod_png,HpCapsule_png,TreasureBox_png",
 			"name": "misc"
 		},
 		{
@@ -1362,6 +1362,11 @@
 			"url": "assets/ui/common/relicLvSign2.png",
 			"type": "image",
 			"name": "relicLvSign2_png"
+		},
+		{
+			"url": "config/levelLogicConfig.json",
+			"type": "json",
+			"name": "levelLogicConfig_json"
 		}
 	]
 }
