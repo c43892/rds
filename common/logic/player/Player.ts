@@ -33,7 +33,7 @@ class Player {
         p.worldmap = undefined;
         p.currentStoreyPos = {lv:0, n:0, status:"finished"};
         p.finishedStoreyPos = [{lv:0, n:0}];
-        p.occupation = "Nurse";
+        p.occupation = "Rogue"; // Nurse";
         p.deathStep = 100;
 
         p.maxDeathStep = 120;

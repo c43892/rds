@@ -46,7 +46,7 @@ class MapView extends egret.DisplayObjectContainer {
     public refresh() {
         this.gw = this.width / this.map.size.w;
         this.gh = this.height / this.map.size.h;
-
+        
         Utils.NDimentionArrayForeach(this.mgvs, (ev:GridView) => {
             ev.x = ev.gx * this.gw;
             ev.y = ev.gy * this.gh;

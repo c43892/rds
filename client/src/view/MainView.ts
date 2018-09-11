@@ -146,12 +146,12 @@ class MainView extends egret.DisplayObjectContainer {
         GridView.try2UseElem = bt.try2UseElem();
         GridView.try2UseElemAt = bt.try2UseElemAt();
         GridView.reposElemTo = bt.try2ReposElemTo();
-        GridView.selectGrid = (f, cb) => this.bv.selectGrid(f).then(cb);
+        GridView.selectGrid = async (f) => await this.bv.selectGrid(f);
         GridView.confirmOkYesNo = async (title, content, yesno) => this.confirmOkYesNo(title, content, yesno);
         GridView.try2UncoverAt = bt.try2UncoverAt();
         GridView.try2BlockGrid = bt.try2BlockGrid();
         PropView.try2UseProp = bt.try2UseProp();
-        PropView.selectGrid = (f, cb) => this.bv.selectGrid(f).then(cb);
+        PropView.selectGrid = async (f) => await this.bv.selectGrid(f);
         PropView.confirmOkYesNo = async (title, content, yesno) => this.confirmOkYesNo(title, content, yesno);
         PropView.try2UsePropAt = bt.try2UsePropAt();
 

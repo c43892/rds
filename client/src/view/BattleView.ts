@@ -280,6 +280,7 @@ class BattleView extends egret.DisplayObjectContainer {
     // 设置新的地图数据，但并不自动刷新显示，需要手动刷新
     public setMap(map:Map, title:string) {
         this.mapView.setMap(map);
+        this.selView.rebuild(this.mapView.gsize.w, this.mapView.gsize.h);
     }
 
     // 设置角色数据，但并不刷新显示，需要手动刷新
@@ -292,7 +293,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.refreshPlayer();
         this.av.refresh();
         this.repView.refresh();
-        this.selView.close();
+        if (this.contains(this.selView)) this.removeChild(this.selView);
     }
 
     // 刷新地图显示
@@ -409,7 +410,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.mapView.clear();
         this.av.clear();
         this.repView.clear();
-        this.selView.close();
+        if (this.contains(this.selView)) this.removeChild(this.selView);
         this.avatar.texture = undefined;
         for (var bmp of this.relics) {
             bmp.alpha = 0;
@@ -431,10 +432,10 @@ class BattleView extends egret.DisplayObjectContainer {
 
     // 打开目标选择界面
     public async selectGrid(f) {
-        return this.selView.selGrid(this.mapView.gw, this.mapView.gh, 
-            this.mapView.gsize.w, this.mapView.gsize.h, 
-                /* mapView 是下面中间对齐的，我们需要计算左上角 */
-            this.mapView.x, this.mapView.y, f);
+        this.addChild(this.selView);
+        var r = await this.selView.selGrid(this.mapView.gw, this.mapView.gh, this.mapView.x, this.mapView.y, f);
+        this.removeChild(this.selView);
+        return r;
     }
 
     public async showDeathGodStep(evt:egret.TouchEvent){
