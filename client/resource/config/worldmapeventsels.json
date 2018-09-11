@@ -106,7 +106,7 @@
                 "desc": "",
                 "func": ["reinfoceRelic"]
             },{
-                "func":
+                "func":["exit"]
             }]
         },
         "g1": {
