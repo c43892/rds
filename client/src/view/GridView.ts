@@ -315,7 +315,6 @@ class GridView extends egret.DisplayObjectContainer {
 
         var eff:egret.MovieClip = ViewUtils.createFrameAni(effName);
         this.effects[effName] = eff;
-
         this.effLayer.addChild(eff);
         eff.x = this.width / 2;
         eff.y = this.height / 2;
@@ -324,9 +323,43 @@ class GridView extends egret.DisplayObjectContainer {
         return eff;
     }
 
+    public addColorEffect(effName) {
+        if (this.effects[effName]) return this.effects[effName];
+
+        var poisonFromMat = [
+            0.75, 0, 0, 0, 0,
+            0.25, 0.5, 0.25, 0, 0,
+            0, 0, 0.75, 0, 0,
+            0, 0, 0, 1, 0
+        ];
+
+        var poisonToMat = [
+            0.25, 0, 0, 0, 0,
+            0.5, 0.75, 0.5, 0, 0,
+            0, 0, 0.25, 0, 0,
+            0, 0, 0, 1, 0
+        ];
+
+        var eff;
+        switch (effName) {
+            case "elemPoisoned":
+                eff = new ColorEffect(poisonFromMat, poisonToMat, 2000, this.elemImg);
+            break;
+            case "coveredPoisoned":
+                eff = new ColorEffect(poisonFromMat, poisonToMat, 0, this.coveredImg, this.uncoverableImg);
+            break;
+            default:
+                Utils.assert(false, "unknown color effect name:" + effName);
+        }
+
+        eff.start();
+        this.effects[effName] = eff;
+        this.effLayer.addChild(eff);
+    }
+
     public removeEffect(effName) {
         if (!this.effects[effName]) return;
-        var eff:egret.MovieClip = this.effects[effName];
+        var eff = this.effects[effName];
         eff.stop();
         this.effLayer.removeChild(eff);
         delete this.effects[effName];

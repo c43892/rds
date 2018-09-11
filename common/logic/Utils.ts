@@ -517,6 +517,18 @@ class Utils {
         return Math.sqrt(dx*dx + dy*dy);
     }
 
+    // 插值数组
+    public static arrInterpolate(arr1, arr2, p) {
+        Utils.assert(arr1.length == arr2.length, "can not interpolate two arraies with different length");
+        var arr = [];
+        for (var i = 0; i < arr1.length; i++) {
+            var v = arr1[i] + (arr2[i] - arr1[i]) * p;
+            arr[i] = v;
+        }
+
+        return arr;
+    }
+
     // 判断是否是指定类型
     public static checkCatalogues(type, ...catalogues):boolean {
         var catalogueDict = {
