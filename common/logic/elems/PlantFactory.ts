@@ -318,7 +318,7 @@ class PlantFactory {
             p.use = async () => { 
                 await p.bt().implAddPlayerHp(Math.floor(p.bt().player.maxHp * attrs.dhpPercent / 100), p);
                 var currentExp = GCfg.playerCfg.exp2Lv[player.lv];
-                await p.bt().implAddPlayerExp(Math.floor(currentExp * 0.3));
+                await p.bt().implAddPlayerExp(Math.floor(currentExp * 0.3), p.pos);
                 return false;
             }
             p.getElemImgRes = () => "Sunflower";
@@ -335,7 +335,7 @@ class PlantFactory {
             p.use = async () => { 
                 await p.bt().implAddPlayerHp(Math.floor(p.bt().player.maxHp * attrs.dhpPercent / 100), p);
                 var currentExp = GCfg.playerCfg.exp2Lv[player.lv];
-                await p.bt().implAddPlayerExp(Math.floor(currentExp * 0.3));
+                await p.bt().implAddPlayerExp(Math.floor(currentExp * 0.3), p.pos);
                 await p.bt().implAddMoney(50, p);
                 return false;
             }
@@ -353,7 +353,7 @@ class PlantFactory {
             p.use = async () => { 
                 await p.bt().implAddPlayerHp(Math.floor(p.bt().player.maxHp * attrs.dhpPercent / 100), p);
                 var currentExp = GCfg.playerCfg.exp2Lv[player.lv];
-                await p.bt().implAddPlayerExp(Math.floor(currentExp * 0.3));
+                await p.bt().implAddPlayerExp(Math.floor(currentExp * 0.3), p.pos);
                 await p.bt().implAddMoney(50, p);
                 await p.bt().implAddPlayerMaxHp(20, p);
                 await p.bt().implAddPlayerHp(10, p);
