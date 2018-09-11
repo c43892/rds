@@ -11,8 +11,6 @@ class Level {
         this.bt = bt;
         this.cfg = cfg;
         this.InitMap(cfg.map);
-        var levelLogic = LevelLogicFactory.createLevelLogic(this, "levelLogicBasic");
-        this.addLevelLogic(levelLogic);
         this.InitElems(bt.btType, cfg.elems, cfg.constElems, cfg.randomGroups, 
             GCfg.mapsize.w * GCfg.mapsize.h + cfg.init_uncovered.w + cfg.init_uncovered.h, 
             cfg.init_uncovered, cfg.doorUnlock, cfg.extraTreasureBox, cfg.treasureBoxNum, cfg.monsterBox);
@@ -77,8 +75,9 @@ class Level {
             this.createElem("EscapePort", {size: init_uncovered_size}), // 逃跑出口
         ];
 
-        // 处理钥匙和宝箱
-        elems = this.addKeyAndTreasureBox(btType, elems, doorUnlock, extraTreasureBox, treasureBoxNum, monsterBox);       
+        for(var i = 0; i < doorUnlock; i++){
+            elems.push(this.createElem("Key"));
+        }
         
         // 添加固定元素
         for (var e in constElemsCfg) {
@@ -241,53 +240,6 @@ class Level {
             Utils.assert(!!g, "no more place for elem");
             this.map.addElemAt(e, g.pos.x, g.pos.y);
         }
-    }
-
-    // 添加本关卡的钥匙和宝箱
-    public addKeyAndTreasureBox(btType:string, elems:Elem[], doorUnlock, extraTreasureBox, treasureBoxNum, monsterBox){
-        // 开门用的钥匙,根据关卡配置确定
-        for(var i = 0; i < doorUnlock; i++){
-            elems.push(this.createElem("Key"));
-        }
-       
-        // 开宝箱用的钥匙和宝箱,根据战斗类型确定
-        var index = btType.indexOf("_");
-        var type = btType.substring(0 , index);
-
-        switch(type){
-            case "normal":{
-                var tb1 = this.createElem("TreasureBox1");
-                var changeToMonsterBox = this.bt.srand.next100();
-                if(changeToMonsterBox < monsterBox) // 是否变成怪物宝箱
-                    elems.push(this.createElem("TreasureBox", {"rdp":"MonsterBox"}));
-                else
-                    elems.push(tb1);
-
-                elems.push(this.createElem("Key"));
-
-                var tn = this.bt.srand.next100();
-                if(tn < extraTreasureBox){
-                    elems.push(this.createElem("TreasureBox2"));
-                    elems.push(this.createElem("Key"));
-                }
-                break;
-            }
-            case "senior":{
-                for(var i = 0; i < treasureBoxNum; i++){
-                    elems.push(this.createElem("TreasureBox" + (i + 1)));
-                    elems.push(this.createElem("Key"));
-                }
-                break;
-            }
-            case "boss":{
-                for(var i = 0; i < treasureBoxNum; i++){
-                    elems.push(this.createElem("TreasureBox" + (i + 1)));
-                    elems.push(this.createElem("Key"));
-                }
-                break;
-            }
-        }
-        return elems;
     }
 
     // 关卡逻辑
