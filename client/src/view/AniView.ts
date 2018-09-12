@@ -622,7 +622,7 @@ class AniView extends egret.DisplayObjectContainer {
     }
 
     // 关卡初始化乱序动画
-        // 等待点击屏幕
+    // 等待点击屏幕
     public async onAllCoveredAtInit(ps) {
         await AniUtils.wait4click();
 

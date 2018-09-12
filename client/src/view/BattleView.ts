@@ -424,6 +424,9 @@ class BattleView extends egret.DisplayObjectContainer {
             bmp.alpha = 0;
             bmp["relic"] = undefined;
         }
+
+        this.deadlyMask.alpha = 0;
+        egret.Tween.removeTweens(this.deadlyMask);
     }
 
     public initBattleView (ps) {
