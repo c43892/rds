@@ -181,26 +181,68 @@ class Battle {
 
     // 揭开指定位置的地块（不再检查条件）
     public async uncover(x:number, y:number, suppressSneak = false, suppressLogicEvent = false) {
-        var g = this.level.map.getGridAt(x, y);
-        Utils.assert(g.isCovered(), "uncover action can only be implemented on a covered grid");
-        var stateBeforeUncover = g.status;
-        g.status = GridStatus.Uncovered;
+        var e = this.level.map.getElemAt(x, y);
+        if(e && (e.isBig() || e.type == "PlaceHolder"))
+            await this.uncoverBigElem(x, y, suppressSneak, suppressLogicEvent);
 
-        await this.fireEvent("onGridChanged", {x:x, y:y, subType:"gridUncovered", stateBeforeUncover:stateBeforeUncover, suppressSneak:suppressSneak});
+        else {
+            var g = this.level.map.getGridAt(x, y);
+            Utils.assert(g.isCovered(), "uncover action can only be implemented on a covered grid");
+            var stateBeforeUncover = g.status;
+            g.status = GridStatus.Uncovered;
+
+            await this.fireEvent("onGridChanged", { x: x, y: y, subType: "gridUncovered", stateBeforeUncover: stateBeforeUncover, suppressSneak: suppressSneak });
+
+            if (!suppressLogicEvent)
+                await this.triggerLogicPoint("onGridChanged", { x: x, y: y, subType: "gridUncovered", stateBeforeUncover: stateBeforeUncover, suppressSneak: suppressSneak });
+
+            // 对 8 邻格子进行标记逻辑计算
+            var neighbours = [];
+            this.level.map.travel8Neighbours(x, y, (px, py, g: Grid) => {
+                if (g.isCovered())
+                    neighbours.push([px, py]);
+            });
+
+            for (var p of neighbours)
+                await this.calcMarkPos(p[0], p[1]);
+
+            return true;
+        }
+    }
+
+    // 揭开大元素相关的地块 (不再检查条件)
+    public async uncoverBigElem(x:number, y:number, suppressSneak = false, suppressLogicEvent = false) {
+        var e = this.level.map.getElemAt(x, y);
+        if (e["linkTo"])
+            e = e["linkTo"]
+        Utils.assert(e.isBig(), "this elem is not big");
+
+        var gs:Grid[] = [];
+        gs.push(e.getGrid());
+        for (var placeHolder of <Elem[]>(e["placeHolders"]()))
+            gs.push(placeHolder.getGrid());
+
+        for (var g of gs) {
+            Utils.assert(g.isCovered(), "uncover action can only be implemented on a covered grid");
+            var stateBeforeUncover = g.status;
+            g.status = GridStatus.Uncovered;
+            await this.fireEvent("onGridChanged", { x: g.pos.x, y: g.pos.y, subType: "gridUncovered", stateBeforeUncover: stateBeforeUncover, suppressSneak: suppressSneak });
+
+            // 对 8 邻格子进行标记逻辑计算
+            var neighbours = [];
+            this.level.map.travel8Neighbours(g.pos.x, g.pos.y, (px, py, g:Grid) => {
+                if (g.isCovered())
+                    neighbours.push([px, py]);
+            });
+
+            for (var p of neighbours)
+                await this.calcMarkPos(p[0], p[1]);
+        }
 
         if (!suppressLogicEvent)
-            await this.triggerLogicPoint("onGridChanged", {x:x, y:y, subType:"gridUncovered", stateBeforeUncover:stateBeforeUncover, suppressSneak:suppressSneak});
-
-        // 对 8 邻格子进行标记逻辑计算
-        var neighbours = [];
-        this.level.map.travel8Neighbours(x, y, (px, py, g:Grid) => {
-            if (g.isCovered())
-                neighbours.push([px, py]);
-        });
-
-        for (var p of neighbours)
-            await this.calcMarkPos(p[0], p[1]);
-
+            for (var g of gs) 
+                await this.triggerLogicPoint("onGridChanged", {x:g.pos.x, y:g.pos.y, subType:"gridUncovered", stateBeforeUncover:stateBeforeUncover, suppressSneak:suppressSneak});
+            
         return true;
     }
 

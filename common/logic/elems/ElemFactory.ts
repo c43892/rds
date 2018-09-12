@@ -253,18 +253,6 @@ class ElemFactory {
             }
         }
 
-       // 翻开时一起翻开
-       e = <Monster>ElemFactory.addAI("onGridChanged", async () => {
-           var bt = e.bt();
-           if (e.getGrid().isCovered()) await bt.implUncoverAt(e.pos.x, e.pos.y);
-           for (var hd of placeHolders) {
-               if (hd.getGrid().isCovered())
-                   await bt.implUncoverAt(hd.pos.x, hd.pos.y);
-           }
-       }, e, (ps) => {
-           return ps.subType == "gridUncovered" && (e.pos.x == ps.x && e.pos.y == ps.y) || (Utils.indexOf(placeHolders, (hd) => hd.pos.x == ps.x && hd.pos.y == ps.y) >= 0);
-       }, false);
-
        e.setBattle = (bt:Battle) => 
        {
            e.$$bt = bt;
