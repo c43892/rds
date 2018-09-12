@@ -26,10 +26,11 @@
             "title": "闪耀之光",
             "desc": "你发现一道光束",
             "sels": [{
-                "desc": "[走进]随机升级2个技能",
+                "desc": "<font color=#000000 size=20>[走进]</font><font color=#000000 size=20>随机升级2个技能</font>",
                 "func": ["reinforceRandomRelics", "redirectSelGroup"],
                 "ps":{"reinforceNum": 2, "group": "a11"}
             },{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit", "redirectSelGroup"],
                 "ps": {"group": "a12"}
             }]
@@ -38,7 +39,7 @@
             "title": "闪耀之光",
             "desc": "热的发烫",
             "sels": [{
-                "desc":"[离开]",
+                "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit"]
             }]
         },
@@ -46,10 +47,10 @@
             "title": "闪耀之光",
             "desc": "你绕过光锥，有些好奇",
             "sels": [{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit"]
             }]
         },
-
         "a2": {
             "title": "樱桃炸弹",
             "desc": "你发现樱桃炸弹正在熟睡，旁边的宝物无人看守，不禁起了邪念。",
@@ -58,23 +59,24 @@
                 "func": ["+item", "redirectSelGroup"],
                 "ps": {"item": "MedicineBox", "group": "a21"}
             },{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit", "redirectSelGroup"],
-                "ps": {"group": "a12"}
+                "ps": {"group": "a22"}
             }]
         },
         "a21": {
             "title": "樱桃炸弹",
             "desc": "樱桃炸弹被惊醒了，它鼓足力气把自己炸得七零八落，滚烫的热浪直奔你而来。",
             "sels": [{
-                "des": "<font color=#000000 size=20>[逃跑]</font><font color=#7d0403 size=20>失去{money}</font>",
+                "desc": "<font color=#000000 size=20>[逃跑]</font><font color=#7d0403 size=20>失去{money}金币</font>",
                 "func": ["-money", "redirectSelGroup"],
                 "ps": {"money": 10, "group": "a211"}
             },{
-                "des": "<font color=#000000 size=20>[抵挡]</font><font color=#7d0403 size=20>{maxHp}</font>",
+                "desc": "<font color=#000000 size=20>[抵挡]</font><font color=#7d0403 size=20>生命上限减少{maxHp}</font>",
                 "func": ["-maxHp", "redirectSelGroup"],
                 "ps": {"maxHp": 5, "group": "a212"}
             },{
-                "des": "<font color=#000000 size=20>[抵挡]</font><font color=#7d0403 size=20>{maxHp}</font>",
+                "desc": "<font color=#000000 size=20>[躲藏]</font><font color=#7d0403 size=20>失去{hp}生命</font>",
                 "func": ["-hp", "redirectSelGroup"],
                 "ps": {"hp": 5, "group": "a213"}
             }]
@@ -83,31 +85,61 @@
              "title": "樱桃炸弹",
              "desc": "<font color=#000000 size=25>你拼命的逃跑，终于逃出了爆炸的范围，事后盘点发现仓皇中</font><font color=#7d0403 size=25>丢失了一些金币</font>。",
              "sels": [{
-                    "func":["exit"]
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func":["exit"]
              }]
         },
         "a212": {
             "title": "樱桃炸弹",
              "desc": "<font color=#000000 size=25>你双手抱头，匍匐在地，爆炸波及到了你，你觉得自己的身体</font><font color=#7d0403 size=25>状态不算太好</font>。",
              "sels": [{
-                    "func":["exit"]
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func":["exit"]
              }]
         },
         "a213": {
             "title": "樱桃炸弹",
              "desc": "<font color=#000000 size=25>你躲在障碍物后逃过一劫，虽然仍然</font><font color=#7d0403 size=25>受了点伤</font>。",
              "sels": [{
-                    "func":["exit"]
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func":["exit"]
              }]
+        },
+        "a22": {
+            "title": "樱桃炸弹",
+            "desc": "做贼是不好的。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit"]
+            }]
         },
         "a3": {
             "title": "强化技能",
-            "desc": "",
+            "desc": "在你面前是一个神龛",
             "sels": [{
-                "desc": "",
-                "func": ["reinfoceRelic"]
+                "desc": "<font color=#000000 size=20>[祈祷]升级一个遗物</font>",
+                "func": ["reinfoceRelic", "redirectSelGroup"],
+                "ps": {"group": "a31"}
             },{
-                "func":["exit"]
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit", "redirectSelGroup"],
+                "ps": {"group": "a32"}
+            }]
+        },
+        "a31": {
+            "title": "强化技能",
+            "desc": "你的技能变得更强了。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit"]
+            }]
+        },
+        "a32": {
+            "title": "强化技能",
+            "desc": "你无视了。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit"]
             }]
         },
         "g1": {
@@ -152,6 +184,192 @@
                 "ps": {"battleType": "_abcd"}
             }, {
                 "func": ["-allMoney"]
+            }]
+        },
+        "a4": {
+            "title": "谜之声",
+            "desc": "天空响起一个威严的声音：献出你的生命，我会赐予你力量。",
+            "sels": [{
+                "func": ["sequence"],
+                "ps": {
+                    "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
+                    "func": ["+item", "-hp", "redirectSelGroup"],
+                    "rates": [25, 50, 75, 100],
+                    "failedFunc": ["redirectSelGroup2"],
+                    "ps": [{"item": "MedicineBox", "hp":1, "group": "a411", "group2": "a421"},
+                           {"item": "MedicineBox", "hp":2, "group": "a411", "group2": "a422"},
+                           {"item": "MedicineBox", "hp":3, "group": "a411", "group2": "a423"},
+                           {"item": "MedicineBox", "hp":4, "group": "a411", "group2": "a424"}]
+                    }
+                },{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func":["exit", "redirectSelGroup"],
+                "ps": {"group": "a431"}
+                }]
+        },
+        "a411": {
+            "title": "谜之声",
+            "desc": "巨大的力量灌注到你的身上，你在<font color=#7d0403 size=25>痛苦</font>中<font color=#00b050 size=25>领悟</font>到了一些东西。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit"]
+            }]
+        },
+        "a421": {
+            "title": "谜之声",
+            "desc": "混沌的力量灌注于你的身体，你感到非常<font color=#7d0403 size=25>痛苦</font>，但并没有领悟到什么东西。",
+            "sels": [{
+                "func": ["sequence"],
+                "ps": {
+                    "desc": "<font color=#000000 size=20>[继续献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
+                    "func": ["+item", "-hp", "redirectSelGroup"],
+                    "rates": [50, 75, 100],
+                    "failedFunc": ["redirectSelGroup2"],
+                    "ps": [{"item": "MedicineBox", "hp":2, "group": "a411", "group2": "a422"},
+                           {"item": "MedicineBox", "hp":3, "group": "a411", "group2": "a423"},
+                           {"item": "MedicineBox", "hp":4, "group": "a411", "group2": "a424"}]
+                    }
+                },{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func":["exit", "redirectSelGroup"],
+                "ps": {"group": "a431"}
+                }]
+        },
+        "a422": {
+            "title": "谜之声",
+            "desc": "混沌的力量灌注于你的身体，你感到非常<font color=#7d0403 size=25>痛苦</font>，但并没有领悟到什么东西。",
+            "sels": [{
+                "func": ["sequence"],
+                "ps": {
+                    "desc": "<font color=#000000 size=20>[继续献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
+                    "func": ["+item", "-hp", "redirectSelGroup"],
+                    "rates": [75, 100],
+                    "failedFunc": ["redirectSelGroup2"],
+                    "ps": [{"item": "MedicineBox", "hp":3, "group": "a411", "group2": "a423"},
+                           {"item": "MedicineBox", "hp":4, "group": "a411", "group2": "a424"}]
+                    }
+                },{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func":["exit", "redirectSelGroup"],
+                "ps": {"group": "a431"}
+                }]
+        },
+        "a423": {
+            "title": "谜之声",
+            "desc": "混沌的力量灌注于你的身体，你感到非常<font color=#7d0403 size=25>痛苦</font>，但并没有领悟到什么东西。",
+            "sels": [{
+                "func": ["sequence"],
+                "ps": {
+                    "desc": "<font color=#000000 size=20>[继续献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
+                    "func": ["+item", "-hp", "redirectSelGroup"],
+                    "rates": [100],
+                    "failedFunc": ["redirectSelGroup2"],
+                    "ps": [{"item": "MedicineBox", "hp":4, "group": "a411", "group2": "a424"}]
+                    }
+                },{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func":["exit", "redirectSelGroup"],
+                "ps": {"group": "a431"}
+                }]
+        },
+        "a431": {
+            "title": "谜之声",
+            "desc": "这一定是骗人的把戏。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit"]
+            }]
+        },
+        "a5": {
+            "title": "魅惑菇",
+            "desc": "“不来一盘么？”魅惑菇摇晃着手中的纸牌，你感到自己完全被说服了。"
+        },
+        "a6": {
+            "title": "恶作剧",
+            "desc": "“不给糖果就捣蛋！”死神用沙哑的声音缓缓说道，你觉得它好像是认真的。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[无视]</font><font color=#00b050 size=20>获得{money}金币，</font><font color=#7d0403 size=20>失去{hp}生命</font>",
+                "func": ["+money", "-hp", "redirectSelGroup"],
+                "ps": {"money": 5, "hp": 5, "group": "a61"}
+            },{
+                "desc": "<font color=#000000 size=20>[收买]</font><font color=#7d0403 size=20>失去{money}金币，</font><font color=#00b050 size=20>获得敌意消退</font>",
+                "func": ["-money", "+item", "redirectSelGroup"],
+                "ps": {"money": 10, "item": "TimeMachine", "group":"a62"}
+            }]
+        },
+        "a61": {
+            "title": "恶作剧",
+            "desc": "死神将你</font><font color=#7d0403 size=25>砍翻</font>在地，然后离开了。让你稍以安慰的是，它离开时掉出了一些</font><font color=#00b050 size=25>金币</font>",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit"]
+            }]
+        },
+        "a62": {
+            "title": "恶作剧",
+            "desc": "死神悄然离去了，你虽然少了点</font><font color=#7d0403 size=25>钱，</font>但也发现了</font><font color=#00b050 size=25>驱逐</font>它的方法。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit"]
+            }]
+        },
+        "a7": {
+            "title": "复活节彩蛋",
+            "desc": "你发现地上有个彩蛋，上面写着[里面没有任何奖励]，你开始觉得手痒痒了。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[打开]进入特殊</font><font color=#7d0403 size=20>战斗</font><font color=#000000 size=20>——</font><font color=#00b050 size=20>彩蛋</font><font color=#000000 size=20>关</font>",
+                "func": ["redirectSelGroup"],
+                "ps": {"group": "a71"}
+            },{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func":["exit", "redirectSelGroup"],
+                "ps": {"group": "a72"}
+            }]
+        },
+        "a71": {
+            "title": "复活节彩蛋",
+            "desc": "当你尝试接近彩蛋的时候，突然出现了敌人。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[战斗]</font>",
+                "func": ["battle"],
+                "ps": {"battleType": "normal"}
+            }]
+        },
+        "a72": {
+            "title": "复活节彩蛋",
+            "desc": "既然没有奖励，那就不要打开了。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit"]
+            }]
+        },
+        "a8": {
+            "title": "太阳花",
+            "desc": "“HEY！Come On”太阳花热情的邀请你给予它的新曲一些宝贵的意见。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[称赞]</font></font><font color=#00b050 size=20>最大生命值+{maxHp}</font>",
+                "func": ["+maxHp", "redirectSelGroup"],
+                "ps": {"maxHp": 5, "group": "a81"}
+            },{
+                "desc": "<font color=#000000 size=20>[贬低]</font></font><font color=#00b050 size=20>闪避+x</font>",
+                "func": ["redirectSelGroup"],
+                "ps": {"group": "a82"}
+            }]
+        },
+        "a81": {
+            "title": "太阳花",
+            "desc": "沐浴在音乐的温暖之中，你感到自己的</font><font color=#00b050 size=25>生命获得了升华</font>。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit"]
+            }]
+        },
+        "a82": {
+            "title": "太阳花",
+            "desc": "太阳花怒视着你，你开始瑟瑟发抖，并想找个地方藏起来</font><font color=#00b050 size=25>躲避</font>它的视线。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit"]
             }]
         },
         "g4": {
