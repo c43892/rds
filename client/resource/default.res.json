@@ -33,7 +33,7 @@
 			"name": "font"
 		},
 		{
-			"keys": "effWantedOrder_json,effWantedOrder_png,effSelfExplode_json,effSelfExplode_png,genggui_shenti_tex_png,genggui_shetou_tex_png,genggui_shetou_ske_json,genggui_shenti_ske_json,genggui_shetou_tex_json,genggui_shenti_tex_json,effExpTrack_png,effExpTrack_json,effMonsterDie_json,effMonsterDie_png,effPlayerAttack_png,effPlayerAttack_json",
+			"keys": "effWantedOrder_json,effWantedOrder_png,effSelfExplode_json,effSelfExplode_png,genggui_shenti_tex_png,genggui_shetou_tex_png,genggui_shetou_ske_json,genggui_shenti_ske_json,genggui_shetou_tex_json,genggui_shenti_tex_json,effExpTrack_png,effExpTrack_json,effMonsterDie_json,effMonsterDie_png,effPlayerAttack_png,effPlayerAttack_json,effRelicShining_json,effRelicShining_png,effDeathGod_json,effDeathGod_png",
 			"name": "effect"
 		}
 	],
@@ -1407,6 +1407,26 @@
 			"url": "assets/effect/effPlayerAttack.png",
 			"type": "image",
 			"name": "effPlayerAttack_png"
+		},
+		{
+			"url": "assets/effect/effRelicShining.json",
+			"type": "json",
+			"name": "effRelicShining_json"
+		},
+		{
+			"url": "assets/effect/effRelicShining.png",
+			"type": "image",
+			"name": "effRelicShining_png"
+		},
+		{
+			"url": "assets/effect/effDeathGod.json",
+			"type": "json",
+			"name": "effDeathGod_json"
+		},
+		{
+			"url": "assets/effect/effDeathGod.png",
+			"type": "image",
+			"name": "effDeathGod_png"
 		}
 	]
 }

@@ -304,10 +304,17 @@ class AniView extends egret.DisplayObjectContainer {
             if (dhp > 0)
                 await AniUtils.tipAt(ViewUtils.getTipText("cure"), p);
         } else if (ps.subType == "die" && e instanceof Monster) {
-            // 怪物死亡特效
             var g = this.bv.mapView.getGridViewAt(e.pos.x, e.pos.y);
-            var dieEff = g.addEffect("effMonsterDie", 1);
-            dieEff["wait"]().then(() =>g.removeEffect("effMonsterDie"));
+
+            if (Utils.contains(ps.flags, "selfExplode")) { // 自爆效果
+                Utils.log("selfExplode");
+                var explodeEff = g.addEffect("effSelfExplode", 1);
+                explodeEff["wait"]().then(() => g.removeEffect("effSelfExplode"));
+            } else {
+                // 怪物死亡特效
+                var dieEff = g.addEffect("effMonsterDie", 1);
+                dieEff["wait"]().then(() =>g.removeEffect("effMonsterDie"));
+            }
         } else if (ps.subType == "useElem")
             await this.onElemUsed(ps);
         
@@ -564,7 +571,9 @@ class AniView extends egret.DisplayObjectContainer {
 
         if (Utils.contains(flags, "attackOnPlayerLeave") && m.type == "Gengar")
             await this.gengarLick(sv);
-        else
+        else if (Utils.contains(flags, "selfExplode")) {
+            // 自爆效果在死亡的时候播
+        } else
             await AniUtils.shakeTo(sv);
     }
 
