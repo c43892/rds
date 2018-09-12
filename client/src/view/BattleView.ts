@@ -30,6 +30,7 @@ class BattleView extends egret.DisplayObjectContainer {
     public deathGodBar:egret.Bitmap; // 死神进度条
     public deathGod:egret.Bitmap; // 死神位置
     public deathGodStepBtn:egret.Bitmap; // 用于点击后提示死神剩余步数
+    public effDeathGod:egret.MovieClip; // 死神快到的时候闪烁
 
     readonly ShowMaxRelicNum = 6;
     public relicsBg:egret.DisplayObjectContainer; // 遗物区域
@@ -66,6 +67,8 @@ class BattleView extends egret.DisplayObjectContainer {
         this.deathGodStepBtn.touchEnabled = true;
         this.deathGodStepBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, async (evt:egret.TouchEvent) => await this.showDeathGodStep(evt), this);
         this.addChild(this.deathGodStepBtn);
+        this.effDeathGod = ViewUtils.createFrameAni("effDeathGod");
+        this.addChild(this.effDeathGod);
         
         ViewUtils.multiLang(this, this.deathGodBarBg, this.deathGodBar, this.deathGod);
     }
@@ -325,7 +328,19 @@ class BattleView extends egret.DisplayObjectContainer {
 
         this.deathGodStepBtn.x = this.deathGod.x - 5;
         this.deathGodStepBtn.y = this.deathGod.y - 5;
-        
+
+        // 死神临近效果
+        this.effDeathGod.x = this.deathGod.x;
+        this.effDeathGod.y = this.deathGod.y;
+
+        if (stepAt <= 5) {
+            this.effDeathGod.gotoAndPlay(0, -1);
+            this.effDeathGod.alpha = 1;
+        }
+        else {
+            this.effDeathGod.stop();
+            this.effDeathGod.alpha = 0;
+        }
     }
 
     // 获取死神图片，做动画效果用

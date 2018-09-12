@@ -786,15 +786,15 @@ class Battle {
     }
 
     // 执行元素死亡逻辑
-    public async implOnElemDie(e:Elem) {
+    public async implOnElemDie(e:Elem, flags:string[] = []) {
         if (e.beforeDie) await e.beforeDie();
 
         this.removeElemAt(e.pos.x, e.pos.y);
-        await this.fireEvent("onElemChanged", {subType:"die", e:e});
-        await this.triggerLogicPoint("onElemChanged", {"subType": "preDie", e:e});
+        await this.fireEvent("onElemChanged", {subType:"die", e:e, flags:flags});
+        await this.triggerLogicPoint("onElemChanged", {"subType": "preDie", e:e, flags:flags});
 
         if (e.onDie) await e.onDie();
-        await this.triggerLogicPoint("onElemChanged", {"subType": "die", e:e});
+        await this.triggerLogicPoint("onElemChanged", {"subType": "die", e:e, flags:flags});
     }
 
     // 进行一次攻击计算
@@ -1036,6 +1036,9 @@ class Battle {
             }
         }
 
+        if (selfExplode)
+            addFlags.push("selfExplode");
+
         // 攻击行为启动
         await this.fireEvent("onAttacking", {subType:"monstar2targets", m:m, targets:tars, addFlags:addFlags});
         await this.triggerLogicPoint("onAttacking", {subType:"monstar2targets", targets:tars, addFlags:addFlags});
@@ -1089,7 +1092,7 @@ class Battle {
             }
         }
         if (selfExplode && !m.isDead()) // 自爆还要走死亡逻辑
-            await this.implOnElemDie(m);
+            await this.implOnElemDie(m, ["selfExplode"]);
     }
 
     public async implMonsterAttackPoses(m:Monster, poses, extraPowerABC = {a:0, b:0, c:0}, selfExplode = false, addFlags:string[] = [], attackPlayer = false){

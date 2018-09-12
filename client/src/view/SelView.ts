@@ -20,8 +20,6 @@ class SelView extends egret.DisplayObjectContainer {
                 this.grids[i] = [];
                 for (var j = 0; j < nh; j++) {
                     var bmp = new egret.Bitmap();
-                    bmp["gx"] = i;
-                    bmp["gy"] = j;
                     this.addChild(bmp);
                     this.grids[i][j] = bmp;
                     bmp.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchGrid, this);
@@ -31,7 +29,6 @@ class SelView extends egret.DisplayObjectContainer {
     }
 
     private clickHandler;
-    private getClickPs;
 
     // 选择一个格子，f 形如 function(x:number, y:number):Boolean 表示指定位置是否可选，返回值表示选中的位置
     // mapView 是下面中间对齐的，我们需要计算左上角
@@ -45,11 +42,11 @@ class SelView extends egret.DisplayObjectContainer {
                 bmp.x = x; bmp.y = y;
                 bmp.width = gw; bmp.height = gh;
                 ViewUtils.setTexName(bmp, selectable ? undefined : "translucent_png");
-                bmp.touchEnabled = selectable;
+                bmp.touchEnabled = true;
+                bmp["gPos"] = selectable ? {x:i, y:j} : undefined;
             }
         }
 
-        this.getClickPs = (bmp) => { return {x:bmp["gx"], y:bmp["gy"]}; };
         return new Promise<any>((resolve, _) => this.clickHandler = (ps) => resolve(ps));
     }
 
@@ -60,9 +57,7 @@ class SelView extends egret.DisplayObjectContainer {
     // 点击
     onTouchGrid(evt:egret.TouchEvent) {
         var ps = undefined;
-        if (evt.target != this)
-            ps = this.getClickPs(evt.target);
-
+        ps = evt.target["gPos"];
         this.clickHandler(ps);
     }
 }
