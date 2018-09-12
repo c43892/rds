@@ -164,7 +164,11 @@ class MainView extends egret.DisplayObjectContainer {
         bt.registerEvent("onPlayerOp", async (ps) => await BattleRecorder.onPlayerOp(ps.op, ps.ps));
         bt.registerEvent("onInitBattleView", async (ps) => {
             await this.bv.initBattleView(ps);
+            this.bv.hideAllBanImg(true);
             await this.av.blackOut();
+        });
+        bt.registerEvent("onStartupRegionUncovered", async (ps) => {
+            this.bv.hideAllBanImg(false);
         });
         bt.registerEvent("onPlayerDead", async () => await this.openPlayerDieView());
         Utils.registerEventHandlers(bt, [

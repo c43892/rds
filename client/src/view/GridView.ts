@@ -112,6 +112,14 @@ class GridView extends egret.DisplayObjectContainer {
             this.dropElemImg.texture = undefined;
     }
 
+    // 手动隐藏或恢复 ban 符号
+    public hideBanImg(hideOrShow) {
+        if (hideOrShow)
+            this.banImg.texture = undefined;
+        else
+            ViewUtils.setTexName(this.banImg, "ban_png");
+    }
+
     private refreshMarkedEffect(g:Grid) {
         this.showLayer.addChild(this.markedBg);
         this.showLayer.setChildIndex(this.markedBg, 0);

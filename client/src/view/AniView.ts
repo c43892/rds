@@ -99,6 +99,7 @@ class AniView extends egret.DisplayObjectContainer {
     // 指定位置发生状态或元素变化
     public async onGridChanged(ps) {
         var e:Elem = ps.e;
+        var gv = this.bv.mapView.getGridViewAt(ps.x, ps.y);
         var doRefresh = () => this.bv.mapView.refreshAt(ps.x, ps.y, e && e.isBig() ? e.attrs.size : undefined);
         switch (ps.subType) {
             case "elemAdded": // 有元素被添加进地图
@@ -112,7 +113,6 @@ class AniView extends egret.DisplayObjectContainer {
                     await AniUtils.flyOutLogicPos(obj, this.bv.mapView, ps.fromPos);
                 break;
             case "gridBlocked": {
-                var gv = this.bv.mapView.getGridViewAt(ps.x, ps.y);
                 var img = ViewUtils.createBitmapByName("blocked_png");
 
                 var scale = 3;
@@ -133,7 +133,6 @@ class AniView extends egret.DisplayObjectContainer {
             break;
             case "gridUnblocked": {
                 doRefresh();
-                var gv = this.bv.mapView.getGridViewAt(ps.x, ps.y);
                 var img = ViewUtils.createBitmapByName("blocked_png");
                 img.alpha = 1;
                 img.width = gv.width;
@@ -148,18 +147,19 @@ class AniView extends egret.DisplayObjectContainer {
             }
             break;
             case "gridUncovered": {
-                var gv = this.bv.mapView.getGridViewAt(ps.x, ps.y);
                 doRefresh();
                 var eff = gv.addEffect("effUncover", 1);
                 eff["wait"]().then(() => gv.removeEffect("effUncover"));
             }
+            break;
+            case "addBoxAndKey":
+                doRefresh();
             break;
             default:
                 doRefresh();
         }
 
         this.bv.refreshPlayer(); // 角色属性受地图上所有东西影响
-        this.bv.mapView.refresh();
     }
 
     // 道具发生变化
@@ -533,7 +533,7 @@ class AniView extends egret.DisplayObjectContainer {
         if (!weapon) {
             // 平砍时有些元素需要表现一下动作
             var itemTypes = ["Baton"];
-            var items = this.bv.mapView.getGridViews((e:Elem) => Utils.contains(itemTypes, e.type) && e.isValid());
+            var items = this.bv.mapView.getGridViewsWithElem((e:Elem) => Utils.contains(itemTypes, e.type) && e.isValid());
             var aniArr = [];
             for (var it of items) {
                 var ani = AniUtils.rotateAndBack(it.getShowLayer());
@@ -594,7 +594,7 @@ class AniView extends egret.DisplayObjectContainer {
     public async onElem2NextLevel(ps) {
         var e = ps.e;
         var sv = this.getSV(e);
-        var tosv = this.bv.mapView.getGridViews((elem:Elem) => elem.type == "NextLevelPort", false)[0];
+        var tosv = this.bv.mapView.getGridViewsWithElem((elem:Elem) => elem.type == "NextLevelPort", false)[0];
         if (e instanceof Monster)
             await AniUtils.flyAndFadeout(sv, tosv.localToGlobal(), 1000, 1, 0, undefined);
         else
@@ -642,7 +642,7 @@ class AniView extends egret.DisplayObjectContainer {
 
         var rand = new SRandom();
         var svArr = [];
-        var evs = this.bv.mapView.getGridViews(undefined, true);
+        var evs = this.bv.mapView.getGridViewsWithElem(undefined, true);
         evs.forEach((ev, _) => {
             var sv = ev.getShowLayer();
             sv["gx"] = ev.getElem().pos.x;

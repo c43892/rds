@@ -61,6 +61,13 @@ class MapView extends egret.DisplayObjectContainer {
         Utils.NDimentionArrayForeach(this.mgvs, (mev) => mev.clear());
     }
 
+    public travel8Neighbours(cx:number, cy:number, f) {
+        this.map.travel8Neighbours(cx, cy, (x, y, g:Grid) => {
+            var gv = this.mgvs[x][y];
+            return f(gv);
+        });
+    }
+
     // 指定位置发生状态或元素变化
     public refreshAt(cx:number, cy:number, bigSize = undefined) {
         var poses = [];
@@ -99,11 +106,16 @@ class MapView extends egret.DisplayObjectContainer {
         Utils.NDimentionArrayForeach(this.mgvs, (ev:GridView) => {
             if (!includingCovered && ev.getGrid().isCovered()) return;
             var e = ev.getElem();
-            if (e && (!f || f(e)))
+            if (!f || f(e))
                 evs.push(ev);
         });
 
         return evs;
+    }
+
+    // 获取所有满足条件的显示元素
+    public getGridViewsWithElem(f = undefined, includingCovered = false):GridView[] {
+        return this.getGridViews((e) => e && (!f || f(e)), includingCovered);
     }
 
     // 逻辑坐标变换为显示坐标

@@ -448,6 +448,12 @@ class BattleView extends egret.DisplayObjectContainer {
         this.refresh();
     }
 
+    // 初始状态下隐藏所有 ban 符号
+    public hideAllBanImg(hideOrShow:boolean) {
+        var gs = this.mapView.getGridViews(undefined, true);
+        gs.forEach((g, _) => g.hideBanImg(hideOrShow));
+    }
+
     // n 选 1
     // public async select1inN(title:string, choices:string[], f) {
     //     return this.selView.sel1inN(title, choices, f);
