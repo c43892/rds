@@ -406,6 +406,7 @@ class AniView extends egret.DisplayObjectContainer {
                     egret.Tween.get(dm, {loop:true}).to({"alpha": 1}, 1000).to({"alpha": 0}, 1000);
                 } else {
                     egret.Tween.removeTweens(dm);
+                    dm.alpha = 0;
                 }
             }
             default:
