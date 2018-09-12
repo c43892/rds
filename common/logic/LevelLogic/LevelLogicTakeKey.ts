@@ -44,7 +44,7 @@ class LevelLogicTakeKey extends LevelLogic{
                     break;
                 }
                 case "boss":{
-                    var boss = <Monster>bt.level.map.findAllElems((e:Elem) => e instanceof Monster && e.isBig())[0];
+                    var boss = <Monster>bt.level.map.findAllElems((e:Elem) => e instanceof Monster && e.isBoss)[0];
                     for(var key of keys)
                         await bt.implMonsterTakeElems(boss, [key], true);
                     break;

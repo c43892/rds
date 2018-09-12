@@ -145,12 +145,12 @@ class MonsterFactory {
         
         "ShopNpc": (attrs) => MonsterFactory.makeShopNPC(this.createMonster(attrs)),
 
-        "BossBunny": (attrs) => {
+        "SlimeKing": (attrs) => {
             var m = this.createMonster(attrs);
             MonsterFactory.makeBoss(
                 MonsterFactory.doSneakAttack(
                     MonsterFactory.doAttackBack(
-                        MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player, attrs.attackInterval, () => !m.trapped), 
+                        MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player, attrs.attackInterval, () => !m.trapped, {a:2, b:0, c:0}), 
                     () => !m.trapped)));
             return m;
         },
@@ -360,7 +360,7 @@ class MonsterFactory {
     }
 
     // 攻击一次
-    static doAttack(logicPoint:string, m:Monster, findTarget, attackInterval:number = 0, condition = () => true):Monster {
+    static doAttack(logicPoint:string, m:Monster, findTarget, attackInterval:number = 0, condition = () => true, extraPowerABC = {a:0, b:0, c:0}):Monster {
         attackInterval = attackInterval ? attackInterval : 0;
         var interval = 0; // 攻击行为的间隔回合记数
         return <Monster>ElemFactory.addAI(logicPoint, async () => {
@@ -386,7 +386,7 @@ class MonsterFactory {
                     // 如果是打怪，需要判断射程
                     if (target instanceof Monster && !m.inAttackRange(target)) return;
                     
-                    await m.bt().implMonsterAttackTargets(m, [target]);
+                    await m.bt().implMonsterAttackTargets(m, [target], extraPowerABC);
                 }
             }
             
