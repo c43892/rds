@@ -53,7 +53,10 @@ class MainView extends egret.DisplayObjectContainer {
         // 设置界面
         this.st = new SettingView(w, h);
         this.st.confirmOkYesNo = (title, content, yesno) => this.confirmOkYesNo(title, content, yesno);
-        this.st.openStartup = () => this.openStartup(undefined);
+        this.st.openStartup = async () => {
+            await this.av.blackIn();
+            await this.openStartup(undefined);
+        };
 
         // 世界地图
         this.wmv = new WorldMapView(w, h);
@@ -172,8 +175,10 @@ class MainView extends egret.DisplayObjectContainer {
             "onCandyCannon", "onMakeWanted", "onInitBattleView",
         ], (e) => (ps) => this.bv.av[e](ps));
         bt.registerEvent("onBattleEnded", async (ps) => {
+            await this.av.blackIn();
             this.removeChild(this.bv);
             this.battleEndedCallback(bt);
+            await this.av.blackOut();
         });
         bt.registerEvent("onGridChanged", async (ps) => await this.bv.monsterTip.onGridChanged(ps));
 
@@ -335,13 +340,14 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 开启初始登录界面
-    public openStartup(p:Player) {
+    public async openStartup(p:Player) {
         this.clear();
 
         this.p = p;
         this.lgv.player = p;
         this.addChild(this.lgv);
         this.lgv.refresh();
+        await this.av.blackOut();        
         this.lgv.onClose = async (op:string) => {
             if (op == "openRank")
                 this.openRankView();
@@ -377,7 +383,8 @@ class MainView extends egret.DisplayObjectContainer {
         Utils.savePlayer(undefined);
         await this.confirmOkYesNo("不幸死亡", "有些情况也许你能复活", false);
         this.p = undefined;
-        this.openStartup(undefined);
+        await this.av.blackIn();
+        await this.openStartup(undefined);
     }
 
     // 显示元素描述信息
