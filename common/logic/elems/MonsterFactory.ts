@@ -152,6 +152,8 @@ class MonsterFactory {
                     MonsterFactory.doAttackBack(
                         MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player, attrs.attackInterval, () => !m.trapped, {a:2, b:0, c:0}), 
                     () => !m.trapped)));
+            m = MonsterFactory.doClearKeys(m);
+            m = MonsterFactory.doSummonSlimesOnDie(m);
             return m;
         },
 
@@ -433,10 +435,12 @@ class MonsterFactory {
 
     // 每回合增加生命值
     static doAddHpPerRound(n:number, m:Monster):Monster{
+        m["canAct"] = false;
         return <Monster>ElemFactory.addAI("onPlayerActed", async () => {
-            if(m.hp > 0)
+            if(m.hp > 0 && m["canAct"])
                 await m.bt().implAddMonsterHp(m, 1);
 
+            m["canAct"] = true;
         }, m);
     }
 
@@ -753,6 +757,78 @@ class MonsterFactory {
             if(m.bt().srand.next100() < n)
                 ps.targetAttrs.targetFlags.push("cancelAttack");
         }, m, (ps) => ps.targetAttrs.owner == m);
+    }
+
+    // 史莱姆之王死前将钥匙清空,准备分配给小史莱姆
+    static doClearKeys(m:Monster):Monster {
+        m = <Monster>ElemFactory.addBeforeDieAI(() => {
+            m["keys"] = Utils.filter(m.dropItems, (e:Elem) => e.type == "Key");
+            m.dropItems = [];
+        }, m);
+        return m;
+    }
+
+    // 史莱姆之王死亡时召唤四个特殊史莱姆
+    static doSummonSlimesOnDie(m:Monster):Monster {
+        m = <Monster>ElemFactory.addDieAI(async () => {
+            Utils.assert(m.type == "SlimeKing", "this can only effect on SlimeKing");
+            var bt = m.bt();
+            var poses = [];
+            for(var i = 0; i < 2; i++){
+                for(var j = 0; j < 2; j++){
+                    var newPos = {x:0, y:0};
+                    newPos.x = m.pos.x + i;
+                    newPos.y = m.pos.y + j;
+                    poses.push(newPos);
+                }
+            }
+            var slimeTypes = ["RedSlime", "GreenSlime", "RedSlime", "GreenSlime"];
+            for(var i = 0; i < 4; i++){
+                var slime = <Monster>bt.level.createElem(slimeTypes[i]);
+                slime = MonsterFactory.doSummonSlimeKing(slime);
+                slime.addDropItem(m["keys"][i]);
+                await bt.implAddElemAt(slime, poses[i].x, poses[i].y);
+            }
+        }, m)
+        return m;
+    }
+
+    // 小史莱姆合成新史莱姆之王
+    static doSummonSlimeKing(m:Monster):Monster {
+        m["summonKing"] = 0;
+        m = <Monster>ElemFactory.addAIEvenCovered("onPlayerActed", async () => {
+            var bt = m.bt();
+            m["summonKing"] ++;
+            var count = bt.level.map.findAllElems((e:Elem) => e["summonKing"] && (e.type == "GreenSlime" || e.type == "RedSlime")).length;
+            if(m["summonKing"] > 3 && count == 4){
+                var slimes = m.map().findAllElems((e:Elem) => e["summonKing"]);
+                var poses = [];
+                var keys = [];
+                for(var slime of slimes){
+                    poses.push(slime.pos);
+                    var key = Utils.filter(slime.dropItems, (e:Elem) => e.type == "Key")[0];
+                    keys.push(key);
+                }
+                var kingPos = {x:6, y:8};
+                for(var i = 0; i < poses.length; i++)
+                    if(poses[i].x <= kingPos.x && poses[i].y <= kingPos.y)
+                        kingPos = poses[i];
+                
+                for(var p of poses){
+                    await bt.implRemoveElemAt(p.x, p.y);
+                    if (bt.level.map.getGridAt(p.x, p.y).isCovered())
+                        bt.uncover(p.x, p.y, true);
+                }
+                
+                var king = <Monster>bt.level.createElem("SlimeKing");
+                king.hp = Math.ceil(king.hp * 0.3);
+                for(var key of keys)
+                    king.addDropItem(key);
+                
+                await bt.implAddElemAt(king, kingPos.x, kingPos.y);
+            }
+        }, m)
+        return m;
     }
 
     // boss 特殊逻辑

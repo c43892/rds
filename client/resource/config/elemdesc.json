@@ -424,6 +424,7 @@
         "GreenSlime":{"name":"绿色史莱姆", "desc":[
             "<font color=#7d0403 bold=true size=21>治愈</font>\n<font color=#000000 bold=false size=20>每回合回复当前生命值</font><font color=#2d5627 size=20> 20</font>%的血量</font>"
         ]},
+        "SlimeKing":{"name":"史莱姆之王", "desc":[""]},
         "ShopNpc":{"name":"商人", "desc":[
             "</font><font color=#7d0403 bold=true  size=20>奸商</font>\n<font color=#000000 bold=false size=20>顾客才是我的上帝</font>"
         ]},

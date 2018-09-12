@@ -45,8 +45,14 @@ class LevelLogicTakeKey extends LevelLogic{
                 }
                 case "boss":{
                     var boss = <Monster>bt.level.map.findAllElems((e:Elem) => e instanceof Monster && e.isBoss)[0];
-                    for(var key of keys)
-                        await bt.implMonsterTakeElems(boss, [key], true);
+                    for(var i = 0; i < 4; i++)
+                        await bt.implMonsterTakeElems(boss, [keys[i]], true);
+                    
+                    var leftKeys = [];
+                    for(var j = 0; j < keys.length - 4; j++)
+                        leftKeys.push(keys[4 + j])
+
+                    await this.normalMonsterTakeKey(bt, leftKeys, leftKeys.length);
                     break;
                 }
                 default:{
