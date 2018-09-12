@@ -115,7 +115,7 @@ class MainView extends egret.DisplayObjectContainer {
         };
 
         // 开始一场新战斗
-        this.wmv.startNewBattle = async (p:Player, btType:string, lv:number, n:number, btRandomSeed:number) => { 
+        this.wmv.startNewBattle = async (p:Player, btType:string, lv:number, n:number, btRandomSeed:number, skipBlackIn:boolean = false) => { 
             if (btType[0] != "_") {
                 if(Utils.checkRookiePlay())
                     btType = "rookiePlay";
@@ -125,6 +125,9 @@ class MainView extends egret.DisplayObjectContainer {
             var bt = Battle.createNewBattle(p, btType, btRandomSeed);
 
             // 加载战斗资源
+            if (!skipBlackIn)
+                await this.av.blackIn();
+
             bt.prepare();
             await this.loadBattleRes(bt);
 
@@ -156,7 +159,10 @@ class MainView extends egret.DisplayObjectContainer {
         PropView.try2UsePropAt = bt.try2UsePropAt();
 
         bt.registerEvent("onPlayerOp", async (ps) => await BattleRecorder.onPlayerOp(ps.op, ps.ps));
-        bt.registerEvent("onInitBattleView", async (ps) => await this.bv.initBattleView(ps));
+        bt.registerEvent("onInitBattleView", async (ps) => {
+            await this.bv.initBattleView(ps);
+            await this.av.blackOut();
+        });
         bt.registerEvent("onPlayerDead", async () => await this.openPlayerDieView());
         Utils.registerEventHandlers(bt, [
             "onGridChanged", "onPlayerChanged", "onAttacking", "onAttacked", "onElemChanged", "onPropChanged", "onRelicChanged",
@@ -336,18 +342,22 @@ class MainView extends egret.DisplayObjectContainer {
         this.lgv.player = p;
         this.addChild(this.lgv);
         this.lgv.refresh();
-        this.lgv.onClose = (op:string) => {
+        this.lgv.onClose = async (op:string) => {
             if (op == "openRank")
                 this.openRankView();
             else {
+                await this.av.blackIn();
                 this.removeChild(this.lgv);
+
                 if (op == "continuePlay")
-                    this.continuePlay();
-                else if (op == "newPlay"){
+                    await this.continuePlay();
+                else if (op == "newPlay") {
                     if(Utils.checkRookiePlay())
-                        this.rookiePlay();
-                    else
+                        await this.av.blackIn();
+                    else {
                         this.newPlay();
+                        await this.av.blackOut();
+                    }
                 }
             }
         };
@@ -474,7 +484,7 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 按照本地存档继续游戏
-    continuePlay() {
+    async continuePlay() {
         if (!this.p) return;
 
         this.registerPlayerEvents();
@@ -484,7 +494,7 @@ class MainView extends egret.DisplayObjectContainer {
             var lv = this.p.currentStoreyPos.lv;
             var n = this.p.currentStoreyPos.n;
             this.openWorldMap(this.p.worldmap);
-            this.wmv.enterNode(lv, n);
+            this.wmv.enterNode(lv, n, true);
         }
     }
 
@@ -511,7 +521,7 @@ class MainView extends egret.DisplayObjectContainer {
 
         var node = Utils.filter(p.worldmap.nodes[1], (n:WorldMapNode) => n.parents.length > 0)[0];
         this.openWorldMap(this.p.worldmap);
-        this.wmv.enterNode(node.y, node.x);
+        this.wmv.enterNode(node.y, node.x, true);
     }
 
     registerPlayerEvents() {

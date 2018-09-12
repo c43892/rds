@@ -79,7 +79,6 @@ class Battle {
         Utils.assert(this.prepared, "call battle.prepare() first");
         
         this.ended = false;
-        this.level.RandomElemsPos(); // 先随机一下，免得看起来不好看
         await this.fireEvent("onInitBattleView", {bt:this});
 
         await this.triggerLogicPoint("beforeLevelInited", {bt:this});

@@ -674,7 +674,6 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 关卡事件
     public async onGoOutLevel(ps) {
-        await this.blackIn(true);
     }
 
     // 偷钱
@@ -841,9 +840,11 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 黑幕开启
     async blackIn(removedWhenFinish = false) {
-        this.addChild(this.blackCover);
+        if (!this.contains(this.blackCover))
+            this.addChild(this.blackCover);
+        
         await this.aniFact.createAni("tr", {obj: this.blackCover, fa:0, ta:1, time: 1000});
-        if (removedWhenFinish)
+        if (removedWhenFinish && this.contains(this.blackCover))
             this.removeChild(this.blackCover);
     }
 
@@ -851,8 +852,10 @@ class AniView extends egret.DisplayObjectContainer {
     async blackOut() {
         if (!this.contains(this.blackCover))
             this.addChild(this.blackCover);
+
         await this.aniFact.createAni("tr", {obj: this.blackCover, fa:1, ta:0, time: 1000});
-        this.removeChild(this.blackCover);
+        if (this.contains(this.blackCover))
+            this.removeChild(this.blackCover);
     }
 
     // 动画开始播放时，阻止玩家操作
