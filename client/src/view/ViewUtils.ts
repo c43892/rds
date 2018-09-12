@@ -63,6 +63,20 @@ class ViewUtils {
         var txtr = RES.getRes(name + "_png");
         var fact:egret.MovieClipDataFactory = new egret.MovieClipDataFactory(data, txtr);
         var eff = new egret.MovieClip(fact.generateMovieClipData(clipName));
+
+        eff["wait"] = async () => {
+            return new Promise<void>((r, _) => {
+                var cb;
+                cb = (e:egret.Event) => {
+                    r();
+                    eff.removeEventListener(egret.Event.COMPLETE, cb, this);
+                };
+                
+                eff.addEventListener(egret.Event.COMPLETE, cb, this);
+            });
+        };
+            
+
         return eff;
     }
 

@@ -297,19 +297,17 @@ class AniView extends egret.DisplayObjectContainer {
     // 怪物属性发生变化
     public async onElemChanged(ps) {
         var e = ps.e;
-        var g = this.getSV(e);
+        var sv = this.getSV(e);
         if (ps.subType == "monsterHp") {
             var dhp = ps.dhp;
-            var p = g.localToGlobal();
+            var p = sv.localToGlobal();
             if (dhp > 0)
                 await AniUtils.tipAt(ViewUtils.getTipText("cure"), p);
         } else if (ps.subType == "die" && e instanceof Monster) {
-            // 怪物死亡时候抖一下消失
-            var sv = this.getSV(e);
-            var pos = sv.localToGlobal();
-            pos.x += sv.width / 2
-            pos.y -= sv.height / 2;
-            await AniUtils.flashAndShake(sv);
+            // 怪物死亡特效
+            var g = this.bv.mapView.getGridViewAt(e.pos.x, e.pos.y);
+            var dieEff = g.addEffect("effMonsterDie", 1);
+            dieEff["wait"]().then(() =>g.removeEffect("effMonsterDie"));
         } else if (ps.subType == "useElem")
             await this.onElemUsed(ps);
         
@@ -400,6 +398,15 @@ class AniView extends egret.DisplayObjectContainer {
                 });
             }
             break;
+            case "hp": {
+                var dm = this.bv.deadlyMask;
+                if (this.bv.player.hp <= 5) {
+                    egret.Tween.get(dm, {loop:true}).to({"alpha": 1}, 1000).to({"alpha": 0}, 1000);
+                } else {
+                    egret.Tween.removeTweens(dm);
+                    dm.alpha = 0;
+                }
+            }
             default:
         }
     }
@@ -540,6 +547,14 @@ class AniView extends egret.DisplayObjectContainer {
             // 这个效果不等待
             if (aniArr.length > 0)
                 this.aniFact.createAniByCfg({type:"gp", arr:aniArr, noWait:true});
+
+            // 刀光
+            var e = ps.targets[0];
+            if (e) {
+                var g = this.bv.mapView.getGridViewAt(e.pos.x, e.pos.y);
+                var attackEff:egret.MovieClip = g.addEffect("effPlayerAttack", 1);
+                attackEff["wait"]().then(() => g.removeEffect("effPlayerAttack"));
+            }
         }
     }
 
@@ -613,7 +628,7 @@ class AniView extends egret.DisplayObjectContainer {
     }
 
     // 关卡初始化乱序动画
-        // 等待点击屏幕
+    // 等待点击屏幕
     public async onAllCoveredAtInit(ps) {
         await AniUtils.wait4click();
 

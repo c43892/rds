@@ -13,6 +13,7 @@ class BattleView extends egret.DisplayObjectContainer {
     public avatar:egret.Bitmap; // 角色头像
     public expBar:egret.Bitmap; // 经验条
     public expBarMask:egret.Shape; // 经验条遮罩
+    public deadlyMask:egret.Bitmap; // 濒死效果
     public hp:egret.TextField; // 血量
     // public shield:egret.TextField; // 护盾
     public hpBar:egret.Bitmap; // 血条
@@ -274,6 +275,13 @@ class BattleView extends egret.DisplayObjectContainer {
         this.monsterTip = new NewMonsterTipView(w, h, this);
         this.addChild(this.monsterTip);
 
+        // 濒死效果
+        this.deadlyMask = ViewUtils.createBitmapByName("deadlyMask_png");
+        this.deadlyMask.alpha = 0;
+        this.deadlyMask.width = this.width;
+        this.deadlyMask.height = this.height;
+        this.addChild(this.deadlyMask);
+
         ViewUtils.multiLang(this, this.bgGrids, this.mapViewBg);
     }
 
@@ -416,6 +424,9 @@ class BattleView extends egret.DisplayObjectContainer {
             bmp.alpha = 0;
             bmp["relic"] = undefined;
         }
+
+        this.deadlyMask.alpha = 0;
+        egret.Tween.removeTweens(this.deadlyMask);
     }
 
     public initBattleView (ps) {
