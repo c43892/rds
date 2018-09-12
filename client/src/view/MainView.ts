@@ -163,7 +163,7 @@ class MainView extends egret.DisplayObjectContainer {
             "onElemMoving", "onElemFlying", "onAllCoveredAtInit", "onSuckPlayerBlood", "onMonsterTakeElem", "onBuffAdded",
             "onEyeDemonUncoverGrids", "onElemFloating", "canNotUseItem", "onColddownChanged", "onMonsterEatFood",
             "onAddDeathGodStep", "onElem2NextLevel", "onUseElemAt", "onUseElem", "onGoOutLevel", "onNotifyElemsDropped",
-            "onCandyCannon", "onMakeWanted",
+            "onCandyCannon", "onMakeWanted", "onInitBattleView",
         ], (e) => (ps) => this.bv.av[e](ps));
         bt.registerEvent("onBattleEnded", async (ps) => {
             this.removeChild(this.bv);

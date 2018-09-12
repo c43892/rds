@@ -952,13 +952,14 @@ class Battle {
 
             for (var j = 0; j < attackerAttrs.muiltAttack && !tar.isDead(); j++) {
                 var r = await this.calcAttack("player2monster", attackerAttrs, targetAttrs, weapon);
+                
+                // 这里可能是各种攻击结果，成功，闪避，无敌等
+                await this.fireEvent("onAttacked", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon, r:r});                
+
                 if (r.r == "attacked") {
                     await this.implAddMonsterHp(tar, r.dhp);
                     await this.implAddMonsterShield(tar, r.dShield)
                 }
-
-                // 这里可能是各种攻击结果，成功，闪避，无敌等
-                await this.fireEvent("onAttacked", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon, r:r});                
 
                 // 处理附加 buff
                 for (var b of r.addBuffs)
