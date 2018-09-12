@@ -501,8 +501,12 @@ class GridView extends egret.DisplayObjectContainer {
             case GridStatus.Uncovered:
             case GridStatus.Marked:
                 var e = g.getElem();
-                if (e)
+                if (e){
+                    if(e["linkTo"])
+                        e = e["linkTo"];
+                        
                     await GridView.showElemDesc(e);
+                }
             break;
         }
 

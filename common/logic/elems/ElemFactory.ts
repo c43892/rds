@@ -72,6 +72,18 @@ class ElemFactory {
         });
     }
 
+    // 为物品死亡前增加部分特殊逻辑
+    public static addBeforeDieAI(act, e:Elem):Elem {
+        var prior = e.beforeDie;
+        e.beforeDie = async (ps) => {
+            if (prior)
+                await prior(ps);
+
+            await act(ps);
+        };
+        return e;
+    }
+
     // 为物品死亡增加逻辑
     public static addDieAI(act, e:Elem):Elem {
         var prior = e.onDie;

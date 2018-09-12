@@ -5637,7 +5637,7 @@
             "NormalZombie":{"hp":5, "power":1}
         },
         "constElems":{
-            "BossBunny": 1,
+            "SlimeKing": 1,
             "ShopNpc":1,
             "NormalZombie":10,
             "Apple":10

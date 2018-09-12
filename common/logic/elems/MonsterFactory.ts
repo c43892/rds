@@ -145,13 +145,17 @@ class MonsterFactory {
         
         "ShopNpc": (attrs) => MonsterFactory.makeShopNPC(this.createMonster(attrs)),
 
-        "BossBunny": (attrs) => {
+        "SlimeKing": (attrs) => {
             var m = this.createMonster(attrs);
             MonsterFactory.makeBoss(
                 MonsterFactory.doSneakAttack(
                     MonsterFactory.doAttackBack(
-                        MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player, attrs.attackInterval, () => !m.trapped), 
+                        MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player, attrs.attackInterval, () => !m.trapped, {a:2, b:0, c:0}), 
                     () => !m.trapped)));
+            m = MonsterFactory.doClearKeys(m);
+            m = MonsterFactory.doSummonSlimesOnDie(m);
+            m = MonsterFactory.doAddHpPerRound(Math.floor(attrs.hp * 0.05) > 1 ? Math.floor(attrs.hp * 0.05) : 1, m)
+            m = MonsterFactory.doEnhanceAura(m);
             return m;
         },
 
@@ -360,7 +364,7 @@ class MonsterFactory {
     }
 
     // 攻击一次
-    static doAttack(logicPoint:string, m:Monster, findTarget, attackInterval:number = 0, condition = () => true):Monster {
+    static doAttack(logicPoint:string, m:Monster, findTarget, attackInterval:number = 0, condition = () => true, extraPowerABC = {a:0, b:0, c:0}):Monster {
         attackInterval = attackInterval ? attackInterval : 0;
         var interval = 0; // 攻击行为的间隔回合记数
         return <Monster>ElemFactory.addAI(logicPoint, async () => {
@@ -386,7 +390,7 @@ class MonsterFactory {
                     // 如果是打怪，需要判断射程
                     if (target instanceof Monster && !m.inAttackRange(target)) return;
                     
-                    await m.bt().implMonsterAttackTargets(m, [target]);
+                    await m.bt().implMonsterAttackTargets(m, [target], extraPowerABC);
                 }
             }
             
@@ -433,10 +437,12 @@ class MonsterFactory {
 
     // 每回合增加生命值
     static doAddHpPerRound(n:number, m:Monster):Monster{
+        m["canAct"] = false;
         return <Monster>ElemFactory.addAI("onPlayerActed", async () => {
-            if(m.hp > 0)
+            if(m.hp > 0 && m["canAct"])
                 await m.bt().implAddMonsterHp(m, 1);
 
+            m["canAct"] = true;
         }, m);
     }
 
@@ -473,7 +479,7 @@ class MonsterFactory {
         return <Monster>ElemFactory.addAI("onGridChanged", act, m, (ps) => ps.subType == "elemAdded" && (condition?condition():true));
     }
 
-    // 指挥官僵尸逻辑
+    // 增强光环逻辑
     static doEnhanceAura(m:Monster):Monster {
         return MonsterFactory.doEnhanceOtherNewMonster(MonsterFactory.doRemoveEnhanceOnDie(MonsterFactory.doEnhanceOtherMonster(m)));
     }
@@ -483,10 +489,10 @@ class MonsterFactory {
         m["canActOnNewAdd"] = false; //此时还不能触发增强新加入的怪物的效果
         
         return MonsterFactory.addAIOnUncovered(async (ps) => {
-                var n = m.map().findAllElems((e:Elem) => e.type == "CommanderZombie" && !e.getGrid().isCovered() && e != m).length;                
+                var n = m.map().findAllElems((e:Elem) => e.type == "SlimeKing" && !e.getGrid().isCovered() && e != m).length;                
                 if(n == 0){
                     var ms:Elem[]= [];
-                    ms = m.map().findAllElems((e:Elem) => e instanceof Monster && e != m && ps.e.isHazard() && e.type != "CommanderZombie");
+                    ms = m.map().findAllElems((e:Elem) => e instanceof Monster && e != m && e.isHazard() && e.type != "SlimeKing");
                     for(var theMonster of <Monster[]>ms){
                         theMonster.hp *= 2;
                         await m.bt().fireEvent("onElemChanged", {subType:"hp", e:theMonster});
@@ -516,10 +522,10 @@ class MonsterFactory {
 
     // 移除血量翻倍效果
     static async doRemoveEnhance(m:Monster){
-            var n = m.map().findAllElems((e:Elem) => e.type == "CommanderZombie" && !e.getGrid().isCovered() && e != m).length;
+            var n = m.map().findAllElems((e:Elem) => e.type == "SlimeKing" && !e.getGrid().isCovered() && e != m).length;
             if(n == 0){
                 var ms:Elem[]= [];
-                ms = m.map().findAllElems((e:Elem) => e instanceof Monster && e.isHazard() && e != m && e.type != "CommanderZombie");
+                ms = m.map().findAllElems((e:Elem) => e instanceof Monster && e.isHazard() && e != m && e.type != "SlimeKing");
                 for(var theMonster of <Monster[]>ms){
                     theMonster.hp = Math.ceil(theMonster.hp * 0.5);
                     await m.bt().fireEvent("onElemChanged", {subType:"hp", e:theMonster});
@@ -753,6 +759,78 @@ class MonsterFactory {
             if(m.bt().srand.next100() < n)
                 ps.targetAttrs.targetFlags.push("cancelAttack");
         }, m, (ps) => ps.targetAttrs.owner == m);
+    }
+
+    // 史莱姆之王死前将钥匙清空,准备分配给小史莱姆
+    static doClearKeys(m:Monster):Monster {
+        m = <Monster>ElemFactory.addBeforeDieAI(() => {
+            m["keys"] = Utils.filter(m.dropItems, (e:Elem) => e.type == "Key");
+            m.dropItems = [];
+        }, m);
+        return m;
+    }
+
+    // 史莱姆之王死亡时召唤四个特殊史莱姆
+    static doSummonSlimesOnDie(m:Monster):Monster {
+        m = <Monster>ElemFactory.addDieAI(async () => {
+            Utils.assert(m.type == "SlimeKing", "this can only effect on SlimeKing");
+            var bt = m.bt();
+            var poses = [];
+            for(var i = 0; i < 2; i++){
+                for(var j = 0; j < 2; j++){
+                    var newPos = {x:0, y:0};
+                    newPos.x = m.pos.x + i;
+                    newPos.y = m.pos.y + j;
+                    poses.push(newPos);
+                }
+            }
+            var slimeTypes = ["RedSlime", "GreenSlime", "RedSlime", "GreenSlime"];
+            for(var i = 0; i < 4; i++){
+                var slime = <Monster>bt.level.createElem(slimeTypes[i]);
+                slime = MonsterFactory.doSummonSlimeKing(slime);
+                slime.addDropItem(m["keys"][i]);
+                await bt.implAddElemAt(slime, poses[i].x, poses[i].y);
+            }
+        }, m)
+        return m;
+    }
+
+    // 小史莱姆合成新史莱姆之王
+    static doSummonSlimeKing(m:Monster):Monster {
+        m["summonKing"] = 0;
+        m = <Monster>ElemFactory.addAIEvenCovered("onPlayerActed", async () => {
+            var bt = m.bt();
+            m["summonKing"] ++;
+            var count = bt.level.map.findAllElems((e:Elem) => e["summonKing"] && (e.type == "GreenSlime" || e.type == "RedSlime")).length;
+            if(m["summonKing"] > 3 && count == 4){
+                var slimes = m.map().findAllElems((e:Elem) => e["summonKing"]);
+                var poses = [];
+                var keys = [];
+                for(var slime of slimes){
+                    poses.push(slime.pos);
+                    var key = Utils.filter(slime.dropItems, (e:Elem) => e.type == "Key")[0];
+                    keys.push(key);
+                }
+                var kingPos = {x:6, y:8};
+                for(var i = 0; i < poses.length; i++)
+                    if(poses[i].x <= kingPos.x && poses[i].y <= kingPos.y)
+                        kingPos = poses[i];
+                
+                for(var p of poses){
+                    await bt.implRemoveElemAt(p.x, p.y);
+                    if (bt.level.map.getGridAt(p.x, p.y).isCovered())
+                        bt.uncover(p.x, p.y, true);
+                }
+                
+                var king = <Monster>bt.level.createElem("SlimeKing");
+                king.hp = Math.ceil(king.hp * 0.3);
+                for(var key of keys)
+                    king.addDropItem(key);
+                
+                await bt.implAddElemAt(king, kingPos.x, kingPos.y);
+            }
+        }, m)
+        return m;
     }
 
     // boss 特殊逻辑
