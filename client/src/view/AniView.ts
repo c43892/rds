@@ -400,6 +400,14 @@ class AniView extends egret.DisplayObjectContainer {
                 });
             }
             break;
+            case "hp": {
+                var dm = this.bv.deadlyMask;
+                if (this.bv.player.hp <= 5) {
+                    egret.Tween.get(dm, {loop:true}).to({"alpha": 1}, 1000).to({"alpha": 0}, 1000);
+                } else {
+                    egret.Tween.removeTweens(dm);
+                }
+            }
             default:
         }
     }
