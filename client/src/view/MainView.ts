@@ -353,7 +353,7 @@ class MainView extends egret.DisplayObjectContainer {
                     await this.continuePlay();
                 else if (op == "newPlay") {
                     if(Utils.checkRookiePlay())
-                        await this.av.blackIn();
+                        await this.rookiePlay();
                     else {
                         this.newPlay();
                         await this.av.blackOut();
@@ -488,8 +488,10 @@ class MainView extends egret.DisplayObjectContainer {
         if (!this.p) return;
 
         this.registerPlayerEvents();
-        if (this.p.currentStoreyPos.status == "finished")
+        if (this.p.currentStoreyPos.status == "finished") {
             this.openWorldMap(this.p.worldmap);
+            await this.av.blackOut();
+        }
         else {
             var lv = this.p.currentStoreyPos.lv;
             var n = this.p.currentStoreyPos.n;

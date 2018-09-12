@@ -840,11 +840,9 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 黑幕开启
     async blackIn(removedWhenFinish = false) {
-        if (!this.contains(this.blackCover))
-            this.addChild(this.blackCover);
-        
+        this.addChild(this.blackCover);
         await this.aniFact.createAni("tr", {obj: this.blackCover, fa:0, ta:1, time: 1000});
-        if (removedWhenFinish && this.contains(this.blackCover))
+        if (removedWhenFinish)
             this.removeChild(this.blackCover);
     }
 
@@ -854,8 +852,7 @@ class AniView extends egret.DisplayObjectContainer {
             this.addChild(this.blackCover);
 
         await this.aniFact.createAni("tr", {obj: this.blackCover, fa:1, ta:0, time: 1000});
-        if (this.contains(this.blackCover))
-            this.removeChild(this.blackCover);
+        this.removeChild(this.blackCover);
     }
 
     // 动画开始播放时，阻止玩家操作
