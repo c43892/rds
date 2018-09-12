@@ -150,17 +150,8 @@ class AniView extends egret.DisplayObjectContainer {
             case "gridUncovered": {
                 var gv = this.bv.mapView.getGridViewAt(ps.x, ps.y);
                 doRefresh();
-                var img = ViewUtils.createBitmapByName("covered_png");
-                img.alpha = 1;
-                img.width = gv.width;
-                img.height = gv.height;
-                img.x = gv.x - (img.width - gv.width) / 2;
-                img.y = gv.y - (img.height - gv.height) / 2;
-                gv.parent.addChild(img);
-                // 这个动画不等
-                this.aniFact.createAni("tr", {
-                    obj:img, time: 500, ta:0, noWait:true
-                }).then(() => gv.parent.removeChild(img));
+                var eff = gv.addEffect("effUncover", 1);
+                eff["wait"]().then(() => gv.removeEffect("effUncover"));
             }
             break;
             default:

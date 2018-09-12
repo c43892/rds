@@ -102,7 +102,7 @@ class PropFactory {
                     var toe:Elem = map.getElemAt(x, y);
                     return (!tog.isCovered() || tog.isMarked()) && toe && toe instanceof Monster && !toe.isBig() && toe.type != "PlaceHolder" 
                             && e.bt().player.money >= toe.hp * 3;
-                }
+                };
                 e.useAt = async (x:number, y:number) => {
                     e.cnt --;
                     var map = e.bt().level.map;
@@ -112,7 +112,7 @@ class PropFactory {
                     await e.bt().fireEvent("onCandyCannon", {e:e, tar:m, dm:dm})
                     await e.bt().implDestoryAt(x, y, e);
                     return e.cnt > 0;
-                }
+                };
                 return e;
             })
         }
