@@ -154,6 +154,8 @@ class MonsterFactory {
                     () => !m.trapped)));
             m = MonsterFactory.doClearKeys(m);
             m = MonsterFactory.doSummonSlimesOnDie(m);
+            m = MonsterFactory.doAddHpPerRound(Math.floor(attrs.hp * 0.05) > 1 ? Math.floor(attrs.hp * 0.05) : 1, m)
+            m = MonsterFactory.doEnhanceAura(m);
             return m;
         },
 
@@ -477,7 +479,7 @@ class MonsterFactory {
         return <Monster>ElemFactory.addAI("onGridChanged", act, m, (ps) => ps.subType == "elemAdded" && (condition?condition():true));
     }
 
-    // 指挥官僵尸逻辑
+    // 增强光环逻辑
     static doEnhanceAura(m:Monster):Monster {
         return MonsterFactory.doEnhanceOtherNewMonster(MonsterFactory.doRemoveEnhanceOnDie(MonsterFactory.doEnhanceOtherMonster(m)));
     }
@@ -487,10 +489,10 @@ class MonsterFactory {
         m["canActOnNewAdd"] = false; //此时还不能触发增强新加入的怪物的效果
         
         return MonsterFactory.addAIOnUncovered(async (ps) => {
-                var n = m.map().findAllElems((e:Elem) => e.type == "CommanderZombie" && !e.getGrid().isCovered() && e != m).length;                
+                var n = m.map().findAllElems((e:Elem) => e.type == "SlimeKing" && !e.getGrid().isCovered() && e != m).length;                
                 if(n == 0){
                     var ms:Elem[]= [];
-                    ms = m.map().findAllElems((e:Elem) => e instanceof Monster && e != m && ps.e.isHazard() && e.type != "CommanderZombie");
+                    ms = m.map().findAllElems((e:Elem) => e instanceof Monster && e != m && e.isHazard() && e.type != "SlimeKing");
                     for(var theMonster of <Monster[]>ms){
                         theMonster.hp *= 2;
                         await m.bt().fireEvent("onElemChanged", {subType:"hp", e:theMonster});
@@ -520,10 +522,10 @@ class MonsterFactory {
 
     // 移除血量翻倍效果
     static async doRemoveEnhance(m:Monster){
-            var n = m.map().findAllElems((e:Elem) => e.type == "CommanderZombie" && !e.getGrid().isCovered() && e != m).length;
+            var n = m.map().findAllElems((e:Elem) => e.type == "SlimeKing" && !e.getGrid().isCovered() && e != m).length;
             if(n == 0){
                 var ms:Elem[]= [];
-                ms = m.map().findAllElems((e:Elem) => e instanceof Monster && e.isHazard() && e != m && e.type != "CommanderZombie");
+                ms = m.map().findAllElems((e:Elem) => e instanceof Monster && e.isHazard() && e != m && e.type != "SlimeKing");
                 for(var theMonster of <Monster[]>ms){
                     theMonster.hp = Math.ceil(theMonster.hp * 0.5);
                     await m.bt().fireEvent("onElemChanged", {subType:"hp", e:theMonster});
