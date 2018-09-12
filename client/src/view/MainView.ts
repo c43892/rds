@@ -53,7 +53,10 @@ class MainView extends egret.DisplayObjectContainer {
         // 设置界面
         this.st = new SettingView(w, h);
         this.st.confirmOkYesNo = (title, content, yesno) => this.confirmOkYesNo(title, content, yesno);
-        this.st.openStartup = () => this.openStartup(undefined);
+        this.st.openStartup = async () => {
+            await this.av.blackIn();
+            await this.openStartup(undefined);
+        };
 
         // 世界地图
         this.wmv = new WorldMapView(w, h);
@@ -115,7 +118,7 @@ class MainView extends egret.DisplayObjectContainer {
         };
 
         // 开始一场新战斗
-        this.wmv.startNewBattle = async (p:Player, btType:string, lv:number, n:number, btRandomSeed:number) => { 
+        this.wmv.startNewBattle = async (p:Player, btType:string, lv:number, n:number, btRandomSeed:number, skipBlackIn:boolean = false) => { 
             if (btType[0] != "_") {
                 if(Utils.checkRookiePlay())
                     btType = "rookiePlay";
@@ -125,6 +128,9 @@ class MainView extends egret.DisplayObjectContainer {
             var bt = Battle.createNewBattle(p, btType, btRandomSeed);
 
             // 加载战斗资源
+            if (!skipBlackIn)
+                await this.av.blackIn();
+
             bt.prepare();
             await this.loadBattleRes(bt);
 
@@ -156,18 +162,23 @@ class MainView extends egret.DisplayObjectContainer {
         PropView.try2UsePropAt = bt.try2UsePropAt();
 
         bt.registerEvent("onPlayerOp", async (ps) => await BattleRecorder.onPlayerOp(ps.op, ps.ps));
-        bt.registerEvent("onInitBattleView", async (ps) => await this.bv.initBattleView(ps));
+        bt.registerEvent("onInitBattleView", async (ps) => {
+            await this.bv.initBattleView(ps);
+            await this.av.blackOut();
+        });
         bt.registerEvent("onPlayerDead", async () => await this.openPlayerDieView());
         Utils.registerEventHandlers(bt, [
             "onGridChanged", "onPlayerChanged", "onAttacking", "onAttacked", "onElemChanged", "onPropChanged", "onRelicChanged",
             "onElemMoving", "onElemFlying", "onAllCoveredAtInit", "onSuckPlayerBlood", "onMonsterTakeElem", "onBuffAdded",
             "onEyeDemonUncoverGrids", "onElemFloating", "canNotUseItem", "onColddownChanged", "onMonsterEatFood",
             "onAddDeathGodStep", "onElem2NextLevel", "onUseElemAt", "onUseElem", "onGoOutLevel", "onNotifyElemsDropped",
-            "onCandyCannon", "onMakeWanted",
+            "onCandyCannon", "onMakeWanted", "onInitBattleView",
         ], (e) => (ps) => this.bv.av[e](ps));
         bt.registerEvent("onBattleEnded", async (ps) => {
+            await this.av.blackIn();
             this.removeChild(this.bv);
             this.battleEndedCallback(bt);
+            await this.av.blackOut();
         });
         bt.registerEvent("onGridChanged", async (ps) => await this.bv.monsterTip.onGridChanged(ps));
 
@@ -329,25 +340,30 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 开启初始登录界面
-    public openStartup(p:Player) {
+    public async openStartup(p:Player) {
         this.clear();
 
         this.p = p;
         this.lgv.player = p;
         this.addChild(this.lgv);
         this.lgv.refresh();
-        this.lgv.onClose = (op:string) => {
+        await this.av.blackOut();        
+        this.lgv.onClose = async (op:string) => {
             if (op == "openRank")
                 this.openRankView();
             else {
+                await this.av.blackIn();
                 this.removeChild(this.lgv);
+
                 if (op == "continuePlay")
-                    this.continuePlay();
-                else if (op == "newPlay"){
+                    await this.continuePlay();
+                else if (op == "newPlay") {
                     if(Utils.checkRookiePlay())
-                        this.rookiePlay();
-                    else
+                        await this.rookiePlay();
+                    else {
                         this.newPlay();
+                        await this.av.blackOut();
+                    }
                 }
             }
         };
@@ -367,7 +383,8 @@ class MainView extends egret.DisplayObjectContainer {
         Utils.savePlayer(undefined);
         await this.confirmOkYesNo("不幸死亡", "有些情况也许你能复活", false);
         this.p = undefined;
-        this.openStartup(undefined);
+        await this.av.blackIn();
+        await this.openStartup(undefined);
     }
 
     // 显示元素描述信息
@@ -474,17 +491,19 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 按照本地存档继续游戏
-    continuePlay() {
+    async continuePlay() {
         if (!this.p) return;
 
         this.registerPlayerEvents();
-        if (this.p.currentStoreyPos.status == "finished")
+        if (this.p.currentStoreyPos.status == "finished") {
             this.openWorldMap(this.p.worldmap);
+            await this.av.blackOut();
+        }
         else {
             var lv = this.p.currentStoreyPos.lv;
             var n = this.p.currentStoreyPos.n;
             this.openWorldMap(this.p.worldmap);
-            this.wmv.enterNode(lv, n);
+            this.wmv.enterNode(lv, n, true);
         }
     }
 
@@ -511,7 +530,7 @@ class MainView extends egret.DisplayObjectContainer {
 
         var node = Utils.filter(p.worldmap.nodes[1], (n:WorldMapNode) => n.parents.length > 0)[0];
         this.openWorldMap(this.p.worldmap);
-        this.wmv.enterNode(node.y, node.x);
+        this.wmv.enterNode(node.y, node.x, true);
     }
 
     registerPlayerEvents() {

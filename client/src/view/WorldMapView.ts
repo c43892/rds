@@ -389,7 +389,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.enterNode(ptStoreyLv, ptStoreyN);
     }
 
-    public async enterNode(lv:number, n:number) {
+    public async enterNode(lv:number, n:number, skipBlackIn:boolean = false) {
         
         // 保存进度
         this.player.notifyStoreyPosIn(lv, n);
@@ -402,7 +402,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
             case "boss":
                 var p = this.worldmap.player;
                 var btRandonSeed = p.playerRandom.nextInt(0, 10000);
-                await this.startNewBattle(p, nodeType, lv, n, btRandonSeed);
+                await this.startNewBattle(p, nodeType, lv, n, btRandonSeed, skipBlackIn);
                 break;
             case "shop":
                 await this.openShop(this.worldmap.cfg.shop);

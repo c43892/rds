@@ -521,8 +521,6 @@ class AniView extends egret.DisplayObjectContainer {
             this.showMonsterAttackValue(ps.attackerAttrs.owner, ps.r.dhp);
         
         var m:Monster = ps.targetAttrs.owner;
-        if (m.isDead()) return; // 死了就不播放受创表现了
-
         var g = this.getSV(m);
         var dhp = ps.r.dhp;
         var p = g.localToGlobal();
@@ -627,6 +625,16 @@ class AniView extends egret.DisplayObjectContainer {
         this.bv.refreshPlayer(); // 角色属性受地图上所有东西影响
     }
 
+    public async onInitBattleView(ps) {
+        var dm = this.bv.deadlyMask;
+        if (this.bv.player.hp <= 5) {
+            egret.Tween.get(dm, {loop:true}).to({"alpha": 1}, 1000).to({"alpha": 0}, 1000);
+        } else {
+            egret.Tween.removeTweens(dm);
+            dm.alpha = 0;
+        }   
+    }
+
     // 关卡初始化乱序动画
     // 等待点击屏幕
     public async onAllCoveredAtInit(ps) {
@@ -666,7 +674,6 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 关卡事件
     public async onGoOutLevel(ps) {
-        await this.blackIn(true);
     }
 
     // 偷钱
@@ -843,6 +850,7 @@ class AniView extends egret.DisplayObjectContainer {
     async blackOut() {
         if (!this.contains(this.blackCover))
             this.addChild(this.blackCover);
+
         await this.aniFact.createAni("tr", {obj: this.blackCover, fa:1, ta:0, time: 1000});
         this.removeChild(this.blackCover);
     }
