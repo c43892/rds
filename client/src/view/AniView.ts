@@ -297,19 +297,17 @@ class AniView extends egret.DisplayObjectContainer {
     // 怪物属性发生变化
     public async onElemChanged(ps) {
         var e = ps.e;
-        var g = this.getSV(e);
+        var sv = this.getSV(e);
         if (ps.subType == "monsterHp") {
             var dhp = ps.dhp;
-            var p = g.localToGlobal();
+            var p = sv.localToGlobal();
             if (dhp > 0)
                 await AniUtils.tipAt(ViewUtils.getTipText("cure"), p);
         } else if (ps.subType == "die" && e instanceof Monster) {
             // 怪物死亡特效
-            var sv = this.getSV(e);
-            var pos = sv.localToGlobal();
-            pos.x += sv.width / 2
-            pos.y -= sv.height / 2;
-            await AniUtils.flashAndShake(sv);
+            var g = this.bv.mapView.getGridViewAt(e.pos.x, e.pos.y);
+            var dieEff = g.addEffect("effMonsterDie", 1);
+            dieEff["wait"]().then(() =>g.removeEffect("effMonsterDie"));
         } else if (ps.subType == "useElem")
             await this.onElemUsed(ps);
         
