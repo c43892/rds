@@ -304,7 +304,7 @@ class AniView extends egret.DisplayObjectContainer {
             if (dhp > 0)
                 await AniUtils.tipAt(ViewUtils.getTipText("cure"), p);
         } else if (ps.subType == "die" && e instanceof Monster) {
-            // 怪物死亡时候抖一下消失
+            // 怪物死亡特效
             var sv = this.getSV(e);
             var pos = sv.localToGlobal();
             pos.x += sv.width / 2
@@ -549,6 +549,14 @@ class AniView extends egret.DisplayObjectContainer {
             // 这个效果不等待
             if (aniArr.length > 0)
                 this.aniFact.createAniByCfg({type:"gp", arr:aniArr, noWait:true});
+
+            // 刀光
+            var e = ps.targets[0];
+            if (e) {
+                var g = this.bv.mapView.getGridViewAt(e.pos.x, e.pos.y);
+                var attackEff:egret.MovieClip = g.addEffect("effPlayerAttack", 1);
+                attackEff["wait"]().then(() => g.removeEffect("effPlayerAttack"));
+            }
         }
     }
 
