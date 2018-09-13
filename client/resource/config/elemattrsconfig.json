@@ -90,7 +90,6 @@
     "HeadBone":{"name":"骷髅头"},
 
     "DeathGod":{"name":"死神", "hp":10, "power":3, "cannotTake":true},
-    "IceBlock":{"name":"冰块", "cnt":2, "useWithoutConfirm":true, "repRes":["IceBlock1", "IceBlock2"], "addInEffect":"noEffect"},    
     "NormalZombie":{"name":"普通僵尸", "moveRange":3, "dropItems":["CoinsTiny"]},
     "GoblinThief":{"name":"哥布林窃贼", "steal":{"percent":20, "num":5}, "dropItems":["CoinsTiny"], "cannotTake":true},
     "HoundZombie":{"name":"猎犬僵尸", "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}], "muiltAttack":2, "dropItems":["CoinsTiny"]},
@@ -170,6 +169,7 @@
         "repRes":["Steak1", "Steak2", "Steak3"]},
     "Knife":{"name":"小刀", "useWithTarget":true, "validTarget":"markedHazardMonster|uncoveredHazardMonster|uncoverable", "power":3},
     "SmallRock":{"name":"石块", "useWithTarget":true, "validTarget":"markedHazardMonster|uncoveredHazardMonster|uncoverable", "power":1},
+    "IceBlock":{"name":"冰块", "cnt":2, "useWithoutConfirm":true, "repRes":["IceBlock1", "IceBlock2"], "addInEffect":"noEffect"},    
     "Bazooka":{"name":"火箭筒", "canOverlap":true, "useWithTarget":true, 
         "validTarget":"markedMonster|uncoveredMonster|uncoverable",
         "attackFlags":["Flame", "Pierce"], 

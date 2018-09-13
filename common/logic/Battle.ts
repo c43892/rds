@@ -846,9 +846,9 @@ class Battle {
                 ice.addDropItem(dp);
 
             ice["getElemImgResInIce"] = () => m.getElemImgRes();
-            m.dropItems = [];
+            m.dropItems = [ice];
             await this.implOnElemDie(m);
-            await this.implAddElemAt(ice, m.pos.x, m.pos.y);
+            //  await this.implAddElemAt(ice, m.pos.x, m.pos.y);
         }
         
         // 被冻结

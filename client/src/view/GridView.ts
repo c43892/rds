@@ -152,11 +152,13 @@ class GridView extends egret.DisplayObjectContainer {
                 Utils.assert(!(m.shield && m.shield != 0 && m["attackInterval"]), "shield can not coexist with attackInterval on:" + m.type);
 
                 // 血量，右下角
-                this.hpBg.x = this.width - this.hpBg.width; this.hpBg.y = this.height - this.hpBg.height;
-                this.showLayer.addChild(this.hpBg);
-                this.hp.text = m.hp.toString();
-                this.putNumOnBg(this.hp, this.hpBg);
-                this.showLayer.addChild(this.hp);
+                if (e.hp > 0) {
+                    this.hpBg.x = this.width - this.hpBg.width; this.hpBg.y = this.height - this.hpBg.height;
+                    this.showLayer.addChild(this.hpBg);
+                    this.hp.text = m.hp.toString();
+                    this.putNumOnBg(this.hp, this.hpBg);
+                    this.showLayer.addChild(this.hp);
+                }
                 
                 // 护盾，右上角
                 if (m.shield > 0 && !m.isDead()) {
@@ -291,10 +293,14 @@ class GridView extends egret.DisplayObjectContainer {
         if (e && e.isBig() && g.status != GridStatus.Covered) {
             this.showLayer.scaleX = e.attrs.size.w;
             this.showLayer.scaleY = e.attrs.size.h;
+            this.effLayer.scaleX = e.attrs.size.w;
+            this.effLayer.scaleY = e.attrs.size.h;
         }
         else {
              this.showLayer.scaleX = 1;
              this.showLayer.scaleY = 1;
+             this.effLayer.scaleX = 1;
+             this.effLayer.scaleY = 1;
         }
     }
 

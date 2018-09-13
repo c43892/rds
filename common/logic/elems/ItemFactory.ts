@@ -176,6 +176,9 @@ class ItemFactory {
             return ElemFactory.weaponLogic(1, true)(e);
         },
 
+        // 冰块
+        "IceBlock": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, undefined, () => true, () => undefined, undefined)(this.createItem()),
+
         // 警棍
         "Baton": (attrs) => {
             var e = this.createItem();

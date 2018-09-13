@@ -83,7 +83,10 @@ class AniView extends egret.DisplayObjectContainer {
             var e = es[i];
             this.bv.mapView.refreshAt(e.pos.x, e.pos.y, e && e.isBig() ? e.attrs.size : undefined);
             var obj = this.getSVByPos(e.pos.x, e.pos.y);
-            if (!fromPos || (e.pos.x == fromPos.x && e.pos.y == fromPos.y)) // 原地跳出来
+            if (e.attrs.addInEffect == "noEffect") {
+                // 不需要额外表现效果
+            }
+            else if (!fromPos || (e.pos.x == fromPos.x && e.pos.y == fromPos.y)) // 原地跳出来
                 lastAni = AniUtils.jumpInMap(obj);
             else
                 lastAni = AniUtils.flyOutLogicPos(obj, this.bv.mapView, fromPos);
@@ -106,7 +109,7 @@ class AniView extends egret.DisplayObjectContainer {
                 doRefresh();
                 var obj = this.getSVByPos(ps.x, ps.y);
                 if (e.attrs.addInEffect == "noEffect") {
-                    // 不需要任何效果
+                    // 不需要额外表现效果
                 } else if (e instanceof Monster) // 怪物是从地下冒出
                     await AniUtils.crawlOut(obj);
                 else if (!ps.fromPos || (e.pos.x == ps.fromPos.x && e.pos.y == ps.fromPos.y)) { // 原地跳出来
@@ -328,8 +331,12 @@ class AniView extends egret.DisplayObjectContainer {
             await AniUtils.flashAndShake(sv);
         } else if (Utils.checkCatalogues(type, "food")) { // 食物抖一下
             await AniUtils.flashAndShake(sv);
-        } else if (type == "IceBlock")
+        } else if (type == "IceBlock") {
+            var g = this.bv.mapView.getGridViewAt(e.pos.x, e.pos.y);
+            var attackEff:egret.MovieClip = g.addEffect("effPlayerAttack", 1);
+            attackEff["wait"]().then(() => g.removeEffect("effPlayerAttack"));
             await AniUtils.flash(sv, 50);
+        }
     }
 
     // 死神步数发生变化
