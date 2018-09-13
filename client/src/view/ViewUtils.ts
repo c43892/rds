@@ -216,6 +216,13 @@ class ViewUtils {
         });
     }
 
+    // 遍历所有子对象
+    public static forEachChild(c:egret.DisplayObjectContainer, f) {
+        var breakLoop = false;
+        for (var i = 0; i < c.numChildren && !breakLoop; i++)
+            breakLoop = f(c.getChildAt(i))
+    }
+
     // 对给定显示对象进行多语言处理
     public static multiLang(view, ...ps) {
         if (!ViewUtils.languageCfg)

@@ -262,10 +262,9 @@
             }
         },
         "constElems": {
-            "IceGun": 10
+            "RayGun": 10
         },
-        "randomGroups": [
-            {
+        "randomGroups": [{
                 "num": [ 8, 9 ],
                 "elems": {
                     "NormalZombie": 100,

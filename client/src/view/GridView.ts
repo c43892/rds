@@ -295,12 +295,22 @@ class GridView extends egret.DisplayObjectContainer {
             this.showLayer.scaleY = e.attrs.size.h;
             this.effLayer.scaleX = e.attrs.size.w;
             this.effLayer.scaleY = e.attrs.size.h;
+            ViewUtils.forEachChild(this.effLayer, (eff:egret.DisplayObject) => {
+                if (eff["noScale"]) {
+                    eff.scaleX = 1 / e.attrs.size.w;
+                    eff.scaleY = 1 / e.attrs.size.h;
+                }
+            });
         }
         else {
-             this.showLayer.scaleX = 1;
-             this.showLayer.scaleY = 1;
-             this.effLayer.scaleX = 1;
-             this.effLayer.scaleY = 1;
+            this.showLayer.scaleX = 1;
+            this.showLayer.scaleY = 1;
+            this.effLayer.scaleX = 1;
+            this.effLayer.scaleY = 1;
+
+            ViewUtils.forEachChild(this.effLayer, (eff: egret.DisplayObject) => {
+                eff.scaleX = eff.scaleY = 1;
+            });
         }
     }
 
@@ -324,7 +334,7 @@ class GridView extends egret.DisplayObjectContainer {
     }
 
     private effects = {}; // 所有挂在这个格子上的特效    
-    public addEffect(effName, playTimes = -1, aniName = "default") {
+    public addEffect(effName, playTimes = -1, aniName = "default", noScale = false) {
         if (this.effects[effName])
             this.removeEffect(effName);
 
@@ -333,6 +343,7 @@ class GridView extends egret.DisplayObjectContainer {
         this.effLayer.addChild(eff);
         eff.x = this.width / 2;
         eff.y = this.height / 2;
+        eff["noScale"] = noScale;
         if (playTimes != 0)
             eff.gotoAndPlay(0, playTimes);
 

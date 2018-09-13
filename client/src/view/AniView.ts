@@ -580,8 +580,8 @@ class AniView extends egret.DisplayObjectContainer {
             var effArr = [];
             ps.poses.forEach((pt, _) => {
                 var g = this.bv.mapView.getGridViewAt(pt.x, pt.y);
-                var eff = g.addEffect("effRayGun", 1, "flame" + AniUtils.rand.nextInt(1, 5));
-                eff.rotation = AniUtils.rand.nextInt(0, 4) * 90;
+                var eff = g.addEffect("effRayGun", 1, "flame" + AniUtils.rand.nextInt(1, 5), true);
+                eff.rotation = AniUtils.rand.nextInt(0, 36) * 10;
                 eff["wait"]().then(() => g.removeEffect("effRayGun"));
             });
         } else if (weapon.type == "IceGun") { // 冰冻射线
