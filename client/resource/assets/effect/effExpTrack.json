@@ -1,51 +1,144 @@
-{
-"texture":"effExpTrack.png",
-"radialAccelerationVariance":10
-,"duration":-1
-,"tangentialAcceleration":10
-,"startRedVariance":0
-,"engGreenVariance":0
-,"blendFactorDestination":"oneMinusSourceAlpha"
-,"emitter":{"x":360,"y":327}
-,"blendFactorSource":"one"
-,"maxRadiusVariance":30
-,"lifespan":1000
-,"tangentialAccelerationVariance":10
-,"minRadius":20
-,"lifespanVariance":500
-,"endAlphaVariance":0
-,"minRadiusVariance":10
-,"startSize":20
-,"rotatePerSecond":30
-,"startSizeVariance":10
-,"startBlue":255
-,"rotatePerSecondVariance":10
-,"endSize":0
-,"maxRadius":100
-,"emitterType":0
-,"emitterVariance":{"x":5,"y":5}
-,"startGreen":255
-,"startGreenVariance":0
-,"endBlue":255
-,"emitAngleVariance":180
-,"startRed":255
-,"endSizeVariance":1
-,"startRotation":0
-,"endRed":255
-,"emitAngle":0
-,"startRotationVariance":30
-,"gravity":{"x":0,"y":0}
-,"endAlpha":1
-,"startAlphaVariance":0
-,"endRotationVariance":0
-,"speed":30
-,"startAlpha":0.8901960784313725
-,"endGreen":255
-,"startBlueVariance":0
-,"speedVariance":0
-,"endBlueVariance":0
-,"maxParticles":100
-,"endRedVariance":0
-,"endRotation":0
-,"radialAcceleration":0
-}
+{"mc":{
+	"default":{
+		"frameRate":24,
+		"events":[
+			
+			],
+		"frames":[
+			
+			{
+			"res":"29DA76DF",
+			"x":-45,
+			"y":-43
+			},
+			{
+			"res":"8D40ED6C",
+			"x":-45,
+			"y":-43
+			},
+			{
+			"res":"C639EA9A",
+			"x":-45,
+			"y":-43
+			},
+			{
+			"res":"F8054C07",
+			"x":-45,
+			"y":-43
+			},
+			{
+			"res":"329D7181",
+			"x":-45,
+			"y":-43
+			},
+			{
+			"res":"713D02BD",
+			"x":-45,
+			"y":-43
+			},
+			{
+			"res":"1025A13C",
+			"x":-45,
+			"y":-43
+			},
+			{
+			"res":"607F4DF0",
+			"x":-45,
+			"y":-43
+			},
+			{
+			"res":"E74E9D43",
+			"x":-45,
+			"y":-43
+			},
+			{
+			"res":"75D39B63",
+			"x":-45,
+			"y":-43
+			},
+			{
+			"res":"56233F78",
+			"x":-45,
+			"y":-43
+			},
+			{
+			"res":"F47B1CE8",
+			"x":-45,
+			"y":-43
+			},
+			{
+			"res":"8564C0DD",
+			"x":-45,
+			"y":-43
+			},
+			{
+			"res":"AA65BD7E",
+			"x":-45,
+			"y":-43
+			},
+			{
+			"res":"D0B95A09",
+			"x":-45,
+			"y":-43
+			},
+			{
+			"res":"BD7A486D",
+			"x":-45,
+			"y":-43
+			},
+			{
+			"res":"36ED004D",
+			"x":-45,
+			"y":-43
+			},
+			{
+			"res":"3AFAB058",
+			"x":-45,
+			"y":-43
+			},
+			{
+			"res":"56F43DD4",
+			"x":-45,
+			"y":-43
+			},
+			{
+			"res":"AD44E26E",
+			"x":-45,
+			"y":-43
+			},
+			{
+			"res":"A33FF747",
+			"x":-45,
+			"y":-43
+			},
+			{
+			"res":"B1A98532",
+			"x":-45,
+			"y":-43
+			}
+			]
+}},
+	"res":{
+		"75D39B63":{"x":0,"y":0,"w":85,"h":85},
+		"C639EA9A":{"x":0,"y":87,"w":85,"h":85},
+		"56F43DD4":{"x":0,"y":174,"w":85,"h":85},
+		"329D7181":{"x":0,"y":261,"w":85,"h":85},
+		"8D40ED6C":{"x":0,"y":348,"w":85,"h":85},
+		"A33FF747":{"x":87,"y":0,"w":85,"h":85},
+		"8564C0DD":{"x":174,"y":0,"w":85,"h":85},
+		"D0B95A09":{"x":261,"y":0,"w":85,"h":85},
+		"3AFAB058":{"x":348,"y":0,"w":85,"h":85},
+		"AD44E26E":{"x":87,"y":87,"w":85,"h":85},
+		"607F4DF0":{"x":87,"y":174,"w":85,"h":85},
+		"AA65BD7E":{"x":87,"y":261,"w":85,"h":85},
+		"713D02BD":{"x":87,"y":348,"w":85,"h":85},
+		"36ED004D":{"x":174,"y":87,"w":85,"h":85},
+		"F47B1CE8":{"x":261,"y":87,"w":85,"h":85},
+		"E74E9D43":{"x":348,"y":87,"w":85,"h":85},
+		"B1A98532":{"x":174,"y":174,"w":85,"h":85},
+		"56233F78":{"x":174,"y":261,"w":85,"h":85},
+		"29DA76DF":{"x":174,"y":348,"w":85,"h":85},
+		"F8054C07":{"x":261,"y":174,"w":85,"h":85},
+		"1025A13C":{"x":348,"y":174,"w":85,"h":85},
+		"BD7A486D":{"x":261,"y":261,"w":85,"h":85}
+	}}

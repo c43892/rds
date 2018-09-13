@@ -196,12 +196,9 @@
                 "ps": {
                     "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
                     "func": ["+item", "-hp", "redirectSelGroup"],
-                    "rates": [25, 50, 75, 100],
+                    "rates": [25],
                     "failedFunc": ["redirectSelGroup2"],
-                    "ps": [{"item": "MedicineBox", "hp":1, "group": "a411", "group2": "a421"},
-                           {"item": "MedicineBox", "hp":2, "group": "a411", "group2": "a422"},
-                           {"item": "MedicineBox", "hp":3, "group": "a411", "group2": "a423"},
-                           {"item": "MedicineBox", "hp":4, "group": "a411", "group2": "a424"}]
+                    "ps": [{"item": "MedicineBox", "hp":1, "group": "a411", "group2": "a421"}]
                     }
                 },{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
@@ -225,11 +222,9 @@
                 "ps": {
                     "desc": "<font color=#000000 size=20>[继续献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
                     "func": ["+item", "-hp", "redirectSelGroup"],
-                    "rates": [50, 75, 100],
+                    "rates": [50],
                     "failedFunc": ["redirectSelGroup2"],
-                    "ps": [{"item": "MedicineBox", "hp":2, "group": "a411", "group2": "a422"},
-                           {"item": "MedicineBox", "hp":3, "group": "a411", "group2": "a423"},
-                           {"item": "MedicineBox", "hp":4, "group": "a411", "group2": "a424"}]
+                    "ps": [{"item": "MedicineBox", "hp":2, "group": "a411", "group2": "a422"}]
                     }
                 },{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
@@ -245,10 +240,9 @@
                 "ps": {
                     "desc": "<font color=#000000 size=20>[继续献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
                     "func": ["+item", "-hp", "redirectSelGroup"],
-                    "rates": [75, 100],
+                    "rates": [75],
                     "failedFunc": ["redirectSelGroup2"],
-                    "ps": [{"item": "MedicineBox", "hp":3, "group": "a411", "group2": "a423"},
-                           {"item": "MedicineBox", "hp":4, "group": "a411", "group2": "a424"}]
+                    "ps": [{"item": "MedicineBox", "hp":3, "group": "a411", "group2": "a423"}]
                     }
                 },{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
@@ -284,7 +278,44 @@
         },
         "a5": {
             "title": "魅惑菇",
-            "desc": "“不来一盘么？”魅惑菇摇晃着手中的纸牌，你感到自己完全被说服了。"
+            "desc": "“不来一盘么？”魅惑菇摇晃着手中的纸牌，你感到自己完全被说服了。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[押大]赌50金币——</font><font color=#00b050 size=20>30%获得250金币</font>",
+                "func": ["gambling"],
+                "ps": {"wager":50, "rate":30, "award":250, "succeedRedirectGroup":"a51", "failedRedirectGroup":"a52"}
+            },{
+                "desc": "<font color=#000000 size=20>[押小]赌50金币——</font><font color=#00b050 size=20>70%获得250金币</font>",
+                "func": ["gambling"],
+                "ps": {"wager":50, "rate":70, "award":100, "succeedRedirectGroup":"a51", "failedRedirectGroup":"a52"}
+            },{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit", "redirectSelGroup"],
+                "ps": {"group": "a53"}
+            }]  
+        },
+        "a51": {
+            "title": "魅惑菇",
+            "desc": "<font color=#00b050 size=25>你赌赢了。</font>“oh！shit”魅惑菇尖叫起来。“你是出老千了吧，你一定是出了老千了。”",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit"]
+            }]
+        },
+        "a52": {
+            "title": "魅惑菇",
+            "desc": "<font color=#7d0403 size=25>你输了。</font>“承蒙惠顾。”魅惑菇的声音有些刺耳。你晃了晃还在晕的头，离开了这个伤心地。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit"]
+            }]
+        },
+        "a53": {
+            "title": "魅惑菇",
+            "desc": "你在魅惑菇的讥笑中毫不犹豫的离开了。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit"]
+            }]
         },
         "a6": {
             "title": "恶作剧",
@@ -369,6 +400,85 @@
         "a82": {
             "title": "太阳花",
             "desc": "太阳花怒视着你，你开始瑟瑟发抖，并想找个地方藏起来</font><font color=#00b050 size=25>躲避</font>它的视线。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit"]
+            }]
+        },
+        "a9": {
+            "title": "冒险者的尸体",
+            "desc": "你发现了一具冒险者的尸体！这个可怜虫浑身都被撕烂了，但他身上说不定藏着什么<font color=#00b050 size=25>好东西</font>。",
+            "sels": [{
+                "func": ["sequence"],
+                "ps": {
+                    "desc": "<font color=#000000 size=20>[搜索]</font></font><font color=#00b050 size=20>75%获得奖励，</font></font><font color=#7d0403 size=20>25%进入战斗</font>",
+                    "rates": [75],
+                    "func": ["+item", "redirectSelGroup"],
+                    "ps": [{"item": "MedicineBox", "group": "a91", "group2": "a94"}],
+                    "failedFunc": ["redirectSelGroup2"]
+                }
+            },{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit", "redirectSelGroup"],
+                "ps": {"group": "a95"}
+            }]
+        },
+        "a91": {
+            "title": "冒险者的尸体",
+            "desc": "你找到了<font color=#00b050 size=25>一件道具</font>，还想继续找么？",
+            "sels": [{
+                "func": ["sequence"],
+                "ps": {
+                    "desc": "<font color=#000000 size=20>[搜索]</font></font><font color=#00b050 size=20>50%获得奖励，</font></font><font color=#7d0403 size=20>50%进入战斗</font>",
+                    "rates": [50],
+                    "func": ["+item", "redirectSelGroup"],
+                    "ps": [{"item": "MedicineBox", "group": "a92", "group2": "a94"}],
+                    "failedFunc": ["redirectSelGroup2"]
+                }
+            },{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit", "redirectSelGroup"],
+                "ps": {"group": "a95"}
+            }]
+        },
+        "a92": {
+            "title": "冒险者的尸体",
+            "desc": "你找到了<font color=#00b050 size=25>一件道具</font>，还想继续找么？",
+            "sels": [{
+                "func": ["sequence"],
+                "ps": {
+                    "desc": "<font color=#000000 size=20>[搜索]</font></font><font color=#00b050 size=20>25%获得奖励，</font></font><font color=#7d0403 size=20>75%进入战斗</font>",
+                    "rates": [25],
+                    "func": ["+item", "redirectSelGroup"],
+                    "ps": [{"item": "MedicineBox", "group": "a92", "group2": "a94"}],
+                    "failedFunc": ["redirectSelGroup2"]
+                }
+            },{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit", "redirectSelGroup"],
+                "ps": {"group": "a95"}
+            }]
+        },
+        "a93":{
+            "title": "冒险者的尸体",
+            "desc": "你找到了<font color=#00b050 size=25>一件道具</font>，现在冒险者身上已经没有东西了，你满意的离开了。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit"]
+            }]
+        },
+        "a94": {
+            "title": "冒险者的尸体",
+            "desc": "搜索的时候你被偷袭了！",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[战斗]</font>",
+                "func": ["battle"],
+                "ps": {"battleType": "normal"}
+            }]
+        },
+        "a95": {
+            "title": "冒险者的尸体",
+            "desc": "你并不想步冒险者的后尘，于是果断离开了。",
             "sels": [{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit"]
