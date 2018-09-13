@@ -33,15 +33,15 @@ class Elem {
         switch (this.attrs.validTarget) {
             case "all": // 全图
                 return true;
-            case "uncoveredEmpty":
+            case "uncoveredEmpty": // 揭开的空格子
                 return !g.isCovered() && !e;
-            case "markedMonster|uncoveredMonster|uncoverable":
+            case "markedMonster|uncoveredMonster|uncoverable": // 标记或者揭开的怪或者临近块
                 return (e instanceof Monster && g.isUncoveredOrMarked()) || g.isUncoverable();
-            case "markedHazardMonster|uncoveredHazardMonster|uncoverable":
+            case "markedHazardMonster|uncoveredHazardMonster|uncoverable": // 标记或者揭开的威胁怪或临近块
                 return (e instanceof Monster && g.isUncoveredOrMarked() && (e.isHazard() || (e["linkTo"] && e["linkTo"].isHazard())) || g.isUncoverable());
-            case "uncoveredMonser":
+            case "uncoveredMonser": // 揭开的怪
                 return e instanceof Monster && !g.isCovered();
-            case "markedMonster|uncoveredMonser":
+            case "markedMonster|uncoveredMonser": // 标记或者揭开的怪
                 return e instanceof Monster && g.isMarked();
             default:
                 return false;

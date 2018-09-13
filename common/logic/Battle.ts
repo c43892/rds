@@ -815,7 +815,8 @@ class Battle {
         if (g.isCovered())
             await this.uncover(x, y, true); // 攻击行为自动揭开地块
 
-        if (!e || !(e instanceof Monster)) { // 如果打空，则不需要战斗计算过程，有个表现就可以了
+        if (!e || !(e instanceof Monster)) {
+            // 如果打空，则不需要战斗计算过程，有个表现就可以了
             await this.fireEvent("onAttacking", {subType:"player2monster", x:x, y:y, weapon:weapon});
             return;
         }
