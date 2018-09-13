@@ -170,6 +170,12 @@ class Player {
             this.shield = 0;
     }
 
+    public addDodge(dd:number) {
+        this.dodge += dd;
+        if (this.dodge < 0)
+            this.dodge = 0;
+    }
+
     // 带到下一层去的Elem
     public elems2NextLevel:Elem[] = [];
 

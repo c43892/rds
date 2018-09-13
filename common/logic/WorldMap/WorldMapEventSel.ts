@@ -105,6 +105,16 @@ class WorldMapEventSelFactory {
         p.addMaxHp(dMaxHp);
     }
 
+    // 加闪避
+    async implAddDodge(p:Player, dDodge) {
+        p.addDodge(dDodge);
+    }
+
+    // 加攻击
+    async implAddPower(p:Player, dPower) {
+        p.power[0] += dPower;
+    }
+
     // 获得东西
     async implAddItem(p:Player, e:Elem) {
         if (Utils.checkCatalogues(e.type, "coin"))
@@ -141,6 +151,8 @@ class WorldMapEventSelFactory {
         },
         "-maxHp": (sel:WMES, p:Player, ps) => this.exec(async () => await this.implAddMaxHp(p, -ps.maxHp), sel),
         "+maxHp": (sel:WMES, p:Player, ps) => this.exec(async () => await this.implAddMaxHp(p, ps.maxHp), sel),
+        "+dodge": (sel:WMES, p:Player, ps) => this.exec(async () => await this.implAddDodge(p, ps.dDodge), sel),
+        "+power": (sel:WMES, p:Player, ps) => this.exec(async () => await this.implAddPower(p, ps.dPower), sel),
         "+item": (sel:WMES, p:Player, ps) => this.valid(() => Utils.occupationCompatible(p.occupation, ps.item), 
             this.exec(async () => await this.implAddItem(p, ElemFactory.create(ps.item)), sel)),
         "reinforceRandomRelics": (sel:WMES, p:Player, ps) => this.valid(() => p.getReinfoceableRelics().length > 0, 
