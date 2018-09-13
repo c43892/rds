@@ -36,6 +36,12 @@ class AniView extends egret.DisplayObjectContainer {
         return this.bv.mapView.getGridViewAt(x, y).getShowLayer();
     }
 
+    // 获取一个道具对应的显示层
+    getSVOfProp(p:Prop):PropView {
+         var pvs = this.bv.propsView.pvs;
+         return Utils.filter(pvs, (pv:PropView) => pv.getElem() && pv.getElem().type == p.type)[0];
+    }
+
     public refresh() {
         // 播放动画时阻挡玩家操作        
         if (this.contains(this.aniCover))
@@ -240,19 +246,24 @@ class AniView extends egret.DisplayObjectContainer {
 
     // cd 变化
     public async onColddownChanged(ps) {
-        var e = ps.e;
-        var g = this.getSV(e);
-
-        // 翻转表达冷却效果
-        if ((e.cd > 0 && ps.priorCD <= 0)
-            || (e.cd <= 0 && ps.priorCD > 0)) {
-            // 这个效果不等待
-            AniUtils.turnover(g, () => {
-                this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
-            });
+        var e = ps.e;        
+        if (e instanceof Prop) {
+            var pv = this.getSVOfProp(e);
+            pv.refresh();
         }
-        else
-            this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
+        else {
+            var g = this.getSV(e);
+            // 翻转表达冷却效果
+            if ((e.cd > 0 && ps.priorCD <= 0)
+                || (e.cd <= 0 && ps.priorCD > 0)) {
+                // 这个效果不等待
+                AniUtils.turnover(g, () => {
+                    this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
+                });
+            }
+            else
+                this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
+        }
     }
 
     // 使用物品

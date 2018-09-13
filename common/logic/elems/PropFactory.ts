@@ -17,7 +17,9 @@ class PropFactory {
             e.use = undefined;
             e.canBeDragDrop = false;
             e.cnt = e.attrs.cnt ? e.attrs.cnt : 1;
-            e.useWithTarget = () => attrs.useWithTarget;
+            e = <Prop>ElemFactory.triggerColddownLogic(e);
+            e["beginCD"] = true;
+            e.useWithTarget = () => attrs.useWithTarget;            
             mountLogic(e);
             return e;
         };
@@ -33,6 +35,7 @@ class PropFactory {
             return this.createProp(attrs, (e:Elem) => {
                 e.canUse = () => true;
                 e.use = async () => {
+                    e.resetCD();
                     var bt = e.bt();
                     await bt.implAddBuff(bt.player, "BuffAddHp", e.attrs.rounds, e.attrs.heal);
                     return e.cnt > 0;
@@ -71,6 +74,7 @@ class PropFactory {
             return this.createProp(attrs, (e:Elem) => {
                 e.canUse = () => true;
                 e.use = async () => {
+                    e.resetCD();
                     e.cnt --;
                     await e.bt().implAddBuff(e.bt().player, "BuffSuperPotion", attrs.immunizeCnt);
                     return e.cnt > 0;
@@ -84,6 +88,7 @@ class PropFactory {
             return this.createProp(attrs, (e:Elem) => {
                 e.canUse = () => true;
                 e.use = async () => {
+                    e.resetCD();
                     e.cnt --;
                     await e.bt().implAddBuff(e.bt().player, "BuffStrangthPotion", attrs.enhanceCnt);
                     return e.cnt > 0;
@@ -104,6 +109,7 @@ class PropFactory {
                             && e.bt().player.money >= toe.hp * 3;
                 };
                 e.useAt = async (x:number, y:number) => {
+                    e.resetCD();
                     e.cnt --;
                     var map = e.bt().level.map;
                     var m = <Monster>map.getElemAt(x, y);

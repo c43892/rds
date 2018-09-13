@@ -192,7 +192,10 @@ class ElemFactory {
 
     // 武器逻辑
     static weaponLogic(cnt:number, getImgResFun = undefined) {
-        return ElemFactory.elemCanUseAtManyTimes(cnt, async (e, x, y) => await e.bt().implPlayerAttackAt(x, y, e), getImgResFun);
+        return ElemFactory.elemCanUseAtManyTimes(cnt, async (e:Elem, x, y) => {
+            e.resetCD();
+            await e.bt().implPlayerAttackAt(x, y, e)
+        }, getImgResFun);
     }
 
     // 食物
@@ -210,7 +213,7 @@ class ElemFactory {
         e.resetCD = () => {
             var cdPs = {subType:"resetCD", e:e, dcd:{a:0, b:0, c:0}};
             e.bt().triggerLogicPointSync("onCalcCD", cdPs);
-            e.cd = (e.attrs.cd + cdPs.dcd.b) * (1 + cdPs.dcd.a) + cdPs.dcd.c;
+            e.cd = (e.attrs.cd ? e.attrs.cd : 0 + cdPs.dcd.b) * (1 + cdPs.dcd.a) + cdPs.dcd.c;
             e.cd = e.cd < 0 ? 0 : e.cd;
             e["beginCD"] = false;
         }
@@ -224,11 +227,13 @@ class ElemFactory {
                 e["beginCD"] = true;
                 return;
             }
-            if (!(e instanceof Prop) && !(e instanceof Relic) && onlyUncovered && e.getGrid().isCovered()) return;
-            Utils.assert(!!e.bt(), "not added to battle yet! " + e.type);
-            var priorCD = e.cd;
-            if (e.cd > 0) e.cd--;
-            await e.bt().fireEvent("onColddownChanged", {e:e, priorCD:priorCD});
+            else if (!(e instanceof Prop) && !(e instanceof Relic) && onlyUncovered && e.getGrid().isCovered()) return;
+            else {
+                Utils.assert(!!e.bt(), "not added to battle yet! " + e.type);
+                var priorCD = e.cd;
+                if (e.cd > 0) e.cd--;
+                await e.bt().fireEvent("onColddownChanged", { e: e, priorCD: priorCD });
+            }
         }, e, () => true, onlyUncovered);
     }
 
