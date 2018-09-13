@@ -392,18 +392,20 @@ class AniView extends egret.DisplayObjectContainer {
             break;
             case "exp": {
                 this.bv.refreshExpBar();
-                var psw = ViewUtils.createParticleSystemWrapper("effExpTrack");
+                var eff = ViewUtils.createFrameAni("effExpTrack");
+                var track = new BazierControllerWrapper(eff);
                 var sv = this.getSVByPos(ps.fromPos.x, ps.fromPos.y);
                 var svPos = sv.localToGlobal();
                 svPos.x += sv.width / 2;
                 svPos.y += sv.height / 2;
                 var expBarPos = this.bv.expBar.localToGlobal();
                 expBarPos.y += this.bv.expBar.height;
-                AniUtils.ac.addChild(psw);
-                psw.start();
+                AniUtils.ac.addChild(track);
+                eff.gotoAndPlay(0, 1);
                 var t = Utils.getDist(svPos, expBarPos) / 2;
-                AniUtils.createExpTrack(psw, svPos, expBarPos, t, 300).then(() => {
-                    AniUtils.ac.removeChild(psw);
+                AniUtils.createExpTrack(track, svPos, expBarPos, t, 300).then(() => {
+                    eff.stop();
+                    AniUtils.ac.removeChild(track);
                 });
             }
             break;
