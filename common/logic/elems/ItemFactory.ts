@@ -52,8 +52,10 @@ class ItemFactory {
             var e = this.createItem();
             e.canBeDragDrop = false;
             e.cnt = attrs.cnt;
-            e.canUse = () => !!e.bt().level.map.findFirstElem((elem:Elem) => elem.type == "Key" && !elem.getGrid().isCovered());
-            e.canNotUseReason = () => e.canUse() ? undefined : "noKey";
+            e["locked"] = () => e.bt().level.map.findAllElems((e:Elem) => e["lockDoor"]).length > 0;
+            e["enoughKey"] = () => e.bt().level.map.findAllElems((elem:Elem) => elem.type == "Key" && !elem.getGrid().isCovered()).length >= e.attrs.cnt;
+            e.canUse = () => !e["locked"]() && e["enoughKey"]();
+            e.canNotUseReason = () => e.canUse() ? undefined : (!e["enoughKey"]() ? "noKey" : "doorLocked");
             e.getElemImgRes = () => e.type + e.cnt;
             e.use = async () => {
                 var key = e.bt().level.map.findFirstElem((elem:Elem) => elem.type == "Key" && !elem.getGrid().isCovered());
@@ -167,12 +169,14 @@ class ItemFactory {
         // 小刀
         "Knife": (attrs) => {
             var e = this.createItem();
+            e.resetCD = () => {}; // 共用武器逻辑带来的影响
             return ElemFactory.weaponLogic(1, true)(e);
         },
 
         // 小石块
         "SmallRock": (attr) => {
             var e = this.createItem();
+            e.resetCD = () => {}; // 共用武器逻辑带来的影响
             return ElemFactory.weaponLogic(1, true)(e);
         },
 

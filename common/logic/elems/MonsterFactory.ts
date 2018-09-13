@@ -788,6 +788,7 @@ class MonsterFactory {
                 var slime = <Monster>bt.level.createElem(slimeTypes[i]);
                 slime = MonsterFactory.doSummonSlimeKing(slime);
                 slime.addDropItem(m["keys"][i]);
+                slime["lockDoor"] = true;
                 await bt.implAddElemAt(slime, poses[i].x, poses[i].y);
             }
         }, m)
@@ -836,6 +837,7 @@ class MonsterFactory {
     static makeBoss(m:Monster):Monster {
         var frozenRound = 0;
         m.isBoss = true;
+        m["lockDoor"] = true;
         m.isHazard = () => frozenRound == 0;
         m["makeFrozen"] = async (frozenAttrs) => {
             frozenRound += frozenAttrs.rounds;
