@@ -246,8 +246,9 @@ class ItemFactory {
                 var m = ms[0];
                 m["isWanted"] = true;
                 await e.bt().fireEvent("onMakeWanted", {e:e, fromPos:e.pos, toPos:m.pos});
-                var cnt = m.dropItems[Utils.indexOf(m.dropItems, (e:Elem) => e.type == "Coins")].cnt;
-                m.addDropItem(ElemFactory.create("Coins", {cnt:cnt * 9}));
+                var dropCoins = m.dropItems[Utils.indexOf(m.dropItems, (e:Elem) => e.type == "Coins")];
+                if(dropCoins)
+                    m.addDropItem(ElemFactory.create("Coins", {cnt:dropCoins.cnt * 9}));
             }
             return e;
         },
