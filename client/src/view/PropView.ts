@@ -5,6 +5,7 @@ class PropView extends egret.DisplayObjectContainer {
     private bg2:egret.Bitmap; // 数字底
     private elemImg:egret.Bitmap; // 元素图
     private num:egret.TextField; // 数量，右下角
+    private cd:egret.Bitmap; // cd,中心
 
     public constructor(w, h) {
         super();
@@ -47,6 +48,10 @@ class PropView extends egret.DisplayObjectContainer {
         this.num.y = this.bg2.y;
         this.addChild(this.num);
 
+        // cd计数
+        this.cd = new egret.Bitmap(); // cd 计数
+        this.addChild(this.cd);
+
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchGrid, this);
         this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
     }
@@ -69,12 +74,21 @@ class PropView extends egret.DisplayObjectContainer {
             this.num.alpha = 1;
             this.bg2.alpha = 1;
         }
+
+        if (e.cd > 0) { // 显示 cd 计数
+            ViewUtils.setTexName(this.cd, "cd" + e.cd + "_png", true);
+            this.cd.x = (this.elemImg.width - this.cd.width) / 2;
+            this.cd.y = (this.elemImg.height - this.cd.height) / 2;
+            this.cd.alpha = 1;
+        } else 
+            this.cd.alpha = 0;
     }
 
     public clear() {
         this.elemImg.alpha = 0;
         this.num.alpha = 0;
         this.bg2.alpha = 0;
+        this.cd.alpha = 0;
     }
 
     public getElem():Elem {
@@ -104,14 +118,17 @@ class PropView extends egret.DisplayObjectContainer {
 
         PropView.pressTimer.stop();
 
-        if (this.e.canUse()){
-            var content = ViewUtils.formatString(ViewUtils.getTipText("makeSureUseProp"), ViewUtils.getElemNameAndDesc(this.e.type).name);
-            var ok = await PropView.confirmOkYesNo(undefined, content, true, ["确定", "取消"]);
-            if (ok) PropView.try2UseProp(this.e);
-        }
-        else if (this.e.useWithTarget()) {
-            var pos = await PropView.selectGrid((x, y) => this.e.canUseAt(x, y));
-            if (pos) PropView.try2UsePropAt(this.e, pos.x, pos.y);
+        if (!this.e.isValid()) return;
+        else{
+            if (this.e.canUse()) {
+                var content = ViewUtils.formatString(ViewUtils.getTipText("makeSureUseProp"), ViewUtils.getElemNameAndDesc(this.e.type).name);
+                var ok = await PropView.confirmOkYesNo(undefined, content, true, ["确定", "取消"]);
+                if (ok) PropView.try2UseProp(this.e);
+            }
+            else if (this.e.useWithTarget()) {
+                var pos = await PropView.selectGrid((x, y) => this.e.canUseAt(x, y));
+                if (pos) PropView.try2UsePropAt(this.e, pos.x, pos.y);
+            }
         }
     }
 

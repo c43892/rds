@@ -289,6 +289,9 @@ class Battle {
         // 玩家遗物
         hs.push(...this.player.relics);
 
+        // 玩家道具
+        hs.push(...this.player.props);
+
         // 地图上的元素
         var es = [];
         this.level.map.foreachElem((e) => { es.push(e); return false; });
@@ -462,7 +465,7 @@ class Battle {
     // 尝试无目标使用道具
     public try2UseProp() {
         return async (e:Elem) => {
-            let canUse = e.canUse();
+            let canUse = e.canUse() && e.isValid();
             if (!canUse) return;
 
             // 可以使用
@@ -552,7 +555,7 @@ class Battle {
     public try2UsePropAt() {
         return async (e:Elem, x:number, y:number) => {
             var map = this.level.map;
-            if (e.canUseAt(x, y)) {
+            if (e.canUseAt(x, y) && e.isValid()) {
                 // 对指定目标位置使用
                 var canUse = true;
                 
