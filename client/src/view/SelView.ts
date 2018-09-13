@@ -42,6 +42,7 @@ class SelView extends egret.DisplayObjectContainer {
                 bmp.x = x; bmp.y = y;
                 bmp.width = gw; bmp.height = gh;
                 ViewUtils.setTexName(bmp, selectable ? undefined : "translucent_png");
+                bmp.alpha = 0;
                 bmp.touchEnabled = true;
                 bmp["gPos"] = selectable ? {x:i, y:j} : undefined;
             }
