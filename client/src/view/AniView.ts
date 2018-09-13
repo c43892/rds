@@ -551,6 +551,15 @@ class AniView extends egret.DisplayObjectContainer {
                 var attackEff:egret.MovieClip = g.addEffect("effPlayerAttack", 1);
                 attackEff["wait"]().then(() => g.removeEffect("effPlayerAttack"));
             }
+        } else if (weapon.type == "RayGun") { // 火焰射线 AOE
+            // 每个目标格子随机一个效果
+            var effArr = [];
+            ps.poses.forEach((pt, _) => {
+                var g = this.bv.mapView.getGridViewAt(pt.x, pt.y);
+                var eff = g.addEffect("effRayGun", 1, "flame" + AniUtils.rand.nextInt(1, 5));
+                eff.rotation = AniUtils.rand.nextInt(0, 4) * 90;
+                eff["wait"]().then(() => g.removeEffect("effRayGun"));
+            });
         }
     }
 
@@ -739,10 +748,7 @@ class AniView extends egret.DisplayObjectContainer {
     public async onElemFloating(ps) {
         var e:Elem = ps.e;
         var sv = this.getSV(e);
-        if (ps.stop)
-            await AniUtils.floating(sv);
-        else
-            AniUtils.clearAll(sv);
+        await AniUtils.floating(sv, ps.stop);
     }
 
     // 通缉令

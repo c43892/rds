@@ -956,7 +956,7 @@ class Battle {
         }
 
         // 攻击行为启动
-        await this.fireEvent("onAttacking", {subType:"player2monster", x:x, y:y, weapon:weapon, targets:tars});
+        await this.fireEvent("onAttacking", {subType:"player2monster", x:x, y:y, weapon:weapon, poses:poses, targets:tars});
 
         // 攻击行为自动揭开地块
         var marked = [];
