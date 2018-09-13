@@ -33,7 +33,7 @@
 			"name": "font"
 		},
 		{
-			"keys": "effWantedOrder_json,effWantedOrder_png,effSelfExplode_json,effSelfExplode_png,genggui_shenti_tex_png,genggui_shetou_tex_png,genggui_shetou_ske_json,genggui_shenti_ske_json,genggui_shetou_tex_json,genggui_shenti_tex_json,effExpTrack_png,effExpTrack_json,effMonsterDie_json,effMonsterDie_png,effPlayerAttack_png,effPlayerAttack_json,effRelicShining_json,effRelicShining_png,effDeathGod_json,effDeathGod_png,effUncover_json,effUncover_png,effRayGun_json,effRayGun_png,effGuideTap_json,effGuideTap_png",
+			"keys": "effWantedOrder_json,effWantedOrder_png,effSelfExplode_json,effSelfExplode_png,genggui_shenti_tex_png,genggui_shetou_tex_png,genggui_shetou_ske_json,genggui_shenti_ske_json,genggui_shetou_tex_json,genggui_shenti_tex_json,effExpTrack_png,effExpTrack_json,effMonsterDie_json,effMonsterDie_png,effPlayerAttack_png,effPlayerAttack_json,effRelicShining_json,effRelicShining_png,effDeathGod_json,effDeathGod_png,effUncover_json,effUncover_png,effRayGun_json,effRayGun_png,effGuideTap_json,effGuideTap_png,effIceGun_json,effIceGun_png",
 			"name": "effect"
 		}
 	],
@@ -1467,6 +1467,16 @@
 			"url": "assets/ui/common/guideHand.png",
 			"type": "image",
 			"name": "guideHand_png"
+		},
+		{
+			"url": "assets/effect/effIceGun.json",
+			"type": "json",
+			"name": "effIceGun_json"
+		},
+		{
+			"url": "assets/effect/effIceGun.png",
+			"type": "image",
+			"name": "effIceGun_png"
 		}
 	]
 }

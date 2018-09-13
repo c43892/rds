@@ -89,7 +89,10 @@ class AniView extends egret.DisplayObjectContainer {
             var e = es[i];
             this.bv.mapView.refreshAt(e.pos.x, e.pos.y, e && e.isBig() ? e.attrs.size : undefined);
             var obj = this.getSVByPos(e.pos.x, e.pos.y);
-            if (!fromPos || (e.pos.x == fromPos.x && e.pos.y == fromPos.y)) // 原地跳出来
+            if (e.attrs.addInEffect == "noEffect") {
+                // 不需要额外表现效果
+            }
+            else if (!fromPos || (e.pos.x == fromPos.x && e.pos.y == fromPos.y)) // 原地跳出来
                 lastAni = AniUtils.jumpInMap(obj);
             else
                 lastAni = AniUtils.flyOutLogicPos(obj, this.bv.mapView, fromPos);
@@ -111,10 +114,13 @@ class AniView extends egret.DisplayObjectContainer {
             case "elemAdded": // 有元素被添加进地图
                 doRefresh();
                 var obj = this.getSVByPos(ps.x, ps.y);
-                if (e instanceof Monster) // 怪物是从地下冒出
+                if (e.attrs.addInEffect == "noEffect") {
+                    // 不需要额外表现效果
+                } else if (e instanceof Monster) // 怪物是从地下冒出
                     await AniUtils.crawlOut(obj);
-                else if (!ps.fromPos || (e.pos.x == ps.fromPos.x && e.pos.y == ps.fromPos.y)) // 原地跳出来
+                else if (!ps.fromPos || (e.pos.x == ps.fromPos.x && e.pos.y == ps.fromPos.y)) { // 原地跳出来
                     await AniUtils.jumpInMap(obj);
+                }
                 else // 飞出来，从跳出来的位置到目标位置有一段距离
                     await AniUtils.flyOutLogicPos(obj, this.bv.mapView, ps.fromPos);
                 break;
@@ -333,9 +339,14 @@ class AniView extends egret.DisplayObjectContainer {
         if (Utils.checkCatalogues(type, "book") && e.cnt > 0) { // 书籍需要提示还剩几次
             var p = sv.localToGlobal();
             AniUtils.tipAt((e.attrs.cnt - e.cnt) + "/" + e.attrs.cnt, {x:p.x+25, y:p.y-25});
-            await AniUtils.flashAndShake(this.getSV(e));
+            await AniUtils.flashAndShake(sv);
         } else if (Utils.checkCatalogues(type, "food")) { // 食物抖一下
-            await AniUtils.flashAndShake(this.getSV(e));
+            await AniUtils.flashAndShake(sv);
+        } else if (type == "IceBlock") {
+            var g = this.bv.mapView.getGridViewAt(e.pos.x, e.pos.y);
+            var attackEff:egret.MovieClip = g.addEffect("effPlayerAttack", 1);
+            attackEff["wait"]().then(() => g.removeEffect("effPlayerAttack"));
+            await AniUtils.flash(sv, 50);
         }
     }
 
@@ -562,6 +573,20 @@ class AniView extends egret.DisplayObjectContainer {
                 var attackEff:egret.MovieClip = g.addEffect("effPlayerAttack", 1);
                 attackEff["wait"]().then(() => g.removeEffect("effPlayerAttack"));
             }
+        } else if (weapon.type == "RayGun") { // 火焰射线 AOE
+            // 每个目标格子随机一个效果
+            var effArr = [];
+            ps.poses.forEach((pt, _) => {
+                var g = this.bv.mapView.getGridViewAt(pt.x, pt.y);
+                var eff = g.addEffect("effRayGun", 1, "flame" + AniUtils.rand.nextInt(1, 5));
+                eff.rotation = AniUtils.rand.nextInt(0, 4) * 90;
+                eff["wait"]().then(() => g.removeEffect("effRayGun"));
+            });
+        } else if (weapon.type == "IceGun") { // 冰冻射线
+            var g = this.bv.mapView.getGridViewAt(ps.x, ps.y);
+            var eff = g.addEffect("effIceGun", 1);
+            await eff["wait"]();
+            g.removeEffect("effIceGun");
         }
     }
 
@@ -750,10 +775,7 @@ class AniView extends egret.DisplayObjectContainer {
     public async onElemFloating(ps) {
         var e:Elem = ps.e;
         var sv = this.getSV(e);
-        if (ps.stop)
-            await AniUtils.floating(sv);
-        else
-            AniUtils.clearAll(sv);
+        await AniUtils.floating(sv, ps.stop);
     }
 
     // 通缉令

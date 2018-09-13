@@ -176,21 +176,27 @@ class AniUtils {
     }
 
     // 悬浮效果
-    public static async floating(obj:egret.DisplayObject) {
-        var fp = {x:obj.x, y:obj.y};
-        var tp = {x:fp.x, y:fp.y - 25};
-        var aniCfg = {type:"seq", arr:[
-            {type:"tr", fx:fp.x, fy:fp.y, tx:tp.x, ty:tp.y, time:750, mode:egret.Ease.quadInOut, noWait:true},
-            {type:"tr", fx:tp.x, fy:tp.y, tx:fp.x, ty:fp.y, time:750, mode:egret.Ease.quadInOut, noWait:true},
-        ], noWait:true, obj:obj};
+    public static async floating(obj:egret.DisplayObject, stopFloating = false) {
+        if (stopFloating) {
+            this.clearAll(obj);
+            obj.x = 0;
+            obj.y = 0;
+        } else {
+            var fp = {x:obj.x, y:obj.y};
+            var tp = {x:fp.x, y:fp.y - 25};
+            var aniCfg = {type:"seq", arr:[
+                {type:"tr", fx:fp.x, fy:fp.y, tx:tp.x, ty:tp.y, time:750, mode:egret.Ease.quadInOut, noWait:true},
+                {type:"tr", fx:tp.x, fy:tp.y, tx:fp.x, ty:fp.y, time:750, mode:egret.Ease.quadInOut, noWait:true},
+            ], noWait:true, obj:obj};
 
-        var createAni = () => {
-            var aw = AniUtils.aniFact.createAniByCfg(aniCfg);
-            aw["onEnded"].push(createAni);
-            return aw;
-        };
+            var createAni = () => {
+                var aw = AniUtils.aniFact.createAniByCfg(aniCfg);
+                aw["onEnded"].push(createAni);
+                return aw;
+            };
 
-        return createAni();
+            return createAni();
+        }
     }
 
     // 原地转动一下再恢复，比如警棍在玩家攻击时的效果

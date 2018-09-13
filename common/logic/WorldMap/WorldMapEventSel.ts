@@ -180,8 +180,17 @@ class WorldMapEventSelFactory {
         "gambling": (sel:WMES, p:Player, ps) => this.valid(() => p.money >= ps.wager,
             this.exec(async () => {
                 await this.implAddMoney(p, -ps.wager);
-                if (p.playerRandom.next100() < ps.rate)
+
+                var nextSelsGroup;
+                if (p.playerRandom.next100() < ps.rate) {
                     await this.implAddMoney(p, ps.award);
+                    nextSelsGroup = ps.succeedRedirectGroup;
+                }
+                else
+                    nextSelsGroup = ps.failedRedirectGroup;
+
+                if (nextSelsGroup)
+                    await this.openEventSels(p, nextSelsGroup);
         }, sel)),
         "+randomItems": (sel:WMES, p:Player, ps) => this.exec(async () => {
             var es = Utils.randomSelectByWeightWithPlayerFilter(p, ps.items, p.playerRandom, ps.randomNum, ps.randomNum+1, true);

@@ -136,7 +136,7 @@
             "Key": 1,
             "Shield": 1,
             "Apple": 1
-            }
+        }
     },
 
     "normal_1": {
@@ -260,6 +260,9 @@
                 "hp": 4,
                 "power": 1
             }
+        },
+        "constElems": {
+            "IceGun": 10
         },
         "randomGroups": [
             {

@@ -849,9 +849,8 @@ class Battle {
                 ice.addDropItem(dp);
 
             ice["getElemImgResInIce"] = () => m.getElemImgRes();
-            m.dropItems = [];
+            m.dropItems = [ice];
             await this.implOnElemDie(m);
-            await this.implAddElemAt(ice, m.pos.x, m.pos.y);
         }
         
         // 被冻结
@@ -959,7 +958,7 @@ class Battle {
         }
 
         // 攻击行为启动
-        await this.fireEvent("onAttacking", {subType:"player2monster", x:x, y:y, weapon:weapon, targets:tars});
+        await this.fireEvent("onAttacking", {subType:"player2monster", x:x, y:y, weapon:weapon, poses:poses, targets:tars});
 
         // 攻击行为自动揭开地块
         var marked = [];

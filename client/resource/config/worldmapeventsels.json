@@ -11,6 +11,8 @@
         "-maxHpPrecentage": "血量上限减少 {maxHp}",
         "-maxHp": "血量上限减少 {maxHp}",
         "+maxHp": "血量上限增加 {maxHp}",
+        "+dodge": "闪避增加{dodge}",
+        "+power": "攻击力增加{dpower}",
         "+item": "获得 {item}",
         "+randomItems": "获得 {randomNum} 件随机物品",
         "reinforceRandomRelics": "随机强化 {reinforceNum} 件遗物",
@@ -352,8 +354,8 @@
                 "ps": {"maxHp": 5, "group": "a81"}
             },{
                 "desc": "<font color=#000000 size=20>[贬低]</font></font><font color=#00b050 size=20>闪避+x</font>",
-                "func": ["redirectSelGroup"],
-                "ps": {"group": "a82"}
+                "func": ["redirectSelGroup", "+dodge"],
+                "ps": {"group": "a82", "dodge": 5}
             }]
         },
         "a81": {
@@ -377,10 +379,10 @@
             "desc": "事件描述文字，说说这个事件是什么意思",
             "sels":[{
                 "func": ["gambling"],
-                "ps": {"wager":50, "rate":75, "award":100}
+                "ps": {"wager":50, "rate":75, "award":100, "succeedRedirectGroup":"g4", "failedRedirectGroup":"gg"}
             }, {
                 "func": ["gambling"],
-                "ps": {"wager":50, "rate":25, "award":250}
+                "ps": {"wager":50, "rate":25, "award":250, "succeedRedirectGroup":"g4", "failedRedirectGroup":"gg"}
             }, {
                 "func": ["sequence"],
                 "ps": {
