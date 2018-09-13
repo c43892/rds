@@ -54,7 +54,7 @@
 		"bin-debug/logic/LevelLogic/LevelLogicAddBoxAndKey.js",
 		"bin-debug/logic/LevelLogic/LevelLogicBasic.js",
 		"bin-debug/logic/LevelLogic/LevelLogicFactory.js",
-		"bin-debug/Main.js",
+		"bin-debug/view/WorldMapView.js",
 		"bin-debug/logic/LevelLogic/LevelLogicTakeKey.js",
 		"bin-debug/logic/map/Grid.js",
 		"bin-debug/logic/map/Map.js",
@@ -97,6 +97,6 @@
 		"bin-debug/view/TurntableView.js",
 		"bin-debug/view/ViewUtils.js",
 		"bin-debug/view/WorldMapSelsEventView.js",
-		"bin-debug/view/WorldMapView.js"
+		"bin-debug/Main.js"
 	]
 }
