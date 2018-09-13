@@ -1,14 +1,14 @@
 
 // 翻开某些方块时中毒
 class BuffPoisonOnGrids extends Buff {
-    public Grids:Grid[];
+    public grids:Grid[];
     public buffPoisonPs;
 
     constructor (grids:Grid[], cnt:number, buffPoisonPs){
         super("BuffPoisonOnGrids");
         this.cnt = cnt;
         this.buffPoisonPs = buffPoisonPs;
-        this.Grids = grids;
+        this.grids = grids;
 
         this.onPlayerActed = async () => {
             this.cnt --;

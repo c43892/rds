@@ -262,7 +262,7 @@
             }
         },
         "constElems": {
-            "RayGun": 10
+            "PoisonJellyfish": 10
         },
         "randomGroups": [{
                 "num": [ 8, 9 ],

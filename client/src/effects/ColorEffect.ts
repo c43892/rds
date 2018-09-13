@@ -22,6 +22,7 @@ class ColorEffect extends egret.DisplayObjectContainer {
     }
 
     public stop() {
+        this.objs.forEach((obj, _) => obj.filters = undefined);
         if (this.tw)
             this.tw.setPaused(true);
     }

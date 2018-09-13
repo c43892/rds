@@ -789,11 +789,49 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 玩家获得buff
     public async onBuffAdded(ps) {
-        if (ps.target instanceof Player)
-            this.bv.refreshPlayer();
+        var buff = ps.buff;
+        var buffType = buff.type;
+
+        if (ps.target instanceof Player) {
+            if(buffType == "BuffPoisonOnGrids") {
+                var gs = Utils.map(buff.grids, (g) => this.bv.mapView.getGridViewAt(g.pos.x, g.pos.y));
+                gs.forEach((g, _) => g.addColorEffect("gridPoisoned"));
+            }
+        }
         else {
             var e = <Elem>(ps.target);
-            this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
+            var g = this.bv.mapView.getGridViewAt(e.pos.x, e.pos.y);
+            switch (buffType) {
+                case "BuffPoison":
+                    g.addColorEffect("elemPoisoned");
+                break;
+                case "BuffFlame":                    
+                break;
+            }
+        }
+    }
+
+    // buff 移除
+     public async onBuffRemoved(ps) {
+        var buff = ps.buff;
+        var buffType = buff.type;
+
+        if (ps.target instanceof Player) {
+            if(buffType == "BuffPoisonOnGrids") {
+                var gs = Utils.map(buff.grids, (g) => this.bv.mapView.getGridViewAt(g.pos.x, g.pos.y));
+                gs.forEach((g, _) => g.removeEffect("gridPoisoned"));
+            }
+        }
+        else {
+            var e = <Elem>(ps.target);
+            var g = this.bv.mapView.getGridViewAt(e.pos.x, e.pos.y);
+            switch (buffType) {
+                case "BuffPoison":
+                    g.removeEffect("elemPoisoned");
+                break;
+                case "BuffFlame":                    
+                break;
+            }
         }
     }
 

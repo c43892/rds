@@ -682,7 +682,7 @@ class MonsterFactory {
     static doMakeCoveredGridsPoison(m:Monster):Monster {
         return <Monster>ElemFactory.addDieAI(async () => {
             var grids = m.map().findAllGrid((x, y, g:Grid) => g.isCovered());
-            if(grids.length != 0){
+            if(grids.length != 0) {
                 await m.bt().implAddBuff(m.bt().player, "BuffPoisonOnGrids", grids, m.attrs.buffCnt, m.attrs.poisonPs);
                 for(var i = 0; i < grids.length; i++)
                     await m.bt().fireEvent("onGridChanged", {x:grids[i].pos.x, y:grids[i].pos.y, e:grids[i].getElem(), subType:"miasma"});

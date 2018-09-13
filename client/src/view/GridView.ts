@@ -372,7 +372,7 @@ class GridView extends egret.DisplayObjectContainer {
             case "elemPoisoned":
                 eff = new ColorEffect(poisonFromMat, poisonToMat, 2000, this.elemImg);
             break;
-            case "coveredPoisoned":
+            case "gridPoisoned":
                 eff = new ColorEffect(poisonFromMat, poisonToMat, 0, this.coveredImg, this.uncoverableImg);
             break;
             default:

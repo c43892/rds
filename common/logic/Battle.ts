@@ -783,8 +783,8 @@ class Battle {
     public async implRemoveBuff(target, type:string) {
         var buff = target.removeBuff(type);
         if (buff) {
-            await this.fireEvent("onBuffRemoved", {buff:buff});
-            await this.triggerLogicPoint("onBuffAdded", {buff:buff});
+            await this.fireEvent("onBuffRemoved", {buff:buff, target:target});
+            await this.triggerLogicPoint("onBuffRemoved", {buff:buff, target:target});
         }
     }
 
