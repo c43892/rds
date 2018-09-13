@@ -379,10 +379,10 @@
             "desc": "事件描述文字，说说这个事件是什么意思",
             "sels":[{
                 "func": ["gambling"],
-                "ps": {"wager":50, "rate":75, "award":100}
+                "ps": {"wager":50, "rate":75, "award":100, "succeedRedirectGroup":"g4", "failedRedirectGroup":"gg"}
             }, {
                 "func": ["gambling"],
-                "ps": {"wager":50, "rate":25, "award":250}
+                "ps": {"wager":50, "rate":25, "award":250, "succeedRedirectGroup":"g4", "failedRedirectGroup":"gg"}
             }, {
                 "func": ["sequence"],
                 "ps": {
