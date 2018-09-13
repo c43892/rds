@@ -79,16 +79,16 @@ class AniUtils {
         await aniFact.createAniByCfg({type:"gp", arr:[
             {type:"seq", arr: [
                 {type:"gp", arr: [
-                    {type:"tr", fy:fromPos.y, ty:midY, time:250, mode:egret.Ease.sineOut},
-                    {type:"tr", fx:fromPos.x, tx:midX, time:250},
+                    {type:"tr", fy:fromPos.y, ty:midY, time:350, mode:egret.Ease.sineOut},
+                    {type:"tr", fx:fromPos.x, tx:midX, time:350},
                 ]},
                 {type:"gp", arr: [
-                    {type:"tr", fy:midY, ty:obj.y, time:250, mode:egret.Ease.sineIn},
-                    {type:"tr", fx:midX, tx:obj.x, time:250},
+                    {type:"tr", fy:midY, ty:obj.y, time:350, mode:egret.Ease.sineIn},
+                    {type:"tr", fx:midX, tx:obj.x, time:350},
                 ]},
             ]}, 
-            {type:"tr", fr:0, tr:tr, time:500},
-            {type:"tr", fa:0, ta:1, time:100},
+            {type:"tr", fr:0, tr:tr, time:700},
+            {type:"tr", fa:0, ta:1, time:200},
         ], obj:obj});
 
         rev();

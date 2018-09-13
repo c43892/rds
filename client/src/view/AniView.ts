@@ -381,19 +381,19 @@ class AniView extends egret.DisplayObjectContainer {
             break;
             case "exp": {
                 this.bv.refreshExpBar();
-                var psw = ViewUtils.createParticleSystemWrapper("effExpTrack");
-                var sv = this.getSVByPos(ps.fromPos.x, ps.fromPos.y);
-                var svPos = sv.localToGlobal();
-                svPos.x += sv.width / 2;
-                svPos.y += sv.height / 2;
-                var expBarPos = this.bv.expBar.localToGlobal();
-                expBarPos.y += this.bv.expBar.height;
-                AniUtils.ac.addChild(psw);
-                psw.start();
-                var t = Utils.getDist(svPos, expBarPos) / 2;
-                AniUtils.createExpTrack(psw, svPos, expBarPos, t, 300).then(() => {
-                    AniUtils.ac.removeChild(psw);
-                });
+                // var psw = ViewUtils.createParticleSystemWrapper("effExpTrack");
+                // var sv = this.getSVByPos(ps.fromPos.x, ps.fromPos.y);
+                // var svPos = sv.localToGlobal();
+                // svPos.x += sv.width / 2;
+                // svPos.y += sv.height / 2;
+                // var expBarPos = this.bv.expBar.localToGlobal();
+                // expBarPos.y += this.bv.expBar.height;
+                // AniUtils.ac.addChild(psw);
+                // psw.start();
+                // var t = Utils.getDist(svPos, expBarPos) / 2;
+                // AniUtils.createExpTrack(psw, svPos, expBarPos, t, 300).then(() => {
+                //     AniUtils.ac.removeChild(psw);
+                // });
             }
             break;
             case "hp": {

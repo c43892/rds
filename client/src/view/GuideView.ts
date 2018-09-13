@@ -76,10 +76,11 @@ class GuideView extends egret.DisplayObjectContainer {
     tapTarget:egret.DisplayObject;
     tapFrameAni:egret.MovieClip;
     tapArea:egret.Bitmap;
+    hand:egret.Bitmap;
     buildTap() {
         this.tapBg = new egret.Bitmap();
         this.tapBg.touchEnabled = true;
-        this.tapFrameAni = ViewUtils.createFrameAni("effWantedOrder");
+        this.tapFrameAni = ViewUtils.createFrameAni("effGuideTap");
         this.tapFrameAni.play(-1);
         
         this.tapArea = ViewUtils.createBitmapByName("guideTapArea_png");
@@ -90,6 +91,8 @@ class GuideView extends egret.DisplayObjectContainer {
         this.tapArea.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.touchBegin, this);
         this.tapArea.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchMove, this);
         this.tapArea.addEventListener(egret.TouchEvent.TOUCH_END, this.touchEnd, this);
+
+        this.hand = ViewUtils.createBitmapByName("guideHand_png");
     }
 
     tapOrPressPrepare(target:egret.DisplayObject, offset = {x:0, y:0}) {
@@ -102,6 +105,7 @@ class GuideView extends egret.DisplayObjectContainer {
         var maskContainer = new egret.DisplayObjectContainer();
         this.tapArea.alpha = 1;
         this.tapArea.blendMode = egret.BlendMode.ERASE;
+        this.tapArea.scaleX = this.tapArea.scaleY = 1.5;
         maskContainer.addChild(this.bg);
         maskContainer.addChild(this.tapArea);
 
@@ -117,10 +121,19 @@ class GuideView extends egret.DisplayObjectContainer {
         this.tapFrameAni.x = targetPos.x + offset.x;
         this.tapFrameAni.y = targetPos.y + offset.y;
 
+        this.addChild(this.hand);
+        this.hand.x = this.tapFrameAni.x;
+        this.hand.y = this.tapFrameAni.y;
+        egret.Tween.removeTweens(this.hand);
+        egret.Tween.get(this.hand, {loop:true})
+            .to({"scaleX":1.2, "scaleY":1.2}, 500, egret.Ease.cubicOut)
+            .to({"scaleX":1, "scaleY":1}, 500, egret.Ease.cubicIn);
+
         return () => {
             this.removeChild(this.tapBg);
             this.removeChild(this.tapFrameAni);
             this.removeChild(this.tapArea);
+            this.removeChild(this.hand);
         };
     }
 
