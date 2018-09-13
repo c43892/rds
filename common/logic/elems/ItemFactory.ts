@@ -169,12 +169,14 @@ class ItemFactory {
         // 小刀
         "Knife": (attrs) => {
             var e = this.createItem();
+            e.resetCD = () => {}; // 共用武器逻辑带来的影响
             return ElemFactory.weaponLogic(1, true)(e);
         },
 
         // 小石块
         "SmallRock": (attr) => {
             var e = this.createItem();
+            e.resetCD = () => {}; // 共用武器逻辑带来的影响
             return ElemFactory.weaponLogic(1, true)(e);
         },
 
