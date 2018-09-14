@@ -1,3 +1,4 @@
 {
+    "rookiePlay":[{"type":"LevelLogicAddBoxAndKey"}, {"type":"LevelLogicTakeKey"}],
     "normal":[{"type":"LevelLogicAddBoxAndKey"}, {"type":"LevelLogicTakeKey"}]
 }

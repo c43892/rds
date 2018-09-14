@@ -44,7 +44,7 @@ class Battle {
         var levelLogics = Utils.getLevelLogics(btType);
         if(levelLogics.length > 0){
             for(var levelLogic of levelLogics){
-                var ll = LevelLogicFactory.createLevelLogic(levelLogic.type, this.level, levelLogic.ps);
+                var ll = LevelLogicFactory.createLevelLogic(levelLogic.type, this.level, ...levelLogic.ps);
                 this.level.addLevelLogic(ll);
             }
         }
@@ -417,8 +417,8 @@ class Battle {
 
             var stateBeforeUncover = this.level.map.grids[x][y].status;
             await this.uncover(x, y);
-            await this.fireEvent("onPlayerActed", {subType:"uncoverAt", num:-1});
-            await this.triggerLogicPoint("onPlayerActed", {subType:"uncoverAt", num:-1}); // 算一次角色行动
+            await this.fireEvent("onPlayerActed", {subType:"uncoverAt", num:-1, x:x, y:y});
+            await this.triggerLogicPoint("onPlayerActed", {subType:"uncoverAt", num:-1, x:x, y:y}); // 算一次角色行动
             
             await this.checkPlayerLevelUpAndDie();
         };
