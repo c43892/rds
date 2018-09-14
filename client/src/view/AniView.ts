@@ -120,6 +120,7 @@ class AniView extends egret.DisplayObjectContainer {
         switch (ps.subType) {
             case "elemAdded": // 有元素被添加进地图
                 doRefresh();
+                this.bv.refreshElemsTip();
                 var obj = this.getSVByPos(ps.x, ps.y);
                 if (e.attrs.addInEffect == "noEffect") {
                     // 不需要额外表现效果
@@ -173,9 +174,11 @@ class AniView extends egret.DisplayObjectContainer {
             }
             break;
             case "addBoxAndKey":
+                this.bv.refreshElemsTip();
                 doRefresh();
             break;
             default:
+                this.bv.refreshElemsTip();
                 doRefresh();
         }
 

@@ -482,6 +482,7 @@ class BattleView extends egret.DisplayObjectContainer {
         await this.confirmOkYesNo("", tip, false);
     }
 
+    // 刷新特殊元素提示
     public refreshElemsTip() {
         this.elemsTipBitmaps = [];
         this.elemsTip.removeChildren();
@@ -491,15 +492,11 @@ class BattleView extends egret.DisplayObjectContainer {
         var gap = 8;
         for(var i = 0; i < elems.length; i++){
             var img = ViewUtils.createBitmapByName(elems[i].getElemImgRes() + "_png");
-            img.width = 60;
-            img.height = 60;            
+            img.width = img.height = 55;
             img.x = this.elemsTip.width / 2 + (i - (elems.length - 1) / 2) * (gap + img.width) - img.width / 2
             img.y = 0;
             this.elemsTipBitmaps.push(img);
         }
-        // for(var bitmap of this.elemsTipBitmaps)
-        //     this.elemsTip.addChild(bitmap);
-
         this.elemsTipBitmaps.forEach((bitmap, _) => this.elemsTip.addChild(bitmap));
         this.setChildIndex(this.elemsTip, -1);
     }
