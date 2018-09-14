@@ -576,10 +576,22 @@ class AniView extends egret.DisplayObjectContainer {
                 attackEff["wait"]().then(() => g.removeEffect("effPlayerAttack"));
             }
         } else if (weapon.type == "RayGun") { // 火焰射线 AOE
+            // 先飞火球
+            var g = this.bv.mapView.getGridViewAt(ps.x, ps.y);
+            var sv = this.getSVByPos(ps.x, ps.y);
+            var effBall = g.addEffect("effRayGunBall", -1, "default", true);
+            var toPos = sv.localToGlobal();
+            toPos.x += sv.width / 2;
+            toPos.y += sv.height / 2;
+            effBall.x += 250;
+            effBall.y -= 250;
+            effBall.alpha = 0;
+            await AniUtils.flyAndFadeout(effBall, toPos, 200, 1, 1, undefined);
+            g.removeEffect("effRayGunBall");
+
             // 每个目标格子随机一个效果
-            var effArr = [];
             ps.poses.forEach((pt, _) => {
-                var g = this.bv.mapView.getGridViewAt(pt.x, pt.y);
+                g = this.bv.mapView.getGridViewAt(pt.x, pt.y);
                 var eff = g.addEffect("effRayGun", 1, "flame" + AniUtils.rand.nextInt(1, 5), true);
                 eff.rotation = AniUtils.rand.nextInt(0, 36) * 10;
                 eff["wait"]().then(() => g.removeEffect("effRayGun"));
@@ -808,7 +820,7 @@ class AniView extends egret.DisplayObjectContainer {
                 case "BuffPoison":
                     g.addColorEffect("elemPoisoned");
                 break;
-                case "BuffFlame":                    
+                case "BuffFlame":
                 break;
             }
         }

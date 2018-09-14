@@ -33,7 +33,7 @@
 			"name": "font"
 		},
 		{
-			"keys": "effWantedOrder_json,effWantedOrder_png,effSelfExplode_json,effSelfExplode_png,genggui_shenti_tex_png,genggui_shetou_tex_png,genggui_shetou_ske_json,genggui_shenti_ske_json,genggui_shetou_tex_json,genggui_shenti_tex_json,effExpTrack_png,effExpTrack_json,effMonsterDie_json,effMonsterDie_png,effPlayerAttack_png,effPlayerAttack_json,effRelicShining_json,effRelicShining_png,effDeathGod_json,effDeathGod_png,effUncover_json,effUncover_png,effRayGun_json,effRayGun_png,effGuideTap_json,effGuideTap_png,effIceGun_json,effIceGun_png,effPoisonMist_json,effPoisonMist_png",
+			"keys": "effWantedOrder_json,effWantedOrder_png,effSelfExplode_json,effSelfExplode_png,genggui_shenti_tex_png,genggui_shetou_tex_png,genggui_shetou_ske_json,genggui_shenti_ske_json,genggui_shetou_tex_json,genggui_shenti_tex_json,effExpTrack_png,effExpTrack_json,effMonsterDie_json,effMonsterDie_png,effPlayerAttack_png,effPlayerAttack_json,effRelicShining_json,effRelicShining_png,effDeathGod_json,effDeathGod_png,effUncover_json,effUncover_png,effRayGun_json,effRayGun_png,effGuideTap_json,effGuideTap_png,effIceGun_json,effIceGun_png,effPoisonMist_json,effPoisonMist_png,effGridSeletable_json,effGridSeletable_png,effRayGunBall_json,effRayGunBall_png",
 			"name": "effect"
 		}
 	],
@@ -1487,6 +1487,26 @@
 			"url": "assets/effect/effPoisonMist.png",
 			"type": "image",
 			"name": "effPoisonMist_png"
+		},
+		{
+			"url": "assets/effect/effGridSeletable.json",
+			"type": "json",
+			"name": "effGridSeletable_json"
+		},
+		{
+			"url": "assets/effect/effGridSeletable.png",
+			"type": "image",
+			"name": "effGridSeletable_png"
+		},
+		{
+			"url": "assets/effect/effRayGunBall.json",
+			"type": "json",
+			"name": "effRayGunBall_json"
+		},
+		{
+			"url": "assets/effect/effRayGunBall.png",
+			"type": "image",
+			"name": "effRayGunBall_png"
 		}
 	]
 }
