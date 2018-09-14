@@ -1,8 +1,7 @@
 class LevelLogicSearchBody extends LevelLogic{
     public rdps:string[];
-    constructor(level:Level, rdps:string[]){
+    constructor(rdps:string[]){
         super("LevelLogicSearchBody");
-        this.level = level;
         this.rdps = rdps;
 
         this.beforeLevelInited = async (ps) => {

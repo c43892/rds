@@ -36,11 +36,18 @@ class AniView extends egret.DisplayObjectContainer {
         return this.bv.mapView.getGridViewAt(x, y).getShowLayer();
     }
 
-    // 获取一个道具对应的显示层
+    // 获取一个道具对应的PropView
     getSVOfProp(p:Prop):PropView {
-         var pvs = this.bv.propsView.pvs;
-         return Utils.filter(pvs, (pv:PropView) => pv.getElem() && pv.getElem().type == p.type)[0];
+        var index = Utils.indexOf(this.bv.player.props, (prop:Prop) => prop.type == p.type);
+        return this.bv.propsView.getPropViewByIndex(index)
     }
+
+    // 获取一个玩家的遗物对应的Bitmap
+    getBitmapOfRelic(r:Relic):egret.Bitmap {
+        var index = Utils.indexOf(this.bv.player.relics, (relic:Relic) => relic.type == r.type);
+        return index >= 6 ? undefined : this.bv.relics[index];
+    }
+    
 
     public refresh() {
         // 播放动画时阻挡玩家操作        
@@ -864,6 +871,13 @@ class AniView extends egret.DisplayObjectContainer {
         pos.y -= sv.height / 2;
         AniUtils.tipAt(ViewUtils.getTipText(ps.r), pos);
         await AniUtils.flashAndShake(sv);
+    }
+
+    public async onRelicAddElem(ps){
+        var relics = this.bv.relics;
+        var relicImg = this.getBitmapOfRelic(ps.r);
+        if(relicImg)
+            await AniUtils.flash(relicImg, 200);
     }
 
     // 耿鬼长舌头攻击动画

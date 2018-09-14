@@ -18,8 +18,8 @@ class BuffPoisonOnGrids extends Buff {
                 await bt.implRemoveBuff(this.getOwner(), this.type);
         }
 
-        this.onGridChanged = async (ps) => {
-            if(ps.subType != "gridUncovered") return;
+        this.onPlayerActed = async (ps) => {
+            if(ps.subType != "uncoverAt") return;
 
             var bt:Battle = this.getOwner().bt();
             var map:Map = bt.level.map;

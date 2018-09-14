@@ -1,8 +1,6 @@
 class LevelLogicTakeKey extends LevelLogic{
-    constructor(level:Level){
+    constructor(){
         super("LevelLogicTakeKey");
-
-        this.level = level;
 
         this.onLevelInited = async (ps) => {
             var bt:Battle = ps.bt;

@@ -1,8 +1,7 @@
 class LevelLogicAddBoxAndKey extends LevelLogic{
     public rdps:string[];
-    constructor(level:Level){
+    constructor(){
         super("LevelLogicAddBoxAndKey");
-        this.level = level;
 
         this.beforeLevelInited = async (ps) => {
             var bt = <Battle>ps.bt;
@@ -13,8 +12,20 @@ class LevelLogicAddBoxAndKey extends LevelLogic{
             var index = bt.btType.indexOf("_");
             var type = bt.btType.substring(0 , index);
             var boxes:Elem[] = [];
-            switch(type){
-                case "normal":{
+            switch(type){                
+                case "senior":{
+                    for(var i = 0; i < cfg.treasureBoxNum; i++)
+                        boxes.push(this.level.createElem("TreasureBox" + (i + 1)));
+                    
+                    break;
+                }
+                case "boss":{
+                    for(var i = 0; i < cfg.treasureBoxNum; i++)
+                        boxes.push(this.level.createElem("TreasureBox" + (i + 1)));
+                    
+                    break;
+                }
+                default:{
                     var tb1 = this.level.createElem("TreasureBox1");
                     var changeToMonsterBox = bt.srand.next100();
                     if(changeToMonsterBox < cfg.monsterBox) // 是否变成怪物宝箱
@@ -25,18 +36,6 @@ class LevelLogicAddBoxAndKey extends LevelLogic{
                     var tn = bt.srand.next100();
                     if(tn < cfg.extraTreasureBox)
                         boxes.push(this.level.createElem("TreasureBox2"));
-                    
-                    break;
-                }
-                case "senior":{
-                    for(var i = 0; i < cfg.treasureBoxNum; i++)
-                        boxes.push(this.level.createElem("TreasureBox" + (i + 1)));
-                    
-                    break;
-                }
-                case "boss":{
-                    for(var i = 0; i < cfg.treasureBoxNum; i++)
-                        boxes.push(this.level.createElem("TreasureBox" + (i + 1)));
                     
                     break;
                 }

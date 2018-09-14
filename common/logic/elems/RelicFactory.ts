@@ -310,7 +310,7 @@ class RelicFactory {
                     var g = BattleUtils.findRandomEmptyGrid(bt);
                     if(g){
                         var elemType = elemTypes[r.bt().srand.nextInt(0, elemTypes.length)];
-                        await Utils.delay(500);
+                        await bt.fireEvent("onRelicAddElem", {r:r});
                         await bt.implAddElemAt(bt.level.createElem(elemType, undefined, r.bt().player), g.pos.x, g.pos.y);
                     }
                     
@@ -334,7 +334,7 @@ class RelicFactory {
                         var g = BattleUtils.findRandomEmptyGrid(bt);
                         if(g){
                             var elemType = elemTypes[r.bt().srand.nextInt(0, elemTypes.length)];
-                            await Utils.delay(500);
+                            await bt.fireEvent("onRelicAddElem", {r:r});
                             await bt.implAddElemAt(bt.level.createElem(elemType, undefined, r.bt().player), g.pos.x, g.pos.y);
                         }                        
                     }
