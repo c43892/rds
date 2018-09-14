@@ -43,6 +43,8 @@ class BattleView extends egret.DisplayObjectContainer {
     public repView:ReplayView; // 录像界面
     public av:AniView; // 动画视图
     public monsterTip:NewMonsterTipView; // 新怪物提示
+    public elemsTip:egret.DisplayObjectContainer;// 特殊元素提示
+    public elemsTipBitmaps:egret.Bitmap[] = []; // 特殊元素提示图
 
     public openAllElemsView; // 查看所有的某类元素如玩家的遗物或者道具
     public confirmOkYesNo;
@@ -237,6 +239,11 @@ class BattleView extends egret.DisplayObjectContainer {
         this.mapView.name = "mapView";
         this.addChild(this.mapView);
 
+        //特殊元素提示
+        this.elemsTip = new egret.DisplayObjectContainer();
+        this.elemsTip.name = "elemsTip";
+        this.addChild(this.elemsTip);        
+
         // 物品栏
         this.propsView = new PropsView();
         this.propsView.name = "propsView";
@@ -304,6 +311,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.refreshPlayer();
         this.av.refresh();
         this.repView.refresh();
+        this.refreshElemsTip();
         if (this.contains(this.selView)) this.removeChild(this.selView);
     }
 
@@ -472,5 +480,27 @@ class BattleView extends egret.DisplayObjectContainer {
     public async showDeathGodStep(evt:egret.TouchEvent){
         var tip = ViewUtils.formatString(ViewUtils.getTipText("showDeathGodStep"), this.player.deathStep);
         await this.confirmOkYesNo("", tip, false);
+    }
+
+    public refreshElemsTip() {
+        this.elemsTipBitmaps = [];
+        this.elemsTip.removeChildren();
+        ViewUtils.multiLang(this, this.elemsTip);
+        var tipTypes = ["Clock", "Magazine", "EconomyMagazine", "Gengar", "TreasureBox"];
+        var elems = this.player.bt().level.map.findAllElems((e:Elem) => Utils.indexOf(tipTypes, (s:string) => s == e.type) > -1);
+        var gap = 8;
+        for(var i = 0; i < elems.length; i++){
+            var img = ViewUtils.createBitmapByName(elems[i].getElemImgRes() + "_png");
+            img.width = 60;
+            img.height = 60;            
+            img.x = this.elemsTip.width / 2 + (i - (elems.length - 1) / 2) * (gap + img.width) - img.width / 2
+            img.y = 0;
+            this.elemsTipBitmaps.push(img);
+        }
+        // for(var bitmap of this.elemsTipBitmaps)
+        //     this.elemsTip.addChild(bitmap);
+
+        this.elemsTipBitmaps.forEach((bitmap, _) => this.elemsTip.addChild(bitmap));
+        this.setChildIndex(this.elemsTip, -1);
     }
 }
