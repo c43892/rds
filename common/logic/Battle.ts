@@ -180,10 +180,10 @@ class Battle {
     }
 
     // 揭开指定位置的地块（不再检查条件）
-    public async uncover(x:number, y:number, suppressSneak = false, suppressLogicEvent = false) {
+    public async uncover(x:number, y:number, suppressSneak = false, suppressLogicEvent = false, opByPlayer = false) {
         var e = this.level.map.getElemAt(x, y);
         if(e && (e.isBig() || e.type == "PlaceHolder"))
-            await this.uncoverBigElem(x, y, suppressSneak, suppressLogicEvent);
+            await this.uncoverBigElem(x, y, suppressSneak, suppressLogicEvent, opByPlayer);
 
         else {
             var g = this.level.map.getGridAt(x, y);
@@ -191,10 +191,10 @@ class Battle {
             var stateBeforeUncover = g.status;
             g.status = GridStatus.Uncovered;
 
-            await this.fireEvent("onGridChanged", { x: x, y: y, subType: "gridUncovered", stateBeforeUncover: stateBeforeUncover, suppressSneak: suppressSneak });
+            await this.fireEvent("onGridChanged", { x: x, y: y, subType: "gridUncovered", stateBeforeUncover: stateBeforeUncover, suppressSneak: suppressSneak, opByPlayer:opByPlayer});
 
             if (!suppressLogicEvent)
-                await this.triggerLogicPoint("onGridChanged", { x: x, y: y, subType: "gridUncovered", stateBeforeUncover: stateBeforeUncover, suppressSneak: suppressSneak });
+                await this.triggerLogicPoint("onGridChanged", { x: x, y: y, subType: "gridUncovered", stateBeforeUncover: stateBeforeUncover, suppressSneak: suppressSneak, opByPlayer:opByPlayer});
 
             // 对 8 邻格子进行标记逻辑计算
             var neighbours = [];
@@ -211,7 +211,7 @@ class Battle {
     }
 
     // 揭开大元素相关的地块 (不再检查条件)
-    public async uncoverBigElem(x:number, y:number, suppressSneak = false, suppressLogicEvent = false) {
+    public async uncoverBigElem(x:number, y:number, suppressSneak = false, suppressLogicEvent = false, opByPlayer = false) {
         var e = this.level.map.getElemAt(x, y);
         if (e["linkTo"])
             e = e["linkTo"]
@@ -226,7 +226,7 @@ class Battle {
             Utils.assert(g.isCovered(), "uncover action can only be implemented on a covered grid");
             var stateBeforeUncover = g.status;
             g.status = GridStatus.Uncovered;
-            await this.fireEvent("onGridChanged", { x: g.pos.x, y: g.pos.y, subType: "gridUncovered", stateBeforeUncover: stateBeforeUncover, suppressSneak: suppressSneak });
+            await this.fireEvent("onGridChanged", { x: g.pos.x, y: g.pos.y, subType: "gridUncovered", stateBeforeUncover: stateBeforeUncover, suppressSneak: suppressSneak, opByPlayer:opByPlayer});
 
             // 对 8 邻格子进行标记逻辑计算
             var neighbours = [];
@@ -241,7 +241,7 @@ class Battle {
 
         if (!suppressLogicEvent)
             for (var g of gs) 
-                await this.triggerLogicPoint("onGridChanged", {x:g.pos.x, y:g.pos.y, subType:"gridUncovered", stateBeforeUncover:stateBeforeUncover, suppressSneak:suppressSneak});
+                await this.triggerLogicPoint("onGridChanged", {x:g.pos.x, y:g.pos.y, subType:"gridUncovered", stateBeforeUncover:stateBeforeUncover, suppressSneak:suppressSneak, opByPlayer:opByPlayer});
             
         return true;
     }
@@ -416,7 +416,7 @@ class Battle {
             this.fireEventSync("onPlayerOp", {op:"try2UncoverAt", ps:{x:x, y:y}});
 
             var stateBeforeUncover = this.level.map.grids[x][y].status;
-            await this.uncover(x, y);
+            await this.uncover(x, y, false, false, true);
             await this.fireEvent("onPlayerActed", {subType:"uncoverAt", num:-1, x:x, y:y});
             await this.triggerLogicPoint("onPlayerActed", {subType:"uncoverAt", num:-1, x:x, y:y}); // 算一次角色行动
             

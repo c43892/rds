@@ -55,8 +55,8 @@ class Monster extends Elem {constructor() { super();}
             buff.getOwner = () => this;
             this.buffs.push(buff);
         }
-        else if (buff.cnt)
-            this.buffs[n].cnt += buff.cnt;
+        else 
+            this.buffs[n].overBuff(buff);
     }
 
     public removeBuff(type:string):Buff {

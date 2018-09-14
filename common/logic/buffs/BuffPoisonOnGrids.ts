@@ -15,28 +15,27 @@ class BuffPoisonOnGrids extends Buff {
             var bt:Battle = this.getOwner().bt();
 
             if(this.cnt < 0)
-                await bt.implRemoveBuff(this.getOwner(), this.type);
+                await bt.implRemoveBuff(this.getOwner(), "BuffPoisonOnGrids");
         }
 
-        this.onPlayerActed = async (ps) => {
-            if(ps.subType != "uncoverAt") return;
-
-            var bt:Battle = this.getOwner().bt();
-            var map:Map = bt.level.map;
-            if(Utils.indexOf(grids, (g:Grid) => g.pos.x == ps.x && g.pos.y == ps.y) > -1){
-                await bt.implAddBuff(this.getOwner(), "BuffPoison", this.buffPoisonPs[0], this.buffPoisonPs[1]);
-            }
-        }
-
-        this.onGridChanged = (ps) => {
+        this.onGridChanged = async (ps) => {
             if(ps.subType != "gridUncovered") return;
+
             var bt:Battle = this.getOwner().bt();
-            var g = bt.level.map.getGridAt(ps.x, ps.y)
-            var n = Utils.indexOf(this.grids, (grid:Grid) => grid = g);
-            if(n > -1)
-                this.grids = Utils.removeAt(this.grids, n);
+            if(ps.opByPlayer)
+                if(Utils.indexOf(this.grids, (g:Grid) => g.pos.x == ps.x && g.pos.y == ps.y) > -1)
+                    await bt.implAddBuff(this.getOwner(), "BuffPoison", this.buffPoisonPs[0], this.buffPoisonPs[1]);
+            
+            this.grids = Utils.remove(this.grids, bt.level.map.getGridAt(ps.x, ps.y));
         }
 
-        this.addBuffCnt = (cnt, newCnt) => this.cnt = newCnt;
+        
+        this.overBuff = (newBuff:BuffPoisonOnGrids) => {
+            this.cnt = newBuff.cnt;
+            for(var grid of newBuff.grids)
+                if(Utils.indexOf(this.grids, (g:Grid) => g.pos.x == grid.pos.x && g.pos.y == grid.pos.y) == -1)
+                    this.grids.push(grid);
+            }
+        
     }
 }

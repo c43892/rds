@@ -21,6 +21,6 @@ class BuffPoison extends Buff {
                 await bt.implAddMonsterHp(this.getOwner(), -damage);
         };
     
-        this.addBuffCnt = (cnt, newCnt) => this.cnt = cnt + newCnt;
+        this.overBuff = (newBuff:Buff) => this.cnt = cnt + newBuff.cnt;
     }
 }

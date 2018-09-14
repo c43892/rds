@@ -22,6 +22,6 @@ class BuffStrangthPotion extends Buff{
             attackerAttrs.attackFlags.push("immuneAttackBack");
         }
 
-        this.addBuffCnt = (cnt, newCnt) => this.cnt = newCnt;
+        this.overBuff = (newBuff:Buff) => this.cnt = cnt + newBuff.cnt;
     }
 }

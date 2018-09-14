@@ -26,6 +26,6 @@ class BuffSuperPotion extends Buff{
             ps.targetAttrs.targetFlags.push("cancelAttack");
         };
 
-        this.addBuffCnt = (cnt, newCnt) => this.cnt = newCnt;
+        this.overBuff = (newBuff:Buff) => this.cnt = cnt + newBuff.cnt;
     } 
 }

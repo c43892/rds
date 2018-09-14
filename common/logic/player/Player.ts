@@ -340,8 +340,8 @@ class Player {
             buff.getOwner = () => this;
             this.buffs.push(buff);
         }
-        else if (buff.cnt)
-            this.buffs[n].addBuffCnt(this.buffs[n].cnt, buff.cnt);
+        else 
+            this.buffs[n].overBuff(buff);
     }
 
     public removeBuff(type:string):Buff {
