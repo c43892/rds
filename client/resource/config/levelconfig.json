@@ -262,8 +262,8 @@
             }
         },
         "constElems": {
-            "PoisonJellyfish": 10,
-            "RayGun": 10
+            "PoisonJellyfish": 1,
+            "RayGun": 1
         },
         "randomGroups": [{
                 "num": [ 8, 9 ],

@@ -124,6 +124,7 @@ class GuideView extends egret.DisplayObjectContainer {
         this.addChild(this.hand);
         this.hand.x = this.tapFrameAni.x;
         this.hand.y = this.tapFrameAni.y;
+        this.hand.scaleX = this.hand.scaleY = 1;
         egret.Tween.removeTweens(this.hand);
         egret.Tween.get(this.hand, {loop:true})
             .to({"scaleX":1.2, "scaleY":1.2}, 500, egret.Ease.cubicOut)
