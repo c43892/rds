@@ -28,6 +28,15 @@ class BuffPoisonOnGrids extends Buff {
             }
         }
 
+        this.onGridChanged = (ps) => {
+            if(ps.subType != "gridUncovered") return;
+            var bt:Battle = this.getOwner().bt();
+            var g = bt.level.map.getGridAt(ps.x, ps.y)
+            var n = Utils.indexOf(this.grids, (grid:Grid) => grid = g);
+            if(n > -1)
+                this.grids = Utils.removeAt(this.grids, n);
+        }
+
         this.addBuffCnt = (cnt, newCnt) => this.cnt = newCnt;
     }
 }
