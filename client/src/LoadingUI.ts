@@ -66,17 +66,12 @@ class LoadingUI extends egret.DisplayObjectContainer implements RES.PromiseTaskR
     }
 
     onProgress(current: number, total: number): void {
-        this.setProgress(current / total * (this.gsn + 1) / this.gs.length);
+        this.setProgress(current / total);
     }
 
     // 加载指定资源组
-    gs;
-    gsn;
-    public async loadResGroups(...gs) {
-        this.gs = gs;
-        this.gsn = 0;
-        for (this.gsn = 0; this.gsn < this.gs.length; this.gsn++)
-            await RES.loadGroup(this.gs[this.gsn], 0, this);
+    public async loadResGroups(gs) {
+        await RES.loadGroup(gs, 0, this);
     }
 
     // 手动设置为 100% 

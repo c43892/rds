@@ -944,7 +944,7 @@ class AniView extends egret.DisplayObjectContainer {
     // 黑幕开启
     async blackIn(removedWhenFinish = false) {
         this.addChild(this.blackCover);
-        await this.aniFact.createAni("tr", {obj: this.blackCover, fa:0, ta:1, time: 1000});
+        await this.aniFact.createAni("tr", {obj: this.blackCover, fa:0, ta:1, time: 500});
         if (removedWhenFinish)
             this.removeChild(this.blackCover);
     }
@@ -954,7 +954,7 @@ class AniView extends egret.DisplayObjectContainer {
         if (!this.contains(this.blackCover))
             this.addChild(this.blackCover);
 
-        await this.aniFact.createAni("tr", {obj: this.blackCover, fa:1, ta:0, time: 1000});
+        await this.aniFact.createAni("tr", {obj: this.blackCover, fa:1, ta:0, time: 500});
         this.removeChild(this.blackCover);
     }
 

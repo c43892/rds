@@ -110,11 +110,9 @@ class MainView extends egret.DisplayObjectContainer {
 
             // 加载战斗资源
             bt.prepare();
-            this.loadBattleRes(bt).then(() => {
-                bt.openShop = async (items, prices, onBuy) => {}; // 录像回放中的战斗内商店特殊处理
-                bt.openRelicSel2Add = async (choices, onSel) => {}; // 录像回放中的升级选择遗物特殊处理
-                this.startNewBattle(bt).then(() => this.openWorldMap(p.worldmap));
-            })
+            bt.openShop = async (items, prices, onBuy) => {}; // 录像回放中的战斗内商店特殊处理
+            bt.openRelicSel2Add = async (choices, onSel) => {}; // 录像回放中的升级选择遗物特殊处理
+            this.startNewBattle(bt).then(() => this.openWorldMap(p.worldmap));
         };
 
         // 开始一场新战斗
@@ -132,8 +130,6 @@ class MainView extends egret.DisplayObjectContainer {
                 await this.av.blackIn();
 
             bt.prepare();
-            await this.loadBattleRes(bt);
-
             bt.openShop = async (items, prices, onBuy, onRob) => await this.openShopInBattle(items, prices, onBuy, onRob);
             bt.openRelicSel2Add = async (choices, onSel) => await this.openRelicSel2Add(choices, onSel);
             BattleRecorder.startNew(bt.id, bt.player, bt.btType, bt.btRandomSeed, bt.trueRandomSeed);
@@ -204,7 +200,6 @@ class MainView extends egret.DisplayObjectContainer {
     // 开启商店界面
     public async openShopInBattle(items, prices, onBuy, onRob) {
         this.sv.player = this.p;
-        await this.loadResources(Utils.map(Utils.filter(items, (it) => !!it), (it) => it + "_png"));
         this.addChild(this.sv);
         await this.sv.open(items, prices, onBuy, onRob, true);
         this.removeChild(this.sv);
@@ -227,7 +222,6 @@ class MainView extends egret.DisplayObjectContainer {
         this.sv.player = this.p;
         this.addChild(this.sv);
         var r = Utils.genRandomShopItems(this.p, shop, this.p.playerRandom, 6);
-        await this.loadResources(Utils.map(Utils.filter(r.items, (it) => !!it), (it) => it + "_png"));
 
         // 处理打折
         var onOpenShopPs = {discount:0};
@@ -302,7 +296,6 @@ class MainView extends egret.DisplayObjectContainer {
                 }
             }
         }
-        await this.loadResources(res);
         this.addChild(this.ttv); 
         this.setChildIndex(this.ttv, -1);
         await this.ttv.open();
@@ -437,61 +430,6 @@ class MainView extends egret.DisplayObjectContainer {
         this.setChildIndex(this.st, -1);
         await this.st.open();
         this.removeChild(this.st);
-    }
-
-    // 加载指定资源组并显示加载画面
-    public loadResGroupsImpl;
-    public loadResGroups = async (g) => await this.loadResGroupsImpl(g);
-    public async loadResources(resArr) {
-        // 将所有需要加载的资源打包成要给临时资源组
-        var r = new SRandom();
-        var g = "resourcegroup_" + r.nextDouble().toString();
-        RES.createGroup(g, resArr);
-        await this.loadResGroups(g);
-    }
-
-    // 加载指定关卡中配置到的资源
-    public async loadBattleRes(bt:Battle) {
-        var resArr = [];
-
-        // 所有已经加入的元素
-        var items:string[] = Utils.map(bt.level.map.findAllElems(), (e) => e.type);
-        var relics:string[] = Utils.map(bt.player.relics, (r) => r.type);
-        var props:string[] = Utils.map(bt.player.props, (r) => r.type);
-        var es = [...items, ...relics, ...props];
-        while (es.length > 0) {
-            var e = es.shift();
-            var cfg = bt.level.getElemCfg(e);
-            Utils.assert(!!cfg, "no elem config: " + e);
-            var attrs = cfg.attrs;
-            var type = cfg.type;
-            
-            var res = attrs.elemImg ? attrs.elemImg : type;
-            if (!attrs.invisible) {
-                if (attrs.repRes) {
-                    for (var r of attrs.repRes)
-                        resArr.push(r + "_png");
-                } else
-                    resArr.push(res + "_png");
-            }
-
-            if (attrs.refElems) {
-                for (var re of attrs.refElems)
-                    es.push(re);
-            }
-
-            // 固定掉落元素
-            var dpElems = attrs.dropItems ? attrs.dropItems : [];
-            for (var dpe of dpElems)
-                es.push(dpe);
-
-            // 随机掉落组
-            var rdpElems = attrs.rdp ? GCfg.getRandomDropGroupCfg(attrs.rdp).elems : {};
-            for (var dpe1 in rdpElems)
-                es.push(dpe1);
-        }
-
-        await this.loadResources(resArr);
     }
 
     // 按照本地存档继续游戏
