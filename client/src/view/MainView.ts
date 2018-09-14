@@ -350,7 +350,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.p = p;
         this.lgv.player = p;
         this.addChild(this.lgv);
-        this.lgv.refresh();
+        this.lgv.open();
         await this.av.blackOut();        
         this.lgv.onClose = async (op:string) => {
             if (op == "openRank")
