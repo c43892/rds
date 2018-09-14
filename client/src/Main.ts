@@ -65,48 +65,48 @@ class Main extends egret.DisplayObjectContainer {
     // 全局配置初始化
     private globalConfigInit() {
         // 关卡
-        var lvCfg = RES.getRes("levelconfig_json");
+        var lvCfg = ResMgr.getRes("levelconfig_json");
         GCfg.mapsize = lvCfg.mapsize;
         GCfg.getLevelCfg = (lv) => {
             Utils.assert(lvCfg[lv], "can not find level: " + lv);
             return lvCfg[lv];
         }
-        var elemPosCfg = RES.getRes("elemPosConfig_json");
+        var elemPosCfg = ResMgr.getRes("elemPosConfig_json");
         GCfg.getElemPosCfg = (cfg) => elemPosCfg[cfg];
         
-        var levelLogics = RES.getRes("levelLogicConfig_json");
+        var levelLogics = ResMgr.getRes("levelLogicConfig_json");
         GCfg.getLevelLogicCfg = (btType) => levelLogics[btType];
 
         // 元素默认配置
-        var elemAttrsCfg = RES.getRes("elemattrsconfig_json");
+        var elemAttrsCfg = ResMgr.getRes("elemattrsconfig_json");
         GCfg.getElemAttrsCfg = (e) => {
             Utils.assert(elemAttrsCfg[e], "can not find elem attrs: " + e);
             return elemAttrsCfg[e];
         };
 
-        var elemDescCfg = RES.getRes("elemdesc_json");
+        var elemDescCfg = ResMgr.getRes("elemdesc_json");
         GCfg.getElemDescCfg = () => elemDescCfg;
 
         // 角色相关
-        var playerCfg = RES.getRes("playerconfig_json");
+        var playerCfg = ResMgr.getRes("playerconfig_json");
         GCfg.playerCfg = playerCfg;
 
         // 职业相关
-        var occupationCfg = RES.getRes("occupationconfig_json");
+        var occupationCfg = ResMgr.getRes("occupationconfig_json");
         GCfg.getOccupationCfg = (occupation:string) => {
             Utils.assert(occupationCfg[occupation], "can not find occupationCfg of" + occupation);
             return occupationCfg[occupation];
         };
 
         // 随机掉落组
-        var randomDropGroupCfg = RES.getRes("randomdropconfig_json");
+        var randomDropGroupCfg = ResMgr.getRes("randomdropconfig_json");
         GCfg.getRandomDropGroupCfg = (e) => {
             Utils.assert(randomDropGroupCfg[e], "can not find randomdropground: " + e);
             return randomDropGroupCfg[e];
         };
 
         // 世界地图
-        var worldmapCfg = RES.getRes("worldmap_json");
+        var worldmapCfg = ResMgr.getRes("worldmap_json");
         GCfg.worldMapConnectionCfg = worldmapCfg.connections;
         GCfg.getWorldMapCfg = (world) => {
             Utils.assert(worldmapCfg[world], "can not find worldmap: " + world);
@@ -114,21 +114,21 @@ class Main extends egret.DisplayObjectContainer {
         }
 
         // 商店
-        var shopCfg = RES.getRes("shopconfig_json");
+        var shopCfg = ResMgr.getRes("shopconfig_json");
         GCfg.getShopCfg = (shop) => {
             Utils.assert(shopCfg[shop], "can not find shop: " + shop);
             return shopCfg[shop];
         };
 
         // 抢劫
-        var robCfg = RES.getRes("robconfig_json");
+        var robCfg = ResMgr.getRes("robconfig_json");
         GCfg.getRobCfg = (rob) => {
             Utils.assert(robCfg[rob], "can not find rob: " + rob);
             return robCfg[rob];
         };
 
         // 世界地图事件
-        var worldmapeventselsCfg = RES.getRes("worldmapeventsels_json");
+        var worldmapeventselsCfg = ResMgr.getRes("worldmapeventsels_json");
         GCfg.getWorldMapEventSelsDesc = (f) => {
             Utils.assert(worldmapeventselsCfg.desc[f], "can not find worldmap event sels desc: " + f);
             return worldmapeventselsCfg.desc[f];
@@ -139,7 +139,7 @@ class Main extends egret.DisplayObjectContainer {
         };
 
         // 多语言
-        var multiLangCfg = RES.getRes("multilanguage_json");
+        var multiLangCfg = ResMgr.getRes("multilanguage_json");
         GCfg.getMultiLanguageCfg = () => multiLangCfg;
     }
 
