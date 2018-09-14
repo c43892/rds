@@ -52,13 +52,13 @@ class ItemFactory {
             var e = this.createItem();
             e.canBeDragDrop = false;
             e.cnt = attrs.cnt;
-            e["locked"] = () => e.bt().level.map.findAllElems((e:Elem) => e["lockDoor"]).length > 0;
-            e["enoughKey"] = () => e.bt().level.map.findAllElems((elem:Elem) => elem.type == "Key" && !elem.getGrid().isCovered()).length >= e.attrs.cnt;
-            e.canUse = () => !e["locked"]() && e["enoughKey"]();
-            e.canNotUseReason = () => e.canUse() ? undefined : (!e["enoughKey"]() ? "noKey" : "doorLocked");
+            var locked = () => e.bt().level.map.findAllElems((e:Elem) => e["lockDoor"]).length > 0;
+            var noKey = () => !e.bt().level.map.findFirstElem((elem:Elem) => elem.type == "Key" && !elem.getGrid().isCovered() && elem.isValid());
+            e.canUse = () => !noKey() && !locked();
+            e.canNotUseReason = () => e.canUse() ? undefined : (noKey() ? "noKey" : "doorLocked");
             e.getElemImgRes = () => e.type + e.cnt;
             e.use = async () => {
-                var key = e.bt().level.map.findFirstElem((elem:Elem) => elem.type == "Key" && !elem.getGrid().isCovered());
+                var key = e.bt().level.map.findFirstElem((elem:Elem) => elem.type == "Key" && !elem.getGrid().isCovered() && elem.isValid());
                 Utils.assert(!!key, "no key for door");
                 await e.bt().impl2UseElemAt(key, e.pos.x, e.pos.y);
                 return true;
@@ -75,10 +75,10 @@ class ItemFactory {
         "TreasureBox": (attrs) => {
             var e = this.createItem();
             e.canBeDragDrop = false;
-            e.canUse = () => !!e.bt().level.map.findFirstElem((elem:Elem) => elem.type == "Key" && !elem.getGrid().isCovered());
+            e.canUse = () => !!e.bt().level.map.findFirstElem((elem:Elem) => elem.type == "Key" && !elem.getGrid().isCovered() && elem.isValid());
             e.canNotUseReason = () => e.canUse() ? undefined : "noKey";
             e.use = async () => {
-                var key = e.bt().level.map.findFirstElem((elem:Elem) => elem.type == "Key" && !elem.getGrid().isCovered());
+                var key = e.bt().level.map.findFirstElem((elem:Elem) => elem.type == "Key" && !elem.getGrid().isCovered() && elem.isValid());
                 Utils.assert(!!key, "no key for door");
                 await e.bt().impl2UseElemAt(key, e.pos.x, e.pos.y);
                 return true;

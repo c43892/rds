@@ -36,6 +36,7 @@ class PropFactory {
                 e.canUse = () => true;
                 e.use = async () => {
                     e.resetCD();
+                    e.cnt--;
                     var bt = e.bt();
                     await bt.implAddBuff(bt.player, "BuffAddHp", e.attrs.rounds, e.attrs.heal);
                     return e.cnt > 0;
