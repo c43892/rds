@@ -350,6 +350,48 @@ class GridView extends egret.DisplayObjectContainer {
         return eff;
     }
 
+    // 添加带指定延迟循环播放的特效
+    public addRandomDelayLoopEffect(effName, rand:SRandom, delays, aniName = "default", noScale = false) {
+        var eff = this.addEffect(effName, 1, aniName, noScale);
+        this.removeEffect(effName);
+        eff.alpha = 0;
+
+        var stopped = false;
+        var effWrapper = new egret.DisplayObjectContainer();
+        effWrapper.addChild(eff);
+        effWrapper["stop"] = () => {
+            eff.stop();
+            effWrapper.removeChild(eff);
+            stopped = true;
+        };
+        this.effects[effName] = effWrapper;
+        this.effLayer.addChild(effWrapper);
+               
+        var doDelay;
+        var doEff;
+
+        doDelay = () => {
+            var delay = rand.nextInt(delays[0], delays[1]);
+            var d = Utils.delay(delay);
+            d.then(() => {
+                if (stopped) return;
+                eff.alpha = 1;
+                eff.gotoAndPlay(0, 1);
+            });
+        };
+
+        doEff = () => {
+            eff["wait"]().then(() => {
+                eff.alpha = 0;
+                if (stopped) return;
+                doDelay();
+            });
+        };
+
+        doDelay();
+        return effWrapper;
+    }
+
     public addColorEffect(effName) {
         if (this.effects[effName]) return this.effects[effName];
 
@@ -367,13 +409,20 @@ class GridView extends egret.DisplayObjectContainer {
             0, 0, 0, 1, 0
         ];
 
+        var poisonMistMat = [
+            0.1, 0, 0, 0, 0,
+            0.4, 0.7, 0.4, 0, 0,
+            0, 0, 0.1, 0, 0,
+            0, 0, 0, 1, 0
+        ];
+
         var eff;
         switch (effName) {
             case "elemPoisoned":
                 eff = new ColorEffect(poisonFromMat, poisonToMat, 2000, this.elemImg);
             break;
             case "gridPoisoned":
-                eff = new ColorEffect(poisonFromMat, poisonToMat, 0, this.coveredImg, this.uncoverableImg);
+                eff = new ColorEffect(poisonMistMat, poisonMistMat, 0, this.coveredImg, this.uncoverableImg);
             break;
             default:
                 Utils.assert(false, "unknown color effect name:" + effName);
@@ -382,6 +431,7 @@ class GridView extends egret.DisplayObjectContainer {
         eff.start();
         this.effects[effName] = eff;
         this.effLayer.addChild(eff);
+        return eff;
     }
 
     public removeEffect(effName) {

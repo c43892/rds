@@ -807,13 +807,12 @@ class AniView extends egret.DisplayObjectContainer {
         if (ps.target instanceof Player) {
             if(buffType == "BuffPoisonOnGrids") {
                 var gs = Utils.map(buff.grids, (g) => this.bv.mapView.getGridViewAt(g.pos.x, g.pos.y));
-                gs.forEach((g, _) => {
+                gs.forEach((g:GridView, _) => {
                     g.addColorEffect("gridPoisoned");
-                    g.addEffect("effPoisonMist");
+                    g.addRandomDelayLoopEffect("effPoisonMist", AniUtils.rand, [0, 30000]);
                 });
             }
-        }
-        else {
+        } else {
             var e = <Elem>(ps.target);
             var g = this.bv.mapView.getGridViewAt(e.pos.x, e.pos.y);
             switch (buffType) {
