@@ -39,25 +39,32 @@ class LoadingUI extends egret.DisplayObjectContainer implements RES.PromiseTaskR
     loadingBar:egret.Bitmap;
     ghost:egret.Bitmap;
 
+    createBitmapByName(name):egret.Bitmap {
+        var bmp = new egret.Bitmap();
+        var tex = RES.getRes(name);
+        ViewUtils.setTex(bmp, tex, true);
+        return bmp;
+    }
+
     public refresh() {
         this.removeChildren();
 
         // 背景
-        this.bg = ViewUtils.createBitmapByName("LoadingBg_png");
+        this.bg = this.createBitmapByName("LoadingBg_png");
         this.bg.x = this.bg.y = 0;
         this.bg.width = this.width;
         this.bg.height = this.height;
         this.addChild(this.bg);
 
         // 进度条
-        this.loadingBar = ViewUtils.createBitmapByName("LoadingBar_png");
+        this.loadingBar = this.createBitmapByName("LoadingBar_png");
         this.loadingBar.x = this.sx;
         this.loadingBar.y = this.sy;
         this.loadingBar.width = 0;
         this.addChild(this.loadingBar);
 
         // 进度条上的幽灵
-        this.ghost = ViewUtils.createBitmapByName("LoadingGhost_png");
+        this.ghost = this.createBitmapByName("LoadingGhost_png");
         this.ghost.anchorOffsetX = this.ghost.width / 2;
         this.ghost.anchorOffsetY = this.ghost.height / 2;
         this.ghost.x = this.sx;
@@ -71,7 +78,7 @@ class LoadingUI extends egret.DisplayObjectContainer implements RES.PromiseTaskR
 
     // 加载指定资源组
     public async loadResGroups(gs) {
-        await RES.loadGroup(gs, 0, this);
+        await ResMgr.loadResGroup(gs, this);
     }
 
     // 手动设置为 100% 

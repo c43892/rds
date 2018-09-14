@@ -31,7 +31,7 @@ class ViewUtils {
     }
 
     public static getTex(name:string) {
-        let tex: egret.Texture = RES.getRes(name);
+        let tex: egret.Texture = ResMgr.getRes(name);
         if (!tex)
             Utils.assert(false, "no texture created: " + name);
 
@@ -40,7 +40,7 @@ class ViewUtils {
 
     public static setTexName(bmp:egret.Bitmap, name:string, resetSize:boolean = false, fillMode = egret.BitmapFillMode.SCALE):egret.Bitmap {
         if (name) {
-            let tex: egret.Texture = RES.getRes(name);
+            let tex: egret.Texture = ResMgr.getRes(name);
             if (!tex)
                 Utils.assert(false, "no texture created: " + name);
             ViewUtils.setTex(bmp, tex, resetSize, fillMode);
@@ -50,17 +50,17 @@ class ViewUtils {
     }
 
     public static getFont(fnt) {
-        return RES.getRes(fnt);
+        return ResMgr.getRes(fnt);
     }
 
     public static loadTex(name:string) {
-        return egret.Texture = RES.getRes(name);
+        return egret.Texture = ResMgr.getRes(name);
     }
 
     // 创建指定帧动画
     public static createFrameAni(name:string, clipName:string = "default"):egret.MovieClip {
-        var data = RES.getRes(name + "_json");
-        var txtr = RES.getRes(name + "_png");
+        var data = ResMgr.getRes(name + "_json");
+        var txtr = ResMgr.getRes(name + "_png");
         Utils.assert(data && txtr, "no such frame ani effect:" + name);
         var fact:egret.MovieClipDataFactory = new egret.MovieClipDataFactory(data, txtr);
         var eff = new egret.MovieClip(fact.generateMovieClipData(clipName));
@@ -84,9 +84,9 @@ class ViewUtils {
 
     // 创建指定的骨骼动画
     public static createSkeletonAni(name:string, onFinished = undefined):dragonBones.Armature {
-        var skeletonData = RES.getRes(name + "_ske_json");
-        var textureData = RES.getRes(name + "_tex_json");
-        var texture = RES.getRes(name + "_tex_png");
+        var skeletonData = ResMgr.getRes(name + "_ske_json");
+        var textureData = ResMgr.getRes(name + "_tex_json");
+        var texture = ResMgr.getRes(name + "_tex_png");
         var fat:dragonBones.EgretFactory = new dragonBones.EgretFactory();
         fat.addDragonBonesData(fat.parseDragonBonesData(skeletonData));
         fat.addTextureAtlasData(fat.parseTextureAtlasData(textureData, texture));
