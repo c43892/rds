@@ -13,8 +13,10 @@ class AniUtils {
         var wp = obj.localToGlobal();
         var ax = obj.anchorOffsetX;
         var ay = obj.anchorOffsetY;
-        obj.anchorOffsetX = obj.width * obj.scaleX / 2;
-        obj.anchorOffsetY = obj.height * obj.scaleY / 2;
+        if (!(obj instanceof egret.MovieClip)) {
+            obj.anchorOffsetX = obj.width * obj.scaleX / 2;
+            obj.anchorOffsetY = obj.height * obj.scaleY / 2;
+        }
         AniUtils.ac.addChild(obj);
         obj.x = wp.x + obj.anchorOffsetX;
         obj.y = wp.y + obj.anchorOffsetY;
@@ -349,13 +351,13 @@ class AniUtils {
     }
 
     // 直线飞向目标位置并消失
-    public static async flyAndFadeoutArr(objArr:egret.DisplayObject[], toPos, time, toScale, toAlpha, mode) {
+    public static async flyAndFadeoutArr(objArr:egret.DisplayObject[], toPos, time, toScale, toAlpha, toRotation, mode) {
         var aniArr = [];
         var revArr = []
         objArr.forEach((obj, i) => {
             revArr.push(AniUtils.reserveObjTrans(obj, toPos));
             aniArr.push(AniUtils.aniFact.createAniByCfg({
-                type:"tr", tx:toPos.x, ty:toPos.y, ta:toAlpha, tsx:toScale, tsy:toScale,
+                type:"tr", tx:toPos.x, ty:toPos.y, ta:toAlpha, tr:toRotation, tsx:toScale, tsy:toScale,
                 time:time, obj:obj, mode:mode
             }));
         });
@@ -370,8 +372,8 @@ class AniUtils {
         });
     }
 
-    public static async flyAndFadeout(obj:egret.DisplayObject, toPos, time, toScale, toAlpha, mode) {
-        await AniUtils.flyAndFadeoutArr([obj], toPos, time, toScale, toAlpha, mode);
+    public static async flyAndFadeout(obj:egret.DisplayObject, toPos, time, toScale, toAlpha, toRotation, mode) {
+        await AniUtils.flyAndFadeoutArr([obj], toPos, time, toScale, toAlpha, toRotation, mode);
     }
 
     // 所有元素随机移动并不等待动画

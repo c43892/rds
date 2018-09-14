@@ -297,7 +297,7 @@ class AniView extends egret.DisplayObjectContainer {
             }
 
             await AniUtils.flyAndFadeout(g, tg.localToGlobal(), 
-                e.type == "Key" ? 300 : 150, 1, 1, 
+                e.type == "Key" ? 300 : 150, 1, 1, 0,
                 e.type == "Key" ? undefined : egret.Ease.quintIn);
         }
     }
@@ -586,7 +586,7 @@ class AniView extends egret.DisplayObjectContainer {
             effBall.x += 250;
             effBall.y -= 250;
             effBall.alpha = 0;
-            await AniUtils.flyAndFadeout(effBall, toPos, 200, 1, 1, undefined);
+            await AniUtils.flyAndFadeout(effBall, toPos, 250, 1, 1, -3600, undefined);
             g.removeEffect("effRayGunBall");
 
             // 每个目标格子随机一个效果
@@ -634,7 +634,7 @@ class AniView extends egret.DisplayObjectContainer {
         var sv = this.getSVByPos(ps.fromPos.x, ps.fromPos.y);
         var tosv = this.getSVByPos(ps.toPos.x, ps.toPos.y);
         var ta = e.type == "CowardZombie" ? 0 : 1; // 贪婪僵尸的飞行是带隐藏效果的
-        await AniUtils.flyAndFadeout(sv, tosv.localToGlobal(), 500, 1, ta, egret.Ease.quintIn);
+        await AniUtils.flyAndFadeout(sv, tosv.localToGlobal(), 500, 1, ta, 0, egret.Ease.quintIn);
         this.bv.refreshPlayer();
         this.bv.mapView.refreshAt(ps.fromPos.x, ps.fromPos.y);
         this.bv.mapView.refreshAt(ps.toPos.x, ps.toPos.y);
@@ -646,7 +646,7 @@ class AniView extends egret.DisplayObjectContainer {
         var sv = this.getSV(e);
         var tosv = this.bv.mapView.getGridViewsWithElem((elem:Elem) => elem.type == "NextLevelPort", false)[0];
         if (e instanceof Monster)
-            await AniUtils.flyAndFadeout(sv, tosv.localToGlobal(), 1000, 1, 0, undefined);
+            await AniUtils.flyAndFadeout(sv, tosv.localToGlobal(), 1000, 1, 0, 0, undefined);
         else
             await AniUtils.fly2(sv, sv, tosv, false, 0);
 
@@ -761,7 +761,7 @@ class AniView extends egret.DisplayObjectContainer {
                 svArr.push(g);
             }
             
-            await AniUtils.flyAndFadeoutArr(svArr, msv.localToGlobal(), 500, 0.5, 0, egret.Ease.quintIn);
+            await AniUtils.flyAndFadeoutArr(svArr, msv.localToGlobal(), 500, 0.5, 0, 0, egret.Ease.quintIn);
         }
 
         for (var e of es)
