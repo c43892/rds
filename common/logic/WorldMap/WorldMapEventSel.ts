@@ -15,6 +15,7 @@ class WorldMapEventSelFactory {
     public confirmOkYesNo; // yesno 确认
     public selRelic; // 选择遗物
     public openEventSels; // 重新打开一个选项列表
+    public openTurntable; // 打开转盘
 
     // 创建一组选项
     public createGroup(player:Player, sels) {
@@ -258,6 +259,8 @@ class WorldMapEventSelFactory {
             sel["move2NextSubSel"](0);
             
             return sel;
-        }
+        },
+        "toTurnTable": (sel:WMES, p:Player, ps) => this.exec(async () => await this.openTurntable(p.worldmap.cfg.turntable), sel),
+
     };
 }

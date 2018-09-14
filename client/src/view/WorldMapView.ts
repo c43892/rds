@@ -45,6 +45,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.wmesFact.confirmOkYesNo = this.confirmOkYesNo;
         this.wmesFact.selRelic = this.selRelic;
         this.wmesFact.openEventSels = async (p:Player, group) => await this.openSelGroup(p, group);
+        this.wmesFact.openTurntable = async (turntable) => await this.openTurntable(turntable);
 
         this.btnSetting = new TextButtonWithBg("BtnSetting_png");
         this.btnSetting.name = "btnSetting";

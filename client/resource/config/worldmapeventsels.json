@@ -20,7 +20,8 @@
         "gambling": "压 {wager} 金币，{rate}% 胜利获得 {award} 金币",
         "rob": "抢劫物品",
         "redirectSelGroup": "重建选项列表",
-        "redirectSelGroup2": "重建选项列表"
+        "redirectSelGroup2": "重建选项列表",
+        "toTurnTable": ""
     },
 
     "groups": {
