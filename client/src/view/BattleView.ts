@@ -462,7 +462,9 @@ class BattleView extends egret.DisplayObjectContainer {
     // 打开目标选择界面
     public async selectGrid(f) {
         this.addChild(this.selView);
-        var r = await this.selView.selGrid(this.mapView.gw, this.mapView.gh, this.mapView.x, this.mapView.y, f);
+        var r = await this.selView.selGrid(this.mapView.gw, this.mapView.gh,
+            this.mapView.x, this.mapView.y,
+            f, (x, y) => this.mapView.getGridViewAt(x, y));
         this.removeChild(this.selView);
         return r;
     }

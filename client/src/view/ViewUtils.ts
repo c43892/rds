@@ -61,8 +61,10 @@ class ViewUtils {
     public static createFrameAni(name:string, clipName:string = "default"):egret.MovieClip {
         var data = RES.getRes(name + "_json");
         var txtr = RES.getRes(name + "_png");
+        Utils.assert(data && txtr, "no such frame ani effect:" + name);
         var fact:egret.MovieClipDataFactory = new egret.MovieClipDataFactory(data, txtr);
         var eff = new egret.MovieClip(fact.generateMovieClipData(clipName));
+        Utils.assert(!!eff, "no such clip: " + clipName + " in frame ani: " + name);
 
         eff["wait"] = async () => {
             return new Promise<void>((r, _) => {

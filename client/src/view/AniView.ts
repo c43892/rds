@@ -167,6 +167,7 @@ class AniView extends egret.DisplayObjectContainer {
             break;
             case "gridUncovered": {
                 doRefresh();
+                gv.removeEffect("effPoisonMist"); // 翻开就去掉毒雾
                 var eff = gv.addEffect("effUncover", 1);
                 eff["wait"]().then(() => gv.removeEffect("effUncover"));
             }
@@ -320,16 +321,9 @@ class AniView extends egret.DisplayObjectContainer {
                 await AniUtils.tipAt(ViewUtils.getTipText("cure"), p);
         } else if (ps.subType == "die" && e instanceof Monster) {
             var g = this.bv.mapView.getGridViewAt(e.pos.x, e.pos.y);
-
-            if (Utils.contains(ps.flags, "selfExplode")) { // 自爆效果
-                Utils.log("selfExplode");
-                var explodeEff = g.addEffect("effSelfExplode", 1);
-                explodeEff["wait"]().then(() => g.removeEffect("effSelfExplode"));
-            } else {
-                // 怪物死亡特效
-                var dieEff = g.addEffect("effMonsterDie", 1);
-                dieEff["wait"]().then(() =>g.removeEffect("effMonsterDie"));
-            }
+            // 怪物死亡特效
+            var dieEff = g.addEffect("effMonsterDie", 1);
+            dieEff["wait"]().then(() =>g.removeEffect("effMonsterDie"));
         } else if (ps.subType == "useElem")
             await this.onElemUsed(ps);
         
@@ -616,11 +610,13 @@ class AniView extends egret.DisplayObjectContainer {
         var m:Elem = ps.m;
         var sv = this.getSV(m);
         var flags = ps.addFlags;
+        var g = this.bv.mapView.getGridViewAt(m.pos.x, m.pos.y);
 
         if (Utils.contains(flags, "attackOnPlayerLeave") && m.type == "Gengar")
             await this.gengarLick(sv);
         else if (Utils.contains(flags, "selfExplode")) {
-            // 自爆效果在死亡的时候播
+            var explodeEff = g.addEffect("effSelfExplode", 1);
+            explodeEff["wait"]().then(() => g.removeEffect("effSelfExplode"));
         } else
             await AniUtils.shakeTo(sv);
     }
@@ -814,13 +810,12 @@ class AniView extends egret.DisplayObjectContainer {
         if (ps.target instanceof Player) {
             if(buffType == "BuffPoisonOnGrids") {
                 var gs = Utils.map(buff.grids, (g) => this.bv.mapView.getGridViewAt(g.pos.x, g.pos.y));
-                gs.forEach((g, _) => {
+                gs.forEach((g:GridView, _) => {
                     g.addColorEffect("gridPoisoned");
-                    g.addEffect("effPoisonMist");
+                    g.addRandomDelayLoopEffect("effPoisonMist", AniUtils.rand, [0, 30000]);
                 });
             }
-        }
-        else {
+        } else {
             var e = <Elem>(ps.target);
             var g = this.bv.mapView.getGridViewAt(e.pos.x, e.pos.y);
             switch (buffType) {
