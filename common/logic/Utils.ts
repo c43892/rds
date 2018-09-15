@@ -559,7 +559,9 @@ class Utils {
             levelLogics = GCfg.getLevelLogicCfg("normal");
         }
         else {
-            levelLogics = GCfg.getLevelLogicCfg("normal");
+            var index = btType.indexOf("_");
+            var type = btType.substring(0 , index);
+            levelLogics = GCfg.getLevelLogicCfg(type);
         }
         return levelLogics;
     }

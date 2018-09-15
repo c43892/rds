@@ -67,15 +67,25 @@ class Main extends egret.DisplayObjectContainer {
         // 关卡
         var lvCfg = ResMgr.getRes("levelconfig_json");
         GCfg.mapsize = lvCfg.mapsize;
-        GCfg.getLevelCfg = (lv) => {
-            Utils.assert(lvCfg[lv], "can not find level: " + lv);
-            return lvCfg[lv];
+        GCfg.getLevelCfg = (lv:string) => {
+            if(lvCfg[lv])
+                return lvCfg[lv];
+            else{
+                var index = lv.indexOf("_");
+                var level = lv.substring(index + 1, lv.length);
+                var tarlv = "normal_" + level;
+                Utils.assert(lvCfg[tarlv], "can not find lvCfg of " + lv);
+                return lvCfg[tarlv];
+            }
         }
         var elemPosCfg = ResMgr.getRes("elemPosConfig_json");
         GCfg.getElemPosCfg = (cfg) => elemPosCfg[cfg];
         
         var levelLogics = ResMgr.getRes("levelLogicConfig_json");
-        GCfg.getLevelLogicCfg = (btType) => levelLogics[btType];
+        GCfg.getLevelLogicCfg = (btType) => {
+            Utils.assert(levelLogics[btType], "can not find llCfg of " + btType);
+            return levelLogics[btType];
+        };
 
         // 元素默认配置
         var elemAttrsCfg = ResMgr.getRes("elemattrsconfig_json");
