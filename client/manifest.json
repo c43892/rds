@@ -6,8 +6,7 @@
 		"libs/modules/tween/tween.js",
 		"libs/modules/assetsmanager/assetsmanager.js",
 		"libs/modules/promise/promise.js",
-		"libs/modules/dragonBones/dragonBones.js",
-		"libs/modules/particle/particle.js"
+		"libs/modules/dragonBones/dragonBones.js"
 	],
 	"game": [
 		"bin-debug/logic/elems/Elem.js",
@@ -54,7 +53,7 @@
 		"bin-debug/logic/BattleCaculator.js",
 		"bin-debug/logic/LevelLogic/LevelLogicAddBoxAndKey.js",
 		"bin-debug/logic/LevelLogic/LevelLogicChangeMonster.js",
-		"bin-debug/Main.js",
+		"bin-debug/view/WorldMapView.js",
 		"bin-debug/logic/LevelLogic/LevelLogicSearchBody.js",
 		"bin-debug/logic/LevelLogic/LevelLogicTakeKey.js",
 		"bin-debug/logic/map/Grid.js",
@@ -98,6 +97,6 @@
 		"bin-debug/view/TurntableView.js",
 		"bin-debug/view/ViewUtils.js",
 		"bin-debug/view/WorldMapSelsEventView.js",
-		"bin-debug/view/WorldMapView.js"
+		"bin-debug/Main.js"
 	]
 }

@@ -1,8 +1,6 @@
 // 提示确认视图
 class TipConfirmView extends egret.DisplayObjectContainer {
 
-    private aniFact:AnimationFactory;
-
     private bg:egret.Bitmap;
     constructor(w:number, h:number) {
         super();
@@ -19,8 +17,6 @@ class TipConfirmView extends egret.DisplayObjectContainer {
 
         // yesno 选择
         this.createOkYesNoLayer();
-
-        this.aniFact = new AnimationFactory();
         AniUtils.wait4clickImpl = async () => this.wait4clickAny();
     }
     
@@ -59,7 +55,7 @@ class TipConfirmView extends egret.DisplayObjectContainer {
         this.tip.width = this.width;
         this.addChild(this.tip);
 
-        this.aniFact.createAni("tr", {
+        AniUtils.aniFact.createAni("tr", {
             obj: this.tip,
             fy: this.height / 2 - 150,
             ty: this.height / 2,

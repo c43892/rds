@@ -5,10 +5,11 @@
     "views": {
         "login": {
             "layout": {
-                "newPlayBtn": {"x": 155, "y": 820},
-				"continueBtn": {"x": 142, "y": 900},
-                "rankBtn": {"x": 150, "y": 1000},
-				"achievementBtn": {"x": 315, "y": 1000}
+				"title": {"x": 0, "y":100},
+                "newPlayBtn": {"x": 170, "y": 820},
+				"continueBtn": {"x": 158, "y": 900},
+                "rankBtn": {"x": 165, "y": 1000},
+				"achievementBtn": {"x": 330, "y": 1000}
             },
 
             "text": {
