@@ -1,6 +1,6 @@
 {
-    "rookiePlay":[{"type":"LevelLogicAddBoxAndKey"}, {"type":"LevelLogicTakeKey"}],
-    "normal":[{"type":"LevelLogicAddBoxAndKey"}, {"type":"LevelLogicTakeKey"}],
-    "randomEgg":[{"type":"LevelLogicAddBoxAndKey"}, {"type":"LevelLogicTakeKey"}, {"type":"LevelLogicChangeMonster", "ps":[["RandomEggZombie"], 5]}],
-    "boss":[{"type":"LevelLogicAddBoxAndKey"}, {"type":"LevelLogicTakeKey"}, {"type":"LevelLogicChangeMonster", "ps":[["RedSlime", "GreenSlime"], 5]}]
+    "rookiePlay":[{"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox1"]]}, {"type":"LevelLogicTakeKey"}],
+    "normal":[{"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox1"]]}, {"type":"LevelLogicTakeKey"}],
+    "randomEgg":[{"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox1"]]}, {"type":"LevelLogicTakeKey"}, {"type":"LevelLogicChangeMonster", "ps":[["RandomEggZombie"], 5]}],
+    "boss":[{"type":"LevelLogicAddBoxAndKey", "ps":[["bossBox1", "bossBox2", "bossBox3", "bossBox4", "bossBox5"]]}, {"type":"LevelLogicTakeKey"}, {"type":"LevelLogicChangeMonster", "ps":[["RedSlime", "GreenSlime"], 5]}]
 }

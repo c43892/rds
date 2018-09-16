@@ -24,13 +24,13 @@ class Level {
     // 创建指定元素，如果未明确指定配置属性，则默认参考本关卡配置
     private elemsCfgInLevel;
     public getElemCfg(type:string) {
-        var attrs = this.elemsCfgInLevel[type];
+        var attrs = GCfg.getElemAttrsOfLevel(type, this.bt.player.currentStoreyPos.lv);
         if (!attrs)
             attrs = GCfg.getElemAttrsCfg(type);
 
         while (attrs && attrs.type) {
             type = attrs.type;
-            var tAttrs = this.elemsCfgInLevel[type];
+            var tAttrs = GCfg.getElemAttrsOfLevel(type, this.bt.player.currentStoreyPos.lv);
             tAttrs = tAttrs ? tAttrs : GCfg.getElemAttrsCfg(type);
             if (tAttrs) {
                 for (var k in attrs)

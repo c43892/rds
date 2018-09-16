@@ -1,32 +1,36 @@
 class LevelLogicAddBoxAndKey extends LevelLogic{
     public rdps:string[];
-    constructor(){
+    constructor(rdps:string[]){
         super("LevelLogicAddBoxAndKey");
+
+        this.rdps = rdps;
 
         this.beforeLevelInited = async (ps) => {
             var bt = <Battle>ps.bt;
             var cfg = bt.lvCfg;
             var poses = [];
 
+            // Utils.assert(this.rdps.length == cfg.treasureBoxNum, "the rdps should have the same amount with boxes");
+
             // 开宝箱用的钥匙和宝箱,根据战斗类型确定
             var index = bt.btType.indexOf("_");
             var type = bt.btType.substring(0 , index);
             var boxes:Elem[] = [];
-            switch(type){                
+            switch(type){
                 case "senior":{
                     for(var i = 0; i < cfg.treasureBoxNum; i++)
-                        boxes.push(this.level.createElem("TreasureBox" + (i + 1)));
+                        boxes.push(this.level.createElem("TreasureBox", {"rdp": this.rdps[i]}));
                     
                     break;
                 }
                 case "boss":{
                     for(var i = 0; i < cfg.treasureBoxNum; i++)
-                        boxes.push(this.level.createElem("TreasureBox" + (i + 1)));
+                        boxes.push(this.level.createElem("TreasureBox", {"rdp": this.rdps[i]}));
                     
                     break;
                 }
                 default:{
-                    var tb1 = this.level.createElem("TreasureBox1");
+                    var tb1 = this.level.createElem("TreasureBox", {"rdp": this.rdps[0]});
                     var changeToMonsterBox = bt.srand.next100();
                     if(changeToMonsterBox < cfg.monsterBox) // 是否变成怪物宝箱
                         boxes.push(this.level.createElem("TreasureBox", {"rdp":"MonsterBox"}));
@@ -35,7 +39,7 @@ class LevelLogicAddBoxAndKey extends LevelLogic{
 
                     var tn = bt.srand.next100();
                     if(tn < cfg.extraTreasureBox)
-                        boxes.push(this.level.createElem("TreasureBox2"));
+                        boxes.push(this.level.createElem("TreasureBox", {"rdp": this.rdps[1]}));
                     
                     break;
                 }

@@ -87,6 +87,12 @@ class Main extends egret.DisplayObjectContainer {
             return levelLogics[btType];
         };
 
+        var elemAttrsOfLevel = ResMgr.getRes("elemAttrsOfLevel_json");
+        GCfg.getElemAttrsOfLevel = (elemType:string, lv:number) => {
+            var index = elemAttrsOfLevel["index"][elemType] * 1000 + lv;
+            return elemAttrsOfLevel["attrs"][index];
+        }
+
         // 元素默认配置
         var elemAttrsCfg = ResMgr.getRes("elemattrsconfig_json");
         GCfg.getElemAttrsCfg = (e) => {

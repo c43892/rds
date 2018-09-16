@@ -16,4 +16,5 @@ class GCfg {
     public static getOccupationCfg; // 获取职业相关配置
     public static getElemPosCfg; // 获取关卡中指定元素位置的配置
     public static getLevelLogicCfg; // 获取关卡逻辑配置
+    public static getElemAttrsOfLevel; // 获取元素在特定层数的配置
 }

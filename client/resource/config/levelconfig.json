@@ -11,119 +11,7 @@
         "init_uncovered": {
             "w": 3,
             "h": 3
-        },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 1
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "Coins": { "cnt": 3 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 5
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 4,
-                "power": 2
-            },
-            "GoblinThief": {
-                "hp": 3,
-                "power": 1
-            },
-            "HoundZombie": {
-                "hp": 3,
-                "power": 1
-            },
-            "Vampire": {
-                "hp": 3,
-                "power": 2
-            },
-            "DancerZombie": {
-                "hp": 4,
-                "power": 2
-            },
-            "GluttonyZombie": {
-                "hp": 8,
-                "power": 3
-            },
-            "Gengar": {
-                "hp": 5,
-                "power": 2
-            },
-            "BombAbomination": {
-                "hp": 4,
-                "power": 3
-            },
-            "EyeDemon": {
-                "hp": 6,
-                "power": 1
-            },
-            "RandomEggZombie": {
-                "hp": 5,
-                "power": 1
-            },
-            "LustZombie": {
-                "hp": 6,
-                "power": 2
-            },
-            "Mummy": {
-                "hp": 6,
-                "power": 1
-            },
-            "SkeletonKing": {
-                "hp": 4,
-                "power": 1
-            },
-            "PoisonJellyfish": {
-                "hp": 6,
-                "power": 1
-            },
-            "SwatheZombie": {
-                "hp": 5,
-                "power": 1
-            },
-            "BoxMonster": {
-                "hp": 6,
-                "power": 1
-            },
-            "Ghost": {
-                "hp": 6,
-                "power": 1
-            },
-            "RedSlime": {
-                "hp": 5,
-                "power": 1
-            },
-            "BallShito": {
-                "hp": 3,
-                "power": 1,
-                "shield": 3
-            },
-            "GreenSlime": {
-                "hp": 4,
-                "power": 1
-            },
-            "ReviveZombie": {
-                "hp": 4,
-                "power": 1
-            }
-        },
+        },        
         "constElems":{
             "GoblinThief": 1,
             "HoundZombie": 1,
@@ -139,7 +27,7 @@
         }
     },
 
-    "normal_1": {
+        "normal_1": {
         "displayName": "普通战斗1",
         "map": {},
         "doorUnlock": 1,
@@ -149,144 +37,13 @@
             "w": 3,
             "h": 3
         },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 1
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "Coins": { "cnt": 3 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 5
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 4,
-                "power": 2
-            },
-            "GoblinThief": {
-                "hp": 3,
-                "power": 1
-            },
-            "HoundZombie": {
-                "hp": 3,
-                "power": 1
-            },
-            "Vampire": {
-                "hp": 3,
-                "power": 2
-            },
-            "DancerZombie": {
-                "hp": 4,
-                "power": 2
-            },
-            "GluttonyZombie": {
-                "hp": 8,
-                "power": 3
-            },
-            "Gengar": {
-                "hp": 5,
-                "power": 2
-            },
-            "BombAbomination": {
-                "hp": 4,
-                "power": 3
-            },
-            "EyeDemon": {
-                "hp": 6,
-                "power": 1
-            },
-            "RandomEggZombie": {
-                "hp": 5,
-                "power": 1
-            },
-            "LustZombie": {
-                "hp": 6,
-                "power": 2
-            },
-            "Mummy": {
-                "hp": 6,
-                "power": 1
-            },
-            "SkeletonKing": {
-                "hp": 4,
-                "power": 1
-            },
-            "PoisonJellyfish": {
-                "hp": 6,
-                "power": 1
-            },
-            "SwatheZombie": {
-                "hp": 5,
-                "power": 1
-            },
-            "BoxMonster": {
-                "hp": 6,
-                "power": 1
-            },
-            "Ghost": {
-                "hp": 6,
-                "power": 1
-            },
-            "RedSlime": {
-                "hp": 5,
-                "power": 1
-            },
-            "BallShito": {
-                "hp": 3,
-                "power": 1,
-                "shield": 3
-            },
-            "GreenSlime": {
-                "hp": 4,
-                "power": 1
-            },
-            "ReviveZombie": {
-                "hp": 4,
-                "power": 1
-            }
-        },
-        "constElems": {
-            "PoisonJellyfish": 10,
-            "RayGun": 10
-        },
-        "randomGroups": [{
+        "randomGroups": [
+            {
                 "num": [ 8, 9 ],
                 "elems": {
-                    "NormalZombie": 100,
-                    "GoblinThief": 100,
-                    "HoundZombie": 100,
-                    "Vampire": 100,
-                    "DancerZombie": 100,
-                    "GluttonyZombie": 100,
-                    "Gengar": 100,
-                    "BombAbomination": 1000,
                     "EyeDemon": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
-                    "Mummy": 100,
-                    "SkeletonKing": 100,
-                    "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
-                    "BoxMonster": 0,
-                    "Ghost": 100,
-                    "RedSlime": 100,
-                    "BallShito": 100,
+                    "NormalZombie": 0,
+                    "DancerZombie": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
                 }
@@ -340,141 +97,15 @@
             "w": 3,
             "h": 3
         },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 1
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "Coins": { "cnt": 3 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 5
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 4,
-                "power": 2
-            },
-            "GoblinThief": {
-                "hp": 3,
-                "power": 1
-            },
-            "HoundZombie": {
-                "hp": 3,
-                "power": 1
-            },
-            "Vampire": {
-                "hp": 3,
-                "power": 2
-            },
-            "DancerZombie": {
-                "hp": 4,
-                "power": 2
-            },
-            "GluttonyZombie": {
-                "hp": 8,
-                "power": 3
-            },
-            "Gengar": {
-                "hp": 5,
-                "power": 2
-            },
-            "BombAbomination": {
-                "hp": 4,
-                "power": 3
-            },
-            "EyeDemon": {
-                "hp": 6,
-                "power": 1
-            },
-            "RandomEggZombie": {
-                "hp": 5,
-                "power": 1
-            },
-            "LustZombie": {
-                "hp": 6,
-                "power": 2
-            },
-            "Mummy": {
-                "hp": 6,
-                "power": 1
-            },
-            "SkeletonKing": {
-                "hp": 4,
-                "power": 1
-            },
-            "PoisonJellyfish": {
-                "hp": 6,
-                "power": 1
-            },
-            "SwatheZombie": {
-                "hp": 5,
-                "power": 1
-            },
-            "BoxMonster": {
-                "hp": 6,
-                "power": 1
-            },
-            "Ghost": {
-                "hp": 6,
-                "power": 1
-            },
-            "RedSlime": {
-                "hp": 5,
-                "power": 1
-            },
-            "BallShito": {
-                "hp": 3,
-                "power": 1,
-                "shield": 3
-            },
-            "GreenSlime": {
-                "hp": 4,
-                "power": 1
-            },
-            "ReviveZombie": {
-                "hp": 4,
-                "power": 1
-            }
-        },
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
                 "elems": {
-                    "NormalZombie": 100,
-                    "GoblinThief": 100,
-                    "HoundZombie": 100,
-                    "Vampire": 100,
-                    "DancerZombie": 100,
-                    "GluttonyZombie": 100,
-                    "Gengar": 100,
-                    "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
-                    "Mummy": 100,
-                    "SkeletonKing": 100,
-                    "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100,
-                    "RedSlime": 100,
-                    "BallShito": 100,
+                    "NormalZombie": 0,
+                    "DancerZombie": 100,
+                    "RandomEggZombie": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
                 }
@@ -528,141 +159,19 @@
             "w": 3,
             "h": 3
         },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 1
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "Coins": { "cnt": 3 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 5
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 4,
-                "power": 2
-            },
-            "GoblinThief": {
-                "hp": 3,
-                "power": 1
-            },
-            "HoundZombie": {
-                "hp": 3,
-                "power": 1
-            },
-            "Vampire": {
-                "hp": 3,
-                "power": 2
-            },
-            "DancerZombie": {
-                "hp": 4,
-                "power": 2
-            },
-            "GluttonyZombie": {
-                "hp": 9,
-                "power": 3
-            },
-            "Gengar": {
-                "hp": 6,
-                "power": 2
-            },
-            "BombAbomination": {
-                "hp": 4,
-                "power": 3
-            },
-            "EyeDemon": {
-                "hp": 7,
-                "power": 1
-            },
-            "RandomEggZombie": {
-                "hp": 6,
-                "power": 1
-            },
-            "LustZombie": {
-                "hp": 7,
-                "power": 2
-            },
-            "Mummy": {
-                "hp": 7,
-                "power": 1
-            },
-            "SkeletonKing": {
-                "hp": 4,
-                "power": 1
-            },
-            "PoisonJellyfish": {
-                "hp": 7,
-                "power": 1
-            },
-            "SwatheZombie": {
-                "hp": 6,
-                "power": 1
-            },
-            "BoxMonster": {
-                "hp": 7,
-                "power": 1
-            },
-            "Ghost": {
-                "hp": 7,
-                "power": 1
-            },
-            "RedSlime": {
-                "hp": 6,
-                "power": 1
-            },
-            "BallShito": {
-                "hp": 3,
-                "power": 1,
-                "shield": 3
-            },
-            "GreenSlime": {
-                "hp": 4,
-                "power": 1
-            },
-            "ReviveZombie": {
-                "hp": 4,
-                "power": 1
-            }
-        },
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
                 "elems": {
-                    "NormalZombie": 100,
-                    "GoblinThief": 100,
+                    "EyeDemon": 100,
+                    "SkeletonKing": 100,
+                    "BoxMonster": 0,
+                    "NormalZombie": 0,
                     "HoundZombie": 100,
-                    "Vampire": 100,
                     "DancerZombie": 100,
                     "GluttonyZombie": 100,
-                    "Gengar": 100,
-                    "BombAbomination": 100,
-                    "EyeDemon": 100,
                     "RandomEggZombie": 100,
-                    "LustZombie": 100,
-                    "Mummy": 100,
-                    "SkeletonKing": 100,
-                    "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
-                    "BoxMonster": 0,
-                    "Ghost": 100,
                     "RedSlime": 100,
-                    "BallShito": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
                 }
@@ -716,141 +225,19 @@
             "w": 3,
             "h": 3
         },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 1
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "Coins": { "cnt": 3 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 5
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 5,
-                "power": 2
-            },
-            "GoblinThief": {
-                "hp": 3,
-                "power": 1
-            },
-            "HoundZombie": {
-                "hp": 3,
-                "power": 1
-            },
-            "Vampire": {
-                "hp": 3,
-                "power": 2
-            },
-            "DancerZombie": {
-                "hp": 5,
-                "power": 2
-            },
-            "GluttonyZombie": {
-                "hp": 10,
-                "power": 3
-            },
-            "Gengar": {
-                "hp": 6,
-                "power": 2
-            },
-            "BombAbomination": {
-                "hp": 5,
-                "power": 3
-            },
-            "EyeDemon": {
-                "hp": 7,
-                "power": 1
-            },
-            "RandomEggZombie": {
-                "hp": 6,
-                "power": 1
-            },
-            "LustZombie": {
-                "hp": 7,
-                "power": 2
-            },
-            "Mummy": {
-                "hp": 7,
-                "power": 1
-            },
-            "SkeletonKing": {
-                "hp": 5,
-                "power": 1
-            },
-            "PoisonJellyfish": {
-                "hp": 7,
-                "power": 1
-            },
-            "SwatheZombie": {
-                "hp": 6,
-                "power": 1
-            },
-            "BoxMonster": {
-                "hp": 7,
-                "power": 1
-            },
-            "Ghost": {
-                "hp": 7,
-                "power": 1
-            },
-            "RedSlime": {
-                "hp": 6,
-                "power": 1
-            },
-            "BallShito": {
-                "hp": 3,
-                "power": 1,
-                "shield": 3
-            },
-            "GreenSlime": {
-                "hp": 5,
-                "power": 1
-            },
-            "ReviveZombie": {
-                "hp": 5,
-                "power": 1
-            }
-        },
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
                 "elems": {
-                    "NormalZombie": 100,
-                    "GoblinThief": 100,
+                    "EyeDemon": 100,
+                    "SkeletonKing": 100,
+                    "BoxMonster": 0,
+                    "NormalZombie": 0,
                     "HoundZombie": 100,
-                    "Vampire": 100,
                     "DancerZombie": 100,
                     "GluttonyZombie": 100,
-                    "Gengar": 100,
-                    "BombAbomination": 100,
-                    "EyeDemon": 100,
                     "RandomEggZombie": 100,
-                    "LustZombie": 100,
-                    "Mummy": 100,
-                    "SkeletonKing": 100,
-                    "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
-                    "BoxMonster": 0,
-                    "Ghost": 100,
                     "RedSlime": 100,
-                    "BallShito": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
                 }
@@ -904,141 +291,22 @@
             "w": 3,
             "h": 3
         },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 1
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "Coins": { "cnt": 3 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 5
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 5,
-                "power": 2
-            },
-            "GoblinThief": {
-                "hp": 4,
-                "power": 1
-            },
-            "HoundZombie": {
-                "hp": 4,
-                "power": 1
-            },
-            "Vampire": {
-                "hp": 4,
-                "power": 2
-            },
-            "DancerZombie": {
-                "hp": 5,
-                "power": 2
-            },
-            "GluttonyZombie": {
-                "hp": 11,
-                "power": 4
-            },
-            "Gengar": {
-                "hp": 7,
-                "power": 2
-            },
-            "BombAbomination": {
-                "hp": 5,
-                "power": 4
-            },
-            "EyeDemon": {
-                "hp": 8,
-                "power": 1
-            },
-            "RandomEggZombie": {
-                "hp": 7,
-                "power": 1
-            },
-            "LustZombie": {
-                "hp": 8,
-                "power": 2
-            },
-            "Mummy": {
-                "hp": 8,
-                "power": 1
-            },
-            "SkeletonKing": {
-                "hp": 5,
-                "power": 1
-            },
-            "PoisonJellyfish": {
-                "hp": 8,
-                "power": 1
-            },
-            "SwatheZombie": {
-                "hp": 7,
-                "power": 1
-            },
-            "BoxMonster": {
-                "hp": 8,
-                "power": 1
-            },
-            "Ghost": {
-                "hp": 8,
-                "power": 1
-            },
-            "RedSlime": {
-                "hp": 7,
-                "power": 1
-            },
-            "BallShito": {
-                "hp": 4,
-                "power": 1,
-                "shield": 4
-            },
-            "GreenSlime": {
-                "hp": 5,
-                "power": 1
-            },
-            "ReviveZombie": {
-                "hp": 5,
-                "power": 1
-            }
-        },
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
                 "elems": {
-                    "NormalZombie": 100,
-                    "GoblinThief": 100,
-                    "HoundZombie": 100,
-                    "Vampire": 100,
-                    "DancerZombie": 100,
-                    "GluttonyZombie": 100,
-                    "Gengar": 100,
-                    "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100,
-                    "RedSlime": 100,
+                    "NormalZombie": 0,
                     "BallShito": 100,
+                    "HoundZombie": 100,
+                    "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "RandomEggZombie": 100,
+                    "SwatheZombie": 100,
+                    "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
                 }
@@ -1092,141 +360,22 @@
             "w": 3,
             "h": 3
         },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 1
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "Coins": { "cnt": 3 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 5
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 6,
-                "power": 3
-            },
-            "GoblinThief": {
-                "hp": 4,
-                "power": 1
-            },
-            "HoundZombie": {
-                "hp": 4,
-                "power": 1
-            },
-            "Vampire": {
-                "hp": 4,
-                "power": 3
-            },
-            "DancerZombie": {
-                "hp": 6,
-                "power": 3
-            },
-            "GluttonyZombie": {
-                "hp": 12,
-                "power": 4
-            },
-            "Gengar": {
-                "hp": 7,
-                "power": 3
-            },
-            "BombAbomination": {
-                "hp": 6,
-                "power": 4
-            },
-            "EyeDemon": {
-                "hp": 9,
-                "power": 1
-            },
-            "RandomEggZombie": {
-                "hp": 7,
-                "power": 1
-            },
-            "LustZombie": {
-                "hp": 9,
-                "power": 3
-            },
-            "Mummy": {
-                "hp": 9,
-                "power": 1
-            },
-            "SkeletonKing": {
-                "hp": 6,
-                "power": 1
-            },
-            "PoisonJellyfish": {
-                "hp": 9,
-                "power": 1
-            },
-            "SwatheZombie": {
-                "hp": 7,
-                "power": 1
-            },
-            "BoxMonster": {
-                "hp": 9,
-                "power": 1
-            },
-            "Ghost": {
-                "hp": 9,
-                "power": 1
-            },
-            "RedSlime": {
-                "hp": 7,
-                "power": 1
-            },
-            "BallShito": {
-                "hp": 4,
-                "power": 1,
-                "shield": 4
-            },
-            "GreenSlime": {
-                "hp": 6,
-                "power": 1
-            },
-            "ReviveZombie": {
-                "hp": 6,
-                "power": 1
-            }
-        },
         "randomGroups": [
             {
                 "num": [ 10, 11 ],
                 "elems": {
-                    "NormalZombie": 100,
-                    "GoblinThief": 100,
-                    "HoundZombie": 100,
-                    "Vampire": 100,
-                    "DancerZombie": 100,
-                    "GluttonyZombie": 100,
-                    "Gengar": 100,
-                    "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100,
-                    "RedSlime": 100,
+                    "NormalZombie": 0,
                     "BallShito": 100,
+                    "HoundZombie": 100,
+                    "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "RandomEggZombie": 100,
+                    "SwatheZombie": 100,
+                    "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
                 }
@@ -1286,141 +435,22 @@
             "w": 3,
             "h": 3
         },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 1
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "Coins": { "cnt": 3 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 5
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 6,
-                "power": 3
-            },
-            "GoblinThief": {
-                "hp": 4,
-                "power": 1
-            },
-            "HoundZombie": {
-                "hp": 4,
-                "power": 1
-            },
-            "Vampire": {
-                "hp": 4,
-                "power": 3
-            },
-            "DancerZombie": {
-                "hp": 6,
-                "power": 3
-            },
-            "GluttonyZombie": {
-                "hp": 12,
-                "power": 4
-            },
-            "Gengar": {
-                "hp": 8,
-                "power": 3
-            },
-            "BombAbomination": {
-                "hp": 6,
-                "power": 4
-            },
-            "EyeDemon": {
-                "hp": 9,
-                "power": 1
-            },
-            "RandomEggZombie": {
-                "hp": 8,
-                "power": 1
-            },
-            "LustZombie": {
-                "hp": 9,
-                "power": 3
-            },
-            "Mummy": {
-                "hp": 9,
-                "power": 1
-            },
-            "SkeletonKing": {
-                "hp": 6,
-                "power": 1
-            },
-            "PoisonJellyfish": {
-                "hp": 9,
-                "power": 1
-            },
-            "SwatheZombie": {
-                "hp": 8,
-                "power": 1
-            },
-            "BoxMonster": {
-                "hp": 9,
-                "power": 1
-            },
-            "Ghost": {
-                "hp": 9,
-                "power": 1
-            },
-            "RedSlime": {
-                "hp": 8,
-                "power": 1
-            },
-            "BallShito": {
-                "hp": 4,
-                "power": 1,
-                "shield": 4
-            },
-            "GreenSlime": {
-                "hp": 6,
-                "power": 1
-            },
-            "ReviveZombie": {
-                "hp": 6,
-                "power": 1
-            }
-        },
         "randomGroups": [
             {
                 "num": [ 10, 11 ],
                 "elems": {
-                    "NormalZombie": 100,
-                    "GoblinThief": 100,
-                    "HoundZombie": 100,
-                    "Vampire": 100,
-                    "DancerZombie": 100,
-                    "GluttonyZombie": 100,
-                    "Gengar": 100,
-                    "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100,
-                    "RedSlime": 100,
+                    "NormalZombie": 0,
                     "BallShito": 100,
+                    "HoundZombie": 100,
+                    "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "RandomEggZombie": 100,
+                    "SwatheZombie": 100,
+                    "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
                 }
@@ -1480,141 +510,26 @@
             "w": 3,
             "h": 3
         },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 1
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "Coins": { "cnt": 3 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 5
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 6,
-                "power": 3
-            },
-            "GoblinThief": {
-                "hp": 5,
-                "power": 1
-            },
-            "HoundZombie": {
-                "hp": 5,
-                "power": 1
-            },
-            "Vampire": {
-                "hp": 5,
-                "power": 3
-            },
-            "DancerZombie": {
-                "hp": 6,
-                "power": 3
-            },
-            "GluttonyZombie": {
-                "hp": 13,
-                "power": 5
-            },
-            "Gengar": {
-                "hp": 8,
-                "power": 3
-            },
-            "BombAbomination": {
-                "hp": 6,
-                "power": 5
-            },
-            "EyeDemon": {
-                "hp": 10,
-                "power": 1
-            },
-            "RandomEggZombie": {
-                "hp": 8,
-                "power": 1
-            },
-            "LustZombie": {
-                "hp": 10,
-                "power": 3
-            },
-            "Mummy": {
-                "hp": 10,
-                "power": 1
-            },
-            "SkeletonKing": {
-                "hp": 6,
-                "power": 1
-            },
-            "PoisonJellyfish": {
-                "hp": 10,
-                "power": 1
-            },
-            "SwatheZombie": {
-                "hp": 8,
-                "power": 1
-            },
-            "BoxMonster": {
-                "hp": 10,
-                "power": 1
-            },
-            "Ghost": {
-                "hp": 10,
-                "power": 1
-            },
-            "RedSlime": {
-                "hp": 8,
-                "power": 1
-            },
-            "BallShito": {
-                "hp": 5,
-                "power": 1,
-                "shield": 5
-            },
-            "GreenSlime": {
-                "hp": 6,
-                "power": 1
-            },
-            "ReviveZombie": {
-                "hp": 6,
-                "power": 1
-            }
-        },
         "randomGroups": [
             {
                 "num": [ 10, 11 ],
                 "elems": {
-                    "NormalZombie": 100,
                     "GoblinThief": 100,
-                    "HoundZombie": 100,
                     "Vampire": 100,
-                    "DancerZombie": 100,
-                    "GluttonyZombie": 100,
                     "Gengar": 100,
-                    "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100,
-                    "RedSlime": 100,
+                    "NormalZombie": 0,
                     "BallShito": 100,
+                    "HoundZombie": 100,
+                    "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "RandomEggZombie": 100,
+                    "LustZombie": 100,
+                    "SwatheZombie": 100,
+                    "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
                 }
@@ -1674,141 +589,26 @@
             "w": 3,
             "h": 3
         },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 1
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "Coins": { "cnt": 3 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 5
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 7,
-                "power": 3
-            },
-            "GoblinThief": {
-                "hp": 5,
-                "power": 1
-            },
-            "HoundZombie": {
-                "hp": 5,
-                "power": 1
-            },
-            "Vampire": {
-                "hp": 5,
-                "power": 3
-            },
-            "DancerZombie": {
-                "hp": 7,
-                "power": 3
-            },
-            "GluttonyZombie": {
-                "hp": 14,
-                "power": 5
-            },
-            "Gengar": {
-                "hp": 9,
-                "power": 3
-            },
-            "BombAbomination": {
-                "hp": 7,
-                "power": 5
-            },
-            "EyeDemon": {
-                "hp": 10,
-                "power": 1
-            },
-            "RandomEggZombie": {
-                "hp": 9,
-                "power": 1
-            },
-            "LustZombie": {
-                "hp": 10,
-                "power": 3
-            },
-            "Mummy": {
-                "hp": 10,
-                "power": 1
-            },
-            "SkeletonKing": {
-                "hp": 7,
-                "power": 1
-            },
-            "PoisonJellyfish": {
-                "hp": 10,
-                "power": 1
-            },
-            "SwatheZombie": {
-                "hp": 9,
-                "power": 1
-            },
-            "BoxMonster": {
-                "hp": 10,
-                "power": 1
-            },
-            "Ghost": {
-                "hp": 10,
-                "power": 1
-            },
-            "RedSlime": {
-                "hp": 9,
-                "power": 1
-            },
-            "BallShito": {
-                "hp": 5,
-                "power": 1,
-                "shield": 5
-            },
-            "GreenSlime": {
-                "hp": 7,
-                "power": 1
-            },
-            "ReviveZombie": {
-                "hp": 7,
-                "power": 1
-            }
-        },
         "randomGroups": [
             {
                 "num": [ 10, 11 ],
                 "elems": {
-                    "NormalZombie": 100,
                     "GoblinThief": 100,
-                    "HoundZombie": 100,
                     "Vampire": 100,
-                    "DancerZombie": 100,
-                    "GluttonyZombie": 100,
                     "Gengar": 100,
-                    "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "Mummy": 100,
                     "SkeletonKing": 100,
-                    "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100,
-                    "RedSlime": 100,
+                    "NormalZombie": 0,
                     "BallShito": 100,
+                    "HoundZombie": 100,
+                    "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "RandomEggZombie": 100,
+                    "LustZombie": 100,
+                    "SwatheZombie": 100,
+                    "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
                 }
@@ -1868,141 +668,29 @@
             "w": 3,
             "h": 3
         },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 1
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "Coins": { "cnt": 3 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 5
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 7,
-                "power": 3
-            },
-            "GoblinThief": {
-                "hp": 5,
-                "power": 1
-            },
-            "HoundZombie": {
-                "hp": 5,
-                "power": 1
-            },
-            "Vampire": {
-                "hp": 5,
-                "power": 3
-            },
-            "DancerZombie": {
-                "hp": 7,
-                "power": 3
-            },
-            "GluttonyZombie": {
-                "hp": 15,
-                "power": 5
-            },
-            "Gengar": {
-                "hp": 9,
-                "power": 3
-            },
-            "BombAbomination": {
-                "hp": 7,
-                "power": 5
-            },
-            "EyeDemon": {
-                "hp": 11,
-                "power": 1
-            },
-            "RandomEggZombie": {
-                "hp": 9,
-                "power": 1
-            },
-            "LustZombie": {
-                "hp": 11,
-                "power": 3
-            },
-            "Mummy": {
-                "hp": 11,
-                "power": 1
-            },
-            "SkeletonKing": {
-                "hp": 7,
-                "power": 1
-            },
-            "PoisonJellyfish": {
-                "hp": 11,
-                "power": 1
-            },
-            "SwatheZombie": {
-                "hp": 9,
-                "power": 1
-            },
-            "BoxMonster": {
-                "hp": 11,
-                "power": 1
-            },
-            "Ghost": {
-                "hp": 11,
-                "power": 1
-            },
-            "RedSlime": {
-                "hp": 9,
-                "power": 1
-            },
-            "BallShito": {
-                "hp": 5,
-                "power": 1,
-                "shield": 5
-            },
-            "GreenSlime": {
-                "hp": 7,
-                "power": 1
-            },
-            "ReviveZombie": {
-                "hp": 7,
-                "power": 1
-            }
-        },
         "randomGroups": [
             {
                 "num": [ 10, 11 ],
                 "elems": {
-                    "NormalZombie": 100,
                     "GoblinThief": 100,
-                    "HoundZombie": 100,
                     "Vampire": 100,
-                    "DancerZombie": 100,
-                    "GluttonyZombie": 100,
                     "Gengar": 100,
                     "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "Mummy": 100,
-                    "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
+                    "SkeletonKing": 100,
                     "BoxMonster": 0,
                     "Ghost": 100,
-                    "RedSlime": 100,
+                    "NormalZombie": 0,
                     "BallShito": 100,
+                    "HoundZombie": 100,
+                    "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "RandomEggZombie": 100,
+                    "LustZombie": 100,
+                    "SwatheZombie": 100,
+                    "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
                 }
@@ -2062,141 +750,29 @@
             "w": 3,
             "h": 3
         },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 1
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "Coins": { "cnt": 3 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 5
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 8,
-                "power": 4
-            },
-            "GoblinThief": {
-                "hp": 6,
-                "power": 2
-            },
-            "HoundZombie": {
-                "hp": 6,
-                "power": 2
-            },
-            "Vampire": {
-                "hp": 6,
-                "power": 4
-            },
-            "DancerZombie": {
-                "hp": 8,
-                "power": 4
-            },
-            "GluttonyZombie": {
-                "hp": 16,
-                "power": 6
-            },
-            "Gengar": {
-                "hp": 10,
-                "power": 4
-            },
-            "BombAbomination": {
-                "hp": 8,
-                "power": 6
-            },
-            "EyeDemon": {
-                "hp": 12,
-                "power": 2
-            },
-            "RandomEggZombie": {
-                "hp": 10,
-                "power": 2
-            },
-            "LustZombie": {
-                "hp": 12,
-                "power": 4
-            },
-            "Mummy": {
-                "hp": 12,
-                "power": 2
-            },
-            "SkeletonKing": {
-                "hp": 8,
-                "power": 2
-            },
-            "PoisonJellyfish": {
-                "hp": 12,
-                "power": 2
-            },
-            "SwatheZombie": {
-                "hp": 10,
-                "power": 2
-            },
-            "BoxMonster": {
-                "hp": 12,
-                "power": 2
-            },
-            "Ghost": {
-                "hp": 12,
-                "power": 2
-            },
-            "RedSlime": {
-                "hp": 10,
-                "power": 2
-            },
-            "BallShito": {
-                "hp": 6,
-                "power": 2,
-                "shield": 6
-            },
-            "GreenSlime": {
-                "hp": 8,
-                "power": 2
-            },
-            "ReviveZombie": {
-                "hp": 8,
-                "power": 2
-            }
-        },
         "randomGroups": [
             {
                 "num": [ 12, 13 ],
                 "elems": {
-                    "NormalZombie": 100,
                     "GoblinThief": 100,
-                    "HoundZombie": 100,
                     "Vampire": 100,
-                    "DancerZombie": 100,
-                    "GluttonyZombie": 100,
                     "Gengar": 100,
                     "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "Mummy": 100,
-                    "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
+                    "SkeletonKing": 100,
                     "BoxMonster": 0,
                     "Ghost": 100,
-                    "RedSlime": 100,
+                    "NormalZombie": 0,
                     "BallShito": 100,
+                    "HoundZombie": 100,
+                    "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "RandomEggZombie": 100,
+                    "LustZombie": 100,
+                    "SwatheZombie": 100,
+                    "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
                 }
@@ -2256,141 +832,29 @@
             "w": 3,
             "h": 3
         },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 1
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "Coins": { "cnt": 3 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 5
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 8,
-                "power": 4
-            },
-            "GoblinThief": {
-                "hp": 6,
-                "power": 2
-            },
-            "HoundZombie": {
-                "hp": 6,
-                "power": 2
-            },
-            "Vampire": {
-                "hp": 6,
-                "power": 4
-            },
-            "DancerZombie": {
-                "hp": 8,
-                "power": 4
-            },
-            "GluttonyZombie": {
-                "hp": 16,
-                "power": 6
-            },
-            "Gengar": {
-                "hp": 10,
-                "power": 4
-            },
-            "BombAbomination": {
-                "hp": 8,
-                "power": 6
-            },
-            "EyeDemon": {
-                "hp": 12,
-                "power": 2
-            },
-            "RandomEggZombie": {
-                "hp": 10,
-                "power": 2
-            },
-            "LustZombie": {
-                "hp": 12,
-                "power": 4
-            },
-            "Mummy": {
-                "hp": 12,
-                "power": 2
-            },
-            "SkeletonKing": {
-                "hp": 8,
-                "power": 2
-            },
-            "PoisonJellyfish": {
-                "hp": 12,
-                "power": 2
-            },
-            "SwatheZombie": {
-                "hp": 10,
-                "power": 2
-            },
-            "BoxMonster": {
-                "hp": 12,
-                "power": 2
-            },
-            "Ghost": {
-                "hp": 12,
-                "power": 2
-            },
-            "RedSlime": {
-                "hp": 10,
-                "power": 2
-            },
-            "BallShito": {
-                "hp": 6,
-                "power": 2,
-                "shield": 6
-            },
-            "GreenSlime": {
-                "hp": 8,
-                "power": 2
-            },
-            "ReviveZombie": {
-                "hp": 8,
-                "power": 2
-            }
-        },
         "randomGroups": [
             {
                 "num": [ 12, 13 ],
                 "elems": {
-                    "NormalZombie": 100,
                     "GoblinThief": 100,
-                    "HoundZombie": 100,
                     "Vampire": 100,
-                    "DancerZombie": 100,
-                    "GluttonyZombie": 100,
                     "Gengar": 100,
                     "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "Mummy": 100,
-                    "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
+                    "SkeletonKing": 100,
                     "BoxMonster": 0,
                     "Ghost": 100,
-                    "RedSlime": 100,
+                    "NormalZombie": 0,
                     "BallShito": 100,
+                    "HoundZombie": 100,
+                    "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "RandomEggZombie": 100,
+                    "LustZombie": 100,
+                    "SwatheZombie": 100,
+                    "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
                 }
@@ -2450,141 +914,29 @@
             "w": 3,
             "h": 3
         },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 1
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "Coins": { "cnt": 3 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 5
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 8,
-                "power": 4
-            },
-            "GoblinThief": {
-                "hp": 6,
-                "power": 2
-            },
-            "HoundZombie": {
-                "hp": 6,
-                "power": 2
-            },
-            "Vampire": {
-                "hp": 6,
-                "power": 4
-            },
-            "DancerZombie": {
-                "hp": 8,
-                "power": 4
-            },
-            "GluttonyZombie": {
-                "hp": 17,
-                "power": 6
-            },
-            "Gengar": {
-                "hp": 11,
-                "power": 4
-            },
-            "BombAbomination": {
-                "hp": 8,
-                "power": 6
-            },
-            "EyeDemon": {
-                "hp": 13,
-                "power": 2
-            },
-            "RandomEggZombie": {
-                "hp": 11,
-                "power": 2
-            },
-            "LustZombie": {
-                "hp": 13,
-                "power": 4
-            },
-            "Mummy": {
-                "hp": 13,
-                "power": 2
-            },
-            "SkeletonKing": {
-                "hp": 8,
-                "power": 2
-            },
-            "PoisonJellyfish": {
-                "hp": 13,
-                "power": 2
-            },
-            "SwatheZombie": {
-                "hp": 11,
-                "power": 2
-            },
-            "BoxMonster": {
-                "hp": 13,
-                "power": 2
-            },
-            "Ghost": {
-                "hp": 13,
-                "power": 2
-            },
-            "RedSlime": {
-                "hp": 11,
-                "power": 2
-            },
-            "BallShito": {
-                "hp": 6,
-                "power": 2,
-                "shield": 6
-            },
-            "GreenSlime": {
-                "hp": 8,
-                "power": 2
-            },
-            "ReviveZombie": {
-                "hp": 8,
-                "power": 2
-            }
-        },
         "randomGroups": [
             {
                 "num": [ 12, 13 ],
                 "elems": {
-                    "NormalZombie": 100,
                     "GoblinThief": 100,
-                    "HoundZombie": 100,
                     "Vampire": 100,
-                    "DancerZombie": 100,
-                    "GluttonyZombie": 100,
                     "Gengar": 100,
                     "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "Mummy": 100,
-                    "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
+                    "SkeletonKing": 100,
                     "BoxMonster": 0,
                     "Ghost": 100,
-                    "RedSlime": 100,
+                    "NormalZombie": 0,
                     "BallShito": 100,
+                    "HoundZombie": 100,
+                    "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "RandomEggZombie": 100,
+                    "LustZombie": 100,
+                    "SwatheZombie": 100,
+                    "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
                 }
@@ -2644,141 +996,29 @@
             "w": 3,
             "h": 3
         },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 1
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "Coins": { "cnt": 3 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 5
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 9,
-                "power": 4
-            },
-            "GoblinThief": {
-                "hp": 6,
-                "power": 2
-            },
-            "HoundZombie": {
-                "hp": 6,
-                "power": 2
-            },
-            "Vampire": {
-                "hp": 6,
-                "power": 4
-            },
-            "DancerZombie": {
-                "hp": 9,
-                "power": 4
-            },
-            "GluttonyZombie": {
-                "hp": 18,
-                "power": 6
-            },
-            "Gengar": {
-                "hp": 11,
-                "power": 4
-            },
-            "BombAbomination": {
-                "hp": 9,
-                "power": 6
-            },
-            "EyeDemon": {
-                "hp": 13,
-                "power": 2
-            },
-            "RandomEggZombie": {
-                "hp": 11,
-                "power": 2
-            },
-            "LustZombie": {
-                "hp": 13,
-                "power": 4
-            },
-            "Mummy": {
-                "hp": 13,
-                "power": 2
-            },
-            "SkeletonKing": {
-                "hp": 9,
-                "power": 2
-            },
-            "PoisonJellyfish": {
-                "hp": 13,
-                "power": 2
-            },
-            "SwatheZombie": {
-                "hp": 11,
-                "power": 2
-            },
-            "BoxMonster": {
-                "hp": 13,
-                "power": 2
-            },
-            "Ghost": {
-                "hp": 13,
-                "power": 2
-            },
-            "RedSlime": {
-                "hp": 11,
-                "power": 2
-            },
-            "BallShito": {
-                "hp": 6,
-                "power": 2,
-                "shield": 6
-            },
-            "GreenSlime": {
-                "hp": 9,
-                "power": 2
-            },
-            "ReviveZombie": {
-                "hp": 9,
-                "power": 2
-            }
-        },
         "randomGroups": [
             {
                 "num": [ 12, 13 ],
                 "elems": {
-                    "NormalZombie": 100,
                     "GoblinThief": 100,
-                    "HoundZombie": 100,
                     "Vampire": 100,
-                    "DancerZombie": 100,
-                    "GluttonyZombie": 100,
                     "Gengar": 100,
                     "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "Mummy": 100,
-                    "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
+                    "SkeletonKing": 100,
                     "BoxMonster": 0,
                     "Ghost": 100,
-                    "RedSlime": 100,
+                    "NormalZombie": 0,
                     "BallShito": 100,
+                    "HoundZombie": 100,
+                    "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "RandomEggZombie": 100,
+                    "LustZombie": 100,
+                    "SwatheZombie": 100,
+                    "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
                 }
@@ -2838,141 +1078,29 @@
             "w": 3,
             "h": 2
         },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 3
-            },
-            "Coins": { "cnt": 5 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 20
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 10,
-                "power": 5
-            },
-            "GoblinThief": {
-                "hp": 7,
-                "power": 2
-            },
-            "HoundZombie": {
-                "hp": 7,
-                "power": 2
-            },
-            "Vampire": {
-                "hp": 7,
-                "power": 5
-            },
-            "DancerZombie": {
-                "hp": 10,
-                "power": 5
-            },
-            "GluttonyZombie": {
-                "hp": 20,
-                "power": 7
-            },
-            "Gengar": {
-                "hp": 12,
-                "power": 5
-            },
-            "BombAbomination": {
-                "hp": 10,
-                "power": 7
-            },
-            "EyeDemon": {
-                "hp": 15,
-                "power": 2
-            },
-            "RandomEggZombie": {
-                "hp": 12,
-                "power": 2
-            },
-            "LustZombie": {
-                "hp": 15,
-                "power": 5
-            },
-            "Mummy": {
-                "hp": 15,
-                "power": 2
-            },
-            "SkeletonKing": {
-                "hp": 10,
-                "power": 2
-            },
-            "PoisonJellyfish": {
-                "hp": 15,
-                "power": 2
-            },
-            "SwatheZombie": {
-                "hp": 12,
-                "power": 2
-            },
-            "BoxMonster": {
-                "hp": 15,
-                "power": 2
-            },
-            "Ghost": {
-                "hp": 15,
-                "power": 2
-            },
-            "RedSlime": {
-                "hp": 12,
-                "power": 2
-            },
-            "BallShito": {
-                "hp": 7,
-                "power": 2,
-                "shield": 7
-            },
-            "GreenSlime": {
-                "hp": 10,
-                "power": 2
-            },
-            "ReviveZombie": {
-                "hp": 10,
-                "power": 2
-            }
-        },
         "randomGroups": [
             {
                 "num": [ 14, 15 ],
                 "elems": {
-                    "NormalZombie": 100,
                     "GoblinThief": 100,
-                    "HoundZombie": 100,
                     "Vampire": 100,
-                    "DancerZombie": 100,
-                    "GluttonyZombie": 100,
                     "Gengar": 100,
                     "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "Mummy": 100,
-                    "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
+                    "SkeletonKing": 100,
                     "BoxMonster": 0,
                     "Ghost": 100,
-                    "RedSlime": 100,
+                    "NormalZombie": 0,
                     "BallShito": 100,
+                    "HoundZombie": 100,
+                    "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "RandomEggZombie": 100,
+                    "LustZombie": 100,
+                    "SwatheZombie": 100,
+                    "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
                 }
@@ -3032,141 +1160,29 @@
             "w": 3,
             "h": 2
         },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 3
-            },
-            "Coins": { "cnt": 5 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 20
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 10,
-                "power": 5
-            },
-            "GoblinThief": {
-                "hp": 7,
-                "power": 2
-            },
-            "HoundZombie": {
-                "hp": 7,
-                "power": 2
-            },
-            "Vampire": {
-                "hp": 7,
-                "power": 5
-            },
-            "DancerZombie": {
-                "hp": 10,
-                "power": 5
-            },
-            "GluttonyZombie": {
-                "hp": 20,
-                "power": 7
-            },
-            "Gengar": {
-                "hp": 13,
-                "power": 5
-            },
-            "BombAbomination": {
-                "hp": 10,
-                "power": 7
-            },
-            "EyeDemon": {
-                "hp": 15,
-                "power": 2
-            },
-            "RandomEggZombie": {
-                "hp": 13,
-                "power": 2
-            },
-            "LustZombie": {
-                "hp": 15,
-                "power": 5
-            },
-            "Mummy": {
-                "hp": 15,
-                "power": 2
-            },
-            "SkeletonKing": {
-                "hp": 10,
-                "power": 2
-            },
-            "PoisonJellyfish": {
-                "hp": 15,
-                "power": 2
-            },
-            "SwatheZombie": {
-                "hp": 13,
-                "power": 2
-            },
-            "BoxMonster": {
-                "hp": 15,
-                "power": 2
-            },
-            "Ghost": {
-                "hp": 15,
-                "power": 2
-            },
-            "RedSlime": {
-                "hp": 13,
-                "power": 2
-            },
-            "BallShito": {
-                "hp": 7,
-                "power": 2,
-                "shield": 7
-            },
-            "GreenSlime": {
-                "hp": 10,
-                "power": 2
-            },
-            "ReviveZombie": {
-                "hp": 10,
-                "power": 2
-            }
-        },
         "randomGroups": [
             {
                 "num": [ 14, 15 ],
                 "elems": {
-                    "NormalZombie": 100,
                     "GoblinThief": 100,
-                    "HoundZombie": 100,
                     "Vampire": 100,
-                    "DancerZombie": 100,
-                    "GluttonyZombie": 100,
                     "Gengar": 100,
                     "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "Mummy": 100,
-                    "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
+                    "SkeletonKing": 100,
                     "BoxMonster": 0,
                     "Ghost": 100,
-                    "RedSlime": 100,
+                    "NormalZombie": 0,
                     "BallShito": 100,
+                    "HoundZombie": 100,
+                    "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "RandomEggZombie": 100,
+                    "LustZombie": 100,
+                    "SwatheZombie": 100,
+                    "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
                 }
@@ -3226,141 +1242,29 @@
             "w": 3,
             "h": 2
         },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 3
-            },
-            "Coins": { "cnt": 5 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 20
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 10,
-                "power": 5
-            },
-            "GoblinThief": {
-                "hp": 8,
-                "power": 2
-            },
-            "HoundZombie": {
-                "hp": 8,
-                "power": 2
-            },
-            "Vampire": {
-                "hp": 8,
-                "power": 5
-            },
-            "DancerZombie": {
-                "hp": 10,
-                "power": 5
-            },
-            "GluttonyZombie": {
-                "hp": 21,
-                "power": 8
-            },
-            "Gengar": {
-                "hp": 13,
-                "power": 5
-            },
-            "BombAbomination": {
-                "hp": 10,
-                "power": 8
-            },
-            "EyeDemon": {
-                "hp": 16,
-                "power": 2
-            },
-            "RandomEggZombie": {
-                "hp": 13,
-                "power": 2
-            },
-            "LustZombie": {
-                "hp": 16,
-                "power": 5
-            },
-            "Mummy": {
-                "hp": 16,
-                "power": 2
-            },
-            "SkeletonKing": {
-                "hp": 10,
-                "power": 2
-            },
-            "PoisonJellyfish": {
-                "hp": 16,
-                "power": 2
-            },
-            "SwatheZombie": {
-                "hp": 13,
-                "power": 2
-            },
-            "BoxMonster": {
-                "hp": 16,
-                "power": 2
-            },
-            "Ghost": {
-                "hp": 16,
-                "power": 2
-            },
-            "RedSlime": {
-                "hp": 13,
-                "power": 2
-            },
-            "BallShito": {
-                "hp": 8,
-                "power": 2,
-                "shield": 8
-            },
-            "GreenSlime": {
-                "hp": 10,
-                "power": 2
-            },
-            "ReviveZombie": {
-                "hp": 10,
-                "power": 2
-            }
-        },
         "randomGroups": [
             {
                 "num": [ 14, 15 ],
                 "elems": {
-                    "NormalZombie": 100,
                     "GoblinThief": 100,
-                    "HoundZombie": 100,
                     "Vampire": 100,
-                    "DancerZombie": 100,
-                    "GluttonyZombie": 100,
                     "Gengar": 100,
                     "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "Mummy": 100,
-                    "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
+                    "SkeletonKing": 100,
                     "BoxMonster": 0,
                     "Ghost": 100,
-                    "RedSlime": 100,
+                    "NormalZombie": 0,
                     "BallShito": 100,
+                    "HoundZombie": 100,
+                    "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "RandomEggZombie": 100,
+                    "LustZombie": 100,
+                    "SwatheZombie": 100,
+                    "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
                 }
@@ -3420,141 +1324,29 @@
             "w": 3,
             "h": 2
         },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 3
-            },
-            "Coins": { "cnt": 5 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 20
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 11,
-                "power": 5
-            },
-            "GoblinThief": {
-                "hp": 8,
-                "power": 2
-            },
-            "HoundZombie": {
-                "hp": 8,
-                "power": 2
-            },
-            "Vampire": {
-                "hp": 8,
-                "power": 5
-            },
-            "DancerZombie": {
-                "hp": 11,
-                "power": 5
-            },
-            "GluttonyZombie": {
-                "hp": 22,
-                "power": 8
-            },
-            "Gengar": {
-                "hp": 14,
-                "power": 5
-            },
-            "BombAbomination": {
-                "hp": 11,
-                "power": 8
-            },
-            "EyeDemon": {
-                "hp": 16,
-                "power": 2
-            },
-            "RandomEggZombie": {
-                "hp": 14,
-                "power": 2
-            },
-            "LustZombie": {
-                "hp": 16,
-                "power": 5
-            },
-            "Mummy": {
-                "hp": 16,
-                "power": 2
-            },
-            "SkeletonKing": {
-                "hp": 11,
-                "power": 2
-            },
-            "PoisonJellyfish": {
-                "hp": 16,
-                "power": 2
-            },
-            "SwatheZombie": {
-                "hp": 14,
-                "power": 2
-            },
-            "BoxMonster": {
-                "hp": 16,
-                "power": 2
-            },
-            "Ghost": {
-                "hp": 16,
-                "power": 2
-            },
-            "RedSlime": {
-                "hp": 14,
-                "power": 2
-            },
-            "BallShito": {
-                "hp": 8,
-                "power": 2,
-                "shield": 8
-            },
-            "GreenSlime": {
-                "hp": 11,
-                "power": 2
-            },
-            "ReviveZombie": {
-                "hp": 11,
-                "power": 2
-            }
-        },
         "randomGroups": [
             {
                 "num": [ 14, 15 ],
                 "elems": {
-                    "NormalZombie": 100,
                     "GoblinThief": 100,
-                    "HoundZombie": 100,
                     "Vampire": 100,
-                    "DancerZombie": 100,
-                    "GluttonyZombie": 100,
                     "Gengar": 100,
                     "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "Mummy": 100,
-                    "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
+                    "SkeletonKing": 100,
                     "BoxMonster": 0,
                     "Ghost": 100,
-                    "RedSlime": 100,
+                    "NormalZombie": 0,
                     "BallShito": 100,
+                    "HoundZombie": 100,
+                    "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "RandomEggZombie": 100,
+                    "LustZombie": 100,
+                    "SwatheZombie": 100,
+                    "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
                 }
@@ -3614,141 +1406,29 @@
             "w": 3,
             "h": 2
         },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 3
-            },
-            "Coins": { "cnt": 5 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 20
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 11,
-                "power": 5
-            },
-            "GoblinThief": {
-                "hp": 8,
-                "power": 2
-            },
-            "HoundZombie": {
-                "hp": 8,
-                "power": 2
-            },
-            "Vampire": {
-                "hp": 8,
-                "power": 5
-            },
-            "DancerZombie": {
-                "hp": 11,
-                "power": 5
-            },
-            "GluttonyZombie": {
-                "hp": 23,
-                "power": 8
-            },
-            "Gengar": {
-                "hp": 14,
-                "power": 5
-            },
-            "BombAbomination": {
-                "hp": 11,
-                "power": 8
-            },
-            "EyeDemon": {
-                "hp": 17,
-                "power": 2
-            },
-            "RandomEggZombie": {
-                "hp": 14,
-                "power": 2
-            },
-            "LustZombie": {
-                "hp": 17,
-                "power": 5
-            },
-            "Mummy": {
-                "hp": 17,
-                "power": 2
-            },
-            "SkeletonKing": {
-                "hp": 11,
-                "power": 2
-            },
-            "PoisonJellyfish": {
-                "hp": 17,
-                "power": 2
-            },
-            "SwatheZombie": {
-                "hp": 14,
-                "power": 2
-            },
-            "BoxMonster": {
-                "hp": 17,
-                "power": 2
-            },
-            "Ghost": {
-                "hp": 17,
-                "power": 2
-            },
-            "RedSlime": {
-                "hp": 14,
-                "power": 2
-            },
-            "BallShito": {
-                "hp": 8,
-                "power": 2,
-                "shield": 8
-            },
-            "GreenSlime": {
-                "hp": 11,
-                "power": 2
-            },
-            "ReviveZombie": {
-                "hp": 11,
-                "power": 2
-            }
-        },
         "randomGroups": [
             {
                 "num": [ 14, 15 ],
                 "elems": {
-                    "NormalZombie": 100,
                     "GoblinThief": 100,
-                    "HoundZombie": 100,
                     "Vampire": 100,
-                    "DancerZombie": 100,
-                    "GluttonyZombie": 100,
                     "Gengar": 100,
                     "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "Mummy": 100,
-                    "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
+                    "SkeletonKing": 100,
                     "BoxMonster": 0,
                     "Ghost": 100,
-                    "RedSlime": 100,
+                    "NormalZombie": 0,
                     "BallShito": 100,
+                    "HoundZombie": 100,
+                    "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "RandomEggZombie": 100,
+                    "LustZombie": 100,
+                    "SwatheZombie": 100,
+                    "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
                 }
@@ -3808,141 +1488,29 @@
             "w": 3,
             "h": 2
         },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 3
-            },
-            "Coins": { "cnt": 5 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 20
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 12,
-                "power": 6
-            },
-            "GoblinThief": {
-                "hp": 9,
-                "power": 3
-            },
-            "HoundZombie": {
-                "hp": 9,
-                "power": 3
-            },
-            "Vampire": {
-                "hp": 9,
-                "power": 6
-            },
-            "DancerZombie": {
-                "hp": 12,
-                "power": 6
-            },
-            "GluttonyZombie": {
-                "hp": 24,
-                "power": 9
-            },
-            "Gengar": {
-                "hp": 15,
-                "power": 6
-            },
-            "BombAbomination": {
-                "hp": 12,
-                "power": 9
-            },
-            "EyeDemon": {
-                "hp": 18,
-                "power": 3
-            },
-            "RandomEggZombie": {
-                "hp": 15,
-                "power": 3
-            },
-            "LustZombie": {
-                "hp": 18,
-                "power": 6
-            },
-            "Mummy": {
-                "hp": 18,
-                "power": 3
-            },
-            "SkeletonKing": {
-                "hp": 12,
-                "power": 3
-            },
-            "PoisonJellyfish": {
-                "hp": 18,
-                "power": 3
-            },
-            "SwatheZombie": {
-                "hp": 15,
-                "power": 3
-            },
-            "BoxMonster": {
-                "hp": 18,
-                "power": 3
-            },
-            "Ghost": {
-                "hp": 18,
-                "power": 3
-            },
-            "RedSlime": {
-                "hp": 15,
-                "power": 3
-            },
-            "BallShito": {
-                "hp": 9,
-                "power": 3,
-                "shield": 9
-            },
-            "GreenSlime": {
-                "hp": 12,
-                "power": 3
-            },
-            "ReviveZombie": {
-                "hp": 12,
-                "power": 3
-            }
-        },
         "randomGroups": [
             {
                 "num": [ 16, 17 ],
                 "elems": {
-                    "NormalZombie": 100,
                     "GoblinThief": 100,
-                    "HoundZombie": 100,
                     "Vampire": 100,
-                    "DancerZombie": 100,
-                    "GluttonyZombie": 100,
                     "Gengar": 100,
                     "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "Mummy": 100,
-                    "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
+                    "SkeletonKing": 100,
                     "BoxMonster": 0,
                     "Ghost": 100,
-                    "RedSlime": 100,
+                    "NormalZombie": 0,
                     "BallShito": 100,
+                    "HoundZombie": 100,
+                    "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "RandomEggZombie": 100,
+                    "LustZombie": 100,
+                    "SwatheZombie": 100,
+                    "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
                 }
@@ -4002,141 +1570,29 @@
             "w": 3,
             "h": 2
         },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 3
-            },
-            "Coins": { "cnt": 5 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 20
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 12,
-                "power": 6
-            },
-            "GoblinThief": {
-                "hp": 9,
-                "power": 3
-            },
-            "HoundZombie": {
-                "hp": 9,
-                "power": 3
-            },
-            "Vampire": {
-                "hp": 9,
-                "power": 6
-            },
-            "DancerZombie": {
-                "hp": 12,
-                "power": 6
-            },
-            "GluttonyZombie": {
-                "hp": 24,
-                "power": 9
-            },
-            "Gengar": {
-                "hp": 15,
-                "power": 6
-            },
-            "BombAbomination": {
-                "hp": 12,
-                "power": 9
-            },
-            "EyeDemon": {
-                "hp": 18,
-                "power": 3
-            },
-            "RandomEggZombie": {
-                "hp": 15,
-                "power": 3
-            },
-            "LustZombie": {
-                "hp": 18,
-                "power": 6
-            },
-            "Mummy": {
-                "hp": 18,
-                "power": 3
-            },
-            "SkeletonKing": {
-                "hp": 12,
-                "power": 3
-            },
-            "PoisonJellyfish": {
-                "hp": 18,
-                "power": 3
-            },
-            "SwatheZombie": {
-                "hp": 15,
-                "power": 3
-            },
-            "BoxMonster": {
-                "hp": 18,
-                "power": 3
-            },
-            "Ghost": {
-                "hp": 18,
-                "power": 3
-            },
-            "RedSlime": {
-                "hp": 15,
-                "power": 3
-            },
-            "BallShito": {
-                "hp": 9,
-                "power": 3,
-                "shield": 9
-            },
-            "GreenSlime": {
-                "hp": 12,
-                "power": 3
-            },
-            "ReviveZombie": {
-                "hp": 12,
-                "power": 3
-            }
-        },
         "randomGroups": [
             {
                 "num": [ 16, 17 ],
                 "elems": {
-                    "NormalZombie": 100,
                     "GoblinThief": 100,
-                    "HoundZombie": 100,
                     "Vampire": 100,
-                    "DancerZombie": 100,
-                    "GluttonyZombie": 100,
                     "Gengar": 100,
                     "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "Mummy": 100,
-                    "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
+                    "SkeletonKing": 100,
                     "BoxMonster": 0,
                     "Ghost": 100,
-                    "RedSlime": 100,
+                    "NormalZombie": 0,
                     "BallShito": 100,
+                    "HoundZombie": 100,
+                    "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "RandomEggZombie": 100,
+                    "LustZombie": 100,
+                    "SwatheZombie": 100,
+                    "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
                 }
@@ -4196,141 +1652,29 @@
             "w": 3,
             "h": 2
         },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 3
-            },
-            "Coins": { "cnt": 5 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 20
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 12,
-                "power": 6
-            },
-            "GoblinThief": {
-                "hp": 9,
-                "power": 3
-            },
-            "HoundZombie": {
-                "hp": 9,
-                "power": 3
-            },
-            "Vampire": {
-                "hp": 9,
-                "power": 6
-            },
-            "DancerZombie": {
-                "hp": 12,
-                "power": 6
-            },
-            "GluttonyZombie": {
-                "hp": 25,
-                "power": 9
-            },
-            "Gengar": {
-                "hp": 16,
-                "power": 6
-            },
-            "BombAbomination": {
-                "hp": 12,
-                "power": 9
-            },
-            "EyeDemon": {
-                "hp": 19,
-                "power": 3
-            },
-            "RandomEggZombie": {
-                "hp": 16,
-                "power": 3
-            },
-            "LustZombie": {
-                "hp": 19,
-                "power": 6
-            },
-            "Mummy": {
-                "hp": 19,
-                "power": 3
-            },
-            "SkeletonKing": {
-                "hp": 12,
-                "power": 3
-            },
-            "PoisonJellyfish": {
-                "hp": 19,
-                "power": 3
-            },
-            "SwatheZombie": {
-                "hp": 16,
-                "power": 3
-            },
-            "BoxMonster": {
-                "hp": 19,
-                "power": 3
-            },
-            "Ghost": {
-                "hp": 19,
-                "power": 3
-            },
-            "RedSlime": {
-                "hp": 16,
-                "power": 3
-            },
-            "BallShito": {
-                "hp": 9,
-                "power": 3,
-                "shield": 9
-            },
-            "GreenSlime": {
-                "hp": 12,
-                "power": 3
-            },
-            "ReviveZombie": {
-                "hp": 12,
-                "power": 3
-            }
-        },
         "randomGroups": [
             {
                 "num": [ 16, 17 ],
                 "elems": {
-                    "NormalZombie": 100,
                     "GoblinThief": 100,
-                    "HoundZombie": 100,
                     "Vampire": 100,
-                    "DancerZombie": 100,
-                    "GluttonyZombie": 100,
                     "Gengar": 100,
                     "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "Mummy": 100,
-                    "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
+                    "SkeletonKing": 100,
                     "BoxMonster": 0,
                     "Ghost": 100,
-                    "RedSlime": 100,
+                    "NormalZombie": 0,
                     "BallShito": 100,
+                    "HoundZombie": 100,
+                    "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "RandomEggZombie": 100,
+                    "LustZombie": 100,
+                    "SwatheZombie": 100,
+                    "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
                 }
@@ -4390,141 +1734,29 @@
             "w": 3,
             "h": 2
         },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 3
-            },
-            "Coins": { "cnt": 5 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 20
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 13,
-                "power": 6
-            },
-            "GoblinThief": {
-                "hp": 9,
-                "power": 3
-            },
-            "HoundZombie": {
-                "hp": 9,
-                "power": 3
-            },
-            "Vampire": {
-                "hp": 9,
-                "power": 6
-            },
-            "DancerZombie": {
-                "hp": 13,
-                "power": 6
-            },
-            "GluttonyZombie": {
-                "hp": 26,
-                "power": 9
-            },
-            "Gengar": {
-                "hp": 16,
-                "power": 6
-            },
-            "BombAbomination": {
-                "hp": 13,
-                "power": 9
-            },
-            "EyeDemon": {
-                "hp": 19,
-                "power": 3
-            },
-            "RandomEggZombie": {
-                "hp": 16,
-                "power": 3
-            },
-            "LustZombie": {
-                "hp": 19,
-                "power": 6
-            },
-            "Mummy": {
-                "hp": 19,
-                "power": 3
-            },
-            "SkeletonKing": {
-                "hp": 13,
-                "power": 3
-            },
-            "PoisonJellyfish": {
-                "hp": 19,
-                "power": 3
-            },
-            "SwatheZombie": {
-                "hp": 16,
-                "power": 3
-            },
-            "BoxMonster": {
-                "hp": 19,
-                "power": 3
-            },
-            "Ghost": {
-                "hp": 19,
-                "power": 3
-            },
-            "RedSlime": {
-                "hp": 16,
-                "power": 3
-            },
-            "BallShito": {
-                "hp": 9,
-                "power": 3,
-                "shield": 9
-            },
-            "GreenSlime": {
-                "hp": 13,
-                "power": 3
-            },
-            "ReviveZombie": {
-                "hp": 13,
-                "power": 3
-            }
-        },
         "randomGroups": [
             {
                 "num": [ 16, 17 ],
                 "elems": {
-                    "NormalZombie": 100,
                     "GoblinThief": 100,
-                    "HoundZombie": 100,
                     "Vampire": 100,
-                    "DancerZombie": 100,
-                    "GluttonyZombie": 100,
                     "Gengar": 100,
                     "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "Mummy": 100,
-                    "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
+                    "SkeletonKing": 100,
                     "BoxMonster": 0,
                     "Ghost": 100,
-                    "RedSlime": 100,
+                    "NormalZombie": 0,
                     "BallShito": 100,
+                    "HoundZombie": 100,
+                    "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "RandomEggZombie": 100,
+                    "LustZombie": 100,
+                    "SwatheZombie": 100,
+                    "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
                 }
@@ -4584,141 +1816,29 @@
             "w": 3,
             "h": 2
         },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 3
-            },
-            "Coins": { "cnt": 5 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 20
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 13,
-                "power": 6
-            },
-            "GoblinThief": {
-                "hp": 10,
-                "power": 3
-            },
-            "HoundZombie": {
-                "hp": 10,
-                "power": 3
-            },
-            "Vampire": {
-                "hp": 10,
-                "power": 6
-            },
-            "DancerZombie": {
-                "hp": 13,
-                "power": 6
-            },
-            "GluttonyZombie": {
-                "hp": 27,
-                "power": 10
-            },
-            "Gengar": {
-                "hp": 17,
-                "power": 6
-            },
-            "BombAbomination": {
-                "hp": 13,
-                "power": 10
-            },
-            "EyeDemon": {
-                "hp": 20,
-                "power": 3
-            },
-            "RandomEggZombie": {
-                "hp": 17,
-                "power": 3
-            },
-            "LustZombie": {
-                "hp": 20,
-                "power": 6
-            },
-            "Mummy": {
-                "hp": 20,
-                "power": 3
-            },
-            "SkeletonKing": {
-                "hp": 13,
-                "power": 3
-            },
-            "PoisonJellyfish": {
-                "hp": 20,
-                "power": 3
-            },
-            "SwatheZombie": {
-                "hp": 17,
-                "power": 3
-            },
-            "BoxMonster": {
-                "hp": 20,
-                "power": 3
-            },
-            "Ghost": {
-                "hp": 20,
-                "power": 3
-            },
-            "RedSlime": {
-                "hp": 17,
-                "power": 3
-            },
-            "BallShito": {
-                "hp": 10,
-                "power": 3,
-                "shield": 10
-            },
-            "GreenSlime": {
-                "hp": 13,
-                "power": 3
-            },
-            "ReviveZombie": {
-                "hp": 13,
-                "power": 3
-            }
-        },
         "randomGroups": [
             {
                 "num": [ 16, 17 ],
                 "elems": {
-                    "NormalZombie": 100,
                     "GoblinThief": 100,
-                    "HoundZombie": 100,
                     "Vampire": 100,
-                    "DancerZombie": 100,
-                    "GluttonyZombie": 100,
                     "Gengar": 100,
                     "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "Mummy": 100,
-                    "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
+                    "SkeletonKing": 100,
                     "BoxMonster": 0,
                     "Ghost": 100,
-                    "RedSlime": 100,
+                    "NormalZombie": 0,
                     "BallShito": 100,
+                    "HoundZombie": 100,
+                    "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "RandomEggZombie": 100,
+                    "LustZombie": 100,
+                    "SwatheZombie": 100,
+                    "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
                 }
@@ -4778,141 +1898,29 @@
             "w": 3,
             "h": 2
         },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 3
-            },
-            "Coins": { "cnt": 5 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 20
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 14,
-                "power": 7
-            },
-            "GoblinThief": {
-                "hp": 10,
-                "power": 3
-            },
-            "HoundZombie": {
-                "hp": 10,
-                "power": 3
-            },
-            "Vampire": {
-                "hp": 10,
-                "power": 7
-            },
-            "DancerZombie": {
-                "hp": 14,
-                "power": 7
-            },
-            "GluttonyZombie": {
-                "hp": 28,
-                "power": 10
-            },
-            "Gengar": {
-                "hp": 17,
-                "power": 7
-            },
-            "BombAbomination": {
-                "hp": 14,
-                "power": 10
-            },
-            "EyeDemon": {
-                "hp": 21,
-                "power": 3
-            },
-            "RandomEggZombie": {
-                "hp": 17,
-                "power": 3
-            },
-            "LustZombie": {
-                "hp": 21,
-                "power": 7
-            },
-            "Mummy": {
-                "hp": 21,
-                "power": 3
-            },
-            "SkeletonKing": {
-                "hp": 14,
-                "power": 3
-            },
-            "PoisonJellyfish": {
-                "hp": 21,
-                "power": 3
-            },
-            "SwatheZombie": {
-                "hp": 17,
-                "power": 3
-            },
-            "BoxMonster": {
-                "hp": 21,
-                "power": 3
-            },
-            "Ghost": {
-                "hp": 21,
-                "power": 3
-            },
-            "RedSlime": {
-                "hp": 17,
-                "power": 3
-            },
-            "BallShito": {
-                "hp": 10,
-                "power": 3,
-                "shield": 10
-            },
-            "GreenSlime": {
-                "hp": 14,
-                "power": 3
-            },
-            "ReviveZombie": {
-                "hp": 14,
-                "power": 3
-            }
-        },
         "randomGroups": [
             {
                 "num": [ 18, 19 ],
                 "elems": {
-                    "NormalZombie": 100,
                     "GoblinThief": 100,
-                    "HoundZombie": 100,
                     "Vampire": 100,
-                    "DancerZombie": 100,
-                    "GluttonyZombie": 100,
                     "Gengar": 100,
                     "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "Mummy": 100,
-                    "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
+                    "SkeletonKing": 100,
                     "BoxMonster": 0,
                     "Ghost": 100,
-                    "RedSlime": 100,
+                    "NormalZombie": 0,
                     "BallShito": 100,
+                    "HoundZombie": 100,
+                    "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "RandomEggZombie": 100,
+                    "LustZombie": 100,
+                    "SwatheZombie": 100,
+                    "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
                 }
@@ -4972,141 +1980,29 @@
             "w": 3,
             "h": 2
         },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 3
-            },
-            "Coins": { "cnt": 5 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 20
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 14,
-                "power": 7
-            },
-            "GoblinThief": {
-                "hp": 10,
-                "power": 3
-            },
-            "HoundZombie": {
-                "hp": 10,
-                "power": 3
-            },
-            "Vampire": {
-                "hp": 10,
-                "power": 7
-            },
-            "DancerZombie": {
-                "hp": 14,
-                "power": 7
-            },
-            "GluttonyZombie": {
-                "hp": 28,
-                "power": 10
-            },
-            "Gengar": {
-                "hp": 18,
-                "power": 7
-            },
-            "BombAbomination": {
-                "hp": 14,
-                "power": 10
-            },
-            "EyeDemon": {
-                "hp": 21,
-                "power": 3
-            },
-            "RandomEggZombie": {
-                "hp": 18,
-                "power": 3
-            },
-            "LustZombie": {
-                "hp": 21,
-                "power": 7
-            },
-            "Mummy": {
-                "hp": 21,
-                "power": 3
-            },
-            "SkeletonKing": {
-                "hp": 14,
-                "power": 3
-            },
-            "PoisonJellyfish": {
-                "hp": 21,
-                "power": 3
-            },
-            "SwatheZombie": {
-                "hp": 18,
-                "power": 3
-            },
-            "BoxMonster": {
-                "hp": 21,
-                "power": 3
-            },
-            "Ghost": {
-                "hp": 21,
-                "power": 3
-            },
-            "RedSlime": {
-                "hp": 18,
-                "power": 3
-            },
-            "BallShito": {
-                "hp": 10,
-                "power": 3,
-                "shield": 10
-            },
-            "GreenSlime": {
-                "hp": 14,
-                "power": 3
-            },
-            "ReviveZombie": {
-                "hp": 14,
-                "power": 3
-            }
-        },
         "randomGroups": [
             {
                 "num": [ 18, 19 ],
                 "elems": {
-                    "NormalZombie": 100,
                     "GoblinThief": 100,
-                    "HoundZombie": 100,
                     "Vampire": 100,
-                    "DancerZombie": 100,
-                    "GluttonyZombie": 100,
                     "Gengar": 100,
                     "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "Mummy": 100,
-                    "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
+                    "SkeletonKing": 100,
                     "BoxMonster": 0,
                     "Ghost": 100,
-                    "RedSlime": 100,
+                    "NormalZombie": 0,
                     "BallShito": 100,
+                    "HoundZombie": 100,
+                    "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "RandomEggZombie": 100,
+                    "LustZombie": 100,
+                    "SwatheZombie": 100,
+                    "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
                 }
@@ -5166,141 +2062,29 @@
             "w": 3,
             "h": 2
         },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 3
-            },
-            "Coins": { "cnt": 5 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 20
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 14,
-                "power": 7
-            },
-            "GoblinThief": {
-                "hp": 11,
-                "power": 3
-            },
-            "HoundZombie": {
-                "hp": 11,
-                "power": 3
-            },
-            "Vampire": {
-                "hp": 11,
-                "power": 7
-            },
-            "DancerZombie": {
-                "hp": 14,
-                "power": 7
-            },
-            "GluttonyZombie": {
-                "hp": 29,
-                "power": 11
-            },
-            "Gengar": {
-                "hp": 18,
-                "power": 7
-            },
-            "BombAbomination": {
-                "hp": 14,
-                "power": 11
-            },
-            "EyeDemon": {
-                "hp": 22,
-                "power": 3
-            },
-            "RandomEggZombie": {
-                "hp": 18,
-                "power": 3
-            },
-            "LustZombie": {
-                "hp": 22,
-                "power": 7
-            },
-            "Mummy": {
-                "hp": 22,
-                "power": 3
-            },
-            "SkeletonKing": {
-                "hp": 14,
-                "power": 3
-            },
-            "PoisonJellyfish": {
-                "hp": 22,
-                "power": 3
-            },
-            "SwatheZombie": {
-                "hp": 18,
-                "power": 3
-            },
-            "BoxMonster": {
-                "hp": 22,
-                "power": 3
-            },
-            "Ghost": {
-                "hp": 22,
-                "power": 3
-            },
-            "RedSlime": {
-                "hp": 18,
-                "power": 3
-            },
-            "BallShito": {
-                "hp": 11,
-                "power": 3,
-                "shield": 11
-            },
-            "GreenSlime": {
-                "hp": 14,
-                "power": 3
-            },
-            "ReviveZombie": {
-                "hp": 14,
-                "power": 3
-            }
-        },
         "randomGroups": [
             {
                 "num": [ 18, 19 ],
                 "elems": {
-                    "NormalZombie": 100,
                     "GoblinThief": 100,
-                    "HoundZombie": 100,
                     "Vampire": 100,
-                    "DancerZombie": 100,
-                    "GluttonyZombie": 100,
                     "Gengar": 100,
                     "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "Mummy": 100,
-                    "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
+                    "SkeletonKing": 100,
                     "BoxMonster": 0,
                     "Ghost": 100,
-                    "RedSlime": 100,
+                    "NormalZombie": 0,
                     "BallShito": 100,
+                    "HoundZombie": 100,
+                    "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "RandomEggZombie": 100,
+                    "LustZombie": 100,
+                    "SwatheZombie": 100,
+                    "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
                 }
@@ -5360,141 +2144,29 @@
             "w": 3,
             "h": 2
         },
-        "elems": {
-            "CoinsTiny": {
-                "type": "Coins",
-                "cnt": 2
-            },
-            "CoinsSmall": {
-                "type": "Coins",
-                "cnt": 3
-            },
-            "Coins": { "cnt": 5 },
-            "CoinsBig": {
-                "type": "Coins",
-                "cnt": 10
-            },
-            "CoinsHuge": {
-                "type": "Coins",
-                "cnt": 20
-            },
-            "TreasureBox1": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox1"
-            },
-            "TreasureBox2": {
-                "type": "TreasureBox",
-                "rdp": "treasureBox2"
-            },
-            "NormalZombie": {
-                "hp": 15,
-                "power": 7
-            },
-            "GoblinThief": {
-                "hp": 11,
-                "power": 3
-            },
-            "HoundZombie": {
-                "hp": 11,
-                "power": 3
-            },
-            "Vampire": {
-                "hp": 11,
-                "power": 7
-            },
-            "DancerZombie": {
-                "hp": 15,
-                "power": 7
-            },
-            "GluttonyZombie": {
-                "hp": 30,
-                "power": 11
-            },
-            "Gengar": {
-                "hp": 19,
-                "power": 7
-            },
-            "BombAbomination": {
-                "hp": 15,
-                "power": 11
-            },
-            "EyeDemon": {
-                "hp": 22,
-                "power": 3
-            },
-            "RandomEggZombie": {
-                "hp": 19,
-                "power": 3
-            },
-            "LustZombie": {
-                "hp": 22,
-                "power": 7
-            },
-            "Mummy": {
-                "hp": 22,
-                "power": 3
-            },
-            "SkeletonKing": {
-                "hp": 15,
-                "power": 3
-            },
-            "PoisonJellyfish": {
-                "hp": 22,
-                "power": 3
-            },
-            "SwatheZombie": {
-                "hp": 19,
-                "power": 3
-            },
-            "BoxMonster": {
-                "hp": 22,
-                "power": 3
-            },
-            "Ghost": {
-                "hp": 22,
-                "power": 3
-            },
-            "RedSlime": {
-                "hp": 19,
-                "power": 3
-            },
-            "BallShito": {
-                "hp": 11,
-                "power": 3,
-                "shield": 11
-            },
-            "GreenSlime": {
-                "hp": 15,
-                "power": 3
-            },
-            "ReviveZombie": {
-                "hp": 15,
-                "power": 3
-            }
-        },
         "randomGroups": [
             {
                 "num": [ 18, 19 ],
                 "elems": {
-                    "NormalZombie": 100,
                     "GoblinThief": 100,
-                    "HoundZombie": 100,
                     "Vampire": 100,
-                    "DancerZombie": 100,
-                    "GluttonyZombie": 100,
                     "Gengar": 100,
                     "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "Mummy": 100,
-                    "SkeletonKing": 100,
                     "PoisonJellyfish": 100,
-                    "SwatheZombie": 100,
+                    "SkeletonKing": 100,
                     "BoxMonster": 0,
                     "Ghost": 100,
-                    "RedSlime": 100,
+                    "NormalZombie": 0,
                     "BallShito": 100,
+                    "HoundZombie": 100,
+                    "DancerZombie": 100,
+                    "GluttonyZombie": 100,
+                    "RandomEggZombie": 100,
+                    "LustZombie": 100,
+                    "SwatheZombie": 100,
+                    "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
                 }

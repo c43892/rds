@@ -4,7 +4,7 @@ class LevelLogicFactory{
         switch(type){
             case "LevelLogicTakeKey" : levelLogic = new LevelLogicTakeKey(); break;
             case "LevelLogicSearchBody" : levelLogic = new LevelLogicSearchBody(ps[0]); break;
-            case "LevelLogicAddBoxAndKey" : levelLogic = new LevelLogicAddBoxAndKey(); break;
+            case "LevelLogicAddBoxAndKey" : levelLogic = new LevelLogicAddBoxAndKey(ps[0]); break;
             case "LevelLogicChangeMonster" : levelLogic = new LevelLogicChangeMonster(ps[0], ps[1]); break;
         }
         levelLogic.level = level;
