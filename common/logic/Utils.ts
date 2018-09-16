@@ -561,6 +561,7 @@ class Utils {
         else {
             var index = btType.indexOf("_");
             var type = btType.substring(0 , index);
+            type = type.length > 0 ? type : btType;
             levelLogics = GCfg.getLevelLogicCfg(type);
         }
         return levelLogics;

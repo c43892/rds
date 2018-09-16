@@ -5,7 +5,7 @@
         "displayName": "普通战斗1",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 20,
+        "extraTreasureBox": 0,
         "monsterBox": 0,
         "elemPosConfig":"rookiePlay",
         "init_uncovered": {
@@ -13,13 +13,10 @@
             "h": 3
         },        
         "constElems":{
-            "GoblinThief": 1,
-            "HoundZombie": 1,
-            "Vampire": 1,
-            "GluttonyZombie": 1,
-            "Gengar": 1,
-            "BombAbomination": 1,
             "EyeDemon": 2,
+            "DancerZombie": 2,
+            "GreenSlime": 2,
+            "ReviveZombie": 2,
             "Knife": 1,
             "Key": 1,
             "Shield": 1,
@@ -32,7 +29,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 20,
-        "monsterBox": 6,
+        "monsterBox": 0,
         "init_uncovered": {
             "w": 3,
             "h": 3
@@ -305,7 +302,7 @@
                     "DancerZombie": 100,
                     "GluttonyZombie": 100,
                     "RandomEggZombie": 100,
-                    "SwatheZombie": 100,
+                    "SwatheZombie": 10000000,
                     "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100

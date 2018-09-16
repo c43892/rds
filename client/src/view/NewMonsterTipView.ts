@@ -132,6 +132,9 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
         if (!(m instanceof Monster))
             return;
 
+        if(m.attrs.noNewMonsterTip)
+            return;
+
         var tip = this.tryAddNewMonsterTip(m);
         if (tip)
             AniUtils.flash(tip, 300);

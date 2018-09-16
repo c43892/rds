@@ -1,11 +1,8 @@
 {
     "rookiePlay":{
-        "GoblinThief": [{"x":6, "y":6}],
-        "HoundZombie": [{"x":4, "y":0}],
-        "Vampire": [{"x":4, "y":1}],
-        "GluttonyZombie": [{"x":4, "y":3}],
-        "Gengar": [{"x":4, "y":7}],
-        "BombAbomination": [{"x":0, "y":8}],
+        "ReviveZombie": [{"x":6, "y":6}, {"x":4, "y":0}],
+        "GreenSlime": [{"x":4, "y":3}, {"x":4, "y":1}],
+        "DancerZombie": [{"x":0, "y":8}, {"x":4, "y":7}],
         "EyeDemon": [{"x":0, "y":1}, {"x":6, "y":8}],
         "Knife": [{"x":0, "y":0}],
         "Key": [{"x":2, "y":6}],
