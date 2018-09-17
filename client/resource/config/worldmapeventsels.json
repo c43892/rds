@@ -429,74 +429,25 @@
             "title": "冒险者的尸体",
             "desc": "你发现了一具冒险者的尸体！这个可怜虫浑身都被撕烂了，但他身上说不定藏着什么<font color=#00b050 size=25>好东西</font>。",
             "sels": [{
-                "func": ["sequence"],
+                "func": ["searchOnCropse"],
+                "desc": "<font color=#000000 size=20>[搜索]</font></font><font color=#00b050 size=20>75%获得奖励，</font></font><font color=#7d0403 size=20>25%进入战斗</font>",
                 "ps": {
-                    "desc": "<font color=#000000 size=20>[搜索]</font></font><font color=#00b050 size=20>75%获得奖励，</font></font><font color=#7d0403 size=20>25%进入战斗</font>",
-                    "rates": [75],
-                    "func": ["+item", "redirectSelGroup"],
-                    "ps": [{"item": "MedicineBox", "group": "a91", "group2": "a94"}],
-                    "failedFunc": ["redirectSelGroup2"]
+                    "rateArr": [75, 50, 25],
+                    "titleArr": ["冒险者的尸体", "冒险者的尸体", "冒险者的尸体"],
+                    "upDescArr": ["你找到了</font><font color=#00b050 size=25>{lastDropped}，</font>还想继续找么？", "你找到了</font><font color=#00b050 size=25>{lastDropped}，</font>还想继续找么？", "你找到了</font><font color=#00b050 size=25>{lastDropped}，</font>，现在冒险者身上已经没有东西了，你满意的离开了。"],
+                    "descArr": ["<font color=#000000 size=20>[继续翻找]</font></font><font color=#00b050 size=20>50%获得奖励，</font></font><font color=#7d0403 size=20>50%进入战斗</font>", "<font color=#000000 size=20>[搜索]</font></font><font color=#00b050 size=20>25%获得奖励，</font></font><font color=#7d0403 size=20>75%进入战斗</font>", "你并不想步冒险者的后尘，于是果断离开了。"],
+                    "toDrop": ["Coins", "ttrdp1", "ttrdp2"],
+                    "money": 50,
+                    "exitDescArr": ["<font color=#000000 size=20>[离开]</font>", "<font color=#000000 size=20>[离开]</font>", "<font color=#000000 size=20>[离开]</font>"],
+                    "battleType": "normal"
                 }
             },{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit", "redirectSelGroup"],
-                "ps": {"group": "a95"}
+                "ps": {"group": "a91"}
             }]
         },
         "a91": {
-            "title": "冒险者的尸体",
-            "desc": "你找到了<font color=#00b050 size=25>一件道具</font>，还想继续找么？",
-            "sels": [{
-                "func": ["sequence"],
-                "ps": {
-                    "desc": "<font color=#000000 size=20>[搜索]</font></font><font color=#00b050 size=20>50%获得奖励，</font></font><font color=#7d0403 size=20>50%进入战斗</font>",
-                    "rates": [50],
-                    "func": ["+item", "redirectSelGroup"],
-                    "ps": [{"item": "MedicineBox", "group": "a92", "group2": "a94"}],
-                    "failedFunc": ["redirectSelGroup2"]
-                }
-            },{
-                "desc": "<font color=#000000 size=20>[离开]</font>",
-                "func": ["exit", "redirectSelGroup"],
-                "ps": {"group": "a95"}
-            }]
-        },
-        "a92": {
-            "title": "冒险者的尸体",
-            "desc": "你找到了<font color=#00b050 size=25>一件道具</font>，还想继续找么？",
-            "sels": [{
-                "func": ["sequence"],
-                "ps": {
-                    "desc": "<font color=#000000 size=20>[搜索]</font></font><font color=#00b050 size=20>25%获得奖励，</font></font><font color=#7d0403 size=20>75%进入战斗</font>",
-                    "rates": [25],
-                    "func": ["+item", "redirectSelGroup"],
-                    "ps": [{"item": "MedicineBox", "group": "a92", "group2": "a94"}],
-                    "failedFunc": ["redirectSelGroup2"]
-                }
-            },{
-                "desc": "<font color=#000000 size=20>[离开]</font>",
-                "func": ["exit", "redirectSelGroup"],
-                "ps": {"group": "a95"}
-            }]
-        },
-        "a93":{
-            "title": "冒险者的尸体",
-            "desc": "你找到了<font color=#00b050 size=25>一件道具</font>，现在冒险者身上已经没有东西了，你满意的离开了。",
-            "sels": [{
-                "desc": "<font color=#000000 size=20>[离开]</font>",
-                "func": ["exit"]
-            }]
-        },
-        "a94": {
-            "title": "冒险者的尸体",
-            "desc": "搜索的时候你被偷袭了！",
-            "sels": [{
-                "desc": "<font color=#000000 size=20>[战斗]</font>",
-                "func": ["battle"],
-                "ps": {"battleType": "normal"}
-            }]
-        },
-        "a95": {
             "title": "冒险者的尸体",
             "desc": "你并不想步冒险者的后尘，于是果断离开了。",
             "sels": [{
