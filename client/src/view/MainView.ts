@@ -301,7 +301,7 @@ class MainView extends egret.DisplayObjectContainer {
                 }
             }
         }
-        this.addChild(this.ttv); 
+        this.addChild(this.ttv);
         this.setChildIndex(this.ttv, -1);
         await this.ttv.open();
         this.removeChild(this.ttv);
