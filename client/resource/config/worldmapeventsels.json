@@ -285,12 +285,13 @@
                 "func": ["searchOnCropse"],
                 "desc": "sels",
                 "ps": {
-                    "rateArr": [100, 100, 0],
+                    "rateArr": [100, 100, 100],
                     "titleArr": ["标题1", "标题2", "标题3"],
                     "upDescArr": ["大描述1", "大描述2", "大描述3"],
                     "descArr": ["描述1", "描述2", "描述3"],
                     "items2Drop": ["+money", "MedicineBox", "MedicineBox"],
                     "money": 1,
+                    "exitDescArr": ["我要走了", "我要走了", "我真的要走了"],
                     "battleType": "normal"
                 }
             }]

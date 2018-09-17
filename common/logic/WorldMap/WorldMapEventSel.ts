@@ -272,26 +272,37 @@ class WorldMapEventSelFactory {
             var desc = ps.descArr[0];
             ps.desc = desc;
             ps.descArr = Utils.removeAt(ps.descArr, 0);
+            var exitDesc = ps.exitDescArr[0];
+            ps.exitDescArr = Utils.removeAt(ps.exitDescArr, 0);
 
             var hit = p.playerRandom.next100() < rate;
             if (hit) { // 成功就掉落，再进列表
                 return this.exec(async () => {
+                    var sels = [];
                     var subSel = this.newSel();
-                    
-                    // 掉落列表是事件过程中一直维护，去掉已经掉落的内容，保留未掉落的内容
-                    var items2Drop = ps.items2Drop;
-                    var n = p.playerRandom.nextInt(0, items2Drop.length);
-                    var itemType = items2Drop[n];
-                    ps.items2Drop = Utils.removeAt(items2Drop, n);
+                    if (ps.rateArr.length > 0) {                    
+                        // 掉落列表是事件过程中一直维护，去掉已经掉落的内容，保留未掉落的内容
+                        var items2Drop = ps.items2Drop;
+                        var n = p.playerRandom.nextInt(0, items2Drop.length);
+                        var itemType = items2Drop[n];
+                        ps.items2Drop = Utils.removeAt(items2Drop, n);
 
-                    if (itemType == "+money")
-                        await this.implAddMoney(p, ps.money);
-                    else
-                        await this.implAddItem(p, ElemFactory.create(itemType));
+                        if (itemType == "+money")
+                            await this.implAddMoney(p, ps.money);
+                        else
+                            await this.implAddItem(p, ElemFactory.create(itemType));
 
-                    subSel = this.creators["searchOnCropse"](subSel, p, ps);
-                    subSel.desc = this.genDesc(desc, "searchOnCropse", ps);
-                    await this.openSels(p, title, upDescArr, [subSel]);
+                        subSel = this.creators["searchOnCropse"](subSel, p, ps);
+                        subSel.desc = this.genDesc(desc, "searchOnCropse", ps);
+                        sels.push(subSel);
+                    }
+
+                    var exitSel = this.newSel();
+                    this.creators["exit"](exitSel, p, undefined);
+                    exitSel.desc = this.genDesc(exitDesc, "exit", ps);
+                    sels.push(exitSel);
+
+                    await this.openSels(p, title, upDescArr, sels);
                 }, sel);
             } else { // 失败就战斗
                 // items2Drop 里面的东西是剩下还没掉过的
