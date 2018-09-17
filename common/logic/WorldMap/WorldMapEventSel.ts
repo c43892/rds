@@ -274,19 +274,20 @@ class WorldMapEventSelFactory {
             ps.descArr = Utils.removeAt(ps.descArr, 0);
             var exitDesc = ps.exitDescArr[0];
             ps.exitDescArr = Utils.removeAt(ps.exitDescArr, 0);
+            var toDrop = ps.toDrop;            
 
             var hit = p.playerRandom.next100() < rate;
             if (hit) { // 成功就掉落，再进列表
                 return this.exec(async () => {
                     var sels = [];
-                    
+
                     // 掉落列表是事件过程中一直维护，去掉已经掉落的内容，保留未掉落的内容
-                    var toDrop = ps.toDrop;
                     var n = p.playerRandom.nextInt(0, toDrop.length);
                     var dropType = toDrop[n];
                     ps.toDrop = Utils.removeAt(toDrop, n);
 
                     var lastDropped;
+                    // 如果掉落的是金币，ps.money 就是金币数量
                     if (dropType == "Coins") {
                         lastDropped = "Coins";
                         await this.implAddMoney(p, ps.money);
@@ -295,7 +296,7 @@ class WorldMapEventSelFactory {
                         upDesc = upDesc.replace("{lastDropped}", lastDroppedName + "x" + ps.money);
                         desc = desc.replace("{lastDropped}", lastDroppedName + "x" + ps.money);
                     }
-                    else {
+                    else { // 否则就是掉落组
                         var rdp = GCfg.getRandomDropGroupCfg(dropType);
                         var arr = Utils.randomSelectByWeightWithPlayerFilter(p, rdp.elems, p.playerRandom, rdp.num[0], rdp.num[1], true, "Coins");
                         if (arr.length > 0) {
@@ -325,6 +326,7 @@ class WorldMapEventSelFactory {
                 }, sel);
             } else { // 失败就战斗
                 // items2Drop 里面的东西是剩下还没掉过的
+                toDrop.forEach((dp) => Utils.log(dp));
                 return this.exec(async () => await this.startBattle(ps.battleType), sel);
             }
         },
