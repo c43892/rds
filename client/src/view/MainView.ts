@@ -62,6 +62,7 @@ class MainView extends egret.DisplayObjectContainer {
         // 世界地图
         this.wmv = new WorldMapView(w, h);
         this.wmv.openShop = async (shop) => await this.openShopOnWorldMap(shop);
+        this.wmv.refreshShopSoldout = () => this.sv.refreshSoldout();
         this.wmv.openHospital = async () => await this.openHospital();
         this.wmv.openBoxRoom = async (openBoxRoom) => await this.openBoxRoom(openBoxRoom);
         this.wmv.openTurntable = async (turntable) => await this.openTurntable(turntable);

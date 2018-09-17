@@ -8,6 +8,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
     private mapArea:egret.ScrollView;
 
     public openShop; // 打开商店
+    public refreshShopSoldout; // 刷新商店的销售状态
     public openHospital; // 进入医院
     public openBoxRoom; // 宝箱房间
     public openTurntable;//打开转盘事件
@@ -379,9 +380,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
         var ptStoreyN = bmp["ptStoreyN"];
 
         // //检查点击的节点是否是当前可到达节点(测试中,暂且屏蔽该检查)
-        // if(!WorldMapView.isValidNode(this.player, ptStoreyN, ptStoreyLv))
-        //     return;
-
         // if (!BattleUtils.isStoreyPosSelectable(this.worldmap.player, {lv:ptStoreyLv, n:ptStoreyN}))
         //     return;
 
@@ -404,9 +402,11 @@ class WorldMapView extends egret.DisplayObjectContainer {
             case "boss":
                 var p = this.worldmap.player;
                 var btRandonSeed = p.playerRandom.nextInt(0, 10000);
+                this.refreshShopSoldout() // 刷新战斗内商店销售状态
                 await this.startNewBattle(p, nodeType, lv, n, btRandonSeed, skipBlackIn);
                 break;
             case "shop":
+                this.refreshShopSoldout() // 刷新世界地图商店销售状态
                 await this.openShop(this.worldmap.cfg.shop);
                 break;
             case "camp":
@@ -416,6 +416,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 await this.openBoxRoom(this.worldmap.cfg.boxroomDrops);
                 break;
             case "event":
+                this.refreshShopSoldout() // 刷新事件内可能出现的商店销售状态
                 await this.openMapEventSels(lv, n);
                 break;
             default:
@@ -486,13 +487,5 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
     async openSels(p:Player, title, desc, sels) {
         await this.openEventSels(title, desc, sels);
-    }
-
-    public static isValidNode(p:Player, x, y):boolean{
-        var wm = p.worldmap;
-        var currentNode =  WorldMapNode.getNode(p.currentStoreyPos.n, p.currentStoreyPos.lv, wm.nodes);
-        var targetNode = WorldMapNode.getNode(x, y, wm.nodes);
-
-        return targetNode.isParent(currentNode);
     }
 }
