@@ -5,11 +5,13 @@ class Level {
     public map:Map;
     private bt:Battle; // 反向引用回所属 battle
     private cfg;
+    private lv;
 
     public Init(bt:Battle, cfg) {
         this.displayName = cfg.displayName;
         this.bt = bt;
         this.cfg = cfg;
+        this.lv = bt.player.currentStoreyPos.lv;
         this.InitMap(cfg.map);
         this.InitElems(bt.btType, cfg.elems, cfg.constElems, cfg.randomGroups, 
             GCfg.mapsize.w * GCfg.mapsize.h + cfg.init_uncovered.w + cfg.init_uncovered.h, 
@@ -24,13 +26,13 @@ class Level {
     // 创建指定元素，如果未明确指定配置属性，则默认参考本关卡配置
     private elemsCfgInLevel;
     public getElemCfg(type:string) {
-        var attrs = GCfg.getElemAttrsOfLevel(type, this.bt.player.currentStoreyPos.lv);
+        var attrs = GCfg.getElemAttrsOfLevel(type, this.lv);
         if (!attrs)
             attrs = GCfg.getElemAttrsCfg(type);
 
         while (attrs && attrs.type) {
             type = attrs.type;
-            var tAttrs = GCfg.getElemAttrsOfLevel(type, this.bt.player.currentStoreyPos.lv);
+            var tAttrs = GCfg.getElemAttrsOfLevel(type, this.lv);
             tAttrs = tAttrs ? tAttrs : GCfg.getElemAttrsCfg(type);
             if (tAttrs) {
                 for (var k in attrs)
