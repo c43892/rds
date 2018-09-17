@@ -282,15 +282,19 @@ class WorldMapEventSelFactory {
                     var subSel = this.newSel();
                     if (ps.rateArr.length > 0) {                    
                         // 掉落列表是事件过程中一直维护，去掉已经掉落的内容，保留未掉落的内容
-                        var items2Drop = ps.items2Drop;
-                        var n = p.playerRandom.nextInt(0, items2Drop.length);
-                        var itemType = items2Drop[n];
-                        ps.items2Drop = Utils.removeAt(items2Drop, n);
+                        var toDrop = ps.toDrop;
+                        var n = p.playerRandom.nextInt(0, toDrop.length);
+                        var dropType = toDrop[n];
+                        ps.toDrop = Utils.removeAt(toDrop, n);
 
-                        if (itemType == "+money")
+                        if (dropType == "Coins")
                             await this.implAddMoney(p, ps.money);
-                        else
-                            await this.implAddItem(p, ElemFactory.create(itemType));
+                        else {
+                            var rdp = GCfg.getRandomDropGroupCfg(dropType);
+                            var arr = Utils.randomSelectByWeightWithPlayerFilter(p, rdp.elems, p.playerRandom, rdp.num[0], rdp.num[1], true, "Coins");
+                            if (arr.length > 0)
+                                await this.implAddItem(p, ElemFactory.create(arr[0]));
+                        }
 
                         subSel = this.creators["searchOnCropse"](subSel, p, ps);
                         subSel.desc = this.genDesc(desc, "searchOnCropse", ps);
