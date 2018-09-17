@@ -36,7 +36,7 @@ class Player {
         p.occupation = "Nurse";
         p.deathStep = 100;
 
-        p.maxDeathStep = 120;
+        p.maxDeathStep = 100;
         p.hp = 20;
         p.maxHp = 20;
         p.dodge = 0;

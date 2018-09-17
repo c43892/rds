@@ -11,7 +11,8 @@
         "init_uncovered": {
             "w": 3,
             "h": 3
-        },        
+        },
+        "shopCfg": "inbattle",
         "constElems":{
             "EyeDemon": 2,
             "DancerZombie": 2,
@@ -24,7 +25,7 @@
         }
     },
 
-        "normal_1": {
+    "normal_1": {
         "displayName": "普通战斗1",
         "map": {},
         "doorUnlock": 1,
@@ -34,6 +35,8 @@
             "w": 3,
             "h": 3
         },
+        "shopCfg": "inbattle",
+        "constElems": { "ShopNpc": 1 },
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -53,7 +56,6 @@
                     "EconomyMagazine": 1101,
                     "Clock": 1101,
                     "Shield": 1101,
-                    "HpPotion": 1101,
                     "IceGun": 1101,
                     "RayGun": 1101,
                     "HpCapsule": 1101,
@@ -65,8 +67,7 @@
                     "Bazooka": 1101,
                     "WantedOrder": 1101,
                     "Baton": 1101,
-                    "LifeSpring": 1101,
-                    "Cloak": 1101
+                    "LifeSpring": 1101
                 }
             },
             {
@@ -94,6 +95,8 @@
             "w": 3,
             "h": 3
         },
+        "shopCfg": "inbattle",
+        "constElems": { "ShopNpc": 1 },
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -115,7 +118,6 @@
                     "EconomyMagazine": 1102,
                     "Clock": 1102,
                     "Shield": 1102,
-                    "HpPotion": 1102,
                     "IceGun": 1102,
                     "RayGun": 1102,
                     "HpCapsule": 1102,
@@ -127,8 +129,7 @@
                     "Bazooka": 1102,
                     "WantedOrder": 1102,
                     "Baton": 1102,
-                    "LifeSpring": 1102,
-                    "Cloak": 1102
+                    "LifeSpring": 1102
                 }
             },
             {
@@ -156,6 +157,8 @@
             "w": 3,
             "h": 3
         },
+        "shopCfg": "inbattle",
+        "constElems": { "ShopNpc": 1 },
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -181,7 +184,6 @@
                     "EconomyMagazine": 1103,
                     "Clock": 1103,
                     "Shield": 1103,
-                    "HpPotion": 1103,
                     "IceGun": 1103,
                     "RayGun": 1103,
                     "HpCapsule": 1103,
@@ -193,8 +195,7 @@
                     "Bazooka": 1103,
                     "WantedOrder": 1103,
                     "Baton": 1103,
-                    "LifeSpring": 1103,
-                    "Cloak": 1103
+                    "LifeSpring": 1103
                 }
             },
             {
@@ -222,6 +223,8 @@
             "w": 3,
             "h": 3
         },
+        "shopCfg": "inbattle",
+        "constElems": { "ShopNpc": 1 },
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -247,7 +250,6 @@
                     "EconomyMagazine": 1104,
                     "Clock": 1104,
                     "Shield": 1104,
-                    "HpPotion": 1104,
                     "IceGun": 1104,
                     "RayGun": 1104,
                     "HpCapsule": 1104,
@@ -259,8 +261,7 @@
                     "Bazooka": 1104,
                     "WantedOrder": 1104,
                     "Baton": 1104,
-                    "LifeSpring": 1104,
-                    "Cloak": 1104
+                    "LifeSpring": 1104
                 }
             },
             {
@@ -288,6 +289,8 @@
             "w": 3,
             "h": 3
         },
+        "shopCfg": "inbattle",
+        "constElems": { "ShopNpc": 1 },
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -302,7 +305,7 @@
                     "DancerZombie": 100,
                     "GluttonyZombie": 100,
                     "RandomEggZombie": 100,
-                    "SwatheZombie": 10000000,
+                    "SwatheZombie": 100,
                     "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100
@@ -316,7 +319,6 @@
                     "EconomyMagazine": 1105,
                     "Clock": 1105,
                     "Shield": 1105,
-                    "HpPotion": 1105,
                     "IceGun": 1105,
                     "RayGun": 1105,
                     "HpCapsule": 1105,
@@ -328,8 +330,7 @@
                     "Bazooka": 1105,
                     "WantedOrder": 1105,
                     "Baton": 1105,
-                    "LifeSpring": 1105,
-                    "Cloak": 1105
+                    "LifeSpring": 1105
                 }
             },
             {
@@ -357,6 +358,8 @@
             "w": 3,
             "h": 3
         },
+        "shopCfg": "inbattle",
+        "constElems": { "ShopNpc": 1 },
         "randomGroups": [
             {
                 "num": [ 10, 11 ],
@@ -385,7 +388,6 @@
                     "EconomyMagazine": 1106,
                     "Clock": 1106,
                     "Shield": 1106,
-                    "HpPotion": 1106,
                     "IceGun": 1106,
                     "RayGun": 1106,
                     "HpCapsule": 1106,
@@ -397,8 +399,7 @@
                     "Bazooka": 1106,
                     "WantedOrder": 1106,
                     "Baton": 1106,
-                    "LifeSpring": 1106,
-                    "Cloak": 1106
+                    "LifeSpring": 1106
                 }
             },
             {
@@ -432,6 +433,8 @@
             "w": 3,
             "h": 3
         },
+        "shopCfg": "inbattle",
+        "constElems": { "ShopNpc": 1 },
         "randomGroups": [
             {
                 "num": [ 10, 11 ],
@@ -460,7 +463,6 @@
                     "EconomyMagazine": 1107,
                     "Clock": 1107,
                     "Shield": 1107,
-                    "HpPotion": 1107,
                     "IceGun": 1107,
                     "RayGun": 1107,
                     "HpCapsule": 1107,
@@ -472,8 +474,7 @@
                     "Bazooka": 1107,
                     "WantedOrder": 1107,
                     "Baton": 1107,
-                    "LifeSpring": 1107,
-                    "Cloak": 1107
+                    "LifeSpring": 1107
                 }
             },
             {
@@ -507,6 +508,8 @@
             "w": 3,
             "h": 3
         },
+        "shopCfg": "inbattle",
+        "constElems": { "ShopNpc": 1 },
         "randomGroups": [
             {
                 "num": [ 10, 11 ],
@@ -539,7 +542,6 @@
                     "EconomyMagazine": 1108,
                     "Clock": 1108,
                     "Shield": 1108,
-                    "HpPotion": 1108,
                     "IceGun": 1108,
                     "RayGun": 1108,
                     "HpCapsule": 1108,
@@ -551,8 +553,7 @@
                     "Bazooka": 1108,
                     "WantedOrder": 1108,
                     "Baton": 1108,
-                    "LifeSpring": 1108,
-                    "Cloak": 1108
+                    "LifeSpring": 1108
                 }
             },
             {
@@ -586,6 +587,8 @@
             "w": 3,
             "h": 3
         },
+        "shopCfg": "inbattle",
+        "constElems": { "ShopNpc": 1 },
         "randomGroups": [
             {
                 "num": [ 10, 11 ],
@@ -618,7 +621,6 @@
                     "EconomyMagazine": 1109,
                     "Clock": 1109,
                     "Shield": 1109,
-                    "HpPotion": 1109,
                     "IceGun": 1109,
                     "RayGun": 1109,
                     "HpCapsule": 1109,
@@ -630,8 +632,7 @@
                     "Bazooka": 1109,
                     "WantedOrder": 1109,
                     "Baton": 1109,
-                    "LifeSpring": 1109,
-                    "Cloak": 1109
+                    "LifeSpring": 1109
                 }
             },
             {
@@ -665,6 +666,8 @@
             "w": 3,
             "h": 3
         },
+        "shopCfg": "inbattle",
+        "constElems": { "ShopNpc": 1 },
         "randomGroups": [
             {
                 "num": [ 10, 11 ],
@@ -700,7 +703,6 @@
                     "EconomyMagazine": 1110,
                     "Clock": 1110,
                     "Shield": 1110,
-                    "HpPotion": 1110,
                     "IceGun": 1110,
                     "RayGun": 1110,
                     "HpCapsule": 1110,
@@ -712,8 +714,7 @@
                     "Bazooka": 1110,
                     "WantedOrder": 1110,
                     "Baton": 1110,
-                    "LifeSpring": 1110,
-                    "Cloak": 1110
+                    "LifeSpring": 1110
                 }
             },
             {
@@ -747,6 +748,8 @@
             "w": 3,
             "h": 3
         },
+        "shopCfg": "inbattle",
+        "constElems": { "ShopNpc": 1 },
         "randomGroups": [
             {
                 "num": [ 12, 13 ],
@@ -782,7 +785,6 @@
                     "EconomyMagazine": 1111,
                     "Clock": 1111,
                     "Shield": 1111,
-                    "HpPotion": 1111,
                     "IceGun": 1111,
                     "RayGun": 1111,
                     "HpCapsule": 1111,
@@ -794,8 +796,7 @@
                     "Bazooka": 1111,
                     "WantedOrder": 1111,
                     "Baton": 1111,
-                    "LifeSpring": 1111,
-                    "Cloak": 1111
+                    "LifeSpring": 1111
                 }
             },
             {
@@ -829,6 +830,8 @@
             "w": 3,
             "h": 3
         },
+        "shopCfg": "inbattle",
+        "constElems": { "ShopNpc": 1 },
         "randomGroups": [
             {
                 "num": [ 12, 13 ],
@@ -864,7 +867,6 @@
                     "EconomyMagazine": 1112,
                     "Clock": 1112,
                     "Shield": 1112,
-                    "HpPotion": 1112,
                     "IceGun": 1112,
                     "RayGun": 1112,
                     "HpCapsule": 1112,
@@ -876,8 +878,7 @@
                     "Bazooka": 1112,
                     "WantedOrder": 1112,
                     "Baton": 1112,
-                    "LifeSpring": 1112,
-                    "Cloak": 1112
+                    "LifeSpring": 1112
                 }
             },
             {
@@ -911,6 +912,8 @@
             "w": 3,
             "h": 3
         },
+        "shopCfg": "inbattle",
+        "constElems": { "ShopNpc": 1 },
         "randomGroups": [
             {
                 "num": [ 12, 13 ],
@@ -946,7 +949,6 @@
                     "EconomyMagazine": 1113,
                     "Clock": 1113,
                     "Shield": 1113,
-                    "HpPotion": 1113,
                     "IceGun": 1113,
                     "RayGun": 1113,
                     "HpCapsule": 1113,
@@ -958,8 +960,7 @@
                     "Bazooka": 1113,
                     "WantedOrder": 1113,
                     "Baton": 1113,
-                    "LifeSpring": 1113,
-                    "Cloak": 1113
+                    "LifeSpring": 1113
                 }
             },
             {
@@ -993,6 +994,8 @@
             "w": 3,
             "h": 3
         },
+        "shopCfg": "inbattle",
+        "constElems": { "ShopNpc": 1 },
         "randomGroups": [
             {
                 "num": [ 12, 13 ],
@@ -1028,7 +1031,6 @@
                     "EconomyMagazine": 1114,
                     "Clock": 1114,
                     "Shield": 1114,
-                    "HpPotion": 1114,
                     "IceGun": 1114,
                     "RayGun": 1114,
                     "HpCapsule": 1114,
@@ -1040,8 +1042,7 @@
                     "Bazooka": 1114,
                     "WantedOrder": 1114,
                     "Baton": 1114,
-                    "LifeSpring": 1114,
-                    "Cloak": 1114
+                    "LifeSpring": 1114
                 }
             },
             {
@@ -1075,6 +1076,8 @@
             "w": 3,
             "h": 2
         },
+        "shopCfg": "inbattle",
+        "constElems": { "ShopNpc": 1 },
         "randomGroups": [
             {
                 "num": [ 14, 15 ],
@@ -1110,7 +1113,6 @@
                     "EconomyMagazine": 1116,
                     "Clock": 1116,
                     "Shield": 1116,
-                    "HpPotion": 1116,
                     "IceGun": 1116,
                     "RayGun": 1116,
                     "HpCapsule": 1116,
@@ -1122,8 +1124,7 @@
                     "Bazooka": 1116,
                     "WantedOrder": 1116,
                     "Baton": 1116,
-                    "LifeSpring": 1116,
-                    "Cloak": 1116
+                    "LifeSpring": 1116
                 }
             },
             {
@@ -1157,6 +1158,8 @@
             "w": 3,
             "h": 2
         },
+        "shopCfg": "inbattle",
+        "constElems": { "ShopNpc": 1 },
         "randomGroups": [
             {
                 "num": [ 14, 15 ],
@@ -1192,7 +1195,6 @@
                     "EconomyMagazine": 1117,
                     "Clock": 1117,
                     "Shield": 1117,
-                    "HpPotion": 1117,
                     "IceGun": 1117,
                     "RayGun": 1117,
                     "HpCapsule": 1117,
@@ -1204,8 +1206,7 @@
                     "Bazooka": 1117,
                     "WantedOrder": 1117,
                     "Baton": 1117,
-                    "LifeSpring": 1117,
-                    "Cloak": 1117
+                    "LifeSpring": 1117
                 }
             },
             {
@@ -1239,6 +1240,8 @@
             "w": 3,
             "h": 2
         },
+        "shopCfg": "inbattle",
+        "constElems": { "ShopNpc": 1 },
         "randomGroups": [
             {
                 "num": [ 14, 15 ],
@@ -1274,7 +1277,6 @@
                     "EconomyMagazine": 1118,
                     "Clock": 1118,
                     "Shield": 1118,
-                    "HpPotion": 1118,
                     "IceGun": 1118,
                     "RayGun": 1118,
                     "HpCapsule": 1118,
@@ -1286,8 +1288,7 @@
                     "Bazooka": 1118,
                     "WantedOrder": 1118,
                     "Baton": 1118,
-                    "LifeSpring": 1118,
-                    "Cloak": 1118
+                    "LifeSpring": 1118
                 }
             },
             {
@@ -1321,6 +1322,8 @@
             "w": 3,
             "h": 2
         },
+        "shopCfg": "inbattle",
+        "constElems": { "ShopNpc": 1 },
         "randomGroups": [
             {
                 "num": [ 14, 15 ],
@@ -1356,7 +1359,6 @@
                     "EconomyMagazine": 1119,
                     "Clock": 1119,
                     "Shield": 1119,
-                    "HpPotion": 1119,
                     "IceGun": 1119,
                     "RayGun": 1119,
                     "HpCapsule": 1119,
@@ -1368,8 +1370,7 @@
                     "Bazooka": 1119,
                     "WantedOrder": 1119,
                     "Baton": 1119,
-                    "LifeSpring": 1119,
-                    "Cloak": 1119
+                    "LifeSpring": 1119
                 }
             },
             {
@@ -1403,6 +1404,8 @@
             "w": 3,
             "h": 2
         },
+        "shopCfg": "inbattle",
+        "constElems": { "ShopNpc": 1 },
         "randomGroups": [
             {
                 "num": [ 14, 15 ],
@@ -1438,7 +1441,6 @@
                     "EconomyMagazine": 1120,
                     "Clock": 1120,
                     "Shield": 1120,
-                    "HpPotion": 1120,
                     "IceGun": 1120,
                     "RayGun": 1120,
                     "HpCapsule": 1120,
@@ -1450,8 +1452,7 @@
                     "Bazooka": 1120,
                     "WantedOrder": 1120,
                     "Baton": 1120,
-                    "LifeSpring": 1120,
-                    "Cloak": 1120
+                    "LifeSpring": 1120
                 }
             },
             {
@@ -1485,6 +1486,8 @@
             "w": 3,
             "h": 2
         },
+        "shopCfg": "inbattle",
+        "constElems": { "ShopNpc": 1 },
         "randomGroups": [
             {
                 "num": [ 16, 17 ],
@@ -1520,7 +1523,6 @@
                     "EconomyMagazine": 1121,
                     "Clock": 1121,
                     "Shield": 1121,
-                    "HpPotion": 1121,
                     "IceGun": 1121,
                     "RayGun": 1121,
                     "HpCapsule": 1121,
@@ -1532,8 +1534,7 @@
                     "Bazooka": 1121,
                     "WantedOrder": 1121,
                     "Baton": 1121,
-                    "LifeSpring": 1121,
-                    "Cloak": 1121
+                    "LifeSpring": 1121
                 }
             },
             {
@@ -1567,6 +1568,8 @@
             "w": 3,
             "h": 2
         },
+        "shopCfg": "inbattle",
+        "constElems": { "ShopNpc": 1 },
         "randomGroups": [
             {
                 "num": [ 16, 17 ],
@@ -1602,7 +1605,6 @@
                     "EconomyMagazine": 1122,
                     "Clock": 1122,
                     "Shield": 1122,
-                    "HpPotion": 1122,
                     "IceGun": 1122,
                     "RayGun": 1122,
                     "HpCapsule": 1122,
@@ -1614,8 +1616,7 @@
                     "Bazooka": 1122,
                     "WantedOrder": 1122,
                     "Baton": 1122,
-                    "LifeSpring": 1122,
-                    "Cloak": 1122
+                    "LifeSpring": 1122
                 }
             },
             {
@@ -1649,6 +1650,8 @@
             "w": 3,
             "h": 2
         },
+        "shopCfg": "inbattle",
+        "constElems": { "ShopNpc": 1 },
         "randomGroups": [
             {
                 "num": [ 16, 17 ],
@@ -1684,7 +1687,6 @@
                     "EconomyMagazine": 1123,
                     "Clock": 1123,
                     "Shield": 1123,
-                    "HpPotion": 1123,
                     "IceGun": 1123,
                     "RayGun": 1123,
                     "HpCapsule": 1123,
@@ -1696,8 +1698,7 @@
                     "Bazooka": 1123,
                     "WantedOrder": 1123,
                     "Baton": 1123,
-                    "LifeSpring": 1123,
-                    "Cloak": 1123
+                    "LifeSpring": 1123
                 }
             },
             {
@@ -1731,6 +1732,8 @@
             "w": 3,
             "h": 2
         },
+        "shopCfg": "inbattle",
+        "constElems": { "ShopNpc": 1 },
         "randomGroups": [
             {
                 "num": [ 16, 17 ],
@@ -1766,7 +1769,6 @@
                     "EconomyMagazine": 1124,
                     "Clock": 1124,
                     "Shield": 1124,
-                    "HpPotion": 1124,
                     "IceGun": 1124,
                     "RayGun": 1124,
                     "HpCapsule": 1124,
@@ -1778,8 +1780,7 @@
                     "Bazooka": 1124,
                     "WantedOrder": 1124,
                     "Baton": 1124,
-                    "LifeSpring": 1124,
-                    "Cloak": 1124
+                    "LifeSpring": 1124
                 }
             },
             {
@@ -1813,6 +1814,8 @@
             "w": 3,
             "h": 2
         },
+        "shopCfg": "inbattle",
+        "constElems": { "ShopNpc": 1 },
         "randomGroups": [
             {
                 "num": [ 16, 17 ],
@@ -1848,7 +1851,6 @@
                     "EconomyMagazine": 1125,
                     "Clock": 1125,
                     "Shield": 1125,
-                    "HpPotion": 1125,
                     "IceGun": 1125,
                     "RayGun": 1125,
                     "HpCapsule": 1125,
@@ -1860,8 +1862,7 @@
                     "Bazooka": 1125,
                     "WantedOrder": 1125,
                     "Baton": 1125,
-                    "LifeSpring": 1125,
-                    "Cloak": 1125
+                    "LifeSpring": 1125
                 }
             },
             {
@@ -1895,6 +1896,8 @@
             "w": 3,
             "h": 2
         },
+        "shopCfg": "inbattle",
+        "constElems": { "ShopNpc": 1 },
         "randomGroups": [
             {
                 "num": [ 18, 19 ],
@@ -1930,7 +1933,6 @@
                     "EconomyMagazine": 1126,
                     "Clock": 1126,
                     "Shield": 1126,
-                    "HpPotion": 1126,
                     "IceGun": 1126,
                     "RayGun": 1126,
                     "HpCapsule": 1126,
@@ -1942,8 +1944,7 @@
                     "Bazooka": 1126,
                     "WantedOrder": 1126,
                     "Baton": 1126,
-                    "LifeSpring": 1126,
-                    "Cloak": 1126
+                    "LifeSpring": 1126
                 }
             },
             {
@@ -1977,6 +1978,8 @@
             "w": 3,
             "h": 2
         },
+        "shopCfg": "inbattle",
+        "constElems": { "ShopNpc": 1 },
         "randomGroups": [
             {
                 "num": [ 18, 19 ],
@@ -2012,7 +2015,6 @@
                     "EconomyMagazine": 1127,
                     "Clock": 1127,
                     "Shield": 1127,
-                    "HpPotion": 1127,
                     "IceGun": 1127,
                     "RayGun": 1127,
                     "HpCapsule": 1127,
@@ -2024,8 +2026,7 @@
                     "Bazooka": 1127,
                     "WantedOrder": 1127,
                     "Baton": 1127,
-                    "LifeSpring": 1127,
-                    "Cloak": 1127
+                    "LifeSpring": 1127
                 }
             },
             {
@@ -2059,6 +2060,8 @@
             "w": 3,
             "h": 2
         },
+        "shopCfg": "inbattle",
+        "constElems": { "ShopNpc": 1 },
         "randomGroups": [
             {
                 "num": [ 18, 19 ],
@@ -2094,7 +2097,6 @@
                     "EconomyMagazine": 1128,
                     "Clock": 1128,
                     "Shield": 1128,
-                    "HpPotion": 1128,
                     "IceGun": 1128,
                     "RayGun": 1128,
                     "HpCapsule": 1128,
@@ -2106,8 +2108,7 @@
                     "Bazooka": 1128,
                     "WantedOrder": 1128,
                     "Baton": 1128,
-                    "LifeSpring": 1128,
-                    "Cloak": 1128
+                    "LifeSpring": 1128
                 }
             },
             {
@@ -2141,6 +2142,8 @@
             "w": 3,
             "h": 2
         },
+        "shopCfg": "inbattle",
+        "constElems": { "ShopNpc": 1 },
         "randomGroups": [
             {
                 "num": [ 18, 19 ],
@@ -2176,7 +2179,6 @@
                     "EconomyMagazine": 1129,
                     "Clock": 1129,
                     "Shield": 1129,
-                    "HpPotion": 1129,
                     "IceGun": 1129,
                     "RayGun": 1129,
                     "HpCapsule": 1129,
@@ -2188,8 +2190,7 @@
                     "Bazooka": 1129,
                     "WantedOrder": 1129,
                     "Baton": 1129,
-                    "LifeSpring": 1129,
-                    "Cloak": 1129
+                    "LifeSpring": 1129
                 }
             },
             {
@@ -2220,29 +2221,7 @@
         "doorUnlock": 1,
         "treasureBoxNum": 3,
         "init_uncovered": {"w": 3, "h": 3},
-        "elems":{
-            "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
-            "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
-            "TreasureBox3":{"type":"TreasureBox", "rdp":"treasureBox3"},
-            "NormalZombie":{"hp":8, "power":4},
-            "GoblinThief":{"hp":6, "power":2, "steal":{"percent":20, "num":5}},
-            "HoundZombie":{"hp":7, "power":3, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
-            "Vampire":{"hp":4, "power":2},
-            "DancerZombie":{"hp":8, "power":4, "summons":["NormalZombie", "NormalZombie"]},
-            "GluttonyZombie":{"hp":9, "power":3},
-            "Gengar":{"hp":8, "power":3},
-            "BombAbomination":{"hp":5, "power":3, "selfExplode":{"cnt":5, "mult":3}},
-            "EyeDemon":{"hp":10, "power":3},
-            "RandomEggZombie":{"hp":9, "power":3, "dropItems":["RandomEgg"]},
-            "LustZombie":{"hp":7, "power":2},
-            "IronZombie":{"hp":8, "power":3, "shield":10},
-
-            "CoinsTiny":{"type":"Coins", "cnt":1},
-            "CoinsSmall":{"type":"Coins", "cnt":1},
-            "Coins":{"cnt":1},
-            "CoinsBig":{"type":"Coins", "cnt":5},
-            "CoinsHuge":{"type":"Coins", "cnt":10}
-        },
+        "shopCfg": "inbattle",
         "constElems":{},
         "randomGroups":[{
             "num":[4, 6], "elems": {
@@ -2293,21 +2272,7 @@
         "doorUnlock": 1,
         "treasureBoxNum": 5,
         "init_uncovered": {"w": 3, "h": 3},
-        "elems":{
-            "CoinsTiny": {"type": "Coins", "cnt": 1},
-            "CoinsSmall":{"type":"Coins", "cnt":5},
-            "Coins":{"cnt":1},
-            "CoinsBig":{"type":"Coins", "cnt":5},
-            "CoinsHuge":{"type":"Coins", "cnt":10},
-            "TreasureBox1":{"type":"TreasureBox", "rdp":"bossBox1"},
-            "TreasureBox2":{"type":"TreasureBox", "rdp":"bossBox2"},
-            "TreasureBox3":{"type":"TreasureBox", "rdp":"bossBox3"},
-            "TreasureBox4":{"type":"TreasureBox", "rdp":"bossBox4"},
-            "TreasureBox5":{"type":"TreasureBox", "rdp":"bossBox5"},
-            "BossBunny":{"hp":20, "power":3},
-            "ShopNpc":{"shopCfg":"inbattle"},
-            "NormalZombie":{"hp":5, "power":1}
-        },
+        "shopCfg": "inbattle",
         "constElems":{
             "SlimeKing": 1,
             "ShopNpc":1,
@@ -2322,33 +2287,8 @@
         "map": {},
         "doorUnlock": 1,
         "treasureBoxNum": [5, 6],
-        "init_uncovered": {"w": 3, "h": 3},
-        "elems":{
-            "TreasureBox1":{"type":"TreasureBox", "rdp":"treasureBox1"},
-            "TreasureBox2":{"type":"TreasureBox", "rdp":"treasureBox2"},
-            "TreasureBox3":{"type":"TreasureBox", "rdp":"treasureBox2"},
-            "TreasureBox4":{"type":"TreasureBox", "rdp":"treasureBox2"},
-            "TreasureBox5":{"type":"TreasureBox", "rdp":"treasureBox2"},
-            "NormalZombie":{"hp":8, "power":4},
-            "GoblinThief":{"hp":6, "power":2, "steal":{"percent":20, "num":5}},
-            "HoundZombie":{"hp":7, "power":3, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}]},
-            "Vampire":{"hp":4, "power":2},
-            "DancerZombie":{"hp":8, "power":4, "summons":["NormalZombie", "NormalZombie"]},
-            "GluttonyZombie":{"hp":9, "power":3},
-            "Gengar":{"hp":8, "power":3},
-            "BombAbomination":{"hp":5, "power":3, "selfExplode":{"cnt":5, "mult":3}},
-            "EyeDemon":{"hp":10, "power":3},
-            "RandomEggZombie":{"hp":9, "power":3, "dropItems":["RandomEgg"]},
-            "LustZombie":{"hp":7, "power":2},
-            "IronZombie":{"hp":8, "power":3, "shield":10},
-            "BossBunny":{"hp":20, "power":3},
-
-            "CoinsTiny": {"type": "Coins", "cnt": 1},
-            "CoinsSmall":{"type":"Coins", "cnt":5},
-            "Coins":{"cnt":1},
-            "CoinsBig":{"type":"Coins", "cnt":5},
-            "CoinsHuge":{"type":"Coins", "cnt":10} 
-        },
+        "init_uncovered": {"w": 3, "h": 3},   
+        "shopCfg": "inbattle",     
         "constElems":{},
         "randomGroups":[{
             "num":[4, 6], "elems": {

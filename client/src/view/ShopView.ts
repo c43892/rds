@@ -74,7 +74,7 @@ class ShopView extends egret.DisplayObjectContainer {
     private autoCloseOnRob;
     public async open(items, prices, onBuy, onRob, autoCloseOnRob:boolean):Promise<void> {
         this.items = Utils.map(items, (it) => !it ? undefined : ElemFactory.create(it));
-        this.items.forEach((it, i) => !this.items[i] || this.soldout[i] ? undefined : this.items[i]);
+        this.items.forEach((it, i) => this.items[i] = this.soldout[i] ? undefined : this.items[i]);
         this.itemPrices = prices;
         this.onRob = onRob;
         this.autoCloseOnRob = autoCloseOnRob;
@@ -183,5 +183,9 @@ class ShopView extends egret.DisplayObjectContainer {
 
     public getGlobaPosAndSize(n) {
         return ViewUtils.getGlobalPosAndSize(this.grids[n]);
+    }
+
+    public refreshSoldout(){
+        this.soldout.forEach((b, i) => this.soldout[i] = false);
     }
 }

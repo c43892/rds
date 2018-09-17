@@ -886,7 +886,7 @@ class MonsterFactory {
         var onRob = async (elems) => {
             Utils.assert(!m["robbed"], "can not be robbed one time");
             m["robbed"] = true;
-            var shopCfg = GCfg.getShopCfg(m.attrs.shopCfg);
+            var shopCfg = GCfg.getShopCfg(m.bt().lvCfg["shopCfg"]);
             var robCfg = GCfg.getRobCfg(shopCfg.rob);
             var es = Utils.doRobInShop(elems, robCfg, m.bt().srand);
             var droppedElems = [];
@@ -907,7 +907,7 @@ class MonsterFactory {
         var shopItemAndPrice;
         m.use = async () => {
             if (!shopItemAndPrice)
-                shopItemAndPrice = Utils.genRandomShopItems(m.bt().player, m.attrs.shopCfg, m.bt().srand, 6);
+                shopItemAndPrice = Utils.genRandomShopItems(m.bt().player, m.bt().lvCfg["shopCfg"], m.bt().srand, 6);
             await m.bt().try2OpenShop(m, shopItemAndPrice.items, shopItemAndPrice.prices, onBuy, m["robbed"] ? undefined :onRob);
             // 成功购买后，NPC不再保留，才消耗死神步数
             return {reserve: !m["bought"], consumeDeathStep: !!m["bought"]};
