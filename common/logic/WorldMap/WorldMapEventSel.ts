@@ -268,45 +268,50 @@ class WorldMapEventSelFactory {
             var upDesc = ps.upDescArr[0];
             ps.upDescArr = Utils.removeAt(ps.upDescArr, 0);
             var title = ps.titleArr[0];
-            ps.title = Utils.removeAt(ps.titleArr, 0);
+            ps.titleArr = Utils.removeAt(ps.titleArr, 0);
             var desc = ps.descArr[0];
             ps.desc = desc;
             ps.descArr = Utils.removeAt(ps.descArr, 0);
             var exitDesc = ps.exitDescArr[0];
             ps.exitDescArr = Utils.removeAt(ps.exitDescArr, 0);
+            var toDrop = ps.toDrop;            
 
             var hit = p.playerRandom.next100() < rate;
             if (hit) { // 成功就掉落，再进列表
                 return this.exec(async () => {
                     var sels = [];
-                    var subSel = this.newSel();
-                    if (ps.rateArr.length > 0) {                    
-                        // 掉落列表是事件过程中一直维护，去掉已经掉落的内容，保留未掉落的内容
-                        var toDrop = ps.toDrop;
-                        var n = p.playerRandom.nextInt(0, toDrop.length);
-                        var dropType = toDrop[n];
-                        ps.toDrop = Utils.removeAt(toDrop, n);
 
-                        var lastDropped;
-                        if (dropType == "Coins") {
-                            lastDropped = "Coins";
-                            await this.implAddMoney(p, ps.money);
-                        }
-                        else {
-                            var rdp = GCfg.getRandomDropGroupCfg(dropType);
-                            var arr = Utils.randomSelectByWeightWithPlayerFilter(p, rdp.elems, p.playerRandom, rdp.num[0], rdp.num[1], true, "Coins");
-                            if (arr.length > 0) {
-                                var item = arr[0];
-                                lastDropped = item;
-                                await this.implAddItem(p, ElemFactory.create(item));
-                            }
-                        }
+                    // 掉落列表是事件过程中一直维护，去掉已经掉落的内容，保留未掉落的内容
+                    var n = p.playerRandom.nextInt(0, toDrop.length);
+                    var dropType = toDrop[n];
+                    ps.toDrop = Utils.removeAt(toDrop, n);
 
-                        // 注入特殊参数
-                        var lastDroppedName = ViewUtils.getElemNameAndDesc(lastDropped).name;
-                        upDesc = upDesc.replace("{lastDropped}", lastDroppedName);
-                        desc = desc.replace("{lastDropped}", lastDroppedName);
-                        
+                    var lastDropped;
+                    // 如果掉落的是金币，ps.money 就是金币数量
+                    if (dropType == "Coins") {
+                        lastDropped = "Coins";
+                        await this.implAddMoney(p, ps.money);
+
+                        var lastDroppedName = ViewUtils.getElemNameAndDesc(dropType).name;
+                        upDesc = upDesc.replace("{lastDropped}", lastDroppedName + "x" + ps.money);
+                        desc = desc.replace("{lastDropped}", lastDroppedName + "x" + ps.money);
+                    }
+                    else { // 否则就是掉落组
+                        var rdp = GCfg.getRandomDropGroupCfg(dropType);
+                        var arr = Utils.randomSelectByWeightWithPlayerFilter(p, rdp.elems, p.playerRandom, rdp.num[0], rdp.num[1], true, "Coins");
+                        if (arr.length > 0) {
+                            var item = arr[0];
+                            lastDropped = item;
+                            await this.implAddItem(p, ElemFactory.create(item));
+
+                            var lastDroppedName = ViewUtils.getElemNameAndDesc(item).name;
+                            upDesc = upDesc.replace("{lastDropped}", lastDroppedName);
+                            desc = desc.replace("{lastDropped}", lastDroppedName);
+                        }
+                    }
+
+                    if (ps.rateArr.length > 0) {
+                        var subSel = this.newSel();
                         subSel = this.creators["searchOnCropse"](subSel, p, ps);
                         subSel.desc = this.genDesc(desc, "searchOnCropse", ps);
                         sels.push(subSel);
@@ -321,6 +326,7 @@ class WorldMapEventSelFactory {
                 }, sel);
             } else { // 失败就战斗
                 // items2Drop 里面的东西是剩下还没掉过的
+                toDrop.forEach((dp) => Utils.log(dp));
                 return this.exec(async () => await this.startBattle(ps.battleType), sel);
             }
         },
