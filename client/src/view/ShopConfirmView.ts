@@ -21,8 +21,8 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
     onYes;
     onCancel;
 
-    // 打开购买确认信息界面，并等待确认
-    public async open(player:Player, e:Elem, price:number) {
+    // 打开购买确认信息界面，并等待确认. 用于营火升级遗物时不显示价格
+    public async open(player:Player, e:Elem, price:number, showPrice = true) {
         this.clear();
         if (e instanceof Prop || e instanceof Item)
             this.createItemPropConfirm(player, e, price);
@@ -38,7 +38,7 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
                 var maxLv = r1.attrs.reinforce.length;
                 lv = lv > maxLv ? maxLv : lv;
                 r2.setReinfoceLv(lv);
-                this.createRelicUpgradeConfirm(r1, r2, price);
+                this.createRelicUpgradeConfirm(r1, r2, price, showPrice);
             }
         }
 
@@ -193,18 +193,20 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
     }
 
     // 购买新遗物时的确认界面
-    private createRelicUpgradeConfirm(r1:Relic, r2:Relic, price:number) {
+    private createRelicUpgradeConfirm(r1:Relic, r2:Relic, price:number, showPrice = true) {
 
         var objs = ViewUtils.createRelicUpgradeSubView(r1, r2);
         objs.forEach((obj, _) => this.addChild(obj));
 
         // 费用
-        var cost = ViewUtils.createTextField(20, 0x000000);
-        cost.textFlow = ViewUtils.fromHtml(ViewUtils.formatTip("costCoins", price.toString()));
-        cost.width = this.width;
-        cost.x = 0;
-        cost.y = this.height - 350;
-        this.addChild(cost);
+        if (showPrice) {
+            var cost = ViewUtils.createTextField(20, 0x000000);
+            cost.textFlow = ViewUtils.fromHtml(ViewUtils.formatTip("costCoins", price.toString()));
+            cost.width = this.width;
+            cost.x = 0;
+            cost.y = this.height - 350;
+            this.addChild(cost);
+        }
 
         // 确定返回按钮
         var btnCancel = new TextButtonWithBg("goBack_png", 30);

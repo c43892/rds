@@ -16,6 +16,7 @@ class MainView extends egret.DisplayObjectContainer {
     public rankv:RankingView; // 排行榜视图
     public idv:ElemDescView; // 怪物、遗物、物品描述视图
     public aev:AllElemsView; // 展示给定的Elems列表
+    public scv:ShopConfirmView; // 遗物对比界面
     public st:SettingView; // 设置视图
     public av:AniView; // 动画层
     
@@ -29,6 +30,8 @@ class MainView extends egret.DisplayObjectContainer {
 
         // 商店视图
         this.sv = new ShopView(w, h);
+        this.sv.openConfirmView = async (player:Player, e:Elem, price:number, showPrice = true) => await this.openShopConfirmView(player, e, price, showPrice);
+        
 
         // // 遗物选择视图
         // this.rsv = new RelicSelView(w, h);
@@ -81,6 +84,9 @@ class MainView extends egret.DisplayObjectContainer {
         this.hv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);        
         this.hv.selRelic = async (elems, funcOnClinked, title, tip) => await this.openAllElemsView(elems, funcOnClinked, title, tip);
 
+        // 带遗物对比的确认视图
+        this.scv = new ShopConfirmView(w, h);
+
         // 排行榜视图
         this.rankv = new RankingView(w, h);
 
@@ -93,8 +99,8 @@ class MainView extends egret.DisplayObjectContainer {
 
         // 展示给定的Elem列表
         this.aev = new AllElemsView(w, h);
-        this.aev.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
-        AllElemsView.showElemDesc = async (e) => await this.showElemDesc(e);
+        this.aev.openCompareRelicView = async (p:Player, e:Elem, price:number, showPrice = true) => await this.openShopConfirmView(p, e, price, showPrice);
+        this.aev.showElemDesc = async (e) => await this.showElemDesc(e);
         this.bv.openAllElemsView = async (elems) => await this.openAllElemsView(elems);
         this.st.openAllRelicsView = async (relics) => await this.openAllElemsView(relics);
         this.st.openAllPropsView = async (props) => await this.openAllElemsView(props);
@@ -404,6 +410,13 @@ class MainView extends egret.DisplayObjectContainer {
     public async confirmOkYesNo(title, content, yesno:boolean, btnText = {}) {
         btnText = Utils.merge({"yes":"yes", "no":"cancel", "ok":"ok"}, btnText);
         return await this.tcv.confirmOkYesNo(title, content, yesno, btnText);
+    }
+
+    public async openShopConfirmView(player:Player, e:Elem, price:number, showPrice = true){
+        this.addChild(this.scv);
+        var yesno = await this.scv.open(player, e, price, showPrice);
+        this.removeChild(this.scv);
+        return yesno;
     }
 
     // ranking

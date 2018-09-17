@@ -9,9 +9,9 @@ class AllElemsView extends egret.DisplayObjectContainer {
     private closeBtn:TextButtonWithBg;
     private funcOnClinked; // 点击的操作,默认为显示点击对象的详情
     private tip;
-    public confirmOkYesNo;    
 
-    public static showElemDesc;
+    public showElemDesc;
+    public openCompareRelicView;
 
     public constructor(w:number, h:number) {
         super();
@@ -139,7 +139,8 @@ class AllElemsView extends egret.DisplayObjectContainer {
         switch(this.funcOnClinked){
             case "selRelic":{
                 var n = Utils.indexOf(this.player.relics, (r:Relic) => r.type == g["elem"].type);
-                var yesno = await this.confirmOkYesNo(undefined, this.tip + g["elem"].type + "?", true);
+                var r = (<Relic>ElemFactory.create(e.type)).toRelic(this.player);
+                var yesno = await this.openCompareRelicView(this.player, r, undefined, false);
                 if(yesno)
                     this.doClose(n);
                 else
@@ -147,7 +148,7 @@ class AllElemsView extends egret.DisplayObjectContainer {
                 break;
             }
             default:
-                await AllElemsView.showElemDesc(e);
+                await this.showElemDesc(e);
         }
     }
 

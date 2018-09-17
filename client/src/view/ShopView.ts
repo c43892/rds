@@ -14,7 +14,7 @@ class ShopView extends egret.DisplayObjectContainer {
     private btnRob:TextButtonWithBg; // 抢劫按钮
 
     public player:Player;
-    public confirmView:ShopConfirmView;
+    public openConfirmView;
 
     public constructor(w:number, h:number) {
         super();
@@ -22,7 +22,6 @@ class ShopView extends egret.DisplayObjectContainer {
         this.width = w;
         this.height = h;
         this.name = "shop";
-        this.confirmView = new ShopConfirmView(w, h);
 
         this.bg = ViewUtils.createBitmapByName("translucent_png");
         this.addChild(this.bg);
@@ -140,9 +139,7 @@ class ShopView extends egret.DisplayObjectContainer {
     async onSelItem(evt:egret.TouchEvent) {
         var n = evt.target["itemIndex"];
         var e = this.items[n];
-        this.addChild(this.confirmView);
-        var yesno = await this.confirmView.open(this.player, e, this.itemPrices[e.type]);
-        this.removeChild(this.confirmView);
+        var yesno = await this.openConfirmView(this.player, e, this.itemPrices[e.type]);
         if (yesno) {
             ShopView.lastSelectedElemGlobalPos = ViewUtils.getGlobalPosAndSize(this.grids[n]);
             await this.onSel(n);
