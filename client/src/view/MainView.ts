@@ -6,6 +6,7 @@ class MainView extends egret.DisplayObjectContainer {
     public sv:ShopView; // 商店视图
     public hv:HospitalView; // 医院视图
     public wmv:WorldMapView; // 大地图视图
+    public wmesv:WorldMapEventSelsView; // 选项事件视图
     // public rsv:RelicSelView; // 遗物选择视图
     public brv:BoxRoomView; // 宝箱房间
     public ttv:TurntableView; //转盘事件
@@ -70,6 +71,9 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.selRelic = async (elems, funcOnClinked, title, tip) => await this.openAllElemsView(elems, funcOnClinked, title, tip);
         this.wmv.openPlayerDieView = async () => await this.openPlayerDieView();
         this.wmv.openSettingView = async () => await this.openSettingView();
+
+        // 事件选项试图
+        this.wmesv = new WorldMapEventSelsView(this.width, this.height);
 
         // 医院视图
         this.hv = new HospitalView(w, h);
@@ -306,12 +310,14 @@ class MainView extends egret.DisplayObjectContainer {
     // 打开选项事件界面
     public async openWorldMapEventSels(title, desc, sels) {
         // 大地图选项事件视图
-        var wmesv = new WorldMapEventSelsView(this.width, this.height);
-        wmesv.x = wmesv.y = 0;
-        wmesv.player = this.p;
-        this.addChild(wmesv);
-        await wmesv.open(title, desc, sels);
-        this.removeChild(wmesv);
+        if (this.contains(this.wmesv))
+            this.removeChild(this.wmesv);
+
+        this.wmesv.x = this.wmesv.y = 0;
+        this.wmesv.player = this.p;
+        this.addChild(this.wmesv);
+        await this.wmesv.open(title, desc, sels);
+        this.removeChild(this.wmesv);
     }
 
     // 开启世界地图

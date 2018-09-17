@@ -14,7 +14,8 @@ class WorldMapEventSelFactory {
     public startBattle;
     public confirmOkYesNo; // yesno 确认
     public selRelic; // 选择遗物
-    public openEventSels; // 重新打开一个选项列表
+    public openEventSelGroup; // 重新打开一个选项组
+    public openSels; // 重新打开一个选项列表
     public openTurntable; // 打开转盘
 
     // 创建一组选项
@@ -191,7 +192,7 @@ class WorldMapEventSelFactory {
                     nextSelsGroup = ps.failedRedirectGroup;
 
                 if (nextSelsGroup)
-                    await this.openEventSels(p, nextSelsGroup);
+                    await this.openEventSelGroup(p, nextSelsGroup);
         }, sel)),
         "+randomItems": (sel:WMES, p:Player, ps) => this.exec(async () => {
             var es = Utils.randomSelectByWeightWithPlayerFilter(p, ps.items, p.playerRandom, ps.randomNum, ps.randomNum+1, true);
@@ -205,13 +206,13 @@ class WorldMapEventSelFactory {
             if (p.isDead())
                 sel.exit = () => true;
             else
-                await this.openEventSels(p, ps.group);
+                await this.openEventSelGroup(p, ps.group);
         }, sel),
         "redirectSelGroup2": (sel:WMES, p:Player, ps) => this.exec(async () => {
             if (p.isDead())
                 sel.exit = () => true;
             else
-                await this.openEventSels(p, ps.group2);
+                await this.openEventSelGroup(p, ps.group2);
         }, sel),
         "rob": (sel:WMES, p:Player, ps) => this.exec(async () => {
             var robCfg = GCfg.getRobCfg(ps.rob);
@@ -249,7 +250,7 @@ class WorldMapEventSelFactory {
                     await ss.exec();
                     if (n < subSels.length && !p.isDead()) {
                         sel["move2NextSubSel"](n);
-                        sel.exit = () => false;
+                        sel.exit = () => true;
                     } else
                         sel.exit = () => true;
                 };
@@ -261,6 +262,41 @@ class WorldMapEventSelFactory {
             return sel;
         },
         "toTurnTable": (sel:WMES, p:Player, ps) => this.exec(async () => await this.openTurntable(p.worldmap.cfg.turntable), sel),
+        "searchOnCropse": (sel:WMES, p:Player, ps) => {
+            var rate = ps.rateArr[0];
+            ps.rateArr = Utils.removeAt(ps.rateArr, 0);
+            var upDescArr = ps.upDescArr[0];
+            ps.upDescArr = Utils.removeAt(ps.upDescArr, 0);
+            var title = ps.titleArr[0];
+            ps.title = Utils.removeAt(ps.titleArr, 0);
+            var desc = ps.descArr[0];
+            ps.desc = desc;
+            ps.descArr = Utils.removeAt(ps.descArr, 0);
 
+            var hit = p.playerRandom.next100() < rate;
+            if (hit) { // 成功就掉落，再进列表
+                return this.exec(async () => {
+                    var subSel = this.newSel();
+                    
+                    // 掉落列表是事件过程中一直维护，去掉已经掉落的内容，保留未掉落的内容
+                    var items2Drop = ps.items2Drop;
+                    var n = p.playerRandom.nextInt(0, items2Drop.length);
+                    var itemType = items2Drop[n];
+                    ps.items2Drop = Utils.removeAt(items2Drop, n);
+
+                    if (itemType == "+money")
+                        await this.implAddMoney(p, ps.money);
+                    else
+                        await this.implAddItem(p, ElemFactory.create(itemType));
+
+                    subSel = this.creators["searchOnCropse"](subSel, p, ps);
+                    subSel.desc = this.genDesc(desc, "searchOnCropse", ps);
+                    await this.openSels(p, title, upDescArr, [subSel]);
+                }, sel);
+            } else { // 失败就战斗
+                // items2Drop 里面的东西是剩下还没掉过的
+                return this.exec(async () => await this.startBattle(ps.battleType), sel);
+            }
+        },
     };
 }

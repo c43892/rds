@@ -93,6 +93,7 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
 
     showDesc(tip) {
         this.removeChild(tip);
+        Utils.saveLocalData(this.LOCAL_DATA_KEY, this.newMonsterTipsData);
 
         // 显示怪物信息
         var m = <Monster>tip["monster"];
