@@ -265,7 +265,7 @@ class WorldMapEventSelFactory {
         "searchOnCropse": (sel:WMES, p:Player, ps) => {
             var rate = ps.rateArr[0];
             ps.rateArr = Utils.removeAt(ps.rateArr, 0);
-            var upDescArr = ps.upDescArr[0];
+            var upDesc = ps.upDescArr[0];
             ps.upDescArr = Utils.removeAt(ps.upDescArr, 0);
             var title = ps.titleArr[0];
             ps.title = Utils.removeAt(ps.titleArr, 0);
@@ -287,15 +287,26 @@ class WorldMapEventSelFactory {
                         var dropType = toDrop[n];
                         ps.toDrop = Utils.removeAt(toDrop, n);
 
-                        if (dropType == "Coins")
+                        var lastDropped;
+                        if (dropType == "Coins") {
+                            lastDropped = "Coins";
                             await this.implAddMoney(p, ps.money);
+                        }
                         else {
                             var rdp = GCfg.getRandomDropGroupCfg(dropType);
                             var arr = Utils.randomSelectByWeightWithPlayerFilter(p, rdp.elems, p.playerRandom, rdp.num[0], rdp.num[1], true, "Coins");
-                            if (arr.length > 0)
-                                await this.implAddItem(p, ElemFactory.create(arr[0]));
+                            if (arr.length > 0) {
+                                var item = arr[0];
+                                lastDropped = item;
+                                await this.implAddItem(p, ElemFactory.create(item));
+                            }
                         }
 
+                        // 注入特殊参数
+                        var lastDroppedName = ViewUtils.getElemNameAndDesc(lastDropped).name;
+                        upDesc = upDesc.replace("{lastDropped}", lastDroppedName);
+                        desc = desc.replace("{lastDropped}", lastDroppedName);
+                        
                         subSel = this.creators["searchOnCropse"](subSel, p, ps);
                         subSel.desc = this.genDesc(desc, "searchOnCropse", ps);
                         sels.push(subSel);
@@ -306,7 +317,7 @@ class WorldMapEventSelFactory {
                     exitSel.desc = this.genDesc(exitDesc, "exit", ps);
                     sels.push(exitSel);
 
-                    await this.openSels(p, title, upDescArr, sels);
+                    await this.openSels(p, title, upDesc, sels);
                 }, sel);
             } else { // 失败就战斗
                 // items2Drop 里面的东西是剩下还没掉过的
