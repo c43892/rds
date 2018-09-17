@@ -5,7 +5,7 @@ class ResMgr {
     //     return ResMgr.resMap["name"];
     // }
 
-    // public static URLPrefix = "http://119.23.110.78/resource/";
+    // public static URLPrefix = "https://rds.wudouwxg.xyz/resource/";
     // public static async loadResGroup(group, eventHandler) {
     //     var items = RES.getGroupByName(group);
     //     var finished = 0;

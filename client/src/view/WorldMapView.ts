@@ -44,7 +44,8 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.wmesFact = new WorldMapEventSelFactory();
         this.wmesFact.confirmOkYesNo = this.confirmOkYesNo;
         this.wmesFact.selRelic = this.selRelic;
-        this.wmesFact.openEventSels = async (p:Player, group) => await this.openSelGroup(p, group);
+        this.wmesFact.openEventSelGroup = async (p:Player, group) => await this.openSelGroup(p, group);
+        this.wmesFact.openSels = async (p:Player, title, desc, sels) => await this.openSels(p, title, desc, sels);
         this.wmesFact.openTurntable = async (turntable) => await this.openTurntable(turntable);
 
         this.btnSetting = new TextButtonWithBg("BtnSetting_png");
@@ -481,6 +482,10 @@ class WorldMapView extends egret.DisplayObjectContainer {
         var selsGroup = GCfg.getWorldMapEventSelGroupsCfg(group);
         var sels = this.wmesFact.createGroup(p, selsGroup.sels);
         await this.openEventSels(selsGroup.title, selsGroup.desc, sels);
+    }
+
+    async openSels(p:Player, title, desc, sels) {
+        await this.openEventSels(title, desc, sels);
     }
 
     public static isValidNode(p:Player, x, y):boolean{

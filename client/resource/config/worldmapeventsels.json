@@ -21,7 +21,8 @@
         "rob": "抢劫物品",
         "redirectSelGroup": "重建选项列表",
         "redirectSelGroup2": "重建选项列表",
-        "toTurnTable": ""
+        "toTurnTable": "",
+        "searchOnCropse": "摸尸体"
     },
 
     "groups": {
@@ -277,6 +278,21 @@
                 "func": ["exit"]
             }]
         },
+        "aa55": {
+            "title": "#",
+            "desc": "#",
+            "sels": [{
+                "func": ["searchOnCropse"],
+                "ps": {
+                    "rateArr": [100, 100, 100],
+                    "titleArr": ["标题1", "标题2", "标题3"],
+                    "descArr": ["描述1", "描述2", "描述3"],
+                    "items2Drop": ["+money", "MedicineBox", "MedicineBox"],
+                    "money": 1,
+                    "battleType": "normal"
+                }
+            }]
+        },
         "a5": {
             "title": "魅惑菇",
             "desc": "“不来一盘么？”魅惑菇摇晃着手中的纸牌，你感到自己完全被说服了。",
@@ -292,7 +308,7 @@
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit", "redirectSelGroup"],
                 "ps": {"group": "a53"}
-            }]  
+            }]
         },
         "a51": {
             "title": "魅惑菇",
