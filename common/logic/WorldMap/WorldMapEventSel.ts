@@ -265,9 +265,10 @@ class WorldMapEventSelFactory {
         "searchOnCropse": (sel:WMES, p:Player, ps) => {
             var rate = ps.rateArr[0];
             ps.rateArr = Utils.removeAt(ps.rateArr, 0);
+            var upDescArr = ps.upDescArr[0];
+            ps.upDescArr = Utils.removeAt(ps.upDescArr, 0);
             var title = ps.titleArr[0];
-            ps.title = title;
-            ps.titleArr = Utils.removeAt(ps.titleArr, 0);
+            ps.title = Utils.removeAt(ps.titleArr, 0);
             var desc = ps.descArr[0];
             ps.desc = desc;
             ps.descArr = Utils.removeAt(ps.descArr, 0);
@@ -290,7 +291,7 @@ class WorldMapEventSelFactory {
 
                     subSel = this.creators["searchOnCropse"](subSel, p, ps);
                     subSel.desc = this.genDesc(desc, "searchOnCropse", ps);
-                    await this.openSels(p, title, desc, [subSel]);
+                    await this.openSels(p, title, upDescArr, [subSel]);
                 }, sel);
             } else { // 失败就战斗
                 // items2Drop 里面的东西是剩下还没掉过的
