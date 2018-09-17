@@ -268,7 +268,7 @@ class WorldMapEventSelFactory {
             var upDesc = ps.upDescArr[0];
             ps.upDescArr = Utils.removeAt(ps.upDescArr, 0);
             var title = ps.titleArr[0];
-            ps.title = Utils.removeAt(ps.titleArr, 0);
+            ps.titleArr = Utils.removeAt(ps.titleArr, 0);
             var desc = ps.descArr[0];
             ps.desc = desc;
             ps.descArr = Utils.removeAt(ps.descArr, 0);
@@ -291,6 +291,10 @@ class WorldMapEventSelFactory {
                         if (dropType == "Coins") {
                             lastDropped = "Coins";
                             await this.implAddMoney(p, ps.money);
+
+                            var lastDroppedName = ViewUtils.getElemNameAndDesc(dropType).name;
+                            upDesc = upDesc.replace("{lastDropped}", lastDroppedName + "x" + ps.money);
+                            desc = desc.replace("{lastDropped}", lastDroppedName + "x" + ps.money);
                         }
                         else {
                             var rdp = GCfg.getRandomDropGroupCfg(dropType);
@@ -299,14 +303,14 @@ class WorldMapEventSelFactory {
                                 var item = arr[0];
                                 lastDropped = item;
                                 await this.implAddItem(p, ElemFactory.create(item));
+
+                                var lastDroppedName = ViewUtils.getElemNameAndDesc(item).name;
+                                upDesc = upDesc.replace("{lastDropped}", lastDroppedName);
+                                desc = desc.replace("{lastDropped}", lastDroppedName);
                             }
                         }
 
                         // 注入特殊参数
-                        var lastDroppedName = ViewUtils.getElemNameAndDesc(lastDropped).name;
-                        upDesc = upDesc.replace("{lastDropped}", lastDroppedName);
-                        desc = desc.replace("{lastDropped}", lastDroppedName);
-                        
                         subSel = this.creators["searchOnCropse"](subSel, p, ps);
                         subSel.desc = this.genDesc(desc, "searchOnCropse", ps);
                         sels.push(subSel);
