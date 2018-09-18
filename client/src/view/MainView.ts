@@ -123,14 +123,14 @@ class MainView extends egret.DisplayObjectContainer {
         };
 
         // 开始一场新战斗
-        this.wmv.startNewBattle = async (p:Player, btType:string, lv:number, n:number, btRandomSeed:number, skipBlackIn:boolean = false) => { 
+        this.wmv.startNewBattle = async (p:Player, btType:string, lv:number, n:number, btRandomSeed:number, skipBlackIn:boolean = false, extraLevelLogic = undefined) => { 
             if (btType[0] != "_") {
                 if(Utils.checkRookiePlay())
                     btType = "rookiePlay";
                 else
                     btType = btType + "_" + lv;
             }
-            var bt = Battle.createNewBattle(p, btType, btRandomSeed);
+            var bt = Battle.createNewBattle(p, btType, btRandomSeed, undefined, extraLevelLogic);
 
             // 加载战斗资源
             if (!skipBlackIn)

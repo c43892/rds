@@ -325,9 +325,15 @@ class WorldMapEventSelFactory {
                     await this.openSels(p, title, upDesc, sels);
                 }, sel);
             } else { // 失败就战斗
-                // items2Drop 里面的东西是剩下还没掉过的
-                toDrop.forEach((dp) => Utils.log(dp));
-                return this.exec(async () => await this.startBattle(ps.battleType), sel);
+                var dropPs = [];
+                toDrop.forEach((td, _) => {
+                    if(td != "Coins")
+                        dropPs.push(td);
+                    else
+                        dropPs.push(ps.money);
+                })
+                var extraLevelLogic = [{"type":"LevelLogicSearchBody", "ps":[dropPs]}];
+                return this.exec(async () => await this.startBattle(ps.battleType, extraLevelLogic), sel);
             }
         },
     };

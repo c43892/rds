@@ -75,6 +75,8 @@ class Main extends egret.DisplayObjectContainer {
                 var level = lv.substring(index + 1, lv.length);
                 var tarlv = "normal_" + level;
                 Utils.assert(lvCfg[tarlv], "can not find lvCfg of " + lv);
+
+                Utils.log("didn't find lvCfg of " + lv + ", turn to normal_" + level);
                 return lvCfg[tarlv];
             }
         }
