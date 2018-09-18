@@ -258,8 +258,8 @@ class Main extends egret.DisplayObjectContainer {
         mainArea.addChild(mv.gv); // 指引层
         mainArea.addChild(mv.av); // 动画层在所有 MainView 层的上面
 
-        // // 测试试图
-        // var tv = new AniTestView(this.width, this.height);
+        // 测试试图
+        // var tv = new AniTestView(mainArea.width, mainArea.height);
         // tv.anchorOffsetX = 0;
         // tv.anchorOffsetY = 0;
         // tv.x = 0;

@@ -15,9 +15,8 @@ constructor(w, h) {
     }
 
     async playAniTest() {
-        // await this.addElem(ElemFactory.create("DeathGod"));
         var eff:egret.MovieClip = ViewUtils.createFrameAni("effWantedOrder");
-        this.addChild(eff);
+        AniUtils.ac.addChild(eff);
         eff.anchorOffsetX = eff.width / 2;
         eff.anchorOffsetY = eff.height / 2;
         eff.x = this.width / 2;
