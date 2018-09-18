@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "description_json,elemattrsconfig_json,elemdesc_json,elemPosConfig_json,levelconfig_json,levelLogicConfig_json,multilanguage_json,occupationconfig_json,playerconfig_json,randomdropconfig_json,robconfig_json,shopconfig_json,worldmap_json,worldmapeventsels_json,denglu_ske_json,denglu_tex_json,denglu_tex_png,effDeathGod_json,effDeathGod_png,effExpTrack_json,effExpTrack_png,effGridSeletable_json,effGridSeletable_png,effGuideTap_json,effGuideTap_png,effIceGun_json,effIceGun_png,effMonsterDie_json,effMonsterDie_png,effPlayerAttack_json,effPlayerAttack_png,effPoisonMist_json,effPoisonMist_png,effRayGun_json,effRayGun_png,effRayGunBall_json,effRayGunBall_png,effRelicShining_json,effRelicShining_png,effSelfExplode_json,effSelfExplode_png,effUncover_json,effUncover_png,effWantedOrder_json,effWantedOrder_png,genggui_shenti_ske_json,genggui_shenti_tex_json,genggui_shenti_tex_png,genggui_shetou_ske_json,genggui_shetou_tex_json,genggui_shetou_tex_png,lvFnt_fnt,lvFnt_png,Apple1_png,Apple2_png,Apple3_png,Baton_png,cd0_png,cd1_png,cd2_png,cd3_png,cd4_png,cd5_png,cd6_png,cd7_png,cd8_png,cd9_png,Cloak_png,Clock_png,Cocoon_png,CocoonLine_png,Coins1_png,Coins2_png,Coins3_png,Coins4_png,Coins5_png,Coins6_png,Coins7_png,Coins8_png,Coins9_png,Door1_png,Door2_png,Door3_png,EconomyMagazine_png,HeadBone_png,Hole_png,HpPotion_png,IceBlock1_png,IceBlock2_png,Key_png,Knife_png,LifeSpring_png,Magazine_png,NextLevelPort_png,RandomEgg_png,Rock1_png,Rock2_png,Shield_png,ShieldBack_png,SmallRock_png,Steak1_png,Steak2_png,Steak3_png,TreasureBox_png,Vest_png,WantedOrder_png,BallShito_png,BombAbomination_png,BossBunny_png,BoxMonster_png,Bunny_png,CharmingMushroom_png,CherryBomb_png,CommanderZombie_png,ConfusionZombie_png,CowardZombie_png,DancerZombie_png,DeathGod_png,EyeDemon_png,eyeDemonEye_png,Gengar_png,Ghost_png,GluttonyZombie_png,GoblinThief_png,GreedyZombie_png,GreenSlime_png,HideZombie_png,HoundZombie_png,LustZombie_png,MarkZombie_png,Mummy_png,NormalZombie_png,NutWall_png,Peashooter_png,PoisonJellyfish_png,RageZombie_png,RandomEggZombie_png,RedSlime_png,ReviveZombie_png,ShopNpc_png,SkeletonKing_png,SlimeKing_png,Sunflower_png,SwatheZombie_png,Vampire_png,Nurse_png,NurseBg_png,NurseHurt_png,Rogue_png,RogueBg_png,RogueHurt_png,Bazooka_png,CandyCannon_png,DePoison_png,HpCapsule_png,IceGun_png,RayGun_png,StrangthPotion_png,SuperPotion_png,Agile_png,BookMaster_png,Crucifix_png,DefenseProficient_png,Endurance_png,ExploreEnhanced_png,Fierce_png,Hawkeye_png,HorticultureMaster_png,HorticultureProficient_png,KnifeMaster_png,KnifeProficient_png,MedicineBox_png,MonsterHunter_png,Power_png,ShieldProficient_png,SmellEnhanced_png,Storer_png,TimeMachine_png,TradeMaster_png,TreasureBoxDetector_png,Unback2Sneak_png,UndefinedName1_png,UndefinedName2_png,UndefinedName3_png,WeaponMaster_png,avatarBg_png,ban_png,battleBg_png,bgGrids_png,blocked_png,covered_png,deadlyMask_png,deathGod_png,deathGodBar_png,deathGodBarBg_png,expBar_png,hpBar_png,mapViewbg_png,markedBg_png,moneyAndStoriesBg_png,monsterAttackIntervalBg_png,monsterHpBg_png,monsterMoveRangeBg_png,monsterPowerBg_png,monsterShieldBg_png,moreRelicsBtn_png,newMonsterTipBg_png,num1_png,num2_png,num3_png,num4_png,num5_png,num6_png,num7_png,num8_png,popupTipBg_png,questionMark_png,replaybg_png,skillGrid_png,skillGridBg2_png,uncoverable_png,BoxRoomBox_png,BoxRoomBoxOpened_png,aevNoElem_png,attrsBgAttackInterval_png,attrsBgHp_png,attrsBgMoveRange_png,attrsBgPower_png,attrsBgShield_png,bgFrame_png,bigBg_png,black_png,btnBg_png,confirmBg_png,goBack_png,goForward_png,guideHand_png,guideTapArea_png,relicLvSign_png,relicLvSign2_png,relicUpgradeArrow_png,translucent_png,campfire_png,lvBg_png,lvBg2_png,lvBtnOk_png,lvBtnOkBg_png,lvSelBarNormal_png,lvSelBarSel_png,AchievementDisabled_png,AchievementDown_png,AchievementNormal_png,ContinueDisabled_png,ContinueDown_png,ContinueNormal_png,HerosDown_png,HerosNormal_png,NewGameDown_png,NewGameNormal_png,stBtnBg_png,stExit_png,stItem_png,stOff_png,stOn_png,stSkill_png,soldout_png,svbg_png,pointer_png,rewardsBg_png,rewardsBgShadow_png,turntableAddHp_png,turntableBg_png,turntableMinusHp_png,turntableStartBtn_png,turntableStartBtn2_png,Adopt_png,BtnSetting_png,Coins_png,Crevice_png,FootPrint_png,Nodeboss_png,Nodebox_png,Nodecamp_png,Nodeevent_png,Nodenormal_png,Nodesenior_png,Nodeshop_png,SymbolDesc_png,SymbolDescbtn_png,WorldMapBg_png,WorldMapBg1_png,WorldMapBg2_png,WorldMapBgCorner_png,lgbg_png,lgTitle_png,elemAttrsOfLevel_json",
+			"keys": "description_json,elemattrsconfig_json,elemdesc_json,elemPosConfig_json,levelconfig_json,levelLogicConfig_json,multilanguage_json,occupationconfig_json,playerconfig_json,randomdropconfig_json,robconfig_json,shopconfig_json,worldmap_json,worldmapeventsels_json,denglu_ske_json,denglu_tex_json,denglu_tex_png,effDeathGod_json,effDeathGod_png,effExpTrack_json,effExpTrack_png,effGridSeletable_json,effGridSeletable_png,effGuideTap_json,effGuideTap_png,effIceGun_json,effIceGun_png,effMonsterDie_json,effMonsterDie_png,effPlayerAttack_json,effPlayerAttack_png,effPoisonMist_json,effPoisonMist_png,effRayGun_json,effRayGun_png,effRayGunBall_json,effRayGunBall_png,effRelicShining_json,effRelicShining_png,effSelfExplode_json,effSelfExplode_png,effUncover_json,effUncover_png,effWantedOrder_json,effWantedOrder_png,genggui_shenti_ske_json,genggui_shenti_tex_json,genggui_shenti_tex_png,genggui_shetou_ske_json,genggui_shetou_tex_json,genggui_shetou_tex_png,lvFnt_fnt,lvFnt_png,Apple1_png,Apple2_png,Apple3_png,Baton_png,cd0_png,cd1_png,cd2_png,cd3_png,cd4_png,cd5_png,cd6_png,cd7_png,cd8_png,cd9_png,Cloak_png,Clock_png,Cocoon_png,CocoonLine_png,Coins1_png,Coins2_png,Coins3_png,Coins4_png,Coins5_png,Coins6_png,Coins7_png,Coins8_png,Coins9_png,Door1_png,Door2_png,Door3_png,EconomyMagazine_png,HeadBone_png,Hole_png,HpPotion_png,IceBlock1_png,IceBlock2_png,Key_png,Knife_png,LifeSpring_png,Magazine_png,NextLevelPort_png,RandomEgg_png,Rock1_png,Rock2_png,Shield_png,ShieldBack_png,SmallRock_png,Steak1_png,Steak2_png,Steak3_png,TreasureBox_png,Vest_png,WantedOrder_png,BallShito_png,BombAbomination_png,BossBunny_png,BoxMonster_png,Bunny_png,CharmingMushroom_png,CherryBomb_png,CommanderZombie_png,ConfusionZombie_png,CowardZombie_png,DancerZombie_png,DeathGod_png,EyeDemon_png,eyeDemonEye_png,Gengar_png,Ghost_png,GluttonyZombie_png,GoblinThief_png,GreedyZombie_png,GreenSlime_png,HideZombie_png,HoundZombie_png,LustZombie_png,MarkZombie_png,Mummy_png,NormalZombie_png,NutWall_png,Peashooter_png,PoisonJellyfish_png,RageZombie_png,RandomEggZombie_png,RedSlime_png,ReviveZombie_png,ShopNpc_png,SkeletonKing_png,SlimeKing_png,Sunflower_png,SwatheZombie_png,Vampire_png,Nurse_png,NurseBg_png,NurseHurt_png,Rogue_png,RogueBg_png,RogueHurt_png,Bazooka_png,CandyCannon_png,DePoison_png,HpCapsule_png,IceGun_png,RayGun_png,StrangthPotion_png,SuperPotion_png,Agile_png,BookMaster_png,Crucifix_png,DefenseProficient_png,Endurance_png,ExploreEnhanced_png,Fierce_png,Hawkeye_png,HorticultureMaster_png,HorticultureProficient_png,KnifeMaster_png,KnifeProficient_png,MedicineBox_png,MonsterHunter_png,Power_png,ShieldProficient_png,SmellEnhanced_png,Storer_png,TimeMachine_png,TradeMaster_png,TreasureBoxDetector_png,Unback2Sneak_png,UndefinedName1_png,UndefinedName2_png,UndefinedName3_png,WeaponMaster_png,avatarBg_png,ban_png,battleBg_png,bgGrids_png,blocked_png,covered_png,deadlyMask_png,deathGod_png,deathGodBar_png,deathGodBarBg_png,expBar_png,hpBar_png,mapViewbg_png,markedBg_png,moneyAndStoriesBg_png,monsterAttackIntervalBg_png,monsterHpBg_png,monsterMoveRangeBg_png,monsterPowerBg_png,monsterShieldBg_png,moreRelicsBtn_png,newMonsterTipBg_png,num1_png,num2_png,num3_png,num4_png,num5_png,num6_png,num7_png,num8_png,popupTipBg_png,questionMark_png,replaybg_png,skillGrid_png,skillGridBg2_png,uncoverable_png,BoxRoomBox_png,BoxRoomBoxOpened_png,aevNoElem_png,attrsBgAttackInterval_png,attrsBgHp_png,attrsBgMoveRange_png,attrsBgPower_png,attrsBgShield_png,bgFrame_png,bigBg_png,black_png,btnBg_png,confirmBg_png,goBack_png,goForward_png,guideHand_png,guideTapArea_png,relicLvSign_png,relicLvSign2_png,relicUpgradeArrow_png,translucent_png,campfire_png,lvBg_png,lvBg2_png,lvBtnOk_png,lvBtnOkBg_png,lvSelBarNormal_png,lvSelBarSel_png,AchievementDisabled_png,AchievementDown_png,AchievementNormal_png,ContinueDisabled_png,ContinueDown_png,ContinueNormal_png,HerosDown_png,HerosNormal_png,NewGameDown_png,NewGameNormal_png,stBtnBg_png,stExit_png,stItem_png,stOff_png,stOn_png,stSkill_png,soldout_png,svbg_png,pointer_png,rewardsBg_png,rewardsBgShadow_png,turntableAddHp_png,turntableBg_png,turntableMinusHp_png,turntableStartBtn_png,turntableStartBtn2_png,Adopt_png,BtnSetting_png,Coins_png,Crevice_png,FootPrint_png,Nodeboss_png,Nodebox_png,Nodecamp_png,Nodeevent_png,Nodenormal_png,Nodesenior_png,Nodeshop_png,SymbolDesc_png,SymbolDescbtn_png,WorldMapBg_png,WorldMapBg1_png,WorldMapBg2_png,WorldMapBgCorner_png,lgbg_png,lgTitle_png,elemAttrsOfLevel_json,effTB_json,effTB_png,HorticulturistBg_png,PoliceBg_png,NurseAttack_png,RogueAttack_png,PoliceHurt_png,Horticulturist_png,HorticulturistAttack_png,HorticulturistHurt_png,Police_png,PoliceAttack_png,RogueWeapon_png,GotBlocked_png,HorticulturistWeapon_png,NurseWeapon_png,PoliceWeapon_png,ReadBook_png,Charmed_png",
 			"name": "preload"
 		},
 		{
@@ -1504,6 +1504,101 @@
 			"url": "config/elemAttrsOfLevel.json",
 			"type": "json",
 			"name": "elemAttrsOfLevel_json"
+		},
+		{
+			"name": "effTB_json",
+			"type": "json",
+			"url": "assets/effect/effTB.json"
+		},
+		{
+			"name": "effTB_png",
+			"type": "image",
+			"url": "assets/effect/effTB.png"
+		},
+		{
+			"name": "HorticulturistBg_png",
+			"type": "image",
+			"url": "assets/occupationImg/HorticulturistBg.png"
+		},
+		{
+			"name": "PoliceBg_png",
+			"type": "image",
+			"url": "assets/occupationImg/PoliceBg.png"
+		},
+		{
+			"name": "NurseAttack_png",
+			"type": "image",
+			"url": "assets/occupationImg/NurseAttack.png"
+		},
+		{
+			"name": "RogueAttack_png",
+			"type": "image",
+			"url": "assets/occupationImg/RogueAttack.png"
+		},
+		{
+			"name": "PoliceHurt_png",
+			"type": "image",
+			"url": "assets/occupationImg/PoliceHurt.png"
+		},
+		{
+			"name": "Horticulturist_png",
+			"type": "image",
+			"url": "assets/occupationImg/Horticulturist.png"
+		},
+		{
+			"name": "HorticulturistAttack_png",
+			"type": "image",
+			"url": "assets/occupationImg/HorticulturistAttack.png"
+		},
+		{
+			"name": "HorticulturistHurt_png",
+			"type": "image",
+			"url": "assets/occupationImg/HorticulturistHurt.png"
+		},
+		{
+			"name": "Police_png",
+			"type": "image",
+			"url": "assets/occupationImg/Police.png"
+		},
+		{
+			"name": "PoliceAttack_png",
+			"type": "image",
+			"url": "assets/occupationImg/PoliceAttack.png"
+		},
+		{
+			"name": "RogueWeapon_png",
+			"type": "image",
+			"url": "assets/occupationImg/RogueWeapon.png"
+		},
+		{
+			"name": "GotBlocked_png",
+			"type": "image",
+			"url": "assets/occupationImg/GotBlocked.png"
+		},
+		{
+			"name": "HorticulturistWeapon_png",
+			"type": "image",
+			"url": "assets/occupationImg/HorticulturistWeapon.png"
+		},
+		{
+			"name": "NurseWeapon_png",
+			"type": "image",
+			"url": "assets/occupationImg/NurseWeapon.png"
+		},
+		{
+			"name": "PoliceWeapon_png",
+			"type": "image",
+			"url": "assets/occupationImg/PoliceWeapon.png"
+		},
+		{
+			"name": "ReadBook_png",
+			"type": "image",
+			"url": "assets/occupationImg/ReadBook.png"
+		},
+		{
+			"name": "Charmed_png",
+			"type": "image",
+			"url": "assets/occupationImg/Charmed.png"
 		}
 	]
 }

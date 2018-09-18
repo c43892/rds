@@ -22,9 +22,10 @@
 
         "battle": {
             "layout": {
-				"occupationBg": {"x":20, "y":0},
+				"occupationBg": {"x":0, "y":0},
 				"avatarBg": {"x":0, "y":0},
-				"avatar": {"x":20, "y":0},
+				"avatar": {"x":0, "y":0},
+				"avatarWeapon": {"x":0, "y":0},
                 "expBar": {"x":2, "y":4},
                 "hpBar": {"x":141, "y":12},
 				"hp": {"x":141, "y":113, "w":30, "h":30},

@@ -11,11 +11,12 @@ class BattleView extends egret.DisplayObjectContainer {
     public avatarBg:egret.Bitmap; // 角色头像区域背景
     public occupationBg:egret.Bitmap; // 角色职业背景
     public avatar:egret.Bitmap; // 角色头像
+    public avatarWeapon:egret.Bitmap; // 角色上层的武器表现
+    public avatarAreaMask:egret.Bitmap; // 角色区域的遮罩
     public expBar:egret.Bitmap; // 经验条
     public expBarMask:egret.Shape; // 经验条遮罩
     public deadlyMask:egret.Bitmap; // 濒死效果
     public hp:egret.TextField; // 血量
-    // public shield:egret.TextField; // 护盾
     public hpBar:egret.Bitmap; // 血条
     public hpBarMask:egret.Shape; // 血条遮罩
     public power:egret.TextField; // 攻击
@@ -77,77 +78,81 @@ class BattleView extends egret.DisplayObjectContainer {
 
     // 头像、经验条、血条、攻击、闪避
     createAvatarArea() {
-
         // 头像
         this.occupationBg = new egret.Bitmap();
         this.occupationBg.name = "occupationBg";
-        this.addChild(this.occupationBg);
         this.avatar = new egret.Bitmap();
         this.avatar.name = "avatar";
-        this.addChild(this.avatar);
+        this.avatarWeapon = new egret.Bitmap();
+        this.avatarWeapon.alpha = 0; // 平时隐藏
+        this.avatarWeapon.name = "avatarWeapon";
+        this.avatarAreaMask = ViewUtils.createBitmapByName("translucent_png");
+        this.avatarAreaMask.name = "avatarAreaMask";
+
+        this.avatar.mask = this.avatarAreaMask;
+        this.occupationBg.mask = this.avatarAreaMask;
+        this.avatarWeapon.mask = this.avatarAreaMask;
 
         // 头像区域背景
         this.avatarBg = ViewUtils.createBitmapByName("avatarBg_png");
         this.avatarBg.name = "avatarBg";
-        this.addChild(this.avatarBg);
 
         // 经验条
         this.expBar = ViewUtils.createBitmapByName("expBar_png");
         this.expBar.name = "expBar";
-        this.addChild(this.expBar);
 
         // 经验条遮罩
         this.expBarMask = new egret.Shape();
         this.expBarMask.name = "expBarMask";
         this.expBar.mask = this.expBarMask;
-        this.addChild(this.expBarMask);
 
         // 血条
         this.hpBar = ViewUtils.createBitmapByName("hpBar_png");
         this.hpBar.name = "hpBar";
-        this.addChild(this.hpBar);
         this.hp = ViewUtils.createTextField(20, 0xffffff);
         this.hp.name = "hp";
-        this.addChild(this.hp);
-
-        // 护盾
-        // this.shield = ViewUtils.createTextField(20, 0xffffff);
-        // this.shield.name = "shield";
-        // this.addChild(this.shield);
 
         // 金钱等背景
         this.moneyAndStoriesBg = ViewUtils.createBitmapByName("moneyAndStoriesBg_png");
         this.moneyAndStoriesBg.name = "moneyAndStoriesBg";
-        this.addChild(this.moneyAndStoriesBg);
         this.moneyAndStoriesBg.y = ViewUtils.getScreenEdges().top;
 
         // 血条遮罩
         this.hpBarMask = new egret.Shape();
         this.hpBarMask.name = "expBarMask";
         this.hpBar.mask = this.hpBarMask;
-        this.addChild(this.hpBarMask);
-
+        
         // 攻击闪避属性
         this.power = ViewUtils.createTextField(20, 0xffffff, false);
         this.power.name = "power";
-        this.addChild(this.power);
         this.dodge = ViewUtils.createTextField(20, 0xffffff, false);
         this.dodge.name = "dodge";
-        this.addChild(this.dodge);
 
         // 金钱
         this.money = ViewUtils.createTextField(20, 0xffffff, false);
         this.money.name = "money";
-        this.addChild(this.money);
         this.money.y = this.moneyAndStoriesBg.y + 10;
 
         // 当前层数
         this.currentStoryLv = ViewUtils.createTextField(20, 0xffffff, false);
         this.currentStoryLv.name = "storeyLv";
-        this.addChild(this.currentStoryLv);
         this.currentStoryLv.y = this.moneyAndStoriesBg.y + 10;
 
-        ViewUtils.multiLang(this, this.occupationBg, this.avatarBg, this.avatar, this.expBar, this.hp, this.hpBar, this.power, this.dodge, this.money, this.currentStoryLv, this.moneyAndStoriesBg);
+        var objs = [
+            this.moneyAndStoriesBg, this.occupationBg, this.avatar, this.avatarWeapon, this.avatarBg,
+            this.currentStoryLv, this.money, this.power, this.dodge, 
+            this.hpBarMask, this.expBarMask, this.expBar, this.hp, this.hpBar
+        ];
+
+        this.addChild(this.avatarAreaMask);
+        this.avatarAreaMask.x = this.avatarBg.x;
+        this.avatarAreaMask.y = this.avatarBg.y;
+        this.avatarAreaMask.width = this.avatarBg.width - 20;
+        this.avatarAreaMask.height = this.avatarBg.height - 20;
+
+        objs.forEach((obj, _) => this.addChild(obj));
+        ViewUtils.multiLang(this, ...objs);
+
         this.refreshExpBar();
         this.refreshHpBar();
     }
@@ -200,11 +205,6 @@ class BattleView extends egret.DisplayObjectContainer {
             shape.graphics.lineTo(pts[i].x, pts[i].y);
         shape.graphics.lineTo(pts[0].x, pts[0].y);
         shape.graphics.endFill();
-    }
-
-    // 刷新护盾
-    refreshShield() {
-        // this.shield.text = !this.player ? "0" : this.player.shield.toString();
     }
 
     public constructor(w:number, h:number) {
@@ -373,6 +373,7 @@ class BattleView extends egret.DisplayObjectContainer {
     public refreshPlayer() {
         ViewUtils.setTexName(this.occupationBg, this.player.occupation + "Bg_png", true);
         ViewUtils.setTexName(this.avatar, this.player.occupation + "_png", true);
+        this.avatarWeapon.alpha = 0;
         this.currentStoryLv.text = this.player.currentStoreyPos.lv.toString();
 
         this.refreshMoney();
@@ -386,18 +387,16 @@ class BattleView extends egret.DisplayObjectContainer {
         var power = attackerAttrs.power.b * (1 + attackerAttrs.power.a) + attackerAttrs.power.c;
         this.power.text = power.toString();
         
-
         var targetAttrs = this.player.bt().calcPlayerTargetAttrs();
         var dodge = targetAttrs.dodge.b * (1 + targetAttrs.dodge.a) + targetAttrs.dodge.c;
         this.dodge.text = this.player.dodge + "%";
-        
 
         // 遗物
         this.refreshRelics();
 
         this.refreshExpBar();
         this.refreshHpBar();
-        ViewUtils.multiLang(this, this.avatarBg, this.avatar, this.power, this.dodge, this.propsView, this.moreRelics);
+        ViewUtils.multiLang(this, this.avatarBg, this.avatarAreaMask, this.avatar, this.avatarWeapon, this.power, this.dodge, this.propsView, this.moreRelics);
 
         // 物品
         this.refreshProps();
@@ -443,6 +442,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.repView.clear();
         if (this.contains(this.selView)) this.removeChild(this.selView);
         this.avatar.texture = undefined;
+        this.avatarWeapon.texture = undefined;
         for (var bmp of this.relics) {
             bmp.alpha = 0;
             bmp["relic"] = undefined;
