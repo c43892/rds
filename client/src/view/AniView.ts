@@ -572,7 +572,7 @@ class AniView extends egret.DisplayObjectContainer {
             ViewUtils.setTexName(avatar, occ + "Attack_png", true);
 
             // 平砍武器效果放一下
-            await this.normalAtttackWeaponEffect(occ);
+            this.normalAtttackWeaponEffect(occ).then(() => ViewUtils.setTexName(avatar, occ + "_png", true));
             
             // 这个效果不等待
             if (aniArr.length > 0)
@@ -632,9 +632,13 @@ class AniView extends egret.DisplayObjectContainer {
             await AniUtils.rotate(weaponImg);
             case "Nurse":
             // 戳一下
-            await this.aniFact.createAniByCfg({type:"tr", fx:weaponImg.x, fy:weaponImg.y, 
-                    tx:weaponImg.x + 100, ty:weaponImg.y + 100, time:10000, noWait:true, obj:weaponImg});
+            await this.aniFact.createAniByCfg({type:"seq", arr:[
+                {type:"tr", fx:weaponImg.x, fy:weaponImg.y, tx:weaponImg.x + 75, ty:weaponImg.y + 75, time:150},
+                {type:"tr", fx:weaponImg.x + 75, fy:weaponImg.y + 75, tx:weaponImg.x, ty:weaponImg.y, time:150},
+            ], noWait:true, obj:weaponImg});
         }
+        weaponImg.alpha = 0;
+        ViewUtils.setTexName(weaponImg, undefined);
     }
 
     // 怪物攻击

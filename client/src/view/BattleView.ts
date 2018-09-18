@@ -144,10 +144,11 @@ class BattleView extends egret.DisplayObjectContainer {
             this.hpBarMask, this.expBarMask, this.expBar, this.hp, this.hpBar
         ];
 
+        this.addChild(this.avatarAreaMask);
         this.avatarAreaMask.x = this.avatarBg.x;
         this.avatarAreaMask.y = this.avatarBg.y;
-        this.avatarAreaMask.width = this.avatarBg.width;
-        this.avatarAreaMask.height = this.avatarBg.height;
+        this.avatarAreaMask.width = this.avatarBg.width - 20;
+        this.avatarAreaMask.height = this.avatarBg.height - 20;
 
         objs.forEach((obj, _) => this.addChild(obj));
         ViewUtils.multiLang(this, ...objs);
