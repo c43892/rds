@@ -263,6 +263,20 @@ class AniView extends egret.DisplayObjectContainer {
         this.wmv.refreshMoney();
     }
 
+    // 大地图上加血
+    public async onGetHpInWorldmap(ps) {
+        var dhp = ps.dhp;
+        if (dhp < 0) {
+            var img = AniUtils.createImg("deadlyMask_png");
+            img.width = this.width;
+            img.height = this.height;
+            await AniUtils.shakeCamera();
+            img["dispose"]();
+        }
+
+        this.wmv.refreshHp();
+    }
+
     // cd 变化
     public async onColddownChanged(ps) {
         var e = ps.e;        

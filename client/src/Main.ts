@@ -197,7 +197,7 @@ class Main extends egret.DisplayObjectContainer {
     // 计算安全区域和主显示区域
     calcArea() {
         let stageW = this.stage.stageWidth;
-        let stageH = this.stage.stageHeight;
+        let stageH = this.stage.stageHeight;        
 
         // 先计算 fullArea 把刘海空出来，比例是固定 2:1，也是所有全屏背景图的制作比例
         let fullArea = new egret.DisplayObjectContainer();

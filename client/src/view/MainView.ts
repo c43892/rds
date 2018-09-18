@@ -499,7 +499,7 @@ class MainView extends egret.DisplayObjectContainer {
 
     registerPlayerEvents() {
         Utils.registerEventHandlers(this.p, [
-            "onGetElemInWorldmap", "onGetMoneyInWorldmap"
+            "onGetElemInWorldmap", "onGetMoneyInWorldmap", "onGetHpInWorldmap"
         ], (e) => (ps) => this.bv.av[e](ps));
     }
 }

@@ -290,6 +290,18 @@ class AniUtils {
         ], obj:obj});
     }
 
+    // 震动一下镜头
+    public static async shakeCamera() {
+        var root = ViewUtils.MainArea.parent;
+        var x = root.x;
+        await AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
+            {type:"tr", fx:x, tx:x-5, time:50},
+            {type:"tr", fx:x-5, tx:x+5, time:50},
+            {type:"tr", fx:x+5, tx:x-5, time:50},
+            {type:"tr", fx:x-5, tx:x, time:50},
+        ], obj:root});
+    }
+
     // 向右跳动着飘一个提示
     public static async jumpingTip(str:string, pos) {
         var tip = ViewUtils.createTextField(30, 0x000000);
