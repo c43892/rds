@@ -248,6 +248,7 @@ class Level {
     public levelLogics:LevelLogic[] = []; // 当前层具有的逻辑
 
     public addLevelLogic(levelLogic:LevelLogic){
+        levelLogic.level = this;
         this.levelLogics.push(levelLogic);
     }
 

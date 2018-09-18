@@ -46,11 +46,11 @@ class Battle {
         // 根据战斗类型及该战斗的额外关卡配置装配关卡逻辑
         var levelLogics = Utils.getLevelLogics(btType);
         for(var levelLogic of levelLogics){
-            var ll = LevelLogicFactory.createLevelLogic(levelLogic.type, this.level, ...levelLogic.ps);
+            var ll = LevelLogicFactory.createLevelLogic(levelLogic.type, ...levelLogic.ps);
             this.level.addLevelLogic(ll);
         }
         for(var levelLogic of this.extraLevelLogic){
-            var ll = LevelLogicFactory.createLevelLogic(levelLogic.type, this.level, ...levelLogic.ps);
+            var ll = LevelLogicFactory.createLevelLogic(levelLogic.type, ...levelLogic.ps);
             this.level.addLevelLogic(ll);
         }
         

@@ -7,7 +7,6 @@
 
     "treasureBox2": {"num":[1, 2], "elems":{
         "MedicineBox":10,
-        "Hawkeye":10,
         "TimeMachine":10,
         "Endurance":10,
         "Power":10,
@@ -43,7 +42,6 @@
 
     "bossBox2": {"num":[1, 2], "elems":{
         "MedicineBox":10,
-        "Hawkeye":10,
         "TimeMachine":10
     }},
 
@@ -81,7 +79,6 @@
 
     "ttrdp1":{"num":[1, 2],"elems":{
         "MedicineBox":10,
-        "Hawkeye":10,
         "TimeMachine":10
     }},
 
