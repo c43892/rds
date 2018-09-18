@@ -464,9 +464,9 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 break;
             default: {
                 // 此外就都认为是地图选项事件
-                this.wmesFact.startBattle = async (battleType) => {
+                this.wmesFact.startBattle = async (battleType, extraLevelLogic) => {
                     var btRandonSeed = p.playerRandom.nextInt(0, 10000);
-                    await this.startNewBattle(p, battleType, lv, n, btRandonSeed);
+                    await this.startNewBattle(p, battleType, lv, n, btRandonSeed, false, extraLevelLogic);
                 };
 
                 this.wmesFact.selRelic = this.selRelic;

@@ -1,13 +1,19 @@
 class LevelLogicSearchBody extends LevelLogic{
-    public rdps:string[];
-    constructor(rdps:string[]){
+    public rdps;
+    constructor(rdps){
         super("LevelLogicSearchBody");
         this.rdps = rdps;
 
         this.beforeLevelInited = async (ps) => {
             var bt = <Battle>ps.bt;
             for(var i = 0; i < rdps.length; i++){
-                var box = this.level.createElem("TreasureBox", {rdp:rdps[i]});
+                if(isNaN(rdps[i]))
+                    var box = this.level.createElem("TreasureBox", {rdp:rdps[i]});
+                else{
+                    var box = this.level.createElem("TreasureBox");
+                    var coins = this.level.createElem("Coins", {cnt:rdps[i]})
+                    box.addDropItem(coins);
+                }
                 var key = this.level.createElem("Key");
                 var gs = BattleUtils.findRandomGrids(bt, (g:Grid) => !g.getElem() && !g.isCovered(), 2);
                 if(gs.length == 2){

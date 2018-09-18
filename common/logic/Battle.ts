@@ -12,6 +12,7 @@ class Battle {
     public player:Player; // 角色数据
     public bc:BattleCalculator; // 战斗计算器
     public lvCfg; // 当前关卡配置
+    public extraLevelLogic = []; // 装着部分无法固定的关卡逻辑,只有创建战斗的时候才知道是什么内容
 
     public openShop; // 执行打开商店的操作
     public openRelicSel2Add; // 执行升级选择遗物逻辑
@@ -24,7 +25,7 @@ class Battle {
         this.trueRand = new SRandom(trueRandomSeed);
     }
 
-    public static createNewBattle(p:Player, btType:string, btRandomSeed:number, trueRandomSeed:number = undefined):Battle {
+    public static createNewBattle(p:Player, btType:string, btRandomSeed:number, trueRandomSeed:number = undefined, extraLevelLogic = undefined):Battle {
         if (trueRandomSeed == undefined)
             trueRandomSeed = (new Date()).getMilliseconds();
 
@@ -32,6 +33,8 @@ class Battle {
         bt.id = "bt_" + bt.btType + "_" + Math.random();
         bt.player = p;
         bt.btType = btType;
+        if(extraLevelLogic)
+            bt.extraLevelLogic = extraLevelLogic;
         p.setBattle(bt);
         return bt;
     }
@@ -40,18 +43,19 @@ class Battle {
     public loadCurrentLevel(btType:string):Level {
         // 创建关卡地图和元素
         this.level = new Level();
-        // 根据战斗类型装配关卡逻辑
+        // 根据战斗类型及该战斗的额外关卡配置装配关卡逻辑
         var levelLogics = Utils.getLevelLogics(btType);
-        if(levelLogics.length > 0){
-            for(var levelLogic of levelLogics){
-                var ll = LevelLogicFactory.createLevelLogic(levelLogic.type, this.level, ...levelLogic.ps);
-                this.level.addLevelLogic(ll);
-            }
+        for(var levelLogic of levelLogics){
+            var ll = LevelLogicFactory.createLevelLogic(levelLogic.type, this.level, ...levelLogic.ps);
+            this.level.addLevelLogic(ll);
         }
-        if(Utils.checkRookiePlay())
-            this.lvCfg = GCfg.getLevelCfg("rookiePlay");
-        else
-            this.lvCfg = GCfg.getLevelCfg(btType);
+        for(var levelLogic of this.extraLevelLogic){
+            var ll = LevelLogicFactory.createLevelLogic(levelLogic.type, this.level, ...levelLogic.ps);
+            this.level.addLevelLogic(ll);
+        }
+        
+        // 根据战斗类型找到关卡配置
+        this.lvCfg = GCfg.getLevelCfg(btType);
         Utils.assert(!!this.lvCfg, "can not find level config: " + btType);
         while (this.lvCfg.redirect) {
             btType = this.lvCfg.redirect;
@@ -68,7 +72,7 @@ class Battle {
 
     prepared = false;
     public prepare() {
-        if (this.prepared) return;        
+        if (this.prepared) return;
         this.loadCurrentLevel(this.btType);
         this.level.RandomElemsPos();
         this.prepared = true;
