@@ -251,12 +251,14 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 在大地图上获得金钱
     public async onGetMoneyInWorldmap(ps) {
-        var d = ps.dm > 0 ? 1 : -1
+        var txt = this.wmv.getMoneyText();
+        var d = ps.dm > 0 ? 1 : -1;
         var p = this.wmv.player;
-        for (var i = 0; i != ps.dm; i+=d) {
-            this.wmv.getMoneyText().text = (p.money - ps.dm + i).toString();
-            await AniUtils.delay(30);
-        }
+
+        if (d > 0)
+            await this.coinsFly(undefined, WorldMapEventSelsView.lastSelectionGlobalPos, txt, ps.dm);
+        else
+            await this.coinsFly(undefined, txt, WorldMapEventSelsView.lastSelectionGlobalPos, ps.dm);
 
         this.wmv.refreshMoney();
     }
@@ -446,9 +448,11 @@ class AniView extends egret.DisplayObjectContainer {
         var coinSV = this.getSV(e);
 
         if (d > 0) 
-            await this.coinsFly(e, coinSV, txt, ps.d, 350)
+            await this.coinsFly(e, coinSV, txt, ps.d)
         else if (e.type != "ShopNpc")
-            await this.coinsFly(e, txt, coinSV, ps.d, 350)
+            await this.coinsFly(e, txt, coinSV, ps.d)
+
+        this.bv.refreshMoney();
     }
 
     // 糖衣炮弹
@@ -458,38 +462,45 @@ class AniView extends egret.DisplayObjectContainer {
         if(index == -1) return;
         var ccView = this.bv.propsView.getPropViewByIndex(index);
         await this.coinsFly(undefined, ccView, tarMonsterSV, ps.dm, 150, {fx:0, fy:0, tx:16, ty:16});
+        this.bv.refreshMoney();
     }
 
-    public async coinsFly(e:Elem = undefined, fromImg:egret.DisplayObject, toImg:egret.DisplayObject, d:number, time:number, offset = {fx:0, fy:0, tx:0, ty:0}){
+    public async coinsFly(e:Elem = undefined, from, to, d:number, time:number = 300, offset = {fx:0, fy:0, tx:0, ty:0}) {
         var dm = Math.abs(d);
+
+        var fromObj = from;
+        from = from instanceof egret.DisplayObject ? from.localToGlobal() : from;
+        to = to instanceof egret.DisplayObject ? to.localToGlobal() : to;
 
         var dir = d > 0 ? 1 : -1;
         var coinsImgArr = [];
         for (var i = dm > 15 ? dm - 15 : 0; i < dm; i++) {
-            var v = this.bv.player.money - (dm - i) * dir;
             var coinsImg = AniUtils.createImg("Coins_png");
             coinsImgArr.push(coinsImg);
             this.aniFact.createAni("seq", {subAniArr:[
-                    this.aniFact.createAni("tr", {obj:coinsImg, fx:fromImg.localToGlobal().x + offset.fx, fy:fromImg.localToGlobal().y + offset.fy,
-                        tx:toImg.localToGlobal().x + offset.tx, ty:toImg.localToGlobal().y + offset.ty,
-                        fsx:1, fsy:1, tsx:0.6, tsy:0.6, time:time}),
-                    this.aniFact.createAni("tr", {obj:coinsImg, fa:1, ta:0, time:1})
-                ]});
+                this.aniFact.createAni("tr", {obj:coinsImg, fx:from.x + offset.fx, fy:from.y + offset.fy,
+                    tx:to.x + offset.tx, ty:to.y + offset.ty,
+                    fsx:1, fsy:1, tsx:0.6, tsy:0.6, time:time}),
+                this.aniFact.createAni("tr", {obj:coinsImg, fa:1, ta:0, time:1})
+            ]});
             var cnt = dm - i;
-                if (e && Utils.checkCatalogues(e.type, "coin")) {
-                    if(cnt > 0){
-                        e.cnt = cnt;
-                        this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
-                    }
-                    else
-                        fromImg.alpha = 0;
-                    }
+            if (e && Utils.checkCatalogues(e.type, "coin")) {
+                if(cnt > 0){
+                    e.cnt = cnt;
+                    this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
+                }
+                else if (fromObj instanceof egret.DisplayObject)
+                    fromObj.alpha = 0;
+            }
 
             await AniUtils.delay(100);
-                this.bv.getMoneyText().text = v.toString();
+            var p = this.bv.player ? this.bv.player : this.wmv.player;
+            var txt = this.bv.player ? this.bv.getMoneyText() : this.wmv.getMoneyText();
+            var v = p.money - (dm - i) * dir;
+            txt.text = v.toString();
         }
-        coinsImgArr.forEach((img, _) => img["dispose"]());
-        this.bv.refreshMoney();
+
+        coinsImgArr.forEach((img, _) => img["dispose"]());        
     }
 
     // 产生攻击行为

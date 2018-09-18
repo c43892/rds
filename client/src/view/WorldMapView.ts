@@ -99,8 +99,8 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.btnSymbolDesc.onClicked = () => this.onClickSymbolDesc();
         this.symbolDesc.onClicked = () => this.onClickSymbolDesc();
 
-        this.numCoins.text = this.player.money.toString();
-        this.hp.text = this.player.hp.toString();
+        this.refreshMoney();
+        this.refreshHp();
     }
 
     private onClickSymbolDesc() {
@@ -123,7 +123,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
     }
 
     public refreshHp() {
-        this.hp.text = this.player.hp.toString();
+        this.hp.text = this.player.hp.toString() + "/" + this.player.maxHp.toString();
     }
 
     private refreshFrame() {
