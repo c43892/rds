@@ -77,7 +77,7 @@ class MonsterFactory {
         // 死神每回合攻击玩家，并随机移动，死亡时给玩家 +10 死神时间
         "DeathGod": (attrs) => {
             var m = this.createMonster(attrs);
-            m = <Monster>ElemFactory.addDieAI(async () => m.bt().implAddDeathGodStep(10, m), m);
+            m = <Monster>ElemFactory.addDieAI(async () => m.bt().implAddDeathGodStep(m.attrs.deathStep, m), m);
             m = MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player);
             m = MonsterFactory.doRandomFly("onPlayerActed", m);
             return m;
