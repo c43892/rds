@@ -12,6 +12,7 @@ class BattleView extends egret.DisplayObjectContainer {
     public occupationBg:egret.Bitmap; // 角色职业背景
     public avatar:egret.Bitmap; // 角色头像
     public avatarWeapon:egret.Bitmap; // 角色上层的武器表现
+    public avatarAreaMask:egret.Bitmap; // 角色区域的遮罩
     public expBar:egret.Bitmap; // 经验条
     public expBarMask:egret.Shape; // 经验条遮罩
     public deadlyMask:egret.Bitmap; // 濒死效果
@@ -85,7 +86,12 @@ class BattleView extends egret.DisplayObjectContainer {
         this.avatarWeapon = new egret.Bitmap();
         this.avatarWeapon.alpha = 0; // 平时隐藏
         this.avatarWeapon.name = "avatarWeapon";
-        this.avatar
+        this.avatarAreaMask = ViewUtils.createBitmapByName("translucent_png");
+        this.avatarAreaMask.name = "avatarAreaMask";
+
+        this.avatar.mask = this.avatarAreaMask;
+        this.occupationBg.mask = this.avatarAreaMask;
+        this.avatarWeapon.mask = this.avatarAreaMask;
 
         // 头像区域背景
         this.avatarBg = ViewUtils.createBitmapByName("avatarBg_png");
@@ -137,6 +143,11 @@ class BattleView extends egret.DisplayObjectContainer {
             this.currentStoryLv, this.money, this.power, this.dodge, 
             this.hpBarMask, this.expBarMask, this.expBar, this.hp, this.hpBar
         ];
+
+        this.avatarAreaMask.x = this.avatarBg.x;
+        this.avatarAreaMask.y = this.avatarBg.y;
+        this.avatarAreaMask.width = this.avatarBg.width;
+        this.avatarAreaMask.height = this.avatarBg.height;
 
         objs.forEach((obj, _) => this.addChild(obj));
         ViewUtils.multiLang(this, ...objs);
@@ -193,11 +204,6 @@ class BattleView extends egret.DisplayObjectContainer {
             shape.graphics.lineTo(pts[i].x, pts[i].y);
         shape.graphics.lineTo(pts[0].x, pts[0].y);
         shape.graphics.endFill();
-    }
-
-    // 刷新护盾
-    refreshShield() {
-        // this.shield.text = !this.player ? "0" : this.player.shield.toString();
     }
 
     public constructor(w:number, h:number) {
@@ -389,7 +395,7 @@ class BattleView extends egret.DisplayObjectContainer {
 
         this.refreshExpBar();
         this.refreshHpBar();
-        ViewUtils.multiLang(this, this.avatarBg, this.avatar, this.avatarWeapon, this.power, this.dodge, this.propsView, this.moreRelics);
+        ViewUtils.multiLang(this, this.avatarBg, this.avatarAreaMask, this.avatar, this.avatarWeapon, this.power, this.dodge, this.propsView, this.moreRelics);
 
         // 物品
         this.refreshProps();
