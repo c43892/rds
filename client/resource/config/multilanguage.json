@@ -129,12 +129,15 @@
 		
 		"worldmap": {
 			"layout": {
-				"btnSetting": {"x":20, "y":25},
-				"coins": {"x":130, "y":30},
-				"numCoins": {"x":200, "y":43, "w":200, "h":50},
-				"btnSymbolDesc": {"x":400, "y":10},
-				"symbolDesc": {"x":355, "y":10},
-				"crevice0": {"x":-10, "y":70},
+				"btnSetting": {"x":30, "y":5},
+				"coins": {"x":200, "y":7},
+				"numCoins": {"x":270, "y":15, "w":200, "h":50},
+				"hpTitle": {"x":340, "y":15},
+				"hp": {"x":400, "y":15, "w":200, "h":50},
+				"topBar": {"x":0, "y":0},
+				"btnSymbolDesc": {"x":400, "y":70},
+				"symbolDesc": {"x":355, "y":70},
+				"crevice0": {"x":-10, "y":250},
 				"crevice1": {"x":400, "y":450},
 				"crevice2": {"x":20, "y":650},
 				"crevice3": {"x":500, "y":1000},
