@@ -44,7 +44,8 @@ class ViewUtils {
             if (!tex)
                 Utils.assert(false, "no texture created: " + name);
             ViewUtils.setTex(bmp, tex, resetSize, fillMode);
-        }
+        } else
+            bmp.texture = undefined;
 
         return bmp;
     }

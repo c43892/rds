@@ -201,6 +201,13 @@ class AniUtils {
         }
     }
 
+    // 原地转动一下
+    public static async rotate(obj:egret.DisplayObject) {
+        var rev = AniUtils.reserveObjTrans(obj);
+        await AniUtils.aniFact.createAniByCfg({type:"tr", fr:0, tr:90, time:100, noWait:true, obj:obj});
+        rev();
+    }
+
     // 原地转动一下再恢复，比如警棍在玩家攻击时的效果
     public static async rotateAndBack(obj:egret.DisplayObject) {
         var rev = AniUtils.reserveObjTrans(obj);

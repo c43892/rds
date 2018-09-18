@@ -498,8 +498,6 @@ class AniView extends egret.DisplayObjectContainer {
             await this.onPlayerAttack(ps);
         else
             await this.onMonsterAttack(ps);
-
-        this.bv.refreshPlayer();
     }
 
     // 得到攻击结果
@@ -559,6 +557,7 @@ class AniView extends egret.DisplayObjectContainer {
         var weapon = ps.weapon;
 
         if (!weapon) {
+            var occ = this.bv.player.occupation;
             // 平砍时有些元素需要表现一下动作
             var itemTypes = ["Baton"];
             var items = this.bv.mapView.getGridViewsWithElem((e:Elem) => Utils.contains(itemTypes, e.type) && e.isValid());
@@ -567,6 +566,13 @@ class AniView extends egret.DisplayObjectContainer {
                 var ani = AniUtils.rotateAndBack(it.getShowLayer());
                 aniArr.push(ani);
             }
+
+            // 头像换一下
+            var avatar = this.bv.avatar;
+            ViewUtils.setTexName(avatar, occ + "Attack_png", true);
+
+            // 平砍武器效果放一下
+            await this.normalAtttackWeaponEffect(occ);
             
             // 这个效果不等待
             if (aniArr.length > 0)
@@ -605,6 +611,29 @@ class AniView extends egret.DisplayObjectContainer {
             var eff = g.addEffect("effIceGun", 1);
             await eff["wait"]();
             g.removeEffect("effIceGun");
+        }
+    }
+
+    // 平砍武器效果
+    public async normalAtttackWeaponEffect(occupation) {
+        var weaponImg = this.bv.avatarWeapon;
+        ViewUtils.setTexName(weaponImg, occupation + "Weapon_png", true);        
+        weaponImg.anchorOffsetX = 0;
+        weaponImg.anchorOffsetY = weaponImg.height;
+        weaponImg.x = 0;
+        weaponImg.y = weaponImg.height;
+
+        weaponImg.alpha = 1;
+        switch (occupation) {
+            case "Rogue":
+            case "Horticulaturist":
+            case "Police":
+            // 转动一下
+            await AniUtils.rotate(weaponImg);
+            case "Nurse":
+            // 戳一下
+            await this.aniFact.createAniByCfg({type:"tr", fx:weaponImg.x, fy:weaponImg.y, 
+                    tx:weaponImg.x + 100, ty:weaponImg.y + 100, time:10000, noWait:true, obj:weaponImg});
         }
     }
 
