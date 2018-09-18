@@ -109,6 +109,15 @@ class BoxRoomView extends egret.DisplayObjectContainer {
 
         if (this.elems.length == 0) return;
 
+        var eff:egret.MovieClip = ViewUtils.createFrameAni("effTB");
+        this.addChild(eff);
+        eff.scaleX = eff.scaleY = 5;
+        eff.x = this.width / 2;
+        eff.y = this.height / 2;
+        eff.gotoAndPlay(0, 1);
+        await eff["wait"]();
+        this.removeChild(eff);
+        
         ViewUtils.setTexName(this.box, "BoxRoomBoxOpened_png");
 
         for (var elem of this.elems){

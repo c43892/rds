@@ -15,10 +15,8 @@ constructor(w, h) {
     }
 
     async playAniTest() {
-        var eff:egret.MovieClip = ViewUtils.createFrameAni("effWantedOrder");
+        var eff:egret.MovieClip = ViewUtils.createFrameAni("effTB");
         AniUtils.ac.addChild(eff);
-        eff.anchorOffsetX = eff.width / 2;
-        eff.anchorOffsetY = eff.height / 2;
         eff.x = this.width / 2;
         eff.y = this.height / 2;
         eff.gotoAndPlay(0, -1);
