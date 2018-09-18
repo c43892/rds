@@ -390,7 +390,7 @@ class ViewUtils {
     }
 
     // 创建一个小型的显示遗物信息的区域
-    public static createSmallRelicInfoRect (e:Relic, left:number):egret.DisplayObject[] {
+    public static createSmallRelicInfoRect(e:Relic, left:number):egret.DisplayObject[] {
         // 背景底图
         var bg = ViewUtils.createBitmapByName("confirmBg_png");
         bg.width = 300;
@@ -403,6 +403,14 @@ class ViewUtils {
         icon.y = bg.y + 20;
         icon.width *= 0.75;
         icon.height *= 0.75;
+
+        // 光效
+        var eff = ViewUtils.createFrameAni("effRelicShining");
+        eff.x = icon.x + icon.width / 2;
+        eff.y = icon.y + icon.height / 2;
+        eff.scaleX = 0.75;
+        eff.scaleY = 0.75;
+        eff.play(-1);
 
         var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
 
@@ -444,6 +452,6 @@ class ViewUtils {
 
         bg.height = currentY + 50 - bg.y;
 
-        return [bg, icon, title, title, ...descObjs];
+        return [bg, icon, eff, title, title, ...descObjs];
     }
 }
