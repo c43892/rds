@@ -141,7 +141,7 @@ class BattleView extends egret.DisplayObjectContainer {
         var objs = [
             this.moneyAndStoriesBg, this.occupationBg, this.avatar, this.avatarWeapon, this.avatarBg,
             this.currentStoryLv, this.money, this.power, this.dodge, 
-            this.hpBarMask, this.expBarMask, this.expBar, this.hp, this.hpBar
+            this.hpBarMask, this.expBarMask, this.expBar, this.hpBar, this.hp
         ];
 
         this.addChild(this.avatarAreaMask);
