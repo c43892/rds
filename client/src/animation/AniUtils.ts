@@ -291,15 +291,10 @@ class AniUtils {
     }
 
     // 震动一下镜头
-    public static async shakeCamera() {
-        var root = ViewUtils.MainArea.parent;
-        var x = root.x;
-        await AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
-            {type:"tr", fx:x, tx:x-5, time:50},
-            {type:"tr", fx:x-5, tx:x+5, time:50},
-            {type:"tr", fx:x+5, tx:x-5, time:50},
-            {type:"tr", fx:x-5, tx:x, time:50},
-        ], obj:root});
+    public static async shakeCamera(times:number = 2, interval:number = 100, autoClear:boolean = true) {
+        await AniUtils.aniFact.createAniByCfg({type:"shakeCamera", times:times, interval:interval});
+        if (autoClear)
+            egret.Tween.removeTweens(ViewUtils.MainArea.parent);
     }
 
     // 向右跳动着飘一个提示

@@ -65,6 +65,7 @@ class AnimationFactory {
                 case "moveOnPath": ani = this.moveOnPath(ps.obj, ps); break;
                 case "cycleMask": ani = this.cycleMask(ps.obj, ps); break;
                 case "bezierTrack": ani = this.bezierTrack(ps.obj, ps); break;
+                case "shakeCamera": ani = this.shakeCamera(ps.times, ps.interval); break;
             }
 
             if (!ani) Utils.log("unknown aniType: " + aniType);
@@ -200,6 +201,24 @@ class AnimationFactory {
         return egret.Tween.get(obj).to({"bezierFactor":0}, 0).to({"bezierFactor":1}, ps.time);
     }
 
+    // 屏幕震动
+    shakeCamera(times, interval):egret.Tween {
+        var root = ViewUtils.MainArea.parent;
+        var x = root.x;
+        var y = root.y;
+        var tw = egret.Tween.get(root);
+        for (var i = 0; i < times; i++) {
+            var rdx1 = AniUtils.rand.nextInt(-10, 10);
+            var rdy1 = AniUtils.rand.nextInt(-10, 10);
+            var rdx2 = -AniUtils.rand.nextInt(-10, 10);
+            var rdy2 = -AniUtils.rand.nextInt(-10, 10);
+            tw = tw.to({"x":x+rdx1, "y":y+rdy1}, interval/2);
+            tw = tw.to({"x":x+rdx2, "y":y+rdy2}, interval/2);
+        }
+        tw = tw.to({"x":x, "y":y}, 0);
+        return tw;
+    }
+
     // 动画序列
     aniSeq(subAnis:Promise<void>[]):Promise<void> {
         var aw;
@@ -266,7 +285,7 @@ class AnimationFactory {
     }
 
     // 龙骨动画
-    skeleton(ps):Promise<void> {
+    async skeleton(ps) {
         var ani:dragonBones.Armature;
         var skeName = ps.name;
         var actName = ps.act;

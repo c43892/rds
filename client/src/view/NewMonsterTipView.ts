@@ -28,6 +28,8 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
         tip.addChild(bg);
         tip.width = bg.width;
         tip.height = bg.height;
+        tip.anchorOffsetX = tip.width / 2;
+        tip.anchorOffsetY = 0;
 
         this.tipImg = new egret.Bitmap();
         this.tipImg.width = this.tipImg.height = 60;
@@ -62,12 +64,20 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
         ViewUtils.setTexName(this.tipImg, m.getElemImgRes() + "_png");
         
         var refPos = this.mapView.localToGlobal();
-        tip.x = refPos.x + this.mapView.width - tip.width;
-        tip.y = refPos.y - tip.height - 5;
+        tip.x = refPos.x + this.mapView.width - tip.width + tip.$anchorOffsetX;
+        tip.y = refPos.y - tip.height - 5 + tip.$anchorOffsetY;
 
         if (this.monsterArr.length == 1) { // 新飞出来的第一个
             this.addChild(tip);
             this.numTxt.alpha = 0;
+
+            // 制作飞行动画
+            AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
+                {type:"tr", fx:tip.x + 100, tx:tip.x, time:100, mode:egret.Ease.cubicIn},
+                {type:"shakeCamera", times:2, interval:100},
+                {type:"tr", fr:0, tr:10, time:250, mode:egret.Ease.cubicOut},
+                {type:"tr", fr:10, tr:0, time:500, mode:egret.Ease.cubicInOut},
+            ], obj:tip, noWait:true}).then(() => egret.Tween.removeTweens(ViewUtils.MainArea.parent));
         }
         else { // 叠加在现有的上面
             this.numTxt.text = "X" + this.monsterArr.length.toString();
