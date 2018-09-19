@@ -577,8 +577,9 @@ class AniView extends egret.DisplayObjectContainer {
             weaponImg.alpha = 1;
             await this.aniFact.createAniByCfg({type:"seq", arr:[
                 {type:"tr", ty:weaponImg.y + weaponImg.height, time:0},
-                {type:"tr", fy:weaponImg.y + weaponImg.height, ty:weaponImg.y - 75, time:250},
-                {type:"tr", fy:weaponImg.y - 75, ty:weaponImg.y + weaponImg.height, time:250},
+                {type:"tr", fy:weaponImg.y + weaponImg.height, ty:weaponImg.y - 75, time:150},
+                {type:"delay", time:100},
+                {type:"tr", fy:weaponImg.y - 75, ty:weaponImg.y + weaponImg.height, time:150},
             ], noWait:true, obj:weaponImg});
         }
     }
