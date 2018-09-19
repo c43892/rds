@@ -496,8 +496,16 @@ class BattleView extends egret.DisplayObjectContainer {
             img.width = img.height = 55;
             img.x = this.elemsTip.width / 2 + (i - (elems.length - 1) / 2) * (gap + img.width) - img.width / 2
             img.y = 0;
+            img.alpha = 1;
             this.elemsTipBitmaps.push(img);
         }
         this.elemsTipBitmaps.forEach((bitmap, _) => this.elemsTip.addChild(bitmap));
+        if(this.elemsTipBitmaps.length > 9){
+            var n = Math.ceil((this.elemsTipBitmaps.length - 9) / 2);
+            for(var i = 0; i < this.elemsTipBitmaps.length; i++){
+                if(i < n || this.elemsTipBitmaps.length - i <= n)
+                    this.elemsTipBitmaps[i].alpha = 0;
+            }
+        }
     }
 }
