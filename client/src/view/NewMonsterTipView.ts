@@ -1,5 +1,6 @@
 // 战斗中新出怪物提示
 class NewMonsterTipView extends egret.DisplayObjectContainer {
+    bt:Battle;
     mapView:MapView;
     elemDescView:ElemDescView;
     newMonsterTipsData:string[];
@@ -10,20 +11,44 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
         this.width = w;
         this.height = h;
         this.mapView = bv.mapView;
-        this.newMonsterTipsData = Utils.loadLocalData(this.LOCAL_DATA_KEY);
+        // this.newMonsterTipsData = Utils.loadLocalData(this.LOCAL_DATA_KEY);
         if (!this.newMonsterTipsData)
             this.newMonsterTipsData = [];
 
-        this.numTxt = ViewUtils.createTextField(25, 0xffffff);
         this.btnNext = new TextButtonWithBg("btnBg_png", 30);
         this.btnNext.onClicked = () => this.onNext();
         this.elemDescView = new ElemDescView(w, h);
+
+        this.monsterTip = new egret.DisplayObjectContainer();
+        var tip = this.monsterTip;
+        tip.touchEnabled = true;
+        tip.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTapTipImg, this);
+
+        var bg = ViewUtils.createBitmapByName("newMonsterTipBg_png");
+        tip.addChild(bg);
+        tip.width = bg.width;
+        tip.height = bg.height;
+
+        this.tipImg = new egret.Bitmap();
+        this.tipImg.width = this.tipImg.height = 60;
+        this.tipImg.x = (tip.width - this.tipImg.width) / 2;
+        this.tipImg.y = tip.height - this.tipImg.height - 12;
+        tip.addChild(this.tipImg);
+
+        this.numTxt = ViewUtils.createTextField(25, 0xffffff);
+        tip.addChild(this.numTxt);
     }
 
     // 怪物提示列表
     monsterArr:string[] = [];
-    monsterTipArr:egret.DisplayObjectContainer[] = [];
+    monsterResArr:string[] = [];
+    monsterTip:egret.DisplayObjectContainer;
+    tipImg:egret.Bitmap;
     numTxt:egret.TextField;
+
+    public setBattle(bt:Battle) {
+        this.bt = bt;
+    }
 
     // 添加一个怪物类型等待显示
     public tryAddNewMonsterTip(m:Monster) {
@@ -32,72 +57,48 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
 
         this.newMonsterTipsData.push(m.type);
         this.monsterArr.push(m.type);
-        var tip = new egret.DisplayObjectContainer();
-        tip["monsterType"] = m.type;
-        tip["monster"] = m;
-
-        var bg = ViewUtils.createBitmapByName("newMonsterTipBg_png");
-        tip.addChild(bg);
-        tip.width = bg.width;
-        tip.height = bg.height;
+        this.monsterResArr.push(m.getElemImgRes());
+        var tip = this.monsterTip;
+        ViewUtils.setTexName(this.tipImg, m.getElemImgRes() + "_png");
         
-        var img = ViewUtils.createBitmapByName(m.getElemImgRes() + "_png");
-        img.width = img.height = 60;
-        img.x = (tip.width - img.width) / 2;
-        img.y = tip.height - img.height - 12;
-        tip.addChild(img);
-
-        this.monsterTipArr.push(tip);
-        tip.touchEnabled = true;
-        tip.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTapTipImg, this);
-
-        this.addChild(tip);
         var refPos = this.mapView.localToGlobal();
-
         tip.x = refPos.x + this.mapView.width - tip.width;
         tip.y = refPos.y - tip.height - 5;
-        this.setChildIndex(tip, -1);
 
-        this.numTxt.text = "X" + this.monsterArr.length.toString();
-        this.numTxt.x = tip.x + tip.width - this.numTxt.width - 10;
-        this.numTxt.y = tip.y + tip.height - this.numTxt.height - 10;
-        this.addChild(this.numTxt);
-        this.setChildIndex(this.numTxt, -1);
-
-        return tip;
+        if (this.monsterArr.length == 1) { // 新飞出来的第一个
+            this.addChild(tip);
+            this.numTxt.alpha = 0;
+        }
+        else { // 叠加在现有的上面
+            this.numTxt.text = "X" + this.monsterArr.length.toString();
+            this.numTxt.x = tip.width - this.numTxt.width - 10;
+            this.numTxt.y = tip.height - this.numTxt.height - 10;
+            this.numTxt.alpha = 1;
+        }
     }
 
     onTapTipImg(evt:egret.TouchEvent) {
-        var tip = this.monsterTipArr.pop();
-        Utils.assert(tip == evt.target, "tips array gets corruption");
-
-        var mType = tip["monsterType"];
         var type = this.monsterArr.pop();
-        Utils.assert(mType == type, "tips array gets corruption");
-
-        this.showDesc(tip);
+        var res = this.monsterResArr.pop();
+        this.showDesc(type);
     }
 
     onNext() {
-        if (this.monsterTipArr.length > 0) {
-            var tip = this.monsterTipArr.pop();
-            var mType = tip["monsterType"];
+        if (this.monsterArr.length > 0) {
             var type = this.monsterArr.pop();
-            Utils.assert(mType == type, "tips array gets corruption");
-            this.showDesc(tip);
+            var res = this.monsterArr.pop();
+            this.showDesc(type);
         } else {
             this.removeChild(this.elemDescView);
             this.clear();
         }
     }
 
-    showDesc(tip) {
-        this.removeChild(tip);
+    showDesc(monsterType) {
         Utils.saveLocalData(this.LOCAL_DATA_KEY, this.newMonsterTipsData);
 
         // 显示怪物信息
-        var m = <Monster>tip["monster"];
-        m = <Monster>m.bt().level.createElem(m.type);
+        var m = <Monster>this.bt.level.createElem(monsterType);
 
         if (!this.contains(this.elemDescView)) {
             this.addChild(this.elemDescView);
@@ -106,19 +107,21 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
 
         this.elemDescView.open(m, false, true);
 
-        if (this.monsterTipArr.length > 0) {
-            tip = this.monsterTipArr[this.monsterTipArr.length - 1];
-            this.numTxt.text = "X" + this.monsterTipArr.length.toString();
-        } else {
-            this.removeChild(this.numTxt);
-        }
+        if (this.monsterArr.length > 1)
+            this.numTxt.text = "X" + this.monsterArr.length.toString();
+        else
+            this.numTxt.alpha = 0;
+
+        if (this.monsterArr.length == 0)
+            this.removeChild(this.monsterTip);
+        else
+            ViewUtils.setTexName(this.tipImg, this.monsterResArr[this.monsterResArr.length - 1] + "_png");
 
         if (!this.contains(this.btnNext))
             this.addChild(this.btnNext);
 
         this.btnNext.width = 150;
-        this.btnNext.text = ViewUtils.getTipText(
-            this.monsterTipArr.length > 0 ? "nextOne" : "close");
+        this.btnNext.text = ViewUtils.getTipText(this.monsterArr.length > 0 ? "nextOne" : "close");
         this.btnNext.x = this.width - this.btnNext.width - 50;
         this.btnNext.y = this.height - this.btnNext.height - 100;
         this.btnNext.refresh();
@@ -136,9 +139,7 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
         if(m.attrs.noNewMonsterTip)
             return;
 
-        var tip = this.tryAddNewMonsterTip(m);
-        if (tip)
-            AniUtils.flash(tip, 300);
+        this.tryAddNewMonsterTip(m);
     }
 
     public clear() {
