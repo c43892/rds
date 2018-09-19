@@ -356,10 +356,13 @@ class AniView extends egret.DisplayObjectContainer {
         var type = e.type;
         var sv = this.getSV(e);
 
-        if (Utils.checkCatalogues(type, "book") && e.cnt > 0) { // 书籍需要提示还剩几次
-            var p = sv.localToGlobal();
-            AniUtils.tipAt((e.attrs.cnt - e.cnt) + "/" + e.attrs.cnt, {x:p.x+25, y:p.y-25});
-            AniUtils.flashAndShake(sv);
+        if (Utils.checkCatalogues(type, "book")) { // 书籍需要提示还剩几次
+            if (e.cnt > 0) {
+                var p = sv.localToGlobal();
+                AniUtils.tipAt((e.attrs.cnt - e.cnt) + "/" + e.attrs.cnt, {x:p.x+25, y:p.y-25});
+                AniUtils.flashAndShake(sv);
+            }
+
             var weaponImg = this.setAvatarWeapon("ReadBook");
             weaponImg.alpha = 1;
             await this.aniFact.createAniByCfg({type:"seq", arr:[
