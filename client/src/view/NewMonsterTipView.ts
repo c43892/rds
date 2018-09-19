@@ -75,8 +75,9 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
             AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
                 {type:"tr", fx:tip.x + 100, tx:tip.x, time:100, mode:egret.Ease.cubicIn},
                 {type:"shakeCamera", times:2, interval:100},
-                {type:"tr", fr:0, tr:10, time:250, mode:egret.Ease.cubicOut},
-                {type:"tr", fr:10, tr:0, time:500, mode:egret.Ease.cubicInOut},
+                {type:"tr", fr:0, tr:10, time:150, mode:egret.Ease.cubicOut},
+                {type:"tr", fr:10, tr:-10, time:500, mode:egret.Ease.cubicInOut},
+                {type:"tr", fr:-10, tr:0, time:250, mode:egret.Ease.cubicInOut},
             ], obj:tip, noWait:true}).then(() => egret.Tween.removeTweens(ViewUtils.MainArea.parent));
         }
         else { // 叠加在现有的上面
