@@ -53,6 +53,7 @@
             "shortDesc":"每場戰鬥增加一面盾牌，盾牌的恢復時間減少一回合"},
         "HorticultureMaster":{"name":"園藝大師", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每層都可以獲得植物的援助，技能升級後植物可以獲得更強的能力</font>"],
             "shortDesc":"每場戰鬥增加一個蘋果，每次使用蘋果額外回復一點生命"},
+        "StrikeFirst":{"name":"先发制人", "desc":[""], "shortDesc":""},
         
         
         "Coins":{"name":"金幣", "desc":["<font color=#2d5627 size=20>{cnt} <font color=#000000 size=20>個金幣"]},
@@ -319,6 +320,7 @@
             "shortDesc":"每场战斗增加一面盾牌，盾牌的恢复时间减少一回合"},
         "HorticultureMaster":{"name":"园艺大师", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>每层都可以获得植物的援助，技能升级后植物可以获得更强的能力</font>"],
             "shortDesc":"每层都可以获得植物的援助"},
+        "StrikeFirst":{"name":"先发制人", "desc":[""], "shortDesc":""},
         
         
         "Coins":{"name":"金币", "desc":["<font color=#2d5627 size=20> {cnt} </font><font color=#000000 size=20>个金币</font>"]},
@@ -586,6 +588,7 @@
             "shortDesc":"每場戰鬥增加一面盾牌，盾牌的恢復時間減少一回合"},
         "HorticultureMaster":{"name":"園藝大師", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每層都可以獲得植物的援助，技能升級後植物可以獲得更強的能力</font>"],
             "shortDesc":"每場戰鬥增加一個蘋果，每次使用蘋果額外回復一點生命"},
+        "StrikeFirst":{"name":"先发制人", "desc":[""], "shortDesc":""},
         
         
         "Coins":{"name":"金幣", "desc":["<font color=#2d5627 size=20>{cnt} <font color=#000000 size=20>個金幣"]},

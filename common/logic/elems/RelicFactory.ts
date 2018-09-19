@@ -319,6 +319,26 @@ class RelicFactory {
             return r;
         },
 
+        // 先发制人 初始的职业物品，会随机选择X（最多3级）件移动到初始区域
+        "StrikeFirst": (attrs) => {
+            var r = this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) return;
+                r = <Relic>ElemFactory.addAI("onStartupRegionUncovered", async (ps) => {
+                    var bt = r.bt();
+                    var ep = ps.ep;
+                    var es = BattleUtils.findRandomElems(bt, r.attrs.moveNum, (e:Elem) => e["occupationInitItem"]);
+                    for(var e of es){
+                        var e = BattleUtils.moveElem2Area(bt, e, ep.pos, ep.attrs.size);
+                        if (e) {
+                            await bt.fireEvent("onGridChanged", {x:e.pos.x, y:e.pos.y, e:e, subType:"moveShopNpc"});
+                            await bt.triggerLogicPoint("onGridChanged", {x:e.pos.x, y:e.pos.y, e:e, subType:"moveShopNpc"});
+                        }
+                    }
+                }, r);
+            })
+            return r;
+        },
+
         "":{}
     };
 

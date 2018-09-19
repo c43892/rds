@@ -503,20 +503,20 @@ class MonsterFactory {
         }, m);
     }
 
-    // 指挥官僵尸将新加入的怪血量攻击翻倍
+    // 将新加入的怪血量攻击翻倍
     static doEnhanceOtherNewMonster(m:Monster):Monster{
         return MonsterFactory.addAIOnNewElemsJoin(async (ps) => {
             if(ps.e instanceof Monster && ps.e.isHazard()){
-                if(!ps.commandZombieActed){
+                if(!ps.enhancedByAura){
                     var theMonster = ps.e;
                     theMonster.hp *= 2;
                     await m.bt().fireEvent("onElemChanged", {subType:"hp", e:theMonster});
                     theMonster.btAttrs.power *= 2;
                     await m.bt().fireEvent("onElemChanged", {subType:"power", e:theMonster});
-                    ps.commandZombieActed = true; //给"onElemChanged"事件加上标记,表示该elem已经被一个指挥官僵尸增强过
+                    ps.enhancedByAura = true; //给"onElemChanged"事件加上标记,表示该elem已经被增强过
                 }
             }
-        }, m, m["canActOnNewAdd"]);
+        }, m, () => m["canActOnNewAdd"]);
     }
 
     // 移除血量翻倍效果

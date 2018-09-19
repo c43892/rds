@@ -16,34 +16,30 @@ class LevelLogicAddBoxAndKey extends LevelLogic{
             var index = bt.btType.indexOf("_");
             var type = bt.btType.substring(0 , index);
             var boxes:Elem[] = [];
-            switch(type){
-                case "senior":{
-                    for(var i = 0; i < cfg.treasureBoxNum; i++)
-                        boxes.push(this.level.createElem("TreasureBox", {"rdp": this.rdps[i]}));
-                    
-                    break;
-                }
-                case "boss":{
-                    for(var i = 0; i < cfg.treasureBoxNum; i++)
-                        boxes.push(this.level.createElem("TreasureBox", {"rdp": this.rdps[i]}));
-                    
-                    break;
-                }
-                default:{
-                    var tb1 = this.level.createElem("TreasureBox", {"rdp": this.rdps[0]});
-                    var changeToMonsterBox = bt.srand.next100();
-                    if(changeToMonsterBox < cfg.monsterBox) // 是否变成怪物宝箱
-                        boxes.push(this.level.createElem("TreasureBox", {"rdp":"MonsterBox"}));
-                    else
-                        boxes.push(tb1);
-
-                    var tn = bt.srand.next100();
-                    if(tn < cfg.extraTreasureBox)
-                        boxes.push(this.level.createElem("TreasureBox", {"rdp": this.rdps[1]}));
-                    
-                    break;
-                }
+            var seniorTypes = ["senior", "randomEgg"];
+            var bossTypes = ["boss", "slimeKing"];
+            
+            if(Utils.indexOf(seniorTypes, (t:string) => t == type) > -1){
+                for(var i = 0; i < cfg.treasureBoxNum; i++)
+                    boxes.push(this.level.createElem("TreasureBox", {"rdp": this.rdps[i]}));                    
             }
+            else if(Utils.indexOf(bossTypes, (t:string) => t == type) > -1){
+                for(var i = 0; i < cfg.treasureBoxNum; i++)
+                    boxes.push(this.level.createElem("TreasureBox", {"rdp": this.rdps[i]}));                    
+            }
+            else{
+                var tb1 = this.level.createElem("TreasureBox", {"rdp": this.rdps[0]});
+                var changeToMonsterBox = bt.srand.next100();
+                if(changeToMonsterBox < cfg.monsterBox) // 是否变成怪物宝箱
+                    boxes.push(this.level.createElem("TreasureBox", {"rdp":"MonsterBox"}));
+                else
+                    boxes.push(tb1);
+
+                var tn = bt.srand.next100();
+                if(tn < cfg.extraTreasureBox)
+                    boxes.push(this.level.createElem("TreasureBox", {"rdp": this.rdps[1]}));
+            }
+            
             for(var i = 0; i < boxes.length; i++){
                 var key = this.level.createElem("Key");
                 var gs = BattleUtils.findRandomGrids(bt, (g:Grid) => !g.getElem() && !g.isCovered(), 2);

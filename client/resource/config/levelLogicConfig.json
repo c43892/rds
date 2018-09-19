@@ -1,7 +1,28 @@
 {
-    "rookiePlay":[{"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox1"]]}, {"type":"LevelLogicTakeKey"}],
-    "normal":[{"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox1"]]}, {"type":"LevelLogicTakeKey"}],
-    "randomEgg":[{"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox1"]]}, {"type":"LevelLogicTakeKey"}, {"type":"LevelLogicChangeMonster", "ps":[["RandomEggZombie"], 5]}],
-    "boss":[{"type":"LevelLogicAddBoxAndKey", "ps":[["bossBox1", "bossBox2", "bossBox3", "bossBox4", "bossBox5"]]}, {"type":"LevelLogicTakeKey"}, {"type":"LevelLogicChangeMonster", "ps":[["RedSlime", "GreenSlime"], 5]}],
-    "searchBody":[{"type":"LevelLogicTakeKey"}]
+    "rookiePlay":[
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox2"]]}, 
+        {"type":"LevelLogicTakeKey"}
+        ],
+    "normal":[
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox2"]]}, 
+        {"type":"LevelLogicTakeKey"}
+        ],
+    "randomEgg":[
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox2"]]}, 
+        {"type":"LevelLogicTakeKey"}, {"type":"LevelLogicChangeMonster", "ps":[["RandomEggZombie"], 5]}
+        ],
+    "senior":[
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox2"]]}
+        ],
+    "boss":[
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["bossBox1", "bossBox2", "bossBox3", "bossBox4", "bossBox5"]]}, 
+        {"type":"LevelLogicTakeKey"}
+        ],
+    "searchBody":[{"type":"LevelLogicTakeKey"}],
+    "slimeKing":[
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["bossBox1", "bossBox2", "bossBox3", "bossBox4", "bossBox5"]]}, 
+        {"type":"LevelLogicTakeKey"}, 
+        {"type":"LevelLogicChangeMonster", "ps":[["RedSlime", "GreenSlime"], 5]},
+        {"type":"LevelLogicAddElemOnInit", "ps":[["SlimeKing"]]}
+        ]
 }

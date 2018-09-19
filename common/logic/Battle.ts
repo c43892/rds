@@ -143,7 +143,7 @@ class Battle {
         }
 
         // 如果有商人，要移动到起始区域
-        var shopNpc = BattleUtils.moveElem2Area(this, "ShopNpc", ep.pos, ep.attrs.size);
+        var shopNpc = BattleUtils.moveElemType2Area(this, "ShopNpc", ep.pos, ep.attrs.size);
         if (shopNpc) {
             await this.fireEvent("onGridChanged", {x:shopNpc.pos.x, y:shopNpc.pos.y, e:shopNpc, subType:"moveShopNpc"});
             await this.triggerLogicPoint("onGridChanged", {x:shopNpc.pos.x, y:shopNpc.pos.y, e:shopNpc, subType:"moveShopNpc"});
@@ -159,8 +159,8 @@ class Battle {
         }
         this.player.elems2NextLevel = [];
 
-        await this.fireEvent("onStartupRegionUncovered", {bt:this});
-        await this.triggerLogicPoint("onStartupRegionUncovered", {bt:this});
+        await this.fireEvent("onStartupRegionUncovered", {bt:this, ep:ep});
+        await this.triggerLogicPoint("onStartupRegionUncovered", {bt:this, ep:ep});
     }
 
     // 计算一片指定大小的区域，该区域尽量以逃跑的出口位置为中心，

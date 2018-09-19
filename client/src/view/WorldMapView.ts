@@ -415,12 +415,26 @@ class WorldMapView extends egret.DisplayObjectContainer {
         var nodeType = this.worldmap.nodes[lv][n].roomType;
         switch(nodeType) {
             case "normal":
-            case "senior":
-            case "boss":
                 var p = this.worldmap.player;
                 var btRandonSeed = p.playerRandom.nextInt(0, 10000);
                 this.refreshShopSoldout() // 刷新战斗内商店销售状态
                 await this.startNewBattle(p, nodeType, lv, n, btRandonSeed, skipBlackIn);
+                break;
+            case "senior":
+                var p = this.worldmap.player;
+                var btRandonSeed = p.playerRandom.nextInt(0, 10000);
+                this.refreshShopSoldout() // 刷新战斗内商店销售状态
+                var seniorTypes = ["randomEgg"];
+                var seniorType = seniorTypes[this.player.playerRandom.nextInt(0, seniorTypes.length)];
+                await this.startNewBattle(p, seniorType, lv, n, btRandonSeed, skipBlackIn);
+                break;
+            case "boss":
+                var p = this.worldmap.player;
+                var btRandonSeed = p.playerRandom.nextInt(0, 10000);
+                this.refreshShopSoldout() // 刷新战斗内商店销售状态
+                var bossTypes = ["slimeKing"];
+                var bossType = bossTypes[this.player.playerRandom.nextInt(0, bossTypes.length)];
+                await this.startNewBattle(p, bossType, lv, n, btRandonSeed, skipBlackIn);
                 break;
             case "shop":
                 this.refreshShopSoldout() // 刷新世界地图商店销售状态

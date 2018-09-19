@@ -306,16 +306,21 @@ class BattleUtils {
         return Utils.indexOf(sps, (p) => p.lv == sp.lv && p.n == sp.n) >= 0;
     }
 
-    // 将指定元素移动到指定区域
-    public static moveElem2Area(bt:Battle, elemType:string, areaLeftCorner, areaSize):Elem {
+    // 将一个指定类型的元素移动到指定区域
+    public static moveElemType2Area(bt:Battle, elemType:string, areaLeftCorner, areaSize):Elem {
         var e = bt.level.map.findFirstElem((elem:Elem) => elem.type == elemType);
         if (!e) return e; // 没找到指定元素
+        
+        return BattleUtils.moveElem2Area(bt, e, areaLeftCorner, areaSize);
+    }
 
+    // 将一个指定元素移动到指定区域
+    public static moveElem2Area(bt:Battle, elem:Elem, areaLeftCorner, areaSize):Elem {
         var grid = BattleUtils.findRandomGrids(bt, (g:Grid) => Utils.isInArea(g.pos, areaLeftCorner, areaSize) && !g.getElem())[0];
         if (!grid) return; // 没找到空位置
 
-        bt.level.map.switchElems(e.pos.x, e.pos.y, grid.pos.x, grid.pos.y);
-        return e;
+        bt.level.map.switchElems(elem.pos.x, elem.pos.y, grid.pos.x, grid.pos.y);
+        return elem;
     }
 
     // 判断GridA是否在GridB的周围,取八格

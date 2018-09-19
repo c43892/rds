@@ -88,6 +88,9 @@ class Level {
                 elems.push(this.createElem(e));
         }
 
+        // 添加职业物品
+        elems = this.addOccupationInitItems(elems);
+
         // 添加随机元素
         if (randomGroupsCfg) {
             for (var group of randomGroupsCfg) {
@@ -109,6 +112,8 @@ class Level {
                 }
             }
         }
+
+        this.bt.triggerLogicPointSync("onLevelInitElems", {bt:this.bt, elems:elems});
 
         // 依次加入地图
         var x = 0;
@@ -242,6 +247,25 @@ class Level {
             Utils.assert(!!g, "no more place for elem");
             this.map.addElemAt(e, g.pos.x, g.pos.y);
         }
+    }
+
+    // 添加职业物品
+    public addOccupationInitItems(items:Elem[]){
+        var cfg = GCfg.getOccupationCfg(this.bt.player.occupation);
+        for(var constItem in cfg.constItems){
+            for(var i = 0; i < cfg.constItems[constItem]; i++){
+                var e = this.createElem(constItem);
+                e["occupationInitItem"] = true; // 提供给遗物判断是否是此时添加的职业物品
+                items.push(e)
+            }
+        }
+        var es = Utils.randomSelectByWeight(cfg.randomItems.elems, this.bt.srand, cfg.randomItems.num[0], cfg.randomItems.num[1], true);
+        for(var randomItem of es){
+            var e = this.createElem(randomItem);
+            e["occupationInitItem"] = true; // 提供给遗物判断是否是此时添加的职业物品
+            items.push(e);
+        }
+        return items;
     }
 
     // 关卡逻辑

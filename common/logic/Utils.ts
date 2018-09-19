@@ -566,4 +566,10 @@ class Utils {
         }
         return levelLogics;
     }
+
+    // 判断是否是该职业的初始物品类型
+    public static checkInitItems(occupation:string, itemType:string){
+        var cfg = GCfg.getOccupationCfg(occupation);
+        return Utils.indexOf(cfg.initItems, (t:string) => t == itemType) > -1;
+    }
 }
