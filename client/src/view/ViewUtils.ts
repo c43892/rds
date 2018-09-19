@@ -383,7 +383,7 @@ class ViewUtils {
         var arrow = ViewUtils.createBitmapByName("relicUpgradeArrow_png");
         arrow.x = 320 - arrow.width / 2;
         var bg = objs[0];
-        arrow.y = bg.y + bg.height - 50;
+        arrow.y = bg.y + bg.height - 70;
         objs.push(arrow);
 
         return objs;

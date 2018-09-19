@@ -22,10 +22,10 @@
 
         "battle": {
             "layout": {
-				"occupationBg": {"x":0, "y":0},
+				"occupationBg": {"x":10, "y":-50},
 				"avatarBg": {"x":0, "y":0},
-				"avatar": {"x":0, "y":0},
-				"avatarWeapon": {"x":0, "y":0},
+				"avatar": {"x":10, "y":-50},
+				"avatarWeapon": {"x":50, "y":-150},
                 "expBar": {"x":2, "y":4},
                 "hpBar": {"x":141, "y":12},
 				"hp": {"x":141, "y":113, "w":30, "h":30},
@@ -129,12 +129,12 @@
 		
 		"worldmap": {
 			"layout": {
-				"btnSetting": {"x":30, "y":5},
-				"coins": {"x":200, "y":7},
-				"numCoins": {"x":270, "y":15, "w":200, "h":50},
+				"btnSetting": {"x":30, "y":10, "w":50, "h":50},
+				"coins": {"x":200, "y":10, "w":45, "h":45},
+				"numCoins": {"x":260, "y":15, "w":200, "h":50},
 				"hpTitle": {"x":340, "y":15},
 				"hp": {"x":400, "y":15, "w":200, "h":50},
-				"topBar": {"x":0, "y":0},
+				"topBar": {"x":0, "y":0, "h": 80},
 				"btnSymbolDesc": {"x":400, "y":70},
 				"symbolDesc": {"x":355, "y":70},
 				"crevice0": {"x":-10, "y":250},

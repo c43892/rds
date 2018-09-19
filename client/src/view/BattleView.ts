@@ -454,6 +454,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.setMap(bt.level.map, bt.displayName);
         this.setPlayer(bt.player);
         this.refresh();
+        this.monsterTip.setBattle(bt);
     }
 
     // 初始状态下隐藏所有 ban 符号
