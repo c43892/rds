@@ -359,7 +359,15 @@ class AniView extends egret.DisplayObjectContainer {
         if (Utils.checkCatalogues(type, "book") && e.cnt > 0) { // 书籍需要提示还剩几次
             var p = sv.localToGlobal();
             AniUtils.tipAt((e.attrs.cnt - e.cnt) + "/" + e.attrs.cnt, {x:p.x+25, y:p.y-25});
-            await AniUtils.flashAndShake(sv);
+            AniUtils.flashAndShake(sv);
+            var weaponImg = this.setAvatarWeapon("ReadBook");
+            weaponImg.alpha = 1;
+            await this.aniFact.createAniByCfg({type:"seq", arr:[
+                {type:"tr", ty:weaponImg.y, time:0},
+                {type:"tr", fy:weaponImg.y, ty:weaponImg.y - 25, time:100, mode:egret.Ease.cubicOut},
+                {type:"delay", time:100},
+                {type:"tr", fy:weaponImg.y - 25, ty:weaponImg.y + weaponImg.height, time:100, mode:egret.Ease.cubicIn},
+            ], noWait:true, obj:weaponImg});
         } else if (Utils.checkCatalogues(type, "food")) { // 食物抖一下
             await AniUtils.flashAndShake(sv);
         } else if (type == "IceBlock") {
