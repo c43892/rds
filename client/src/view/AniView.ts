@@ -553,14 +553,22 @@ class AniView extends egret.DisplayObjectContainer {
             ViewUtils.setTexName(avatar, this.bv.player.occupation + "Hurt_png", true);
             await AniUtils.flashAndShake(avatar);
             ViewUtils.setTexName(avatar, this.bv.player.occupation + "_png");
-        }
-        else if (ps.r.r == "dodged") {
+        } else if (ps.r.r == "dodged") {
             // player dodged
             var avatar = this.bv.avatar;
             this.aniFact.createAniByCfg({type:"seq", arr:[
                 {type:"tr", fx:avatar.x, tx:avatar.x - 50, time:100, mode:egret.Ease.quadIn},
                 {type:"tr", fx:avatar.x - 50, tx:avatar.x, time:100, mode:egret.Ease.quadOut},
             ], obj:avatar});
+        } else if (ps.r.r == "blocked") {
+            // player blocked
+            var weaponImg = this.setAvatarWeapon("GotBlocked");
+            weaponImg.alpha = 1;
+            await this.aniFact.createAniByCfg({type:"seq", arr:[
+                {type:"tr", ty:weaponImg.y + weaponImg.height, time:0},
+                {type:"tr", fy:weaponImg.y + weaponImg.height, ty:weaponImg.y - 75, time:250},
+                {type:"tr", fy:weaponImg.y - 75, ty:weaponImg.y + weaponImg.height, time:250},
+            ], noWait:true, obj:weaponImg});
         }
     }
 
@@ -597,8 +605,8 @@ class AniView extends egret.DisplayObjectContainer {
             ViewUtils.setTexName(avatar, occ + "Attack_png", true);
 
             // 平砍武器效果放一下
-            this.normalAtttackWeaponEffect(occ).then(() => ViewUtils.setTexName(avatar, occ + "_png", true));
-            
+            this.normalAttackWeaponEffect(occ).then(() => ViewUtils.setTexName(avatar, occ + "_png", true));
+
             // 这个效果不等待
             if (aniArr.length > 0)
                 this.aniFact.createAniByCfg({type:"gp", arr:aniArr, noWait:true});
@@ -639,15 +647,19 @@ class AniView extends egret.DisplayObjectContainer {
         }
     }
 
-    // 平砍武器效果
-    public async normalAtttackWeaponEffect(occupation) {
+    setAvatarWeapon(weapon):egret.Bitmap {
         var weaponImg = this.bv.avatarWeapon;
-        ViewUtils.setTexName(weaponImg, occupation + "Weapon_png", true);        
+        ViewUtils.setTexName(weaponImg, weapon + "_png", true);        
         weaponImg.anchorOffsetX = 0;
         weaponImg.anchorOffsetY = weaponImg.height;
         weaponImg.x = 0;
-        weaponImg.y = weaponImg.height;
+        weaponImg.y = this.bv.avatar.y + this.bv.avatar.height;
+        return weaponImg;
+    }
 
+    // 平砍武器效果
+    public async normalAttackWeaponEffect(occupation) {
+        var weaponImg = this.setAvatarWeapon(occupation + "Weapon");
         weaponImg.alpha = 1;
         switch (occupation) {
             case "Rogue":

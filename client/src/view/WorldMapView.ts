@@ -287,6 +287,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                     img["ptStoreyLv"] = i;
                     img["ptStoreyN"] = j;
                     img.touchEnabled = true;
+                    img.scaleX = img.scaleY = 1.2;
                     row.push(img);
 
                     var adpImg = ViewUtils.createBitmapByName("Adopt_png");
@@ -294,6 +295,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                     adpImg.y = img.y;
                     adpImg.anchorOffsetX = adpImg.width / 2;
                     adpImg.anchorOffsetY = adpImg.height / 2;
+                    adpImg.scaleX = adpImg.scaleY = 1.2;
                     adoptRow.push(adpImg);
                 } else {
                     row.push(undefined);

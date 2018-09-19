@@ -55,7 +55,7 @@
                     "Magazine": 1101,
                     "EconomyMagazine": 1101,
                     "Clock": 1101,
-                    "Shield": 1101,
+                    "Shield": 1101000,
                     "IceGun": 1101,
                     "RayGun": 1101,
                     "HpCapsule": 1101,
