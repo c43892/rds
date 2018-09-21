@@ -5,14 +5,13 @@ class WorldMap {
     public nodes:WorldMapNode[][];
 
     // 从指定配置数据生成一个大地图
-    public static buildFromConfig(world):WorldMap {
-        var rand:SRandom = new SRandom();
+    public static buildFromConfig(world, p:Player):WorldMap {
         var w = new WorldMap();
         var cfg = GCfg.getWorldMapCfg(world);
+        w.player = p;
         w.cfg = JSON.parse(JSON.stringify(cfg));
 
-        var srand = new SRandom();
-        WorldMapGenerator.worldMapGenerator(w, srand);
+        WorldMapGenerator.worldMapGenerator(w, p.playerRandom);
 
         return w;
     }

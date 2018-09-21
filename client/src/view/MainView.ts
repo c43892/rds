@@ -475,8 +475,7 @@ class MainView extends egret.DisplayObjectContainer {
     newPlay() {
         var p = Player.createTestPlayer();
         p = Occupation.makeOccupation(p);
-        p.worldmap = WorldMap.buildFromConfig("world1");
-        p.worldmap.player = p;
+        p.worldmap = WorldMap.buildFromConfig("world1", p);
         this.p = p;
         this.registerPlayerEvents();
         this.openWorldMap(p.worldmap);
@@ -487,8 +486,7 @@ class MainView extends egret.DisplayObjectContainer {
     rookiePlay() {
         var p = Player.createTestPlayer();
         p = Occupation.makeOccupation(p);
-        p.worldmap = WorldMap.buildFromConfig("world1");
-        p.worldmap.player = p;
+        p.worldmap = WorldMap.buildFromConfig("world1", p);
         this.p = p;
         this.registerPlayerEvents();
 
