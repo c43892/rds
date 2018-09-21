@@ -33,14 +33,28 @@ class WorldMapNode{
     }
 
     //添加父节点
-    public addParente(parentNode:WorldMapNode){
+    public addParent(parentNode:WorldMapNode){
         this.parents.push(parentNode);
+    }
+
+    //是否有父节点
+    public hasParents(){
+        return this.getParents().length > 0;
     }
 
     public isParent(node:WorldMapNode):boolean{
         if(Utils.indexOf(this.parents, (n:WorldMapNode) => n == node) < 0)
             return false;
         else return true;
+    }
+
+    // 获取该节点潜在的子节点
+    public getPotentialChildrenNodes(nodes:WorldMapNode[][]){
+        var pcn:WorldMapNode[] = [];
+        for(var x = -1; x <= 1; x++)
+            if(this.x + x > 0 && this.x + x < nodes[this.y].length)
+                pcn.push(nodes[this.y + 1][this.x + x])
+        return pcn;
     }
 
     //添加路线

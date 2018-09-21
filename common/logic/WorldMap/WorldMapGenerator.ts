@@ -4,6 +4,7 @@ class WorldMapGenerator{
         var cfg = w.cfg;
         w.nodes = WorldMapGenerator.createNodes(w, cfg, rand);
         w.nodes = WorldMapGenerator.createRoutes(cfg, w.nodes, rand);
+        w.nodes = WorldMapGenerator.checkLevelNotSingleNode(w.nodes, rand);
         w.nodes = WorldMapGenerator.deleteRepeatRoutes(w.nodes);
         w.nodes = WorldMapGenerator.arrangeRoomToAllNodes(w.nodes, cfg, rand);
         w.nodes = WorldMapGenerator.addStartRouteForView(w.nodes);
@@ -45,7 +46,7 @@ class WorldMapGenerator{
             var startRoute = new WorldMapRoute(WorldMapNode.getNode(startNodeX, 0, nodes), WorldMapNode.getNode(startNodeX, 1, nodes));
 
             WorldMapNode.getNode(startNodeX, 0, nodes).addRoute(startRoute);
-            WorldMapNode.getNode(startNodeX, 1, nodes).addParente(WorldMapNode.getNode(0, 0, nodes));
+            WorldMapNode.getNode(startNodeX, 1, nodes).addParent(WorldMapNode.getNode(0, 0, nodes));
             
             WorldMapGenerator.createNextRoutes(nodes, startRoute, rd);//继续生成路线
         }
@@ -63,7 +64,7 @@ class WorldMapGenerator{
             targetNode = WorldMapNode.getNode(0, currentRow + 1, nodes);
             var newRoute = new WorldMapRoute(currentNode, targetNode);
             currentNode.addRoute(newRoute);
-            targetNode.addParente(currentNode);
+            targetNode.addParent(currentNode);
             
             return nodes;
         }
@@ -139,7 +140,7 @@ class WorldMapGenerator{
                 if(rightNote.leftRoute().dstNode.x < newNodeX){
                     newNodeX = currentNode.x;
                 }
-            }            
+            }
         }
 
         //确定路线的目标节点
@@ -148,13 +149,51 @@ class WorldMapGenerator{
         //获得新路线并添加相应点的属性
         var newRoute = new WorldMapRoute(currentNode, targetNode);
         currentNode.addRoute(newRoute);
-        targetNode.addParente(currentNode);
+        targetNode.addParent(currentNode);
 
         //继续生成路线
         return WorldMapGenerator.createNextRoutes(nodes, newRoute, rd);
     }
 
-    //删除多余路线
+    //确定每一层至少有2个节点
+    public static checkLevelNotSingleNode(nodes:WorldMapNode[][], rand:SRandom):WorldMapNode[][]{
+        for(var i = 1; i < nodes.length - 1; i++){
+            var num = 0;
+            var onlyNode:WorldMapNode;
+            // 确定是否为该层的唯一节点
+            for(var node of nodes[i])
+                if(node.getParents().length > 0){
+                    onlyNode = node;
+                    num++;
+                }
+            
+            // 为该节点找一个随机的相邻点,生成新的一条线路
+            if(num == 1){
+                var potentialNodes:WorldMapNode[] = [];
+                if(onlyNode.x - 1 >= 0)
+                    potentialNodes.push(nodes[onlyNode.y][onlyNode.x - 1]);
+                if(onlyNode.x + 1 < nodes[onlyNode.y].length)
+                    potentialNodes.push(nodes[onlyNode.y][onlyNode.x + 1]);
+                
+                // 获取新的相邻节点
+                var newNode = potentialNodes[rand.nextInt(0, potentialNodes.length)];
+                var parent:WorldMapNode;
+                // 保证新线路不会出现交叉
+                if(nodes[newNode.y - 1][newNode.x].hasParents())
+                    parent = nodes[newNode.y - 1][newNode.x];
+                else 
+                    parent = nodes[newNode.y - 1][onlyNode.x];
+
+                var newRoute = new WorldMapRoute(parent, newNode);
+                parent.addRoute(newRoute);
+                newNode.addParent(parent);
+                this.createNextRoutes(nodes, newRoute, rand);
+            }
+        }
+        return nodes;
+    }
+
+    //删除重复的路线
     public static deleteRepeatRoutes(nodes:WorldMapNode[][]):WorldMapNode[][]{
        for(var i = 0; i < nodes.length; i++){
            for(var j = 0; j < nodes[i].length;  j++){
@@ -358,7 +397,7 @@ class WorldMapGenerator{
             var node = nodes[1][i];
             if(node.parents.length != 0){
                 var route = new WorldMapRoute(WorldMapNode.getNode(0, 0, nodes), node);
-                node.addParente(WorldMapNode.getNode(0, 0, nodes));
+                node.addParent(WorldMapNode.getNode(0, 0, nodes));
                 WorldMapNode.getNode(0, 0, nodes).addRoute(route);
             }
         }

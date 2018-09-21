@@ -11,6 +11,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
     private goOutBtn:TextButtonWithBg;
     private startingPoint:egret.Bitmap;
     private destination:egret.Bitmap;
+    private boxEff:egret.MovieClip;
     public confirmOkYesNo;
     public static showElemDesc;
     
@@ -34,6 +35,9 @@ class BoxRoomView extends egret.DisplayObjectContainer {
         this.box = ViewUtils.createBitmapByName("BoxRoomBox_png");
         this.box.name = "box";
         this.box.touchEnabled = true;
+
+        this.boxEff = ViewUtils.createFrameAni("effTB");
+        this.boxEff.name = "boxEff";
 
         this.openBoxBtn = new TextButtonWithBg("btnBg_png", 30);
         this.openBoxBtn.text = ViewUtils.getTipText("openBox");
@@ -109,14 +113,11 @@ class BoxRoomView extends egret.DisplayObjectContainer {
 
         if (this.elems.length == 0) return;
 
-        var eff:egret.MovieClip = ViewUtils.createFrameAni("effTB");
-        this.addChild(eff);
-        eff.scaleX = eff.scaleY = 5;
-        eff.x = this.width / 2;
-        eff.y = this.height / 2;
-        eff.gotoAndPlay(0, 1);
-        await eff["wait"]();
-        this.removeChild(eff);
+        ViewUtils.multiLang(this, this.boxEff);
+        this.addChild(this.boxEff);
+        this.boxEff.gotoAndPlay(0, 1);
+        await this.boxEff["wait"]();
+        this.removeChild(this.boxEff);
         
         ViewUtils.setTexName(this.box, "BoxRoomBoxOpened_png");
 
