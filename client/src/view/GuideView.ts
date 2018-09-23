@@ -101,6 +101,7 @@ class GuideView extends egret.DisplayObjectContainer {
         this.hand = ViewUtils.createBitmapByName("guideHand_png");
     }
 
+    rt = new egret.RenderTexture();
     tapOrPressPrepare(target:egret.DisplayObject, offset = {x:0, y:0}) {
         this.tapTarget = target;
         var targetPos = target.localToGlobal();
@@ -116,9 +117,8 @@ class GuideView extends egret.DisplayObjectContainer {
         maskContainer.addChild(this.bg);
         maskContainer.addChild(this.tapArea);
 
-        var rt = new egret.RenderTexture();
-        rt.drawToTexture(maskContainer);
-        ViewUtils.setTex(this.tapBg, rt);
+        this.rt.drawToTexture(maskContainer);
+        ViewUtils.setTex(this.tapBg, this.rt);
 
         this.tapArea.alpha = 0;
         this.tapArea.blendMode = egret.BlendMode.NORMAL;
@@ -241,8 +241,8 @@ class GuideView extends egret.DisplayObjectContainer {
         ViewUtils.multiLang(this.dlgFrame, ...objs);
     }
 
-    // 显示对话内容
-    async showDialog(tex:string, name:string, str:string, x:number, y:number, onLeft:boolean = true, flipAvatar:boolean = false) {
+    // 构建对话内容
+    makeDialog(tex:string, name:string, str:string, x:number, y:number, onLeft:boolean = true, flipAvatar:boolean = false) {
         var avatarImg1 = <egret.Bitmap>this.dlgFrame.getChildByName("avatarImg1");
         var avatarName1 = <egret.TextField>this.dlgFrame.getChildByName("avatarName1");
         var avatarImg2 = <egret.Bitmap>this.dlgFrame.getChildByName("avatarImg2");
@@ -268,19 +268,83 @@ class GuideView extends egret.DisplayObjectContainer {
         }
         
         content.textFlow = ViewUtils.fromHtml(str);
-
-        this.bg.alpha = 0;
-        this.addChild(this.bg);
         this.addChild(this.dlgFrame);
         this.dlgFrame.x = x;
         this.dlgFrame.y = y;
+
+        return () => {
+            this.removeChild(this.dlgFrame);
+        };
+    }
+
+    // 显示对话内容
+    async showDialog(tex:string, name:string, str:string, x:number, y:number, onLeft:boolean = true, flipAvatar:boolean = false) {
+        this.bg.alpha = 0;
+        this.addChild(this.bg);
+        var rev = this.makeDialog(tex, name, str, x, y, onLeft, flipAvatar);
         return new Promise<void>((r, _) => {
             this.onBgClicked = (evt:egret.TouchEvent) => {
                 this.removeChild(this.bg);
-                this.removeChild(this.dlgFrame);
+                rev();
                 r();
             };
         });
+    }
+    
+    // 指引长按同时有对话框
+    async pressGridWithDialog(gx, gy, tex:string, name:string, str:string, x:number, y:number, onLeft:boolean = true, flipAvatar:boolean = false) {
+        this.forGuideType = "press";
+        var g = this.bv.mapView.getGridViewAt(gx, gy);
+        var rev1 = this.tapOrPressPrepare(g, {x:g.width/2, y:g.height/2});
+        var rev2 = this.makeDialog(tex, name, str, x, y, onLeft, flipAvatar);
+
+        return new Promise<void>((r, _) => {
+            g.notifyLongPressed = (targetResetOp) => {
+                rev2();
+                rev1();
+                r();
+                g.notifyLongPressed = undefined;
+                if (targetResetOp)
+                    targetResetOp();
+            };
+        });
+    }
+
+    async tapWithDialog(target, tex:string, name:string, str:string, x:number, y:number, onLeft:boolean = true, flipAvatar:boolean = false) {
+        var rev1 = this.tapOrPressPrepare(target, {x:target.width/2, y:target.height/2});
+        var rev2 = this.makeDialog(tex, name, str, x, y, onLeft, flipAvatar);
+
+        return new Promise<void>((r, _) => {
+            this.onTapped = (evt:egret.TouchEvent) => {
+                if (this.forGuideType != "tap" || !this.tapTarget.hitTestPoint(evt.stageX, evt.stageY)) return;
+                rev2();
+                rev1();
+                egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_TAP,
+                    evt.bubbles, evt.cancelable,
+                    evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
+                r();
+                this.onTapped = undefined; 
+            };
+        });
+    }
+
+    // 指引点击同时有对话框
+    async tapGridWithDialog(gx, gy, tex:string, name:string, str:string, x:number, y:number, onLeft:boolean = true, flipAvatar:boolean = false) {
+        this.forGuideType = "tap";
+        var g = this.bv.mapView.getGridViewAt(gx, gy);
+        await this.tapWithDialog(g, tex, name, str, x, y, onLeft, flipAvatar);
+    }
+
+    // 指引点击地图上的目标选择格子同时有对话
+    public async tapSelGridWithDialog(gx:number, gy:number, tex:string, name:string, str:string, x:number, y:number, onLeft:boolean = true, flipAvatar:boolean = false) {
+        var g = this.bv.selView.getGridByPos(gx, gy);
+        await this.tapWithDialog(g, tex, name, str, x, y, onLeft, flipAvatar);
+    }
+
+    // 指引点击格子物品同时有对话
+    public async tapPropWithDialog(n:number, tex:string, name:string, str:string, x:number, y:number, onLeft:boolean = true, flipAvatar:boolean = false) {
+        var g = this.bv.propsView.getPropViewByIndex(n);
+        await this.tapWithDialog(g, tex, name, str, x, y, onLeft, flipAvatar);
     }
 
     // 各种引导流程
@@ -298,6 +362,8 @@ class GuideView extends egret.DisplayObjectContainer {
     // 新手指引2
     async rookiePlay2(bt:Battle) {
         await AniUtils.delay(1000);
+        await this.tapGridWithDialog(0, 2, "GoblinThief", "哥布林", "我就测试一下说话的同时指引点击", 140, 500, true);
+        // await this.pressGridWithDialog(0, 2, "GoblinThief", "哥布林", "我就测试一下说话的同时指引点击", 140, 500, true);
         await this.tapGrid(0, 0);
         await this.showDialog("Nurse", "护士", "做的不错，你发现了一把匕首，当你无法确定时，可以用匕首来探路", 0, 200, true);
         await this.showDialog("Nurse", "护士", "捡起匕首，我们来用它探路", 0, 200, true);
