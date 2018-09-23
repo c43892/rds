@@ -657,19 +657,28 @@ class AniView extends egret.DisplayObjectContainer {
             g.removeEffect("effIceGun");
         } else if (weapon.type == "Bazooka") { // 火箭筒
             // 先飞火球
-            var g = this.bv.mapView.getGridViewAt(ps.x, ps.y);
             var sv = this.getSVByPos(ps.x, ps.y);
             var effBall = ViewUtils.createFrameAni("effBazooka", "fly");
             var toPos = sv.localToGlobal();
             toPos.x += sv.width / 2;
             toPos.y += sv.height / 2;
-            var fromPos = this.getSVOfProp(weapon).localToGlobal();
+            var pv = this.getSVOfProp(weapon);
+            var fromPos = pv.localToGlobal();
+            fromPos.x += pv.width / 2;
+            fromPos.y += pv.height / 2;
             var r = Utils.getRotationFromTo(fromPos, toPos);
+            effBall.rotation = r;
             AniUtils.ac.addChild(effBall);
             await this.aniFact.createAniByCfg({type:"tr", fx: fromPos.x, fy:fromPos.y, tx:toPos.x, ty:toPos.y, 
-                time:2500, obj:effBall});
+                time:250, obj:effBall});
             AniUtils.ac.removeChild(effBall);
 
+            // 爆炸效果
+            var g = this.bv.mapView.getGridViewAt(ps.x, ps.y);
+            var tar = g.getElem();
+            while (g && tar && tar.type == "PlaceHolder")
+                tar = tar["linkTo"];
+            g = tar ? this.bv.mapView.getGridViewAt(tar.pos.x, tar.pos.y) : g;
             var eff = g.addEffect("effBazooka", 1, "flame");
             eff["wait"]().then(() => g.removeEffect("effBazooka"));
         }
@@ -787,6 +796,13 @@ class AniView extends egret.DisplayObjectContainer {
             egret.Tween.removeTweens(dm);
             dm.alpha = 0;
         }   
+    }
+
+    // 怪物被魅惑
+    public async onMonsterCharmed(ps) {
+        var tar:Monster = ps.m;
+        var gv = this.bv.mapView.getGridViewAt(tar.pos.x, tar.pos.y);
+        gv.addEffect("effCharmed");
     }
 
     // 关卡初始化乱序动画

@@ -261,8 +261,11 @@ class GridView extends egret.DisplayObjectContainer {
             break;
         }
 
-        if (!e)
-            this.removeEffect("effWantedOrder");
+        // 哪些特效在什么情况下要移除，需要仔细处理
+        if (!e) {
+            var effOnTar = ["effWantedOrder", "effCharmed"];
+            effOnTar.forEach((eff, _) => this.removeEffect(eff));
+        }
 
         this.refreshDropItem(); // 刷新掉落物品显示
         
