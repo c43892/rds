@@ -178,7 +178,7 @@ class ElemFactory {
     // 可多次对目标使用的物品
     static elemCanUseAtManyTimes(cnt:number, useAtAct, fixImgRes = false) {
         return (e:Elem) => {
-            e.cnt = cnt;
+            e.cnt = cnt ? cnt : 1;
             e.canUse = () => false;
             e.useAt = async (x, y) => {
                 e.cnt--;

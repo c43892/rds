@@ -12,8 +12,31 @@
         "Power":10,
         "Agile":10,
         "Fierce":10,
-        "Unback2Sneak":10,
-        "Crucifix":10
+        "WeaponMaster":10,
+        "UndefinedName2":10,
+        "UndefinedName3":10,
+        "DefenseProficient":10,
+        "BookMaster":10,
+        "TradeMaster":10,
+        "TreasureBoxDetector":10,
+        "KnifeMaster":10,
+        "MonsterHunter":10,
+        "KnifeProficient":10,
+        "ExploreEnhanced":10,
+        "HorticultureProficient":10,
+        "SmellEnhanced":10,
+        "Storer":10,
+        "ShieldProficient":10,
+        "HorticultureMaster":10,
+        "StrikeFirst":10,
+        "IceGun":10,
+        "RayGun":10,
+        "HpCapsule":10,
+        "DePoison":10,
+        "Bazooka":10,
+        "SuperPotion":10,
+        "StrangthPotion":10,
+        "CandyCannon":10
     }},
 
     "treasureBox3": {"num":[1, 2], "elems":{
@@ -41,32 +64,96 @@
     }},
 
     "bossBox2": {"num":[1, 2], "elems":{
-        "MedicineBox":10,
-        "TimeMachine":10
+        "IceGun":10,
+        "RayGun":10,
+        "HpCapsule":10,
+        "DePoison":10,
+        "Bazooka":10,
+        "SuperPotion":10,
+        "StrangthPotion":10,
+        "CandyCannon":10
     }},
 
     "bossBox3": {"num":[1, 2], "elems":{
-        "Knife":10,
-        "RayGun":20,
-        "IceGun":30
+        "MedicineBox":10,
+        "TimeMachine":10,
+        "Endurance":10,
+        "Power":10,
+        "Agile":10,
+        "Fierce":10,
+        "Unback2Sneak":10,
+        "Crucifix":10,
+        "WeaponMaster":10,
+        "UndefinedName2":10,
+        "UndefinedName3":10,
+        "DefenseProficient":10,
+        "BookMaster":10,
+        "TradeMaster":10,
+        "TreasureBoxDetector":10,
+        "KnifeMaster":10,
+        "MonsterHunter":10,
+        "KnifeProficient":10,
+        "ExploreEnhanced":10,
+        "HorticultureProficient":10,
+        "SmellEnhanced":10,
+        "Storer":10,
+        "ShieldProficient":10,
+        "HorticultureMaster":10,
+        "StrikeFirst":10
     }},
 
     "bossBox4": {"num":[1, 2], "elems":{
-        "Knife":10,
-        "RayGun":20,
-        "IceGun":30
+        "LifeSpring":1
     }},
 
-    "bossBox5": {"num":[1, 2], "elems":{
-        "Knife":10,
-        "RayGun":20,
-        "IceGun":30
+    "bossBox5": {"num":[1, 2], "elems":{        
+        "Clock":1
     }},
 
     "RandomEgg": {"num":[1, 2], "elems":{
-        "Knife":10,
-        "RayGun":20,
-        "IceGun":30
+        "Coins":20,
+        "CoinsBig":10,
+        "CoinsHuge":5,
+        "MedicineBox":10,
+        "TimeMachine":10,
+        "Endurance":10,
+        "Power":10,
+        "Agile":10,
+        "Fierce":10,
+        "WeaponMaster":10,
+        "UndefinedName2":10,
+        "UndefinedName3":10,
+        "DefenseProficient":10,
+        "BookMaster":10,
+        "TradeMaster":10,
+        "TreasureBoxDetector":10,
+        "KnifeMaster":10,
+        "MonsterHunter":10,
+        "KnifeProficient":10,
+        "ExploreEnhanced":10,
+        "HorticultureProficient":10,
+        "SmellEnhanced":10,
+        "Storer":10,
+        "ShieldProficient":10,
+        "HorticultureMaster":10,
+        "StrikeFirst":10,
+        "IceGun":10,
+        "RayGun":10,
+        "HpCapsule":10,
+        "DePoison":10,
+        "Bazooka":10,
+        "SuperPotion":10,
+        "StrangthPotion":10,
+        "CandyCannon":10,
+        "Clock":10,
+        "Vest":10, 
+        "Magazine":10, 
+        "Shield":10, 
+        "Knife":10, 
+        "Baton":10, 
+        "Cloak":10, 
+        "WantedOrder":10, 
+        "EconomyMagazine":10
     }},    
 
     "MonsterBox": {"num":[1, 2], "elems":{
@@ -79,11 +166,38 @@
 
     "ttrdp1":{"num":[1, 2],"elems":{
         "MedicineBox":10,
-        "TimeMachine":10
+        "TimeMachine":10,
+        "Endurance":10,
+        "Power":10,
+        "Agile":10,
+        "Fierce":10,
+        "WeaponMaster":10,
+        "UndefinedName2":10,
+        "UndefinedName3":10,
+        "DefenseProficient":10,
+        "BookMaster":10,
+        "TradeMaster":10,
+        "TreasureBoxDetector":10,
+        "KnifeMaster":10,
+        "MonsterHunter":10,
+        "KnifeProficient":10,
+        "ExploreEnhanced":10,
+        "HorticultureProficient":10,
+        "SmellEnhanced":10,
+        "Storer":10,
+        "ShieldProficient":10,
+        "HorticultureMaster":10,
+        "StrikeFirst":10
     }},
 
     "ttrdp2":{"num":[1, 2],"elems":{
-        "RayGun":20,
-        "IceGun":30
+        "IceGun":10,
+        "RayGun":10,
+        "HpCapsule":10,
+        "DePoison":10,
+        "Bazooka":10,
+        "SuperPotion":10,
+        "StrangthPotion":10,
+        "CandyCannon":10
     }}
 }
