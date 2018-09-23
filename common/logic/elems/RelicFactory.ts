@@ -302,7 +302,7 @@ class RelicFactory {
                 ElemFactory.addAI("onLevelInited", async () => {
                     var bt = r.bt();
                     var level = Utils.filter(bt.player.relics, (r:Relic) => r.type == "HorticultureMaster")[0].reinforceLv;
-                    var pTypes = ["CharmingMushroom"];
+                    var pTypes = ["NutWall", "Peashooter", "CherryBomb", "Sunflower", "CharmingMushroom"];
                     var elemTypes = [];
                     for (var pType of pTypes)
                         elemTypes.push(pType + (level + 1).toString());
