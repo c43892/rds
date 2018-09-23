@@ -112,6 +112,7 @@ class GuideView extends egret.DisplayObjectContainer {
         this.tapArea.alpha = 1;
         this.tapArea.blendMode = egret.BlendMode.ERASE;
         this.tapArea.scaleX = this.tapArea.scaleY = 1.5;
+        this.bg.alpha = 0.5;        
         maskContainer.addChild(this.bg);
         maskContainer.addChild(this.tapArea);
 
@@ -141,6 +142,7 @@ class GuideView extends egret.DisplayObjectContainer {
             this.removeChild(this.tapFrameAni);
             this.removeChild(this.tapArea);
             this.removeChild(this.hand);
+            this.bg.parent.removeChild(this.bg);
         };
     }
 
@@ -158,7 +160,7 @@ class GuideView extends egret.DisplayObjectContainer {
                     evt.bubbles, evt.cancelable,
                     evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
                 r();
-                this.onTapped = undefined;
+                this.onTapped = undefined; 
             };
         });
     }
@@ -267,6 +269,7 @@ class GuideView extends egret.DisplayObjectContainer {
         
         content.textFlow = ViewUtils.fromHtml(str);
 
+        this.bg.alpha = 0;
         this.addChild(this.bg);
         this.addChild(this.dlgFrame);
         this.dlgFrame.x = x;
