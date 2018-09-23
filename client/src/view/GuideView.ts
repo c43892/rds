@@ -63,10 +63,16 @@ class GuideView extends egret.DisplayObjectContainer {
 
     // 注册所有可能触发指引的事件
     public registerEvents(bt:Battle) {
+        bt.registerEvent("onLevelInited", async (ps) => {
+            var bt = ps.bt;
+            if (bt.btType == "rookiePlay")
+                await this.rookiePlay1(ps.bt)
+        });
+
         bt.registerEvent("onStartupRegionUncovered", async (ps) => {
             var bt = ps.bt;
             if (bt.btType == "rookiePlay")
-                await this.rookiePlay(ps.bt)
+                await this.rookiePlay2(ps.bt)
         });
     }
 
@@ -280,10 +286,15 @@ class GuideView extends egret.DisplayObjectContainer {
     public async test(target) {
     }
 
-    // 新手指引
-    async rookiePlay(bt:Battle) {
-        await AniUtils.wait4click(); // 等待点击
+    // 新手指引1
+    async rookiePlay1(bt:Battle) {
+        await AniUtils.wait4click();
         await this.showDialog("Nurse", "护士", "让我告诉你基本的规则，首先地上的数字表示它周围8个格子里怪物的数量。来，跟着我点击这个地块", 0, 200, true);
+    }
+
+    // 新手指引2
+    async rookiePlay2(bt:Battle) {
+        await AniUtils.delay(1000);
         await this.tapGrid(0, 0);
         await this.showDialog("Nurse", "护士", "做的不错，你发现了一把匕首，当你无法确定时，可以用匕首来探路", 0, 200, true);
         await this.showDialog("Nurse", "护士", "捡起匕首，我们来用它探路", 0, 200, true);
