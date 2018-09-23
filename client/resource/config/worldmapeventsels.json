@@ -455,6 +455,14 @@
                 "func": ["exit"]
             }]
         },
+        "b1": {
+            "title": "幸运大转盘",
+            "desc": "你见到一位地精",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[开始游戏]</font>",
+                "func": ["toTurnTable"]
+            }]
+        },
         "g4": {
             "title": "事件标题",
             "desc": "事件描述文字，说说这个事件是什么意思",
