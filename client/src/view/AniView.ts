@@ -383,7 +383,7 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 死神步数发生变化
     public async onAddDeathGodStep(ps) {
-        var d = -Math.abs(ps.d);
+        var d = Math.abs(ps.d);
         var e = ps.e;
         
         if (ps.subType == "deathGodBuff"){ // 这个最频繁的操作不产生需要等待的动画
@@ -397,23 +397,34 @@ class AniView extends egret.DisplayObjectContainer {
 
         if (e && !(e instanceof Relic)) {
             var sv = this.getSV(e);
-            var flashCnt = d < 3 ? 3 : d; // 至少闪三下
+            var flashCnt = Math.abs(d) < 3 ? 3 : Math.abs(d); // 至少闪三下
             // 死神闪烁后退，道具闪烁;
+            this.bv.playDeathGodAni(-1);
             for (var i = 0; i < flashCnt; i++) {
-                this.bv.refreshDeathGod(this.bv.player.deathStep - d + i);
-                this.bv.playDeathGodAni();
+                var stepAt = this.bv.player.deathStep - d + i;
                 await this.aniFact.createAniByCfg({type:"seq", arr: [
-                    {type:"tr", fa:1, ta:3, time:25, obj:sv},
-                    {type:"tr", fa:3, ta:1, time:25, obj:sv},
+                    {type:"tr", fa:1, ta:3, time:50, obj:sv},
+                    {type:"tr", fa:3, ta:1, time:50, obj:sv},
                 ]});
+                this.bv.refreshDeathGod(stepAt);
             }
+            this.bv.playDeathGodAni(0);
 
             this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
         }
         else {
             // 死神闪烁后退
-            for (var i = 0; i < d; i++)
-                this.bv.playDeathGodAni().then(() => this.bv.refreshDeathGod(this.bv.player.deathStep - d + i));
+            var rv = this.bv.getRelicImg(e);
+            this.bv.playDeathGodAni(-1);
+            for (var i = 0; i < d; i++) {
+                var stepAt = this.bv.player.deathStep - d + i;
+                await this.aniFact.createAniByCfg({type:"seq", arr: [
+                    {type:"tr", fa:1, ta:3, time:50, obj:rv},
+                    {type:"tr", fa:3, ta:1, time:50, obj:rv},
+                ]});
+                this.bv.refreshDeathGod(stepAt);
+            }
+            this.bv.playDeathGodAni(0);
         }
 
         this.bv.refreshDeathGod();

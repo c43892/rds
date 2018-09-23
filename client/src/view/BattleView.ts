@@ -354,18 +354,25 @@ class BattleView extends egret.DisplayObjectContainer {
     }
 
     // 死神动画效果
-    public async playDeathGodAni() {
+    public async playDeathGodAni(num = 1) {
+        if (num == 0) {
+            this.effDeathGodGray.stop();
+            this.effDeathGodRed.stop();
+            return;
+        }
+
         if (this.player.deathStep <= this.deathGodWarningStep) {
             this.effDeathGodGray.alpha = 0;
-            this.effDeathGodRed.gotoAndPlay(0, 1);
+            this.effDeathGodRed.gotoAndPlay(0, num);
             this.effDeathGodRed.alpha = 1;
-            await this.effDeathGodRed["wait"]();
+            if (num > 0)
+                await this.effDeathGodRed["wait"]();
         } else {
-            this.effDeathGodGray.alpha = 1;
-            this.effDeathGodRed.stop();
+            this.effDeathGodGray.alpha = 1;            
             this.effDeathGodRed.alpha = 0;
-            this.effDeathGodGray.gotoAndPlay(0, 1);
-            await this.effDeathGodRed["wait"]();
+            this.effDeathGodGray.gotoAndPlay(0, num);
+            if (num > 0)
+                await this.effDeathGodGray["wait"]();
         }
     }
 
@@ -418,6 +425,16 @@ class BattleView extends egret.DisplayObjectContainer {
     // 刷新物品列表
     public refreshProps() {
         this.propsView.refresh(this.player.props);
+    }
+
+    public getRelicImg(nOrRelicOrType) {
+        var relicType;
+        if (nOrRelicOrType instanceof Relic)
+            return Utils.indexOf(this.player.relics, (r) => r == nOrRelicOrType.type);
+        else if (nOrRelicOrType instanceof String)
+            return Utils.indexOf(this.player.relics, (r) => r == nOrRelicOrType);
+        else
+            return this.relics[nOrRelicOrType];
     }
 
     public refreshRelics() {

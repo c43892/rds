@@ -509,6 +509,7 @@ class AniUtils {
         var dx = r * Math.cos(dir);
         var dy = r * Math.sin(dir);
         var controlPos = {x:cx + dx, y:cy + dy};
+        Utils.log("+ " + bcw["idd"]);
         return AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
             {type:"bezierTrack", fromPos:fromPos, controlPos:controlPos, toPos:toPos, time:time},
             {type:"delay", time:time},
