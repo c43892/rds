@@ -210,14 +210,15 @@ class MonsterFactory {
         cm.hazard = false;
         cm.barrier = false;
         cm.use = () => false;
+        cm.canBeDragDrop = true;
         cm = MonsterFactory.doAttackBack(cm);// 能反击
         cm = MonsterFactory.doAttack("onPlayerActed", cm, () => {
-            var ms = m.map().findAllElems((e:Elem) => {
-                return e instanceof Monster && !e.getGrid().isCovered() && (e.isHazard() || e["linkTo"] && e["linkTo"].isHazard()) && m.inAttackRange(e)
-            });
+            var ms = cm.map().findAllElems((e:Elem) => 
+                 e instanceof Monster && !e.getGrid().isCovered() && (e.isHazard() || e["linkTo"] && e["linkTo"].isHazard()) && cm.inAttackRange(e)
+            );
             if (ms.length == 0) return undefined;
 
-            return ms[m.bt().srand.nextInt(0, ms.length)];
+            return ms[cm.bt().srand.nextInt(0, ms.length)];
         });
         if (m.attrs.specialCharmed){
             cm["Charmed"] = "special";
