@@ -385,26 +385,24 @@ class AniView extends egret.DisplayObjectContainer {
     public async onAddDeathGodStep(ps) {
         var d = -Math.abs(ps.d);
         var e = ps.e;
-        var deathImg = this.bv.getDeathGodImg();
         
         if (ps.subType == "deathGodBuff"){ // 这个最频繁的操作不产生需要等待的动画
-            this.aniFact.createAniByCfg({type:"seq", arr: [
-                {type:"tr", fa:1, ta:3, time:25, noWait:true},
-                {type:"tr", fa:3, ta:1, time:25, noWait:true},
-            ], obj:deathImg, noWait:true}).then(() => this.bv.refreshDeathGod());
+            this.bv.playDeathGodAni().then(() => this.bv.refreshDeathGod());
+            if (this.bv.player.deathStep <= this.bv.deathGodWarningStep) {
+                // warning 了就开始冒数字
+                AniUtils.tipAt(this.bv.player.deathStep.toString(), this.bv.deathGodStepBtn, 20, 0xffffff);
+            }
             return;
         }
 
         if (e && !(e instanceof Relic)) {
             var sv = this.getSV(e);
-
             var flashCnt = d < 3 ? 3 : d; // 至少闪三下
             // 死神闪烁后退，道具闪烁;
             for (var i = 0; i < flashCnt; i++) {
                 this.bv.refreshDeathGod(this.bv.player.deathStep - d + i);
+                this.bv.playDeathGodAni();
                 await this.aniFact.createAniByCfg({type:"seq", arr: [
-                    {type:"tr", fa:1, ta:3, time:25, obj:deathImg},
-                    {type:"tr", fa:3, ta:1, time:25, obj:deathImg},
                     {type:"tr", fa:1, ta:3, time:25, obj:sv},
                     {type:"tr", fa:3, ta:1, time:25, obj:sv},
                 ]});
@@ -414,13 +412,8 @@ class AniView extends egret.DisplayObjectContainer {
         }
         else {
             // 死神闪烁后退
-            for (var i = 0; i < d; i++) {
-                this.bv.refreshDeathGod(this.bv.player.deathStep - d + i);
-                await this.aniFact.createAniByCfg({type:"seq", arr: [
-                    {type:"tr", fa:1, ta:3, time:25},
-                    {type:"tr", fa:3, ta:1, time:25},
-                ], obj:deathImg});
-            }
+            for (var i = 0; i < d; i++)
+                this.bv.playDeathGodAni().then(() => this.bv.refreshDeathGod(this.bv.player.deathStep - d + i));
         }
 
         this.bv.refreshDeathGod();

@@ -29,9 +29,9 @@ class BattleView extends egret.DisplayObjectContainer {
     public currentStoryLv:egret.TextField; // 当前层数
     public deathGodBarBg:egret.Bitmap; // 死神进度条底条
     public deathGodBar:egret.Bitmap; // 死神进度条
-    public deathGod:egret.Bitmap; // 死神位置
     public deathGodStepBtn:egret.Bitmap; // 用于点击后提示死神剩余步数
-    public effDeathGod:egret.MovieClip; // 死神快到的时候闪烁
+    public effDeathGodRed:egret.MovieClip; // 死神快到的时候
+    public effDeathGodGray:egret.MovieClip; // 死神平时
 
     readonly ShowMaxRelicNum = 6;
     public relicsBg:egret.DisplayObjectContainer; // 遗物区域
@@ -61,19 +61,20 @@ class BattleView extends egret.DisplayObjectContainer {
         this.deathGodBar = ViewUtils.createBitmapByName("deathGodBar_png");
         this.deathGodBar.name = "deathGodBar";
         this.addChild(this.deathGodBar);
-        this.deathGod = ViewUtils.createBitmapByName("deathGod_png");
-        this.deathGod.name = "deathGod";
-        this.addChild(this.deathGod);
-        this.deathGodStepBtn = new egret.Bitmap();
-        this.deathGodStepBtn.width = this.deathGod.width + 10;
-        this.deathGodStepBtn.height = this.deathGod.height + 10;
+        this.effDeathGodRed = ViewUtils.createFrameAni("effDeathGodRed");
+        this.effDeathGodRed.name = "deathGodRed";
+        this.addChild(this.effDeathGodRed);
+        this.effDeathGodGray = ViewUtils.createFrameAni("effDeathGodGray");
+        this.effDeathGodGray.name = "deathGodGray";
+        this.addChild(this.effDeathGodGray);
+        this.deathGodStepBtn = ViewUtils.createBitmapByName();
+        this.deathGodStepBtn.width = 50;
+        this.deathGodStepBtn.height = 50;
         this.deathGodStepBtn.touchEnabled = true;
         this.deathGodStepBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, async (evt:egret.TouchEvent) => await this.showDeathGodStep(evt), this);
         this.addChild(this.deathGodStepBtn);
-        this.effDeathGod = ViewUtils.createFrameAni("effDeathGod");
-        this.addChild(this.effDeathGod);
         
-        ViewUtils.multiLang(this, this.deathGodBarBg, this.deathGodBar, this.deathGod);
+        ViewUtils.multiLang(this, this.deathGodBarBg, this.deathGodBar, this.effDeathGodRed, this.effDeathGodGray);
     }
 
     // 头像、经验条、血条、攻击、闪避
@@ -322,6 +323,7 @@ class BattleView extends egret.DisplayObjectContainer {
     }
 
     // 刷新死神位置
+    public deathGodWarningStep = 9; // 这个步数以内开始变红
     public refreshDeathGod(stepAt = undefined) {
         stepAt = stepAt ? stepAt : this.player.deathStep;
         if (stepAt >= this.player.maxDeathStep)
@@ -330,30 +332,41 @@ class BattleView extends egret.DisplayObjectContainer {
             stepAt = 0;
 
         var p = stepAt / this.player.maxDeathStep;
-        this.deathGod.x = this.deathGodBarPosX + p * this.deathGodBarWidth - this.deathGod.width / 2;
-        this.deathGodBar.width = this.deathGodBarWidth * p;
-        this.deathGod.alpha = 1;
+        this.effDeathGodGray.x = this.deathGodBarPosX + p * this.deathGodBarWidth;
+        this.effDeathGodGray.width = this.deathGodBarWidth * p;
+        this.effDeathGodRed.x = this.effDeathGodGray.x;
+        this.effDeathGodRed.width = this.effDeathGodGray.width;
 
-        this.deathGodStepBtn.x = this.deathGod.x - 5;
-        this.deathGodStepBtn.y = this.deathGod.y - 5;
+        this.deathGodStepBtn.x = this.effDeathGodGray.x - this.deathGodStepBtn.width / 2;
+        this.deathGodStepBtn.y = this.effDeathGodGray.y - this.deathGodStepBtn.height / 2;
 
         // 死神临近效果
-        this.effDeathGod.x = this.deathGod.x;
-        this.effDeathGod.y = this.deathGod.y;
-
-        if (stepAt <= 5) {
-            this.effDeathGod.gotoAndPlay(0, -1);
-            this.effDeathGod.alpha = 1;
+        if (stepAt <= this.deathGodWarningStep) {
+            this.effDeathGodGray.alpha = 0;
+            this.effDeathGodRed.stop();
+            this.effDeathGodRed.alpha = 1;
         }
         else {
-            this.effDeathGod.stop();
-            this.effDeathGod.alpha = 0;
+            this.effDeathGodGray.alpha = 1;
+            this.effDeathGodRed.stop();
+            this.effDeathGodRed.alpha = 0;
         }
     }
 
-    // 获取死神图片，做动画效果用
-    public getDeathGodImg() {
-        return this.deathGod;
+    // 死神动画效果
+    public async playDeathGodAni() {
+        if (this.player.deathStep <= this.deathGodWarningStep) {
+            this.effDeathGodGray.alpha = 0;
+            this.effDeathGodRed.gotoAndPlay(0, 1);
+            this.effDeathGodRed.alpha = 1;
+            await this.effDeathGodRed["wait"]();
+        } else {
+            this.effDeathGodGray.alpha = 1;
+            this.effDeathGodRed.stop();
+            this.effDeathGodRed.alpha = 0;
+            this.effDeathGodGray.gotoAndPlay(0, 1);
+            await this.effDeathGodRed["wait"]();
+        }
     }
 
     // 刷新金钱显示

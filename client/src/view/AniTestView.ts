@@ -4,7 +4,7 @@ constructor(w, h) {
 
         ViewUtils.multiLang(this, this.bg, this.avatarBg, this.occupationBg, this.avatar, this.expBar, 
             this.hp, this.hpBar, this.power, this.dodge, this.money, this.currentStoryLv, this.deathGodBarBg, 
-            this.deathGodBar, this.deathGod, this.relicsBg, this.moreRelics);
+            this.deathGodBar, this.effDeathGodRed, this.effDeathGodGray, this.relicsBg, this.moreRelics);
 
         this.bg.touchEnabled = true;
         this.bg.addEventListener(egret.TouchEvent.TOUCH_TAP, async () => {
