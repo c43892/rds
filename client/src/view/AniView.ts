@@ -798,6 +798,13 @@ class AniView extends egret.DisplayObjectContainer {
         }   
     }
 
+    // 怪物被魅惑
+    public async onMonsterCharmed(ps) {
+        var tar:Monster = ps.m;
+        var gv = this.bv.mapView.getGridViewAt(tar.pos.x, tar.pos.y);
+        gv.addEffect("effCharmed");
+    }
+
     // 关卡初始化乱序动画
     // 等待点击屏幕
     public async onAllCoveredAtInit(ps) {
