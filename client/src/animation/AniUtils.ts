@@ -508,8 +508,7 @@ class AniUtils {
         r = (AniUtils.rand.nextDouble() - 0.5) * Utils.getDist(fromPos, toPos) / 2;
         var dx = r * Math.cos(dir);
         var dy = r * Math.sin(dir);
-        var controlPos = {x:cx + dx, y:cy + dy};
-        Utils.log("+ " + bcw["idd"]);
+        var controlPos = {x:cx + dx, y:cy + dy};        
         return AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
             {type:"bezierTrack", fromPos:fromPos, controlPos:controlPos, toPos:toPos, time:time},
             {type:"delay", time:time},

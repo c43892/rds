@@ -385,7 +385,7 @@ class AniView extends egret.DisplayObjectContainer {
     public async onAddDeathGodStep(ps) {
         var d = Math.abs(ps.d);
         var e = ps.e;
-        
+
         if (ps.subType == "deathGodBuff"){ // 这个最频繁的操作不产生需要等待的动画
             this.bv.playDeathGodAni().then(() => this.bv.refreshDeathGod());
             if (this.bv.player.deathStep <= this.bv.deathGodWarningStep) {
@@ -409,20 +409,15 @@ class AniView extends egret.DisplayObjectContainer {
                 this.bv.refreshDeathGod(stepAt);
             }
             this.bv.playDeathGodAni(0);
-
             this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
         }
         else {
             // 死神闪烁后退
-            var rv = this.bv.getRelicImg(e);
             this.bv.playDeathGodAni(-1);
             for (var i = 0; i < d; i++) {
                 var stepAt = this.bv.player.deathStep - d + i;
-                await this.aniFact.createAniByCfg({type:"seq", arr: [
-                    {type:"tr", fa:1, ta:3, time:50, obj:rv},
-                    {type:"tr", fa:3, ta:1, time:50, obj:rv},
-                ]});
                 this.bv.refreshDeathGod(stepAt);
+                await AniUtils.delay(50);
             }
             this.bv.playDeathGodAni(0);
         }
@@ -660,6 +655,23 @@ class AniView extends egret.DisplayObjectContainer {
             var eff = g.addEffect("effIceGun", 1);
             await eff["wait"]();
             g.removeEffect("effIceGun");
+        } else if (weapon.type == "Bazooka") { // 火箭筒
+            // 先飞火球
+            var g = this.bv.mapView.getGridViewAt(ps.x, ps.y);
+            var sv = this.getSVByPos(ps.x, ps.y);
+            var effBall = ViewUtils.createFrameAni("effBazooka", "fly");
+            var toPos = sv.localToGlobal();
+            toPos.x += sv.width / 2;
+            toPos.y += sv.height / 2;
+            var fromPos = this.getSVOfProp(weapon).localToGlobal();
+            var r = Utils.getRotationFromTo(fromPos, toPos);
+            AniUtils.ac.addChild(effBall);
+            await this.aniFact.createAniByCfg({type:"tr", fx: fromPos.x, fy:fromPos.y, tx:toPos.x, ty:toPos.y, 
+                time:2500, obj:effBall});
+            AniUtils.ac.removeChild(effBall);
+
+            var eff = g.addEffect("effBazooka", 1, "flame");
+            eff["wait"]().then(() => g.removeEffect("effBazooka"));
         }
     }
 

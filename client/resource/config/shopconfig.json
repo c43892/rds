@@ -4,7 +4,7 @@
         "Knife":5,
         "IceGun":5,
         "RayGun":5,
-        "MedicineBox":5,
+        "Bazooka":5,
         "Power":5
     },
 
@@ -17,8 +17,8 @@
             {"Knife":10, "Power":100},
             {"IceGun":10, "Knife":10},
             {"RayGun":10, "Knife":10},
-            {"MedicineBox":10, "Knife":10},
-            {"MedicineBox":10, "Knife":10},
+            {"Bazooka":10, "Knife":10},
+            {"Bazooka":10, "Knife":10},
             {"MedicineBox":10, "Knife":10}
     ]},
 
@@ -31,8 +31,8 @@
             {"MedicineBox":10, "Power":100},
             {"IceGun":10},
             {"RayGun":10},
-            {"MedicineBox":10},
-            {"MedicineBox":10},
+            {"Bazooka":10},
+            {"Bazooka":10},
             {"MedicineBox":10}
     ]}
 }

@@ -176,14 +176,15 @@
     "Knife":{"name":"小刀", "useWithTarget":true, "validTarget":"markedHazardMonster|uncoveredHazardMonster|uncoverable", "power":3},
     "SmallRock":{"name":"石块", "useWithTarget":true, "validTarget":"markedHazardMonster|uncoveredHazardMonster|uncoverable", "power":1},
     "IceBlock":{"name":"冰块", "cnt":2, "useWithoutConfirm":true, "repRes":["IceBlock1", "IceBlock2"], "addInEffect":"noEffect"},    
-    "Bazooka":{"name":"火箭筒", "canOverlap":true, "useWithTarget":true, "cd":5, "occupations":["Policewoman"],
+    "Bazooka":{"name":"火箭筒", "canOverlap":true, "useWithTarget":true, "cd":5,
         "validTarget":"markedMonster|uncoveredMonster|uncoverable",
         "attackFlags":["Flame", "Pierce"], 
         "addBuffs":[{"type":"Flame", "rate":100, "ps":[3, 1]}], "power":3
     },
     "RayGun":{"name":"火焰射线", "canOverlap":true, "useWithTarget":true, "cd":5, 
         "validTarget": "all",
-        "attackFlags":["Flame", "Pierce"], 
+        "attackFlags":["Flame", "Pierce"],
+        "occupations":["Policewoman"],
         "addBuffs":[{"type":"Flame", "rate":100, "ps":[3, 1]}], "power":3, "aoe":{"w":3, "h":3}
     },
     "IceGun":{"name":"冰冻射线", "canOverlap":true, "useWithTarget":true, "refElems":["IceBlock"], "cd":5,
