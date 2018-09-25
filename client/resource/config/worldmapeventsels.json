@@ -199,7 +199,7 @@
                     "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
                     "func": ["+item", "-hp", "redirectSelGroup"],
                     "rates": [25],
-                    "failedFunc": ["redirectSelGroup2"],
+                    "failedFunc": ["-hp", "redirectSelGroup2"],
                     "ps": [{"item": "MedicineBox", "hp":1, "group": "a411", "group2": "a421"}]
                     }
                 },{
@@ -225,7 +225,7 @@
                     "desc": "<font color=#000000 size=20>[继续献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
                     "func": ["+item", "-hp", "redirectSelGroup"],
                     "rates": [50],
-                    "failedFunc": ["redirectSelGroup2"],
+                    "failedFunc": ["-hp", "redirectSelGroup2"],
                     "ps": [{"item": "MedicineBox", "hp":2, "group": "a411", "group2": "a422"}]
                     }
                 },{
@@ -243,7 +243,7 @@
                     "desc": "<font color=#000000 size=20>[继续献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
                     "func": ["+item", "-hp", "redirectSelGroup"],
                     "rates": [75],
-                    "failedFunc": ["redirectSelGroup2"],
+                    "failedFunc": ["-hp", "redirectSelGroup2"],
                     "ps": [{"item": "MedicineBox", "hp":3, "group": "a411", "group2": "a423"}]
                     }
                 },{
@@ -261,7 +261,7 @@
                     "desc": "<font color=#000000 size=20>[继续献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
                     "func": ["+item", "-hp", "redirectSelGroup"],
                     "rates": [100],
-                    "failedFunc": ["redirectSelGroup2"],
+                    "failedFunc": ["-hp", "redirectSelGroup2"],
                     "ps": [{"item": "MedicineBox", "hp":4, "group": "a411", "group2": "a424"}]
                     }
                 },{
@@ -432,7 +432,7 @@
                 "func": ["searchOnCropse"],
                 "desc": "<font color=#000000 size=20>[搜索]</font></font><font color=#00b050 size=20>75%获得奖励，</font></font><font color=#7d0403 size=20>25%进入战斗</font>",
                 "ps": {
-                    "rateArr": [175, 150, 125],
+                    "rateArr": [75, 50, 25],
                     "titleArr": ["冒险者的尸体", "冒险者的尸体", "冒险者的尸体"],
                     "upDescArr": ["你找到了</font><font color=#00b050 size=25>{lastDropped}，</font>还想继续找么？", "你找到了</font><font color=#00b050 size=25>{lastDropped}，</font>还想继续找么？", "你找到了</font><font color=#00b050 size=25>{lastDropped}，</font>，现在冒险者身上已经没有东西了，你满意的离开了。"],
                     "descArr": ["<font color=#000000 size=20>[继续翻找]</font></font><font color=#00b050 size=20>50%获得奖励，</font></font><font color=#7d0403 size=20>50%进入战斗</font>", "<font color=#000000 size=20>[搜索]</font></font><font color=#00b050 size=20>25%获得奖励，</font></font><font color=#7d0403 size=20>75%进入战斗</font>", "你并不想步冒险者的后尘，于是果断离开了。"],

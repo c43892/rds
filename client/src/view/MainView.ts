@@ -112,8 +112,8 @@ class MainView extends egret.DisplayObjectContainer {
         AniUtils.aniFact = this.bv.av.aniFact;
 
         // 录像机如何启动新的录像战斗
-        BattleRecorder.startNewBattleImpl = (p:Player, btType:string, btRandomSeed:number, trueRandomSeed:number) => {
-            var bt = Battle.createNewBattle(p, btType, btRandomSeed, trueRandomSeed);
+        BattleRecorder.startNewBattleImpl = (p:Player, btType:string, btRandomSeed:number, trueRandomSeed:number, extraLevelLogic:string[]) => {
+            var bt = Battle.createNewBattle(p, btType, btRandomSeed, trueRandomSeed, extraLevelLogic);
 
             // 加载战斗资源
             bt.prepare();
@@ -139,7 +139,7 @@ class MainView extends egret.DisplayObjectContainer {
             bt.prepare();
             bt.openShop = async (items, prices, onBuy, onRob) => await this.openShopInBattle(items, prices, onBuy, onRob);
             bt.openRelicSel2Add = async (choices, onSel) => await this.openRelicSel2Add(choices, onSel);
-            BattleRecorder.startNew(bt.id, bt.player, bt.btType, bt.btRandomSeed, bt.trueRandomSeed);
+            BattleRecorder.startNew(bt.id, bt.player, bt.btType, bt.btRandomSeed, bt.trueRandomSeed, bt.extraLevelLogic);
             await this.startNewBattle(bt);
         }
     }
@@ -202,6 +202,8 @@ class MainView extends egret.DisplayObjectContainer {
         for (var ui of uis)
             if (this.contains(ui))
                 this.removeChild(ui);
+
+        this.av.clear();
     }
 
     // 开启商店界面
@@ -459,20 +461,22 @@ class MainView extends egret.DisplayObjectContainer {
         if (!this.p) return;
 
         this.registerPlayerEvents();
-        if (this.p.currentStoreyPos.status == "finished")
+        if (this.p.currentStoreyPos.status == "finished") {
             this.openWorldMap(this.p.worldmap);
+            await this.av.blackOut();
+        }
         else {
             var lv = this.p.currentStoreyPos.lv;
             var n = this.p.currentStoreyPos.n;
             this.openWorldMap(this.p.worldmap);
             this.wmv.enterNode(lv, n, true);
-        }
 
-        // 这里需要根据节点类型特别补一个 blackOut，战斗类型因为有自己不同的流程，
-        // 会在战斗开始时 blackOut，所以不需要
-        var nodeType = this.wmv.worldmap.nodes[lv][n].roomType;
-        if (!Utils.contains(["normal", "senior", "boss"], nodeType))
-            await this.av.blackOut();
+            // 这里需要根据节点类型特别补一个 blackOut，战斗类型因为有自己不同的流程，
+            // 会在战斗开始时 blackOut，所以不需要
+            var nodeType = this.wmv.worldmap.nodes[lv][n].roomType;
+            if (!Utils.contains(["normal", "senior", "boss"], nodeType))
+                await this.av.blackOut();
+        }
     }
 
     // 开始新游戏，本地存档被新游戏覆盖

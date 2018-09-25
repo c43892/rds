@@ -6,16 +6,18 @@ class Replay {
     public btType:string;
     public btRandomSeed:number;
     public trueRandomSeed:number;
+    public extraLevelLogic:string[];
     public ops:any[]; // 操作列表，按操作顺序记录，格式是 [[op:op1, ps:{...}], [op:op2, ps:{...}], ...]
 
     private playerWhenStart;
-    constructor(btid:string, player:Player, btType:string, btRandomSeed:number, trueRandomSeed:number) {
+    constructor(btid:string, player:Player, btType:string, btRandomSeed:number, trueRandomSeed:number, extraLevelLogic:string[]) {
         this.btid = btid;
         this.player = player;
         this.btType = btType;
         this.playerWhenStart = player.toString();
         this.btRandomSeed = btRandomSeed;
         this.trueRandomSeed = trueRandomSeed;
+        this.extraLevelLogic = extraLevelLogic;
         this.ops = [];
     }
 
@@ -30,7 +32,8 @@ class Replay {
             "player": this.playerWhenStart,
             "btType": this.btType,
             "btRandomSeed": this.btRandomSeed,
-            "trueRandomSeed": this.trueRandomSeed, 
+            "trueRandomSeed": this.trueRandomSeed,
+            "extraLevelLogic": this.extraLevelLogic,
             "ops":this.ops
         });
     }
@@ -38,7 +41,7 @@ class Replay {
     public static fromString(str:string):Replay {
         var json = JSON.parse(str);
         var p = Player.fromString(json.player);
-        var r = new Replay(json.btid, p, json.btType, json.btRandomSeed, json.trueRandomSeed);
+        var r = new Replay(json.btid, p, json.btType, json.btRandomSeed, json.trueRandomSeed, json.extraLevelLogic);
         for (var op of json.ops)
             r.addOp(op.op, op.ps);
 
