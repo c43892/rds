@@ -343,7 +343,7 @@ class MainView extends egret.DisplayObjectContainer {
             var r = await platform.login();
 
             if (!r.ok)
-                retry = await this.confirmOkYesNo(undefined, "连接服务器失败", true, {yes:"重试", no:"取消"});
+                retry = await this.confirmOkYesNo(undefined, "连接服务器失败", true, {yes:"retry", no:"cancel"});
             else
                 return r;
         }
