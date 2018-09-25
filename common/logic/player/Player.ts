@@ -301,8 +301,13 @@ class Player {
             (<Relic>e).redoAllMutatedEffects();
         }
 
-        for (var prop of pinfo.props)
-            p.props.push((<Prop>Elem.fromString(prop)).toProp());
+        for (var prop of pinfo.props) {
+            var pi = <Prop>Elem.fromString(prop);
+            var cnt = pi.cnt;
+            var pp = pi.toProp();
+            pp.cnt = cnt;
+            p.props.push(pp);
+        }
 
         for (var elemInfo of pinfo.elems2NextLevel){
             if(elemInfo.type == "RelicItemProp"){

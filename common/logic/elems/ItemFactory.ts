@@ -174,7 +174,7 @@ class ItemFactory {
         },
 
         // 小石块
-        "SmallRock": (attr) => {
+        "SmallRock": (attrs) => {
             var e = this.createItem();
             e.resetCD = () => {}; // 共用武器逻辑带来的影响
             return ElemFactory.weaponLogic(1, true)(e);

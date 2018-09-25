@@ -160,7 +160,7 @@ class MainView extends egret.DisplayObjectContainer {
         GridView.try2UncoverAt = bt.try2UncoverAt();
         GridView.try2BlockGrid = bt.try2BlockGrid();
         PropView.try2UseProp = bt.try2UseProp();
-        PropView.selectGrid = async (f) => await this.bv.selectGrid(f);
+        PropView.selectGrid = async (f, helper) => await this.bv.selectGrid(f, helper);
         PropView.confirmOkYesNo = async (title, content, yesno) => this.confirmOkYesNo(title, content, yesno);
         PropView.try2UsePropAt = bt.try2UsePropAt();
 
@@ -204,6 +204,7 @@ class MainView extends egret.DisplayObjectContainer {
                 this.removeChild(ui);
 
         this.av.clear();
+        egret.Tween.removeAllTweens();
     }
 
     // 开启商店界面

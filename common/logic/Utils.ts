@@ -311,8 +311,8 @@ class Utils {
     // 保存角色数据
     public static savePlayer(p:Player) {
         if (p) {
-            Utils.$$saveItem("Player", p.toString());
             Utils.$$saveItem("Version", Version.currentVersion.toString());
+            Utils.$$saveItem("Player", p.toString());
         } else {
             Utils.$$removeItem("Player");
             Utils.$$removeItem("Version");

@@ -110,6 +110,7 @@ class Elem {
 
         return JSON.stringify({type:this.type, 
             attrs:this.attrs, 
+            cnt:this.cnt,
             dropItems:dropItmes, 
         });
     }
@@ -117,6 +118,7 @@ class Elem {
     public static fromString(str:string):Elem {
         var info = JSON.parse(str);
         var e = ElemFactory.create(info.type, info.attrs);
+        e.cnt = info.cnt;
         for (var dp of info.dropItems)
             e.dropItems.push(Elem.fromString(dp));
         

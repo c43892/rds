@@ -39,7 +39,7 @@ class SelView extends egret.DisplayObjectContainer {
 
     // 选择一个格子，f 形如 function(x:number, y:number):Boolean 表示指定位置是否可选，返回值表示选中的位置
     // mapView 是下面中间对齐的，我们需要计算左上角
-    public selGrid(gw:number, gh:number, offsetx:number, offsety:number, f, gvGetter):Promise<any> {
+    public selGrid(gw:number, gh:number, offsetx:number, offsety:number, f, gvGetter, helper = {}):Promise<any> {
         for (var i = 0; i < this.nw; i++) {
             var x = offsetx + gw * i;
             for (var j = 0; j < this.nh; j++) {
@@ -65,7 +65,10 @@ class SelView extends egret.DisplayObjectContainer {
             }
         }
 
-        return new Promise<any>((resolve, _) => this.clickHandler = (ps) => resolve(ps));
+        return new Promise<any>((r, _) => {
+            helper["cancel"] = () => r(undefined);
+            this.clickHandler = (ps) => r(ps);
+        });
     }
 
     public getGridByPos(x, y) {

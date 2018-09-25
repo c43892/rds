@@ -38,7 +38,7 @@ class PropView extends egret.DisplayObjectContainer {
         this.addChild(this.bg2);
 
         // 叠加数量
-        this.num = ViewUtils.createTextField(25, 0xffffff);
+        this.num = ViewUtils.createTextField(25, 0x000000);
         this.num.name = "num";
         this.num.width = this.bg2.width * 2;
         this.num.textAlign = egret.HorizontalAlign.CENTER;
@@ -70,7 +70,6 @@ class PropView extends egret.DisplayObjectContainer {
 
         if (e.attrs.canOverlap && e.cnt > 1) { // 可叠加元素显示数量
             this.num.text = e.cnt.toString();
-            this.num.textColor = 0xffffff;
             this.num.alpha = 1;
             this.bg2.alpha = 1;
         }
@@ -111,23 +110,65 @@ class PropView extends egret.DisplayObjectContainer {
     static longPressPropView;
     static pressTimer:egret.Timer; // 长按计时
 
+    setEffect(effName = undefined) {
+        this.elemImg.scaleX = 1;
+        this.elemImg.scaleY = 1;
+        this.elemImg.x = 0;
+        this.elemImg.y = 0;
+        ViewUtils.makeGray(this.elemImg, false);
+
+        switch (effName) {
+            case "selected":
+                this.elemImg.scaleX = 1.2;
+                this.elemImg.scaleY = 1.2;
+                this.elemImg.x = -this.elemImg.width * 0.1;
+                this.elemImg.y = -this.elemImg.height * 0.1;
+            break;
+            case "invalid":
+                ViewUtils.makeGray(this.elemImg, true);
+            break;
+            default:
+            break;
+        }
+    }
+
     // 点击
+    static currentSelPropView;
+    static selHelper = {};
     async onTouchGrid(evt:egret.TouchEvent) {
-        if (PropView.longPressed || !this.e)
+        if (PropView.longPressed)
             return;
 
         PropView.pressTimer.stop();
 
-        if (!this.e.isValid()) return;
-        else{
+        if (!this.e)
+            return;
+
+        // 有当前选中的，则先取消
+        if (PropView.currentSelPropView) {
+            PropView.currentSelPropView.setEffect();
+            PropView.selHelper["cancel"]();
+            return;
+        }
+
+        if (!this.e.isValid())
+            return;
+        else {            
             if (this.e.canUse()) {
                 var content = ViewUtils.formatString(ViewUtils.getTipText("makeSureUseProp"), ViewUtils.getElemNameAndDesc(this.e.type).name);
                 var ok = await PropView.confirmOkYesNo(undefined, content, true, ["确定", "取消"]);
-                if (ok) PropView.try2UseProp(this.e);
+                if (ok)
+                    PropView.try2UseProp(this.e);
             }
             else if (this.e.useWithTarget()) {
-                var pos = await PropView.selectGrid((x, y) => this.e.canUseAt(x, y));
-                if (pos) PropView.try2UsePropAt(this.e, pos.x, pos.y);
+                PropView.currentSelPropView = this;
+                this.setEffect("selected");
+                var pos = await PropView.selectGrid((x, y) => this.e.canUseAt(x, y), PropView.selHelper);
+                if (pos)
+                    PropView.try2UsePropAt(this.e, pos.x, pos.y);
+
+                this.setEffect(!this.e.isValid() ? "invalid" : undefined);
+                PropView.currentSelPropView = undefined;
             }
         }
     }
