@@ -78,7 +78,7 @@ class TextButtonWithBg extends egret.DisplayObjectContainer {
     static pressed:boolean = false; // 按钮被按下
     static longPressed:boolean = false; // 产生长按事件
     static readonly LongPressThreshold = 500; // 按下持续 0.5s 算长按
-    public onPressTimer // 长按事件行为
+    public onPressed // 长按事件行为
 
     // 鼠标按下效果
     downBg:egret.Bitmap;
@@ -137,13 +137,18 @@ class TextButtonWithBg extends egret.DisplayObjectContainer {
         TextButtonWithBg.pressed = true;
         TextButtonWithBg.longPressed = false;
 
-        if(this.onPressTimer){
-            if (!TextButtonWithBg.pressTimer) {
+        if(this.onPressed){
+            if (!TextButtonWithBg.pressTimer)
                 TextButtonWithBg.pressTimer = new egret.Timer(TextButtonWithBg.LongPressThreshold, 1);
-                TextButtonWithBg.pressTimer.addEventListener(egret.TimerEvent.TIMER, this.onPressTimer, this);
-            }
+
+            TextButtonWithBg.pressTimer.addEventListener(egret.TimerEvent.TIMER, this.onPressTimer, this);
             TextButtonWithBg.pressTimer.start();
-        }        
+        }
+    }
+
+    onPressTimer(evt:egret.TimerEvent) {
+        TextButtonWithBg.pressTimer.removeEventListener(egret.TimerEvent.TIMER, this.onPressTimer, this);
+        this.onPressed();
     }
 
     onBtnUp(evt:egret.TouchEvent) {        

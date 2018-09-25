@@ -97,6 +97,19 @@ class ElemFactory {
         return e;
     }
 
+    // 为物品死亡后增加逻辑
+    public static addAfterDieAI(act, e:Elem):Elem {
+        var prior = e.afterDie;
+        e.afterDie = async (ps) => {
+            if (prior)
+                await prior(ps);
+
+            await act(ps);
+        };
+
+        return e;
+    }
+
     // 死亡时掉落物品
     public static doDropItemsOnDie(e:Elem):Elem {
         ElemFactory.addDieAI(async () => { // 处理随机掉落
