@@ -265,8 +265,8 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 大地图上加血
     public async onGetHpInWorldmap(ps) {
-        var dhp = ps.dhp;
-        if (dhp < 0) {
+        var d = ps.dhp;
+        if (d < 0) {
             var img = AniUtils.createImg("deadlyMask_png");
             img.width = this.width;
             img.height = this.height;
@@ -275,6 +275,18 @@ class AniView extends egret.DisplayObjectContainer {
         }
 
         this.wmv.refreshHp();
+    }
+
+    // 大地图上加血上限
+    public async onGetHpMaxInWorldmap(ps) {
+        var d = ps.dMaxHp;
+        if (d < 0) {
+            var img = AniUtils.createImg("deadlyMask_png");
+            img.width = this.width;
+            img.height = this.height;
+            await AniUtils.shakeCamera();
+            img["dispose"]();
+        }
     }
 
     // cd 变化
