@@ -394,7 +394,7 @@ class BattleView extends egret.DisplayObjectContainer {
         ViewUtils.setTexName(this.occupationBg, this.player.occupation + "Bg_png", true);
         ViewUtils.setTexName(this.avatar, this.player.occupation + "_png", true);
         this.avatarWeapon.alpha = 0;
-        this.currentStoryLv.text = this.player.currentStoreyPos.lv.toString();
+        this.currentStoryLv.text = this.player.currentTotalStorey().toString();
 
         this.refreshMoney();
 

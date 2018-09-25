@@ -4,7 +4,7 @@
 class Player {
     // 应该序列化的字段
     private static serializableFields = [
-        "currentStoreyPos", "finishedStoreyPos", "battleRandomSeed",  
+        "currentStoreyPos", "finishedStoreyPos", "finishedWorldMap", "finishedEvent", "battleRandomSeed",  
         "deathStep", "maxDeathStep", "hp", "maxHp", "power", "defence", "dodge", 
         "occupation", "exp", "lv", "money"];
 
@@ -25,7 +25,10 @@ class Player {
     public worldmap:WorldMap;
     public playerRandom:SRandom; // 伴随角色的随机数，会被 save/load
     public currentStoreyPos; // 当前所在层数以及该层位置
+    public currentTotalStorey = () => Utils.playerFinishedStorey(this); // 当前总层数
     public finishedStoreyPos; // 已经完成的世界地图节点
+    public finishedWorldMap:string[] = []; // 已经完成的世界
+    public finishedEvent = [];
 
     // 重新创建角色
     public static createTestPlayer():Player {
@@ -448,5 +451,14 @@ class Player {
         this.currentStoreyPos.status = "finished";
         this.finishedStoreyPos.push({lv:lv, n:n});
         
+    }
+
+    // 进入新的世界地图
+    public goToNewWorld(newWorld:WorldMap){
+        this.worldmap = newWorld;
+        this.currentStoreyPos = {lv:0, n:0, status:"finished"};
+        this.finishedStoreyPos = [{lv:0, n:0}];
+        this.finishedEvent = [];
+        Utils.savePlayer(this);
     }
 }

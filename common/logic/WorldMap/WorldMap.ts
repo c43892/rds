@@ -5,9 +5,9 @@ class WorldMap {
     public nodes:WorldMapNode[][];
 
     // 从指定配置数据生成一个大地图
-    public static buildFromConfig(world, p:Player):WorldMap {
+    public static buildFromConfig(worldName:string, p:Player):WorldMap {
         var w = new WorldMap();
-        var cfg = GCfg.getWorldMapCfg(world);
+        var cfg = GCfg.getWorldMapCfg(worldName);
         w.player = p;
         w.cfg = JSON.parse(JSON.stringify(cfg));
 

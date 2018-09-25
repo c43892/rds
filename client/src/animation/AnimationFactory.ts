@@ -285,7 +285,7 @@ class AnimationFactory {
     }
 
     // 龙骨动画
-    async skeleton(ps) {
+    skeleton(ps):Promise<void> {
         var ani:dragonBones.Armature;
         var skeName = ps.name;
         var actName = ps.act;

@@ -11,7 +11,7 @@ class Level {
         this.displayName = cfg.displayName;
         this.bt = bt;
         this.cfg = cfg;
-        this.lv = bt.player.currentStoreyPos.lv;
+        this.lv = bt.player.currentTotalStorey();
         this.InitMap(cfg.map);
         this.InitElems(bt.btType, cfg.elems, cfg.constElems, cfg.randomGroups, 
             GCfg.mapsize.w * GCfg.mapsize.h + cfg.init_uncovered.w + cfg.init_uncovered.h, 

@@ -415,15 +415,14 @@ class WorldMapView extends egret.DisplayObjectContainer {
         Utils.savePlayer(this.player);
 
         var nodeType = this.worldmap.nodes[lv][n].roomType;
+        var p = this.worldmap.player;
         switch(nodeType) {
-            case "normal":
-                var p = this.worldmap.player;
+            case "normal":                
                 var btRandonSeed = p.playerRandom.nextInt(0, 10000);
                 this.refreshShopSoldout() // 刷新战斗内商店销售状态
                 await this.startNewBattle(p, nodeType, lv, n, btRandonSeed, skipBlackIn);
                 break;
             case "senior":
-                var p = this.worldmap.player;
                 var btRandonSeed = p.playerRandom.nextInt(0, 10000);
                 this.refreshShopSoldout() // 刷新战斗内商店销售状态
                 var seniorTypes = ["randomEgg"];
@@ -431,7 +430,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 await this.startNewBattle(p, seniorType, lv, n, btRandonSeed, skipBlackIn);
                 break;
             case "boss":
-                var p = this.worldmap.player;
                 var btRandonSeed = p.playerRandom.nextInt(0, 10000);
                 this.refreshShopSoldout() // 刷新战斗内商店销售状态
                 var bossTypes = ["slimeKing"];
@@ -471,13 +469,30 @@ class WorldMapView extends egret.DisplayObjectContainer {
             await this.openPlayerDieView();
         } else {
             // 更新最高分
-            window.platform.setUserCloudStorage({"score": this.player.currentStoreyPos.lv});
-            this.refresh();
+            window.platform.setUserCloudStorage({"score": Utils.playerFinishedStorey(this.player)});
+            
+            // 判断此世界是否已经完成
+            if(this.player.currentStoreyPos.lv >= this.player.worldmap.cfg.totalLevels){
+                this.player.finishedWorldMap.push(this.worldmap.cfg.name);
+                var newtWorldName = this.worldmap.cfg.nextWorld;
+                var newWorld = WorldMap.buildFromConfig(newtWorldName, this.player);
+                this.player.goToNewWorld(newWorld);
+                this.setWorldMap(p.worldmap);
+            }
+            else
+                this.refresh();
         }
     }
 
     async openMapEventSels(lv, n) {
-        var events = this.worldmap.cfg.events;
+        // 过滤掉已出现的事件
+        var es = this.worldmap.cfg.events;
+        var events = {};
+        for(var event in es){
+            if(Utils.indexOf(this.player.finishedEvent, (e) => e == event) == -1)
+                events[event] = es[event];
+        }
+
         var evt = Utils.randomSelectByWeight(events, this.player.playerRandom, 1, 2)[0];
         var p = this.worldmap.player;
 
@@ -506,8 +521,8 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
                 await this.openSelGroup(p, evt);
 
-                // 这一类事件是出现一次就移出候选集
-                delete events[evt];
+                // 这一类事件是出现一次就不在出现
+                this.player.finishedEvent.push(evt);
             }
         }
     }

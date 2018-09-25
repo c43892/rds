@@ -1,5 +1,6 @@
 {
     "world1":{
+        "name":"world1",
         "totalLevels":15,
         "width":5,
         "routesMax":4,
@@ -15,15 +16,94 @@
         },
         "boxroomDrops":{
             "MedicineBox":10,
+            "TimeMachine":10,
+            "Endurance":10,
             "Power":10,
-            "Fierce":10,            
-            "Unback2Sneak":10
+            "Agile":10,
+            "Fierce":10,
+            "WeaponMaster":10,
+            "UndefinedName2":10,
+            "UndefinedName3":10,
+            "DefenseProficient":10,
+            "BookMaster":10,
+            "TradeMaster":10,
+            "TreasureBoxDetector":10,
+            "KnifeMaster":10,
+            "MonsterHunter":10,
+            "KnifeProficient":10,
+            "ExploreEnhanced":10,
+            "HorticultureProficient":10,
+            "SmellEnhanced":10,
+            "Storer":10,
+            "ShieldProficient":10,
+            "HorticultureMaster":10,
+            "StrikeFirst":10
         },
         "events":{
             "shop":10,
             "normal":10,
             "box":10,
-            "turntable":10,
+            "a1": 10,
+            "a2": 10,
+            "a3": 10,
+            "a4": 10
+        },
+        "shop": "world1shop",
+        "turntable": [
+            {"type":"+hp", "attrs":15, "weight":10},
+            {"type":"-hp", "attrs":-15, "weight":10},
+            {"type":"box", "attrs":"ttrdp1", "weight":10},
+            {"type":"coins", "attrs":10, "weight":10},
+            {"type":"item", "attrs":"ttrdp2", "weight":10},
+            {"type":"item", "attrs":"ttrdp2", "weight":10}
+        ],
+        "nextWorld":"world2"
+    },
+    
+    "world2":{
+        "name":"world2",
+        "totalLevels":15,
+        "width":5,
+        "routesMax":4,
+        "specs": {
+            "shop":{"percent":5},
+            "camp":{"percent":12},
+            "senior":{"percent":8},
+            "event":{"percent":22}
+        },
+        "fixedRow": {
+            "14":"camp",
+            "8":"box"
+        },
+        "boxroomDrops":{
+            "MedicineBox":10,
+            "TimeMachine":10,
+            "Endurance":10,
+            "Power":10,
+            "Agile":10,
+            "Fierce":10,
+            "WeaponMaster":10,
+            "UndefinedName2":10,
+            "UndefinedName3":10,
+            "DefenseProficient":10,
+            "BookMaster":10,
+            "TradeMaster":10,
+            "TreasureBoxDetector":10,
+            "KnifeMaster":10,
+            "MonsterHunter":10,
+            "KnifeProficient":10,
+            "ExploreEnhanced":10,
+            "HorticultureProficient":10,
+            "SmellEnhanced":10,
+            "Storer":10,
+            "ShieldProficient":10,
+            "HorticultureMaster":10,
+            "StrikeFirst":10
+        },
+        "events":{
+            "shop":10,
+            "normal":10,
+            "box":10,
             "a1": 10,
             "a2": 10,
             "a3": 10,
@@ -43,6 +123,7 @@
             {"type":"coins", "attrs":10, "weight":10},
             {"type":"item", "attrs":"ttrdp2", "weight":10},
             {"type":"item", "attrs":"ttrdp2", "weight":10}
-        ]
+        ],
+        "nextWorld":"world1"
     }
 }

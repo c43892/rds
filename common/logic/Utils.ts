@@ -549,7 +549,8 @@ class Utils {
     // 判断是否是处于新手期
     public static checkRookiePlay():boolean{
         // return !Utils.loadLocalData("rookiePlay") || Utils.loadLocalData("rookiePlay") != "finished";
-        return true;
+        // return true;
+        return false;
     }
 
     // 根据btType找到该关卡对应的levelLogics
@@ -571,5 +572,14 @@ class Utils {
     public static checkInitItems(occupation:string, itemType:string){
         var cfg = GCfg.getOccupationCfg(occupation);
         return Utils.indexOf(cfg.initItems, (t:string) => t == itemType) > -1;
+    }
+
+    // 得到player完成的总层数
+    public static playerFinishedStorey(p:Player){
+        var storey = p.currentStoreyPos.lv;
+        for(var world of p.finishedWorldMap)
+            storey += GCfg.getWorldMapCfg(world).totalLevels;
+        
+        return storey;
     }
 }
