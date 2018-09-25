@@ -459,20 +459,22 @@ class MainView extends egret.DisplayObjectContainer {
         if (!this.p) return;
 
         this.registerPlayerEvents();
-        if (this.p.currentStoreyPos.status == "finished")
+        if (this.p.currentStoreyPos.status == "finished") {
             this.openWorldMap(this.p.worldmap);
+            await this.av.blackOut();
+        }
         else {
             var lv = this.p.currentStoreyPos.lv;
             var n = this.p.currentStoreyPos.n;
             this.openWorldMap(this.p.worldmap);
             this.wmv.enterNode(lv, n, true);
-        }
 
-        // 这里需要根据节点类型特别补一个 blackOut，战斗类型因为有自己不同的流程，
-        // 会在战斗开始时 blackOut，所以不需要
-        var nodeType = this.wmv.worldmap.nodes[lv][n].roomType;
-        if (!Utils.contains(["normal", "senior", "boss"], nodeType))
-            await this.av.blackOut();
+            // 这里需要根据节点类型特别补一个 blackOut，战斗类型因为有自己不同的流程，
+            // 会在战斗开始时 blackOut，所以不需要
+            var nodeType = this.wmv.worldmap.nodes[lv][n].roomType;
+            if (!Utils.contains(["normal", "senior", "boss"], nodeType))
+                await this.av.blackOut();
+        }
     }
 
     // 开始新游戏，本地存档被新游戏覆盖
