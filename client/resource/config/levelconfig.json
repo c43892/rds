@@ -42,25 +42,9 @@
             {
                 "num": [ 8, 9 ],
                 "elems": {
-                    "GoblinThief": 100,
-                    "Vampire": 100,
-                    "Gengar": 100,
-                    "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "Mummy": 100,
-                    "PoisonJellyfish": 100,
-                    "SkeletonKing": 100,
-                    "BoxMonster": 0,
-                    "Ghost": 100,
                     "NormalZombie": 0,
-                    "BallShito": 100,
-                    "HoundZombie": 100,
                     "DancerZombie": 100,
-                    "GluttonyZombie": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
-                    "SwatheZombie": 100,
-                    "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100,
                     "DeathGod": 0
@@ -81,6 +65,7 @@
             }
         ]
     },
+
     "normal_2": {
         "displayName": "普通战斗2",
         "map": {},
@@ -98,25 +83,11 @@
             {
                 "num": [ 8, 9 ],
                 "elems": {
-                    "GoblinThief": 100,
-                    "Vampire": 100,
-                    "Gengar": 100,
-                    "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "Mummy": 100,
-                    "PoisonJellyfish": 100,
-                    "SkeletonKing": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100,
                     "NormalZombie": 0,
-                    "BallShito": 100,
-                    "HoundZombie": 100,
                     "DancerZombie": 100,
-                    "GluttonyZombie": 100,
                     "RandomEggZombie": 100,
-                    "LustZombie": 100,
-                    "SwatheZombie": 100,
-                    "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100,
                     "DeathGod": 0
@@ -137,6 +108,7 @@
             }
         ]
     },
+
     "normal_3": {
         "displayName": "普通战斗3",
         "map": {},
@@ -154,24 +126,14 @@
             {
                 "num": [ 8, 9 ],
                 "elems": {
-                    "GoblinThief": 100,
-                    "Vampire": 100,
-                    "Gengar": 100,
-                    "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "Mummy": 100,
-                    "PoisonJellyfish": 100,
                     "SkeletonKing": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100,
                     "NormalZombie": 0,
-                    "BallShito": 100,
                     "HoundZombie": 100,
                     "DancerZombie": 100,
                     "GluttonyZombie": 100,
                     "RandomEggZombie": 100,
-                    "LustZombie": 100,
-                    "SwatheZombie": 100,
                     "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100,
@@ -193,6 +155,7 @@
             }
         ]
     },
+
     "normal_4": {
         "displayName": "普通战斗4",
         "map": {},
@@ -210,24 +173,14 @@
             {
                 "num": [ 8, 9 ],
                 "elems": {
-                    "GoblinThief": 100,
-                    "Vampire": 100,
-                    "Gengar": 100,
-                    "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "Mummy": 100,
-                    "PoisonJellyfish": 100,
                     "SkeletonKing": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100,
                     "NormalZombie": 0,
-                    "BallShito": 100,
                     "HoundZombie": 100,
                     "DancerZombie": 100,
                     "GluttonyZombie": 100,
                     "RandomEggZombie": 100,
-                    "LustZombie": 100,
-                    "SwatheZombie": 100,
                     "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100,
@@ -249,6 +202,7 @@
             }
         ]
     },
+
     "normal_5": {
         "displayName": "普通战斗5",
         "map": {},
@@ -266,23 +220,16 @@
             {
                 "num": [ 8, 9 ],
                 "elems": {
-                    "GoblinThief": 100,
-                    "Vampire": 100,
-                    "Gengar": 100,
-                    "BombAbomination": 100,
                     "EyeDemon": 100,
                     "Mummy": 100,
-                    "PoisonJellyfish": 100,
                     "SkeletonKing": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100,
                     "NormalZombie": 0,
                     "BallShito": 100,
                     "HoundZombie": 100,
                     "DancerZombie": 100,
                     "GluttonyZombie": 100,
                     "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "SwatheZombie": 100,
                     "RedSlime": 100,
                     "GreenSlime": 100,
@@ -305,6 +252,7 @@
             }
         ]
     },
+
     "normal_6": {
         "displayName": "普通战斗6",
         "map": {},
@@ -322,23 +270,16 @@
             {
                 "num": [ 10, 11 ],
                 "elems": {
-                    "GoblinThief": 100,
-                    "Vampire": 100,
-                    "Gengar": 100,
-                    "BombAbomination": 100,
                     "EyeDemon": 100,
                     "Mummy": 100,
-                    "PoisonJellyfish": 100,
                     "SkeletonKing": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100,
                     "NormalZombie": 0,
                     "BallShito": 100,
                     "HoundZombie": 100,
                     "DancerZombie": 100,
                     "GluttonyZombie": 100,
                     "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "SwatheZombie": 100,
                     "RedSlime": 100,
                     "GreenSlime": 100,
@@ -367,6 +308,7 @@
             }
         ]
     },
+
     "normal_7": {
         "displayName": "普通战斗7",
         "map": {},
@@ -384,23 +326,16 @@
             {
                 "num": [ 10, 11 ],
                 "elems": {
-                    "GoblinThief": 100,
-                    "Vampire": 100,
-                    "Gengar": 100,
-                    "BombAbomination": 100,
                     "EyeDemon": 100,
                     "Mummy": 100,
-                    "PoisonJellyfish": 100,
                     "SkeletonKing": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100,
                     "NormalZombie": 0,
                     "BallShito": 100,
                     "HoundZombie": 100,
                     "DancerZombie": 100,
                     "GluttonyZombie": 100,
                     "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "SwatheZombie": 100,
                     "RedSlime": 100,
                     "GreenSlime": 100,
@@ -429,6 +364,7 @@
             }
         ]
     },
+
     "normal_8": {
         "displayName": "普通战斗8",
         "map": {},
@@ -449,13 +385,10 @@
                     "GoblinThief": 100,
                     "Vampire": 100,
                     "Gengar": 100,
-                    "BombAbomination": 100,
                     "EyeDemon": 100,
                     "Mummy": 100,
-                    "PoisonJellyfish": 100,
                     "SkeletonKing": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100,
                     "NormalZombie": 0,
                     "BallShito": 100,
                     "HoundZombie": 100,
@@ -491,6 +424,7 @@
             }
         ]
     },
+
     "normal_9": {
         "displayName": "普通战斗9",
         "map": {},
@@ -511,13 +445,10 @@
                     "GoblinThief": 100,
                     "Vampire": 100,
                     "Gengar": 100,
-                    "BombAbomination": 100,
                     "EyeDemon": 100,
                     "Mummy": 100,
-                    "PoisonJellyfish": 100,
                     "SkeletonKing": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100,
                     "NormalZombie": 0,
                     "BallShito": 100,
                     "HoundZombie": 100,
@@ -553,6 +484,7 @@
             }
         ]
     },
+
     "normal_10": {
         "displayName": "普通战斗10",
         "map": {},
@@ -615,6 +547,7 @@
             }
         ]
     },
+
     "normal_11": {
         "displayName": "普通战斗11",
         "map": {},
@@ -677,6 +610,7 @@
             }
         ]
     },
+
     "normal_12": {
         "displayName": "普通战斗12",
         "map": {},
@@ -739,6 +673,7 @@
             }
         ]
     },
+
     "normal_13": {
         "displayName": "普通战斗13",
         "map": {},
@@ -801,6 +736,7 @@
             }
         ]
     },
+
     "normal_14": {
         "displayName": "普通战斗14",
         "map": {},
@@ -863,6 +799,7 @@
             }
         ]
     },
+
     "normal_16": {
         "displayName": "普通战斗16",
         "map": {},
@@ -925,6 +862,7 @@
             }
         ]
     },
+
     "normal_17": {
         "displayName": "普通战斗17",
         "map": {},
@@ -987,6 +925,7 @@
             }
         ]
     },
+
     "normal_18": {
         "displayName": "普通战斗18",
         "map": {},
@@ -1049,6 +988,7 @@
             }
         ]
     },
+
     "normal_19": {
         "displayName": "普通战斗19",
         "map": {},
@@ -1111,6 +1051,7 @@
             }
         ]
     },
+
     "normal_20": {
         "displayName": "普通战斗20",
         "map": {},
@@ -1173,6 +1114,7 @@
             }
         ]
     },
+
     "normal_21": {
         "displayName": "普通战斗21",
         "map": {},
@@ -1235,6 +1177,7 @@
             }
         ]
     },
+
     "normal_22": {
         "displayName": "普通战斗22",
         "map": {},
@@ -1297,6 +1240,7 @@
             }
         ]
     },
+
     "normal_23": {
         "displayName": "普通战斗23",
         "map": {},
@@ -1359,6 +1303,7 @@
             }
         ]
     },
+
     "normal_24": {
         "displayName": "普通战斗24",
         "map": {},
@@ -1421,6 +1366,7 @@
             }
         ]
     },
+
     "normal_25": {
         "displayName": "普通战斗25",
         "map": {},
@@ -1483,6 +1429,7 @@
             }
         ]
     },
+
     "normal_26": {
         "displayName": "普通战斗26",
         "map": {},
@@ -1545,6 +1492,7 @@
             }
         ]
     },
+
     "normal_27": {
         "displayName": "普通战斗27",
         "map": {},
@@ -1607,6 +1555,7 @@
             }
         ]
     },
+
     "normal_28": {
         "displayName": "普通战斗28",
         "map": {},
@@ -1669,6 +1618,7 @@
             }
         ]
     },
+
     "normal_29": {
         "displayName": "普通战斗29",
         "map": {},
@@ -1731,6 +1681,7 @@
             }
         ]
     },
+
     "senior_1": {
         "displayName": "精英战斗1",
         "map": {},
@@ -1748,25 +1699,9 @@
             {
                 "num": [ 8, 9 ],
                 "elems": {
-                    "GoblinThief": 100,
-                    "Vampire": 100,
-                    "Gengar": 100,
-                    "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "Mummy": 100,
-                    "PoisonJellyfish": 100,
-                    "SkeletonKing": 100,
-                    "BoxMonster": 0,
-                    "Ghost": 100,
                     "NormalZombie": 0,
-                    "BallShito": 100,
-                    "HoundZombie": 100,
                     "DancerZombie": 100,
-                    "GluttonyZombie": 100,
-                    "RandomEggZombie": 100,
-                    "LustZombie": 100,
-                    "SwatheZombie": 100,
-                    "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100,
                     "DeathGod": 0
@@ -1793,6 +1728,7 @@
             }
         ]
     },
+
     "senior_2": {
         "displayName": "精英战斗2",
         "map": {},
@@ -1810,25 +1746,11 @@
             {
                 "num": [ 8, 9 ],
                 "elems": {
-                    "GoblinThief": 100,
-                    "Vampire": 100,
-                    "Gengar": 100,
-                    "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "Mummy": 100,
-                    "PoisonJellyfish": 100,
-                    "SkeletonKing": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100,
                     "NormalZombie": 0,
-                    "BallShito": 100,
-                    "HoundZombie": 100,
                     "DancerZombie": 100,
-                    "GluttonyZombie": 100,
                     "RandomEggZombie": 100,
-                    "LustZombie": 100,
-                    "SwatheZombie": 100,
-                    "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100,
                     "DeathGod": 0
@@ -1855,6 +1777,7 @@
             }
         ]
     },
+
     "senior_3": {
         "displayName": "精英战斗3",
         "map": {},
@@ -1872,24 +1795,14 @@
             {
                 "num": [ 8, 9 ],
                 "elems": {
-                    "GoblinThief": 100,
-                    "Vampire": 100,
-                    "Gengar": 100,
-                    "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "Mummy": 100,
-                    "PoisonJellyfish": 100,
                     "SkeletonKing": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100,
                     "NormalZombie": 0,
-                    "BallShito": 100,
                     "HoundZombie": 100,
                     "DancerZombie": 100,
                     "GluttonyZombie": 100,
                     "RandomEggZombie": 100,
-                    "LustZombie": 100,
-                    "SwatheZombie": 100,
                     "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100,
@@ -1917,6 +1830,7 @@
             }
         ]
     },
+
     "senior_4": {
         "displayName": "精英战斗4",
         "map": {},
@@ -1934,24 +1848,14 @@
             {
                 "num": [ 8, 9 ],
                 "elems": {
-                    "GoblinThief": 100,
-                    "Vampire": 100,
-                    "Gengar": 100,
-                    "BombAbomination": 100,
                     "EyeDemon": 100,
-                    "Mummy": 100,
-                    "PoisonJellyfish": 100,
                     "SkeletonKing": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100,
                     "NormalZombie": 0,
-                    "BallShito": 100,
                     "HoundZombie": 100,
                     "DancerZombie": 100,
                     "GluttonyZombie": 100,
                     "RandomEggZombie": 100,
-                    "LustZombie": 100,
-                    "SwatheZombie": 100,
                     "RedSlime": 100,
                     "GreenSlime": 100,
                     "ReviveZombie": 100,
@@ -1979,6 +1883,7 @@
             }
         ]
     },
+
     "senior_5": {
         "displayName": "精英战斗5",
         "map": {},
@@ -1996,23 +1901,16 @@
             {
                 "num": [ 8, 9 ],
                 "elems": {
-                    "GoblinThief": 100,
-                    "Vampire": 100,
-                    "Gengar": 100,
-                    "BombAbomination": 100,
                     "EyeDemon": 100,
                     "Mummy": 100,
-                    "PoisonJellyfish": 100,
                     "SkeletonKing": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100,
                     "NormalZombie": 0,
                     "BallShito": 100,
                     "HoundZombie": 100,
                     "DancerZombie": 100,
                     "GluttonyZombie": 100,
                     "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "SwatheZombie": 100,
                     "RedSlime": 100,
                     "GreenSlime": 100,
@@ -2041,6 +1939,7 @@
             }
         ]
     },
+
     "senior_6": {
         "displayName": "精英战斗6",
         "map": {},
@@ -2058,23 +1957,16 @@
             {
                 "num": [ 8, 9 ],
                 "elems": {
-                    "GoblinThief": 100,
-                    "Vampire": 100,
-                    "Gengar": 100,
-                    "BombAbomination": 100,
                     "EyeDemon": 100,
                     "Mummy": 100,
-                    "PoisonJellyfish": 100,
                     "SkeletonKing": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100,
                     "NormalZombie": 0,
                     "BallShito": 100,
                     "HoundZombie": 100,
                     "DancerZombie": 100,
                     "GluttonyZombie": 100,
                     "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "SwatheZombie": 100,
                     "RedSlime": 100,
                     "GreenSlime": 100,
@@ -2103,6 +1995,7 @@
             }
         ]
     },
+
     "senior_7": {
         "displayName": "精英战斗7",
         "map": {},
@@ -2120,23 +2013,16 @@
             {
                 "num": [ 8, 9 ],
                 "elems": {
-                    "GoblinThief": 100,
-                    "Vampire": 100,
-                    "Gengar": 100,
-                    "BombAbomination": 100,
                     "EyeDemon": 100,
                     "Mummy": 100,
-                    "PoisonJellyfish": 100,
                     "SkeletonKing": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100,
                     "NormalZombie": 0,
                     "BallShito": 100,
                     "HoundZombie": 100,
                     "DancerZombie": 100,
                     "GluttonyZombie": 100,
                     "RandomEggZombie": 100,
-                    "LustZombie": 100,
                     "SwatheZombie": 100,
                     "RedSlime": 100,
                     "GreenSlime": 100,
@@ -2165,6 +2051,7 @@
             }
         ]
     },
+
     "senior_8": {
         "displayName": "精英战斗8",
         "map": {},
@@ -2185,13 +2072,10 @@
                     "GoblinThief": 100,
                     "Vampire": 100,
                     "Gengar": 100,
-                    "BombAbomination": 100,
                     "EyeDemon": 100,
                     "Mummy": 100,
-                    "PoisonJellyfish": 100,
                     "SkeletonKing": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100,
                     "NormalZombie": 0,
                     "BallShito": 100,
                     "HoundZombie": 100,
@@ -2227,6 +2111,7 @@
             }
         ]
     },
+
     "senior_9": {
         "displayName": "精英战斗9",
         "map": {},
@@ -2247,13 +2132,10 @@
                     "GoblinThief": 100,
                     "Vampire": 100,
                     "Gengar": 100,
-                    "BombAbomination": 100,
                     "EyeDemon": 100,
                     "Mummy": 100,
-                    "PoisonJellyfish": 100,
                     "SkeletonKing": 100,
                     "BoxMonster": 0,
-                    "Ghost": 100,
                     "NormalZombie": 0,
                     "BallShito": 100,
                     "HoundZombie": 100,
@@ -2289,6 +2171,7 @@
             }
         ]
     },
+
     "senior_10": {
         "displayName": "精英战斗10",
         "map": {},
@@ -2351,6 +2234,7 @@
             }
         ]
     },
+
     "senior_11": {
         "displayName": "精英战斗11",
         "map": {},
@@ -2413,6 +2297,7 @@
             }
         ]
     },
+
     "senior_12": {
         "displayName": "精英战斗12",
         "map": {},
@@ -2475,6 +2360,7 @@
             }
         ]
     },
+
     "senior_13": {
         "displayName": "精英战斗13",
         "map": {},
@@ -2537,6 +2423,7 @@
             }
         ]
     },
+
     "senior_14": {
         "displayName": "精英战斗14",
         "map": {},
@@ -2599,6 +2486,7 @@
             }
         ]
     },
+
     "senior_16": {
         "displayName": "精英战斗16",
         "map": {},
@@ -2661,6 +2549,7 @@
             }
         ]
     },
+
     "senior_17": {
         "displayName": "精英战斗17",
         "map": {},
@@ -2723,6 +2612,7 @@
             }
         ]
     },
+
     "senior_18": {
         "displayName": "精英战斗18",
         "map": {},
@@ -2785,6 +2675,7 @@
             }
         ]
     },
+
     "senior_19": {
         "displayName": "精英战斗19",
         "map": {},
@@ -2847,6 +2738,7 @@
             }
         ]
     },
+
     "senior_20": {
         "displayName": "精英战斗20",
         "map": {},
@@ -2909,6 +2801,7 @@
             }
         ]
     },
+
     "senior_21": {
         "displayName": "精英战斗21",
         "map": {},
@@ -2971,6 +2864,7 @@
             }
         ]
     },
+
     "senior_22": {
         "displayName": "精英战斗22",
         "map": {},
@@ -3033,6 +2927,7 @@
             }
         ]
     },
+
     "senior_23": {
         "displayName": "精英战斗23",
         "map": {},
@@ -3095,6 +2990,7 @@
             }
         ]
     },
+
     "senior_24": {
         "displayName": "精英战斗24",
         "map": {},
@@ -3157,6 +3053,7 @@
             }
         ]
     },
+
     "senior_25": {
         "displayName": "精英战斗25",
         "map": {},
@@ -3219,6 +3116,7 @@
             }
         ]
     },
+
     "senior_26": {
         "displayName": "精英战斗26",
         "map": {},
@@ -3281,6 +3179,7 @@
             }
         ]
     },
+
     "senior_27": {
         "displayName": "精英战斗27",
         "map": {},
@@ -3343,6 +3242,7 @@
             }
         ]
     },
+
     "senior_28": {
         "displayName": "精英战斗28",
         "map": {},
@@ -3405,6 +3305,7 @@
             }
         ]
     },
+
     "senior_29": {
         "displayName": "精英战斗29",
         "map": {},
@@ -3467,6 +3368,7 @@
             }
         ]
     },
+
     "boss_15": {
         "displayName": "Boss战斗15",
         "map": {},
@@ -3517,6 +3419,7 @@
             }
         ]
     },
+
     "boss_30": {
         "displayName": "Boss战斗30",
         "map": {},
