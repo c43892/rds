@@ -17,6 +17,7 @@ class PropFactory {
             e.use = undefined;
             e.canBeDragDrop = false;
             e.cnt = e.attrs.cnt ? e.attrs.cnt : 1;
+            e.isValid = undefined;
             e = <Prop>ElemFactory.triggerColddownLogic(e);
             e["beginCD"] = true;
             e.useWithTarget = () => attrs.useWithTarget;            
