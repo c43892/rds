@@ -3,6 +3,7 @@ class WorldMapEventSelsView extends egret.DisplayObjectContainer {
     public player:Player;
     private bg:egret.Bitmap; // 背景
     private bg1:egret.Bitmap; // 底图
+    private bg2:egret.Bitmap; // 底图问号
     private title:egret.TextField;
     private desc:egret.TextField;
 
@@ -19,8 +20,11 @@ class WorldMapEventSelsView extends egret.DisplayObjectContainer {
         this.bg.height = this.height;
         this.bg.touchEnabled = true;
 
-        this.bg1 = ViewUtils.createBitmapByName("confirmBg_png");
+        this.bg1 = ViewUtils.createBitmapByName("bigBg_png");
         this.bg1.name = "bg1";
+
+        this.bg2 = ViewUtils.createBitmapByName("SelEventBg_png");
+        this.bg2.name = "bg2";
 
         this.title = ViewUtils.createTextField(40, 0x7d0403);
         this.title.name = "title";
@@ -28,7 +32,7 @@ class WorldMapEventSelsView extends egret.DisplayObjectContainer {
         this.desc = ViewUtils.createTextField(25, 0x000000);
         this.desc.name = "desc";
 
-        var objs = [this.bg1, this.title, this.desc];
+        var objs = [this.bg1, this.bg2, this.title, this.desc];
         objs.forEach((obj, _) => this.addChild(obj));
         ViewUtils.multiLang(this, ...objs);
     }

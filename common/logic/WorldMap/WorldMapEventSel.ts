@@ -105,6 +105,7 @@ class WorldMapEventSelFactory {
 
     // 加减最大血量
     async implAddMaxHp(p:Player, dMaxHp) {
+        await p.fireEvent("onGetHpMaxInWorldmap", {dMaxHp:dMaxHp});
         p.addMaxHp(dMaxHp);
     }
 

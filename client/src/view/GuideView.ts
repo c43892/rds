@@ -298,14 +298,18 @@ class GuideView extends egret.DisplayObjectContainer {
         var rev1 = this.tapOrPressPrepare(g, {x:g.width/2, y:g.height/2});
         var rev2 = this.makeDialog(tex, name, str, x, y, onLeft, flipAvatar);
 
+        g.notifyLongPressed = (targetResetOp) => {
+            rev2();
+            rev1();
+            g.notifyLongPressed = undefined;
+            if (targetResetOp)
+                targetResetOp();
+        };
+
         return new Promise<void>((r, _) => {
-            g.notifyLongPressed = (targetResetOp) => {
-                rev2();
-                rev1();
+            g.notifyLongPressedEnded = () => {
+                g.notifyLongPressedEnded = undefined;
                 r();
-                g.notifyLongPressed = undefined;
-                if (targetResetOp)
-                    targetResetOp();
             };
         });
     }
@@ -356,27 +360,29 @@ class GuideView extends egret.DisplayObjectContainer {
     // 新手指引1
     async rookiePlay1(bt:Battle) {
         await AniUtils.wait4click();
-        await this.showDialog("Nurse", "护士", "让我告诉你基本的规则，首先地上的数字表示它周围8个格子里怪物的数量。来，跟着我点击这个地块", 0, 200, true);
+        await this.showDialog("Nurse", "护士", "！！！", 0, 200, true);
+        await this.showDialog("Nurse", "护士", "你怎么跑到这里来了", 0, 200, true);
+        await this.showDialog("Nurse", "护士", "这是魔王的地牢，每一层都有很多怪物看守", 0, 200, true);
+        await this.showDialog("Nurse", "护士", "现在你可以看到怪物和一些可以使用的道具，门后面是出口", 0, 200, true);
+        await this.showDialog("Nurse", "护士", "但是你永远无法知道出口是离开地牢还是通往下一层", 0, 200, true);
     }
 
     // 新手指引2
     async rookiePlay2(bt:Battle) {
         await AniUtils.delay(1000);
-        await this.tapGridWithDialog(0, 2, "GoblinThief", "哥布林", "我就测试一下说话的同时指引点击", 140, 500, true);
+        await this.showDialog("Nurse", "护士", "让我告诉你一些基本规则", 0, 200, true);
+        await this.showDialog("Nurse", "护士", "地上的数字表示它周围8个格子里隐藏的怪物的数量", 140, 500, true);
+        await this.showDialog("Nurse", "护士", "点击就可以打开格子", 0, 200, true);
+        await this.tapGridWithDialog(0, 0, "Nurse", "护士", "跟着我点击闪光的格子", 140, 500, true);
         // await this.pressGridWithDialog(0, 2, "GoblinThief", "哥布林", "我就测试一下说话的同时指引点击", 140, 500, true);
-        await this.tapGrid(0, 0);
-        await this.showDialog("Nurse", "护士", "做的不错，你发现了一把匕首，当你无法确定时，可以用匕首来探路", 0, 200, true);
-        await this.showDialog("Nurse", "护士", "捡起匕首，我们来用它探路", 0, 200, true);
-        await this.tapGrid(0, 0);
-        await this.showDialog("Nurse", "护士", "你看来很适合使用匕首，那攻击那个格子吧，说不定有惊喜哦", 0, 200, true);
-        await this.tapSelGrid(0, 1);
-        await this.showDialog("GoblinThief", "哥布林", "什么人？", 140, 500, false);
-        await this.showDialog("GoblinThief", "哥布林", "好多年没有闻到这么新鲜的味道了，闯入者，这片地牢里，我就是不死的存在，你每遇到一个新的我，都会是更强的存在，加入我们吧", 140, 500, false);
-        await this.showDialog("Nurse", "护士", "你看他多丑，快痛快解决了这一切", 0, 200, true);
-        await this.tapGrid(0, 1);
+        await this.showDialog("Nurse", "护士", "做的不错，你发现了一把匕首，当你无法确定时，可以用匕首来探路", 140, 500, true);
+        await this.tapGridWithDialog(0, 0, "Nurse", "护士", "捡起匕首，我们来用它探路", 140, 500, true);
+        await this.tapSelGridWithDialog(0, 1, "Nurse", "护士", "好的，你成功了！下来让我们攻击一个格子", 140, 500, true);
+        await this.showDialog("Nurse", "护士", "看来我们遇到了对手", 140, 500, true);
+        await this.showDialog("Nurse", "护士", "怪物的详细信息可以通过长按来查看", 140, 500, true);
+        await this.pressGridWithDialog(0, 1, "Nurse", "护士", "来尝试一下吧", 140, 500, true)
+        await this.tapGridWithDialog(0, 1, "Nurse", "护士", "让我们尝试攻击一下它", 140, 500, true);
         await this.showDialog("GoblinThief", "哥布林", "啊，我的眼睛，魔王的战士会再次归来的！", 140, 500, false);
-        await this.showDialog("Nurse", "护士", "怪物各有特点，你可以长按已经发现的怪物来了解它们", 0, 200, true);
-        await this.showDialog("Nurse", "护士", "注意右上角那里，每当你遇到新的怪物，这里会有提醒哦", 0, 200, true);
-        await this.showDialog("Nurse", "护士", "继续探索，当你发现门并且打开它之后，你就有机会离开地牢，或者进入下一层，让我们前进吧", 0, 200, true);
+        await this.showDialog("Nurse", "护士", "魔王的手下遍布地牢，谨慎的向前探索吧，勇士", 0, 200, true);
     }
 }
