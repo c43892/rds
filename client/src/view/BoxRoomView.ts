@@ -88,7 +88,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
             this.addChild(elem);
             elem.alpha = 0;
             elem.touchEnabled = false;
-            elem.onPressTimer = () => BoxRoomView.showElemDesc(ElemFactory.create(elem["eType"]));
+            elem.onPressed = () => BoxRoomView.showElemDesc(ElemFactory.create(elem["eType"]));
         }
 
         ViewUtils.setTexName(this.box, "BoxRoomBox_png");
