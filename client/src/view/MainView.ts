@@ -112,8 +112,8 @@ class MainView extends egret.DisplayObjectContainer {
         AniUtils.aniFact = this.bv.av.aniFact;
 
         // 录像机如何启动新的录像战斗
-        BattleRecorder.startNewBattleImpl = (p:Player, btType:string, btRandomSeed:number, trueRandomSeed:number) => {
-            var bt = Battle.createNewBattle(p, btType, btRandomSeed, trueRandomSeed);
+        BattleRecorder.startNewBattleImpl = (p:Player, btType:string, btRandomSeed:number, trueRandomSeed:number, extraLevelLogic:string[]) => {
+            var bt = Battle.createNewBattle(p, btType, btRandomSeed, trueRandomSeed, extraLevelLogic);
 
             // 加载战斗资源
             bt.prepare();
@@ -139,7 +139,7 @@ class MainView extends egret.DisplayObjectContainer {
             bt.prepare();
             bt.openShop = async (items, prices, onBuy, onRob) => await this.openShopInBattle(items, prices, onBuy, onRob);
             bt.openRelicSel2Add = async (choices, onSel) => await this.openRelicSel2Add(choices, onSel);
-            BattleRecorder.startNew(bt.id, bt.player, bt.btType, bt.btRandomSeed, bt.trueRandomSeed);
+            BattleRecorder.startNew(bt.id, bt.player, bt.btType, bt.btRandomSeed, bt.trueRandomSeed, bt.extraLevelLogic);
             await this.startNewBattle(bt);
         }
     }

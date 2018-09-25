@@ -25,7 +25,7 @@ class Battle {
         this.trueRand = new SRandom(trueRandomSeed);
     }
 
-    public static createNewBattle(p:Player, btType:string, btRandomSeed:number, trueRandomSeed:number = undefined, extraLevelLogic = undefined):Battle {
+    public static createNewBattle(p:Player, btType:string, btRandomSeed:number, trueRandomSeed:number = undefined, extraLevelLogic = []):Battle {
         if (trueRandomSeed == undefined)
             trueRandomSeed = (new Date()).getMilliseconds();
 
@@ -33,8 +33,7 @@ class Battle {
         bt.id = "bt_" + bt.btType + "_" + Math.random();
         bt.player = p;
         bt.btType = btType;
-        if(extraLevelLogic)
-            bt.extraLevelLogic = extraLevelLogic;
+        bt.extraLevelLogic = extraLevelLogic;
         p.setBattle(bt);
         return bt;
     }
