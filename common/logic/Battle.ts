@@ -801,6 +801,8 @@ class Battle {
 
         if (e.onDie) await e.onDie();
         await this.triggerLogicPoint("onElemChanged", {"subType": "die", e:e, flags:flags});
+
+        if (e.afterDie) await e.afterDie();
     }
 
     // 进行一次攻击计算

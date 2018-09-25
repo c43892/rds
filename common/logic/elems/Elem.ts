@@ -62,6 +62,7 @@ class Elem {
     public beforePlayerMove2NextLevel; // 当角色准备进入下一层时触发
     public beforeDie // 物品死亡前（物品使用后从地图上移除也算）
     public onDie; // 物品死亡时（物品使用后从地图上移除也算）
+    public afterDie; // 物品死亡后（物品使用后从地图上移除也算）
     
     public attrs; // 来自配置表的属性，不允许在代码中修改!
     public btAttrs; // 战斗相关属性

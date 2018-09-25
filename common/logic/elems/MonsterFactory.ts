@@ -772,7 +772,7 @@ class MonsterFactory {
 
     // 史莱姆之王死亡时召唤四个特殊史莱姆
     static doSummonSlimesOnDie(m:Monster):Monster {
-        m = <Monster>ElemFactory.addDieAI(async () => {
+        m = <Monster>ElemFactory.addAfterDieAI(async () => {
             Utils.assert(m.type == "SlimeKing", "this can only effect on SlimeKing");
             var bt = m.bt();
             var poses = [];
@@ -784,7 +784,7 @@ class MonsterFactory {
                     poses.push(newPos);
                 }
             }
-            var slimeTypes = ["RedSlime", "GreenSlime", "RedSlime", "GreenSlime"];
+            var slimeTypes = ["RedSlime", "GreenSlime", "GreenSlime", "RedSlime"];
             for(var i = 0; i < 4; i++){
                 var slime = <Monster>bt.level.createElem(slimeTypes[i]);
                 slime = MonsterFactory.doSummonSlimeKing(slime);
