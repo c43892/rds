@@ -475,6 +475,7 @@ class GridView extends egret.DisplayObjectContainer {
     public static showElemDesc; // 显示元素信息
 
     public notifyLongPressed; // 通知产生了长按行为
+    public notifyLongPressedEnded; // 通知产生了长按行为结束
 
     // 点击
     async onTouchGrid(evt:egret.TouchEvent) {
@@ -570,6 +571,17 @@ class GridView extends egret.DisplayObjectContainer {
         let g = GridView.dragFrom.map.getGridAt(GridView.dragFrom.gx, GridView.dragFrom.gy);
         let gv = GridView.dragFrom;
 
+        if (gv.notifyLongPressed) {
+            gv.notifyLongPressed(() => {
+                GridView.pressed = false;
+                GridView.longPressed = false;
+                GridView.dragging = false;
+                GridView.dragFrom = undefined;
+                if (GridView.pressTimer)
+                    GridView.pressTimer.stop();
+            });
+        }
+
         switch (g.status) {
             case GridStatus.Covered:
                 if (g.isUncoverable())
@@ -581,24 +593,17 @@ class GridView extends egret.DisplayObjectContainer {
             case GridStatus.Uncovered:
             case GridStatus.Marked:
                 var e = g.getElem();
-                if (e){
+                if (e) {
                     if(e["linkTo"])
                         e = e["linkTo"];
-                        
+
                     await GridView.showElemDesc(e);
                 }
             break;
         }
 
-        if (gv.notifyLongPressed)
-            gv.notifyLongPressed(() => {
-                GridView.pressed = false;
-                GridView.longPressed = false;
-                GridView.dragging = false;
-                GridView.dragFrom = undefined;
-                if (GridView.pressTimer)
-                    GridView.pressTimer.stop();
-            });
+        if (gv.notifyLongPressedEnded)
+            gv.notifyLongPressedEnded();
     }
 
     // 拖拽移动

@@ -298,14 +298,18 @@ class GuideView extends egret.DisplayObjectContainer {
         var rev1 = this.tapOrPressPrepare(g, {x:g.width/2, y:g.height/2});
         var rev2 = this.makeDialog(tex, name, str, x, y, onLeft, flipAvatar);
 
+        g.notifyLongPressed = (targetResetOp) => {
+            rev2();
+            rev1();
+            g.notifyLongPressed = undefined;
+            if (targetResetOp)
+                targetResetOp();
+        };
+
         return new Promise<void>((r, _) => {
-            g.notifyLongPressed = (targetResetOp) => {
-                rev2();
-                rev1();
+            g.notifyLongPressedEnded = () => {
+                g.notifyLongPressedEnded = undefined;
                 r();
-                g.notifyLongPressed = undefined;
-                if (targetResetOp)
-                    targetResetOp();
             };
         });
     }
