@@ -202,6 +202,8 @@ class MainView extends egret.DisplayObjectContainer {
         for (var ui of uis)
             if (this.contains(ui))
                 this.removeChild(ui);
+
+        this.av.clear();
     }
 
     // 开启商店界面
