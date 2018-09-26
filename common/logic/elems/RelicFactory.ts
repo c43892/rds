@@ -278,7 +278,8 @@ class RelicFactory {
                 if (!enable) return;
                 ElemFactory.addAI("beforeGoOutLevel1", async () => {
                     var e = BattleUtils.findRandomElems(r.bt(), 1, (e:Elem) => {
-                        return !e.getGrid().isCovered() && e instanceof Item && e.type != "Coins" && e.type != "Door" && e.type != "TreasureBox" && e.type != "Cocoon"
+                        var forbiddens = ["Coins", "Door", "TreasureBox", "Cocoon", "Hole", "IceBlock", "HeadBone", "NextLevelPort"];
+                        return !e.getGrid().isCovered() && e instanceof Item && Utils.indexOf(forbiddens, (s) => e.type == s) == -1
                     })[0];
                     await r.bt().implElemFollow2NextLevel(e);
                 }, r)
