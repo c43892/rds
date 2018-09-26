@@ -1,6 +1,6 @@
 // 将 player 设置为某职业
 class Occupation {
-    public static makeOccupation(p:Player):Player {
+    public static makeOccupation(p:Player, continuePlay:boolean = false):Player {
         var c = Occupation.creators[p.occupation];
         Utils.assert(c, "no such occupation: " + p.occupation);
         p.clear();
@@ -8,7 +8,7 @@ class Occupation {
         p.addBuff(new BuffBasic()); // 探空格+经验
         p.addBuff(new BuffDeathGod()); // 死神
 
-        return c(p);
+        return c(p, continuePlay);
     }
 
     static creators = {
@@ -17,15 +17,17 @@ class Occupation {
     }
     
     // 护士
-    static makeNurse(p:Player):Player {
+    static makeNurse(p:Player, continuePlay:boolean = false):Player {
         p.addBuff(new BuffNurse()); // 职业buff
-        p.addRelic(<Relic>ElemFactory.create("MedicineBox")); // 初始遗物
-        p.addItem(<Prop>ElemFactory.create("HpCapsule")); // 初始物品
+        if(!continuePlay){
+            p.addRelic(<Relic>ElemFactory.create("Power")); // 初始遗物
+            p.addItem(<Prop>ElemFactory.create("HpCapsule")); // 初始物品
+        }
         return p;
     }
 
     // 流氓
-    static makeRogue(p:Player):Player {
+    static makeRogue(p:Player, continuePlay:boolean = false):Player {
         return p;
     }
 }
