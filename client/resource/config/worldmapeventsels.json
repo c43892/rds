@@ -27,12 +27,12 @@
 
     "groups": {
         "a1": {
-            "title": "闪耀之光",
-            "desc": "你发现一道光束",
+            "title": "天堂之光",
+            "desc": "神圣的光芒落在你的面前，隔着远远你就能感受到它的威严和圣洁。",
             "sels": [{
-                "desc": "<font color=#000000 size=20>[走进]</font><font color=#000000 size=20>随机升级2个技能</font>",
-                "func": ["reinforceRandomRelics", "redirectSelGroup"],
-                "ps":{"reinforceNum": 2, "group": "a11"}
+                "desc": "<font color=#000000 size=20>[靠近]</font><font color=#00b050 size=20>随机升级2个技能, </font><font color=#7d0403 size=20>失去{hp}生命</font>",
+                "func": ["reinforceRandomRelics", "-hpPrecentage", "redirectSelGroup"],
+                "ps":{"reinforceNum": 2, "hpPrecentage": 5, "group": "a11"}
             },{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit", "redirectSelGroup"],
@@ -41,15 +41,15 @@
         },
         "a11": {
             "title": "闪耀之光",
-            "desc": "热的发烫",
+            "desc": "你走进了光芒，强大的力量让你有些</font><font color=#7d0403 size=25>禁受不住</font>，但是你坚持住了，并对<font color=#00b050 size=25>技能的领悟</font>更加深刻。",
             "sels": [{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit"]
             }]
         },
         "a12": {
-            "title": "闪耀之光",
-            "desc": "你绕过光锥，有些好奇",
+            "title": "天堂之光",
+            "desc": "这是陷阱，你不会上当的。",
             "sels": [{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit"]
@@ -59,7 +59,7 @@
             "title": "樱桃炸弹",
             "desc": "你发现樱桃炸弹正在熟睡，旁边的宝物无人看守，不禁起了邪念。",
             "sels": [{
-                "desc": "<font color=#000000 size=20>[偷窃]</font><font color=#00b050 size=20>得到{item}，<font color=#7d0403 size=20>受到樱桃炸弹的报复</font>",
+                "desc": "<font color=#000000 size=20>[偷窃]</font><font color=#00b050 size=20>得到{item}</font>，<font color=#7d0403 size=20>受到樱桃炸弹的报复</font>",
                 "func": ["+item", "redirectSelGroup"],
                 "ps": {"item": "MedicineBox", "group": "a21"}
             },{
@@ -118,10 +118,10 @@
             }]
         },
         "a3": {
-            "title": "强化技能",
-            "desc": "在你面前是一个神龛",
+            "title": "神秘雕像",
+            "desc": "在你面前是一个神秘的雕像，上面似乎有着强大的力量。",
             "sels": [{
-                "desc": "<font color=#000000 size=20>[祈祷]升级一个遗物</font>",
+                "desc": "<font color=#000000 size=20>[祈祷]</font><font color=#00b050 size=20>升级一项技能</font>",
                 "func": ["reinfoceRelic", "redirectSelGroup"],
                 "ps": {"group": "a31"}
             },{
@@ -131,16 +131,16 @@
             }]
         },
         "a31": {
-            "title": "强化技能",
-            "desc": "你的技能变得更强了。",
+            "title": "神秘雕像",
+            "desc": "你感到自己变得更强了。",
             "sels": [{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit"]
             }]
         },
         "a32": {
-            "title": "强化技能",
-            "desc": "你无视了。",
+            "title": "神秘雕像",
+            "desc": "你无视了雕像。",
             "sels": [{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit"]
@@ -463,6 +463,57 @@
                 "func": ["toTurnTable"]
             }]
         },
+        "b2": {
+            "title": "智能机械管家",
+            "desc": "“货真价实，童叟无欺”，但不知为何，你从它那机械化的声音中听出了一丝狡诈。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[购买技能]</font></font><font color=#000000 size=20>花费{money}金币，</font><font color=#00b050 size=20>获得一个随机技能</font>",
+                "func": ["-money", "+randomItems", "redirectSelGroup"],
+                "ps": {
+                    "money": 50,
+                    "randomNum": 1,
+                    "items": {"Power": 10, "MedicineBox": 10},
+                    "group": "b21"
+                 }                
+            },{
+                "desc": "<font color=#000000 size=20>[购买技能]</font></font><font color=#000000 size=20>花费{money}金币，</font><font color=#00b050 size=20>获得两个随机道具</font>",
+                "func": ["-money", "+randomItems", "redirectSelGroup"],
+                "ps": {
+                    "money": 50,
+                    "randomNum": 2,
+                    "items": {"RayGun":100, "IceGun":1, "CandyCannon": 100},
+                    "group": "b22"
+                    }
+            },{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit", "redirectSelGroup"],
+                "ps": {"group": "b23"}
+            }]
+        },
+        "b21": {
+            "title": "智能机械管家",
+            "desc": "“欢迎下次再来”它的声音里分明又多了一丝得意。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit"]
+            }]
+        },
+        "b22": {
+            "title": "智能机械管家",
+            "desc": "“欢迎下次再来”它的声音里分明又多了一丝得意。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit"]
+            }]
+        },
+        "b23": {
+            "title": "智能机械管家",
+            "desc": "“你这个该死的穷鬼！”智能机械管家卸下伪装，暴跳如雷。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit"]
+            }]
+        },
         "g4": {
             "title": "事件标题",
             "desc": "事件描述文字，说说这个事件是什么意思",
@@ -487,7 +538,7 @@
                 "func": ["+randomItems", "redirectSelGroup"],
                 "ps": {
                     "randomNum": 2,
-                    "items": {"HpPotion":100, "MedicineBox":50, "IceGun":1},
+                    "items": {"RayGun":100, "IceGun":1},
                     "group":"gg"
                 }
             }, {
