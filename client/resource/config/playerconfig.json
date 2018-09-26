@@ -8,23 +8,8 @@
         "Power":10,
         "Agile":10,
         "Fierce":10,
-        "WeaponMaster":10,
-        "UndefinedName2":10,
-        "UndefinedName3":10,
-        "DefenseProficient":10,
-        "BookMaster":10,
         "TradeMaster":10,
-        "TreasureBoxDetector":10,
-        "KnifeMaster":10,
-        "MonsterHunter":10,
-        "KnifeProficient":10,
-        "ExploreEnhanced":10,
-        "HorticultureProficient":10,
-        "SmellEnhanced":10,
-        "Storer":10,
-        "ShieldProficient":10,
-        "HorticultureMaster":10,
-        "StrikeFirst":10
+        "HorticultureMaster":10
     },
 
     "":{}
