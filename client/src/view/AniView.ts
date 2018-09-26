@@ -513,6 +513,11 @@ class AniView extends egret.DisplayObjectContainer {
                     egret.Tween.removeTweens(dm);
                     dm.alpha = 0;
                 }
+
+                this.aniFact.createAniByCfg({type:"seq", arr:[
+                    {type:"tr", fa:1, ta:3, time:75},
+                    {type:"tr", fa:3, ta:1, time:75}
+                ], obj:this.bv.hpBar, noWait:true});
             }
             default:
         }
