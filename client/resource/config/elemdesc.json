@@ -80,7 +80,7 @@
             "<font color=#7d0403 bold=true size=21>吸血</font>\n<font color=#000000 bold=false size=20>每次攻击吸取3点血</font>"
         ]},
         "GoblinThief":{"name":"哥布林竊賊", "desc":[
-            "<font color=#7d0403 bold=true size=21>偷竊</font>\n突襲時偷取<font color=#2d5627 size=20>{percent}%<font color=#000000 size=20>的金幣</font>"
+            "<font color=#7d0403 bold=true size=21>偷竊</font>\n突襲時偷取玩家的金幣</font>"
         ]},
         "HoundZombie":{"name":"獵犬僵屍", "desc":[
             "<font color=#7d0403 bold=true size=21>屍毒</font>\n<font color=#000000 bold=false size=20>攻擊附帶2層中毒</font>"
@@ -347,7 +347,7 @@
             "<font color=#7d0403 bold=true size=21>吸血</font>\n<font color=#000000 bold=false size=20>每次攻击吸取3点血</font>"
         ]},
         "GoblinThief":{"name":"哥布林窃贼", "desc":[
-            "<font color=#7d0403 bold=true size=21>偷窃</font>\n<font color=#000000 bold=false size=20>突袭时偷取</font><font color=#2d5627 size=20> {percent} <font color=#000000 size=20>%的金币</font>"
+            "<font color=#7d0403 bold=true size=21>偷窃</font>\n<font color=#000000 bold=false size=20>突袭时偷取玩家的金币</font>"
         ]},
         "HoundZombie":{"name":"猎犬僵尸", "desc":[
             "<font color=#7d0403 bold=true size=21>尸毒</font>\n<font color=#000000 bold=false size=20>攻击附带2层中毒</font>"
@@ -615,7 +615,7 @@
             "<font color=#7d0403 bold=true size=21>吸血</font>\n<font color=#000000 bold=false size=20>每次攻击吸取3点血</font>"
         ]},
         "GoblinThief":{"name":"哥布林竊賊", "desc":[
-            "<font color=#7d0403 bold=true size=21>偷竊</font>\n突襲時偷取<font color=#2d5627 size=20>{percent}%<font color=#000000 size=20>的金幣</font>"
+            "<font color=#7d0403 bold=true size=21>偷竊</font>\n突襲時偷取玩家的金幣</font>"
         ]},
         "HoundZombie":{"name":"獵犬僵屍", "desc":[
             "<font color=#7d0403 bold=true size=21>屍毒</font>\n<font color=#000000 bold=false size=20>攻擊附帶2層中毒</font>"
