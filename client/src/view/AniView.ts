@@ -277,6 +277,15 @@ class AniView extends egret.DisplayObjectContainer {
         this.wmv.refreshHp();
     }
 
+    // 休息屋休息
+    public async onHospitalCureStart(ps) {
+        await this.blackIn();
+        this.wmv.refreshHp();
+    }
+    public async onHospitalCureEnd(ps) {
+        await this.blackOut();
+    }
+
     // 大地图上加血上限
     public async onGetHpMaxInWorldmap(ps) {
         var d = ps.dMaxHp;

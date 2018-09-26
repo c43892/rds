@@ -507,6 +507,7 @@ class MainView extends egret.DisplayObjectContainer {
     registerPlayerEvents() {
         Utils.registerEventHandlers(this.p, [
             "onGetElemInWorldmap", "onGetMoneyInWorldmap", "onGetHpInWorldmap", "onGetHpMaxInWorldmap",
+            "onHospitalCureStart", "onHospitalCureEnd"
         ], (e) => (ps) => this.bv.av[e](ps));
     }
 }
