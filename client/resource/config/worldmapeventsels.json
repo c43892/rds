@@ -481,7 +481,7 @@
                 "ps": {
                     "money": 50,
                     "randomNum": 2,
-                    "items": {"Power":100, "IceGun":1, "StrangthPotion": 100},
+                    "items": {"RayGun":100, "IceGun":1, "CandyCannon": 100},
                     "group": "b22"
                     }
             },{
