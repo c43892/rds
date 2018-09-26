@@ -148,6 +148,9 @@ class ShopView extends egret.DisplayObjectContainer {
 
     // 抢劫
     async doRob() {
+        if (this.contains(this.btnRob))
+            this.removeChild(this.btnRob);
+
         var es = await this.onRob(this.items);
         es.forEach(e => {
             var n = Utils.indexOf(this.items, (it) => it == e);
@@ -155,9 +158,6 @@ class ShopView extends egret.DisplayObjectContainer {
             this.items[n] = undefined;
             this.soldout[n] = true;
         });
-
-        if (this.contains(this.btnRob))
-            this.removeChild(this.btnRob);
 
         if (this.autoCloseOnRob)
             await this.onCancel();
