@@ -18,9 +18,6 @@ class ElemActiveDesc {
         "BombAbomination" : {
             "rounds": (p:Player, e:Elem) => e["attackInterval"] ? e["attackInterval"] : e.attrs.selfExplode.cnt
         },
-        "GoblinThief" : {
-            "percent": (p:Player, e:Elem) => Math.floor(p.money * e.attrs.steal.percent / 100) - e.attrs.steal.num
-        }
     }
     
     // 获取elem受各因素影响后的cd
