@@ -64,7 +64,7 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
         ViewUtils.setTexName(this.tipImg, m.getElemImgRes() + "_png");
         
         var refPos = this.mapView.localToGlobal();
-        tip.x = refPos.x + this.mapView.width - tip.width + tip.$anchorOffsetX;
+        tip.x = refPos.x + this.mapView.width - tip.width + tip.$anchorOffsetX + 10;
         tip.y = refPos.y - tip.height - 5 + tip.$anchorOffsetY;
 
         if (this.monsterArr.length == 1) { // 新飞出来的第一个

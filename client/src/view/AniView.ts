@@ -374,15 +374,6 @@ class AniView extends egret.DisplayObjectContainer {
                 AniUtils.tipAt((e.attrs.cnt - e.cnt) + "/" + e.attrs.cnt, {x:p.x+25, y:p.y-25});
                 AniUtils.flashAndShake(sv);
             }
-
-            var weaponImg = this.setAvatarWeapon("ReadBook");
-            weaponImg.alpha = 1;
-            await this.aniFact.createAniByCfg({type:"seq", arr:[
-                {type:"tr", ty:weaponImg.y, time:0},
-                {type:"tr", fy:weaponImg.y, ty:weaponImg.y - 25, time:100, mode:egret.Ease.cubicOut},
-                {type:"delay", time:100},
-                {type:"tr", fy:weaponImg.y - 25, ty:weaponImg.y + weaponImg.height, time:100, mode:egret.Ease.cubicIn},
-            ], noWait:true, obj:weaponImg});
         } else if (Utils.checkCatalogues(type, "food")) { // 食物抖一下
             await AniUtils.flashAndShake(sv);
         } else if (type == "IceBlock") {
@@ -579,9 +570,9 @@ class AniView extends egret.DisplayObjectContainer {
         if (ps.r.r == "attacked") {
             var avatar = this.bv.avatar;
             this.showMonsterAttackValue(ps.attackerAttrs.owner, ps.r.dhp)
-            ViewUtils.setTexName(avatar, this.bv.player.occupation + "Hurt_png", true);
+            // ViewUtils.setTexName(avatar, this.bv.player.occupation + "Hurt_png", true);
             await AniUtils.flashAndShake(avatar);
-            ViewUtils.setTexName(avatar, this.bv.player.occupation + "_png");
+            // ViewUtils.setTexName(avatar, this.bv.player.occupation + "_png");
         } else if (ps.r.r == "dodged") {
             // player dodged
             var avatar = this.bv.avatar;
@@ -591,14 +582,6 @@ class AniView extends egret.DisplayObjectContainer {
             ], obj:avatar});
         } else if (ps.r.r == "blocked") {
             // player blocked
-            var weaponImg = this.setAvatarWeapon("GotBlocked");
-            weaponImg.alpha = 1;
-            await this.aniFact.createAniByCfg({type:"seq", arr:[
-                {type:"tr", ty:weaponImg.y + weaponImg.height, time:0},
-                {type:"tr", fy:weaponImg.y + weaponImg.height, ty:weaponImg.y - 75, time:150},
-                {type:"delay", time:100},
-                {type:"tr", fy:weaponImg.y - 75, ty:weaponImg.y + weaponImg.height, time:150},
-            ], noWait:true, obj:weaponImg});
         }
     }
 
@@ -632,10 +615,10 @@ class AniView extends egret.DisplayObjectContainer {
 
             // 头像换一下
             var avatar = this.bv.avatar;
-            ViewUtils.setTexName(avatar, occ + "Attack_png", true);
+            // ViewUtils.setTexName(avatar, occ + "Attack_png", true);
 
             // 平砍武器效果放一下
-            this.normalAttackWeaponEffect(occ).then(() => ViewUtils.setTexName(avatar, occ + "_png", true));
+            // this.normalAttackWeaponEffect(occ).then(() => ViewUtils.setTexName(avatar, occ + "_png", true));
 
             // 这个效果不等待
             if (aniArr.length > 0)
@@ -702,38 +685,7 @@ class AniView extends egret.DisplayObjectContainer {
             eff["wait"]().then(() => g.removeEffect("effBazooka"));
         }
     }
-
-    setAvatarWeapon(weapon):egret.Bitmap {
-        var weaponImg = this.bv.avatarWeapon;
-        ViewUtils.setTexName(weaponImg, weapon + "_png", true);        
-        weaponImg.anchorOffsetX = 0;
-        weaponImg.anchorOffsetY = weaponImg.height;
-        weaponImg.x = 0;
-        weaponImg.y = this.bv.avatar.y + this.bv.avatar.height;
-        return weaponImg;
-    }
-
-    // 平砍武器效果
-    public async normalAttackWeaponEffect(occupation) {
-        var weaponImg = this.setAvatarWeapon(occupation + "Weapon");
-        weaponImg.alpha = 1;
-        switch (occupation) {
-            case "Rogue":
-            case "Horticulaturist":
-            case "Police":
-            // 转动一下
-            await AniUtils.rotate(weaponImg);
-            case "Nurse":
-            // 戳一下
-            await this.aniFact.createAniByCfg({type:"seq", arr:[
-                {type:"tr", fx:weaponImg.x, fy:weaponImg.y, tx:weaponImg.x + 75, ty:weaponImg.y + 75, time:150},
-                {type:"tr", fx:weaponImg.x + 75, fy:weaponImg.y + 75, tx:weaponImg.x, ty:weaponImg.y, time:150},
-            ], noWait:true, obj:weaponImg});
-        }
-        weaponImg.alpha = 0;
-        ViewUtils.setTexName(weaponImg, undefined);
-    }
-
+    
     // 怪物攻击
     public async onMonsterAttack(ps) {
         var m:Elem = ps.m;

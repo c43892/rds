@@ -10,8 +10,8 @@ class BattleView extends egret.DisplayObjectContainer {
     // 头像区域
     public avatarBg:egret.Bitmap; // 角色头像区域背景
     public occupationBg:egret.Bitmap; // 角色职业背景
-    public avatar:egret.Bitmap; // 角色头像
-    public avatarWeapon:egret.Bitmap; // 角色上层的武器表现
+    public avatarSke:dragonBones.Armature;
+    public avatar:egret.DisplayObject; // 角色头像
     public avatarAreaMask:egret.Bitmap; // 角色区域的遮罩
     public expBar:egret.Bitmap; // 经验条
     public expBarMask:egret.Shape; // 经验条遮罩
@@ -82,17 +82,15 @@ class BattleView extends egret.DisplayObjectContainer {
         // 头像
         this.occupationBg = new egret.Bitmap();
         this.occupationBg.name = "occupationBg";
-        this.avatar = new egret.Bitmap();
+        this.avatarSke = ViewUtils.createSkeletonAni("hushimeimei");
+        this.avatarSke.animation.reset();
+        this.avatar = this.avatarSke.display;
         this.avatar.name = "avatar";
-        this.avatarWeapon = new egret.Bitmap();
-        this.avatarWeapon.alpha = 0; // 平时隐藏
-        this.avatarWeapon.name = "avatarWeapon";
         this.avatarAreaMask = ViewUtils.createBitmapByName("translucent_png");
         this.avatarAreaMask.name = "avatarAreaMask";
 
         this.avatar.mask = this.avatarAreaMask;
         this.occupationBg.mask = this.avatarAreaMask;
-        this.avatarWeapon.mask = this.avatarAreaMask;
 
         // 头像区域背景
         this.avatarBg = ViewUtils.createBitmapByName("avatarBg_png");
@@ -140,7 +138,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.currentStoryLv.y = this.moneyAndStoriesBg.y + 10;
 
         var objs = [
-            this.moneyAndStoriesBg, this.occupationBg, this.avatar, this.avatarWeapon, this.avatarBg,
+            this.moneyAndStoriesBg, this.occupationBg, this.avatar, this.avatarBg,
             this.currentStoryLv, this.money, this.power, this.dodge, 
             this.hpBarMask, this.expBarMask, this.expBar, this.hpBar, this.hp
         ];
@@ -392,8 +390,7 @@ class BattleView extends egret.DisplayObjectContainer {
     deathGodBarWidth;
     public refreshPlayer() {
         ViewUtils.setTexName(this.occupationBg, this.player.occupation + "Bg_png", true);
-        ViewUtils.setTexName(this.avatar, this.player.occupation + "_png", true);
-        this.avatarWeapon.alpha = 0;
+        this.avatarSke.animation.reset();
         this.currentStoryLv.text = this.player.currentTotalStorey().toString();
 
         this.refreshMoney();
@@ -416,7 +413,7 @@ class BattleView extends egret.DisplayObjectContainer {
 
         this.refreshExpBar();
         this.refreshHpBar();
-        ViewUtils.multiLang(this, this.avatarBg, this.avatarAreaMask, this.avatar, this.avatarWeapon, this.power, this.dodge, this.propsView, this.moreRelics);
+        ViewUtils.multiLang(this, this.avatarBg, this.avatarAreaMask, this.avatar, this.power, this.dodge, this.propsView, this.moreRelics);
 
         // 物品
         this.refreshProps();
@@ -471,8 +468,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.av.clear();
         this.repView.clear();
         if (this.contains(this.selView)) this.removeChild(this.selView);
-        this.avatar.texture = undefined;
-        this.avatarWeapon.texture = undefined;
+        this.removeChild(this.avatar);
         for (var bmp of this.relics) {
             bmp.alpha = 0;
             bmp["relic"] = undefined;
