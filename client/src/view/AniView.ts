@@ -388,6 +388,8 @@ class AniView extends egret.DisplayObjectContainer {
     // 披风生效
     public async onCloakImmunizeSneak(ps) {
         var e = ps.e;
+        var sv = this.getSV(e);
+        await AniUtils.flashOut(sv);
     }
 
     // 死神步数发生变化
@@ -460,7 +462,7 @@ class AniView extends egret.DisplayObjectContainer {
                     this.aniFact.createAniByCfg({type:"seq", arr:[
                         {type:"tr", fa:1, ta:3, time:75},
                         {type:"tr", fa:3, ta:1, time:75}
-                    ], obj:this.bv.expBar});
+                    ], obj:this.bv.expBar, noWait:true});
                     eff = ViewUtils.createFrameAni("effExpTrack", "spot");
                     AniUtils.ac.addChild(eff);
                     eff.x = expBarPos.x;
