@@ -79,8 +79,10 @@ class HospitalView extends egret.DisplayObjectContainer {
     async onCure() {
         var yesno = await this.confirmOkYesNo(undefined, "确定治疗？(回复最多 30% 生命)", true);
         if (yesno) {
+            await this.player.fireEvent("onHospitalCureStart");
             this.player.addHp(this.player.maxHp / 2);
             this.doClose();
+            await this.player.fireEvent("onHospitalCureEnd");
         }
     }
 

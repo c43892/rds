@@ -277,6 +277,15 @@ class AniView extends egret.DisplayObjectContainer {
         this.wmv.refreshHp();
     }
 
+    // 休息屋休息
+    public async onHospitalCureStart(ps) {
+        await this.blackIn();
+        this.wmv.refreshHp();
+    }
+    public async onHospitalCureEnd(ps) {
+        await this.blackOut();
+    }
+
     // 大地图上加血上限
     public async onGetHpMaxInWorldmap(ps) {
         var d = ps.dMaxHp;
@@ -376,12 +385,20 @@ class AniView extends egret.DisplayObjectContainer {
             }
         } else if (Utils.checkCatalogues(type, "food")) { // 食物抖一下
             await AniUtils.flashAndShake(sv);
-        } else if (type == "IceBlock") {
+        } else if (type == "IceBlock" || type == "Rock") {
             var g = this.bv.mapView.getGridViewAt(e.pos.x, e.pos.y);
+            AniUtils.flashAndShake(sv);
             var attackEff:egret.MovieClip = g.addEffect("effPlayerAttack", 1);
-            attackEff["wait"]().then(() => g.removeEffect("effPlayerAttack"));
-            await AniUtils.flash(sv, 50);
+            await attackEff["wait"]().then();
+            g.removeEffect("effPlayerAttack");
         }
+    }
+
+    // 披风生效
+    public async onCloakImmunizeSneak(ps) {
+        var e = ps.e;
+        var sv = this.getSV(e);
+        await AniUtils.flashOut(sv);
     }
 
     // 死神步数发生变化
@@ -447,10 +464,14 @@ class AniView extends egret.DisplayObjectContainer {
                 expBarPos.y += (this.bv.expBar.height - 5);
                 AniUtils.ac.addChild(track);
                 eff.gotoAndPlay(0, 1);
-                var t = Utils.getDist(svPos, expBarPos) / 2;
+                var t = 400; //  Utils.getDist(svPos, expBarPos) / 2;
                 AniUtils.createExpTrack(track, svPos, expBarPos, t, 100).then(() => {
                     eff.stop();
                     AniUtils.ac.removeChild(track);
+                    this.aniFact.createAniByCfg({type:"seq", arr:[
+                        {type:"tr", fa:1, ta:3, time:75},
+                        {type:"tr", fa:3, ta:1, time:75}
+                    ], obj:this.bv.expBar, noWait:true});
                     eff = ViewUtils.createFrameAni("effExpTrack", "spot");
                     AniUtils.ac.addChild(eff);
                     eff.x = expBarPos.x;

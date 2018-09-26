@@ -201,6 +201,6 @@
     "Cloak":{"name":"披风"},
     "LifeSpring":{"name":"生命之泉", "percent":50},
 
-    "NextLevelPort":{"name":"下一层", "addInEffect":"noEffect"},
+    "NextLevelPort":{"name":"下一层", "addInEffect":"noEffect", "useWithoutConfirm":true},
     "EscapePort":{"name":"逃跑", "invisible":true}
 }
