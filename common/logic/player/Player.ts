@@ -251,8 +251,11 @@ class Player {
 
     public toString():string {
         var relics = [];
-        for (var r of this.relics)
+        var removedRelics = this.relics;
+        for (var r of this.relics){
             relics.push(r.toString());
+            this.removeRelic(r.type);
+        }
 
         var props = [];
         for (var p of this.props)
@@ -261,8 +264,13 @@ class Player {
         var elems2NextLevel = [];
         for(var e of this.elems2NextLevel){
             var elemInfo = {type:{}, attrs:{}, hp:{}, shield:{}};
-            if(e instanceof Relic || e instanceof Item || e instanceof Prop){
-                elemInfo.type = "RelicItemProp";
+            if(e instanceof Item || e instanceof Prop){
+                elemInfo.type = "ItemProp";
+                elemInfo.attrs = e.toString();
+                elems2NextLevel.push(elemInfo);
+            }
+            else if(e instanceof Relic){
+                elemInfo.type = "Relic";
                 elemInfo.attrs = e.toString();
                 elems2NextLevel.push(elemInfo);
             }
@@ -286,7 +294,12 @@ class Player {
         for (var f of Player.serializableFields)
             pinfo[f] = this[f];
 
-        return JSON.stringify(pinfo);
+        var saveData = JSON.stringify(pinfo);
+
+        for(var relic of removedRelics)
+            this.addRelic(relic);
+
+        return saveData;
     }
 
     public static fromString(str:string):Player {
@@ -296,9 +309,9 @@ class Player {
             p[f] = pinfo[f];
 
         for (var r of pinfo.relics) {
-            var e = Elem.fromString(r);
-            p.addRelic(<Relic>e);
-            (<Relic>e).redoAllMutatedEffects();
+            var relic = Relic.fromString(r);
+            p.addRelic(<Relic>relic);
+            (<Relic>relic).redoAllMutatedEffects();
         }
 
         for (var prop of pinfo.props) {
@@ -310,9 +323,13 @@ class Player {
         }
 
         for (var elemInfo of pinfo.elems2NextLevel){
-            if(elemInfo.type == "RelicItemProp"){
+            if(elemInfo.type == "ItemProp"){
                 var e = Elem.fromString(elemInfo.attrs);
                 p.elems2NextLevel.push(e);
+            }
+            else if(elemInfo.type == "Relic"){
+                var relic = Relic.fromString(elemInfo.attrs);
+                p.elems2NextLevel.push(relic);
             }
             else {
                 var m = <Monster>ElemFactory.create(elemInfo.type, elemInfo.attrs);
@@ -402,8 +419,8 @@ class Player {
         for (var i in this.relics) {
             var e = this.relics[i];
             if (e.type == type) {
-                this.relics = Utils.removeAt(this.relics, i)
-                (<Relic>e).removeAllEffect();
+                this.relics = Utils.removeAt(this.relics, i);
+                (<Relic>e).removeAllEffects();
                 return e;
             }
         }

@@ -119,7 +119,8 @@ class Relic extends Elem {
     public static fromString(str:string):Relic {
         var info = JSON.parse(str);
         var r = <Relic>ElemFactory.create(info.type, info.attrs);
-        r.setReinfoceLv(info.lv);
+        if(info.lv > 0)
+            r.setReinfoceLv(info.lv);
         return r;
     }
 }
