@@ -251,8 +251,13 @@ class Player {
 
     public toString():string {
         var relics = [];
-        for (var r of this.relics)
+        var rs = [];
+        for (var r of this.relics) {
             relics.push(r.toString());
+            rs.push(r);
+        }
+
+        rs.forEach((r, _) => this.removeRelic(r.type));
 
         var props = [];
         for (var p of this.props)
@@ -296,8 +301,8 @@ class Player {
             p[f] = pinfo[f];
 
         for (var r of pinfo.relics) {
-            var e = Elem.fromString(r);
-            p.addRelic(<Relic>e);
+            var relic = Relic.fromString(r);
+            p.addRelic(<Relic>relic);
             (<Relic>e).redoAllMutatedEffects();
         }
 
@@ -402,8 +407,8 @@ class Player {
         for (var i in this.relics) {
             var e = this.relics[i];
             if (e.type == type) {
-                this.relics = Utils.removeAt(this.relics, i)
-                (<Relic>e).removeAllEffect();
+                this.relics = Utils.removeAt(this.relics, i);
+                (<Relic>e).removeAllEffects();
                 return e;
             }
         }
