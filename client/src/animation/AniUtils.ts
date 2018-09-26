@@ -498,8 +498,8 @@ class AniUtils {
         return img;
     }
 
-    // 经验光效飞行轨迹
-    public static createExpTrack(bcw:BazierControllerWrapper, fromPos, toPos, time, fadeOutDelay = 0) {
+    // 光效飞行轨迹
+    public static createFlyTrack(bcw:BazierControllerWrapper, fromPos, toPos, time, fadeOutDelay = 0) {
         var r = AniUtils.rand.nextDouble() / 2 + 0.25;
         var cx = fromPos.x + (toPos.x - fromPos.x) * r;
         var cy = fromPos.y + (toPos.y - fromPos.y) * r;

@@ -15,7 +15,7 @@ class RelicFactory {
             e.player = p;
             e.use = undefined;
             funcs[0](e, true);
-            e.enabledFuncs.push(0);
+            e.enabledFuncs = [0];
             return e;
         };
         e.use = async () => { 
@@ -28,8 +28,8 @@ class RelicFactory {
 
         // 强化时需要重置效果
         if (needResetOnReinforceLvUp) {
-            e.beforeRinforceLvUp = () => e.removeAllEffects();
-            e.afterPlayerActed = () => {
+            e.beforeReinforceLvUp = () => e.removeAllEffects();
+            e.afterRinforceLvUp = () => {
                 e.toRelic(e.player);
                 e.redoAllMutatedEffects();
             };

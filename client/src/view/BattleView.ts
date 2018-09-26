@@ -153,7 +153,7 @@ class BattleView extends egret.DisplayObjectContainer {
         ViewUtils.multiLang(this, ...objs);
 
         this.refreshExpBar();
-        this.refreshHpBar();
+        this.refreshHpAt();
     }
 
     // 根据当前升级进度，刷新经验条遮罩
@@ -181,12 +181,13 @@ class BattleView extends egret.DisplayObjectContainer {
         shape.graphics.lineTo(pts[0].x, pts[0].y);
         shape.graphics.endFill();
     }
-
-    // 刷新血条遮罩
-    refreshHpBar() {
-        this.hp.text = !this.player ? "0" : this.player.hp.toString();
+    
+    // 将血条刷新到指定位置
+    public refreshHpAt(hp = undefined) {
+        hp = hp ? hp : (this.player ? this.player.hp : 0);
+        this.hp.text = hp.toString();
         var shape = this.hpBarMask;
-        var p = !this.player ? 0 : (this.player.hp / this.player.maxHp);
+        var p = !this.player ? 0 : (hp / this.player.maxHp);
 
         var pts = [
             {x: this.hpBar.x, y: this.hpBar.y + this.hpBar.height}, // 左下角
@@ -385,6 +386,11 @@ class BattleView extends egret.DisplayObjectContainer {
         return this.money;
     }
 
+    // 获取血量显示对象
+    public getBloodText() {
+        return this.hp;
+    }
+
     // 刷新角色信息
     deathGodBarPosX;
     deathGodBarWidth;
@@ -412,7 +418,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.refreshRelics();
 
         this.refreshExpBar();
-        this.refreshHpBar();
+        this.refreshHpAt();
         ViewUtils.multiLang(this, this.avatarBg, this.avatarAreaMask, this.avatar, this.power, this.dodge, this.propsView, this.moreRelics);
 
         // 物品

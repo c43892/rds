@@ -9,14 +9,20 @@ class Relic extends Elem {
     
     public reinforceLv = 0; // 强化等级
     public canReinfoce():boolean { return this.attrs.reinforce && this.reinforceLv < this.attrs.reinforce.length; }
-    public beforeRinforceLvUp;
+    public beforeReinforceLvUp;
+    public afterReinforceLvUp;
     public reinforceLvUp():boolean { 
         if (!this.canReinfoce())
             return false;
 
-        if (this.beforeRinforceLvUp) this.beforeRinforceLvUp();
+        if (this.beforeReinforceLvUp)
+            this.beforeReinforceLvUp();
+
         this.setReinfoceLv(this.reinforceLv + 1);
-        if (this.afterPlayerActed) this.afterPlayerActed();
+
+        if (this.afterRinforceLvUp)
+            this.afterReinforceLvUp();
+
         return true;
     }
     public afterRinforceLvUp;
@@ -102,5 +108,18 @@ class Relic extends Elem {
             this.funcs[fp](this, false);
 
         this.enabledFuncs = [];
+    }
+
+    public toString():string {
+        return JSON.stringify({type:this.type, 
+            lv:this.reinforceLv
+        });
+    }
+
+    public static fromString(str:string):Relic {
+        var info = JSON.parse(str);
+        var r = <Relic>ElemFactory.create(info.type, info.attrs);
+        r.setReinfoceLv(info.lv);
+        return r;
     }
 }

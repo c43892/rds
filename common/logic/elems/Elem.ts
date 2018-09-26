@@ -58,8 +58,8 @@ class Elem {
     public useAt; // 一个 function(x:number, y:number):boolean, 返回值表示是否要保留（不消耗）
 
     // 各种逻辑点，Elem 应该在此作响应逻辑
-    public afterPlayerActed; // 当角色行动结束时触发，会被赋值为一个 function():void 的函数
-    public beforePlayerMove2NextLevel; // 当角色准备进入下一层时触发
+    // public afterPlayerActed; // 当角色行动结束时触发，会被赋值为一个 function():void 的函数
+    // public beforePlayerMove2NextLevel; // 当角色准备进入下一层时触发
     public beforeDie // 物品死亡前（物品使用后从地图上移除也算）
     public onDie; // 物品死亡时（物品使用后从地图上移除也算）
     public afterDie; // 物品死亡后（物品使用后从地图上移除也算）

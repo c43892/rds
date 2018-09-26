@@ -465,7 +465,7 @@ class AniView extends egret.DisplayObjectContainer {
                 AniUtils.ac.addChild(track);
                 eff.gotoAndPlay(0, 1);
                 var t = 400; //  Utils.getDist(svPos, expBarPos) / 2;
-                AniUtils.createExpTrack(track, svPos, expBarPos, t, 100).then(() => {
+                AniUtils.createFlyTrack(track, svPos, expBarPos, t, 100).then(() => {
                     eff.stop();
                     AniUtils.ac.removeChild(track);
                     this.aniFact.createAniByCfg({type:"seq", arr:[
@@ -536,7 +536,7 @@ class AniView extends egret.DisplayObjectContainer {
                 this.aniFact.createAni("tr", {obj:coinsImg, fx:from.x + offset.fx, fy:from.y + offset.fy,
                     tx:to.x + offset.tx, ty:to.y + offset.ty,
                     fsx:1, fsy:1, tsx:0.6, tsy:0.6, time:time}),
-                this.aniFact.createAni("tr", {obj:coinsImg, fa:1, ta:0, time:1})
+                this.aniFact.createAni("tr", {obj:coinsImg, fa:1, ta:0, time:0})
             ]});
             var cnt = dm - i;
             if (e && Utils.checkCatalogues(e.type, "coin")) {
@@ -556,6 +556,36 @@ class AniView extends egret.DisplayObjectContainer {
         }
 
         coinsImgArr.forEach((img, _) => img["dispose"]());        
+    }
+
+    // 吸血效果
+    public async bloodFly(e:Elem = undefined, from, to, d:number, time:number = 750, offset = {fx:0, fy:0, tx:0, ty:0}) {
+        var fromObj = from;
+        from = from instanceof egret.DisplayObject ? from.localToGlobal() : from;
+        to = to instanceof egret.DisplayObject ? to.localToGlobal() : to;
+        from.x += offset.fx;
+        from.y += offset.fy;
+        to.x += offset.tx;
+        to.y += offset.ty;
+
+        for (var i = d > 15 ? d - 15 : 0; i < d; i++) {
+            var img = ViewUtils.createBitmapByName("blood_png");
+            var s = AniUtils.rand.nextDouble() * 2 + 1;
+            img.scaleX = s;
+            img.scaleY = s;
+            let track = new BazierControllerWrapper(img);
+            AniUtils.ac.addChild(track);
+            AniUtils.createFlyTrack(track, from, to, time, 0).then(() => {
+                AniUtils.ac.removeChild(track);
+            });
+
+            await AniUtils.delay(250);
+            var p = this.bv.player;
+            this.bv.refreshHpAt(p.hp - (d - i));
+        }
+
+        await AniUtils.delay(750);
+        this.bv.refreshHpAt();
     }
 
     // 产生攻击行为
@@ -845,11 +875,12 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 吸血
     public async onSuckPlayerBlood(ps) {
-        var x = ps.m.pos.x;
-        var y = ps.m.pos.y
-        await this.aniFact.createAni("suckBlood", {x:x, y:y});
+        var m = ps.m;
+        var dhp = ps.dhp;
+        var sv = this.getSV(m);
+        await this.bloodFly(m, this.bv.getBloodText(), sv, -dhp, 750, {fx:0, fy:0, tx:sv.width / 2, ty:sv.height / 2});
         this.bv.refreshPlayer();
-        this.bv.mapView.refreshAt(x, y);
+        this.bv.mapView.refreshAt(m.pos.x, m.pos.y);
     }
 
     // 怪物拿走物品

@@ -1256,8 +1256,8 @@ class Battle {
         this.player.addHp(-dhp);
         m.addHp(dhp);
 
-        await this.triggerLogicPoint("onSuckPlayerBlood", {m:m});
-        await this.fireEvent("onSuckPlayerBlood", {m:m});
+        await this.triggerLogicPoint("onSuckPlayerBlood", {m:m, dhp:-dhp});
+        await this.fireEvent("onSuckPlayerBlood", {m:m, dhp:-dhp});
     }
 
     // 怪物拿走一批元素
