@@ -422,6 +422,17 @@ class AniView extends egret.DisplayObjectContainer {
             this.bv.playDeathGodAni(-1);
             for (var i = 0; i < flashCnt; i++) {
                 var stepAt = this.bv.player.deathStep - d + i;
+                let eff = ViewUtils.createFrameAni("effExpTrack", "spot");
+                let track = new BazierControllerWrapper(eff);
+                AniUtils.ac.addChild(track);
+                eff.play(1);
+                var fromPos = sv.localToGlobal();
+                fromPos.x += sv.width / 2;
+                fromPos.y += sv.height / 2;
+                AniUtils.createFlyTrack(track, fromPos, this.bv.effDeathGodGray.localToGlobal(), 400).then(() => {
+                    eff.stop();
+                    AniUtils.ac.removeChild(track);
+                });
                 await this.aniFact.createAniByCfg({type:"seq", arr: [
                     {type:"tr", fa:1, ta:3, time:50, obj:sv},
                     {type:"tr", fa:3, ta:1, time:50, obj:sv},
@@ -434,9 +445,22 @@ class AniView extends egret.DisplayObjectContainer {
         else {
             // 死神闪烁后退
             this.bv.playDeathGodAni(-1);
+            var nps = this.bv.mapView.getGridViews((e:Elem) => e && e.type == "NextLevelPort", false);
+            var npsv = nps.length > 0 ? this.getSV(nps[0].getElem()) : undefined;
+            var fromPos = npsv.localToGlobal();
+            fromPos.x += npsv.width / 2;
+            fromPos.y += npsv.height / 2;
             for (var i = 0; i < d; i++) {
                 var stepAt = this.bv.player.deathStep - d + i;
                 this.bv.refreshDeathGod(stepAt);
+                let eff = ViewUtils.createFrameAni("effExpTrack", "spot");
+                let track = new BazierControllerWrapper(eff);
+                AniUtils.ac.addChild(track);
+                eff.play(1);
+                AniUtils.createFlyTrack(track, fromPos, this.bv.effDeathGodGray.localToGlobal(), 400).then(() => {
+                    eff.stop();
+                    AniUtils.ac.removeChild(track);
+                });
                 await AniUtils.delay(50);
             }
             this.bv.playDeathGodAni(0);
@@ -463,7 +487,7 @@ class AniView extends egret.DisplayObjectContainer {
                 expBarPos.x += 7;
                 expBarPos.y += (this.bv.expBar.height - 5);
                 AniUtils.ac.addChild(track);
-                eff.gotoAndPlay(0, 1);
+                eff.play(1);
                 var t = 400; //  Utils.getDist(svPos, expBarPos) / 2;
                 AniUtils.createFlyTrack(track, svPos, expBarPos, t).then(() => {
                     eff.stop();
@@ -476,7 +500,7 @@ class AniView extends egret.DisplayObjectContainer {
                     AniUtils.ac.addChild(eff);
                     eff.x = expBarPos.x;
                     eff.y = expBarPos.y;
-                    eff.gotoAndPlay(0, 1);
+                    eff.play(1);
                     eff["wait"]().then(() => { eff.stop(); AniUtils.ac.removeChild(eff); });
                 });
             }
@@ -489,6 +513,11 @@ class AniView extends egret.DisplayObjectContainer {
                     egret.Tween.removeTweens(dm);
                     dm.alpha = 0;
                 }
+
+                this.aniFact.createAniByCfg({type:"seq", arr:[
+                    {type:"tr", fa:1, ta:3, time:75},
+                    {type:"tr", fa:3, ta:1, time:75}
+                ], obj:this.bv.hpBar, noWait:true});
             }
             default:
         }

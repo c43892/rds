@@ -12,7 +12,7 @@ class BuffBasic extends Buff {
         }
 
         // 过关时清零玩家当前拥有的护甲,增加40 死神步数
-        this.beforeGoOutLevel2 = async() => {
+        this.beforeGoOutLevel2 = async () => {
             var bt:Battle = this.getOwner().bt();
             if(bt.player.shield != 0)
                 await bt.implAddPlayerShield(-bt.player.shield);
