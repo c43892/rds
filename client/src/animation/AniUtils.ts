@@ -499,7 +499,7 @@ class AniUtils {
     }
 
     // 光效飞行轨迹
-    public static createFlyTrack(bcw:BazierControllerWrapper, fromPos, toPos, time, fadeOutDelay = 0) {
+    public static createFlyTrack(bcw:BazierControllerWrapper, fromPos, toPos, time) {
         var r = AniUtils.rand.nextDouble() / 2 + 0.25;
         var cx = fromPos.x + (toPos.x - fromPos.x) * r;
         var cy = fromPos.y + (toPos.y - fromPos.y) * r;
@@ -508,11 +508,8 @@ class AniUtils {
         r = (AniUtils.rand.nextDouble() - 0.5) * Utils.getDist(fromPos, toPos) / 2;
         var dx = r * Math.cos(dir);
         var dy = r * Math.sin(dir);
-        var controlPos = {x:cx + dx, y:cy + dy};        
-        return AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
-            {type:"bezierTrack", fromPos:fromPos, controlPos:controlPos, toPos:toPos, time:time},
-            {type:"tr", ta:0, time:fadeOutDelay}
-        ], obj:bcw, noWait:true});
+        var controlPos = {x:cx + dx, y:cy + dy};
+        return AniUtils.aniFact.createAniByCfg({type:"bezierTrack", fromPos:fromPos, controlPos:controlPos, toPos:toPos, time:time, obj:bcw, noWait:true});
     }
 
     // 清除所有相关动画

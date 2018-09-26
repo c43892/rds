@@ -465,7 +465,7 @@ class AniView extends egret.DisplayObjectContainer {
                 AniUtils.ac.addChild(track);
                 eff.gotoAndPlay(0, 1);
                 var t = 400; //  Utils.getDist(svPos, expBarPos) / 2;
-                AniUtils.createFlyTrack(track, svPos, expBarPos, t, 100).then(() => {
+                AniUtils.createFlyTrack(track, svPos, expBarPos, t).then(() => {
                     eff.stop();
                     AniUtils.ac.removeChild(track);
                     this.aniFact.createAniByCfg({type:"seq", arr:[
@@ -559,7 +559,7 @@ class AniView extends egret.DisplayObjectContainer {
     }
 
     // 吸血效果
-    public async bloodFly(e:Elem = undefined, from, to, d:number, time:number = 750, offset = {fx:0, fy:0, tx:0, ty:0}) {
+    public async bloodFly(e:Elem = undefined, from, to, d:number, time:number, offset = {fx:0, fy:0, tx:0, ty:0}) {
         var fromObj = from;
         from = from instanceof egret.DisplayObject ? from.localToGlobal() : from;
         to = to instanceof egret.DisplayObject ? to.localToGlobal() : to;
@@ -569,22 +569,24 @@ class AniView extends egret.DisplayObjectContainer {
         to.y += offset.ty;
 
         for (var i = d > 15 ? d - 15 : 0; i < d; i++) {
-            var img = ViewUtils.createBitmapByName("blood_png");
+            let img = ViewUtils.createBitmapByName("blood_png");
+            img.anchorOffsetX = img.width / 2;
+            img.anchorOffsetY = img.height / 2;
             var s = AniUtils.rand.nextDouble() * 2 + 1;
             img.scaleX = s;
             img.scaleY = s;
             let track = new BazierControllerWrapper(img);
             AniUtils.ac.addChild(track);
-            AniUtils.createFlyTrack(track, from, to, time, 0).then(() => {
+            AniUtils.createFlyTrack(track, from, to, time).then(() => {
                 AniUtils.ac.removeChild(track);
             });
 
-            await AniUtils.delay(250);
+            await AniUtils.delay(200);
             var p = this.bv.player;
-            this.bv.refreshHpAt(p.hp - (d - i));
+            this.bv.refreshHpAt(p.hp + (d - i));
         }
 
-        await AniUtils.delay(750);
+        await AniUtils.delay(time);
         this.bv.refreshHpAt();
     }
 
@@ -878,7 +880,7 @@ class AniView extends egret.DisplayObjectContainer {
         var m = ps.m;
         var dhp = ps.dhp;
         var sv = this.getSV(m);
-        await this.bloodFly(m, this.bv.getBloodText(), sv, -dhp, 750, {fx:0, fy:0, tx:sv.width / 2, ty:sv.height / 2});
+        await this.bloodFly(m, this.bv.getBloodText(), sv, -dhp, 300, {fx:0, fy:0, tx:sv.width / 2, ty:sv.height / 2});
         this.bv.refreshPlayer();
         this.bv.mapView.refreshAt(m.pos.x, m.pos.y);
     }
