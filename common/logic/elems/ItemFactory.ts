@@ -273,7 +273,7 @@ class ItemFactory {
             e = ElemFactory.addAI("onSneaking", async (ps) => {
                     if (ps.immunized) return;
                     ps.immunized = true;
-                    
+                    await e.bt().fireEvent("onCloakImmunizeSneak", {e:e});
                     await e.bt().implRemoveElemAt(e.pos.x, e.pos.y);
                 }, e, () => e.isValid());
                 return e;
