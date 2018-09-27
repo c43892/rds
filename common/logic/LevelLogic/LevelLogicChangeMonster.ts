@@ -6,7 +6,7 @@ class LevelLogicChangeMonster extends LevelLogic{
         this.changeTypes = changeTypes;
         this.num = num;
 
-        this.onLevelInited = async (ps) => {
+        this.addAI("onLevelInited", async (ps) => {
             var bt = <Battle>ps.bt;
             var noDropItems = (e:Elem) => Utils.filter(e.dropItems, (d:Elem) => d.type != "Coins").length == 0;
             var notSameType = (e:Elem) => Utils.indexOf(this.changeTypes, (changeType:string) => e.type == changeType) < 0;
@@ -20,6 +20,7 @@ class LevelLogicChangeMonster extends LevelLogic{
                 await bt.implRemoveElemAt(pos.x, pos.y);
                 await bt.implAddElemAt(m, pos.x, pos.y);
             }
-        }
+        })
+
     }
 }

@@ -182,7 +182,7 @@ class ItemFactory {
                 var attackerAttrs = ps.attackerAttrs;
                 if (!(attackerAttrs.owner instanceof Player)) return;
                 attackerAttrs.power.b += e.attrs.powerA;
-            }, e, () => e.isValid());
+            }, e, () => e.isValid(), true, true);
             return e;
         },
 
@@ -196,7 +196,7 @@ class ItemFactory {
                 var attackerAttrs = ps.attackerAttrs;                
                 attackerAttrs.power.b += e.attrs.powerD;
                 attackerAttrs.power.b = attackerAttrs.power.b < 1 ? 1 : attackerAttrs.power.b;
-            }, e, (ps) => e.isValid() && ps.attackerAttrs.owner instanceof Monster && ps.attackerAttrs.owner.isHazard());
+            }, e, (ps) => e.isValid() && ps.attackerAttrs.owner instanceof Monster && ps.attackerAttrs.owner.isHazard(), true, true);
             return e;
         },
 

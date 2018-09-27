@@ -2,7 +2,7 @@ class LevelLogicTakeKey extends LevelLogic{
     constructor(){
         super("LevelLogicTakeKey");
 
-        this.onLevelInited = async (ps) => {
+        this.addAI("onLevelInited", async (ps) => {
             var bt:Battle = ps.bt;
             var keys = bt.level.map.findAllElems((e:Elem) => e.type == "Key");
 
@@ -55,7 +55,8 @@ class LevelLogicTakeKey extends LevelLogic{
                 var takeNum = bt.srand.nextInt(keys.length - 1, keys.length + 1);
                 await this.normalMonsterTakeKey(bt, keys, takeNum);
             }
-        }
+        })
+
     }
 
     public async normalMonsterTakeKey(bt:Battle, keys:Elem[], takeNum:number){

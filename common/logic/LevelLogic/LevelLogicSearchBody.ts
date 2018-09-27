@@ -4,7 +4,7 @@ class LevelLogicSearchBody extends LevelLogic{
         super("LevelLogicSearchBody");
         this.rdps = rdps;
 
-        this.beforeLevelInited = async (ps) => {
+        this.addAI("beforeLevelInited", async (ps) => {
             var bt = <Battle>ps.bt;
             for(var i = 0; i < rdps.length; i++){
                 if(isNaN(rdps[i]))
@@ -21,7 +21,8 @@ class LevelLogicSearchBody extends LevelLogic{
                     await bt.implAddElemAt(key, gs[1].pos.x, gs[1].pos.y);
                 }
             }
-        }
+        })
+
     }
 
 }

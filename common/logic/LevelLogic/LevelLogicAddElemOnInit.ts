@@ -5,11 +5,12 @@ class LevelLogicAddElemOnInit extends LevelLogic {
         super("LevelLogicAddElemOnInit");
         this.elemTypes = elemTypes;
 
-        this.onLevelInitElems = (ps) => {
+        this.addAI("onLevelInitElems", (ps) => {
             for (var elemType of this.elemTypes) {
                 var e = this.level.createElem(elemType);
                 ps.elems.push(e);
             }
-        }
+        }, true)
+
     }
 }

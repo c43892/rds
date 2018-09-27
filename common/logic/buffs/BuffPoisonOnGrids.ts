@@ -10,15 +10,15 @@ class BuffPoisonOnGrids extends Buff {
         this.buffPoisonPs = buffPoisonPs;
         this.grids = grids;
 
-        this.onPlayerActed = async () => {
+        this.addAI("onPlayerActed", async () => {
             this.cnt --;
             var bt:Battle = this.getOwner().bt();
 
             if(this.cnt < 0)
                 await bt.implRemoveBuff(this.getOwner(), "BuffPoisonOnGrids");
-        }
+        })
 
-        this.onGridChanged = async (ps) => {
+        this.addAI("onGridChanged", async (ps) => {
             if(ps.subType != "gridUncovered") return;
 
             var bt:Battle = this.getOwner().bt();
@@ -27,8 +27,7 @@ class BuffPoisonOnGrids extends Buff {
                     await bt.implAddBuff(this.getOwner(), "BuffPoison", this.buffPoisonPs[0], this.buffPoisonPs[1]);
             
             this.grids = Utils.remove(this.grids, bt.level.map.getGridAt(ps.x, ps.y));
-        }
-
+        })
         
         this.overBuff = (newBuff:BuffPoisonOnGrids) => {
             this.cnt = newBuff.cnt;
