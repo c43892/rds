@@ -58,9 +58,8 @@ class ShopView extends egret.DisplayObjectContainer {
         this.btnGoBack.text = ViewUtils.getTipText("goBackBtn");
         this.btnGoBack.onClicked = () => this.onGoBack();
 
-        this.btnRob = new TextButtonWithBg("btnBg_png", 30);
+        this.btnRob = new TextButtonWithBg("btnRob_png", 0);
         this.btnRob.name = "btnRob";
-        this.btnRob.text = ViewUtils.getTipText("rob");
         this.btnRob.onClicked = async () => await this.doRob();
         this.addChild(this.btnRob);
 

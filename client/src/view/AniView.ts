@@ -422,7 +422,7 @@ class AniView extends egret.DisplayObjectContainer {
             this.bv.playDeathGodAni(-1);
             for (var i = 0; i < flashCnt; i++) {
                 var stepAt = this.bv.player.deathStep - d + i;
-                let eff = ViewUtils.createFrameAni("effExpTrack", "spot");
+                let eff = ViewUtils.createFrameAni("effExpTrack", "track");
                 let track = new BazierControllerWrapper(eff);
                 AniUtils.ac.addChild(track);
                 eff.play(1);
@@ -908,8 +908,11 @@ class AniView extends egret.DisplayObjectContainer {
     public async onSuckPlayerBlood(ps) {
         var m = ps.m;
         var dhp = ps.dhp;
+        var g = this.bv.mapView.getGridViewAt(m.pos.x, m.pos.y);
+        g.addEffect("effSuckBloodCircle");
         var sv = this.getSV(m);
         await this.bloodFly(m, this.bv.getBloodText(), sv, -dhp, 300, {fx:0, fy:0, tx:sv.width / 2, ty:sv.height / 2});
+        g.removeEffect("effSuckBloodCircle");
         this.bv.refreshPlayer();
         this.bv.mapView.refreshAt(m.pos.x, m.pos.y);
     }

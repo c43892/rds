@@ -209,8 +209,6 @@ class GuideView extends egret.DisplayObjectContainer {
     buildDialog() {
         this.dlgFrame = new egret.DisplayObjectContainer();
         this.dlgFrame.name = "guideDlgFrame";
-        this.dlgFrame.width = 500;
-        this.dlgFrame.height = 400;
 
         var bg = ViewUtils.createBitmapByName("confirmBg_png");
         bg.name = "bg";
@@ -239,6 +237,8 @@ class GuideView extends egret.DisplayObjectContainer {
         var objs = [bg, avatarImg1, avatarName1, avatarImg2, avatarName2, content];
         objs.forEach((obj, _) => this.dlgFrame.addChild(obj));
         ViewUtils.multiLang(this.dlgFrame, ...objs);
+        this.dlgFrame.width = this.bg.width;
+        this.dlgFrame.height = this.bg.height;
     }
 
     // 构建对话内容
@@ -250,7 +250,7 @@ class GuideView extends egret.DisplayObjectContainer {
         var content = <egret.TextField>this.dlgFrame.getChildByName("content");
 
         if (onLeft) {
-            ViewUtils.setTexName(avatarImg1, tex + "_png");
+            //ViewUtils.setTexName(avatarImg1, tex + "_png");
             avatarName1.text = name;
             avatarImg1.alpha = 1;
             avatarImg1.scaleX = flipAvatar ? -1 : 1;
@@ -258,7 +258,7 @@ class GuideView extends egret.DisplayObjectContainer {
             avatarImg2.alpha = 0;
             avatarName2.alpha = 0;
         } else {
-            ViewUtils.setTexName(avatarImg2, tex + "_png");
+            //ViewUtils.setTexName(avatarImg2, tex + "_png");
             avatarName2.text = name;
             avatarImg2.alpha = 1;
             avatarImg2.scaleX = flipAvatar ? -1 : 1;
