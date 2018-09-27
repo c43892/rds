@@ -137,7 +137,11 @@ class ItemFactory {
         "Steak": (attrs) => ElemFactory.foodLogic(attrs.cnt, attrs.dhp)(this.createItem()),
 
         // 石块
-        "Rock": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, undefined, () => true, () => undefined, undefined)(this.createItem()),
+        "Rock": (attrs) => {
+            var e = ElemFactory.elemCanUseManyTimes(attrs.cnt, undefined, () => true, () => undefined, undefined)(this.createItem());
+            e.canBeDragDrop = false;
+            return e;
+        },
 
         // 盾牌
         "Shield": (attrs) => {
