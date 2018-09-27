@@ -17,7 +17,7 @@ class Occupation {
     // 护士
     static makeNurse(p:Player):Player {
         p.addRelic(<Relic>ElemFactory.create("MedicineBox")); // 初始遗物
-        p.addItem(<Prop>ElemFactory.create("HpCapsule")); // 初始物品
+        p.addItem(<Prop>ElemFactory.create("HpPotion")); // 初始物品
         return p;
     }
 
@@ -26,16 +26,21 @@ class Occupation {
         return p;
     }
 
+    static occupationMakers = {
+        "Nurse": (p:Player) => {
+            p.addBuff(new BuffNurse()); // 职业buff
+        },
+    };
+
+    static exists(occupation) {
+        return !!Occupation.occupationMakers[occupation];
+    }
+
     static addOccupationBuff(p:Player){
         p.clear();
         p.addBuff(new BuffBasic()); // 探空格+经验
         p.addBuff(new BuffDeathGod()); // 死神
-        switch(p.occupation){
-            case "Nurse":{
-                p.addBuff(new BuffNurse()); // 职业buff
-                break;
-            }
-        }
+        Occupation.occupationMakers[p.occupation](p);
         return p;
     }
 }

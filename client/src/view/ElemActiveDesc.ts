@@ -3,7 +3,7 @@ class ElemActiveDesc {
         "Shield" : {
             "cd": (p:Player, e:Elem) => ElemActiveDesc.getCD(p, e),
         },
-        "HpCapsule" : {
+        "HpPotion" : {
             "heal": (p:Player, e:Elem) => ElemActiveDesc.getBuffAddHp(p, e, "heal")
         },
         "Bazooka" : {

@@ -9,7 +9,7 @@ class BattleView extends egret.DisplayObjectContainer {
 
     // 头像区域
     public avatarBg:egret.Bitmap; // 角色头像区域背景
-    public occupationBg:egret.Bitmap; // 角色职业背景
+    // public occupationBg:egret.Bitmap; // 角色职业背景
     public avatarSke:dragonBones.Armature;
     public avatar:egret.DisplayObject; // 角色头像
     public avatarAreaMask:egret.Bitmap; // 角色区域的遮罩
@@ -80,8 +80,8 @@ class BattleView extends egret.DisplayObjectContainer {
     // 头像、经验条、血条、攻击、闪避
     createAvatarArea() {
         // 头像
-        this.occupationBg = new egret.Bitmap();
-        this.occupationBg.name = "occupationBg";
+        // this.occupationBg = new egret.Bitmap();
+        // this.occupationBg.name = "occupationBg";
         this.avatarSke = ViewUtils.createSkeletonAni("hushimeimei");
         this.avatarSke.animation.reset();
         this.avatar = this.avatarSke.display;
@@ -90,7 +90,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.avatarAreaMask.name = "avatarAreaMask";
 
         this.avatar.mask = this.avatarAreaMask;
-        this.occupationBg.mask = this.avatarAreaMask;
+        // this.occupationBg.mask = this.avatarAreaMask;
 
         // 头像区域背景
         this.avatarBg = ViewUtils.createBitmapByName("avatarBg_png");
@@ -138,7 +138,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.currentStoryLv.y = this.moneyAndStoriesBg.y + 10;
 
         var objs = [
-            this.moneyAndStoriesBg, this.occupationBg, this.avatar, this.avatarBg,
+            this.moneyAndStoriesBg, this.avatar, this.avatarBg,
             this.currentStoryLv, this.money, this.power, this.dodge, 
             this.hpBarMask, this.expBarMask, this.expBar, this.hpBar, this.hp
         ];
@@ -395,7 +395,7 @@ class BattleView extends egret.DisplayObjectContainer {
     deathGodBarPosX;
     deathGodBarWidth;
     public refreshPlayer() {
-        ViewUtils.setTexName(this.occupationBg, this.player.occupation + "Bg_png", true);
+        // ViewUtils.setTexName(this.occupationBg, this.player.occupation + "Bg_png", true);
         this.avatarSke.animation.reset();
         this.currentStoryLv.text = this.player.currentTotalStorey().toString();
 

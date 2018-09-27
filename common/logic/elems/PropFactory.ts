@@ -32,7 +32,7 @@ class PropFactory {
 
     public creators = {
         // 医疗药剂
-        "HpCapsule": (attrs) => {
+        "HpPotion": (attrs) => {
             return this.createProp(attrs, (e:Elem) => {
                 e.canUse = () => true;
                 e.use = async () => {

@@ -3547,7 +3547,7 @@
             "num":[1, 3], "elems": {
                 "Apple": 20,
                 "Steak": 10,
-                "HpCapsule": 5,
+                "HpPotion": 5,
                 "HpPotion": 5
         }},{
             "num":[1, 3], "elems": {
