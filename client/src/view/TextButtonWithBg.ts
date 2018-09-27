@@ -108,11 +108,16 @@ class TextButtonWithBg extends egret.DisplayObjectContainer {
         this.touchEnabled = b;
         if (b) {
             this.bg.alpha = 1;
-            if (this.disabledBg) this.disabledBg.alpha = 0;
+            if (this.disabledBg)
+                this.disabledBg.alpha = 0;
+            else
+                ViewUtils.makeGray(this, false);
         } else {
             if (this.disabledBg) {
                 this.bg.alpha = 0;
                 this.disabledBg.alpha = 1;
+            } else {
+                ViewUtils.makeGray(this, true);
             }
         }
     }
