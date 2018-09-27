@@ -29,7 +29,7 @@ class RelicFactory {
         // 强化时需要重置效果
         if (needResetOnReinforceLvUp) {
             e.beforeReinforceLvUp = () => e.removeAllEffects();
-            e.afterRinforceLvUp = () => {
+            e.afterReinforceLvUp = () => {
                 e.toRelic(e.player);
                 e.redoAllMutatedEffects();
             };
