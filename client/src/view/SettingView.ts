@@ -53,7 +53,8 @@ class SettingView extends egret.DisplayObjectContainer{
         this.exitBtn.name = "exitBtn";
         this.exitBtn.onClicked = async () => await this.exitThisGame();
 
-        this.goBackBtn = new TextButtonWithBg("goBack_png");
+        this.goBackBtn = new TextButtonWithBg("goBack_png", 30);
+        this.goBackBtn.text = ViewUtils.getTipText("goBackBtn");
         this.goBackBtn.name = "goBackBtn";
         this.goBackBtn.onClicked =  () => this.doClose();        
 

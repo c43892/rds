@@ -83,7 +83,6 @@ class BoxRoomView extends egret.DisplayObjectContainer {
             elem.x = 320 + (i - (arr.length - 1) / 2) * 114 - 42;
             elem.y = 380 - 42;
             elem["eType"] = arr[i];
-            elem.onClicked = () => this.getDropItem(elem);
             this.elems.push(elem);
             this.addChild(elem);
             elem.alpha = 0;
@@ -97,14 +96,8 @@ class BoxRoomView extends egret.DisplayObjectContainer {
     }
 
     async onClose() {
-        if(this.elems.length != 0){
-            var content = ViewUtils.formatString(ViewUtils.getTipText("makeSureGoOutBoxRoom"));
-            var ok = await this.confirmOkYesNo(undefined, content, true, ["确定", "取消"]);
-            if (ok) 
-                this.doClose();
-        }
-        else
-            this.doClose();
+        await this.getDropItems();
+        this.doClose();
     }
 
     async onOpenBox() {
@@ -121,37 +114,60 @@ class BoxRoomView extends egret.DisplayObjectContainer {
         
         ViewUtils.setTexName(this.box, "BoxRoomBoxOpened_png");
 
-        for (var elem of this.elems){
-            var fromImg = AniUtils.createImg(elem["eType"] + "_png");
+        var fromImgs = [];
+        for (var i = 0; i < this.elems.length; i++){
+            let elem = this.elems[i];
+            let fromImg = AniUtils.createImg(elem["eType"] + "_png");
+            fromImgs.push(fromImg);
             fromImg.x = this.startingPoint.x;
             fromImg.y = this.startingPoint.y;
             fromImg.width = elem.width / 2;
-            fromImg.height = elem.height / 2;
-            await AniUtils.flash(fromImg, 200);
+            fromImg.height = elem.height / 2;            
             var toImg = elem;
-            await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
-            fromImg["dispose"]();
-            elem.alpha = 1;
-            elem.touchEnabled = true;
+            await Utils.delay(200);
+            if(i == this.elems.length - 1){
+                await AniUtils.flash(fromImg, 200);            
+                await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
+                fromImg["dispose"]();
+                elem.alpha = 1;
+                elem.touchEnabled = true;
+            }
+            else{
+                AniUtils.flash(fromImg, 200);
+                AniUtils.fly2(fromImg, fromImg, toImg, true, 1).then(() => {
+                    fromImg["dispose"]();
+                    elem.alpha = 1;
+                    elem.touchEnabled = true;
+                });
+            }
         }
     }
 
-    async getDropItem(elem:TextButtonWithBg) {
-        this.removeChild(elem);
-        this.elems = Utils.remove(this.elems, elem);
-        var fromImg = AniUtils.createImg(elem["eType"] + "_png");
-        fromImg.x = elem.x;
-        fromImg.y = elem.y;
-        fromImg.width = elem.width;
-        fromImg.height = elem.height;
-        await AniUtils.flash(fromImg, 200);
-        var toImg = this.destination;
-        await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
-        fromImg["dispose"]();
+    async getDropItems() {
+        for (var i = 0; i < this.elems.length; i++) {
+            let elem = this.elems[i];
+            this.removeChild(elem);
+            let fromImg = AniUtils.createImg(elem["eType"] + "_png");
+            fromImg.x = elem.x;
+            fromImg.y = elem.y;
+            fromImg.width = elem.width;
+            fromImg.height = elem.height;            
+            var toImg = this.destination;
+            await Utils.delay(200);
+            if(i == this.elems.length - 1){
+                await AniUtils.flash(fromImg, 200);
+                await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
+                fromImg["dispose"]();
+                elem.touchEnabled = false;
+            }
+            else{
+                AniUtils.flash(fromImg, 200);
+                AniUtils.fly2(fromImg, fromImg, toImg, true, 1).then(() => fromImg["dispose"]());                
+            }
 
-        elem.touchEnabled = false;
-        var e = ElemFactory.create(elem["eType"]);
+            var e = ElemFactory.create(elem["eType"]);
 
-        this.player.addItem(e);
+            this.player.addItem(e);
+        }
     }
 }

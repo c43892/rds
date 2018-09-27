@@ -27,7 +27,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         this.bg.touchEnabled = true;
 
         // 返回按钮
-        this.closeBtn = new TextButtonWithBg("btnBg_png", 30);
+        this.closeBtn = new TextButtonWithBg("goBack_png", 30);
         this.closeBtn.name = "closeBtn";
         this.closeBtn.text = "返回";
         this.closeBtn.touchEnabled = true;

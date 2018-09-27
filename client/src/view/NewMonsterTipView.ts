@@ -15,7 +15,7 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
         if (!this.newMonsterTipsData)
             this.newMonsterTipsData = [];
 
-        this.btnNext = new TextButtonWithBg("btnBg_png", 30);
+        this.btnNext = new TextButtonWithBg("goBack_png", 30);
         this.btnNext.onClicked = () => this.onNext();
         this.elemDescView = new ElemDescView(w, h);
 
@@ -131,10 +131,9 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
         if (!this.contains(this.btnNext))
             this.addChild(this.btnNext);
 
-        this.btnNext.width = 150;
         this.btnNext.text = ViewUtils.getTipText(this.monsterArr.length > 0 ? "nextOne" : "close");
-        this.btnNext.x = this.width - this.btnNext.width - 50;
-        this.btnNext.y = this.height - this.btnNext.height - 100;
+        this.btnNext.x = 417;
+        this.btnNext.y = 960;
         this.btnNext.refresh();
     }
 
