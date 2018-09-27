@@ -373,32 +373,12 @@ class ViewUtils {
         return bmps;
     }
 
-    public static createRelicUpgradeSubView(r1:Relic, r2:Relic):egret.DisplayObject[] {
-        var objs = [];
-
-        // 左边的遗物信息
-        objs.push(...ViewUtils.createSmallRelicInfoRect(r1, 0));
-
-        // 右边的遗物信息
-        objs.push(...ViewUtils.createSmallRelicInfoRect(r2, 320));
-
-        // 箭头
-        var arrow = ViewUtils.createBitmapByName("relicUpgradeArrow_png");
-        arrow.x = 320 - arrow.width / 2;
-        var bg = objs[0];
-        arrow.y = bg.y + bg.height - 70;
-        objs.push(arrow);
-
-        return objs;
-    }
-
     // 创建一个小型的显示遗物信息的区域
-    public static createSmallRelicInfoRect(e:Relic, left:number):egret.DisplayObject[] {
+    public static createSmallRelicInfoRect(e:Relic):egret.DisplayObject[] {
         // 背景底图
         var bg = ViewUtils.createBitmapByName("confirmBg_png");
+        bg.name = "bg";
         bg.width = 300;
-        bg.x = left + 10;
-        bg.y = 200;
 
         // 图标
         var icon = ViewUtils.createBitmapByName(e.getElemImgRes() + "_png");
@@ -406,14 +386,7 @@ class ViewUtils {
         icon.y = bg.y + 20;
         icon.width *= 0.75;
         icon.height *= 0.75;
-
-        // 光效
-        var eff = ViewUtils.createFrameAni("effRelicShining");
-        eff.x = icon.x + icon.width / 2;
-        eff.y = icon.y + icon.height / 2;
-        eff.scaleX = 0.75;
-        eff.scaleY = 0.75;
-        eff.play(-1);
+        icon.name = "icon";
 
         var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
 
@@ -455,6 +428,6 @@ class ViewUtils {
 
         bg.height = currentY + 50 - bg.y;
 
-        return [bg, icon, eff, title, title, ...descObjs];
+        return [bg, icon, title, title, ...descObjs];
     }
 }

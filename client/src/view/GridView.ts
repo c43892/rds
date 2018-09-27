@@ -490,7 +490,7 @@ class GridView extends egret.DisplayObjectContainer {
             case GridStatus.Marked: {
                 let e = this.map.getElemAt(this.gx, this.gy);
                 Utils.assert(!!e, "empty grid cannot be marked");
-                if ((e instanceof Prop || e instanceof Item || e instanceof Relic) || (e instanceof Monster && !(e.isHazard() || (e["linkTo"] && e["linkTo"].isHazard()))))
+                if (e instanceof Monster && !(e.isHazard() || (e["linkTo"] && e["linkTo"].isHazard())))
                     GridView.try2UncoverAt(b.pos.x, b.pos.y);
                 else
                     await GridView.try2UseElem(e);
