@@ -15,7 +15,7 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
         if (!this.newMonsterTipsData)
             this.newMonsterTipsData = [];
 
-        this.btnNext = new TextButtonWithBg("goBack_png", 30);
+        this.btnNext = new TextButtonWithBg("goForward_png", 30);
         this.btnNext.onClicked = () => this.onNext();
         this.elemDescView = new ElemDescView(w, h);
 

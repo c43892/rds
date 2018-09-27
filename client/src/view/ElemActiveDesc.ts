@@ -19,7 +19,7 @@ class ElemActiveDesc {
             "rounds": (p:Player, e:Elem) => e["attackInterval"] ? e["attackInterval"] : e.attrs.selfExplode.cnt
         },
         "EconomyMagazine" : {
-            "money": (p:Player, e:Elem) => GCfg.getElemAttrsOfLevel(e.type, p.currentTotalStorey())
+            "money": (p:Player, e:Elem) => GCfg.getElemAttrsOfLevel("CoinsSmall", p.currentTotalStorey()).cnt
         }
     }
     
