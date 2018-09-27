@@ -112,14 +112,6 @@ class ItemFactory {
             return e;
         },
 
-        // 红药水
-        "HpPotion": (attrs) => {
-            var e = this.createItem();
-            e.canUse = () => true;              
-            e.use = async () => await e.bt().implAddPlayerHp(attrs.dhp, e);
-            return e;            
-        },        
-
         // 黑洞
         "Hole": (attrs) => {
             var e = this.createItem();
