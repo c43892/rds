@@ -96,17 +96,21 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
 
         // 确定取消按钮
 
-        var btnCancel = new TextButtonWithBg("goBack_png", 30);
+        var btnCancel = new TextButtonWithBg("btnBg_png", 25);
+        btnCancel.width = 120;
+        btnCancel.height = 50;
         btnCancel.refresh();
-        btnCancel.x = 10;
-        btnCancel.y = 960;
+        btnCancel.x = bg.x + bg.width / 2 - btnCancel.width - 50;
+        btnCancel.y = currentY + 20;
         btnCancel.text = ViewUtils.getTipText("cancel");
         this.addChild(btnCancel);
 
-        var btnYes = new TextButtonWithBg("goForward_png", 30);
+        var btnYes = new TextButtonWithBg("btnBg_png", 25);
+        btnYes.width = 120;
+        btnYes.height = 50;
         btnYes.refresh();
-        btnYes.x = 417;
-        btnYes.y = 960;
+        btnYes.x = bg.x + bg.width / 2 + 50;
+        btnYes.y = currentY + 20;
         btnYes.text = ViewUtils.getTipText("yes");
         this.addChild(btnYes);
 
@@ -163,17 +167,21 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
 
         // 确定取消按钮
 
-        var btnCancel = new TextButtonWithBg("goBack_png", 30);
+        var btnCancel = new TextButtonWithBg("btnBg_png", 25);
+        btnCancel.width = 120;
+        btnCancel.height = 50;
         btnCancel.refresh();
-        btnCancel.x = 10;
-        btnCancel.y = 960;
+        btnCancel.x = bg.x + bg.width / 2 - btnCancel.width - 50;
+        btnCancel.y = currentY + 20;
         btnCancel.text = ViewUtils.getTipText("cancel");
         this.addChild(btnCancel);
 
-        var btnYes = new TextButtonWithBg("goForward_png", 30);
+        var btnYes = new TextButtonWithBg("btnBg_png", 25);
+        btnYes.width = 120;
+        btnYes.height = 50;
         btnYes.refresh();
-        btnYes.x = 417;
-        btnYes.y = 960;
+        btnYes.x = bg.x + bg.width / 2 + 50;
+        btnYes.y = currentY + 20;
         btnYes.text = ViewUtils.getTipText("yes");
         this.addChild(btnYes);
 
