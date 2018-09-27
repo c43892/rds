@@ -181,7 +181,9 @@ class Main extends egret.DisplayObjectContainer {
         this.ldv.refresh();
 
         await this.loadResGroups("preload"); // 加载初始资源
+        Utils.log("preload finished");
         this.globalInit(); // 初始化全局配置
+        Utils.log("global initialize finished");
         this.mv = this.createMainView(); // 创建主场景
 
         // 排行榜服务器通信用

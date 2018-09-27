@@ -330,12 +330,14 @@ class Utils {
 
     // 载入指定数据
     public static loadLocalData(key:string) {
-        return JSON.parse(Utils.$$loadItem(key));
+        var data = Utils.$$loadItem(key);
+        return data ? JSON.parse(data) : undefined;
     }
 
     // 保存指定数据
     public static saveLocalData(key:string, data) {
-        Utils.$$saveItem(key, JSON.stringify(data));
+        if (data)
+            Utils.$$saveItem(key, JSON.stringify(data));
     }
 
     // 根据指定权重，随机选取若干目标，集合格式为 {type:weight, type:weight, ...}
