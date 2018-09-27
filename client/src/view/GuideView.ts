@@ -243,6 +243,10 @@ class GuideView extends egret.DisplayObjectContainer {
 
     // 构建对话内容
     makeDialog(tex:string, name:string, str:string, x:number, y:number, onLeft:boolean = true, flipAvatar:boolean = false) {
+        if (Occupation.exists(tex)) {
+
+        }
+        
         var avatarImg1 = <egret.Bitmap>this.dlgFrame.getChildByName("avatarImg1");
         var avatarName1 = <egret.TextField>this.dlgFrame.getChildByName("avatarName1");
         var avatarImg2 = <egret.Bitmap>this.dlgFrame.getChildByName("avatarImg2");
