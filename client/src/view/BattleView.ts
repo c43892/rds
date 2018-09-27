@@ -82,7 +82,7 @@ class BattleView extends egret.DisplayObjectContainer {
         // 头像
         // this.occupationBg = new egret.Bitmap();
         // this.occupationBg.name = "occupationBg";
-        this.avatarSke = ViewUtils.createSkeletonAni("hushimeimei");
+        this.avatarSke = ViewUtils.createSkeletonAni("Nurse");
         this.avatarSke.animation.reset();
         this.avatar = this.avatarSke.display;
         this.avatar.name = "avatar";
