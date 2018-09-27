@@ -18,6 +18,9 @@ class ElemActiveDesc {
         "BombAbomination" : {
             "rounds": (p:Player, e:Elem) => e["attackInterval"] ? e["attackInterval"] : e.attrs.selfExplode.cnt
         },
+        "EconomyMagazine" : {
+            "money": (p:Player, e:Elem) => GCfg.getElemAttrsOfLevel(e.type, p.currentTotalStorey())
+        }
     }
     
     // 获取elem受各因素影响后的cd

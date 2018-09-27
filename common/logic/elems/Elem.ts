@@ -88,6 +88,12 @@ class Elem {
         }
     }
 
+    // 手动移除某个逻辑点的AI
+    public clearAIAtLogicPoint(logicPoint:string){
+        this[logicPoint + "Async"] = undefined;
+        this[logicPoint + "Sync"] = undefined;
+    }
+
     // 获取攻击属性，怪物或者武器都可以作为攻击者
     public getAttrsAsAttacker() {
         return {

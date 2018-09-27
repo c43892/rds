@@ -78,6 +78,7 @@ class MonsterFactory {
         "DeathGod": (attrs) => {
             var m = this.createMonster(attrs);
             m = <Monster>ElemFactory.addDieAI(async () => m.bt().implAddDeathGodStep(m.attrs.deathStep, m), m);
+            m = <Monster>ElemFactory.addAI("beforeGoOutLevel1", () => m.clearAIAtLogicPoint("onPlayerActed"), m);
             m = MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player);
             m = MonsterFactory.doRandomFly("onPlayerActed", m);
             return m;
