@@ -46,21 +46,32 @@ class ElemFactory {
     }
 
     // 为怪物在指定逻辑点添加一个行为，在隐藏时也生效
-    public static addAIEvenCovered(logicPoint:string, act, e:Elem, condition = undefined):Elem {
-        var doPrior = e[logicPoint];
-        e[logicPoint] = async (ps) => {
-            if (doPrior != undefined)
-                await doPrior(ps);
+    public static addAIEvenCovered(logicPoint:string, act, e:Elem, condition = undefined, Sync:boolean = false):Elem {
+        var logicPointTrue = logicPoint + (Sync ? "Sync" : "Async");
+        var doPrior = e[logicPointTrue];
+        if (Sync) {
+            e[logicPointTrue] = (ps) => {
+                if (doPrior != undefined)
+                    doPrior(ps);
 
-            if (!condition || condition(ps))
-                await act(ps);
+                if (!condition || condition(ps))
+                    act(ps);
+            }
         }
-        
+        else {
+            e[logicPointTrue] = async (ps) => {
+                if (doPrior != undefined)
+                    await doPrior(ps);
+
+                if (!condition || condition(ps))
+                    await act(ps);
+            }
+        }
         return e;
     }
 
     // 为怪物在指定逻辑点添加一个行为，对于怪物和物品，只在显形的时候生效
-    public static addAI(logicPoint:string, act, e:Elem, condition = undefined, onlyUncovered:boolean = true):Elem {
+    public static addAI(logicPoint:string, act, e:Elem, condition = undefined, onlyUncovered:boolean = true, Sync:boolean = false):Elem {
         return this.addAIEvenCovered(logicPoint, act, e, (ps) => {
             if (e instanceof Item || e instanceof Monster) {
                 if (onlyUncovered && e.getGrid().isCovered())
@@ -69,7 +80,7 @@ class ElemFactory {
                     return !condition || condition(ps);
             } else
                 return !condition || condition(ps);
-        });
+        }, Sync);
     }
 
     // 为物品死亡前增加部分特殊逻辑

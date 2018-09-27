@@ -111,7 +111,8 @@ class Relic extends Elem {
 
     // 手动
     public clearAIAtLogicPoint(logicPoint:string){
-        this[logicPoint] = undefined;
+        this[logicPoint + "Async"] = undefined;
+        this[logicPoint + "Sync"] = undefined;
     }
 
     public toString():string {

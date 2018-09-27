@@ -5,14 +5,14 @@ class BuffStrangthPotion extends Buff{
 
         this.cnt = cnt;
 
-        this.onPlayerActed = async () => {
+        this.addAI("onPlayerActed", async () => {
             var bt:Battle = this.getOwner().bt();
             this.cnt --;
             if(this.cnt <= 0)
                 await bt.implRemoveBuff(this.getOwner(), this.type);
-        };
+        })
 
-        this.onCalcAttacking = (ps) => {
+        this.addAI("onCalcAttacking", (ps) => {
             var attackerAttrs = ps.attackerAttrs;
             if (!(attackerAttrs.owner instanceof Player)) return;
 
@@ -20,7 +20,7 @@ class BuffStrangthPotion extends Buff{
             if(Utils.indexOf(attackerAttrs.attackFlags, (s) => s == "immuneAttackBack") > -1) return;
 
             attackerAttrs.attackFlags.push("immuneAttackBack");
-        }
+        }, true)
 
         this.overBuff = (newBuff:Buff) => this.cnt = cnt + newBuff.cnt;
     }

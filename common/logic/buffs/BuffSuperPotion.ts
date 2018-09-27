@@ -4,27 +4,27 @@ class BuffSuperPotion extends Buff{
         super("BuffSuperPotion");
         this.cnt = cnt;
 
-        this.onPlayerActed = async () => {
+        this.addAI("onPlayerActed", async () => {
             var bt:Battle = this.getOwner().bt();
             this.cnt --;
             if(this.cnt <= 0)
                 await bt.implRemoveBuff(this.getOwner(), this.type);
-        };
+        })
 
         // 免疫突袭
-        this.onSneaking = (ps) => {
+        this.addAI("onSneaking", (ps) => {
             if (ps.immunized) return;
 
             ps.immunized = true;
-        };
+        })
 
         // 免疫攻击伤害和buff
-        this.onCalcAttacking = (ps) => {
+        this.addAI("onCalcAttacking", (ps) => {
             if(ps.subType != "monster2targets")
                 return;
 
             ps.targetAttrs.targetFlags.push("cancelAttack");
-        };
+        }, true)
 
         this.overBuff = (newBuff:Buff) => this.cnt = cnt + newBuff.cnt;
     } 

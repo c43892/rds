@@ -314,19 +314,21 @@ class Battle {
 
     // 触发逻辑点，参数为逻辑点名称，该名称直接字面对应个各元素对逻辑点的处理函数，
     // 处理函数的返回值表示是否需要截获该事件，不再传递给其它元素
-    public async triggerLogicPoint(lpName:string, ps = undefined) {
+    public async triggerLogicPoint(lpName: string, ps = undefined) {
+        var trueLpName = lpName + "Async";
         var hs = this.collectAllLogicHandler();
         for (var h of hs) {
-            if (h[lpName] && await h[lpName](ps))
-                return;
+            if (h[trueLpName])
+                await h[trueLpName](ps)
         }
     }
 
     public triggerLogicPointSync(lpName:string, ps = undefined) {
+        var trueLpName = lpName + "Sync";
         var hs = this.collectAllLogicHandler();
         for (var h of hs) {
-            if (h[lpName] && h[lpName](ps))
-                return;
+            if (h[trueLpName])
+                h[trueLpName](ps)
         }
     }
 
@@ -723,7 +725,7 @@ class Battle {
         //玩家被治疗时受到的加成
         if (dhp > 0){
             var onPlayerHealingPs = {dhp:dhp, source:source, dhpPs:{a:0, b:0, c:0}}
-            await this.triggerLogicPoint("onPlayerHealing", onPlayerHealingPs);
+            this.triggerLogicPointSync("onPlayerHealing", onPlayerHealingPs);
             dhp = (dhp + onPlayerHealingPs.dhpPs.b) * (1 + onPlayerHealingPs.dhpPs.a) + onPlayerHealingPs.dhpPs.c;
         }
 

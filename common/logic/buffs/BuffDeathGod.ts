@@ -3,7 +3,8 @@
 class BuffDeathGod extends Buff {
     constructor() {
         super("BuffDeathGod");
-        this.onPlayerActed = async (ps) => {
+
+        this.addAI("onPlayerActed", async (ps) => {
             var p = <Player>this.getOwner();
             var bt:Battle = p.bt();
             var num = ps.num;
@@ -15,7 +16,7 @@ class BuffDeathGod extends Buff {
             await bt.implAddDeathGodStep(num, undefined, "deathGodBuff");
             if (p.deathStep == 0 && !bt.level.map.findFirstUncoveredElem((e:Elem) => e.type == "DeathGod"))
                 await this.doEffect();
-        };
+        })
 
         this.doEffect = async () => {
             var bt:Battle = this.getOwner().bt();

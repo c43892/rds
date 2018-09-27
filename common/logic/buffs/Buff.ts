@@ -14,15 +14,7 @@ class Buff {
     // 生效一次（可以用来手动生效）
     public doEffect;
 
-    // 各逻辑挂接点
-    public onPlayerActed;
-    public onLevelInited;
-    public beforeGoOutLevel1;
-    public beforeGoOutLevel2;
-    public onGridChanged; // 形如 function(x:number, y:number, statusBeforeUncoverd:GridStatus)    
-    public onSneaking;
-    public onCalcAttacking;
-    public preAttack;
-    public onAttacking;
-    public onPlayerHealing;
+    public addAI(logicPoint:string, act, Sync:boolean = false){
+        this[logicPoint + (Sync ? "Sync" : "Async")] = act;
+    }
 }

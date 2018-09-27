@@ -6,8 +6,7 @@ class LevelLogic{
         this.type = type;
     }
 
-    // 各逻辑挂接点
-    public beforeLevelInited;
-    public onLevelInited;
-    public onLevelInitElems;
+    public addAI(logicPoint:string, act, Sync:boolean = false){
+        this[logicPoint + (Sync ? "Sync" : "Async")] = act;
+    }
 }

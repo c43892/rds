@@ -5,7 +5,7 @@ class LevelLogicAddBoxAndKey extends LevelLogic{
 
         this.rdps = rdps;
 
-        this.beforeLevelInited = async (ps) => {
+        this.addAI("beforeLevelInited", async (ps) => {
             var bt = <Battle>ps.bt;
             var cfg = bt.lvCfg;
             var poses = [];
@@ -53,7 +53,7 @@ class LevelLogicAddBoxAndKey extends LevelLogic{
             for(var pos of poses)
                 await bt.fireEvent("onGridChanged", {"subType":"addBoxAndKey" , x:pos.x, y:pos.y, e:this.level.map.getElemAt(pos.x, pos.y)})
             
-        }
-    }
+        })
 
+    }
 }

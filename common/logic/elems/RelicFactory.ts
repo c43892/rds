@@ -120,7 +120,7 @@ class RelicFactory {
                 };
                 ElemFactory.addAI("onCalcAttacking", (ps) => {
                     ps.attackerAttrs.critical.b += attrs.dSneakCritical; // 增加暴击率
-                }, r, (ps) => ps.subType == "player2monster" && Utils.contains(ps.targetAttrs.targetFlags, "Sneaked"));
+                }, r, (ps) => ps.subType == "player2monster" && Utils.contains(ps.targetAttrs.targetFlags, "Sneaked"), false, true);
             });
         },
 
@@ -243,7 +243,7 @@ class RelicFactory {
                     r.clearAIAtLogicPoint("onOpenShop");
                     return;
                 }
-                ElemFactory.addAI("onOpenShop", (ps) => ps.discount += r.attrs.discount, r)
+                ElemFactory.addAI("onOpenShop", (ps) => ps.discount += r.attrs.discount, r, undefined, false, true)
         })},
 
         // 宝箱探测,每进入一层新的战斗地图，都可以标记一个宝箱的位置
@@ -271,7 +271,7 @@ class RelicFactory {
                 }
                 r = <Relic>ElemFactory.addAI("onCalcAttacking", (ps) => {
                     ps.attackerAttrs.power.b += attrs.dpower;
-                }, r, (ps) => ps.subType == "player2monster" && ps.weapon && ps.weapon.type == "Knife");
+                }, r, (ps) => ps.subType == "player2monster" && ps.weapon && ps.weapon.type == "Knife", false, true);
                 r = RelicFactory.addElemsOnLevelInit(r);
             })
         },
@@ -301,7 +301,7 @@ class RelicFactory {
                 }
                 r = <Relic>ElemFactory.addAI("onCalcAttacking", (ps) => {
                     ps.attackerAttrs.attackFlags.push("Pierce");
-                }, r, (ps) => ps.subType == "player2monster" && ps.weapon && ps.weapon.type == "Knife")
+                }, r, (ps) => ps.subType == "player2monster" && ps.weapon && ps.weapon.type == "Knife", false, true)
                 r = RelicFactory.addElemsOnLevelInit(r);
             })
         },
@@ -331,7 +331,7 @@ class RelicFactory {
                 }
                 r = <Relic>ElemFactory.addAI("onPlayerHealing", (ps) => {
                     ps.dhpPs.b += 1;
-                }, r, (ps) => ps.source && ps.source.type == "Apple");
+                }, r, (ps) => ps.source && ps.source.type == "Apple", false, true);
                 r = RelicFactory.addElemsOnLevelInit(r);
             })
         },
@@ -378,7 +378,7 @@ class RelicFactory {
                 }
                 <Relic>ElemFactory.addAI("onCalcCD", (ps) => {
                     ps.dcd.b += r.attrs.dcd;
-                }, r, (ps) => ps.subType == "resetCD" && ps.e.type == "Shield")
+                }, r, (ps) => ps.subType == "resetCD" && ps.e.type == "Shield", false, true)
                 r = RelicFactory.addElemsOnLevelInit(r);
             })
         },

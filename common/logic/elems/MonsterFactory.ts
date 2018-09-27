@@ -749,7 +749,7 @@ class MonsterFactory {
             ps["damageShared"] = true;
             ps.targetAttrs["damageSharedMonster"] = m;
         }, m, (ps) => {
-            return ps.subType == "monster2targets" && ps.targetAttrs.owner instanceof Player && !ps["damageShared"]});
+            return ps.subType == "monster2targets" && ps.targetAttrs.owner instanceof Player && !ps["damageShared"]}, true, true);
         return m;
     }
 
@@ -758,7 +758,7 @@ class MonsterFactory {
         return <Monster>ElemFactory.addAI("onCalcAttacking", (ps) => {
             if(m.bt().srand.next100() < n)
                 ps.targetAttrs.targetFlags.push("cancelAttack");
-        }, m, (ps) => ps.targetAttrs.owner == m);
+        }, m, (ps) => ps.targetAttrs.owner == m, true, true);
     }
 
     // 史莱姆之王死前将钥匙清空,准备分配给小史莱姆

@@ -4,7 +4,8 @@ class BuffFlame extends Buff {
     constructor(cnt, damage) {
         super("BuffFlame");
         this.cnt = cnt;
-        this.onPlayerActed = async () => {
+
+        this.addAI("onPlayerActed", async () => {
             this.cnt--;
 
             var bt:Battle = this.getOwner().bt();
@@ -12,7 +13,7 @@ class BuffFlame extends Buff {
 
             if (this.cnt <= 0)
                 await bt.implRemoveBuff(this.getOwner(), this.type);
-        };
+        })
 
         this.doEffect = async () => {
             var bt = this.getOwner().bt();
