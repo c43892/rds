@@ -195,8 +195,36 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
     // 购买新遗物时的确认界面
     private createRelicUpgradeConfirm(r1:Relic, r2:Relic, price:number, showPrice = true) {
 
-        var objs = ViewUtils.createRelicUpgradeSubView(r1, r2);
-        objs.forEach((obj, _) => this.addChild(obj));
+        // 左边的遗物信息
+        var c1 = new egret.DisplayObjectContainer();
+        var objs1 = ViewUtils.createSmallRelicInfoRect(r1);
+        objs1.forEach((obj, _) => c1.addChild(obj));
+        var bg1 = objs1[0];
+        c1.x = 10;
+        c1.y = 200;
+        c1.width = bg1.width;
+        c1.height = bg1.height;
+
+        // 右边的遗物信息
+        var c2 = new egret.DisplayObjectContainer();
+        var objs2 = ViewUtils.createSmallRelicInfoRect(r2);
+        objs2.forEach((obj, _) => c2.addChild(obj));
+        var bg2 = objs2[0];
+        c2.x = 330;
+        c2.y = 200;
+        c2.width = bg2.width;
+        c2.height = bg2.height;
+
+        // 箭头
+        var arrow = ViewUtils.createBitmapByName("relicUpgradeArrow_png");
+        arrow.name = "arrow";
+        arrow.x = 320 - arrow.width / 2;
+        var bg = objs1[0];
+        arrow.y = 130 + bg.height;
+
+        this.addChild(c1);
+        this.addChild(c2);
+        this.addChild(arrow);
 
         // 费用
         if (showPrice) {
