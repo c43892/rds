@@ -32,7 +32,7 @@
             "sels": [{
                 "desc": "<font color=#000000 size=20>[靠近]</font><font color=#00b050 size=20>随机升级2个技能, </font><font color=#7d0403 size=20>失去{hp}生命</font>",
                 "func": ["reinforceRandomRelics", "-hpPrecentage", "redirectSelGroup"],
-                "ps":{"reinforceNum": 2, "hpPrecentage": 5, "group": "a11"}
+                "ps":{"reinforceNum": 2, "hpPrecentage": 15, "group": "a11"}
             },{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit", "redirectSelGroup"],
@@ -61,7 +61,7 @@
             "sels": [{
                 "desc": "<font color=#000000 size=20>[偷窃]</font><font color=#00b050 size=20>得到{item}</font>，<font color=#7d0403 size=20>受到樱桃炸弹的报复</font>",
                 "func": ["+item", "redirectSelGroup"],
-                "ps": {"item": "MedicineBox", "group": "a21"}
+                "ps": {"item": "HorticultureProficient", "group": "a21"}
             },{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit", "redirectSelGroup"],
@@ -74,15 +74,15 @@
             "sels": [{
                 "desc": "<font color=#000000 size=20>[逃跑]</font><font color=#7d0403 size=20>失去{money}金币</font>",
                 "func": ["-money", "redirectSelGroup"],
-                "ps": {"money": 10, "group": "a211"}
+                "ps": {"money": 50, "group": "a211"}
             },{
                 "desc": "<font color=#000000 size=20>[抵挡]</font><font color=#7d0403 size=20>生命上限减少{maxHp}</font>",
                 "func": ["-maxHp", "redirectSelGroup"],
                 "ps": {"maxHp": 5, "group": "a212"}
             },{
                 "desc": "<font color=#000000 size=20>[躲藏]</font><font color=#7d0403 size=20>失去{hp}生命</font>",
-                "func": ["-hp", "redirectSelGroup"],
-                "ps": {"hp": 5, "group": "a213"}
+                "func": ["-hpPrecentage", "redirectSelGroup"],
+                "ps": {"hpPrecentage": 20, "group": "a213"}
             }]
         },
         "a211": {
@@ -197,10 +197,10 @@
                 "func": ["sequence"],
                 "ps": {
                     "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
-                    "func": ["+item", "-hp", "redirectSelGroup"],
+                    "func": ["+randomItems", "-hp", "redirectSelGroup"],
                     "rates": [25],
                     "failedFunc": ["-hp", "redirectSelGroup2"],
-                    "ps": [{"item": "MedicineBox", "hp":1, "group": "a411", "group2": "a421"}]
+                    "ps": [{"randomNum": 1, "items": {"WeaponMaster": 10, "DefenseProficient": 10, "BookMaster": 10, "TreasureBoxDetector": 10, "KnifeMaster": 10, "MonsterHunter": 10, "KnifeProficient": 10, "ExploreEnhanced": 10, "HorticultureProficient": 10, "SmellEnhanced": 10, "Storer": 10, "ShieldProficient": 10, "StrikeFirst": 10 }, "hp":1, "group": "a411", "group2": "a421"}]
                     }
                 },{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
@@ -222,11 +222,11 @@
             "sels": [{
                 "func": ["sequence"],
                 "ps": {
-                    "desc": "<font color=#000000 size=20>[继续献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
-                    "func": ["+item", "-hp", "redirectSelGroup"],
+                    "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
+                    "func": ["+randomItems", "-hp", "redirectSelGroup"],
                     "rates": [50],
                     "failedFunc": ["-hp", "redirectSelGroup2"],
-                    "ps": [{"item": "MedicineBox", "hp":2, "group": "a411", "group2": "a422"}]
+                    "ps": [{"randomNum": 1, "items": {"WeaponMaster": 10, "DefenseProficient": 10, "BookMaster": 10, "TreasureBoxDetector": 10, "KnifeMaster": 10, "MonsterHunter": 10, "KnifeProficient": 10, "ExploreEnhanced": 10, "HorticultureProficient": 10, "SmellEnhanced": 10, "Storer": 10, "ShieldProficient": 10, "StrikeFirst": 10 }, "hp":2, "group": "a411", "group2": "a422"}]
                     }
                 },{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
@@ -240,11 +240,11 @@
             "sels": [{
                 "func": ["sequence"],
                 "ps": {
-                    "desc": "<font color=#000000 size=20>[继续献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
-                    "func": ["+item", "-hp", "redirectSelGroup"],
+                    "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
+                    "func": ["+randomItems", "-hp", "redirectSelGroup"],
                     "rates": [75],
                     "failedFunc": ["-hp", "redirectSelGroup2"],
-                    "ps": [{"item": "MedicineBox", "hp":3, "group": "a411", "group2": "a423"}]
+                    "ps": [{"randomNum": 1, "items": {"WeaponMaster": 10, "DefenseProficient": 10, "BookMaster": 10, "TreasureBoxDetector": 10, "KnifeMaster": 10, "MonsterHunter": 10, "KnifeProficient": 10, "ExploreEnhanced": 10, "HorticultureProficient": 10, "SmellEnhanced": 10, "Storer": 10, "ShieldProficient": 10, "StrikeFirst": 10 }, "hp":3, "group": "a411", "group2": "a423"}]
                     }
                 },{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
@@ -258,11 +258,11 @@
             "sels": [{
                 "func": ["sequence"],
                 "ps": {
-                    "desc": "<font color=#000000 size=20>[继续献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
-                    "func": ["+item", "-hp", "redirectSelGroup"],
+                    "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
+                    "func": ["+randomItems", "-hp", "redirectSelGroup"],
                     "rates": [100],
                     "failedFunc": ["-hp", "redirectSelGroup2"],
-                    "ps": [{"item": "MedicineBox", "hp":4, "group": "a411", "group2": "a424"}]
+                    "ps": [{"randomNum": 1, "items": {"WeaponMaster": 10, "DefenseProficient": 10, "BookMaster": 10, "TreasureBoxDetector": 10, "KnifeMaster": 10, "MonsterHunter": 10, "KnifeProficient": 10, "ExploreEnhanced": 10, "HorticultureProficient": 10, "SmellEnhanced": 10, "Storer": 10, "ShieldProficient": 10, "StrikeFirst": 10 }, "hp":4, "group": "a411", "group2": "a423"}]
                     }
                 },{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
@@ -343,11 +343,11 @@
             "sels": [{
                 "desc": "<font color=#000000 size=20>[无视]</font><font color=#00b050 size=20>获得{money}金币，</font><font color=#7d0403 size=20>失去{hp}生命</font>",
                 "func": ["+money", "-hp", "redirectSelGroup"],
-                "ps": {"money": 5, "hp": 5, "group": "a61"}
+                "ps": {"money": 50, "hp": 5, "group": "a61"}
             },{
                 "desc": "<font color=#000000 size=20>[收买]</font><font color=#7d0403 size=20>失去{money}金币，</font><font color=#00b050 size=20>获得敌意消退</font>",
                 "func": ["-money", "+item", "redirectSelGroup"],
-                "ps": {"money": 10, "item": "TimeMachine", "group":"a62"}
+                "ps": {"money": 50, "item": "TimeMachine", "group":"a62"}
             }]
         },
         "a61": {
@@ -402,9 +402,9 @@
             "sels": [{
                 "desc": "<font color=#000000 size=20>[称赞]</font></font><font color=#00b050 size=20>最大生命值+{maxHp}</font>",
                 "func": ["+maxHp", "redirectSelGroup"],
-                "ps": {"maxHp": 5, "group": "a81"}
+                "ps": {"maxHp": 10, "group": "a81"}
             },{
-                "desc": "<font color=#000000 size=20>[贬低]</font></font><font color=#00b050 size=20>闪避+x</font>",
+                "desc": "<font color=#000000 size=20>[贬低]</font></font><font color=#00b050 size=20>闪避+{dodge}%</font>",
                 "func": ["redirectSelGroup", "+dodge"],
                 "ps": {"group": "a82", "dodge": 5}
             }]
@@ -436,7 +436,7 @@
                     "titleArr": ["冒险者的尸体", "冒险者的尸体", "冒险者的尸体"],
                     "upDescArr": ["你找到了</font><font color=#00b050 size=25>{lastDropped}，</font>还想继续找么？", "你找到了</font><font color=#00b050 size=25>{lastDropped}，</font>还想继续找么？", "你找到了</font><font color=#00b050 size=25>{lastDropped}，</font>，现在冒险者身上已经没有东西了，你满意的离开了。"],
                     "descArr": ["<font color=#000000 size=20>[继续翻找]</font></font><font color=#00b050 size=20>50%获得奖励，</font></font><font color=#7d0403 size=20>50%进入战斗</font>", "<font color=#000000 size=20>[搜索]</font></font><font color=#00b050 size=20>25%获得奖励，</font></font><font color=#7d0403 size=20>75%进入战斗</font>", "你并不想步冒险者的后尘，于是果断离开了。"],
-                    "toDrop": ["Coins", "ttrdp1", "ttrdp2"],
+                    "toDrop": ["Coins", "worldmapeventa91", "worldmapeventa92"],
                     "money": 50,
                     "exitDescArr": ["<font color=#000000 size=20>[离开]</font>", "<font color=#000000 size=20>[离开]</font>", "<font color=#000000 size=20>[离开]</font>"],
                     "battleType": "searchBody"
@@ -472,7 +472,7 @@
                 "ps": {
                     "money": 50,
                     "randomNum": 1,
-                    "items": {"Power": 10, "MedicineBox": 10},
+                    "items": {"WeaponMaster": 10, "DefenseProficient": 10, "BookMaster": 10, "TreasureBoxDetector": 10, "KnifeMaster": 10, "MonsterHunter": 10, "KnifeProficient": 10, "ExploreEnhanced": 10, "HorticultureProficient": 10, "SmellEnhanced": 10, "Storer": 10, "ShieldProficient": 10, "StrikeFirst": 10 },
                     "group": "b21"
                  }                
             },{
@@ -481,7 +481,7 @@
                 "ps": {
                     "money": 50,
                     "randomNum": 2,
-                    "items": {"RayGun":100, "IceGun":1, "CandyCannon": 100},
+                    "items": {"IceGun":10, "RayGun":10, "HpPotion":10, "DePoison":10, "Bazooka":10, "SuperPotion":10, "StrangthPotion":10, "CandyCannon":10},
                     "group": "b22"
                     }
             },{

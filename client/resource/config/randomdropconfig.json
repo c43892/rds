@@ -199,5 +199,32 @@
         "SuperPotion":10,
         "StrangthPotion":10,
         "CandyCannon":10
+    }},
+
+    "worldmapeventa91": {"num": [1, 2], "elems": {
+        "IceGun":10,
+        "RayGun":10,
+        "HpPotion":10,
+        "DePoison":10,
+        "Bazooka":10,
+        "SuperPotion":10,
+        "StrangthPotion":10,
+        "CandyCannon":10
+    }},
+    
+    "worldmapeventa92": {"num": [1, 2], "elems": {
+        "WeaponMaster":10,
+        "DefenseProficient":10,
+        "BookMaster":10,
+        "TreasureBoxDetector":10,
+        "KnifeMaster":10,
+        "MonsterHunter":10,
+        "KnifeProficient":10,
+        "ExploreEnhanced":10,
+        "HorticultureProficient":10,
+        "SmellEnhanced":10,
+        "Storer":10,
+        "ShieldProficient":10,
+        "StrikeFirst":10
     }}
 }

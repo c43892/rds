@@ -238,7 +238,8 @@ class ElemDescView extends egret.DisplayObjectContainer {
         this.relicName.textAlign = egret.HorizontalAlign.LEFT;
         this.relicName.bold =true;
         this.relicName.textFlow = [{text: nameAndDesc.name, style:{"textColor":0x7d0403, "size":30}},
-            {text: " Lv " + ((<Relic>e).reinforceLv + 1), style:{"textColor":0x7d0403, "size":30}}];
+           // {text: " Lv " + ((<Relic>e).reinforceLv + 1), style:{"textColor":0x7d0403, "size":30}}
+            ];
 
         var descArr = ViewUtils.getElemNameAndDesc(e.type).desc;
         descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(ViewUtils.replaceByProperties(desc, e, defaultAttrs ? undefined : this.player)));
