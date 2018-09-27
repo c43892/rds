@@ -42,9 +42,9 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
             }
         }
 
-        return new Promise<boolean>((resolve, reject) => {
-            this.onYes = () => resolve(true);
-            this.onCancel = () => resolve(false);
+        return new Promise<boolean>((r, reject) => {
+            this.onYes = () => r(true);
+            this.onCancel = () => r(false);
         });
     }
     
@@ -193,27 +193,28 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
     }
 
     // 购买新遗物时的确认界面
+    c1 = new egret.DisplayObjectContainer();
+    c2 = new egret.DisplayObjectContainer();
     private createRelicUpgradeConfirm(r1:Relic, r2:Relic, price:number, showPrice = true) {
-
         // 左边的遗物信息
-        var c1 = new egret.DisplayObjectContainer();
+        this.c1.removeChildren();
         var objs1 = ViewUtils.createSmallRelicInfoRect(r1);
-        objs1.forEach((obj, _) => c1.addChild(obj));
+        objs1.forEach((obj, _) => this.c1.addChild(obj));
         var bg1 = objs1[0];
-        c1.x = 10;
-        c1.y = 200;
-        c1.width = bg1.width;
-        c1.height = bg1.height;
+        this.c1.x = 10;
+        this.c1.y = 200;
+        this.c1.width = bg1.width;
+        this.c1.height = bg1.height;
 
         // 右边的遗物信息
-        var c2 = new egret.DisplayObjectContainer();
+        this.c2.removeChildren();
         var objs2 = ViewUtils.createSmallRelicInfoRect(r2);
-        objs2.forEach((obj, _) => c2.addChild(obj));
+        objs2.forEach((obj, _) => this.c2.addChild(obj));
         var bg2 = objs2[0];
-        c2.x = 330;
-        c2.y = 200;
-        c2.width = bg2.width;
-        c2.height = bg2.height;
+        this.c2.x = 330;
+        this.c2.y = 200;
+        this.c2.width = bg2.width;
+        this.c2.height = bg2.height;
 
         // 箭头
         var arrow = ViewUtils.createBitmapByName("relicUpgradeArrow_png");
@@ -222,8 +223,8 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
         var bg = objs1[0];
         arrow.y = 130 + bg.height;
 
-        this.addChild(c1);
-        this.addChild(c2);
+        this.addChild(this.c1);
+        this.addChild(this.c2);
         this.addChild(arrow);
 
         // 费用
@@ -249,7 +250,56 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
         btnYes.text = ViewUtils.getTipText("yes");
         this.addChild(btnYes);
 
-        btnYes.onClicked = () => this.onYes();
+        btnYes.onClicked = () => {
+            this.playRelicEffect().then(() => {                
+                this.onYes();
+            });
+        };
         btnCancel.onClicked = () => this.onCancel();
+    }
+
+    // 播放遗物升级动画
+    async playRelicEffect() {
+        var icon = this.c2.getChildByName("icon");
+
+        // 两边隐藏掉
+        this.removeChildren();
+        this.addChild(this.c1);
+        this.addChild(this.c2);
+        egret.Tween.get(this.c1).to({alpha:0}, 500);
+        egret.Tween.get(this.c2).to({alpha:0}, 500);
+        await Utils.delay(500);
+
+        // 结果出来
+        this.c2.anchorOffsetX = this.c2.width / 2;
+        this.c2.anchorOffsetY = this.c2.height / 2;
+        this.c2.x = this.width / 2;
+        this.c2.y = this.height / 2;
+        this.c2.scaleX = 0.5;
+        this.c2.scaleY = 0.5;
+        egret.Tween.get(this.c2).to({alpha:1, scaleX:1, scaleY:1}, 1000);
+        await Utils.delay(1000);
+
+        // 光效
+        var eff = ViewUtils.createFrameAni("effRelicShining");
+        eff.x = icon.x + icon.width / 2;
+        eff.y = icon.y + icon.height / 2;
+        eff.scaleX = 0.75;
+        eff.scaleY = 0.75;
+        this.c2.addChild(eff);
+        eff.play(1);
+        await eff["wait"]();
+        this.c2.removeChild(eff);
+
+        egret.Tween.get(this.c2).to({alpha:0, scaleX:0.5, scaleY:0.5}, 500);
+        await Utils.delay(500);
+        this.removeChild(this.c1);
+        this.removeChild(this.c2);
+        egret.Tween.removeTweens(this.c1);
+        egret.Tween.removeTweens(this.c2);
+        this.c1.alpha = 1;
+        this.c2.alpha = 1;
+        this.c2.scaleX = this.c2.scaleY = 1;
+        this.c2.anchorOffsetX = this.c2.anchorOffsetY = 0;
     }
 }

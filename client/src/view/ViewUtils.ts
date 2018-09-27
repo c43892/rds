@@ -377,6 +377,7 @@ class ViewUtils {
     public static createSmallRelicInfoRect(e:Relic):egret.DisplayObject[] {
         // 背景底图
         var bg = ViewUtils.createBitmapByName("confirmBg_png");
+        bg.name = "bg";
         bg.width = 300;
 
         // 图标
@@ -385,14 +386,7 @@ class ViewUtils {
         icon.y = bg.y + 20;
         icon.width *= 0.75;
         icon.height *= 0.75;
-
-        // // 光效
-        // var eff = ViewUtils.createFrameAni("effRelicShining");
-        // eff.x = icon.x + icon.width / 2;
-        // eff.y = icon.y + icon.height / 2;
-        // eff.scaleX = 0.75;
-        // eff.scaleY = 0.75;
-        // eff.play(-1);
+        icon.name = "icon";
 
         var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
 
