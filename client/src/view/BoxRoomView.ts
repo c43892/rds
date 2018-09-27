@@ -96,13 +96,6 @@ class BoxRoomView extends egret.DisplayObjectContainer {
     }
 
     async onClose() {
-        // if(this.elems.length != 0){
-        //     var content = ViewUtils.formatString(ViewUtils.getTipText("makeSureGoOutBoxRoom"));
-        //     var ok = await this.confirmOkYesNo(undefined, content, true, ["确定", "取消"]);
-        //     if (ok) 
-        //         this.doClose();
-        // }
-        // else
         await this.getDropItems();
         this.doClose();
     }
