@@ -254,6 +254,7 @@ class MainView extends egret.DisplayObjectContainer {
             this.sv.refresh();
             await this.p.fireEvent("onGetElemInWorldmap", {e:elem, price:price, fromPos:ShopView.lastSelectedElemGlobalPos});
         };
+
         var onRob = async (elems) => {
             // 抢劫逻辑
             Utils.assert(!robbed, "can only be robbed one time");
@@ -274,7 +275,7 @@ class MainView extends egret.DisplayObjectContainer {
             return es;
         };
 
-        await this.sv.open(r.items, r.prices, onBuy, robbed ? undefined : onRob, false);
+        await this.sv.open(r.items, r.prices, onBuy, undefined /*robbed ? undefined : onRob*/, false);
         this.removeChild(this.sv);
     }
 
