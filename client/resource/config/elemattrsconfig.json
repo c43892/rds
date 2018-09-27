@@ -163,7 +163,6 @@
     "PlaceHolder":{"name":"Boss精英占位", "hideHazardNum":true, "invisible":true, "cannotTake":true},
     "BossBunny":{"name":"boss兔子", "size":{"w":2, "h":2}, "hp":10, "hideHazardNum":true, "attackInterval":2},
 
-    "HpPotion":{"name":"血瓶", "dhp":5},
     "DePoison":{"name":"解毒药剂", "canOverlap":true},
     "SuperPotion":{"name":"超能药水", "immunizeCnt":5, "cd":5, "canOverlap":true, "occupations":["Nurse"]},
     "StrangthPotion":{"name":"力量药水", "enhanceCnt":5, "cd":5, "canOverlap":true, "occupations":["Rogue"]},    
