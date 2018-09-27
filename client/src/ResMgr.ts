@@ -2,7 +2,7 @@ class ResMgr {
 
     // static resMap = {};
     // public static getRes(name:string):any {
-    //     return ResMgr.resMap["name"];
+    //     return ResMgr.resMap[name];
     // }
 
     // public static URLPrefix = "https://rds.wudouwxg.xyz/resource/";
@@ -11,8 +11,9 @@ class ResMgr {
     //     var finished = 0;
     //     return new Promise<void>((r, _) => {
     //         items.forEach((it, i) => {
-    //             RES.getResByUrl(ResMgr.URLPrefix + it.url, (res) => {
+    //             RES.getResByUrl(ResMgr.URLPrefix + it.url, (res) => {                    
     //                 finished++;
+    //                 ResMgr.resMap[it.name] = res;
 
     //                 if (eventHandler)
     //                     eventHandler.onProgress(finished, items.length);

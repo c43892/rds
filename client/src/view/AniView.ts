@@ -453,7 +453,7 @@ class AniView extends egret.DisplayObjectContainer {
             for (var i = 0; i < d; i++) {
                 var stepAt = this.bv.player.deathStep - d + i;
                 this.bv.refreshDeathGod(stepAt);
-                let eff = ViewUtils.createFrameAni("effExpTrack", "spot");
+                let eff = ViewUtils.createFrameAni("effExpTrack", "track");
                 let track = new BazierControllerWrapper(eff);
                 AniUtils.ac.addChild(track);
                 eff.play(1);

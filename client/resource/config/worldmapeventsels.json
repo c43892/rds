@@ -385,7 +385,7 @@
             "sels": [{
                 "desc": "<font color=#000000 size=20>[战斗]</font>",
                 "func": ["battle"],
-                "ps": {"battleType": "normal"}
+                "ps": {"battleType": "randomEgg"}
             }]
         },
         "a72": {

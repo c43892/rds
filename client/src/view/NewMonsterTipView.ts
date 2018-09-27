@@ -97,7 +97,7 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
     onNext() {
         if (this.monsterArr.length > 0) {
             var type = this.monsterArr.pop();
-            var res = this.monsterArr.pop();
+            var res = this.monsterResArr.pop();
             this.showDesc(type);
         } else {
             this.removeChild(this.elemDescView);

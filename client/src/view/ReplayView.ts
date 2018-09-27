@@ -19,7 +19,7 @@ class ReplayView extends egret.DisplayObjectContainer {
 
         this.listArea = new egret.DisplayObjectContainer();
         this.listArea.name = "ListArea";
-        this.replaybg = ViewUtils.createBitmapByName("bgFrame_png");
+        this.replaybg = ViewUtils.createBitmapByName();
         this.replaybg.x = this.replaybg.y = 0;
         this.replaybg.touchEnabled = true;
         this.replaybg.name = "ReplayBg";

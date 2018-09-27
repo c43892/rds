@@ -35,8 +35,7 @@ class DebugPlatform implements Platform {
             return {ok:false};
     }
 
-    setUserCloudStorage(data)
-    {
+    setUserCloudStorage(data) {
         var uid = Utils.$$loadItem("UserID");
         var score = data.score;
         var nickName = data.nickName;
