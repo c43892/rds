@@ -64,9 +64,7 @@ class BattleRecorder {
         var op = ops[BattleRecorder.replayIndex++];
         var h = BattleRecorder.replayOpHandlers[op.op];
         Utils.assert(h, "unhandled replay indication: " + op.op);
-        // var rel = AniUtils.blockClick();
         await h(op.ps);
-        // rel();
         BattleRecorder.inRecording = BattleRecorder.replayIndex >= ops.length;
         return BattleRecorder.inRecording; // 返回值表示录像是否已经回放结束（回放结束就是进入录制状态）
     }
