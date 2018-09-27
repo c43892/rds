@@ -47,15 +47,11 @@ class ElemFactory {
 
     // 为怪物在指定逻辑点添加一个行为，在隐藏时也生效
     public static addAIEvenCovered(logicPoint:string, act, e:Elem, condition = undefined):Elem {
-        var doPrior = e[logicPoint];
+        Utils.assert(!e[logicPoint], "addAI conflict at logicPoint " + logicPoint + " by elem : " + e.type);
         e[logicPoint] = async (ps) => {
-            if (doPrior != undefined)
-                await doPrior(ps);
-
             if (!condition || condition(ps))
                 await act(ps);
-        }
-        
+        }        
         return e;
     }
 
