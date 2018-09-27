@@ -17,7 +17,7 @@ class Occupation {
     // 护士
     static makeNurse(p:Player):Player {
         p.addRelic(<Relic>ElemFactory.create("MedicineBox")); // 初始遗物
-        p.addItem(<Prop>ElemFactory.create("HpCapsule")); // 初始物品
+        p.addItem(<Prop>ElemFactory.create("HpPotion")); // 初始物品
         return p;
     }
 
