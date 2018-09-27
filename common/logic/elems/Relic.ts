@@ -109,6 +109,11 @@ class Relic extends Elem {
         this.enabledFuncs = [];
     }
 
+    // 手动
+    public clearAIAtLogicPoint(logicPoint:string){
+        this[logicPoint] = undefined;
+    }
+
     public toString():string {
         return JSON.stringify({type:this.type, 
             lv:this.reinforceLv

@@ -33,7 +33,7 @@
     },
     "Unback2Sneak":{"name":"先动"},
     "Crucifix":{"name":"十字架"},
-    "WeaponMaster":{"name":"武器大师", "refElems":["Baton"]},
+    "WeaponMaster":{"name":"武器大师", "refElems":["Baton"], "addOnLevelInit":{"num":1, "elems":["Baton"]}},
     "UndefinedName1":{"name":"未命名1", "uncoverCnt":5,
         "reinforce":[
             {"uncoverCnt":4}, {"uncoverCnt":3}, {"uncoverCnt":14}, {"uncoverCnt":12}
@@ -49,8 +49,8 @@
             {"num":2}, {"num":3}, {"num":4}, {"num":5}
         ]
     },
-    "DefenseProficient":{"name":"防护大师", "refElems":["Vest"]},
-    "BookMaster":{"name":"图书大师", "refElems":["Magazine", "EconomyMagazine"]},
+    "DefenseProficient":{"name":"防护大师", "refElems":["Vest"], "addOnLevelInit":{"num":1, "elems":["Vest"]}},
+    "BookMaster":{"name":"图书大师", "refElems":["Magazine", "EconomyMagazine"], "addOnLevelInit":{"num":1, "elems":["Magazine", "EconomyMagazine"]}},
     "TradeMaster":{"name":"交易大师", "discount":50,
         "reinforce":[
             {"discount":10}, {"discount":15}, {"discount":20}, {"discount":25}
@@ -61,19 +61,20 @@
     "KnifeMaster":{"name":"飞刀大师", "dpower":1, "refElems":["Knife"],
         "reinforce":[
             {"dpower":2}, {"dpower":3}, {"dpower":4}, {"dpower":5}
-        ]
+        ], 
+        "addOnLevelInit":{"num":1, "elems":["Knife"]}
     },
     "MonsterHunter":{"name":"怪物猎人", "markNum":1,
         "reinforce":[
             {"markNum":2}, {"markNum":3}, {"markNum":4}, {"markNum":5}
         ]
     },
-    "KnifeProficient":{"name":"飞刀专精", "refElems":["Knife"]},
+    "KnifeProficient":{"name":"飞刀专精", "refElems":["Knife"], "addOnLevelInit":{"num":1, "elems":["Knife"]}},
     "ExploreEnhanced":{"name":"探索强化"},
-    "HorticultureProficient":{"name":"园艺专精", "refElems":["Apple"]},
+    "HorticultureProficient":{"name":"园艺专精", "refElems":["Apple"], "addOnLevelInit":{"num":1, "elems":["Apple"]}},
     "SmellEnhanced":{"name":"嗅觉强化"},
     "Storer":{"name":"囤积居奇"},
-    "ShieldProficient":{"name":"盾牌专精", "dcd":-1, "refElems":["Shield"]},
+    "ShieldProficient":{"name":"盾牌专精", "dcd":-1, "refElems":["Shield"], "addOnLevelInit":{"num":1, "elems":["Shield"]}},
     "HorticultureMaster":{"name":"园艺大师", "occupations":["Horticulturist"], "refElems":["NutWall", "Peashooter", "CherryBomb", "Sunflower", "CharmingMushroom"]},
     "StrikeFirst":{"name":"先发制人", "moveNum":1,
         "reinforce":[
