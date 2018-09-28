@@ -853,7 +853,16 @@ class AniView extends egret.DisplayObjectContainer {
     // 关卡初始化乱序动画
     // 等待点击屏幕
     public async onAllCoveredAtInit(ps) {
+        var pressTip = ViewUtils.createBitmapByName("pressAnyKey_png");
+        pressTip.x = this.bv.x + this.bv.width / 2;
+        pressTip.y = this.bv.y + this.bv.height / 2;
+        pressTip.anchorOffsetX = pressTip.width / 2;
+        pressTip.anchorOffsetY = pressTip.height / 2;
+        this.bv.addChild(pressTip);        
+        await AniUtils.floating(pressTip);
         await AniUtils.wait4click();
+        await AniUtils.floating(pressTip, true);
+        this.bv.removeChild(pressTip);  
 
         var rand = new SRandom();
         var svArr = [];
