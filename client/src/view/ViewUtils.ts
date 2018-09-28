@@ -274,20 +274,20 @@ class ViewUtils {
 
     // 根据对象身上的动态属性，替换掉目标字符串中的 {propertyName} 标签
     public static replaceByProperties(s:string, e, player):string {
-        const r = /\{[a-z,A-Z,0-9,_,-]*\}/g;
-        const m = r.exec(s);
+        const r = /\{[a-z,A-Z,0-9,_,-]*\}/g;        
         var ss = s;
-        if (m) {
-            for (var i = 0; i < m.length; i++) {
-                var value = m[i];
-                var key = value.substr(1, value.length - 2);
-                if(ElemActiveDesc.elems[e.type] && ElemActiveDesc.elems[e.type][key])
-                    ss = ss.replace(value, ElemActiveDesc.elems[e.type][key](player, e));                
-                else if (e[key] != undefined)
-                    ss = ss.replace(value, e[key].toString());
-                else if (e.attrs[key] != undefined)
-                    ss = ss.replace(value, e.attrs[key].toString());
-            };
+        var m = r.exec(s);
+        while (m) {
+            var value = m[0];
+            var key = value.substr(1, value.length - 2);
+            if(ElemActiveDesc.elems[e.type] && ElemActiveDesc.elems[e.type][key])
+                ss = ss.replace(value, ElemActiveDesc.elems[e.type][key](player, e));                
+            else if (e[key] != undefined)
+                ss = ss.replace(value, e[key].toString());
+            else if (e.attrs[key] != undefined)
+                ss = ss.replace(value, e.attrs[key].toString());
+
+            m = r.exec(s);
         }
 
         return ss;
@@ -404,12 +404,12 @@ class ViewUtils {
         var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
 
         // 标题
-        var title = ViewUtils.createTextField(30, 0xff0000);
+        var title = ViewUtils.createTextField(30, 0x7d0403);
         title.text = nameAndDesc.name;
         title.textAlign = egret.HorizontalAlign.LEFT;
-        title.x = icon.x + icon.width + 20;
+        title.x = icon.x + icon.width + 10;
         title.width = bg.width + bg.x - title.x;
-        title.y = bg.y + 35;
+        title.y = bg.y + 40;
 
         var currentY = title.y + title.height;
 
