@@ -137,7 +137,7 @@ class AniView extends egret.DisplayObjectContainer {
             case "gridBlocked": {
                 var img = ViewUtils.createBitmapByName("blocked_png");
 
-                var scale = 3;
+                var scale = 5;
                 img.alpha = 0;
                 img.width = gv.width * scale;
                 img.height = gv.height * scale;
@@ -146,7 +146,7 @@ class AniView extends egret.DisplayObjectContainer {
                 
                 gv.parent.addChild(img);
                 await this.aniFact.createAni("tr", {
-                    obj:img, time: 500,
+                    obj:img, time: 750,
                     tx:gv.x, ty:gv.y, tw:gv.width, th:gv.height, ta:1, mode:egret.Ease.backIn
                 });
                 gv.parent.removeChild(img);
@@ -171,7 +171,7 @@ class AniView extends egret.DisplayObjectContainer {
             case "gridUncovered": {
                 doRefresh();
                 gv.removeEffect("effPoisonMist"); // 翻开就去掉毒雾
-                var eff = gv.addEffect("effUncover", 1);
+                var eff = gv.addEffect("effUncover", 1); // 翻开特效
                 eff["wait"]().then(() => gv.removeEffect("effUncover"));
             }
             break;
