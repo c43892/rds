@@ -883,6 +883,7 @@ class MonsterFactory {
             var g = BattleUtils.findNearestGrid(m.bt().level.map, m.pos, (g:Grid) => !g.isCovered() && !g.getElem());
             if (g) await m.bt().implAddElemAt(elem, g.pos.x, g.pos.y, m.pos);
             m["bought"] = true;
+            m.dropItems = [];
         };
 
         // 抢劫

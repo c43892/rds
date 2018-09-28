@@ -66,9 +66,6 @@ class BoxRoomView extends egret.DisplayObjectContainer {
     private dropItems;
     private doClose;
     public async open(dropCfg):Promise<void> {
-        for (var elem of this.elems)            
-            this.removeChild(elem);
-
         this.elems = [];
         this.openBoxBtn.touchEnabled = true;
         this.addChild(this.openBoxBtn)
@@ -87,7 +84,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
             this.addChild(elem);
             elem.alpha = 0;
             elem.touchEnabled = false;
-            elem.onPressed = () => BoxRoomView.showElemDesc(ElemFactory.create(elem["eType"]));
+            elem.onClicked = () => BoxRoomView.showElemDesc(ElemFactory.create(elem["eType"]));
         }
 
         ViewUtils.setTexName(this.box, "BoxRoomBox_png");
