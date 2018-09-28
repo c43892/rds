@@ -135,6 +135,9 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
         icon.x = bg.x + icon.width + 40;
         icon.y = bg.y + 30;
         this.addChild(icon);
+        // 添加遗物等级星星
+        var stars = ViewUtils.createRelicLevelStars(<Relic>e, icon);
+        stars.forEach((star, _) => this.addChild(star));
 
         var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
 
@@ -192,7 +195,7 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
         bg.height = currentY + 50 - bg.y;
     }
 
-    // 购买新遗物时的确认界面
+    // 升级遗物时的确认界面
     c1 = new egret.DisplayObjectContainer();
     c2 = new egret.DisplayObjectContainer();
     private createRelicUpgradeConfirm(r1:Relic, r2:Relic, price:number, showPrice = true) {
