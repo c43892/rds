@@ -30,1508 +30,1508 @@
     },
     "attrs": {
         "1008": {
-            "power": 1,
-            "hp": 4,
+            "power": 2,
+            "hp": 6,
             "shield": 0
         },
         "1009": {
-            "power": 1,
-            "hp": 4,
+            "power": 2,
+            "hp": 6,
             "shield": 0
         },
         "1010": {
-            "power": 1,
-            "hp": 4,
+            "power": 2,
+            "hp": 7,
             "shield": 0
         },
         "1011": {
-            "power": 1,
-            "hp": 5,
+            "power": 2,
+            "hp": 7,
             "shield": 0
         },
         "1012": {
-            "power": 1,
-            "hp": 5,
+            "power": 2,
+            "hp": 8,
             "shield": 0
         },
         "1013": {
-            "power": 1,
-            "hp": 6,
+            "power": 3,
+            "hp": 9,
             "shield": 0
         },
         "1014": {
-            "power": 1,
-            "hp": 6,
+            "power": 3,
+            "hp": 9,
             "shield": 0
         },
         "1015": {
-            "power": 1,
-            "hp": 6,
+            "power": 3,
+            "hp": 10,
             "shield": 0
         },
         "1016": {
-            "power": 1,
-            "hp": 7,
+            "power": 3,
+            "hp": 10,
             "shield": 0
         },
         "1017": {
-            "power": 1,
-            "hp": 7,
+            "power": 3,
+            "hp": 11,
             "shield": 0
         },
         "1018": {
-            "power": 2,
-            "hp": 8,
+            "power": 4,
+            "hp": 12,
             "shield": 0
         },
         "1019": {
-            "power": 2,
-            "hp": 8,
+            "power": 4,
+            "hp": 12,
             "shield": 0
         },
         "1020": {
-            "power": 2,
-            "hp": 8,
+            "power": 4,
+            "hp": 13,
             "shield": 0
         },
         "1021": {
-            "power": 2,
-            "hp": 9,
+            "power": 4,
+            "hp": 13,
             "shield": 0
         },
         "1022": {
-            "power": 2,
-            "hp": 9,
+            "power": 4,
+            "hp": 14,
             "shield": 0
         },
         "1023": {
-            "power": 2,
-            "hp": 10,
+            "power": 5,
+            "hp": 15,
             "shield": 0
         },
         "1024": {
-            "power": 2,
-            "hp": 10,
+            "power": 5,
+            "hp": 15,
             "shield": 0
         },
         "1025": {
-            "power": 2,
-            "hp": 10,
+            "power": 5,
+            "hp": 16,
             "shield": 0
         },
         "1026": {
-            "power": 2,
-            "hp": 11,
+            "power": 5,
+            "hp": 16,
             "shield": 0
         },
         "1027": {
-            "power": 2,
-            "hp": 11,
+            "power": 5,
+            "hp": 17,
             "shield": 0
         },
         "1028": {
-            "power": 3,
-            "hp": 12,
+            "power": 6,
+            "hp": 18,
             "shield": 0
         },
         "1029": {
-            "power": 3,
-            "hp": 12,
+            "power": 6,
+            "hp": 18,
             "shield": 0
         },
         "1030": {
-            "power": 3,
-            "hp": 12,
+            "power": 6,
+            "hp": 19,
             "shield": 0
         },
         "2008": {
             "power": 1,
-            "hp": 4,
+            "hp": 6,
             "shield": 0
         },
         "2009": {
             "power": 1,
-            "hp": 4,
+            "hp": 6,
             "shield": 0
         },
         "2010": {
             "power": 1,
-            "hp": 4,
+            "hp": 7,
             "shield": 0
         },
         "2011": {
             "power": 1,
-            "hp": 5,
+            "hp": 7,
             "shield": 0
         },
         "2012": {
             "power": 1,
-            "hp": 5,
+            "hp": 8,
             "shield": 0
         },
         "2013": {
             "power": 1,
-            "hp": 6,
+            "hp": 9,
             "shield": 0
         },
         "2014": {
             "power": 1,
-            "hp": 6,
+            "hp": 9,
             "shield": 0
         },
         "2015": {
             "power": 1,
-            "hp": 6,
+            "hp": 10,
             "shield": 0
         },
         "2016": {
             "power": 1,
-            "hp": 7,
+            "hp": 10,
             "shield": 0
         },
         "2017": {
             "power": 1,
-            "hp": 7,
+            "hp": 11,
             "shield": 0
         },
         "2018": {
             "power": 2,
-            "hp": 8,
+            "hp": 12,
             "shield": 0
         },
         "2019": {
             "power": 2,
-            "hp": 8,
+            "hp": 12,
             "shield": 0
         },
         "2020": {
             "power": 2,
-            "hp": 8,
+            "hp": 13,
             "shield": 0
         },
         "2021": {
             "power": 2,
-            "hp": 9,
+            "hp": 13,
             "shield": 0
         },
         "2022": {
             "power": 2,
-            "hp": 9,
+            "hp": 14,
             "shield": 0
         },
         "2023": {
             "power": 2,
-            "hp": 10,
+            "hp": 15,
             "shield": 0
         },
         "2024": {
             "power": 2,
-            "hp": 10,
+            "hp": 15,
             "shield": 0
         },
         "2025": {
             "power": 2,
-            "hp": 10,
+            "hp": 16,
             "shield": 0
         },
         "2026": {
             "power": 2,
-            "hp": 11,
+            "hp": 16,
             "shield": 0
         },
         "2027": {
             "power": 2,
-            "hp": 11,
+            "hp": 17,
             "shield": 0
         },
         "2028": {
             "power": 3,
-            "hp": 12,
+            "hp": 18,
             "shield": 0
         },
         "2029": {
             "power": 3,
-            "hp": 12,
+            "hp": 18,
             "shield": 0
         },
         "2030": {
             "power": 3,
-            "hp": 12,
+            "hp": 19,
             "shield": 0
         },
         "3008": {
-            "power": 1,
-            "hp": 4,
+            "power": 3,
+            "hp": 8,
             "shield": 0
         },
         "3009": {
-            "power": 1,
-            "hp": 4,
+            "power": 3,
+            "hp": 8,
             "shield": 0
         },
         "3010": {
-            "power": 1,
-            "hp": 4,
+            "power": 3,
+            "hp": 9,
             "shield": 0
         },
         "3011": {
-            "power": 1,
-            "hp": 5,
+            "power": 3,
+            "hp": 10,
             "shield": 0
         },
         "3012": {
-            "power": 1,
-            "hp": 5,
+            "power": 4,
+            "hp": 11,
             "shield": 0
         },
         "3013": {
-            "power": 1,
-            "hp": 6,
+            "power": 4,
+            "hp": 12,
             "shield": 0
         },
         "3014": {
-            "power": 1,
-            "hp": 6,
+            "power": 4,
+            "hp": 12,
             "shield": 0
         },
         "3015": {
-            "power": 1,
-            "hp": 6,
+            "power": 5,
+            "hp": 13,
             "shield": 0
         },
         "3016": {
-            "power": 1,
-            "hp": 7,
+            "power": 5,
+            "hp": 14,
             "shield": 0
         },
         "3017": {
-            "power": 1,
-            "hp": 7,
+            "power": 5,
+            "hp": 15,
             "shield": 0
         },
         "3018": {
-            "power": 2,
-            "hp": 8,
+            "power": 6,
+            "hp": 16,
             "shield": 0
         },
         "3019": {
-            "power": 2,
-            "hp": 8,
+            "power": 6,
+            "hp": 16,
             "shield": 0
         },
         "3020": {
-            "power": 2,
-            "hp": 8,
+            "power": 6,
+            "hp": 17,
             "shield": 0
         },
         "3021": {
-            "power": 2,
-            "hp": 9,
+            "power": 6,
+            "hp": 18,
             "shield": 0
         },
         "3022": {
-            "power": 2,
-            "hp": 9,
+            "power": 7,
+            "hp": 19,
             "shield": 0
         },
         "3023": {
-            "power": 2,
-            "hp": 10,
+            "power": 7,
+            "hp": 20,
             "shield": 0
         },
         "3024": {
-            "power": 2,
-            "hp": 10,
+            "power": 7,
+            "hp": 20,
             "shield": 0
         },
         "3025": {
-            "power": 2,
-            "hp": 10,
+            "power": 8,
+            "hp": 21,
             "shield": 0
         },
         "3026": {
-            "power": 2,
-            "hp": 11,
+            "power": 8,
+            "hp": 22,
             "shield": 0
         },
         "3027": {
-            "power": 2,
-            "hp": 11,
+            "power": 8,
+            "hp": 23,
             "shield": 0
         },
         "3028": {
-            "power": 3,
-            "hp": 12,
+            "power": 9,
+            "hp": 24,
             "shield": 0
         },
         "3029": {
-            "power": 3,
-            "hp": 12,
+            "power": 9,
+            "hp": 24,
             "shield": 0
         },
         "3030": {
-            "power": 3,
-            "hp": 12,
+            "power": 9,
+            "hp": 25,
             "shield": 0
         },
         "4010": {
-            "power": 1,
-            "hp": 4,
+            "power": 3,
+            "hp": 6,
             "shield": 0
         },
         "4011": {
-            "power": 1,
-            "hp": 4,
+            "power": 3,
+            "hp": 6,
             "shield": 0
         },
         "4012": {
-            "power": 1,
-            "hp": 4,
+            "power": 3,
+            "hp": 7,
             "shield": 0
         },
         "4013": {
-            "power": 1,
-            "hp": 5,
+            "power": 3,
+            "hp": 7,
             "shield": 0
         },
         "4014": {
-            "power": 1,
-            "hp": 5,
+            "power": 4,
+            "hp": 8,
             "shield": 0
         },
         "4015": {
-            "power": 1,
-            "hp": 6,
+            "power": 4,
+            "hp": 9,
             "shield": 0
         },
         "4016": {
-            "power": 1,
-            "hp": 6,
+            "power": 4,
+            "hp": 9,
             "shield": 0
         },
         "4017": {
-            "power": 1,
-            "hp": 6,
+            "power": 5,
+            "hp": 10,
             "shield": 0
         },
         "4018": {
-            "power": 1,
-            "hp": 7,
+            "power": 5,
+            "hp": 10,
             "shield": 0
         },
         "4019": {
-            "power": 1,
-            "hp": 7,
+            "power": 5,
+            "hp": 11,
             "shield": 0
         },
         "4020": {
-            "power": 2,
-            "hp": 8,
-            "shield": 0
-        },
-        "4021": {
-            "power": 2,
-            "hp": 8,
-            "shield": 0
-        },
-        "4022": {
-            "power": 2,
-            "hp": 8,
-            "shield": 0
-        },
-        "4023": {
-            "power": 2,
-            "hp": 9,
-            "shield": 0
-        },
-        "4024": {
-            "power": 2,
-            "hp": 9,
-            "shield": 0
-        },
-        "4025": {
-            "power": 2,
-            "hp": 10,
-            "shield": 0
-        },
-        "4026": {
-            "power": 2,
-            "hp": 10,
-            "shield": 0
-        },
-        "4027": {
-            "power": 2,
-            "hp": 10,
-            "shield": 0
-        },
-        "4028": {
-            "power": 2,
-            "hp": 11,
-            "shield": 0
-        },
-        "4029": {
-            "power": 2,
-            "hp": 11,
-            "shield": 0
-        },
-        "4030": {
-            "power": 3,
+            "power": 6,
             "hp": 12,
             "shield": 0
         },
+        "4021": {
+            "power": 6,
+            "hp": 12,
+            "shield": 0
+        },
+        "4022": {
+            "power": 6,
+            "hp": 13,
+            "shield": 0
+        },
+        "4023": {
+            "power": 6,
+            "hp": 13,
+            "shield": 0
+        },
+        "4024": {
+            "power": 7,
+            "hp": 14,
+            "shield": 0
+        },
+        "4025": {
+            "power": 7,
+            "hp": 15,
+            "shield": 0
+        },
+        "4026": {
+            "power": 7,
+            "hp": 15,
+            "shield": 0
+        },
+        "4027": {
+            "power": 8,
+            "hp": 16,
+            "shield": 0
+        },
+        "4028": {
+            "power": 8,
+            "hp": 16,
+            "shield": 0
+        },
+        "4029": {
+            "power": 8,
+            "hp": 17,
+            "shield": 0
+        },
+        "4030": {
+            "power": 9,
+            "hp": 18,
+            "shield": 0
+        },
         "5001": {
-            "power": 1,
+            "power": 2,
             "hp": 4,
             "shield": 0
         },
         "5002": {
-            "power": 1,
+            "power": 2,
             "hp": 4,
             "shield": 0
         },
         "5003": {
-            "power": 1,
+            "power": 2,
             "hp": 4,
             "shield": 0
         },
         "5004": {
-            "power": 1,
+            "power": 2,
             "hp": 5,
             "shield": 0
         },
         "5005": {
-            "power": 1,
+            "power": 2,
             "hp": 5,
             "shield": 0
         },
         "5006": {
-            "power": 1,
+            "power": 3,
             "hp": 6,
             "shield": 0
         },
         "5007": {
-            "power": 1,
+            "power": 3,
             "hp": 6,
             "shield": 0
         },
         "5008": {
-            "power": 1,
+            "power": 3,
             "hp": 6,
             "shield": 0
         },
         "5009": {
-            "power": 1,
+            "power": 3,
             "hp": 7,
             "shield": 0
         },
         "5010": {
-            "power": 1,
+            "power": 3,
             "hp": 7,
             "shield": 0
         },
         "5011": {
-            "power": 2,
+            "power": 4,
             "hp": 8,
             "shield": 0
         },
         "5012": {
-            "power": 2,
+            "power": 4,
             "hp": 8,
             "shield": 0
         },
         "5013": {
-            "power": 2,
+            "power": 4,
             "hp": 8,
             "shield": 0
         },
         "5014": {
-            "power": 2,
+            "power": 4,
             "hp": 9,
             "shield": 0
         },
         "5015": {
-            "power": 2,
+            "power": 4,
             "hp": 9,
             "shield": 0
         },
         "5016": {
-            "power": 2,
+            "power": 5,
             "hp": 10,
             "shield": 0
         },
         "5017": {
-            "power": 2,
+            "power": 5,
             "hp": 10,
             "shield": 0
         },
         "5018": {
-            "power": 2,
+            "power": 5,
             "hp": 10,
             "shield": 0
         },
         "5019": {
-            "power": 2,
+            "power": 5,
             "hp": 11,
             "shield": 0
         },
         "5020": {
-            "power": 2,
+            "power": 5,
             "hp": 11,
             "shield": 0
         },
         "5021": {
-            "power": 3,
+            "power": 6,
             "hp": 12,
             "shield": 0
         },
         "5022": {
-            "power": 3,
+            "power": 6,
             "hp": 12,
             "shield": 0
         },
         "5023": {
-            "power": 3,
+            "power": 6,
             "hp": 12,
             "shield": 0
         },
         "5024": {
-            "power": 3,
+            "power": 6,
             "hp": 13,
             "shield": 0
         },
         "5025": {
-            "power": 3,
+            "power": 6,
             "hp": 13,
             "shield": 0
         },
         "5026": {
-            "power": 3,
+            "power": 7,
             "hp": 14,
             "shield": 0
         },
         "5027": {
-            "power": 3,
+            "power": 7,
             "hp": 14,
             "shield": 0
         },
         "5028": {
-            "power": 3,
+            "power": 7,
             "hp": 14,
             "shield": 0
         },
         "5029": {
-            "power": 3,
+            "power": 7,
             "hp": 15,
             "shield": 0
         },
         "5030": {
-            "power": 3,
+            "power": 7,
             "hp": 15,
             "shield": 0
         },
         "6005": {
             "power": 1,
-            "hp": 4,
+            "hp": 6,
             "shield": 0
         },
         "6006": {
             "power": 1,
-            "hp": 4,
+            "hp": 6,
             "shield": 0
         },
         "6007": {
             "power": 1,
-            "hp": 4,
+            "hp": 7,
             "shield": 0
         },
         "6008": {
             "power": 1,
-            "hp": 5,
+            "hp": 7,
             "shield": 0
         },
         "6009": {
             "power": 1,
-            "hp": 5,
+            "hp": 8,
             "shield": 0
         },
         "6010": {
             "power": 1,
-            "hp": 6,
+            "hp": 9,
             "shield": 0
         },
         "6011": {
             "power": 1,
-            "hp": 6,
+            "hp": 9,
             "shield": 0
         },
         "6012": {
             "power": 1,
-            "hp": 6,
+            "hp": 10,
             "shield": 0
         },
         "6013": {
             "power": 1,
-            "hp": 7,
+            "hp": 10,
             "shield": 0
         },
         "6014": {
             "power": 1,
-            "hp": 7,
+            "hp": 11,
             "shield": 0
         },
         "6015": {
             "power": 2,
-            "hp": 8,
+            "hp": 12,
             "shield": 0
         },
         "6016": {
             "power": 2,
-            "hp": 8,
+            "hp": 12,
             "shield": 0
         },
         "6017": {
             "power": 2,
-            "hp": 8,
+            "hp": 13,
             "shield": 0
         },
         "6018": {
             "power": 2,
-            "hp": 9,
+            "hp": 13,
             "shield": 0
         },
         "6019": {
             "power": 2,
-            "hp": 9,
+            "hp": 14,
             "shield": 0
         },
         "6020": {
             "power": 2,
-            "hp": 10,
+            "hp": 15,
             "shield": 0
         },
         "6021": {
             "power": 2,
-            "hp": 10,
+            "hp": 15,
             "shield": 0
         },
         "6022": {
             "power": 2,
-            "hp": 10,
+            "hp": 16,
             "shield": 0
         },
         "6023": {
             "power": 2,
-            "hp": 11,
+            "hp": 16,
             "shield": 0
         },
         "6024": {
             "power": 2,
-            "hp": 11,
+            "hp": 17,
             "shield": 0
         },
         "6025": {
             "power": 3,
-            "hp": 12,
+            "hp": 18,
             "shield": 0
         },
         "6026": {
             "power": 3,
-            "hp": 12,
+            "hp": 18,
             "shield": 0
         },
         "6027": {
             "power": 3,
-            "hp": 12,
+            "hp": 19,
             "shield": 0
         },
         "6028": {
             "power": 3,
-            "hp": 13,
+            "hp": 19,
             "shield": 0
         },
         "6029": {
             "power": 3,
-            "hp": 13,
+            "hp": 20,
             "shield": 0
         },
         "6030": {
             "power": 3,
-            "hp": 14,
+            "hp": 21,
             "shield": 0
         },
         "7010": {
-            "power": 1,
-            "hp": 4,
+            "power": 2,
+            "hp": 8,
             "shield": 0
         },
         "7011": {
-            "power": 1,
-            "hp": 4,
+            "power": 2,
+            "hp": 8,
             "shield": 0
         },
         "7012": {
-            "power": 1,
-            "hp": 4,
+            "power": 2,
+            "hp": 9,
             "shield": 0
         },
         "7013": {
-            "power": 1,
-            "hp": 5,
+            "power": 2,
+            "hp": 10,
             "shield": 0
         },
         "7014": {
-            "power": 1,
-            "hp": 5,
+            "power": 2,
+            "hp": 11,
             "shield": 0
         },
         "7015": {
-            "power": 1,
-            "hp": 6,
+            "power": 3,
+            "hp": 12,
             "shield": 0
         },
         "7016": {
-            "power": 1,
-            "hp": 6,
+            "power": 3,
+            "hp": 12,
             "shield": 0
         },
         "7017": {
-            "power": 1,
-            "hp": 6,
+            "power": 3,
+            "hp": 13,
             "shield": 0
         },
         "7018": {
-            "power": 1,
-            "hp": 7,
+            "power": 3,
+            "hp": 14,
             "shield": 0
         },
         "7019": {
-            "power": 1,
-            "hp": 7,
+            "power": 3,
+            "hp": 15,
             "shield": 0
         },
         "7020": {
-            "power": 2,
-            "hp": 8,
+            "power": 4,
+            "hp": 16,
             "shield": 0
         },
         "7021": {
-            "power": 2,
-            "hp": 8,
+            "power": 4,
+            "hp": 16,
             "shield": 0
         },
         "7022": {
-            "power": 2,
-            "hp": 8,
+            "power": 4,
+            "hp": 17,
             "shield": 0
         },
         "7023": {
-            "power": 2,
-            "hp": 9,
+            "power": 4,
+            "hp": 18,
             "shield": 0
         },
         "7024": {
-            "power": 2,
-            "hp": 9,
+            "power": 4,
+            "hp": 19,
             "shield": 0
         },
         "7025": {
-            "power": 2,
-            "hp": 10,
+            "power": 5,
+            "hp": 20,
             "shield": 0
         },
         "7026": {
-            "power": 2,
-            "hp": 10,
+            "power": 5,
+            "hp": 20,
             "shield": 0
         },
         "7027": {
-            "power": 2,
-            "hp": 10,
+            "power": 5,
+            "hp": 21,
             "shield": 0
         },
         "7028": {
-            "power": 2,
-            "hp": 11,
+            "power": 5,
+            "hp": 22,
             "shield": 0
         },
         "7029": {
-            "power": 2,
-            "hp": 11,
+            "power": 5,
+            "hp": 23,
             "shield": 0
         },
         "7030": {
-            "power": 3,
-            "hp": 12,
+            "power": 6,
+            "hp": 24,
             "shield": 0
         },
         "8003": {
-            "power": 1,
-            "hp": 4,
+            "power": 2,
+            "hp": 5,
             "shield": 0
         },
         "8004": {
-            "power": 1,
-            "hp": 4,
+            "power": 2,
+            "hp": 5,
             "shield": 0
         },
         "8005": {
-            "power": 1,
-            "hp": 4,
+            "power": 2,
+            "hp": 6,
             "shield": 0
         },
         "8006": {
-            "power": 1,
-            "hp": 5,
+            "power": 2,
+            "hp": 6,
             "shield": 0
         },
         "8007": {
-            "power": 1,
-            "hp": 5,
+            "power": 2,
+            "hp": 7,
             "shield": 0
         },
         "8008": {
-            "power": 1,
-            "hp": 6,
+            "power": 3,
+            "hp": 7,
             "shield": 0
         },
         "8009": {
-            "power": 1,
-            "hp": 6,
+            "power": 3,
+            "hp": 8,
             "shield": 0
         },
         "8010": {
-            "power": 1,
-            "hp": 6,
+            "power": 3,
+            "hp": 8,
             "shield": 0
         },
         "8011": {
-            "power": 1,
-            "hp": 7,
+            "power": 3,
+            "hp": 9,
             "shield": 0
         },
         "8012": {
-            "power": 1,
-            "hp": 7,
+            "power": 3,
+            "hp": 9,
             "shield": 0
         },
         "8013": {
-            "power": 2,
-            "hp": 8,
+            "power": 4,
+            "hp": 10,
             "shield": 0
         },
         "8014": {
-            "power": 2,
-            "hp": 8,
+            "power": 4,
+            "hp": 10,
             "shield": 0
         },
         "8015": {
-            "power": 2,
-            "hp": 8,
+            "power": 4,
+            "hp": 11,
             "shield": 0
         },
         "8016": {
-            "power": 2,
-            "hp": 9,
+            "power": 4,
+            "hp": 11,
             "shield": 0
         },
         "8017": {
-            "power": 2,
-            "hp": 9,
+            "power": 4,
+            "hp": 12,
             "shield": 0
         },
         "8018": {
-            "power": 2,
-            "hp": 10,
+            "power": 5,
+            "hp": 12,
             "shield": 0
         },
         "8019": {
-            "power": 2,
-            "hp": 10,
+            "power": 5,
+            "hp": 13,
             "shield": 0
         },
         "8020": {
-            "power": 2,
-            "hp": 10,
+            "power": 5,
+            "hp": 13,
             "shield": 0
         },
         "8021": {
-            "power": 2,
-            "hp": 11,
+            "power": 5,
+            "hp": 14,
             "shield": 0
         },
         "8022": {
-            "power": 2,
-            "hp": 11,
+            "power": 5,
+            "hp": 14,
             "shield": 0
         },
         "8023": {
-            "power": 3,
-            "hp": 12,
+            "power": 6,
+            "hp": 15,
             "shield": 0
         },
         "8024": {
-            "power": 3,
-            "hp": 12,
+            "power": 6,
+            "hp": 15,
             "shield": 0
         },
         "8025": {
-            "power": 3,
-            "hp": 12,
+            "power": 6,
+            "hp": 16,
             "shield": 0
         },
         "8026": {
-            "power": 3,
-            "hp": 13,
+            "power": 6,
+            "hp": 16,
             "shield": 0
         },
         "8027": {
-            "power": 3,
-            "hp": 13,
+            "power": 6,
+            "hp": 17,
             "shield": 0
         },
         "8028": {
-            "power": 3,
-            "hp": 14,
+            "power": 7,
+            "hp": 17,
             "shield": 0
         },
         "8029": {
-            "power": 3,
-            "hp": 14,
+            "power": 7,
+            "hp": 18,
             "shield": 0
         },
         "8030": {
-            "power": 3,
-            "hp": 14,
+            "power": 7,
+            "hp": 18,
             "shield": 0
         },
         "9002": {
-            "power": 1,
+            "power": 2,
             "hp": 4,
             "shield": 0
         },
         "9003": {
-            "power": 1,
+            "power": 2,
             "hp": 4,
             "shield": 0
         },
         "9004": {
-            "power": 1,
+            "power": 2,
             "hp": 4,
             "shield": 0
         },
         "9005": {
-            "power": 1,
+            "power": 2,
             "hp": 5,
             "shield": 0
         },
         "9006": {
-            "power": 1,
+            "power": 2,
             "hp": 5,
             "shield": 0
         },
         "9007": {
-            "power": 1,
+            "power": 3,
             "hp": 6,
             "shield": 0
         },
         "9008": {
-            "power": 1,
+            "power": 3,
             "hp": 6,
             "shield": 0
         },
         "9009": {
-            "power": 1,
+            "power": 3,
             "hp": 6,
             "shield": 0
         },
         "9010": {
-            "power": 1,
+            "power": 3,
             "hp": 7,
             "shield": 0
         },
         "9011": {
-            "power": 1,
+            "power": 3,
             "hp": 7,
             "shield": 0
         },
         "9012": {
-            "power": 2,
+            "power": 4,
             "hp": 8,
             "shield": 0
         },
         "9013": {
-            "power": 2,
+            "power": 4,
             "hp": 8,
             "shield": 0
         },
         "9014": {
-            "power": 2,
+            "power": 4,
             "hp": 8,
             "shield": 0
         },
         "9015": {
-            "power": 2,
+            "power": 4,
             "hp": 9,
             "shield": 0
         },
         "9016": {
-            "power": 2,
+            "power": 4,
             "hp": 9,
             "shield": 0
         },
         "9017": {
-            "power": 2,
+            "power": 5,
             "hp": 10,
             "shield": 0
         },
         "9018": {
-            "power": 2,
+            "power": 5,
             "hp": 10,
             "shield": 0
         },
         "9019": {
-            "power": 2,
+            "power": 5,
             "hp": 10,
             "shield": 0
         },
         "9020": {
-            "power": 2,
+            "power": 5,
             "hp": 11,
             "shield": 0
         },
         "9021": {
-            "power": 2,
+            "power": 5,
             "hp": 11,
             "shield": 0
         },
         "9022": {
-            "power": 3,
+            "power": 6,
             "hp": 12,
             "shield": 0
         },
         "9023": {
-            "power": 3,
+            "power": 6,
             "hp": 12,
             "shield": 0
         },
         "9024": {
-            "power": 3,
+            "power": 6,
             "hp": 12,
             "shield": 0
         },
         "9025": {
-            "power": 3,
+            "power": 6,
             "hp": 13,
             "shield": 0
         },
         "9026": {
-            "power": 3,
+            "power": 6,
             "hp": 13,
             "shield": 0
         },
         "9027": {
-            "power": 3,
+            "power": 7,
             "hp": 14,
             "shield": 0
         },
         "9028": {
-            "power": 3,
+            "power": 7,
             "hp": 14,
             "shield": 0
         },
         "9029": {
-            "power": 3,
+            "power": 7,
             "hp": 14,
             "shield": 0
         },
         "9030": {
-            "power": 3,
+            "power": 7,
             "hp": 15,
             "shield": 0
         },
         "10010": {
-            "power": 1,
-            "hp": 4,
+            "power": 3,
+            "hp": 6,
             "shield": 0
         },
         "10011": {
-            "power": 1,
-            "hp": 4,
+            "power": 3,
+            "hp": 6,
             "shield": 0
         },
         "10012": {
-            "power": 1,
-            "hp": 4,
+            "power": 3,
+            "hp": 7,
             "shield": 0
         },
         "10013": {
-            "power": 1,
-            "hp": 5,
+            "power": 3,
+            "hp": 7,
             "shield": 0
         },
         "10014": {
-            "power": 1,
-            "hp": 5,
+            "power": 4,
+            "hp": 8,
             "shield": 0
         },
         "10015": {
-            "power": 1,
-            "hp": 6,
+            "power": 4,
+            "hp": 9,
             "shield": 0
         },
         "10016": {
-            "power": 1,
-            "hp": 6,
+            "power": 4,
+            "hp": 9,
             "shield": 0
         },
         "10017": {
-            "power": 1,
-            "hp": 6,
+            "power": 5,
+            "hp": 10,
             "shield": 0
         },
         "10018": {
-            "power": 1,
-            "hp": 7,
+            "power": 5,
+            "hp": 10,
             "shield": 0
         },
         "10019": {
-            "power": 1,
-            "hp": 7,
+            "power": 5,
+            "hp": 11,
             "shield": 0
         },
         "10020": {
-            "power": 2,
-            "hp": 8,
-            "shield": 0
-        },
-        "10021": {
-            "power": 2,
-            "hp": 8,
-            "shield": 0
-        },
-        "10022": {
-            "power": 2,
-            "hp": 8,
-            "shield": 0
-        },
-        "10023": {
-            "power": 2,
-            "hp": 9,
-            "shield": 0
-        },
-        "10024": {
-            "power": 2,
-            "hp": 9,
-            "shield": 0
-        },
-        "10025": {
-            "power": 2,
-            "hp": 10,
-            "shield": 0
-        },
-        "10026": {
-            "power": 2,
-            "hp": 10,
-            "shield": 0
-        },
-        "10027": {
-            "power": 2,
-            "hp": 10,
-            "shield": 0
-        },
-        "10028": {
-            "power": 2,
-            "hp": 11,
-            "shield": 0
-        },
-        "10029": {
-            "power": 2,
-            "hp": 11,
-            "shield": 0
-        },
-        "10030": {
-            "power": 3,
+            "power": 6,
             "hp": 12,
             "shield": 0
         },
+        "10021": {
+            "power": 6,
+            "hp": 12,
+            "shield": 0
+        },
+        "10022": {
+            "power": 6,
+            "hp": 13,
+            "shield": 0
+        },
+        "10023": {
+            "power": 6,
+            "hp": 13,
+            "shield": 0
+        },
+        "10024": {
+            "power": 7,
+            "hp": 14,
+            "shield": 0
+        },
+        "10025": {
+            "power": 7,
+            "hp": 15,
+            "shield": 0
+        },
+        "10026": {
+            "power": 7,
+            "hp": 15,
+            "shield": 0
+        },
+        "10027": {
+            "power": 8,
+            "hp": 16,
+            "shield": 0
+        },
+        "10028": {
+            "power": 8,
+            "hp": 16,
+            "shield": 0
+        },
+        "10029": {
+            "power": 8,
+            "hp": 17,
+            "shield": 0
+        },
+        "10030": {
+            "power": 9,
+            "hp": 18,
+            "shield": 0
+        },
         "11001": {
-            "power": 1,
+            "power": 2,
             "hp": 4,
             "shield": 0
         },
         "11002": {
-            "power": 1,
+            "power": 2,
             "hp": 4,
             "shield": 0
         },
         "11003": {
-            "power": 1,
+            "power": 2,
             "hp": 4,
             "shield": 0
         },
         "11004": {
-            "power": 1,
+            "power": 2,
             "hp": 5,
             "shield": 0
         },
         "11005": {
-            "power": 1,
+            "power": 2,
             "hp": 5,
             "shield": 0
         },
         "11006": {
-            "power": 1,
+            "power": 3,
             "hp": 6,
             "shield": 0
         },
         "11007": {
-            "power": 1,
+            "power": 3,
             "hp": 6,
             "shield": 0
         },
         "11008": {
-            "power": 1,
+            "power": 3,
             "hp": 6,
             "shield": 0
         },
         "11009": {
-            "power": 1,
+            "power": 3,
             "hp": 7,
             "shield": 0
         },
         "11010": {
-            "power": 1,
+            "power": 3,
             "hp": 7,
             "shield": 0
         },
         "11011": {
-            "power": 2,
+            "power": 4,
             "hp": 8,
             "shield": 0
         },
         "11012": {
-            "power": 2,
+            "power": 4,
             "hp": 8,
             "shield": 0
         },
         "11013": {
-            "power": 2,
+            "power": 4,
             "hp": 8,
             "shield": 0
         },
         "11014": {
-            "power": 2,
+            "power": 4,
             "hp": 9,
             "shield": 0
         },
         "11015": {
-            "power": 2,
+            "power": 4,
             "hp": 9,
             "shield": 0
         },
         "11016": {
-            "power": 2,
+            "power": 5,
             "hp": 10,
             "shield": 0
         },
         "11017": {
-            "power": 2,
+            "power": 5,
             "hp": 10,
             "shield": 0
         },
         "11018": {
-            "power": 2,
+            "power": 5,
             "hp": 10,
             "shield": 0
         },
         "11019": {
-            "power": 2,
+            "power": 5,
             "hp": 11,
             "shield": 0
         },
         "11020": {
-            "power": 2,
+            "power": 5,
             "hp": 11,
             "shield": 0
         },
         "11021": {
-            "power": 3,
+            "power": 6,
             "hp": 12,
             "shield": 0
         },
         "11022": {
-            "power": 3,
+            "power": 6,
             "hp": 12,
             "shield": 0
         },
         "11023": {
-            "power": 3,
+            "power": 6,
             "hp": 12,
             "shield": 0
         },
         "11024": {
-            "power": 3,
+            "power": 6,
             "hp": 13,
             "shield": 0
         },
         "11025": {
-            "power": 3,
+            "power": 6,
             "hp": 13,
             "shield": 0
         },
         "11026": {
-            "power": 3,
+            "power": 7,
             "hp": 14,
             "shield": 0
         },
         "11027": {
-            "power": 3,
+            "power": 7,
             "hp": 14,
             "shield": 0
         },
         "11028": {
-            "power": 3,
+            "power": 7,
             "hp": 14,
             "shield": 0
         },
         "11029": {
-            "power": 3,
+            "power": 7,
             "hp": 15,
             "shield": 0
         },
         "11030": {
-            "power": 3,
+            "power": 7,
             "hp": 15,
             "shield": 0
         },
         "12005": {
-            "power": 1,
-            "hp": 4,
+            "power": 2,
+            "hp": 5,
             "shield": 0
         },
         "12006": {
-            "power": 1,
-            "hp": 4,
+            "power": 2,
+            "hp": 5,
             "shield": 0
         },
         "12007": {
-            "power": 1,
-            "hp": 4,
+            "power": 2,
+            "hp": 6,
             "shield": 0
         },
         "12008": {
-            "power": 1,
-            "hp": 5,
+            "power": 2,
+            "hp": 6,
             "shield": 0
         },
         "12009": {
-            "power": 1,
-            "hp": 5,
+            "power": 2,
+            "hp": 7,
             "shield": 0
         },
         "12010": {
-            "power": 1,
-            "hp": 6,
+            "power": 3,
+            "hp": 7,
             "shield": 0
         },
         "12011": {
-            "power": 1,
-            "hp": 6,
+            "power": 3,
+            "hp": 8,
             "shield": 0
         },
         "12012": {
-            "power": 1,
-            "hp": 6,
+            "power": 3,
+            "hp": 8,
             "shield": 0
         },
         "12013": {
-            "power": 1,
-            "hp": 7,
+            "power": 3,
+            "hp": 9,
             "shield": 0
         },
         "12014": {
-            "power": 1,
-            "hp": 7,
+            "power": 3,
+            "hp": 9,
             "shield": 0
         },
         "12015": {
-            "power": 2,
-            "hp": 8,
+            "power": 4,
+            "hp": 10,
             "shield": 0
         },
         "12016": {
-            "power": 2,
-            "hp": 8,
+            "power": 4,
+            "hp": 10,
             "shield": 0
         },
         "12017": {
-            "power": 2,
-            "hp": 8,
+            "power": 4,
+            "hp": 11,
             "shield": 0
         },
         "12018": {
-            "power": 2,
-            "hp": 9,
+            "power": 4,
+            "hp": 11,
             "shield": 0
         },
         "12019": {
-            "power": 2,
-            "hp": 9,
+            "power": 4,
+            "hp": 12,
             "shield": 0
         },
         "12020": {
-            "power": 2,
-            "hp": 10,
+            "power": 5,
+            "hp": 12,
             "shield": 0
         },
         "12021": {
-            "power": 2,
-            "hp": 10,
+            "power": 5,
+            "hp": 13,
             "shield": 0
         },
         "12022": {
-            "power": 2,
-            "hp": 10,
+            "power": 5,
+            "hp": 13,
             "shield": 0
         },
         "12023": {
-            "power": 2,
-            "hp": 11,
+            "power": 5,
+            "hp": 14,
             "shield": 0
         },
         "12024": {
-            "power": 2,
-            "hp": 11,
+            "power": 5,
+            "hp": 14,
             "shield": 0
         },
         "12025": {
-            "power": 3,
-            "hp": 12,
+            "power": 6,
+            "hp": 15,
             "shield": 0
         },
         "12026": {
-            "power": 3,
-            "hp": 12,
+            "power": 6,
+            "hp": 15,
             "shield": 0
         },
         "12027": {
-            "power": 3,
-            "hp": 12,
+            "power": 6,
+            "hp": 16,
             "shield": 0
         },
         "12028": {
-            "power": 3,
-            "hp": 13,
+            "power": 6,
+            "hp": 16,
             "shield": 0
         },
         "12029": {
-            "power": 3,
-            "hp": 13,
+            "power": 6,
+            "hp": 17,
             "shield": 0
         },
         "12030": {
-            "power": 3,
-            "hp": 14,
+            "power": 7,
+            "hp": 17,
             "shield": 0
         },
         "13003": {
@@ -1675,1122 +1675,1122 @@
             "shield": 0
         },
         "14001": {
-            "power": 1,
+            "power": 2,
             "hp": 4,
             "shield": 0
         },
         "14002": {
-            "power": 1,
+            "power": 2,
             "hp": 4,
             "shield": 0
         },
         "14003": {
-            "power": 1,
+            "power": 2,
             "hp": 4,
             "shield": 0
         },
         "14004": {
-            "power": 1,
+            "power": 2,
             "hp": 5,
             "shield": 0
         },
         "14005": {
-            "power": 1,
+            "power": 2,
             "hp": 5,
             "shield": 0
         },
         "14006": {
-            "power": 1,
+            "power": 3,
             "hp": 6,
             "shield": 0
         },
         "14007": {
-            "power": 1,
+            "power": 3,
             "hp": 6,
             "shield": 0
         },
         "14008": {
-            "power": 1,
+            "power": 3,
             "hp": 6,
             "shield": 0
         },
         "14009": {
-            "power": 1,
+            "power": 3,
             "hp": 7,
             "shield": 0
         },
         "14010": {
-            "power": 1,
+            "power": 3,
             "hp": 7,
             "shield": 0
         },
         "14011": {
-            "power": 2,
+            "power": 4,
             "hp": 8,
             "shield": 0
         },
         "14012": {
-            "power": 2,
+            "power": 4,
             "hp": 8,
             "shield": 0
         },
         "14013": {
-            "power": 2,
+            "power": 4,
             "hp": 8,
             "shield": 0
         },
         "14014": {
-            "power": 2,
+            "power": 4,
             "hp": 9,
             "shield": 0
         },
         "14015": {
-            "power": 2,
+            "power": 4,
             "hp": 9,
             "shield": 0
         },
         "14016": {
-            "power": 2,
+            "power": 5,
             "hp": 10,
             "shield": 0
         },
         "14017": {
-            "power": 2,
+            "power": 5,
             "hp": 10,
             "shield": 0
         },
         "14018": {
-            "power": 2,
+            "power": 5,
             "hp": 10,
             "shield": 0
         },
         "14019": {
-            "power": 2,
+            "power": 5,
             "hp": 11,
             "shield": 0
         },
         "14020": {
-            "power": 2,
+            "power": 5,
             "hp": 11,
             "shield": 0
         },
         "14021": {
-            "power": 3,
+            "power": 6,
             "hp": 12,
             "shield": 0
         },
         "14022": {
-            "power": 3,
+            "power": 6,
             "hp": 12,
             "shield": 0
         },
         "14023": {
-            "power": 3,
+            "power": 6,
             "hp": 12,
             "shield": 0
         },
         "14024": {
-            "power": 3,
+            "power": 6,
             "hp": 13,
             "shield": 0
         },
         "14025": {
-            "power": 3,
+            "power": 6,
             "hp": 13,
             "shield": 0
         },
         "14026": {
-            "power": 3,
+            "power": 7,
             "hp": 14,
             "shield": 0
         },
         "14027": {
-            "power": 3,
+            "power": 7,
             "hp": 14,
             "shield": 0
         },
         "14028": {
-            "power": 3,
+            "power": 7,
             "hp": 14,
             "shield": 0
         },
         "14029": {
-            "power": 3,
+            "power": 7,
             "hp": 15,
             "shield": 0
         },
         "14030": {
-            "power": 3,
+            "power": 7,
             "hp": 15,
             "shield": 0
         },
         "15003": {
-            "power": 1,
-            "hp": 4,
+            "power": 2,
+            "hp": 5,
             "shield": 0
         },
         "15004": {
-            "power": 1,
-            "hp": 4,
+            "power": 2,
+            "hp": 5,
             "shield": 0
         },
         "15005": {
-            "power": 1,
-            "hp": 4,
+            "power": 2,
+            "hp": 6,
             "shield": 0
         },
         "15006": {
-            "power": 1,
-            "hp": 5,
+            "power": 2,
+            "hp": 6,
             "shield": 0
         },
         "15007": {
-            "power": 1,
-            "hp": 5,
+            "power": 2,
+            "hp": 7,
             "shield": 0
         },
         "15008": {
-            "power": 1,
-            "hp": 6,
+            "power": 3,
+            "hp": 7,
             "shield": 0
         },
         "15009": {
-            "power": 1,
-            "hp": 6,
+            "power": 3,
+            "hp": 8,
             "shield": 0
         },
         "15010": {
-            "power": 1,
-            "hp": 6,
+            "power": 3,
+            "hp": 8,
             "shield": 0
         },
         "15011": {
-            "power": 1,
-            "hp": 7,
+            "power": 3,
+            "hp": 9,
             "shield": 0
         },
         "15012": {
-            "power": 1,
-            "hp": 7,
+            "power": 3,
+            "hp": 9,
             "shield": 0
         },
         "15013": {
-            "power": 2,
-            "hp": 8,
+            "power": 4,
+            "hp": 10,
             "shield": 0
         },
         "15014": {
-            "power": 2,
-            "hp": 8,
+            "power": 4,
+            "hp": 10,
             "shield": 0
         },
         "15015": {
-            "power": 2,
-            "hp": 8,
+            "power": 4,
+            "hp": 11,
             "shield": 0
         },
         "15016": {
-            "power": 2,
-            "hp": 9,
+            "power": 4,
+            "hp": 11,
             "shield": 0
         },
         "15017": {
-            "power": 2,
-            "hp": 9,
+            "power": 4,
+            "hp": 12,
             "shield": 0
         },
         "15018": {
-            "power": 2,
-            "hp": 10,
+            "power": 5,
+            "hp": 12,
             "shield": 0
         },
         "15019": {
-            "power": 2,
-            "hp": 10,
+            "power": 5,
+            "hp": 13,
             "shield": 0
         },
         "15020": {
-            "power": 2,
-            "hp": 10,
+            "power": 5,
+            "hp": 13,
             "shield": 0
         },
         "15021": {
-            "power": 2,
-            "hp": 11,
+            "power": 5,
+            "hp": 14,
             "shield": 0
         },
         "15022": {
-            "power": 2,
-            "hp": 11,
+            "power": 5,
+            "hp": 14,
             "shield": 0
         },
         "15023": {
-            "power": 3,
-            "hp": 12,
+            "power": 6,
+            "hp": 15,
             "shield": 0
         },
         "15024": {
-            "power": 3,
-            "hp": 12,
+            "power": 6,
+            "hp": 15,
             "shield": 0
         },
         "15025": {
-            "power": 3,
-            "hp": 12,
+            "power": 6,
+            "hp": 16,
             "shield": 0
         },
         "15026": {
-            "power": 3,
-            "hp": 13,
+            "power": 6,
+            "hp": 16,
             "shield": 0
         },
         "15027": {
-            "power": 3,
-            "hp": 13,
+            "power": 6,
+            "hp": 17,
             "shield": 0
         },
         "15028": {
-            "power": 3,
-            "hp": 14,
+            "power": 7,
+            "hp": 17,
             "shield": 0
         },
         "15029": {
-            "power": 3,
-            "hp": 14,
+            "power": 7,
+            "hp": 18,
             "shield": 0
         },
         "15030": {
-            "power": 3,
-            "hp": 14,
+            "power": 7,
+            "hp": 18,
             "shield": 0
         },
         "16002": {
-            "power": 1,
+            "power": 2,
             "hp": 4,
             "shield": 0
         },
         "16003": {
-            "power": 1,
+            "power": 2,
             "hp": 4,
             "shield": 0
         },
         "16004": {
-            "power": 1,
+            "power": 2,
             "hp": 4,
             "shield": 0
         },
         "16005": {
-            "power": 1,
+            "power": 2,
             "hp": 5,
             "shield": 0
         },
         "16006": {
-            "power": 1,
+            "power": 2,
             "hp": 5,
             "shield": 0
         },
         "16007": {
-            "power": 1,
+            "power": 3,
             "hp": 6,
             "shield": 0
         },
         "16008": {
-            "power": 1,
+            "power": 3,
             "hp": 6,
             "shield": 0
         },
         "16009": {
-            "power": 1,
+            "power": 3,
             "hp": 6,
             "shield": 0
         },
         "16010": {
-            "power": 1,
+            "power": 3,
             "hp": 7,
             "shield": 0
         },
         "16011": {
-            "power": 1,
+            "power": 3,
             "hp": 7,
             "shield": 0
         },
         "16012": {
-            "power": 2,
+            "power": 4,
             "hp": 8,
             "shield": 0
         },
         "16013": {
-            "power": 2,
+            "power": 4,
             "hp": 8,
             "shield": 0
         },
         "16014": {
-            "power": 2,
+            "power": 4,
             "hp": 8,
             "shield": 0
         },
         "16015": {
-            "power": 2,
+            "power": 4,
             "hp": 9,
             "shield": 0
         },
         "16016": {
-            "power": 2,
+            "power": 4,
             "hp": 9,
             "shield": 0
         },
         "16017": {
-            "power": 2,
+            "power": 5,
             "hp": 10,
             "shield": 0
         },
         "16018": {
-            "power": 2,
+            "power": 5,
             "hp": 10,
             "shield": 0
         },
         "16019": {
-            "power": 2,
+            "power": 5,
             "hp": 10,
             "shield": 0
         },
         "16020": {
-            "power": 2,
+            "power": 5,
             "hp": 11,
             "shield": 0
         },
         "16021": {
-            "power": 2,
+            "power": 5,
             "hp": 11,
             "shield": 0
         },
         "16022": {
-            "power": 3,
+            "power": 6,
             "hp": 12,
             "shield": 0
         },
         "16023": {
-            "power": 3,
+            "power": 6,
             "hp": 12,
             "shield": 0
         },
         "16024": {
-            "power": 3,
+            "power": 6,
             "hp": 12,
             "shield": 0
         },
         "16025": {
-            "power": 3,
+            "power": 6,
             "hp": 13,
             "shield": 0
         },
         "16026": {
-            "power": 3,
+            "power": 6,
             "hp": 13,
             "shield": 0
         },
         "16027": {
-            "power": 3,
+            "power": 7,
             "hp": 14,
             "shield": 0
         },
         "16028": {
-            "power": 3,
+            "power": 7,
             "hp": 14,
             "shield": 0
         },
         "16029": {
-            "power": 3,
+            "power": 7,
             "hp": 14,
             "shield": 0
         },
         "16030": {
-            "power": 3,
+            "power": 7,
             "hp": 15,
             "shield": 0
         },
         "17008": {
-            "power": 1,
-            "hp": 4,
+            "power": 3,
+            "hp": 6,
             "shield": 0
         },
         "17009": {
-            "power": 1,
-            "hp": 4,
+            "power": 3,
+            "hp": 6,
             "shield": 0
         },
         "17010": {
-            "power": 1,
-            "hp": 4,
+            "power": 3,
+            "hp": 7,
             "shield": 0
         },
         "17011": {
-            "power": 1,
-            "hp": 5,
+            "power": 3,
+            "hp": 7,
             "shield": 0
         },
         "17012": {
-            "power": 1,
-            "hp": 5,
+            "power": 4,
+            "hp": 8,
             "shield": 0
         },
         "17013": {
-            "power": 1,
-            "hp": 6,
+            "power": 4,
+            "hp": 9,
             "shield": 0
         },
         "17014": {
-            "power": 1,
-            "hp": 6,
+            "power": 4,
+            "hp": 9,
             "shield": 0
         },
         "17015": {
-            "power": 1,
-            "hp": 6,
+            "power": 5,
+            "hp": 10,
             "shield": 0
         },
         "17016": {
-            "power": 1,
-            "hp": 7,
+            "power": 5,
+            "hp": 10,
             "shield": 0
         },
         "17017": {
-            "power": 1,
-            "hp": 7,
+            "power": 5,
+            "hp": 11,
             "shield": 0
         },
         "17018": {
-            "power": 2,
-            "hp": 8,
+            "power": 6,
+            "hp": 12,
             "shield": 0
         },
         "17019": {
-            "power": 2,
-            "hp": 8,
+            "power": 6,
+            "hp": 12,
             "shield": 0
         },
         "17020": {
-            "power": 2,
-            "hp": 8,
+            "power": 6,
+            "hp": 13,
             "shield": 0
         },
         "17021": {
-            "power": 2,
-            "hp": 9,
+            "power": 6,
+            "hp": 13,
             "shield": 0
         },
         "17022": {
-            "power": 2,
-            "hp": 9,
+            "power": 7,
+            "hp": 14,
             "shield": 0
         },
         "17023": {
-            "power": 2,
-            "hp": 10,
+            "power": 7,
+            "hp": 15,
             "shield": 0
         },
         "17024": {
-            "power": 2,
-            "hp": 10,
+            "power": 7,
+            "hp": 15,
             "shield": 0
         },
         "17025": {
-            "power": 2,
-            "hp": 10,
+            "power": 8,
+            "hp": 16,
             "shield": 0
         },
         "17026": {
-            "power": 2,
-            "hp": 11,
+            "power": 8,
+            "hp": 16,
             "shield": 0
         },
         "17027": {
-            "power": 2,
-            "hp": 11,
+            "power": 8,
+            "hp": 17,
             "shield": 0
         },
         "17028": {
-            "power": 3,
-            "hp": 12,
+            "power": 9,
+            "hp": 18,
             "shield": 0
         },
         "17029": {
-            "power": 3,
-            "hp": 12,
+            "power": 9,
+            "hp": 18,
             "shield": 0
         },
         "17030": {
-            "power": 3,
-            "hp": 12,
+            "power": 9,
+            "hp": 19,
             "shield": 0
         },
         "18005": {
-            "power": 1,
-            "hp": 4,
+            "power": 2,
+            "hp": 6,
             "shield": 0
         },
         "18006": {
-            "power": 1,
-            "hp": 4,
+            "power": 2,
+            "hp": 6,
             "shield": 0
         },
         "18007": {
-            "power": 1,
-            "hp": 4,
+            "power": 2,
+            "hp": 7,
             "shield": 0
         },
         "18008": {
-            "power": 1,
-            "hp": 5,
+            "power": 2,
+            "hp": 7,
             "shield": 0
         },
         "18009": {
-            "power": 1,
-            "hp": 5,
+            "power": 2,
+            "hp": 8,
             "shield": 0
         },
         "18010": {
-            "power": 1,
-            "hp": 6,
+            "power": 3,
+            "hp": 9,
             "shield": 0
         },
         "18011": {
-            "power": 1,
-            "hp": 6,
+            "power": 3,
+            "hp": 9,
             "shield": 0
         },
         "18012": {
-            "power": 1,
-            "hp": 6,
+            "power": 3,
+            "hp": 10,
             "shield": 0
         },
         "18013": {
-            "power": 1,
-            "hp": 7,
+            "power": 3,
+            "hp": 10,
             "shield": 0
         },
         "18014": {
-            "power": 1,
-            "hp": 7,
+            "power": 3,
+            "hp": 11,
             "shield": 0
         },
         "18015": {
-            "power": 2,
-            "hp": 8,
+            "power": 4,
+            "hp": 12,
             "shield": 0
         },
         "18016": {
-            "power": 2,
-            "hp": 8,
+            "power": 4,
+            "hp": 12,
             "shield": 0
         },
         "18017": {
-            "power": 2,
-            "hp": 8,
+            "power": 4,
+            "hp": 13,
             "shield": 0
         },
         "18018": {
-            "power": 2,
-            "hp": 9,
+            "power": 4,
+            "hp": 13,
             "shield": 0
         },
         "18019": {
-            "power": 2,
-            "hp": 9,
+            "power": 4,
+            "hp": 14,
             "shield": 0
         },
         "18020": {
-            "power": 2,
-            "hp": 10,
+            "power": 5,
+            "hp": 15,
             "shield": 0
         },
         "18021": {
-            "power": 2,
-            "hp": 10,
+            "power": 5,
+            "hp": 15,
             "shield": 0
         },
         "18022": {
-            "power": 2,
-            "hp": 10,
+            "power": 5,
+            "hp": 16,
             "shield": 0
         },
         "18023": {
-            "power": 2,
-            "hp": 11,
+            "power": 5,
+            "hp": 16,
             "shield": 0
         },
         "18024": {
-            "power": 2,
-            "hp": 11,
+            "power": 5,
+            "hp": 17,
             "shield": 0
         },
         "18025": {
-            "power": 3,
-            "hp": 12,
+            "power": 6,
+            "hp": 18,
             "shield": 0
         },
         "18026": {
-            "power": 3,
-            "hp": 12,
+            "power": 6,
+            "hp": 18,
             "shield": 0
         },
         "18027": {
-            "power": 3,
-            "hp": 12,
+            "power": 6,
+            "hp": 19,
             "shield": 0
         },
         "18028": {
-            "power": 3,
-            "hp": 13,
+            "power": 6,
+            "hp": 19,
             "shield": 0
         },
         "18029": {
-            "power": 3,
-            "hp": 13,
+            "power": 6,
+            "hp": 20,
             "shield": 0
         },
         "18030": {
-            "power": 3,
-            "hp": 14,
+            "power": 7,
+            "hp": 21,
             "shield": 0
         },
         "19003": {
-            "power": 1,
-            "hp": 4,
+            "power": 2,
+            "hp": 5,
             "shield": 0
         },
         "19004": {
-            "power": 1,
-            "hp": 4,
+            "power": 2,
+            "hp": 5,
             "shield": 0
         },
         "19005": {
-            "power": 1,
-            "hp": 4,
+            "power": 2,
+            "hp": 6,
             "shield": 0
         },
         "19006": {
-            "power": 1,
-            "hp": 5,
+            "power": 2,
+            "hp": 6,
             "shield": 0
         },
         "19007": {
-            "power": 1,
-            "hp": 5,
+            "power": 2,
+            "hp": 7,
             "shield": 0
         },
         "19008": {
-            "power": 1,
-            "hp": 6,
+            "power": 3,
+            "hp": 7,
             "shield": 0
         },
         "19009": {
-            "power": 1,
-            "hp": 6,
+            "power": 3,
+            "hp": 8,
             "shield": 0
         },
         "19010": {
-            "power": 1,
-            "hp": 6,
+            "power": 3,
+            "hp": 8,
             "shield": 0
         },
         "19011": {
-            "power": 1,
-            "hp": 7,
+            "power": 3,
+            "hp": 9,
             "shield": 0
         },
         "19012": {
-            "power": 1,
-            "hp": 7,
+            "power": 3,
+            "hp": 9,
             "shield": 0
         },
         "19013": {
-            "power": 2,
-            "hp": 8,
+            "power": 4,
+            "hp": 10,
             "shield": 0
         },
         "19014": {
-            "power": 2,
-            "hp": 8,
+            "power": 4,
+            "hp": 10,
             "shield": 0
         },
         "19015": {
-            "power": 2,
-            "hp": 8,
+            "power": 4,
+            "hp": 11,
             "shield": 0
         },
         "19016": {
-            "power": 2,
-            "hp": 9,
+            "power": 4,
+            "hp": 11,
             "shield": 0
         },
         "19017": {
-            "power": 2,
-            "hp": 9,
+            "power": 4,
+            "hp": 12,
             "shield": 0
         },
         "19018": {
-            "power": 2,
-            "hp": 10,
+            "power": 5,
+            "hp": 12,
             "shield": 0
         },
         "19019": {
-            "power": 2,
-            "hp": 10,
+            "power": 5,
+            "hp": 13,
             "shield": 0
         },
         "19020": {
-            "power": 2,
-            "hp": 10,
+            "power": 5,
+            "hp": 13,
             "shield": 0
         },
         "19021": {
-            "power": 2,
-            "hp": 11,
+            "power": 5,
+            "hp": 14,
             "shield": 0
         },
         "19022": {
-            "power": 2,
-            "hp": 11,
+            "power": 5,
+            "hp": 14,
             "shield": 0
         },
         "19023": {
-            "power": 3,
-            "hp": 12,
+            "power": 6,
+            "hp": 15,
             "shield": 0
         },
         "19024": {
-            "power": 3,
-            "hp": 12,
+            "power": 6,
+            "hp": 15,
             "shield": 0
         },
         "19025": {
-            "power": 3,
-            "hp": 12,
+            "power": 6,
+            "hp": 16,
             "shield": 0
         },
         "19026": {
-            "power": 3,
-            "hp": 13,
+            "power": 6,
+            "hp": 16,
             "shield": 0
         },
         "19027": {
-            "power": 3,
-            "hp": 13,
+            "power": 6,
+            "hp": 17,
             "shield": 0
         },
         "19028": {
-            "power": 3,
-            "hp": 14,
+            "power": 7,
+            "hp": 17,
             "shield": 0
         },
         "19029": {
-            "power": 3,
-            "hp": 14,
+            "power": 7,
+            "hp": 18,
             "shield": 0
         },
         "19030": {
-            "power": 3,
-            "hp": 14,
+            "power": 7,
+            "hp": 18,
             "shield": 0
         },
         "20001": {
-            "power": 1,
+            "power": 2,
             "hp": 4,
             "shield": 0
         },
         "20002": {
-            "power": 1,
+            "power": 2,
             "hp": 4,
             "shield": 0
         },
         "20003": {
-            "power": 1,
+            "power": 2,
             "hp": 4,
             "shield": 0
         },
         "20004": {
-            "power": 1,
+            "power": 2,
             "hp": 5,
             "shield": 0
         },
         "20005": {
-            "power": 1,
+            "power": 2,
             "hp": 5,
             "shield": 0
         },
         "20006": {
-            "power": 1,
+            "power": 3,
             "hp": 6,
             "shield": 0
         },
         "20007": {
-            "power": 1,
+            "power": 3,
             "hp": 6,
             "shield": 0
         },
         "20008": {
-            "power": 1,
+            "power": 3,
             "hp": 6,
             "shield": 0
         },
         "20009": {
-            "power": 1,
+            "power": 3,
             "hp": 7,
             "shield": 0
         },
         "20010": {
-            "power": 1,
+            "power": 3,
             "hp": 7,
             "shield": 0
         },
         "20011": {
-            "power": 2,
+            "power": 4,
             "hp": 8,
             "shield": 0
         },
         "20012": {
-            "power": 2,
+            "power": 4,
             "hp": 8,
             "shield": 0
         },
         "20013": {
-            "power": 2,
+            "power": 4,
             "hp": 8,
             "shield": 0
         },
         "20014": {
-            "power": 2,
+            "power": 4,
             "hp": 9,
             "shield": 0
         },
         "20015": {
-            "power": 2,
+            "power": 4,
             "hp": 9,
             "shield": 0
         },
         "20016": {
-            "power": 2,
+            "power": 5,
             "hp": 10,
             "shield": 0
         },
         "20017": {
-            "power": 2,
+            "power": 5,
             "hp": 10,
             "shield": 0
         },
         "20018": {
-            "power": 2,
+            "power": 5,
             "hp": 10,
             "shield": 0
         },
         "20019": {
-            "power": 2,
+            "power": 5,
             "hp": 11,
             "shield": 0
         },
         "20020": {
-            "power": 2,
+            "power": 5,
             "hp": 11,
             "shield": 0
         },
         "20021": {
-            "power": 3,
+            "power": 6,
             "hp": 12,
             "shield": 0
         },
         "20022": {
-            "power": 3,
+            "power": 6,
             "hp": 12,
             "shield": 0
         },
         "20023": {
-            "power": 3,
+            "power": 6,
             "hp": 12,
             "shield": 0
         },
         "20024": {
-            "power": 3,
+            "power": 6,
             "hp": 13,
             "shield": 0
         },
         "20025": {
-            "power": 3,
+            "power": 6,
             "hp": 13,
             "shield": 0
         },
         "20026": {
-            "power": 3,
+            "power": 7,
             "hp": 14,
             "shield": 0
         },
         "20027": {
-            "power": 3,
+            "power": 7,
             "hp": 14,
             "shield": 0
         },
         "20028": {
-            "power": 3,
+            "power": 7,
             "hp": 14,
             "shield": 0
         },
         "20029": {
-            "power": 3,
+            "power": 7,
             "hp": 15,
             "shield": 0
         },
         "20030": {
-            "power": 3,
+            "power": 7,
             "hp": 15,
             "shield": 0
         },
         "21001": {
-            "power": 1,
+            "power": 2,
             "hp": 4,
             "shield": 0
         },
         "21002": {
-            "power": 1,
+            "power": 2,
             "hp": 4,
             "shield": 0
         },
         "21003": {
-            "power": 1,
+            "power": 2,
             "hp": 4,
             "shield": 0
         },
         "21004": {
-            "power": 1,
+            "power": 2,
             "hp": 5,
             "shield": 0
         },
         "21005": {
-            "power": 1,
+            "power": 2,
             "hp": 5,
             "shield": 0
         },
         "21006": {
-            "power": 1,
+            "power": 3,
             "hp": 6,
             "shield": 0
         },
         "21007": {
-            "power": 1,
+            "power": 3,
             "hp": 6,
             "shield": 0
         },
         "21008": {
-            "power": 1,
+            "power": 3,
             "hp": 6,
             "shield": 0
         },
         "21009": {
-            "power": 1,
+            "power": 3,
             "hp": 7,
             "shield": 0
         },
         "21010": {
-            "power": 1,
+            "power": 3,
             "hp": 7,
             "shield": 0
         },
         "21011": {
-            "power": 2,
+            "power": 4,
             "hp": 8,
             "shield": 0
         },
         "21012": {
-            "power": 2,
+            "power": 4,
             "hp": 8,
             "shield": 0
         },
         "21013": {
-            "power": 2,
+            "power": 4,
             "hp": 8,
             "shield": 0
         },
         "21014": {
-            "power": 2,
+            "power": 4,
             "hp": 9,
             "shield": 0
         },
         "21015": {
-            "power": 2,
+            "power": 4,
             "hp": 9,
             "shield": 0
         },
         "21016": {
-            "power": 2,
+            "power": 5,
             "hp": 10,
             "shield": 0
         },
         "21017": {
-            "power": 2,
+            "power": 5,
             "hp": 10,
             "shield": 0
         },
         "21018": {
-            "power": 2,
+            "power": 5,
             "hp": 10,
             "shield": 0
         },
         "21019": {
-            "power": 2,
+            "power": 5,
             "hp": 11,
             "shield": 0
         },
         "21020": {
-            "power": 2,
+            "power": 5,
             "hp": 11,
             "shield": 0
         },
         "21021": {
-            "power": 3,
+            "power": 6,
             "hp": 12,
             "shield": 0
         },
         "21022": {
-            "power": 3,
+            "power": 6,
             "hp": 12,
             "shield": 0
         },
         "21023": {
-            "power": 3,
+            "power": 6,
             "hp": 12,
             "shield": 0
         },
         "21024": {
-            "power": 3,
+            "power": 6,
             "hp": 13,
             "shield": 0
         },
         "21025": {
-            "power": 3,
+            "power": 6,
             "hp": 13,
             "shield": 0
         },
         "21026": {
-            "power": 3,
+            "power": 7,
             "hp": 14,
             "shield": 0
         },
         "21027": {
-            "power": 3,
+            "power": 7,
             "hp": 14,
             "shield": 0
         },
         "21028": {
-            "power": 3,
+            "power": 7,
             "hp": 14,
             "shield": 0
         },
         "21029": {
-            "power": 3,
+            "power": 7,
             "hp": 15,
             "shield": 0
         },
         "21030": {
-            "power": 3,
+            "power": 7,
             "hp": 15,
             "shield": 0
         },

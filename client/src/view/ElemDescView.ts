@@ -234,6 +234,10 @@ class ElemDescView extends egret.DisplayObjectContainer {
 
     refreshRelicDesc(e:Elem, defaultAttrs:boolean = false) {
         ViewUtils.setTexName(this.relicIcon, e.getElemImgRes() + "_png");
+        // 添加遗物等级星星
+        var stars = ViewUtils.createRelicLevelStars(<Relic>e, this.relicIcon);
+        stars.forEach((star, _) => this.addChild(star));
+        
         var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
         this.relicName.textAlign = egret.HorizontalAlign.LEFT;
         this.relicName.bold =true;

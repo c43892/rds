@@ -12,6 +12,7 @@ class ShopView extends egret.DisplayObjectContainer {
     private btnGoBack:TextButtonWithBg;
     private saleIndex;1
     private btnRob:TextButtonWithBg; // 抢劫按钮
+    private stars:egret.Bitmap[] = []; // 所有用于遗物等级标识的星星
 
     public player:Player;
     public openConfirmView;
@@ -76,6 +77,8 @@ class ShopView extends egret.DisplayObjectContainer {
         this.itemPrices = prices;
         this.onRob = onRob;
         this.autoCloseOnRob = autoCloseOnRob;
+        this.stars.forEach((star, _) => this.removeChild(star));
+        this.stars = [];
         this.refresh();
 
         if (this.onRob && !this.contains(this.btnRob))
@@ -122,12 +125,19 @@ class ShopView extends egret.DisplayObjectContainer {
             this.prices[i].text = this.itemPrices[e.type];
             ViewUtils.setTexName(gd, e.getElemImgRes() + "_png");
             gd.touchEnabled = true;
+            if(e instanceof Relic){
+                // 添加遗物等级星星
+                var stars = ViewUtils.createRelicLevelStars(<Relic>e, gd);
+                this.stars.push(...stars);
+            }
         }
     }
 
-    public refresh() {
+    public refresh() {        
         for (var i = 0; i < this.grids.length; i++)
             this.refreshAt(i);
+        
+        this.stars.forEach((star, _) => this.addChild(star));
     }
 
     async onGoBack() {

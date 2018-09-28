@@ -343,7 +343,7 @@
             "<font color=#7d0403 bold=true size=21>平淡</font>\n<font color=#000000 bold=false size=20>没有特殊能力</font>"
         ]},
         "Vampire":{"name":"吸血鬼", "desc":[
-            "<font color=#7d0403 bold=true size=21>吸血</font>\n<font color=#000000 bold=false size=20>突袭时吸取50%的生命值</font>"
+            "<font color=#7d0403 bold=true size=21>吸血</font>\n<font color=#000000 bold=false size=20>突袭时吸取{percent}%的生命值</font>"
         ]},
         "GoblinThief":{"name":"哥布林窃贼", "desc":[
             "<font color=#7d0403 bold=true size=21>偷窃</font>\n<font color=#000000 bold=false size=20>突袭时偷取玩家的金币</font>"

@@ -354,17 +354,20 @@ class ViewUtils {
     // 针对给定遗物生成等级符号并布局
     public static createRelicLevelStars(r:Relic, g:egret.DisplayObject):egret.Bitmap[] {
         var totalLevel;
+        var scale = g.width / 84;
         if(GCfg.getElemAttrsCfg(r.type).reinforce)
             totalLevel = GCfg.getElemAttrsCfg(r.type).reinforce.length + 1;
         else
             totalLevel = 1;
-        var xStride = 11;
+        var xStride = 11 * scale;
         var bmps:egret.Bitmap[] = [];
         var center = (totalLevel - 1) / 2;
-        var radius = 80;
+        var radius = 80 * scale;
         var point = {x: g.x + g.width / 2, y:g.y + g.height + radius}
         for (var j = 0; j < totalLevel; j++) {
             var star = ViewUtils.createBitmapByName("relicLvSign_png");
+            star.width = star.width * scale;
+            star.height = star.height * scale;
             star.anchorOffsetX = star.width / 2;
             star.anchorOffsetY = star.height / 2;
             var angle = 90 - (j - center) * 8;
@@ -395,15 +398,18 @@ class ViewUtils {
         icon.height *= 0.75;
         icon.name = "icon";
 
+        // 添加遗物等级星星
+        var stars = ViewUtils.createRelicLevelStars(<Relic>e, icon);
+
         var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
 
         // 标题
-        var title = ViewUtils.createTextField(30, 0xff0000);
+        var title = ViewUtils.createTextField(30, 0x7d0403);
         title.text = nameAndDesc.name;
         title.textAlign = egret.HorizontalAlign.LEFT;
-        title.x = icon.x + icon.width + 20;
+        title.x = icon.x + icon.width + 10;
         title.width = bg.width + bg.x - title.x;
-        title.y = bg.y + 35;
+        title.y = bg.y + 40;
 
         var currentY = title.y + title.height;
 
@@ -435,6 +441,6 @@ class ViewUtils {
 
         bg.height = currentY + 50 - bg.y;
 
-        return [bg, icon, title, title, ...descObjs];
+        return [bg, icon, title, title, ...stars, ...descObjs];
     }
 }
