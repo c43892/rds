@@ -216,7 +216,7 @@ class GuideView extends egret.DisplayObjectContainer {
         var avatar1 = new egret.DisplayObjectContainer();
         avatar1.name = "avatar1";
         avatar1.anchorOffsetX = avatar1.width / 2;
-        var avatarName1 = ViewUtils.createTextField(30, 0xffffff); // 左侧头像的名字
+        var avatarName1 = ViewUtils.createTextField(30, 0x7d0403); // 左侧头像的名字
         avatarName1.name = "avatarName1";
         avatarName1.textAlign = egret.HorizontalAlign.LEFT;
         avatarName1.verticalAlign = egret.VerticalAlign.MIDDLE;
@@ -224,12 +224,12 @@ class GuideView extends egret.DisplayObjectContainer {
         var avatar2 = new egret.DisplayObjectContainer();
         avatar2.name = "avatar2";
         avatar2.anchorOffsetX = avatar2.width / 2;
-        var avatarName2 = ViewUtils.createTextField(30, 0xffffff); // 右侧头像的名字
+        var avatarName2 = ViewUtils.createTextField(30, 0x7d0403); // 右侧头像的名字
         avatarName2.name = "avatarName2";
         avatarName2.textAlign = egret.HorizontalAlign.RIGHT;
         avatarName2.verticalAlign = egret.VerticalAlign.MIDDLE;
 
-        var content = ViewUtils.createTextField(30, 0xffffff); // 对话文本
+        var content = ViewUtils.createTextField(25, 0xffffff); // 对话文本
         content.name = "content";
         content.textAlign = egret.HorizontalAlign.LEFT;
         content.verticalAlign = egret.VerticalAlign.MIDDLE;

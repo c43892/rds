@@ -404,12 +404,12 @@ class ViewUtils {
         var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
 
         // 标题
-        var title = ViewUtils.createTextField(30, 0xff0000);
+        var title = ViewUtils.createTextField(30, 0x7d0403);
         title.text = nameAndDesc.name;
         title.textAlign = egret.HorizontalAlign.LEFT;
-        title.x = icon.x + icon.width + 20;
+        title.x = icon.x + icon.width + 10;
         title.width = bg.width + bg.x - title.x;
-        title.y = bg.y + 35;
+        title.y = bg.y + 40;
 
         var currentY = title.y + title.height;
 
