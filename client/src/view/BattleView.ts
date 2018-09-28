@@ -10,6 +10,7 @@ class BattleView extends egret.DisplayObjectContainer {
     // 头像区域
     public avatarBg:egret.Bitmap; // 角色头像区域背景
     public avatarSke:dragonBones.Armature;
+    public avatarItemSke:dragonBones.Armature;
     public avatar:egret.DisplayObjectContainer; // 角色头像
     public avatarAreaMask:egret.Bitmap; // 角色区域的遮罩
     public expBar:egret.Bitmap; // 经验条
@@ -87,16 +88,26 @@ class BattleView extends egret.DisplayObjectContainer {
             };
             this.avatarSke.animation.play(aniName);
         }
+
+        if (aniName == "Book" || aniName == "Block" || aniName == "Charmed") {
+            this.avatarItemSke.display.alpha = 1;
+            this.avatarItemSke.animation.play(aniName);
+        } else
+            this.avatarItemSke.display.alpha = 0;
     }
 
     // 头像、经验条、血条、攻击、闪避
     createAvatarArea() {
-        // 头像
-        this.avatar = new egret.DisplayObjectContainer();
-        this.avatar.name = "avatar";
         this.avatarAreaMask = ViewUtils.createBitmapByName("translucent_png");
         this.avatarAreaMask.name = "avatarAreaMask";
 
+        // 头像道具
+        this.avatarItemSke = ViewUtils.createSkeletonAni("Daoju");
+        this.avatarItemSke.display.alpha = 0;
+
+        // 头像
+        this.avatar = new egret.DisplayObjectContainer();
+        this.avatar.name = "avatar";
         this.avatar.mask = this.avatarAreaMask;
 
         // 头像区域背景
@@ -127,7 +138,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.hpBarMask = new egret.Shape();
         this.hpBarMask.name = "expBarMask";
         this.hpBar.mask = this.hpBarMask;
-        
+
         // 攻击闪避属性
         this.power = ViewUtils.createTextField(20, 0xffffff, false);
         this.power.name = "power";
@@ -410,6 +421,7 @@ class BattleView extends egret.DisplayObjectContainer {
     public refreshPlayer() {
         this.avatar.removeChildren();
         this.avatar.addChild(this.avatarSke.display);
+        this.avatar.addChild(this.avatarItemSke.display);
         this.currentStoryLv.text = this.player.currentTotalStorey().toString();
 
         this.refreshMoney();
