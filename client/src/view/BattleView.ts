@@ -323,6 +323,9 @@ class BattleView extends egret.DisplayObjectContainer {
     onAvatarAniFinished;
     public setPlayer(p:Player) {
         this.player = p;
+        if (this.avatarSke)
+            this.avatarSke["dispose"]();
+
         this.avatarSke = ViewUtils.createSkeletonAni(this.player.occupation, (ani) => {
             if (this.onAvatarAniFinished)
                 this.onAvatarAniFinished(ani);
@@ -503,6 +506,11 @@ class BattleView extends egret.DisplayObjectContainer {
         for (var bmp of this.relics) {
             bmp.alpha = 0;
             bmp["relic"] = undefined;
+        }
+
+        if (this.avatarSke) {
+            this.avatarSke["dispose"]();
+            this.avatarSke = undefined;
         }
     }
 

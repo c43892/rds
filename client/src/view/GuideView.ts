@@ -213,28 +213,28 @@ class GuideView extends egret.DisplayObjectContainer {
         var bg = ViewUtils.createBitmapByName("confirmBg_png");
         bg.name = "bg";
 
-        var avatarImg1 = new egret.Bitmap();
-        avatarImg1.name = "avatarImg1";
-        avatarImg1.anchorOffsetX = avatarImg1.width / 2;
-        var avatarName1 = ViewUtils.createTextField(30, 0xffffff);
+        var avatar1 = new egret.DisplayObjectContainer();
+        avatar1.name = "avatar1";
+        avatar1.anchorOffsetX = avatar1.width / 2;
+        var avatarName1 = ViewUtils.createTextField(30, 0xffffff); // 左侧头像的名字
         avatarName1.name = "avatarName1";
         avatarName1.textAlign = egret.HorizontalAlign.LEFT;
         avatarName1.verticalAlign = egret.VerticalAlign.MIDDLE;
 
-        var avatarImg2 = new egret.Bitmap();
-        avatarImg2.name = "avatarImg2";
-        avatarImg2.anchorOffsetX = avatarImg2.width / 2;
-        var avatarName2 = ViewUtils.createTextField(30, 0xffffff);
+        var avatar2 = new egret.DisplayObjectContainer();
+        avatar2.name = "avatar2";
+        avatar2.anchorOffsetX = avatar2.width / 2;
+        var avatarName2 = ViewUtils.createTextField(30, 0xffffff); // 右侧头像的名字
         avatarName2.name = "avatarName2";
         avatarName2.textAlign = egret.HorizontalAlign.RIGHT;
         avatarName2.verticalAlign = egret.VerticalAlign.MIDDLE;
 
-        var content = ViewUtils.createTextField(30, 0xffffff);
+        var content = ViewUtils.createTextField(30, 0xffffff); // 对话文本
         content.name = "content";
         content.textAlign = egret.HorizontalAlign.LEFT;
         content.verticalAlign = egret.VerticalAlign.MIDDLE;
 
-        var objs = [bg, avatarImg1, avatarName1, avatarImg2, avatarName2, content];
+        var objs = [bg, avatar1, avatarName1, avatar2, avatarName2, content];
         objs.forEach((obj, _) => this.dlgFrame.addChild(obj));
         ViewUtils.multiLang(this.dlgFrame, ...objs);
         this.dlgFrame.width = this.bg.width;
@@ -243,31 +243,39 @@ class GuideView extends egret.DisplayObjectContainer {
 
     // 构建对话内容
     makeDialog(tex:string, name:string, str:string, x:number, y:number, onLeft:boolean = true, flipAvatar:boolean = false) {
+        var avatar1 = <egret.DisplayObjectContainer>this.dlgFrame.getChildByName("avatar1");
+        var avatar2 = <egret.DisplayObjectContainer>this.dlgFrame.getChildByName("avatar2");
+        avatar1.removeChildren();
+        avatar2.removeChildren();
+
+        var ske;
         if (Occupation.exists(tex)) {
-            
+            ske = ViewUtils.createSkeletonAni(tex);
+            ske.animation.play("Idle");
+            (onLeft ? avatar1 : avatar2).addChild(ske.display);
+            ske.display.x = avatar1.width / 2;
+            ske.display.y = avatar1.height / 2;
+        } else {
+            (onLeft ? avatar1 : avatar2).addChild(ViewUtils.createBitmapByName(tex + "_png"));
         }
 
-        var avatarImg1 = <egret.Bitmap>this.dlgFrame.getChildByName("avatarImg1");
         var avatarName1 = <egret.TextField>this.dlgFrame.getChildByName("avatarName1");
-        var avatarImg2 = <egret.Bitmap>this.dlgFrame.getChildByName("avatarImg2");
         var avatarName2 = <egret.TextField>this.dlgFrame.getChildByName("avatarName2");
         var content = <egret.TextField>this.dlgFrame.getChildByName("content");
 
         if (onLeft) {
-            //ViewUtils.setTexName(avatarImg1, tex + "_png");
             avatarName1.text = name;
-            avatarImg1.alpha = 1;
-            avatarImg1.scaleX = flipAvatar ? -1 : 1;
+            avatar1.alpha = 1;
+            avatar1.scaleX = flipAvatar ? -1 : 1;
             avatarName1.alpha = 1;
-            avatarImg2.alpha = 0;
+            avatar2.alpha = 0;
             avatarName2.alpha = 0;
         } else {
-            //ViewUtils.setTexName(avatarImg2, tex + "_png");
             avatarName2.text = name;
-            avatarImg2.alpha = 1;
-            avatarImg2.scaleX = flipAvatar ? -1 : 1;
+            avatar2.alpha = 1;
+            avatar2.scaleX = flipAvatar ? -1 : 1;
             avatarName2.alpha = 1;
-            avatarImg1.alpha = 0;
+            avatar1.alpha = 0;
             avatarName1.alpha = 0;
         }
         
@@ -278,6 +286,8 @@ class GuideView extends egret.DisplayObjectContainer {
 
         return () => {
             this.removeChild(this.dlgFrame);
+            if (ske)
+                ske["dispose"]();
         };
     }
 
@@ -327,9 +337,19 @@ class GuideView extends egret.DisplayObjectContainer {
                 if (this.forGuideType != "tap" || !this.tapTarget.hitTestPoint(evt.stageX, evt.stageY)) return;
                 rev2();
                 rev1();
+
+                egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_BEGIN,
+                    evt.bubbles, evt.cancelable,
+                    evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
+
+                egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_END,
+                    evt.bubbles, evt.cancelable,
+                    evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
+
                 egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_TAP,
                     evt.bubbles, evt.cancelable,
                     evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
+
                 r();
                 this.onTapped = undefined; 
             };
