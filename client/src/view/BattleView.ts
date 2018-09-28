@@ -9,9 +9,8 @@ class BattleView extends egret.DisplayObjectContainer {
 
     // 头像区域
     public avatarBg:egret.Bitmap; // 角色头像区域背景
-    // public occupationBg:egret.Bitmap; // 角色职业背景
     public avatarSke:dragonBones.Armature;
-    public avatar:egret.DisplayObject; // 角色头像
+    public avatar:egret.DisplayObjectContainer; // 角色头像
     public avatarAreaMask:egret.Bitmap; // 角色区域的遮罩
     public expBar:egret.Bitmap; // 经验条
     public expBarMask:egret.Shape; // 经验条遮罩
@@ -77,20 +76,28 @@ class BattleView extends egret.DisplayObjectContainer {
         ViewUtils.multiLang(this, this.deathGodBarBg, this.deathGodBar, this.effDeathGodRed, this.effDeathGodGray);
     }
 
+    // 播放头像相关动画
+    public playAvatarAni(aniName) {
+        if (aniName == "Idle")
+            this.avatarSke.animation.play("Idle", 0);
+        else {
+            this.onAvatarAniFinished = (ani) => {
+                this.avatarSke.animation.play("Idle", 0);
+                this.onAvatarAniFinished = undefined;
+            };
+            this.avatarSke.animation.play(aniName);
+        }
+    }
+
     // 头像、经验条、血条、攻击、闪避
     createAvatarArea() {
         // 头像
-        // this.occupationBg = new egret.Bitmap();
-        // this.occupationBg.name = "occupationBg";
-        this.avatarSke = ViewUtils.createSkeletonAni("Nurse");
-        this.avatarSke.animation.reset();
-        this.avatar = this.avatarSke.display;
+        this.avatar = new egret.DisplayObjectContainer();
         this.avatar.name = "avatar";
         this.avatarAreaMask = ViewUtils.createBitmapByName("translucent_png");
         this.avatarAreaMask.name = "avatarAreaMask";
 
         this.avatar.mask = this.avatarAreaMask;
-        // this.occupationBg.mask = this.avatarAreaMask;
 
         // 头像区域背景
         this.avatarBg = ViewUtils.createBitmapByName("avatarBg_png");
@@ -302,8 +309,14 @@ class BattleView extends egret.DisplayObjectContainer {
     }
 
     // 设置角色数据，但并不刷新显示，需要手动刷新
+    onAvatarAniFinished;
     public setPlayer(p:Player) {
         this.player = p;
+        this.avatarSke = ViewUtils.createSkeletonAni(this.player.occupation, (ani) => {
+            if (this.onAvatarAniFinished)
+                this.onAvatarAniFinished(ani);
+        });
+        this.avatarSke.animation.play("Idle", 0);
     }
 
     public refresh() {
@@ -395,8 +408,8 @@ class BattleView extends egret.DisplayObjectContainer {
     deathGodBarPosX;
     deathGodBarWidth;
     public refreshPlayer() {
-        // ViewUtils.setTexName(this.occupationBg, this.player.occupation + "Bg_png", true);
-        this.avatarSke.animation.reset();
+        this.avatar.removeChildren();
+        this.avatar.addChild(this.avatarSke.display);
         this.currentStoryLv.text = this.player.currentTotalStorey().toString();
 
         this.refreshMoney();

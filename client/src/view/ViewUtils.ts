@@ -97,14 +97,21 @@ class ViewUtils {
         var ani:dragonBones.Armature = fat.buildArmature(name);
         var onAniFnished;
         onAniFnished = (evt:dragonBones.AnimationEvent) => {
-            onFinished(ani);
+            onFinished(evt.animationName);
+        };
+
+        ani["stop"] = () => {
             ani.getDisplay().removeEventListener(dragonBones.AnimationEvent.COMPLETE, onAniFnished, this);
             dragonBones.WorldClock.clock.remove(ani);
         };
 
-        if (onFinished)
-            ani.getDisplay().addEventListener(dragonBones.AnimationEvent.COMPLETE, onAniFnished, this);
-        dragonBones.WorldClock.clock.add(ani);
+        ani["start"] = () => {
+            if (onFinished)
+                ani.getDisplay().addEventListener(dragonBones.AnimationEvent.COMPLETE, onAniFnished, this);
+            dragonBones.WorldClock.clock.add(ani);
+        };
+
+        ani["start"]();
         return ani;
     }
 

@@ -385,6 +385,7 @@ class AniView extends egret.DisplayObjectContainer {
                 AniUtils.tipAt((e.attrs.cnt - e.cnt) + "/" + e.attrs.cnt, {x:p.x+25, y:p.y-25});
                 AniUtils.flashAndShake(sv);
             }
+            this.bv.playAvatarAni("Book");
         } else if (Utils.checkCatalogues(type, "food")) { // 食物抖一下
             await AniUtils.flashAndShake(sv);
         } else if (type == "IceBlock" || type == "Rock") {
@@ -654,19 +655,12 @@ class AniView extends egret.DisplayObjectContainer {
         if (ps.r.r == "attacked") {
             var avatar = this.bv.avatar;
             this.showMonsterAttackValue(ps.attackerAttrs.owner, ps.r.dhp)
-            // ViewUtils.setTexName(avatar, this.bv.player.occupation + "Hurt_png", true);
+            this.bv.playAvatarAni("Hurt");
             await AniUtils.flashAndShake(avatar);
-            // ViewUtils.setTexName(avatar, this.bv.player.occupation + "_png");
-        } else if (ps.r.r == "dodged") {
-            // player dodged
-            var avatar = this.bv.avatar;
-            this.aniFact.createAniByCfg({type:"seq", arr:[
-                {type:"tr", fx:avatar.x, tx:avatar.x - 50, time:100, mode:egret.Ease.quadIn},
-                {type:"tr", fx:avatar.x - 50, tx:avatar.x, time:100, mode:egret.Ease.quadOut},
-            ], obj:avatar});
-        } else if (ps.r.r == "blocked") {
-            // player blocked
-        }
+        } else if (ps.r.r == "dodged")
+            this.bv.playAvatarAni("Dodged");
+        else if (ps.r.r == "blocked")
+            this.bv.playAvatarAni("Block");
     }
 
     // 怪物受到攻击
@@ -697,12 +691,8 @@ class AniView extends egret.DisplayObjectContainer {
                 aniArr.push(ani);
             }
 
-            // 头像换一下
-            var avatar = this.bv.avatar;
-            // ViewUtils.setTexName(avatar, occ + "Attack_png", true);
-
-            // 平砍武器效果放一下
-            // this.normalAttackWeaponEffect(occ).then(() => ViewUtils.setTexName(avatar, occ + "_png", true));
+            // 播放角色动画
+            this.bv.playAvatarAni("Attack");
 
             // 这个效果不等待
             if (aniArr.length > 0)
