@@ -29,14 +29,14 @@
         "ShieldProficient":10,
         "HorticultureMaster":10,
         "StrikeFirst":10,
-        "IceGun":10,
-        "RayGun":10,
-        "HpPotion":10,
-        "DePoison":10,
-        "Bazooka":10,
-        "SuperPotion":10,
-        "StrangthPotion":10,
-        "CandyCannon":10
+        "IceGun":30,
+        "RayGun":30,
+        "HpPotion":30,
+        "DePoison":30,
+        "Bazooka":30,
+        "SuperPotion":30,
+        "StrangthPotion":30,
+        "CandyCannon":30
     }},
 
     "treasureBox3": {"num":[1, 2], "elems":{
@@ -110,7 +110,7 @@
         "Clock":1
     }},
 
-    "RandomEgg": {"num":[1, 2], "elems":{
+    "RandomEgg": {"num":[2, 3], "elems":{
         "Coins":20,
         "CoinsBig":10,
         "CoinsHuge":5,
@@ -137,23 +137,23 @@
         "ShieldProficient":10,
         "HorticultureMaster":10,
         "StrikeFirst":10,
-        "IceGun":10,
-        "RayGun":10,
-        "HpPotion":10,
-        "DePoison":10,
-        "Bazooka":10,
-        "SuperPotion":10,
-        "StrangthPotion":10,
-        "CandyCannon":10,
-        "Clock":10,
-        "Vest":10, 
-        "Magazine":10, 
-        "Shield":10, 
-        "Knife":10, 
-        "Baton":10, 
-        "Cloak":10, 
-        "WantedOrder":10, 
-        "EconomyMagazine":10
+        "IceGun":30,
+        "RayGun":30,
+        "HpPotion":30,
+        "DePoison":30,
+        "Bazooka":30,
+        "SuperPotion":30,
+        "StrangthPotion":30,
+        "CandyCannon":30,
+        "Clock":30,
+        "Vest":30, 
+        "Magazine":30, 
+        "Shield":30, 
+        "Knife":30, 
+        "Baton":30, 
+        "Cloak":30, 
+        "WantedOrder":30, 
+        "EconomyMagazine":30
     }},    
 
     "MonsterBox": {"num":[1, 2], "elems":{

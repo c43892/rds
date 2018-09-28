@@ -415,7 +415,7 @@ class GuideView extends egret.DisplayObjectContainer {
         await this.tapSelGridWithDialog(0, 1, "Nurse", "护士", "好的，你成功了！下来让我们攻击一个格子", 0, 500, true);
         await this.showDialog("Nurse", "护士", "看来我们遇到了对手", 0, 500, true);
         await this.showDialog("Nurse", "护士", "怪物的详细信息可以通过长按来查看", 0, 500, true);
-        await this.pressGridWithDialog(0, 1, "Nurse", "护士", "来尝试一下吧", 0, 500, true)
+        await this.pressGridWithDialog(0, 1, "Nurse", "护士", "现在长按小手指向的格子吧", 0, 500, true)
         await this.tapGridWithDialog(0, 1, "Nurse", "护士", "让我们尝试攻击一下它", 0, 500, true);
         await this.showDialog("GoblinThief", "哥布林", "啊，我的眼睛，魔王的战士会再次归来的！", 0, 500, false);
         await this.showDialog("Nurse", "护士", "再来一个新操作，现在地图上还有3个数字，显示的都是2", 0, 500, true);

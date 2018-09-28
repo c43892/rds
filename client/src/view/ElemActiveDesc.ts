@@ -15,11 +15,14 @@ class ElemActiveDesc {
         "Knife":{
             "power": (p:Player, e:Elem) => ElemActiveDesc.getWeaponPower(p, e)
         },
+        "EconomyMagazine" : {
+            "money": (p:Player, e:Elem) => GCfg.getElemAttrsOfLevel("CoinsSmall", p.currentTotalStorey()).cnt
+        },
         "BombAbomination" : {
             "rounds": (p:Player, e:Elem) => e["attackInterval"] ? e["attackInterval"] : e.attrs.selfExplode.cnt
         },
-        "EconomyMagazine" : {
-            "money": (p:Player, e:Elem) => GCfg.getElemAttrsOfLevel("CoinsSmall", p.currentTotalStorey()).cnt
+        "Vampire": {
+            "percent": (p:Player, e:Elem) => e.attrs.suckBlood.percent
         }
     }
     

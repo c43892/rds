@@ -789,7 +789,7 @@ class MonsterFactory {
             for(var i = 0; i < 4; i++){
                 var slime = <Monster>bt.level.createElem(slimeTypes[i]);
                 slime = MonsterFactory.doSummonSlimeKing(slime);
-                slime.addDropItem(m["keys"][i]);
+                slime.dropItems = [m["keys"][i]];
                 slime["lockDoor"] = true;
                 await bt.implAddElemAt(slime, poses[i].x, poses[i].y);
             }

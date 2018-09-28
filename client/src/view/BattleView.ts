@@ -552,7 +552,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.elemsTipBitmaps = [];
         this.elemsTip.removeChildren();
         ViewUtils.multiLang(this, this.elemsTip);
-        var tipTypes = ["Clock", "Gengar", "TreasureBox"];
+        var tipTypes = ["Clock", "Gengar", "TreasureBox", "RandomEggZombie"];
         var elems = this.player.bt().level.map.findAllElems((e:Elem) => Utils.indexOf(tipTypes, (s:string) => s == e.type) > -1);
         var gap = 8;
         for(var i = 0; i < elems.length; i++){

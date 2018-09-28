@@ -1,12 +1,12 @@
 {
     "Nurse":{
         "relics":{},
-        "initItems":["Clock", "Vest", "Magazine", "Shield", "Knife", "Baton", "Cloak", "WantedOrder", "EconomyMagazine"],
-        "constItems":{"Clock":1, "Vest":1},
+        "initItems":["Clock", "Knife", "Magazine", "Shield", "Vest", "Baton", "Cloak", "WantedOrder", "EconomyMagazine"],
+        "constItems":{"Clock":1, "Knife":1},
         "randomItems":{"num":[2, 3], "elems":{
             "Magazine":80,
             "Shield":50,
-            "Knife":20,
+            "Vest":20,
             "Baton":20,
             "Cloak":10,
             "WantedOrder":10,
