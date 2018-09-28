@@ -61,11 +61,13 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 清除所有地图显示元素
     public clear() {
-        if (this.contains(this.blackCover))
-            this.removeChild(this.blackCover);
+        // if (this.contains(this.blackCover))
+        //     this.removeChild(this.blackCover);
 
-        if (this.contains(this.aniCover))
-            this.removeChild(this.aniCover);
+        // if (this.contains(this.aniCover))
+        //     this.removeChild(this.aniCover);
+
+        this.removeChildren();
     }
 
     // 开始环形进度条
