@@ -811,6 +811,32 @@ class AniView extends egret.DisplayObjectContainer {
         this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
     }
 
+    // 茧包裹物品
+    public async onSwatheItemWithCocoon(ps) {
+        var m = ps.m;
+        var e = ps.e;
+        var fromSV = this.getSV(m);
+        var toSV = this.getSV(e);
+        var from = fromSV.localToGlobal();
+        from.x += fromSV.width / 2;
+        from.y += fromSV.height / 2;
+        var to = toSV.localToGlobal();
+        to.x += toSV.width / 2;
+        to.y += toSV.height / 2;
+        var l = AniUtils.createImg("CocoonLine_png");
+        l.anchorOffsetX = l.width / 2;
+        var r = Utils.getRotationFromTo(from, to);
+        l.rotation = r + 90;
+        var sy = Utils.getDist(from, to) / l.height;
+        var t = Utils.getDist(from, to);
+        await this.aniFact.createAniByCfg({type:"seq", arr:[
+            {type:"tr", tx:from.x, ty:from.y, tsy:0, time:0},
+            {type:"tr", fx:from.x, fy:from.y, tx:to.x, ty:to.y, fsy:0, tsy:sy, time:t},
+            {type:"tr", fsy:sy, tsy:0, time:t},
+        ], obj:l});
+        l["dispose"]();
+    }
+
     // 元素移动
     public async onElemMoving(ps) {
         var path = ps.path;

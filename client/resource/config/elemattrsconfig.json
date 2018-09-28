@@ -195,7 +195,7 @@
     "CandyCannon":{"name":"糖果炮弹", "canOverlap":true, "useWithTarget":true, "cd":5, "occupations":["Merchant"]},
     "Baton":{"name":"警棍", "powerA":1},
     "Vest":{"name":"防护衣", "powerD":-1},
-    "Cocoon":{"name":"茧", "useWithoutConfirm":true, "hideDropItems":true,
+    "Cocoon":{"name":"茧", "useWithoutConfirm":true, "hideDropItems":true, "addInEffect":"noEffect",
         "repRes":["Cocoon", "CocoonLIne"]},
     "WantedOrder":{"name":"通缉令"},
     "Cloak":{"name":"披风"},
