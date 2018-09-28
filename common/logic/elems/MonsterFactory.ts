@@ -700,10 +700,12 @@ class MonsterFactory {
             });
             var bt = m.bt();
             for(var i = 0; i < items.length; i++){
-                var grid = items[i].getGrid();
-                await bt.implRemoveElemAt(grid.pos.x, grid.pos.y);
+                var e = items[i];
+                var grid = e.getGrid();
                 var cocoon = bt.level.createElem("Cocoon");
                 cocoon.addDropItem(items[i]);
+                await bt.fireEvent("onSwatheItemWithCocoon", {m:m, e:e});
+                await bt.implRemoveElemAt(grid.pos.x, grid.pos.y);
                 await bt.implAddElemAt(cocoon, grid.pos.x, grid.pos.y);
                 cocoon["swathedBy"] = m;
             }
