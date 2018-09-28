@@ -119,6 +119,14 @@ class AniView extends egret.DisplayObjectContainer {
         var e:Elem = ps.e;
         var gv = this.bv.mapView.getGridViewAt(ps.x, ps.y);
         var doRefresh = () => this.bv.mapView.refreshAt(ps.x, ps.y, e && e.isBig() ? e.attrs.size : undefined);
+        if(e && e.type == "Vest") {
+            var bt = this.bv.player.bt();
+            var ms = bt.level.map.findAllElems((e:Elem) => e instanceof Monster && e.isHazard())
+            ms.forEach((m:Monster, _) => {
+                var pos = m.pos;
+                this.bv.mapView.refreshAt(pos.x, pos.y, m.isBig());
+            })
+        }
         switch (ps.subType) {
             case "elemAdded": // 有元素被添加进地图
                 doRefresh();
