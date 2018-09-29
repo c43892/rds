@@ -1,11 +1,11 @@
 
 // 元素描述界面，怪物，遗物和其它三类
 class ElemDescView extends egret.DisplayObjectContainer {
-    closeBtn:TextButtonWithBg; // 返回按钮
     bg:egret.Bitmap;
     doClose;
     uis = {};
     player:Player;
+    private tip:egret.TextField;
 
     constructor(w:number, h:number) {
         super();
@@ -24,42 +24,41 @@ class ElemDescView extends egret.DisplayObjectContainer {
         this.bg.x = this.bg.y = 0;
         this.bg.width = w;
         this.bg.height = h;
-        this.bg.touchEnabled = true;
+        this.bg.touchEnabled = true;   
+        this.bg.addEventListener(egret.TouchEvent.TOUCH_TAP, () => this.doClose(), this);
 
-        // 返回按钮
-        this.closeBtn = new TextButtonWithBg("goBack_png", 30);
-        this.closeBtn.name = "closeBtn";
-        this.closeBtn.text = "返回";
-        this.closeBtn.touchEnabled = true;
-        this.closeBtn.onClicked = () => this.doClose();
+        this.tip = new egret.TextField;
+        this.tip.text = ViewUtils.getTipText("pressAnywhereToClose");
+        this.tip.textAlign = egret.HorizontalAlign.CENTER;
+        this.tip.name = "tip";
+        this.tip.width = 640;
+        this.tip.height = 50;
+        this.tip.x = 0;
     }
 
-    public async open(e:Elem, withCancelBtn:boolean = true, defaultAttrs:boolean = false) {
+    public async open(e:Elem, fromNewMonsterTipView:boolean = false) {
         this.removeChildren();
 
         var uiArr = [];
         var refresh;
         if (e instanceof Monster) {
             uiArr = this.uis["monster"];
-            refresh = (e) => this.refreshMonsterDesc(e, defaultAttrs);
+            refresh = (e) => this.refreshMonsterDesc(e, fromNewMonsterTipView);
         }
         else if (e instanceof Relic) {
             uiArr = this.uis["relic"];
-            refresh = (e) => this.refreshRelicDesc(e, defaultAttrs);
+            refresh = (e) => this.refreshRelicDesc(e, fromNewMonsterTipView);
         }
         else {
             uiArr = this.uis["item"];
-            refresh = (e) => this.refreshItemDesc(e, defaultAttrs);
+            refresh = (e) => this.refreshItemDesc(e, fromNewMonsterTipView);
         }
 
         uiArr.unshift(this.bg);
-        uiArr.push(this.closeBtn);
+        if(!fromNewMonsterTipView) uiArr.push(this.tip);
         uiArr.forEach((ui, _) => this.addChild(ui));
         ViewUtils.multiLang(this, ...uiArr);
         refresh(e);
-
-        if (!withCancelBtn)
-            this.removeChild(this.closeBtn);
         
         return new Promise((resolve, reject) => {
             this.doClose = resolve;
@@ -114,7 +113,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
             this.shieldBg, this.shieldTxt, this.attackIntervalBg, this.attackIntervalTxt];
     }
 
-    refreshMonsterDesc(e:Elem, defaultAttrs:boolean = false) {
+    refreshMonsterDesc(e:Elem, fromNewMonsterTipView:boolean = false) {
         var m = <Monster>e;
         ViewUtils.setTexName(this.monsterIcon, m.getElemImgRes() + "_png");
 
@@ -122,7 +121,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         var attrs = [];
         
         var power;
-        if(!defaultAttrs){
+        if(!fromNewMonsterTipView){
             var powerABC = m.bt().calcMonsterAttackerAttrs(m).power;
             power = powerABC.b * (1 + powerABC.a) + powerABC.c;
         }
@@ -149,7 +148,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         }
 
         var attackInterval;
-        if(!defaultAttrs) attackInterval = m.bt().calcMonsterAttackInterval(m);
+        if(!fromNewMonsterTipView) attackInterval = m.bt().calcMonsterAttackInterval(m);
         else attackInterval = m.attrs.attackInterva;        
         if (attackInterval > 0) {
             this.attackIntervalTxt.text = attackInterval.toString();
@@ -175,7 +174,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
             descArr = nameAndDesc.desc;
         }
 
-        descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(ViewUtils.replaceByProperties(desc, e, defaultAttrs ? undefined : this.player)));
+        descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(ViewUtils.replaceByProperties(desc, e, fromNewMonsterTipView ? undefined : this.player)));
 
         // 第一组描述文字根据配置排版，后续的对齐第一组
         var monsterDescTxt0 = ViewUtils.createTextField(0, 0x000000);
@@ -232,7 +231,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         return [this.relicDescBg, this.relicIcon, this.relicName];
     }
 
-    refreshRelicDesc(e:Elem, defaultAttrs:boolean = false) {
+    refreshRelicDesc(e:Elem, fromNewMonsterTipView:boolean = false) {
         ViewUtils.setTexName(this.relicIcon, e.getElemImgRes() + "_png");
         // 添加遗物等级星星
         var stars = ViewUtils.createRelicLevelStars(<Relic>e, this.relicIcon);
@@ -246,7 +245,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
             ];
 
         var descArr = ViewUtils.getElemNameAndDesc(e.type).desc;
-        descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(ViewUtils.replaceByProperties(desc, e, defaultAttrs ? undefined : this.player)));
+        descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(ViewUtils.replaceByProperties(desc, e, fromNewMonsterTipView ? undefined : this.player)));
 
         // 第一组描述文字根据配置排版，后续的对齐第一组
         var relicDescTxt0 = ViewUtils.createTextField(0, 0x000000);
@@ -307,10 +306,10 @@ class ElemDescView extends egret.DisplayObjectContainer {
         return [this.itemDescBg, this.itemIcon, this.itemName, this.itemDesc];
     }
 
-    refreshItemDesc(e:Elem, defaultAttrs:boolean = false) {
+    refreshItemDesc(e:Elem, fromNewMonsterTipView:boolean = false) {
         var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
         this.itemName.text = nameAndDesc.name;
-        var txt = ViewUtils.replaceByProperties(nameAndDesc.desc[0], e, defaultAttrs ? undefined : this.player);
+        var txt = ViewUtils.replaceByProperties(nameAndDesc.desc[0], e, fromNewMonsterTipView ? undefined : this.player);
         this.itemDesc.textFlow = ViewUtils.fromHtml(txt);
         ViewUtils.setTexName(this.itemIcon, e.getElemImgRes() + "_png");
     }

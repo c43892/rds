@@ -132,6 +132,9 @@ class AniView extends egret.DisplayObjectContainer {
         switch (ps.subType) {
             case "elemAdded": // 有元素被添加进地图
                 doRefresh();
+                // 需要提示的元素变化时,刷新战斗地图的元素提示
+                if (e && Utils.indexOf(GCfg.getBattleViewElemTipTypes(), (s: string) => s == e.type) > -1) 
+                    this.bv.refreshElemsTip();
                 var obj = this.getSVByPos(ps.x, ps.y);
                 if (e.attrs.addInEffect == "noEffect") {
                     // 不需要额外表现效果
