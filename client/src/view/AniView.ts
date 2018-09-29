@@ -231,7 +231,8 @@ class AniView extends egret.DisplayObjectContainer {
         }
 
         // 出一个短提示
-        AniUtils.tipAt(e.attrs.shortDesc, {x:this.width/2, y:this.height/2}, 50, 0xffffff);
+        var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
+        AniUtils.tipAt(nameAndDesc.shortDesc, {x:this.width/2, y:this.height/2}, 30, 0xffffff);
 
         this.bv.refreshRelics();
         this.bv.refreshPlayer();
