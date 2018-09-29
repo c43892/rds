@@ -2,6 +2,7 @@
 class AniView extends egret.DisplayObjectContainer {
     private bv:BattleView; // 战斗视图
     private wmv:WorldMapView; // 大地图
+    private wmtv:WorldMapTopView; // 大地图顶部
     private blackCover:egret.Bitmap; // 黑屏用的遮挡
 
     private aniCover:egret.Bitmap; // 播放动画时的操作屏蔽层
@@ -14,6 +15,7 @@ class AniView extends egret.DisplayObjectContainer {
         
         this.bv = mainView.bv;
         this.wmv = mainView.wmv;
+        this.wmtv = mainView.wmtv;
         this.aniCover = new egret.Bitmap();
         this.aniCover.touchEnabled = true;
 
@@ -242,8 +244,8 @@ class AniView extends egret.DisplayObjectContainer {
         fromImg.height = fromPos.h;
 
         var toImg = AniUtils.createImg(e.getElemImgRes() + "_png");
-        toImg.x = this.wmv.btnSetting.x;
-        toImg.y = this.wmv.btnSetting.y;
+        toImg.x = this.wmtv.btnSetting.x;
+        toImg.y = this.wmtv.btnSetting.y;
         toImg.width = toImg.height = 0;
         toImg.alpha = 0;
 
@@ -255,7 +257,7 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 在大地图上获得金钱
     public async onGetMoneyInWorldmap(ps) {
-        var txt = this.wmv.getMoneyText();
+        var txt = this.wmtv.getMoneyText();
         var d = ps.dm > 0 ? 1 : -1;
         var p = this.wmv.player;
         var toPos = ps.reason == "shop" ? ShopView.shopNpcSlotGlobalPos : WorldMapEventSelsView.lastSelectionGlobalPos;
@@ -265,7 +267,7 @@ class AniView extends egret.DisplayObjectContainer {
         else
             await this.coinsFly(undefined, txt, toPos, ps.dm);
 
-        this.wmv.refreshMoney();
+        this.wmtv.refreshMoney();
     }
 
     // 大地图上加血
@@ -279,13 +281,13 @@ class AniView extends egret.DisplayObjectContainer {
             img["dispose"]();
         }
 
-        this.wmv.refreshHp();
+        this.wmtv.refreshHp();
     }
 
     // 休息屋休息
     public async onHospitalCureStart(ps) {
         await this.blackIn();
-        this.wmv.refreshHp();
+        this.wmtv.refreshHp();
     }
     public async onHospitalCureEnd(ps) {
         await this.blackOut();
@@ -589,7 +591,7 @@ class AniView extends egret.DisplayObjectContainer {
 
             await AniUtils.delay(100);
             var p = this.bv.player ? this.bv.player : this.wmv.player;
-            var txt = this.bv.player ? this.bv.getMoneyText() : this.wmv.getMoneyText();
+            var txt = this.bv.player ? this.bv.getMoneyText() : this.wmtv.getMoneyText();
             var v = p.money - (dm - i) * dir;
             txt.text = v.toString();
         }

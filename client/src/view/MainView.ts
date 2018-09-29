@@ -6,6 +6,7 @@ class MainView extends egret.DisplayObjectContainer {
     public sv:ShopView; // 商店视图
     public hv:HospitalView; // 医院视图
     public wmv:WorldMapView; // 大地图视图
+    public wmtv:WorldMapTopView; // 大地图顶部部分
     // public rsv:RelicSelView; // 遗物选择视图
     public brv:BoxRoomView; // 宝箱房间
     public ttv:TurntableView; //转盘事件
@@ -72,7 +73,8 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
         this.wmv.selRelic = async (elems, funcOnClinked, title, tip) => await this.openAllElemsView(elems, funcOnClinked, title, tip);
         this.wmv.openPlayerDieView = async () => await this.openPlayerDieView();
-        this.wmv.openSettingView = async () => await this.openSettingView();
+        this.wmtv = new WorldMapTopView(w, 80);
+        this.wmtv.openSettingView = async () => await this.openSettingView();
 
         // 医院视图
         this.hv = new HospitalView(w, h);
@@ -199,7 +201,7 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     clear() {
-        var uis = [this.lgv, this.bv, this.wmv, this.sv];
+        var uis = [this.lgv, this.bv, this.wmv, this.wmtv, this.sv];
         for (var ui of uis)
             if (this.contains(ui))
                 this.removeChild(ui);
@@ -253,7 +255,7 @@ class MainView extends egret.DisplayObjectContainer {
             this.p.addMoney(-price);
             this.p.addItem(elem);
             await this.p.fireEvent("onGetMoneyInWorldmap", {dm:-price, reason:"shop"});
-            this.sv.refresh();            
+            this.sv.refresh();
             await this.p.fireEvent("onGetElemInWorldmap", {e:elem, fromPos:ShopView.lastSelectedElemGlobalPos});
         };
 
@@ -340,6 +342,10 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.player = this.p;
         this.wmv.setWorldMap(worldmap);
         this.addChild(this.wmv);
+
+        this.wmtv.player = this.p;
+        this.wmtv.refresh();
+        this.addChild(this.wmtv);
     }
 
     // 登录
