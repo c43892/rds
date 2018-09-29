@@ -132,7 +132,6 @@ class AniView extends egret.DisplayObjectContainer {
         switch (ps.subType) {
             case "elemAdded": // 有元素被添加进地图
                 doRefresh();
-                this.bv.refreshElemsTip();
                 var obj = this.getSVByPos(ps.x, ps.y);
                 if (e.attrs.addInEffect == "noEffect") {
                     // 不需要额外表现效果
@@ -185,12 +184,7 @@ class AniView extends egret.DisplayObjectContainer {
                 eff["wait"]().then(() => gv.removeEffect("effUncover"));
             }
             break;
-            case "addBoxAndKey":
-                this.bv.refreshElemsTip();
-                doRefresh();
-            break;
             default:
-                this.bv.refreshElemsTip();
                 doRefresh();
         }
 
@@ -367,6 +361,10 @@ class AniView extends egret.DisplayObjectContainer {
     public async onElemChanged(ps) {
         var e = ps.e;
         var sv = this.getSV(e);
+        // 需要提示的元素变化时,刷新战斗地图的元素提示
+        if (e && Utils.indexOf(GCfg.getBattleViewElemTipTypes(), (s: string) => s == e.type) > -1) {
+            this.bv.refreshElemsTip();
+        }
         if (ps.subType == "monsterHp") {
             var dhp = ps.dhp;
             var p = sv.localToGlobal();

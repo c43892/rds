@@ -37,7 +37,6 @@
             {
                 "num": [ 8, 9 ],
                 "elems": {
-                    "SwatheZombie": 10000,
                     "EyeDemon": 100,
                     "NormalZombie": 0,
                     "DancerZombie": 100,
