@@ -8,7 +8,7 @@
     "Hawkeye":{"name":"鹰眼"},
     "TimeMachine":{"name":"时光机", "deathGodBackStep":5,
         "reinforce":[
-            {"deathGodBackStep":6}, {"deathGodBackStep":7}, {"deathGodBackStep":8}, {"deathGodBackStep":10}
+            {"deathGodBackStep":10}, {"deathGodBackStep":15}, {"deathGodBackStep":20}, {"deathGodBackStep":25}
         ]
     },
     "Endurance":{"name":"耐力", "dMaxHp":5, 
