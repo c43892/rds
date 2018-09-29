@@ -482,14 +482,18 @@ class MainView extends egret.DisplayObjectContainer {
         if (!this.p) return;
 
         this.registerPlayerEvents();
+
+        // 自动设置大地图位置
+        this.openWorldMap(this.p.worldmap);
+        var p = this.p.currentStoreyPos.lv / this.p.worldmap.nodes.length;
+        this.wmv.mapScrollPos = p;
+
         if (this.p.currentStoreyPos.status == "finished") {
-            this.openWorldMap(this.p.worldmap);
             await this.av.blackOut();
         }
         else {
             var lv = this.p.currentStoreyPos.lv;
             var n = this.p.currentStoreyPos.n;
-            this.openWorldMap(this.p.worldmap);
             this.wmv.enterNode(lv, n, true);
 
             // 这里需要根据节点类型特别补一个 blackOut，战斗类型因为有自己不同的流程，

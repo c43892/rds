@@ -1171,7 +1171,7 @@ class AniView extends egret.DisplayObjectContainer {
     async doWorldMapSlide(p, time) {
         this.addBlockLayer();
         return new Promise<void>((r, _) => {
-            var tw = egret.Tween.get(this.wmv).to({mapScrollPos:1}, time, egret.Ease.cubicInOut);
+            var tw = egret.Tween.get(this.wmv).to({mapScrollPos:p}, time, egret.Ease.cubicInOut);
             this.decBlockLayer();
             tw.call(() => r());
         });
