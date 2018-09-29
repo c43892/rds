@@ -392,6 +392,7 @@ class MainView extends egret.DisplayObjectContainer {
                         await this.rookiePlay();
                     else {
                         this.newPlay();
+                        this.wmv.mapScrollPos = 0;
                         await this.av.blackOut();
                         await this.av.doWorldMapSlide(1, 2000);
                     }
@@ -399,15 +400,6 @@ class MainView extends egret.DisplayObjectContainer {
             }
         };
     }
-
-    // // 打开选择遗物界面
-    // public async openSelRelic(title, f) {
-    //     this.rsv.player = this.p;
-    //     this.addChild(this.rsv);
-    //     var sel = await this.rsv.open(title, f);
-    //     this.removeChild(this.rsv);
-    //     return sel;
-    // }
 
     // 打开角色死亡界面
     public async openPlayerDieView() {

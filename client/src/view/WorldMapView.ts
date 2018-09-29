@@ -347,15 +347,10 @@ class WorldMapView extends egret.DisplayObjectContainer {
         Utils.log("set " + p);
     }
 
+    // 设置当前大地图滚动位置
     public get mapScrollPos() {
         return this.mapArea.scrollTop / (this.viewContent.height - this.mapArea.height);
     }
-
-    // 设置当前大地图滚动位置
-    // public setCurrentStoryLv(lv = 0) {
-    //     if (lv <= 0) // 回到初始位置
-    //         this.mapArea.scrollTop = this.viewContent.height - this.mapArea.height;
-    // }
 
     public refresh() {
         if (!this.worldmap) return;
@@ -380,9 +375,9 @@ class WorldMapView extends egret.DisplayObjectContainer {
         var ptStoreyLv = bmp["ptStoreyLv"];
         var ptStoreyN = bmp["ptStoreyN"];
 
-        // //检查点击的节点是否是当前可到达节点(测试中,暂且屏蔽该检查)
-        // if (!BattleUtils.isStoreyPosSelectable(this.worldmap.player, {lv:ptStoreyLv, n:ptStoreyN}))
-        //     return;
+        //检查点击的节点是否是当前可到达节点(测试中,暂且屏蔽该检查)
+        if (!BattleUtils.isStoreyPosSelectable(this.worldmap.player, {lv:ptStoreyLv, n:ptStoreyN}))
+            return;
 
         Utils.assert(this.worldmap.nodes[ptStoreyLv][ptStoreyN].roomType == ptType, 
             "worldmap storey type ruined: " + ptType + " vs " + this.worldmap.nodes[ptStoreyLv][ptStoreyN].roomType);
