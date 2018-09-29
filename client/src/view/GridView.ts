@@ -539,7 +539,7 @@ class GridView extends egret.DisplayObjectContainer {
     }
 
     // 按下
-    static readonly LongPressThreshold = 500; // 按下持续 0.5s 算长按
+    static readonly LongPressThreshold = 300; // 按下持续 0.5s 算长按
     onTouchBegin(evt:egret.TouchEvent) {
         GridView.longPressed = false;
         // GridView.gesturePts = [];

@@ -130,7 +130,7 @@
 		"worldmap": {
 			"layout": {
 				"btnSymbolDesc": {"x":400, "y":70},
-				"symbolDesc": {"x":355, "y":70},
+				"symbolDesc": {"x":418, "y":68},
 				"crevice0": {"x":-10, "y":250},
 				"crevice1": {"x":400, "y":450},
 				"crevice2": {"x":20, "y":650},
