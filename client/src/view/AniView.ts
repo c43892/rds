@@ -270,7 +270,7 @@ class AniView extends egret.DisplayObjectContainer {
     // 遗物获得短提示
     async tipRelicShortDesc(r:Relic) {
         var nameAndDesc = ViewUtils.getElemNameAndDesc(r.type);
-        AniUtils.tipAt(nameAndDesc.shortDesc, {x:this.width/2, y:this.height/2}, 25, 0xffffff);
+        AniUtils.tipAt(nameAndDesc.shortDesc, {x:this.width/2, y:this.height/3}, 25, 0xffffff);
     }
 
     // 在大地图上获得金钱
