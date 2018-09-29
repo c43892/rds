@@ -292,7 +292,7 @@
 		"openBox": {"EN": "open the box", "CNS": "打开宝箱", "CNT": "打开宝箱"},
 		"makeSureGoOutBoxRoom":{"EN": "be sure to leave without left items?", "CNS": "确定放弃余下的物品?", "CNT": "確定放棄餘下的物品?"},
 		"setting": {"EN": "setting", "CNS": "设置", "CNT": "設置"},
-		"makeSureExitThisGame":{"EN": "be sure to give up this game?", "CNS": "确定放弃此局游戏?", "CNT": "確定放棄此局遊戲?"},
+		"makeSureExitThisGame":{"EN": "be sure to give up this game?", "CNS": "确定<font color=#7d0403>放弃</font>此局游戏?", "CNT": "確定<font color=#7d0403>放棄</font>此局遊戲?"},
 		"hospitalTitle": {"EN": "safe house", "CNS": "安全屋", "CNT": "安全屋"},
 		"hospitalTip": {"EN": "what's your choice?", "CNS": "你想要做什么?", "CNT": "你想要做什麼?"},
 		"hospitalCure":{"EN": "cure", "CNS": "休息（恢复30%生命）", "CNT": "治療"},
@@ -303,11 +303,11 @@
 		"continueBtn":{"EN": "continue", "CNS": "继续", "CNT": "繼續"},
 		"rob":{"EN": "Rob", "CNS": "抢劫", "CNT": ""},
 		"goBackBtn":{"EN": "go back", "CNS": "返回", "CNT": "返回"},
-		"showDeathGodStep":{"EN": "{0}", "CNS": "死神距离你还有{0}步", "CNT": "{0}"},
+		"showDeathGodStep":{"EN": "{0}", "CNS": "死神距离你还有<font color=#7d0403>{0}</font>步", "CNT": "{0}"},
 		"nextOne":{"EN": "next one", "CNS": "下一个", "CNT": "下一个"},
 		"soldout":{"EN": "sold out", "CNS": "已售罄", "CNT": "已售罄"},
 		"notEnoughMoney":{"EN": "Not Enough Money", "CNS": "金币不足", "CNT": "金币不足"},
-		"pressAnywhereToClose":{"EN": "press anywhere to close", "CNS": "<font color=#968885 size=30>点击任意位置关闭</font>", "CNT": "点击任意位置关闭"},
+		"pressAnywhereToClose":{"EN": "press anywhere to close", "CNS": "<font color=#968885 size=30>点击任意位置关闭</font>", "CNT": "<font color=#968885 size=30>点击任意位置关闭</font>"},
 		"goToNextLevel": {"EN": "be sure to leave?", "CNS": "确定离开这一层吗?", "CNT": "确定离开这一层吗?"},
 		"": {}
 	}
