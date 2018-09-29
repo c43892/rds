@@ -263,15 +263,15 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 在大地图上获得金钱
     public async onGetMoneyInWorldmap(ps) {
-        var txt = this.wmtv.getMoneyText();
+        var coin = this.wmtv.getMoneyIcon();
         var d = ps.dm > 0 ? 1 : -1;
         var p = this.wmv.player;
         var toPos = ps.reason == "shop" ? ShopView.shopNpcSlotGlobalPos : WorldMapEventSelsView.lastSelectionGlobalPos;
 
         if (d > 0)
-            await this.coinsFly(undefined, toPos, txt, ps.dm);
+            await this.coinsFly(undefined, toPos, coin, ps.dm);
         else
-            await this.coinsFly(undefined, txt, toPos, ps.dm);
+            await this.coinsFly(undefined, coin, toPos, ps.dm);
 
         this.wmtv.refreshMoney();
     }

@@ -87,9 +87,7 @@ class HospitalView extends egret.DisplayObjectContainer {
     }
 
     async openReinforce() {
-        var parent = this.parent;
-        parent.removeChild(this);
-        
+        this.alpha = 0;
         var rs = Utils.filter(this.player.relics, (r:Relic) => r.canReinfoce());
         var sel = -1;
         while (sel < 0) {
@@ -103,7 +101,7 @@ class HospitalView extends egret.DisplayObjectContainer {
                 break;
         }
 
-        parent.addChild(this);
+        this.alpha = 1;
     }
 
     async openMutate() {
