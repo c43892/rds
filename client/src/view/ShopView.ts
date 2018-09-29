@@ -96,14 +96,16 @@ class ShopView extends egret.DisplayObjectContainer {
         return new Promise<void>((resolve, reject) => {
             this.onSel = async (n) => {
                 if (!this.items[n]) {
-                    Utils.log("已售罄");
+                    AniUtils.shakeCamera(1, 100, true);
+                    AniUtils.tipAt(ViewUtils.getTipText("soldout"), {x:this.width/2, y:this.height/2}, 50, 0xffffff);
                     return;
                 }
 
                 var e = this.items[n];
                 var price = this.itemPrices[e.type];
                 if (this.player.money - price < 0) {
-                    Utils.log("金币不足");
+                    AniUtils.shakeCamera(1, 100, true);
+                    AniUtils.tipAt(ViewUtils.getTipText("notEnoughMoney"), {x:this.width/2, y:this.height/2}, 50, 0xffffff);
                     return;
                 }
 
