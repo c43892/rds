@@ -253,7 +253,7 @@ class AniUtils {
     }
 
     // 在指定位置冒出一个文字提示
-    public static async tipAt(str:string, pos, size = 30, color = 0x000000) {
+    public static async tipAt(str:string, pos, size = 25, color = 0xffffff) {
         var tip = ViewUtils.createTextField(size, color);
         tip.textFlow = ViewUtils.fromHtml(str);
         AniUtils.ac.addChild(tip);
