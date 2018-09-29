@@ -163,6 +163,7 @@ class Main extends egret.DisplayObjectContainer {
         // misc内配置
         var misc = ResMgr.getRes("misc_json");
         GCfg.getBattleViewElemTipTypes = () => misc["battleViewElemTipTypes"];
+        GCfg.getBattleTypes = (type:string) => misc[type + "Types"];
     }
 
     // 加载指定资源组

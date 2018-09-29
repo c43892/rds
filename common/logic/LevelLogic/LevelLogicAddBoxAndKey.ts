@@ -16,8 +16,8 @@ class LevelLogicAddBoxAndKey extends LevelLogic{
             var index = bt.btType.indexOf("_");
             var type = bt.btType.substring(0 , index);
             var boxes:Elem[] = [];
-            var seniorTypes = ["senior", "randomEgg"];
-            var bossTypes = ["boss", "slimeKing"];
+            var seniorTypes = GCfg.getBattleTypes("senior");
+            var bossTypes = GCfg.getBattleTypes("boss");
             
             if(Utils.indexOf(seniorTypes, (t:string) => t == type) > -1){
                 for(var i = 0; i < cfg.treasureBoxNum; i++)
@@ -51,7 +51,7 @@ class LevelLogicAddBoxAndKey extends LevelLogic{
                 }
             }
             for(var pos of poses)
-                await bt.fireEvent("onGridChanged", {"subType":"elemAdded" , x:pos.x, y:pos.y, e:this.level.map.getElemAt(pos.x, pos.y)})
+                bt.fireEvent("onGridChanged", {"subType":"elemAdded" , x:pos.x, y:pos.y, e:this.level.map.getElemAt(pos.x, pos.y)})
             
         })
 

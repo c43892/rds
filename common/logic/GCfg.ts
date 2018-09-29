@@ -18,4 +18,5 @@ class GCfg {
     public static getLevelLogicCfg; // 获取关卡逻辑配置
     public static getElemAttrsOfLevel; // 获取元素在特定层数的配置
     public static getBattleViewElemTipTypes; // 获取战斗内需要特殊元素提示的类型
+    public static getBattleTypes; // 获取各种战斗关卡的战斗类型,boss或senior
 }
