@@ -456,7 +456,7 @@ class GridView extends egret.DisplayObjectContainer {
     }
 
     // 各种操作逻辑构建
-    static dragStartThreshold2 = 25; // 拖动多远之后，认为已经开始拖拽
+    static dragStartThreshold2 = 1000; // 拖动多远之后，认为已经开始拖拽(这里设置的平方值)
     static pressed:boolean = false; // 按下，但尚未开始拖拽移动
     static longPressed:boolean = false; // 是否产生了长按事件
     static dragging:boolean = false; // 开始拖拽，和 pressed 是互斥的
