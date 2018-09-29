@@ -49,6 +49,16 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.wmesFact.openSels = async (p:Player, title, desc, sels) => await this.openSels(p, title, desc, sels);
         this.wmesFact.openTurntable = async (turntable) => await this.openTurntable(turntable);
 
+        this.btnSymbolDesc = new TextButtonWithBg("SymbolDescbtn_png");
+        this.btnSymbolDesc.name = "btnSymbolDesc";
+        this.symbolDesc = new TextButtonWithBg("SymbolDesc_png");
+        this.symbolDesc.name = "symbolDesc";
+
+        this.topContainer = new egret.DisplayObjectContainer();
+        this.topContainer.name = "worldmapTop";
+        this.topBar = ViewUtils.createBitmapByName("topBar_png");
+        this.topBar.name = "topBar";
+        this.topBar.scale9Grid = new egret.Rectangle(25, 10, this.topBar.width - 50, this.topBar.height - 20);
         this.btnSetting = new TextButtonWithBg("BtnSetting_png");
         this.btnSetting.name = "btnSetting";
         this.btnSetting.onClicked = () => this.openSettingView();
@@ -60,13 +70,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.hpTitle.name = "hpTitle";
         this.hp = ViewUtils.createTextField(33, 0xffffff, false, false);
         this.hp.name = "hp";
-        this.btnSymbolDesc = new TextButtonWithBg("SymbolDescbtn_png");
-        this.btnSymbolDesc.name = "btnSymbolDesc";
-        this.symbolDesc = new TextButtonWithBg("SymbolDesc_png");
-        this.symbolDesc.name = "symbolDesc";
-        this.topBar = ViewUtils.createBitmapByName("topBar_png");
-        this.topBar.name = "topBar";
-        this.topBar.scale9Grid = new egret.Rectangle(25, 10, this.topBar.width - 50, this.topBar.height - 20);
         
         for (var i = 0; i < 7; i++) {
             this.crevices[i] = ViewUtils.createBitmapByName("Crevice_png");
@@ -74,25 +77,36 @@ class WorldMapView extends egret.DisplayObjectContainer {
         }
     }
 
-    btnSetting:TextButtonWithBg; // 设置按钮
     openSettingView; // 打开设置界面
+    crevices:egret.Bitmap[] = []; // 裂缝
+    btnSymbolDesc:TextButtonWithBg; // 图例按钮
+    symbolDesc:TextButtonWithBg; // 图例
+
+    topContainer:egret.DisplayObjectContainer; // 顶部
+    topBar:egret.Bitmap;
+    btnSetting:TextButtonWithBg; // 设置按钮
     coins:egret.Bitmap; // 金币图标
     numCoins:egret.TextField; // 金币数量
     hpTitle:egret.Bitmap; // 血量图标
     hp:egret.TextField; // 血量
-    crevices:egret.Bitmap[] = []; // 裂缝
-    btnSymbolDesc:TextButtonWithBg; // 图例按钮
-    symbolDesc:TextButtonWithBg; // 图例
-    topBar:egret.Bitmap;
+    
     private refreshUI() {
         this.refreshFrame();
 
-        var objs = [this.topBar, this.btnSetting, this.coins, this.hpTitle, this.hp, this.btnSymbolDesc, this.symbolDesc, this.numCoins];
+        var topObjs = [this.topBar, this.btnSetting, this.coins, this.numCoins, this.hpTitle, this.hp];
+        topObjs.forEach((obj, _) => {
+            if (!this.topContainer.contains(obj))
+                this.topContainer.addChild(obj);
+        });
+        ViewUtils.multiLang(this.topContainer, ...topObjs);
+
+        var objs = [this.topContainer, this.btnSymbolDesc, this.symbolDesc];
         objs.forEach((obj, _) => {
             if (!this.contains(obj))
                 this.addChild(obj);
         });
         ViewUtils.multiLang(this, ...objs);
+        this.topContainer.width = this.width;
         this.topBar.width = this.width;
 
         this.removeChild(this.symbolDesc); // 初始不显示图例

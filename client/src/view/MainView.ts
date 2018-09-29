@@ -253,7 +253,7 @@ class MainView extends egret.DisplayObjectContainer {
             this.p.addMoney(-price);
             this.p.addItem(elem);
             await this.p.fireEvent("onGetMoneyInWorldmap", {dm:-price, reason:"shop"});
-            this.sv.refresh();            
+            this.sv.refresh();
             await this.p.fireEvent("onGetElemInWorldmap", {e:elem, fromPos:ShopView.lastSelectedElemGlobalPos});
         };
 
