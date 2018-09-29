@@ -70,7 +70,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.openTurntable = async (turntable) => await this.openTurntable(turntable);
         this.wmv.openEventSels = async (title, desc, sels) => await this.openWorldMapEventSels(title, desc, sels);
         this.wmv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
-        this.wmv.selRelic = async (elems, funcOnClinked, title, tip) => await this.openAllElemsView(elems, true, funcOnClinked, title, tip);
+        this.wmv.selRelic = async (elems, funcOnClinked, title, tip) => await this.openAllElemsView(elems, funcOnClinked, title, tip);
         this.wmv.openPlayerDieView = async () => await this.openPlayerDieView();
         this.wmtv = new WorldMapTopView(w, 80);
         this.wmtv.openSettingView = async () => await this.openSettingView();
@@ -79,7 +79,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.hv = new HospitalView(w, h);
         this.hv.x = this.hv.y = 0;
         this.hv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);        
-        this.hv.selRelic = async (elems, funcOnClinked, title, tip) => await this.openAllElemsView(elems, true, funcOnClinked, title, tip);
+        this.hv.selRelic = async (elems, funcOnClinked, title, tip) => await this.openAllElemsView(elems, funcOnClinked, title, tip);
 
         // 带遗物对比的确认视图
         this.scv = new ShopConfirmView(w, h);
@@ -233,7 +233,6 @@ class MainView extends egret.DisplayObjectContainer {
     public async openShopOnWorldMap(shop) {
         this.sv.player = this.p;
         this.addChild(this.sv);
-        this.setChildIndex(this.wmtv, -1);
         var r = Utils.genRandomShopItems(this.p, shop, this.p.playerRandom, 6);
 
         // 处理打折
@@ -287,7 +286,6 @@ class MainView extends egret.DisplayObjectContainer {
     public async openHospital() {
         this.hv.player = this.p;
         this.addChild(this.hv);
-        this.setChildIndex(this.wmtv, -1);
         await this.hv.openHospital();
         this.removeChild(this.hv);
     }
@@ -296,7 +294,6 @@ class MainView extends egret.DisplayObjectContainer {
     public async openBoxRoom(dropCfg) {
         this.brv.player = this.p;
         this.addChild(this.brv);
-        this.setChildIndex(this.wmtv, -1);
         await this.brv.open(dropCfg);
         this.removeChild(this.brv);
     }
@@ -315,7 +312,6 @@ class MainView extends egret.DisplayObjectContainer {
         }
         this.addChild(this.ttv);
         this.setChildIndex(this.ttv, -1);
-        this.setChildIndex(this.wmtv, -1);
         await this.ttv.open();
         this.removeChild(this.ttv);
     }
@@ -331,7 +327,6 @@ class MainView extends egret.DisplayObjectContainer {
         wmesv.x = wmesv.y = 0;
         wmesv.player = this.p;
         this.addChild(wmesv);
-        this.setChildIndex(this.wmtv, -1);
         this.lastWmesv = wmesv;
         await wmesv.open(title, desc, sels);
 
@@ -419,7 +414,6 @@ class MainView extends egret.DisplayObjectContainer {
     public async showElemDesc(e:Elem) {
         this.addChild(this.idv);
         this.setChildIndex(this.idv, -1);
-        this.setChildIndex(this.wmtv, -1);
         this.idv.player = this.p;
         await this.idv.open(e);
         this.removeChild(this.idv);
@@ -453,11 +447,9 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // all relics view
-    public async openAllElemsView(elems:Elem[], inWorldMap:boolean, funcOnClinked = undefined, title:string = undefined, tip:string = undefined) {
+    public async openAllElemsView(elems:Elem[], funcOnClinked = undefined, title:string = undefined, tip:string = undefined) {
         this.addChild(this.aev);
         this.setChildIndex(this.aev, -1);
-        if (inWorldMap)
-            this.setChildIndex(this.wmtv, -1);
         this.aev.player = this.p;
         var sel = await this.aev.open(elems, funcOnClinked, title, tip);
         this.removeChild(this.aev);
