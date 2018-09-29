@@ -234,8 +234,7 @@ class AniView extends egret.DisplayObjectContainer {
         }
 
         // 出一个短提示
-        var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
-        AniUtils.tipAt(nameAndDesc.shortDesc, {x:this.width/2, y:this.height/2}, 30, 0xffffff);
+        this.tipRelicShortDesc(<Relic>e);
 
         this.bv.refreshRelics();
         this.bv.refreshPlayer();
@@ -264,10 +263,14 @@ class AniView extends egret.DisplayObjectContainer {
         toImg["dispose"]();
 
         // 遗物需要出个短提示
-        if (e instanceof Relic) {
-            var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
-            AniUtils.tipAt(nameAndDesc.shortDesc, {x:this.width/2, y:this.height/2}, 30, 0xffffff);
-        }
+        if (e instanceof Relic)
+            this.tipRelicShortDesc(e);
+    }
+
+    // 遗物获得短提示
+    async tipRelicShortDesc(r:Relic) {
+        var nameAndDesc = ViewUtils.getElemNameAndDesc(r.type);
+        AniUtils.tipAt(nameAndDesc.shortDesc, {x:this.width/2, y:this.height/2}, 30, 0xffffff);
     }
 
     // 在大地图上获得金钱
