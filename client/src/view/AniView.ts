@@ -1167,6 +1167,16 @@ class AniView extends egret.DisplayObjectContainer {
         });
     }
 
+    // 大地图从顶部滑动到指定百分比
+    async doWorldMapSlide(p, time) {
+        this.addBlockLayer();
+        return new Promise<void>((r, _) => {
+            var tw = egret.Tween.get(this.wmv).to({mapScrollPos:p}, time, egret.Ease.cubicInOut);
+            this.decBlockLayer();
+            tw.call(() => r());
+        });
+    }
+
     // 黑幕开启
     async blackIn(removedWhenFinish = false) {
         this.addChild(this.blackCover);

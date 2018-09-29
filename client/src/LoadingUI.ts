@@ -34,6 +34,10 @@ class LoadingUI extends egret.DisplayObjectContainer implements RES.PromiseTaskR
     sy = 1039;
     fw = 615;
 
+    // 设计满尺寸
+    w = 758;
+    h = 1280;
+
     // 刷新界面显示
     bg:egret.Bitmap;
     loadingBar:egret.Bitmap;
@@ -46,8 +50,10 @@ class LoadingUI extends egret.DisplayObjectContainer implements RES.PromiseTaskR
         return bmp;
     }
 
-    public refresh() {
-        this.removeChildren();
+    public constructor() {
+        super();
+        this.width = this.w;
+        this.height = this.h;
 
         // 背景
         this.bg = this.createBitmapByName("LoadingBg_png");

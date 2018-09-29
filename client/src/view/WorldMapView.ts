@@ -215,8 +215,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
         // 裂纹
         this.crevices.forEach((obj, _) => this.viewContent.addChild(obj));
         ViewUtils.multiLang(this, ...this.crevices);
-
-        this.mapArea.scrollTop = this.viewContent.height - this.mapArea.height;
     }
 
     private refreshNodes() {
@@ -342,6 +340,18 @@ class WorldMapView extends egret.DisplayObjectContainer {
         }
     }
 
+    // 设置滚动位置(0:顶部 - 1:底部)
+    public set mapScrollPos(p:number) {
+        var top = (this.viewContent.height - this.mapArea.height) * p;
+        this.mapArea.scrollTop = top;
+        Utils.log("set " + p);
+    }
+
+    // 设置当前大地图滚动位置
+    public get mapScrollPos() {
+        return this.mapArea.scrollTop / (this.viewContent.height - this.mapArea.height);
+    }
+
     public refresh() {
         if (!this.worldmap) return;
         this.refreshUI();
@@ -365,9 +375,9 @@ class WorldMapView extends egret.DisplayObjectContainer {
         var ptStoreyLv = bmp["ptStoreyLv"];
         var ptStoreyN = bmp["ptStoreyN"];
 
-        // //检查点击的节点是否是当前可到达节点(测试中,暂且屏蔽该检查)
-        // if (!BattleUtils.isStoreyPosSelectable(this.worldmap.player, {lv:ptStoreyLv, n:ptStoreyN}))
-        //     return;
+        //检查点击的节点是否是当前可到达节点(测试中,暂且屏蔽该检查)
+        if (!BattleUtils.isStoreyPosSelectable(this.worldmap.player, {lv:ptStoreyLv, n:ptStoreyN}))
+            return;
 
         Utils.assert(this.worldmap.nodes[ptStoreyLv][ptStoreyN].roomType == ptType, 
             "worldmap storey type ruined: " + ptType + " vs " + this.worldmap.nodes[ptStoreyLv][ptStoreyN].roomType);

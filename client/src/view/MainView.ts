@@ -392,21 +392,14 @@ class MainView extends egret.DisplayObjectContainer {
                         await this.rookiePlay();
                     else {
                         this.newPlay();
+                        this.wmv.mapScrollPos = 0;
                         await this.av.blackOut();
+                        await this.av.doWorldMapSlide(1, 2000);
                     }
                 }
             }
         };
     }
-
-    // // 打开选择遗物界面
-    // public async openSelRelic(title, f) {
-    //     this.rsv.player = this.p;
-    //     this.addChild(this.rsv);
-    //     var sel = await this.rsv.open(title, f);
-    //     this.removeChild(this.rsv);
-    //     return sel;
-    // }
 
     // 打开角色死亡界面
     public async openPlayerDieView() {
@@ -481,14 +474,18 @@ class MainView extends egret.DisplayObjectContainer {
         if (!this.p) return;
 
         this.registerPlayerEvents();
+
+        // 自动设置大地图位置
+        this.openWorldMap(this.p.worldmap);
+        var p = this.p.currentStoreyPos.lv / this.p.worldmap.nodes.length;
+        this.wmv.mapScrollPos = p;
+
         if (this.p.currentStoreyPos.status == "finished") {
-            this.openWorldMap(this.p.worldmap);
             await this.av.blackOut();
         }
         else {
             var lv = this.p.currentStoreyPos.lv;
             var n = this.p.currentStoreyPos.n;
-            this.openWorldMap(this.p.worldmap);
             this.wmv.enterNode(lv, n, true);
 
             // 这里需要根据节点类型特别补一个 blackOut，战斗类型因为有自己不同的流程，
