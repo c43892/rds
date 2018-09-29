@@ -37,7 +37,7 @@ class Player {
         p.currentStoreyPos = {lv:0, n:0, status:"finished"};
         p.finishedStoreyPos = [{lv:0, n:0}];
         p.occupation = "Nurse";
-        p.deathStep = 100;
+        p.deathStep = 150;
 
         p.maxDeathStep = 150;
         p.hp = 20;

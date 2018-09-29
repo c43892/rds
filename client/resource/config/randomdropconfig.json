@@ -110,10 +110,10 @@
         "Clock":1
     }},
 
-    "RandomEgg": {"num":[2, 3], "elems":{
-        "Coins":20,
-        "CoinsBig":10,
-        "CoinsHuge":5,
+    "RandomEgg": {"num":[1, 2], "elems":{
+        "Coins":50,
+        "CoinsBig":200,
+        "CoinsHuge":100,
         "MedicineBox":10,
         "TimeMachine":10,
         "Endurance":10,
