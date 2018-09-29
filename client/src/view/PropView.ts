@@ -38,7 +38,7 @@ class PropView extends egret.DisplayObjectContainer {
         this.addChild(this.bg2);
 
         // 叠加数量
-        this.num = ViewUtils.createTextField(25, 0x000000);
+        this.num = ViewUtils.createTextField(25, 0xffffff);
         this.num.name = "num";
         this.num.width = this.bg2.width * 2;
         this.num.textAlign = egret.HorizontalAlign.CENTER;
