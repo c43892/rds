@@ -167,7 +167,7 @@ class Main extends egret.DisplayObjectContainer {
     }
 
     // 加载指定资源组
-    ldv = new LoadingUI(); // loading 界面    
+    ldv:LoadingUI; // loading 界面
     async loadResGroups(gs) {
         this.addChild(this.ldv);
         ViewUtils.asFullBg(this.ldv);
@@ -181,10 +181,9 @@ class Main extends egret.DisplayObjectContainer {
         this.calcArea(); // 计算屏幕适配
 
         await RES.loadConfig("resource/default.res.json", "resource/"); // 加载资源配置
-        this.ldv = new LoadingUI(); // 准备加载界面
-        await this.loadResGroups("loading"); // 加载加载界面资源
-        this.ldv.refresh();
-
+        await RES.loadGroup("loading");
+        
+        this.ldv = new LoadingUI();
         await this.loadResGroups("preload"); // 加载初始资源
         Utils.log("preload finished");
         this.globalInit(); // 初始化全局配置
