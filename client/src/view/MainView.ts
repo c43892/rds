@@ -411,7 +411,7 @@ class MainView extends egret.DisplayObjectContainer {
     // 打开角色死亡界面
     public async openPlayerDieView() {
         Utils.savePlayer(undefined);
-        await this.confirmOkYesNo("不幸死亡", "有些情况也许你能复活", false);
+        await this.confirmOkYesNo("<font color=#7d0403 size=30>不幸死亡</font>", "<font color=#000000 size=20>有些情况你也许可以复活</font>", false);
         this.p = undefined;
         await this.av.blackIn();
         await this.openStartup(undefined);

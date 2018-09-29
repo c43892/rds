@@ -28,7 +28,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         this.bg.addEventListener(egret.TouchEvent.TOUCH_TAP, () => this.doClose(), this);
 
         this.tip = new egret.TextField;
-        this.tip.text = ViewUtils.getTipText("pressAnywhereToClose");
+        this.tip.textFlow = ViewUtils.fromHtml(ViewUtils.formatTip("pressAnywhereToClose"));
         this.tip.textAlign = egret.HorizontalAlign.CENTER;
         this.tip.name = "tip";
         this.tip.width = 640;
