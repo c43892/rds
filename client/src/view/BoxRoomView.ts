@@ -69,7 +69,6 @@ class BoxRoomView extends egret.DisplayObjectContainer {
         this.elems = [];
         this.openBoxBtn.touchEnabled = true;
         this.addChild(this.openBoxBtn);
-        this.removeChild(this.goOutBtn);
         
         var onOpenBoxRoomPs = {num:3};
         await this.player.fireEvent("onOpenBoxRoom", onOpenBoxRoomPs);
@@ -94,6 +93,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
     }
 
     async onClose() {
+        this.removeChild(this.goOutBtn);
         await this.getDropItems();
         this.doClose();
     }
