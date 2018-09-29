@@ -263,7 +263,7 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
         this.addChild(btnYes);
 
         btnYes.onClicked = () => {
-            this.playRelicEffect().then(() => {                
+            this.playRelicEffect().then(() => {
                 this.onYes();
             });
         };
@@ -273,6 +273,9 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
     // 播放遗物升级动画
     async playRelicEffect() {
         var icon = this.c2.getChildByName("icon");
+
+        // 阻挡操作
+        (<AniView>AniUtils.ac).addBlockLayer();
 
         // 两边隐藏掉
         this.removeChildren();
@@ -313,5 +316,7 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
         this.c2.alpha = 1;
         this.c2.scaleX = this.c2.scaleY = 1;
         this.c2.anchorOffsetX = this.c2.anchorOffsetY = 0;
+
+        (<AniView>AniUtils.ac).decBlockLayer();
     }
 }
