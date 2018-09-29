@@ -177,7 +177,11 @@ class ItemFactory {
         },
 
         // 冰块
-        "IceBlock": (attrs) => ElemFactory.elemCanUseManyTimes(attrs.cnt, undefined, () => true, () => undefined, undefined)(this.createItem()),
+        "IceBlock": (attrs) => {
+            var e = ElemFactory.elemCanUseManyTimes(attrs.cnt, undefined, () => true, () => undefined, undefined)(this.createItem());
+            e.canBeDragDrop = false;
+            return e;
+        },
 
         // 警棍
         "Baton": (attrs) => {
@@ -252,6 +256,7 @@ class ItemFactory {
         // 下一关入口
         "NextLevelPort": (attrs) => {
             var e = this.createItem();
+            e.canBeDragDrop = false;
             e.canUse = () => true;
             e.use = async () => {
                 await e.bt().implGo2NextLevel(); // 离开当前战斗
