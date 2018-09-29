@@ -1,7 +1,7 @@
 {
-    "MedicineBox":{"name":"医药箱", "dhp":1, 
+    "MedicineBox":{"name":"医药箱", "dhp":5, 
         "reinforce":[
-            {"dhp":2}, {"dhp":3}
+            {"dhp":10}, {"dhp":15}
         ],
         "occupations":["Nurse"]
     },
@@ -201,6 +201,6 @@
     "Cloak":{"name":"披风"},
     "LifeSpring":{"name":"生命之泉", "percent":50},
 
-    "NextLevelPort":{"name":"下一层", "addInEffect":"noEffect", "useWithoutConfirm":true},
+    "NextLevelPort":{"name":"下一层", "addInEffect":"noEffect", "useWithConfirm":true, "useTipContent":"goToNextLevel"},
     "EscapePort":{"name":"逃跑", "invisible":true}
 }

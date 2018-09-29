@@ -175,8 +175,8 @@
 		"tipConfirm": {
 			"layout": {
 				"yesnoBg": {"x":100, "y":500, "w":460, "h":260},
-				"yesnoTitle": {"x":100, "y":520, "w":460, "h":50},
-				"yesnoContent": {"x":100, "y":525, "w":460, "h":150},
+				"yesnoTitle": {"x":100, "y":525, "w":460, "h":50},
+				"yesnoContent": {"x":100, "y":535, "w":460, "h":150},
 				"btnYes": {"x":360, "y":670, "w":120, "h":50},
 				"btnNo": {"x":180, "y":670, "w":120, "h":50},
 				"btnOk": {"x":260, "y":670, "w":120, "h":50}
@@ -307,7 +307,7 @@
 		"nextOne":{"EN": "next one", "CNS": "下一个", "CNT": "下一个"},
 		"soldout":{"EN": "sold out", "CNS": "已售罄", "CNT": "已售罄"},
 		"notEnoughMoney":{"EN": "Not Enough Money", "CNS": "金币不足", "CNT": "金币不足"},
-		"pressAnywhereToClose":{"EN": "press anywhere to close", "CNS": "点击任意位置关闭", "CNT": "点击任意位置关闭"},
+		"pressAnywhereToClose":{"EN": "press anywhere to close", "CNS": "<font color=#968885 size=30>点击任意位置关闭</font>", "CNT": "点击任意位置关闭"},
 		"goToNextLevel": {"EN": "be sure to leave?", "CNS": "确定离开这一层吗?", "CNT": "确定离开这一层吗?"},
 		"": {}
 	}

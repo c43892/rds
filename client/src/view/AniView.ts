@@ -270,7 +270,7 @@ class AniView extends egret.DisplayObjectContainer {
     // 遗物获得短提示
     async tipRelicShortDesc(r:Relic) {
         var nameAndDesc = ViewUtils.getElemNameAndDesc(r.type);
-        AniUtils.tipAt(nameAndDesc.shortDesc, {x:this.width/2, y:this.height/2}, 30, 0xffffff);
+        AniUtils.tipAt(nameAndDesc.shortDesc, {x:this.width/2, y:this.height/2}, 25, 0xffffff);
     }
 
     // 在大地图上获得金钱
@@ -387,7 +387,7 @@ class AniView extends egret.DisplayObjectContainer {
             var dhp = ps.dhp;
             var p = sv.localToGlobal();
             if (dhp > 0)
-                await AniUtils.tipAt(ViewUtils.getTipText("cure"), p);
+                await AniUtils.tipAt(ViewUtils.getTipText("cure"), {x:p.x+44, y:p.y-11});
         } else if (ps.subType == "die" && e instanceof Monster) {
             var g = this.bv.mapView.getGridViewAt(e.pos.x, e.pos.y);
             // 怪物死亡特效
@@ -409,7 +409,7 @@ class AniView extends egret.DisplayObjectContainer {
         if (Utils.checkCatalogues(type, "book")) { // 书籍需要提示还剩几次
             if (e.cnt > 0) {
                 var p = sv.localToGlobal();
-                AniUtils.tipAt((e.attrs.cnt - e.cnt) + "/" + e.attrs.cnt, {x:p.x+25, y:p.y-25});
+                AniUtils.tipAt((e.attrs.cnt - e.cnt) + "/" + e.attrs.cnt, {x:p.x+38, y:p.y-25});
                 AniUtils.flashAndShake(sv);
             }
             this.bv.playAvatarAni("Book");
