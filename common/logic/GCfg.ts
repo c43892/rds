@@ -17,4 +17,5 @@ class GCfg {
     public static getElemPosCfg; // 获取关卡中指定元素位置的配置
     public static getLevelLogicCfg; // 获取关卡逻辑配置
     public static getElemAttrsOfLevel; // 获取元素在特定层数的配置
+    public static getBattleViewElemTipTypes; // 获取战斗内需要特殊元素提示的类型
 }

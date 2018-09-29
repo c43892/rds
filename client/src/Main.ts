@@ -159,6 +159,10 @@ class Main extends egret.DisplayObjectContainer {
         // 多语言
         var multiLangCfg = ResMgr.getRes("multilanguage_json");
         GCfg.getMultiLanguageCfg = () => multiLangCfg;
+
+        // misc内配置
+        var misc = ResMgr.getRes("misc_json");
+        GCfg.getBattleViewElemTipTypes = () => misc["battleViewElemTipTypes"];
     }
 
     // 加载指定资源组
