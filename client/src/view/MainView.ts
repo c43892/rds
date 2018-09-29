@@ -393,6 +393,7 @@ class MainView extends egret.DisplayObjectContainer {
                     else {
                         this.newPlay();
                         await this.av.blackOut();
+                        await this.av.doWorldMapSlide(1, 2000);
                     }
                 }
             }

@@ -215,8 +215,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
         // 裂纹
         this.crevices.forEach((obj, _) => this.viewContent.addChild(obj));
         ViewUtils.multiLang(this, ...this.crevices);
-
-        this.mapArea.scrollTop = this.viewContent.height - this.mapArea.height;
     }
 
     private refreshNodes() {
@@ -341,6 +339,23 @@ class WorldMapView extends egret.DisplayObjectContainer {
             this.viewContent.addChild(adoptImgs[sp.lv][sp.n]);
         }
     }
+
+    // 设置滚动位置(0:顶部 - 1:底部)
+    public set mapScrollPos(p:number) {
+        var top = (this.viewContent.height - this.mapArea.height) * p;
+        this.mapArea.scrollTop = top;
+        Utils.log("set " + p);
+    }
+
+    public get mapScrollPos() {
+        return this.mapArea.scrollTop / (this.viewContent.height - this.mapArea.height);
+    }
+
+    // 设置当前大地图滚动位置
+    // public setCurrentStoryLv(lv = 0) {
+    //     if (lv <= 0) // 回到初始位置
+    //         this.mapArea.scrollTop = this.viewContent.height - this.mapArea.height;
+    // }
 
     public refresh() {
         if (!this.worldmap) return;
