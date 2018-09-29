@@ -264,11 +264,12 @@ class AniView extends egret.DisplayObjectContainer {
         var txt = this.wmv.getMoneyText();
         var d = ps.dm > 0 ? 1 : -1;
         var p = this.wmv.player;
+        var toPos = ps.reason == "shop" ? ShopView.shopNpcSlotGlobalPos : WorldMapEventSelsView.lastSelectionGlobalPos;
 
         if (d > 0)
-            await this.coinsFly(undefined, WorldMapEventSelsView.lastSelectionGlobalPos, txt, ps.dm);
+            await this.coinsFly(undefined, toPos, txt, ps.dm);
         else
-            await this.coinsFly(undefined, txt, WorldMapEventSelsView.lastSelectionGlobalPos, ps.dm);
+            await this.coinsFly(undefined, txt, toPos, ps.dm);
 
         this.wmv.refreshMoney();
     }
@@ -542,7 +543,7 @@ class AniView extends egret.DisplayObjectContainer {
         var d = ps.d > 0 ? 1 : -1;
         var coinSV = this.getSV(e);
 
-        if (d > 0) 
+        if (d > 0)
             await this.coinsFly(e, coinSV, txt, ps.d)
         else if (e.type != "ShopNpc")
             await this.coinsFly(e, txt, coinSV, ps.d)

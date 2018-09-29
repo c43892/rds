@@ -106,8 +106,10 @@ class WorldMapView extends egret.DisplayObjectContainer {
     private onClickSymbolDesc() {
         if (this.contains(this.symbolDesc)) {
             this.removeChild(this.symbolDesc);
+            this.addChild(this.btnSymbolDesc);
             ViewUtils.multiLang(this, this.btnSymbolDesc);
         } else {
+            this.removeChild(this.btnSymbolDesc);
             this.addChild(this.symbolDesc);
             ViewUtils.multiLang(this, this.symbolDesc);
             this.btnSymbolDesc.y = this.symbolDesc.y + this.symbolDesc.height;
@@ -398,9 +400,9 @@ class WorldMapView extends egret.DisplayObjectContainer {
         var ptStoreyLv = bmp["ptStoreyLv"];
         var ptStoreyN = bmp["ptStoreyN"];
 
-        //检查点击的节点是否是当前可到达节点(测试中,暂且屏蔽该检查)
-        if (!BattleUtils.isStoreyPosSelectable(this.worldmap.player, {lv:ptStoreyLv, n:ptStoreyN}))
-            return;
+        // //检查点击的节点是否是当前可到达节点(测试中,暂且屏蔽该检查)
+        // if (!BattleUtils.isStoreyPosSelectable(this.worldmap.player, {lv:ptStoreyLv, n:ptStoreyN}))
+        //     return;
 
         Utils.assert(this.worldmap.nodes[ptStoreyLv][ptStoreyN].roomType == ptType, 
             "worldmap storey type ruined: " + ptType + " vs " + this.worldmap.nodes[ptStoreyLv][ptStoreyN].roomType);
