@@ -128,7 +128,6 @@
 		
 		"worldmap": {
 			"layout": {
-				"worldmapTop": {"x":0, "y":0, "h": 80},
 				"btnSymbolDesc": {"x":400, "y":70},
 				"symbolDesc": {"x":355, "y":70},
 				"crevice0": {"x":-10, "y":250},
@@ -141,7 +140,7 @@
 			}
 		},
 		
-		"worldmapTop": {
+		"worldmapTopView": {
 			"layout": {
 				"top": {"x":0, "y":0, "h": 80},
 				"btnSetting": {"x":30, "y":10, "w":50, "h":50},

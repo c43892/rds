@@ -53,23 +53,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.btnSymbolDesc.name = "btnSymbolDesc";
         this.symbolDesc = new TextButtonWithBg("SymbolDesc_png");
         this.symbolDesc.name = "symbolDesc";
-
-        this.topContainer = new egret.DisplayObjectContainer();
-        this.topContainer.name = "worldmapTop";
-        this.topBar = ViewUtils.createBitmapByName("topBar_png");
-        this.topBar.name = "topBar";
-        this.topBar.scale9Grid = new egret.Rectangle(25, 10, this.topBar.width - 50, this.topBar.height - 20);
-        this.btnSetting = new TextButtonWithBg("BtnSetting_png");
-        this.btnSetting.name = "btnSetting";
-        this.btnSetting.onClicked = () => this.openSettingView();
-        this.coins = ViewUtils.createBitmapByName("Coins_png");
-        this.coins.name = "coins";
-        this.numCoins = ViewUtils.createTextField(33, 0xffffff, false, false);
-        this.numCoins.name = "numCoins";
-        this.hpTitle = ViewUtils.createBitmapByName("hpTitle_png");
-        this.hpTitle.name = "hpTitle";
-        this.hp = ViewUtils.createTextField(33, 0xffffff, false, false);
-        this.hp.name = "hp";
         
         for (var i = 0; i < 7; i++) {
             this.crevices[i] = ViewUtils.createBitmapByName("Crevice_png");
@@ -77,44 +60,23 @@ class WorldMapView extends egret.DisplayObjectContainer {
         }
     }
 
-    openSettingView; // 打开设置界面
     crevices:egret.Bitmap[] = []; // 裂缝
     btnSymbolDesc:TextButtonWithBg; // 图例按钮
     symbolDesc:TextButtonWithBg; // 图例
 
-    topContainer:egret.DisplayObjectContainer; // 顶部
-    topBar:egret.Bitmap;
-    btnSetting:TextButtonWithBg; // 设置按钮
-    coins:egret.Bitmap; // 金币图标
-    numCoins:egret.TextField; // 金币数量
-    hpTitle:egret.Bitmap; // 血量图标
-    hp:egret.TextField; // 血量
-    
     private refreshUI() {
         this.refreshFrame();
 
-        var topObjs = [this.topBar, this.btnSetting, this.coins, this.numCoins, this.hpTitle, this.hp];
-        topObjs.forEach((obj, _) => {
-            if (!this.topContainer.contains(obj))
-                this.topContainer.addChild(obj);
-        });
-        ViewUtils.multiLang(this.topContainer, ...topObjs);
-
-        var objs = [this.topContainer, this.btnSymbolDesc, this.symbolDesc];
+        var objs = [this.btnSymbolDesc, this.symbolDesc];
         objs.forEach((obj, _) => {
             if (!this.contains(obj))
                 this.addChild(obj);
         });
         ViewUtils.multiLang(this, ...objs);
-        this.topContainer.width = this.width;
-        this.topBar.width = this.width;
 
         this.removeChild(this.symbolDesc); // 初始不显示图例
         this.btnSymbolDesc.onClicked = () => this.onClickSymbolDesc();
         this.symbolDesc.onClicked = () => this.onClickSymbolDesc();
-
-        this.refreshMoney();
-        this.refreshHp();
     }
 
     private onClickSymbolDesc() {
@@ -130,21 +92,10 @@ class WorldMapView extends egret.DisplayObjectContainer {
         }
     }
 
-    public getMoneyText():egret.TextField {
-        return this.numCoins;
-    }
-
-    public refreshMoney() {
-        this.numCoins.text = this.player.money.toString();
-    }
-
-    public refreshHp() {
-        this.hp.text = this.player.hp.toString() + "/" + this.player.maxHp.toString();
-    }
-
     private refreshFrame() {
         var w = this.width;
         var h = this.height;
+        var topLine = 80;
 
         this.mapArea.width = w;
         this.mapArea.height = h;
@@ -154,7 +105,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.viewContent.x = 0;
         this.viewContent.y = 0;
         this.viewContent.width = w;
-        this.viewContent.height = this.mapArea.height * 2 + this.topBar.height;        
+        this.viewContent.height = this.mapArea.height * 2 + topLine;
 
         this.viewContent.removeChildren();
         this.viewContent.addChild(this.bgc);
@@ -179,7 +130,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
         var head = ViewUtils.createBitmapByName("WorldMapBg2_png");
         head.x = this.viewContent.width / 2 - head.width;
-        head.y = -15 + this.topBar.height;
+        head.y = -15 + topLine;
         this.viewContent.addChild(head);
 
         var head2 = ViewUtils.createBitmapByName("WorldMapBg2_png");
@@ -203,7 +154,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
         var clt = ViewUtils.createBitmapByName("WorldMapBgCorner_png");
         clt.x = this.viewContent.width - this.width + xSpace;
-        clt.y = this.topBar.height;
+        clt.y = topLine;
         clt.scale9Grid = new egret.Rectangle(clt.width - 2, clt.height - 2, 1, 1);
         clt.width = this.width / 2 - head.width - clt.x;
         clt.height = this.viewContent.height / 2 - clt.y;
@@ -214,7 +165,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         crt.height = clt.height;        
         crt.scale9Grid = clt.scale9Grid;
         crt.x = this.viewContent.width / 2 + crt.width + head.width;
-        crt.y = this.topBar.height;
+        crt.y = topLine;
         crt.scaleX = -1;
         this.viewContent.addChild(crt);
 

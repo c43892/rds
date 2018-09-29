@@ -98,6 +98,7 @@
 		"bin-debug/view/TurntableView.js",
 		"bin-debug/view/ViewUtils.js",
 		"bin-debug/view/WorldMapSelsEventView.js",
+		"bin-debug/view/WorldMapTopView.js",
 		"bin-debug/view/WorldMapView.js"
 	]
 }
