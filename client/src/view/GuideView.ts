@@ -405,9 +405,9 @@ class GuideView extends egret.DisplayObjectContainer {
     // 新手指引2
     async rookiePlay2(bt:Battle) {
         await AniUtils.delay(1000);
-        await this.showDialog("Nurse", "护士", "让我告诉你一些基本规则", 0, 200, true);
+        await this.showDialog("Nurse", "护士", "让我告诉你一些基本规则", 0, 500, true);
         await this.showDialog("Nurse", "护士", "地上的数字表示它周围8个格子里隐藏的怪物的数量", 0, 500, true);
-        await this.showDialog("Nurse", "护士", "点击就可以打开格子", 0, 200, true);
+        await this.showDialog("Nurse", "护士", "点击就可以打开格子", 0, 500, true);
         await this.tapGridWithDialog(0, 0, "Nurse", "护士", "跟着我点击闪光的格子", 0, 500, true);
         // await this.pressGridWithDialog(0, 2, "GoblinThief", "哥布林", "我就测试一下说话的同时指引点击", 140, 500, true);
         await this.showDialog("Nurse", "护士", "做的不错，你发现了一把匕首，当你无法确定时，可以用匕首来探路", 0, 500, true);
