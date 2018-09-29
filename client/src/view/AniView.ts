@@ -1,6 +1,7 @@
 // 主视图下属的动画层
 class AniView extends egret.DisplayObjectContainer {
     private bv:BattleView; // 战斗视图
+    private sv:ShopView; // 商店视图
     private wmv:WorldMapView; // 大地图
     private wmtv:WorldMapTopView; // 大地图顶部
     private blackCover:egret.Bitmap; // 黑屏用的遮挡
@@ -16,6 +17,7 @@ class AniView extends egret.DisplayObjectContainer {
         this.bv = mainView.bv;
         this.wmv = mainView.wmv;
         this.wmtv = mainView.wmtv;
+        this.sv = mainView.sv;
         this.aniCover = new egret.Bitmap();
         this.aniCover.touchEnabled = true;
 
@@ -231,6 +233,9 @@ class AniView extends egret.DisplayObjectContainer {
             }
         }
 
+        // 出一个短提示
+        AniUtils.tipAt(e.attrs.shortDesc, {x:this.width/2, y:this.height/2}, 50, 0xffffff);
+
         this.bv.refreshRelics();
         this.bv.refreshPlayer();
     }
@@ -260,15 +265,15 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 在大地图上获得金钱
     public async onGetMoneyInWorldmap(ps) {
-        var txt = this.wmtv.getMoneyText();
+        var coin = this.wmtv.getMoneyIcon();
         var d = ps.dm > 0 ? 1 : -1;
         var p = this.wmv.player;
-        var toPos = ps.reason == "shop" ? ShopView.shopNpcSlotGlobalPos : WorldMapEventSelsView.lastSelectionGlobalPos;
+        var toPos = ps.reason == "shop" ? this.sv.shopNpcSlotGlobalPos : WorldMapEventSelsView.lastSelectionGlobalPos;
 
         if (d > 0)
-            await this.coinsFly(undefined, toPos, txt, ps.dm);
+            await this.coinsFly(undefined, toPos, coin, ps.dm);
         else
-            await this.coinsFly(undefined, txt, toPos, ps.dm);
+            await this.coinsFly(undefined, coin, toPos, ps.dm);
 
         this.wmtv.refreshMoney();
     }

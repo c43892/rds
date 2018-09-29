@@ -7,7 +7,6 @@ class MainView extends egret.DisplayObjectContainer {
     public hv:HospitalView; // 医院视图
     public wmv:WorldMapView; // 大地图视图
     public wmtv:WorldMapTopView; // 大地图顶部部分
-    // public rsv:RelicSelView; // 遗物选择视图
     public brv:BoxRoomView; // 宝箱房间
     public ttv:TurntableView; //转盘事件
     public pluv:PlayerLevelUpView; // 角色升级界面
@@ -19,6 +18,8 @@ class MainView extends egret.DisplayObjectContainer {
     public scv:ShopConfirmView; // 遗物对比界面
     public st:SettingView; // 设置视图
     public av:AniView; // 动画层
+
+    isInBattle:boolean; // 是否在战斗中
     
     public constructor(w:number, h:number) {
         super();
@@ -31,11 +32,6 @@ class MainView extends egret.DisplayObjectContainer {
         // 商店视图
         this.sv = new ShopView(w, h);
         this.sv.openConfirmView = async (player:Player, e:Elem, price:number, showPrice = true) => await this.openShopConfirmView(player, e, price, showPrice);
-        
-
-        // // 遗物选择视图
-        // this.rsv = new RelicSelView(w, h);
-        // this.rsv.confirmOkYesNo = (title, content, yesno) => this.confirmOkYesNo(title, content, yesno);
 
         // 战斗视图
         this.bv = new BattleView(w, h);
@@ -144,6 +140,8 @@ class MainView extends egret.DisplayObjectContainer {
             BattleRecorder.startNew(bt.id, bt.player, bt.btType, bt.btRandomSeed, bt.trueRandomSeed, bt.extraLevelLogic);
             await this.startNewBattle(bt);
         }
+
+        this.isInBattle = false;
     }
 
     private battleEndedCallback;
@@ -153,6 +151,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.bv.width = this.width;
         this.bv.height = this.height;
         this.addChild(this.bv);
+        this.isInBattle = true;
 
         GridView.try2UseElem = bt.try2UseElem();
         GridView.try2UseElemAt = bt.try2UseElemAt();
@@ -186,7 +185,8 @@ class MainView extends egret.DisplayObjectContainer {
         ], (e) => (ps) => this.bv.av[e](ps));
         bt.registerEvent("onBattleEnded", async (ps) => {
             await this.av.blackIn();
-            this.removeChild(this.bv);
+            this.isInBattle = false;
+            this.removeChild(this.bv);            
             this.battleEndedCallback(bt);
             await this.av.blackOut();
         });
@@ -225,6 +225,8 @@ class MainView extends egret.DisplayObjectContainer {
 
         this.pluv.player = this.p;
         this.addChild(this.pluv);
+        if (!this.isInBattle)
+            this.setChildIndex(this.wmtv, -1);
         var sel = await this.pluv.open(choices);
         this.removeChild(this.pluv);
         onSel(sel);
@@ -234,6 +236,7 @@ class MainView extends egret.DisplayObjectContainer {
     public async openShopOnWorldMap(shop) {
         this.sv.player = this.p;
         this.addChild(this.sv);
+        this.setChildIndex(this.wmtv, -1);
         var r = Utils.genRandomShopItems(this.p, shop, this.p.playerRandom, 6);
 
         // 处理打折
@@ -287,6 +290,7 @@ class MainView extends egret.DisplayObjectContainer {
     public async openHospital() {
         this.hv.player = this.p;
         this.addChild(this.hv);
+        this.setChildIndex(this.wmtv, -1);
         await this.hv.openHospital();
         this.removeChild(this.hv);
     }
@@ -295,6 +299,7 @@ class MainView extends egret.DisplayObjectContainer {
     public async openBoxRoom(dropCfg) {
         this.brv.player = this.p;
         this.addChild(this.brv);
+        this.setChildIndex(this.wmtv, -1);
         await this.brv.open(dropCfg);
         this.removeChild(this.brv);
     }
@@ -312,7 +317,7 @@ class MainView extends egret.DisplayObjectContainer {
             }
         }
         this.addChild(this.ttv);
-        this.setChildIndex(this.ttv, -1);
+        this.setChildIndex(this.wmtv, -1);
         await this.ttv.open();
         this.removeChild(this.ttv);
     }
@@ -328,6 +333,7 @@ class MainView extends egret.DisplayObjectContainer {
         wmesv.x = wmesv.y = 0;
         wmesv.player = this.p;
         this.addChild(wmesv);
+        this.setChildIndex(this.wmtv, -1);
         this.lastWmesv = wmesv;
         await wmesv.open(title, desc, sels);
 
@@ -414,7 +420,8 @@ class MainView extends egret.DisplayObjectContainer {
     // 显示元素描述信息
     public async showElemDesc(e:Elem) {
         this.addChild(this.idv);
-        this.setChildIndex(this.idv, -1);
+        if (!this.isInBattle)
+            this.setChildIndex(this.wmtv, -1);
         this.idv.player = this.p;
         await this.idv.open(e);
         this.removeChild(this.idv);
@@ -428,6 +435,8 @@ class MainView extends egret.DisplayObjectContainer {
 
     public async openShopConfirmView(player:Player, e:Elem, price:number, showPrice = true){
         this.addChild(this.scv);
+        if (!this.isInBattle)
+            this.setChildIndex(this.wmtv, -1);
         var yesno = await this.scv.open(player, e, price, showPrice);
         this.removeChild(this.scv);
         return yesno;
@@ -450,7 +459,8 @@ class MainView extends egret.DisplayObjectContainer {
     // all relics view
     public async openAllElemsView(elems:Elem[], funcOnClinked = undefined, title:string = undefined, tip:string = undefined) {
         this.addChild(this.aev);
-        this.setChildIndex(this.aev, -1);
+        if (!this.isInBattle)
+            this.setChildIndex(this.wmtv, -1);
         this.aev.player = this.p;
         var sel = await this.aev.open(elems, funcOnClinked, title, tip);
         this.removeChild(this.aev);
@@ -461,7 +471,7 @@ class MainView extends egret.DisplayObjectContainer {
     public async openSettingView() {
         this.st.player = this.p;
         this.addChild(this.st);
-        this.setChildIndex(this.st, -1);
+        this.setChildIndex(this.wmtv, -1);
         await this.st.open();
         this.removeChild(this.st);
     }

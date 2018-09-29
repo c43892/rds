@@ -17,7 +17,13 @@ class ShopView extends egret.DisplayObjectContainer {
     public player:Player;
     public openConfirmView;
 
-    public static shopNpcSlotGlobalPos; // 商人头上收钱的地方
+    public get shopNpcSlotGlobalPos() {
+        var p = this.bg1.localToGlobal();
+        p.x += 400;
+        p.y += 40;
+        return p;
+    };
+    
     public constructor(w:number, h:number) {
         super();
 
@@ -65,8 +71,6 @@ class ShopView extends egret.DisplayObjectContainer {
         this.btnRob.onClicked = async () => await this.doRob();
         this.addChild(this.btnRob);
 
-        ShopView.shopNpcSlotGlobalPos = {x:this.width / 2, y:this.height / 2};
-
         ViewUtils.multiLang(this, this.bg1, ...this.grids, ...this.prices, this.btnGoBack, this.btnRob);
     }
 
@@ -92,14 +96,16 @@ class ShopView extends egret.DisplayObjectContainer {
         return new Promise<void>((resolve, reject) => {
             this.onSel = async (n) => {
                 if (!this.items[n]) {
-                    Utils.log("已售罄");
+                    AniUtils.shakeCamera(1, 100, true);
+                    AniUtils.tipAt(ViewUtils.getTipText("soldout"), {x:this.width/2, y:this.height/2}, 50, 0xffffff);
                     return;
                 }
 
                 var e = this.items[n];
                 var price = this.itemPrices[e.type];
                 if (this.player.money - price < 0) {
-                    Utils.log("金币不足");
+                    AniUtils.shakeCamera(1, 100, true);
+                    AniUtils.tipAt(ViewUtils.getTipText("notEnoughMoney"), {x:this.width/2, y:this.height/2}, 50, 0xffffff);
                     return;
                 }
 

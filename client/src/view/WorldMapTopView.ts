@@ -14,6 +14,10 @@ class WorldMapTopView extends egret.DisplayObjectContainer {
         return this.numCoins;
     }
 
+    public getMoneyIcon():egret.Bitmap {
+        return this.coins;
+    }
+
     public refreshMoney() {
         this.numCoins.text = this.player.money.toString();
     }
