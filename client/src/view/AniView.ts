@@ -262,6 +262,12 @@ class AniView extends egret.DisplayObjectContainer {
         await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
         fromImg["dispose"]();
         toImg["dispose"]();
+
+        // 遗物需要出个短提示
+        if (e instanceof Relic) {
+            var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
+            AniUtils.tipAt(nameAndDesc.shortDesc, {x:this.width/2, y:this.height/2}, 30, 0xffffff);
+        }
     }
 
     // 在大地图上获得金钱
