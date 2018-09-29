@@ -507,7 +507,11 @@ class GridView extends egret.DisplayObjectContainer {
                         await GridView.try2UseElemAt(e, pos.x, pos.y);
                     } else if (e.canUse()) {
                         if(e.attrs.useWithConfirm){
-                            var content = ViewUtils.formatString(ViewUtils.getTipText("makeSureUseElem"), ViewUtils.getElemNameAndDesc(e.type).name);
+                            let content;
+                            if(!e.attrs.useTipContent)
+                                content = ViewUtils.formatString(ViewUtils.getTipText("makeSureUseElem"), ViewUtils.getElemNameAndDesc(e.type).name);
+                            else
+                                content = ViewUtils.getTipText(e.attrs.useTipContent)
                             var ok = await PropView.confirmOkYesNo(undefined, content, true, ["确定", "取消"]);
                             if (ok) GridView.try2UseElem(e);
                         } else {
