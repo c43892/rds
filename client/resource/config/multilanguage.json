@@ -54,6 +54,7 @@
 			"layout": {
 				"bg": {"x":0, "y":0, "w":640, "h":1136},
 				"closeBtn": {"x":10, "y":960},
+				"tip":{"y":850, "size":40},
 				
 				"itemDescBg": {"x":50, "y":300, "w":540, "h":300},
 				"itemIcon": {"x":180, "y":325, "w":84, "h":84},
@@ -306,6 +307,7 @@
 		"nextOne":{"EN": "next one", "CNS": "下一个", "CNT": "下一个"},
 		"soldout":{"EN": "sold out", "CNS": "已售罄", "CNT": "已售罄"},
 		"notEnoughMoney":{"EN": "Not Enough Money", "CNS": "金币不足", "CNT": "金币不足"},
+		"pressAnywhereToClose":{"EN": "press anywhere to close", "CNS": "点击任意位置关闭", "CNT": "点击任意位置关闭"},
 		"": {}
 	}
 }

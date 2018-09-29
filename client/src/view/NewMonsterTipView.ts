@@ -116,7 +116,7 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
             this.setChildIndex(this.elemDescView, 0);
         }
 
-        this.elemDescView.open(m, false, true);
+        this.elemDescView.open(m, true);
 
         if (this.monsterArr.length > 1)
             this.numTxt.text = "X" + this.monsterArr.length.toString();

@@ -255,6 +255,7 @@ class ViewUtils {
                 p.y = lyt.y ? lyt.y : p.y;
                 p.width = lyt.w ? lyt.w : p.width;
                 p.height = lyt.h ? lyt.h : p.height;
+                p.size = lyt.size ? lyt.size : p.size;
             }
 
             // text
