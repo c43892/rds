@@ -387,7 +387,7 @@ class AniView extends egret.DisplayObjectContainer {
             var dhp = ps.dhp;
             var p = sv.localToGlobal();
             if (dhp > 0)
-                AniUtils.tipAt(ViewUtils.getTipText("cure"), {x:p.x+44, y:p.y-11});
+                AniUtils.tipAt(ViewUtils.getTipText("cure"), {x:p.x+44, y:p.y+1});
         } else if (ps.subType == "die" && e instanceof Monster) {
             var g = this.bv.mapView.getGridViewAt(e.pos.x, e.pos.y);
             // 怪物死亡特效
@@ -1150,7 +1150,7 @@ class AniView extends egret.DisplayObjectContainer {
         var sv = this.getSV(e);
         var pos = sv.localToGlobal();
         pos.x += sv.width / 2
-        pos.y -= sv.height / 2;
+        pos.y -= sv.height / 2 - 45;
         AniUtils.tipAt(ViewUtils.getTipText(ps.r), pos);
         await AniUtils.flashAndShake(sv);
     }
