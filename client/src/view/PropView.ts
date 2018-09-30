@@ -154,6 +154,7 @@ class PropView extends egret.DisplayObjectContainer {
             return;
         else {
             PropView.currentSelPropView = this;
+            this.setEffect("selected");
 
             var useDescArr = ViewUtils.getElemNameAndDesc(this.e.type).useDescArr;
             if (this.e.canUse()) {
@@ -163,14 +164,12 @@ class PropView extends egret.DisplayObjectContainer {
                     PropView.try2UseProp(this.e);
             }
             else if (this.e.useWithTarget()) {
-                this.setEffect("selected");
                 var pos = await PropView.selectGrid((x, y) => this.e.canUseAt(x, y), true, useDescArr, PropView.selHelper);
                 if (pos)
                     PropView.try2UsePropAt(this.e, pos.x, pos.y);
-
-                this.setEffect(!this.e.isValid() ? "invalid" : undefined);
             }
 
+            this.setEffect(!this.e.isValid() ? "invalid" : undefined);
             PropView.currentSelPropView = undefined;
         }
     }

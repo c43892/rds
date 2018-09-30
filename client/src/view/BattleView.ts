@@ -237,16 +237,6 @@ class BattleView extends egret.DisplayObjectContainer {
         ViewUtils.asFullBg(this.bg);
         this.bg.touchEnabled = true;
 
-        // 格子区域底图
-        // this.mapViewBg = ViewUtils.createBitmapByName("mapViewbg_png"); 
-        // this.mapViewBg.name = "mapViewBg";
-        // this.addChild(this.mapViewBg);
-
-        // 背景格子
-        // this.bgGrids = ViewUtils.createBitmapByName("bgGrids_png");
-        // this.bgGrids.name = "bgGrids";
-        // this.addChild(this.bgGrids);
-
         // 角色属性相关
         this.createPlayerAttrs();
         
@@ -304,10 +294,10 @@ class BattleView extends egret.DisplayObjectContainer {
         this.deadlyMask.height = this.height;
         this.addChild(this.deadlyMask);
 
-        ViewUtils.multiLang(this, this.elemsTip);
+        ViewUtils.multiLang(this, this.avatarBg, this.avatarAreaMask, this.avatar, this.power, this.dodge, this.elemsTip, this.propsView, this.moreRelics);
 
         // 格子选择
-        this.selView = new SelView(w, h, this.elemsTip.y + 20);
+        this.selView = new SelView(w, h, this.propsView.y);
         this.addChild(this.selView);
     }
 
@@ -445,7 +435,6 @@ class BattleView extends egret.DisplayObjectContainer {
 
         this.refreshExpBar();
         this.refreshHpAt();
-        ViewUtils.multiLang(this, this.avatarBg, this.avatarAreaMask, this.avatar, this.power, this.dodge, this.propsView, this.moreRelics);
 
         // 物品
         this.refreshProps();
