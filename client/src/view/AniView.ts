@@ -1229,8 +1229,10 @@ class AniView extends egret.DisplayObjectContainer {
         this.addBlockLayer();
         return new Promise<void>((r, _) => {
             var tw = egret.Tween.get(this.wmv).to({mapScrollPos:p}, time, egret.Ease.cubicInOut);
-            this.decBlockLayer();
-            tw.call(() => r());
+            tw.call(() => {
+                this.decBlockLayer();
+                r();
+            });
         });
     }
 
