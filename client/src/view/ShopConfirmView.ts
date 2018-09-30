@@ -155,7 +155,7 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
         desc.textFlow = ViewUtils.fromHtml(ViewUtils.replaceByProperties(nameAndDesc.shortDesc, e, player));
         desc.width = bg.width;
         desc.x = bg.x;
-        desc.y = title.y + title.height + 35;
+        desc.y = title.y + title.height + 45;
         this.addChild(desc);
 
         // 费用
