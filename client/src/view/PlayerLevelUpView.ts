@@ -94,7 +94,15 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
             var img = this.btnSelsRelicImgs[i];
             ViewUtils.setTexName(img, this.choices[i] + "_png", true);
 
-            this.btnSelsRelicTxts[i].text = ViewUtils.getElemNameAndDesc(this.choices[i]).shortDesc;
+            // 需要弄个假的遗物用来计算显示内容
+            var relicType = this.choices[i];
+            var fakeRelic = <Relic>ElemFactory.create(relicType, undefined, this.player);
+            var realRelicIndex = Utils.indexOf(this.player.relics, (r) => r.type == relicType);
+            var fakeLv = realRelicIndex >= 0 ? this.player.relics[realRelicIndex].reinforceLv + 1 : 1;
+            fakeRelic.setReinfoceLv(fakeLv);
+            var nameAndDesc = ViewUtils.getElemNameAndDesc(this.choices[i]);
+            var shortDesc = ViewUtils.replaceByProperties(nameAndDesc.shortDesc, fakeRelic, this.player);
+            this.btnSelsRelicTxts[i].textFlow = ViewUtils.fromHtml(shortDesc);
         }       
     }
 

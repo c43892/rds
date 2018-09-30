@@ -152,7 +152,8 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
 
         // 简要描述
         var desc = ViewUtils.createTextField(20, 0x000000);
-        desc.textFlow = ViewUtils.fromHtml(ViewUtils.replaceByProperties(nameAndDesc.shortDesc, e, player));
+        var shortDesc = ViewUtils.replaceByProperties(nameAndDesc.shortDesc, e, player);
+        desc.textFlow = ViewUtils.fromHtml(shortDesc);
         desc.width = bg.width;
         desc.x = bg.x;
         desc.y = title.y + title.height + 45;
