@@ -7,6 +7,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
     private bgc:egret.DisplayObjectContainer;
     private mapArea:egret.ScrollView;
 
+    public wmtv:WorldMapTopView;
     public openShop; // 打开商店
     public refreshShopSoldout; // 刷新商店的销售状态
     public openHospital; // 进入医院
@@ -77,6 +78,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.removeChild(this.symbolDesc); // 初始不显示图例
         this.btnSymbolDesc.onClicked = () => this.onClickSymbolDesc();
         this.symbolDesc.onClicked = () => this.onClickSymbolDesc();
+        this.wmtv.refresh();
     }
 
     private onClickSymbolDesc() {
@@ -375,9 +377,9 @@ class WorldMapView extends egret.DisplayObjectContainer {
         var ptStoreyLv = bmp["ptStoreyLv"];
         var ptStoreyN = bmp["ptStoreyN"];
 
-        // //检查点击的节点是否是当前可到达节点(测试中,暂且屏蔽该检查)
-        // if (!BattleUtils.isStoreyPosSelectable(this.worldmap.player, {lv:ptStoreyLv, n:ptStoreyN}))
-        //     return;
+        //检查点击的节点是否是当前可到达节点(测试中,暂且屏蔽该检查)
+        if (!BattleUtils.isStoreyPosSelectable(this.worldmap.player, {lv:ptStoreyLv, n:ptStoreyN}))
+            return;
 
         Utils.assert(this.worldmap.nodes[ptStoreyLv][ptStoreyN].roomType == ptType, 
             "worldmap storey type ruined: " + ptType + " vs " + this.worldmap.nodes[ptStoreyLv][ptStoreyN].roomType);
@@ -455,6 +457,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 var newWorld = WorldMap.buildFromConfig(newtWorldName, this.player);
                 this.player.goToNewWorld(newWorld);
                 this.setWorldMap(p.worldmap);
+                await (<AniView>AniUtils.ac).doWorldMapSlide(1);
             }
             else
                 this.refresh();

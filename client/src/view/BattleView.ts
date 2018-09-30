@@ -16,7 +16,7 @@ class BattleView extends egret.DisplayObjectContainer {
     public deadlyMask:egret.Bitmap; // 濒死效果
     public hp:egret.TextField; // 血量
     public hpBar:egret.Bitmap; // 血条
-    public poisonedHpbar:egret.Bitmap; // 中毒后的血条
+    public poisonedHpBar:egret.Bitmap; // 中毒后的血条
     public hpBarMask:egret.Shape; // 血条遮罩
     public power:egret.TextField; // 攻击
     public dodge:egret.TextField; // 闪避
@@ -125,8 +125,8 @@ class BattleView extends egret.DisplayObjectContainer {
         // 血条
         this.hpBar = ViewUtils.createBitmapByName("hpBar_png");
         this.hpBar.name = "hpBar";
-        // this.poisonedHpbar = ViewUtils.createBitmapByName("poisonedHpbar_png");
-        // this.poisonedHpbar.name = "poisonedHpbar";
+        // this.poisonedHpBar = ViewUtils.createBitmapByName("poisonedHpbar_png");
+        // this.poisonedHpBar.name = "poisonedHpbar";
         this.hp = ViewUtils.createTextField(20, 0xffffff);
         this.hp.name = "hp";
 

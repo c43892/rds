@@ -71,6 +71,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.openPlayerDieView = async () => await this.openPlayerDieView();
         this.wmtv = new WorldMapTopView(w, 80);
         this.wmtv.openSettingView = async () => await this.openSettingView();
+        this.wmv.wmtv = this.wmtv;
 
         // 医院视图
         this.hv = new HospitalView(w, h);
@@ -344,12 +345,13 @@ class MainView extends egret.DisplayObjectContainer {
     // 开启世界地图
     public openWorldMap(worldmap:WorldMap) {
         this.clear();
-        this.wmv.player = this.p;
-        this.wmv.setWorldMap(worldmap);
-        this.addChild(this.wmv);
-
         this.wmtv.player = this.p;
         this.wmtv.refresh();
+
+        this.wmv.player = this.p;
+        this.wmv.setWorldMap(worldmap);
+        
+        this.addChild(this.wmv);
         this.addChild(this.wmtv);
     }
 
@@ -393,7 +395,7 @@ class MainView extends egret.DisplayObjectContainer {
                         this.newPlay();
                         this.wmv.mapScrollPos = 0;
                         await this.av.blackOut();
-                        await this.av.doWorldMapSlide(1, 2000);
+                        await this.av.doWorldMapSlide(1);
                     }
                 }
             }

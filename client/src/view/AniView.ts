@@ -1251,7 +1251,7 @@ class AniView extends egret.DisplayObjectContainer {
     }
 
     // 大地图从顶部滑动到指定百分比
-    async doWorldMapSlide(p, time) {
+    async doWorldMapSlide(p, time = 2000) {
         this.addBlockLayer();
         return new Promise<void>((r, _) => {
             var tw = egret.Tween.get(this.wmv).to({mapScrollPos:p}, time, egret.Ease.cubicInOut);
