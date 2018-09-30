@@ -414,7 +414,7 @@ class AniView extends egret.DisplayObjectContainer {
         if (Utils.checkCatalogues(type, "book")) { // 书籍需要提示还剩几次
             if (e.cnt > 0) {
                 var p = sv.localToGlobal();
-                AniUtils.tipAt((e.attrs.cnt - e.cnt) + "/" + e.attrs.cnt, {x:p.x+38, y:p.y-25});
+                AniUtils.tipAt((e.attrs.cnt - e.cnt) + "/" + e.attrs.cnt, {x:p.x+41, y:p.y-1});
                 AniUtils.flashAndShake(sv);
             }
             this.bv.playAvatarAni("Book");
