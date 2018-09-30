@@ -60,7 +60,8 @@ class BoxRoomView extends egret.DisplayObjectContainer {
 
         var objs = [this.bg1, this.box, this.openBoxBtn, this.goOutBtn, this.destination, this.startingPoint];
         objs.forEach((obj, _) => this.addChild(obj));
-        ViewUtils.multiLang(this, ...objs);
+        ViewUtils.multiLang(this, ...objs);        
+        this.removeChild(this.goOutBtn);
     }
 
     private dropItems;
