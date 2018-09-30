@@ -4,8 +4,6 @@ class BattleView extends egret.DisplayObjectContainer {
 
     // 战斗界面背景
     public bg:egret.Bitmap; // 整体背景
-    // public mapViewBg:egret.Bitmap; // 格子区域底图
-    // public bgGrids:egret.Bitmap; // 背景格子
 
     // 头像区域
     public avatarBg:egret.Bitmap; // 角色头像区域背景
@@ -239,16 +237,6 @@ class BattleView extends egret.DisplayObjectContainer {
         ViewUtils.asFullBg(this.bg);
         this.bg.touchEnabled = true;
 
-        // 格子区域底图
-        // this.mapViewBg = ViewUtils.createBitmapByName("mapViewbg_png"); 
-        // this.mapViewBg.name = "mapViewBg";
-        // this.addChild(this.mapViewBg);
-
-        // 背景格子
-        // this.bgGrids = ViewUtils.createBitmapByName("bgGrids_png");
-        // this.bgGrids.name = "bgGrids";
-        // this.addChild(this.bgGrids);
-
         // 角色属性相关
         this.createPlayerAttrs();
         
@@ -260,16 +248,12 @@ class BattleView extends egret.DisplayObjectContainer {
         //特殊元素提示
         this.elemsTip = new egret.DisplayObjectContainer();
         this.elemsTip.name = "elemsTip";
-        this.addChild(this.elemsTip);        
+        this.addChild(this.elemsTip);
 
         // 物品栏
         this.propsView = new PropsView();
         this.propsView.name = "propsView";
         this.addChild(this.propsView);
-
-        // 格子选择
-        this.selView = new SelView(w, h);
-        this.addChild(this.selView);
 
         // 遗物区域
         this.relicsBg = new egret.DisplayObjectContainer();
@@ -310,7 +294,11 @@ class BattleView extends egret.DisplayObjectContainer {
         this.deadlyMask.height = this.height;
         this.addChild(this.deadlyMask);
 
-        ViewUtils.multiLang(this, /*this.bgGrids, this.mapViewBg*/);
+        ViewUtils.multiLang(this, this.avatarBg, this.avatarAreaMask, this.avatar, this.power, this.dodge, this.elemsTip, this.propsView, this.moreRelics);
+
+        // 格子选择
+        this.selView = new SelView(w, h, this.propsView.y);
+        this.addChild(this.selView);
     }
 
     // 设置新的地图数据，但并不自动刷新显示，需要手动刷新
@@ -447,7 +435,6 @@ class BattleView extends egret.DisplayObjectContainer {
 
         this.refreshExpBar();
         this.refreshHpAt();
-        ViewUtils.multiLang(this, this.avatarBg, this.avatarAreaMask, this.avatar, this.power, this.dodge, this.propsView, this.moreRelics);
 
         // 物品
         this.refreshProps();
@@ -528,16 +515,11 @@ class BattleView extends egret.DisplayObjectContainer {
         gs.forEach((g, _) => g.hideBanImg(hideOrShow));
     }
 
-    // n 选 1
-    // public async select1inN(title:string, choices:string[], f) {
-    //     return this.selView.sel1inN(title, choices, f);
-    // }
-
     // 打开目标选择界面
-    public async selectGrid(f, helper = {}) {
+    public async selectGrid(f, showSelectableEffect, descArr, helper = {}) {
         this.addChild(this.selView);
         var r = await this.selView.selGrid(this.mapView.gw, this.mapView.gh, this.mapView.x, this.mapView.y,
-            f, (x, y) => this.mapView.getGridViewAt(x, y), helper);
+            f, showSelectableEffect, descArr, helper);
         this.removeChild(this.selView);
         return r;
     }
@@ -551,7 +533,6 @@ class BattleView extends egret.DisplayObjectContainer {
     public refreshElemsTip() {
         this.elemsTipBitmaps = [];
         this.elemsTip.removeChildren();
-        ViewUtils.multiLang(this, this.elemsTip);
         var tipTypes = GCfg.getBattleViewElemTipTypes();
         var elems = this.player.bt().level.map.findAllElems((e:Elem) => Utils.indexOf(tipTypes, (s:string) => s == e.type) > -1);
         var gap = 8;

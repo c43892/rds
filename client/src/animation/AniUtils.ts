@@ -444,7 +444,11 @@ class AniUtils {
             var toPos3 = mapview.getGridViewAt(g["tgx3"], g["tgy3"]).localToGlobal();
             var parent = g.parent;
             AniUtils.ac.addChild(g);
-            revArr.push(() => parent.addChild(g));
+            revArr.push(() => {
+                egret.Tween.removeTweens(g);
+                parent.addChild(g);
+                g.x = g.y = 0;
+            });
             var delay1 = g["delay1"];
             var delay2 = g["delay2"];
             var delay3 = g["delay3"];

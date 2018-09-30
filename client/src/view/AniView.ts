@@ -945,7 +945,6 @@ class AniView extends egret.DisplayObjectContainer {
         // 开始发牌盖住所有格子
         await AniUtils.coverAll(this.bv.mapView);
         
-        svArr.forEach((sv, _) => AniUtils.clearAll(sv));
         revArr.forEach((rev, _) => rev());
         this.bv.refresh();
     }
@@ -1052,18 +1051,70 @@ class AniView extends egret.DisplayObjectContainer {
         g.addEffect("effWantedOrder");
     }
 
+    // 移除颜色效果
+    removeColorEffect(effName, ...objs) {
+        objs.forEach((obj, _) => {
+            if (!obj["poisonEffect"])
+                return;
+
+            var eff = <ColorEffect>obj["poisonEffect"];
+            eff.stop();
+            this.removeChild(eff);
+        });
+    }
+
+    // 添加颜色效果
+    addColorEffect(effName, time, ...objs) {
+        objs.forEach((obj, _) => {
+            switch (effName) {
+                case "poison": {
+                    if (obj["poisonEffect"])
+                        return;
+
+                    var poisonFromMat = [
+                        0.75, 0, 0, 0, 0,
+                        0.25, 0.5, 0.25, 0, 0,
+                        0, 0, 0.75, 0, 0,
+                        0, 0, 0, 1, 0
+                    ];
+
+                    var poisonToMat = [
+                        0.25, 0, 0, 0, 0,
+                        0.5, 0.75, 0.5, 0, 0,
+                        0, 0, 0.25, 0, 0,
+                        0, 0, 0, 1, 0
+                    ];
+
+                    var eff = new ColorEffect(poisonFromMat, poisonToMat, time, obj);
+                    obj["poisonEffect"] = eff;
+                    eff.start();
+                    this.addChild(eff);
+                }
+                break;
+                default:
+                    Utils.assert(false, "unknown color effect name: " + effName);
+            }
+        });
+    }
+
     // 玩家获得buff
     public async onBuffAdded(ps) {
         var buff = ps.buff;
         var buffType = buff.type;
 
         if (ps.target instanceof Player) {
-            if(buffType == "BuffPoisonOnGrids") {
-                var gs = Utils.map(buff.grids, (g) => this.bv.mapView.getGridViewAt(g.pos.x, g.pos.y));
-                gs.forEach((g:GridView, _) => {
-                    g.addColorEffect("gridPoisoned");
-                    g.addRandomDelayLoopEffect("effPoisonMist", AniUtils.rand, [0, 30000]);
-                });
+            switch (buffType) {
+                case "BuffPoisonOnGrids": {
+                    var gs = Utils.map(buff.grids, (g) => this.bv.mapView.getGridViewAt(g.pos.x, g.pos.y));
+                    gs.forEach((g:GridView, _) => {
+                        g.addColorEffect("gridPoisoned");
+                        g.addRandomDelayLoopEffect("effPoisonMist", AniUtils.rand, [0, 30000]);
+                    });
+                }
+                break;
+                case "BuffPoison":
+                    this.addColorEffect("poison", 2000, this.bv.hpBar, this.bv.avatar);
+                break;
             }
         } else {
             var e = <Elem>(ps.target);
@@ -1084,12 +1135,18 @@ class AniView extends egret.DisplayObjectContainer {
         var buffType = buff.type;
 
         if (ps.target instanceof Player) {
-            if(buffType == "BuffPoisonOnGrids") {
-                var gs = Utils.map(buff.grids, (g) => this.bv.mapView.getGridViewAt(g.pos.x, g.pos.y));
-                gs.forEach((g, _) => {
-                    g.removeEffect("gridPoisoned");
-                    g.removeEffect("effPoisonMist");
-                });
+            switch (buffType) {
+                case "BuffPoisonOnGrids": {
+                    var gs = Utils.map(buff.grids, (g) => this.bv.mapView.getGridViewAt(g.pos.x, g.pos.y));
+                    gs.forEach((g, _) => {
+                        g.removeEffect("gridPoisoned");
+                        g.removeEffect("effPoisonMist");
+                    });
+                }
+                break;
+                case "BuffPoison":
+                    this.removeColorEffect("poison", this.bv.hpBar, this.bv.avatar);
+                break;
             }
         }
         else {
@@ -1193,8 +1250,10 @@ class AniView extends egret.DisplayObjectContainer {
         this.addBlockLayer();
         return new Promise<void>((r, _) => {
             var tw = egret.Tween.get(this.wmv).to({mapScrollPos:p}, time, egret.Ease.cubicInOut);
-            this.decBlockLayer();
-            tw.call(() => r());
+            tw.call(() => {
+                this.decBlockLayer();
+                r();
+            });
         });
     }
 
