@@ -23,7 +23,7 @@ class SelView extends egret.DisplayObjectContainer {
         this.descTop.x = 0;
         this.descTop.width = this.descContainer.width;
         this.descTop.height = 20;
-        this.descTop.y = 20;
+        this.descTop.y = 25;
         this.descContainer.addChild(this.descTop);
 
         // 底部描述
@@ -31,7 +31,7 @@ class SelView extends egret.DisplayObjectContainer {
         this.descBottom.x = 0;
         this.descBottom.width = this.descContainer.width;
         this.descBottom.height = 20;
-        this.descBottom.y = this.descContainer.height - this.descBottom.height - 10;
+        this.descBottom.y = this.descContainer.height - this.descBottom.height - 25;
         this.descContainer.addChild(this.descBottom);
     }
 
