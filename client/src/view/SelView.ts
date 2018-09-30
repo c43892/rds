@@ -71,7 +71,7 @@ class SelView extends egret.DisplayObjectContainer {
 
     // 选择一个格子，f 形如 function(x:number, y:number):Boolean 表示指定位置是否可选，返回值表示选中的位置
     // mapView 是下面中间对齐的，我们需要计算左上角
-    public selGrid(gw:number, gh:number, offsetx:number, offsety:number, f, showSelectableEffect, descArr, helper = {}):Promise<any> {
+    public selGrid(gw:number, gh:number, offsetx:number, offsety:number, f, showSelectableEffect, p:Player, e:Elem, helper = {}):Promise<any> {
         for (var i = 0; i < this.nw; i++) {
             var x = offsetx + gw * i;
             for (var j = 0; j < this.nh; j++) {
@@ -96,9 +96,17 @@ class SelView extends egret.DisplayObjectContainer {
                 }
 
                 // 额外描述
+                var descArr = ViewUtils.getElemNameAndDesc(e.type).useDescArr;
                 this.addChild(this.descContainer);
-                this.descTop.textFlow = (descArr && descArr.length > 0) ? ViewUtils.fromHtml(descArr[0]) : undefined;
-                this.descBottom.textFlow = (descArr && descArr.length > 1) ? ViewUtils.fromHtml(descArr[1]) : undefined;
+                this.descTop.text = this.descBottom.text = "";
+                if (descArr && descArr.length > 0) {
+                    var topDesc =  ViewUtils.replaceByProperties(descArr[0], e, p);
+                    this.descTop.textFlow = ViewUtils.fromHtml(topDesc);
+                    if (descArr && descArr.length > 1) {
+                        var descBottom =  ViewUtils.replaceByProperties(descArr[1], e, p);
+                        this.descBottom.textFlow = ViewUtils.fromHtml(descBottom);
+                    }
+                }
             }
         }
 

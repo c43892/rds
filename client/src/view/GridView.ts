@@ -501,7 +501,7 @@ class GridView extends egret.DisplayObjectContainer {
                 if (e) {
                     if (e.useWithTarget()) {
                         e.bt().fireEvent("onElemFloating", {e:e});
-                        var pos = await GridView.selectGrid((x, y) => e.canUseAt(x, y), ViewUtils.getElemNameAndDesc(e.type).useDescArr);
+                        var pos = await GridView.selectGrid((x, y) => e.canUseAt(x, y), e);
                         e.bt().fireEvent("onElemFloating", {e:e, stop:true});
                         if (!pos) return; // 取消选择
                         await GridView.try2UseElemAt(e, pos.x, pos.y);

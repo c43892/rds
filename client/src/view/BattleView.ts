@@ -519,10 +519,10 @@ class BattleView extends egret.DisplayObjectContainer {
     }
 
     // 打开目标选择界面
-    public async selectGrid(f, showSelectableEffect, descArr, helper = {}) {
+    public async selectGrid(f, showSelectableEffect, e:Elem, helper = {}) {
         this.addChild(this.selView);
         var r = await this.selView.selGrid(this.mapView.gw, this.mapView.gh, this.mapView.x, this.mapView.y,
-            f, showSelectableEffect, descArr, helper);
+            f, showSelectableEffect, this.player, e, helper);
         this.removeChild(this.selView);
         return r;
     }
