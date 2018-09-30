@@ -7,6 +7,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
     private bgc:egret.DisplayObjectContainer;
     private mapArea:egret.ScrollView;
 
+    public wmtv:WorldMapTopView;
     public openShop; // 打开商店
     public refreshShopSoldout; // 刷新商店的销售状态
     public openHospital; // 进入医院
@@ -77,6 +78,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.removeChild(this.symbolDesc); // 初始不显示图例
         this.btnSymbolDesc.onClicked = () => this.onClickSymbolDesc();
         this.symbolDesc.onClicked = () => this.onClickSymbolDesc();
+        this.wmtv.refresh();
     }
 
     private onClickSymbolDesc() {
@@ -344,7 +346,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
     public set mapScrollPos(p:number) {
         var top = (this.viewContent.height - this.mapArea.height) * p;
         this.mapArea.scrollTop = top;
-        Utils.log("set " + p);
     }
 
     // 设置当前大地图滚动位置
@@ -455,6 +456,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 var newWorld = WorldMap.buildFromConfig(newtWorldName, this.player);
                 this.player.goToNewWorld(newWorld);
                 this.setWorldMap(p.worldmap);
+                await (<AniView>AniUtils.ac).doWorldMapSlide(1);
             }
             else
                 this.refresh();

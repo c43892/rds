@@ -71,6 +71,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.openPlayerDieView = async () => await this.openPlayerDieView();
         this.wmtv = new WorldMapTopView(w, 80);
         this.wmtv.openSettingView = async () => await this.openSettingView();
+        this.wmv.wmtv = this.wmtv;
 
         // 医院视图
         this.hv = new HospitalView(w, h);
@@ -156,12 +157,12 @@ class MainView extends egret.DisplayObjectContainer {
         GridView.try2UseElem = bt.try2UseElem();
         GridView.try2UseElemAt = bt.try2UseElemAt();
         GridView.reposElemTo = bt.try2ReposElemTo();
-        GridView.selectGrid = async (f, descArr) => await this.bv.selectGrid(f, true, descArr);
+        GridView.selectGrid = async (f, e) => await this.bv.selectGrid(f, true, e);
         GridView.confirmOkYesNo = async (title, content, yesno) => this.confirmOkYesNo(title, content, yesno);
         GridView.try2UncoverAt = bt.try2UncoverAt();
         GridView.try2BlockGrid = bt.try2BlockGrid();
         PropView.try2UseProp = bt.try2UseProp();
-        PropView.selectGrid = async (f, showSelectableEffect, descArr, helper) => await this.bv.selectGrid(f, showSelectableEffect, descArr, helper);
+        PropView.selectGrid = async (f, showSelectableEffect, e, helper) => await this.bv.selectGrid(f, showSelectableEffect, e, helper);
         PropView.try2UsePropAt = bt.try2UsePropAt();
 
         bt.registerEvent("onPlayerOp", async (ps) => await BattleRecorder.onPlayerOp(ps.op, ps.ps));
@@ -344,12 +345,14 @@ class MainView extends egret.DisplayObjectContainer {
     // 开启世界地图
     public openWorldMap(worldmap:WorldMap) {
         this.clear();
-        this.wmv.player = this.p;
-        this.wmv.setWorldMap(worldmap);
-        this.addChild(this.wmv);
-
         this.wmtv.player = this.p;
         this.wmtv.refresh();
+
+        this.wmv.player = this.p;
+        this.wmv.setWorldMap(worldmap);
+        this.av.clear();
+        
+        this.addChild(this.wmv);
         this.addChild(this.wmtv);
     }
 
@@ -393,7 +396,7 @@ class MainView extends egret.DisplayObjectContainer {
                         this.newPlay();
                         this.wmv.mapScrollPos = 0;
                         await this.av.blackOut();
-                        await this.av.doWorldMapSlide(1, 2000);
+                        await this.av.doWorldMapSlide(1);
                     }
                 }
             }

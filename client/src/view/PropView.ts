@@ -158,13 +158,13 @@ class PropView extends egret.DisplayObjectContainer {
 
             var useDescArr = ViewUtils.getElemNameAndDesc(this.e.type).useDescArr;
             if (this.e.canUse()) {
-                var content = ViewUtils.formatString(ViewUtils.getTipText("makeSureUseProp"), ViewUtils.getElemNameAndDesc(this.e.type).name);
-                var pos = await PropView.selectGrid((x, y) => true, false, useDescArr, PropView.selHelper);
+                var content = ViewUtils.formatString(ViewUtils.getTipText("makeSureUseProp"), useDescArr.name);
+                var pos = await PropView.selectGrid((x, y) => true, false, this.e, PropView.selHelper);
                 if (pos)
                     PropView.try2UseProp(this.e);
             }
             else if (this.e.useWithTarget()) {
-                var pos = await PropView.selectGrid((x, y) => this.e.canUseAt(x, y), true, useDescArr, PropView.selHelper);
+                var pos = await PropView.selectGrid((x, y) => this.e.canUseAt(x, y), true, this.e, PropView.selHelper);
                 if (pos)
                     PropView.try2UsePropAt(this.e, pos.x, pos.y);
             }
@@ -191,7 +191,8 @@ class PropView extends egret.DisplayObjectContainer {
 
     static async onPressTimer() {
         PropView.longPressed = true;
-        PropView.pressTimer.stop();
+        if (PropView.pressTimer)
+            PropView.pressTimer.stop();
         PropView.showElemDesc(PropView.longPressPropView.e);
     }
 }
