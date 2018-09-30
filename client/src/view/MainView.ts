@@ -156,13 +156,12 @@ class MainView extends egret.DisplayObjectContainer {
         GridView.try2UseElem = bt.try2UseElem();
         GridView.try2UseElemAt = bt.try2UseElemAt();
         GridView.reposElemTo = bt.try2ReposElemTo();
-        GridView.selectGrid = async (f) => await this.bv.selectGrid(f);
+        GridView.selectGrid = async (f, descArr) => await this.bv.selectGrid(f, true, descArr);
         GridView.confirmOkYesNo = async (title, content, yesno) => this.confirmOkYesNo(title, content, yesno);
         GridView.try2UncoverAt = bt.try2UncoverAt();
         GridView.try2BlockGrid = bt.try2BlockGrid();
         PropView.try2UseProp = bt.try2UseProp();
-        PropView.selectGrid = async (f, helper) => await this.bv.selectGrid(f, helper);
-        PropView.confirmOkYesNo = async (title, content, yesno) => this.confirmOkYesNo(title, content, yesno);
+        PropView.selectGrid = async (f, showSelectableEffect, descArr, helper) => await this.bv.selectGrid(f, showSelectableEffect, descArr, helper);
         PropView.try2UsePropAt = bt.try2UsePropAt();
 
         bt.registerEvent("onPlayerOp", async (ps) => await BattleRecorder.onPlayerOp(ps.op, ps.ps));

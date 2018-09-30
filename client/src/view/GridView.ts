@@ -501,7 +501,7 @@ class GridView extends egret.DisplayObjectContainer {
                 if (e) {
                     if (e.useWithTarget()) {
                         e.bt().fireEvent("onElemFloating", {e:e});
-                        var pos = await GridView.selectGrid((x, y) => e.canUseAt(x, y));
+                        var pos = await GridView.selectGrid((x, y) => e.canUseAt(x, y), ViewUtils.getElemNameAndDesc(e.type).useDescArr);
                         e.bt().fireEvent("onElemFloating", {e:e, stop:true});
                         if (!pos) return; // 取消选择
                         await GridView.try2UseElemAt(e, pos.x, pos.y);
@@ -512,7 +512,7 @@ class GridView extends egret.DisplayObjectContainer {
                                 content = ViewUtils.formatString(ViewUtils.getTipText("makeSureUseElem"), ViewUtils.getElemNameAndDesc(e.type).name);
                             else
                                 content = ViewUtils.getTipText(e.attrs.useTipContent)
-                            var ok = await PropView.confirmOkYesNo(undefined, content, true, ["确定", "取消"]);
+                            var ok = await GridView.confirmOkYesNo(undefined, content, true, ["确定", "取消"]);
                             if (ok) GridView.try2UseElem(e);
                         } else {
                             if (e instanceof Prop || e instanceof Monster || e instanceof Relic)
@@ -520,7 +520,7 @@ class GridView extends egret.DisplayObjectContainer {
                             else {
                                 if (!e.attrs.useWithoutConfirm){
                                     var content = ViewUtils.formatString(ViewUtils.getTipText("makeSureUseElem"), ViewUtils.getElemNameAndDesc(e.type).name);
-                                    var ok = await PropView.confirmOkYesNo(undefined, content, true, ["确定", "取消"]);
+                                    var ok = await GridView.confirmOkYesNo(undefined, content, true, ["确定", "取消"]);
                                     if (ok) GridView.try2UseElem(e);
                                 }
                                 else

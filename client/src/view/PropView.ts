@@ -102,7 +102,6 @@ class PropView extends egret.DisplayObjectContainer {
     public static try2UseProp; // 尝试无目标使用道具，会挂接形如 function(e:Elem) 的函数
     public static try2UsePropAt; // 尝试使用一个道具，将坐标为目标
     public static selectGrid; // 选择目标
-    public static confirmOkYesNo; // 确认选择
 
     static readonly LongPressThreshold = 500; // 按下持续 0.5s 算长按    
     static longPressed;
@@ -153,23 +152,26 @@ class PropView extends egret.DisplayObjectContainer {
 
         if (!this.e.isValid())
             return;
-        else {            
+        else {
+            PropView.currentSelPropView = this;
+
+            var useDescArr = ViewUtils.getElemNameAndDesc(this.e.type).useDescArr;
             if (this.e.canUse()) {
                 var content = ViewUtils.formatString(ViewUtils.getTipText("makeSureUseProp"), ViewUtils.getElemNameAndDesc(this.e.type).name);
-                var ok = await PropView.confirmOkYesNo(undefined, content, true, ["确定", "取消"]);
-                if (ok)
+                var pos = await PropView.selectGrid((x, y) => true, false, useDescArr, PropView.selHelper);
+                if (pos)
                     PropView.try2UseProp(this.e);
             }
             else if (this.e.useWithTarget()) {
-                PropView.currentSelPropView = this;
                 this.setEffect("selected");
-                var pos = await PropView.selectGrid((x, y) => this.e.canUseAt(x, y), PropView.selHelper);
+                var pos = await PropView.selectGrid((x, y) => this.e.canUseAt(x, y), true, useDescArr, PropView.selHelper);
                 if (pos)
                     PropView.try2UsePropAt(this.e, pos.x, pos.y);
 
                 this.setEffect(!this.e.isValid() ? "invalid" : undefined);
-                PropView.currentSelPropView = undefined;
             }
+
+            PropView.currentSelPropView = undefined;
         }
     }
 

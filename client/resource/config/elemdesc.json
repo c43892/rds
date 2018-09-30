@@ -242,7 +242,6 @@
         "PlaceHolder":{"name":"Boss精英占位", "desc":""},
         "BossBunny":{"name":"boss兔子", "desc":""},
 
-        "HpPotion":{"name":"血瓶", "desc":["<font color=#000000 size=20>使用回復<font color=#7aaa0a size=20> {dhp} <font color=#000000 size=20>點生命值</font>"]},
         "SuperPotion":{"name":"超能藥水", "desc":["<font color=#000000 size=20>在<font color=#294c22 size=20>{immunizeCnt}<font color=#000000 size=20>回合內，不會受到突襲，免疫所有傷害</font>"]},
         "StrangthPotion":{"name":"力量藥水", "desc":["<font color=#000000 bold=false size=20>在5回合內，攻擊力+1，怪物無法反擊</font>"]},
         "Hole":{"name":"黑洞", "desc":["<font color=#000000 bold=false size=20>禁止通行</font>"]},
@@ -328,7 +327,8 @@
         "TreasureBox":{"name":"宝箱", "desc":["<font color=#000000 size=20>可被钥匙打开，产出随机道具</font>"]},
         "RandomEgg":{"name":"彩蛋", "desc":["<font color=#000000 size=20>打开获得随机道具</font>"]},
         "Clock":{"name":"钟表", "desc":["<font color=#000000 size=20>死神后退<font color=#294c22 size=20> 15 </font><font color=#000000 size=20>步</font>"]},
-        "HpPotion":{"name":"医疗药剂", "desc":["<font color=#000000 size=20>每回合回复<font color=#294c22 size=20> {heal} </font><font color=#000000 size=20>生命,持续5回合</font>"]},
+        "HpPotion":{"name":"医疗药剂", "desc":["<font color=#000000 size=20>每回合回复<font color=#294c22 size=20> {heal} </font><font color=#000000 size=20>生命,持续5回合</font>"], 
+            "useDescArr":["回复 1 点生命", "点击地图任意位置使用"]},
         "DePoison":{"name":"解毒药剂", "desc":["<font color=#000000 size=20>解除中毒效果"]},
         "Magazine":{"name":"自然杂志", "desc":["<font color=#000000 size=20>每次点击获得<font color=#294c22 size=20> {dexp} </font><font color=#000000 size=20>经验值</font>"]},
         "EconomyMagazine":{"name":"金融杂志", "desc":["<font color=#000000 size=20>每次点击获得</font> <font color=#294c22 size=20> {dexp} </font>经验值及<font color=#294c22 size=20> {money} </font><font color=#000000 size=20>金钱</font>"]},
@@ -775,7 +775,6 @@
         "PlaceHolder":{"name":"Boss精英占位", "desc":""},
         "BossBunny":{"name":"boss兔子", "desc":""},
 
-        "HpPotion":{"name":"血瓶", "desc":["<font color=#000000 size=20>使用回復<font color=#7aaa0a size=20> {dhp} <font color=#000000 size=20>點生命值</font>"]},
         "SuperPotion":{"name":"超能藥水", "desc":["<font color=#000000 size=20>在<font color=#294c22 size=20>{immunizeCnt}<font color=#000000 size=20>回合內，不會受到突襲，免疫所有傷害</font>"]},
         "StrangthPotion":{"name":"力量藥水", "desc":["<font color=#000000 bold=false size=20>在5回合內，攻擊力+1，怪物無法反擊</font>"]},
         "Hole":{"name":"黑洞", "desc":["<font color=#000000 bold=false size=20>禁止通行</font>"]},
