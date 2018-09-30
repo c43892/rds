@@ -945,7 +945,6 @@ class AniView extends egret.DisplayObjectContainer {
         // 开始发牌盖住所有格子
         await AniUtils.coverAll(this.bv.mapView);
         
-        svArr.forEach((sv, _) => AniUtils.clearAll(sv));
         revArr.forEach((rev, _) => rev());
         this.bv.refresh();
     }
