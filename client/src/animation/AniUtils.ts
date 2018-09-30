@@ -152,6 +152,49 @@ class AniUtils {
         rev();
     }
 
+    // 被舞王僵尸召唤时从一个舞王飞向目标位置,并左右翻转
+    public static async summonByDancer(obj:egret.DisplayObject, from:egret.DisplayObject, to:egret.DisplayObject){
+        // 飞行开始和目标位置
+        var fp = from.localToGlobal();
+        var tp = to.localToGlobal();
+        tp.x = tp.x - to.anchorOffsetX + to.width / 2;
+        tp.y = tp.y - to.anchorOffsetY + to.height / 2;
+
+        var rev = AniUtils.reserveObjTrans(obj, fp);
+        var aniFact = AniUtils.aniFact;
+        await aniFact.createAniByCfg({type:"gp", arr: [
+                {type:"tr", fx:fp.x, fy:fp.y, tx:tp.x, ty:tp.y, time:1500, mode:egret.Ease.quadInOut}, // 直线飞向目标位置并消失
+                {type:"seq", arr:[ //左右翻转
+                    {type:"tr", fsx:1, tsx:-1, time:0},
+                    {type:"delay", time: 50}, 
+                    {type:"tr", fsx:-1, tsx:1, time:0}, 
+                    {type:"delay", time: 50}, 
+                    {type:"tr", fsx:1, tsx:-1, time:0},
+                    {type:"delay", time: 50}, 
+                    {type:"tr", fsx:-1, tsx:1, time:0}, 
+                    {type:"delay", time: 50}, 
+                    {type:"tr", fsx:1, tsx:-1, time:0},
+                    {type:"delay", time: 50}, 
+                    {type:"tr", fsx:-1, tsx:1, time:0}, 
+                    {type:"delay", time: 50}, 
+                    {type:"tr", fsx:1, tsx:-1, time:0},
+                    {type:"delay", time: 50}, 
+                    {type:"tr", fsx:-1, tsx:1, time:0},
+                    {type:"delay", time: 50}, 
+                    {type:"tr", fsx:1, tsx:-1, time:0},
+                    {type:"delay", time: 50}, 
+                    {type:"tr", fsx:-1, tsx:1, time:0}, 
+                    {type:"delay", time: 50}, 
+                    {type:"tr", fsx:1, tsx:-1, time:0},
+                    {type:"delay", time: 50}, 
+                    {type:"tr", fsx:-1, tsx:1, time:0}, 
+                    {type:"delay", time: 50}
+                ]}, 
+            ], obj:obj})
+
+        rev();
+    }
+
     // 向给定目标抖一下，类似一个怪物的攻击动作
     public static async shakeTo(obj:egret.DisplayObject, targetPos = undefined) {
         var fp = obj.localToGlobal();

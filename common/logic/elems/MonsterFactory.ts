@@ -331,13 +331,14 @@ class MonsterFactory {
     static doSneakSummon(m:Monster):Monster {
         return MonsterFactory.addSneakAI(async () => {
             var ss = m.attrs.summons ? m.attrs.summons : [];
-            for (var i = 0; i < ss.length; i++) {
-                var g:Grid; // 掉落位置，优先掉在原地
-                g = BattleUtils.findRandomEmptyGrid(m.bt());
-                if (!g) return; // 没有空间了
-                var sm = m.bt().level.createElem(ss[i]);
-                await m.bt().implAddElemAt(sm, g.pos.x, g.pos.y);
-            }
+            var ms = [];
+            var gs = BattleUtils.findRandomGrids(m.bt(), (g:Grid) => !g.isCovered() && !g.getElem(), ss.length);
+            gs.forEach((g, index) => {
+                var sm = m.bt().level.createElem(ss[index]);
+                ms.push(sm);
+            })
+            await m.bt().fireEvent("summonByDancer", {m:m, ms:ms, gs:gs});
+            ms.forEach(async(monster, index) => await m.bt().implAddElemAt(monster, gs[index].pos.x, gs[index].pos.y))
         }, m);
     }
 

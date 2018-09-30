@@ -1017,6 +1017,27 @@ class AniView extends egret.DisplayObjectContainer {
         eyes.forEach((e, _) => e["dispose"]());
     }
 
+    // 舞王僵尸突袭时召唤
+    public async summonByDancer(ps){
+        var dancer:Monster = ps.m;
+        var ms:Monster[] = ps.ms;
+        var gs:Grid[] = ps.gs;
+        var summons = [];
+        var dancerPos = this.getSV(dancer).localToGlobal();
+        var ani;
+        for(var index = 0; index < ms.length; index++){
+            var fromImg = AniUtils.createImg(ms[index].getElemImgRes() + "_png");
+            fromImg.x = dancerPos.x;
+            fromImg.y = dancerPos.y;
+            ani = AniUtils.summonByDancer(fromImg, fromImg, this.getSVByPos(gs[index].pos.x, gs[index].pos.y));
+            summons.push(fromImg);
+        }
+        if (ani)
+            await ani;
+
+        summons.forEach((summon, _) => summon["dispose"]());
+    }
+
     // 物品被拿起等待使用时的悬浮效果
     public async onElemFloating(ps) {
         var e:Elem = ps.e;
