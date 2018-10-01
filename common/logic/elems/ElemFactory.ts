@@ -152,7 +152,7 @@ class ElemFactory {
                 droppedElems.push(elem);
             }
 
-            e.bt().notifyElemsDropped(droppedElems, e.pos);
+            await e.bt().notifyElemsDropped(droppedElems, e.pos);
         }, e);
 
         return e;

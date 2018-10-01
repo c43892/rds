@@ -221,7 +221,7 @@ class AniUtils {
     }
 
     // 悬浮效果
-    public static async floating(obj:egret.DisplayObject, stopFloating = false) {
+    public static floating(obj:egret.DisplayObject, stopFloating = false) {
         if (stopFloating) {
             this.clearAll(obj);
             obj.x = 0;

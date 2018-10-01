@@ -98,10 +98,13 @@ class AniView extends egret.DisplayObjectContainer {
         var lastAni;
         var es = ps.es;
         var fromPos = ps.fromPos;
+        var anis = [];
+        var objs = [];
         for (var i = 0; i < es.length; i++) {
             var e = es[i];
             this.bv.mapView.refreshAt(e.pos.x, e.pos.y, e && e.isBig() ? e.attrs.size : undefined);
             var obj = this.getSVByPos(e.pos.x, e.pos.y);
+            objs.push(obj);
             if (e.attrs.addInEffect == "noEffect") {
                 // 不需要额外表现效果
             }
@@ -114,6 +117,7 @@ class AniView extends egret.DisplayObjectContainer {
         if (lastAni)
             await lastAni;
 
+        objs.forEach((obj, _) => obj["resetSelf"]());
         this.bv.refreshPlayer(); // 角色属性受地图上所有东西影响
         this.bv.mapView.refresh();
     }
@@ -147,6 +151,8 @@ class AniView extends egret.DisplayObjectContainer {
                 }
                 else // 飞出来，从跳出来的位置到目标位置有一段距离
                     await AniUtils.flyOutLogicPos(obj, this.bv.mapView, ps.fromPos);
+
+                obj["resetSelf"]();
                 break;
             case "gridBlocked": {
                 var img = ViewUtils.createBitmapByName("blocked_png");
@@ -196,6 +202,23 @@ class AniView extends egret.DisplayObjectContainer {
         this.bv.refreshPlayer(); // 角色属性受地图上所有东西影响
     }
 
+    // 揭开起始区域
+    public async onStartupRegionUncovered(ps) {
+        var grids = ps.grids;
+        for (var i = 0; i < grids.length; i++) {
+            let pos = grids[i];
+            let g = this.bv.mapView.getGridViewAt(pos.x, pos.y);
+            g.refresh();
+            var eff = g.addEffect("effUncover", 1); // 翻开特效
+            eff["wait"]().then(() => g.removeEffect("effUncover"));
+            await AniUtils.delay(100);
+        }
+
+        await AniUtils.delay(500);
+        grids.forEach((pos, _) => this.bv.mapView.refreshAt(pos.x, pos.y));
+        await AniUtils.delay(500);
+    }
+
     // 道具发生变化
     public async onPropChanged(ps) {
         if (ps.subType == "addProp") {
@@ -205,6 +228,7 @@ class AniView extends egret.DisplayObjectContainer {
             var pv = this.bv.propsView.getPropViewByIndex(n);
             var toImg = pv.getImg();
             await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
+            fromImg["resetSelf"]();
         }
         this.bv.refreshProps();
     }
@@ -218,6 +242,7 @@ class AniView extends egret.DisplayObjectContainer {
         if (ps.subType == "addRelicByPickup") {
             var fromObj = this.getSV(e);
             await AniUtils.fly2(fromObj, fromObj, toImg, true, 1);
+            fromObj["resetSelf"]();
         } else if (ps.subType == "addRelicBySel") {
             var e:Elem = ps.e;
             var fromPos = PlayerLevelUpView.lastSelectedRelicImgGlobalPos
@@ -341,12 +366,14 @@ class AniView extends egret.DisplayObjectContainer {
             if ((e.cd > 0 && ps.priorCD <= 0)
                 || (e.cd <= 0 && ps.priorCD > 0)) {
                 // 这个效果不等待
-                AniUtils.turnover(g, () => {
+                await AniUtils.turnover(g, () => {
                     this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
                 });
             }
             else
                 this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
+
+            g["resetSelf"]();
         }
     }
 
@@ -356,12 +383,13 @@ class AniView extends egret.DisplayObjectContainer {
         var g = this.getSV(e);
         if (e.type == "ShopNpc" && (<Monster>e).isDead()) // 商人使用后闪烁消失
             await AniUtils.flashOut(g);
+
+        g["resetSelf"]();
     }
 
     // 对目标位置使用物品
     public async onUseElemAt(ps) {
         var e = ps.e;
-        var g = this.getSV(e);
         if (e.type == "Key" || e.type == "Knife" || e.type == "SmallRock") { // 钥匙飞向目标
             var g = this.getSV(e);
             var target = ps.target;
@@ -377,6 +405,8 @@ class AniView extends egret.DisplayObjectContainer {
             await AniUtils.flyAndFadeout(g, tg.localToGlobal(), 
                 e.type == "Key" ? 300 : 150, 1, 1, 0,
                 e.type == "Key" ? undefined : egret.Ease.quintIn);
+
+            g["resetSelf"]();
         }
     }
 
@@ -403,6 +433,8 @@ class AniView extends egret.DisplayObjectContainer {
         
         this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
         this.bv.refreshPlayer(); // 角色属性受地图上所有东西影响
+
+        sv["resetSelf"]();
     }
 
     // 有物品被使用
@@ -415,7 +447,7 @@ class AniView extends egret.DisplayObjectContainer {
             if (e.cnt > 0) {
                 var p = sv.localToGlobal();
                 AniUtils.tipAt((e.attrs.cnt - e.cnt) + "/" + e.attrs.cnt, {x:p.x+41, y:p.y-1});
-                AniUtils.flashAndShake(sv);
+                await AniUtils.flashAndShake(sv);
             }
             this.bv.playAvatarAni("Book");
         } else if (Utils.checkCatalogues(type, "food")) { // 食物抖一下
@@ -427,6 +459,8 @@ class AniView extends egret.DisplayObjectContainer {
             await attackEff["wait"]().then();
             g.removeEffect("effPlayerAttack");
         }
+
+        sv["resetSelf"]();
     }
 
     // 披风生效
@@ -434,6 +468,7 @@ class AniView extends egret.DisplayObjectContainer {
         var e = ps.e;
         var sv = this.getSV(e);
         await AniUtils.flashOut(sv);
+        sv["resetSelf"]();
     }
 
     // 死神步数发生变化
@@ -474,6 +509,7 @@ class AniView extends egret.DisplayObjectContainer {
                 ]});
                 this.bv.refreshDeathGod(stepAt);
             }
+            sv["resetSelf"]();
             this.bv.playDeathGodAni(0);
             this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
         }
@@ -498,6 +534,7 @@ class AniView extends egret.DisplayObjectContainer {
                 });
                 await AniUtils.delay(50);
             }
+            if (npsv) npsv["resetSelf"]();
             this.bv.playDeathGodAni(0);
         }
 
@@ -571,6 +608,7 @@ class AniView extends egret.DisplayObjectContainer {
         else if (e.type != "ShopNpc")
             await this.coinsFly(e, txt, coinSV, ps.d)
 
+        coinSV["resetSelf"]();
         this.bv.refreshMoney();
     }
 
@@ -581,6 +619,7 @@ class AniView extends egret.DisplayObjectContainer {
         if(index == -1) return;
         var ccView = this.bv.propsView.getPropViewByIndex(index);
         await this.coinsFly(undefined, ccView, tarMonsterSV, ps.dm, 150, {fx:0, fy:0, tx:16, ty:16});
+        tarMonsterSV["resetSelf"]();
         this.bv.refreshMoney();
     }
 
@@ -680,6 +719,7 @@ class AniView extends egret.DisplayObjectContainer {
             var p = sv.localToGlobal();
             AniUtils.popupTipAt(Math.abs(dhp).toString(), "popupTipBg_png", {x:p.x, y:p.y-25});
         }
+        sv["resetSelf"]();
     }
 
     // 玩家受到攻击
@@ -706,6 +746,7 @@ class AniView extends egret.DisplayObjectContainer {
         var p = g.localToGlobal();
         AniUtils.jumpingTip(dhp.toString(), {x:p.x+g.width,  y:p.y});
         await AniUtils.flashAndShake(g);
+        g["resetSelf"]();
     }
 
     // 玩家攻击
@@ -806,6 +847,8 @@ class AniView extends egret.DisplayObjectContainer {
             explodeEff["wait"]().then(() => g.removeEffect("effSelfExplode"));
         } else
             await AniUtils.shakeTo(sv);
+
+        sv["resetSelf"]();
     }
 
     // 怪物吃食物
@@ -816,6 +859,8 @@ class AniView extends egret.DisplayObjectContainer {
         var fsv = this.getSV(food);
         await AniUtils.shakeTo(fsv, msv.localToGlobal());
         this.bv.mapView.refreshAt(food.pos.x, food.pos.y);
+        msv["resetSelf"]();
+        fsv["resetSelf"]();
     }
 
     // 元素飞行
@@ -825,6 +870,7 @@ class AniView extends egret.DisplayObjectContainer {
         var tosv = this.getSVByPos(ps.toPos.x, ps.toPos.y);
         var ta = e.type == "CowardZombie" ? 0 : 1; // 贪婪僵尸的飞行是带隐藏效果的
         await AniUtils.flyAndFadeout(sv, tosv.localToGlobal(), 500, 1, ta, 0, egret.Ease.quintIn);
+        sv["resetSelf"]();
         this.bv.refreshPlayer();
         this.bv.mapView.refreshAt(ps.fromPos.x, ps.fromPos.y);
         this.bv.mapView.refreshAt(ps.toPos.x, ps.toPos.y);
@@ -840,6 +886,7 @@ class AniView extends egret.DisplayObjectContainer {
         else
             await AniUtils.fly2(sv, sv, tosv, false, 0);
 
+        sv["resetSelf"]();
         this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
     }
 
@@ -882,7 +929,7 @@ class AniView extends egret.DisplayObjectContainer {
         showPath.shift();
         var ev = this.getSVByPos(fromPt.x, fromPt.y);
         await this.aniFact.createAni("moveOnPath", {obj: ev, path: showPath, time:250, mode:egret.Ease.sineInOut});
-        
+        ev["resetSelf"]();
         // 刷新格子显示
         this.bv.mapView.refreshAt(fromPt.x, fromPt.y);
         if (path.length > 1)
@@ -972,6 +1019,7 @@ class AniView extends egret.DisplayObjectContainer {
         var sv = this.getSV(m);
         await this.bloodFly(m, this.bv.getBloodText(), sv, -dhp, 300, {fx:0, fy:0, tx:sv.width / 2, ty:sv.height / 2});
         g.removeEffect("effSuckBloodCircle");
+        sv["resetSelf"]();
         this.bv.refreshPlayer();
         this.bv.mapView.refreshAt(m.pos.x, m.pos.y);
     }
@@ -989,6 +1037,7 @@ class AniView extends egret.DisplayObjectContainer {
             var dropItemImg = this.bv.mapView.getGridViewAt(m.pos.x, m.pos.y).getDropItemImg();
             var g = this.getSV(e)
             await AniUtils.fly2(g, g, dropItemImg, false, 1);
+            g["resetSelf"]();
             this.bv.mapView.refreshAt(m.pos.x, m.pos.y);
         } else { // 直线飞向怪物消失
             var svArr = [];
@@ -998,6 +1047,7 @@ class AniView extends egret.DisplayObjectContainer {
             }
             
             await AniUtils.flyAndFadeoutArr(svArr, msv.localToGlobal(), 500, 0.5, 0, 0, egret.Ease.quintIn);
+            svArr.forEach((sv, _) => sv["resetSelf"]());
         }
 
         for (var e of es)
@@ -1046,7 +1096,7 @@ class AniView extends egret.DisplayObjectContainer {
     public async onElemFloating(ps) {
         var e:Elem = ps.e;
         var sv = this.getSV(e);
-        await AniUtils.floating(sv, ps.stop);
+        AniUtils.floating(sv, ps.stop);
     }
 
     // 通缉令
@@ -1178,6 +1228,7 @@ class AniView extends egret.DisplayObjectContainer {
         pos.y -= sv.height / 2 - 45;
         AniUtils.tipAt(ViewUtils.getTipText(ps.r), pos);
         await AniUtils.flashAndShake(sv);
+        sv["resetSelf"]();
     }
 
     public async onRelicAddElem(ps){

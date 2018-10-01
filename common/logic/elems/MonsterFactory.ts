@@ -338,7 +338,8 @@ class MonsterFactory {
                 ms.push(sm);
             })
             await m.bt().fireEvent("summonByDancer", {m:m, ms:ms, gs:gs});
-            ms.forEach(async(monster, index) => await m.bt().implAddElemAt(monster, gs[index].pos.x, gs[index].pos.y))
+            for (var i = 0; i < ms.length; i++)
+                await m.bt().implAddElemAt(ms[i], gs[i].pos.x, gs[i].pos.y);
         }, m);
     }
 
@@ -880,7 +881,7 @@ class MonsterFactory {
             var n = Utils.indexOf(shopItemAndPrice.items, (it) => it == elem.type);
             Utils.assert(n >= 0, "no such item in shop:" + elem.type);
             Utils.assert(shopItemAndPrice.prices[elem.type] == price, "incorrect price for item in shop:" + elem.type + ", " + price + ", " + shopItemAndPrice.prices[n]);
-            m.bt().implAddMoney(-price, m);
+            await m.bt().implAddMoney(-price, m);
             var g = BattleUtils.findNearestGrid(m.bt().level.map, m.pos, (g:Grid) => !g.isCovered() && !g.getElem());
             if (g) await m.bt().implAddElemAt(elem, g.pos.x, g.pos.y, m.pos);
             m["bought"] = true;
@@ -905,7 +906,7 @@ class MonsterFactory {
             });
 
             if (droppedElems.length > 0)
-                m.bt().notifyElemsDropped(droppedElems, m.pos);
+                await m.bt().notifyElemsDropped(droppedElems, m.pos);
 
             return droppedElems;
         };

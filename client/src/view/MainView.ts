@@ -154,16 +154,16 @@ class MainView extends egret.DisplayObjectContainer {
         this.addChild(this.bv);
         this.isInBattle = true;
 
+        GridView.confirmOkYesNo = async (title, content, yesno) => this.confirmOkYesNo(title, content, yesno);
+        GridView.selectGrid = async (f, e) => await this.bv.selectGrid(f, true, e);
         GridView.try2UseElem = bt.try2UseElem();
         GridView.try2UseElemAt = bt.try2UseElemAt();
         GridView.reposElemTo = bt.try2ReposElemTo();
-        GridView.selectGrid = async (f, e) => await this.bv.selectGrid(f, true, e);
-        GridView.confirmOkYesNo = async (title, content, yesno) => this.confirmOkYesNo(title, content, yesno);
         GridView.try2UncoverAt = bt.try2UncoverAt();
         GridView.try2BlockGrid = bt.try2BlockGrid();
         PropView.try2UseProp = bt.try2UseProp();
-        PropView.selectGrid = async (f, showSelectableEffect, e, helper) => await this.bv.selectGrid(f, showSelectableEffect, e, helper);
         PropView.try2UsePropAt = bt.try2UsePropAt();
+        PropView.selectGrid = async (f, showSelectableEffect, e, helper) => await this.bv.selectGrid(f, showSelectableEffect, e, helper);
 
         bt.registerEvent("onPlayerOp", async (ps) => await BattleRecorder.onPlayerOp(ps.op, ps.ps));
         bt.registerEvent("onInitBattleView", async (ps) => {
@@ -181,7 +181,7 @@ class MainView extends egret.DisplayObjectContainer {
             "onEyeDemonUncoverGrids", "onElemFloating", "canNotUseItem", "onColddownChanged", "onMonsterEatFood",
             "onAddDeathGodStep", "onElem2NextLevel", "onUseElemAt", "onUseElem", "onGoOutLevel", "onNotifyElemsDropped",
             "onCandyCannon", "onMakeWanted", "onInitBattleView", "onRelicAddElem", "onMonsterCharmed", "onCloakImmunizeSneak",
-            "onSwatheItemWithCocoon", "summonByDancer"
+            "onSwatheItemWithCocoon", "summonByDancer", "onStartupRegionUncovered"
         ], (e) => (ps) => this.bv.av[e](ps));
         bt.registerEvent("onBattleEnded", async (ps) => {
             await this.av.blackIn();
@@ -229,7 +229,7 @@ class MainView extends egret.DisplayObjectContainer {
             this.setChildIndex(this.wmtv, -1);
         var sel = await this.pluv.open(choices);
         this.removeChild(this.pluv);
-        onSel(sel);
+        await onSel(sel);
     }
 
     // 世界地图上开启商店界面

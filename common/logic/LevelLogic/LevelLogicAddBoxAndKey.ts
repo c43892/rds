@@ -50,9 +50,9 @@ class LevelLogicAddBoxAndKey extends LevelLogic{
                     poses.push(gs[1].pos);
                 }
             }
-            for(var pos of poses)
-                bt.fireEvent("onGridChanged", {"subType":"elemAdded" , x:pos.x, y:pos.y, e:this.level.map.getElemAt(pos.x, pos.y)})
             
+            for(var pos of poses)
+                await bt.fireEvent("onGridChanged", {"subType":"elemAdded" , x:pos.x, y:pos.y, e:this.level.map.getElemAt(pos.x, pos.y)})
         })
 
     }

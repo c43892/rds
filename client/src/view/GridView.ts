@@ -46,6 +46,10 @@ class GridView extends egret.DisplayObjectContainer {
         this.addChild(showLayerContainer);
         this.showLayer = new egret.DisplayObjectContainer(); // 显示层
         showLayerContainer.addChild(this.showLayer);
+        this.showLayer["resetSelf"] = () => {
+            this.showLayer.x = this.showLayer.y = 0;
+            this.showLayer.scaleX = this.showLayer.scaleY = 1;
+        };
 
         // 掉落物品
         this.dropElemImg = new egret.Bitmap();
@@ -469,29 +473,45 @@ class GridView extends egret.DisplayObjectContainer {
     public static try2UseElemAt; // 尝试使用一个元素，将坐标为目标
     public static selectGrid; // 选择目标
     public static confirmOkYesNo; // 确认选择
+    public static showElemDesc; // 显示元素信息
     public static reposElemTo; // 将物品放到指定空位
     public static try2UncoverAt; // 尝试解开指定位置
     public static try2BlockGrid; // 尝试设置/取消一个危险标志
-    public static showElemDesc; // 显示元素信息
 
     public notifyLongPressed; // 通知产生了长按行为
     public notifyLongPressedEnded; // 通知产生了长按行为结束
 
+    static currentPhrase:string;
+    static checkInPhrase(phrase):boolean {
+        if (GridView.currentPhrase)
+            return false;
+
+        GridView.currentPhrase = phrase;
+        return true;
+    }
+    static checkOutPhrase() {
+        GridView.currentPhrase = undefined;
+    }
+
     // 点击
     async onTouchGrid(evt:egret.TouchEvent) {
-        if (GridView.longPressed || /*GridView.gestureChecked ||*/ GridView.dragging || !this.map.isGenerallyValid(this.gx, this.gy))
+        if (!GridView.checkInPhrase("touch")) return;
+
+        if (GridView.longPressed || /*GridView.gestureChecked ||*/ GridView.dragging || !this.map.isGenerallyValid(this.gx, this.gy)) {
+            GridView.checkOutPhrase();
             return;
+        }
 
         let b = this.map.getGridAt(this.gx, this.gy);
         switch (b.status) {
             case GridStatus.Covered:
-                GridView.try2UncoverAt(b.pos.x, b.pos.y);
+                await GridView.try2UncoverAt(b.pos.x, b.pos.y);
             break;
             case GridStatus.Marked: {
                 let e = this.map.getElemAt(this.gx, this.gy);
                 Utils.assert(!!e, "empty grid cannot be marked");
                 if ((e instanceof Prop || e instanceof Item || e instanceof Relic) || (e instanceof Monster && !(e.isHazard() || (e["linkTo"] && e["linkTo"].isHazard()))))
-                    GridView.try2UncoverAt(b.pos.x, b.pos.y);
+                    await GridView.try2UncoverAt(b.pos.x, b.pos.y);
                 else
                     await GridView.try2UseElem(e);
                 break;
@@ -500,10 +520,14 @@ class GridView extends egret.DisplayObjectContainer {
                 let e = this.map.getElemAt(this.gx, this.gy);
                 if (e) {
                     if (e.useWithTarget()) {
-                        e.bt().fireEvent("onElemFloating", {e:e});
+                        await e.bt().fireEvent("onElemFloating", {e:e});
                         var pos = await GridView.selectGrid((x, y) => e.canUseAt(x, y), e);
-                        e.bt().fireEvent("onElemFloating", {e:e, stop:true});
-                        if (!pos) return; // 取消选择
+                        await e.bt().fireEvent("onElemFloating", {e:e, stop:true});
+                        if (!pos) {
+                            GridView.checkOutPhrase();
+                            return; // 取消选择
+                        }
+
                         await GridView.try2UseElemAt(e, pos.x, pos.y);
                     } else if (e.canUse()) {
                         if(e.attrs.useWithConfirm){
@@ -513,7 +537,8 @@ class GridView extends egret.DisplayObjectContainer {
                             else
                                 content = ViewUtils.getTipText(e.attrs.useTipContent)
                             var ok = await GridView.confirmOkYesNo(undefined, content, true, ["确定", "取消"]);
-                            if (ok) GridView.try2UseElem(e);
+                            if (ok)
+                                await GridView.try2UseElem(e);
                         } else {
                             if (e instanceof Prop || e instanceof Monster || e instanceof Relic)
                                 await GridView.try2UseElem(e);
@@ -521,7 +546,8 @@ class GridView extends egret.DisplayObjectContainer {
                                 if (!e.attrs.useWithoutConfirm){
                                     var content = ViewUtils.formatString(ViewUtils.getTipText("makeSureUseElem"), ViewUtils.getElemNameAndDesc(e.type).name);
                                     var ok = await GridView.confirmOkYesNo(undefined, content, true, ["确定", "取消"]);
-                                    if (ok) GridView.try2UseElem(e);
+                                    if (ok)
+                                        await GridView.try2UseElem(e);
                                 }
                                 else
                                     await GridView.try2UseElem(e);
@@ -536,11 +562,15 @@ class GridView extends egret.DisplayObjectContainer {
                 }
             }
         }
+
+        GridView.checkOutPhrase();
     }
 
     // 按下
     static readonly LongPressThreshold = 300; // 按下持续 0.5s 算长按
     onTouchBegin(evt:egret.TouchEvent) {
+        if (!GridView.checkInPhrase("touch begin")) return;
+        
         GridView.longPressed = false;
         // GridView.gesturePts = [];
         // GridView.gestureOnGridView = this;
@@ -550,8 +580,10 @@ class GridView extends egret.DisplayObjectContainer {
         //     GridView.gesturePts.push({x:evt.stageX, y:evt.stageY});
 
         let g = this.map.getGridAt(this.gx, this.gy);
-        if (!this.map.isGenerallyValid(this.gx, this.gy) && g.status != GridStatus.Blocked)
+        if (!this.map.isGenerallyValid(this.gx, this.gy) && g.status != GridStatus.Blocked) {
+            GridView.checkOutPhrase();
             return;
+        }
 
         GridView.pressed = true;        
         GridView.dragging = false;
@@ -563,6 +595,7 @@ class GridView extends egret.DisplayObjectContainer {
         }
 
         GridView.pressTimer.start();
+        GridView.checkOutPhrase();
     }
 
     static async onPressTimer() {
@@ -617,14 +650,18 @@ class GridView extends egret.DisplayObjectContainer {
         if (GridView.longPressed)
             return;
 
+        if (!GridView.checkInPhrase("touch move")) return;
+
         var px = evt.localX + this.x;
         var py = evt.localY + this.y;
 
         // 翻开的格子才可能拖动
         if (!GridView.dragging && GridView.dragFrom && !this.getGrid().isCovered()) {
             var e = GridView.dragFrom.getElem();
-            if (!e || !e.canBeDragDrop || e.getGrid().isCovered())
+            if (!e || !e.canBeDragDrop || e.getGrid().isCovered()) {
+                GridView.checkOutPhrase();
                 return;
+            }
 
             var dx = GridView.dragFrom.x - px;
             var dy = GridView.dragFrom.y - py;
@@ -653,10 +690,12 @@ class GridView extends egret.DisplayObjectContainer {
             GridView.draggingElemImg.x = px - GridView.draggingElemImg.width / 2;
             GridView.draggingElemImg.y = py - GridView.draggingElemImg.height / 2;
         }
+
+        GridView.checkOutPhrase();
     }
 
     // 结束拖拽
-    onTouchEnd(evt:egret.TouchEvent) {
+    async onTouchEnd(evt:egret.TouchEvent) {
         // GridView.gestureChecked = false;
         // if (GridView.gesturePts && GridView.onGesture)
         //     GridView.gestureChecked = GridView.onGesture(GridView.gesturePts);
@@ -664,21 +703,29 @@ class GridView extends egret.DisplayObjectContainer {
         // GridView.gesturePts = undefined;
         // GridView.gestureOnGridView = undefined;
 
-        if (!GridView.longPressed && GridView.dragging) {
-            GridView.dragFrom.showLayer.alpha = 1;
-            this.parent.removeChild(GridView.draggingElemImg);
-            GridView.draggingElemImg.texture = undefined;
-
-            var from = GridView.dragFrom;
-            var to = this;
-            GridView.reposElemTo(from.getElem(), to.gx, to.gy);
-        }
-
+        var from = GridView.dragFrom;
+        var to = this;
         GridView.pressed = false;
-        GridView.dragging = false;
         GridView.dragFrom = undefined;
         if (GridView.pressTimer)
             GridView.pressTimer.stop();
+
+        if (!GridView.dragging)
+            return;
+
+        GridView.dragging = false;
+        if (GridView.longPressed)
+            return;
+        
+        if (!GridView.checkInPhrase("touch end")) return;
+
+        from.showLayer.alpha = 1;
+        this.parent.removeChild(GridView.draggingElemImg);
+        GridView.draggingElemImg.texture = undefined;
+      
+        await GridView.reposElemTo(from.getElem(), to.gx, to.gy);
+
+        GridView.checkOutPhrase();
     }
 
     // 记录一次按下弹起所经过的路径点，用于手势判断

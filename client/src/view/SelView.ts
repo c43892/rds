@@ -112,6 +112,7 @@ class SelView extends egret.DisplayObjectContainer {
 
         return new Promise<any>((r, _) => {
             helper["cancel"] = () => r(undefined);
+            Utils.assert(!this.clickHandler, "SelView conflicted");
             this.clickHandler = (ps) => r(ps);
         });
     }
@@ -125,5 +126,6 @@ class SelView extends egret.DisplayObjectContainer {
         var ps = undefined;
         ps = evt.target["gPos"];
         this.clickHandler(ps);
+        this.clickHandler = undefined;
     }
 }

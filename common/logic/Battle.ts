@@ -109,13 +109,18 @@ class Battle {
         this.level.map.removeElemAt(ep.pos.x, ep.pos.y);
 
         // 揭开起始区域
+        var grids = [];
         for(var i = 0; i < ep.attrs.size.w; i++) {
-            var x = ep.pos.x + i;
+            let x = ep.pos.x + i;
             for (var j = 0; j < ep.attrs.size.h; j++) {
-                var y = ep.pos.y + j;
-                this.uncover(x, y, true, true);
+                let y = ep.pos.y + j;
+                grids.push({x:x, y:y});
+                var g = this.level.map.getGridAt(x, y);
+                g.status = GridStatus.Uncovered;
             }
         }
+
+        await this.fireEvent("onStartupRegionUncovered", {bt:this, ep:ep, grids:grids});
 
         // 如果起始区域有东西，则换个别的位置
         var map = this.level.map;
@@ -158,7 +163,6 @@ class Battle {
         }
         this.player.elems2NextLevel = [];
 
-        await this.fireEvent("onStartupRegionUncovered", {bt:this, ep:ep});
         await this.triggerLogicPoint("onStartupRegionUncovered", {bt:this, ep:ep});
     }
 
@@ -345,14 +349,21 @@ class Battle {
         handlers.push(h);
     }
 
-    // 触发事件，这些事件是一个个异步执行的函数，需要一个个 wait 顺序执行，这也是不直接使用 egret.EventDispatcher 的原因    
+    // 触发事件，这些事件是一个个异步执行的函数，需要一个个 wait 顺序执行，这也是不直接使用 egret.EventDispatcher 的原因
+    lastEventType:string;
     public async fireEvent(eventType:string, ps = undefined) {
-        var handlers = this.eventHandlers[eventType];
-        if (handlers == undefined)
-            return;
+        if (this.lastEventType)
+            Utils.assert(false, "event overlapped: " + this.lastEventType + " => " + eventType);
 
-        for (var h of handlers)
-            await h(ps);
+        this.lastEventType = eventType;
+
+        var handlers = this.eventHandlers[eventType];
+        if (handlers) {
+            for (var h of handlers)
+                await h(ps);
+        }
+
+        this.lastEventType = undefined;
     }
 
     // 同步触发事件，不会使用协程等待，典型的用途是录像
