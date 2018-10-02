@@ -138,7 +138,8 @@ class PropView extends egret.DisplayObjectContainer {
         if (PropView.longPressed)
             return;
 
-        PropView.pressTimer.stop();
+        if (PropView.pressTimer)
+            PropView.pressTimer.stop();
 
         if (!this.e)
             return;
