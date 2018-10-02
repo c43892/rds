@@ -71,8 +71,14 @@ class GuideView extends egret.DisplayObjectContainer {
 
         bt.registerEvent("onStartupRegionUncovered", async (ps) => {
             var bt = ps.bt;
-            if (bt.btType == "rookiePlay")
-                await this.rookiePlay2(ps.bt)
+            var av = <AniView>AniUtils.ac;
+            if (bt.btType == "rookiePlay") {
+                av.addBlockLayer();
+                egret.setTimeout(() => {
+                    av.decBlockLayer();
+                    this.rookiePlay2(ps.bt);
+                }, this, 1000);
+            }
         });
     }
 
@@ -404,7 +410,6 @@ class GuideView extends egret.DisplayObjectContainer {
 
     // 新手指引2
     async rookiePlay2(bt:Battle) {
-        await AniUtils.delay(1000);
         await this.showDialog("Nurse", "护士", "让我告诉你一些基本规则", 0, 500, true);
         await this.showDialog("Nurse", "护士", "地上的数字表示它周围8个格子里隐藏的怪物的数量", 0, 500, true);
         await this.showDialog("Nurse", "护士", "点击就可以打开格子", 0, 500, true);

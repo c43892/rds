@@ -519,6 +519,7 @@ class MainView extends egret.DisplayObjectContainer {
 
         var node = Utils.filter(p.worldmap.nodes[1], (n:WorldMapNode) => n.parents.length > 0)[0];
         this.openWorldMap(this.p.worldmap);
+        this.wmv.mapScrollPos = 1; // 自动定位到第一层
         this.wmv.enterNode(node.y, node.x, true);
     }
 

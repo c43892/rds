@@ -105,17 +105,21 @@ class AniView extends egret.DisplayObjectContainer {
             this.bv.mapView.refreshAt(e.pos.x, e.pos.y, e && e.isBig() ? e.attrs.size : undefined);
             var obj = this.getSVByPos(e.pos.x, e.pos.y);
             objs.push(obj);
+            var ani;
             if (e.attrs.addInEffect == "noEffect") {
                 // 不需要额外表现效果
             }
             else if (!fromPos || (e.pos.x == fromPos.x && e.pos.y == fromPos.y)) // 原地跳出来
-                lastAni = AniUtils.jumpInMap(obj);
+                ani = AniUtils.jumpInMap(obj);
             else
-                lastAni = AniUtils.flyOutLogicPos(obj, this.bv.mapView, fromPos);
+                ani = AniUtils.flyOutLogicPos(obj, this.bv.mapView, fromPos);
+
+            if (ani)
+                anis.push(ani);
         }
 
-        if (lastAni)
-            await lastAni;
+        for (var i = 0; i < anis.length; i++)
+            await anis[i];
 
         objs.forEach((obj, _) => obj["resetSelf"]());
         this.bv.refreshPlayer(); // 角色属性受地图上所有东西影响
