@@ -474,6 +474,7 @@ class AniView extends egret.DisplayObjectContainer {
     // 死神步数发生变化
     public async onAddDeathGodStep(ps) {
         var d = Math.abs(ps.d);
+        var sign = ps.d < 0 ? -1 : 1;
         var e = ps.e;
 
         if (ps.subType == "deathGodBuff"){ // 这个最频繁的操作不产生需要等待的动画
@@ -491,7 +492,7 @@ class AniView extends egret.DisplayObjectContainer {
             // 死神闪烁后退，道具闪烁;
             this.bv.playDeathGodAni(-1);
             for (var i = 0; i < flashCnt; i++) {
-                var stepAt = this.bv.player.deathStep - d + i;
+                var stepAt = this.bv.player.deathStep - ps.d + i * sign;
                 let eff = ViewUtils.createFrameAni("effExpTrack", "track");
                 let track = new BazierControllerWrapper(eff);
                 AniUtils.ac.addChild(track);
