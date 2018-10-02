@@ -231,6 +231,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         var xGap = (this.mapArea.width - 2 * xEdgeBlank) / (wp.cfg.width - 1);
         var xSwing = 0.2; // 节点在地图上偏离标准位置的抖动幅度
         var ySwing = 0.2;
+        var dotScale = 1.2; // 节点放大
 
         // 遍历所有节点,将具有父节点的作为可用节点,并记录该节点的属性.
         for (var i = 0; i < wp.nodes.length; i++) {
@@ -262,7 +263,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                     adpImg.y = img.y;
                     adpImg.anchorOffsetX = adpImg.width / 2;
                     adpImg.anchorOffsetY = adpImg.height / 2;
-                    adpImg.scaleX = adpImg.scaleY = 1.2;
+                    adpImg.scaleX = adpImg.scaleY = dotScale;
                     adoptRow.push(adpImg);
                 } else {
                     row.push(undefined);
@@ -332,7 +333,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
             var w = img.width;
             var h = img.height;
             tw.to({scaleX:1.5, scaleY:1.5}, 1000, egret.Ease.quadInOut)
-                .to({scaleX:1, scaleY:1}, 1000, egret.Ease.quadInOut);
+                .to({scaleX:dotScale, scaleY:dotScale}, 1000, egret.Ease.quadInOut);
         }
 
         // 显示可经过的节点
