@@ -504,6 +504,13 @@ class GridView extends egret.DisplayObjectContainer {
 
         let b = this.map.getGridAt(this.gx, this.gy);
         switch (b.status) {
+            case GridStatus.Blocked: {
+                var tipPos = this.localToGlobal();
+                tipPos.x += this.width / 2;
+                tipPos.y += this.height / 2;
+                await AniUtils.tipAt(ViewUtils.getTipText("press2Unblock"), tipPos, 30, 0xffffff);
+            }
+            break;
             case GridStatus.Covered:
                 await GridView.try2UncoverAt(b.pos.x, b.pos.y);
             break;

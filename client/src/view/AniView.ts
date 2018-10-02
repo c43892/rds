@@ -155,37 +155,41 @@ class AniView extends egret.DisplayObjectContainer {
                 obj["resetSelf"]();
                 break;
             case "gridBlocked": {
-                var img = ViewUtils.createBitmapByName("blocked_png");
-
-                var scale = 5;
+                var img = AniUtils.createImg("blocked_png");
+                img.width = gv.width;
+                img.height = gv.height;
+                img.anchorOffsetX = img.width / 2;
+                img.anchorOffsetY = img.height / 2;
+                var toPos = gv.localToGlobal();
+                img.x = toPos.x + gv.width / 2;
+                img.y = toPos.y + gv.height / 2;
                 img.alpha = 0;
-                img.width = gv.width * scale;
-                img.height = gv.height * scale;
-                img.x = gv.x - (img.width - gv.width) / 2;
-                img.y = gv.y - (img.height - gv.height) / 2;
-                
-                gv.parent.addChild(img);
+                img.scaleX = img.scaleY = 5;
                 await this.aniFact.createAni("tr", {
                     obj:img, time: 750,
-                    tx:gv.x, ty:gv.y, tw:gv.width, th:gv.height, ta:1, mode:egret.Ease.backIn
+                    tsx:1, tsy:1, ta:1, mode:egret.Ease.backIn
                 });
-                gv.parent.removeChild(img);
+                img["dispose"]();
                 doRefresh();
             }
             break;
             case "gridUnblocked": {
                 doRefresh();
-                var img = ViewUtils.createBitmapByName("blocked_png");
-                img.alpha = 1;
+                var img = AniUtils.createImg("blocked_png");
                 img.width = gv.width;
                 img.height = gv.height;
-                img.x = gv.x - (img.width - gv.width) / 2;
-                img.y = gv.y - (img.height - gv.height) / 2;
-                gv.parent.addChild(img);
+                img.anchorOffsetX = img.width / 2;
+                img.anchorOffsetY = img.height / 2;
+                var toPos = gv.localToGlobal();
+                img.x = toPos.x + gv.width / 2;
+                img.y = toPos.y + gv.height / 2;
+                img.alpha = 1;
+                img.scaleX = img.scaleY = 1;
                 await this.aniFact.createAni("tr", {
-                    obj:img, time: 300, ta:0, mode:egret.Ease.quintInOut
+                    obj:img, time: 750,
+                    tsx:5, tsy:5, ta:0, mode:egret.Ease.backOut
                 });
-                gv.parent.removeChild(img);
+                img["dispose"]();
             }
             break;
             case "gridUncovered": {
