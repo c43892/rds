@@ -296,7 +296,7 @@ class AniUtils {
     }
 
     // 在指定位置冒出一个文字提示
-    public static async tipAt(str:string, pos, size = 25, color = 0xffffff) {
+    public static async tipAt(str:string, pos, size = 25, color = 0xffffff, delay = 700) {
         var tip = ViewUtils.createTextField(size, color);
         tip.textFlow = ViewUtils.fromHtml(str);
         AniUtils.ac.addChild(tip);
@@ -305,7 +305,7 @@ class AniUtils {
         tip.y = pos.y;
         await AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
             {type:"tr", fa:0, ta:1, fy:pos.y, ty:pos.y-25, time:150, noWait:true},
-            {type:"delay", time:700, noWait:true},
+            {type:"delay", time:delay, noWait:true},
             {type:"tr", fa:1, ta:0, fy:pos.y-25, ty:pos.y-50, time:150, noWait:true}
         ], obj:tip, noWait:true});
         AniUtils.ac.removeChild(tip);
