@@ -434,6 +434,7 @@ class AniView extends egret.DisplayObjectContainer {
         } else if (ps.subType == "die" && e instanceof Monster) {
             var g = this.bv.mapView.getGridViewAt(e.pos.x, e.pos.y);
             // 怪物死亡特效
+            g.clearAllEffects();
             var dieEff = g.addEffect("effMonsterDie", 1);
             dieEff["wait"]().then(() =>g.removeEffect("effMonsterDie"));
         } else if (ps.subType == "useElem")
@@ -1180,8 +1181,12 @@ class AniView extends egret.DisplayObjectContainer {
                 case "BuffPoison":
                     this.addColorEffect("poison", 2000, this.bv.hpBar, this.bv.avatar);
                 break;
+                    
             }
         } else {
+            if (ps.target.isDead())
+                return;
+
             var e = <Elem>(ps.target);
             var g = this.bv.mapView.getGridViewAt(e.pos.x, e.pos.y);
             switch (buffType) {
@@ -1189,6 +1194,7 @@ class AniView extends egret.DisplayObjectContainer {
                     g.addColorEffect("elemPoisoned");
                 break;
                 case "BuffFlame":
+                    g.addEffect("effBurning");
                 break;
             }
         }
@@ -1221,7 +1227,8 @@ class AniView extends egret.DisplayObjectContainer {
                 case "BuffPoison":
                     g.removeEffect("elemPoisoned");
                 break;
-                case "BuffFlame":                    
+                case "BuffFlame":
+                    g.removeEffect("effBurning");
                 break;
             }
         }

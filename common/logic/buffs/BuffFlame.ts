@@ -13,7 +13,7 @@ class BuffFlame extends Buff {
 
             if (this.cnt <= 0)
                 await bt.implRemoveBuff(this.getOwner(), this.type);
-        })
+        });
 
         this.doEffect = async () => {
             var bt = this.getOwner().bt();

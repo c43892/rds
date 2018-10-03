@@ -69,7 +69,7 @@ class GridView extends egret.DisplayObjectContainer {
         // 血量，右下角，护盾，右上角，攻击力，左下角
         this.hp = ViewUtils.createTextField(20, 0xffffff);
         this.shield = ViewUtils.createTextField(20, 0xffffff);
-        this.attackInterval = ViewUtils.createTextField(20, 0xffffff);
+        this.attackInterval = ViewUtils.createTextField(20, 0x00ff00);
         this.power = ViewUtils.createTextField(20, 0xffffff);
         this.hp.strokeColor = 0x000000;
         this.hp.stroke = 1;
