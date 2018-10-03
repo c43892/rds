@@ -88,12 +88,12 @@ class RelicFactory {
         // 耐力
         "Endurance": (attrs) => {
             return this.createRelic(attrs, true, (r:Relic, enable:boolean) => {
-                if(r.player.bt())
-                    r.bt().implAddPlayerMaxHp(enable ? attrs.dMaxHp : -attrs.dMaxHp, r)
-                else {
+                // if(r.player.bt())
+                //     await r.bt().implAddPlayerMaxHp(enable ? attrs.dMaxHp : -attrs.dMaxHp, r)
+                // else {
                     r.player.addMaxHp(enable ? attrs.dMaxHp : -attrs.dMaxHp);
                     r.player.addHp(enable ? attrs.dMaxHp : -attrs.dMaxHp);
-                }
+                //}
             });
         },
 
@@ -146,7 +146,8 @@ class RelicFactory {
                     return;
                 }
                 ElemFactory.addAI("onElemRevive", async (ps) => {
-                    if(!ps.achieve) return;
+                    if(!ps.achieve)
+                        return;
 
                     ps.achieve = false;
                 }, r)
