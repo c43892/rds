@@ -1123,6 +1123,7 @@ class AniView extends egret.DisplayObjectContainer {
 
             var eff = <ColorEffect>obj["poisonEffect"];
             eff.stop();
+            delete obj["poisonEffect"];
             this.removeChild(eff);
         });
     }
