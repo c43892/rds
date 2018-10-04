@@ -76,7 +76,7 @@ class WorldMapEventSelsView extends egret.DisplayObjectContainer {
     static lastSelectionGlobalPos;
     async onSel(btn:TextButtonWithBg) {
         var sel:WMES = btn["sel"];
-        WorldMapEventSelsView.lastSelectionGlobalPos = btn.localToGlobal();
+        WorldMapEventSelsView.lastSelectionGlobalPos = AniUtils.ani2global(btn);
         WorldMapEventSelsView.lastSelectionGlobalPos.x += btn.width / 2;
         WorldMapEventSelsView.lastSelectionGlobalPos.y += btn.height / 2;
         await sel.exec();

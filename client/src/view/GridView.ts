@@ -505,7 +505,7 @@ class GridView extends egret.DisplayObjectContainer {
         let b = this.map.getGridAt(this.gx, this.gy);
         switch (b.status) {
             case GridStatus.Blocked: {
-                var tipPos = this.localToGlobal();
+                var tipPos = AniUtils.ani2global(this);
                 tipPos.x += this.width / 2;
                 tipPos.y += this.height / 2;
                 await AniUtils.tipAt(ViewUtils.getTipText("press2Unblock"), tipPos, 30, 0xffffff);

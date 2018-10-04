@@ -1,11 +1,13 @@
 // 主视图下属的动画层
 class AniView extends egret.DisplayObjectContainer {
-    private bv:BattleView; // 战斗视图
-    private sv:ShopView; // 商店视图
-    private wmv:WorldMapView; // 大地图
-    private wmtv:WorldMapTopView; // 大地图顶部
-    private blackCover:egret.Bitmap; // 黑屏用的遮挡
+    private mv:MainView;
+    
+    private get bv():BattleView { return this.mv.bv; } // 战斗视图
+    private get sv():ShopView { return this.mv.sv; } // 商店视图
+    private get wmv():WorldMapView { return this.mv.wmv; } // 大地图
+    private get wmtv():WorldMapTopView { return this.mv.wmtv; } // 大地图顶部
 
+    private blackCover:egret.Bitmap; // 黑屏用的遮挡
     private aniCover:egret.Bitmap; // 播放动画时的操作屏蔽层
     public aniFact:AnimationFactory; // 动画工厂
 
@@ -14,10 +16,7 @@ class AniView extends egret.DisplayObjectContainer {
         this.width = w;
         this.height = h;
         
-        this.bv = mainView.bv;
-        this.wmv = mainView.wmv;
-        this.wmtv = mainView.wmtv;
-        this.sv = mainView.sv;
+        this.mv = mainView;
         this.aniCover = new egret.Bitmap();
         this.aniCover.touchEnabled = true;
 
@@ -164,7 +163,7 @@ class AniView extends egret.DisplayObjectContainer {
                 img.height = gv.height;
                 img.anchorOffsetX = img.width / 2;
                 img.anchorOffsetY = img.height / 2;
-                var toPos = gv.localToGlobal();
+                var toPos = AniUtils.ani2global(gv);
                 img.x = toPos.x + gv.width / 2;
                 img.y = toPos.y + gv.height / 2;
                 img.alpha = 0;
@@ -184,7 +183,7 @@ class AniView extends egret.DisplayObjectContainer {
                 img.height = gv.height;
                 img.anchorOffsetX = img.width / 2;
                 img.anchorOffsetY = img.height / 2;
-                var toPos = gv.localToGlobal();
+                var toPos = AniUtils.ani2global(gv);
                 img.x = toPos.x + gv.width / 2;
                 img.y = toPos.y + gv.height / 2;
                 img.alpha = 1;
@@ -405,12 +404,14 @@ class AniView extends egret.DisplayObjectContainer {
             AniUtils.clearAll(g);
 
             if (e.type == "Knife") { // 要调整图片方向
-                var rot = Utils.getRotationFromTo(g.localToGlobal(), tg.localToGlobal());
+                var rot = Utils.getRotationFromTo(
+                    AniUtils.ani2global(g), 
+                    AniUtils.ani2global(tg));
                 rot += 45;
                 g.rotation = rot;
             }
 
-            await AniUtils.flyAndFadeout(g, tg.localToGlobal(), 
+            await AniUtils.flyAndFadeout(g, AniUtils.ani2global(tg), 
                 e.type == "Key" ? 300 : 150, 1, 1, 0,
                 e.type == "Key" ? undefined : egret.Ease.quintIn);
 
@@ -428,7 +429,7 @@ class AniView extends egret.DisplayObjectContainer {
         }
         if (ps.subType == "monsterHp") {
             var dhp = ps.dhp;
-            var p = sv.localToGlobal();
+            var p = AniUtils.ani2global(sv);
             if (dhp > 0)
                 AniUtils.tipAt(ViewUtils.getTipText("cure"), {x:p.x+44, y:p.y+1});
         } else if (ps.subType == "die" && e instanceof Monster) {
@@ -454,7 +455,7 @@ class AniView extends egret.DisplayObjectContainer {
 
         if (Utils.checkCatalogues(type, "book")) { // 书籍需要提示还剩几次
             if (e.cnt > 0) {
-                var p = sv.localToGlobal();
+                var p = AniUtils.ani2global(sv);
                 AniUtils.tipAt((e.attrs.cnt - e.cnt) + "/" + e.attrs.cnt, {x:p.x+41, y:p.y-1});
                 await AniUtils.flashAndShake(sv);
             }
@@ -506,10 +507,10 @@ class AniView extends egret.DisplayObjectContainer {
                 let track = new BazierControllerWrapper(eff);
                 AniUtils.ac.addChild(track);
                 eff.play(1);
-                var fromPos = sv.localToGlobal();
+                var fromPos = AniUtils.ani2global(sv);
                 fromPos.x += sv.width / 2;
                 fromPos.y += sv.height / 2;
-                AniUtils.createFlyTrack(track, fromPos, this.bv.effDeathGodGray.localToGlobal(), 400).then(() => {
+                AniUtils.createFlyTrack(track, fromPos, AniUtils.ani2global(this.bv.effDeathGodGray), 400).then(() => {
                     eff.stop();
                     AniUtils.ac.removeChild(track);
                 });
@@ -528,7 +529,7 @@ class AniView extends egret.DisplayObjectContainer {
             this.bv.playDeathGodAni(-1);
             var nps = this.bv.mapView.getGridViews((e:Elem) => e && e.type == "NextLevelPort", false);
             var npsv = nps.length > 0 ? this.getSV(nps[0].getElem()) : undefined;
-            var fromPos = npsv.localToGlobal();
+            var fromPos = AniUtils.ani2global(npsv)
             fromPos.x += npsv.width / 2;
             fromPos.y += npsv.height / 2;
             for (var i = 0; i < d; i++) {
@@ -538,7 +539,7 @@ class AniView extends egret.DisplayObjectContainer {
                 let track = new BazierControllerWrapper(eff);
                 AniUtils.ac.addChild(track);
                 eff.play(1);
-                AniUtils.createFlyTrack(track, fromPos, this.bv.effDeathGodGray.localToGlobal(), 400).then(() => {
+                AniUtils.createFlyTrack(track, fromPos, AniUtils.ani2global(this.bv.effDeathGodGray), 400).then(() => {
                     eff.stop();
                     AniUtils.ac.removeChild(track);
                 });
@@ -562,10 +563,10 @@ class AniView extends egret.DisplayObjectContainer {
                 var eff = ViewUtils.createFrameAni("effExpTrack", "track");
                 var track = new BazierControllerWrapper(eff);
                 var sv = this.getSVByPos(ps.fromPos.x, ps.fromPos.y);
-                var svPos = sv.localToGlobal();
+                var svPos = AniUtils.ani2global(sv);
                 svPos.x += sv.width / 2;
                 svPos.y += sv.height / 2;
-                var expBarPos = this.bv.expBar.localToGlobal();
+                var expBarPos = AniUtils.ani2global(this.bv.expBar);
                 expBarPos.x += 7;
                 expBarPos.y += (this.bv.expBar.height - 5);
                 AniUtils.ac.addChild(track);
@@ -637,8 +638,8 @@ class AniView extends egret.DisplayObjectContainer {
         var dm = Math.abs(d);
 
         var fromObj = from;
-        from = from instanceof egret.DisplayObject ? from.localToGlobal() : from;
-        to = to instanceof egret.DisplayObject ? to.localToGlobal() : to;
+        from = from instanceof egret.DisplayObject ? AniUtils.ani2global(from) : from;
+        to = to instanceof egret.DisplayObject ? AniUtils.ani2global(to) : to;
 
         var dir = d > 0 ? 1 : -1;
         var coinsImgArr = [];
@@ -674,8 +675,8 @@ class AniView extends egret.DisplayObjectContainer {
     // 吸血效果
     public async bloodFly(e:Elem = undefined, from, to, d:number, time:number, offset = {fx:0, fy:0, tx:0, ty:0}) {
         var fromObj = from;
-        from = from instanceof egret.DisplayObject ? from.localToGlobal() : from;
-        to = to instanceof egret.DisplayObject ? to.localToGlobal() : to;
+        from = from instanceof egret.DisplayObject ? AniUtils.ani2global(from) : from;
+        to = to instanceof egret.DisplayObject ? AniUtils.ani2global(to) : to;
         from.x += offset.fx;
         from.y += offset.fy;
         to.x += offset.tx;
@@ -726,7 +727,7 @@ class AniView extends egret.DisplayObjectContainer {
     showMonsterAttackValue(m, dhp) {
         var sv = this.getSV(m);
         if (dhp < 0) {
-            var p = sv.localToGlobal();
+            var p = AniUtils.ani2global(sv);
             AniUtils.popupTipAt(Math.abs(dhp).toString(), "popupTipBg_png", {x:p.x, y:p.y-25});
         }
         sv["resetSelf"]();
@@ -753,7 +754,7 @@ class AniView extends egret.DisplayObjectContainer {
         var m:Monster = ps.targetAttrs.owner;
         var g = this.getSV(m);
         var dhp = ps.r.dhp;
-        var p = g.localToGlobal();
+        var p = AniUtils.ani2global(g);
         AniUtils.jumpingTip(dhp.toString(), {x:p.x+g.width,  y:p.y});
         await AniUtils.flashAndShake(g);
         g["resetSelf"]();
@@ -793,7 +794,7 @@ class AniView extends egret.DisplayObjectContainer {
             var g = this.bv.mapView.getGridViewAt(ps.x, ps.y);
             var sv = this.getSVByPos(ps.x, ps.y);
             var effBall = g.addEffect("effRayGunBall", -1, "default", true);
-            var toPos = sv.localToGlobal();
+            var toPos = AniUtils.ani2global(sv);
             toPos.x += sv.width / 2;
             toPos.y += sv.height / 2;
             effBall.x += 250;
@@ -818,11 +819,11 @@ class AniView extends egret.DisplayObjectContainer {
             // 先飞火球
             var sv = this.getSVByPos(ps.x, ps.y);
             var effBall = ViewUtils.createFrameAni("effBazooka", "fly");
-            var toPos = sv.localToGlobal();
+            var toPos = AniUtils.ani2global(sv);
             toPos.x += sv.width / 2;
             toPos.y += sv.height / 2;
             var pv = this.getSVOfProp(weapon);
-            var fromPos = pv.localToGlobal();
+            var fromPos = AniUtils.ani2global(pv);
             fromPos.x += pv.width / 2;
             fromPos.y += pv.height / 2;
             var r = Utils.getRotationFromTo(fromPos, toPos);
@@ -867,7 +868,7 @@ class AniView extends egret.DisplayObjectContainer {
         var food:Elem = ps.food;
         var msv = this.getSV(m);
         var fsv = this.getSV(food);
-        await AniUtils.shakeTo(fsv, msv.localToGlobal());
+        await AniUtils.shakeTo(fsv, AniUtils.ani2global(msv));
         this.bv.mapView.refreshAt(food.pos.x, food.pos.y);
         msv["resetSelf"]();
         fsv["resetSelf"]();
@@ -879,7 +880,7 @@ class AniView extends egret.DisplayObjectContainer {
         var sv = this.getSVByPos(ps.fromPos.x, ps.fromPos.y);
         var tosv = this.getSVByPos(ps.toPos.x, ps.toPos.y);
         var ta = e.type == "CowardZombie" ? 0 : 1; // 贪婪僵尸的飞行是带隐藏效果的
-        await AniUtils.flyAndFadeout(sv, tosv.localToGlobal(), 500, 1, ta, 0, egret.Ease.quintIn);
+        await AniUtils.flyAndFadeout(sv, AniUtils.ani2global(tosv), 500, 1, ta, 0, egret.Ease.quintIn);
         sv["resetSelf"]();
         this.bv.refreshPlayer();
         this.bv.mapView.refreshAt(ps.fromPos.x, ps.fromPos.y);
@@ -892,7 +893,7 @@ class AniView extends egret.DisplayObjectContainer {
         var sv = this.getSV(e);
         var tosv = this.bv.mapView.getGridViewsWithElem((elem:Elem) => elem.type == "NextLevelPort", false)[0];
         if (e instanceof Monster)
-            await AniUtils.flyAndFadeout(sv, tosv.localToGlobal(), 1000, 1, 0, 0, undefined);
+            await AniUtils.flyAndFadeout(sv, AniUtils.ani2global(tosv), 1000, 1, 0, 0, undefined);
         else
             await AniUtils.fly2(sv, sv, tosv, false, 0);
 
@@ -906,10 +907,10 @@ class AniView extends egret.DisplayObjectContainer {
         var e = ps.e;
         var fromSV = this.getSV(m);
         var toSV = this.getSV(e);
-        var from = fromSV.localToGlobal();
+        var from = AniUtils.ani2global(fromSV);
         from.x += fromSV.width / 2;
         from.y += fromSV.height / 2;
-        var to = toSV.localToGlobal();
+        var to = AniUtils.ani2global(toSV);
         to.x += toSV.width / 2;
         to.y += toSV.height / 2;
         var l = AniUtils.createImg("CocoonLine_png");
@@ -1056,7 +1057,7 @@ class AniView extends egret.DisplayObjectContainer {
                 svArr.push(g);
             }
             
-            await AniUtils.flyAndFadeoutArr(svArr, msv.localToGlobal(), 500, 0.5, 0, 0, egret.Ease.quintIn);
+            await AniUtils.flyAndFadeoutArr(svArr, AniUtils.ani2global(msv), 500, 0.5, 0, 0, egret.Ease.quintIn);
             svArr.forEach((sv, _) => sv["resetSelf"]());
         }
 
@@ -1087,7 +1088,7 @@ class AniView extends egret.DisplayObjectContainer {
         var ms:Monster[] = ps.ms;
         var gs:Grid[] = ps.gs;
         var summons = [];
-        var dancerPos = this.getSV(dancer).localToGlobal();
+        var dancerPos = AniUtils.ani2global(this.getSV(dancer));
         var ani;
         for(var index = 0; index < ms.length; index++){
             var fromImg = AniUtils.createImg(ms[index].getElemImgRes() + "_png");
@@ -1240,7 +1241,7 @@ class AniView extends egret.DisplayObjectContainer {
 
         var e:Elem = ps.e;
         var sv = this.getSV(e);
-        var pos = sv.localToGlobal();
+        var pos = AniUtils.ani2global(sv);
         pos.x += sv.width / 2
         pos.y -= sv.height / 2 - 45;
         AniUtils.tipAt(ViewUtils.getTipText(ps.r), pos);
@@ -1259,7 +1260,7 @@ class AniView extends egret.DisplayObjectContainer {
     async gengarLick(sv:egret.DisplayObject) {
         var bodyOffset = {x:sv.width / 2, y:sv.height};
         var tongueAnchorPos = {x:0, y:-30};
-        var avatarPos = this.bv.avatar.localToGlobal();
+        var avatarPos = AniUtils.ani2global(this.bv.avatar);
 
         // 耿鬼长舌头攻击: 播一段骨骼动画 + 一段 tr 动画 + 一段骨骼动画
 
@@ -1272,7 +1273,7 @@ class AniView extends egret.DisplayObjectContainer {
         var disp2:egret.DisplayObject = aw2["getDisplay"]();
         AniUtils.ac.addChild(disp1);
         AniUtils.ac.addChild(disp2);
-        var dispPos = sv.localToGlobal();
+        var dispPos = AniUtils.ani2global(sv);
         disp1.x = dispPos.x + bodyOffset.x;
         disp1.y = dispPos.y + bodyOffset.y;
         disp2.x = disp1.x + tongueAnchorPos.x;

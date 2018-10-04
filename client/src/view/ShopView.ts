@@ -18,7 +18,7 @@ class ShopView extends egret.DisplayObjectContainer {
     public openConfirmView;
 
     public get shopNpcSlotGlobalPos() {
-        var p = this.bg1.localToGlobal();
+        var p = AniUtils.ani2global(this.bg1);
         p.x += 400;
         p.y += 40;
         return p;

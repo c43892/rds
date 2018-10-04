@@ -26,6 +26,11 @@ class MainView extends egret.DisplayObjectContainer {
         this.width = w;
         this.height = h;
 
+        // 动画层没有直接加入 MainView，而是被其父节点添加到最后，这样保证动画层在所有 MainView 上面
+        this.av = new AniView(w, h, this);
+        AniUtils.ac = this.av;
+        AniUtils.aniFact = this.av.aniFact;
+
         // 提示确认视图
         this.tcv = new TipConfirmView(w, h);
 
@@ -35,6 +40,7 @@ class MainView extends egret.DisplayObjectContainer {
 
         // 战斗视图
         this.bv = new BattleView(w, h);
+        this.bv.av = this.av;
         this.bv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
 
         // 宝箱房间
@@ -102,13 +108,6 @@ class MainView extends egret.DisplayObjectContainer {
 
         // 指引层
         this.gv = new GuideView(w, h, this.wmv, this.bv);
-
-        // 动画层
-        this.av = new AniView(w, h, this);
-        // 动画层没有直接加如 MainView，而是被其父节点添加到最后，这样保证动画层在所有 MainView 上面
-        this.bv.av = this.av;
-        AniUtils.ac = this.bv.av;
-        AniUtils.aniFact = this.bv.av.aniFact;
 
         // 录像机如何启动新的录像战斗
         BattleRecorder.startNewBattleImpl = (p:Player, btType:string, btRandomSeed:number, trueRandomSeed:number, extraLevelLogic:string[]) => {
@@ -345,15 +344,15 @@ class MainView extends egret.DisplayObjectContainer {
     // 开启世界地图
     public openWorldMap(worldmap:WorldMap) {
         this.clear();
+
+        this.addChild(this.wmv);
+        this.addChild(this.wmtv);
+
         this.wmtv.player = this.p;
         this.wmtv.refresh();
 
         this.wmv.player = this.p;
         this.wmv.setWorldMap(worldmap);
-        this.av.clear();
-        
-        this.addChild(this.wmv);
-        this.addChild(this.wmtv);
     }
 
     // 登录

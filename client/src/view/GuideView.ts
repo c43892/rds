@@ -112,7 +112,7 @@ class GuideView extends egret.DisplayObjectContainer {
     rt = new egret.RenderTexture();
     tapOrPressPrepare(target:egret.DisplayObject, tapOrPress:boolean, offset = {x:0, y:0}) {
         this.tapTarget = target;
-        var targetPos = target.localToGlobal();
+        var targetPos = AniUtils.ani2global(target);
 
         this.tapArea.x = targetPos.x + offset.x;
         this.tapArea.y = targetPos.y + offset.y;

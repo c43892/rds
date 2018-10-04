@@ -2,6 +2,7 @@
 class LoginView extends egret.DisplayObjectContainer {
     public player:Player;
 
+    bg:egret.Bitmap;
     title:egret.Bitmap;
     btnContinue:TextButtonWithBg;
     btnNewPlay:TextButtonWithBg;
@@ -16,9 +17,8 @@ class LoginView extends egret.DisplayObjectContainer {
         this.width = w;
         this.height = h;
 
-        var bg = ViewUtils.createBitmapByName("lgbg_png");
-        this.addChild(bg);
-        ViewUtils.asFullBg(bg);
+        this.bg = ViewUtils.createBitmapByName("lgbg_png");
+        this.addChild(this.bg);
 
         // 背景动画
         this.ani = ViewUtils.createSkeletonAni("denglu");
@@ -70,6 +70,7 @@ class LoginView extends egret.DisplayObjectContainer {
 
     public onClose;
     public open() {
+        ViewUtils.asFullBg(this.bg);
         this.ani.animation.play("idle", 1000);
         this.btnContinue.enabled = !!this.player;
         this.btnAchievement.enabled = false; // 暂时不可用        

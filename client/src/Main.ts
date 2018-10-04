@@ -170,10 +170,11 @@ class Main extends egret.DisplayObjectContainer {
     ldv:LoadingUI; // loading 界面
     async loadResGroups(gs) {
         this.addChild(this.ldv);
-        ViewUtils.asFullBg(this.ldv);
+        this.ldv.scaleX = ViewUtils.stageSize.w / this.ldv.width;
+        this.ldv.scaleY = ViewUtils.stageSize.h / this.ldv.height;
         await this.ldv.loadResGroups(gs);
         this.ldv.setProgress(1);
-        this.ldv.parent.removeChild(this.ldv);
+        this.removeChild(this.ldv);
     }
 
     private mv:MainView;
@@ -202,8 +203,17 @@ class Main extends egret.DisplayObjectContainer {
 
     // 计算安全区域和主显示区域
     calcArea() {
+        var canvas = window["canvas"];
+        if (canvas) {
+            var sw = canvas.width;
+            var sh = canvas.height;
+            Utils.log();
+            this.stage.setContentSize(sw, sh);
+        }
+        
         let stageW = this.stage.stageWidth;
-        let stageH = this.stage.stageHeight;        
+        let stageH = this.stage.stageHeight;
+        ViewUtils.stageSize = {w:stageW, h:stageH};
 
         // 先计算 fullArea 把刘海空出来，比例是固定 2:1，也是所有全屏背景图的制作比例
         let fullArea = new egret.DisplayObjectContainer();
@@ -217,7 +227,7 @@ class Main extends egret.DisplayObjectContainer {
         } else if (ar < 1.5) { // 支持最宽屏幕，左右留空
             fullArea.height = stageH;
             fullArea.width = stageH / 2;
-            fullArea.x = (stageH - fullArea.width) / 2;
+            fullArea.x = (stageW - fullArea.width) / 2;
             fullArea.y = 0;
         }
         else {

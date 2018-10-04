@@ -10,7 +10,7 @@ class AniUtils {
         var childIndex = parent.getChildIndex(obj);
         var x = obj.x;
         var y = obj.y;
-        var wp = obj.localToGlobal();
+        var wp = AniUtils.ani2global(obj);
         var ax = obj.anchorOffsetX;
         var ay = obj.anchorOffsetY;
         if (!(obj instanceof egret.MovieClip)) {
@@ -99,15 +99,15 @@ class AniUtils {
     // 用逻辑坐标来计算 FlyOut 的位置
     public static async flyOutLogicPos(obj:egret.DisplayObject, mv:MapView, fromLogicPos, toLogicPos = undefined) {
         await AniUtils.flyOut(obj, 
-            mv.getGridViewAt(fromLogicPos.x, fromLogicPos.y).localToGlobal(), 
-            toLogicPos ? mv.getGridViewAt(toLogicPos.x, toLogicPos.y).localToGlobal() : undefined);
+            AniUtils.ani2global(mv.getGridViewAt(fromLogicPos.x, fromLogicPos.y)), 
+            toLogicPos ? AniUtils.ani2global(mv.getGridViewAt(toLogicPos.x, toLogicPos.y)) : undefined);
     }
 
     // 加速直线从一个位置飞向目标位置，并在目标位置固定住。比如获得遗物或者物品的效果
     public static async fly2(obj:egret.DisplayObject, from:egret.DisplayObject, to:egret.DisplayObject, withFlash, toAlpha, noRotation = false) {
         // 飞行开始和目标位置
-        var fp = from.localToGlobal();
-        var tp = to.localToGlobal();
+        var fp = AniUtils.ani2global(from);
+        var tp = AniUtils.ani2global(to);
         var toObjScale = ViewUtils.getGlobalScale(to);
         tp.x = tp.x - to.anchorOffsetX + to.width * toObjScale.scaleX / 2;
         tp.y = tp.y - to.anchorOffsetY + to.height * toObjScale.scaleY / 2;
@@ -155,8 +155,8 @@ class AniUtils {
     // 被舞王僵尸召唤时从一个舞王飞向目标位置,并左右翻转
     public static async summonByDancer(obj:egret.DisplayObject, from:egret.DisplayObject, to:egret.DisplayObject){
         // 飞行开始和目标位置
-        var fp = from.localToGlobal();
-        var tp = to.localToGlobal();
+        var fp = AniUtils.ani2global(from);
+        var tp = AniUtils.ani2global(to);
         tp.x = tp.x - to.anchorOffsetX + to.width / 2;
         tp.y = tp.y - to.anchorOffsetY + to.height / 2;
 
@@ -197,7 +197,7 @@ class AniUtils {
 
     // 向给定目标抖一下，类似一个怪物的攻击动作
     public static async shakeTo(obj:egret.DisplayObject, targetPos = undefined) {
-        var fp = obj.localToGlobal();
+        var fp = AniUtils.ani2global(obj);
         var tp = targetPos ? targetPos : {x:0, y:0};
         var rev = AniUtils.reserveObjTrans(obj, fp, tp);
 
@@ -433,15 +433,20 @@ class AniUtils {
         await AniUtils.flyAndFadeoutArr([obj], toPos, time, toScale, toAlpha, toRotation, mode);
     }
 
+    public static ani2global(obj) {
+        var p1 = obj.localToGlobal();
+        return AniUtils.ac.globalToLocal(p1.x, p1.y);
+    }
+
     // 所有元素随机移动并不等待动画
     public static LoopMoveAll(gs:egret.DisplayObject[], mapview:MapView) {
         var revArr = [];
         var speed = 1;
         gs.forEach((g, _) => {
-            var fromPos = mapview.getGridViewAt(g["gx"], g["gy"]).localToGlobal();
-            var toPos1 = mapview.getGridViewAt(g["tgx1"], g["tgy1"]).localToGlobal();
-            var toPos2 = mapview.getGridViewAt(g["tgx2"], g["tgy2"]).localToGlobal();
-            var toPos3 = mapview.getGridViewAt(g["tgx3"], g["tgy3"]).localToGlobal();
+            var fromPos = AniUtils.ani2global(mapview.getGridViewAt(g["gx"], g["gy"]));
+            var toPos1 = AniUtils.ani2global(mapview.getGridViewAt(g["tgx1"], g["tgy1"]));
+            var toPos2 = AniUtils.ani2global(mapview.getGridViewAt(g["tgx2"], g["tgy2"]));
+            var toPos3 = AniUtils.ani2global(mapview.getGridViewAt(g["tgx3"], g["tgy3"]));
             var parent = g.parent;
             AniUtils.ac.addChild(g);
             revArr.push(() => {
@@ -477,12 +482,12 @@ class AniUtils {
             for (var y = 0; y < mapsize.h; y++) {
                 var bg = ViewUtils.createBitmapByName("covered_png");
                 bg["rn"] = Math.abs(x - mapsize.w) + y;
-                bg["fgx"] = mapsize.w;
+                bg["fgx"] = mapsize.w - 1;
                 bg["fgy"] = 0;
                 bg["gx"] = x;
                 bg["gy"] = y;
                 AniUtils.ac.addChild(bg);
-                gbgs.push(bg);                
+                gbgs.push(bg);
             }
         }
 
@@ -504,13 +509,16 @@ class AniUtils {
             var delay = i * eachTime / 30;
             var fromPos = mapView.logicPos2ShowPos(g["fgx"], g["fgy"]);
             fromPos = mapView.localToGlobal(fromPos.x, fromPos.y);
-            g.x = fromPos.x;
-            g.y = fromPos.y;
+            fromPos = AniUtils.ac.globalToLocal(fromPos.x, fromPos.y);
+            g.x = fromPos.x + g.width;
+            g.y = fromPos.y - g.height;
+            g.alpha = 0;
             var toPos = mapView.logicPos2ShowPos(g["gx"], g["gy"]);
             toPos = mapView.localToGlobal(toPos.x, toPos.y);
+            toPos = AniUtils.ac.globalToLocal(toPos.x, toPos.y);
             var ani = this.aniFact.createAniByCfg({type:"seq", obj:g, arr:[
                 {type:"delay", time:delay},
-                {type:"tr", fx:fromPos.x, fy:fromPos.y, tx:toPos.x, ty:toPos.y, time:eachTime*Math.sqrt(bg["rn"])/10}
+                {type:"tr", tx:toPos.x, ty:toPos.y, ta:1, time:eachTime*Math.sqrt(bg["rn"])/10}
             ]});
             aniArr.push(ani);
         });

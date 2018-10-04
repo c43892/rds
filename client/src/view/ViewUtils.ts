@@ -190,7 +190,7 @@ class ViewUtils {
 
     // 获取全局坐标和尺寸
     public static getGlobalPosAndSize(obj:egret.DisplayObject) {
-        var pos = obj.localToGlobal();
+        var pos = AniUtils.ani2global(obj);
         var s = ViewUtils.getGlobalScale(obj);
         var w = obj.width * s.scaleX;
         var h = obj.height * s.scaleY;
@@ -313,10 +313,11 @@ class ViewUtils {
 
     // 作为背景填充安全显示区域
     public static fullSize = {w:758, h:1280};
+    public static stageSize;
     public static asFullBg(obj:egret.DisplayObject) {
         var parent = obj.parent;
         var parentScale = ViewUtils.getGlobalScale(parent);
-        var parentPos = parent.localToGlobal();
+        var parentPos = AniUtils.ani2global(parent);
         obj.width = ViewUtils.fullSize.w / parentScale.scaleX;
         obj.height = ViewUtils.fullSize.h / parentScale.scaleY;
         obj.x = (ViewUtils.MainArea.width - obj.width) / 2 - parentPos.x;
@@ -325,7 +326,7 @@ class ViewUtils {
 
     // 获取全屏幕安全区域相对主参考区域的四边距离，一般都是负值，因为会比主参考区域大
     public static getScreenEdges() {
-        var mainAreaPos = ViewUtils.MainArea.localToGlobal();
+        var mainAreaPos = AniUtils.ani2global(ViewUtils.MainArea);
         var left = -mainAreaPos.x;
         var top = -mainAreaPos.y;
         var right = ViewUtils.MainArea.width - left;
@@ -336,13 +337,13 @@ class ViewUtils {
 
     // 获取全局缩放值
     public static getGlobalScale(obj:egret.DisplayObject) {
-        if (obj instanceof Main) return {scaleX:1, scaleY:1};
+        if (obj == ViewUtils.MainArea || obj == ViewUtils.FullArea)
+            return {scaleX:1, scaleY:1};
 
+        Utils.assert(!!obj.parent, "the object must rooted at MainArea or FullArea");
         var s = {scaleX:obj.scaleX, scaleY:obj.scaleY};
-        if (obj.parent) {
-            var ps = ViewUtils.getGlobalScale(obj.parent);
-            s = {scaleX:s.scaleX*ps.scaleX, scaleY:s.scaleY*ps.scaleY};
-        }
+        var ps = ViewUtils.getGlobalScale(obj.parent);
+        s = {scaleX:s.scaleX*ps.scaleX, scaleY:s.scaleY*ps.scaleY};
 
         return s;
     }

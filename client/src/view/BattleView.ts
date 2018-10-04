@@ -237,7 +237,6 @@ class BattleView extends egret.DisplayObjectContainer {
         this.bg = ViewUtils.createBitmapByName("battleBg_png"); 
         this.bg.name = "bg";
         this.addChild(this.bg);
-        ViewUtils.asFullBg(this.bg);
         this.bg.touchEnabled = true;
 
         // 角色属性相关
@@ -337,6 +336,7 @@ class BattleView extends egret.DisplayObjectContainer {
     public refreshMap() {
         ViewUtils.multiLang(this, this.mapView);
         this.mapView.refresh();
+        ViewUtils.asFullBg(this.bg);
     }
 
     // 刷新死神位置
