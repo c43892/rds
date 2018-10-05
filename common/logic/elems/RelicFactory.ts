@@ -92,7 +92,7 @@ class RelicFactory {
                 //     await r.bt().implAddPlayerMaxHp(enable ? attrs.dMaxHp : -attrs.dMaxHp, r)
                 // else {
                     r.player.addMaxHp(enable ? attrs.dMaxHp : -attrs.dMaxHp);
-                    r.player.addHp(enable ? attrs.dMaxHp : -attrs.dMaxHp);
+                    // r.player.addHp(enable ? attrs.dMaxHp : -attrs.dMaxHp);
                 //}
             });
         },
