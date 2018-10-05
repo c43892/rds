@@ -465,6 +465,7 @@ class GridView extends egret.DisplayObjectContainer {
     static longPressed:boolean = false; // 是否产生了长按事件
     static dragging:boolean = false; // 开始拖拽，和 pressed 是互斥的
     static dragFrom:GridView;
+    static dragFromPos;
     static draggingElemImgTex:egret.RenderTexture;
     static draggingElemImg:egret.Bitmap; // 拖拽中的元素图
     static pressTimer:egret.Timer; // 长按计时
@@ -595,6 +596,7 @@ class GridView extends egret.DisplayObjectContainer {
         GridView.pressed = true;
         GridView.dragging = false;
         GridView.dragFrom = this;
+        GridView.dragFromPos = {x:this.x + evt.localX, y:this.y + evt.localY};
 
         if (!GridView.pressTimer) {
             GridView.pressTimer = new egret.Timer(GridView.LongPressThreshold, 1);
@@ -620,6 +622,7 @@ class GridView extends egret.DisplayObjectContainer {
                 GridView.pressed = false;
                 GridView.dragging = false;
                 GridView.dragFrom = undefined;
+                GridView.dragFromPos = undefined;
                 if (GridView.pressTimer)
                     GridView.pressTimer.stop();
             });
@@ -659,11 +662,11 @@ class GridView extends egret.DisplayObjectContainer {
 
         if (!GridView.checkInPhrase("touch move")) return;
 
-        var px = evt.localX + this.x;
-        var py = evt.localY + this.y;
+        var px = this.x + evt.localX;
+        var py = this.y + evt.localY;
 
         // 快速打开
-        if ((!GridView.dragFrom || GridView.dragFrom.getGrid().isUncoverable() || !GridView.dragFrom.getGrid().isCovered())
+        if ((!GridView.dragFrom || GridView.dragFrom.getGrid().isUncoverable() || (!GridView.dragFrom.getGrid().isCovered() && !GridView.dragFrom.getGrid().getElem()))
                 && this.getGrid().isCovered() && this.map.isGenerallyValid(this.gx, this.gy)) {
             var zeroGrid = false;
             this.map.travel8Neighbours(this.gx, this.gy, (nx, ny, ng:Grid) => {
@@ -677,48 +680,52 @@ class GridView extends egret.DisplayObjectContainer {
                     GridView.pressTimer.stop();
 
                 GridView.dragFrom = undefined;
+                GridView.dragFromPos = undefined;
                 GridView.checkOutPhrase();
                 return;
             }
         }
 
-        // 翻开的格子才可能拖动
-        if (!GridView.dragging && GridView.dragFrom) {
-            var e = GridView.dragFrom.getElem();
-            if (!e || !e.canBeDragDrop || e.getGrid().isCovered()) {
-                GridView.checkOutPhrase();
-                return;
-            }
+        if (GridView.dragFrom) {
+            var dx = px - GridView.dragFromPos.x;
+            var dy = py - GridView.dragFromPos.y;
 
-            var dx = GridView.dragFrom.x - px;
-            var dy = GridView.dragFrom.y - py;
-            if (dx * dx + dy * dy >= GridView.dragStartThreshold2) {
-                GridView.pressed = false;
-                GridView.dragging = true;
-
-                if (GridView.pressTimer)
-                    GridView.pressTimer.stop();
-                
-                if (!GridView.draggingElemImg) {
-                    GridView.draggingElemImg = new egret.Bitmap();
-                    GridView.draggingElemImg.width = GridView.dragFrom.width;
-                    GridView.draggingElemImg.height = GridView.dragFrom.height;
+            // 翻开的格子才可能拖动
+            if (!GridView.dragging) {
+                var e = GridView.dragFrom.getElem();
+                if (!e || !e.canBeDragDrop || e.getGrid().isCovered()) {
+                    GridView.checkOutPhrase();
+                    return;
                 }
 
-                if (!GridView.draggingElemImgTex)
-                    GridView.draggingElemImgTex = new egret.RenderTexture();
+                if (dx * dx + dy * dy >= GridView.dragStartThreshold2) {
+                    GridView.pressed = false;
+                    GridView.dragging = true;
 
-                GridView.draggingElemImgTex.drawToTexture(this);
-                GridView.draggingElemImg.texture = GridView.draggingElemImgTex;
+                    if (GridView.pressTimer)
+                        GridView.pressTimer.stop();
+                    
+                    if (!GridView.draggingElemImg) {
+                        GridView.draggingElemImg = new egret.Bitmap();
+                        GridView.draggingElemImg.width = GridView.dragFrom.width;
+                        GridView.draggingElemImg.height = GridView.dragFrom.height;
+                    }
+
+                    if (!GridView.draggingElemImgTex)
+                        GridView.draggingElemImgTex = new egret.RenderTexture();
+
+                    GridView.draggingElemImgTex.drawToTexture(this);
+                    GridView.draggingElemImg.texture = GridView.draggingElemImgTex;
+                    GridView.draggingElemImg.x = px - GridView.draggingElemImg.width / 2;
+                    GridView.draggingElemImg.y = py - GridView.draggingElemImg.height / 2;
+                    this.parent.addChild(GridView.draggingElemImg);
+                    GridView.dragFrom.showLayer.alpha = 0;
+                }
+            }
+            else if (GridView.draggingElemImg) {
                 GridView.draggingElemImg.x = px - GridView.draggingElemImg.width / 2;
                 GridView.draggingElemImg.y = py - GridView.draggingElemImg.height / 2;
-                this.parent.addChild(GridView.draggingElemImg);
-                GridView.dragFrom.showLayer.alpha = 0;
             }
-        }
-        else if (GridView.draggingElemImg) {
-            GridView.draggingElemImg.x = px - GridView.draggingElemImg.width / 2;
-            GridView.draggingElemImg.y = py - GridView.draggingElemImg.height / 2;
         }
 
         GridView.checkOutPhrase();
@@ -737,6 +744,7 @@ class GridView extends egret.DisplayObjectContainer {
         var to = this;
         GridView.pressed = false;
         GridView.dragFrom = undefined;
+        GridView.dragFromPos = undefined;
         if (GridView.pressTimer)
             GridView.pressTimer.stop();
 
