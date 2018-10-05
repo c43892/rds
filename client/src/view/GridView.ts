@@ -587,12 +587,12 @@ class GridView extends egret.DisplayObjectContainer {
         //     GridView.gesturePts.push({x:evt.stageX, y:evt.stageY});
 
         let g = this.map.getGridAt(this.gx, this.gy);
-        if (!this.map.isGenerallyValid(this.gx, this.gy) && g.status != GridStatus.Blocked) {
+        if (!this.map.isGenerallyValid(this.gx, this.gy)) {
             GridView.checkOutPhrase();
             return;
         }
 
-        GridView.pressed = true;        
+        GridView.pressed = true;
         GridView.dragging = false;
         GridView.dragFrom = this;
 
@@ -650,7 +650,7 @@ class GridView extends egret.DisplayObjectContainer {
     }
 
     // 拖拽移动
-    onTouchMove(evt:egret.TouchEvent) {
+    async onTouchMove(evt:egret.TouchEvent) {
         // if (GridView.gesturePts)
         //     GridView.gesturePts.push({x:evt.stageX, y:evt.stageY});
 
@@ -662,8 +662,28 @@ class GridView extends egret.DisplayObjectContainer {
         var px = evt.localX + this.x;
         var py = evt.localY + this.y;
 
+        // 快速打开
+        if ((!GridView.dragFrom || GridView.dragFrom.getGrid().isUncoverable() || !GridView.dragFrom.getGrid().isCovered())
+                && this.getGrid().isCovered() && this.map.isGenerallyValid(this.gx, this.gy)) {
+            var zeroGrid = false;
+            this.map.travel8Neighbours(this.gx, this.gy, (nx, ny, ng:Grid) => {
+                if (!this.map.getGridAt(nx, ny).isCovered() && this.map.getCoveredHazardNum(nx, ny) == 0)
+                    zeroGrid = true;
+            });
+
+            if (zeroGrid) {
+                await GridView.try2UncoverAt(this.gx, this.gy);
+                if (GridView.pressTimer)
+                    GridView.pressTimer.stop();
+
+                GridView.dragFrom = undefined;
+                GridView.checkOutPhrase();
+                return;
+            }
+        }
+
         // 翻开的格子才可能拖动
-        if (!GridView.dragging && GridView.dragFrom && !this.getGrid().isCovered()) {
+        if (!GridView.dragging && GridView.dragFrom) {
             var e = GridView.dragFrom.getElem();
             if (!e || !e.canBeDragDrop || e.getGrid().isCovered()) {
                 GridView.checkOutPhrase();
@@ -675,6 +695,9 @@ class GridView extends egret.DisplayObjectContainer {
             if (dx * dx + dy * dy >= GridView.dragStartThreshold2) {
                 GridView.pressed = false;
                 GridView.dragging = true;
+
+                if (GridView.pressTimer)
+                    GridView.pressTimer.stop();
                 
                 if (!GridView.draggingElemImg) {
                     GridView.draggingElemImg = new egret.Bitmap();
