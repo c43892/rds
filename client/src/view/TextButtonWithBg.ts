@@ -143,10 +143,11 @@ class TextButtonWithBg extends egret.DisplayObjectContainer {
         TextButtonWithBg.longPressed = false;
 
         if(this.onPressed){
-            if (!TextButtonWithBg.pressTimer)
+            if (!TextButtonWithBg.pressTimer) {
                 TextButtonWithBg.pressTimer = new egret.Timer(TextButtonWithBg.LongPressThreshold, 1);
+                TextButtonWithBg.pressTimer.addEventListener(egret.TimerEvent.TIMER, this.onPressTimer, this);
+            }
 
-            TextButtonWithBg.pressTimer.addEventListener(egret.TimerEvent.TIMER, this.onPressTimer, this);
             TextButtonWithBg.pressTimer.start();
         }
     }

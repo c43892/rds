@@ -10,7 +10,7 @@ rd client_wxgame\resource\assets\effect /Q /S
 rd client_wxgame\resource\assets\font /Q /S
 rd client_wxgame\resource\assets\items /Q /S
 rd client_wxgame\resource\assets\monsters /Q /S
-rd client_wxgame\resource\assets\occupationImg /Q /S
+rd client_wxgame\resource\assets\occupation /Q /S
 rd client_wxgame\resource\assets\props /Q /S
 rd client_wxgame\resource\assets\relics /Q /S
 rd client_wxgame\resource\assets\ui /Q /S

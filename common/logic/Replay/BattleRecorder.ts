@@ -5,6 +5,7 @@ class BattleRecorder {
     public static inRecording:boolean; // 是否在录像中（否则就是回放中）
 
     public static startNew(btid:string, player:Player, btType:string, btRandomSeed:number, trueRandomSeed:number, extraLevelLogic) {
+        if (!DEBUG) return;
         BattleRecorder.inRecording = true;
         BattleRecorder.replay = new Replay(btid, player, btType, btRandomSeed, trueRandomSeed, extraLevelLogic);
     }
