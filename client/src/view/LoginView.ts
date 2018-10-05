@@ -73,6 +73,7 @@ class LoginView extends egret.DisplayObjectContainer {
         ViewUtils.asFullBg(this.bg);
         this.ani.animation.play("idle", 1000);
         this.btnContinue.enabled = !!this.player;
-        this.btnAchievement.enabled = false; // 暂时不可用        
+        this.btnAchievement.enabled = false; // 暂时不可用
+        this.btnOpenRank.enabled = false; // 暂时不可用
     }
 }

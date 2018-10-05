@@ -352,10 +352,12 @@ class Battle {
     // 触发事件，这些事件是一个个异步执行的函数，需要一个个 wait 顺序执行，这也是不直接使用 egret.EventDispatcher 的原因
     lastEventType:string;
     public async fireEvent(eventType:string, ps = undefined) {
-        if (this.lastEventType)
-            Utils.assert(false, "event overlapped: " + this.lastEventType + " => " + eventType);
+        if (DEBUG) {
+            if (this.lastEventType)
+                Utils.assert(false, "event overlapped: " + this.lastEventType + " => " + eventType);
 
-        this.lastEventType = eventType;
+            this.lastEventType = eventType;
+        }
 
         var handlers = this.eventHandlers[eventType];
         if (handlers) {
