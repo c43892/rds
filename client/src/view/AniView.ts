@@ -128,6 +128,8 @@ class AniView extends egret.DisplayObjectContainer {
     // 指定位置发生状态或元素变化
     public async onGridChanged(ps) {
         var e:Elem = ps.e;
+        if(!e)
+            e = this.bv.player.bt().level.map.getElemAt(ps.x, ps.y);
         var gv = this.bv.mapView.getGridViewAt(ps.x, ps.y);
         var doRefresh = () => this.bv.mapView.refreshAt(ps.x, ps.y, e && e.isBig() ? e.attrs.size : undefined);
         if(e && e.type == "Vest") {

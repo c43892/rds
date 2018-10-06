@@ -1,5 +1,5 @@
 {
     "battleViewElemTipTypes" : ["Clock", "Gengar", "TreasureBox", "RandomEggZombie"],
-    "seniorTypes" : ["senior", "randomEgg"],
-    "bossTypes" : ["boss", "slimeKing"]
+    "seniorTypes" : ["randomEgg"],
+    "bossTypes" : ["slimeKing"]
 }
