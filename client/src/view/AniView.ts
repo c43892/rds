@@ -1031,8 +1031,9 @@ class AniView extends egret.DisplayObjectContainer {
         this.bv.refresh();
     }
 
-    // 关卡事件
+    // 离开关卡时清除所有角色 buff 效果
     public async onGoOutLevel(ps) {
+        this.removeColorEffect("poison", this.bv.hpBar, this.bv.avatar);
     }
 
     // 偷钱

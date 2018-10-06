@@ -403,6 +403,10 @@ class MonsterFactory {
     // 玩家离开时，偷袭玩家
     static doAttackOnPlayerLeave(m:Monster):Monster{
         return <Monster>ElemFactory.addAIEvenCovered("beforeGoOutLevel1", async () => {
+                var player = m.bt().player;
+                if (player.isDead())
+                    return;
+
                 var g = m.getGrid();
                 if (g.isCovered()){ // 先揭开，再攻击
                     var stateBeforeUncover = m.getGrid().status;
@@ -410,7 +414,7 @@ class MonsterFactory {
                     await m.bt().fireEvent("onGridChanged", {x:m.pos.x, y:m.pos.y, subType:"gridUncovered", stateBeforeUncover:stateBeforeUncover});
                 }
 
-                await m.bt().implMonsterAttackTargets(m, [m.bt().player], undefined, false, ["attackOnPlayerLeave"]);
+                await m.bt().implMonsterAttackTargets(m, [player], undefined, false, ["attackOnPlayerLeave"]);
             }, m);
     }
 

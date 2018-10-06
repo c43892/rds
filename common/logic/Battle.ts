@@ -686,8 +686,8 @@ class Battle {
     public async implGo2NextLevel() {
         await this.triggerLogicPoint("beforeGoOutLevel1");
         
-        var dead = await this.checkPlayerLevelUpAndDie();
-        if (dead) return;
+        if (this.player.isDead())
+            return;
 
         await this.triggerLogicPoint("beforeGoOutLevel2");
         await this.fireEvent("onGoOutLevel", {bt:this});
@@ -1123,6 +1123,7 @@ class Battle {
                 await this.triggerLogicPoint("onAttacked", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
             }
         }
+        
         if (selfExplode && !m.isDead()) // 自爆还要走死亡逻辑
             await this.implOnElemDie(m, ["selfExplode"]);
     }

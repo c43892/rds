@@ -18,6 +18,7 @@ class BuffBasic extends Buff {
                 await bt.implAddPlayerShield(-bt.player.shield);
             
             await bt.implAddDeathGodStep(40);
+            Occupation.makeOccupationBuff(bt.player);
         })
     }
 }

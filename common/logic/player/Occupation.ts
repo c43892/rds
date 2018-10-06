@@ -5,7 +5,7 @@ class Occupation {
         Utils.assert(c, "no such occupation: " + p.occupation);
 
         p = c(p);
-        p = Occupation.addOccupationBuff(p);
+        p = Occupation.makeOccupationBuff(p);
         return p;
     }
 
@@ -36,7 +36,8 @@ class Occupation {
         return !!Occupation.occupationMakers[occupation];
     }
 
-    static addOccupationBuff(p:Player){
+    // 设置职业 buff
+    static makeOccupationBuff(p:Player){
         p.clear();
         p.addBuff(new BuffBasic()); // 探空格+经验
         p.addBuff(new BuffDeathGod()); // 死神
