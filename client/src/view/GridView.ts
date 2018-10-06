@@ -675,7 +675,7 @@ class GridView extends egret.DisplayObjectContainer {
                 && this.getGrid().isCovered() && this.map.isGenerallyValid(this.gx, this.gy)) {
             var zeroGrid = false;
             this.map.travel8Neighbours(this.gx, this.gy, (nx, ny, ng:Grid) => {
-                if (!this.map.getGridAt(nx, ny).isCovered() && this.map.getCoveredHazardNum(nx, ny) == 0)
+                if (!this.map.getGridAt(nx, ny).isCovered() && !this.map.getGridAt(nx, ny).getElem() && this.map.getCoveredHazardNum(nx, ny) == 0)
                     zeroGrid = true;
             });
 

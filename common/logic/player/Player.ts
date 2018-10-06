@@ -346,7 +346,7 @@ class Player {
         p.worldmap = WorldMap.fromString(pinfo.world);
         p.worldmap.player = p;
         p.playerRandom = SRandom.fromString(pinfo.srand);
-        p = Occupation.addOccupationBuff(p);
+        p = Occupation.makeOccupationBuff(p);
 
         return p
     }

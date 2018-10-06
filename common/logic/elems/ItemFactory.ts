@@ -261,7 +261,7 @@ class ItemFactory {
             e.canUse = () => true;
             e.use = async () => {
                 await e.bt().implGo2NextLevel(); // 离开当前战斗
-                e.bt().finished = true;
+                e.bt().finished = !e.bt().player.isDead(); // 最后一次死掉的机会
                 return true;
             };
             return e;

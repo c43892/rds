@@ -350,6 +350,25 @@ class AniView extends egret.DisplayObjectContainer {
         await this.blackOut();
     }
 
+    // 偷袭表现
+    public async onSneaking(ps) {
+        var m:Elem = ps.m;
+        var sv = this.getSV(m);
+        var img = AniUtils.createImg(m.getElemImgRes() + "_png");
+        img.anchorOffsetX = img.width / 2;
+        img.anchorOffsetY = img.height / 2;
+        var toPos = AniUtils.ani2global(sv);
+        img.x = toPos.x + sv.width / 2;
+        img.y = toPos.y + sv.height / 2;
+        img.alpha = 1;
+        img.scaleX = img.scaleY = 1;
+        this.aniFact.createAni("tr", {
+            obj:img, time: 2000,
+            tsx:5, tsy:5, ta:0, mode:egret.Ease.backOut, noWait:true
+        }).then(() => img["dispose"]());
+        await AniUtils.delay(500);
+    }
+
     // 大地图上加血上限
     public async onGetHpMaxInWorldmap(ps) {
         var d = ps.dMaxHp;
@@ -1014,8 +1033,9 @@ class AniView extends egret.DisplayObjectContainer {
         this.bv.refresh();
     }
 
-    // 关卡事件
+    // 离开关卡时清除所有角色 buff 效果
     public async onGoOutLevel(ps) {
+        this.removeColorEffect("poison", this.bv.hpBar, this.bv.avatar);
     }
 
     // 偷钱

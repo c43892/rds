@@ -270,16 +270,16 @@ class MonsterFactory {
     }
 
     // 设定偷袭逻辑
-    static addSneakAI(act, m:Monster):Monster {
+    static addSneakAI(act, m:Monster, isNormalAttack:boolean = false):Monster {
         return <Monster>ElemFactory.addAI("onGridChanged", 
-            async () => await m.bt().implMonsterSneak(act), m,
+            async () => await m.bt().implMonsterSneak(m, act, isNormalAttack), m,
                 (ps) => !ps.suppressSneak && ps.x == m.pos.x && ps.y == m.pos.y && ps.subType == "gridUncovered" && ps.stateBeforeUncover != GridStatus.Marked);
     }
 
     // 偷袭：攻击
     static doSneakAttack(m:Monster):Monster {
         // 怪物偷袭，其实并没有 Sneak 标记，不影响战斗计算过程
-        return MonsterFactory.addSneakAI(async () => m.bt().implMonsterAttackTargets(m, [m.bt().player]), m);
+        return MonsterFactory.addSneakAI(async () => m.bt().implMonsterAttackTargets(m, [m.bt().player]), m, true);
     }
 
     // 偷袭：偷钱
@@ -403,6 +403,10 @@ class MonsterFactory {
     // 玩家离开时，偷袭玩家
     static doAttackOnPlayerLeave(m:Monster):Monster{
         return <Monster>ElemFactory.addAIEvenCovered("beforeGoOutLevel1", async () => {
+                var player = m.bt().player;
+                if (player.isDead())
+                    return;
+
                 var g = m.getGrid();
                 if (g.isCovered()){ // 先揭开，再攻击
                     var stateBeforeUncover = m.getGrid().status;
@@ -410,7 +414,7 @@ class MonsterFactory {
                     await m.bt().fireEvent("onGridChanged", {x:m.pos.x, y:m.pos.y, subType:"gridUncovered", stateBeforeUncover:stateBeforeUncover});
                 }
 
-                await m.bt().implMonsterAttackTargets(m, [m.bt().player], undefined, false, ["attackOnPlayerLeave"]);
+                await m.bt().implMonsterAttackTargets(m, [player], undefined, false, ["attackOnPlayerLeave"]);
             }, m);
     }
 
