@@ -342,9 +342,9 @@ class AniView extends egret.DisplayObjectContainer {
     // 休息屋休息
     public async onHospitalCureStart(ps) {
         await this.blackIn();
-        this.wmtv.refreshHp();
     }
     public async onHospitalCureEnd(ps) {
+        this.wmtv.refreshHp();
         await this.blackOut();
     }
 
