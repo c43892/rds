@@ -48,7 +48,11 @@ class GridView extends egret.DisplayObjectContainer {
         showLayerContainer.addChild(this.showLayer);
         this.showLayer["resetSelf"] = () => {
             this.showLayer.x = this.showLayer.y = 0;
-            this.showLayer.scaleX = this.showLayer.scaleY = 1;
+            if (this.getElem() && this.getElem().isBig()) {
+                this.showLayer.scaleX = this.getElem().attrs.size.w;
+                this.showLayer.scaleY = this.getElem().attrs.size.h;
+            } else
+                this.showLayer.scaleX = this.showLayer.scaleY = 1;
         };
 
         // 掉落物品
@@ -714,7 +718,7 @@ class GridView extends egret.DisplayObjectContainer {
                     if (!GridView.draggingElemImgTex)
                         GridView.draggingElemImgTex = new egret.RenderTexture();
 
-                    GridView.draggingElemImgTex.drawToTexture(this);
+                    GridView.draggingElemImgTex.drawToTexture(GridView.dragFrom);
                     GridView.draggingElemImg.texture = GridView.draggingElemImgTex;
                     GridView.draggingElemImg.x = px - GridView.draggingElemImg.width / 2;
                     GridView.draggingElemImg.y = py - GridView.draggingElemImg.height / 2;
