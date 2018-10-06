@@ -64,7 +64,7 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
     doSel;
     public async open(choices):Promise<string> {
         this.choices = choices;
-        this.lvTxt.text = (this.player.lv + 1).toString();
+        this.lvTxt.text = this.player.lv.toString();
         this.lvTxt.height = this.lvTxt.textHeight;
         this.lvTxt.x = (this.width - this.lvTxt.width) / 2;
         this.refresh();
@@ -81,9 +81,9 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
 
     refresh() {
         for (var i = 0; i < 3; i++) {
-            this.removeChild(this.btnSels[i]);
-            this.removeChild(this.btnSelsRelicImgs[i]);
-            this.removeChild(this.btnSelsRelicTxts[i]);
+            if (this.contains(this.btnSels[i])) this.removeChild(this.btnSels[i]);
+            if (this.contains(this.btnSelsRelicImgs[i])) this.removeChild(this.btnSelsRelicImgs[i]);
+            if (this.contains(this.btnSelsRelicTxts[i])) this.removeChild(this.btnSelsRelicTxts[i]);
         }
         
         for (var i = 0; i < this.choices.length; i++) {
