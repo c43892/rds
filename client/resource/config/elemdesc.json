@@ -270,27 +270,27 @@
             "<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>离开每层时回复</font><font color=#294c22 size=20> {dhp} </font><font color=#000000 size=20>点生命值</font>"],
         "shortDesc":"离开每层时回复 {dhp} 点生命值"},
         "Endurance":{"name":"耐力强化", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>耐力：增加</font><font color=#294c22 size=20> {dMaxHp} </font><font color=#000000 size=20>点最大生命值</font>"], 
-            "shortDesc":"增加5点最大生命值"},
+            "shortDesc":"增加{dMaxHp}点最大生命值"},
         "Power":{"name":"力量强化", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>攻击力+</font><font color=#294c22 size=20> {dPower}</font>"], 
-            "shortDesc":"攻击力+1"},
+            "shortDesc":"攻击力+{dPower}"},
         "Fierce":{"name":"杀戮专精", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>突袭敌人时，提升</font><font color=#294c22 size=20> {dSneakCritical}%</font><font color=#000000 size=20>的暴击几率</font>"], 
-            "shortDesc":"突袭敌人时，提升5%的暴击几率"},
+            "shortDesc":"突袭敌人时，提升{dSneakCritical}%的暴击几率"},
         "Unback2Sneak":{"name":"料敌先机", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>突袭敌人时，敌人不能反击</font>"], 
             "shortDesc":"突袭敌人时，敌人不能反击"},
         "Agile":{"name":"闪避强化", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>闪避+</font><font color=#294c22 size=20> {dDodge}%</font>"], 
-            "shortDesc":"闪避+5%"},
+            "shortDesc":"闪避+{dDodge}%"},
         "TimeMachine":{"name":"敌意消退", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>离开本层时，死神额外回退</font><font color=#294c22 size=20> {deathGodBackStep} </font><font color=#000000 size=20>步</font>"], 
-            "shortDesc":"离开本层时，死神额外回退5步"},
+            "shortDesc":"离开本层时，死神额外回退{deathGodBackStep}步"},
         "Crucifix":{"name":"十字架", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>所有的怪物无法复活</font>"], 
             "shortDesc":"所有的怪物无法复活"},
         "WeaponMaster":{"name":"武器大师", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>每层额外增加一把警棍</font>"], 
             "shortDesc":"每层额外增加一把警棍"},
         "UndefinedName1":{"name":"未命名1", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>所有的怪物无法复活</font>"], 
             "shortDesc":"增加5点最大生命值"},
-        "UndefinedName2":{"name":"经验勋章", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>杀死怪物可以额外获得1点经验，每升一级提高{dexp}，最高5</font>"], 
-            "shortDesc":"杀死怪物可以额外获得1点经验"},
-        "UndefinedName3":{"name":"金币勋章", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>每个怪物掉落的金钱增加1，每升一级提高{num}，最高5</font>"],
-            "shortDesc":"每个怪物掉落的金钱增加1"},
+        "UndefinedName2":{"name":"经验勋章", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>杀死怪物可以额外获得1点经验，每升一级提高{dexp}</font>"], 
+            "shortDesc":"杀死怪物可以额外获得{dexp}点经验"},
+        "UndefinedName3":{"name":"金币勋章", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>每个怪物掉落的金钱增加1，每升一级提高{num}</font>"],
+            "shortDesc":"每个怪物掉落的金钱增加{num}"},
         "DefenseProficient":{"name":"防护大师", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>每层额外增加一件防护服</font>"],
             "shortDesc":"每层额外增加一件防护服"},
         "BookMaster":{"name":"图书大师", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>每层额外增加一本书</font>"],
@@ -427,12 +427,16 @@
         "GreenSlime":{"name":"绿色史莱姆", "desc":[
             "<font color=#7d0403 bold=true size=21>治愈</font>\n<font color=#000000 bold=false size=20>每回合回复当前生命值</font><font color=#294c22 size=20> 20</font><font color=#000000 bold=false size=20>%的血量</font>"
         ]},
-        "SlimeKing":{"name":"史莱姆之王", "desc":[""]},
+        "SlimeKing":{"name":"史莱姆之王", "desc":[
+            "<font color=#7d0403 bold=true size=21>史莱姆冲击</font>\n<font color=#000000 bold=false size=20>每3回合进行一次撞击，伤害是攻击的4倍</font>",
+            "<font color=#7d0403 bold=true size=21>指挥</font>\n<font color=#000000 bold=false size=20>所有其他怪物血量和攻击翻倍</font>",
+            "<font color=#7d0403 bold=true size=21>死亡和新生</font>\n<font color=#000000 bold=false size=20>死亡后分裂为四个史莱姆，3回合后史莱姆全部存活，史莱姆之王将会原地复活并回复30%的血量</font>"
+        ]},
         "ShopNpc":{"name":"智能机械管家", "desc":[
-            "</font><font color=#7d0403 bold=true  size=20>奸商</font>\n<font color=#000000 bold=false size=20>顾客才是我的上帝</font>"
+            "</font><font color=#7d0403 bold=true  size=21>奸商</font>\n<font color=#000000 bold=false size=20>顾客才是我的上帝</font>"
         ]},
         "CharmedNormal":{"desc":[
-            "</font><font color=#7d0403 bold=true  size=20>呆滞</font>\n<font color=#000000 bold=false size=20>被魅惑影响了智商</font>"
+            "</font><font color=#7d0403 bold=true  size=21>呆滞</font>\n<font color=#000000 bold=false size=20>被魅惑影响了智商</font>"
         ]},
         "BombAbominationCharmed":{"name":"自曝憎恶", "desc":[
             "<font color=#7d0403 bold=true size=21>自爆</font>\n<font color=#000000 bold=false size=20>出现后 </font><font color=#294c22 size=20>{rounds} </font><font color=#000000 size=20>回合自爆，造成攻击x</font><font color=#294c22 size=20>3 <font color=#000000 size=20>的伤害</font>"
