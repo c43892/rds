@@ -256,6 +256,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                     img["ptStoreyN"] = j;
                     img.touchEnabled = true;
                     img.scaleX = img.scaleY = 1.2;
+                    img.alpha = 0.5;
                     row.push(img);
 
                     var adpImg = ViewUtils.createBitmapByName("Adopt_png");
@@ -275,9 +276,12 @@ class WorldMapView extends egret.DisplayObjectContainer {
         }
 
         // 遍历所有可用节点的所有边,根据边的起始节点和目标节点的坐标绘制脚印
+        var allSteps = {};
         for(var i = 0; i < wp.nodes.length; i++){
+            allSteps[i] = [];
             for(var j = 0; j < wp.nodes[i].length; j++){
                 if (!wp.nodes[i][j]) continue;
+                allSteps[i][j] = [];
                 if(wp.nodes[i][j].parents.length != 0){
                     for(var k = 0; k < wp.nodes[i][j].routes.length; k++){
                         var n = wp.nodes[i][j];
@@ -308,6 +312,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                         var dPosY2 = Math.sin((stepRotation + 90) * Math.PI / 180) * 5;
 
                         // 首尾让出来几步，避免盖住节点图标
+                        var stepImgArr:egret.Bitmap[] = [];
                         for (var st = 2; st < steps - 1; st++) {
                             var stepImg = ViewUtils.createBitmapByName("FootPrint_png");
                             stepImg.x = pt1x + stepsDx * st + (st%2==0?dPosX1:dPosX2);
@@ -316,8 +321,12 @@ class WorldMapView extends egret.DisplayObjectContainer {
                             stepImg.anchorOffsetY = stepImg.height / 2;
                             stepImg.rotation = stepRotation + (st%2==0?-15:15);
                             stepImg.scaleX = st%2==0?1:-1; // 左右脚印需要对称反转
+                            stepImg.alpha = 0.5;
+                            stepImgArr.push(stepImg);
                             this.viewContent.addChild(stepImg);
                         }
+
+                        allSteps[i][j][k] = stepImgArr;
                     }
                     this.viewContent.addChild(imgs[i][j]);
                 }
@@ -329,6 +338,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         for (var sp of sps) {
             var img:egret.Bitmap = imgs[sp.lv][sp.n];
             if (!img) continue;
+            img.alpha = 1;
             var tw = egret.Tween.get(img, {loop:true});
             var w = img.width;
             var h = img.height;
@@ -337,9 +347,35 @@ class WorldMapView extends egret.DisplayObjectContainer {
         }
 
         // 显示可经过的节点
+        var lastSp;
         for (var sp of this.worldmap.player.finishedStoreyPos) {
             if (!imgs[sp.lv][sp.n]) continue;
+            imgs[sp.lv][sp.n].alpha = 1;
+            
+            // 处理脚步路径
+            if (lastSp) {
+                var from = lastSp;
+                var to = sp;
+                
+                for (var k = 0; k < wp.nodes[from.lv][from.n].routes.length; k++) {
+                    var kr = wp.nodes[from.lv][from.n].routes[k];
+                    if (to.lv == kr.dstNode.y && to.n == kr.dstNode.x) {
+                        allSteps[from.lv][from.n][k].forEach((img, _) => img.alpha = 1);
+                        break;
+                    }
+                }
+            }
+
+            lastSp = sp;
             this.viewContent.addChild(adoptImgs[sp.lv][sp.n]);
+        }
+
+        // 处理脚步路径
+        if (lastSp) {
+            for (var k = 0; k < wp.nodes[lastSp.lv][lastSp.n].routes.length; k++) {
+                var kr = wp.nodes[lastSp.lv][lastSp.n].routes[k];
+                allSteps[lastSp.lv][lastSp.n][k].forEach((img, _) => img.alpha = 1);
+            }
         }
     }
 
