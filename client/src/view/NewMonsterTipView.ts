@@ -11,7 +11,7 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
         this.width = w;
         this.height = h;
         this.mapView = bv.mapView;
-        // this.newMonsterTipsData = Utils.loadLocalData(this.LOCAL_DATA_KEY);
+        this.newMonsterTipsData = Utils.loadLocalData(this.LOCAL_DATA_KEY);
         if (!this.newMonsterTipsData)
             this.newMonsterTipsData = [];
 

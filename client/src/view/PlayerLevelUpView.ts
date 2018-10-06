@@ -64,7 +64,7 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
     doSel;
     public async open(choices):Promise<string> {
         this.choices = choices;
-        this.lvTxt.text = this.player.lv.toString();
+        this.lvTxt.text = (this.player.lv + 1).toString();
         this.lvTxt.height = this.lvTxt.textHeight;
         this.lvTxt.x = (this.width - this.lvTxt.width) / 2;
         this.refresh();
