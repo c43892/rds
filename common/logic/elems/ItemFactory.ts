@@ -261,7 +261,7 @@ class ItemFactory {
             e.canUse = () => true;
             e.use = async () => {
                 await e.bt().implGo2NextLevel(); // 离开当前战斗
-                e.bt().ended = true;
+                e.bt().finished = true;
                 return true;
             };
             return e;

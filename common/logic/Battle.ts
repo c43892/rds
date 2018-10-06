@@ -81,7 +81,7 @@ class Battle {
     public async start() {
         Utils.assert(this.prepared, "call battle.prepare() first");
         
-        this.ended = false;
+        this.finished = false;
         await this.fireEvent("onInitBattleView", {bt:this});
 
         await this.triggerLogicPoint("beforeLevelInited", {bt:this});
@@ -415,8 +415,11 @@ class Battle {
                 await this.triggerLogicPoint("onPlayerReborn");
             } else {
                 await this.fireEvent("onPlayerDead");
+                return true;
             }
         }
+
+        return false;
     }
 
     // 尝试揭开指定位置
@@ -442,7 +445,7 @@ class Battle {
         };
     }
 
-    public ended = false; // 战斗结束标记
+    public finished = false; // 战斗结束标记
 
     // 尝试无目标使用元素
     public try2UseElem() {
@@ -472,7 +475,8 @@ class Battle {
 
             await this.checkPlayerLevelUpAndDie();
 
-            if (this.ended) {
+            // 检查通关
+            if (this.finished) {
                 this.player.setBattle(undefined);
                 this.player = undefined;
                 await this.fireEvent("onBattleEnded", {bt:this});
@@ -566,7 +570,7 @@ class Battle {
         await this.fireEvent("onPlayerActed", {subType:"useElemAt", e:e, num:-1});
         await this.triggerLogicPoint("onPlayerActed", {subType:"useElemAt", e:e, num:-1}); // 算一次角色行动
 
-        this.checkPlayerLevelUpAndDie();
+        await this.checkPlayerLevelUpAndDie();
     }
 
     // 尝试使用一个道具，将一个坐标设定为目标
@@ -681,6 +685,10 @@ class Battle {
     // 进入下一关卡
     public async implGo2NextLevel() {
         await this.triggerLogicPoint("beforeGoOutLevel1");
+        
+        var dead = await this.checkPlayerLevelUpAndDie();
+        if (dead) return;
+
         await this.triggerLogicPoint("beforeGoOutLevel2");
         await this.fireEvent("onGoOutLevel", {bt:this});
     }
