@@ -64,7 +64,7 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
     doSel;
     public async open(choices):Promise<string> {
         this.choices = choices;
-        this.lvTxt.text = this.player.lv.toString();
+        this.lvTxt.text = (this.player.lv + 1).toString();
         this.lvTxt.height = this.lvTxt.textHeight;
         this.lvTxt.x = (this.width - this.lvTxt.width) / 2;
         this.refresh();
@@ -98,8 +98,10 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
             var relicType = this.choices[i];
             var fakeRelic = <Relic>ElemFactory.create(relicType, undefined, this.player);
             var realRelicIndex = Utils.indexOf(this.player.relics, (r) => r.type == relicType);
-            var fakeLv = realRelicIndex >= 0 ? this.player.relics[realRelicIndex].reinforceLv + 1 : 1;
-            fakeRelic.setReinfoceLv(fakeLv);
+            if (realRelicIndex >= 0) {
+                var fakeLv = this.player.relics[realRelicIndex].reinforceLv + 1;
+                fakeRelic.setReinfoceLv(fakeLv);
+            }
             var nameAndDesc = ViewUtils.getElemNameAndDesc(this.choices[i]);
             var shortDesc = ViewUtils.replaceByProperties(nameAndDesc.shortDesc, fakeRelic, this.player);
             this.btnSelsRelicTxts[i].textFlow = ViewUtils.fromHtml(shortDesc);
