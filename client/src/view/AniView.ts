@@ -373,7 +373,9 @@ class AniView extends egret.DisplayObjectContainer {
         img.y = toPos.y + sv.height / 2;
         img.alpha = 1;
         img.scaleX = img.scaleY = 1;
-        AniUtils.tipAt(ViewUtils.getTipText("sneaking"), {x:toPos.x + 50, y:toPos.y + 10}, 40, 0xffffff);
+        var nameAndDesc = ViewUtils.getElemNameAndDesc(m.type);
+        var sneakSkillName = nameAndDesc.skillNames && nameAndDesc.skillNames.length > 0 ? nameAndDesc.skillNames[0] : ViewUtils.getTipText("sneaking");
+        AniUtils.tipAt(sneakSkillName, {x:toPos.x + 50, y:toPos.y + 30}, 40, 0xffffff);
         this.aniFact.createAni("tr", {
             obj:img, time: 2000,
             tsx:5, tsy:5, ta:0, mode:egret.Ease.backOut, noWait:true
