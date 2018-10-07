@@ -207,15 +207,14 @@ class AniView extends egret.DisplayObjectContainer {
             break;
             case "elemMarked": {
                 doRefresh();
-                var elemRes = e.getElemImgRes();
-                if (elemRes) {
+                if (!e.attrs.invisible) {
                     var img = AniUtils.createImg(e.getElemImgRes() + "_png");
                     var sv = this.getSVByPos(ps.x, ps.y);
                     var pos = AniUtils.ani2global(sv);
                     img.x = pos.x;
                     img.y = pos.y;
-                    await AniUtils.flash(img, 150);
-                    await this.aniFact.createAniByCfg({type:"tr", fa:1, ta:0, time:150, obj:img});
+                    await AniUtils.flash(img, 250);
+                    await this.aniFact.createAniByCfg({type:"tr", fa:1, ta:0, time:250, obj:img});
                     img["dispose"]();
                 }
             }
@@ -379,6 +378,9 @@ class AniView extends egret.DisplayObjectContainer {
     public async onSneaking(ps) {
         var m:Elem = ps.m;
         var sv = this.getSV(m);
+        if (m.attrs.invisible || ps.isNormalAttack)
+            return;
+
         var img = AniUtils.createImg(m.getElemImgRes() + "_png");
         img.anchorOffsetX = img.width / 2;
         img.anchorOffsetY = img.height / 2;
