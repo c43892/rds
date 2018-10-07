@@ -213,6 +213,8 @@ class Battle {
             for (var p of neighbours)
                 await this.calcMarkPos(p[0], p[1]);
 
+            await this.triggerLogicPoint("afterGridUncovered", { x: x, y: y});
+
             return true;
         }
     }
@@ -247,9 +249,11 @@ class Battle {
         }
 
         if (!suppressLogicEvent)
-            for (var g of gs) 
+            for (var g of gs) {
                 await this.triggerLogicPoint("onGridChanged", {x:g.pos.x, y:g.pos.y, subType:"gridUncovered", stateBeforeUncover:stateBeforeUncover, suppressSneak:suppressSneak, opByPlayer:opByPlayer});
-            
+                await this.triggerLogicPoint("afterGridUncovered", {x:x, y:y});
+            }
+
         return true;
     }
 

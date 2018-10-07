@@ -1,24 +1,21 @@
 {
     "rookiePlay":[
-        {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox2"]]}, 
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1"]]}, 
         {"type":"LevelLogicTakeKey"}
         ],
     "normal":[
-        {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox2"]]}, 
-        {"type":"LevelLogicTakeKey"}
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1"]]}, 
+        {"type":"LevelLogicTakeKey"},
+        {"type":"LevelLogicMarkAllAward", "ps":["markAllAward"]}
         ],
     "randomEgg":[
         {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox2"]]}, 
-        {"type":"LevelLogicTakeKey"}, {"type":"LevelLogicChangeMonster", "ps":[["RandomEggZombie"], 5]}
+        {"type":"LevelLogicTakeKey"}, 
+        {"type":"LevelLogicChangeMonster", "ps":[["RandomEggZombie"], 5]}
         ],
-    "senior":[
-        {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox2"]]}
-        ],
-    "boss":[
-        {"type":"LevelLogicAddBoxAndKey", "ps":[["bossBox1", "bossBox2", "bossBox3", "bossBox4", "bossBox5"]]}, 
+    "searchBody":[
         {"type":"LevelLogicTakeKey"}
         ],
-    "searchBody":[{"type":"LevelLogicTakeKey"}],
     "slimeKing":[
         {"type":"LevelLogicAddBoxAndKey", "ps":[["bossBox1", "bossBox2", "bossBox3", "bossBox4", "bossBox5"]]}, 
         {"type":"LevelLogicTakeKey"}, 

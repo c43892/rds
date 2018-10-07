@@ -3,14 +3,14 @@ class LevelLogicTakeKey extends LevelLogic{
         super("LevelLogicTakeKey");
 
         this.addAI("onLevelInited", async (ps) => {
-            var bt:Battle = ps.bt;
+            var bt = this.level.bt;
             var keys = bt.level.map.findAllElems((e:Elem) => e.type == "Key");
 
             var index = bt.btType.indexOf("_");
             index = index < 0 ? bt.btType.length : index;
             var btType = bt.btType.substring(0 , index);
-            var seniorTypes = ["senior", "randomEgg"];
-            var bossTypes = ["boss", "slimeKing"];
+            var seniorTypes = GCfg.getBattleTypes("senior");
+            var bossTypes = GCfg.getBattleTypes("boss");
             
             if(btType == "normal"){
                 var takeNum = bt.srand.nextInt(keys.length - 1, keys.length + 1);

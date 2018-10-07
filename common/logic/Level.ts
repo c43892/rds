@@ -3,7 +3,7 @@
 class Level {
     public displayName:string;
     public map:Map;
-    private bt:Battle; // 反向引用回所属 battle
+    public bt:Battle; // 反向引用回所属 battle
     private cfg;
     private lv;
 

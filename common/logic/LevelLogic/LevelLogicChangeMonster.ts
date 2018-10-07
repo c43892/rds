@@ -7,7 +7,7 @@ class LevelLogicChangeMonster extends LevelLogic{
         this.num = num;
 
         this.addAI("onLevelInited", async (ps) => {
-            var bt = <Battle>ps.bt;
+            var bt = this.level.bt;
             var noDropItems = (e:Elem) => Utils.filter(e.dropItems, (d:Elem) => d.type != "Coins").length == 0;
             var notSameType = (e:Elem) => Utils.indexOf(this.changeTypes, (changeType:string) => e.type == changeType) < 0;
             var tarms = BattleUtils.findRandomElems(bt, this.num, (e:Elem) => {

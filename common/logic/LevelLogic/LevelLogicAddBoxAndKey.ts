@@ -6,9 +6,8 @@ class LevelLogicAddBoxAndKey extends LevelLogic{
         this.rdps = rdps;
 
         this.addAI("beforeLevelInited", async (ps) => {
-            var bt = <Battle>ps.bt;
+            var bt = this.level.bt;
             var cfg = bt.lvCfg;
-            var poses = [];
 
             // Utils.assert(this.rdps.length == cfg.treasureBoxNum, "the rdps should have the same amount with boxes");
 
@@ -19,13 +18,9 @@ class LevelLogicAddBoxAndKey extends LevelLogic{
             var seniorTypes = GCfg.getBattleTypes("senior");
             var bossTypes = GCfg.getBattleTypes("boss");
             
-            if(Utils.indexOf(seniorTypes, (t:string) => t == type) > -1){
+            if(Utils.indexOf(seniorTypes, (t:string) => t == type) > -1 || Utils.indexOf(bossTypes, (t:string) => t == type) > -1){
                 for(var i = 0; i < cfg.treasureBoxNum; i++)
-                    boxes.push(this.level.createElem("TreasureBox", {"rdp": this.rdps[i]}));                    
-            }
-            else if(Utils.indexOf(bossTypes, (t:string) => t == type) > -1){
-                for(var i = 0; i < cfg.treasureBoxNum; i++)
-                    boxes.push(this.level.createElem("TreasureBox", {"rdp": this.rdps[i]}));                    
+                    boxes.push(this.level.createElem("TreasureBox", {"rdp": this.rdps[i]}));
             }
             else{
                 var tb1 = this.level.createElem("TreasureBox", {"rdp": this.rdps[0]});
@@ -35,9 +30,9 @@ class LevelLogicAddBoxAndKey extends LevelLogic{
                 else
                     boxes.push(tb1);
 
-                var tn = bt.srand.next100();
-                if(tn < cfg.extraTreasureBox)
-                    boxes.push(this.level.createElem("TreasureBox", {"rdp": this.rdps[1]}));
+                // var tn = bt.srand.next100();
+                // if(tn < cfg.extraTreasureBox)
+                //     boxes.push(this.level.createElem("TreasureBox", {"rdp": this.rdps[1]}));
             }
             
             for(var i = 0; i < boxes.length; i++){
@@ -45,14 +40,11 @@ class LevelLogicAddBoxAndKey extends LevelLogic{
                 var gs = BattleUtils.findRandomGrids(bt, (g:Grid) => !g.getElem() && !g.isCovered(), 2);
                 if(gs.length == 2){
                     bt.addElemAt(boxes[i], gs[0].pos.x, gs[0].pos.y);
+                    await bt.fireEvent("onGridChanged", {"subType":"elemAdded" , x:gs[0].pos.x, y:gs[0].pos.y, e:boxes[i]});
                     bt.addElemAt(key, gs[1].pos.x, gs[1].pos.y);
-                    poses.push(gs[0].pos);
-                    poses.push(gs[1].pos);
+                    await bt.fireEvent("onGridChanged", {"subType":"elemAdded" , x:gs[1].pos.x, y:gs[1].pos.y, e:key});
                 }
             }
-            
-            for(var pos of poses)
-                await bt.fireEvent("onGridChanged", {"subType":"elemAdded" , x:pos.x, y:pos.y, e:this.level.map.getElemAt(pos.x, pos.y)})
         })
 
     }

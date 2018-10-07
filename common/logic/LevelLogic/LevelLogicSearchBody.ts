@@ -5,7 +5,7 @@ class LevelLogicSearchBody extends LevelLogic{
         this.rdps = rdps;
 
         this.addAI("beforeLevelInited", async (ps) => {
-            var bt = <Battle>ps.bt;
+            var bt = this.level.bt;
             for(var i = 0; i < rdps.length; i++){
                 if(isNaN(rdps[i]))
                     var box = this.level.createElem("TreasureBox", {rdp:rdps[i]});

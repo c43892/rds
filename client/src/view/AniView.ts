@@ -916,10 +916,24 @@ class AniView extends egret.DisplayObjectContainer {
         var e = ps.e;
         var sv = this.getSVByPos(ps.fromPos.x, ps.fromPos.y);
         var tosv = this.getSVByPos(ps.toPos.x, ps.toPos.y);
-        var ta = e.type == "CowardZombie" ? 0 : 1; // 贪婪僵尸的飞行是带隐藏效果的
+        var ta = e.type == "CowardZombie" ? 0 : 1; // 胆怯僵尸的飞行是带隐藏效果的
         await AniUtils.flyAndFadeout(sv, AniUtils.ani2global(tosv), 500, 1, ta, 0, egret.Ease.quintIn);
         sv["resetSelf"]();
         this.bv.refreshPlayer();
+        this.bv.mapView.refreshAt(ps.fromPos.x, ps.fromPos.y);
+        this.bv.mapView.refreshAt(ps.toPos.x, ps.toPos.y);
+    }
+
+    // 元素的图标飞行
+    public async onElemImgFlying(ps) {
+        var e = <Elem>ps.e;
+        var img = AniUtils.createImg(e.getElemImgRes() + "_png");
+        var sv = this.getSVByPos(ps.fromPos.x, ps.fromPos.y);
+        img.x = AniUtils.ani2global(sv).x;
+        img.y = AniUtils.ani2global(sv).y;
+        var tosv = this.getSVByPos(ps.toPos.x, ps.toPos.y);
+        await AniUtils.fly2(img, sv, tosv, false, 1);
+        img["dispose"]();
         this.bv.mapView.refreshAt(ps.fromPos.x, ps.fromPos.y);
         this.bv.mapView.refreshAt(ps.toPos.x, ps.toPos.y);
     }
