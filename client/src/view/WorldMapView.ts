@@ -414,7 +414,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         var ptStoreyN = bmp["ptStoreyN"];
 
         //检查点击的节点是否是当前可到达节点(测试中,暂且屏蔽该检查)
-        if (!BattleUtils.isStoreyPosSelectable(this.worldmap.player, {lv:ptStoreyLv, n:ptStoreyN}))
+        if (!DEBUG && !BattleUtils.isStoreyPosSelectable(this.worldmap.player, {lv:ptStoreyLv, n:ptStoreyN}))
             return;
 
         Utils.assert(this.worldmap.nodes[ptStoreyLv][ptStoreyN].roomType == ptType, 

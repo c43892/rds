@@ -88,12 +88,12 @@ class HospitalView extends egret.DisplayObjectContainer {
 
     async openReinforce() {
         this.alpha = 0;
-        var rs = Utils.filter(this.player.relics, (r:Relic) => r.canReinfoce());
+        var rs = Utils.filter(this.player.relicsEquipped, (r:Relic) => r.canReinfoce());
         var sel = -1;
         while (sel < 0) {
             sel = await this.selRelic(rs, "selRelic", ViewUtils.getTipText("selRelic"), ViewUtils.getTipText("makeSureSelRelic"));
             if (sel >= 0){ 
-                var e:Relic = <Relic>this.player.relics[sel];
+                var e:Relic = <Relic>this.player.relicsEquipped[sel];
                 e.reinforceLvUp();
                 this.doClose();
             }
@@ -104,23 +104,23 @@ class HospitalView extends egret.DisplayObjectContainer {
         this.alpha = 1;
     }
 
-    async openMutate() {
-        var parent = this.parent;
-        parent.removeChild(this);
+    // async openMutate() {
+    //     var parent = this.parent;
+    //     parent.removeChild(this);
 
-        var sel = -1;
-        while (sel < 0) {
-            sel = await this.selRelic("选择要变异的遗物", "确定变异 ",(r) => true);
-            if (sel >= 0){ 
-                var e:Relic = <Relic>this.player.relics[sel];
-                this.doClose();
-            }
-            if (sel == -2)
-                break;
-        }
+    //     var sel = -1;
+    //     while (sel < 0) {
+    //         sel = await this.selRelic("选择要变异的遗物", "确定变异 ",(r) => true);
+    //         if (sel >= 0){ 
+    //             var e:Relic = <Relic>this.player.relics[sel];
+    //             this.doClose();
+    //         }
+    //         if (sel == -2)
+    //             break;
+    //     }
 
-        parent.addChild(this);
-    }
+    //     parent.addChild(this);
+    // }
 
     onGoOn() {
         this.doClose();

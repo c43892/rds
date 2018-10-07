@@ -68,7 +68,7 @@ class RelicSelView extends egret.DisplayObjectContainer {
     private relics:Elem[];
     public async open(title:string, f) {
         this.title.text = title;
-        this.relics = Utils.filter(this.player.relics, f);
+        this.relics = Utils.filter(this.player.allRelics, f);
         this.refresh();
         return new Promise<number>((resolve, reject) => {
             this.doSel = resolve;

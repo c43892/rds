@@ -483,8 +483,8 @@ class PlantFactory {
 
     // 根据园艺大师遗物等级强化植物
     static enhancePlantByHorticultureMaster(bt:Battle, plantType, attrs){
-        var relics = bt.player.relics;
-        var r = relics[Utils.indexOf(relics, (tar:Relic) => tar.type == "HorticultureMaster")];
+        var relicsEquipped = bt.player.relicsEquipped;
+        var r = relicsEquipped[Utils.indexOf(relicsEquipped, (tar:Relic) => tar.type == "HorticultureMaster")];
         Utils.assert(!!r, "player don't have the relic:HorticultureMaster"); // 植物来源为园艺大师遗物
 
         var level = r.reinforceLv;

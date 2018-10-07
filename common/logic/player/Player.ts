@@ -14,7 +14,7 @@ class Player {
     public setBattle(bt:Battle) {
         this.$$bt = bt;
 
-        for (var r of this.relics)
+        for (var r of this.allRelics)
             r.setBattle(bt);
 
         for (var p of this.props)
@@ -185,7 +185,7 @@ class Player {
     collectAllLogicHandler() {
         var hs = [];
 
-        hs.push(...this.relics);
+        hs.push(...this.allRelics);
 
         return hs;
     }
@@ -252,10 +252,19 @@ class Player {
     // 序列化反序列化
 
     public toString():string {
-        var relics = [];
-        var removedRelics = this.relics;
-        for (var r of this.relics){
-            relics.push(r.toString());
+        // 序列化之前，要先把遗物移除，这样才能去掉遗物的数值影响，处理完之后，再放回来
+
+        var relicsEquipped = [];
+        var removedRelicsEquipped = this.relicsEquipped;
+        for (var r of this.relicsEquipped){
+            relicsEquipped.push(r.toString());
+            this.removeRelic(r.type);
+        }
+
+        var relicsInBag = [];
+        var removedRelicsInBag = this.relicsInBag;
+        for (var r of this.relicsInBag){
+            relicsInBag.push(r.toString());
             this.removeRelic(r.type);
         }
 
@@ -292,14 +301,17 @@ class Player {
         var world = this.worldmap.toString();
         var srand = this.playerRandom.toString();
 
-        var pinfo = {relics:relics, props:props, elems2NextLevel:elems2NextLevel, world:world, srand:srand};
+        var pinfo = {relicsEquipped:relicsEquipped, relicsInBag:relicsInBag, props:props, elems2NextLevel:elems2NextLevel, world:world, srand:srand};
         for (var f of Player.serializableFields)
             pinfo[f] = this[f];
 
         var saveData = JSON.stringify(pinfo);
 
-        for(var relic of removedRelics)
-            this.addRelic(relic);
+        for(var relic of removedRelicsEquipped)
+            this.addRelicInternal(relic, true);
+
+        for(var relic of removedRelicsInBag)
+            this.addRelicInternal(relic, false);
 
         return saveData;
     }
@@ -310,10 +322,15 @@ class Player {
         for (var f of Player.serializableFields)
             p[f] = pinfo[f];
 
-        for (var r of pinfo.relics) {
+        for (var r of pinfo.relicsEquipped) {
             var relic = Relic.fromString(r);
-            p.addRelic(<Relic>relic);
+            p.addRelicInternal(relic, true);
             (<Relic>relic).redoAllMutatedEffects();
+        }
+
+        for (var r of pinfo.relicsInBag) {
+            var relic = Relic.fromString(r);
+            p.addRelicInternal(relic, false);
         }
 
         for (var prop of pinfo.props) {
@@ -384,11 +401,16 @@ class Player {
 
     // 遗物相关逻辑
 
-    public relics:Relic[] = []; // 所有遗物
+    public relicsEquippedMaxNum = 3; // 遗物装备格容量
+    public relicsEquipped:Relic[] = []; // 已经装备的遗物
+    public relicsInBag:Relic[] = []; // 包裹中的遗物
+    public get allRelics():Relic[] {
+        return [...this.relicsEquipped, ...this.relicsInBag];
+    }
 
     // 获取还可以强化的遗物
-    public getReinfoceableRelics() {
-        return Utils.filter(this.relics, (r:Relic) => r.canReinfoce());
+    public getReinforceableRelics() {
+        return Utils.filter(this.allRelics, (r:Relic) => r.canReinfoce());
     }
 
     public addItem(e:Elem) {
@@ -406,22 +428,46 @@ class Player {
             Utils.assert(false, "player can not take: " + e.type);
     }
 
+    // player 内部使用
+    private addRelicInternal(e:Relic, equipped:boolean) {
+        Utils.assert(Utils.indexOf(this.allRelics, (r) => r.type == e.type) < 0, "relic conflicted in add4internal");
+        if (equipped)
+            this.relicsEquipped.push(e.toRelic());
+        else
+            this.relicsInBag.push(e);
+    }
+
     public addRelic(e:Relic) {
         // 不加相同的遗物
-        var n = Utils.indexOf(this.relics, (r) => r.type == e.type);
-        if (n >= 0)
-            this.relics[n].reinforceLvUp();
-        else {
-            e.player = this;            
-            this.relics.push(e.toRelic(this));
+        var allRelics = this.allRelics;
+        var n = Utils.indexOf(allRelics, (r) => r.type == e.type);
+        if (n >= 0) {
+            allRelics[n].reinforceLvUp();
+            return;
         }
+
+        // 新的
+        e.player = this;
+        if (this.relicsEquipped.length < this.relicsEquippedMaxNum)
+            this.relicsEquipped.push(e.toRelic());
+        else
+            this.relicsInBag.push(e);
     }
 
     public removeRelic(type:string):Elem {
-        for (var i in this.relics) {
-            var e = this.relics[i];
+        for (var i in this.relicsEquipped) {
+            var e = this.relicsEquipped[i];
             if (e.type == type) {
-                this.relics = Utils.removeAt(this.relics, i);
+                this.relicsEquipped = Utils.removeAt(this.relicsEquipped, i);
+                (<Relic>e).removeAllEffects();
+                return e;
+            }
+        }
+
+        for (var i in this.relicsInBag) {
+            var e = this.relicsInBag[i];
+            if (e.type == type) {
+                this.relicsInBag = Utils.removeAt(this.relicsInBag, i);
                 (<Relic>e).removeAllEffects();
                 return e;
             }

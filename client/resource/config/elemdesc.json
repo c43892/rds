@@ -349,16 +349,16 @@
         ], "skillNames":["吸血"]},
         "GoblinThief":{"name":"哥布林窃贼", "desc":[
             "<font color=#7d0403 bold=true size=21>偷窃</font>\n<font color=#000000 bold=false size=20>突袭时偷取玩家的金币</font>"
-        ]},
+        ], "skillNames":["偷窃"]},
         "HoundZombie":{"name":"恐怖猎犬", "desc":[
             "<font color=#7d0403 bold=true size=21>尸毒</font>\n<font color=#000000 bold=false size=20>攻击附带中毒效果</font>"
-        ]},
+        ], "skillNames":["尸毒"]},
         "DancerZombie":{"name":"舞王僵尸", "desc":[
             "<font color=#7d0403 bold=true size=21>伴舞</font>\n<font color=#000000 bold=false size=20>突袭时召唤2个同伴</font>"
-        ]},
+        ], "skillNames":["伴舞"]},
         "GluttonyZombie":{"name":"暴食", "desc":[
             "<font color=#7d0403 bold=true size=21>饕餮</font>\n<font color=#000000 bold=false size=20>突袭时吞噬1件随机道具</font>"
-        ]},
+        ], "skillNames":["饕餮"]},
         "Gengar":{"name":"耿鬼", "desc":[
             "<font color=#7d0403 bold=true size=21>伏击</font>\n<font color=#000000 bold=false size=20>离开本层时，进行一次攻击</font>"
         ]},
@@ -373,7 +373,7 @@
         ]},
         "LustZombie":{"name":"魅魔", "desc":[
             "<font color=#7d0403 bold=true size=21>魅惑</font>\n<font color=#000000 bold=false size=20>突袭时死神提前15回合</font>"
-        ]},
+        ], "skillNames":["魅惑"]},
         "CommanderZombie":{"name":"指挥官僵尸", "desc":[
             "<font color=#7d0403 bold=true size=21>统领</font>\n<font color=#000000 bold=false size=20>在场时其他所有怪物攻击和生命值翻倍</font>"
         ]},
@@ -397,13 +397,13 @@
         ]},
         "GreedyZombie":{"name":"贪婪僵尸", "desc":[
             "<font color=#7d0403 bold=true size=21>贪婪</font>\n<font color=#000000 bold=false size=20>拾取周围的道具和金币</font>"
-        ]},
+        ], "skillNames":["贪婪"]},
         "ConfusionZombie":{"name":"疑惑僵尸", "desc":[
             "<font color=#7d0403 bold=true size=21>混乱</font>\n<font color=#000000 bold=false size=20>周围的方格都会显示成问号</font>"
-        ]},
+        ], "skillNames":["混乱"]},
         "Mummy":{"name":"木乃伊", "desc":[
             "<font color=#7d0403 bold=true size=21>沙尘</font>\n<font color=#000000 bold=false size=20>在自己身边制造迷雾</font>"
-        ]},
+        ], "skillNames":["沙尘"]},
         "PoisonJellyfish":{"name":"毒性水母", "desc":[
             "<font color=#7d0403 bold=true size=21>毒雾</font>\n<font color=#000000 bold=false size=20>死亡时使所有未揭开的方块带毒</font>"
         ]},
@@ -413,7 +413,7 @@
         "SwatheZombie":{"name":"黑寡妇蜘蛛", "desc":[
             "<font color=#7d0403 bold=true size=21>缠绕</font>\n<font color=#000000 bold=false size=20>突袭时锁定三项已显形物品，死亡后才可解锁</font>",
             "<font color=#7d0403 bold=true size=21>剧毒</font>\n<font color=#000000 bold=false size=20>攻击附带中毒效果</font>"
-        ]},
+        ], "skillNames":["缠绕"]},
         "BoxMonster":{"name":"愤怒宝箱", "desc":[
             "<font color=#7d0403 bold=true size=21>愤怒</font>\n<font color=#000000 bold=false size=20>宝箱的复仇</font>"
         ]},
