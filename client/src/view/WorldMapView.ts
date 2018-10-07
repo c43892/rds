@@ -440,14 +440,14 @@ class WorldMapView extends egret.DisplayObjectContainer {
             case "senior":
                 var btRandonSeed = p.playerRandom.nextInt(0, 10000);
                 this.refreshShopSoldout() // 刷新战斗内商店销售状态
-                var seniorTypes = ["randomEgg"];
+                var seniorTypes = GCfg.getBattleTypes("senior");
                 var seniorType = seniorTypes[this.player.playerRandom.nextInt(0, seniorTypes.length)];
                 await this.startNewBattle(p, seniorType, lv, n, btRandonSeed, skipBlackIn);
                 break;
             case "boss":
                 var btRandonSeed = p.playerRandom.nextInt(0, 10000);
                 this.refreshShopSoldout() // 刷新战斗内商店销售状态
-                var bossTypes = ["slimeKing"];
+                var bossTypes = GCfg.getBattleTypes("boss");
                 var bossType = bossTypes[this.player.playerRandom.nextInt(0, bossTypes.length)];
                 await this.startNewBattle(p, bossType, lv, n, btRandonSeed, skipBlackIn);
                 break;
