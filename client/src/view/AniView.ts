@@ -138,6 +138,7 @@ class AniView extends egret.DisplayObjectContainer {
                 this.bv.mapView.refreshAt(pos.x, pos.y, m.isBig());
             })
         }
+
         switch (ps.subType) {
             case "elemAdded": // 有元素被添加进地图
                 doRefresh();
@@ -200,6 +201,18 @@ class AniView extends egret.DisplayObjectContainer {
                 gv.removeEffect("effPoisonMist"); // 翻开就去掉毒雾
                 var eff = gv.addEffect("effUncover", 1); // 翻开特效
                 eff["wait"]().then(() => gv.removeEffect("effUncover"));
+            }
+            break;
+            case "elemMarked": {
+                doRefresh();
+                var img = AniUtils.createImg(e.getElemImgRes() + "_png");
+                var sv = this.getSVByPos(ps.x, ps.y);
+                var pos = AniUtils.ani2global(sv);
+                img.x = pos.x;
+                img.y = pos.y;
+                await AniUtils.flash(img, 250);
+                await this.aniFact.createAniByCfg({type:"tr", fa:1, ta:0, time:250, obj:img});
+                img["dispose"]();
             }
             break;
             default:
