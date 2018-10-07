@@ -49,7 +49,7 @@ class GridView extends egret.DisplayObjectContainer {
         this.showLayer["resetSelf"] = () => {
             this.showLayer.x = this.showLayer.y = 0;
             var e = this.getElem();
-            if (e && e.isBig()) {
+            if (e && e.isBig() && !this.getGrid().isCovered()) {
                 this.showLayer.scaleX = e.attrs.size.w;
                 this.showLayer.scaleY = e.attrs.size.h;
             } else

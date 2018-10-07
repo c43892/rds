@@ -140,6 +140,7 @@ class AniView extends egret.DisplayObjectContainer {
                 this.bv.mapView.refreshAt(pos.x, pos.y, m.isBig());
             })
         }
+
         switch (ps.subType) {
             case "elemAdded": // 有元素被添加进地图
                 doRefresh();
@@ -202,6 +203,18 @@ class AniView extends egret.DisplayObjectContainer {
                 gv.removeEffect("effPoisonMist"); // 翻开就去掉毒雾
                 var eff = gv.addEffect("effUncover", 1); // 翻开特效
                 eff["wait"]().then(() => gv.removeEffect("effUncover"));
+            }
+            break;
+            case "elemMarked": {
+                doRefresh();
+                var img = AniUtils.createImg(e.getElemImgRes() + "_png");
+                var sv = this.getSVByPos(ps.x, ps.y);
+                var pos = AniUtils.ani2global(sv);
+                img.x = pos.x;
+                img.y = pos.y;
+                await AniUtils.flash(img, 250);
+                await this.aniFact.createAniByCfg({type:"tr", fa:1, ta:0, time:250, obj:img});
+                img["dispose"]();
             }
             break;
             default:
@@ -362,6 +375,9 @@ class AniView extends egret.DisplayObjectContainer {
         img.y = toPos.y + sv.height / 2;
         img.alpha = 1;
         img.scaleX = img.scaleY = 1;
+        var nameAndDesc = ViewUtils.getElemNameAndDesc(m.type);
+        var sneakSkillName = nameAndDesc.skillNames && nameAndDesc.skillNames.length > 0 ? nameAndDesc.skillNames[0] : ViewUtils.getTipText("sneaking");
+        AniUtils.tipAt(sneakSkillName, {x:toPos.x + 50, y:toPos.y + 30}, 40, 0xffffff);
         this.aniFact.createAni("tr", {
             obj:img, time: 2000,
             tsx:5, tsy:5, ta:0, mode:egret.Ease.backOut, noWait:true
