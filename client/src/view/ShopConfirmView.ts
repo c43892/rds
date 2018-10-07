@@ -28,11 +28,12 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
             this.createItemPropConfirm(player, e, price);
         else {
             Utils.assert(e instanceof Relic, "only prop, item, relic should be in shop");
-            var rn = Utils.indexOf(player.relics, (r) => r.type == e.type);
+            var allRelics = player.allRelics;
+            var rn = Utils.indexOf(allRelics, (r) => r.type == e.type);
             if (rn < 0)
                 this.createNewRelicConfirm(<Relic>e, price, player);
             else {
-                var r1 = player.relics[rn];
+                var r1 = allRelics[rn];
                 var r2 = (<Relic>ElemFactory.create(r1.type));
                 var lv = r1.reinforceLv + (<Relic>e).reinforceLv + 1;
                 var maxLv = r1.attrs.reinforce.length;

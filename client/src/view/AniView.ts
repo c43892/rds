@@ -47,8 +47,8 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 获取一个玩家的遗物对应的Bitmap
     getBitmapOfRelic(r:Relic):egret.Bitmap {
-        var index = Utils.indexOf(this.bv.player.relics, (relic:Relic) => relic.type == r.type);
-        return index >= 6 ? undefined : this.bv.relics[index];
+        var index = Utils.indexOf(this.bv.player.relicsEquipped, (relic:Relic) => relic.type == r.type);
+        return index >= this.bv.relics.length && index < this.bv.player.relicsEquipped.length ? undefined : this.bv.relics[index];
     }
     
 
@@ -205,14 +205,17 @@ class AniView extends egret.DisplayObjectContainer {
             break;
             case "elemMarked": {
                 doRefresh();
-                var img = AniUtils.createImg(e.getElemImgRes() + "_png");
-                var sv = this.getSVByPos(ps.x, ps.y);
-                var pos = AniUtils.ani2global(sv);
-                img.x = pos.x;
-                img.y = pos.y;
-                await AniUtils.flash(img, 250);
-                await this.aniFact.createAniByCfg({type:"tr", fa:1, ta:0, time:250, obj:img});
-                img["dispose"]();
+                var elemRes = e.getElemImgRes();
+                if (elemRes) {
+                    var img = AniUtils.createImg(e.getElemImgRes() + "_png");
+                    var sv = this.getSVByPos(ps.x, ps.y);
+                    var pos = AniUtils.ani2global(sv);
+                    img.x = pos.x;
+                    img.y = pos.y;
+                    await AniUtils.flash(img, 150);
+                    await this.aniFact.createAniByCfg({type:"tr", fa:1, ta:0, time:150, obj:img});
+                    img["dispose"]();
+                }
             }
             break;
             default:
@@ -256,9 +259,16 @@ class AniView extends egret.DisplayObjectContainer {
     // 遗物发生变化
     public async onRelicChanged(ps) {
         var e:Elem = ps.e;
-        var n = Utils.indexOf(e.bt().player.relics, (p) => p.type == e.type);        
-        var toImg = n < 6 ? this.bv.relics[n] : this.bv.moreRelics;
+        var p = e.bt().player;
+        var n = Utils.indexOf(p.relicsEquipped, (p) => p.type == e.type);        
+        var toRefImg = n >= 0 && n < this.bv.relics.length && n < p.relicsEquipped.length ? this.bv.relics[n] : this.bv.moreRelics;
         
+        var toImg = AniUtils.createImg(undefined);
+        var toRefPos = AniUtils.ani2global(toRefImg);
+        toImg.x = toRefPos.x;
+        toImg.y = toRefPos.y;
+        toImg.width = this.bv.relics[0].width;
+        toImg.height = this.bv.relics[0].height;
         if (ps.subType == "addRelicByPickup") {
             var fromObj = this.getSV(e);
             await AniUtils.fly2(fromObj, fromObj, toImg, true, 1);
@@ -277,6 +287,8 @@ class AniView extends egret.DisplayObjectContainer {
                 fromImg["dispose"]();
             }
         }
+
+        toImg["dispose"]();
 
         // 出一个短提示
         this.tipRelicShortDesc(<Relic>e);

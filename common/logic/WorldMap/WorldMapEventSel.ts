@@ -159,22 +159,23 @@ class WorldMapEventSelFactory {
         "+power": (sel:WMES, p:Player, ps) => this.exec(async () => await this.implAddPower(p, ps.power), sel),
         "+item": (sel:WMES, p:Player, ps) => this.valid(() => Utils.occupationCompatible(p.occupation, ps.item), 
             this.exec(async () => await this.implAddItem(p, ElemFactory.create(ps.item)), sel)),
-        "reinforceRandomRelics": (sel:WMES, p:Player, ps) => this.valid(() => p.getReinfoceableRelics().length > 0, 
+        "reinforceRandomRelics": (sel:WMES, p:Player, ps) => this.valid(() => p.getReinforceableRelics().length > 0, 
             this.exec(async () => {
-                var relics = p.getReinfoceableRelics();
-                var rs = p.playerRandom.selectN(relics, 2);
+                var relics2inforce = p.getReinforceableRelics();
+                var rs = p.playerRandom.selectN(relics2inforce, 2);
                 Utils.assert(rs.length > 0, "no relic can be reinforced");
                 for (var relic of rs)
                     await this.implAddItem(p, <Relic>ElemFactory.create(relic.type));
         }, sel)),
-        "reinfoceRelic": (sel:WMES, p:Player, ps) => this.valid(() => p.getReinfoceableRelics().length > 0, 
+        "reinfoceRelic": (sel:WMES, p:Player, ps) => this.valid(() => p.getReinforceableRelics().length > 0, 
             this.exec(async () => {
                 var sel = -1;
-                var rs = Utils.filter(p.relics, (r:Relic) => r.canReinfoce());
+                var allRelics = p.allRelics;
+                var rs = Utils.filter(allRelics, (r:Relic) => r.canReinfoce());
                 while (sel < 0) {                    
                     sel = await this.selRelic(rs, "selRelic", ViewUtils.getTipText("selRelic"), ViewUtils.getTipText("makeSureSelRelic"));
                     if (sel >= 0) {
-                        var e:Relic = <Relic>p.relics[sel];
+                        var e:Relic = allRelics[sel];
                         await this.implReinforceRelic(p, e);
                         break;
                     } else if (sel == -2)

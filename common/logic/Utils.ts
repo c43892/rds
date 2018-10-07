@@ -411,9 +411,10 @@ class Utils {
                 continue;
 
             // 检查遗物强化等级
-            var n = Utils.indexOf(p.relics, (r) => r.type == e);
+            var allRelics = p.allRelics;
+            var n = Utils.indexOf(allRelics, (r) => r.type == e);
             if (n >= 0) {
-                var r:Relic = <Relic>p.relics[n];
+                var r:Relic = allRelics[n];
                 if (!r.canReinfoce())
                     continue;
             }

@@ -266,7 +266,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.addChild(this.moreRelics);
         this.moreRelics.touchEnabled = true;
         this.moreRelics.addEventListener(egret.TouchEvent.TOUCH_TAP, (evt:egret.TouchEvent) => {
-            this.openAllElemsView(this.player.relics);
+            this.openAllElemsView(this.player.relicsEquipped);
         }, this);
 
         for (var i = 0; i < this.ShowMaxRelicNum; i++) {
@@ -448,15 +448,15 @@ class BattleView extends egret.DisplayObjectContainer {
         this.propsView.refresh(this.player.props);
     }
 
-    public getRelicImg(nOrRelicOrType) {
-        var relicType;
-        if (nOrRelicOrType instanceof Relic)
-            return Utils.indexOf(this.player.relics, (r) => r == nOrRelicOrType.type);
-        else if (nOrRelicOrType instanceof String)
-            return Utils.indexOf(this.player.relics, (r) => r == nOrRelicOrType);
-        else
-            return this.relics[nOrRelicOrType];
-    }
+    // public getRelicImg(nOrRelicOrType) {
+    //     var relicType;
+    //     if (nOrRelicOrType instanceof Relic)
+    //         return Utils.indexOf(this.player.relics, (r) => r == nOrRelicOrType.type);
+    //     else if (nOrRelicOrType instanceof String)
+    //         return Utils.indexOf(this.player.relics, (r) => r == nOrRelicOrType);
+    //     else
+    //         return this.relics[nOrRelicOrType];
+    // }
 
     public refreshRelics() {
         ViewUtils.multiLang(this, this.relicsBg);
@@ -474,7 +474,7 @@ class BattleView extends egret.DisplayObjectContainer {
             bmp.height = h;
             x += w + spaceX;
 
-            var r = this.player.relics[i];
+            var r = this.player.relicsEquipped[i];
             if (r) {
                 ViewUtils.setTexName(bmp, r.getElemImgRes() + "_png");
                 bmp.alpha = 1;

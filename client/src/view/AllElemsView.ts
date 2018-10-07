@@ -138,7 +138,7 @@ class AllElemsView extends egret.DisplayObjectContainer {
         var e:Elem = g["elem"];
         switch(this.funcOnClinked){
             case "selRelic":{
-                var n = Utils.indexOf(this.player.relics, (r:Relic) => r.type == g["elem"].type);
+                var n = Utils.indexOf(this.player.relicsEquipped, (r:Relic) => r.type == g["elem"].type);
                 var r = (<Relic>ElemFactory.create(e.type)).toRelic(this.player);
                 var yesno = await this.openCompareRelicView(this.player, r, undefined, false);
                 if(yesno)
