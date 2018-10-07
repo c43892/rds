@@ -6,14 +6,14 @@
         "occupations":["Nurse"]
     },
     "Hawkeye":{"name":"鹰眼"},
-    "TimeMachine":{"name":"时光机", "deathGodBackStep":5,
+    "TimeMachine":{"name":"时光机", "deathGodBackStep":15,
         "reinforce":[
-            {"deathGodBackStep":10}, {"deathGodBackStep":15}, {"deathGodBackStep":20}, {"deathGodBackStep":25}
+            {"deathGodBackStep":20}, {"deathGodBackStep":25}, {"deathGodBackStep":30}, {"deathGodBackStep":35}
         ]
     },
     "Endurance":{"name":"耐力", "dMaxHp":5, 
         "reinforce":[
-            {"dMaxHp":6}, {"dMaxHp":7}, {"dMaxHp":8}, {"dMaxHp":9}
+            {"dMaxHp":10}, {"dMaxHp":15}, {"dMaxHp":20}, {"dMaxHp":25}
         ]
     },
     "Power":{"name":"力量", "dPower":1,
