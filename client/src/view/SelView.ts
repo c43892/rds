@@ -16,6 +16,8 @@ class SelView extends egret.DisplayObjectContainer {
         bg.x = bg.y = 0;
         bg.width = this.descContainer.width;
         bg.height = this.descContainer.height;
+        bg.touchEnabled = true;
+        bg.pixelHitTest = true;
         this.descContainer.addChild(bg);
 
         // 顶部描述

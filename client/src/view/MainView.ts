@@ -154,7 +154,12 @@ class MainView extends egret.DisplayObjectContainer {
         this.isInBattle = true;
 
         GridView.confirmOkYesNo = async (title, content, yesno) => this.confirmOkYesNo(title, content, yesno);
-        GridView.selectGrid = async (f, e) => await this.bv.selectGrid(f, true, e);
+        GridView.selectGrid = async (f, e) => {
+            this.bv.propsView.setEnabled(false);
+            var pos = await this.bv.selectGrid(f, true, e);
+            this.bv.propsView.setEnabled(true);
+            return pos;
+        };
         GridView.try2UseElem = bt.try2UseElem();
         GridView.try2UseElemAt = bt.try2UseElemAt();
         GridView.reposElemTo = bt.try2ReposElemTo();

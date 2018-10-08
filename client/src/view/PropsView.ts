@@ -1,13 +1,17 @@
 // 道具视图
 class PropsView extends egret.DisplayObjectContainer {
 
-    public static readonly ViewGridNum = 6; // 道具格子数
     static ViewGridSize = 84; // 道具格子大小
-
+    public static readonly ViewGridNum = 6; // 道具格子数
     public pvs:PropView[]; // 所有元素视图
+    private disableCover:egret.Bitmap; // 禁用时候的蒙版
 
     public constructor() {
         super();
+
+        this.disableCover = ViewUtils.createBitmapByName("translucent_png")
+        this.disableCover.touchEnabled = true;
+        this.disableCover.alpha = 0.75;
 
         this.pvs = [];
         for(var i = 0; i < PropsView.ViewGridNum; i++) {
@@ -20,6 +24,17 @@ class PropsView extends egret.DisplayObjectContainer {
 
     public getPropViewByIndex(n) {
         return this.pvs[n];
+    }
+
+    public setEnabled(enabled:boolean) {
+        if (!enabled && !this.contains(this.disableCover)) {
+            this.disableCover.x = this.disableCover.y = 0;
+            this.disableCover.width = this.width;
+            this.disableCover.height = this.height;
+            this.addChild(this.disableCover);
+        }
+        else if (enabled && this.contains(this.disableCover))
+            this.removeChild(this.disableCover);
     }
 
     // 刷新显示
