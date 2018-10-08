@@ -25,21 +25,20 @@ class ReplayView extends egret.DisplayObjectContainer {
 
         this.refresh();
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, (evt) => {
-            this.touchTapCount.push(evt);
-            if (this.touchTapCount.length == 1)
+            this.eventBuffer.push(evt);
+            if (this.eventBuffer.length == 1)
                 this.playOn();
         }, this);
     }
 
+    eventBuffer = [];
     async playOn() {
-        while (this.touchTapCount.length > 0) {
-            let evt = this.touchTapCount[0];
+        while (this.eventBuffer.length > 0) {
+            let evt = this.eventBuffer[0];
             await this.onTouchTap(evt);
-            this.touchTapCount.pop();
+            this.eventBuffer.pop();
         }
     }
-
-    touchTapCount = [];
 
     public refresh() {        
         this.openBtn.x = this.width - this.openBtn.width - 5;

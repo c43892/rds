@@ -88,11 +88,32 @@ class GridView extends egret.DisplayObjectContainer {
         // 数字
         this.coveredHazardNum = new egret.Bitmap();
 
-        this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchGrid, this);
-        this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
-        this.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.onTouchMove, this);
-        this.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd, this);
-        this.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.onTouchEnd, this);
+        let gv = this;
+        // this.addEventListener(egret.TouchEvent.TOUCH_TAP, (evt) => GridView.onEvent(gv, "onTouchGrid", evt), this);
+        this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, (evt) => GridView.onEvent(gv, "onTouchBegin", evt), this);
+        this.addEventListener(egret.TouchEvent.TOUCH_MOVE, (evt) => GridView.onEvent(gv, "onTouchMove", evt), this);
+        this.addEventListener(egret.TouchEvent.TOUCH_END, (evt) => GridView.onEvent(gv, "onTouchEnd", evt), this);
+        this.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, (evt) => GridView.onEvent(gv, "onTouchEnd", evt), this);
+    }
+
+    static onEvent(gv, eventType, evt) {
+        GridView.eventBuffer.push({gv:gv, type:eventType, evt:evt});
+        if (GridView.eventBuffer.length == 1)
+            GridView.playOn();
+    }
+    
+    static eventBuffer = [];
+    static async playOn() {
+        while (GridView.eventBuffer.length > 0) {
+            let e = GridView.eventBuffer[0];
+            let gv = e.gv;
+            let eventType = e.type;
+            let evt:TouchEvent = e.evt;
+            await gv[eventType](evt);
+            GridView.eventBuffer.pop();
+            if (eventType == "onTouchEnd")
+                GridView.eventBuffer = [];
+        }
     }
 
     // 获取左上角用于显示掉落物品的图
@@ -745,6 +766,9 @@ class GridView extends egret.DisplayObjectContainer {
         // GridView.gesturePts = undefined;
         // GridView.gestureOnGridView = undefined;
 
+        if (!GridView.dragFrom)
+            return;
+
         var from = GridView.dragFrom;
         var to = this;
         GridView.pressed = false;
@@ -753,8 +777,10 @@ class GridView extends egret.DisplayObjectContainer {
         if (GridView.pressTimer)
             GridView.pressTimer.stop();
 
-        if (!GridView.dragging)
+        if (!GridView.dragging) {
+            await this.onTouchGrid(evt);
             return;
+        }
 
         GridView.dragging = false;
         if (GridView.longPressed)
