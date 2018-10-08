@@ -1187,6 +1187,16 @@ class AniView extends egret.DisplayObjectContainer {
         g.addEffect("effWantedOrder");
     }
 
+    // 标记所有怪物的奖励
+    public async onGetMarkAllAward() {
+        var tip = AniUtils.createTextField(50, 0x000000);
+        tip.text = ViewUtils.getTipText("markAllAward");
+        tip.x = this.width / 2 - tip.measuredWidth / 2
+        tip.y = this.height / 2 - tip.measuredHeight / 2;
+        await AniUtils.flashAndShake(tip);
+        tip["dispose"]();
+    }
+
     // 移除颜色效果
     removeColorEffect(effName, ...objs) {
         objs.forEach((obj, _) => {

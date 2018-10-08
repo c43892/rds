@@ -29,6 +29,7 @@ class LevelLogicMarkAllAward extends LevelLogic {
                     keyGrid = BattleUtils.findRandomGrids(bt, (g:Grid) => !g.isCovered() && g != boxGrid, 1)[0];
                 if (keyGrid) {
                     this.valid = false;
+                    await bt.fireEvent("onGetMarkAllAward");
                     var box = this.level.createElem("TreasureBox", { rdp: this.rdp });
                     await bt.implAddElemAt(box, boxGrid.pos.x, boxGrid.pos.y);
                     var key = this.level.createElem("Key");

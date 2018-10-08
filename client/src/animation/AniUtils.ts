@@ -553,6 +553,14 @@ class AniUtils {
         return img;
     }
 
+    // 创建一段只用于动画显示的文字
+    public static createTextField(size:number, color:number, alignCenter:boolean = true, vAlignMiddle:boolean = true) {
+        var textField = ViewUtils.createTextField(size, color, alignCenter, vAlignMiddle);
+        AniUtils.ac.addChild(textField);
+        textField["dispose"] = () => AniUtils.ac.removeChild(textField);
+        return textField;
+    }
+
     // 光效飞行轨迹
     public static createFlyTrack(bcw:BazierControllerWrapper, fromPos, toPos, time) {
         var r = AniUtils.rand.nextDouble() / 2 + 0.25;
