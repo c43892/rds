@@ -311,6 +311,7 @@
 		"goToNextLevel": {"EN": "be sure to leave?", "CNS": "确定离开这一层吗?", "CNT": "确定离开这一层吗?"},
 		"press2Unblock": {"EN": "press to unblock", "CNS": "再次长按取消标记", "CNT": "再次长按取消标记"},
 		"sneaking": {"EN": "sneaking", "CNS": "突袭", "CNT": "突袭"},
+		"markAllAward": {"EN": "bonus", "CNS": "bonus", "CNT": "bonus"},
 		"": {}
 	}
 }

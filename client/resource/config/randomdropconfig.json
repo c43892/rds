@@ -1,7 +1,6 @@
 {
     "treasureBox1": {"num":[1, 2], "elems":{
-        "CoinsBig":10,
-        "CoinsHuge":2
+        "CoinsBig":10
     }},
 
     "treasureBox2": {"num":[1, 2], "elems":{
