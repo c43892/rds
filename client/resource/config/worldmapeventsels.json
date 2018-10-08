@@ -59,9 +59,9 @@
             "title": "樱桃炸弹",
             "desc": "你发现樱桃炸弹正在熟睡，旁边的宝物无人看守，不禁起了邪念。",
             "sels": [{
-                "desc": "<font color=#000000 size=20>[偷窃]</font><font color=#00b050 size=20>得到{item}</font>，<font color=#7d0403 size=20>受到樱桃炸弹的报复</font>",
-                "func": ["+item", "redirectSelGroup"],
-                "ps": {"item": "HorticultureProficient", "group": "a21"}
+                "desc": "<font color=#000000 size=20>[偷窃]</font><font color=#00b050 size=20>得到园艺专精</font>，<font color=#7d0403 size=20>受到樱桃炸弹的报复</font>",
+                "func": ["redirectSelGroup"],
+                "ps": {"group": "a21"}
             },{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit", "redirectSelGroup"],
@@ -73,16 +73,16 @@
             "desc": "樱桃炸弹被惊醒了，它鼓足力气把自己炸得七零八落，滚烫的热浪直奔你而来。",
             "sels": [{
                 "desc": "<font color=#000000 size=20>[逃跑]</font><font color=#7d0403 size=20>失去{money}金币</font>",
-                "func": ["-money", "redirectSelGroup"],
-                "ps": {"money": 50, "group": "a211"}
+                "func": ["+item", "-money", "redirectSelGroup"],
+                "ps": {"item": "HorticultureProficient", "money": 50, "group": "a211"}
             },{
                 "desc": "<font color=#000000 size=20>[抵挡]</font><font color=#7d0403 size=20>生命上限减少{maxHp}</font>",
-                "func": ["-maxHp", "redirectSelGroup"],
-                "ps": {"maxHp": 5, "group": "a212"}
+                "func": ["+item", "-maxHp", "redirectSelGroup"],
+                "ps": {"item" : "HorticultureProficient", "maxHp": 5, "group": "a212"}
             },{
                 "desc": "<font color=#000000 size=20>[躲藏]</font><font color=#7d0403 size=20>失去{hp}生命</font>",
-                "func": ["-hpPrecentage", "redirectSelGroup"],
-                "ps": {"hpPrecentage": 20, "group": "a213"}
+                "func": ["+item", "-hpPrecentage", "redirectSelGroup"],
+                "ps": {"item" : "HorticultureProficient", "hpPrecentage": 20, "group": "a213"}
             }]
         },
         "a211": {
