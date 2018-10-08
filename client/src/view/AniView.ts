@@ -213,6 +213,10 @@ class AniView extends egret.DisplayObjectContainer {
                     var pos = AniUtils.ani2global(sv);
                     img.x = pos.x;
                     img.y = pos.y;
+                    img.width = sv.width;
+                    img.height = sv.height;
+                    img.scaleX = sv.scaleX;
+                    img.scaleY = sv.scaleY;
                     await AniUtils.flash(img, 250);
                     await this.aniFact.createAniByCfg({type:"tr", fa:1, ta:0, time:250, obj:img});
                     img["dispose"]();
