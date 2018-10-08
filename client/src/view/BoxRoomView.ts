@@ -7,7 +7,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
     private openBoxBtn:TextButtonWithBg;
     private box:egret.Bitmap;
     private e:egret.Bitmap;
-    private elems:TextButtonWithBg[];
+    private elemImgs:TextButtonWithBg[];
     private goOutBtn:TextButtonWithBg;
     private startingPoint:egret.Bitmap;
     private destination:egret.Bitmap;
@@ -21,7 +21,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
         this.height = h;
         this.name = "boxRoomView";
 
-        this.elems = [];
+        this.elemImgs = [];
 
         this.bg = ViewUtils.createBitmapByName("translucent_png");        
         this.bg.width = this.width;
@@ -66,26 +66,49 @@ class BoxRoomView extends egret.DisplayObjectContainer {
 
     private dropItems;
     private doClose;
-    public async open(dropCfg):Promise<void> {
-        this.elems = [];
+    public async open():Promise<void> {
+        this.elemImgs = [];
         this.openBoxBtn.touchEnabled = true;
         this.addChild(this.openBoxBtn);
+
+        var cfg = this.player.worldmap.cfg.boxroomDrops;
+        var arr = [];
         
-        var onOpenBoxRoomPs = {num:3};
-        await this.player.fireEvent("onOpenBoxRoom", onOpenBoxRoomPs);
-        var num = onOpenBoxRoomPs.num;
-        var arr = Utils.randomSelectByWeightWithPlayerFilter(this.player, dropCfg, this.player.playerRandom, num, num + 1, true, "Coins");
+        // 有可能有遗物改变这个数量
+        var onOpenBoxRoomPs = {relicNum:1, propNum:1, coinsnum:cfg.coins};
+        this.player.triggerLogicPointSync("onOpenBoxRoom", onOpenBoxRoomPs);
+
+        // 宝箱中的遗物
+        var relicNum = onOpenBoxRoomPs.relicNum;
+        var relicCfg = GCfg.getRandomDropGroupCfg(cfg.relic);
+        var relics = Utils.randomSelectByWeightWithPlayerFilter(this.player, relicCfg.elems, this.player.playerRandom, relicNum, relicNum + 1, true);
+        arr.push(...relics);
+
+        // 宝箱中的道具
+        var propNum = onOpenBoxRoomPs.propNum;
+        var propCfg = GCfg.getRandomDropGroupCfg(cfg.prop);
+        var props = Utils.randomSelectByWeightWithPlayerFilter(this.player, propCfg.elems, this.player.playerRandom, propNum, propNum + 1, true);
+        arr.push(...props);
+
+        // 宝箱中的金币
+        var coinsnum = onOpenBoxRoomPs.coinsnum;
+        arr.push("Coins");
+        
         for(var i = 0; i < arr.length; i++){
-            let elem = new TextButtonWithBg(arr[i] + "_png");
-            elem.touchEnabled = true;
-            elem.x = 320 + (i - (arr.length - 1) / 2) * 114 - 42;
-            elem.y = 380 - 42;
-            elem["eType"] = arr[i];
-            this.elems.push(elem);
-            this.addChild(elem);
-            elem.alpha = 0;
-            elem.touchEnabled = false;
-            elem.onClicked = () => BoxRoomView.showElemDesc(ElemFactory.create(elem["eType"]));
+            let elemImg = new TextButtonWithBg((arr[i] == "Coins" ? "Coins9" : arr[i]) + "_png");
+            elemImg.touchEnabled = true;
+            elemImg.x = 320 + (i - (arr.length - 1) / 2) * 114 - 42;
+            elemImg.y = 380 - 42;
+            this.elemImgs.push(elemImg);
+            this.addChild(elemImg);
+            elemImg.alpha = 0;
+            elemImg.touchEnabled = false;
+            if (arr[i] != "Coins")
+                elemImg["e"] = ElemFactory.create(arr[i]);
+            else
+                elemImg["e"] = ElemFactory.create(arr[i], {cnt:coinsnum});
+            
+            elemImg.onClicked = () => BoxRoomView.showElemDesc(elemImg["e"]);
         }
 
         ViewUtils.setTexName(this.box, "BoxRoomBox_png");
@@ -103,7 +126,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
         this.openBoxBtn.touchEnabled = false;
         this.removeChild(this.openBoxBtn);
 
-        if (this.elems.length == 0) return;
+        if (this.elemImgs.length == 0) return;
 
         ViewUtils.multiLang(this, this.boxEff);
         this.addChild(this.boxEff);
@@ -114,29 +137,29 @@ class BoxRoomView extends egret.DisplayObjectContainer {
         ViewUtils.setTexName(this.box, "BoxRoomBoxOpened_png");
 
         var fromImgs = [];
-        for (var i = 0; i < this.elems.length; i++){
-            let elem = this.elems[i];
-            let fromImg = AniUtils.createImg(elem["eType"] + "_png");
+        for (var i = 0; i < this.elemImgs.length; i++){
+            let elemImg = this.elemImgs[i];
+            let fromImg = AniUtils.createImg(elemImg["e"].getElemImgRes() + "_png");
             fromImgs.push(fromImg);
             fromImg.x = this.startingPoint.x;
             fromImg.y = this.startingPoint.y;
-            fromImg.width = elem.width / 2;
-            fromImg.height = elem.height / 2;            
-            var toImg = elem;
+            fromImg.width = elemImg.width / 2;
+            fromImg.height = elemImg.height / 2;            
+            var toImg = elemImg;
             await Utils.delay(200);
-            if(i == this.elems.length - 1){
+            if(i == this.elemImgs.length - 1){
                 await AniUtils.flash(fromImg, 200);            
                 await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
                 fromImg["dispose"]();
-                elem.alpha = 1;
-                elem.touchEnabled = true;
+                elemImg.alpha = 1;
+                elemImg.touchEnabled = true;
             }
             else{
                 AniUtils.flash(fromImg, 200);
                 AniUtils.fly2(fromImg, fromImg, toImg, true, 1).then(() => {
                     fromImg["dispose"]();
-                    elem.alpha = 1;
-                    elem.touchEnabled = true;
+                    elemImg.alpha = 1;
+                    elemImg.touchEnabled = true;
                 });
             }
         }
@@ -144,29 +167,27 @@ class BoxRoomView extends egret.DisplayObjectContainer {
     }
 
     async getDropItems() {
-        for (var i = 0; i < this.elems.length; i++) {
-            let elem = this.elems[i];
-            this.removeChild(elem);
-            let fromImg = AniUtils.createImg(elem["eType"] + "_png");
-            fromImg.x = elem.x;
-            fromImg.y = elem.y;
-            fromImg.width = elem.width;
-            fromImg.height = elem.height;            
+        for (var i = 0; i < this.elemImgs.length; i++) {
+            let elemImg = this.elemImgs[i];
+            this.removeChild(elemImg);
+            let e = <Elem>elemImg["e"];
+            let fromImg = AniUtils.createImg(e.getElemImgRes() + "_png");
+            fromImg.x = elemImg.x;
+            fromImg.y = elemImg.y;
+            fromImg.width = elemImg.width;
+            fromImg.height = elemImg.height;            
             var toImg = this.destination;
             await Utils.delay(200);
-            if(i == this.elems.length - 1){
+            if(i == this.elemImgs.length - 1){
                 await AniUtils.flash(fromImg, 200);
                 await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
                 fromImg["dispose"]();
-                elem.touchEnabled = false;
+                elemImg.touchEnabled = false;
             }
             else{
                 AniUtils.flash(fromImg, 200);
                 AniUtils.fly2(fromImg, fromImg, toImg, true, 1).then(() => fromImg["dispose"]());                
             }
-
-            var e = ElemFactory.create(elem["eType"]);
-
             this.player.addItem(e);
         }
     }

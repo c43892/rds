@@ -69,7 +69,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.openShop = async (shop) => await this.openShopOnWorldMap(shop);
         this.wmv.refreshShopSoldout = () => this.sv.refreshSoldout();
         this.wmv.openHospital = async () => await this.openHospital();
-        this.wmv.openBoxRoom = async (openBoxRoom) => await this.openBoxRoom(openBoxRoom);
+        this.wmv.openBoxRoom = async () => await this.openBoxRoom();
         this.wmv.openTurntable = async (turntable) => await this.openTurntable(turntable);
         this.wmv.openEventSels = async (title, desc, sels) => await this.openWorldMapEventSels(title, desc, sels);
         this.wmv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
@@ -295,11 +295,11 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 打开宝箱房间
-    public async openBoxRoom(dropCfg) {
+    public async openBoxRoom() {
         this.brv.player = this.p;
         this.addChild(this.brv);
         this.setChildIndex(this.wmtv, -1);
-        await this.brv.open(dropCfg);
+        await this.brv.open();
         this.removeChild(this.brv);
     }
 
