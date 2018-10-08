@@ -24,7 +24,7 @@ class SelView extends egret.DisplayObjectContainer {
         this.descTop = ViewUtils.createTextField(20, 0xffffff);
         this.descTop.x = 0;
         this.descTop.width = this.descContainer.width;
-        this.descTop.height = 20;
+        this.descTop.height = 25;
         this.descTop.y = 25;
         this.descContainer.addChild(this.descTop);
 
@@ -32,7 +32,7 @@ class SelView extends egret.DisplayObjectContainer {
         this.descBottom = ViewUtils.createTextField(20, 0xffffff);
         this.descBottom.x = 0;
         this.descBottom.width = this.descContainer.width;
-        this.descBottom.height = 20;
+        this.descBottom.height = 25;
         this.descBottom.y = this.descContainer.height - this.descBottom.height - 25;
         this.descContainer.addChild(this.descBottom);
     }
