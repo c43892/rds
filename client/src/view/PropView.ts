@@ -133,15 +133,15 @@ class PropView extends egret.DisplayObjectContainer {
         if (PropView.pressTimer)
             PropView.pressTimer.stop();
 
-        if (!this.e)
-            return;
-
         // 有当前选中的，则先取消
         if (PropView.currentSelPropView) {
             PropView.currentSelPropView.setEffect();
             PropView.selHelper["cancel"]();
             return;
         }
+
+        if (!this.e)
+            return;
 
         if (!this.e.isValid())
             return;
