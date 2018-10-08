@@ -14,7 +14,6 @@ class BuffSuperPotion extends Buff{
         // 免疫突袭
         this.addAI("onSneaking", (ps) => {
             if (ps.immunized) return;
-
             ps.immunized = true;
         })
 
