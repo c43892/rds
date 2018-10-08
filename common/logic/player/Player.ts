@@ -401,7 +401,7 @@ class Player {
 
     // 遗物相关逻辑
 
-    public relicsEquippedMaxNum = 3; // 遗物装备格容量
+    public relicsEquippedMaxNum = 99999; // 遗物装备格容量
     public relicsEquipped:Relic[] = []; // 已经装备的遗物
     public relicsInBag:Relic[] = []; // 包裹中的遗物
     public get allRelics():Relic[] {
@@ -432,7 +432,7 @@ class Player {
     private addRelicInternal(e:Relic, equipped:boolean) {
         Utils.assert(Utils.indexOf(this.allRelics, (r) => r.type == e.type) < 0, "relic conflicted in add4internal");
         if (equipped)
-            this.relicsEquipped.push(e.toRelic());
+            this.relicsEquipped.push(e.toRelic(this));
         else
             this.relicsInBag.push(e);
     }
@@ -447,9 +447,8 @@ class Player {
         }
 
         // 新的
-        e.player = this;
         if (this.relicsEquipped.length < this.relicsEquippedMaxNum)
-            this.relicsEquipped.push(e.toRelic());
+            this.relicsEquipped.push(e.toRelic(this));
         else
             this.relicsInBag.push(e);
     }
