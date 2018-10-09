@@ -122,6 +122,8 @@ class GuideView extends egret.DisplayObjectContainer {
         this.tapTarget = target;
         var targetPos = AniUtils.ani2global(target);
 
+        Utils.log("tap at: " + targetPos.x + ", " + targetPos.y + ", " + offset.x + ", " + offset.y);
+        
         this.tapArea.x = targetPos.x + offset.x;
         this.tapArea.y = targetPos.y + offset.y;
 
@@ -403,6 +405,7 @@ class GuideView extends egret.DisplayObjectContainer {
     // 指引点击地图上的目标选择格子同时有对话
     public async tapSelGridWithDialog(gx:number, gy:number, tex:string, name:string, str:string, x:number, y:number, onLeft:boolean = true, flipAvatar:boolean = false) {
         var g = this.bv.selView.getGridByPos(gx, gy);
+        Utils.log("tap at logic: " + gx + ", " + gy);
         await this.tapWithDialog(g, tex, name, str, x, y, onLeft, flipAvatar);
     }
 
