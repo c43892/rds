@@ -75,6 +75,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
         this.wmv.selRelic = async (elems, funcOnClinked, title, tip) => await this.openAllElemsView(elems, funcOnClinked, title, tip);
         this.wmv.openPlayerDieView = async () => await this.openPlayerDieView();
+        this.wmv.openFinishGameView = async () => await this.openFinishGameView();
         this.wmtv = new WorldMapTopView(w, 80);
         this.wmtv.openSettingView = async () => await this.openSettingView();
         this.wmv.wmtv = this.wmtv;
@@ -411,6 +412,15 @@ class MainView extends egret.DisplayObjectContainer {
     public async openPlayerDieView() {
         Utils.savePlayer(undefined);
         await this.confirmOkYesNo("<font color=#7d0403 size=30>不幸死亡</font>", "<font color=#000000 size=20>有些情况你也许可以复活</font>", false);
+        this.p = undefined;
+        await this.av.blackIn();
+        await this.openStartup(undefined);
+    }
+
+    // 打开通关界面
+    public async openFinishGameView(){
+        Utils.savePlayer(undefined);
+        await this.confirmOkYesNo("<font color=#7d0403 size=30>恭喜你,通关了</font>", "<font color=#000000 size=20>开始下一次毛线吧</font>", false);
         this.p = undefined;
         await this.av.blackIn();
         await this.openStartup(undefined);

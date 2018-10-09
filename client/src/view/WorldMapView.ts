@@ -17,6 +17,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
     public confirmOkYesNo; // yesno 确认
     public selRelic; // 选择遗物
     public openPlayerDieView; // 角色死亡
+    public openFinishGameView; // 通关
 
     private wmesFact:WorldMapEventSelFactory;
 
@@ -490,10 +491,14 @@ class WorldMapView extends egret.DisplayObjectContainer {
             if(this.player.currentStoreyPos.lv >= this.player.worldmap.cfg.totalLevels){
                 this.player.finishedWorldMap.push(this.worldmap.cfg.name);
                 var newtWorldName = this.worldmap.cfg.nextWorld;
-                var newWorld = WorldMap.buildFromConfig(newtWorldName, this.player);
-                this.player.goToNewWorld(newWorld);
-                this.setWorldMap(p.worldmap);
-                await (<AniView>AniUtils.ac).doWorldMapSlide(1);
+                if(newtWorldName){
+                    var newWorld = WorldMap.buildFromConfig(newtWorldName, this.player);
+                    this.player.goToNewWorld(newWorld);
+                    this.setWorldMap(p.worldmap);
+                    await (<AniView>AniUtils.ac).doWorldMapSlide(1);
+                }
+                else 
+                    await this.openFinishGameView();
             }
             else
                 this.refresh();
