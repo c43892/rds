@@ -679,6 +679,7 @@ class AniView extends egret.DisplayObjectContainer {
                     {type:"tr", fa:1, ta:3, time:75},
                     {type:"tr", fa:3, ta:1, time:75}
                 ], obj:this.bv.hpBar, noWait:true});
+                this.bv.refreshHpAt();
             }
             default:
         }
