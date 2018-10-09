@@ -106,7 +106,7 @@ class ItemFactory {
             e.canUse = () => true;
             e.use = async () => {
                 var bt = e.bt();
-                await bt.implAddDeathGodStep(15, e);
+                await bt.implAddDeathGodStep(10, e);
             }
 
             return e;
