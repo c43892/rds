@@ -6,9 +6,9 @@
         "occupations":["Nurse"]
     },
     "Hawkeye":{"name":"鹰眼"},
-    "TimeMachine":{"name":"时光机", "deathGodBackStep":15,
+    "TimeMachine":{"name":"时光机", "deathGodBackStep":5,
         "reinforce":[
-            {"deathGodBackStep":20}, {"deathGodBackStep":25}, {"deathGodBackStep":30}, {"deathGodBackStep":35}
+            {"deathGodBackStep":10}, {"deathGodBackStep":15}, {"deathGodBackStep":20}, {"deathGodBackStep":25}
         ]
     },
     "Endurance":{"name":"耐力", "dMaxHp":5, 
@@ -23,7 +23,7 @@
     },
     "Agile":{"name":"机敏", "dDodge":10,
     "reinforce":[
-            {"dDodge":15}, {"dDodge":20}, {"dDodge":25}, {"dDodge":30}
+            {"dDodge":20}, {"dDodge":30}, {"dDodge":40}, {"dDodge":50}
         ]
     },
     "Fierce":{"name":"凶暴", "dSneakCritical":5,
@@ -173,7 +173,7 @@
         "repRes":["Apple1", "Apple2", "Apple3"]},
     "Steak":{"name":"牛排", "cnt":3, "dhp":2, "useWithoutConfirm":true, "tags":["food"],
         "repRes":["Steak1", "Steak2", "Steak3"]},
-    "Knife":{"name":"小刀", "useWithTarget":true, "validTarget":"markedHazardMonster|uncoveredHazardMonster|uncoverable", "power":3},
+    "Knife":{"name":"小刀", "useWithTarget":true, "validTarget":"markedHazardMonster|uncoveredHazardMonster|uncoverable", "power":4},
     "SmallRock":{"name":"石块", "useWithTarget":true, "validTarget":"markedHazardMonster|uncoveredHazardMonster|uncoverable", "power":1},
     "IceBlock":{"name":"冰块", "cnt":2, "useWithoutConfirm":true, "repRes":["IceBlock1", "IceBlock2"], "addInEffect":"noEffect"},    
     "Bazooka":{"name":"火箭筒", "canOverlap":true, "useWithTarget":true, "cd":5,
