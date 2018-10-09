@@ -264,7 +264,7 @@ class TurntableView extends egret.DisplayObjectContainer {
         this.tipReward.width = this.tipReward.height = 84;
         if(e.type != "Coins"){
             this.tipReward.touchEnabled = true;
-            this.tipReward.addEventListener(egret.TouchEvent.TOUCH_TAP, async () => await TurntableView.showElemDesc(e), this);
+            this.tipReward.addEventListener(egret.TouchEvent.TOUCH_TAP, () => TurntableView.showElemDesc(e), this);
         }
         else this.tipReward.touchEnabled = false;
         return true;

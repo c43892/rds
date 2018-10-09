@@ -403,7 +403,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
     }
 
     public startNewBattle; // 开启一场新战斗
-    async onTouchGrid(evt:egret.TouchEvent) {
+    onTouchGrid(evt:egret.TouchEvent) {
 
         var bmp = evt.target;
         if (!(bmp instanceof egret.Bitmap))

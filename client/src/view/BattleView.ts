@@ -70,7 +70,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.deathGodStepBtn.width = 50;
         this.deathGodStepBtn.height = 50;
         this.deathGodStepBtn.touchEnabled = true;
-        this.deathGodStepBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, async (evt:egret.TouchEvent) => await this.showDeathGodStep(evt), this);
+        this.deathGodStepBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, (evt:egret.TouchEvent) => this.showDeathGodStep(evt), this);
         this.addChild(this.deathGodStepBtn);
         
         ViewUtils.multiLang(this, this.deathGodBarBg, this.deathGodBar, this.effDeathGodRed, this.effDeathGodGray);
@@ -527,9 +527,9 @@ class BattleView extends egret.DisplayObjectContainer {
         return r;
     }
 
-    public async showDeathGodStep(evt:egret.TouchEvent){
+    public showDeathGodStep(evt:egret.TouchEvent){
         var tip = ViewUtils.formatString(ViewUtils.getTipText("showDeathGodStep"), this.player.deathStep);
-        await this.confirmOkYesNo("", tip, false);
+        this.confirmOkYesNo("", tip, false);
     }
 
     // 刷新特殊元素提示

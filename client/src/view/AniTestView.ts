@@ -7,9 +7,7 @@ constructor(w, h) {
             this.deathGodBar, this.effDeathGodRed, this.effDeathGodGray, this.relicsBg, this.moreRelics);
 
         this.bg.touchEnabled = true;
-        this.bg.addEventListener(egret.TouchEvent.TOUCH_TAP, async () => {
-            await this.playAniTest();
-        }, this);
+        this.bg.addEventListener(egret.TouchEvent.TOUCH_TAP, () => this.playAniTest(), this);
 
         AniUtils.ac = this;
     }
