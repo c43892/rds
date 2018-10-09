@@ -535,7 +535,7 @@ class GridView extends egret.DisplayObjectContainer {
                 var tipPos = AniUtils.ani2global(this);
                 tipPos.x += this.width / 2;
                 tipPos.y += this.height / 2;
-                await AniUtils.tipAt(ViewUtils.getTipText("press2Unblock"), tipPos, 30, 0xffffff);
+                AniUtils.tipAt(ViewUtils.getTipText("press2Unblock"), tipPos, 30, 0xffffff);
             }
             break;
             case GridStatus.Covered:

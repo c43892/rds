@@ -177,7 +177,7 @@ class ViewUtils {
     }
 
     // 创建一个显示文本
-    public static createTextField(size:number, color:number, alignCenter:boolean = true, vAlignMiddle:boolean = true) {
+    public static createTextField(size:number, color:number, alignCenter:boolean = true, vAlignMiddle:boolean = true):egret.TextField {
         var t = new egret.TextField();
         t.fontFamily = "Microsoft YaHei";
         t.size = size;

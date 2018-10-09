@@ -51,7 +51,7 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
         this.btnOk = new TextButtonWithBg("lvBtnOk_png");
         this.btnOk.name = "btnOk";
         this.btnOk.setFloatingEffectBg("lvBtnOkBg_png", 10);
-        this.btnOk.onClicked = async () => await this.doSel(this.choices[this.curSel]);
+        this.btnOk.onClicked = () => this.doSel(this.choices[this.curSel]);
         this.btnSels.forEach((btn, i) => btn.onClicked = (() => () => this.setCurSel(i))());
         ViewUtils.multiLang(this, this.bg, this.lvBg, this.lvBg2, this.btnOk, this.lvTxt,
             this.btnSels[0], this.btnSels[1], this.btnSels[2], 
@@ -73,7 +73,7 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
             this.removeChild(this.btnOk); // 至少选择一个遗物后再出现该按钮
         }
         return new Promise<string>((resolve, reject) => {
-            this.doSel = async (r) => {
+            this.doSel = (r) => {
                 resolve(r);
             };
         });

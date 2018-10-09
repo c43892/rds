@@ -942,7 +942,7 @@ class Battle {
 
     // 怪物进行偷袭
     public async implMonsterSneak(m:Monster, sneakAct, isNormalAttack:boolean) {
-        var sneakPs = {immunized:false}; // 可能被免疫
+        var sneakPs = {immunized:false, m:m}; // 可能被免疫
         await this.fireEvent("onSneaking", {m:m, isNormalAttack:isNormalAttack});
         await this.triggerLogicPoint("onSneaking", sneakPs);
         if (!sneakPs.immunized) {
