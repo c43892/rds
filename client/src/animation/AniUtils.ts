@@ -230,8 +230,8 @@ class AniUtils {
             var fp = {x:obj.x, y:obj.y};
             var tp = {x:fp.x, y:fp.y - 25};
             var aniCfg = {type:"seq", arr:[
-                {type:"tr", fx:fp.x, fy:fp.y, tx:tp.x, ty:tp.y, time:750, mode:egret.Ease.quadInOut, noWait:true},
-                {type:"tr", fx:tp.x, fy:tp.y, tx:fp.x, ty:fp.y, time:750, mode:egret.Ease.quadInOut, noWait:true},
+                {type:"tr", fx:fp.x, fy:fp.y, tx:tp.x, ty:tp.y, time:750, mode:egret.Ease.quadInOut},
+                {type:"tr", fx:tp.x, fy:tp.y, tx:fp.x, ty:fp.y, time:750, mode:egret.Ease.quadInOut},
             ], noWait:true, obj:obj};
 
             var createAni = () => {
@@ -245,37 +245,37 @@ class AniUtils {
     }
 
     // 原地转动一下
-    public static async rotate(obj:egret.DisplayObject) {
+    public static async rotate(obj:egret.DisplayObject, noWait) {
         var rev = AniUtils.reserveObjTrans(obj);
-        await AniUtils.aniFact.createAniByCfg({type:"tr", fr:0, tr:90, time:100, noWait:true, obj:obj});
+        await AniUtils.aniFact.createAniByCfg({type:"tr", fr:0, tr:90, time:100, noWait:noWait, obj:obj});
         rev();
     }
 
     // 原地转动一下再恢复，比如警棍在玩家攻击时的效果
-    public static async rotateAndBack(obj:egret.DisplayObject) {
+    public static async rotateAndBack(obj:egret.DisplayObject, noWait) {
         var rev = AniUtils.reserveObjTrans(obj);
         await AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
-            {type:"tr", fr:0, tr:90, time:100, noWait:true},
-            {type:"tr", fr:90, tr:0, time:100, noWait:true},
-        ], noWait:true, obj:obj})
+            {type:"tr", fr:0, tr:90, time:100},
+            {type:"tr", fr:90, tr:0, time:100},
+        ], noWait:noWait, obj:obj})
         rev();
     }
 
     // 模拟反转效果
-    public static async turnover(obj:egret.DisplayObject, onMiddle) {
+    public static async turnover(obj:egret.DisplayObject, onMiddle, noWait) {
         var rev = AniUtils.reserveObjTrans(obj);
         var sx = obj.scaleX;
         var y = obj.y;
         await AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
-            {type:"tr", fsx:sx, tsx:0, fy:y, ty:y-15, time:150, noWait:true},
+            {type:"tr", fsx:sx, tsx:0, fy:y, ty:y-15, time:150},
             {type:"op", op:onMiddle},
-            {type:"tr", fsx:0, tsx:sx, fy:y-15, ty:y, time:150, noWait:true},
-        ], noWait:true, obj:obj});
+            {type:"tr", fsx:0, tsx:sx, fy:y-15, ty:y, time:150},
+        ], noWait:noWait, obj:obj});
         rev();
     }
 
     // 闪烁消失
-    public static async flashOut(obj:egret.DisplayObject) {
+    public static async flashOut(obj:egret.DisplayObject, noWait) {
         await AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
             {type:"tr", fa:1, ta:3, time:100},
             {type:"tr", fa:3, ta:1, time:100},
@@ -292,34 +292,33 @@ class AniUtils {
             {type:"tr", fa:1, ta:3, time:10},
             {type:"tr", fa:3, ta:1, time:10},
             {type:"tr", fa:1, ta:3, time:5},
-        ], noWait:true, obj:obj})
+        ], noWait:noWait, obj:obj})
     }
 
     // 在指定位置冒出一个文字提示
-    public static async tipAt(str:string, pos, size = 25, color = 0xffffff, delay = 700) {
+    public static tipAt(str:string, pos, size = 25, color = 0xffffff, delay = 700) {
         var tip = ViewUtils.createTextField(size, color);
         tip.textFlow = ViewUtils.fromHtml(str);
         AniUtils.ac.addChild(tip);
         tip.anchorOffsetX = tip.width / 2;
         tip.x = pos.x;
         tip.y = pos.y;
-        await AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
-            {type:"tr", fa:0, ta:1, fy:pos.y, ty:pos.y-25, time:150, noWait:true},
-            {type:"delay", time:delay, noWait:true},
-            {type:"tr", fa:1, ta:0, fy:pos.y-25, ty:pos.y-50, time:150, noWait:true}
-        ], obj:tip, noWait:true});
-        AniUtils.ac.removeChild(tip);
+        AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
+            {type:"tr", fa:0, ta:1, fy:pos.y, ty:pos.y-25, time:150},
+            {type:"delay", time:delay},
+            {type:"tr", fa:1, ta:0, fy:pos.y-25, ty:pos.y-50, time:150}
+        ], obj:tip, noWait:true}).then(() => AniUtils.ac.removeChild(tip));
     }
 
     
 
     // 闪烁一下，比如满血的时候吃食物，表示食物不能使用的效果
-    public static async flash(obj:egret.DisplayObject, t:number) {
+    public static async flash(obj:egret.DisplayObject, t:number, noWait) {
         var x = obj.x;
         await AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
             {type:"tr", fa:1, ta:3, time:t},
             {type:"tr", fa:3, ta:1, time:t},
-        ], noWait:true, obj:obj})
+        ], noWait:noWait, obj:obj})
     }
 
     // 闪一下并抖一下
@@ -341,38 +340,37 @@ class AniUtils {
     }
 
     // 向右跳动着飘一个提示
-    public static async jumpingTip(str:string, pos) {
-        var tip = ViewUtils.createTextField(30, 0x000000);
+    public static jumpingTip(str:string, pos) {
+        var tip = ViewUtils.createTextField(30, 0xCC0000);
         tip.textFlow = ViewUtils.fromHtml(str);
         AniUtils.ac.addChild(tip);
         var x = pos.x;
         var y = pos.y;
         tip.x = x;
         tip.y = y;
-        await AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
+        AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
             {type:"gp", arr:[
-                {type:"tr", fa:0, ta:1, time:100, noWait:true},
-                {type:"tr", fx:x, tx:x+25, time:200, noWait:true},
-                {type:"tr", fy:y, ty:y+50, time:200, mode:egret.Ease.sineIn, noWait:true}
-            ], noWait:true},
+                {type:"tr", fa:0, ta:1, time:100},
+                {type:"tr", fx:x, tx:x+25, time:200},
+                {type:"tr", fy:y, ty:y+50, time:200, mode:egret.Ease.sineIn}
+            ]},
             {type:"gp", arr:[
-                {type:"tr", fx:x+25, tx:x+50, time:200, noWait:true},
-                {type:"tr", fy:y+50, ty:y, time:200, mode:egret.Ease.sineOut, noWait:true}
-            ], noWait:true},
+                {type:"tr", fx:x+25, tx:x+50, time:200},
+                {type:"tr", fy:y+50, ty:y, time:200, mode:egret.Ease.sineOut}
+            ]},
             {type:"gp", arr:[
-                {type:"tr", fx:x+50, tx:x+75, time:200, noWait:true},
-                {type:"tr", fy:y, ty:y+50, time:200, mode:egret.Ease.sineIn, noWait:true}
-            ], noWait:true},
+                {type:"tr", fx:x+50, tx:x+75, time:200},
+                {type:"tr", fy:y, ty:y+50, time:200, mode:egret.Ease.sineIn}
+            ]},
             {type:"gp", arr:[                
-                {type:"tr", fa:1, ta:0, fx:x+75, tx:x+100, time:200, noWait:true},
-                {type:"tr", fy:y+50, ty:y, time:200, mode:egret.Ease.sineOut, noWait:true}
-            ], noWait:true},
-        ], obj:tip, noWait:true});
-        AniUtils.ac.removeChild(tip);
+                {type:"tr", fa:1, ta:0, fx:x+75, tx:x+100, time:200},
+                {type:"tr", fy:y+50, ty:y, time:200, mode:egret.Ease.sineOut}
+            ]},
+        ], obj:tip, noWait:true}).then(() => AniUtils.ac.removeChild(tip));
     }
 
     // 爆出来一个提示
-    public static async popupTipAt(str:string, bgTex:string, pos) {
+    public static popupTipAt(str:string, bgTex:string, pos) {
         var bg = ViewUtils.createBitmapByName(bgTex);
         bg.anchorOffsetX = bg.width / 2;
         bg.anchorOffsetY = bg.height / 2;
@@ -390,17 +388,18 @@ class AniUtils {
         AniUtils.ac.addChild(tip);
         tip.anchorOffsetX = tip.width / 2;
         tip.anchorOffsetY = tip.height / 2;
-        await AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
+        AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
             {type:"gp", arr:[
-                {type:"tr", fa:0, ta:1, time:100, obj:tip, noWait:true},
-                {type:"tr", fa:0, ta:1, time:100, obj:bg, noWait:true},
-                {type:"tr", fsx:0, tsx:1, fsy:0, tsy:1, time:100, obj:tip, noWait:true, mode:egret.Ease.quadIn},
-                {type:"tr", fsx:0, tsx:1, fsy:0, tsy:1, time:100, obj:bg, noWait:true, mode:egret.Ease.quadIn},
-            ], noWait:true},
-            {type:"delay", obj:tip, time:500, noWait:true}
-        ], noWait:true});
-        AniUtils.ac.removeChild(bg);
-        AniUtils.ac.removeChild(tip);
+                {type:"tr", fa:0, ta:1, time:100, obj:tip},
+                {type:"tr", fa:0, ta:1, time:100, obj:bg},
+                {type:"tr", fsx:0, tsx:1, fsy:0, tsy:1, time:100, obj:tip, mode:egret.Ease.quadIn},
+                {type:"tr", fsx:0, tsx:1, fsy:0, tsy:1, time:100, obj:bg, mode:egret.Ease.quadIn},
+            ]},
+            {type:"delay", obj:tip, time:500}
+        ], noWait:true}).then(() => {
+            AniUtils.ac.removeChild(bg);
+            AniUtils.ac.removeChild(tip);
+        });
     }
 
     public static async delay(time) {

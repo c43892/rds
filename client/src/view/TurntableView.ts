@@ -77,7 +77,7 @@ class TurntableView extends egret.DisplayObjectContainer {
         this.goOutBtn = new TextButtonWithBg("goForward_png", 30);
         this.goOutBtn.name = "goOutBtn";
         this.goOutBtn.text = ViewUtils.getTipText("goBackBtn");
-        this.goOutBtn.onClicked = async () => await this.onGoOut();
+        this.goOutBtn.onClicked = () => this.onGoOut();
 
         this.destination = new egret.Bitmap();
         this.destination.name = "destination";
@@ -92,7 +92,7 @@ class TurntableView extends egret.DisplayObjectContainer {
             fromImg.y = this.tipReward.y;
             fromImg.width = this.tipReward.width;
             fromImg.height = this.tipReward.height;
-            await AniUtils.flash(fromImg, 200);
+            await AniUtils.flash(fromImg, 200, false);
             var toImg = this.destination;
             await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
             fromImg["dispose"]();
@@ -264,7 +264,7 @@ class TurntableView extends egret.DisplayObjectContainer {
         this.tipReward.width = this.tipReward.height = 84;
         if(e.type != "Coins"){
             this.tipReward.touchEnabled = true;
-            this.tipReward.addEventListener(egret.TouchEvent.TOUCH_TAP, async () => await TurntableView.showElemDesc(e), this);
+            this.tipReward.addEventListener(egret.TouchEvent.TOUCH_TAP, () => TurntableView.showElemDesc(e), this);
         }
         else this.tipReward.touchEnabled = false;
         return true;

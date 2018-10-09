@@ -303,12 +303,14 @@ class MonsterFactory {
         return MonsterFactory.addSneakAI(async () => {
             // 当怪物身上有非金币的掉落物时,不要再能拿走东西.出现的话需要修改该怪物配置以避免这种情况.
             var canTake = () => {
-                if(!dropOnDie) return true;
-                else 
-                    for(var d of m.dropItems){
-                        if(d.type != "Coins") return false;
-                    }
+                if (!dropOnDie)
                     return true;
+                else
+                    for (var d of m.dropItems)
+                        if (d.type != "Coins")
+                            return false;
+
+                return true;
             };
             Utils.assert(canTake(), m.type + "has a dropItem that isn't Coins, cannot take any Item.");
             var eatNum = m.attrs.eatNum ? m.attrs.eatNum : 1;
@@ -826,10 +828,10 @@ class MonsterFactory {
                     if(poses[i].x <= kingPos.x && poses[i].y <= kingPos.y)
                         kingPos = poses[i];
                 
-                for(var p of poses){
+                for(var p of poses) {
                     await bt.implRemoveElemAt(p.x, p.y);
                     if (bt.level.map.getGridAt(p.x, p.y).isCovered())
-                        bt.uncover(p.x, p.y, true);
+                        await bt.uncover(p.x, p.y, true);
                 }
                 
                 var king = <Monster>bt.level.createElem("SlimeKing");

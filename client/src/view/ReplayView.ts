@@ -1,6 +1,5 @@
 // 测试期间用的录像界面
 class ReplayView extends egret.DisplayObjectContainer {
-
     private openBtn:egret.TextField; // 打开录像界面
     private listArea:egret.DisplayObjectContainer; // 列表区域
     private replaybg:egret.Bitmap; // 背景接受点击
@@ -25,7 +24,20 @@ class ReplayView extends egret.DisplayObjectContainer {
         this.replaybg.name = "ReplayBg";
 
         this.refresh();
-        this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchTap, this);
+        this.addEventListener(egret.TouchEvent.TOUCH_TAP, (evt) => {
+            this.eventBuffer.push(evt);
+            if (this.eventBuffer.length == 1)
+                this.playOn();
+        }, this);
+    }
+
+    eventBuffer = [];
+    async playOn() {
+        while (this.eventBuffer.length > 0) {
+            let evt = this.eventBuffer[0];
+            await this.onTouchTap(evt);
+            this.eventBuffer.pop();
+        }
     }
 
     public refresh() {        
@@ -109,7 +121,8 @@ class ReplayView extends egret.DisplayObjectContainer {
                  this.openBtn.text = "■";
             }
             else {
-                Utils.assert(!BattleRecorder.inRecording, "should be in replaying");
+                if (BattleRecorder.inRecording)
+                    return;
                 
                 var ended = await BattleRecorder.currentReplayMoveOneStep();
                 if (ended) {

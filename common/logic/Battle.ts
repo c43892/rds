@@ -191,7 +191,6 @@ class Battle {
         var e = this.level.map.getElemAt(x, y);
         if(e && (e.isBig() || e.type == "PlaceHolder"))
             await this.uncoverBigElem(x, y, suppressSneak, suppressLogicEvent, opByPlayer);
-
         else {
             var g = this.level.map.getGridAt(x, y);
             Utils.assert(g.isCovered(), "uncover action can only be implemented on a covered grid");
@@ -357,9 +356,7 @@ class Battle {
     lastEventType:string;
     public async fireEvent(eventType:string, ps = undefined) {
         if (DEBUG) {
-            if (this.lastEventType)
-                Utils.assert(false, "event overlapped: " + this.lastEventType + " => " + eventType);
-
+            Utils.assert(!this.lastEventType, "event overlapped: " + this.lastEventType + " => " + eventType);
             this.lastEventType = eventType;
         }
 
@@ -735,7 +732,8 @@ class Battle {
 
         if(!revivePs.achieve) return;
 
-        if(actBeforeRevive) actBeforeRevive();
+        if(actBeforeRevive)
+            await actBeforeRevive();
 
         var revivedE = this.level.createElem(type, attrs);
         await this.implAddElemAt(revivedE, x, y);
@@ -944,7 +942,7 @@ class Battle {
 
     // 怪物进行偷袭
     public async implMonsterSneak(m:Monster, sneakAct, isNormalAttack:boolean) {
-        var sneakPs = {immunized:false}; // 可能被免疫
+        var sneakPs = {immunized:false, m:m}; // 可能被免疫
         await this.fireEvent("onSneaking", {m:m, isNormalAttack:isNormalAttack});
         await this.triggerLogicPoint("onSneaking", sneakPs);
         if (!sneakPs.immunized) {
@@ -1177,7 +1175,7 @@ class Battle {
         Utils.assert(m.isHazard() && !m.isBoss, "only hazard monster can be charmed");
         var pos = m.pos;
         if(m.getGrid().isCovered())
-            this.uncover(pos.x, pos.y, true);
+            await this.uncover(pos.x, pos.y, true);
         
         var cm = await MonsterFactory.createCharmedMonster(m, dattrs);
         

@@ -510,7 +510,8 @@ class PlantFactory {
                 if(!attrs[type]) attrs[type] = 0;
                 attrs[type] += enhance;
             }
-            else Utils.log("can not enhance this typr:" + type);
+            else
+                Utils.log("can not enhance this typr:" + type);
         }
         
         return attrs;

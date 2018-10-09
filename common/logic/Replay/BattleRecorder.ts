@@ -59,7 +59,7 @@ class BattleRecorder {
     }
 
     // 推动录像播放前进一步
-    public static async currentReplayMoveOneStep():Promise<boolean> {
+    public static async currentReplayMoveOneStep() {
         var r = BattleRecorder.replay;
         var ops = r.ops;
         var op = ops[BattleRecorder.replayIndex++];

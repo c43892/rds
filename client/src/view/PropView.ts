@@ -126,7 +126,7 @@ class PropView extends egret.DisplayObjectContainer {
     // 点击
     static currentSelPropView;
     static selHelper = {};
-    async onTouchGrid(evt:egret.TouchEvent) {
+    onTouchGrid(evt:egret.TouchEvent) {
         if (PropView.longPressed)
             return;
 
@@ -152,18 +152,23 @@ class PropView extends egret.DisplayObjectContainer {
             var useDescArr = ViewUtils.getElemNameAndDesc(this.e.type).useDescArr;
             if (this.e.canUse()) {
                 var content = ViewUtils.formatString(ViewUtils.getTipText("makeSureUseProp"), useDescArr.name);
-                var pos = await PropView.selectGrid((x, y) => true, false, this.e, PropView.selHelper);
-                if (pos)
-                    PropView.try2UseProp(this.e);
+                PropView.selectGrid((x, y) => true, false, this.e, PropView.selHelper).then((pos) => {
+                    if (pos)
+                        PropView.try2UseProp(this.e);
+
+                    this.setEffect(!this.e.isValid() ? "invalid" : undefined);
+                    PropView.currentSelPropView = undefined;
+                });
             }
             else if (this.e.useWithTarget()) {
-                var pos = await PropView.selectGrid((x, y) => this.e.canUseAt(x, y), true, this.e, PropView.selHelper);
-                if (pos)
-                    PropView.try2UsePropAt(this.e, pos.x, pos.y);
-            }
+                PropView.selectGrid((x, y) => this.e.canUseAt(x, y), true, this.e, PropView.selHelper).then((pos) => {
+                    if (pos)
+                        PropView.try2UsePropAt(this.e, pos.x, pos.y);
 
-            this.setEffect(!this.e.isValid() ? "invalid" : undefined);
-            PropView.currentSelPropView = undefined;
+                    this.setEffect(!this.e.isValid() ? "invalid" : undefined);
+                    PropView.currentSelPropView = undefined;
+                });
+            }
         }
     }
 
@@ -182,7 +187,7 @@ class PropView extends egret.DisplayObjectContainer {
         PropView.pressTimer.start();
     }
 
-    static async onPressTimer() {
+    static onPressTimer() {
         PropView.longPressed = true;
         if (PropView.pressTimer)
             PropView.pressTimer.stop();

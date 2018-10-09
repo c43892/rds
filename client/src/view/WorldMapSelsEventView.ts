@@ -62,7 +62,7 @@ class WorldMapEventSelsView extends egret.DisplayObjectContainer {
             btn.textFlow = ViewUtils.fromHtml(sel.desc);
             btn["sel"] = sel;
             btn.enabled = sel.valid();
-            btn.onClicked = async () => await this.onSel(btn);
+            btn.onClicked = () => this.onSel(btn);
             this.addChild(btn);
             this.btnChoices.push(btn);
         });

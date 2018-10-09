@@ -44,12 +44,12 @@ class BoxRoomView extends egret.DisplayObjectContainer {
         this.openBoxBtn.anchorOffsetX = this.openBoxBtn.width / 2;
         this.openBoxBtn.anchorOffsetY = this.openBoxBtn.height / 2;
         this.openBoxBtn.name = "openBoxBtn";
-        this.openBoxBtn.onClicked = async () => await this.onOpenBox();
+        this.openBoxBtn.onClicked = () => this.onOpenBox();
 
         this.goOutBtn = new TextButtonWithBg("goForward_png", 30);
         this.goOutBtn.text = ViewUtils.getTipText("continueBtn");
         this.goOutBtn.name = "goOutBtn"
-        this.goOutBtn.onClicked = async () => await this.onClose();
+        this.goOutBtn.onClicked = () => this.onClose();
         this.goOutBtn.touchEnabled = true;
 
         this.destination = new egret.Bitmap();
@@ -148,14 +148,14 @@ class BoxRoomView extends egret.DisplayObjectContainer {
             var toImg = elemImg;
             await Utils.delay(200);
             if(i == this.elemImgs.length - 1){
-                await AniUtils.flash(fromImg, 200);            
-                await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
+                await AniUtils.flash(fromImg, 200, false);            
+                await AniUtils.fly2(fromImg, fromImg, toImg, false, 1);
                 fromImg["dispose"]();
                 elemImg.alpha = 1;
                 elemImg.touchEnabled = true;
             }
             else{
-                AniUtils.flash(fromImg, 200);
+                AniUtils.flash(fromImg, 200, false);
                 AniUtils.fly2(fromImg, fromImg, toImg, true, 1).then(() => {
                     fromImg["dispose"]();
                     elemImg.alpha = 1;
@@ -179,14 +179,16 @@ class BoxRoomView extends egret.DisplayObjectContainer {
             var toImg = this.destination;
             await Utils.delay(200);
             if(i == this.elemImgs.length - 1){
-                await AniUtils.flash(fromImg, 200);
-                await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
+                await AniUtils.flash(fromImg, 200, false);
+                await AniUtils.fly2(fromImg, fromImg, toImg, false, 1);
                 fromImg["dispose"]();
                 elemImg.touchEnabled = false;
             }
             else{
-                AniUtils.flash(fromImg, 200);
-                AniUtils.fly2(fromImg, fromImg, toImg, true, 1).then(() => fromImg["dispose"]());                
+                AniUtils.flash(fromImg, 200, false);
+                AniUtils.fly2(fromImg, fromImg, toImg, false, 1).then(() => {
+                    fromImg["dispose"]();
+                });
             }
             this.player.addItem(e);
         }

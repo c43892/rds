@@ -98,7 +98,7 @@ class RelicSelView extends egret.DisplayObjectContainer {
         this.viewContent.height = Math.floor(this.relics.length / RelicSelView.GridColNum + 1) * (gdSize + space) + space;
     }
 
-    async onTouchGrid(evt:egret.TouchEvent) {
+    onTouchGrid(evt:egret.TouchEvent) {
         var gd = evt.target;
         if (!Utils.contains(this.relicGrids, gd))
             return;

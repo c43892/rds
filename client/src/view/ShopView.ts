@@ -68,7 +68,7 @@ class ShopView extends egret.DisplayObjectContainer {
 
         this.btnRob = new TextButtonWithBg("btnRob_png", 0);
         this.btnRob.name = "btnRob";
-        this.btnRob.onClicked = async () => await this.doRob();
+        this.btnRob.onClicked = () => this.doRob();
         this.addChild(this.btnRob);
 
         ViewUtils.multiLang(this, this.bg1, ...this.grids, ...this.prices, this.btnGoBack, this.btnRob);
@@ -154,14 +154,15 @@ class ShopView extends egret.DisplayObjectContainer {
     }
 
     public static lastSelectedElemGlobalPos;
-    async onSelItem(evt:egret.TouchEvent) {
+    onSelItem(evt:egret.TouchEvent) {
         var n = evt.target["itemIndex"];
         var e = this.items[n];
-        var yesno = await this.openConfirmView(this.player, e, this.itemPrices[e.type]);
-        if (yesno) {
-            ShopView.lastSelectedElemGlobalPos = ViewUtils.getGlobalPosAndSize(this.grids[n]);
-            await this.onSel(n);
-        }
+        this.openConfirmView(this.player, e, this.itemPrices[e.type]).then((yesno) => {
+            if (yesno) {
+                ShopView.lastSelectedElemGlobalPos = ViewUtils.getGlobalPosAndSize(this.grids[n]);
+                this.onSel(n);
+            }
+        });
     }
 
     // 抢劫

@@ -217,9 +217,12 @@ class AniView extends egret.DisplayObjectContainer {
                     img.height = sv.height;
                     img.scaleX = sv.scaleX;
                     img.scaleY = sv.scaleY;
-                    await AniUtils.flash(img, 250);
-                    await this.aniFact.createAniByCfg({type:"tr", fa:1, ta:0, time:250, obj:img});
-                    img["dispose"]();
+                    AniUtils.flash(img, 250, true).then(() => {
+                        this.aniFact.createAniByCfg({type:"tr", fa:1, ta:0, time:250, obj:img}).then(() => {
+                            img["dispose"]();
+                        });
+                    });
+                    await AniUtils.delay(100);
                 }
             }
             break;
@@ -287,7 +290,7 @@ class AniView extends egret.DisplayObjectContainer {
                 fromImg.y = fromPos.y;
                 fromImg.width = fromPos.w;
                 fromImg.height = fromPos.h;
-                await AniUtils.flash(fromImg, 200);
+                await AniUtils.flash(fromImg, 200, false);
                 await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
                 fromImg["dispose"]();
             }
@@ -319,14 +322,16 @@ class AniView extends egret.DisplayObjectContainer {
         toImg.width = toImg.height = 0;
         toImg.alpha = 0;
 
-        await AniUtils.flash(fromImg, 200);
+        await AniUtils.flash(fromImg, 200, false);
         await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
         fromImg["dispose"]();
         toImg["dispose"]();
 
         // 遗物需要出个短提示
-        if (e instanceof Relic)
+        if (e instanceof Relic) {
             this.tipRelicShortDesc(e);
+            this.wmtv.refresh();
+        }
     }
 
     public get player() {
@@ -427,10 +432,9 @@ class AniView extends egret.DisplayObjectContainer {
             // 翻转表达冷却效果
             if ((e.cd > 0 && ps.priorCD <= 0)
                 || (e.cd <= 0 && ps.priorCD > 0)) {
-                // 这个效果不等待
                 await AniUtils.turnover(g, () => {
                     this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
-                });
+                }, false);
             }
             else
                 this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
@@ -444,7 +448,7 @@ class AniView extends egret.DisplayObjectContainer {
         var e = ps.e;
         var g = this.getSV(e);
         if (e.type == "ShopNpc" && (<Monster>e).isDead()) // 商人使用后闪烁消失
-            await AniUtils.flashOut(g);
+            await AniUtils.flashOut(g, false);
 
         g["resetSelf"]();
     }
@@ -530,10 +534,29 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 披风生效
     public async onCloakImmunizeSneak(ps) {
-        var e = ps.e;
+        var e:Elem = ps.e;
+        var m = ps.m;
         var sv = this.getSV(e);
-        await AniUtils.flashOut(sv);
-        sv["resetSelf"]();
+        var msv = this.getSV(m);
+        var toPos = AniUtils.ani2global(msv);
+        await AniUtils.flashOut(sv, false);
+        await AniUtils.flyAndFadeout(sv, toPos, 500, 1, 1, 0, egret.Ease.cubicIn);
+        sv.alpha = 0;
+        var img = AniUtils.createImg(e.getElemImgRes() + "_png");
+        img.anchorOffsetX = img.width / 2;
+        img.anchorOffsetY = img.height / 2;
+        img.x = toPos.x;
+        img.y = toPos.y;
+        img.alpha = 1;
+        img.scaleX = img.scaleY = 1;
+        this.aniFact.createAni("tr", {
+            obj:img, time: 2000,
+            tsx:5, tsy:5, ta:0, mode:egret.Ease.backOut, noWait:true
+        }).then(() => {
+            img["dispose"]();
+            sv["resetSelf"]();
+        });
+        await AniUtils.delay(500);
     }
 
     // 死神步数发生变化
@@ -826,7 +849,7 @@ class AniView extends egret.DisplayObjectContainer {
             var items = this.bv.mapView.getGridViewsWithElem((e:Elem) => Utils.contains(itemTypes, e.type) && e.isValid());
             var aniArr = [];
             for (var it of items) {
-                var ani = AniUtils.rotateAndBack(it.getShowLayer());
+                var ani = AniUtils.rotateAndBack(it.getShowLayer(), true);
                 aniArr.push(ani);
             }
 
@@ -1333,7 +1356,7 @@ class AniView extends egret.DisplayObjectContainer {
         var relics = this.bv.relics;
         var relicImg = this.getBitmapOfRelic(ps.r);
         if(relicImg)
-            await AniUtils.flash(relicImg, 200);
+            await AniUtils.flash(relicImg, 200, false);
     }
 
     // 耿鬼长舌头攻击动画

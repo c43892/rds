@@ -43,15 +43,15 @@ class SettingView extends egret.DisplayObjectContainer{
 
         this.relicsBtn = new TextButtonWithBg("stSkill_png");
         this.relicsBtn.name = "relicsBtn";
-        this.relicsBtn.onClicked = async () => await this.openAllRelicsView(this.player.allRelics);
+        this.relicsBtn.onClicked = () => this.openAllRelicsView(this.player.allRelics);
 
         this.propsBtn = new TextButtonWithBg("stItem_png");
         this.propsBtn.name = "propsBtn";
-        this.propsBtn.onClicked = async () => await this.openAllPropsView(this.player.props);
+        this.propsBtn.onClicked = () => this.openAllPropsView(this.player.props);
 
         this.exitBtn = new TextButtonWithBg("stExit_png");
         this.exitBtn.name = "exitBtn";
-        this.exitBtn.onClicked = async () => await this.exitThisGame();
+        this.exitBtn.onClicked = () => this.exitThisGame();
 
         this.goBackBtn = new TextButtonWithBg("goBack_png", 30);
         this.goBackBtn.text = ViewUtils.getTipText("goBackBtn");
