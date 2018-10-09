@@ -157,6 +157,12 @@ class Utils {
         return new Promise<void>(resolve => setTimeout(resolve, ms));
     }
 
+    // 等待条件
+    public static async waitUtil(f) {
+        while (!f())
+            await Utils.delay(1);
+    }
+
     // log 多个参数
     public static log(...params:any[]) { console.log(Utils.logStr(...params)); }
     static logStr(...params:any[]):string {

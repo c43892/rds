@@ -121,8 +121,6 @@ class GuideView extends egret.DisplayObjectContainer {
     tapOrPressPrepare(target:egret.DisplayObject, tapOrPress:boolean, offset = {x:0, y:0}) {
         this.tapTarget = target;
         var targetPos = AniUtils.ani2global(target);
-
-        Utils.log("tap at: " + targetPos.x + ", " + targetPos.y + ", " + offset.x + ", " + offset.y);
         
         this.tapArea.x = targetPos.x + offset.x;
         this.tapArea.y = targetPos.y + offset.y;
@@ -405,7 +403,6 @@ class GuideView extends egret.DisplayObjectContainer {
     // 指引点击地图上的目标选择格子同时有对话
     public async tapSelGridWithDialog(gx:number, gy:number, tex:string, name:string, str:string, x:number, y:number, onLeft:boolean = true, flipAvatar:boolean = false) {
         var g = this.bv.selView.getGridByPos(gx, gy);
-        Utils.log("tap at logic: " + gx + ", " + gy);
         await this.tapWithDialog(g, tex, name, str, x, y, onLeft, flipAvatar);
     }
 
@@ -440,6 +437,7 @@ class GuideView extends egret.DisplayObjectContainer {
         // await this.pressGridWithDialog(0, 2, "GoblinThief", "哥布林", "我就测试一下说话的同时指引点击", 140, 500, true);
         await this.showDialog("Nurse", "护士", "做的不错，你发现了一把匕首，当你无法确定时，可以用匕首来探路", 0, 500, true);
         await this.tapGridWithDialog(0, 0, "Nurse", "护士", "捡起匕首，我们来用它探路", 0, 500, true);
+        await this.showDialog("Nurse", "护士", "干得不错", 0, 500, true);
         await this.tapSelGridWithDialog(0, 1, "Nurse", "护士", "好的，你成功了！下来让我们攻击一个格子", 0, 500, true);
         await this.showDialog("Nurse", "护士", "看来我们遇到了对手", 0, 500, true);
         await this.showDialog("Nurse", "护士", "怪物的详细信息可以通过长按来查看", 0, 500, true);
