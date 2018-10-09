@@ -96,7 +96,7 @@ class GridView extends egret.DisplayObjectContainer {
         this.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, (evt) => GridView.onEvent(gv, "onTouchEnd", evt), this);
     }
 
-    static onEvent(gv, eventType, evt) {
+    public static onEvent(gv, eventType, evt) {
         GridView.eventBuffer.push({gv:gv, type:eventType, evt:evt});
         if (GridView.eventBuffer.length == 1)
             GridView.playOn();
@@ -110,7 +110,6 @@ class GridView extends egret.DisplayObjectContainer {
             let eventType = e.type;
             let evt:TouchEvent = e.evt;
             await gv[eventType](evt);
-            // gv[eventType](evt);
             GridView.eventBuffer.shift();
             if (eventType == "onTouchEnd")
                 GridView.eventBuffer = [];
@@ -779,7 +778,9 @@ class GridView extends egret.DisplayObjectContainer {
             GridView.pressTimer.stop();
 
         if (!GridView.dragging) {
-            await this.onTouchGrid(evt);
+            if (!evt.data || !evt.data.noTap)
+                await this.onTouchGrid(evt);
+
             return;
         }
 
