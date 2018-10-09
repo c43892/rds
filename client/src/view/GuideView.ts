@@ -175,9 +175,18 @@ class GuideView extends egret.DisplayObjectContainer {
             this.onTapped = (evt:egret.TouchEvent) => {
                 if (this.forGuideType != "tap" || !this.tapTarget.hitTestPoint(evt.stageX, evt.stageY)) return;
                 rev();
-                egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_TAP,
-                    evt.bubbles, evt.cancelable,
-                    evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
+
+                if (target instanceof GridView) {
+                    egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_BEGIN,
+                        evt.bubbles, evt.cancelable,
+                        evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
+                    egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_END,
+                        evt.bubbles, evt.cancelable,
+                        evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
+                } else
+                    egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_TAP,
+                        evt.bubbles, evt.cancelable,
+                        evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
                 r();
                 this.onTapped = undefined; 
             };
@@ -357,17 +366,18 @@ class GuideView extends egret.DisplayObjectContainer {
                 rev2();
                 rev1();
 
-                egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_BEGIN,
-                    evt.bubbles, evt.cancelable,
-                    evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
+                if (this.tapTarget instanceof GridView) {
+                    egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_BEGIN,
+                        evt.bubbles, evt.cancelable,
+                        evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
 
-                egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_END,
-                    evt.bubbles, evt.cancelable,
-                    evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
-
-                egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_TAP,
-                    evt.bubbles, evt.cancelable,
-                    evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
+                    egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_END,
+                        evt.bubbles, evt.cancelable,
+                        evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
+                } else
+                    egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_TAP,
+                        evt.bubbles, evt.cancelable,
+                        evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
 
                 r();
                 this.onTapped = undefined; 

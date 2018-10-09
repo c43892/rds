@@ -36,7 +36,7 @@ class ReplayView extends egret.DisplayObjectContainer {
         while (this.eventBuffer.length > 0) {
             let evt = this.eventBuffer[0];
             await this.onTouchTap(evt);
-            this.eventBuffer.pop();
+            this.eventBuffer.shift();
         }
     }
 

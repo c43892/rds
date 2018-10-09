@@ -110,7 +110,8 @@ class GridView extends egret.DisplayObjectContainer {
             let eventType = e.type;
             let evt:TouchEvent = e.evt;
             await gv[eventType](evt);
-            GridView.eventBuffer.pop();
+            // gv[eventType](evt);
+            GridView.eventBuffer.shift();
             if (eventType == "onTouchEnd")
                 GridView.eventBuffer = [];
         }
