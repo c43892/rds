@@ -42,7 +42,10 @@ class GuideView extends egret.DisplayObjectContainer {
     onLongPressed;
     touchBegin(evt:egret.TouchEvent) {
         if (this.forGuideType != "press") return;
-        egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_BEGIN,
+        if (this.tapTarget instanceof GridView)
+            GridView.onEvent(this.tapTarget, "onTouchBegin", evt);
+        else
+            egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_BEGIN,
             evt.bubbles, evt.cancelable,
             evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
     }
@@ -56,9 +59,14 @@ class GuideView extends egret.DisplayObjectContainer {
 
     touchEnd(evt:egret.TouchEvent) {
         if (this.forGuideType != "press") return;
-        egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_END,
-            evt.bubbles, evt.cancelable,
-            evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
+        if (this.tapTarget instanceof GridView) {
+            evt.data = {noTap:true};
+            GridView.onEvent(this.tapTarget, "onTouchEnd", evt);
+        }
+        else
+            egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_END,
+                evt.bubbles, evt.cancelable,
+                evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
     }
 
     // 注册所有可能触发指引的事件
@@ -175,9 +183,18 @@ class GuideView extends egret.DisplayObjectContainer {
             this.onTapped = (evt:egret.TouchEvent) => {
                 if (this.forGuideType != "tap" || !this.tapTarget.hitTestPoint(evt.stageX, evt.stageY)) return;
                 rev();
-                egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_TAP,
-                    evt.bubbles, evt.cancelable,
-                    evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
+
+                if (target instanceof GridView) {
+                    egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_BEGIN,
+                        evt.bubbles, evt.cancelable,
+                        evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
+                    egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_END,
+                        evt.bubbles, evt.cancelable,
+                        evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
+                } else
+                    egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_TAP,
+                        evt.bubbles, evt.cancelable,
+                        evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
                 r();
                 this.onTapped = undefined; 
             };
@@ -357,17 +374,18 @@ class GuideView extends egret.DisplayObjectContainer {
                 rev2();
                 rev1();
 
-                egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_BEGIN,
-                    evt.bubbles, evt.cancelable,
-                    evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
+                if (this.tapTarget instanceof GridView) {
+                    egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_BEGIN,
+                        evt.bubbles, evt.cancelable,
+                        evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
 
-                egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_END,
-                    evt.bubbles, evt.cancelable,
-                    evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
-
-                egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_TAP,
-                    evt.bubbles, evt.cancelable,
-                    evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
+                    egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_END,
+                        evt.bubbles, evt.cancelable,
+                        evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
+                } else
+                    egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_TAP,
+                        evt.bubbles, evt.cancelable,
+                        evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
 
                 r();
                 this.onTapped = undefined; 
