@@ -58,10 +58,29 @@ class AllElemsView extends egret.DisplayObjectContainer {
     public async open(elems:Elem[], funcOnClinked = undefined, title:string = undefined, tip:string = undefined) {
         this.funcOnClinked = funcOnClinked;
         this.tip = tip;
-        this.refresh(elems, title);
+
+        if (elems.length > 0) {
+            if (elems[0] instanceof Relic)
+                this.refreshRelics(elems, title);
+            else
+                this.refreshProps(elems, title);
+        }
+
         return new Promise<number>((resolve, reject) => {
             this.doClose = resolve;
         });
+    }
+
+    showRelicsEquippedOrInBag = true; // true: equipped, false: inBag
+    refreshRelics(elems:Elem[], title:string) {
+        var rs = Utils.filter(elems, (r:Relic) => 
+            Utils.contains(this.player.relicsEquipped, r) == this.showRelicsEquippedOrInBag);
+
+        this.refresh(rs, title);
+    }
+
+    refreshProps(elems:Elem[], title:string) {
+        this.refresh(elems, title);
     }
 
     readonly ColNum = 4; // 每一行 4 个
@@ -140,7 +159,6 @@ class AllElemsView extends egret.DisplayObjectContainer {
             case "selRelic":{
                 var n = Utils.indexOf(this.player.relicsEquipped, (r:Relic) => r.type == g["elem"].type);
                 var r = <Relic>ElemFactory.create(e.type);
-                // var r = (<Relic>ElemFactory.create(e.type)).toRelic(this.player);
                 var yesno = await this.openCompareRelicView(this.player, r, undefined, false);
                 if(yesno)
                     this.doClose(n);
