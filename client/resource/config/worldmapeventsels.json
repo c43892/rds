@@ -37,7 +37,8 @@
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit", "redirectSelGroup"],
                 "ps": {"group": "a12"}
-            }]
+            }],
+            "globalCountMax":1
         },
         "a11": {
             "title": "闪耀之光",

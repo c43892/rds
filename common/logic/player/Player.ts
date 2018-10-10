@@ -6,7 +6,7 @@ class Player {
     private static serializableFields = [
         "currentStoreyPos", "finishedStoreyPos", "finishedWorldMap", "finishedEvent", "battleRandomSeed",  
         "deathStep", "maxDeathStep", "hp", "maxHp", "power", "defence", "dodge", 
-        "occupation", "exp", "lv", "money"];
+        "occupation", "exp", "lv", "money", "globalEventFinishedCount"];
 
     // 所属战斗
     private $$bt;
@@ -29,6 +29,7 @@ class Player {
     public finishedStoreyPos; // 已经完成的世界地图节点
     public finishedWorldMap:string[] = []; // 已经完成的世界
     public finishedEvent = [];
+    public globalEventFinishedCount = {}; // 全局事件计数
 
     // 重新创建角色
     public static createTestPlayer():Player {

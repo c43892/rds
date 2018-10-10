@@ -510,8 +510,18 @@ class WorldMapView extends egret.DisplayObjectContainer {
         var es = this.worldmap.cfg.events;
         var events = {};
         for(var event in es){
-            if(Utils.indexOf(this.player.finishedEvent, (e) => e == event) == -1)
-                events[event] = es[event];
+            // 当前地图只完成一次的移除掉
+            if (Utils.contains(this.player.finishedEvent, event))
+                continue;
+
+            // 达到全局次数限制的移除掉
+            if (GCfg.getWorldMapEventSelGroupsCfg[event]) {
+                var globalCountMax = GCfg.getWorldMapEventSelGroupsCfg[event].globalCountMax;
+                if (globalCountMax && this.player.globalEventFinishedCount[event] && this.player.globalEventFinishedCount[event] >= globalCountMax)
+                    continue;
+            }
+
+            events[event] = es[event];
         }
 
         var evt = Utils.randomSelectByWeight(events, this.player.playerRandom, 1, 2)[0];
@@ -544,6 +554,11 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
                 // 这一类事件是出现一次就不在出现
                 this.player.finishedEvent.push(evt);
+
+                // 全局次数限制
+                var globalCnt = this.player.globalEventFinishedCount[evt];
+                this.player.globalEventFinishedCount[evt] = globalCnt ? globalCnt + 1 : 1;
+                    
             }
         }
     }
