@@ -191,7 +191,7 @@ class RelicFactory {
                 }
                 ElemFactory.addAI("onElemChanged", async () => {
                     await r.bt().implAddPlayerExp(attrs.dexp, r.pos);
-                }, r, (ps) => ps.subType = "die" && ps.e instanceof Monster && ps.e.isHazard())
+                }, r, (ps) => ps.subType == "die" && ps.e instanceof Monster && ps.e.isHazard())
             })
         },
 

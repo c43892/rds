@@ -39,7 +39,7 @@ class PropFactory {
                     e.resetCD();
                     e.cnt--;
                     var bt = e.bt();
-                    await bt.implAddBuff(bt.player, "BuffAddHp", e.attrs.rounds, e.attrs.heal);
+                    await bt.implAddPlayerHp(e.attrs.heal, e);
                     return e.cnt > 0;
                 };
                 return e;

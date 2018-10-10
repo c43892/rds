@@ -91,7 +91,6 @@
             {"type":"coins", "attrs":10, "weight":10},
             {"type":"item", "attrs":"ttrdp2", "weight":10},
             {"type":"item", "attrs":"ttrdp2", "weight":10}
-        ],
-        "nextWorld":"world1"
+        ]
     }
 }
