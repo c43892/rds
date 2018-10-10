@@ -515,9 +515,12 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 continue;
 
             // 达到全局次数限制的移除掉
-            if (GCfg.getWorldMapEventSelGroupsCfg[event]) {
-                var globalCountMax = GCfg.getWorldMapEventSelGroupsCfg[event].globalCountMax;
-                if (globalCountMax && this.player.globalEventFinishedCount[event] && this.player.globalEventFinishedCount[event] >= globalCountMax)
+            var cfg = GCfg.getWorldMapEventSelGroupsCfg(event);
+            if (cfg && cfg.globalCountMax != undefined) { // 手动判断 undefined 是为了兼容 globalCountMax == 0 的时候
+                var globalCountMax = cfg.globalCountMax;
+                var cnt = this.player.globalEventFinishedCount[event];
+                if (!cnt) cnt = 0;
+                if (cnt >= globalCountMax)
                     continue;
             }
 

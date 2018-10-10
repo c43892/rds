@@ -39,7 +39,7 @@
                 "ps": {"group": "a12"}
             }],
             "bg":"BombAbomination",
-            "globalCountMax":1
+            "globalCountMax":0
         },
         "a11": {
             "title": "闪耀之光",

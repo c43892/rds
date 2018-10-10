@@ -152,7 +152,7 @@ class Main extends egret.DisplayObjectContainer {
             return worldmapeventselsCfg.desc[f];
         };
         GCfg.getWorldMapEventSelGroupsCfg = (g) => {
-            Utils.assert(worldmapeventselsCfg.groups[g], "can not find worldmap event sels group: " + g);
+            // Utils.assert(worldmapeventselsCfg.groups[g], "can not find worldmap event sels group: " + g);
             return worldmapeventselsCfg.groups[g];
         };
 
