@@ -231,11 +231,14 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
         arrow.anchorOffsetY = arrow.height / 2;
         arrow.x += arrow.anchorOffsetX;
         arrow.y += arrow.anchorOffsetY;
+        // 箭头动效
         egret.Tween.get(arrow, {loop:true}).to({rotation:0}, 2000)
-            .to({rotation:-15}, 100)
-            .to({rotation:15}, 200)
-            .to({rotation:0}, 100)
-            .to({rotation:0}, 3000);
+            .to({rotation:-15}, 50)
+            .to({rotation:15}, 100)
+            .to({rotation:-7}, 75)
+            .to({rotation:7}, 50)
+            .to({rotation:0}, 25)
+            .to({rotation:0}, 2000);
 
         this.addChild(this.c1);
         this.addChild(this.c2);
