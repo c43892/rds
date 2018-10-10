@@ -71,7 +71,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.openHospital = async () => await this.openHospital();
         this.wmv.openBoxRoom = async () => await this.openBoxRoom();
         this.wmv.openTurntable = async (turntable) => await this.openTurntable(turntable);
-        this.wmv.openEventSels = async (title, desc, sels) => await this.openWorldMapEventSels(title, desc, sels);
+        this.wmv.openEventSels = async (title, desc, bg, sels) => await this.openWorldMapEventSels(title, desc, bg, sels);
         this.wmv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
         this.wmv.selRelic = async (elems, funcOnClinked, title, tip) => await this.openAllElemsView(elems, funcOnClinked, title, tip);
         this.wmv.openPlayerDieView = async () => await this.openPlayerDieView();
@@ -329,7 +329,7 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 打开选项事件界面
     lastWmesv:WorldMapEventSelsView;
-    public async openWorldMapEventSels(title, desc, sels) {
+    public async openWorldMapEventSels(title, desc, bg, sels) {
         if (this.lastWmesv)
             this.removeChild(this.lastWmesv);
         
@@ -340,7 +340,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.addChild(wmesv);
         this.setChildIndex(this.wmtv, -1);
         this.lastWmesv = wmesv;
-        await wmesv.open(title, desc, sels);
+        await wmesv.open(title, desc, bg, sels);
 
         this.lastWmesv = undefined;
         if (this.contains(wmesv))

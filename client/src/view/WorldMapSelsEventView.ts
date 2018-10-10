@@ -24,6 +24,9 @@ class WorldMapEventSelsView extends egret.DisplayObjectContainer {
         this.bg1.name = "bg1";
 
         this.bg2 = ViewUtils.createBitmapByName("SelEventBg_png");
+        this.bg2.anchorOffsetX = this.bg2.width / 2;
+        this.bg2.anchorOffsetY = this.bg2.height / 2;
+        this.bg2.filters = undefined;
         this.bg2.name = "bg2";
 
         this.title = ViewUtils.createTextField(40, 0x7d0403);
@@ -39,7 +42,18 @@ class WorldMapEventSelsView extends egret.DisplayObjectContainer {
 
     private sels:WMES[];
     private doClose;
-    public async open(title:string, desc:string, sels:WMES[]):Promise<void> {
+    public async open(title:string, desc:string, bg:string, sels:WMES[]):Promise<void> {
+        if (bg) {
+            // 替换事件背景
+            ViewUtils.setTexName(this.bg2, bg + "_png");
+            this.bg2.width = 300;
+            this.bg2.height = 300;
+            this.bg2.anchorOffsetX = this.bg2.width / 2;
+            this.bg2.anchorOffsetY = this.bg2.height / 2;
+            // ViewUtils.makeGray(this.bg2); // 黑白化
+            this.bg2.alpha = 0.25;
+        }
+
         this.sels = sels;
         this.title.textFlow = ViewUtils.fromHtml(title);
         this.desc.textFlow = ViewUtils.fromHtml(desc);

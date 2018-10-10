@@ -566,7 +566,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
     async openSelGroup(p:Player, group) {
         var selsGroup = GCfg.getWorldMapEventSelGroupsCfg(group);
         var sels = this.wmesFact.createGroup(p, selsGroup.sels);
-        await this.openEventSels(selsGroup.title, selsGroup.desc, sels);
+        await this.openEventSels(selsGroup.title, selsGroup.desc, selsGroup.bg, sels);
     }
 
     async openSels(p:Player, title, desc, sels) {

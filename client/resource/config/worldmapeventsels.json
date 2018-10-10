@@ -38,6 +38,7 @@
                 "func": ["exit", "redirectSelGroup"],
                 "ps": {"group": "a12"}
             }],
+            "bg":"BombAbomination",
             "globalCountMax":1
         },
         "a11": {
