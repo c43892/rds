@@ -97,7 +97,7 @@ class BattleView extends egret.DisplayObjectContainer {
 
     // 头像、经验条、血条、攻击、闪避
     createAvatarArea() {
-        this.avatarAreaMask = ViewUtils.createBitmapByName("translucent_png");
+        this.avatarAreaMask = ViewUtils.createBitmapByName("avatarMask_png");
         this.avatarAreaMask.name = "avatarAreaMask";
 
         // 头像道具
