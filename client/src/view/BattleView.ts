@@ -243,7 +243,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.createPlayerAttrs();
         
         // 战斗区域
-        this.mapView = new MapView(w, h);
+        this.mapView = new MapView();
         this.mapView.name = "mapView";
         this.addChild(this.mapView);
 
@@ -296,7 +296,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.deadlyMask.height = this.height;
         this.addChild(this.deadlyMask);
 
-        ViewUtils.multiLang(this, this.avatarBg, this.avatarAreaMask, this.avatar, this.power, this.dodge, this.elemsTip, this.propsView, this.moreRelics);
+        ViewUtils.multiLang(this, this.avatarBg, this.avatarAreaMask, this.avatar, this.power, this.dodge, this.elemsTip, this.propsView, this.moreRelics, this.mapView);
 
         // 格子选择
         this.selView = new SelView(w, h, this.propsView.y);
@@ -306,7 +306,7 @@ class BattleView extends egret.DisplayObjectContainer {
     // 设置新的地图数据，但并不自动刷新显示，需要手动刷新
     public setMap(map:Map, title:string) {
         this.mapView.setMap(map);
-        this.selView.rebuild(this.mapView.gsize.w, this.mapView.gsize.h);
+        this.selView.rebuild(this.mapView.x, this.mapView.y, this.mapView.gsize.w, this.mapView.gsize.h, this.mapView.gw, this.mapView.gh);
     }
 
     // 设置角色数据，但并不刷新显示，需要手动刷新
@@ -521,8 +521,7 @@ class BattleView extends egret.DisplayObjectContainer {
     // 打开目标选择界面
     public async selectGrid(f, showSelectableEffect, e:Elem, helper = {}) {
         this.addChild(this.selView);
-        var r = await this.selView.selGrid(this.mapView.gw, this.mapView.gh, this.mapView.x, this.mapView.y,
-            f, showSelectableEffect, this.player, e, helper);
+        var r = await this.selView.selGrid(f, showSelectableEffect, this.player, e, helper);
         this.removeChild(this.selView);
         return r;
     }

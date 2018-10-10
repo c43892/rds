@@ -7,7 +7,7 @@ class MapView extends egret.DisplayObjectContainer {
     public gw = 0;
     public gh = 0;
 
-    public constructor(w:number, h:number) {
+    public constructor() {
         super();
     }
 
@@ -40,13 +40,13 @@ class MapView extends egret.DisplayObjectContainer {
             mgv.map = map;
             mgv.clearAllEffects();
         });
+
+        this.gw = this.width / this.map.size.w;
+        this.gh = this.height / this.map.size.h;
     }
 
     // 刷新显示
-    public refresh() {
-        this.gw = this.width / this.map.size.w;
-        this.gh = this.height / this.map.size.h;
-        
+    public refresh() {        
         Utils.NDimentionArrayForeach(this.mgvs, (ev:GridView) => {
             ev.x = ev.gx * this.gw;
             ev.y = ev.gy * this.gh;

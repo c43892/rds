@@ -44,7 +44,7 @@ class SelView extends egret.DisplayObjectContainer {
     descContainer:egret.DisplayObjectContainer; // 额外描述容器
     descTop:egret.TextField;
     descBottom:egret.TextField;
-    public rebuild(nw, nh) {
+    public rebuild(offsetx:number, offsety:number, nw:number, nh:number, gw:number, gh:number) {
         if (this.nw != nw || this.nh != nh) {
             this.removeChildren();
             this.nw = nw;
@@ -55,12 +55,20 @@ class SelView extends egret.DisplayObjectContainer {
             for (var i = 0; i < nw; i++) {
                 this.grids[i] = [];
                 this.gridsAni[i] = [];
+                var x = offsetx + gw * i;
                 for (var j = 0; j < nh; j++) {
+                    var y = offsety + gh * j;
                     var bmp = new egret.Bitmap();
+                    bmp.x = x;
+                    bmp.y = y;
+                    bmp.width = gw; bmp.height = gh;
                     this.grids[i][j] = bmp;
                     bmp.alpha = 0;
                     this.addChild(bmp);
+
                     var ani = ViewUtils.createFrameAni("effGridSeletable");
+                    ani.x = x + gh / 2;
+                    ani.y = y + gw / 2;
                     this.gridsAni[i][j] = ani;
                     this.addChild(ani);
                     bmp.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchGrid, this);
@@ -73,22 +81,16 @@ class SelView extends egret.DisplayObjectContainer {
 
     // 选择一个格子，f 形如 function(x:number, y:number):Boolean 表示指定位置是否可选，返回值表示选中的位置
     // mapView 是下面中间对齐的，我们需要计算左上角
-    public selGrid(gw:number, gh:number, offsetx:number, offsety:number, f, showSelectableEffect, p:Player, e:Elem, helper = {}):Promise<any> {
+    public selGrid(f, showSelectableEffect, p:Player, e:Elem, helper = {}):Promise<any> {
         for (var i = 0; i < this.nw; i++) {
-            var x = offsetx + gw * i;
             for (var j = 0; j < this.nh; j++) {
-                var y = offsety + gh * j;
                 var selectable = f(i, j);
                 var bmp = this.grids[i][j];
-                bmp.x = x; bmp.y = y;
-                bmp.width = gw; bmp.height = gh;
                 bmp.touchEnabled = true;
                 bmp["gPos"] = selectable ? {x:i, y:j} : undefined;
 
                 // 可选效果
                 var ani = this.gridsAni[i][j];
-                ani.x = x + gh / 2;
-                ani.y = y + gw / 2;
                 if (selectable && showSelectableEffect) {
                     ani.alpha = 1;
                     ani.gotoAndPlay(0, -1);
