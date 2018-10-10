@@ -1,6 +1,10 @@
 
 // 毒
 class BuffPoison extends Buff {
+
+    // 剩余总伤害
+    public getTotalDamageLeft;
+
     constructor(cnt, damage) {
         super("BuffPoison");
         this.cnt = cnt;
@@ -21,6 +25,8 @@ class BuffPoison extends Buff {
             else
                 await bt.implAddMonsterHp(this.getOwner(), -damage);
         };
+
+        this.getTotalDamageLeft = () => this.cnt >= 0 ? this.cnt * damage : 0;
     
         this.overBuff = (newBuff:Buff) => this.cnt = cnt + newBuff.cnt;
     }

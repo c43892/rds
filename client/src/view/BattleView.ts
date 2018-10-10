@@ -16,8 +16,9 @@ class BattleView extends egret.DisplayObjectContainer {
     public deadlyMask:egret.Bitmap; // 濒死效果
     public hp:egret.TextField; // 血量
     public hpBar:egret.Bitmap; // 血条
-    public poisonedHpBar:egret.Bitmap; // 中毒后的血条
     public hpBarMask:egret.Shape; // 血条遮罩
+    public poisonedHpBar:egret.Bitmap; // 中毒后的血条
+    public poisonedHpBarMask:egret.Shape; // 中毒后血条遮罩
     public power:egret.TextField; // 攻击
     public dodge:egret.TextField; // 闪避
 
@@ -125,8 +126,8 @@ class BattleView extends egret.DisplayObjectContainer {
         // 血条
         this.hpBar = ViewUtils.createBitmapByName("hpBar_png");
         this.hpBar.name = "hpBar";
-        // this.poisonedHpBar = ViewUtils.createBitmapByName("poisonedHpbar_png");
-        // this.poisonedHpBar.name = "poisonedHpbar";
+        this.poisonedHpBar = ViewUtils.createBitmapByName("poisonedHpBar_png");
+        this.poisonedHpBar.name = "poisonedHpBar";
         this.hp = ViewUtils.createTextField(20, 0xffffff);
         this.hp.name = "hp";
 
@@ -137,8 +138,13 @@ class BattleView extends egret.DisplayObjectContainer {
 
         // 血条遮罩
         this.hpBarMask = new egret.Shape();
-        this.hpBarMask.name = "expBarMask";
+        this.hpBarMask.name = "hpBarMask";
         this.hpBar.mask = this.hpBarMask;
+
+        // 中毒部分血条遮罩
+        this.poisonedHpBarMask = new egret.Shape();
+        this.poisonedHpBarMask.name = "poisonedHpBarMask";
+        this.poisonedHpBar.mask = this.poisonedHpBarMask;
 
         // 攻击闪避属性
         this.power = ViewUtils.createTextField(20, 0xffffff, false);
@@ -159,7 +165,7 @@ class BattleView extends egret.DisplayObjectContainer {
         var objs = [
             this.moneyAndStoriesBg, this.avatar, this.avatarBg,
             this.currentStoryLv, this.money, this.power, this.dodge, 
-            this.hpBarMask, this.expBarMask, this.expBar, this.hpBar, this.hp
+            this.hpBarMask, this.poisonedHpBarMask, this.expBarMask, this.expBar, this.hpBar, this.poisonedHpBar, this.hp
         ];
 
         this.addChild(this.avatarAreaMask);
@@ -208,6 +214,7 @@ class BattleView extends egret.DisplayObjectContainer {
         var shape = this.hpBarMask;
         var p = !this.player ? 0 : (hp / this.player.maxHp);
 
+        // 全部血量
         var pts = [
             {x: this.hpBar.x, y: this.hpBar.y + this.hpBar.height}, // 左下角
             {x: this.hpBar.x + this.hpBar.width, y: this.hpBar.y + this.hpBar.height} // 右下角
@@ -224,6 +231,39 @@ class BattleView extends egret.DisplayObjectContainer {
             shape.graphics.lineTo(pts[i].x, pts[i].y);
         shape.graphics.lineTo(pts[0].x, pts[0].y);
         shape.graphics.endFill();
+
+        // 中毒部分
+
+        var shape = this.poisonedHpBarMask;
+        shape.graphics.clear();
+
+        if (!this.player)
+            return;
+
+        var buff = Utils.filter(this.player.buffs, (buff) => buff.type == "BuffPoison")[0];
+        if (buff && buff.getTotalDamageLeft() > 0) {
+
+            var poisonedHp = buff.getTotalDamageLeft();
+            var poisonedPercent = poisonedHp / this.player.maxHp;
+
+            var h = (1 - p + poisonedPercent) * this.hpBar.height;
+            if (h < 0) h = 0;
+            var pts = [
+                {x: this.hpBar.x, y: this.hpBar.y + h}, // 左下角
+                {x: this.hpBar.x + this.hpBar.width, y: this.hpBar.y + h} // 右下角
+            ];
+
+            var h = (1 - p) * this.hpBar.height;
+            pts.push({x: this.hpBar.x + this.hpBar.width, y: this.expBar.y + h}); // 右上角
+            pts.push({x: this.hpBar.x, y: this.expBar.y + h}); // 左上角
+
+            shape.graphics.beginFill(0xffffff);
+            shape.graphics.moveTo(pts[0].x, pts[0].y);
+            for (var i = 1; i < pts.length; i++)
+                shape.graphics.lineTo(pts[i].x, pts[i].y);
+            shape.graphics.lineTo(pts[0].x, pts[0].y);
+            shape.graphics.endFill();
+        }
     }
 
     public constructor(w:number, h:number) {
