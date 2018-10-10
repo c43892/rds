@@ -281,6 +281,8 @@ class AniView extends egret.DisplayObjectContainer {
             var fromObj = this.getSV(e);
             await AniUtils.fly2(fromObj, fromObj, toImg, true, 1);
             fromObj["resetSelf"]();
+            toImg["dispose"]();
+            await GridView.showElemDesc(e);
         } else if (ps.subType == "addRelicBySel") {
             var e:Elem = ps.e;
             var fromPos = PlayerLevelUpView.lastSelectedRelicImgGlobalPos
@@ -293,13 +295,10 @@ class AniView extends egret.DisplayObjectContainer {
                 await AniUtils.flash(fromImg, 200, false);
                 await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
                 fromImg["dispose"]();
+                toImg["dispose"]();
             }
+            this.tipRelicShortDesc(<Relic>e);
         }
-
-        toImg["dispose"]();
-
-        // 出一个短提示
-        this.tipRelicShortDesc(<Relic>e);
 
         this.bv.refreshRelics();
         this.bv.refreshPlayer();
