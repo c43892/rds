@@ -35,10 +35,10 @@ class Elem {
                 return true;
             case "uncoveredEmpty": // 揭开的空格子
                 return !g.isCovered() && !e;
-            case "markedMonster|uncoveredMonster|uncoverable": // 标记或者揭开的怪或者临近块
-                return (e instanceof Monster && g.isUncoveredOrMarked()) || g.isUncoverable();
-            case "markedHazardMonster|uncoveredHazardMonster|uncoverable": // 标记或者揭开的威胁怪或临近块
-                return (e instanceof Monster && g.isUncoveredOrMarked() && (e.isHazard() || (e["linkTo"] && e["linkTo"].isHazard())) || g.isUncoverable());
+            case "markedMonster|uncoveredMonster|uncoverable|blocked": // 标记或者揭开的怪或者临近块
+                return (e instanceof Monster && g.isUncoveredOrMarked()) || (g.isUncoverable() || g.status == GridStatus.Blocked);
+            case "markedHazardMonster|uncoveredHazardMonster|uncoverable|blocked": // 标记或者揭开的威胁怪或临近块
+                return (e instanceof Monster && g.isUncoveredOrMarked() && (e.isHazard() || (e["linkTo"] && e["linkTo"].isHazard())) || (g.isUncoverable() || g.status == GridStatus.Blocked));
             case "uncoveredMonser": // 揭开的怪
                 return e instanceof Monster && !g.isCovered();
             case "markedMonster|uncoveredMonser": // 标记或者揭开的怪

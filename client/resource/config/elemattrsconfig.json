@@ -173,11 +173,11 @@
         "repRes":["Apple1", "Apple2", "Apple3"]},
     "Steak":{"name":"牛排", "cnt":3, "dhp":2, "useWithoutConfirm":true, "tags":["food"],
         "repRes":["Steak1", "Steak2", "Steak3"]},
-    "Knife":{"name":"小刀", "useWithTarget":true, "validTarget":"markedHazardMonster|uncoveredHazardMonster|uncoverable", "power":4},
-    "SmallRock":{"name":"石块", "useWithTarget":true, "validTarget":"markedHazardMonster|uncoveredHazardMonster|uncoverable", "power":1},
+    "Knife":{"name":"小刀", "useWithTarget":true, "validTarget":"markedHazardMonster|uncoveredHazardMonster|uncoverable|blocked", "power":4},
+    "SmallRock":{"name":"石块", "useWithTarget":true, "validTarget":"markedHazardMonster|uncoveredHazardMonster|uncoverable|blocked", "power":1},
     "IceBlock":{"name":"冰块", "cnt":2, "useWithoutConfirm":true, "repRes":["IceBlock1", "IceBlock2"], "addInEffect":"noEffect"},    
     "Bazooka":{"name":"火箭筒", "canOverlap":true, "useWithTarget":true, "cd":5,
-        "validTarget":"markedMonster|uncoveredMonster|uncoverable",
+        "validTarget":"markedMonster|uncoveredMonster|uncoverable|blocked",
         "attackFlags":["Flame", "Pierce"], 
         "addBuffs":[{"type":"Flame", "rate":100, "ps":[3, 1]}], "power":3
     },
@@ -188,7 +188,7 @@
         "addBuffs":[{"type":"Flame", "rate":100, "ps":[3, 1]}], "power":3, "aoe":{"w":3, "h":3}
     },
     "IceGun":{"name":"冰冻射线", "canOverlap":true, "useWithTarget":true, "refElems":["IceBlock"], "cd":5,
-        "validTarget":"markedMonster|uncoveredMonster|uncoverable", 
+        "validTarget":"markedMonster|uncoveredMonster|uncoverable|blocked", 
         "attackFlags":["Ice"],
         "frozenAttrs":{"rounds":3}
     },
