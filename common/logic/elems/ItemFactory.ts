@@ -35,7 +35,7 @@ class ItemFactory {
                 var map = e.bt().level.map;
                 var tog:Grid = map.getGridAt(x, y);
                 var toe:Elem = map.getElemAt(x, y);
-                return !tog.isCovered() && toe && toe.isValid() && Utils.contains(e.attrs.validTargets, toe.type);
+                return !tog.isCovered() && toe && toe.isValid() && toe.canUse() && Utils.contains(e.attrs.validTargets, toe.type);
             }
 
             e.useAt = async (x:number, y:number) => {
