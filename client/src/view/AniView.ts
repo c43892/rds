@@ -451,7 +451,7 @@ class AniView extends egret.DisplayObjectContainer {
         var type = e.type;
         if (type == "ShopNpc" && (<Monster>e).isDead()) // 商人使用后闪烁消失
             await AniUtils.flashOut(sv, false);
-         else if (type == "IceBlock" || type == "Rock") {
+         else if (type == "IceBlock" || type == "Rock" || type == "Cocoon") {
             AniUtils.flashAndShake(sv);
             var g = this.bv.mapView.getGridViewAt(e.pos.x, e.pos.y);
             var attackEff:egret.MovieClip = g.addEffect("effPlayerAttack", 1);
