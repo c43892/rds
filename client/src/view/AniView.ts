@@ -1082,7 +1082,7 @@ class AniView extends egret.DisplayObjectContainer {
         pressTip.y = this.bv.y + this.bv.height / 2;
         pressTip.anchorOffsetX = pressTip.width / 2;
         pressTip.anchorOffsetY = pressTip.height / 2;
-        this.bv.addChild(pressTip);        
+        this.bv.addChild(pressTip);
         AniUtils.floating(pressTip);
         await AniUtils.wait4click();
         AniUtils.floating(pressTip, true);
@@ -1090,17 +1090,20 @@ class AniView extends egret.DisplayObjectContainer {
 
         var rand = new SRandom();
         var svArr = [];
-        var evs = this.bv.mapView.getGridViewsWithElem(undefined, true);
+        var actualMapRange = Utils.getActualMapRange(this.player.bt());
+        var elemsCanMove = (e:Elem) => e.pos.x <= actualMapRange.maxX && e.pos.x >= actualMapRange.minX
+                                        && e.pos.y <= actualMapRange.maxY && e.pos.y >= actualMapRange.minY;
+        var evs = this.bv.mapView.getGridViewsWithElem(elemsCanMove, true);
         evs.forEach((ev, _) => {
             var sv = ev.getShowLayer();
             sv["gx"] = ev.getElem().pos.x;
             sv["gy"] = ev.getElem().pos.y;
-            sv["tgx1"] = rand.nextInt(0, GCfg.mapsize.w);
-            sv["tgy1"] = rand.nextInt(0, GCfg.mapsize.h);
-            sv["tgx2"] = rand.nextInt(0, GCfg.mapsize.w);
-            sv["tgy2"] = rand.nextInt(0, GCfg.mapsize.h);
-            sv["tgx3"] = rand.nextInt(0, GCfg.mapsize.w);
-            sv["tgy3"] = rand.nextInt(0, GCfg.mapsize.h);
+            sv["tgx1"] = rand.nextInt(actualMapRange.minX, actualMapRange.maxX + 1);
+            sv["tgy1"] = rand.nextInt(actualMapRange.minY, actualMapRange.maxY + 1);
+            sv["tgx2"] = rand.nextInt(actualMapRange.minX, actualMapRange.maxX + 1);
+            sv["tgy2"] = rand.nextInt(actualMapRange.minY, actualMapRange.maxY + 1);
+            sv["tgx3"] = rand.nextInt(actualMapRange.minX, actualMapRange.maxX + 1);
+            sv["tgy3"] = rand.nextInt(actualMapRange.minY, actualMapRange.maxY + 1);
             sv["delay1"] = rand.nextInt(100, 1000);
             sv["delay2"] = rand.nextInt(100, 1000);
             sv["delay3"] = rand.nextInt(100, 1000);
@@ -1113,7 +1116,7 @@ class AniView extends egret.DisplayObjectContainer {
         await AniUtils.delay(2000);
 
         // 开始发牌盖住所有格子
-        await AniUtils.coverAll(this.bv.mapView);
+        await AniUtils.coverAll(this.bv.mapView, actualMapRange);
         
         revArr.forEach((rev, _) => rev());
         this.bv.refresh();

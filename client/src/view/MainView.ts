@@ -125,7 +125,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.startNewBattle = async (p:Player, btType:string, lv:number, n:number, btRandomSeed:number, skipBlackIn:boolean = false, extraLevelLogic = undefined) => { 
             if (btType[0] != "_") {
                 if(Utils.checkRookiePlay())
-                    btType = "rookiePlay";
+                    btType = "rookiePlay" + "_" + lv;
                 else
                     btType = btType + "_" + lv;
             }
@@ -528,7 +528,7 @@ class MainView extends egret.DisplayObjectContainer {
     rookiePlay() {
         var p = Player.createTestPlayer();
         p = Occupation.makeOccupation(p);
-        p.worldmap = WorldMap.buildFromConfig("world1", p);
+        p.worldmap = WorldMap.buildFromConfig("rookieWorld", p);
         this.p = p;
         this.registerPlayerEvents();
 

@@ -211,6 +211,7 @@ class ItemFactory {
         // 骷髅头
         "HeadBone": (attrs) => {
             var e = this.createItem();
+            e.isValid = () => true;
             e = ElemFactory.addAI("onSneaked", async () => {
                 var grid = e.getGrid();
                 var bt = e.bt();

@@ -74,12 +74,13 @@ class Main extends egret.DisplayObjectContainer {
                 var index = lv.indexOf("_");
                 var level = lv.substring(index + 1, lv.length);
                 var tarlv = "normal_" + level;
-                Utils.assert(lvCfg[tarlv], "can not find lvCfg of " + lv);
+                Utils.assert(lvCfg[tarlv], "didn't find normal lvCfg of " + tarlv);
 
-                Utils.log("didn't find lvCfg of " + lv + ", turn to normal_" + level);
+                Utils.log("didn't find lvCfg of " + lv + ", turn to " + tarlv);
                 return lvCfg[tarlv];
             }
         }
+
         var elemPosCfg = ResMgr.getRes("elemPosConfig_json");
         GCfg.getElemPosCfg = (cfg) => elemPosCfg[cfg];
         

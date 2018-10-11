@@ -472,21 +472,23 @@ class AniUtils {
     }
 
     // 开场盖住所有格子
-    public static async coverAll(mapView:MapView) {
+    public static async coverAll(mapView:MapView, actualMapRange) {
         // 牌背随机从四面八方飞过来盖住
         var eachTime = 1000;
         var mapsize = GCfg.mapsize;
         var gbgs:egret.Bitmap[] = [];
         for (var x = 0; x < mapsize.w; x++) {
             for (var y = 0; y < mapsize.h; y++) {
-                var bg = ViewUtils.createBitmapByName("covered_png");
-                bg["rn"] = Math.abs(x - mapsize.w) + y;
-                bg["fgx"] = mapsize.w - 1;
-                bg["fgy"] = 0;
-                bg["gx"] = x;
-                bg["gy"] = y;
-                AniUtils.ac.addChild(bg);
-                gbgs.push(bg);
+                if(x <= actualMapRange.maxX && x >= actualMapRange.minX && y <= actualMapRange.maxY && y >= actualMapRange.minY) {
+                    var bg = ViewUtils.createBitmapByName("covered_png");
+                    bg["rn"] = Math.abs(x - mapsize.w) + y;
+                    bg["fgx"] = mapsize.w - 1;
+                    bg["fgy"] = 0;
+                    bg["gx"] = x;
+                    bg["gy"] = y;
+                    AniUtils.ac.addChild(bg);
+                    gbgs.push(bg);
+                }
             }
         }
 

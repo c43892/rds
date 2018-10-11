@@ -137,49 +137,49 @@ class Level {
         }
     }
 
-    // 乱序所有元素
-    public RandomElemsPos() {
+    // // 乱序所有元素
+    // public RandomElemsPos() {
 
-        var biggerElems = [];
-        var normalElems = [];
+    //     var biggerElems = [];
+    //     var normalElems = [];
 
-        // 先分开大尺寸元素和普通元素
-        this.map.travelAll((x, y) => {
-            var e = this.map.getElemAt(x, y);
-            if (!e) return;
+    //     // 先分开大尺寸元素和普通元素
+    //     this.map.travelAll((x, y) => {
+    //         var e = this.map.getElemAt(x, y);
+    //         if (!e) return;
 
-            if (e.type == "PlaceHolder")
-                return;            
+    //         if (e.type == "PlaceHolder")
+    //             return;            
 
-            if (e.isBig())
-                biggerElems.push(e);
-            else
-                normalElems.push(e);
+    //         if (e.isBig())
+    //             biggerElems.push(e);
+    //         else
+    //             normalElems.push(e);
 
-            this.map.removeElemAt(e.pos.x, e.pos.y);
-        });
+    //         this.map.removeElemAt(e.pos.x, e.pos.y);
+    //     });
 
-        // 先给大尺寸元素找到随机位置
-        for (var e of biggerElems) {
-            var esize = e.attrs.size;
-            var g = BattleUtils.findRandomEmptyGrid(this.bt, false, esize);
-            Utils.assert(!!g, "can not place big " + e.type + " with size of " + esize);
-            this.map.addElemAt(e, g.pos.x, g.pos.y);
-            var hds:Elem[] = e["placeHolders"]();
-            Utils.assert(hds.length == esize.w * esize.h - 1, "big elem size mismatch the number of it's placeholders");
-        }
+    //     // 先给大尺寸元素找到随机位置
+    //     for (var e of biggerElems) {
+    //         var esize = e.attrs.size;
+    //         var g = BattleUtils.findRandomEmptyGrid(this.bt, false, esize);
+    //         Utils.assert(!!g, "can not place big " + e.type + " with size of " + esize);
+    //         this.map.addElemAt(e, g.pos.x, g.pos.y);
+    //         var hds:Elem[] = e["placeHolders"]();
+    //         Utils.assert(hds.length == esize.w * esize.h - 1, "big elem size mismatch the number of it's placeholders");
+    //     }
 
-        // 再放置普通元素
-        for (var e of normalElems) {
-            Utils.assert(e.type != "PlaceHolder", "place holders should be placed already");
-            var g = BattleUtils.findRandomEmptyGrid(this.bt, false);
-            Utils.assert(!!g, "no more place for elem");
-            this.map.addElemAt(e, g.pos.x, g.pos.y);
-        }
-    }
+    //     // 再放置普通元素
+    //     for (var e of normalElems) {
+    //         Utils.assert(e.type != "PlaceHolder", "place holders should be placed already");
+    //         var g = BattleUtils.findRandomEmptyGrid(this.bt, false);
+    //         Utils.assert(!!g, "no more place for elem");
+    //         this.map.addElemAt(e, g.pos.x, g.pos.y);
+    //     }
+    // }
 
     // 根据配置将部分元素放置在固定位置,其余元素随机
-    public setElemPos(covered:boolean = true){
+    public setElemPosByCfg(cfg, covered:boolean = true){
         var biggerElems:Elem[] = [];
         var normalElems:Elem[] = [];
 
@@ -199,9 +199,10 @@ class Level {
             this.map.removeElemAt(e.pos.x, e.pos.y);
         });
 
-        if(this.cfg.elemPosConfig){
+        if(cfg){
             // 先给大尺寸元素找到指定位置
-            var posCfg = GCfg.getElemPosCfg(this.cfg.elemPosConfig);
+            var posCfg = GCfg.getElemPosCfg(cfg);
+            Utils.assert(posCfg, "can not find ElemPosCfg for " + this.bt.btType);
             for(var e of biggerElems){
                 if(posCfg[e.type]){
                     for(var i = 0; i < posCfg[e.type].length; i++){

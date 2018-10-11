@@ -28,6 +28,8 @@ class Elem {
     public useWithTarget = () => this.attrs.useWithTarget;
     public canUseAt = (x:number, y:number):boolean => {  // 是否可对指定位置使用
         if (!this.attrs.useWithTarget) return false;
+        var actualMapRange = Utils.getActualMapRange(this.bt());
+        if (x > actualMapRange.maxX || x < actualMapRange.minX || y > actualMapRange.maxY || y < actualMapRange.minY) return false;
         var g = this.map().getGridAt(x, y);
         var e = this.map().getElemAt(x, y);
         switch (this.attrs.validTarget) {

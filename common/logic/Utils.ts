@@ -563,15 +563,10 @@ class Utils {
     // 根据btType找到该关卡对应的levelLogics
     public static getLevelLogics(btType:string) {
         var levelLogics;
-        if(btType.indexOf("normal") > -1){
-            levelLogics = GCfg.getLevelLogicCfg("normal");
-        }
-        else {
-            var index = btType.indexOf("_");
-            var type = btType.substring(0 , index);
-            type = type.length > 0 ? type : btType;
-            levelLogics = GCfg.getLevelLogicCfg(type);
-        }
+        var index = btType.indexOf("_");
+        var type = btType.substring(0 , index);
+        type = type.length > 0 ? type : btType;
+        levelLogics = GCfg.getLevelLogicCfg(type);
         return levelLogics;
     }
 
@@ -589,4 +584,11 @@ class Utils {
         
         return storey;
     }
+
+    // 获取战斗实际所使用的地图范围
+    public static getActualMapRange(bt:Battle){
+        var actualMapRange = bt.lvCfg.actualMapRange;
+        actualMapRange = actualMapRange ? actualMapRange : {"minX":0, "maxX":6, "minY":0, "maxY":8};
+        return actualMapRange;
+    }; 
 }

@@ -1,13 +1,15 @@
 {
     "mapsize": {"w": 7, "h": 9},
 
-    "rookiePlay": {
+    "rookiePlay_1": {
         "displayName": "普通战斗1",
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 0,
         "monsterBox": 0,
-        "elemPosConfig":"rookiePlay",
+        "elemPosConfig":"rookiePlay_1",
+        "elemPosConfigForView":"rookiePlay_1ForView",
+        "actualMapRange":{"minX":1, "maxX":5, "minY":1, "maxY":7},
         "init_uncovered": {
             "w": 3,
             "h": 3
@@ -15,9 +17,11 @@
         "constElems":{
             "EyeDemon": 2,
             "DancerZombie": 2,
-            "GreenSlime": 2,
-            "ReviveZombie": 2,
-            "Apple": 1
+            "GluttonyZombie": 2,
+            "ReviveZombie": 1,
+            "RayGun": 1,
+            "Apple": 1,
+            "Hole": 28
         }
     },
 

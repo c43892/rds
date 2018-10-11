@@ -198,7 +198,7 @@
     "Vest":{"name":"防护衣", "powerD":-1},
     "Cocoon":{"name":"茧", "useWithoutConfirm":true, "hideDropItems":true, "addInEffect":"noEffect",
         "repRes":["Cocoon", "CocoonLIne"]},
-    "WantedOrder":{"name":"通缉令"},
+    "WantedOrder":{"name":"通缉令", "useWithoutConfirm":true},
     "Cloak":{"name":"披风"},
     "LifeSpring":{"name":"生命之泉", "percent":50},
 

@@ -73,7 +73,7 @@ class Battle {
     public prepare() {
         if (this.prepared) return;
         this.loadCurrentLevel(this.btType);
-        this.level.RandomElemsPos();
+        this.level.setElemPosByCfg(this.lvCfg.elemPosConfigForView, false); // 设置元素位置,部分元素需要固定,但这不是最后战斗时的位置
         this.prepared = true;
     }
 
@@ -82,6 +82,7 @@ class Battle {
         Utils.assert(this.prepared, "call battle.prepare() first");
         
         this.finished = false;
+
         await this.fireEvent("onInitBattleView", {bt:this});
 
         await this.triggerLogicPoint("beforeLevelInited", {bt:this});
@@ -89,13 +90,18 @@ class Battle {
         await this.triggerLogicPoint("onLevelInited", {bt:this});
         
         await this.coverAllAtInit();
-        this.level.setElemPos(); // 随机元素位置
+        this.level.setElemPosByCfg(this.lvCfg.elemPosConfig); // 设置元素位置,部分元素需要固定
         await this.uncoverStartupRegion();
     }
 
-    // 初始盖住所有格子
+    // 初始盖住战斗实际所使用的地图范围的格子
     public async coverAllAtInit() {
-        this.level.map.travelAll((x, y) => this.level.map.getGridAt(x, y).status = GridStatus.Covered);
+        var actualMapRange = Utils.getActualMapRange(this);
+        this.level.map.travelAll((x, y) => {
+            if (x <= actualMapRange.maxX && x >= actualMapRange.minX && y <= actualMapRange.maxY && y >= actualMapRange.minY)
+                this.level.map.getGridAt(x, y).status = GridStatus.Covered;
+        });
+
         await this.fireEvent("onAllCoveredAtInit", {bt:this});
         await this.triggerLogicPoint("onAllCoveredAtInit", {bt:this});
     }
