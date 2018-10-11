@@ -229,9 +229,8 @@ class ItemFactory {
                     return true;
                 else return false;
             };
-            e.use = async () => {
-                await e.bt().implOnElemDie(e);
-            };
+            e.canNotUseReason = () => e.canUse() ? undefined : "swathed";
+            e.use = () => {};
             return e;
         },
 
