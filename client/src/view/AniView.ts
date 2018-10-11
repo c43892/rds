@@ -444,14 +444,22 @@ class AniView extends egret.DisplayObjectContainer {
         }
     }
 
-    // 使用物品
+    // 正要使用物品
     public async onUseElem(ps) {
         var e = ps.e;
-        var g = this.getSV(e);
-        if (e.type == "ShopNpc" && (<Monster>e).isDead()) // 商人使用后闪烁消失
-            await AniUtils.flashOut(g, false);
+        var sv = this.getSV(e);
+        var type = e.type;
+        if (type == "ShopNpc" && (<Monster>e).isDead()) // 商人使用后闪烁消失
+            await AniUtils.flashOut(sv, false);
+         else if (type == "IceBlock" || type == "Rock") {
+            AniUtils.flashAndShake(sv);
+            var g = this.bv.mapView.getGridViewAt(e.pos.x, e.pos.y);
+            var attackEff:egret.MovieClip = g.addEffect("effPlayerAttack", 1);
+            await attackEff["wait"]().then();
+            g.removeEffect("effPlayerAttack");
+        }
 
-        g["resetSelf"]();
+        sv["resetSelf"]();
     }
 
     // 对目标位置使用物品
@@ -522,12 +530,6 @@ class AniView extends egret.DisplayObjectContainer {
             this.bv.playAvatarAni("Book");
         } else if (Utils.checkCatalogues(type, "food")) { // 食物抖一下
             await AniUtils.flashAndShake(sv);
-        } else if (type == "IceBlock" || type == "Rock") {
-            var g = this.bv.mapView.getGridViewAt(e.pos.x, e.pos.y);
-            AniUtils.flashAndShake(sv);
-            var attackEff:egret.MovieClip = g.addEffect("effPlayerAttack", 1);
-            await attackEff["wait"]().then();
-            g.removeEffect("effPlayerAttack");
         }
 
         sv["resetSelf"]();
