@@ -21,5 +21,11 @@
         {"type":"LevelLogicTakeKey"}, 
         {"type":"LevelLogicChangeMonster", "ps":[["RedSlime", "GreenSlime"], 5]},
         {"type":"LevelLogicAddElemOnInit", "ps":[["SlimeKing"]]}
+        ],
+    "BrainOfCthulhu":[
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["bossBox1", "bossBox2", "bossBox3", "bossBox4", "bossBox5"]]}, 
+        {"type":"LevelLogicTakeKey"}, 
+        {"type":"LevelLogicChangeMonster", "ps":[["ReviveZombie"], 5]},
+        {"type":"LevelLogicAddElemOnInit", "ps":[["BrainOfCthulhu"]]}
         ]
 }

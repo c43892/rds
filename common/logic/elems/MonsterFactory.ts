@@ -130,7 +130,7 @@ class MonsterFactory {
         "RageZombie": (attrs) => MonsterFactory.doAddPowerOnHurt(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //狂暴僵尸
         "HideZombie": (attrs) => MonsterFactory.doHideAfterUncovered(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //隐匿僵尸
         "BallShito": (attrs) => MonsterFactory.doProtectMonsterAround(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //圆球使徒
-        "ReviveZombie": (attrs) => MonsterFactory.doReviveOndie(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //复生僵尸
+        "ReviveZombie": (attrs) => MonsterFactory.doRecoverSanOnDie(MonsterFactory.doReviveOndie(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))))), //复生僵尸
         "CowardZombie": (attrs) => MonsterFactory.doHideOnOtherMonsterDie(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //胆怯僵尸
         "MarkZombie":  (attrs) => MonsterFactory.doMarkMonsterOnHurt(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //标记僵尸
         "ConfusionZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //疑惑僵尸
@@ -156,6 +156,23 @@ class MonsterFactory {
             m = MonsterFactory.doSummonSlimesOnDie(m);
             m = MonsterFactory.doAddHpPerRound(Math.floor(attrs.hp * 0.05) > 1 ? Math.floor(attrs.hp * 0.05) : 1, m)
             m = MonsterFactory.doEnhanceAura(m);
+            return m;
+        },
+
+        "BrainOfCthulhu": (attrs) => {
+            var m = this.createMonster(attrs);
+            MonsterFactory.makeBoss(
+                MonsterFactory.doSneakAttack(
+                    MonsterFactory.doAttackBack(
+                        MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player, attrs.attackInterval, () => !m.trapped, {a:2, b:0, c:0}), 
+                    () => !m.trapped)));
+            // m = MonsterFactory.doEnhanceAura(m);
+            m = MonsterFactory.doMinusSanPerRound(m);
+            // m = MonsterFactory.doHideMonsterAttrsOnView(m);
+            // m = MonsterFactory.doHideHazardNumberOnView(m);
+            // m = MonsterFactory.doChangeMonsterImg(m);
+            m = MonsterFactory.doTouchRandomGrid(m);
+            m = MonsterFactory.doRemoveSanEffectAfterDie(m);
             return m;
         },
 
@@ -842,6 +859,143 @@ class MonsterFactory {
                 await bt.implAddElemAt(king, kingPos.x, kingPos.y);
             }
         }, m)
+        return m;
+    }
+
+    // 赋予玩家san值概念，未现身的时候san值就会一直降低，san值初始为100，每回合降低5，低于100时开始显示迷惑头像
+    static doMinusSanPerRound(m:Monster):Monster {
+        return <Monster>ElemFactory.addAIEvenCovered("onPlayerActed", async () => {
+            if(!m.bt().player["san"])
+                m.bt().player["san"] = 100;
+            else
+                m.bt().player["san"] = (m.bt().player["san"] - 1) > 0 ? (m.bt().player["san"] - 1) : 0;
+            
+            await m.bt().fireEvent("onPlayerChanged", {"subType":"san"});
+            await m.bt().triggerLogicPoint("onPlayerChanged", {"subType":"san"});
+        }, m);
+    }
+
+    // san值低于70：怪物的所有属性都显示成问号
+    static doHideMonsterAttrsOnView(m:Monster):Monster {
+        return <Monster>ElemFactory.addAIEvenCovered("onPlayerChanged", async () => {
+            if (!m.bt().player["san"]) return;
+            else if (m.bt().player["san"] < 70){
+                var ms = m.bt().level.map.findAllElems((e:Elem) => e instanceof Monster && !e.isBoss && e.type != "PlaceHolder" && e.isHazard());
+                for (var monster of ms)
+                    monster["hideMonsterAttrs"] = true;
+            }
+            else {
+                var ms = m.bt().level.map.findAllElems((e:Elem) => e instanceof Monster && !e.isBoss && e.type != "PlaceHolder" && e.isHazard());
+                for (var monster of ms)
+                    monster["hideMonsterAttrs"] = false;
+            }
+        }, m, (ps) => ps.subType == "san");
+    }
+
+    // san值低于35：本层的所有地图数字都会显示为问号
+    static doHideHazardNumberOnView(m:Monster):Monster {
+        return <Monster>ElemFactory.addAIEvenCovered("onPlayerChanged", async () => {
+            if (!m.bt().player["san"]) return;
+            else if (m.bt().player["san"] < 35){
+                var ms = m.bt().level.map.findAllElems((e:Elem) => e instanceof Monster && e.type != "PlaceHolder" && !e.isBoss && e.isHazard());
+                for (var monster of ms)
+                    monster["hideHazardNumber"] = true;
+            }
+            else {
+                var ms = m.bt().level.map.findAllElems((e:Elem) => e instanceof Monster && e.type != "PlaceHolder" && !e.isBoss && e.isHazard());
+                for (var monster of ms)
+                    monster["hideHazardNumber"] = false;
+            }
+        }, m, (ps) => ps.subType == "san");
+    }
+
+    // san值为0：你的攻击将随机点击可点击的地方
+    static doTouchRandomGrid(m:Monster):Monster {
+        return <Monster>ElemFactory.addAIEvenCovered("onPlayerTry2AttackAt", async (ps) => {
+            if (!m.bt().player["san"]) return;
+            else if (m.bt().player["san"] <= 80){
+                var gs = m.bt().level.map.findAllGrid((x, y, g:Grid) => {
+                    var e = g.getElem();
+                    return g.isUncoveredOrMarked() && !!e && e instanceof Monster && e.isHazard();
+                })
+                if(gs.length > 0){
+                    var g = gs[m.bt().srand.nextInt(0, gs.length)];
+                    ps.x = g.pos.x;
+                    ps.y = g.pos.y;
+                }
+            }
+        }, m, (ps) => !ps.weapon);
+    }
+
+    // boss被翻开后本关的所有普通怪物都显示为克苏鲁的触手
+    static doChangeMonsterImg(m:Monster):Monster {
+        var m = <Monster>ElemFactory.addAIEvenCovered("onGridChanged", async () => {
+            var ms = m.bt().level.map.findAllElems((e:Elem) => e instanceof Monster && !e.isBoss && e.type != "PlaceHolder" && e.isHazard());
+            var tentacle = m.bt().level.createElem("ReviveZombie");
+            for (var monster of ms){
+                monster["origGetElemImgRes"] = monster.getElemImgRes;
+                monster.getElemImgRes = tentacle.getElemImgRes;
+                await m.bt().fireEvent("onElemChanged", {subType:"elemImgChanged", e:monster});
+            }
+        }, m, (ps) => ps.x == m.pos.x && ps.y == m.pos.y && ps.subType == "gridUncovered");
+        m = MonsterFactory.doChangeNewMonsterImg(m);
+        return m;
+    }
+
+    // 新加入的怪显示为克苏鲁的触手
+    static doChangeNewMonsterImg(m:Monster):Monster {
+        return MonsterFactory.addAIOnNewElemsJoin(async (ps) => {
+            var newMonster = ps.e;
+            var tentacle = m.bt().level.createElem("ReviveZombie");
+            newMonster["origGetElemImgRes"] = newMonster.getElemImgRes;
+            newMonster.getElemImgRes = tentacle.getElemImgRes;
+            await m.bt().fireEvent("onElemChanged", {subType:"elemImgChanged", e:newMonster});
+        }, m);
+    }
+
+    // 克苏鲁之脑每5个回合在随机位置召唤一只克苏鲁的触手
+    static doSummonTentaclePer5Rounds(m:Monster):Monster {
+        return <Monster>ElemFactory.addAI("onPlayerActed", async () => {
+            if(!m["summonCD"])
+                m["summonCD"] = 0;
+            
+            m["summonCD"] += 1;
+            if(m["summonCD"] >= 5){
+                var g = BattleUtils.findRandomEmptyGrid(m.bt());
+                if(g){
+                    var tentacle = m.bt().level.createElem("ReviveZombie");
+                    await m.bt().implAddElemAt(tentacle, g.pos.x, g.pos.y);
+                }
+                m["summonCD"] = 0;
+            }
+        }, m);
+    }
+
+    // 你每杀死一次克苏鲁的触手，恢复10点san值
+    static doRecoverSanOnDie(m:Monster):Monster {
+        return <Monster>ElemFactory.addDieAI(async () => {
+            if(m.bt().player["san"]){
+                m.bt().player["san"] += 10;
+                await m.bt().fireEvent("onPlayerChanged", {"subType":"san"});
+                await m.bt().triggerLogicPoint("onPlayerChanged", {"subType":"san"});
+            }
+        }, m)
+    }
+
+    // boss死后san值相关变化恢复正常
+    // 恢复怪物属性显示, 恢复地块上的数字显示, 恢复怪物图标
+    static doRemoveSanEffectAfterDie(m:Monster):Monster {
+        m = <Monster>ElemFactory.addAfterDieAI(async () => {
+            m.bt().player["san"] = undefined;
+            var ms = m.bt().level.map.findAllElems((e:Elem) => e instanceof Monster && !e.isBoss && e.type != "PlaceHolder"  && e.isHazard());
+                for (var monster of ms){
+                    monster["hideMonsterAttrs"] = false;
+                    monster["hideHazardNumber"] = false;
+                    if(monster["origGetElemImgRes"])
+                        monster.getElemImgRes = monster["origGetElemImgRes"];
+                    await m.bt().fireEvent("onElemChanged", {subType:"elemImgChanged", e:monster});
+                }
+        }, m);
         return m;
     }
 

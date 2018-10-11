@@ -420,7 +420,7 @@ class MainView extends egret.DisplayObjectContainer {
     // 打开通关界面
     public async openFinishGameView(){
         Utils.savePlayer(undefined);
-        await this.confirmOkYesNo("<font color=#7d0403 size=30>恭喜你,通关了</font>", "<font color=#000000 size=20>开始下一次毛线吧</font>", false);
+        await this.confirmOkYesNo("<font color=#7d0403 size=30>恭喜你,通关了</font>", "<font color=#000000 size=20>开始下一次冒险吧</font>", false);
         this.p = undefined;
         await this.av.blackIn();
         await this.openStartup(undefined);

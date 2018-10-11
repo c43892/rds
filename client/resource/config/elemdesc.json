@@ -432,6 +432,11 @@
             "<font color=#7d0403 bold=true size=21>指挥</font>\n<font color=#000000 bold=false size=20>所有其他怪物血量和攻击翻倍</font>",
             "<font color=#7d0403 bold=true size=21>死亡和新生</font>\n<font color=#000000 bold=false size=20>死亡后分裂为四个史莱姆，3回合后史莱姆全部存活，史莱姆之王将会原地复活并回复30%的血量</font>"
         ]},
+        "BrainOfCthulhu":{"name":"克苏鲁之脑", "desc":[
+            "<font color=#7d0403 bold=true size=21>精髓吸取</font>\n<font color=#000000 bold=false size=20>每3回合进行一次攻击，伤害是攻击的3倍</font>",
+            "<font color=#7d0403 bold=true size=21>指挥</font>\n<font color=#000000 bold=false size=20>所有其他怪物血量和攻击翻倍</font>",
+            "<font color=#7d0403 bold=true size=21>san值</font>\n<font color=#000000 bold=false size=20>各种异象</font>"
+        ]},
         "ShopNpc":{"name":"智能机械管家", "desc":[
             "</font><font color=#7d0403 bold=true  size=21>奸商</font>\n<font color=#000000 bold=false size=20>顾客才是我的上帝</font>"
         ]},

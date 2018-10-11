@@ -15,7 +15,7 @@ class Elem {
     public hazard:boolean;
     public barrier:boolean;
     public isHazard = () => this.hazard; // 是否有害，有害的元素会被相邻格子计数
-    public hideHazardNum = () => this.attrs.hideHazardNum ? this.attrs.hideHazardNum : false; // 是否隐藏周围的计数
+    public hideHazardNum = () => (this.attrs.hideHazardNum ? this.attrs.hideHazardNum : false) || this["hideHazardNumber"]; // 是否隐藏周围的计数
     public isBarrier = () => this.barrier; // 是否会阻挡道路
     public movingSpeed:number; // 移动速度
     public getGrid = () => this.bt().level.map.getGridAt(this.pos.x, this.pos.y); // 当前元素所在的地图格

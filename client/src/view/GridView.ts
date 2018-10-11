@@ -185,7 +185,7 @@ class GridView extends egret.DisplayObjectContainer {
                 if (e.hp > 0) {
                     this.hpBg.x = this.width - this.hpBg.width; this.hpBg.y = this.height - this.hpBg.height;
                     this.showLayer.addChild(this.hpBg);
-                    this.hp.text = m.hp.toString();
+                    this.hp.text = e["hideMonsterAttrs"] ? "?" : m.hp.toString();
                     this.putNumOnBg(this.hp, this.hpBg);
                     this.showLayer.addChild(this.hp);
                 }
@@ -194,7 +194,7 @@ class GridView extends egret.DisplayObjectContainer {
                 if (m.shield > 0 && !m.isDead()) {
                     this.shieldBg.x = this.width - this.shieldBg.width; this.shieldBg.y = 0;
                     this.showLayer.addChild(this.shieldBg);
-                    this.shield.text = m.shield.toString();
+                    this.shield.text = e["hideMonsterAttrs"] ? "?" : m.shield.toString();
                     this.putNumOnBg(this.shield, this.shieldBg);
                     this.showLayer.addChild(this.shield);
                 }
@@ -204,7 +204,7 @@ class GridView extends egret.DisplayObjectContainer {
                     this.attackIntervalBg.x = this.width - this.attackIntervalBg.width; 
                     this.attackIntervalBg.y = 0;
                     this.showLayer.addChild(this.attackIntervalBg);
-                    this.attackInterval.text = m["attackInterval"].toString();
+                    this.attackInterval.text = e["hideMonsterAttrs"] ? "?" : m["attackInterval"].toString();
                     this.putNumOnBg(this.attackInterval, this.attackIntervalBg);
                     this.showLayer.addChild(this.attackInterval);
                 }
@@ -219,7 +219,7 @@ class GridView extends egret.DisplayObjectContainer {
                     this.powerBg.y = this.height - this.powerBg.height;
                     this.showLayer.addChild(this.powerBg);
 
-                    this.power.text = power.toString();
+                    this.power.text = e["hideMonsterAttrs"] ? "?" : power.toString();
                     this.putNumOnBg(this.power, this.powerBg);
                     this.showLayer.addChild(this.power);
                 };

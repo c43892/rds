@@ -60,6 +60,7 @@ class LevelLogicTakeKey extends LevelLogic{
     }
 
     public async normalMonsterTakeKey(bt:Battle, keys:Elem[], takeNum:number){
+        Utils.assert(keys.length > 0, "keys's amount should not be 0.")
         var ms = <Monster[]>BattleUtils.findRandomElems(bt, takeNum, (e:Elem) => e instanceof Monster && !e.isBoss && e.isHazard() && !e.attrs.cannotTake);
         for(var m of ms){
             var key = keys[bt.srand.nextInt(0, keys.length)];

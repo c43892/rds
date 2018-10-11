@@ -179,7 +179,7 @@ class Level {
     }
 
     // 根据配置将部分元素放置在固定位置,其余元素随机
-    public setElemPos(){
+    public setElemPos(covered:boolean = true){
         var biggerElems:Elem[] = [];
         var normalElems:Elem[] = [];
 
@@ -233,7 +233,7 @@ class Level {
         // 先给大尺寸元素找到随机位置
         for (var e of biggerElems) {
             var esize = e.attrs.size;
-            var g = BattleUtils.findRandomEmptyGrid(this.bt, true, esize);
+            var g = BattleUtils.findRandomEmptyGrid(this.bt, covered, esize);
             Utils.assert(!!g, "can not place big " + e.type + " with size of " + esize);
             this.map.addElemAt(e, g.pos.x, g.pos.y);
             var hds:Elem[] = e["placeHolders"]();
@@ -243,7 +243,7 @@ class Level {
         // 再放置普通元素
         for (var e of normalElems) {
             Utils.assert(e.type != "PlaceHolder", "place holders should be placed already");
-            var g = BattleUtils.findRandomEmptyGrid(this.bt, true);
+            var g = BattleUtils.findRandomEmptyGrid(this.bt, covered);
             Utils.assert(!!g, "no more place for elem");
             this.map.addElemAt(e, g.pos.x, g.pos.y);
         }
