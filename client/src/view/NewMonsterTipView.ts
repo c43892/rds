@@ -54,7 +54,7 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
 
     // 添加一个怪物类型等待显示
     public tryAddNewMonsterTip(m:Monster) {
-        if (Utils.contains(this.newMonsterTipsData, m.type) || m.attrs.invisible)
+        if (Utils.contains(this.newMonsterTipsData, m.type) || m.attrs.invisible || m.isBoss)
             return;
 
         this.newMonsterTipsData.push(m.type);
@@ -137,7 +137,20 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
         this.btnNext.refresh();
     }
 
-    public async onGridChanged(ps) {
+    public onAttacked(ps) {
+        if (ps.subType != "monster2targets")
+            return;
+
+        var m:Monster = ps.attackerAttrs.owner;
+        if (!m || !m.isBoss || Utils.contains(this.newMonsterTipsData, m.type) || m.attrs.invisible)
+            return;
+
+        GridView.showElemDesc(m);
+        this.newMonsterTipsData.push(m.type);
+        Utils.saveLocalData(this.LOCAL_DATA_KEY, this.newMonsterTipsData);
+    }
+
+    public onGridChanged(ps) {
         if (ps.subType != "gridUncovered" && ps.subType != "elemMarked")
             return;
 
