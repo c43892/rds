@@ -433,21 +433,21 @@ class GuideView extends egret.DisplayObjectContainer {
         await this.showDialog("Nurse", "护士", "让我告诉你一些基本规则", 0, 500, true);
         await this.showDialog("Nurse", "护士", "地上的数字表示它周围8个格子里隐藏的怪物的数量", 0, 500, true);
         await this.showDialog("Nurse", "护士", "点击就可以打开格子", 0, 500, true);
-        await this.tapGridWithDialog(0, 0, "Nurse", "护士", "跟着我点击闪光的格子", 0, 500, true);
+        await this.tapGridWithDialog(1, 1, "Nurse", "护士", "跟着我点击闪光的格子", 0, 500, true);
         // await this.pressGridWithDialog(0, 2, "GoblinThief", "哥布林", "我就测试一下说话的同时指引点击", 140, 500, true);
         await this.showDialog("Nurse", "护士", "做的不错，你发现了一把匕首，当你无法确定时，可以用匕首来探路", 0, 500, true);
-        await this.tapGridWithDialog(0, 0, "Nurse", "护士", "捡起匕首，我们来用它探路", 0, 500, true);
-        await this.tapSelGridWithDialog(0, 1, "Nurse", "护士", "好的，你成功了！下来让我们攻击一个格子", 0, 500, true);
+        await this.tapGridWithDialog(1, 1, "Nurse", "护士", "捡起匕首，我们来用它探路", 0, 500, true);
+        await this.tapSelGridWithDialog(1, 2, "Nurse", "护士", "好的，你成功了！下来让我们攻击一个格子", 0, 500, true);
         await this.showDialog("Nurse", "护士", "看来我们遇到了对手", 0, 500, true);
         await this.showDialog("Nurse", "护士", "怪物的详细信息可以通过长按来查看", 0, 500, true);
-        await this.pressGridWithDialog(0, 1, "Nurse", "护士", "现在长按小手指向的格子吧", 0, 500, true)
-        await this.tapGridWithDialog(0, 1, "Nurse", "护士", "让我们尝试攻击一下它", 0, 500, true);
+        await this.pressGridWithDialog(1, 2, "Nurse", "护士", "现在长按小手指向的格子吧", 0, 500, true)
+        await this.tapGridWithDialog(1, 2, "Nurse", "护士", "让我们尝试攻击一下它", 0, 500, true);
         await AniUtils.delay(1400);
-        await this.showDialog("GoblinThief", "哥布林", "啊，我的眼睛，魔王的战士会再次归来的！", 0, 500, false);
+        await this.showDialog("EyeDemon", "眼魔", "啊，我的眼睛，魔王的战士会再次归来的！", 0, 500, false);
         await this.showDialog("Nurse", "护士", "再来一个新操作，现在地图上还有3个数字，显示的都是2", 0, 500, true);
         await this.showDialog("Nurse", "护士", "那我们就可以看出来最顶端的数字2右边的两个格子是有怪物的，让我们来标记他们吧", 0, 500, true);
-        await this.pressGridWithDialog(4, 0, "Nurse", "护士", "跟着小手长按那个格子", 0, 500, true);
-        await this.pressGridWithDialog(4, 1, "Nurse", "护士", "好的，你成功了，让我们再来一次", 0, 500, true);
+        await this.pressGridWithDialog(5, 1, "Nurse", "护士", "跟着小手长按那个格子", 0, 500, true);
+        await this.pressGridWithDialog(5, 3, "Nurse", "护士", "好的，你成功了，让我们再来一次", 0, 500, true);
         await this.showDialog("Nurse", "护士", "非常好，魔王的手下遍布地牢，谨慎的向前探索吧，勇士", 0, 200, true);
     }
 }
