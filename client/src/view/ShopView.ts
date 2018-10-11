@@ -132,7 +132,7 @@ class ShopView extends egret.DisplayObjectContainer {
         } else {
             var e = this.items[i];
             this.prices[i].text = this.itemPrices[e.type];
-            this.prices[i].textColor = (this.player.money - this.itemPrices[e.type]) < 0 ? 0xff0000 : 0xffffff;
+            this.prices[i].textColor = (this.player.money - this.itemPrices[e.type]) < 0 ? 0x7d0403 : 0xffffff;
             ViewUtils.setTexName(gd, e.getElemImgRes() + "_png");
             gd.touchEnabled = true;
             if(e instanceof Relic){
