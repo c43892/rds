@@ -325,7 +325,7 @@ class WorldMapEventSelFactory {
                     exitSel.desc = this.genDesc(exitDesc, "exit", ps);
                     sels.push(exitSel);
 
-                    await this.openSels(p, title, upDesc, sels);
+                    await this.openSels(p, title, upDesc, undefined, sels);
                 }, sel);
             } else { // 失败就战斗
                 var dropPs = [];

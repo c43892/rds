@@ -33,10 +33,13 @@ class LevelLogicMarkAllAward extends LevelLogic {
                     var box = this.level.createElem("TreasureBox", { rdp: this.rdp });
                     await bt.implAddElemAt(box, boxGrid.pos.x, boxGrid.pos.y);
                     var key = this.level.createElem("Key");
-                    if (!keyGrid.isCovered())
+                    if (!keyGrid.getElem()) {
+                        Utils.assert(!keyGrid.isCovered(), "only uncovered grid without monster is valid");
                         await bt.implAddElemAt(key, keyGrid.pos.x, keyGrid.pos.y);
+                    }
                     else {
                         var e = keyGrid.getElem();
+                        Utils.assert(e instanceof Monster, "only monster can take the key");
                         e.addDropItem(key);
                         await bt.fireEvent("onElemImgFlying", { e: key, fromPos: boxGrid.pos, toPos: keyGrid.pos });
                     }
