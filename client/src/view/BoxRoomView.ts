@@ -34,6 +34,8 @@ class BoxRoomView extends egret.DisplayObjectContainer {
 
         this.box = ViewUtils.createBitmapByName("BoxRoomBox_png");
         this.box.name = "box";
+        this.box.anchorOffsetX = this.box.width / 2;
+        this.box.anchorOffsetY = this.box.height / 2;
         this.box.touchEnabled = true;
 
         this.boxEff = ViewUtils.createFrameAni("effTB");
@@ -112,10 +114,6 @@ class BoxRoomView extends egret.DisplayObjectContainer {
         }
 
         ViewUtils.setTexName(this.box, "BoxRoomBox_png");
-        this.box.anchorOffsetX = this.box.width / 2;
-        this.box.anchorOffsetY = this.box.height / 2;
-        this.box.x += this.box.anchorOffsetX;
-        this.box.y += this.box.anchorOffsetY;
 
         // 宝箱动画
         egret.Tween.removeTweens(this.box);
@@ -138,6 +136,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
 
     async onOpenBox() {
         egret.Tween.removeTweens(this.box);
+        this.box.rotation = 0;
         this.openBoxBtn.touchEnabled = false;
         this.removeChild(this.openBoxBtn);
 
