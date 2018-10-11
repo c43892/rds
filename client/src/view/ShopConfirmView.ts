@@ -39,7 +39,7 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
                 var maxLv = r1.attrs.reinforce.length;
                 lv = lv > maxLv ? maxLv : lv;
                 r2.setReinfoceLv(lv);
-                this.createRelicUpgradeConfirm(r1, r2, price, showPrice);
+                this.createRelicUpgradeConfirm(player, r1, r2, price, showPrice);
             }
         }
 
@@ -162,7 +162,7 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
 
         // 费用
         var cost = ViewUtils.createTextField(20, 0x000000);
-        cost.textFlow = ViewUtils.fromHtml(ViewUtils.formatTip("costCoins", price.toString()));
+        cost.textFlow = ViewUtils.fromHtml(ViewUtils.formatTip("costCoinsOnRelic", price.toString()));
         cost.width = bg.width;
         cost.x = bg.x;
         cost.y = desc.y + desc.height + 20;
@@ -200,7 +200,7 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
     // 升级遗物时的确认界面
     c1 = new egret.DisplayObjectContainer();
     c2 = new egret.DisplayObjectContainer();
-    private createRelicUpgradeConfirm(r1:Relic, r2:Relic, price:number, showPrice = true) {
+    private createRelicUpgradeConfirm(player:Player, r1:Relic, r2:Relic, price:number, showPrice = true) {
         // 左边的遗物信息
         this.c1.removeChildren();
         var objs1 = ViewUtils.createSmallRelicInfoRect(r1);
@@ -231,6 +231,7 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
         arrow.anchorOffsetY = arrow.height / 2;
         arrow.x += arrow.anchorOffsetX;
         arrow.y += arrow.anchorOffsetY;
+
         // 箭头动效
         egret.Tween.get(arrow, {loop:true}).to({rotation:0}, 2000)
             .to({rotation:-15}, 50)
@@ -268,6 +269,12 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
         this.addChild(btnYes);
 
         btnYes.onClicked = () => {
+            if (showPrice && (player.money - price < 0)) {
+                AniUtils.shakeCamera(1, 100, true);
+                AniUtils.tipAt(ViewUtils.getTipText("notEnoughMoney"), {x:this.width/2, y:this.height/2}, 50, 0xffffff);
+                return;
+            }
+
             this.playRelicEffect().then(() => {
                 this.onYes();
             });

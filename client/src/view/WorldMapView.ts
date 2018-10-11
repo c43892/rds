@@ -48,21 +48,15 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.wmesFact.confirmOkYesNo = this.confirmOkYesNo;
         this.wmesFact.selRelic = this.selRelic;
         this.wmesFact.openEventSelGroup = async (p:Player, group) => await this.openSelGroup(p, group);
-        this.wmesFact.openSels = async (p:Player, title, desc, sels) => await this.openSels(p, title, desc, sels);
+        this.wmesFact.openSels = async (p:Player, title, desc, bg, sels) => await this.openSels(p, title, desc, bg, sels);
         this.wmesFact.openTurntable = async (turntable) => await this.openTurntable(turntable);
 
         this.btnSymbolDesc = new TextButtonWithBg("SymbolDescbtn_png");
         this.btnSymbolDesc.name = "btnSymbolDesc";
         this.symbolDesc = new TextButtonWithBg("SymbolDesc_png");
         this.symbolDesc.name = "symbolDesc";
-        
-        for (var i = 0; i < 7; i++) {
-            this.crevices[i] = ViewUtils.createBitmapByName("Crevice_png");
-            this.crevices[i].name = "crevice" + i.toString();
-        }
     }
 
-    crevices:egret.Bitmap[] = []; // 裂缝
     btnSymbolDesc:TextButtonWithBg; // 图例按钮
     symbolDesc:TextButtonWithBg; // 图例
 
@@ -214,10 +208,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
         cn4.scaleX = -1;
         cn4.scaleY = -1;
         this.viewContent.addChild(cn4);
-
-        // 裂纹
-        this.crevices.forEach((obj, _) => this.viewContent.addChild(obj));
-        ViewUtils.multiLang(this, ...this.crevices);
     }
 
     private refreshNodes() {
@@ -572,7 +562,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         await this.openEventSels(selsGroup.title, selsGroup.desc, selsGroup.bg, sels);
     }
 
-    async openSels(p:Player, title, desc, sels) {
-        await this.openEventSels(title, desc, sels);
+    async openSels(p:Player, title, desc, bg, sels) {
+        await this.openEventSels(title, desc, bg, sels);
     }
 }

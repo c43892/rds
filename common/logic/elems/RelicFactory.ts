@@ -88,8 +88,13 @@ class RelicFactory {
         // 耐力
         "Endurance": (attrs) => {
             return this.createRelic(attrs, true, (r:Relic, enable:boolean) => {
-                r.player.addMaxHp(enable ? attrs.dMaxHp : -attrs.dMaxHp);
-                r.player.addHp(enable ? attrs.dMaxHp : -attrs.dMaxHp);
+                if (enable) {
+                    r.player.addMaxHp(enable ? attrs.dMaxHp : -attrs.dMaxHp);
+                    r.player.addHp(enable ? attrs.dMaxHp : -attrs.dMaxHp);
+                } else {
+                    r.player.addHp(enable ? attrs.dMaxHp : -attrs.dMaxHp);
+                    r.player.addMaxHp(enable ? attrs.dMaxHp : -attrs.dMaxHp);
+                }
             });
         },
 

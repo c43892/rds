@@ -71,8 +71,11 @@ class PropView extends egret.DisplayObjectContainer {
             this.cd.x = (this.elemImg.width - this.cd.width) / 2;
             this.cd.y = (this.elemImg.height - this.cd.height) / 2;
             this.cd.alpha = 1;
-        } else 
+            ViewUtils.makeGray(this.elemImg, true);
+        } else {
             this.cd.alpha = 0;
+            ViewUtils.makeGray(this.elemImg, false);
+        }
     }
 
     public clear() {

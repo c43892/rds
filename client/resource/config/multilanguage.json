@@ -290,6 +290,7 @@
 		"makeSureUseProp": {"EN": "be sure to use {0}?", "CNS": "确定使用<font color=#ff0000>{0}</font>?", "CNT": "确定使用{0}?"},
 		"coins": {"EN": "coins", "CNS": "金币", "CNT": "金幣" },
 		"costCoins": {"EN": "<font color=#294c22>cost {0} coins</font>", "CNS": "<font color=#294c22>花费金币 {0} </font>", "CNT": "<font color=#294c22>花费金幣 {0} </font>"},
+		"costCoinsOnRelic": {"EN": "<font color=#294c22>cost {0} coins</font>", "CNS": "<font color=#294c22>花费金币 {0} </font>", "CNT": "<font color=#294c22>花费金幣 {0} </font>"},
 		"numHold": {"EN": "<font color=#464070>hold {0} </font>", "CNS": "<font color=#464070>当前拥有 {0} 个</font>", "CNT": "<font color=#464070>当前拥有 {0} 个</font>"},
 		"openBox": {"EN": "open the box", "CNS": "打开宝箱", "CNT": "打开宝箱"},
 		"makeSureGoOutBoxRoom":{"EN": "be sure to leave without left items?", "CNS": "确定放弃余下的物品?", "CNT": "確定放棄餘下的物品?"},
