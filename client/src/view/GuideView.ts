@@ -73,14 +73,14 @@ class GuideView extends egret.DisplayObjectContainer {
     public registerEvents(bt:Battle) {
         bt.registerEvent("onLevelInited", async (ps) => {
             var bt = ps.bt;
-            if (bt.btType == "rookiePlay")
+            if (bt.btType == "rookiePlay_1")
                 await this.rookiePlay1(ps.bt)
         });
 
         bt.registerEvent("onStartupRegionUncovered", async (ps) => {
             var bt = ps.bt;
             var av = <AniView>AniUtils.ac;
-            if (bt.btType == "rookiePlay") {
+            if (bt.btType == "rookiePlay_1") {
                 av.addBlockLayer();
                 var tid;
                 tid = egret.setTimeout(() => {

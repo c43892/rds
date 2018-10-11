@@ -3523,6 +3523,9 @@
     "slimeKing_15": {"redirect": "boss_15"},
     "slimeKing_30": {"redirect": "boss_30"},
 
+    "brainOfCthulhu_15": {"redirect": "boss_15"},
+    "brainOfCthulhu_30": {"redirect": "boss_30"},
+
     "_abcd": {
         "displayName": "Boss战斗15",
         "map": {},
