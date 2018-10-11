@@ -203,6 +203,8 @@ class AniView extends egret.DisplayObjectContainer {
                 gv.removeEffect("effPoisonMist"); // 翻开就去掉毒雾
                 var eff = gv.addEffect("effUncover", 1); // 翻开特效
                 eff["wait"]().then(() => gv.removeEffect("effUncover"));
+                if (e instanceof Monster && (<Monster>e).isBoss)
+                    await AniUtils.shakeCamera(2, 100);
             }
             break;
             case "elemMarked": {
@@ -938,7 +940,7 @@ class AniView extends egret.DisplayObjectContainer {
             var fsx = sv.scaleX;
             var fsy = sv.scaleY;
             var fromPos = AniUtils.ani2global(sv);
-            var toPos = {x:fromPos.x, y:fromPos.y - 100};
+            var toPos = {x:fromPos.x, y:fromPos.y - 50};
             var rev = AniUtils.reserveObjTrans(sv, fromPos, toPos);
             await this.aniFact.createAniByCfg({type:"seq", arr:[
                 {type:"tr", tsx:fsx*0.9, tsy:fsy*0.9, time:250, mode:egret.Ease.cubicOut},
