@@ -14,17 +14,17 @@ class AniUtils {
         var ax = obj.anchorOffsetX;
         var ay = obj.anchorOffsetY;
         if (!(obj instanceof egret.MovieClip)) {
-            obj.anchorOffsetX = obj.width * obj.scaleX / 2;
-            obj.anchorOffsetY = obj.height * obj.scaleY / 2;
+            obj.anchorOffsetX = obj.width / 2;
+            obj.anchorOffsetY = obj.height / 2;
         }
         AniUtils.ac.addChild(obj);
-        obj.x = wp.x + obj.anchorOffsetX;
-        obj.y = wp.y + obj.anchorOffsetY;
+        obj.x = wp.x + obj.anchorOffsetX * obj.scaleX;
+        obj.y = wp.y + obj.anchorOffsetY * obj.scaleY;
         AniUtils.ac.parent.setChildIndex(AniUtils.ac, -1);
 
         for (var pos of poses) {
-            pos.x += obj.anchorOffsetX;
-            pos.y += obj.anchorOffsetY;
+            pos.x += obj.anchorOffsetX * obj.scaleX;
+            pos.y += obj.anchorOffsetY * obj.scaleY;
         }
 
         return () => {

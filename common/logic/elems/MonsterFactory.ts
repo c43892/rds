@@ -412,10 +412,9 @@ class MonsterFactory {
                     // 如果是打怪，需要判断射程
                     if (target instanceof Monster && !m.inAttackRange(target)) return;
                     
-                    await m.bt().implMonsterAttackTargets(m, [target], extraPowerABC);
+                    await m.bt().implMonsterAttackTargets(m, [target], extraPowerABC, false, ["roundedAttacking"]);
                 }
             }
-            
         }, m);
     }
 

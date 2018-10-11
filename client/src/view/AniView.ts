@@ -203,6 +203,8 @@ class AniView extends egret.DisplayObjectContainer {
                 gv.removeEffect("effPoisonMist"); // 翻开就去掉毒雾
                 var eff = gv.addEffect("effUncover", 1); // 翻开特效
                 eff["wait"]().then(() => gv.removeEffect("effUncover"));
+                if (e instanceof Monster && (<Monster>e).isBoss)
+                    await AniUtils.shakeCamera(2, 100);
             }
             break;
             case "elemMarked": {
@@ -924,7 +926,7 @@ class AniView extends egret.DisplayObjectContainer {
     
     // 怪物攻击
     public async onMonsterAttack(ps) {
-        var m:Elem = ps.m;
+        var m:Monster = ps.m;
         var sv = this.getSV(m);
         var flags = ps.addFlags;
         var g = this.bv.mapView.getGridViewAt(m.pos.x, m.pos.y);
@@ -934,6 +936,19 @@ class AniView extends egret.DisplayObjectContainer {
         else if (Utils.contains(flags, "selfExplode")) {
             var explodeEff = g.addEffect("effSelfExplode", 1);
             explodeEff["wait"]().then(() => g.removeEffect("effSelfExplode"));
+        } else if (m.isBoss && Utils.contains(ps.addFlags, "roundedAttacking")) { // boss 主动攻击
+            var fsx = sv.scaleX;
+            var fsy = sv.scaleY;
+            var fromPos = AniUtils.ani2global(sv);
+            var toPos = {x:fromPos.x, y:fromPos.y - 100};
+            var rev = AniUtils.reserveObjTrans(sv, fromPos, toPos);
+            await this.aniFact.createAniByCfg({type:"seq", arr:[
+                {type:"tr", tsx:fsx*0.9, tsy:fsy*0.9, time:250, mode:egret.Ease.cubicOut},
+                {type:"delay", time:50},
+                {type:"tr", tsx:fsx*1.3, tsy:fsy*1.3, fy:fromPos.y, ty:toPos.y, time:100},
+                {type:"tr", tsx:fsx, tsy:fsy, fy:toPos.y, ty:fromPos.y, time:100}
+            ], obj:sv});
+            rev();
         } else
             await AniUtils.shakeTo(sv);
 
