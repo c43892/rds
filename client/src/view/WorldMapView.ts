@@ -518,6 +518,8 @@ class WorldMapView extends egret.DisplayObjectContainer {
         }
 
         var evt = Utils.randomSelectByWeight(events, this.player.playerRandom, 1, 2)[0];
+        if(Utils.checkRookiePlay())
+            evt = "a3"; // 新手事件固定
         var p = this.worldmap.player;
 
         switch (evt) {
