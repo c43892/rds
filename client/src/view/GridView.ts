@@ -680,9 +680,6 @@ class GridView extends egret.DisplayObjectContainer {
 
     // 拖拽移动
     async onTouchMove(evt:egret.TouchEvent) {
-        // if (GridView.gesturePts)
-        //     GridView.gesturePts.push({x:evt.stageX, y:evt.stageY});
-
         if (GridView.longPressed)
             return;
 
@@ -718,19 +715,19 @@ class GridView extends egret.DisplayObjectContainer {
 
             // 翻开的格子才可能拖动
             if (!GridView.dragging) {
-                var e = GridView.dragFrom.getElem();
-                if (!e || !e.canBeDragDrop || e.getGrid().isCovered()) {
-                    GridView.checkOutPhrase();
-                    return;
-                }
-
                 if (dx * dx + dy * dy >= GridView.dragStartThreshold2) {
+                    if (GridView.pressTimer)
+                        GridView.pressTimer.stop();
+
                     GridView.pressed = false;
                     GridView.dragging = true;
 
-                    if (GridView.pressTimer)
-                        GridView.pressTimer.stop();
-                    
+                    var e = GridView.dragFrom.getElem();
+                    if (!e || !e.canBeDragDrop || e.getGrid().isCovered()) {
+                        GridView.checkOutPhrase();
+                        return;
+                    }
+
                     if (!GridView.draggingElemImg) {
                         GridView.draggingElemImg = new egret.Bitmap();
                         GridView.draggingElemImg.width = GridView.dragFrom.width;
@@ -759,13 +756,6 @@ class GridView extends egret.DisplayObjectContainer {
 
     // 结束拖拽
     async onTouchEnd(evt:egret.TouchEvent) {
-        // GridView.gestureChecked = false;
-        // if (GridView.gesturePts && GridView.onGesture)
-        //     GridView.gestureChecked = GridView.onGesture(GridView.gesturePts);
-
-        // GridView.gesturePts = undefined;
-        // GridView.gestureOnGridView = undefined;
-
         if (!GridView.dragFrom)
             return;
 
@@ -791,40 +781,17 @@ class GridView extends egret.DisplayObjectContainer {
         if (!GridView.checkInPhrase("touch end")) return;
 
         from.showLayer.alpha = 1;
-        this.parent.removeChild(GridView.draggingElemImg);
-        GridView.draggingElemImg.texture = undefined;
+        if (GridView.draggingElemImg) {
+            if (this.parent.contains(GridView.draggingElemImg))
+                this.parent.removeChild(GridView.draggingElemImg);
+
+            GridView.draggingElemImg.texture = undefined;
+        }
       
-        await GridView.reposElemTo(from.getElem(), to.gx, to.gy);
+        var e = from.getElem();
+        if (e && !e.getGrid().isCovered() && e.canBeDragDrop && this.map.isGenerallyValid(e.pos.x, e.pos.y))
+            await GridView.reposElemTo(e, to.gx, to.gy);
 
         GridView.checkOutPhrase();
     }
-
-    // 记录一次按下弹起所经过的路径点，用于手势判断
-    // public static gesturePts;
-    // public static gestureOnGridView:GridView;
-    // public static gestureChecked:boolean;
-    // public static onGesture(pts):boolean { // 响应手势操作
-    //     if (pts.length < 10) return;
-    //     // 统计四边和中心位置
-    //     var l = pts[0].x; var r = l;
-    //     var t = pts[0].y; var b = t;
-    //     pts.forEach((pt, _) => {
-    //         if (pt.x < l) l = pt.x;
-    //         if (pt.x > r) r = pt.x;
-    //         if (pt.y < t) t = pt.y;
-    //         if (pt.y > b) b = pt.y;
-    //     });
-
-    //     if (r - l < 30 && b - t < 30) return;
-    //     var g = GridView.gestureOnGridView.getGrid();
-    //     if (g.isUncoverable() && g.status != GridStatus.Marked) {
-    //         GridView.try2BlockGrid(g.pos.x, g.pos.y, true);
-    //         return true;
-    //     } else if (g.status == GridStatus.Blocked) {
-    //         GridView.try2BlockGrid(g.pos.x, g.pos.y, false);
-    //         return true;
-    //     }
-        
-    //     return false;
-    // };
 }
