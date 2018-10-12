@@ -296,6 +296,7 @@ class GuideView extends egret.DisplayObjectContainer {
 
     // 指引点击地图上的目标选择格子
     public async tapSelGrid(gx:number, gy:number) {
+        await Utils.waitUtil(() => this.bv.selView.parent != null);
         var g = this.bv.selView.getGridByPos(gx, gy);
         await this.tap(g, {x:g.width/2, y:g.height/2});
     }
@@ -556,6 +557,7 @@ class GuideView extends egret.DisplayObjectContainer {
 
     // 指引点击地图上的目标选择格子同时有对话
     public async tapSelGridWithDialog(gx:number, gy:number, tex:string, name:string, str:string, x:number, y:number, onLeft:boolean = true, flipAvatar:boolean = false) {
+        await Utils.waitUtil(() => this.bv.selView.parent != null);
         var g = this.bv.selView.getGridByPos(gx, gy);
         await this.tapWithDialog(g, tex, name, str, x, y, onLeft, flipAvatar);
     }
