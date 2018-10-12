@@ -777,7 +777,7 @@ class GridView extends egret.DisplayObjectContainer {
         GridView.dragging = false;
         if (GridView.longPressed)
             return;
-        
+
         if (!GridView.checkInPhrase("touch end")) return;
 
         from.showLayer.alpha = 1;
@@ -787,7 +787,7 @@ class GridView extends egret.DisplayObjectContainer {
 
             GridView.draggingElemImg.texture = undefined;
         }
-      
+
         var e = from.getElem();
         if (e && !e.getGrid().isCovered() && e.canBeDragDrop && this.map.isGenerallyValid(e.pos.x, e.pos.y))
             await GridView.reposElemTo(e, to.gx, to.gy);

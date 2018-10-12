@@ -20,7 +20,9 @@ class GuideView extends egret.DisplayObjectContainer {
         this.bg.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClickBg, this);
 
         this.buildDialog();
+        this.buildGeneral();
         this.buildTap();
+        this.buildSlide();
     }
 
     onBgClicked;
@@ -94,11 +96,17 @@ class GuideView extends egret.DisplayObjectContainer {
 
     // 点击指引
 
+    
+    hand:egret.Bitmap;
+    rt = new egret.RenderTexture();
+    buildGeneral() {
+        this.hand = ViewUtils.createBitmapByName("guideHand_png");
+    }
+
     tapBg:egret.Bitmap;
     tapTarget:egret.DisplayObject;
     tapFrameAni:egret.MovieClip;
     tapArea:egret.Bitmap;
-    hand:egret.Bitmap;
     buildTap() {
         this.tapBg = new egret.Bitmap();
         this.tapBg.touchEnabled = true;
@@ -113,11 +121,19 @@ class GuideView extends egret.DisplayObjectContainer {
         this.tapArea.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.touchBegin, this);
         this.tapArea.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchMove, this);
         this.tapArea.addEventListener(egret.TouchEvent.TOUCH_END, this.touchEnd, this);
-
-        this.hand = ViewUtils.createBitmapByName("guideHand_png");
     }
 
-    rt = new egret.RenderTexture();
+    // 滑动指引
+    slideBg:egret.Bitmap;
+    slideArea:egret.Bitmap;
+    buildSlide() {
+        this.slideBg = new egret.Bitmap();
+        this.slideBg.touchEnabled = true;
+        this.slideBg.pixelHitTest = true;
+        this.slideArea = ViewUtils.createBitmapByName("guideSlideArea_png");
+        this.slideArea.scale9Grid = new egret.Rectangle(84, 84, this.slideArea.width - 168, this.slideArea.height - 168);
+    }
+
     tapOrPressPrepare(target:egret.DisplayObject, tapOrPress:boolean, offset = {x:0, y:0}) {
         this.tapTarget = target;
         var targetPos = AniUtils.ani2global(target);
@@ -169,11 +185,67 @@ class GuideView extends egret.DisplayObjectContainer {
             this.removeChild(this.tapFrameAni);
             this.removeChild(this.tapArea);
             this.removeChild(this.hand);
-            this.bg.parent.removeChild(this.bg);
         };
     }
 
-    forGuideType = undefined; // "tap", "press"
+    slideGridsPrepare(fromTarget:egret.DisplayObject, distance:number, dir, gridSize) {
+        var fromPos = AniUtils.ani2global(fromTarget);
+        fromPos.x += gridSize.w / 2;
+        fromPos.y += gridSize.h / 2;
+        this.slideArea.anchorOffsetX = this.slideArea.anchorOffsetY = 42;
+        this.slideArea.x = fromPos.x;
+        this.slideArea.y = fromPos.y;
+        this.slideArea.width = distance * gridSize.w;
+        this.slideArea.rotation = dir * 90;
+
+        var maskContainer = new egret.DisplayObjectContainer();
+        this.slideArea.alpha = 1;
+        this.slideArea.blendMode = egret.BlendMode.ERASE;
+        this.bg.alpha = 0.5;
+        maskContainer.addChild(this.bg);
+        maskContainer.addChild(this.slideArea);
+
+        this.rt.drawToTexture(maskContainer);
+        ViewUtils.setTex(this.slideBg, this.rt);
+        this.addChild(this.slideBg);
+
+        this.addChild(this.hand);
+        var handFromPos = {x:fromPos.x, y:fromPos.y};
+        var handToPos = {x:handFromPos.x, y:handFromPos.y};
+        if (dir == 0) {
+            // handFromPos.x += gridSize.w / 2;
+            // handFromPos.y += gridSize.h / 2;
+            handToPos = {x:handFromPos.x + (distance - 1) * gridSize.w, y:handFromPos.y};
+        }
+        else if (dir == 1) {
+            // handFromPos.x -= gridSize.w / 2;
+            // handFromPos.y += gridSize.h / 2;
+            handToPos = {x:handFromPos.x, y:handFromPos.y + (distance - 1) * gridSize.h};
+        }
+        else if (dir == 2)
+            handToPos = {x:handFromPos.x - (distance - 1) * gridSize.w, y:handFromPos.y};
+        else
+            handToPos = {x:handFromPos.x, y:handFromPos.y - (distance - 1) * gridSize.h};
+
+        this.hand.x = handFromPos.x;
+        this.hand.y = handFromPos.y;
+        this.hand.scaleX = this.hand.scaleY = 1;
+        egret.Tween.removeTweens(this.hand);
+
+        this.hand.scaleX = this.hand.scaleY = 1.2;
+        egret.Tween.get(this.hand, {loop:true})
+                .to({"scaleX":1, "scaleY":1}, 500, egret.Ease.cubicIn)
+                .to({"x":handToPos.x, "y":handToPos.y}, distance * 500)
+                .to({"scaleX":1.2, "scaleY":1.2}, 500, egret.Ease.cubicOut)
+                .to({"x":handFromPos.x, "y":handFromPos.y}, distance * 250);
+        
+        return () => {
+            this.removeChild(this.slideBg);
+            this.removeChild(this.hand);
+        };
+    }
+
+    forGuideType = undefined; // "tap", "press", "slide"
 
     // 指引点击
     public async tap(target:egret.DisplayObject, offset = {x:0, y:0}) {
@@ -238,6 +310,59 @@ class GuideView extends egret.DisplayObjectContainer {
     public async pressGrid(gx:number, gy:number) {
         var g = this.bv.mapView.getGridViewAt(gx, gy);
         await this.press(g, {x:g.width/2, y:g.height/2});
+    }
+
+    // 指引滑动打开一条格子
+    public async slide2OpenGrids(fgx:number, fgy:number, tgx:number, tgy:number) {
+        Utils.assert((fgx != tgx || fgy != tgy) && (fgx == tgx || fgy == tgy), "only horizental or vertical slide track is supported");
+        var dir = (fgy == tgy) ? (tgx > fgx ? 0 : 2) : (tgy > fgy ? 1 : 3);
+        var dist = ((fgy == tgy) ? Math.abs(fgx - tgx) : Math.abs(fgy - tgy)) + 1;
+
+        var fg = this.bv.mapView.getGridViewAt(fgx, fgy);
+        var rev = this.slideGridsPrepare(fg, dist, dir, {w:fg.width, h:fg.height});
+
+        await Utils.waitUtil(() => {
+            var dx = 0;
+            var dy = 0;
+            if (dir == 0)
+                dx = 1;
+            else if (dir == 1)
+                dy = 1;
+            else if (dir == 2)
+                dx = -1;
+            else
+                dy = -1;
+
+            var p = {x:fgx, y:fgy};
+            while (p.x != tgx || p.y != tgy) {
+                var g = this.bv.mapView.getGridViewAt(p.x, p.y);
+                if (g.getGrid().isCovered())
+                    return false;
+
+                p = {x:p.x + dx, y:p.y + dy};
+            }
+
+            return true;
+        });
+
+        rev();
+    }
+
+    // 指引滑动打开一条格子
+    public async slide2DragItem(fgx:number, fgy:number, tgx:number, tgy:number) {
+        Utils.assert((fgx != tgx || fgy != tgy) && (fgx == tgx || fgy == tgy), "only horizental or vertical slide track is supported");
+        var dir = (fgy == tgy) ? (tgx > fgx ? 0 : 2) : (tgy > fgy ? 1 : 3);
+        var dist = ((fgy == tgy) ? Math.abs(fgx - tgx) : Math.abs(fgy - tgy)) + 1;
+
+        var fg = this.bv.mapView.getGridViewAt(fgx, fgy);
+        var rev = this.slideGridsPrepare(fg, dist, dir, {w:fg.width, h:fg.height});
+
+        await Utils.waitUtil(() => {
+            var g = this.bv.mapView.getGridViewAt(tgx, tgy);
+            return !!g.getElem();
+        });
+
+        rev();
     }
 
     // 剧情对话
@@ -430,6 +555,9 @@ class GuideView extends egret.DisplayObjectContainer {
 
     // 新手指引2
     async rookiePlay2(bt:Battle) {
+        await this.slide2OpenGrids(2, 4, 4, 4);
+        await this.slide2DragItem(4, 4, 4, 3);
+        
         await this.showDialog("Nurse", "护士", "让我告诉你一些基本规则", 0, 500, true);
         await this.showDialog("Nurse", "护士", "地上的数字表示它周围8个格子里隐藏的怪物的数量", 0, 500, true);
         await this.showDialog("Nurse", "护士", "点击就可以打开格子", 0, 500, true);
