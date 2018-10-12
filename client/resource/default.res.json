@@ -1606,9 +1606,9 @@
 			"name": "BoxRoomFlash_png"
 		},
 		{
-			"name": "guideSlideArea_png",
+			"url": "assets/ui/common/guideSlideArea.png",
 			"type": "image",
-			"url": "assets/ui/common/guideSlideArea.png"
+			"name": "guideSlideArea_png"
 		}
 	]
 }
