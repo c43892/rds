@@ -12,6 +12,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
     private startingPoint:egret.Bitmap;
     private destination:egret.Bitmap;
     private boxEff:egret.MovieClip;
+    private scale:number;
     public confirmOkYesNo;
     public static showElemDesc;
     
@@ -77,7 +78,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
         var arr = [];
         
         // 有可能有遗物改变这个数量
-        var onOpenBoxRoomPs = {relicNum:1, propNum:1, coinsnum:cfg.coins};
+        var onOpenBoxRoomPs = {relicNum:2, propNum:1, coinsnum:cfg.coins};
         this.player.triggerLogicPointSync("onOpenBoxRoom", onOpenBoxRoomPs);
 
         // 宝箱中的遗物
@@ -96,12 +97,18 @@ class BoxRoomView extends egret.DisplayObjectContainer {
         var coinsnum = onOpenBoxRoomPs.coinsnum;
         arr.push("Coins");
         
+        this.scale = arr.length == 3 ? 1.3 : 1;
+        
         for(var i = 0; i < arr.length; i++){
             let elemImg = new TextButtonWithBg((arr[i] == "Coins" ? "Coins9" : arr[i]) + "_png");
             elemImg.touchEnabled = true;
-            elemImg.x = 320 + (i - (arr.length - 1) / 2) * 114 - 42;
-            elemImg.y = 380 - 42;
+            elemImg.x = 320 + (i - (arr.length - 1) / 2) * 120 * this.scale - 42 * this.scale;
+            elemImg.y = 430 - 42 / this.scale;
+            elemImg.scaleX = elemImg.scaleY = this.scale;
             this.elemImgs.push(elemImg);
+            elemImg["flashBg"] = this.setElemImgFlashBg(elemImg, this.scale);
+            elemImg["flashBg"].alpha = 0;
+            this.addChild(elemImg["flashBg"]);
             this.addChild(elemImg);
             elemImg.alpha = 0;
             elemImg.touchEnabled = false;
@@ -110,7 +117,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
             else
                 elemImg["e"] = ElemFactory.create(arr[i], {cnt:coinsnum});
             
-            elemImg.onClicked = () => BoxRoomView.showElemDesc(elemImg["e"]);
+            elemImg.onClicked = () => BoxRoomView.showElemDesc(elemImg["e"]);            
         }
 
         ViewUtils.setTexName(this.box, "BoxRoomBox_png");
@@ -158,7 +165,8 @@ class BoxRoomView extends egret.DisplayObjectContainer {
             fromImg.x = this.startingPoint.x;
             fromImg.y = this.startingPoint.y;
             fromImg.width = elemImg.width / 2;
-            fromImg.height = elemImg.height / 2;            
+            fromImg.height = elemImg.height / 2;
+            fromImg.scaleX = fromImg.scaleY = this.scale;
             var toImg = elemImg;
             await Utils.delay(200);
             if(i == this.elemImgs.length - 1){
@@ -166,6 +174,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
                 await AniUtils.fly2(fromImg, fromImg, toImg, false, 1);
                 fromImg["dispose"]();
                 elemImg.alpha = 1;
+                elemImg["flashBg"].alpha = 1;
                 elemImg.touchEnabled = true;
             }
             else{
@@ -173,6 +182,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
                 AniUtils.fly2(fromImg, fromImg, toImg, true, 1).then(() => {
                     fromImg["dispose"]();
                     elemImg.alpha = 1;
+                    elemImg["flashBg"].alpha = 1;
                     elemImg.touchEnabled = true;
                 });
             }
@@ -189,16 +199,19 @@ class BoxRoomView extends egret.DisplayObjectContainer {
             fromImg.x = elemImg.x;
             fromImg.y = elemImg.y;
             fromImg.width = elemImg.width;
-            fromImg.height = elemImg.height;            
+            fromImg.height = elemImg.height;
+            fromImg.scaleX = fromImg.scaleY = this.scale;
             var toImg = this.destination;
             await Utils.delay(200);
             if(i == this.elemImgs.length - 1){
+                this.removeChild(elemImg["flashBg"]);
                 await AniUtils.flash(fromImg, 200, false);
                 await AniUtils.fly2(fromImg, fromImg, toImg, false, 1);
                 fromImg["dispose"]();
                 elemImg.touchEnabled = false;
             }
             else{
+                this.removeChild(elemImg["flashBg"]);
                 AniUtils.flash(fromImg, 200, false);
                 AniUtils.fly2(fromImg, fromImg, toImg, false, 1).then(() => {
                     fromImg["dispose"]();
@@ -206,5 +219,16 @@ class BoxRoomView extends egret.DisplayObjectContainer {
             }
             this.player.addItem(e);
         }
+    }
+
+    // 添加元素图标的背景闪光
+    setElemImgFlashBg(img:egret.DisplayObject, scale:number){
+        let flashBg = ViewUtils.createBitmapByName("BoxRoomFlash_png");
+        flashBg.anchorOffsetX = flashBg.width / 2;
+        flashBg.anchorOffsetY = flashBg.height / 2;
+        flashBg.x = img.x + img.width * scale / 2;
+        flashBg.y = img.y + img.height * scale / 2;
+        flashBg.scaleX = flashBg.scaleY = scale;
+        return flashBg;
     }
 }
