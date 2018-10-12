@@ -518,6 +518,35 @@ class GuideView extends egret.DisplayObjectContainer {
         });
     }
 
+    async slideWithDialog(target, tex:string, name:string, str:string, x:number, y:number, onLeft:boolean = true, flipAvatar:boolean = false) {
+        var rev1 = this.tapOrPressPrepare(target, true, {x:target.width/2, y:target.height/2});
+        var rev2 = this.makeDialog(tex, name, str, x, y, onLeft, flipAvatar);
+
+        return new Promise<void>((r, _) => {
+            this.onTapped = (evt:egret.TouchEvent) => {
+                if (this.forGuideType != "tap" || !this.tapTarget.hitTestPoint(evt.stageX, evt.stageY)) return;
+                rev2();
+                rev1();
+
+                if (this.tapTarget instanceof GridView) {
+                    egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_BEGIN,
+                        evt.bubbles, evt.cancelable,
+                        evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
+
+                    egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_END,
+                        evt.bubbles, evt.cancelable,
+                        evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
+                } else
+                    egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_TAP,
+                        evt.bubbles, evt.cancelable,
+                        evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
+
+                r();
+                this.onTapped = undefined; 
+            };
+        });
+    }
+
     // 指引点击同时有对话框
     async tapGridWithDialog(gx, gy, tex:string, name:string, str:string, x:number, y:number, onLeft:boolean = true, flipAvatar:boolean = false) {
         this.forGuideType = "tap";
@@ -535,6 +564,63 @@ class GuideView extends egret.DisplayObjectContainer {
     public async tapPropWithDialog(n:number, tex:string, name:string, str:string, x:number, y:number, onLeft:boolean = true, flipAvatar:boolean = false) {
         var g = this.bv.propsView.getPropViewByIndex(n);
         await this.tapWithDialog(g, tex, name, str, x, y, onLeft, flipAvatar);
+    }
+
+    // 指引滑动开格子同时有对话框
+    async slide2OpenGridsWithDialog(fgx:number, fgy:number, tgx:number, tgy:number, tex:string, name:string, str:string, x:number, y:number, onLeft:boolean = true, flipAvatar:boolean = false) {
+        Utils.assert((fgx != tgx || fgy != tgy) && (fgx == tgx || fgy == tgy), "only horizental or vertical slide track is supported");
+        var dir = (fgy == tgy) ? (tgx > fgx ? 0 : 2) : (tgy > fgy ? 1 : 3);
+        var dist = ((fgy == tgy) ? Math.abs(fgx - tgx) : Math.abs(fgy - tgy)) + 1;
+
+        var fg = this.bv.mapView.getGridViewAt(fgx, fgy);
+        var rev1 = this.slideGridsPrepare(fg, dist, dir, {w:fg.width, h:fg.height});
+        var rev2 = this.makeDialog(tex, name, str, x, y, onLeft, flipAvatar);
+
+        await Utils.waitUtil(() => {
+            var dx = 0;
+            var dy = 0;
+            if (dir == 0)
+                dx = 1;
+            else if (dir == 1)
+                dy = 1;
+            else if (dir == 2)
+                dx = -1;
+            else
+                dy = -1;
+
+            var p = {x:fgx, y:fgy};
+            while (p.x != tgx || p.y != tgy) {
+                var g = this.bv.mapView.getGridViewAt(p.x, p.y);
+                if (g.getGrid().isCovered())
+                    return false;
+
+                p = {x:p.x + dx, y:p.y + dy};
+            }
+
+            return true;
+        });
+
+        rev2();
+        rev1();
+    }
+
+    // 指引滑动开格子同时有对话框
+    async slide2DragItemWithDialog(fgx:number, fgy:number, tgx:number, tgy:number, tex:string, name:string, str:string, x:number, y:number, onLeft:boolean = true, flipAvatar:boolean = false) {
+        Utils.assert((fgx != tgx || fgy != tgy) && (fgx == tgx || fgy == tgy), "only horizental or vertical slide track is supported");
+        var dir = (fgy == tgy) ? (tgx > fgx ? 0 : 2) : (tgy > fgy ? 1 : 3);
+        var dist = ((fgy == tgy) ? Math.abs(fgx - tgx) : Math.abs(fgy - tgy)) + 1;
+
+        var fg = this.bv.mapView.getGridViewAt(fgx, fgy);
+        var rev1 = this.slideGridsPrepare(fg, dist, dir, {w:fg.width, h:fg.height});
+        var rev2 = this.makeDialog(tex, name, str, x, y, onLeft, flipAvatar);
+
+        await Utils.waitUtil(() => {
+            var g = this.bv.mapView.getGridViewAt(tgx, tgy);
+            return !!g.getElem();
+        });
+
+        rev2();
+        rev1();
     }
 
     // 各种引导流程
@@ -555,8 +641,8 @@ class GuideView extends egret.DisplayObjectContainer {
 
     // 新手指引2
     async rookiePlay2(bt:Battle) {
-        await this.slide2OpenGrids(2, 4, 4, 4);
-        await this.slide2DragItem(4, 4, 4, 3);
+        await this.slide2OpenGridsWithDialog(2, 4, 4, 4, "Nurse", "护士", "滑动开格子", 0, 150, true);
+        await this.slide2DragItemWithDialog(4, 4, 4, 3, "Nurse", "护士", "拖放物品到其它位置", 0, 150, true);
         
         await this.showDialog("Nurse", "护士", "让我告诉你一些基本规则", 0, 550, true);
         await this.showDialog("Nurse", "护士", "地上的数字表示它周围8个格子里隐藏的怪物的数量", 0, 550, true);
