@@ -41,8 +41,8 @@ class Player {
         p.deathStep = 150;
 
         p.maxDeathStep = 150;
-        p.hp = 20;
-        p.maxHp = 20;
+        p.hp = 40;
+        p.maxHp = 40;
         p.dodge = 0;
         p.power = [4, 0];
         p.playerRandom = new SRandom();
