@@ -151,10 +151,7 @@ class PropView extends egret.DisplayObjectContainer {
         else {
             PropView.currentSelPropView = this;
             this.setEffect("selected");
-
-            var useDescArr = ViewUtils.getElemNameAndDesc(this.e.type).useDescArr;
             if (this.e.canUse()) {
-                var content = ViewUtils.formatString(ViewUtils.getTipText("makeSureUseProp"), useDescArr.name);
                 PropView.selectGrid((x, y) => true, false, this.e, PropView.selHelper).then((pos) => {
                     if (pos)
                         PropView.try2UseProp(this.e);
