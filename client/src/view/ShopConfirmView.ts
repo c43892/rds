@@ -162,7 +162,7 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
 
         // 费用
         var cost = ViewUtils.createTextField(20, 0x000000);
-        cost.textFlow = ViewUtils.fromHtml(ViewUtils.formatTip("costCoinsOnRelic", price.toString()));
+        cost.textFlow = ViewUtils.fromHtml(ViewUtils.formatTip("costCoins", price.toString()));
         cost.width = bg.width;
         cost.x = bg.x;
         cost.y = desc.y + desc.height + 20;
@@ -248,7 +248,7 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
         // 费用
         if (showPrice) {
             var cost = ViewUtils.createTextField(20, 0x000000);
-            cost.textFlow = ViewUtils.fromHtml(ViewUtils.formatTip("costCoins", price.toString()));
+            cost.textFlow = ViewUtils.fromHtml(ViewUtils.formatTip("costCoinsOnRelic", price.toString()));
             cost.width = this.width;
             cost.x = 0;
             cost.y = this.height - 350;
