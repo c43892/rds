@@ -465,7 +465,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.player.notifyStoreyPosFinished(this.player.currentStoreyPos.lv, this.player.currentStoreyPos.n);
 
         // 如果是新手玩家,要标记为已完成新手指引关
-        if(Utils.checkRookiePlay())
+        if(Utils.checkRookiePlay() && lv >= 5)
             Utils.saveLocalData("rookiePlay", "finished");
 
         Utils.savePlayer(this.player);
@@ -518,6 +518,8 @@ class WorldMapView extends egret.DisplayObjectContainer {
         }
 
         var evt = Utils.randomSelectByWeight(events, this.player.playerRandom, 1, 2)[0];
+        if(Utils.checkRookiePlay())
+            evt = "a3"; // 新手事件固定
         var p = this.worldmap.player;
 
         switch (evt) {

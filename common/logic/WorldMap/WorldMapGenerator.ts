@@ -238,15 +238,13 @@ class WorldMapGenerator{
 
     //给所有节点安排房间类型
     public static arrangeRoomToAllNodes(nodes:WorldMapNode[][], cfg, rd):WorldMapNode[][]{
-
-
+        // 给特定层安排房间类型
         WorldMapGenerator.setRoomTypeToRow(nodes, 15, "boss");
-        WorldMapGenerator.setRoomTypeToRow(nodes, 14, "camp");
         WorldMapGenerator.setRoomTypeToRow(nodes, 1, "normal");
-        WorldMapGenerator.setRoomTypeToRow(nodes, 8, "box");
+        for(var lv in cfg.fixedRow)
+            WorldMapGenerator.setRoomTypeToRow(nodes, Number(lv), cfg.fixedRow[lv]);
 
         var roomList = WorldMapGenerator.getRoomList(nodes, cfg);
-
         nodes = WorldMapGenerator.arrangeRoomToLeftNodes(nodes, roomList, rd);
 
         return nodes;
