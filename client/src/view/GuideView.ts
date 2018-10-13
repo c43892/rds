@@ -661,7 +661,7 @@ class GuideView extends egret.DisplayObjectContainer {
         await this.showDialog("Nurse", "护士", "看到了吧，眼魔死亡会打开空着的格子。现在我们学习一些新的操作", 0, 550, true);
         await this.slide2OpenGridsWithDialog(1, 4, 5, 4, "Nurse", "护士", "来，跟着小手在屏幕上滑动", 0, 630, true);
         await this.showDialog("Nurse", "护士", "干得漂亮，滑动可以快速开启格子，以后可以多使用", 0, 630, true);
-        await this.showDialog("Nurse", "护士", "现在我们看到一个小衣服，是的，它可以减少怪物对你的伤害，但是现在他挡住了格子上的数字", 0, 630, true);
+        await this.showDialog("Nurse", "护士", "现在我们看到一盾牌，是的，它可以帮你抵挡怪物的攻击，但是现在他挡住了格子上的数字", 0, 630, true);
         await this.slide2DragItemWithDialog(1, 4, 1, 2, "Nurse", "护士", "拖动它，看看格子上的数字是多少", 0, 630, true);
         await this.showDialog("Nurse", "护士", "操作完成，数字是1，紧挨着右边两个数字是2、1，所以可以确定怪物隐藏在哪里了", 0, 150, true);
         await this.showDialog("Nurse", "护士", "再来一个新操作，我们手动做记号，提醒自己那个格子有怪物", 0, 150, true);
