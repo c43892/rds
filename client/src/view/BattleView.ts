@@ -321,7 +321,6 @@ class BattleView extends egret.DisplayObjectContainer {
                 if (rn >= this.player.relicsEquippedMaxNum) {
                     var tipPos = AniUtils.ani2global(rv);
                     tipPos.x += rv.width / 2;
-                    tipPos.y += rv.height / 2;
                     AniUtils.tipAt(ViewUtils.getTipText("relicPosLocked"), tipPos, 25, 0xffffff, 1000);
                 } else {
                     var r = rv["relic"];
