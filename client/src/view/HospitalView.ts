@@ -3,6 +3,7 @@ class HospitalView extends egret.DisplayObjectContainer {
     public player:Player;
     public confirmOkYesNo; // yesno 确认
     public selRelic; // 选择遗物
+    public exchangeRelic; // 交换遗物
 
     private bg:egret.Bitmap; // 背景
     private bg1:egret.Bitmap; // 背景羊皮纸
@@ -12,6 +13,7 @@ class HospitalView extends egret.DisplayObjectContainer {
     private btnCure:TextButtonWithBg; // 治疗
     private btnReinforce:TextButtonWithBg; // 强化
     private btnMutate:TextButtonWithBg; // 变异
+    private btnExchangeRelic:TextButtonWithBg // 交换遗物
     private btnGoOn:TextButtonWithBg;
 
     public constructor(w:number, h:number) {
@@ -61,12 +63,18 @@ class HospitalView extends egret.DisplayObjectContainer {
         // this.btnMutate.name = "btnMutate";
         // this.btnMutate.onClicked = async () => await this.openMutate();
 
+        // 交换遗物
+        this.btnExchangeRelic = new TextButtonWithBg("btnBg_png", 30);
+        this.btnExchangeRelic.text = ViewUtils.getTipText("hospitalExchangeRelic");
+        this.btnExchangeRelic.name = "btnExchangeRelic";
+        this.btnExchangeRelic.onClicked = () => this.openExchangeRelic();
+
         this.btnGoOn = new TextButtonWithBg("goForward_png", 30);
         this.btnGoOn.text = ViewUtils.getTipText("continueBtn");
         this.btnGoOn.name = "btnGoOn";
         this.btnGoOn.onClicked = () => this.onGoOn();
 
-        var objs = [this.bg1, this.bg2, this.title, this.tip, this.btnCure, this.btnReinforce, this.btnGoOn];        
+        var objs = [this.bg1, this.bg2, this.title, this.tip, this.btnCure, this.btnReinforce, this.btnExchangeRelic, this.btnGoOn];        
         ViewUtils.multiLang(this, ...objs);
         objs.forEach((obj, _) => this.addChild(obj));
     }
@@ -121,6 +129,17 @@ class HospitalView extends egret.DisplayObjectContainer {
 
     //     parent.addChild(this);
     // }
+
+    async openExchangeRelic() {
+        var sel = -1;
+        this.removeChild(this.bg);
+        sel = await this.exchangeRelic();
+        this.addChild(this.bg);
+        this.setChildIndex(this.bg, 0)
+        if (sel == 1){
+            this.doClose();
+        }
+    }
 
     onGoOn() {
         this.doClose();
