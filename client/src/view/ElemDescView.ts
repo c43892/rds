@@ -85,7 +85,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
     buildMonsterDescView() {
         this.monsterBg = ViewUtils.createBitmapByName("confirmBg_png");
         this.monsterBg.name = "monsterBg";
-        this.monsterName = ViewUtils.createTextField(40, 0x7d0403);
+        this.monsterName = ViewUtils.createTextField(35, 0x7d0403);
         this.monsterName.name = "monsterName";
         this.monsterIcon = new egret.Bitmap();
         this.monsterIcon.name = "monsterIcon";
@@ -197,7 +197,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         uiArr.push(monsterDescTxt0, bgFrame0);
 
         var yInterval = 25;
-        bgFrame0.height = monsterDescTxt0.height + 65;
+        bgFrame0.height = monsterDescTxt0.height + 45;
         var currentY = bgFrame0.y + bgFrame0.height + yInterval;
 
         for (var i = 1; i < descArr.length; i++) {
@@ -214,7 +214,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
             bgFrame.x = bgFrame0.x;
             bgFrame.width = bgFrame0.width;
             bgFrame.y = txt.y + bgFrame0.y - monsterDescTxt0.y;
-            bgFrame.height = txt.height + 65;
+            bgFrame.height = txt.height + 45;
             bgFrame.scale9Grid = new egret.Rectangle(45, 45, 225, 1);
             this.addChild(bgFrame);
 
@@ -223,7 +223,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
             currentY = bgFrame.y + bgFrame.height + yInterval;
         }
 
-        this.monsterBg.height = currentY - this.monsterBg.y + 70;
+        this.monsterBg.height = currentY - this.monsterBg.y + 100;
         return uiArr;
     }
 
