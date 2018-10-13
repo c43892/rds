@@ -1041,8 +1041,12 @@ class MonsterFactory {
             Utils.assert(n >= 0, "no such item in shop:" + elem.type);
             Utils.assert(shopItemAndPrice.prices[elem.type] == price, "incorrect price for item in shop:" + elem.type + ", " + price + ", " + shopItemAndPrice.prices[n]);
             await m.bt().implAddMoney(-price, m);
-            var g = BattleUtils.findNearestGrid(m.bt().level.map, m.pos, (g:Grid) => !g.isCovered() && !g.getElem());
-            if (g) await m.bt().implAddElemAt(elem, g.pos.x, g.pos.y, m.pos);
+            if (elem.attrs.autoUse) { // 购买后直接使用
+                await elem["autoUseInBattle"](m.bt());
+            } else {
+                var g = BattleUtils.findNearestGrid(m.bt().level.map, m.pos, (g:Grid) => !g.isCovered() && !g.getElem());
+                if (g) await m.bt().implAddElemAt(elem, g.pos.x, g.pos.y, m.pos);
+            }
             m["bought"] = true;
             m.dropItems = [];
         };

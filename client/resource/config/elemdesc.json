@@ -336,6 +336,7 @@
         "EconomyMagazine":{"name":"金融杂志", "desc":["<font color=#000000 size=20>每次点击获得</font> <font color=#294c22 size=20> {dexp} </font>经验值及<font color=#294c22 size=20> {money} </font><font color=#000000 size=20>金钱</font>"]},
         "Shield":{"name":"盾牌", "desc":["<font color=#000000 size=20>抵挡一次攻击伤害，冷却时间<font color=#294c22 size=20> {cd} </font><font color=#000000 size=20>回合</font>"]},
         "HeadBone":{"name":"骷髅头", "desc":["<font color=#000000 size=20>每当你被怪物突袭时，骷髅王都会原地复活</font>"]},
+        "OpenRelicSpace":{"name":"技能格", "desc":["<font color=#000000 bold=false size=20>增加一个技能装备格</font>"]},
 
         "DeathGod":{"name":"死神", "desc":[
             "<font color=#7d0403 bold=true size=21>漂浮</font>\n<font color=#000000 bold=false size=20>每回合都会移动位置</font>",

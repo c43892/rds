@@ -35,7 +35,9 @@
         "ShieldProficient": 50,
         "StrikeFirst": 50,
         "TradeMaster": 50,
-        "HorticultureMaster": 50
+        "HorticultureMaster": 50,
+
+        "OpenRelicSpace": 1
     },
 
     "inbattle": {
@@ -44,12 +46,12 @@
             "Key":10
         },
         "items":[
+            {"OpenRelicSpace":10},
             {"Key":10},
             {"Apple":10, "Steak":10},
             {"Shield":10, "Baton":10, "Vest":10},
-            {"Magazine":10, "EconomyMagazine":10},
-            {"Cloak":10, "Knife":10},
-            {"Clock":10, "WantedOrder":10, "Apple":10, "Steak":10, "Shield":10, "Baton":10, "Vest":10, "Magazine":10, "EconomyMagazine":10, "Cloak":10, "Knife":10}
+            {"Cloak":10, "Knife":10, "Magazine":10, "EconomyMagazine":10},
+            {"Clock":10, "WantedOrder":10, "Apple":10, "Steak":10, "Shield":10, "Baton":10, "Vest":10, "Cloak":10, "Knife":10}
     ]},
 
     "world1shop": {

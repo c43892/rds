@@ -554,6 +554,21 @@ class AniUtils {
         return img;
     }
 
+    // 创建一个序列帧动画
+    public static createFrameAni(effName:string, playTimes:number = -1, aniName:string = "default"):egret.MovieClip {
+        var eff:egret.MovieClip = ViewUtils.createFrameAni(effName, aniName);
+        AniUtils.ac.addChild(eff);
+        if (playTimes != 0)
+            eff.gotoAndPlay(0, playTimes);
+
+        eff["dispose"] = () => {
+            eff.stop();
+            AniUtils.ac.removeChild(eff);
+        };
+
+        return eff;
+    }
+
     // 创建一段只用于动画显示的文字
     public static createTextField(size:number, color:number, alignCenter:boolean = true, vAlignMiddle:boolean = true) {
         var textField = ViewUtils.createTextField(size, color, alignCenter, vAlignMiddle);

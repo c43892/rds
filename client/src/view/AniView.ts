@@ -1454,6 +1454,25 @@ class AniView extends egret.DisplayObjectContainer {
         });
     }
 
+    // 装备格打开效果
+    public async relicsEquippedMaxNumAdded(ps) {
+        var n = this.bv.player.relicsEquippedMaxNum;
+        var rv = this.bv.relics[n - 1];
+        var fromPos = ShopView.lastSelectedElemGlobalPos;
+        var img = AniUtils.createImg("OpenRelicSpace_png");
+        img.x = fromPos.x;
+        img.y = fromPos.y;
+        await AniUtils.fly2(img, img, rv, false, 1, false);
+        img["dispose"]();
+        await AniUtils.shakeCamera(1, 50, true);
+        this.bv.refreshRelics();
+        var eff = AniUtils.createFrameAni("effMonsterDie", 1);
+        var toPos = AniUtils.ani2global(rv);
+        eff.x = toPos.x + rv.width / 2;
+        eff.y = toPos.y + rv.height / 2;
+        eff["wait"]().then(() => eff["dispose"]());
+    }
+
     // 黑幕开启
     async blackIn(removedWhenFinish = false) {
         this.addChild(this.blackCover);
