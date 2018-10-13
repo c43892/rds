@@ -289,7 +289,18 @@ class ItemFactory {
             e.use = async () => {
                 var dhp = Math.ceil(e.bt().player.hp * e.attrs.percent / 100);
                 await e.bt().implAddPlayerHp(dhp, e);
-                }
+            }
+            return e;
+        }, 
+
+        // 开遗物装备格子
+        "OpenRelicSpace":(attrs) => {
+            var e = this.createItem();
+            e["autoUseInBattle"] = async (bt:Battle) => {
+                bt.player.relicsEquippedMaxNum++;
+                await bt.fireEvent("relicsEquippedMaxNumAdded");
+            };
+
             return e;
         }
     };

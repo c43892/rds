@@ -203,5 +203,7 @@
     "LifeSpring":{"name":"生命之泉", "percent":50},
 
     "NextLevelPort":{"name":"下一层", "addInEffect":"noEffect", "useWithConfirm":true, "useTipContent":"goToNextLevel"},
-    "EscapePort":{"name":"逃跑", "invisible":true}
+    "EscapePort":{"name":"逃跑", "invisible":true},
+
+    "OpenRelicSpace":{"name":"技能装备格", "autoUse":true}
 }

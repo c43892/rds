@@ -402,7 +402,7 @@ class Player {
 
     // 遗物相关逻辑
 
-    public relicsEquippedMaxNum = 99999; // 遗物装备格容量
+    public relicsEquippedMaxNum = 3; // 遗物装备格容量
     public relicsEquipped:Relic[] = []; // 已经装备的遗物
     public relicsInBag:Relic[] = []; // 包裹中的遗物
     public get allRelics():Relic[] {

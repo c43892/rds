@@ -33,7 +33,7 @@ class BattleView extends egret.DisplayObjectContainer {
     public effDeathGodRed:egret.MovieClip; // 死神快到的时候
     public effDeathGodGray:egret.MovieClip; // 死神平时
 
-    readonly ShowMaxRelicNum = 6;
+    readonly ShowMaxRelicNum = 12;
     public relicsBg:egret.DisplayObjectContainer; // 遗物区域
     public relics:egret.Bitmap[] = []; // 遗物
     public moreRelics:egret.Bitmap; // 更多遗物
@@ -312,13 +312,22 @@ class BattleView extends egret.DisplayObjectContainer {
 
         for (var i = 0; i < this.ShowMaxRelicNum; i++) {
             var bmp = new egret.Bitmap();
-            bmp.alpha = 0;
             this.addChild(bmp);
             this.relics.push(bmp);
             bmp.touchEnabled = true;
             bmp.addEventListener(egret.TouchEvent.TOUCH_TAP, async (evt:egret.TouchEvent) => {
-                var r = evt.target["relic"];
-                if (r) await GridView.showElemDesc(r);
+                var rv = evt.target;
+                var rn = rv["relicIndex"];
+                if (rn >= this.player.relicsEquippedMaxNum) {
+                    var tipPos = AniUtils.ani2global(rv);
+                    tipPos.x += rv.width / 2;
+                    tipPos.y += rv.height / 2;
+                    AniUtils.tipAt(ViewUtils.getTipText("relicPosLocked"), tipPos, 25, 0xffffff, 1000);
+                } else {
+                    var r = rv["relic"];
+                    if (r)
+                        await GridView.showElemDesc(r);
+                }
             }, this);
         }
 
@@ -494,40 +503,41 @@ class BattleView extends egret.DisplayObjectContainer {
         this.propsView.refresh(this.player.props);
     }
 
-    // public getRelicImg(nOrRelicOrType) {
-    //     var relicType;
-    //     if (nOrRelicOrType instanceof Relic)
-    //         return Utils.indexOf(this.player.relics, (r) => r == nOrRelicOrType.type);
-    //     else if (nOrRelicOrType instanceof String)
-    //         return Utils.indexOf(this.player.relics, (r) => r == nOrRelicOrType);
-    //     else
-    //         return this.relics[nOrRelicOrType];
-    // }
-
     public refreshRelics() {
         ViewUtils.multiLang(this, this.relicsBg);
 
-        var w = this.relicsBg.height;
+        var w = this.relicsBg.height / 2;
         var h = w;
         var x = this.relicsBg.x;
         var y = this.relicsBg.y;
-        var spaceX = (this.relicsBg.width - this.ShowMaxRelicNum * w) / (this.ShowMaxRelicNum - 1);
+        var spaceX = (this.relicsBg.width - this.ShowMaxRelicNum / 2 * w) / (this.ShowMaxRelicNum / 2 - 1);
         for (var i = 0; i < this.relics.length; i++) {
             var bmp = this.relics[i];
             bmp.x = x;
             bmp.y = y;
             bmp.width = w;
             bmp.height = h;
-            x += w + spaceX;
+            if (i == this.ShowMaxRelicNum / 2 - 1) { // 分两行
+                x = this.relicsBg.x;
+                y += h;
+            }
+            else
+                x += w + spaceX;
 
             var r = this.player.relicsEquipped[i];
+            bmp["relicIndex"] = i;
             if (r) {
                 ViewUtils.setTexName(bmp, r.getElemImgRes() + "_png");
-                bmp.alpha = 1;
                 bmp["relic"] = r;
-            } else {
-                bmp.alpha = 0;
+                bmp.alpha = 1;
+            } else if (i >= this.player.relicsEquippedMaxNum) {
+                ViewUtils.setTexName(bmp, "relicLock_png");
                 bmp["relic"] = undefined;
+                bmp.alpha = 1;
+            } else {
+                ViewUtils.setTexName(bmp, undefined);
+                bmp["relic"] = undefined;
+                bmp.alpha = 0;
             }
         }
     }
@@ -544,10 +554,8 @@ class BattleView extends egret.DisplayObjectContainer {
         this.repView.clear();
         if (this.contains(this.selView)) this.removeChild(this.selView);
         this.removeChild(this.avatar);
-        for (var bmp of this.relics) {
-            bmp.alpha = 0;
+        for (var bmp of this.relics)
             bmp["relic"] = undefined;
-        }
 
         if (this.avatarSke) {
             this.avatarSke["dispose"]();
