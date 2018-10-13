@@ -133,7 +133,6 @@ function drawByData(data, i) {
   context.font = fontSize + "px Arial";
   //绘制序号
   context.fillText(data.key + "", x, startY + i * preOffsetY + textOffsetY, textMaxSize);
-  console.log("text::::", x, startY + i * preOffsetY + textOffsetY, textMaxSize);
   x += indexWidth + intervalX;
   //绘制头像
   // context.drawImage(data.url, x, startY + i * preOffsetY + (barHeight - avatarSize) / 2, avatarSize, avatarSize);
@@ -243,6 +242,7 @@ function getFriendCloudStorage() {
 			totalGroup[i].key = i + 1;
 		
 		renderDirty = true;
+		return len;
 	  },
 	  fail: () => {
 		console.log("get failed");
@@ -270,7 +270,6 @@ wx.onMessage(data => {
 		page = data.pageIndex;
 		getFriendCloudStorage();
     } else if (data.type === 'setUserData') {
-		
 		wx.getUserCloudStorage({
 			KVDataList: ["score"],
 			success: (kvs) => {
@@ -313,7 +312,7 @@ let currentGroup = [];
  * 每页最多显示个数
  * 建议大于等于4个
  */
-let perPageMaxNum = 5;
+let perPageMaxNum = 100;
 /**
  * 当前页数,默认0为第一页
  */

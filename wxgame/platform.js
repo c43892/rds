@@ -20,28 +20,23 @@ class WxgamePlatform {
         });
 	}
 	
-	wxGetUserInfo() {
-		return new Promise((resolve, reject) => {
-			wx.getUserInfo({
-				success: function (res) {
-					resolve({ok:true, usr:res.userInfo});
-				},
-				fail: (res) => {
-					resolve({ok:false});
-				}
-			});
-		});
-	}
+	// wxGetUserInfo() {
+		// return new Promise((resolve, reject) => {
+			// wx.getUserInfo({
+				// success: function (res) {
+					// resolve({ok:true, usr:res.userInfo});
+				// },
+				// fail: (res) => {
+					// resolve({ok:false});
+				// }
+			// });
+		// });
+	// }
 	
     login() {
 		return new Promise((resolve, reject) => {
 			this.wxLogin().then((r) => {
-				if (!r.ok)
-					resolve(r);
-					
-				this.wxGetUserInfo().then((r) => {
-					resolve(r);
-				})
+				resolve(r);
 			});
 		});
     }
