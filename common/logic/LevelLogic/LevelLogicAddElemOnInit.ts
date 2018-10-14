@@ -11,6 +11,5 @@ class LevelLogicAddElemOnInit extends LevelLogic {
                 ps.elems.push(e);
             }
         }, true)
-
     }
 }

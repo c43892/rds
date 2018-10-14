@@ -56,7 +56,6 @@ class LevelLogicTakeKey extends LevelLogic{
                 await this.normalMonsterTakeKey(bt, keys, takeNum);
             }
         })
-
     }
 
     public async normalMonsterTakeKey(bt:Battle, keys:Elem[], takeNum:number){

@@ -43,7 +43,7 @@ class SettingView extends egret.DisplayObjectContainer{
 
         this.relicsBtn = new TextButtonWithBg("stSkill_png");
         this.relicsBtn.name = "relicsBtn";
-        this.relicsBtn.onClicked = () => this.openAllRelicsView(this.player.allRelics);
+        this.relicsBtn.onClicked = () => this.openAllRelicsView();
 
         this.propsBtn = new TextButtonWithBg("stItem_png");
         this.propsBtn.name = "propsBtn";

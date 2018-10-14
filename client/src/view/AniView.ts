@@ -300,6 +300,16 @@ class AniView extends egret.DisplayObjectContainer {
                 toImg["dispose"]();
             }
             this.tipRelicShortDesc(<Relic>e);
+        } else if (ps.subType == "addRelicByRookie") {
+            var e:Elem = ps.e;
+            var fromImg = AniUtils.createImg(e.getElemImgRes() + "_png");
+            fromImg.x = this.width / 2;
+            fromImg.y = this.height / 2;
+            await AniUtils.flash(fromImg, 200, false);
+            await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
+            fromImg["dispose"]();
+            toImg["dispose"]();
+            await GridView.showElemDesc(e);
         }
 
         this.bv.refreshRelics();

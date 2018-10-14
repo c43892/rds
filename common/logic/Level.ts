@@ -16,6 +16,12 @@ class Level {
         this.InitElems(bt.btType, cfg.elems, cfg.constElems, cfg.randomGroups, 
             GCfg.mapsize.w * GCfg.mapsize.h + cfg.init_uncovered.w + cfg.init_uncovered.h, 
             cfg.init_uncovered, cfg.doorUnlock, cfg.extraTreasureBox, cfg.treasureBoxNum, cfg.monsterBox);
+        if (cfg.levelLogics) {
+            for (var levelLogic of cfg.levelLogics) {
+                var ll = LevelLogicFactory.createLevelLogic(levelLogic.type, ...levelLogic.ps);
+                this.addLevelLogic(ll);
+            }
+        }
     }
 
     // 创建地图

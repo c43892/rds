@@ -48,7 +48,7 @@ class BattleView extends egret.DisplayObjectContainer {
     public elemsTipBitmaps:egret.Bitmap[] = []; // 特殊元素提示图
     public sanValue:egret.DisplayObjectContainer; // san值区域
 
-    public openAllElemsView; // 查看所有的某类元素如玩家的遗物或者道具
+    public openAllRelicsView; // 查看所有的某类元素如玩家的遗物或者道具
     public confirmOkYesNo;
 
     // 角色头像区域，以及金钱，层数，死神
@@ -307,7 +307,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.addChild(this.moreRelics);
         this.moreRelics.touchEnabled = true;
         this.moreRelics.addEventListener(egret.TouchEvent.TOUCH_TAP, (evt:egret.TouchEvent) => {
-            this.openAllElemsView(this.player.relicsEquipped);
+            this.openAllRelicsView();
         }, this);
 
         for (var i = 0; i < this.ShowMaxRelicNum; i++) {

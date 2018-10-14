@@ -108,8 +108,8 @@ class MainView extends egret.DisplayObjectContainer {
         this.aev = new AllElemsView(w, h);
         this.aev.openCompareRelicView = async (p:Player, e:Elem, price:number, showPrice = true) => await this.openShopConfirmView(p, e, price, showPrice);
         this.aev.showElemDesc = async (e) => await this.showElemDesc(e);
-        this.bv.openAllElemsView = async (elems) => await this.openAllElemsView(elems);
-        this.st.openAllRelicsView = async (relics) => await this.openAllElemsView(relics);
+        this.bv.openAllRelicsView = async () => await this.openRelicExchangeView(true);
+        this.st.openAllRelicsView = async () => await this.openRelicExchangeView(true);
         this.st.openAllPropsView = async (props) => await this.openAllElemsView(props);
 
         // 指引层
@@ -459,11 +459,11 @@ class MainView extends egret.DisplayObjectContainer {
         return yesno;
     }
 
-    public async openRelicExchangeView(){
+    public async openRelicExchangeView(forView:boolean = false){
         this.rev.player = this.p;
         this.addChild(this.rev);
         this.setChildIndex(this.wmtv, -1);
-        var result = await this.rev.open();
+        var result = await this.rev.open(forView);
         this.removeChild(this.rev);
         return result;
     }

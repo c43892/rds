@@ -21,6 +21,5 @@ class LevelLogicChangeMonster extends LevelLogic{
                 await bt.implAddElemAt(m, pos.x, pos.y);
             }
         })
-
     }
 }

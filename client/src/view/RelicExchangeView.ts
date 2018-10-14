@@ -15,7 +15,7 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
     private page:number;
     private rsEquipped:Relic[];
     private rsInBag:Relic[];
-    private canDrag:boolean;
+    private forView:boolean;
     public showDescView;
     public confirmOkYesNo;
 
@@ -82,11 +82,18 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
         this.setEmptyGrids();
     }
 
-    public async open(canDrag:boolean = true) {
-        this.canDrag = canDrag;
+    public async open(forView:boolean = false) {
+        this.forView = forView;
         this.page = 0;
         this.rsEquipped = [...this.player.relicsEquipped];
         this.rsInBag = [...this.player.relicsInBag];
+        if (this.forView){
+            this.goOnBtn.alpha = 0;
+            this.goOnBtn.touchEnabled = false;
+        } else {
+            this.goOnBtn.alpha = 1;
+            this.goOnBtn.touchEnabled = true;
+        }
         this.refresh();
         return new Promise<number>((resolve, reject) => this.doClose = resolve);
     }
@@ -224,9 +231,12 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
     }
 
     async goBack() {
-        var yesno = await this.confirmOkYesNo(ViewUtils.getTipText("makeSureGiveUpTitle"), ViewUtils.getTipText("makeSureGiveUpContent"), true);
-        if (yesno) {
-            this.doClose(-1);
+        if (this.forView) 
+            this.doClose(-1);        
+        else {
+            var yesno = await this.confirmOkYesNo(ViewUtils.getTipText("makeSureGiveUpTitle"), ViewUtils.getTipText("makeSureGiveUpContent"), true);
+            if (yesno) 
+                this.doClose(-1);            
         }
     }
 
@@ -254,7 +264,7 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
     }
 
     async onTouchMove(evt: egret.TouchEvent) {
-        if (!this.canDrag || !RelicExchangeView.dragFromImg || RelicExchangeView.dragFromImg["elem"] != "relicAndStar") return;
+        if (this.forView || !RelicExchangeView.dragFromImg || RelicExchangeView.dragFromImg["elem"] != "relicAndStar") return;
 
         var currentX = evt.localX + evt.target.x;
         var currentY = evt.localY + evt.target.y;
@@ -262,7 +272,6 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
             var dx = currentX - RelicExchangeView.dragFromPos.x;
             var dy = currentY - RelicExchangeView.dragFromPos.y;
             if (dx * dx + dy * dy > RelicExchangeView.dragLimit) {
-                RelicExchangeView.pressed = false;
                 RelicExchangeView.dragging = true;
                 if (!RelicExchangeView.draggingImg)
                     RelicExchangeView.draggingImg = new egret.Bitmap();

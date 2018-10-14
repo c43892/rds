@@ -53,6 +53,7 @@
 		"bin-debug/logic/BattleCaculator.js",
 		"bin-debug/logic/LevelLogic/LevelLogicAddBoxAndKey.js",
 		"bin-debug/logic/LevelLogic/LevelLogicAddElemOnInit.js",
+		"bin-debug/logic/LevelLogic/LevelLogicAddRelicOnRookie.js",
 		"bin-debug/logic/LevelLogic/LevelLogicChangeMonster.js",
 		"bin-debug/logic/LevelLogic/LevelLogicFactory.js",
 		"bin-debug/Main.js",

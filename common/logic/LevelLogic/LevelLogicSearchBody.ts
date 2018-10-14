@@ -22,7 +22,5 @@ class LevelLogicSearchBody extends LevelLogic{
                 }
             }
         })
-
     }
-
 }

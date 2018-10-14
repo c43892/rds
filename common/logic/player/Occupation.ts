@@ -17,6 +17,30 @@ class Occupation {
     // 护士
     static makeNurse(p:Player):Player {
         p.addRelic(<Relic>ElemFactory.create("MedicineBox")); // 初始遗物
+        // p.addRelic(<Relic>ElemFactory.create("TimeMachine")); // 初始遗物
+        // p.addRelic(<Relic>ElemFactory.create("Endurance")); // 初始遗物
+        // p.addRelic(<Relic>ElemFactory.create("Power")); // 初始遗物
+        // p.addRelic(<Relic>ElemFactory.create("Agile")); // 初始遗物
+        // p.addRelic(<Relic>ElemFactory.create("Fierce")); // 初始遗物
+        // p.addRelic(<Relic>ElemFactory.create("Unback2Sneak")); // 初始遗物
+        // p.addRelic(<Relic>ElemFactory.create("Crucifix")); // 初始遗物
+        // p.addRelic(<Relic>ElemFactory.create("WeaponMaster")); // 初始遗物
+        // p.addRelic(<Relic>ElemFactory.create("UndefinedName2")); // 初始遗物
+        // p.addRelic(<Relic>ElemFactory.create("UndefinedName3")); // 初始遗物
+        // p.addRelic(<Relic>ElemFactory.create("DefenseProficient")); // 初始遗物
+        // p.addRelic(<Relic>ElemFactory.create("BookMaster")); // 初始遗物
+        // p.addRelic(<Relic>ElemFactory.create("TradeMaster")); // 初始遗物
+        // p.addRelic(<Relic>ElemFactory.create("TreasureBoxDetector")); // 初始遗物
+        // p.addRelic(<Relic>ElemFactory.create("KnifeMaster")); // 初始遗物
+        // p.addRelic(<Relic>ElemFactory.create("MonsterHunter")); // 初始遗物
+        // p.addRelic(<Relic>ElemFactory.create("KnifeProficient")); // 初始遗物
+        // p.addRelic(<Relic>ElemFactory.create("ExploreEnhanced")); // 初始遗物
+        // p.addRelic(<Relic>ElemFactory.create("HorticultureProficient")); // 初始遗物
+        // p.addRelic(<Relic>ElemFactory.create("SmellEnhanced")); // 初始遗物
+        // p.addRelic(<Relic>ElemFactory.create("Storer")); // 初始遗物
+        // p.addRelic(<Relic>ElemFactory.create("ShieldProficient")); // 初始遗物
+        // p.addRelic(<Relic>ElemFactory.create("HorticultureMaster")); // 初始遗物
+        // p.addRelic(<Relic>ElemFactory.create("StrikeFirst")); // 初始遗物
         p.addItem(<Prop>ElemFactory.create("HpPotion")); // 初始物品
         return p;
     }

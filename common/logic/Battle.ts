@@ -87,6 +87,7 @@ class Battle {
 
         await this.triggerLogicPoint("beforeLevelInited", {bt:this});
         await this.fireEvent("onLevelInited", {bt:this});
+        await this.triggerLogicPoint("beforeLevelInited2", {bt:this});
         await this.triggerLogicPoint("onLevelInited", {bt:this});
         
         await this.coverAllAtInit();
