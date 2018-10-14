@@ -460,7 +460,8 @@
                     "toDrop": ["Coins", "worldmapeventa91", "worldmapeventa92"],
                     "money": 50,
                     "exitDescArr": ["<font color=#000000 size=20>[离开]</font>", "<font color=#000000 size=20>[离开]</font>", "<font color=#000000 size=20>[离开]</font>"],
-                    "battleType": "searchBody"
+                    "battleType": "searchBody",
+                    "bg":"HeadBone"
                 }
             },{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
