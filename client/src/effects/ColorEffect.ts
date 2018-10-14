@@ -11,8 +11,7 @@ class ColorEffect extends egret.DisplayObjectContainer {
         this.toMat = toMatrix;
         this.p = 0;
         if (time != 0) {
-            this.tw = egret.Tween.get(this, {loop:true})
-                .to({"p":1}, time/2).to({"p":0}, time/2);
+            this.tw = egret.Tween.get(this, {loop:true}).to({"p":1}, time/2).to({"p":0}, time/2);
             this.tw.setPaused(true);
         }
     }
