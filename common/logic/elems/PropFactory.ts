@@ -78,7 +78,7 @@ class PropFactory {
                 e.use = async () => {
                     e.resetCD();
                     e.cnt --;
-                    await e.bt().implAddBuff(e.bt().player, "BuffSuperPotion", attrs.immunizeCnt);
+                    await e.bt().implAddBuff(e.bt().player, "BuffSuper", attrs.immunizeCnt);
                     return e.cnt > 0;
                 };
                 return e;
@@ -92,7 +92,7 @@ class PropFactory {
                 e.use = async () => {
                     e.resetCD();
                     e.cnt --;
-                    await e.bt().implAddBuff(e.bt().player, "BuffStrangthPotion", attrs.enhanceCnt);
+                    await e.bt().implAddBuff(e.bt().player, "BuffStrangth", attrs.enhanceCnt);
                     return e.cnt > 0;
                 };
                 return e;

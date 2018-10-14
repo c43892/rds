@@ -1127,6 +1127,7 @@ class AniView extends egret.DisplayObjectContainer {
     // 离开关卡时清除所有角色 buff 效果
     public async onGoOutLevel(ps) {
         this.removeColorEffect("poison", this.bv.hpBar, this.bv.avatar);
+        this.removeColorEffect("super", this.bv.hpBar, this.bv.avatar);
     }
 
     // 偷钱
@@ -1242,13 +1243,14 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 移除颜色效果
     removeColorEffect(effName, ...objs) {
+        effName = effName + "Effect";
         objs.forEach((obj, _) => {
-            if (!obj["poisonEffect"])
+            if (!obj[effName])
                 return;
 
-            var eff = <ColorEffect>obj["poisonEffect"];
+            var eff = <ColorEffect>obj[effName];
             eff.stop();
-            delete obj["poisonEffect"];
+            delete obj[effName];
             this.removeChild(eff);
         });
     }
@@ -1281,6 +1283,30 @@ class AniView extends egret.DisplayObjectContainer {
                     this.addChild(eff);
                 }
                 break;
+                case "super": {
+                    if (obj["superEffect"])
+                        return;
+
+                    var superFromMat = [
+                        0.75, 0, 0, 0, 0,
+                        0, 0.75, 0, 0, 0,
+                        0.25, 0.5, 0.5, 0, 0,
+                        0, 0, 0, 1, 0
+                    ];
+
+                    var superToMat = [
+                        0.25, 0, 0, 0, 0,
+                        0, 0.5, 0.25, 0, 0,
+                        0.5, 0.5, 0.5, 0, 0,
+                        0, 0, 0, 1, 0
+                    ];
+
+                    var eff = new ColorEffect(superFromMat, superToMat, time, obj);
+                    obj["superEffect"] = eff;
+                    eff.start();
+                    this.addChild(eff);
+                }
+                break;
                 default:
                     Utils.assert(false, "unknown color effect name: " + effName);
             }
@@ -1304,6 +1330,9 @@ class AniView extends egret.DisplayObjectContainer {
                 break;
                 case "BuffPoison":
                     this.addColorEffect("poison", 2000, this.bv.poisonedHpBar, this.bv.avatar);
+                break;
+                case "BuffSuper":
+                    this.addColorEffect("super", 2000, this.bv.avatar);
                 break;
                     
             }
@@ -1341,6 +1370,9 @@ class AniView extends egret.DisplayObjectContainer {
                 break;
                 case "BuffPoison":
                     this.removeColorEffect("poison", this.bv.poisonedHpBar, this.bv.avatar);
+                break;
+                case "BuffSuper":
+                    this.removeColorEffect("super", this.bv.avatar);
                 break;
             }
         }

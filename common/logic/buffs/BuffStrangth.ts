@@ -1,7 +1,7 @@
 // 力量药水提供的buff
-class BuffStrangthPotion extends Buff{
+class BuffStrangth extends Buff{
     constructor(cnt:number){
-        super("StrangthPotion");
+        super("BuffStrangth");
 
         this.cnt = cnt;
 
