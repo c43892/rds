@@ -449,9 +449,8 @@ class AniView extends egret.DisplayObjectContainer {
         var e = ps.e;
         var sv = this.getSV(e);
         var type = e.type;
-        if (type == "ShopNpc" && (<Monster>e).isDead()) // 商人使用后闪烁消失
-            await AniUtils.flashOut(sv, false);
-         else if (type == "IceBlock" || type == "Rock" || type == "Cocoon") {
+        
+        if (type == "IceBlock" || type == "Rock" || type == "Cocoon") {
             AniUtils.flashAndShake(sv);
             var g = this.bv.mapView.getGridViewAt(e.pos.x, e.pos.y);
             var attackEff:egret.MovieClip = g.addEffect("effPlayerAttack", 1);
@@ -501,6 +500,10 @@ class AniView extends egret.DisplayObjectContainer {
             if (dhp > 0)
                 AniUtils.tipAt(ViewUtils.getTipText("cure"), {x:p.x+44, y:p.y+1});
         } else if (ps.subType == "die" && e instanceof Monster) {
+            if (e.type == "ShopNpc" && Utils.contains(ps.flags, "byUse")) {
+                await AniUtils.flashOut(sv, false);
+            }
+
             var g = this.bv.mapView.getGridViewAt(e.pos.x, e.pos.y);
             // 怪物死亡特效
             g.clearAllEffects();

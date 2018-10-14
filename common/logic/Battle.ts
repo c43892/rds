@@ -470,10 +470,10 @@ class Battle {
             var reserve = r instanceof Object ? r.reserve : r;
             var consumeDeathStep = r instanceof Object ? r.consumeDeathStep : true;
 
-            if (!reserve) await this.implOnElemDie(e);
+            if (!reserve) await this.implOnElemDie(e, ["byUse"]);
 
-            await this.fireEvent("onElemChanged", {subType:"useElem", e:e});
-            await this.triggerLogicPoint("onElemChanged", {subType:"useElem", e:e});
+            await this.fireEvent("onElemChanged", {subType:"useElem", e:e, reserve:reserve});
+            await this.triggerLogicPoint("onElemChanged", {subType:"useElem", e:e, reserve:reserve});
 
             // 算一次角色行动
             if (consumeDeathStep) {
