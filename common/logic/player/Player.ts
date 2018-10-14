@@ -525,7 +525,6 @@ class Player {
 
         this.currentStoreyPos.status = "finished";
         this.finishedStoreyPos.push({lv:lv, n:n});
-        
     }
 
     // 进入新的世界地图
