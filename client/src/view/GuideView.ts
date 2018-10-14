@@ -92,6 +92,22 @@ class GuideView extends egret.DisplayObjectContainer {
                 }, this, 1000);
             }
         });
+
+        bt.registerEvent("onSneaked", async (ps) => {
+            var m = ps.m; // 突袭怪物
+            var immunized = ps.immunized; // 是否被免疫
+            if (immunized)
+                return;
+
+            if (Utils.loadLocalData("onSneakedGuideFinished")) // 已经指引过了
+                return;
+
+            var av = <AniView>AniUtils.ac;
+            await this.onSneakedGuide(m);
+
+            // 存一下指引标记
+            Utils.saveLocalData("onSneakedGuideFinished", true);
+        })
     }
 
     // 点击指引
@@ -668,5 +684,11 @@ class GuideView extends egret.DisplayObjectContainer {
         await this.pressGridWithDialog(1, 5, "Nurse", "护士", "跟着小手长按那个格子", 0, 150, true);
         await this.pressGridWithDialog(3, 5, "Nurse", "护士", "好的，你成功了，让我们再来一次", 0, 150, true);
         await this.showDialog("Nurse", "护士", "非常好，魔王的手下遍布地牢，谨慎的向前探索吧，勇士", 0, 150, true);
+    }
+
+    // 被突袭指引
+    async onSneakedGuide(m:Monster) {
+        var nameAndDesc = ViewUtils.getElemNameAndDesc(m.type);
+        await this.showDialog(m.type, nameAndDesc.name, "你被我突袭啦", 0, 550, true);
     }
 }

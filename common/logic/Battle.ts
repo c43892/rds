@@ -956,6 +956,8 @@ class Battle {
             await sneakAct();
             await this.triggerLogicPoint("onSneaked", sneakPs);
         }
+        
+        await this.fireEvent("onSneaked", {m:m, isNormalAttack:isNormalAttack, immunized:sneakPs.immunized});
     }
 
     // 角色尝试攻击指定位置
