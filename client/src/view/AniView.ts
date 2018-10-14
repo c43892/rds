@@ -490,6 +490,8 @@ class AniView extends egret.DisplayObjectContainer {
     public async onElemChanged(ps) {
         var e = ps.e;
         var sv = this.getSV(e);
+        var noFreshElemAtPos = false; // 为了某些特殊表现效果，暂时不刷新指定位置
+
         // 需要提示的元素变化时,刷新战斗地图的元素提示
         if (e && Utils.indexOf(GCfg.getBattleViewElemTipTypes(), (s: string) => s == e.type) > -1) {
             this.bv.refreshElemsTip();
@@ -502,17 +504,21 @@ class AniView extends egret.DisplayObjectContainer {
         } else if (ps.subType == "die" && e instanceof Monster) {
             if (e.type == "ShopNpc" && Utils.contains(ps.flags, "byUse")) {
                 await AniUtils.flashOut(sv, false);
+            } else if (Utils.contains(ps.flags, "frozen")) {
+                noFreshElemAtPos = true; // 冰冻死亡的什么也不干
+            } else {
+                var g = this.bv.mapView.getGridViewAt(e.pos.x, e.pos.y);
+                // 怪物死亡特效
+                g.clearAllEffects();
+                var dieEff = g.addEffect("effMonsterDie", 1);
+                dieEff["wait"]().then(() =>g.removeEffect("effMonsterDie"));
             }
-
-            var g = this.bv.mapView.getGridViewAt(e.pos.x, e.pos.y);
-            // 怪物死亡特效
-            g.clearAllEffects();
-            var dieEff = g.addEffect("effMonsterDie", 1);
-            dieEff["wait"]().then(() =>g.removeEffect("effMonsterDie"));
         } else if (ps.subType == "useElem")
             await this.onElemUsed(ps);
         
-        this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
+        if (!noFreshElemAtPos)
+            this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
+
         this.bv.refreshPlayer(); // 角色属性受地图上所有东西影响
 
         sv["resetSelf"]();
@@ -1202,17 +1208,11 @@ class AniView extends egret.DisplayObjectContainer {
     public async onEyeDemonUncoverGrids(ps) {
         var m:Elem = ps.m;
         var eyes = [];
-        var lastAni;
         for (var pt of ps.pts) {
-            var e = AniUtils.createImg("eyeDemonEye_png");
+            let e = AniUtils.createImg("eyeDemonEye_png");
             eyes.push(e);
-            lastAni = AniUtils.flyOutLogicPos(e, this.bv.mapView, m.pos, pt);
+            AniUtils.flyOutLogicPos(e, this.bv.mapView, m.pos, pt).then(() => e["dispose"]());
         }
-
-        if (lastAni)
-            await lastAni;
-
-        eyes.forEach((e, _) => e["dispose"]());
     }
 
     // 舞王僵尸突袭时召唤

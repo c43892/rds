@@ -888,7 +888,7 @@ class Battle {
 
             ice["getElemImgResInIce"] = () => m.getElemImgRes();
             m.dropItems = [ice];
-            await this.implOnElemDie(m);
+            await this.implOnElemDie(m, ["frozen"]);
         }
         
         // 被冻结
