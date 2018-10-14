@@ -460,14 +460,14 @@
                     "toDrop": ["Coins", "worldmapeventa91", "worldmapeventa92"],
                     "money": 50,
                     "exitDescArr": ["<font color=#000000 size=20>[离开]</font>", "<font color=#000000 size=20>[离开]</font>", "<font color=#000000 size=20>[离开]</font>"],
-                    "battleType": "searchBody",
-                    "bg":"HeadBone"
+                    "battleType": "searchBody"
                 }
             },{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit", "redirectSelGroup"],
                 "ps": {"group": "a91"}
-            }]
+            }],
+            "bg":"HeadBone"
         },
         "a91": {
             "title": "冒险者的尸体",
@@ -475,7 +475,18 @@
             "sels": [{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit"]
-            }]
+            }],
+            "bg":"HeadBone"
+        },
+        "a92": {
+            "title": "冒险者的尸体",
+            "desc": "搜索的时候你被偷袭了！",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[战斗]</font>",
+                "func": ["battle"],
+                "ps": {"battleType" : "searchBody"}
+            }],
+            "bg":"HeadBone"
         },
         "b1": {
             "title": "幸运大转盘",
