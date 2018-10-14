@@ -136,7 +136,7 @@ class WorldMapEventSelFactory {
 
     creators = {
         "exit": (sel:WMES, p:Player, ps) => { sel.exit = () => true; return sel; },
-        "battle": (sel:WMES, p:Player, ps) => this.exec(async () => await this.startBattle(ps.battleType), sel),
+        "battle": (sel:WMES, p:Player, ps) => this.exec(async () => await this.startBattle(ps.battleType, ps.extraLevelLogic), sel),
         "-money": (sel:WMES, p:Player, ps) => this.valid(() => p.money >= ps.money, 
             this.exec(async () => await this.implAddMoney(p, -ps.money), sel)),
         "+money": (sel:WMES, p:Player, ps) => this.exec(async () => await this.implAddMoney(p, ps.money), sel),
@@ -265,7 +265,7 @@ class WorldMapEventSelFactory {
             return sel;
         },
         "toTurnTable": (sel:WMES, p:Player, ps) => this.exec(async () => await this.openTurntable(p.worldmap.cfg.turntable), sel),
-        "searchOnCropse": (sel:WMES, p:Player, ps) => {
+        "searchOnCorpse": (sel:WMES, p:Player, ps) => {
             var rate = ps.rateArr[0];
             ps.rateArr = Utils.removeAt(ps.rateArr, 0);
             var upDesc = ps.upDescArr[0];
@@ -315,8 +315,8 @@ class WorldMapEventSelFactory {
 
                     if (ps.rateArr.length > 0) {
                         var subSel = this.newSel();
-                        subSel = this.creators["searchOnCropse"](subSel, p, ps);
-                        subSel.desc = this.genDesc(desc, "searchOnCropse", ps);
+                        subSel = this.creators["searchOnCorpse"](subSel, p, ps);
+                        subSel.desc = this.genDesc(desc, "searchOnCorpse", ps);
                         sels.push(subSel);
                     }
 
@@ -325,18 +325,27 @@ class WorldMapEventSelFactory {
                     exitSel.desc = this.genDesc(exitDesc, "exit", ps);
                     sels.push(exitSel);
 
-                    await this.openSels(p, title, upDesc, undefined, sels);
+                    await this.openSels(p, title, upDesc, ps.bg, sels);
                 }, sel);
             } else { // 失败就战斗
-                var dropPs = [];
-                toDrop.forEach((td, _) => {
-                    if(td != "Coins")
-                        dropPs.push(td);
-                    else
-                        dropPs.push(ps.money);
-                })
-                var extraLevelLogic = [{"type":"LevelLogicSearchBody", "ps":[dropPs]}];
-                return this.exec(async () => await this.startBattle(ps.battleType, extraLevelLogic), sel);
+                return this.exec(async () => {
+                    var dropPs = [];
+                    toDrop.forEach((td, _) => {
+                        if(td != "Coins")
+                            dropPs.push(td);
+                        else
+                            dropPs.push(ps.money);
+                    })
+                    var extraLevelLogic = [{"type":"LevelLogicSearchBody", "ps":[dropPs]}];
+
+                    // 还要再建一个列表，用来过渡一下，再进入战斗
+                    var sels = [];
+                    var btSel = this.newSel();
+                    this.creators["battle"](btSel, p, {battleType:ps.failedBattleType, extraLevelLogic:extraLevelLogic});
+                    btSel.desc = this.genDesc(ps.failedDesc, "battle", ps);
+                    sels.push(btSel);
+                    await this.openSels(p, title, ps.failedUpDesc, ps.bg, sels);
+                }, sel);
             }
         },
     };

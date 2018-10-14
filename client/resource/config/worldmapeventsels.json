@@ -22,7 +22,7 @@
         "redirectSelGroup": "重建选项列表",
         "redirectSelGroup2": "重建选项列表",
         "toTurnTable": "",
-        "searchOnCropse": "摸尸体"
+        "searchOnCorpse": "摸尸体"
     },
 
     "groups": {
@@ -289,7 +289,7 @@
             "title": "title",
             "desc": "desc",
             "sels": [{
-                "func": ["searchOnCropse"],
+                "func": ["searchOnCorpse"],
                 "desc": "sels",
                 "ps": {
                     "rateArr": [100, 100, 0],
@@ -450,7 +450,7 @@
             "title": "冒险者的尸体",
             "desc": "你发现了一具冒险者的尸体！这个可怜虫浑身都被撕烂了，但他身上说不定藏着什么<font color=#00b050 size=25>好东西</font>。",
             "sels": [{
-                "func": ["searchOnCropse"],
+                "func": ["searchOnCorpse"],
                 "desc": "<font color=#000000 size=20>[搜索]</font></font><font color=#00b050 size=20>75%获得奖励，</font></font><font color=#7d0403 size=20>25%进入战斗</font>",
                 "ps": {
                     "rateArr": [75, 50, 25],
@@ -460,7 +460,10 @@
                     "toDrop": ["Coins", "worldmapeventa91", "worldmapeventa92"],
                     "money": 50,
                     "exitDescArr": ["<font color=#000000 size=20>[离开]</font>", "<font color=#000000 size=20>[离开]</font>", "<font color=#000000 size=20>[离开]</font>"],
-                    "battleType": "searchBody"
+                    "failedBattleType": "searchBody",
+                    "failedUpDesc": "搜索的时候你被偷袭了！",
+                    "failedDesc": "<font color=#000000 size=20>[战斗]</font>",
+                    "bg":"HeadBone"
                 }
             },{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
