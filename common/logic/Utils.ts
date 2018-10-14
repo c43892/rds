@@ -416,6 +416,10 @@ class Utils {
             if (!Utils.occupationCompatible(p.occupation, e, customGetConfigFun))
                 continue;
 
+            // 检查技能装备格达到上限，不能再购买
+            if (e == "OpenRelicSpace" && p.relicsEquippedCapacity >= p.relicEquippedCapacityMax)
+                continue;
+
             // 检查遗物强化等级
             var allRelics = p.allRelics;
             var n = Utils.indexOf(allRelics, (r) => r.type == e);
@@ -432,8 +436,33 @@ class Utils {
         // 如果列表为空，且有指定默认替代遗物类型，则添加一个保底
         if (cnt == 0 && defaultRelicType)
             elems[defaultRelicType] = 1;
+        else if (Utils.sum(Utils.values(elems)) == 0) // 所有都是 0，则特殊处理一下，算是特殊约定
+            for (var k in elems)
+                elems[k] = 1;
 
         return Utils.randomSelectByWeight(elems, srand, numMin, numMax, noDuplicated);
+    }
+
+    public static sum(arr) {
+        var s = 0;
+        arr.forEach((v, _) => s += v);
+        return s;
+    }
+
+    public static keys(obj) {
+        var arr = [];
+        for (var k in obj)
+            arr.push(k);
+
+        return arr;
+    }
+
+    public static values(obj) {
+        var arr = [];
+        for (var k in obj)
+            arr.push(obj[k]);
+
+        return arr;
     }
 
     // 执行商店抢劫逻辑计算

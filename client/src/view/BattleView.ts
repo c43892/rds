@@ -318,7 +318,7 @@ class BattleView extends egret.DisplayObjectContainer {
             bmp.addEventListener(egret.TouchEvent.TOUCH_TAP, async (evt:egret.TouchEvent) => {
                 var rv = evt.target;
                 var rn = rv["relicIndex"];
-                if (rn >= this.player.relicsEquippedMaxNum) {
+                if (rn >= this.player.relicsEquippedCapacity) {
                     var tipPos = AniUtils.ani2global(rv);
                     tipPos.x += rv.width / 2;
                     AniUtils.tipAt(ViewUtils.getTipText("relicPosLocked"), tipPos, 25, 0xffffff, 1000);
@@ -529,7 +529,7 @@ class BattleView extends egret.DisplayObjectContainer {
                 ViewUtils.setTexName(bmp, r.getElemImgRes() + "_png");
                 bmp["relic"] = r;
                 bmp.alpha = 1;
-            } else if (i >= this.player.relicsEquippedMaxNum) {
+            } else if (i >= this.player.relicsEquippedCapacity) {
                 ViewUtils.setTexName(bmp, "relicLock_png");
                 bmp["relic"] = undefined;
                 bmp.alpha = 1;
