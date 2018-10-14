@@ -13,7 +13,9 @@
         "fixedRow": {
             "14":"camp",
             "8":"box",
+            "5":"normal",
             "4":"camp",
+            "3":"normal",
             "2":"event"
         },
         "boxroomDrops":{
