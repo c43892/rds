@@ -5,6 +5,7 @@ client/bin-debug
 client/libs/modules
 client_wxgame
 client_android
+keys
 wxOpenDataContext
 
 server/logic

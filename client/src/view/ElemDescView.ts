@@ -3,7 +3,6 @@
 class ElemDescView extends egret.DisplayObjectContainer {
     bg:egret.Bitmap;
     doClose;
-    uis = {};
     player:Player;
     private tip:egret.TextField;
 
@@ -13,10 +12,6 @@ class ElemDescView extends egret.DisplayObjectContainer {
         this.name = "elemDesc";
         this.width = w;
         this.height = h;
-
-        this.uis["monster"] = this.buildMonsterDescView();
-        this.uis["relic"] = this.buildRelicDescView();
-        this.uis["item"] = this.buildItemDescView();
 
         // 背景压暗，点击不能穿透
         this.bg = ViewUtils.createBitmapByName("translucent_png");
@@ -42,23 +37,31 @@ class ElemDescView extends egret.DisplayObjectContainer {
         var uiArr = [];
         var refresh;
         if (e instanceof Monster) {
-            uiArr = this.uis["monster"];
+            uiArr = this.buildMonsterDescView();
             refresh = (e) => this.refreshMonsterDesc(e, fromNewMonsterTipView);
         }
         else if (e instanceof Relic) {
-            uiArr = this.uis["relic"];
+            uiArr = this.buildRelicDescView();
             refresh = (e) => this.refreshRelicDesc(e, fromNewMonsterTipView);
         }
         else {
-            uiArr = this.uis["item"];
+            uiArr = this.buildItemDescView();
             refresh = (e) => this.refreshItemDesc(e, fromNewMonsterTipView);
         }
 
-        uiArr.unshift(this.bg);
-        if(!fromNewMonsterTipView) uiArr.push(this.tip);
+        this.addChild(this.bg);
+        if(!fromNewMonsterTipView) 
+            this.addChild(this.tip);
+
         uiArr.forEach((ui, _) => this.addChild(ui));
-        ViewUtils.multiLang(this, ...uiArr);
-        refresh(e);
+        ViewUtils.multiLang(this, ...uiArr, this.tip);
+        var descArr = refresh(e);
+
+        // 调整位置到垂直居中或者中间靠上一点的位置
+        var anywayBg = uiArr[0];
+        var yOffset = anywayBg.height > this.height / 2 ? (this.height - anywayBg.height) / 2 :
+            (this.height - anywayBg.height) / 3;
+        [...uiArr, ...descArr].forEach((ui, _) => ui.y += yOffset);
         
         return new Promise((resolve, reject) => {
             this.doClose = resolve;
@@ -82,7 +85,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
     buildMonsterDescView() {
         this.monsterBg = ViewUtils.createBitmapByName("confirmBg_png");
         this.monsterBg.name = "monsterBg";
-        this.monsterName = ViewUtils.createTextField(40, 0x7d0403);
+        this.monsterName = ViewUtils.createTextField(35, 0x7d0403);
         this.monsterName.name = "monsterName";
         this.monsterIcon = new egret.Bitmap();
         this.monsterIcon.name = "monsterIcon";
@@ -114,6 +117,8 @@ class ElemDescView extends egret.DisplayObjectContainer {
     }
 
     refreshMonsterDesc(e:Elem, fromNewMonsterTipView:boolean = false) {
+        var uiArr = [];
+
         var m = <Monster>e;
         ViewUtils.setTexName(this.monsterIcon, m.getElemImgRes() + "_png");
 
@@ -189,8 +194,10 @@ class ElemDescView extends egret.DisplayObjectContainer {
         this.addChild(bgFrame0);
         ViewUtils.multiLang(this, monsterDescTxt0, bgFrame0);
 
+        uiArr.push(monsterDescTxt0, bgFrame0);
+
         var yInterval = 25;
-        bgFrame0.height = monsterDescTxt0.height + 65;
+        bgFrame0.height = monsterDescTxt0.height + 45;
         var currentY = bgFrame0.y + bgFrame0.height + yInterval;
 
         for (var i = 1; i < descArr.length; i++) {
@@ -207,14 +214,17 @@ class ElemDescView extends egret.DisplayObjectContainer {
             bgFrame.x = bgFrame0.x;
             bgFrame.width = bgFrame0.width;
             bgFrame.y = txt.y + bgFrame0.y - monsterDescTxt0.y;
-            bgFrame.height = txt.height + 65;
+            bgFrame.height = txt.height + 45;
             bgFrame.scale9Grid = new egret.Rectangle(45, 45, 225, 1);
             this.addChild(bgFrame);
+
+            uiArr.push(txt, bgFrame);
 
             currentY = bgFrame.y + bgFrame.height + yInterval;
         }
 
-        this.monsterBg.height = currentY - this.monsterBg.y + 70;
+        this.monsterBg.height = currentY - this.monsterBg.y + 100;
+        return uiArr;
     }
 
     // 遗物，有头部（包含图标和名称等级描述），属性描述和变异描述三部分
@@ -232,17 +242,22 @@ class ElemDescView extends egret.DisplayObjectContainer {
     }
 
     refreshRelicDesc(e:Elem, fromNewMonsterTipView:boolean = false) {
+        var uiArr = [];
+        
         ViewUtils.setTexName(this.relicIcon, e.getElemImgRes() + "_png");
         // 添加遗物等级星星
         var stars = ViewUtils.createRelicLevelStars(<Relic>e, this.relicIcon);
-        stars.forEach((star, _) => this.addChild(star));
+        stars.forEach((star, _) => {
+            this.addChild(star);
+            uiArr.push(star)
+        });
         
         var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
         this.relicName.textAlign = egret.HorizontalAlign.LEFT;
         this.relicName.bold =true;
         this.relicName.textFlow = [{text: nameAndDesc.name, style:{"textColor":0x7d0403, "size":30}},
            // {text: " Lv " + ((<Relic>e).reinforceLv + 1), style:{"textColor":0x7d0403, "size":30}}
-            ];
+        ];
 
         var descArr = ViewUtils.getElemNameAndDesc(e.type).desc;
         descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(ViewUtils.replaceByProperties(desc, e, fromNewMonsterTipView ? undefined : this.player)));
@@ -259,6 +274,8 @@ class ElemDescView extends egret.DisplayObjectContainer {
         bgFrame0.scale9Grid = new egret.Rectangle(45, 45, 225, 1);
         this.addChild(bgFrame0);
         ViewUtils.multiLang(this, relicDescTxt0, bgFrame0);
+
+        uiArr.push(relicDescTxt0, bgFrame0);
 
         var yInterval = 25;
         bgFrame0.height = relicDescTxt0.height + 65;
@@ -282,10 +299,13 @@ class ElemDescView extends egret.DisplayObjectContainer {
             bgFrame.scale9Grid = new egret.Rectangle(45, 45, 225, 1);
             this.addChild(bgFrame);
 
+            uiArr.push(txt, bgFrame);
+
             currentY = bgFrame.y + bgFrame.height + yInterval;
         }
 
         this.relicDescBg.height = currentY - this.relicDescBg.y + 70;
+        return uiArr;
     }
     
     // 物品只有名称和简单文字描述两部分
@@ -312,6 +332,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         var txt = ViewUtils.replaceByProperties(nameAndDesc.desc[0], e, fromNewMonsterTipView ? undefined : this.player);
         this.itemDesc.textFlow = ViewUtils.fromHtml(txt);
         ViewUtils.setTexName(this.itemIcon, e.getElemImgRes() + "_png");
+        return [];
     }
 
     onClose(evt:egret.TouchEvent) {

@@ -9,7 +9,7 @@ class RankingView extends egret.DisplayObjectContainer {
     closeBtn:egret.Bitmap;
     title:egret.TextField;
     tabMenu:egret.TextField[]; // 顶端不同榜单切换
-    rankViewContainer:egret.DisplayObjectContainer; // 榜单区域
+    rankViewContainer:egret.ScrollView; // 榜单区域
     wxRankImg; // 微信好友榜单
     menu = [];
     menuDisplayName = {"weeklyRank":"周榜", "roleRank":"角色榜", "friendRank":"好友榜"};
@@ -62,11 +62,14 @@ class RankingView extends egret.DisplayObjectContainer {
         
         // 排名区域
         var top = y + 150;
-        this.rankViewContainer = new egret.DisplayObjectContainer();
+        this.rankViewContainer = new egret.ScrollView();
+        this.rankViewContainer.verticalScrollPolicy = "auto";
+        this.rankViewContainer.horizontalScrollPolicy = "off";
+        this.rankViewContainer.bounces = true;
         this.rankViewContainer.x = 0;
         this.rankViewContainer.y = top;
         this.rankViewContainer.width = this.width;
-        this.rankViewContainer.height = this.height - top;
+        this.rankViewContainer.height = this.height - top - 200;
         this.addChild(this.rankViewContainer);
     }
 
@@ -147,17 +150,41 @@ class RankingView extends egret.DisplayObjectContainer {
         this.rebuildRank(this.roleRankInfo, this.currentPageIndex * this.pageSize, this.pageSize);
     }
 
+    MaxNumInRank = 100; // 最多显示多少条目
+    PerItemHeight = 100; // 每条目占高度
+
     // 显示微信好友榜单
     public openWxFriendRank() {
         if (this.wxRankImg) this.rankViewContainer.removeChild(this.wxRankImg);
+
         var platform = window.platform;
-        var bmp = platform.openDataContext.createDisplayObject(null, this.rankViewContainer.width, this.rankViewContainer.height);
-        this.wxRankImg = bmp;
-        if (!bmp) return;
-        
-        this.rankViewContainer.addChild(this.wxRankImg);
-        this.wxRankImg.x = this.wxRankImg.y = 0;
+        var bmp:egret.Bitmap = platform.openDataContext.createDisplayObject(null, 
+            this.rankViewContainer.width, 
+            this.MaxNumInRank * this.PerItemHeight);
+
+        if (!bmp)
+            return;
+
         window.platform.openDataContext.postMessage({"type":"refresh", pageIndex:0});
+        this.loopChecker(bmp);
+    }
+
+    async loopChecker(bmp:egret.Bitmap) {
+        this.rankViewContainer.verticalScrollPolicy = "off";
+
+        while (!bmp.hitTestPoint(bmp.width / 2, this.PerItemHeight / 2, true))
+            await AniUtils.delay(50);
+
+        for (var i = this.PerItemHeight / 2; i < bmp.height; i += this.PerItemHeight) {
+            if (!bmp.hitTestPoint(bmp.width / 2, i, true)) {
+                this.rankViewContainer.setContent(bmp);
+                bmp.height = i;
+                break;
+            }
+        }
+
+        bmp.fillMode = egret.BitmapFillMode.CLIP;
+        this.rankViewContainer.verticalScrollPolicy = "auto";
     }
     
     public onCloseBtn(evt:egret.TouchEvent) {

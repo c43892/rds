@@ -79,7 +79,6 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.openEventSels = async (title, desc, bg, sels) => await this.openWorldMapEventSels(title, desc, bg, sels);
         this.wmv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
         this.wmv.selRelic = async (elems, funcOnClinked, title, tip) => await this.openAllElemsView(elems, funcOnClinked, title, tip);
-        this.wmv.openPlayerDieView = async () => await this.openPlayerDieView();
         this.wmv.openFinishGameView = async () => await this.openFinishGameView();
         this.wmtv = new WorldMapTopView(w, 80);
         this.wmtv.openSettingView = async () => await this.openSettingView();
@@ -185,7 +184,13 @@ class MainView extends egret.DisplayObjectContainer {
         bt.registerEvent("onStartupRegionUncovered", async (ps) => {
             this.bv.hideAllBanImg(false);
         });
-        bt.registerEvent("onPlayerDead", async () => await this.openPlayerDieView());
+        bt.registerEvent("onPlayerDying", async (ps) => await this.openPlayerDieView(ps));
+        bt.registerEvent("onPlayerDead", async () => {
+            Utils.savePlayer(undefined);
+            this.p = undefined;
+            await this.av.blackIn();
+            await this.openStartup(undefined);
+        });
         Utils.registerEventHandlers(bt, [
             "onGridChanged", "onPlayerChanged", "onAttacking", "onAttacked", "onElemChanged", "onPropChanged", "onRelicChanged",
             "onElemMoving", "onElemFlying", "onElemImgFlying", "onAllCoveredAtInit", "onSuckPlayerBlood", "onMonsterTakeElem", "onBuffAdded", "onBuffRemoved",
@@ -193,7 +198,7 @@ class MainView extends egret.DisplayObjectContainer {
             "onAddDeathGodStep", "onElem2NextLevel", "onUseElemAt", "onUseElem", "onGoOutLevel", "onNotifyElemsDropped",
             "onCandyCannon", "onMakeWanted", "onInitBattleView", "onRelicAddElem", "onMonsterCharmed", "onCloakImmunizeSneak",
             "onSwatheItemWithCocoon", "summonByDancer", "onGetMarkAllAward", "onStartupRegionUncovered", "onSneaking", "onGoOutLevel",
-            "relicsEquippedMaxNumAdded"
+            "relicsEquippedMaxNumAdded", "onPlayerReborn",
         ], (e) => (ps) => this.bv.av[e](ps));
         bt.registerEvent("onBattleEnded", async (ps) => {
             await this.av.blackIn();
@@ -374,7 +379,6 @@ class MainView extends egret.DisplayObjectContainer {
         var retry = true;
         while (retry) {
             var r = await platform.login();
-
             if (!r.ok)
                 retry = await this.confirmOkYesNo(undefined, "连接服务器失败", true, {yes:"retry", no:"cancel"});
             else
@@ -417,12 +421,8 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 打开角色死亡界面
-    public async openPlayerDieView() {
-        Utils.savePlayer(undefined);
-        await this.confirmOkYesNo("<font color=#7d0403 size=30>不幸死亡</font>", "<font color=#000000 size=20>有些情况你也许可以复活</font>", false);
-        this.p = undefined;
-        await this.av.blackIn();
-        await this.openStartup(undefined);
+    public async openPlayerDieView(ps) {
+        ps.reborn = await this.confirmOkYesNo("不幸死亡", "是否需要复活？", true);
     }
 
     // 打开通关界面
@@ -557,7 +557,7 @@ class MainView extends egret.DisplayObjectContainer {
     registerPlayerEvents() {
         Utils.registerEventHandlers(this.p, [
             "onGetElemInWorldmap", "onGetMoneyInWorldmap", "onGetHpInWorldmap", "onGetHpMaxInWorldmap",
-            "onHospitalCureStart", "onHospitalCureEnd"
+            "onHospitalCureStart", "onHospitalCureEnd", "onPlayerDying", "onPlayerReborn", "onPlayerDead"
         ], (e) => (ps) => this.bv.av[e](ps));
     }
 }

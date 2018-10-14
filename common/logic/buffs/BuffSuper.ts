@@ -1,7 +1,7 @@
 // 超能药水提供的buff
-class BuffSuperPotion extends Buff{
+class BuffSuper extends Buff{
     constructor(cnt:number){
-        super("BuffSuperPotion");
+        super("BuffSuper");
         this.cnt = cnt;
 
         this.addAI("onPlayerActed", async () => {

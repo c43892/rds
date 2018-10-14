@@ -68,8 +68,10 @@ class PropFactory {
 
         // 冰冻射线
         "IceGun": (attrs) => this.createProp(attrs, 
-                        ElemFactory.elemCanUseAtManyTimes(attrs.cnt, async (e, x, y) => 
-                            await e.bt().implFrozeAt(x, y, e), true)),
+                        ElemFactory.elemCanUseAtManyTimes(attrs.cnt, async (e, x, y) => {
+                            e.resetCD();
+                            await e.bt().implFrozeAt(x, y, e);
+                        }, true)),
 
         // 超能药水
         "SuperPotion": (attrs) => {
@@ -78,7 +80,7 @@ class PropFactory {
                 e.use = async () => {
                     e.resetCD();
                     e.cnt --;
-                    await e.bt().implAddBuff(e.bt().player, "BuffSuperPotion", attrs.immunizeCnt);
+                    await e.bt().implAddBuff(e.bt().player, "BuffSuper", attrs.immunizeCnt);
                     return e.cnt > 0;
                 };
                 return e;
@@ -92,7 +94,7 @@ class PropFactory {
                 e.use = async () => {
                     e.resetCD();
                     e.cnt --;
-                    await e.bt().implAddBuff(e.bt().player, "BuffStrangthPotion", attrs.enhanceCnt);
+                    await e.bt().implAddBuff(e.bt().player, "BuffStrangth", attrs.enhanceCnt);
                     return e.cnt > 0;
                 };
                 return e;

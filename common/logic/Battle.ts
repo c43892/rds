@@ -413,13 +413,14 @@ class Battle {
 
         // 检查死亡
         if (this.player.isDead()) {
-            await this.fireEvent("onPlayerDying");
             var diePs = {reborn:false};
+            await this.fireEvent("onPlayerDying", diePs);
             await this.triggerLogicPoint("onPlayerDying", diePs);
 
             if (diePs.reborn) {
-                await this.fireEvent("onPlayerReborn");
-                await this.triggerLogicPoint("onPlayerReborn");
+                this.player.reborn();
+                await this.fireEvent("onPlayerReborn", {inBattle:true});
+                await this.triggerLogicPoint("onPlayerReborn", {inBattle:true});
             } else {
                 await this.fireEvent("onPlayerDead");
                 return true;
@@ -469,10 +470,10 @@ class Battle {
             var reserve = r instanceof Object ? r.reserve : r;
             var consumeDeathStep = r instanceof Object ? r.consumeDeathStep : true;
 
-            if (!reserve) await this.implOnElemDie(e);
+            if (!reserve) await this.implOnElemDie(e, ["byUse"]);
 
-            await this.fireEvent("onElemChanged", {subType:"useElem", e:e});
-            await this.triggerLogicPoint("onElemChanged", {subType:"useElem", e:e});
+            await this.fireEvent("onElemChanged", {subType:"useElem", e:e, reserve:reserve});
+            await this.triggerLogicPoint("onElemChanged", {subType:"useElem", e:e, reserve:reserve});
 
             // 算一次角色行动
             if (consumeDeathStep) {
@@ -955,6 +956,8 @@ class Battle {
             await sneakAct();
             await this.triggerLogicPoint("onSneaked", sneakPs);
         }
+        
+        await this.fireEvent("onSneaked", {m:m, isNormalAttack:isNormalAttack, immunized:sneakPs.immunized});
     }
 
     // 角色尝试攻击指定位置

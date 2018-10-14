@@ -328,8 +328,8 @@
         "TreasureBox":{"name":"宝箱", "desc":["<font color=#000000 size=20>可被钥匙打开，产出随机道具</font>"]},
         "RandomEgg":{"name":"彩蛋", "desc":["<font color=#000000 size=20>打开获得随机道具</font>"]},
         "Clock":{"name":"钟表", "desc":["<font color=#000000 size=20>死神后退<font color=#294c22 size=20> 15 </font><font color=#000000 size=20>步</font>"]},
-        "HpPotion":{"name":"医疗药剂", "desc":["<font color=#000000 size=20>每回合回复<font color=#294c22 size=20> {heal} </font><font color=#000000 size=20>生命,持续5回合</font>"], 
-            "useDescArr":["<font color=#e4d5a5 size=25>每回合回复</font><font color=#56ba42 size=25> 1 </font><font color=#e4d5a5 size=25>生命,持续5回合</font>", "<font color=#e4d5a5 size=25>医疗药剂（点击地图任意位置使用）</font>"]},
+        "HpPotion":{"name":"医疗药剂", "desc":["<font color=#000000 size=20>使用回复<font color=#294c22 size=20> {heal} </font><font color=#000000 size=20>生命</font>"], 
+            "useDescArr":["<font color=#e4d5a5 size=25>使用回复</font><font color=#56ba42 size=25> {heal} </font><font color=#e4d5a5 size=25>生命</font>", "<font color=#e4d5a5 size=25>医疗药剂（点击地图任意位置使用）</font>"]},
         "DePoison":{"name":"解毒药剂", "desc":["<font color=#000000 size=20>解除中毒效果"],
             "useDescArr":["<font color=#e4d5a5 size=25>解除中毒效果</font>", "<font color=#e4d5a5 size=25>解毒药剂（点击地图任意位置使用）</font>"]},
         "Magazine":{"name":"自然杂志", "desc":["<font color=#000000 size=20>每次点击获得<font color=#294c22 size=20> {dexp} </font><font color=#000000 size=20>经验值</font>"]},
@@ -431,12 +431,16 @@
         "SlimeKing":{"name":"史莱姆之王", "desc":[
             "<font color=#7d0403 bold=true size=21>史莱姆冲击</font>\n<font color=#000000 bold=false size=20>每3回合进行一次撞击，伤害是攻击的4倍</font>",
             "<font color=#7d0403 bold=true size=21>指挥</font>\n<font color=#000000 bold=false size=20>所有其他怪物血量和攻击翻倍</font>",
-            "<font color=#7d0403 bold=true size=21>死亡和新生</font>\n<font color=#000000 bold=false size=20>死亡后分裂为四个史莱姆，3回合后史莱姆全部存活，史莱姆之王将会原地复活并回复30%的血量</font>"
+            "<font color=#7d0403 bold=true size=21>死亡和新生</font>\n<font color=#000000 bold=false size=20>死亡后分裂为四个史莱姆，3回合后史莱姆全部存活，史莱姆之王将会原地复活并回复30%的血量</font>",
+            "<font color=#7d0403 bold=true size=21>粘液</font>\n<font color=#000000 bold=false size=20>每次攻击需要额外消耗2回合</font>",
+            "<font color=#7d0403 bold=true size=21>回复</font>\n<font color=#000000 bold=false size=20>每回合恢复5%的生命值</font>"
         ]},
         "BrainOfCthulhu":{"name":"克苏鲁之脑", "desc":[
-            "<font color=#7d0403 bold=true size=21>精髓吸取</font>\n<font color=#000000 bold=false size=20>每3回合进行一次攻击，伤害是攻击的3倍</font>",
+            "<font color=#7d0403 bold=true size=21>精神接触</font>\n<font color=#000000 bold=false size=20>每3个回合主动攻击1次，造成3倍伤害，并降低10点san值</font>",
             "<font color=#7d0403 bold=true size=21>指挥</font>\n<font color=#000000 bold=false size=20>所有其他怪物血量和攻击翻倍</font>",
-            "<font color=#7d0403 bold=true size=21>san值</font>\n<font color=#000000 bold=false size=20>各种异象</font>"
+            "<font color=#7d0403 bold=true size=21>恐惧光环</font>\n<font color=#000000 bold=false size=20>每回合都会降低你的san值，随着你的san值越低，你会做出一些越来越奇怪的行为……san值低于70：怪物的所有属性都显示成问号；san值低于35：本层的所有地图数字都会显示为问号；san值为0：你的攻击将随机点击可点击的地方</font>",
+            "<font color=#7d0403 bold=true size=21>精神污染</font>\n<font color=#000000 bold=false size=20>boss被翻开后本关的所有普通怪物显示为克苏鲁的触手</font>",
+            "<font color=#7d0403 bold=true size=21>克苏鲁的呼唤</font>\n<font color=#000000 bold=false size=20>克苏鲁之脑每5回合在随机位置召唤一只克苏鲁的触手，你每杀死一只克苏鲁的触手，恢复10点san值</font>"
         ]},
         "ShopNpc":{"name":"智能机械管家", "desc":[
             "</font><font color=#7d0403 bold=true  size=21>奸商</font>\n<font color=#000000 bold=false size=20>顾客才是我的上帝</font>"
