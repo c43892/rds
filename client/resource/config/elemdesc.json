@@ -301,7 +301,7 @@
             "shortDesc":"进入战斗地图，都可以标记一个宝箱的位置"},
         "KnifeMaster":{"name":"飞刀大师", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>每场战斗增加一把飞刀，飞刀造成的伤害+</font><font color=#294c22 size=20> {dpower}</font>"],
             "shortDesc":"每场战斗增加一把飞刀，飞刀造成的伤害+1"},
-        "MonsterHunter":{"name":"怪物猎人", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>每场战斗开始时标记</font><font color=#294c22 size=20> {markNum} </font><font color=#000000 size=20>个怪物</font>"],
+        "MonsterHunter":{"name":"怪物猎人", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>每场战斗开始时标记</font><font color=#294c22 size=20> {markNum} </font><font color=#000000 size=20>个普通怪物</font>"],
             "shortDesc":"每场战斗开始时标记1个怪物"},
         "KnifeProficient":{"name":"飞刀专精", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>每场战斗增加一把飞刀，飞刀攻击时无视护甲</font>"],
             "shortDesc":"每场战斗增加一把飞刀，飞刀无视护甲"},

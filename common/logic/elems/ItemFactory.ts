@@ -297,7 +297,9 @@ class ItemFactory {
         "OpenRelicSpace":(attrs) => {
             var e = this.createItem();
             e["autoUseInBattle"] = async (bt:Battle) => {
-                bt.player.relicsEquippedMaxNum++;
+                Utils.assert(bt.player.relicsEquippedCapacity < bt.player.relicEquippedCapacityMax, 
+                    "open equipped relics position overflow");
+                bt.player.relicsEquippedCapacity++;
                 await bt.fireEvent("relicsEquippedMaxNumAdded");
             };
 

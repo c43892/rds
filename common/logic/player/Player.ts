@@ -408,7 +408,8 @@ class Player {
 
     // 遗物相关逻辑
 
-    public relicsEquippedMaxNum = 4; // 遗物装备格容量
+    public relicEquippedCapacityMax = 12; // 装备格上限
+    public relicsEquippedCapacity = 4; // 遗物装备格容量
     public relicsEquipped:Relic[] = []; // 已经装备的遗物
     public relicsInBag:Relic[] = []; // 包裹中的遗物
     public get allRelics():Relic[] {
@@ -454,7 +455,7 @@ class Player {
         }
 
         // 新的
-        if (this.relicsEquipped.length < this.relicsEquippedMaxNum)
+        if (this.relicsEquipped.length < this.relicsEquippedCapacity)
             this.relicsEquipped.push(e.toRelic(this));
         else
             this.relicsInBag.push(e);
