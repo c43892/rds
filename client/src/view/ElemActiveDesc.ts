@@ -1,16 +1,31 @@
 class ElemActiveDesc {
     static elems = {
         "Shield" : {
-            "cd": (p:Player, e:Elem) => ElemActiveDesc.getCD(p, e),
+            "elemCD": (p:Player, e:Elem) => ElemActiveDesc.getElemCD(p, e),
         },
         "HpPotion" : {
-            "heal": (p:Player, e:Elem) => ElemActiveDesc.getBuffAddHp(p, e, "heal")
+            "heal": (p:Player, e:Elem) => ElemActiveDesc.getBuffAddHp(p, e, "heal"),
+            "elemCD": (p:Player, e:Elem) => ElemActiveDesc.getElemCD(p, e)
         },
         "Bazooka" : {
-            "power": (p:Player, e:Elem) => ElemActiveDesc.getWeaponPower(p, e)
+            "power": (p:Player, e:Elem) => ElemActiveDesc.getWeaponPower(p, e),
+            "elemCD": (p:Player, e:Elem) => ElemActiveDesc.getElemCD(p, e)
         },
         "RayGun":{
-            "power": (p:Player, e:Elem) => ElemActiveDesc.getWeaponPower(p, e)
+            "power": (p:Player, e:Elem) => ElemActiveDesc.getWeaponPower(p, e),
+            "elemCD": (p:Player, e:Elem) => ElemActiveDesc.getElemCD(p, e)
+        },
+        "SuperPotion":{
+            "elemCD": (p:Player, e:Elem) => ElemActiveDesc.getElemCD(p, e)
+        },
+        "StrangthPotion":{
+            "elemCD": (p:Player, e:Elem) => ElemActiveDesc.getElemCD(p, e)
+        },
+        "IceGun":{
+            "elemCD": (p:Player, e:Elem) => ElemActiveDesc.getElemCD(p, e)
+        },
+        "CandyCannon":{
+            "elemCD": (p:Player, e:Elem) => ElemActiveDesc.getElemCD(p, e)
         },
         "Knife":{
             "power": (p:Player, e:Elem) => ElemActiveDesc.getWeaponPower(p, e)
@@ -27,16 +42,16 @@ class ElemActiveDesc {
     }
     
     // 获取elem受各因素影响后的cd
-    static getCD(p:Player, e:Elem){
-        var cd;
+    static getElemCD(p:Player, e:Elem){
+        var elemCD;
         var cdPs = {subType:"resetCD", e:e, dcd:{a:0, b:0, c:0}};
         if(p){
             p.triggerLogicPointSync("onCalcCD", cdPs)
-            cd = (e.attrs.cd + cdPs.dcd.b) * (1 + cdPs.dcd.a) + cdPs.dcd.c;
-            cd = cd < 0 ? 0 : cd;
+            elemCD = (e.attrs.cd + cdPs.dcd.b) * (1 + cdPs.dcd.a) + cdPs.dcd.c;
+            elemCD = elemCD < 0 ? 0 : elemCD;
         }
-        else cd = e.attrs.cd
-        return cd;
+        else elemCD = e.attrs.cd;
+        return elemCD;
     }
 
     // 获取通过BuffAddHp治疗玩家的Elem受各因素影响后对玩家的治疗量

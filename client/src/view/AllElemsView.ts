@@ -103,7 +103,7 @@ class AllElemsView extends egret.DisplayObjectContainer {
         // 根据宽度和每行数量自动计算平均的间隔大小
         var space = (this.scrollArea.width - (this.ColNum * this.GridSize)) / (this.ColNum + 1);
         var x = space;
-        var y = space - 20;
+        var y = space - 25;
 
         for (var i = 0; i < this.GridCount; i++) {
             if(i < elems.length){
@@ -135,7 +135,7 @@ class AllElemsView extends egret.DisplayObjectContainer {
             x += this.GridSize + space;
             if (x >= this.scrollArea.width) {
                 x = space;
-                y += this.GridSize + space - 5;
+                y += this.GridSize + space;
             }
         }
 

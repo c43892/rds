@@ -65,7 +65,9 @@ class MainView extends egret.DisplayObjectContainer {
             await this.openStartup(undefined);
         };
 
-        this.rev = new RelicExchangeView(w, h);        
+        this.rev = new RelicExchangeView(w, h);
+        this.rev.showDescView = async (r:Relic) => await this.showElemDesc(r);
+        this.rev.confirmOkYesNo = async (title, content, yesno:boolean, btnText = {}) => await this.confirmOkYesNo(title, content, yesno, btnText);
 
         // 世界地图
         this.wmv = new WorldMapView(w, h);

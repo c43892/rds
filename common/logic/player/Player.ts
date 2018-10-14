@@ -186,7 +186,7 @@ class Player {
     collectAllLogicHandler() {
         var hs = [];
 
-        hs.push(...this.allRelics);
+        hs.push(...this.relicsEquipped);
 
         return hs;
     }
@@ -402,7 +402,7 @@ class Player {
 
     // 遗物相关逻辑
 
-    public relicsEquippedMaxNum = 3; // 遗物装备格容量
+    public relicsEquippedMaxNum = 4; // 遗物装备格容量
     public relicsEquipped:Relic[] = []; // 已经装备的遗物
     public relicsInBag:Relic[] = []; // 包裹中的遗物
     public get allRelics():Relic[] {
@@ -468,7 +468,6 @@ class Player {
             var e = this.relicsInBag[i];
             if (e.type == type) {
                 this.relicsInBag = Utils.removeAt(this.relicsInBag, i);
-                (<Relic>e).removeAllEffects();
                 return e;
             }
         }
