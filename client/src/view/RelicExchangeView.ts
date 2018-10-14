@@ -15,6 +15,7 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
     private page:number;
     private rsEquipped:Relic[];
     private rsInBag:Relic[];
+    private canDrag:boolean;
     public showDescView;
     public confirmOkYesNo;
 
@@ -81,7 +82,8 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
         this.setEmptyGrids();
     }
 
-    public async open() {
+    public async open(canDrag:boolean = true) {
+        this.canDrag = canDrag;
         this.page = 0;
         this.rsEquipped = [...this.player.relicsEquipped];
         this.rsInBag = [...this.player.relicsInBag];
@@ -105,6 +107,7 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
     }
 
     private refreshRelicInBagArea() {
+        // 是否两个显示翻页按钮
         if (this.page > 0) {
             this.pageDownBtn.touchEnabled = true;
             this.pageDownBtn.alpha = 1;
@@ -113,7 +116,6 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
             this.pageDownBtn.touchEnabled = false;
             this.pageDownBtn.alpha = 0;
         }
-
         if (this.player.relicsInBag.length > this.ShowNum * (this.page + 1)) {
             this.pageUpBtn.touchEnabled = true;
             this.pageUpBtn.alpha = 1;
@@ -252,7 +254,7 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
     }
 
     async onTouchMove(evt: egret.TouchEvent) {
-        if (!RelicExchangeView.dragFromImg || RelicExchangeView.dragFromImg["elem"] != "relicAndStar") return;
+        if (!this.canDrag || !RelicExchangeView.dragFromImg || RelicExchangeView.dragFromImg["elem"] != "relicAndStar") return;
 
         var currentX = evt.localX + evt.target.x;
         var currentY = evt.localY + evt.target.y;
