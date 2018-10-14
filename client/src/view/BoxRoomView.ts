@@ -78,7 +78,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
         var arr = [];
         
         // 有可能有遗物改变这个数量
-        var onOpenBoxRoomPs = {relicNum:2, propNum:1, coinsnum:cfg.coins};
+        var onOpenBoxRoomPs = {relicNum:1, propNum:1, coinsnum:cfg.coins};
         this.player.triggerLogicPointSync("onOpenBoxRoom", onOpenBoxRoomPs);
 
         // 宝箱中的遗物

@@ -280,13 +280,14 @@ class RelicFactory {
 
         // 怪物猎人,每场战斗开始时标记X个怪物（最多5级）
         "MonsterHunter": (attrs) => {
-            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+            return this.createRelic(attrs, false, (r: Relic, enable: boolean) => {
                 if (!enable) {
                     r.clearAIAtLogicPoint("onStartupRegionUncovered");
                     return;
                 }
                 ElemFactory.addAI("onStartupRegionUncovered", async () => {
-                    var ms = BattleUtils.findRandomElems(r.bt(), attrs.markNum, (e:Elem) => e.getGrid().isCovered() && !e.getGrid().isMarked() && e instanceof Monster && e.isHazard());
+                    var ms = BattleUtils.findRandomElems(r.bt(), attrs.markNum, (e: Elem) =>
+                        !e.getGrid().isUncoveredOrMarked() && e instanceof Monster && e.isHazard() && !e.isBig() && e.type != "PlaceHolder");
                     for (var m of ms)
                         await r.bt().implMark(m.pos.x, m.pos.y);
                 }, r)

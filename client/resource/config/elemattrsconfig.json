@@ -161,6 +161,7 @@
     "CharmingMushroom5":{"name":"魅惑菇", "noNewMonsterTip":true},
 
     "ShopNpc":{"name":"商人", "hp":5, "cannotTake":true, "noNewMonsterTip":true, "dropItems":["Coins"]},
+    "Gardener":{},
 
     "PlaceHolder":{"name":"Boss精英占位", "hideHazardNum":true, "invisible":true, "cannotTake":true},
     "BossBunny":{"name":"boss兔子", "size":{"w":2, "h":2}, "hp":10, "hideHazardNum":true, "attackInterval":2},
