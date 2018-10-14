@@ -68,8 +68,10 @@ class PropFactory {
 
         // 冰冻射线
         "IceGun": (attrs) => this.createProp(attrs, 
-                        ElemFactory.elemCanUseAtManyTimes(attrs.cnt, async (e, x, y) => 
-                            await e.bt().implFrozeAt(x, y, e), true)),
+                        ElemFactory.elemCanUseAtManyTimes(attrs.cnt, async (e, x, y) => {
+                            e.resetCD();
+                            await e.bt().implFrozeAt(x, y, e);
+                        }, true)),
 
         // 超能药水
         "SuperPotion": (attrs) => {
