@@ -76,7 +76,9 @@ class GuideView extends egret.DisplayObjectContainer {
         bt.registerEvent("onLevelInited", async (ps) => {
             var bt = ps.bt;
             if (bt.btType == "rookiePlay_1")
-                await this.rookiePlay1(ps.bt)
+                await this.rookiePlay1(ps.bt) // 新手指引1
+            else if (bt.btType == "rookiePlay_5") // 新手指引5
+                await this.rookiePlay5(bt);
         });
 
         bt.registerEvent("onStartupRegionUncovered", async (ps) => {
@@ -93,21 +95,42 @@ class GuideView extends egret.DisplayObjectContainer {
             }
         });
 
+        // 被怪物突袭指引
         bt.registerEvent("onSneaked", async (ps) => {
             var m = ps.m; // 突袭怪物
             var immunized = ps.immunized; // 是否被免疫
-            if (immunized)
+            if (immunized || !Utils.checkRookiePlay())
                 return;
 
-            if (Utils.loadLocalData("onSneakedGuideFinished")) // 已经指引过了
+            // 检查指引标记
+            if (Utils.loadLocalData("onSneakedGuideFinished"))
                 return;
 
-            var av = <AniView>AniUtils.ac;
             await this.onSneakedGuide(m);
 
             // 存一下指引标记
             Utils.saveLocalData("onSneakedGuideFinished", true);
-        })
+        });
+
+        // 怪物被标记指引
+        bt.registerEvent("onGridChanged", async (ps) => {
+            var subType = ps.subType;
+            if (subType != "elemMarked" || !Utils.checkRookiePlay())
+                return;
+
+            var e = ps.e;
+            if (!(e instanceof Monster)) // 只算标记怪
+                return;
+
+            // 检查指引标记
+            if (Utils.loadLocalData("onMonsterMarkedGuideFinished"))
+                return;
+
+            await this.onMonsterMarkedGuide(e);
+
+            // 存一下指引标记
+            Utils.saveLocalData("onMonsterMarkedGuideFinished", true);
+        });
     }
 
     // 点击指引
@@ -686,9 +709,20 @@ class GuideView extends egret.DisplayObjectContainer {
         await this.showDialog("Nurse", "护士", "非常好，魔王的手下遍布地牢，谨慎的向前探索吧，勇士", 0, 150, true);
     }
 
-    // 被突袭指引
+    // 被怪物突袭指引
     async onSneakedGuide(m:Monster) {
         var nameAndDesc = ViewUtils.getElemNameAndDesc(m.type);
         await this.showDialog(m.type, nameAndDesc.name, "你被我突袭啦", 0, 550, true);
+    }
+
+    // 怪物被标记指引
+    async onMonsterMarkedGuide(m:Monster) {
+        var nameAndDesc = ViewUtils.getElemNameAndDesc(m.type);
+        await this.showDialog(m.type, nameAndDesc.name, "我被你标记啦", 0, 550, true);
+    }
+
+    // 第五层战斗指引
+    async rookiePlay5(bt:Battle) {
+        await this.showDialog("Nurse", "护士", "欢迎来到第五层", 0, 550, true);   
     }
 }
