@@ -1060,13 +1060,18 @@ class MonsterFactory {
             var robCfg = GCfg.getRobCfg(shopCfg.rob);
             var es = Utils.doRobInShop(elems, robCfg, m.bt().srand);
             var droppedElems = [];
-            es.forEach((e, _) => {
-                var g = BattleUtils.findNearestGrid(m.bt().level.map, m.pos, (g:Grid) => !g.isCovered() && !g.getElem());
-                if (g) {
-                    m.bt().addElemAt(e, g.pos.x, g.pos.y);
-                    droppedElems.push(e);
+            for (var i = 0; i < es.length; i++) {
+                var e:Elem = es[i];
+                if (e.attrs.autoUse) { // 购买后直接使用
+                    await e["autoUseInBattle"](m.bt());
+                } else {
+                    var g = BattleUtils.findNearestGrid(m.bt().level.map, m.pos, (g:Grid) => !g.isCovered() && !g.getElem());
+                    if (g) {
+                        m.bt().addElemAt(e, g.pos.x, g.pos.y);
+                        droppedElems.push(e);
+                    }
                 }
-            });
+            };
 
             if (droppedElems.length > 0)
                 await m.bt().notifyElemsDropped(droppedElems, m.pos);
