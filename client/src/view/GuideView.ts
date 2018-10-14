@@ -696,6 +696,7 @@ class GuideView extends egret.DisplayObjectContainer {
         await this.showDialog("Nurse", "护士", "每个怪物都有特殊的属性和技能，现在让我们尝试攻击一下它", 0, 550, true);
         await this.tapGridWithDialog(1, 3, "Nurse", "护士", "来，点击怪物吧", 0, 550, true);
         await AniUtils.delay(1400);
+        await this.showDialog("Nurse", "护士", "免费小贴士，不一定要击杀所有怪物，拿到宝物然后去下一层也是不错的选择", 0, 550, true);                
         await this.showDialog("EyeDemon", "眼魔", "啊，我的眼睛，魔王的战士会再次归来的！", 0, 550, false);
         await this.showDialog("Nurse", "护士", "看到了吧，眼魔死亡会打开空着的格子。现在我们学习一些新的操作", 0, 550, true);
         await this.slide2OpenGridsWithDialog(1, 4, 5, 4, "Nurse", "护士", "来，跟着小手在屏幕上滑动", 0, 630, true);
@@ -707,22 +708,34 @@ class GuideView extends egret.DisplayObjectContainer {
         await this.pressGridWithDialog(1, 5, "Nurse", "护士", "跟着小手长按那个格子", 0, 150, true);
         await this.pressGridWithDialog(3, 5, "Nurse", "护士", "好的，你成功了，让我们再来一次", 0, 150, true);
         await this.showDialog("Nurse", "护士", "非常好，魔王的手下遍布地牢，谨慎的向前探索吧，勇士", 0, 150, true);
+
     }
 
     // 被怪物突袭指引
     async onSneakedGuide(m:Monster) {
         var nameAndDesc = ViewUtils.getElemNameAndDesc(m.type);
-        await this.showDialog(m.type, nameAndDesc.name, "你被我突袭啦", 0, 550, true);
+        await this.showDialog("Nurse", "护士", "哎呀，你被怪物突袭了", 0, 550, true);
+        await this.showDialog("Nurse", "护士", "你要尽量避免出现这种情况，怪物突袭时会有各种技能来伤害你", 0, 550, true);
+        await this.showDialog("Nurse", "护士", "如果不好分辨格子是不是有怪物，你可以使用匕首和道具来探路", 0, 550, true);
     }
 
     // 怪物被标记指引
     async onMonsterMarkedGuide(m:Monster) {
         var nameAndDesc = ViewUtils.getElemNameAndDesc(m.type);
-        await this.showDialog(m.type, nameAndDesc.name, "我被你标记啦", 0, 550, true);
+        await this.showDialog("Nurse", "护士", "bingo，你成功的标记了一个怪物", 0, 550, true);
+        await this.showDialog("Nurse", "护士", "攻击被标记的怪物可以额外造成2点伤害", 0, 550, true);
+        await this.showDialog("Nurse", "护士", "你也可以看到怪物的属性来判断是不是要击杀这个怪物", 0, 550, true);
+        await this.showDialog("Nurse", "护士", "注意哦，你不一定要击杀所有怪物，拿到宝物就可以去下一层了", 0, 550, true);
+
     }
 
     // 第五层战斗指引
     async rookiePlay5(bt:Battle) {
-        await this.showDialog("Nurse", "护士", "欢迎来到第五层", 0, 550, true);   
+        await this.showDialog("Nurse", "护士", "看来你有机会突破魔王的封锁了", 0, 550, true);
+        await this.showDialog("Nurse", "护士", "给你介绍一位强力的同伴，他会和我一起帮助你战斗", 0, 550, true);
+        await this.showDialog("Gardener", "园艺师", "其实我就是种花的，不过我的植物宝贝们都很厉害", 0, 550, true);
+        await this.showDialog("Gardener", "园艺师", "了解并熟悉它们，可以让你的战斗更加轻松", 0, 550, true);
+        await this.showDialog("Gardener", "园艺师", "现在把我的宝物给你，你就可以操纵我的植物了", 0, 550, true);
+        await this.showDialog("Nurse", "护士", "继续前进吧，勇士", 0, 550, true);    
     }
 }
