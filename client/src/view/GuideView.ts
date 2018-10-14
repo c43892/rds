@@ -703,11 +703,11 @@ class GuideView extends egret.DisplayObjectContainer {
         await this.showDialog("Nurse", "护士", "干得漂亮，滑动可以快速开启格子，以后可以多使用", 0, 630, true);
         await this.showDialog("Nurse", "护士", "现在我们看到一盾牌，是的，它可以帮你抵挡怪物的攻击，但是现在他挡住了格子上的数字", 0, 630, true);
         await this.slide2DragItemWithDialog(1, 4, 1, 2, "Nurse", "护士", "拖动它，看看格子上的数字是多少", 0, 630, true);
-        await this.showDialog("Nurse", "护士", "操作完成，数字是1，紧挨着右边两个数字是2、1，所以可以确定怪物隐藏在哪里了", 0, 150, true);
-        await this.showDialog("Nurse", "护士", "再来一个新操作，我们手动做记号，提醒自己那个格子有怪物", 0, 150, true);
-        await this.pressGridWithDialog(1, 5, "Nurse", "护士", "跟着小手长按那个格子", 0, 150, true);
-        await this.pressGridWithDialog(3, 5, "Nurse", "护士", "好的，你成功了，让我们再来一次", 0, 150, true);
-        await this.showDialog("Nurse", "护士", "非常好，魔王的手下遍布地牢，谨慎的向前探索吧，勇士", 0, 150, true);
+        await this.showDialog("Nurse", "护士", "操作完成，数字是1，现在我们知道下面两个格子中有一个怪物。等等，我闻到了怪物的气息", 0, 630, true);
+        await this.showDialog("Nurse", "护士", "再来一个新操作，我们手动做记号，提醒自己那个格子有怪物", 0, 550, true);
+        await this.pressGridWithDialog(5, 1, "Nurse", "护士", "跟着小手长按那个格子", 0, 550, true);
+        await this.pressGridWithDialog(5, 2, "Nurse", "护士", "好的，你成功了，让我们再来一次", 0, 550, true);
+        await this.showDialog("Nurse", "护士", "非常好，魔王的手下遍布地牢，谨慎的向前探索吧，勇士", 0, 550, true);
 
     }
 
@@ -722,6 +722,7 @@ class GuideView extends egret.DisplayObjectContainer {
     // 怪物被标记指引
     async onMonsterMarkedGuide(m:Monster) {
         var nameAndDesc = ViewUtils.getElemNameAndDesc(m.type);
+        await AniUtils.delay(700);
         await this.showDialog("Nurse", "护士", "bingo，你成功的标记了一个怪物", 0, 550, true);
         await this.showDialog("Nurse", "护士", "攻击被标记的怪物可以额外造成2点伤害", 0, 550, true);
         await this.showDialog("Nurse", "护士", "你也可以看到怪物的属性来判断是不是要击杀这个怪物", 0, 550, true);
