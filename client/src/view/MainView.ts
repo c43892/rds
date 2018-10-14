@@ -17,6 +17,7 @@ class MainView extends egret.DisplayObjectContainer {
     public aev:AllElemsView; // 展示给定的Elems列表
     public scv:ShopConfirmView; // 遗物对比界面
     public st:SettingView; // 设置视图
+    public rev:RelicExchangeView; // 交换遗物视图
     public av:AniView; // 动画层
 
     isInBattle:boolean; // 是否在战斗中
@@ -64,6 +65,10 @@ class MainView extends egret.DisplayObjectContainer {
             await this.openStartup(undefined);
         };
 
+        this.rev = new RelicExchangeView(w, h);
+        this.rev.showDescView = async (r:Relic) => await this.showElemDesc(r);
+        this.rev.confirmOkYesNo = async (title, content, yesno:boolean, btnText = {}) => await this.confirmOkYesNo(title, content, yesno, btnText);
+
         // 世界地图
         this.wmv = new WorldMapView(w, h);
         this.wmv.openShop = async (shop) => await this.openShopOnWorldMap(shop);
@@ -84,6 +89,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.hv.x = this.hv.y = 0;
         this.hv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);        
         this.hv.selRelic = async (elems, funcOnClinked, title, tip) => await this.openAllElemsView(elems, funcOnClinked, title, tip);
+        this.hv.exchangeRelic = async () => await this.openRelicExchangeView();
 
         // 带遗物对比的确认视图
         this.scv = new ShopConfirmView(w, h);
@@ -451,6 +457,15 @@ class MainView extends egret.DisplayObjectContainer {
         var yesno = await this.scv.open(player, e, price, showPrice);
         this.removeChild(this.scv);
         return yesno;
+    }
+
+    public async openRelicExchangeView(){
+        this.rev.player = this.p;
+        this.addChild(this.rev);
+        this.setChildIndex(this.wmtv, -1);
+        var result = await this.rev.open();
+        this.removeChild(this.rev);
+        return result;
     }
 
     // ranking
