@@ -73,7 +73,7 @@ function drawRankPanel() {
 function init() {
   //排行榜绘制数据初始化
   RankWidth = canvasWidth - 20; // * 4 / 5;
-  RankHeight = canvasHeight * 4 / 5;
+  RankHeight = canvasHeight; // * 4 / 5;
   barWidth = RankWidth; // * 4 / 5;
   barHeight = RankHeight / perPageMaxNum;
   offsetX_rankToBorder = (canvasWidth - RankWidth) / 2;

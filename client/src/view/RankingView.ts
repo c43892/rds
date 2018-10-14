@@ -150,6 +150,9 @@ class RankingView extends egret.DisplayObjectContainer {
         this.rebuildRank(this.roleRankInfo, this.currentPageIndex * this.pageSize, this.pageSize);
     }
 
+    MaxNumInRank = 100; // 最多显示多少条目
+    PerItemHeight = 100; // 每条目占高度
+
     // 显示微信好友榜单
     public openWxFriendRank() {
         if (this.wxRankImg) this.rankViewContainer.removeChild(this.wxRankImg);
@@ -157,7 +160,7 @@ class RankingView extends egret.DisplayObjectContainer {
         var platform = window.platform;
         var bmp:egret.Bitmap = platform.openDataContext.createDisplayObject(null, 
             this.rankViewContainer.width, 
-            this.rankViewContainer.height * 20);
+            this.MaxNumInRank * this.PerItemHeight);
 
         if (!bmp)
             return;
@@ -169,19 +172,19 @@ class RankingView extends egret.DisplayObjectContainer {
     async loopChecker(bmp:egret.Bitmap) {
         this.rankViewContainer.verticalScrollPolicy = "off";
 
-        var pt = bmp.localToGlobal();
-        while (!bmp.hitTestPoint(bmp.width / 2, pt.y, true))
+        while (!bmp.hitTestPoint(bmp.width / 2, this.PerItemHeight / 2, true))
             await AniUtils.delay(50);
 
-        for (var i = 0; i < bmp.height; i += 10) {
-            if (!bmp.hitTestPoint(bmp.width / 2, pt.y + i, true)) {
-                bmp.fillMode = egret.BitmapFillMode.CLIP;
-                bmp.height = i;
+        for (var i = this.PerItemHeight / 2; i < bmp.height; i += this.PerItemHeight) {
+            if (!bmp.hitTestPoint(bmp.width / 2, i, true)) {
                 this.rankViewContainer.setContent(bmp);
-                this.rankViewContainer.verticalScrollPolicy = "auto";
-                return;
+                bmp.height = i;
+                break;
             }
         }
+
+        bmp.fillMode = egret.BitmapFillMode.CLIP;
+        this.rankViewContainer.verticalScrollPolicy = "auto";
     }
     
     public onCloseBtn(evt:egret.TouchEvent) {
