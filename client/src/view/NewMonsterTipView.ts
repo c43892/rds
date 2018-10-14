@@ -54,8 +54,22 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
 
     // 添加一个怪物类型等待显示
     public tryAddNewMonsterTip(m:Monster) {
-        if (Utils.contains(this.newMonsterTipsData, m.type) || m.attrs.invisible || m.isBoss)
+        if (Utils.contains(this.newMonsterTipsData, m.type) || m.attrs.invisible)
             return;
+
+        if (m.isBoss) { // boss 直接出详细界面
+            var av = <AniView>AniUtils.ac;
+            av.addBlockLayer();
+            AniUtils.delay(500).then(() => {
+                GridView.showElemDesc(m);
+                this.newMonsterTipsData.push(m.type);
+                Utils.saveLocalData(this.LOCAL_DATA_KEY, this.newMonsterTipsData);
+                AniUtils.shakeCamera(2, 100);
+                av.decBlockLayer();
+            });
+
+            return;
+        }
 
         this.newMonsterTipsData.push(m.type);
         this.monsterArr.push(m.type);
@@ -74,11 +88,11 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
             // 制作飞行动画
             AniUtils.aniFact.createAniByCfg({type:"seq", arr:[
                 {type:"tr", fx:tip.x + 100, tx:tip.x, time:100, mode:egret.Ease.cubicIn},
-                {type:"shakeCamera", times:2, interval:100},
                 {type:"tr", fr:0, tr:10, time:150, mode:egret.Ease.cubicOut},
                 {type:"tr", fr:10, tr:-10, time:500, mode:egret.Ease.cubicInOut},
                 {type:"tr", fr:-10, tr:0, time:250, mode:egret.Ease.cubicInOut},
-            ], obj:tip, noWait:true}).then(() => egret.Tween.removeTweens(ViewUtils.MainArea.parent));
+            ], obj:tip, noWait:true});
+            AniUtils.shakeCamera(2, 100);
         }
         else { // 叠加在现有的上面
             this.numTxt.text = "X" + this.monsterArr.length.toString();
@@ -137,18 +151,18 @@ class NewMonsterTipView extends egret.DisplayObjectContainer {
         this.btnNext.refresh();
     }
 
-    public onAttacked(ps) {
-        if (ps.subType != "monster2targets")
-            return;
+    // public onAttacked(ps) {
+    //     if (ps.subType != "monster2targets")
+    //         return;
 
-        var m:Monster = ps.attackerAttrs.owner;
-        if (!m || !m.isBoss || Utils.contains(this.newMonsterTipsData, m.type) || m.attrs.invisible)
-            return;
+    //     var m:Monster = ps.attackerAttrs.owner;
+    //     if (!m || !m.isBoss || Utils.contains(this.newMonsterTipsData, m.type) || m.attrs.invisible)
+    //         return;
 
-        GridView.showElemDesc(m);
-        this.newMonsterTipsData.push(m.type);
-        Utils.saveLocalData(this.LOCAL_DATA_KEY, this.newMonsterTipsData);
-    }
+    //     GridView.showElemDesc(m);
+    //     this.newMonsterTipsData.push(m.type);
+    //     Utils.saveLocalData(this.LOCAL_DATA_KEY, this.newMonsterTipsData);
+    // }
 
     public onGridChanged(ps) {
         if (ps.subType != "gridUncovered" && ps.subType != "elemMarked")
