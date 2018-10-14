@@ -191,6 +191,12 @@ class Player {
         return hs;
     }
 
+    // 复活
+    public reborn() {
+        this.clear();
+        this.hp = this.maxHp / 2;
+    }
+
     // 触发逻辑点，参数为逻辑点名称，该名称直接字面对应个各元素对逻辑点的处理函数，
     // 处理函数的返回值表示是否需要截获该事件，不再传递给其它元素
     public async triggerLogicPoint(lpName:string, ps = undefined) {

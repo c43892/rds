@@ -413,13 +413,14 @@ class Battle {
 
         // 检查死亡
         if (this.player.isDead()) {
-            await this.fireEvent("onPlayerDying");
             var diePs = {reborn:false};
+            await this.fireEvent("onPlayerDying", diePs);
             await this.triggerLogicPoint("onPlayerDying", diePs);
 
             if (diePs.reborn) {
-                await this.fireEvent("onPlayerReborn");
-                await this.triggerLogicPoint("onPlayerReborn");
+                this.player.reborn();
+                await this.fireEvent("onPlayerReborn", {inBattle:true});
+                await this.triggerLogicPoint("onPlayerReborn", {inBattle:true});
             } else {
                 await this.fireEvent("onPlayerDead");
                 return true;

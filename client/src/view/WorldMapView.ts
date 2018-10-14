@@ -16,7 +16,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
     public openEventSels; // 选项事件
     public confirmOkYesNo; // yesno 确认
     public selRelic; // 选择遗物
-    public openPlayerDieView; // 角色死亡
     public openFinishGameView; // 通关
 
     private wmesFact:WorldMapEventSelFactory;
@@ -472,8 +471,20 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
         // 检查死亡
         if (this.player.isDead()) {
-            await this.openPlayerDieView();
-        } else {
+            var diePs = {reborn:false};
+            await this.player.fireEvent("onPlayerDying", diePs);
+            await this.player.triggerLogicPoint("onPlayerDying", diePs);
+
+            if (diePs.reborn) {
+                this.player.reborn();
+                await this.player.fireEvent("onPlayerReborn", {inBattle:false});
+                await this.player.triggerLogicPoint("onPlayerReborn", {inBattle:false});
+            } else {
+                await this.player.fireEvent("onPlayerDead");
+            }
+        }
+        
+        if (!this.player.isDead) {
             // 更新最高分
             window.platform.setUserCloudStorage({"score": Utils.playerFinishedStorey(this.player)});
             

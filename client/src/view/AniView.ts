@@ -1124,9 +1124,26 @@ class AniView extends egret.DisplayObjectContainer {
         this.bv.refresh();
     }
 
+    // 清除所有角色 buff 显示效果
+    clearPlayerBuffEffect() {
+        this.removeColorEffect("poison", this.bv.hpBar, this.bv.avatar);
+        egret.Tween.removeTweens(this.bv.deadlyMask);
+    }
+
     // 离开关卡时清除所有角色 buff 效果
     public async onGoOutLevel(ps) {
-        this.removeColorEffect("poison", this.bv.hpBar, this.bv.avatar);
+        this.clearPlayerBuffEffect();
+    }
+
+    // 复活
+    public async onPlayerReborn(ps) {
+        if (ps.inBattle) {
+            this.clearPlayerBuffEffect();
+            this.bv.refreshPlayer();
+        }
+        else {
+            this.wmtv.refreshHp();
+        }
     }
 
     // 偷钱
@@ -1242,6 +1259,7 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 移除颜色效果
     removeColorEffect(effName, ...objs) {
+        effName += "Effect";
         objs.forEach((obj, _) => {
             if (!obj[effName])
                 return;
