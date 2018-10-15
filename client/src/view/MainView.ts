@@ -68,6 +68,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.rev = new RelicExchangeView(w, h);
         this.rev.showDescView = async (r:Relic) => await this.showElemDesc(r);
         this.rev.confirmOkYesNo = async (title, content, yesno:boolean, btnText = {}) => await this.confirmOkYesNo(title, content, yesno, btnText);
+        this.rev.relicConfirmView = async (p:Player, e:Elem, price:number, showPrice = true) => await this.openShopConfirmView(p, e, price, showPrice);
 
         // 世界地图
         this.wmv = new WorldMapView(w, h);
@@ -88,8 +89,8 @@ class MainView extends egret.DisplayObjectContainer {
         this.hv = new HospitalView(w, h);
         this.hv.x = this.hv.y = 0;
         this.hv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);        
-        this.hv.selRelic = async (elems, funcOnClinked, title, tip) => await this.openAllElemsView(elems, funcOnClinked, title, tip);
-        this.hv.exchangeRelic = async () => await this.openRelicExchangeView(false, false);
+        this.hv.selRelic = async () => await this.openRelicExchangeView(false, false, "selectRelic", true);
+        this.hv.exchangeRelic = async () => await this.openRelicExchangeView(true, false);
 
         // 带遗物对比的确认视图
         this.scv = new ShopConfirmView(w, h);
@@ -108,8 +109,8 @@ class MainView extends egret.DisplayObjectContainer {
         this.aev = new AllElemsView(w, h);
         this.aev.openCompareRelicView = async (p:Player, e:Elem, price:number, showPrice = true) => await this.openShopConfirmView(p, e, price, showPrice);
         this.aev.showElemDesc = async (e) => await this.showElemDesc(e);
-        this.bv.openAllRelicsView = async () => await this.openRelicExchangeView(true, true);
-        this.st.openAllRelicsView = async () => await this.openRelicExchangeView(true, false);
+        this.bv.openAllRelicsView = async () => await this.openRelicExchangeView(false, true);
+        this.st.openAllRelicsView = async () => await this.openRelicExchangeView(false, false);
         this.st.openAllPropsView = async (props) => await this.openAllElemsView(props);
 
         // 指引层
@@ -390,6 +391,7 @@ class MainView extends egret.DisplayObjectContainer {
     // 开启初始登录界面
     public async openStartup(p:Player) {
         this.clear();
+        // Utils.removeLocalDate("rookiePlay"); // 删除新手数据存档
 
         this.p = p;
         this.lgv.player = p;
@@ -465,14 +467,14 @@ class MainView extends egret.DisplayObjectContainer {
         return yesno;
     }
 
-    public async openRelicExchangeView(forView:boolean, inBattle:boolean){
+    public async openRelicExchangeView(canDrag:boolean, inBattle:boolean, funcOnClinked = "showDesc", hideRelicLvMax = false){
         this.rev.player = this.p;
         this.addChild(this.rev);
 
         if (!inBattle)
             this.setChildIndex(this.wmtv, -1);
 
-        var result = await this.rev.open(forView);
+        var result = await this.rev.open(canDrag, funcOnClinked, hideRelicLvMax);
         this.removeChild(this.rev);
         return result;
     }

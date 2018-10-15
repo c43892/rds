@@ -10,7 +10,7 @@ class GridView extends egret.DisplayObjectContainer {
     private elemImg:egret.Bitmap; // 元素图
     private elemImgInIce:egret.Bitmap; // 冰冻中的元素图
     private banImg:egret.Bitmap; // 禁止符号
-    private cdImg:egret.Bitmap; // cd 计数
+    private cdImg:egret.BitmapText; // cd 计数
     private coveredImg:egret.Bitmap; // 不可揭开
     private markedBg:egret.Bitmap; // 标记时的底
     private uncoverableImg:egret.Bitmap; // 被覆盖，但可以揭开
@@ -41,7 +41,7 @@ class GridView extends egret.DisplayObjectContainer {
         this.banImg = ViewUtils.createBitmapByName("ban_png"); // 禁止符号
         this.coveredImg = ViewUtils.createBitmapByName("covered_png");
         this.markedBg = ViewUtils.createBitmapByName("markedBg_png");
-        this.cdImg = new egret.Bitmap(); // cd 计数
+        this.cdImg = new egret.BitmapText(); // cd 计数
         var showLayerContainer = new egret.DisplayObjectContainer(); // 显示层容器
         this.addChild(showLayerContainer);
         this.showLayer = new egret.DisplayObjectContainer(); // 显示层
@@ -225,7 +225,8 @@ class GridView extends egret.DisplayObjectContainer {
                 };
             } else {
                 if (e.attrs.showCDNum && e.cd > 0) { // 显示 cd 计数
-                    ViewUtils.setTexName(this.cdImg, "cd" + e.cd + "_png", true);
+                    this.cdImg.font = ViewUtils.getBmpFont("cdFnt");
+                    this.cdImg.text = e.cd.toString();
                     this.cdImg.x = (this.showLayer.width - this.cdImg.width) / 2;
                     this.cdImg.y = (this.showLayer.height - this.cdImg.height) / 2;
                     this.showLayer.addChild(this.cdImg);

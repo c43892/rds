@@ -265,19 +265,19 @@ class WorldMapGenerator{
         }
 
         var roomList = [];
-        var shopCount = Math.round(cfg.specs.shop.percent * nodesCount / 100);
+        var shopCount = Math.ceil(cfg.specs.shop.percent * nodesCount / 100);
         for(var i = 0; i < shopCount; i++){
             roomList.push("shop");
         }
-        var campCount = Math.round(cfg.specs.camp.percent * nodesCount / 100);
+        var campCount = Math.ceil(cfg.specs.camp.percent * nodesCount / 100);
         for(var i = 0; i < campCount; i++){
             roomList.push("camp");
         }
-        var seniorCount = Math.round(cfg.specs.senior.percent * nodesCount / 100);
+        var seniorCount = Math.ceil(cfg.specs.senior.percent * nodesCount / 100);
         for(var i = 0; i < seniorCount; i++){
             roomList.push("senior");
         }
-        var eventCount = Math.round(cfg.specs.event.percent * nodesCount / 100);
+        var eventCount = Math.ceil(cfg.specs.event.percent * nodesCount / 100);
         for(var i = 0; i < eventCount; i++){
             roomList.push("event");
         }

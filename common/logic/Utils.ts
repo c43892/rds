@@ -346,6 +346,13 @@ class Utils {
             Utils.$$saveItem(key, JSON.stringify(data));
     }
 
+    // 删除指定数据
+    public static removeLocalDate(key:string) {
+        var data = Utils.$$loadItem(key);
+        if (data)
+            Utils.$$removeItem(key);
+    }
+
     // 根据指定权重，随机选取若干目标，集合格式为 {type:weight, type:weight, ...}
     public static randomSelectByWeight(elemsWithWeight, srand:SRandom, numMin:number, numMax:number, noDuplicated:boolean = false) {
         var r = [];

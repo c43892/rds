@@ -313,7 +313,7 @@
             "shortDesc":"你知道所有食物的位置"},
         "Storer":{"name":"囤积居奇", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>每当离开一场战斗地图，都可以带走随机一件非金钱物品到下一场战斗</font>"],
             "shortDesc":"离开战斗地图，都可以带走一件随机物品"},
-        "ShieldProficient":{"name":"盾牌专精", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>每场战斗增加一面盾牌，盾牌的恢复时间减少一回合</font>"],
+        "ShieldProficient":{"name":"盾牌专精", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>每场战斗增加一面盾牌，盾牌的恢复时间减少{dcd}回合</font>"],
             "shortDesc":"每场战斗增加一面盾牌，盾牌恢复时间减少"},
         "HorticultureMaster":{"name":"园艺大师", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>每层都可以获得植物的援助，技能升级后植物可以获得更强的能力</font>"],
             "shortDesc":"每层都可以获得植物的援助"},
