@@ -517,8 +517,12 @@ class AniView extends egret.DisplayObjectContainer {
         if (ps.subType == "monsterHp") {
             var dhp = ps.dhp;
             var p = AniUtils.ani2global(sv);
-            if (dhp > 0)
-                AniUtils.tipAt(ViewUtils.getTipText("cure"), {x:p.x+44, y:p.y+1});
+            if (dhp > 0) {
+                AniUtils.tipAt(ViewUtils.getTipText("cure"), {x:p.x+44, y:p.y+1}, 30);
+                AniUtils.jumpingTip(dhp.toString(), {x:p.x+sv.width,  y:p.y}, "lvFnt");
+            }
+            else if (dhp < 0 && !e.isDead())
+                AniUtils.jumpingTip(dhp.toString(), {x:p.x+sv.width,  y:p.y-sv.height/2}, "wmFnt");
         } else if (ps.subType == "die" && e instanceof Monster) {
             if (e.type == "ShopNpc" && Utils.contains(ps.flags, "byUse")) {
                 await AniUtils.flashOut(sv, false);
@@ -862,9 +866,6 @@ class AniView extends egret.DisplayObjectContainer {
         
         var m:Monster = ps.targetAttrs.owner;
         var g = this.getSV(m);
-        var dhp = ps.r.dhp;
-        var p = AniUtils.ani2global(g);
-        AniUtils.jumpingTip(dhp.toString(), {x:p.x+g.width,  y:p.y});
         await AniUtils.flashAndShake(g);
         g["resetSelf"]();
     }
