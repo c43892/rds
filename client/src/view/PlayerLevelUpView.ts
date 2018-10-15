@@ -43,7 +43,7 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
 
         this.lvTxt = new egret.BitmapText();
         this.lvTxt.name = "lvTxt";
-        this.lvTxt.font = ViewUtils.getFont("lvFnt");
+        this.lvTxt.font = ViewUtils.getBmpFont("lvFnt");
         this.lvTxt.textAlign = egret.HorizontalAlign.CENTER;
         this.lvTxt.verticalAlign = egret.VerticalAlign.MIDDLE;
         this.addChild(this.lvTxt);
