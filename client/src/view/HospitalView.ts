@@ -96,16 +96,15 @@ class HospitalView extends egret.DisplayObjectContainer {
 
     async openReinforce() {
         this.alpha = 0;
-        var rs = Utils.filter(this.player.relicsEquipped, (r:Relic) => r.canReinfoce());
-        var sel = -1;
-        while (sel < 0) {
-            sel = await this.selRelic(rs, "selRelic", ViewUtils.getTipText("selRelic"), ViewUtils.getTipText("makeSureSelRelic"));
-            if (sel >= 0){ 
-                var e:Relic = <Relic>this.player.relicsEquipped[sel];
-                e.reinforceLvUp();
+        var rs = Utils.filter(this.player.relicsEquipped, (r:Relic) => r.canReinfoce());        
+        while (1) {
+            var r = await this.selRelic();
+            if (r instanceof Relic){
+                r.reinforceLvUp();
                 this.doClose();
+                break;
             }
-            else if (sel == -2)
+            else if (r == -1)
                 break;
         }
 
@@ -132,10 +131,9 @@ class HospitalView extends egret.DisplayObjectContainer {
 
     async openExchangeRelic() {
         var sel = -1;
-        this.removeChild(this.bg);
+        this.bg.alpha = 0;
         sel = await this.exchangeRelic();
-        this.addChild(this.bg);
-        this.setChildIndex(this.bg, 0)
+        this.bg.alpha = 1;
         if (sel == 1){
             this.doClose();
         }

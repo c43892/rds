@@ -15,9 +15,12 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
     private page:number;
     private rsEquipped:Relic[];
     private rsInBag:Relic[];
-    private forView:boolean;
+    private canDrag:boolean;
+    private funcOnClick:string;
     public showDescView;
     public confirmOkYesNo;
+    public relicConfirmView;
+    
 
     constructor(w, h) {
         super();
@@ -82,12 +85,27 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
         this.setEmptyGrids();
     }
 
-    public async open(forView:boolean = false) {
-        this.forView = forView;
+    public async open(canDrag:boolean = true, funcOnClick = "showDesc", hideRelicLvMax = false) {
+        Utils.assert(!(canDrag && hideRelicLvMax), "cannot drag on hide some relics");
+        this.canDrag = canDrag;
+        this.funcOnClick = funcOnClick;
         this.page = 0;
-        this.rsEquipped = [...this.player.relicsEquipped];
-        this.rsInBag = [...this.player.relicsInBag];
-        if (this.forView){
+        if (hideRelicLvMax) {
+            this.rsEquipped = [];
+            this.player.relicsEquipped.forEach((relic, _) => {
+                if (relic.canReinfoce())
+                    this.rsEquipped.push(relic);
+            })
+            this.rsInBag = [];
+            this.player.relicsInBag.forEach((relic, _) => {
+                if (relic.canReinfoce())
+                    this.rsInBag.push(relic);
+            })            
+        } else {
+            this.rsEquipped = [...this.player.relicsEquipped];
+            this.rsInBag = [...this.player.relicsInBag];
+        }
+        if (!this.canDrag){
             this.goOnBtn.alpha = 0;
             this.goOnBtn.touchEnabled = false;
         } else {
@@ -123,7 +141,7 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
             this.pageDownBtn.touchEnabled = false;
             this.pageDownBtn.alpha = 0;
         }
-        if (this.player.relicsInBag.length > this.ShowNum * (this.page + 1)) {
+        if (this.rsInBag.length > this.ShowNum * (this.page + 1)) {
             this.pageUpBtn.touchEnabled = true;
             this.pageUpBtn.alpha = 1;
         }
@@ -204,7 +222,7 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
                 relicAndStar.addChild(relicImg);
                 stars.forEach((star, _) => relicAndStar.addChild(star));
             }
-            else if (i >= relics.length && equipped) {
+            else if (i >= this.player.relicsEquipped.length && equipped) {
                 container["elem"] = "lock";
                 container["relic"] = undefined;
                 container["arr"] = undefined;
@@ -231,12 +249,12 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
     }
 
     async goBack() {
-        if (this.forView) 
+        if (!this.canDrag) 
             this.doClose(-1);        
         else {
             var yesno = await this.confirmOkYesNo(ViewUtils.getTipText("makeSureGiveUpTitle"), ViewUtils.getTipText("makeSureGiveUpContent"), true);
             if (yesno) 
-                this.doClose(-1);            
+                this.doClose(-1);
         }
     }
 
@@ -249,6 +267,9 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
     }
 
     static pressed: boolean = false; // 按下,未开始拖拽
+    static longPressed:boolean = false; 
+    static pressTimer:egret.Timer
+    static longPressThreshold = 500;
     static dragLimit = 100; // 判断为拖动的距离
     static dragging: boolean = false; // 产生拖拽事件
     static draggingImg: egret.Bitmap; // 拖拽中的图片
@@ -259,12 +280,28 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
     async onTouchBegin(evt: egret.TouchEvent) {
         RelicExchangeView.pressed = true;
         RelicExchangeView.dragging = false;
+        RelicExchangeView.longPressed = false;        
         RelicExchangeView.dragFromImg = evt.target;
         RelicExchangeView.dragFromPos = { x: evt.localX + evt.target.x, y: evt.localX + evt.target.y };
+
+        if (!RelicExchangeView.pressTimer){
+            RelicExchangeView.pressTimer = new egret.Timer(RelicExchangeView.longPressThreshold, 1);
+            RelicExchangeView.pressTimer.addEventListener(egret.TimerEvent.TIMER, RelicExchangeView.onPressTimer, this);
+        }
+        RelicExchangeView.pressTimer.start();
+    }
+
+    static async onPressTimer(evt:egret.TimerEvent) {
+        if (!RelicExchangeView.pressed) return;
+        RelicExchangeView.longPressed = true;
+        RelicExchangeView.pressTimer.stop();
+        // 暂时没有长按响应
+        RelicExchangeView.pressed = false;
     }
 
     async onTouchMove(evt: egret.TouchEvent) {
-        if (this.forView || !RelicExchangeView.dragFromImg || RelicExchangeView.dragFromImg["elem"] != "relicAndStar") return;
+        if (RelicExchangeView.longPressed) return;
+        if (!this.canDrag || !RelicExchangeView.dragFromImg || RelicExchangeView.dragFromImg["elem"] != "relicAndStar") return;
 
         var currentX = evt.localX + evt.target.x;
         var currentY = evt.localY + evt.target.y;
@@ -273,6 +310,7 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
             var dy = currentY - RelicExchangeView.dragFromPos.y;
             if (dx * dx + dy * dy > RelicExchangeView.dragLimit) {
                 RelicExchangeView.dragging = true;
+                RelicExchangeView.pressed = false;
                 if (!RelicExchangeView.draggingImg)
                     RelicExchangeView.draggingImg = new egret.Bitmap();
 
@@ -319,10 +357,19 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
         }
         else if (RelicExchangeView.pressed) {
             RelicExchangeView.pressed = false;
-            if (RelicExchangeView.dragFromImg["elem"] == "relicAndStar")
-                await this.showDescView(RelicExchangeView.dragFromImg["relic"]);
-            else if (RelicExchangeView.dragFromImg["elem"] == "lock") {
-
+            switch (this.funcOnClick) {
+                case "showDesc": {
+                    if (RelicExchangeView.dragFromImg["elem"] == "relicAndStar")
+                        await this.showDescView(RelicExchangeView.dragFromImg["relic"]);
+                    break;
+                }
+                case "selectRelic": {
+                    if (RelicExchangeView.dragFromImg["elem"] == "relicAndStar")
+                        var r = RelicExchangeView.dragFromImg["relic"];
+                        var yesno = await this.relicConfirmView(this.player, r, undefined, false);
+                        if (yesno) 
+                            this.doClose(r);
+                }
             }
         }
     }
