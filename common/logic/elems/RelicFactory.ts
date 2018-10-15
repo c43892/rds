@@ -380,7 +380,7 @@ class RelicFactory {
                     return;
                 }
                 <Relic>ElemFactory.addAI("onCalcCD", (ps) => {
-                    ps.dcd.b += r.attrs.dcd;
+                    ps.dcd.b -= r.attrs.dcd;
                 }, r, (ps) => ps.subType == "resetCD" && ps.e.type == "Shield", false, true)
                 r = RelicFactory.addElemsOnLevelInit(r);
             })

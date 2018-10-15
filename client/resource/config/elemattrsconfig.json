@@ -74,7 +74,7 @@
     "HorticultureProficient":{"name":"园艺专精", "refElems":["Apple"], "addOnLevelInit":{"num":1, "elems":["Apple"]}},
     "SmellEnhanced":{"name":"嗅觉强化"},
     "Storer":{"name":"囤积居奇"},
-    "ShieldProficient":{"name":"盾牌专精", "dcd":-1, "refElems":["Shield"], "addOnLevelInit":{"num":1, "elems":["Shield"]}},
+    "ShieldProficient":{"name":"盾牌专精", "dcd":3, "refElems":["Shield"], "addOnLevelInit":{"num":1, "elems":["Shield"]}},
     "HorticultureMaster":{"name":"园艺大师", "occupations":["Horticulturist"], "refElems":["NutWall", "Peashooter", "CherryBomb", "Sunflower", "CharmingMushroom"]},
     "StrikeFirst":{"name":"先发制人", "moveNum":1,
         "reinforce":[

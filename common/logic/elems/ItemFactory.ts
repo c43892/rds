@@ -140,6 +140,7 @@ class ItemFactory {
         "Rock": (attrs) => {
             var e = ElemFactory.elemCanUseManyTimes(attrs.cnt, undefined, () => true, () => undefined, undefined)(this.createItem());
             e.canBeDragDrop = false;
+            e.barrier = true;
             return e;
         },
 
