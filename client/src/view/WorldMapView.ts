@@ -484,7 +484,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
             }
         }
         
-        if (!this.player.isDead) {
+        if (!this.player.isDead()) {
             // 更新最高分
             window.platform.setUserCloudStorage({"score": Utils.playerFinishedStorey(this.player)});
             
