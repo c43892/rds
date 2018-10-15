@@ -5,8 +5,29 @@
 class WxgamePlatform {
 
     name = 'wxgame'
+	
+	init() {
+		wx.showShareMenu();
+		wx.onShareAppMessage(() => {
+			return {
+				title: '魔塔扫雷', // 分享标题
+				desc: '和我一起感受扫雷爬塔的乐趣', // 分享描述
+				link: 'https://rds.wudouwxg.xyz/', // 分享链接，该链接域名或路径必须与当前页面对应的公众号js安全域名一致
+				imageUrl: 'https://rds.wudouwxg.xyz/shareIcon.png', // 分享图标
+				type: 'link', // 分享类型,music、video或link，不填默认为link
+				success: () => {
+					console.log("shared");
+					resolve(true);
+				},
+				fail: () =>  {
+					console.log("not shared");
+					resolve(false);
+				}
+			};
+		});
+	}
 
-    wxLogin() {
+    wxLogin() {		
 		return new Promise((resolve, reject) => {
             wx.login({
                 success: (res) => {
@@ -19,19 +40,6 @@ class WxgamePlatform {
             });
         });
 	}
-	
-	// wxGetUserInfo() {
-		// return new Promise((resolve, reject) => {
-			// wx.getUserInfo({
-				// success: function (res) {
-					// resolve({ok:true, usr:res.userInfo});
-				// },
-				// fail: (res) => {
-					// resolve({ok:false});
-				// }
-			// });
-		// });
-	// }
 	
     login() {
 		return new Promise((resolve, reject) => {
@@ -58,9 +66,19 @@ class WxgamePlatform {
 					console.log("remove failed");
 					resolve(false);
 				}
-            })
-        })
+            });
+        });
     }
+	
+	canShare() { return true; }
+	
+	shareGame() {
+		wx.shareAppMessage({
+			title: '魔塔扫雷', // 分享标题
+			desc: '和我一起感受扫雷爬塔的乐趣', // 分享描述
+			imageUrl: 'https://rds.wudouwxg.xyz/shareIcon.png', // 分享图标
+		});
+	}
 	
 	platformType = "wx";
 

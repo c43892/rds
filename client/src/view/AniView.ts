@@ -130,7 +130,7 @@ class AniView extends egret.DisplayObjectContainer {
         var e:Elem = ps.e;
         if(!e)
             e = this.bv.player.bt().level.map.getElemAt(ps.x, ps.y);
-        var gv = this.bv.mapView.getGridViewAt(ps.x, ps.y);
+        var bv = this.bv.mapView.getGridViewAt(ps.x, ps.y);
         var doRefresh = () => this.bv.mapView.refreshAt(ps.x, ps.y, e && e.isBig() ? e.attrs.size : undefined);
         if(e && e.type == "Vest") {
             var bt = this.bv.player.bt();
@@ -143,6 +143,11 @@ class AniView extends egret.DisplayObjectContainer {
 
         switch (ps.subType) {
             case "elemAdded": // 有元素被添加进地图
+                if (e.type == "DeathGod") {
+                    await bv.addEffect("effDeathGodIn", 1)["wait"]();
+                    bv.removeEffect("effDeathGodIn");
+                }
+
                 doRefresh();
                 // 需要提示的元素变化时,刷新战斗地图的元素提示
                 if (e && Utils.indexOf(GCfg.getBattleViewElemTipTypes(), (s: string) => s == e.type) > -1) 
@@ -162,13 +167,13 @@ class AniView extends egret.DisplayObjectContainer {
                 break;
             case "gridBlocked": {
                 var img = AniUtils.createImg("blocked_png");
-                img.width = gv.width;
-                img.height = gv.height;
+                img.width = bv.width;
+                img.height = bv.height;
                 img.anchorOffsetX = img.width / 2;
                 img.anchorOffsetY = img.height / 2;
-                var toPos = AniUtils.ani2global(gv);
-                img.x = toPos.x + gv.width / 2;
-                img.y = toPos.y + gv.height / 2;
+                var toPos = AniUtils.ani2global(bv);
+                img.x = toPos.x + bv.width / 2;
+                img.y = toPos.y + bv.height / 2;
                 img.alpha = 0;
                 img.scaleX = img.scaleY = 5;
                 await this.aniFact.createAni("tr", {
@@ -182,13 +187,13 @@ class AniView extends egret.DisplayObjectContainer {
             case "gridUnblocked": {
                 doRefresh();
                 var img = AniUtils.createImg("blocked_png");
-                img.width = gv.width;
-                img.height = gv.height;
+                img.width = bv.width;
+                img.height = bv.height;
                 img.anchorOffsetX = img.width / 2;
                 img.anchorOffsetY = img.height / 2;
-                var toPos = AniUtils.ani2global(gv);
-                img.x = toPos.x + gv.width / 2;
-                img.y = toPos.y + gv.height / 2;
+                var toPos = AniUtils.ani2global(bv);
+                img.x = toPos.x + bv.width / 2;
+                img.y = toPos.y + bv.height / 2;
                 img.alpha = 1;
                 img.scaleX = img.scaleY = 1;
                 await this.aniFact.createAni("tr", {
@@ -200,9 +205,12 @@ class AniView extends egret.DisplayObjectContainer {
             break;
             case "gridUncovered": {
                 doRefresh();
-                gv.removeEffect("effPoisonMist"); // 翻开就去掉毒雾
-                var eff = gv.addEffect("effUncover", 1); // 翻开特效
-                eff["wait"]().then(() => gv.removeEffect("effUncover"));
+                bv.removeEffect("effPoisonMist"); // 翻开就去掉毒雾
+                if (ps.stateBeforeUncover != GridStatus.Marked) {
+                    var eff = bv.addEffect("effUncover", 1); // 翻开特效
+                    eff["wait"]().then(() => bv.removeEffect("effUncover"));
+                }
+
                 if (e instanceof Monster && (<Monster>e).isBoss)
                     await AniUtils.shakeCamera(2, 100);
             }
@@ -589,7 +597,7 @@ class AniView extends egret.DisplayObjectContainer {
 
         if (ps.subType == "deathGodBuff"){ // 这个最频繁的操作不产生需要等待的动画
             this.bv.playDeathGodAni().then(() => this.bv.refreshDeathGod());
-            if (this.bv.player.deathStep <= this.bv.deathGodWarningStep) {
+            if (this.bv.player.deathStep > 0 && this.bv.player.deathStep <= this.bv.deathGodWarningStep) {
                 // warning 了就开始冒数字
                 AniUtils.tipAt(this.bv.player.deathStep.toString(), this.bv.deathGodStepBtn, 20, 0xffffff);
             }
@@ -1147,6 +1155,7 @@ class AniView extends egret.DisplayObjectContainer {
     // 清除所有角色 buff 显示效果
     clearPlayerBuffEffect() {
         this.removeColorEffect("poison", this.bv.hpBar, this.bv.avatar);
+        this.bv.deadlyMask.alpha = 0;
         egret.Tween.removeTweens(this.bv.deadlyMask);
     }
 
@@ -1219,11 +1228,15 @@ class AniView extends egret.DisplayObjectContainer {
     public async onEyeDemonUncoverGrids(ps) {
         var m:Elem = ps.m;
         var eyes = [];
+        var lastAni;
         for (var pt of ps.pts) {
             let e = AniUtils.createImg("eyeDemonEye_png");
             eyes.push(e);
-            AniUtils.flyOutLogicPos(e, this.bv.mapView, m.pos, pt).then(() => e["dispose"]());
+            lastAni = AniUtils.flyOutLogicPos(e, this.bv.mapView, m.pos, pt).then(() => e["dispose"]());
         }
+
+        if (lastAni)
+            await lastAni;
     }
 
     // 舞王僵尸突袭时召唤

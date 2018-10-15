@@ -181,7 +181,9 @@ class Main extends egret.DisplayObjectContainer {
     private mv:MainView;
     private async runGame() {
         Utils.log(DEBUG ? "DEBUG version" : "RELEASE version");
-        Utils.log("platform: " + window.platform.platformType);
+
+        window.platform.init();
+        Utils.log("platform: " + window.platform.platformType + " initialized");
 
         this.calcArea(); // 计算屏幕适配
 

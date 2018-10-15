@@ -421,7 +421,14 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 打开角色死亡界面
     public async openPlayerDieView(ps) {
-        ps.reborn = await this.confirmOkYesNo("不幸死亡", "是否需要复活？", true);
+        if (window.platform.canShare()) {
+            ps.reborn = await this.confirmOkYesNo("不幸死亡", "确定分享给好友并复活吗？", true);
+            if (ps.reborn)
+                window.platform.shareGame();
+        } else {
+            await this.confirmOkYesNo("不幸死亡", "微信版本可分享复活", false);
+            ps.reborn = false;
+        }
     }
 
     // 打开通关界面

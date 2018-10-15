@@ -6,9 +6,12 @@
  */
 declare interface Platform {
 
+    init();
     login(): Promise<any>;
-
     setUserCloudStorage(data);
+
+    canShare(): boolean;
+    shareGame();
 
     platformType;
     openDataContext;
@@ -17,6 +20,8 @@ declare interface Platform {
 class DebugPlatform implements Platform {
     public wc:WebClient;
     
+    init() {}
+
     async login() {
         var uid = Utils.$$loadItem("UserID");
         var r = await this.wc.request({
@@ -53,7 +58,8 @@ class DebugPlatform implements Platform {
         });
     }
 
-    async removeUserCloudStorage(data): Promise<boolean> { return false; }
+    canShare(): boolean { return false; }
+    shareGame() {}
 
     platformType = "debug";
     openDataContext = {
