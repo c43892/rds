@@ -43,7 +43,7 @@
 				"deathGodGray": {"x":200, "y":58},
 				
 				"relicsBg": {"x":209, "y":85, "w":296, "h":90},
-				"moreRelics": {"x":509, "y":77},
+				"moreRelics": {"x":509, "y":70},
 				"elemsTip": {"x":0, "y":957, "w":640, "h":60},
 				"propsView": {"x":48, "y":1027, "w":535, "h":84},
 				

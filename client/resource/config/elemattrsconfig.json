@@ -96,7 +96,7 @@
     "Shield":{"name":"盾牌", "cd":15, "showCDNum":true, "repRes":["Shield", "ShieldBack"]},
     "HeadBone":{"name":"骷髅头"},
 
-    "DeathGod":{"name":"死神", "deathStep":15, "cannotTake":true},
+    "DeathGod":{"name":"死神", "deathStep":15, "cannotTake":true, "addInEffect":"noEffect"},
     "NormalZombie":{"name":"普通僵尸", "power":1, "hp":5, "moveRange":3, "dropItems":["CoinsTiny"], "addInEffect":"noEffect"},
     "GoblinThief":{"name":"哥布林窃贼", "steal":{"percent":20, "num":5}, "dropItems":["CoinsTiny"], "cannotTake":true},
     "HoundZombie":{"name":"猎犬僵尸", "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}], "muiltAttack":2, "dropItems":["CoinsSmall"]},

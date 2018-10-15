@@ -340,9 +340,11 @@ class AniUtils {
     }
 
     // 向右跳动着飘一个提示
-    public static jumpingTip(str:string, pos) {
-        var tip = ViewUtils.createTextField(30, 0xCC0000);
-        tip.textFlow = ViewUtils.fromHtml(str);
+    public static jumpingTip(str:string, pos, font) {
+        var tip = new egret.BitmapText();
+        tip.font = ViewUtils.getBmpFont(font);
+        tip.scaleX = tip.scaleY = 0.5;
+        tip.text = str;
         AniUtils.ac.addChild(tip);
         var x = pos.x;
         var y = pos.y;

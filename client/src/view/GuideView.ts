@@ -289,8 +289,8 @@ class GuideView extends egret.DisplayObjectContainer {
     // 指引点击
     public async tap(target:egret.DisplayObject, offset = {x:0, y:0}) {
         this.forGuideType = "tap";
-        var rev = this.tapOrPressPrepare(target, true, offset);
         return new Promise<void>((r, _) => {
+            var rev;
             this.onTapped = (evt:egret.TouchEvent) => {
                 if (this.forGuideType != "tap" || !this.tapTarget.hitTestPoint(evt.stageX, evt.stageY)) return;
                 rev();
@@ -309,14 +309,16 @@ class GuideView extends egret.DisplayObjectContainer {
                 r();
                 this.onTapped = undefined; 
             };
+
+            rev = this.tapOrPressPrepare(target, true, offset);
         });
     }
 
     // 指引长按
     public async press(target, offset = {x:0, y:0}) {
         this.forGuideType = "press";
-        var rev = this.tapOrPressPrepare(target, false, offset);
         return new Promise<void>((r, _) => {
+            var rev;
             target.notifyLongPressed = (targetResetOp) => {
                 rev();
                 r();
@@ -324,6 +326,8 @@ class GuideView extends egret.DisplayObjectContainer {
                 if (targetResetOp)
                     targetResetOp();
             };
+
+            rev = this.tapOrPressPrepare(target, false, offset);
         });
     }
 
@@ -510,9 +514,8 @@ class GuideView extends egret.DisplayObjectContainer {
     async pressGridWithDialog(gx, gy, tex:string, name:string, str:string, x:number, y:number, onLeft:boolean = true, flipAvatar:boolean = false) {
         this.forGuideType = "press";
         var g = this.bv.mapView.getGridViewAt(gx, gy);
-        var rev1 = this.tapOrPressPrepare(g, false, {x:g.width/2, y:g.height/2});
-        var rev2 = this.makeDialog(tex, name, str, x, y, onLeft, flipAvatar);
-
+        var rev1;
+        var rev2;
         g.notifyLongPressed = (targetResetOp) => {
             rev2();
             rev1();
@@ -526,12 +529,15 @@ class GuideView extends egret.DisplayObjectContainer {
                 g.notifyLongPressedEnded = undefined;
                 r();
             };
+
+            rev1 = this.tapOrPressPrepare(g, false, {x:g.width/2, y:g.height/2});
+            rev2 = this.makeDialog(tex, name, str, x, y, onLeft, flipAvatar);
         });
     }
 
     async tapWithDialog(target, tex:string, name:string, str:string, x:number, y:number, onLeft:boolean = true, flipAvatar:boolean = false) {
-        var rev1 = this.tapOrPressPrepare(target, true, {x:target.width/2, y:target.height/2});
-        var rev2 = this.makeDialog(tex, name, str, x, y, onLeft, flipAvatar);
+        var rev1;
+        var rev2;
 
         return new Promise<void>((r, _) => {
             this.onTapped = (evt:egret.TouchEvent) => {
@@ -555,12 +561,15 @@ class GuideView extends egret.DisplayObjectContainer {
                 r();
                 this.onTapped = undefined; 
             };
+
+            rev1 = this.tapOrPressPrepare(target, true, {x:target.width/2, y:target.height/2});
+            rev2 = this.makeDialog(tex, name, str, x, y, onLeft, flipAvatar);
         });
     }
 
     async slideWithDialog(target, tex:string, name:string, str:string, x:number, y:number, onLeft:boolean = true, flipAvatar:boolean = false) {
-        var rev1 = this.tapOrPressPrepare(target, true, {x:target.width/2, y:target.height/2});
-        var rev2 = this.makeDialog(tex, name, str, x, y, onLeft, flipAvatar);
+        var rev1;
+        var rev2;
 
         return new Promise<void>((r, _) => {
             this.onTapped = (evt:egret.TouchEvent) => {
@@ -584,6 +593,9 @@ class GuideView extends egret.DisplayObjectContainer {
                 r();
                 this.onTapped = undefined; 
             };
+
+            rev1 = this.tapOrPressPrepare(target, true, {x:target.width/2, y:target.height/2});
+            rev2 = this.makeDialog(tex, name, str, x, y, onLeft, flipAvatar);
         });
     }
 

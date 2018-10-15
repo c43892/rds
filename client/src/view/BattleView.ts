@@ -64,6 +64,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.addChild(this.deathGodBar);
         this.effDeathGodRed = ViewUtils.createFrameAni("effDeathGodRed");
         this.effDeathGodRed.name = "deathGodRed";
+        this.effDeathGodRed.gotoAndPlay(0, -1);
         this.addChild(this.effDeathGodRed);
         this.effDeathGodGray = ViewUtils.createFrameAni("effDeathGodGray");
         this.effDeathGodGray.name = "deathGodGray";
@@ -414,12 +415,10 @@ class BattleView extends egret.DisplayObjectContainer {
         // 死神临近效果
         if (stepAt <= this.deathGodWarningStep) {
             this.effDeathGodGray.alpha = 0;
-            this.effDeathGodRed.stop();
             this.effDeathGodRed.alpha = 1;
         }
         else {
             this.effDeathGodGray.alpha = 1;
-            this.effDeathGodRed.stop();
             this.effDeathGodRed.alpha = 0;
         }
     }
@@ -428,16 +427,12 @@ class BattleView extends egret.DisplayObjectContainer {
     public async playDeathGodAni(num = 1) {
         if (num == 0) {
             this.effDeathGodGray.stop();
-            this.effDeathGodRed.stop();
             return;
         }
 
         if (this.player.deathStep <= this.deathGodWarningStep) {
             this.effDeathGodGray.alpha = 0;
-            this.effDeathGodRed.gotoAndPlay(0, num);
             this.effDeathGodRed.alpha = 1;
-            if (num > 0)
-                await this.effDeathGodRed["wait"]();
         } else {
             this.effDeathGodGray.alpha = 1;            
             this.effDeathGodRed.alpha = 0;
