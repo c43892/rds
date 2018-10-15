@@ -963,6 +963,7 @@ class AniView extends egret.DisplayObjectContainer {
             var fromPos = AniUtils.ani2global(sv);
             var toPos = {x:fromPos.x, y:fromPos.y - 100};
             var rev = AniUtils.reserveObjTrans(sv, fromPos, toPos);
+            AniUtils.shakeCamera(2, 100);
             await this.aniFact.createAniByCfg({type:"seq", arr:[
                 {type:"tr", tsx:fsx*0.9, tsy:fsy*0.9, time:250, mode:egret.Ease.cubicOut},
                 {type:"delay", time:50},
