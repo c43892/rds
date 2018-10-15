@@ -79,6 +79,7 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
         this.relicsAreaBg = new egret.Bitmap();
         this.relicsAreaBg.width = this.relicsArea.width;
         this.relicsAreaBg.height = this.relicsArea.height;
+        this.relicsAreaBg.addEventListener(egret.TouchEvent.TOUCH_MOVE, (evt) => this.onTouchMove(evt), this.relicsAreaBg);
         this.relicsAreaBg.touchEnabled = true;
         this.relicsArea.addChild(this.relicsAreaBg);
 
@@ -222,7 +223,7 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
                 relicAndStar.addChild(relicImg);
                 stars.forEach((star, _) => relicAndStar.addChild(star));
             }
-            else if (i >= this.player.relicsEquipped.length && equipped) {
+            else if (i >= this.player.relicsEquippedCapacity && equipped) {
                 container["elem"] = "lock";
                 container["relic"] = undefined;
                 container["arr"] = undefined;
@@ -280,9 +281,9 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
     async onTouchBegin(evt: egret.TouchEvent) {
         RelicExchangeView.pressed = true;
         RelicExchangeView.dragging = false;
-        RelicExchangeView.longPressed = false;        
+        RelicExchangeView.longPressed = false;
         RelicExchangeView.dragFromImg = evt.target;
-        RelicExchangeView.dragFromPos = { x: evt.localX + evt.target.x, y: evt.localX + evt.target.y };
+        RelicExchangeView.dragFromPos = { x: evt.stageX, y: evt.stageY };
 
         if (!RelicExchangeView.pressTimer){
             RelicExchangeView.pressTimer = new egret.Timer(RelicExchangeView.longPressThreshold, 1);
@@ -303,8 +304,8 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
         if (RelicExchangeView.longPressed) return;
         if (!this.canDrag || !RelicExchangeView.dragFromImg || RelicExchangeView.dragFromImg["elem"] != "relicAndStar") return;
 
-        var currentX = evt.localX + evt.target.x;
-        var currentY = evt.localY + evt.target.y;
+        var currentX = evt.stageX;
+        var currentY = evt.stageY;
         if (!RelicExchangeView.dragging) {
             var dx = currentX - RelicExchangeView.dragFromPos.x;
             var dy = currentY - RelicExchangeView.dragFromPos.y;
@@ -324,15 +325,15 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
                 RelicExchangeView.draggingImg.texture = RelicExchangeView.draggingImgTex;
                 RelicExchangeView.draggingImg.anchorOffsetX = RelicExchangeView.draggingImg.width / 2;
                 RelicExchangeView.draggingImg.anchorOffsetY = RelicExchangeView.draggingImg.height / 2;
-                RelicExchangeView.draggingImg.x = currentX - RelicExchangeView.draggingImg.width / 2;
-                RelicExchangeView.draggingImg.y = currentY - RelicExchangeView.draggingImg.height / 2;
+                RelicExchangeView.draggingImg.x = currentX - this.relicsArea.x ;
+                RelicExchangeView.draggingImg.y = currentY - this.relicsArea.y ;
                 // 开始拖拽后原有的图片消失
                 RelicExchangeView.dragFromImg.alpha = 0;
             }
         }
         else {
-            RelicExchangeView.draggingImg.x = currentX - RelicExchangeView.draggingImg.width / 2;
-            RelicExchangeView.draggingImg.y = currentY - RelicExchangeView.draggingImg.height / 2;
+            RelicExchangeView.draggingImg.x = currentX - this.relicsArea.x ;
+            RelicExchangeView.draggingImg.y = currentY - this.relicsArea.y ;
         }
     }
 
