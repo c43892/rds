@@ -89,7 +89,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.hv.x = this.hv.y = 0;
         this.hv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);        
         this.hv.selRelic = async (elems, funcOnClinked, title, tip) => await this.openAllElemsView(elems, funcOnClinked, title, tip);
-        this.hv.exchangeRelic = async () => await this.openRelicExchangeView();
+        this.hv.exchangeRelic = async () => await this.openRelicExchangeView(false, false);
 
         // 带遗物对比的确认视图
         this.scv = new ShopConfirmView(w, h);
@@ -108,8 +108,8 @@ class MainView extends egret.DisplayObjectContainer {
         this.aev = new AllElemsView(w, h);
         this.aev.openCompareRelicView = async (p:Player, e:Elem, price:number, showPrice = true) => await this.openShopConfirmView(p, e, price, showPrice);
         this.aev.showElemDesc = async (e) => await this.showElemDesc(e);
-        this.bv.openAllRelicsView = async () => await this.openRelicExchangeView(true);
-        this.st.openAllRelicsView = async () => await this.openRelicExchangeView(true);
+        this.bv.openAllRelicsView = async () => await this.openRelicExchangeView(true, true);
+        this.st.openAllRelicsView = async () => await this.openRelicExchangeView(true, false);
         this.st.openAllPropsView = async (props) => await this.openAllElemsView(props);
 
         // 指引层
@@ -207,7 +207,6 @@ class MainView extends egret.DisplayObjectContainer {
             this.battleEndedCallback(bt);
             await this.av.blackOut();
         });
-        // bt.registerEvent("onAttacked", (ps) => this.bv.monsterTip.onAttacked(ps));
         bt.registerEvent("onGridChanged", (ps) => this.bv.monsterTip.onGridChanged(ps));
 
         // 新手指引
@@ -459,10 +458,13 @@ class MainView extends egret.DisplayObjectContainer {
         return yesno;
     }
 
-    public async openRelicExchangeView(forView:boolean = false){
+    public async openRelicExchangeView(forView:boolean, inBattle:boolean){
         this.rev.player = this.p;
         this.addChild(this.rev);
-        this.setChildIndex(this.wmtv, -1);
+
+        if (!inBattle)
+            this.setChildIndex(this.wmtv, -1);
+
         var result = await this.rev.open(forView);
         this.removeChild(this.rev);
         return result;
