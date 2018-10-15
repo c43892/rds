@@ -391,6 +391,7 @@ class MainView extends egret.DisplayObjectContainer {
     // 开启初始登录界面
     public async openStartup(p:Player) {
         this.clear();
+        // Utils.removeLocalDate("rookiePlay"); // 删除新手数据存档
 
         this.p = p;
         this.lgv.player = p;

@@ -93,7 +93,7 @@
     "HpPotion":{"name":"医疗药剂", "heal":10, "canOverlap":true},
     "Magazine":{"name":"自然杂志", "cnt":3, "dexp":2, "useWithoutConfirm":true},
     "EconomyMagazine":{"name":"金融杂志", "cnt":3, "dexp":2, "useWithoutConfirm":true},
-    "Shield":{"name":"盾牌", "cd":9, "showCDNum":true, "repRes":["Shield", "ShieldBack"]},
+    "Shield":{"name":"盾牌", "cd":15, "showCDNum":true, "repRes":["Shield", "ShieldBack"]},
     "HeadBone":{"name":"骷髅头"},
 
     "DeathGod":{"name":"死神", "deathStep":15, "cannotTake":true},

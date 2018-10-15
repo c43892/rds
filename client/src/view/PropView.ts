@@ -4,7 +4,7 @@ class PropView extends egret.DisplayObjectContainer {
     private bg2:egret.Bitmap; // 数字底
     private elemImg:egret.Bitmap; // 元素图
     private num:egret.TextField; // 数量，右下角
-    private cd:egret.Bitmap; // cd,中心
+    private cd:egret.BitmapText; // cd,中心
 
     public constructor(w, h) {
         super();
@@ -41,7 +41,7 @@ class PropView extends egret.DisplayObjectContainer {
         this.addChild(this.num);
 
         // cd计数
-        this.cd = new egret.Bitmap(); // cd 计数
+        this.cd = new egret.BitmapText(); // cd 计数
         this.addChild(this.cd);
 
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchGrid, this);
@@ -67,7 +67,8 @@ class PropView extends egret.DisplayObjectContainer {
         }
 
         if (e.cd > 0) { // 显示 cd 计数
-            ViewUtils.setTexName(this.cd, "cd" + e.cd + "_png", true);
+            this.cd.font = ViewUtils.getBmpFont("cdFnt");
+            this.cd.text = e.cd.toString();
             this.cd.x = (this.elemImg.width - this.cd.width) / 2;
             this.cd.y = (this.elemImg.height - this.cd.height) / 2;
             this.cd.alpha = 1;
