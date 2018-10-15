@@ -81,6 +81,7 @@ class HospitalView extends egret.DisplayObjectContainer {
 
     private doClose;
     public async openHospital() {
+        this.btnReinforce.enabled = Utils.filter(this.player.allRelics, (r:Relic) => r.canReinfoce()).length > 0;
         return new Promise<void>((resolve, reject) => this.doClose = resolve);
     }
 
