@@ -325,8 +325,8 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
                 RelicExchangeView.draggingImg.texture = RelicExchangeView.draggingImgTex;
                 RelicExchangeView.draggingImg.anchorOffsetX = RelicExchangeView.draggingImg.width / 2;
                 RelicExchangeView.draggingImg.anchorOffsetY = RelicExchangeView.draggingImg.height / 2;
-                RelicExchangeView.draggingImg.x = currentX - this.relicsArea.x ;
-                RelicExchangeView.draggingImg.y = currentY - this.relicsArea.y ;
+                RelicExchangeView.draggingImg.x = currentX - this.relicsArea.x;
+                RelicExchangeView.draggingImg.y = currentY - this.relicsArea.y;
                 // 开始拖拽后原有的图片消失
                 RelicExchangeView.dragFromImg.alpha = 0;
             }
@@ -365,11 +365,12 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
                     break;
                 }
                 case "selectRelic": {
-                    if (RelicExchangeView.dragFromImg["elem"] == "relicAndStar")
+                    if (RelicExchangeView.dragFromImg["elem"] == "relicAndStar") {
                         var r = RelicExchangeView.dragFromImg["relic"];
                         var yesno = await this.relicConfirmView(this.player, r, undefined, false);
                         if (yesno) 
                             this.doClose(r);
+                    }
                 }
             }
         }
