@@ -173,6 +173,13 @@ class Main extends egret.DisplayObjectContainer {
         this.addChild(this.ldv);
         this.ldv.scaleX = ViewUtils.stageSize.w / this.ldv.width;
         this.ldv.scaleY = ViewUtils.stageSize.h / this.ldv.height;
+        if (this.ldv.scaleX < this.ldv.scaleY)
+            this.ldv.scaleY = this.ldv.scaleX;
+        else
+            this.ldv.scaleX = this.ldv.scaleY;
+
+        this.ldv.x = (ViewUtils.stageSize.w - this.ldv.width * this.ldv.scaleX) / 2;
+        this.ldv.y = (ViewUtils.stageSize.h - this.ldv.height * this.ldv.scaleY) / 2;
         await this.ldv.loadResGroups(gs);
         this.ldv.setProgress(1);
         this.removeChild(this.ldv);
