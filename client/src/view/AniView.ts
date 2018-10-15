@@ -1478,11 +1478,36 @@ class AniView extends egret.DisplayObjectContainer {
     }
 
     // 大地图从顶部滑动到指定百分比
-    async doWorldMapSlide(p, time = 2000) {
+    async doWorldMapSlide(p, time:number, worldNum:number) {
         this.addBlockLayer();
+
+        var rev;
+        if (worldNum) { // 显示当前世界编号
+            var numBg = ViewUtils.createBitmapByName("worldNumBg_png");
+            numBg.width *= 2;
+            numBg.height *= 2;
+            var numTxt = new egret.BitmapText();
+            numTxt.font = ViewUtils.getBmpFont("wmFnt");
+            numTxt.text = worldNum.toString();
+            numTxt.textAlign = egret.HorizontalAlign.CENTER;
+            numTxt.width *= 2;
+            numTxt.height *= 2;
+            AniUtils.ac.addChild(numBg);
+            AniUtils.ac.addChild(numTxt);
+            numBg.x = (this.width - numBg.width) / 2;
+            numBg.y = (this.height - numBg.height) / 2;
+            numTxt.x = (this.width - numTxt.width) / 2;
+            numTxt.y = (this.height - numTxt.height) / 2 + 60;
+            rev = () => {
+                AniUtils.ac.removeChild(numBg);
+                AniUtils.ac.removeChild(numTxt);
+            };
+        }
+
         return new Promise<void>((r, _) => {
             var tw = egret.Tween.get(this.wmv).to({mapScrollPos:p}, time, egret.Ease.cubicInOut);
             tw.call(() => {
+                if (rev) rev();
                 this.decBlockLayer();
                 r();
             });

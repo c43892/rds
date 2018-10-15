@@ -496,7 +496,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                     var newWorld = WorldMap.buildFromConfig(newtWorldName, this.player);
                     this.player.goToNewWorld(newWorld);
                     this.setWorldMap(p.worldmap);
-                    await (<AniView>AniUtils.ac).doWorldMapSlide(1);
+                    await (<AniView>AniUtils.ac).doWorldMapSlide(1, 2000, this.worldmap.cfg.worldNum);
                 }
                 else 
                     await this.openFinishGameView();

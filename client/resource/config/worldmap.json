@@ -1,6 +1,7 @@
 {
     "rookieWorld":{
         "name":"world1",
+        "worldNum":0,
         "totalLevels":15,
         "width":5,
         "routesMax":4,
@@ -50,6 +51,7 @@
 
     "world1":{
         "name":"world1",
+        "worldNum":1,
         "totalLevels":15,
         "width":5,
         "routesMax":4,
@@ -95,6 +97,7 @@
     
     "world2":{
         "name":"world2",
+        "worldNum":2,
         "totalLevels":15,
         "width":5,
         "routesMax":4,

@@ -50,7 +50,7 @@ class ViewUtils {
         return bmp;
     }
 
-    public static getFont(fnt) {
+    public static getBmpFont(fnt) {
         var tex = ResMgr.getRes(fnt + "_png");
         var cfg = ResMgr.getRes(fnt + "_json");
         var bmpFnt = new egret.BitmapFont(tex, cfg);
