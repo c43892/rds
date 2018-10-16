@@ -9,7 +9,7 @@ class PlantFactory {
             var attrs = level.getElemCfg("NutWall").attrs;
             attrs = Utils.clone(attrs);
             var p = this.createPlant(attrs);
-            p = MonsterFactory.doShareDamageOnPlayerHurt(30, p);
+            p = MonsterFactory.doShareDamageOnPlayerHurt(50, p);
             p.getElemImgRes = () => "NutWall";
             return p;
         },
@@ -20,18 +20,18 @@ class PlantFactory {
             attrs = Utils.clone(attrs);
             attrs = this.addNumberTypeAttr(attrs, "hp", 5);
             var p = this.createPlant(attrs);
-            p = MonsterFactory.doShareDamageOnPlayerHurt(30, p);
+            p = MonsterFactory.doShareDamageOnPlayerHurt(50, p);
             p.getElemImgRes = () => "NutWall";
             return p;
         },
 
-        "NutWall3": (player:Player) => { // 坚果墙3 承担伤害提升为40%
+        "NutWall3": (player:Player) => { // 坚果墙3 承担伤害提升为60%
             var level = player.bt().level;
             var attrs = level.getElemCfg("NutWall").attrs;
             attrs = Utils.clone(attrs);
             attrs = this.addNumberTypeAttr(attrs, "hp", 5);
             var p = this.createPlant(attrs);
-            p = MonsterFactory.doShareDamageOnPlayerHurt(40, p);
+            p = MonsterFactory.doShareDamageOnPlayerHurt(75, p);
             p.getElemImgRes = () => "NutWall";
             return p;
         },
@@ -43,7 +43,7 @@ class PlantFactory {
             attrs = this.addNumberTypeAttr(attrs, "hp", 5);
             attrs = this.addNumberTypeAttr(attrs, "hp", 5);
             var p = this.createPlant(attrs);
-            p = MonsterFactory.doShareDamageOnPlayerHurt(40, p);
+            p = MonsterFactory.doShareDamageOnPlayerHurt(75, p);
             p.getElemImgRes = () => "NutWall";
             return p;
         },
@@ -55,7 +55,7 @@ class PlantFactory {
             attrs = this.addNumberTypeAttr(attrs, "hp", 5);
             attrs = this.addNumberTypeAttr(attrs, "hp", 5);
             var p = this.createPlant(attrs);
-            p = MonsterFactory.doShareDamageOnPlayerHurt(50, p);
+            p = MonsterFactory.doShareDamageOnPlayerHurt(100, p);
             p.getElemImgRes = () => "NutWall";
             return p;
         },

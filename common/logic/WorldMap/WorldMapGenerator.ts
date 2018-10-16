@@ -5,6 +5,7 @@ class WorldMapGenerator{
         w.nodes = WorldMapGenerator.createNodes(w, cfg, rand);
         w.nodes = WorldMapGenerator.createRoutes(cfg, w.nodes, rand);
         w.nodes = WorldMapGenerator.checkLevelNotSingleNode(w.nodes, rand);
+        w.nodes = WorldMapGenerator.avoidLongSingleRoutes(w.nodes, rand);
         w.nodes = WorldMapGenerator.deleteRepeatRoutes(w.nodes);
         w.nodes = WorldMapGenerator.arrangeRoomToAllNodes(w.nodes, cfg, rand);
         w.nodes = WorldMapGenerator.addStartRouteForView(w.nodes);
@@ -44,16 +45,13 @@ class WorldMapGenerator{
             }
 
             var startRoute = new WorldMapRoute(WorldMapNode.getNode(startNodeX, 0, nodes), WorldMapNode.getNode(startNodeX, 1, nodes));
-
-            WorldMapNode.getNode(startNodeX, 0, nodes).addRoute(startRoute);
-            WorldMapNode.getNode(startNodeX, 1, nodes).addParent(WorldMapNode.getNode(0, 0, nodes));
             
             WorldMapGenerator.createNextRoutes(nodes, startRoute, rd);//继续生成路线
         }
         return nodes;
     }
 
-    public static createNextRoutes(nodes:WorldMapNode[][], route:WorldMapRoute, rd:SRandom){
+    public static createNextRoutes(nodes:WorldMapNode[][], route:WorldMapRoute, rd:SRandom, f = undefined){
         var currentNode = route.dstNode;//当前点
         var currentRow = currentNode.y;//当前层
         var currentRowSize = nodes[currentRow].length;//当前层节点数
@@ -63,8 +61,6 @@ class WorldMapGenerator{
             // targetNode = WorldMapNode.getNode(centerX, currentRow + 1, nodes);
             targetNode = WorldMapNode.getNode(0, currentRow + 1, nodes);
             var newRoute = new WorldMapRoute(currentNode, targetNode);
-            currentNode.addRoute(newRoute);
-            targetNode.addParent(currentNode);
             
             return nodes;
         }
@@ -148,11 +144,11 @@ class WorldMapGenerator{
 
         //获得新路线并添加相应点的属性
         var newRoute = new WorldMapRoute(currentNode, targetNode);
-        currentNode.addRoute(newRoute);
-        targetNode.addParent(currentNode);
 
         //继续生成路线
-        return WorldMapGenerator.createNextRoutes(nodes, newRoute, rd);
+        if (!f || f && f(nodes))
+            return WorldMapGenerator.createNextRoutes(nodes, newRoute, rd);
+        else return nodes;
     }
 
     //确定每一层至少有2个节点
@@ -185,13 +181,66 @@ class WorldMapGenerator{
                     parent = nodes[newNode.y - 1][onlyNode.x];
 
                 var newRoute = new WorldMapRoute(parent, newNode);
-                parent.addRoute(newRoute);
-                newNode.addParent(parent);
                 this.createNextRoutes(nodes, newRoute, rand);
             }
         }
         return nodes;
     }
+
+    // 防止出现太长的单一路线
+    public static avoidLongSingleRoutes(nodes:WorldMapNode[][], rand:SRandom):WorldMapNode[][]{
+        for (var i = 0; i < nodes.length - 1; i++){
+            for (var j = 0; j < nodes[i].length; j++){
+                var node = nodes[i][j];
+                if (WorldMapGenerator.checkSingleRoutes(nodes, node)){
+                    // 从往上3层的位置生成新路线
+                    var startNode = node;
+                    for (var f = 0; f < 2; f++)
+                        startNode = startNode.routes[0].dstNode;
+                    
+                    var nextNode = startNode.routes[0].dstNode;
+                    var targetNode:WorldMapNode;
+                    if (nextNode.x != startNode.x)
+                        targetNode = nodes[startNode.y + 1][startNode.x];
+                    else {
+                        var targetNodes = Utils.filter(startNode.getPotentialChildrenNodes(nodes), (n:WorldMapNode) => n != nextNode);
+                        targetNode = targetNodes[rand.nextInt(0, targetNodes.length)];
+                    }
+                    var newRoute = new WorldMapRoute(startNode, targetNode);
+                    WorldMapGenerator.createNextRoutes(nodes, newRoute, rand, (nodes) => !WorldMapGenerator.checkCompleteWorldMap(nodes));
+                }
+            }
+        }
+        return nodes;
+    }
+
+    // 检查路线完整
+    public static checkCompleteWorldMap(nodes:WorldMapNode[][]):boolean {
+         for (var i = 0; i < nodes.length - 1; i++){
+            for (var j = 0; j < nodes[i].length; j++){
+                var node = nodes[i][j];
+                if (node.getParents().length > 0 && node.routes.length == 0)
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    // 检查往后的数段路线是否是单一的
+    public static checkSingleRoutes(nodes:WorldMapNode[][], node:WorldMapNode):boolean{
+        var testNode = node;
+        var checkNum = 4;
+        if (node.y >= nodes.length - checkNum || node.routes.length == 0) return false;
+        for (var i = 0; i < checkNum; i++) {
+            if (testNode.routes.length > 1)
+                return false;
+            else 
+                testNode = testNode.routes[0].dstNode;
+        }
+        return true;
+    }
+    // 检查路线是否会交叉
+
 
     //删除重复的路线
     public static deleteRepeatRoutes(nodes:WorldMapNode[][]):WorldMapNode[][]{
@@ -248,10 +297,7 @@ class WorldMapGenerator{
         nodes = WorldMapGenerator.arrangeRoomToLeftNodes(nodes, roomList, rd);
 
         return nodes;
-
     }
-
-
 
     //获取待安排的房间列表
     public static getRoomList(nodes:WorldMapNode[][], cfg):string[]{
@@ -393,11 +439,8 @@ class WorldMapGenerator{
     public static addStartRouteForView(nodes:WorldMapNode[][]):WorldMapNode[][]{
         for(var i = 0; i < nodes[1].length; i++){
             var node = nodes[1][i];
-            if(node.parents.length != 0){
-                var route = new WorldMapRoute(WorldMapNode.getNode(0, 0, nodes), node);
-                node.addParent(WorldMapNode.getNode(0, 0, nodes));
-                WorldMapNode.getNode(0, 0, nodes).addRoute(route);
-            }
+            if(node.parents.length != 0)
+                var route = new WorldMapRoute(WorldMapNode.getNode(0, 0, nodes), node);            
         }
         return nodes;
     }

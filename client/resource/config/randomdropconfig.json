@@ -130,9 +130,6 @@
     }},
 
     "RandomEgg": {"num":[1, 2], "elems":{
-        "Coins":50,
-        "CoinsBig":200,
-        "CoinsHuge":100,
         "WeaponMaster":10,
         "UndefinedName2":10,
         "UndefinedName3":10,

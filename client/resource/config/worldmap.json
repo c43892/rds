@@ -114,7 +114,7 @@
         "boxroomDrops":{
             "relic":"boxRoomRelic",
             "prop":"boxRoomProp",
-            "coins":50
+            "coins":75
         },
         "events":{
             "shop":10,

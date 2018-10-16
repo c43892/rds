@@ -169,16 +169,14 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
             for (var i = 0; i < this.ShowNum; i++) {
                 var grid = new egret.DisplayObjectContainer();
                 grid.width = grid.height = this.GridSize;
-                grid.anchorOffsetX = grid.width / 2;
-                grid.anchorOffsetY = grid.height / 2;
-                grid.x = x + this.GridSize / 2;
-                grid.y = y + this.GridSize / 2;
+                grid.x = x;
+                grid.y = y;
                 grid.touchEnabled = true;
                 let noElemImg = ViewUtils.createBitmapByName("aevNoElem_png");
                 noElemImg.anchorOffsetX = noElemImg.width / 2;
                 noElemImg.anchorOffsetY = noElemImg.height / 2;
-                noElemImg.x = grid.x;
-                noElemImg.y = grid.y;
+                noElemImg.x = grid.x + this.GridSize / 2;
+                noElemImg.y = grid.y + this.GridSize / 2;
                 this.relicsArea.addChild(noElemImg);
                 this.relicsArea.addChild(grid);
 
@@ -213,15 +211,13 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
             container.removeChildren();
             if (i < relics.length) {
                 var r = relics[i];
-                var relicAndStar = new egret.DisplayObjectContainer();
                 container["elem"] = "relicAndStar";
                 container["relic"] = r;
                 container["arr"] = equipped ? this.rsEquipped : this.rsInBag;
-                container.addChild(relicAndStar);
                 var relicImg = ViewUtils.createBitmapByName(r.getElemImgRes() + "_png");
                 var stars = ViewUtils.createRelicLevelStars(r, relicImg);
-                relicAndStar.addChild(relicImg);
-                stars.forEach((star, _) => relicAndStar.addChild(star));
+                container.addChild(relicImg);
+                stars.forEach((star, _) => container.addChild(star));
             }
             else if (i >= this.player.relicsEquippedCapacity && equipped) {
                 container["elem"] = "lock";
@@ -283,7 +279,7 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
         RelicExchangeView.dragging = false;
         RelicExchangeView.longPressed = false;
         RelicExchangeView.dragFromImg = evt.target;
-        RelicExchangeView.dragFromPos = { x: evt.stageX, y: evt.stageY };
+        RelicExchangeView.dragFromPos = { x: evt.localX + evt.target.x, y: evt.localX + evt.target.x };
 
         if (!RelicExchangeView.pressTimer){
             RelicExchangeView.pressTimer = new egret.Timer(RelicExchangeView.longPressThreshold, 1);
@@ -304,8 +300,8 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
         if (RelicExchangeView.longPressed) return;
         if (!this.canDrag || !RelicExchangeView.dragFromImg || RelicExchangeView.dragFromImg["elem"] != "relicAndStar") return;
 
-        var currentX = evt.stageX;
-        var currentY = evt.stageY;
+        var currentX = evt.localX + evt.target.x;
+        var currentY = evt.localY + evt.target.y;
         if (!RelicExchangeView.dragging) {
             var dx = currentX - RelicExchangeView.dragFromPos.x;
             var dy = currentY - RelicExchangeView.dragFromPos.y;
@@ -325,15 +321,15 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
                 RelicExchangeView.draggingImg.texture = RelicExchangeView.draggingImgTex;
                 RelicExchangeView.draggingImg.anchorOffsetX = RelicExchangeView.draggingImg.width / 2;
                 RelicExchangeView.draggingImg.anchorOffsetY = RelicExchangeView.draggingImg.height / 2;
-                RelicExchangeView.draggingImg.x = currentX - this.relicsArea.x;
-                RelicExchangeView.draggingImg.y = currentY - this.relicsArea.y;
+                RelicExchangeView.draggingImg.x = currentX;
+                RelicExchangeView.draggingImg.y = currentY;
                 // 开始拖拽后原有的图片消失
                 RelicExchangeView.dragFromImg.alpha = 0;
             }
         }
         else {
-            RelicExchangeView.draggingImg.x = currentX - this.relicsArea.x ;
-            RelicExchangeView.draggingImg.y = currentY - this.relicsArea.y ;
+            RelicExchangeView.draggingImg.x = currentX;
+            RelicExchangeView.draggingImg.y = currentY;
         }
     }
 

@@ -5,10 +5,12 @@ class WorldMapRoute{
      public offsetX;
      public offsetY;
 
-     constructor(strNode, dstNode){
+     constructor(strNode: WorldMapNode, dstNode: WorldMapNode) {
          this.strNode = strNode;
          this.dstNode = dstNode;
          this.offsetX = dstNode.x - strNode.x;
-         this.offsetY = 1
+         this.offsetY = 1;
+         dstNode.addParent(strNode);
+         strNode.addRoute(this);
      }
 }
