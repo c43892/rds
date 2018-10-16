@@ -223,21 +223,29 @@ function getUserCloudStorage() {
 
 function getFriendCloudStorage() {
   wx.getFriendCloudStorage({
-	  keyList: ["score"],
+	  keyList: ["score", "scoreDay"],
 	  success: (res) => {
 		totalGroup = [];
 		var data = res.data;
 		var len = data.length;
 		for (var i = 0; i < len; i++) {
+			var kvs = data[i].KVDataList;
+			var score = getByKey(kvs, "score");
+			var scoreDay = getByKey(kvs, "scoreDay");
+			var nowDay = (new Date()).getDay();
+			if (!scoreDay || nowDay - scoreDay >= 7 || nowDay < scoreDay)
+				continue;
+
 			totalGroup.push({				
 				name: data[i].nickname,
 				url: data[i].avatarUrl,
-				scroes: getByKey(data[i].KVDataList, "score"),
+				scroes: score,
 				openid: data[i].openid
 			});
 		}
 		
 		totalGroup.sort(function (a, b) { return b.scroes - a.scroes; });
+		var len = totalGroup.length;
 		for (var i = 0; i < len; i++)
 			totalGroup[i].key = i + 1;
 		
@@ -251,7 +259,7 @@ function getFriendCloudStorage() {
 }
 
 function getByKey(kvs, key) {
-	for (var i = 0;i < kvs.length; i++) {
+	for (var i = 0; i < kvs.length; i++) {
 		var kv = kvs[i];
 		if (kv.key == key)
 			return kv.value;
@@ -271,24 +279,34 @@ wx.onMessage(data => {
 		getFriendCloudStorage();
     } else if (data.type === 'setUserData') {
 		wx.getUserCloudStorage({
-			KVDataList: ["score"],
-			success: (kvs) => {
-				var score = getByKey(kvs, "score");
-				score = (score && score > data.score) ? score : data.score;
-				score = score ? score : 0;
+			keyList: ["score", "scoreDay"],
+			success: (r) => {
+				var kvs = r.KVDataList;
+				var oldScore = getByKey(kvs, "score");
+				var oldScoreDay = getByKey(kvs, "scoreDay");
+				var newScore = data.score;
+				var newScoreDay = (new Date()).getDay();
 				
-				wx.setUserCloudStorage({
-					KVDataList: [{key:"score", value:score.toString()}], 
-					success: () => {
-						console.log("set ok");
-					},
-					fail: () => {
-						console.log("set failed");
-					}
-				});
+				// 每周一旧分数过期
+				if (!oldScoreDay || newScoreDay - oldScoreDay >= 7 || newScoreDay < oldScoreDay)
+					oldScore = undefined;
+
+				if (!oldScore || oldScore < data.score) {
+					var newScore = data.score;
+					var day = 
+					wx.setUserCloudStorage({
+						KVDataList: [{key:"score", value:newScore.toString()}, {key:"scoreDay", value:newScoreDay.toString()}],
+						success: () => {
+							console.log("set score ok: " + oldScore + " => " + newScore);
+						},
+						fail: () => {
+							console.log("set score failed: " + oldScore + " => " + newScore);
+						}
+					});
+				}
 			},
 			fail: () => {
-				console.log("get failed");
+				console.log("get score failed");
 			}
 		});
 	}

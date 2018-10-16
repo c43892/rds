@@ -400,7 +400,7 @@ class MainView extends egret.DisplayObjectContainer {
         await this.av.blackOut();        
         this.lgv.onClose = async (op:string) => {
             if (op == "openRank")
-                this.openRankView();
+                await this.openRankView();
             else {
                 await this.av.blackIn();
                 this.removeChild(this.lgv);
