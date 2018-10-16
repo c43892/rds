@@ -251,7 +251,7 @@ function getFriendCloudStorage() {
 }
 
 function getByKey(kvs, key) {
-	for (var i = 0;i < kvs.length; i++) {
+	for (var i = 0; i < kvs.length; i++) {
 		var kv = kvs[i];
 		if (kv.key == key)
 			return kv.value;
@@ -271,24 +271,25 @@ wx.onMessage(data => {
 		getFriendCloudStorage();
     } else if (data.type === 'setUserData') {
 		wx.getUserCloudStorage({
-			KVDataList: ["score"],
-			success: (kvs) => {
-				var score = getByKey(kvs, "score");
-				score = (score && score > data.score) ? score : data.score;
-				score = score ? score : 0;
+			keyList: ["score"],
+			success: (r) => {
+				var kvs = r.KVDataList;
+				var oldScore = getByKey(kvs, "score");
+				var newScore = (oldScore && oldScore > data.score) ? oldScore : data.score;
+				newScore = newScore ? newScore : 0;
 				
 				wx.setUserCloudStorage({
-					KVDataList: [{key:"score", value:score.toString()}], 
+					KVDataList: [{key:"score", value:newScore.toString()}],
 					success: () => {
-						console.log("set ok");
+						console.log("set score ok: " + oldScore + " => " + newScore);
 					},
 					fail: () => {
-						console.log("set failed");
+						console.log("set score failed: " + oldScore + " => " + newScore);
 					}
 				});
 			},
 			fail: () => {
-				console.log("get failed");
+				console.log("get score failed");
 			}
 		});
 	}
