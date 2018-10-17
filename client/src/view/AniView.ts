@@ -427,6 +427,7 @@ class AniView extends egret.DisplayObjectContainer {
         img.scaleX = img.scaleY = 1;
         var nameAndDesc = ViewUtils.getElemNameAndDesc(m.type);
         var sneakSkillName = nameAndDesc.skillNames && nameAndDesc.skillNames.length > 0 ? nameAndDesc.skillNames[0] : ViewUtils.getTipText("sneaking");
+        this.acFact.play("monsterSneak");
         AniUtils.tipAt(sneakSkillName, {x:toPos.x + 50, y:toPos.y + 30}, 40, 0xffffff);
         this.aniFact.createAni("tr", {
             obj:img, time: 2000,
@@ -882,8 +883,10 @@ class AniView extends egret.DisplayObjectContainer {
             this.acFact.play("dodged");
             this.bv.playAvatarAni("Dodged");
         }
-        else if (ps.r.r == "blocked")
+        else if (ps.r.r == "blocked") {
+            this.acFact.play("shieldBlock");
             this.bv.playAvatarAni("Block");
+        }
     }
 
     // 怪物受到攻击
@@ -999,6 +1002,11 @@ class AniView extends egret.DisplayObjectContainer {
     public async onElemRevive(ps) {
         var type = ps.type;
         this.acFact.play("revive");
+    }
+
+    // 角色升级
+    public async onPlayerLevelUp(ps) {
+        this.acFact.play("playerLevelUp");
     }
     
     // 怪物攻击
@@ -1611,7 +1619,10 @@ class AniView extends egret.DisplayObjectContainer {
         var toPos = AniUtils.ani2global(rv);
         eff.x = toPos.x + rv.width / 2;
         eff.y = toPos.y + rv.height / 2;
-        eff["wait"]().then(() => eff["dispose"]());
+        eff["wait"]().then(() => {
+            this.acFact.play("openRelicGrid");
+            eff["dispose"]();
+        });
     }
 
     // 黑幕开启

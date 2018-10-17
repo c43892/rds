@@ -42,6 +42,9 @@ class ResMgr {
                     finished++;
                     ResMgr.resMap[it.name] = res;
 
+                    if (DEBUG)
+                        Utils.log("load " + it.url + (res ? "ok" : "failed"));
+
                     if (eventHandler)
                         eventHandler.onProgress(finished, items.length);
 
