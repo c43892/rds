@@ -147,6 +147,8 @@ class ItemFactory {
         // 盾牌
         "Shield": (attrs) => {
             var e = this.createItem();
+            e.canUse = () => false;
+            e.canNotUseReason = () => "passiveTrigger"
             e = ElemFactory.addAI("onCalcAttackResult", async (ps) => {
                 var fs = ps.attackerAttrs.attackFlags;
                 if (Utils.indexOf(fs, (s:string) => s == "AmorPenetrate") > -1) return;
@@ -273,6 +275,7 @@ class ItemFactory {
         "Cloak": (attrs) => {
             var e = this.createItem();
             e.canUse = () => false;
+            e.canNotUseReason = () => "passiveTrigger"
             e = ElemFactory.addAI("onSneaking", async (ps) => {
                     if (ps.immunized) return;
                     ps.immunized = true;

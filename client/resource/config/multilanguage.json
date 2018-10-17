@@ -337,6 +337,7 @@
 		"makeSureGiveUpContent":{"EN": "be sure to give up exchanges?", "CNS": "确定放弃交换操作?", "CNT": "确定放弃交换操作?"},
 		"makeSureGoOnTitle":{"EN": "sure", "CNS": "确定", "CNT": "确定"},
 		"makeSureGoOnContent":{"EN": "be sure to save exchanges?", "CNS": "确定保存交换操作?", "CNT": "确定保存交换操作?"},
+		"passiveTrigger": {"EN": "trigger passively", "CNS": "被动触发", "CNT": "被动触发"},
 		"": {}
 	}
 }

@@ -591,8 +591,7 @@ class GridView extends egret.DisplayObjectContainer {
                     } else {
                         // can not use
                         var r = e.canNotUseReason();
-                        if (r)
-                            await e.bt().fireEvent("canNotUseItem", {e:e, r:r});
+                        await e.bt().fireEvent("canNotUseItem", {e:e, r:r});
                     }
                 }
             }
