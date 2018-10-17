@@ -530,7 +530,12 @@ class Utils {
 
             var e = Utils.randomSelectByWeightWithPlayerFilter(player, iw, rand, 1, 2, false)[0];
             dropItems.push(e);
-            prices[e] = shopPrices[e] != undefined ? shopPrices[e] : defaultPrice[e];
+            if(e == "OpenRelicSpace"){
+                var index = player.relicsEquippedCapacity - 4;
+                prices[e] = GCfg.getMiscConfig("unlockPrices")[index];
+            }
+            else 
+                prices[e] = shopPrices[e] != undefined ? shopPrices[e] : defaultPrice[e];
         }
 
         return {items:dropItems, prices:prices}
@@ -593,7 +598,7 @@ class Utils {
 
     // 判断是否是处于新手期
     public static checkRookiePlay():boolean {
-        // return true;
+        // return false;
         return !Utils.loadLocalData("rookiePlay") || Utils.loadLocalData("rookiePlay") != "finished";
     }
 

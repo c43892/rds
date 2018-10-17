@@ -165,6 +165,10 @@ class Main extends egret.DisplayObjectContainer {
         var misc = ResMgr.getRes("misc_json");
         GCfg.getBattleViewElemTipTypes = () => misc["battleViewElemTipTypes"];
         GCfg.getBattleTypes = (type:string) => misc[type + "Types"];
+        GCfg.getMiscConfig = (type:string) => {
+            Utils.assert(misc[type], "config " + type + " do not exist.")
+            return misc[type];
+        };
     }
 
     // 加载指定资源组
