@@ -962,6 +962,7 @@ class AniView extends egret.DisplayObjectContainer {
             var r = Utils.getRotationFromTo(fromPos, toPos);
             effBall.rotation = r;
             this.acFact.play("bazookaAttacking");
+            AniUtils.ac.addChild(effBall);
             await this.aniFact.createAniByCfg({type:"tr", fx: fromPos.x, fy:fromPos.y, tx:toPos.x, ty:toPos.y, 
                 time:250, obj:effBall});
             AniUtils.ac.removeChild(effBall);
