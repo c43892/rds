@@ -15,7 +15,7 @@
         "HpPotion": 25,
         "DePoison": 25,
         "SuperPotion": 25,
-        "StrangthPotion": 25,
+        "StrengthPotion": 25,
         "IceGun":25,
         "RayGun":25,
         "Bazooka":25,
@@ -60,7 +60,7 @@
             "Knife":10
         },
         "items":[
-            {"HpPotion":10, "DePoison":10, "SuperPotion":10, "StrangthPotion":10},
+            {"HpPotion":10, "DePoison":10, "SuperPotion":10, "StrengthPotion":10},
             {"IceGun":10, "CandyCannon":10},
             {"RayGun":10, "Bazooka":10},
             {"WeaponMaster":10, "DefenseProficient":10, "BookMaster":10, "TreasureBoxDetector":10, "KnifeMaster":10},

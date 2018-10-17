@@ -18,7 +18,7 @@ class ElemActiveDesc {
         "SuperPotion":{
             "elemCD": (p:Player, e:Elem) => ElemActiveDesc.getElemCD(p, e)
         },
-        "StrangthPotion":{
+        "StrengthPotion":{
             "elemCD": (p:Player, e:Elem) => ElemActiveDesc.getElemCD(p, e)
         },
         "IceGun":{

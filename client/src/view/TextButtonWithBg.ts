@@ -128,6 +128,7 @@ class TextButtonWithBg extends egret.DisplayObjectContainer {
             this.onClicked();
     }
 
+    onDown = [];
     onBtnDown(evt:egret.TouchEvent) {
         var objs = [this.bg, this.downBg, this.disabledBg, this.ft, this.textField];
         objs.forEach((obj, _) => {
@@ -150,6 +151,8 @@ class TextButtonWithBg extends egret.DisplayObjectContainer {
 
             TextButtonWithBg.pressTimer.start();
         }
+
+        this.onDown.forEach((f, _) => f());
     }
 
     onPressTimer(evt:egret.TimerEvent) {
@@ -157,6 +160,7 @@ class TextButtonWithBg extends egret.DisplayObjectContainer {
         this.onPressed();
     }
 
+    onUp = [];
     onBtnUp(evt:egret.TouchEvent) {        
         var objs = [this.bg, this.downBg, this.disabledBg, this.ft, this.textField];
         objs.forEach((obj, _) => {
@@ -171,6 +175,8 @@ class TextButtonWithBg extends egret.DisplayObjectContainer {
         TextButtonWithBg.longPressed = false;
         if(TextButtonWithBg.pressTimer)
             TextButtonWithBg.pressTimer.stop();
+
+        this.onUp.forEach((f, _) => f());
     }
 
     public textFieldOffset = {};

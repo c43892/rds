@@ -10,6 +10,7 @@ class AniView extends egret.DisplayObjectContainer {
     private blackCover:egret.Bitmap; // 黑屏用的遮挡
     private aniCover:egret.Bitmap; // 播放动画时的操作屏蔽层
     public aniFact:AnimationFactory; // 动画工厂
+    public acFact:AudioFactory; // 音频管理
 
     public constructor(w:number, h:number, mainView:MainView) {
         super();
@@ -181,6 +182,7 @@ class AniView extends egret.DisplayObjectContainer {
                     tsx:1, tsy:1, ta:1, mode:egret.Ease.backIn
                 });
                 img["dispose"]();
+                this.acFact.play("block");
                 doRefresh();
             }
             break;
@@ -217,6 +219,7 @@ class AniView extends egret.DisplayObjectContainer {
             break;
             case "elemMarked": {
                 doRefresh();
+                this.acFact.play("mark");
                 if (!e.attrs.invisible) {
                     var img = AniUtils.createImg(e.getElemImgRes() + "_png");
                     var sv = this.getSVByPos(ps.x, ps.y);
@@ -489,7 +492,7 @@ class AniView extends egret.DisplayObjectContainer {
         var e = ps.e;
         if (e.type == "Key" || e.type == "Knife" || e.type == "SmallRock") { // 钥匙飞向目标
             var g = this.getSV(e);
-            var target = ps.target;
+            var tar = this.bv.mapView.getGridViewAt(ps.toPos.x, ps.toPos.y).getElem();
             var tg = this.bv.mapView.getGridViewAt(ps.toPos.x, ps.toPos.y);
             AniUtils.clearAll(g);
 
@@ -504,6 +507,13 @@ class AniView extends egret.DisplayObjectContainer {
             await AniUtils.flyAndFadeout(g, AniUtils.ani2global(tg), 
                 e.type == "Key" ? 300 : 150, 1, 1, 0,
                 e.type == "Key" ? undefined : egret.Ease.quintIn);
+
+            if (e.type == "Key") {
+                if (tar.type == "Door")
+                    this.acFact.play("openDoor");
+                else if (tar.type == "TreasureBox")
+                    this.acFact.play("openBox");
+            }
 
             g["resetSelf"]();
         }
@@ -527,7 +537,7 @@ class AniView extends egret.DisplayObjectContainer {
                 AniUtils.jumpingTip(dhp.toString(), {x:p.x+sv.width,  y:p.y}, "lvFnt");
             }
             else if (dhp < 0 && !e.isDead())
-                AniUtils.jumpingTip(dhp.toString(), {x:p.x+sv.width,  y:p.y-sv.height/2}, "wmFnt");
+                AniUtils.jumpingTip((-dhp).toString(), {x:p.x+sv.width,  y:p.y-sv.height/2}, "wmFnt");
         } else if (ps.subType == "die" && e instanceof Monster) {
             if (e.type == "ShopNpc" && Utils.contains(ps.flags, "byUse")) {
                 await AniUtils.flashOut(sv, false);
@@ -565,8 +575,10 @@ class AniView extends egret.DisplayObjectContainer {
             }
             this.bv.playAvatarAni("Book");
         } else if (Utils.checkCatalogues(type, "food")) { // 食物抖一下
+            this.acFact.play("takeFood");
             await AniUtils.flashAndShake(sv);
-        }
+        } else if (e.attrs.audioOnUsed)
+            this.acFact.play(e.attrs.audioOnUsed);
 
         sv["resetSelf"]();
     }
@@ -631,6 +643,7 @@ class AniView extends egret.DisplayObjectContainer {
                     eff.stop();
                     AniUtils.ac.removeChild(track);
                 });
+                this.acFact.play("deathGodStep");
                 await this.aniFact.createAniByCfg({type:"seq", arr: [
                     {type:"tr", fa:1, ta:3, time:50, obj:sv},
                     {type:"tr", fa:3, ta:1, time:50, obj:sv},
@@ -640,8 +653,7 @@ class AniView extends egret.DisplayObjectContainer {
             sv["resetSelf"]();
             this.bv.playDeathGodAni(0);
             this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
-        }
-        else {
+        } else {
             // 死神闪烁后退
             this.bv.playDeathGodAni(-1);
             var nps = this.bv.mapView.getGridViews((e:Elem) => e && e.type == "NextLevelPort", false);
@@ -660,6 +672,7 @@ class AniView extends egret.DisplayObjectContainer {
                     eff.stop();
                     AniUtils.ac.removeChild(track);
                 });
+                this.acFact.play("deathGodStep");
                 await AniUtils.delay(50);
             }
             if (npsv) npsv["resetSelf"]();
@@ -787,7 +800,10 @@ class AniView extends egret.DisplayObjectContainer {
             txt.text = v.toString();
         }
 
-        coinsImgArr.forEach((img, _) => img["dispose"]());        
+        coinsImgArr.forEach((img, _) => {
+            // this.acFact.play("deathGodStep");
+            img["dispose"]();
+        });
     }
 
     // 吸血效果
@@ -856,10 +872,13 @@ class AniView extends egret.DisplayObjectContainer {
         if (ps.r.r == "attacked") {
             var avatar = this.bv.avatar;
             this.showMonsterAttackValue(ps.attackerAttrs.owner, ps.r.dhp)
+            this.acFact.play("playerHurt");
             this.bv.playAvatarAni("Hurt");
             await AniUtils.flashAndShake(avatar);
-        } else if (ps.r.r == "dodged")
+        } else if (ps.r.r == "dodged") {
+            this.acFact.play("dodged");
             this.bv.playAvatarAni("Dodged");
+        }
         else if (ps.r.r == "blocked")
             this.bv.playAvatarAni("Block");
     }
@@ -904,6 +923,8 @@ class AniView extends egret.DisplayObjectContainer {
                 var attackEff:egret.MovieClip = g.addEffect("effPlayerAttack", 1);
                 attackEff["wait"]().then(() => g.removeEffect("effPlayerAttack"));
             }
+
+            this.acFact.play("attacking");
         } else if (weapon.type == "RayGun") { // 火焰射线 AOE
             // 先飞火球
             var g = this.bv.mapView.getGridViewAt(ps.x, ps.y);
@@ -915,6 +936,7 @@ class AniView extends egret.DisplayObjectContainer {
             effBall.x += 250;
             effBall.y -= 250;
             effBall.alpha = 0;
+            this.acFact.play("rayGunAttacking");
             await AniUtils.flyAndFadeout(effBall, toPos, 250, 1, 1, -3600, undefined);
             g.removeEffect("effRayGunBall");
 
@@ -928,6 +950,7 @@ class AniView extends egret.DisplayObjectContainer {
         } else if (weapon.type == "IceGun") { // 冰冻射线
             var g = this.bv.mapView.getGridViewAt(ps.x, ps.y);
             var eff = g.addEffect("effIceGun", 1);
+            this.acFact.play("fronzeGunAttacking");
             await eff["wait"]();
             g.removeEffect("effIceGun");
         } else if (weapon.type == "Bazooka") { // 火箭筒
@@ -943,6 +966,7 @@ class AniView extends egret.DisplayObjectContainer {
             fromPos.y += pv.height / 2;
             var r = Utils.getRotationFromTo(fromPos, toPos);
             effBall.rotation = r;
+            this.acFact.play("bazookaAttacking");
             AniUtils.ac.addChild(effBall);
             await this.aniFact.createAniByCfg({type:"tr", fx: fromPos.x, fy:fromPos.y, tx:toPos.x, ty:toPos.y, 
                 time:250, obj:effBall});
@@ -956,7 +980,22 @@ class AniView extends egret.DisplayObjectContainer {
             g = tar ? this.bv.mapView.getGridViewAt(tar.pos.x, tar.pos.y) : g;
             var eff = g.addEffect("effBazooka", 1, "flame");
             eff["wait"]().then(() => g.removeEffect("effBazooka"));
+        } else if (weapon.type == "Knife" || weapon.type == "SmallRock") {
+            this.acFact.play("knifeAttacking");
         }
+    }
+
+    // 使用道具
+    public async onUseProp(ps) {
+        var p:Prop = ps.p;
+        if (Utils.checkCatalogues(p.type, "potion"))
+            this.acFact.play("usePotion");
+    }
+
+    // 复活
+    public async onElemRevive(ps) {
+        var type = ps.type;
+        this.acFact.play("revive");
     }
     
     // 怪物攻击
@@ -969,6 +1008,7 @@ class AniView extends egret.DisplayObjectContainer {
         if (Utils.contains(flags, "attackOnPlayerLeave") && m.type == "Gengar")
             await this.gengarLick(sv);
         else if (Utils.contains(flags, "selfExplode")) {
+            this.acFact.play("selfExplode");
             var explodeEff = g.addEffect("effSelfExplode", 1);
             explodeEff["wait"]().then(() => g.removeEffect("effSelfExplode"));
         } else if (m.isBoss && Utils.contains(ps.addFlags, "roundedAttacking")) { // boss 主动攻击
@@ -997,6 +1037,7 @@ class AniView extends egret.DisplayObjectContainer {
         var food:Elem = ps.food;
         var msv = this.getSV(m);
         var fsv = this.getSV(food);
+        this.acFact.play("takeFood");
         await AniUtils.shakeTo(fsv, AniUtils.ani2global(msv));
         this.bv.mapView.refreshAt(food.pos.x, food.pos.y);
         msv["resetSelf"]();
@@ -1041,6 +1082,7 @@ class AniView extends egret.DisplayObjectContainer {
             await AniUtils.fly2(sv, sv, tosv, false, 0);
 
         sv["resetSelf"]();
+        this.acFact.play("followDown");
         this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
     }
 
@@ -1107,6 +1149,7 @@ class AniView extends egret.DisplayObjectContainer {
         var tar:Monster = ps.m;
         var gv = this.bv.mapView.getGridViewAt(tar.pos.x, tar.pos.y);
         gv.addEffect("effCharmed");
+        this.acFact.play("charmed");
     }
 
     // 关卡初始化乱序动画
@@ -1134,12 +1177,12 @@ class AniView extends egret.DisplayObjectContainer {
             var sv = ev.getShowLayer();
             sv["gx"] = ev.getElem().pos.x;
             sv["gy"] = ev.getElem().pos.y;
-            sv["tgx1"] = rand.nextInt(actualMapRange.minX, actualMapRange.maxX + 1);
-            sv["tgy1"] = rand.nextInt(actualMapRange.minY, actualMapRange.maxY + 1);
-            sv["tgx2"] = rand.nextInt(actualMapRange.minX, actualMapRange.maxX + 1);
-            sv["tgy2"] = rand.nextInt(actualMapRange.minY, actualMapRange.maxY + 1);
-            sv["tgx3"] = rand.nextInt(actualMapRange.minX, actualMapRange.maxX + 1);
-            sv["tgy3"] = rand.nextInt(actualMapRange.minY, actualMapRange.maxY + 1);
+            sv["tgx1"] = rand.nextInt(actualMapRange.minX, actualMapRange.maxX);
+            sv["tgy1"] = rand.nextInt(actualMapRange.minY, actualMapRange.maxY);
+            sv["tgx2"] = rand.nextInt(actualMapRange.minX, actualMapRange.maxX);
+            sv["tgy2"] = rand.nextInt(actualMapRange.minY, actualMapRange.maxY);
+            sv["tgx3"] = rand.nextInt(actualMapRange.minX, actualMapRange.maxX);
+            sv["tgy3"] = rand.nextInt(actualMapRange.minY, actualMapRange.maxY);
             sv["delay1"] = rand.nextInt(100, 1000);
             sv["delay2"] = rand.nextInt(100, 1000);
             sv["delay3"] = rand.nextInt(100, 1000);
@@ -1168,6 +1211,11 @@ class AniView extends egret.DisplayObjectContainer {
     // 离开关卡时清除所有角色 buff 效果
     public async onGoOutLevel(ps) {
         this.clearPlayerBuffEffect();
+    }
+
+    // 死亡
+    public async onPlayerDying(ps) {
+        this.acFact.play("playerDie");
     }
 
     // 复活
@@ -1414,14 +1462,17 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 物品不可使用
     public async canNotUseItem(ps) {
-        if (!ps.r) return;
+        if (!ps.e) return;
 
         var e:Elem = ps.e;
         var sv = this.getSV(e);
         var pos = AniUtils.ani2global(sv);
         pos.x += sv.width / 2
         pos.y -= sv.height / 2 - 45;
-        AniUtils.tipAt(ViewUtils.getTipText(ps.r), pos);
+        if (ps.r)
+            AniUtils.tipAt(ViewUtils.getTipText(ps.r), pos);
+
+        this.acFact.play("unuseable");
         await AniUtils.flashAndShake(sv);
         sv["resetSelf"]();
     }
@@ -1431,6 +1482,13 @@ class AniView extends egret.DisplayObjectContainer {
         var relicImg = this.getBitmapOfRelic(ps.r);
         if(relicImg)
             await AniUtils.flash(relicImg, 200, false);
+
+        if (ps.e instanceof Plant) {
+            // 植物都是玩家这边的，直接加魅惑表现
+            var gv = this.bv.mapView.getGridViewAt(ps.e.pos.x, ps.e.pos.y);
+            gv.addEffect("effCharmed");
+            this.acFact.play("charmed");
+        }
     }
 
     // 耿鬼长舌头攻击动画
@@ -1545,6 +1603,7 @@ class AniView extends egret.DisplayObjectContainer {
         img["dispose"]();
         await AniUtils.shakeCamera(1, 50, true);
         this.bv.refreshRelics();
+        this.acFact.play("monsterDie");
         var eff = AniUtils.createFrameAni("effMonsterDie", 1);
         var toPos = AniUtils.ani2global(rv);
         eff.x = toPos.x + rv.width / 2;

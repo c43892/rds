@@ -32,7 +32,7 @@
         "DePoison":30,
         "Bazooka":30,
         "SuperPotion":30,
-        "StrangthPotion":30,
+        "StrengthPotion":30,
         "CandyCannon":30
     }},
 
@@ -83,7 +83,7 @@
         "DePoison":30,
         "Bazooka":30,
         "SuperPotion":30,
-        "StrangthPotion":30,
+        "StrengthPotion":30,
         "CandyCannon":30
     }},
 
@@ -98,7 +98,7 @@
         "DePoison":10,
         "Bazooka":10,
         "SuperPotion":10,
-        "StrangthPotion":10,
+        "StrengthPotion":10,
         "CandyCannon":10
     }},
 
@@ -150,7 +150,7 @@
         "DePoison":30,
         "Bazooka":30,
         "SuperPotion":30,
-        "StrangthPotion":30,
+        "StrengthPotion":30,
         "CandyCannon":30,
         "Clock":30,
         "Vest":30, 
@@ -196,7 +196,7 @@
         "DePoison":10,
         "Bazooka":10,
         "SuperPotion":10,
-        "StrangthPotion":10,
+        "StrengthPotion":10,
         "CandyCannon":10
     }},
 
@@ -232,7 +232,7 @@
         "DePoison":10,
         "Bazooka":10,
         "SuperPotion":10,
-        "StrangthPotion":10,
+        "StrengthPotion":10,
         "CandyCannon":10
     }},
 
@@ -243,7 +243,7 @@
         "DePoison":10,
         "Bazooka":10,
         "SuperPotion":10,
-        "StrangthPotion":10,
+        "StrengthPotion":10,
         "CandyCannon":10
     }},
     

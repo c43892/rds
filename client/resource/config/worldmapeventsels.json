@@ -517,7 +517,7 @@
                 "ps": {
                     "money": 50,
                     "randomNum": 2,
-                    "items": {"IceGun":10, "RayGun":10, "HpPotion":10, "DePoison":10, "Bazooka":10, "SuperPotion":10, "StrangthPotion":10, "CandyCannon":10},
+                    "items": {"IceGun":10, "RayGun":10, "HpPotion":10, "DePoison":10, "Bazooka":10, "SuperPotion":10, "StrengthPotion":10, "CandyCannon":10},
                     "group": "b22"
                     }
             },{

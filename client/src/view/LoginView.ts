@@ -1,6 +1,7 @@
 // 登录界面
 class LoginView extends egret.DisplayObjectContainer {
     public player:Player;
+    public acFact:AudioFactory;
 
     bg:egret.Bitmap;
     title:egret.Bitmap;
@@ -57,6 +58,11 @@ class LoginView extends egret.DisplayObjectContainer {
         this.btnContinue.onClicked = () => this.close("continuePlay");
         this.btnNewPlay.onClicked = () => this.close("newPlay"); 
         this.btnOpenRank.onClicked = () => this.close("openRank");
+
+        var btnSound = () => this.acFact.play("btn1");
+        this.btnContinue.onDown.push(btnSound);
+        this.btnNewPlay.onDown.push(btnSound);
+        this.btnOpenRank.onDown.push(btnSound);
 
         var objs = [this.title, this.btnContinue, this.btnNewPlay, this.btnOpenRank, this.btnAchievement];
         objs.forEach((obj, _) => this.addChild(obj));

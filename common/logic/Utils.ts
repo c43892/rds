@@ -585,7 +585,8 @@ class Utils {
             food : ["Apple", "Steak"],
             book : ["EconomyMagazine", "Magazine"],
             coin : ["CoinsTiny", "CoinsSmall", "Coins", "CoinsBig", "CoinsHuge"],
-            gun : ["RayGun", "IceGun"]
+            gun : ["RayGun", "IceGun"],
+            potion: ["SuperPotion", "StranghPotion", "HpPotion", "PoisonPotion", "DePoison"]
         };
 
         for (var i = 0; i < catalogues.length; i++) {

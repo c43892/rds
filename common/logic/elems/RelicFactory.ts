@@ -143,10 +143,10 @@ class RelicFactory {
         "Crucifix": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) {
-                    r.clearAIAtLogicPoint("onElemRevive");
+                    r.clearAIAtLogicPoint("beforeElemRevive");
                     return;
                 }
-                ElemFactory.addAI("onElemRevive", async (ps) => {
+                ElemFactory.addAI("beforeElemRevive", async (ps) => {
                     if(!ps.achieve)
                         return;
 
@@ -404,8 +404,9 @@ class RelicFactory {
                     var g = BattleUtils.findRandomEmptyGrid(bt);
                     if(g){
                         var elemType = elemTypes[r.bt().srand.nextInt(0, elemTypes.length)];
-                        await bt.fireEvent("onRelicAddElem", {r:r});
-                        await bt.implAddElemAt(bt.level.createElem(elemType, undefined, r.bt().player), g.pos.x, g.pos.y);
+                        var plant = bt.level.createElem(elemType, undefined, r.bt().player);
+                        await bt.fireEvent("onRelicAddElem", {r:r, e:plant});
+                        await bt.implAddElemAt(plant, g.pos.x, g.pos.y);
                     }
                     
                 }, r)
@@ -447,8 +448,9 @@ class RelicFactory {
                 var g = BattleUtils.findRandomEmptyGrid(bt);
                 if(g){
                     var elemType = r.attrs.addOnLevelInit.elems[r.bt().srand.nextInt(0, r.attrs.addOnLevelInit.elems.length)];
-                    await bt.fireEvent("onRelicAddElem", {r:r});
-                    await bt.implAddElemAt(bt.level.createElem(elemType, undefined, r.bt().player), g.pos.x, g.pos.y);
+                    var e = bt.level.createElem(elemType, undefined, r.bt().player);
+                    await bt.fireEvent("onRelicAddElem", {r:r, e:e});
+                    await bt.implAddElemAt(e, g.pos.x, g.pos.y);
                 }
             }
         }, r)
