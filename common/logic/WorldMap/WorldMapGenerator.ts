@@ -229,7 +229,7 @@ class WorldMapGenerator{
     // 检查往后的数段路线是否是单一的
     public static checkSingleRoutes(nodes:WorldMapNode[][], node:WorldMapNode):boolean{
         var testNode = node;
-        var checkNum = 4;
+        var checkNum = 5;
         if (node.y >= nodes.length - checkNum || node.routes.length == 0) return false;
         for (var i = 0; i < checkNum; i++) {
             if (testNode.routes.length > 1)

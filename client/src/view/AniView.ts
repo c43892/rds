@@ -243,6 +243,11 @@ class AniView extends egret.DisplayObjectContainer {
         this.bv.refreshPlayer(); // 角色属性受地图上所有东西影响
     }
 
+    // 刷新地图显示
+    public refreshMap() {
+        this.bv.mapView.refresh();
+    }
+
     // 揭开起始区域
     public async onStartupRegionUncovered(ps) {
         var grids = ps.grids;
