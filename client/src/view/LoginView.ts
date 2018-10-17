@@ -59,13 +59,17 @@ class LoginView extends egret.DisplayObjectContainer {
         this.btnNewPlay.onClicked = () => this.close("newPlay"); 
         this.btnOpenRank.onClicked = () => this.close("openRank");
 
+        var btnSound = () => this.acFact.play("btn1");
+        this.btnContinue.onDown.push(btnSound);
+        this.btnNewPlay.onDown.push(btnSound);
+        this.btnOpenRank.onDown.push(btnSound);
+
         var objs = [this.title, this.btnContinue, this.btnNewPlay, this.btnOpenRank, this.btnAchievement];
         objs.forEach((obj, _) => this.addChild(obj));
         ViewUtils.multiLang(this, ...objs);
     }
 
     close(type) {
-        this.acFact.play("btn1");
         this.ani.animation.stop("idle");
         this.onClose(type);
         this.ani.animation.play("idle", 0);

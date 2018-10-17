@@ -795,7 +795,10 @@ class AniView extends egret.DisplayObjectContainer {
             txt.text = v.toString();
         }
 
-        coinsImgArr.forEach((img, _) => img["dispose"]());        
+        coinsImgArr.forEach((img, _) => {
+            // this.acFact.play("deathGodStep");
+            img["dispose"]();
+        });
     }
 
     // 吸血效果
@@ -972,7 +975,7 @@ class AniView extends egret.DisplayObjectContainer {
             g = tar ? this.bv.mapView.getGridViewAt(tar.pos.x, tar.pos.y) : g;
             var eff = g.addEffect("effBazooka", 1, "flame");
             eff["wait"]().then(() => g.removeEffect("effBazooka"));
-        } else if (weapon.type == "Knife") {
+        } else if (weapon.type == "Knife" || weapon.type == "SmallRock") {
             this.acFact.play("knifeAttacking");
         }
     }
