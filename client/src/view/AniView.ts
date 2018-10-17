@@ -506,7 +506,7 @@ class AniView extends egret.DisplayObjectContainer {
             if (e.type == "Key") {
                 if (tar.type == "Door")
                     this.acFact.play("openDoor");
-                else if (tar.type == "TreasureBox" || tar.type == "RandomEgg")
+                else if (tar.type == "TreasureBox")
                     this.acFact.play("openBox");
             }
 
@@ -1172,11 +1172,11 @@ class AniView extends egret.DisplayObjectContainer {
             var sv = ev.getShowLayer();
             sv["gx"] = ev.getElem().pos.x;
             sv["gy"] = ev.getElem().pos.y;
-            sv["tgx1"] = rand.nextInt(actualMapRange.minX, actualMapRange.maxX + 1);
+            sv["tgx1"] = rand.nextInt(actualMapRange.minX, actualMapRange.maxX);
             sv["tgy1"] = rand.nextInt(actualMapRange.minY, actualMapRange.maxY);
-            sv["tgx2"] = rand.nextInt(actualMapRange.minX, actualMapRange.maxX + 1);
+            sv["tgx2"] = rand.nextInt(actualMapRange.minX, actualMapRange.maxX);
             sv["tgy2"] = rand.nextInt(actualMapRange.minY, actualMapRange.maxY);
-            sv["tgx3"] = rand.nextInt(actualMapRange.minX, actualMapRange.maxX + 1);
+            sv["tgx3"] = rand.nextInt(actualMapRange.minX, actualMapRange.maxX);
             sv["tgy3"] = rand.nextInt(actualMapRange.minY, actualMapRange.maxY);
             sv["delay1"] = rand.nextInt(100, 1000);
             sv["delay2"] = rand.nextInt(100, 1000);
