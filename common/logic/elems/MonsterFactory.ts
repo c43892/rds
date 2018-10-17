@@ -167,12 +167,12 @@ class MonsterFactory {
                     MonsterFactory.doAttackBack(
                         MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player, attrs.attackInterval, () => !m.trapped, {a:2, b:0, c:0}), 
                     () => !m.trapped)));
-            // m = MonsterFactory.doEnhanceAura(m);
+            m = MonsterFactory.doEnhanceAura(m);
             m = MonsterFactory.doMinusSanPerRound(m);
-            // m = MonsterFactory.doHideMonsterAttrsOnView(m);
-            // m = MonsterFactory.doHideHazardNumberOnView(m);
-            // m = MonsterFactory.doChangeMonsterImg(m);
-            m = MonsterFactory.doTouchRandomGrid(m);
+            m = MonsterFactory.doHideMonsterAttrsOnView(m);
+            m = MonsterFactory.doHideHazardNumberOnView(m);
+            m = MonsterFactory.doChangeMonsterImg(m);
+            m = MonsterFactory.doAttackRandomGrid(m);
             m = MonsterFactory.doRemoveSanEffectAfterDie(m);
             return m;
         },
@@ -502,7 +502,7 @@ class MonsterFactory {
 
     // 有新的元素加入战场时act
     static addAIOnNewElemsJoin(act, m:Monster, condition = undefined):Monster{
-        return <Monster>ElemFactory.addAI("onGridChanged", act, m, (ps) => ps.subType == "elemAdded" && (condition?condition():true));
+        return <Monster>ElemFactory.addAIEvenCovered("onGridChanged", act, m, (ps) => ps.subType == "elemAdded" && (condition?condition():true));
     }
 
     // 增强光环逻辑
@@ -543,7 +543,7 @@ class MonsterFactory {
                     ps.enhancedByAura = true; //给"onElemChanged"事件加上标记,表示该elem已经被增强过
                 }
             }
-        }, m, () => m["canActOnNewAdd"]);
+        }, m, () => m["canActOnNewAdd"] && !m.getGrid().isCovered());
     }
 
     // 移除血量翻倍效果
@@ -862,58 +862,96 @@ class MonsterFactory {
         return m;
     }
 
-    // 赋予玩家san值概念，未现身的时候san值就会一直降低，san值初始为100，每回合降低5，低于100时开始显示迷惑头像
+    // 赋予玩家san值概念，未现身的时候san值就会一直降低，san值初始为100，每回合降低，低于100时开始显示迷惑头像
     static doMinusSanPerRound(m:Monster):Monster {
         return <Monster>ElemFactory.addAIEvenCovered("onPlayerActed", async () => {
             if(!m.bt().player["san"])
                 m.bt().player["san"] = 100;
-            else
-                m.bt().player["san"] = (m.bt().player["san"] - 1) > 0 ? (m.bt().player["san"] - 1) : 0;
+            
+            m.bt().player["san"] = (m.bt().player["san"] - 1) > 0 ? (m.bt().player["san"] - 1) : 0;
             
             await m.bt().fireEvent("onPlayerChanged", {"subType":"san"});
             await m.bt().triggerLogicPoint("onPlayerChanged", {"subType":"san"});
         }, m);
     }
 
-    // san值低于70：怪物的所有属性都显示成问号
-    static doHideMonsterAttrsOnView(m:Monster):Monster {
-        return <Monster>ElemFactory.addAIEvenCovered("onPlayerChanged", async () => {
+    // san值低于70：本层的所有地图数字都会显示为问号
+    static doHideHazardNumberOnView(m: Monster): Monster {
+        m = <Monster>ElemFactory.addAIEvenCovered("onPlayerChanged", async () => {
             if (!m.bt().player["san"]) return;
-            else if (m.bt().player["san"] < 70){
+            else if (m.bt().player["san"] < 70 && m["hideHazardStatus"] != "hide") {
+                var ms = m.bt().level.map.findAllElems((e: Elem) => e instanceof Monster && e.type != "PlaceHolder" && !e.isBoss && e.isHazard());
+                for (var monster of ms)
+                    monster["hideHazardNumber"] = true;
+
+                m["hideHazardStatus"] = "hide";
+                m.bt().fireEvent("refreshMap");
+            }
+            else if (m.bt().player["san"] >= 70 && m["hideHazardStatus"] != "show") {
+                var ms = m.bt().level.map.findAllElems((e: Elem) => e instanceof Monster && e.type != "PlaceHolder" && !e.isBoss && e.isHazard());
+                for (var monster of ms)
+                    monster["hideHazardNumber"] = false;
+
+                m["hideHazardStatus"] = "show";
+                m.bt().fireEventSync("refreshMap");
+            }
+        }, m, (ps) => ps.subType == "san");
+        m = MonsterFactory.doHideHazardNumberOnNewMonsterAdded(m);
+        return m;
+    }
+
+    // 新加入的怪也要使地图数字隐藏
+    static doHideHazardNumberOnNewMonsterAdded(m:Monster):Monster {
+        return MonsterFactory.addAIOnNewElemsJoin(async (ps) => {
+            if (!m.bt().player["san"]) return;
+            if (ps.e instanceof Monster && !ps.e.isBoss && ps.e.type != "PlaceHolder" && ps.e.isHazard()) {
+                var newMonster = ps.e;
+                if (m.bt().player["san"] < 70)
+                    newMonster["hideHazardNumber"] = true;
+            }
+        }, m)
+    }
+
+    // san值低于35：怪物的所有属性都显示成问号
+    static doHideMonsterAttrsOnView(m:Monster):Monster {
+        m = <Monster>ElemFactory.addAIEvenCovered("onPlayerChanged", async () => {
+            if (!m.bt().player["san"]) return;
+            else if (m.bt().player["san"] < 35 && m["hideAttrsStatus"] != "hide"){
                 var ms = m.bt().level.map.findAllElems((e:Elem) => e instanceof Monster && !e.isBoss && e.type != "PlaceHolder" && e.isHazard());
                 for (var monster of ms)
                     monster["hideMonsterAttrs"] = true;
+
+                m["hideAttrsStatus"] = "hide";
             }
-            else {
+            else if(m.bt().player["san"] >= 35 && m["hideAttrsStatus"] != "show") {
                 var ms = m.bt().level.map.findAllElems((e:Elem) => e instanceof Monster && !e.isBoss && e.type != "PlaceHolder" && e.isHazard());
                 for (var monster of ms)
                     monster["hideMonsterAttrs"] = false;
+                
+                m["hideAttrsStatus"] = "show";
             }
         }, m, (ps) => ps.subType == "san");
+        m = MonsterFactory.doHideMonsterAttrsOnNewMonsterAdded(m);
+        return m;
     }
 
-    // san值低于35：本层的所有地图数字都会显示为问号
-    static doHideHazardNumberOnView(m:Monster):Monster {
-        return <Monster>ElemFactory.addAIEvenCovered("onPlayerChanged", async () => {
+    // 新加入的怪的属性也要显示为问号
+    static doHideMonsterAttrsOnNewMonsterAdded(m:Monster):Monster {
+        return MonsterFactory.addAIOnNewElemsJoin(async (ps) => {
             if (!m.bt().player["san"]) return;
-            else if (m.bt().player["san"] < 35){
-                var ms = m.bt().level.map.findAllElems((e:Elem) => e instanceof Monster && e.type != "PlaceHolder" && !e.isBoss && e.isHazard());
-                for (var monster of ms)
-                    monster["hideHazardNumber"] = true;
+            if (ps.e instanceof Monster && !ps.e.isBoss && ps.e.type != "PlaceHolder" && ps.e.isHazard()) {
+                var newMonster = ps.e;
+                if (m.bt().player["san"] < 35)
+                    newMonster["hideMonsterAttrs"] = true;
             }
-            else {
-                var ms = m.bt().level.map.findAllElems((e:Elem) => e instanceof Monster && e.type != "PlaceHolder" && !e.isBoss && e.isHazard());
-                for (var monster of ms)
-                    monster["hideHazardNumber"] = false;
-            }
-        }, m, (ps) => ps.subType == "san");
+        }, m)
     }
 
     // san值为0：你的攻击将随机点击可点击的地方
-    static doTouchRandomGrid(m:Monster):Monster {
+    static doAttackRandomGrid(m:Monster):Monster {
         return <Monster>ElemFactory.addAIEvenCovered("onPlayerTry2AttackAt", async (ps) => {
             if (!m.bt().player["san"]) return;
-            else if (m.bt().player["san"] <= 80){
+            else if (m.bt().player["san"] <= 0){
                 var gs = m.bt().level.map.findAllGrid((x, y, g:Grid) => {
                     var e = g.getElem();
                     return g.isUncoveredOrMarked() && !!e && e instanceof Monster && e.isHazard();
@@ -929,7 +967,7 @@ class MonsterFactory {
 
     // boss被翻开后本关的所有普通怪物都显示为克苏鲁的触手
     static doChangeMonsterImg(m:Monster):Monster {
-        var m = <Monster>ElemFactory.addAIEvenCovered("onGridChanged", async () => {
+        m = <Monster>ElemFactory.addAIEvenCovered("onGridChanged", async () => {
             var ms = m.bt().level.map.findAllElems((e:Elem) => e instanceof Monster && !e.isBoss && e.type != "PlaceHolder" && e.isHazard());
             var tentacle = m.bt().level.createElem("ReviveZombie");
             for (var monster of ms){
@@ -945,11 +983,14 @@ class MonsterFactory {
     // 新加入的怪显示为克苏鲁的触手
     static doChangeNewMonsterImg(m:Monster):Monster {
         return MonsterFactory.addAIOnNewElemsJoin(async (ps) => {
-            var newMonster = ps.e;
-            var tentacle = m.bt().level.createElem("ReviveZombie");
-            newMonster["origGetElemImgRes"] = newMonster.getElemImgRes;
-            newMonster.getElemImgRes = tentacle.getElemImgRes;
-            await m.bt().fireEvent("onElemChanged", {subType:"elemImgChanged", e:newMonster});
+            if (m.getGrid().isCovered()) return;
+            if (ps.e instanceof Monster && !ps.e.isBoss && ps.e.type != "PlaceHolder" && ps.e.isHazard()) {
+                var newMonster = ps.e;
+                var tentacle = m.bt().level.createElem("ReviveZombie");
+                newMonster["origGetElemImgRes"] = newMonster.getElemImgRes;
+                newMonster.getElemImgRes = tentacle.getElemImgRes;
+                await m.bt().fireEvent("onElemChanged", { subType: "elemImgChanged", e: newMonster });
+            }
         }, m);
     }
 
@@ -976,8 +1017,9 @@ class MonsterFactory {
         return <Monster>ElemFactory.addDieAI(async () => {
             if(m.bt().player["san"]){
                 m.bt().player["san"] += 10;
-                await m.bt().fireEvent("onPlayerChanged", {"subType":"san"});
-                await m.bt().triggerLogicPoint("onPlayerChanged", {"subType":"san"});
+                m.bt().player["san"] = m.bt().player["san"] > 100 ? 100 : m.bt().player["san"];
+                await m.bt().fireEvent("onPlayerChanged", { "subType": "san" });
+                await m.bt().triggerLogicPoint("onPlayerChanged", { "subType": "san" });
             }
         }, m)
     }
