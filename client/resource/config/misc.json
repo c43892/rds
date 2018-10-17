@@ -1,5 +1,6 @@
 {
     "battleViewElemTipTypes" : ["Clock", "Gengar", "TreasureBox", "RandomEggZombie"],
     "seniorTypes" : ["randomEgg"],
-    "bossTypes" : ["slimeKing", "brainOfCthulhu"]
+    "bossTypes" : ["slimeKing", "brainOfCthulhu"],
+    "unlockPrices": [50,75,125,250,250,300,350,400]
 }
