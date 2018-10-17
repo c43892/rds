@@ -504,17 +504,19 @@ class Battle {
                 // 操作录像
                 this.fireEventSync("onPlayerOp", {op:"try2UseProp", ps:{type:e.type, n:Utils.indexOf(this.player.props, (p) => p == e)}});
 
+                await this.fireEvent("onUseProp", {p:e});
+
                 var reserve = await e.use();
                 if (!reserve)
                     await this.implRemovePlayerProp(e.type);
                 else {
-                    await this.fireEvent("onPropChanged", {subType:"useProp", type:e.type});
-                    await this.triggerLogicPoint("onPropChanged", {subType:"useProp", type:e.type});
+                    await this.fireEvent("onPropChanged", {subType:"propUsed", type:e.type});
+                    await this.triggerLogicPoint("onPropChanged", {subType:"propUsed", type:e.type});
                 }
             }
 
-            await this.fireEvent("onPlayerActed", {subType:"useProp", e:e, num:-1});
-            await this.triggerLogicPoint("onPlayerActed", {subType:"useProp", e:e, num:-1}); // 算一次角色行动
+            await this.fireEvent("onPlayerActed", {subType:"propUsed", e:e, num:-1});
+            await this.triggerLogicPoint("onPlayerActed", {subType:"propUsed", e:e, num:-1}); // 算一次角色行动
         };
     }
 
@@ -736,12 +738,18 @@ class Battle {
     // Elem 在地图上复活
     public async implReviveElemAt(type:string, attrs = undefined, x:number, y:number, actBeforeRevive = undefined){
         var revivePs = {x:x, y:y, type:type, achieve:true};
-        await this.triggerLogicPoint("onElemRevive", revivePs);
 
-        if(!revivePs.achieve) return;
+        await this.fireEvent("beforeElemRevive", revivePs);
+        await this.triggerLogicPoint("beforeElemRevive", revivePs);
+
+        if(!revivePs.achieve)
+            return;
 
         if(actBeforeRevive)
             await actBeforeRevive();
+
+        await this.fireEvent("onElemRevive", revivePs);
+        await this.triggerLogicPoint("onElemRevive", revivePs);
 
         var revivedE = this.level.createElem(type, attrs);
         await this.implAddElemAt(revivedE, x, y);

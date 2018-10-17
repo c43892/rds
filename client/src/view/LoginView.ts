@@ -1,6 +1,7 @@
 // 登录界面
 class LoginView extends egret.DisplayObjectContainer {
     public player:Player;
+    public acFact:AudioFactory;
 
     bg:egret.Bitmap;
     title:egret.Bitmap;
@@ -64,6 +65,7 @@ class LoginView extends egret.DisplayObjectContainer {
     }
 
     close(type) {
+        this.acFact.play("btn1");
         this.ani.animation.stop("idle");
         this.onClose(type);
         this.ani.animation.play("idle", 0);

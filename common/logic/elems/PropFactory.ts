@@ -88,7 +88,7 @@ class PropFactory {
         },
 
         // 力量药水
-        "StrangthPotion": (attrs) => {
+        "StrengthPotion": (attrs) => {
             return this.createProp(attrs, (e:Elem) => {
                 e.canUse = () => true;
                 e.use = async () => {

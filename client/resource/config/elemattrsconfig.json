@@ -168,7 +168,7 @@
 
     "DePoison":{"name":"解毒药剂", "canOverlap":true},
     "SuperPotion":{"name":"超能药水", "immunizeCnt":2, "cd":5, "canOverlap":true, "occupations":["Nurse"]},
-    "StrangthPotion":{"name":"力量药水", "enhanceCnt":5, "cd":5, "canOverlap":true, "occupations":["Rogue"]},    
+    "StrengthPotion":{"name":"力量药水", "enhanceCnt":5, "cd":5, "canOverlap":true, "occupations":["Rogue"]},    
     "Hole":{"name":"黑洞"},
     "Rock":{"name":"石块", "cnt":2, "useWithoutConfirm":true, "dropItems":["SmallRock"], "repRes":["Rock1", "Rock2"]},
     "Apple":{"name":"苹果", "cnt":3, "dhp":1, "useWithoutConfirm":true, "tags":["food"],

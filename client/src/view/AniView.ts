@@ -10,7 +10,7 @@ class AniView extends egret.DisplayObjectContainer {
     private blackCover:egret.Bitmap; // 黑屏用的遮挡
     private aniCover:egret.Bitmap; // 播放动画时的操作屏蔽层
     public aniFact:AnimationFactory; // 动画工厂
-    public audioFact:AudioFactory; // 音频管理
+    public acFact:AudioFactory; // 音频管理
 
     public constructor(w:number, h:number, mainView:MainView) {
         super();
@@ -28,8 +28,6 @@ class AniView extends egret.DisplayObjectContainer {
 
         this.aniFact = new AnimationFactory();
         this.aniFact.notifyAniStarted = (ani:Promise<void>, aniType:string, ps) => { this.onAniStarted(ani, aniType, ps); };
-
-        this.audioFact = new AudioFactory();
     }
 
     // 获取一个地图上的元素对应的显示层
@@ -184,7 +182,7 @@ class AniView extends egret.DisplayObjectContainer {
                     tsx:1, tsy:1, ta:1, mode:egret.Ease.backIn
                 });
                 img["dispose"]();
-                this.audioFact.play("block");
+                this.acFact.play("block");
                 doRefresh();
             }
             break;
@@ -221,7 +219,7 @@ class AniView extends egret.DisplayObjectContainer {
             break;
             case "elemMarked": {
                 doRefresh();
-                this.audioFact.play("mark");
+                this.acFact.play("mark");
                 if (!e.attrs.invisible) {
                     var img = AniUtils.createImg(e.getElemImgRes() + "_png");
                     var sv = this.getSVByPos(ps.x, ps.y);
@@ -507,9 +505,9 @@ class AniView extends egret.DisplayObjectContainer {
 
             if (e.type == "Key") {
                 if (tar.type == "Door")
-                    this.audioFact.play("openDoor");
+                    this.acFact.play("openDoor");
                 else if (tar.type == "TreasureBox" || tar.type == "RandomEgg")
-                    this.audioFact.play("openBox");
+                    this.acFact.play("openBox");
             }
 
             g["resetSelf"]();
@@ -534,7 +532,7 @@ class AniView extends egret.DisplayObjectContainer {
                 AniUtils.jumpingTip(dhp.toString(), {x:p.x+sv.width,  y:p.y}, "lvFnt");
             }
             else if (dhp < 0 && !e.isDead())
-                AniUtils.jumpingTip(dhp.toString(), {x:p.x+sv.width,  y:p.y-sv.height/2}, "wmFnt");
+                AniUtils.jumpingTip((-dhp).toString(), {x:p.x+sv.width,  y:p.y-sv.height/2}, "wmFnt");
         } else if (ps.subType == "die" && e instanceof Monster) {
             if (e.type == "ShopNpc" && Utils.contains(ps.flags, "byUse")) {
                 await AniUtils.flashOut(sv, false);
@@ -572,10 +570,10 @@ class AniView extends egret.DisplayObjectContainer {
             }
             this.bv.playAvatarAni("Book");
         } else if (Utils.checkCatalogues(type, "food")) { // 食物抖一下
-            this.audioFact.play("takeFood");
+            this.acFact.play("takeFood");
             await AniUtils.flashAndShake(sv);
         } else if (e.attrs.useAudioEffect)
-            this.audioFact.play(e.attrs.audioOnUsed);
+            this.acFact.play(e.attrs.audioOnUsed);
 
         sv["resetSelf"]();
     }
@@ -640,6 +638,7 @@ class AniView extends egret.DisplayObjectContainer {
                     eff.stop();
                     AniUtils.ac.removeChild(track);
                 });
+                this.acFact.play("deathGodStep");
                 await this.aniFact.createAniByCfg({type:"seq", arr: [
                     {type:"tr", fa:1, ta:3, time:50, obj:sv},
                     {type:"tr", fa:3, ta:1, time:50, obj:sv},
@@ -649,8 +648,7 @@ class AniView extends egret.DisplayObjectContainer {
             sv["resetSelf"]();
             this.bv.playDeathGodAni(0);
             this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
-        }
-        else {
+        } else {
             // 死神闪烁后退
             this.bv.playDeathGodAni(-1);
             var nps = this.bv.mapView.getGridViews((e:Elem) => e && e.type == "NextLevelPort", false);
@@ -669,6 +667,7 @@ class AniView extends egret.DisplayObjectContainer {
                     eff.stop();
                     AniUtils.ac.removeChild(track);
                 });
+                this.acFact.play("deathGodStep");
                 await AniUtils.delay(50);
             }
             if (npsv) npsv["resetSelf"]();
@@ -865,11 +864,13 @@ class AniView extends egret.DisplayObjectContainer {
         if (ps.r.r == "attacked") {
             var avatar = this.bv.avatar;
             this.showMonsterAttackValue(ps.attackerAttrs.owner, ps.r.dhp)
-            this.audioFact.play("playerHurt");
+            this.acFact.play("playerHurt");
             this.bv.playAvatarAni("Hurt");
             await AniUtils.flashAndShake(avatar);
-        } else if (ps.r.r == "dodged")
+        } else if (ps.r.r == "dodged") {
+            this.acFact.play("dodged");
             this.bv.playAvatarAni("Dodged");
+        }
         else if (ps.r.r == "blocked")
             this.bv.playAvatarAni("Block");
     }
@@ -915,7 +916,7 @@ class AniView extends egret.DisplayObjectContainer {
                 attackEff["wait"]().then(() => g.removeEffect("effPlayerAttack"));
             }
 
-            this.audioFact.play("attacking");
+            this.acFact.play("attacking");
         } else if (weapon.type == "RayGun") { // 火焰射线 AOE
             // 先飞火球
             var g = this.bv.mapView.getGridViewAt(ps.x, ps.y);
@@ -927,7 +928,7 @@ class AniView extends egret.DisplayObjectContainer {
             effBall.x += 250;
             effBall.y -= 250;
             effBall.alpha = 0;
-            this.audioFact.play("rayGunAttacking");
+            this.acFact.play("rayGunAttacking");
             await AniUtils.flyAndFadeout(effBall, toPos, 250, 1, 1, -3600, undefined);
             g.removeEffect("effRayGunBall");
 
@@ -941,7 +942,7 @@ class AniView extends egret.DisplayObjectContainer {
         } else if (weapon.type == "IceGun") { // 冰冻射线
             var g = this.bv.mapView.getGridViewAt(ps.x, ps.y);
             var eff = g.addEffect("effIceGun", 1);
-            this.audioFact.play("fronzeGunAttacking");
+            this.acFact.play("fronzeGunAttacking");
             await eff["wait"]();
             g.removeEffect("effIceGun");
         } else if (weapon.type == "Bazooka") { // 火箭筒
@@ -957,7 +958,7 @@ class AniView extends egret.DisplayObjectContainer {
             fromPos.y += pv.height / 2;
             var r = Utils.getRotationFromTo(fromPos, toPos);
             effBall.rotation = r;
-            this.audioFact.play("bazookaAttacking");
+            this.acFact.play("bazookaAttacking");
             await this.aniFact.createAniByCfg({type:"tr", fx: fromPos.x, fy:fromPos.y, tx:toPos.x, ty:toPos.y, 
                 time:250, obj:effBall});
             AniUtils.ac.removeChild(effBall);
@@ -972,8 +973,21 @@ class AniView extends egret.DisplayObjectContainer {
             var eff = g.addEffect("effBazooka", 1, "flame");
             eff["wait"]().then(() => g.removeEffect("effBazooka"));
         } else if (weapon.type == "Knife") {
-            this.audioFact.play("knifeAttacking");
+            this.acFact.play("knifeAttacking");
         }
+    }
+
+    // 使用道具
+    public async onUseProp(ps) {
+        var p:Prop = ps.p;
+        if (Utils.checkCatalogues(p.type, "potion"))
+            this.acFact.play("usePotion");
+    }
+
+    // 复活
+    public async onElemRevive(ps) {
+        var type = ps.type;
+        this.acFact.play("revive");
     }
     
     // 怪物攻击
@@ -986,6 +1000,7 @@ class AniView extends egret.DisplayObjectContainer {
         if (Utils.contains(flags, "attackOnPlayerLeave") && m.type == "Gengar")
             await this.gengarLick(sv);
         else if (Utils.contains(flags, "selfExplode")) {
+            this.acFact.play("selfExplode");
             var explodeEff = g.addEffect("effSelfExplode", 1);
             explodeEff["wait"]().then(() => g.removeEffect("effSelfExplode"));
         } else if (m.isBoss && Utils.contains(ps.addFlags, "roundedAttacking")) { // boss 主动攻击
@@ -1014,7 +1029,7 @@ class AniView extends egret.DisplayObjectContainer {
         var food:Elem = ps.food;
         var msv = this.getSV(m);
         var fsv = this.getSV(food);
-        this.audioFact.play("takeFood");
+        this.acFact.play("takeFood");
         await AniUtils.shakeTo(fsv, AniUtils.ani2global(msv));
         this.bv.mapView.refreshAt(food.pos.x, food.pos.y);
         msv["resetSelf"]();
@@ -1059,6 +1074,7 @@ class AniView extends egret.DisplayObjectContainer {
             await AniUtils.fly2(sv, sv, tosv, false, 0);
 
         sv["resetSelf"]();
+        this.acFact.play("followDown");
         this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
     }
 
@@ -1125,6 +1141,7 @@ class AniView extends egret.DisplayObjectContainer {
         var tar:Monster = ps.m;
         var gv = this.bv.mapView.getGridViewAt(tar.pos.x, tar.pos.y);
         gv.addEffect("effCharmed");
+        this.acFact.play("charmed");
     }
 
     // 关卡初始化乱序动画
@@ -1190,7 +1207,7 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 死亡
     public async onPlayerDying(ps) {
-        this.audioFact.play("playerDie");
+        this.acFact.play("playerDie");
     }
 
     // 复活
@@ -1447,7 +1464,7 @@ class AniView extends egret.DisplayObjectContainer {
         if (ps.r)
             AniUtils.tipAt(ViewUtils.getTipText(ps.r), pos);
 
-        this.audioFact.play("unuseable");
+        this.acFact.play("unuseable");
         await AniUtils.flashAndShake(sv);
         sv["resetSelf"]();
     }
@@ -1457,6 +1474,13 @@ class AniView extends egret.DisplayObjectContainer {
         var relicImg = this.getBitmapOfRelic(ps.r);
         if(relicImg)
             await AniUtils.flash(relicImg, 200, false);
+
+        if (ps.e instanceof Plant) {
+            // 植物都是玩家这边的，直接加魅惑表现
+            var gv = this.bv.mapView.getGridViewAt(ps.e.pos.x, ps.e.pos.y);
+            gv.addEffect("effCharmed");
+            this.acFact.play("charmed");
+        }
     }
 
     // 耿鬼长舌头攻击动画
@@ -1571,6 +1595,7 @@ class AniView extends egret.DisplayObjectContainer {
         img["dispose"]();
         await AniUtils.shakeCamera(1, 50, true);
         this.bv.refreshRelics();
+        this.acFact.play("monsterDie");
         var eff = AniUtils.createFrameAni("effMonsterDie", 1);
         var toPos = AniUtils.ani2global(rv);
         eff.x = toPos.x + rv.width / 2;
