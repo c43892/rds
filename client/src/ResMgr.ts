@@ -37,13 +37,21 @@ class ResMgr {
         var items = RES.getGroupByName(group);
         var finished = 0;
         return new Promise<void>((r, _) => {
-            items.forEach((it, i) => {
+            var tms = {};
+            items.forEach((item, i) => {
+                let it = item;
+                tms[it.url] = true;
+                egret.setTimeout(() => {
+                    if (tms[it.url])
+                        Utils.log("load time out: " + it.url);
+                }, this, 60000);
+
                 RES.getResByUrl(ResMgr.URLPrefix + it.url, (res) => {                    
+                    tms[it.url] = false;
                     finished++;
                     ResMgr.resMap[it.name] = res;
 
-                    if (DEBUG)
-                        Utils.log("load " + it.url + (res ? "ok" : "failed"));
+                    Utils.log((res ? "[○] " : "[×] ") + "(" + finished + "/" + items.length + ") : " + it.url);
 
                     if (eventHandler)
                         eventHandler.onProgress(finished, items.length);
