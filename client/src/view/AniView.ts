@@ -572,7 +572,7 @@ class AniView extends egret.DisplayObjectContainer {
         } else if (Utils.checkCatalogues(type, "food")) { // 食物抖一下
             this.acFact.play("takeFood");
             await AniUtils.flashAndShake(sv);
-        } else if (e.attrs.useAudioEffect)
+        } else if (e.attrs.audioOnUsed)
             this.acFact.play(e.attrs.audioOnUsed);
 
         sv["resetSelf"]();
