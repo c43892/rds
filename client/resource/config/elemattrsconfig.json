@@ -91,8 +91,8 @@
     "RandomEgg":{"name":"彩蛋","rdp":"RandomEgg", "useWithoutConfirm":true},
     "Clock":{"name":"钟表", "useWithoutConfirm":true},
     "HpPotion":{"name":"医疗药剂", "heal":10, "canOverlap":true},
-    "Magazine":{"name":"自然杂志", "cnt":3, "dexp":2, "useWithoutConfirm":true},
-    "EconomyMagazine":{"name":"金融杂志", "cnt":3, "dexp":2, "useWithoutConfirm":true},
+    "Magazine":{"name":"自然杂志", "cnt":5, "dexp":3, "useWithoutConfirm":true},
+    "EconomyMagazine":{"name":"金融杂志", "cnt":5, "dexp":2, "useWithoutConfirm":true},
     "Shield":{"name":"盾牌", "cd":15, "showCDNum":true, "repRes":["Shield", "ShieldBack"]},
     "HeadBone":{"name":"骷髅头"},
 

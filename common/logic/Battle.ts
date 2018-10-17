@@ -1011,7 +1011,7 @@ class Battle {
                 if (g.isMarked())
                     marked.push(map.getElemAt(pos.x, pos.y));
 
-                await this.uncover(pos.x, pos.y, weapon != undefined);
+                await this.uncover(pos.x, pos.y, weapon != undefined, false, !weapon);
             }
                 
         };
