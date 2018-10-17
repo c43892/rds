@@ -968,7 +968,6 @@ class AniView extends egret.DisplayObjectContainer {
             AniUtils.ac.removeChild(effBall);
 
             // 爆炸效果
-            AniUtils.ac.addChild(effBall);
             var g = this.bv.mapView.getGridViewAt(ps.x, ps.y);
             var tar = g.getElem();
             while (g && tar && tar.type == "PlaceHolder")
