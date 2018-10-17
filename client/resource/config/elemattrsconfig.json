@@ -88,7 +88,7 @@
     "Door":{"name":"门", "cnt":1, "useWithoutConfirm":true, "dropItems":["NextLevelPort"], "hideDropItems":true, "addInEffect":"noEffect",
         "repRes":["Door1", "Door2", "Door3"]},
     "TreasureBox":{"name":"宝箱", "useWithoutConfirm":true, "refElems":["BoxMonster"]},
-    "RandomEgg":{"name":"彩蛋","rdp":"RandomEgg", "useWithoutConfirm":true, "audioOnUsed":"openBox"},
+    "RandomEgg":{"name":"彩蛋","rdp":"RandomEgg", "useWithoutConfirm":true, "audioOnUsing":"openBox"},
     "Clock":{"name":"钟表", "useWithoutConfirm":true},
     "HpPotion":{"name":"医疗药剂", "heal":10, "canOverlap":true},
     "Magazine":{"name":"自然杂志", "cnt":5, "dexp":3, "useWithoutConfirm":true},
