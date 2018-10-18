@@ -136,7 +136,6 @@ class BattleView extends egret.DisplayObjectContainer {
         // 金钱等背景
         this.moneyAndStoriesBg = ViewUtils.createBitmapByName("moneyAndStoriesBg_png");
         this.moneyAndStoriesBg.name = "moneyAndStoriesBg";
-        this.moneyAndStoriesBg.y = ViewUtils.getScreenEdges().top;
 
         // 血条遮罩
         this.hpBarMask = new egret.Shape();

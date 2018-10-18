@@ -486,7 +486,7 @@ class AniView extends egret.DisplayObjectContainer {
         }
 
         if (e.attrs.audioOnUsing)
-            this.acFact.play(e.attrs.audioOnUsed);
+            this.acFact.play(e.attrs.audioOnUsing);
 
         sv["resetSelf"]();
     }
