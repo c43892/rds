@@ -26,7 +26,7 @@ class LevelLogicMarkAllAward extends LevelLogic {
                         return Utils.indexOf(e.dropItems, (dp: Elem) => dp.type != "Coins") == -1;
                 });
                 if (!keyGrid)
-                    keyGrid = BattleUtils.findRandomGrids(bt, (g:Grid) => !g.isCovered() && g != boxGrid, 1)[0];
+                    keyGrid = BattleUtils.findRandomGrids(bt, (g:Grid) => !g.isCovered() && !g.getElem() && g != boxGrid, 1)[0];
                 if (keyGrid) {
                     this.valid = false;
                     await bt.fireEvent("onGetMarkAllAward");
