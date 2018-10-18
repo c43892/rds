@@ -56,11 +56,12 @@ class BattleView extends egret.DisplayObjectContainer {
         this.createAvatarArea();
 
         // 死神符号
-        this.deathGodBarBg = ViewUtils.createBitmapByName("deathGodBarBg_png");
-        this.deathGodBarBg.name = "deathGodBarBg";
-        this.addChild(this.deathGodBarBg);
+        // this.deathGodBarBg = ViewUtils.createBitmapByName("deathGodBarBg_png");
+        // this.deathGodBarBg.name = "deathGodBarBg";
+        // this.addChild(this.deathGodBarBg);
         this.deathGodBar = ViewUtils.createBitmapByName("deathGodBar_png");
         this.deathGodBar.name = "deathGodBar";
+        this.deathGodBar.scale9Grid = new egret.Rectangle(1, 1, this.deathGodBar.width - 50, this.deathGodBar.height - 2);
         this.addChild(this.deathGodBar);
         this.effDeathGodRed = ViewUtils.createFrameAni("effDeathGodRed");
         this.effDeathGodRed.name = "deathGodRed";
@@ -76,7 +77,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.deathGodStepBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, (evt:egret.TouchEvent) => this.showDeathGodStep(evt), this);
         this.addChild(this.deathGodStepBtn);
         
-        ViewUtils.multiLang(this, this.deathGodBarBg, this.deathGodBar, this.effDeathGodRed, this.effDeathGodGray);
+        ViewUtils.multiLang(this, /*this.deathGodBarBg,*/ this.deathGodBar, this.effDeathGodRed, this.effDeathGodGray);
     }
 
     // 播放头像相关动画
@@ -589,11 +590,11 @@ class BattleView extends egret.DisplayObjectContainer {
         this.elemsTip.removeChildren();
         var tipTypes = GCfg.getBattleViewElemTipTypes();
         var elems = this.player.bt().level.map.findAllElems((e:Elem) => Utils.indexOf(tipTypes, (s:string) => s == e.type) > -1);
-        var gap = 8;
+        var gap = 5;
         for(var i = 0; i < elems.length; i++){
             var img = ViewUtils.createBitmapByName(elems[i].getElemImgRes() + "_png");
-            img.width = img.height = 55;
-            img.x = this.elemsTip.width / 2 + (i - (elems.length - 1) / 2) * (gap + img.width) - img.width / 2
+            img.width = img.height = this.elemsTip.height;
+            img.x = i * img.width + gap * (i - 1); // this.elemsTip.width / 2 + (i - (elems.length - 1) / 2) * (gap + img.width) - img.width / 2
             img.y = 0;
             img.alpha = 1;
             this.elemsTipBitmaps.push(img);

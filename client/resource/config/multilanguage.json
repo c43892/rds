@@ -38,13 +38,13 @@
                 "storeyLv": {"x":305, "y":-1, "w":50, "h":30},
 				
 				"deathGodBarBg": {"x":30, "y":975, "w":500},
-				"deathGodBar": {"x":50, "y":1004, "w":500},
-                "deathGodRed": {"x":30, "y":989, "w":500},
-				"deathGodGray": {"x":30, "y":989, "w":500},
+				"deathGodBar": {"x":50, "y":1003, "w":520},
+                "deathGodRed": {"x":30, "y":989},
+				"deathGodGray": {"x":30, "y":989},
 				
 				"relicsBg": {"x":188, "y":51, "w":281, "h":85},
 				"moreRelics": {"x":483, "y":65},
-				"elemsTip": {"x":0, "y":957, "w":640, "h":60},
+				"elemsTip": {"x":215, "y":135, "w":420, "h":45},
 				"propsView": {"x":48, "y":1027, "w":535, "h":84},
 				
 				"mapView": {"x":20, "y":190, "w":602, "h":774}
@@ -329,7 +329,6 @@
 		"goToNextLevel": {"EN": "be sure to leave?", "CNS": "确定离开这一层吗?", "CNT": "确定离开这一层吗?"},
 		"press2Unblock": {"EN": "press to unblock", "CNS": "再次长按取消标记", "CNT": "再次长按取消标记"},
 		"sneaking": {"EN": "sneaking", "CNS": "突袭", "CNT": "突袭"},
-		"markAllAward": {"EN": "bonus", "CNS": "额外奖励", "CNT": "bonus"},
 		"relicPosLocked": {"EN": "locked", "CNS": "尚未解锁", "CNT": "locked"},
 		"titleEquipped": {"EN": "skills equipped", "CNS": "已装备技能", "CNT": "已装备技能"},
 		"titleInBag": {"EN": "skills in bag", "CNS": "技能包裹", "CNT": "技能包裹"},

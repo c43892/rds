@@ -1341,12 +1341,16 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 标记所有怪物的奖励
     public async onGetMarkAllAward() {
-        var tip = AniUtils.createTextField(50, 0x000000);
-        tip.text = ViewUtils.getTipText("markAllAward");
-        tip.x = this.width / 2 - tip.measuredWidth / 2
-        tip.y = this.height / 2 - tip.measuredHeight / 2;
-        await AniUtils.flashAndShake(tip);
-        tip["dispose"]();
+        var ended = false;
+        var ske = ViewUtils.createSkeletonAni("bonus", () => ended = true);
+        var d = ske.display;
+        d.x = this.width / 2;
+        d.y = this.height / 2;
+        AniUtils.ac.addChild(d);
+        ske.animation.play("stand", 1);
+        await Utils.waitUtil(() => ended);
+        ske["stop"]();
+        AniUtils.ac.removeChild(d);
     }
 
     // 移除颜色效果
