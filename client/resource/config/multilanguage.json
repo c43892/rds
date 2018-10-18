@@ -31,19 +31,19 @@
 				"poisonedHpBar": {"x":150, "y":5},
 				"hp": {"x":148, "y":120, "w":30, "h":30},
 				
+				"moneyAndStoriesBg": {"x":190, "y":-10},
                 "power": {"x":44, "y":123, "w":50, "h":30},
                 "dodge": {"x":102, "y":123, "w":50, "h":30},
-                "money": {"x":285, "w":50, "h":30},
-                "storeyLv": {"x":358, "w":50, "h":30},
-				"moneyAndStoriesBg": {"x":245},
+                "money": {"x":230, "y":-1, "w":50, "h":30},
+                "storeyLv": {"x":305, "y":-1, "w":50, "h":30},
 				
-				"deathGodBarBg": {"x":200, "y":44},
-				"deathGodBar": {"x":220, "y":70},
-                "deathGodRed": {"x":200, "y":58},
-				"deathGodGray": {"x":200, "y":58},
+				"deathGodBarBg": {"x":30, "y":975, "w":500},
+				"deathGodBar": {"x":50, "y":1004, "w":500},
+                "deathGodRed": {"x":30, "y":989, "w":500},
+				"deathGodGray": {"x":30, "y":989, "w":500},
 				
-				"relicsBg": {"x":209, "y":85, "w":296, "h":90},
-				"moreRelics": {"x":509, "y":70},
+				"relicsBg": {"x":188, "y":51, "w":281, "h":85},
+				"moreRelics": {"x":483, "y":65},
 				"elemsTip": {"x":0, "y":957, "w":640, "h":60},
 				"propsView": {"x":48, "y":1027, "w":535, "h":84},
 				
