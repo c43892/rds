@@ -363,7 +363,8 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
                 case "selectRelic": {
                     if (RelicExchangeView.dragFromImg["elem"] == "relicAndStar") {
                         var r = RelicExchangeView.dragFromImg["relic"];
-                        var yesno = await this.relicConfirmView(this.player, r, undefined, false);
+                        var reinforceRelic = ElemFactory.create(r.type);
+                        var yesno = await this.relicConfirmView(this.player, reinforceRelic, undefined, false);
                         if (yesno) 
                             this.doClose(r);
                     }
