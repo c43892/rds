@@ -42,6 +42,7 @@ class LoadingUI extends egret.DisplayObjectContainer implements RES.PromiseTaskR
     bg:egret.Bitmap;
     loadingBar:egret.Bitmap;
     ghost:egret.Bitmap;
+    warning:egret.TextField;
 
     createBitmapByName(name):egret.Bitmap {
         var bmp = new egret.Bitmap();
@@ -76,6 +77,13 @@ class LoadingUI extends egret.DisplayObjectContainer implements RES.PromiseTaskR
         this.ghost.x = this.sx;
         this.ghost.y = this.sy;
         this.addChild(this.ghost);
+
+        // 八字箴言
+        this.warning = ViewUtils.createTextField(20, 0xffffff);
+        this.warning.text = "抵制不良游戏, 拒绝盗版游戏。 注意自我保护, 谨防受骗上当。\r适度游戏益脑, 沉迷游戏伤身。 合理安排时间, 享受健康生活。";
+        this.warning.x = (this.width - this.warning.measuredWidth) / 2;
+        this.warning.y = this.height - this.warning.measuredHeight - 50;
+        this.addChild(this.warning);
     }
 
     onProgress(current: number, total: number): void {
