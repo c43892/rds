@@ -93,10 +93,7 @@ class ItemFactory {
         "RandomEgg": (attrs) => {
             var e = this.createItem();
             e.canUse = () => true;
-            e.use = async () => { 
-                await e.bt().implOnElemDie(e);
-                return true;
-            };
+            e.use = async () => {};
             return e;
         },
 

@@ -21,6 +21,7 @@ class Elem {
     public getGrid = () => this.bt().level.map.getGridAt(this.pos.x, this.pos.y); // 当前元素所在的地图格
     public getElemImgRes = () => this.attrs.elemImg ? this.attrs.elemImg : this.type;
     public isBig = () => this.attrs.size.w > 1 || this.attrs.size.h > 1; // 是否是大尺寸元素
+    public isInMap = () => this.bt() && this.bt().level.map.getElemAt(this.pos.x, this.pos.y) == this;
 
     // 各逻辑点，挂接的都是函数
     public canUse = () => { return false; } // 一个 function():boolean

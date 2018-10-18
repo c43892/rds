@@ -151,12 +151,11 @@ class MonsterFactory {
             MonsterFactory.makeBoss(
                 MonsterFactory.doSneakAttack(
                     MonsterFactory.doAttackBack(
-                        MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player, attrs.attackInterval, () => !m.trapped, {a:2, b:0, c:0}), 
+                        MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player, attrs.attackInterval, () => !m.trapped, {a:3, b:0, c:0}), 
                     () => !m.trapped)));
-            m = MonsterFactory.doClearKeys(m);
-            m = MonsterFactory.doSummonSlimesOnDie(m);
-            m = MonsterFactory.doAddHpPerRound(Math.floor(attrs.hp * 0.05) > 1 ? Math.floor(attrs.hp * 0.05) : 1, m)
-            m = MonsterFactory.doEnhanceAura(m);
+            m = MonsterFactory.doSummonSlimesOnHalfHp(m);
+            m = MonsterFactory.doAddHpPerRound(Math.floor(attrs.hp * 0.05) > 1 ? Math.floor(attrs.hp * 0.05) : 1, m);
+            m["halfHp"] = m.hp / 2;
             return m;
         },
 
@@ -515,10 +514,10 @@ class MonsterFactory {
         m["canActOnNewAdd"] = false; //此时还不能触发增强新加入的怪物的效果
         
         return MonsterFactory.addAIOnUncovered(async (ps) => {
-                var n = m.map().findAllElems((e:Elem) => e.type == "SlimeKing" && !e.getGrid().isCovered() && e != m).length;                
+                var n = m.map().findAllElems((e:Elem) => e.type == m.type && !e.getGrid().isCovered() && e != m).length;                
                 if(n == 0){
                     var ms:Elem[]= [];
-                    ms = m.map().findAllElems((e:Elem) => e instanceof Monster && e != m && e.isHazard() && e.type != "SlimeKing");
+                    ms = m.map().findAllElems((e:Elem) => e instanceof Monster && e != m && e.isHazard() && e.type != m.type);
                     for(var theMonster of <Monster[]>ms){
                         theMonster.hp *= 2;
                         await m.bt().fireEvent("onElemChanged", {subType:"hp", e:theMonster});
@@ -548,10 +547,10 @@ class MonsterFactory {
 
     // 移除血量翻倍效果
     static async doRemoveEnhance(m:Monster){
-            var n = m.map().findAllElems((e:Elem) => e.type == "SlimeKing" && !e.getGrid().isCovered() && e != m).length;
+            var n = m.map().findAllElems((e:Elem) => e.type == m.type && !e.getGrid().isCovered() && e != m).length;
             if(n == 0){
                 var ms:Elem[]= [];
-                ms = m.map().findAllElems((e:Elem) => e instanceof Monster && e.isHazard() && e != m && e.type != "SlimeKing");
+                ms = m.map().findAllElems((e:Elem) => e instanceof Monster && e.isHazard() && e != m && e.type != m.type);
                 for(var theMonster of <Monster[]>ms){
                     theMonster.hp = Math.ceil(theMonster.hp * 0.5);
                     await m.bt().fireEvent("onElemChanged", {subType:"hp", e:theMonster});
@@ -789,21 +788,50 @@ class MonsterFactory {
         }, m, (ps) => ps.targetAttrs.owner == m, true, true);
     }
 
-    // 史莱姆之王死前将钥匙清空,准备分配给小史莱姆
-    static doClearKeys(m:Monster):Monster {
-        m = <Monster>ElemFactory.addBeforeDieAI(() => {
-            m["keys"] = Utils.filter(m.dropItems, (e:Elem) => e.type == "Key");
-            m.dropItems = [];
-        }, m);
-        return m;
-    }
+    // // 史莱姆之王死前将钥匙清空,准备分配给小史莱姆
+    // static doClearKeys(m:Monster):Monster {
+    //     m = <Monster>ElemFactory.addBeforeDieAI(() => {
+    //         m["keys"] = Utils.filter(m.dropItems, (e:Elem) => e.type == "Key");
+    //         m.dropItems = [];
+    //     }, m);
+    //     return m;
+    // }
 
-    // 史莱姆之王死亡时召唤四个特殊史莱姆
-    static doSummonSlimesOnDie(m:Monster):Monster {
-        m = <Monster>ElemFactory.addAfterDieAI(async () => {
-            Utils.assert(m.type == "SlimeKing", "this can only effect on SlimeKing");
+    // // 史莱姆之王死亡时召唤四个特殊史莱姆
+    // static doSummonSlimesOnDie(m:Monster):Monster {
+    //     m = <Monster>ElemFactory.addAfterDieAI(async () => {
+    //         Utils.assert(m.type == "SlimeKing", "this can only effect on SlimeKing");
+    //         var bt = m.bt();
+    //         var poses = [];
+    //         for(var i = 0; i < 2; i++){
+    //             for(var j = 0; j < 2; j++){
+    //                 var newPos = {x:0, y:0};
+    //                 newPos.x = m.pos.x + i;
+    //                 newPos.y = m.pos.y + j;
+    //                 poses.push(newPos);
+    //             }
+    //         }
+    //         var slimeTypes = ["RedSlime", "GreenSlime", "GreenSlime", "RedSlime"];
+    //         for(var i = 0; i < 4; i++){
+    //             var slime = <Monster>bt.level.createElem(slimeTypes[i]);
+    //             slime = MonsterFactory.doSummonSlimeKing(slime);
+    //             if (m["keys"][i])
+    //                 slime.dropItems = [m["keys"][i]];
+    //             slime["lockDoor"] = true;
+    //             await bt.implAddElemAt(slime, poses[i].x, poses[i].y);
+    //         }
+    //     }, m)
+    //     return m;
+    // }
+
+    // 史莱姆之王半血时分裂为4个小史莱姆
+    static doSummonSlimesOnHalfHp(m:Monster):Monster{
+        m = <Monster>ElemFactory.addAI("onMonsterHurt", async () => {
+            if(m.hp >= m["halfHp"]) return;
+
             var bt = m.bt();
             var poses = [];
+            var kingPos = m.pos;
             for(var i = 0; i < 2; i++){
                 for(var j = 0; j < 2; j++){
                     var newPos = {x:0, y:0};
@@ -812,53 +840,81 @@ class MonsterFactory {
                     poses.push(newPos);
                 }
             }
+            m["keys"] = Utils.filter(m.dropItems, (e:Elem) => e.type == "Key");
+            m.dropItems = [];
+            await bt.implRemoveElemAt(m.pos.x, m.pos.y);
             var slimeTypes = ["RedSlime", "GreenSlime", "GreenSlime", "RedSlime"];
             for(var i = 0; i < 4; i++){
                 var slime = <Monster>bt.level.createElem(slimeTypes[i]);
+                slime.hp = Math.ceil(m.hp / 4);
                 slime = MonsterFactory.doSummonSlimeKing(slime);
-                slime.dropItems = [m["keys"][i]];
+                if (m["keys"][i])
+                    slime.dropItems = [m["keys"][i]];
                 slime["lockDoor"] = true;
+                slime["kingPos"] = kingPos;
                 await bt.implAddElemAt(slime, poses[i].x, poses[i].y);
             }
-        }, m)
+        }, m, (ps) => ps.m == m)
         return m;
     }
 
     // 小史莱姆合成新史莱姆之王
     static doSummonSlimeKing(m:Monster):Monster {
-        m["summonKing"] = 0;
         m = <Monster>ElemFactory.addAIEvenCovered("onPlayerActed", async () => {
-            var bt = m.bt();
+            if (!m.isInMap()) return;
+
+            if(!m["summonKing"])
+                m["summonKing"] = 0;
+
             m["summonKing"] ++;
-            var count = bt.level.map.findAllElems((e:Elem) => e["summonKing"] && (e.type == "GreenSlime" || e.type == "RedSlime")).length;
-            if(m["summonKing"] > 3 && count == 4){
-                var slimes = m.map().findAllElems((e:Elem) => e["summonKing"]);
+
+            // 4回合后合成史莱姆之王
+            if(m["summonKing"] > 4){
+                // 获取新史莱姆之王所应拿走的钥匙和覆盖的位置
+                var bt = m.bt();
                 var poses = [];
                 var keys = [];
-                for(var slime of slimes){
-                    poses.push(slime.pos);
-                    var key = Utils.filter(slime.dropItems, (e:Elem) => e.type == "Key")[0];
-                    keys.push(key);
-                }
-                var kingPos = {x:6, y:8};
-                for(var i = 0; i < poses.length; i++)
-                    if(poses[i].x <= kingPos.x && poses[i].y <= kingPos.y)
-                        kingPos = poses[i];
-                
+                var slimes = bt.level.map.findAllElems((e:Elem) => e["summonKing"] && (e.type == "GreenSlime" || e.type == "RedSlime"));
+                var kingPos = m["kingPos"];
+                var posOffsets = [{x:0, y:0}, {x:1, y:0}, {x:0, y:1}, {x:1, y:1}];                
+                posOffsets.forEach((posOffset, index) => {
+                    var pos = {x:0, y:0};
+                    pos.x = kingPos.x + posOffset.x;
+                    pos.y = kingPos.y + posOffset.y;
+                    poses.push(pos);
+                    var elem = bt.level.map.getElemAt(pos.x, pos.y);                    
+                    if (!!elem && elem.type == "Key")
+                        keys.push(elem);
+                    else if (!!elem && elem["summonKing"]){
+                        var key = Utils.filter(elem.dropItems, (k:Elem) => k.type == "Key")[0];
+                        if(key)
+                            keys.push(key);
+                    }
+                });
+
+                // 移除这些位置上的元素
                 for(var p of poses) {
-                    await bt.implRemoveElemAt(p.x, p.y);
-                    if (bt.level.map.getGridAt(p.x, p.y).isCovered())
-                        await bt.uncover(p.x, p.y, true);
+                    if (bt.level.map.getElemAt(p.x, p.y)) {
+                        await bt.implRemoveElemAt(p.x, p.y);
+                        if (bt.level.map.getGridAt(p.x, p.y).isCovered())
+                            await bt.uncover(p.x, p.y, true);
+                    }
                 }
-                
+
+                // 创建新的史莱姆之王,hp为剩余的之前召唤的小史莱姆之和
                 var king = <Monster>bt.level.createElem("SlimeKing");
-                king.hp = Math.ceil(king.hp * 0.3);
+                var hp = 0;
+                for (var slime of <Monster[]>slimes)
+                    hp += slime.hp;
+
+                king.hp = hp;
+                king["halfHp"] = king.hp / 2;
                 for(var key of keys)
                     king.addDropItem(key);
                 
                 await bt.implAddElemAt(king, kingPos.x, kingPos.y);
             }
-        }, m)
+        }, m);
         return m;
     }
 
