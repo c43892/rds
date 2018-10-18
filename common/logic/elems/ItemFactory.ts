@@ -189,6 +189,7 @@ class ItemFactory {
         // 警棍
         "Baton": (attrs) => {
             var e = this.createItem();
+            e.canNotUseReason = () => "passiveTrigger";
             e = ElemFactory.addAI("onCalcAttacking", (ps) => {
                 var attackerAttrs = ps.attackerAttrs;
                 if (!(attackerAttrs.owner instanceof Player)) return;
