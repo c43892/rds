@@ -289,7 +289,7 @@ class ItemFactory {
             e.canUse = () => e.isValid();
             e.canBeDragDrop = false;
             e.use = async () => {
-                var dhp = Math.ceil(e.bt().player.hp * e.attrs.percent / 100);
+                var dhp = Math.ceil(e.bt().player.maxHp * e.attrs.percent / 100);
                 await e.bt().implAddPlayerHp(dhp, e);
             }
             return e;

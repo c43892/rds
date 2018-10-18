@@ -827,7 +827,7 @@ class MonsterFactory {
     // 史莱姆之王半血时分裂为4个小史莱姆
     static doSummonSlimesOnHalfHp(m:Monster):Monster{
         m = <Monster>ElemFactory.addAI("onMonsterHurt", async () => {
-            if(m.hp >= m["halfHp"]) return;
+            if(m.hp >= m["halfHp"] || m.hp <= 0) return;
 
             var bt = m.bt();
             var poses = [];
