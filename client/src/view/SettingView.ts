@@ -73,6 +73,13 @@ class SettingView extends egret.DisplayObjectContainer{
 
         objs = [this.title, this.volumeBtn, this.relicsBtn, this.propsBtn, this.exitBtn, this.goBackBtn]; 
         objs.forEach((obj, _) => this.addChild(obj));
+
+        this.loadSysSettings();
+    }
+
+    loadSysSettings() {
+        if (Utils.loadLocalData("SysSetting_AudioOn") == 0)
+            this.switchSound();
     }
 
     public async open():Promise<void>{
@@ -86,11 +93,15 @@ class SettingView extends egret.DisplayObjectContainer{
         if (this.volumeBtn["statue"] == "on"){
             this.volumeBtn["statue"] = "off";
             this.volumeBtn.setTexName("stOff_png");
+            AudioFactory.AudioOn = 0;
         }
         else{
             this.volumeBtn["statue"] = "on";
             this.volumeBtn.setTexName("stOn_png");
+            AudioFactory.AudioOn = 1;
         }
+
+        Utils.saveLocalData("SysSetting_AudioOn", AudioFactory.AudioOn);
     }
 
     async exitThisGame(){

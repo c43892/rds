@@ -342,7 +342,7 @@ class Utils {
 
     // 保存指定数据
     public static saveLocalData(key:string, data) {
-        if (data)
+        if (data != undefined)
             Utils.$$saveItem(key, JSON.stringify(data));
     }
 

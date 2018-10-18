@@ -10,8 +10,13 @@ class AudioFactory {
         this.soundsCache = {};
     }
 
+    public static AudioOn = 1;
+
     // 播放声音
     public play(name, playTimes = 1) {
+        if (AudioFactory.AudioOn == 0)
+            return;
+
         if (!this.soundsCache[name])
             this.soundsCache[name] = ResMgr.getRes(name + "_mp3");
 
