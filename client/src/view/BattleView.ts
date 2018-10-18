@@ -136,7 +136,7 @@ class BattleView extends egret.DisplayObjectContainer {
         // 金钱等背景
         this.moneyAndStoriesBg = ViewUtils.createBitmapByName("moneyAndStoriesBg_png");
         this.moneyAndStoriesBg.name = "moneyAndStoriesBg";
-        this.moneyAndStoriesBg.y = ViewUtils.getScreenEdges().top;
+        this.moneyAndStoriesBg.y = -ViewUtils.MainArea.y/ViewUtils.MainArea.scaleY;
 
         // 血条遮罩
         this.hpBarMask = new egret.Shape();
@@ -178,6 +178,8 @@ class BattleView extends egret.DisplayObjectContainer {
 
         objs.forEach((obj, _) => this.addChild(obj));
         ViewUtils.multiLang(this, ...objs);
+
+        Utils.log("moneyAndStoriesBg.pos = " + this.moneyAndStoriesBg.x + ", " + this.moneyAndStoriesBg.y);
 
         this.refreshExpBar();
         this.refreshHpAt();
