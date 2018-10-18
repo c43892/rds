@@ -38,9 +38,9 @@
                 "storeyLv": {"x":305, "y":-1, "w":50, "h":30},
 				
 				"deathGodBarBg": {"x":30, "y":975, "w":500},
-				"deathGodBar": {"x":50, "y":1004, "w":500},
-                "deathGodRed": {"x":30, "y":989, "w":500},
-				"deathGodGray": {"x":30, "y":989, "w":500},
+				"deathGodBar": {"x":50, "y":1003, "w":520},
+                "deathGodRed": {"x":30, "y":989},
+				"deathGodGray": {"x":30, "y":989},
 				
 				"relicsBg": {"x":188, "y":51, "w":281, "h":85},
 				"moreRelics": {"x":483, "y":65},

@@ -56,11 +56,12 @@ class BattleView extends egret.DisplayObjectContainer {
         this.createAvatarArea();
 
         // 死神符号
-        this.deathGodBarBg = ViewUtils.createBitmapByName("deathGodBarBg_png");
-        this.deathGodBarBg.name = "deathGodBarBg";
-        this.addChild(this.deathGodBarBg);
+        // this.deathGodBarBg = ViewUtils.createBitmapByName("deathGodBarBg_png");
+        // this.deathGodBarBg.name = "deathGodBarBg";
+        // this.addChild(this.deathGodBarBg);
         this.deathGodBar = ViewUtils.createBitmapByName("deathGodBar_png");
         this.deathGodBar.name = "deathGodBar";
+        this.deathGodBar.scale9Grid = new egret.Rectangle(1, 1, this.deathGodBar.width - 50, this.deathGodBar.height - 2);
         this.addChild(this.deathGodBar);
         this.effDeathGodRed = ViewUtils.createFrameAni("effDeathGodRed");
         this.effDeathGodRed.name = "deathGodRed";
@@ -76,7 +77,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.deathGodStepBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, (evt:egret.TouchEvent) => this.showDeathGodStep(evt), this);
         this.addChild(this.deathGodStepBtn);
         
-        ViewUtils.multiLang(this, this.deathGodBarBg, this.deathGodBar, this.effDeathGodRed, this.effDeathGodGray);
+        ViewUtils.multiLang(this, /*this.deathGodBarBg,*/ this.deathGodBar, this.effDeathGodRed, this.effDeathGodGray);
     }
 
     // 播放头像相关动画
