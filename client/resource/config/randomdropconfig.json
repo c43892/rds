@@ -253,5 +253,15 @@
         "Storer":10,
         "ShieldProficient":10,
         "StrikeFirst":10
+    }},
+
+    "rookiePlayBox": {"num": [1, 2], "elems": {
+        "IceGun":10,
+        "RayGun":10,
+        "HpPotion":10,
+        "Bazooka":10,
+        "SuperPotion":10,
+        "StrengthPotion":10,
+        "CandyCannon":10
     }}
 }
