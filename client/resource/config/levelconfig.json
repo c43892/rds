@@ -70,7 +70,7 @@
         "map": {},
         "doorUnlock": 1,
         "extraTreasureBox": 20,
-        "monsterBox": 7,
+        "monsterBox": 0,
         "init_uncovered": {
             "w": 3,
             "h": 3
