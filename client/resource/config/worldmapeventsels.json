@@ -205,7 +205,7 @@
                 "ps": {
                     "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
                     "func": ["+randomItems", "-hp", "redirectSelGroup"],
-                    "rates": [25],
+                    "rates": [15],
                     "failedFunc": ["-hp", "redirectSelGroup2"],
                     "ps": [{"randomNum": 1, "items": {"WeaponMaster": 10, "DefenseProficient": 10, "BookMaster": 10, "TreasureBoxDetector": 10, "KnifeMaster": 10, "MonsterHunter": 10, "KnifeProficient": 10, "ExploreEnhanced": 10, "HorticultureProficient": 10, "SmellEnhanced": 10, "Storer": 10, "ShieldProficient": 10, "StrikeFirst": 10 }, "hp":1, "group": "a411", "group2": "a421"}]
                     }
@@ -231,7 +231,7 @@
                 "ps": {
                     "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
                     "func": ["+randomItems", "-hp", "redirectSelGroup"],
-                    "rates": [50],
+                    "rates": [30],
                     "failedFunc": ["-hp", "redirectSelGroup2"],
                     "ps": [{"randomNum": 1, "items": {"WeaponMaster": 10, "DefenseProficient": 10, "BookMaster": 10, "TreasureBoxDetector": 10, "KnifeMaster": 10, "MonsterHunter": 10, "KnifeProficient": 10, "ExploreEnhanced": 10, "HorticultureProficient": 10, "SmellEnhanced": 10, "Storer": 10, "ShieldProficient": 10, "StrikeFirst": 10 }, "hp":2, "group": "a411", "group2": "a422"}]
                     }
@@ -249,7 +249,7 @@
                 "ps": {
                     "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
                     "func": ["+randomItems", "-hp", "redirectSelGroup"],
-                    "rates": [75],
+                    "rates": [45],
                     "failedFunc": ["-hp", "redirectSelGroup2"],
                     "ps": [{"randomNum": 1, "items": {"WeaponMaster": 10, "DefenseProficient": 10, "BookMaster": 10, "TreasureBoxDetector": 10, "KnifeMaster": 10, "MonsterHunter": 10, "KnifeProficient": 10, "ExploreEnhanced": 10, "HorticultureProficient": 10, "SmellEnhanced": 10, "Storer": 10, "ShieldProficient": 10, "StrikeFirst": 10 }, "hp":3, "group": "a411", "group2": "a423"}]
                     }
@@ -267,9 +267,63 @@
                 "ps": {
                     "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
                     "func": ["+randomItems", "-hp", "redirectSelGroup"],
+                    "rates": [60],
+                    "failedFunc": ["-hp", "redirectSelGroup2"],
+                    "ps": [{"randomNum": 1, "items": {"WeaponMaster": 10, "DefenseProficient": 10, "BookMaster": 10, "TreasureBoxDetector": 10, "KnifeMaster": 10, "MonsterHunter": 10, "KnifeProficient": 10, "ExploreEnhanced": 10, "HorticultureProficient": 10, "SmellEnhanced": 10, "Storer": 10, "ShieldProficient": 10, "StrikeFirst": 10 }, "hp":4, "group": "a411", "group2": "a424"}]
+                    }
+                },{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func":["exit", "redirectSelGroup"],
+                "ps": {"group": "a431"}
+                }]
+        },
+        "a424": {
+            "title": "谜之声",
+            "desc": "混沌的力量灌注于你的身体，你感到非常<font color=#7d0403 size=25>痛苦</font>，但并没有领悟到什么东西。",
+            "sels": [{
+                "func": ["sequence"],
+                "ps": {
+                    "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
+                    "func": ["+randomItems", "-hp", "redirectSelGroup"],
+                    "rates": [75],
+                    "failedFunc": ["-hp", "redirectSelGroup2"],
+                    "ps": [{"randomNum": 1, "items": {"WeaponMaster": 10, "DefenseProficient": 10, "BookMaster": 10, "TreasureBoxDetector": 10, "KnifeMaster": 10, "MonsterHunter": 10, "KnifeProficient": 10, "ExploreEnhanced": 10, "HorticultureProficient": 10, "SmellEnhanced": 10, "Storer": 10, "ShieldProficient": 10, "StrikeFirst": 10 }, "hp":5, "group": "a411", "group2": "a425"}]
+                    }
+                },{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func":["exit", "redirectSelGroup"],
+                "ps": {"group": "a431"}
+                }]
+        },
+        "a425": {
+            "title": "谜之声",
+            "desc": "混沌的力量灌注于你的身体，你感到非常<font color=#7d0403 size=25>痛苦</font>，但并没有领悟到什么东西。",
+            "sels": [{
+                "func": ["sequence"],
+                "ps": {
+                    "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
+                    "func": ["+randomItems", "-hp", "redirectSelGroup"],
+                    "rates": [90],
+                    "failedFunc": ["-hp", "redirectSelGroup2"],
+                    "ps": [{"randomNum": 1, "items": {"WeaponMaster": 10, "DefenseProficient": 10, "BookMaster": 10, "TreasureBoxDetector": 10, "KnifeMaster": 10, "MonsterHunter": 10, "KnifeProficient": 10, "ExploreEnhanced": 10, "HorticultureProficient": 10, "SmellEnhanced": 10, "Storer": 10, "ShieldProficient": 10, "StrikeFirst": 10 }, "hp":6, "group": "a411", "group2": "a426"}]
+                    }
+                },{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func":["exit", "redirectSelGroup"],
+                "ps": {"group": "a431"}
+                }]
+        },
+        "a426": {
+            "title": "谜之声",
+            "desc": "混沌的力量灌注于你的身体，你感到非常<font color=#7d0403 size=25>痛苦</font>，但并没有领悟到什么东西。",
+            "sels": [{
+                "func": ["sequence"],
+                "ps": {
+                    "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
+                    "func": ["+randomItems", "-hp", "redirectSelGroup"],
                     "rates": [100],
                     "failedFunc": ["-hp", "redirectSelGroup2"],
-                    "ps": [{"randomNum": 1, "items": {"WeaponMaster": 10, "DefenseProficient": 10, "BookMaster": 10, "TreasureBoxDetector": 10, "KnifeMaster": 10, "MonsterHunter": 10, "KnifeProficient": 10, "ExploreEnhanced": 10, "HorticultureProficient": 10, "SmellEnhanced": 10, "Storer": 10, "ShieldProficient": 10, "StrikeFirst": 10 }, "hp":4, "group": "a411", "group2": "a423"}]
+                    "ps": [{"randomNum": 1, "items": {"WeaponMaster": 10, "DefenseProficient": 10, "BookMaster": 10, "TreasureBoxDetector": 10, "KnifeMaster": 10, "MonsterHunter": 10, "KnifeProficient": 10, "ExploreEnhanced": 10, "HorticultureProficient": 10, "SmellEnhanced": 10, "Storer": 10, "ShieldProficient": 10, "StrikeFirst": 10 }, "hp":7, "group": "a411", "group2": "a426"}]
                     }
                 },{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
