@@ -421,25 +421,26 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
         var nodeType = this.worldmap.nodes[lv][n].roomType;
         var p = this.worldmap.player;
+        var trueLv = p.currentTotalStorey();
         switch(nodeType) {
             case "normal":                
                 var btRandonSeed = p.playerRandom.nextInt(0, 10000);
                 this.refreshShopSoldout() // 刷新战斗内商店销售状态
-                await this.startNewBattle(p, nodeType, lv, n, btRandonSeed, skipBlackIn);
+                await this.startNewBattle(p, nodeType, trueLv, n, btRandonSeed, skipBlackIn);
                 break;
             case "senior":
                 var btRandonSeed = p.playerRandom.nextInt(0, 10000);
                 this.refreshShopSoldout() // 刷新战斗内商店销售状态
                 var seniorTypes = GCfg.getBattleTypes("senior");
                 var seniorType = seniorTypes[this.player.playerRandom.nextInt(0, seniorTypes.length)];
-                await this.startNewBattle(p, seniorType, lv, n, btRandonSeed, skipBlackIn);
+                await this.startNewBattle(p, seniorType, trueLv, n, btRandonSeed, skipBlackIn);
                 break;
             case "boss":
                 var btRandonSeed = p.playerRandom.nextInt(0, 10000);
                 this.refreshShopSoldout() // 刷新战斗内商店销售状态
                 var bossTypes = GCfg.getBattleTypes("boss");
                 var bossType = bossTypes[this.player.playerRandom.nextInt(0, bossTypes.length)];
-                await this.startNewBattle(p, bossType, lv, n, btRandonSeed, skipBlackIn);
+                await this.startNewBattle(p, bossType, trueLv, n, btRandonSeed, skipBlackIn);
                 break;
             case "shop":
                 this.refreshShopSoldout() // 刷新世界地图商店销售状态
@@ -453,7 +454,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 break;
             case "event":
                 this.refreshShopSoldout() // 刷新事件内可能出现的商店销售状态
-                await this.openMapEventSels(lv, n);
+                await this.openMapEventSels(trueLv, n);
                 break;
             default:
                 Utils.log("not support " + nodeType + " yet");
@@ -464,7 +465,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.player.notifyStoreyPosFinished(this.player.currentStoreyPos.lv, this.player.currentStoreyPos.n);
 
         // 如果是新手玩家,要标记为已完成新手指引关
-        if(Utils.checkRookiePlay() && lv >= 5)
+        if(Utils.checkRookiePlay() && trueLv >= 5)
             Utils.saveLocalData("rookiePlay", "finished");
 
         Utils.savePlayer(this.player);
@@ -486,11 +487,11 @@ class WorldMapView extends egret.DisplayObjectContainer {
         
         if (!this.player.isDead()) {
             // 更新最高分
-            window.platform.setUserCloudStorage({"score": Utils.playerFinishedStorey(this.player)});
+            window.platform.setUserCloudStorage({"score": trueLv});
             
             // 判断此世界是否已经完成
             if(this.player.currentStoreyPos.lv >= this.player.worldmap.cfg.totalLevels){
-                this.player.finishedWorldMap.push(this.worldmap.cfg.name);
+                this.player.finishedWorldMap.push(this.worldmap.cfg);
                 var newtWorldName = this.worldmap.cfg.nextWorld;
                 if(newtWorldName){
                     var newWorld = WorldMap.buildFromConfig(newtWorldName, this.player);

@@ -623,7 +623,7 @@ class Utils {
     public static playerFinishedStorey(p:Player){
         var storey = p.currentStoreyPos.lv;
         for(var world of p.finishedWorldMap)
-            storey += GCfg.getWorldMapCfg(world).totalLevels;
+            storey += world.totalLevels;
         
         return storey;
     }

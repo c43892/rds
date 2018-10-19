@@ -27,7 +27,7 @@ class Player {
     public currentStoreyPos; // 当前所在层数以及该层位置
     public currentTotalStorey = () => Utils.playerFinishedStorey(this); // 当前总层数
     public finishedStoreyPos; // 已经完成的世界地图节点
-    public finishedWorldMap:string[] = []; // 已经完成的世界
+    public finishedWorldMap = []; // 已经完成的世界
     public finishedEvent = [];
     public globalEventFinishedCount = {}; // 全局事件计数
 
