@@ -9,9 +9,9 @@ class ResMgr {
 
     public static async loadResGroup(group, eventHandler) {
         if (window.platform.platformType == "wx")
-            return ResMgr.loadResGroupWX(group, eventHandler);
+            await ResMgr.loadResGroupWX(group, eventHandler);
         else 
-            return ResMgr.loadResGroupNormal(group, eventHandler);
+            await ResMgr.loadResGroupNormal(group, eventHandler);
     }
 
     // for non-weixin game
@@ -35,28 +35,92 @@ class ResMgr {
 
     static async loadResGroupWX(group, eventHandler) {
         var items = RES.getGroupByName(group);
-        var finished = 0;
-        return new Promise<void>((r, _) => {
-            var tms = {};
-            items.forEach((item, i) => {
+        var tb = {};
+        var soundTB = {};
+        items.forEach((it, _) => {
+            if (it.type == "sound")
+                soundTB[it.url] = {name:it.name, url:it.url, type:it.type, retry:0};
+            else
+                tb[it.url] = {name:it.name, url:it.url, type:it.type, retry:0};
+        });
+
+        var total = items.length;
+        var loaded = 0;
+        var retryTimes = 0;
+
+        // 一般资源 2 线程加载
+        RES.setMaxLoadingThread(2);
+        while (true) {
+            var arr = Utils.values(tb);
+            if (arr.length == 0) // 加载完毕
+                break;
+
+            Utils.log("loading res " + arr.length + " items(loaded=" + loaded + ", retry=" + retryTimes + ")");
+            await ResMgr.loadResItemsWx(arr, (itUrl, name, res) => {
+                if (res) {
+                    ResMgr.resMap[name] = res;
+                    delete tb[itUrl];
+                    loaded++;
+                    eventHandler.onProgress(loaded, total);
+                }
+                else if (tb[itUrl])
+                    tb[itUrl].retry = retryTimes;
+            }, 20000);
+            retryTimes++;
+        }
+
+        // mp3 单线程加载，不然总是遇到加载 mp3 卡住的问题
+        RES.setMaxLoadingThread(1);
+        retryTimes = 0;
+        while (true) {
+            var arr = Utils.values(soundTB);
+            if (arr.length == 0) // 加载完毕
+                break;
+
+            Utils.log("loading mp3 " + arr.length + " items(loaded=" + loaded + ", retry=" + retryTimes + ")");
+            await ResMgr.loadResItemsWx(arr, (itUrl, name, res) => {
+                if (res) {
+                    ResMgr.resMap[name] = res;
+                    delete soundTB[itUrl];
+                    loaded++;
+                    eventHandler.onProgress(loaded, total);
+                }
+                else if (soundTB[itUrl])
+                    soundTB[itUrl].retry = retryTimes;
+            }, 20000);
+            retryTimes++;
+        }
+    }
+
+    static async loadResItemsWx(arr, cb, expiredTime) {
+        var cnt = arr.length;
+        var tm = {};
+        return new Promise((r, _) => {
+            arr.forEach((item, i) => {
                 let it = item;
-                tms[it.url] = true;
+                tm[it.url] = 0;
                 egret.setTimeout(() => {
-                    if (tms[it.url])
-                        Utils.log("load time out: " + it.url);
-                }, this, 60000);
+                    if (tm[it.url] > 0)
+                        return;
+                    else
+                        tm[it.url] = -1;
 
-                RES.getResByUrl(ResMgr.URLPrefix + it.url, (res) => {                    
-                    tms[it.url] = false;
-                    finished++;
-                    ResMgr.resMap[it.name] = res;
+                    cb(it.url, it.name, undefined);
+                    cnt--;
+                    Utils.log("load " + it.url + " timeout");
+                    if (cnt == 0)
+                        r();
+                }, this, expiredTime);
 
-                    Utils.log((res ? "[○] " : "[×] ") + "(" + finished + "/" + items.length + ") : " + it.url);
+                RES.getResByUrl(ResMgr.URLPrefix + it.url, (res) => {
+                    if (tm[it.url] < 0)
+                        return;
+                    else
+                        tm[it.url] = 1;
 
-                    if (eventHandler)
-                        eventHandler.onProgress(finished, items.length);
-
-                    if (finished == items.length)
+                    cb(it.url, it.name, res);
+                    cnt--;
+                    if (cnt == 0)
                         r();
                 }, this, it.type);
             });
