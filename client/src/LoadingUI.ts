@@ -79,7 +79,7 @@ class LoadingUI extends egret.DisplayObjectContainer implements RES.PromiseTaskR
         this.addChild(this.ghost);
 
         // 八字箴言
-        this.warning = ViewUtils.createTextField(20, 0xffffff);
+        this.warning = ViewUtils.createTextField(20, 0x765721);
         this.warning.text = "抵制不良游戏, 拒绝盗版游戏。 注意自我保护, 谨防受骗上当。\r适度游戏益脑, 沉迷游戏伤身。 合理安排时间, 享受健康生活。";
         this.warning.x = (this.width - this.warning.measuredWidth) / 2;
         this.warning.y = this.height - this.warning.measuredHeight - 50;
