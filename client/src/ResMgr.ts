@@ -100,7 +100,7 @@ class ResMgr {
                 let it = item;
                 tm[it.url] = 0;
                 egret.setTimeout(() => {
-                    if (tm[it.url] > 1)
+                    if (tm[it.url] > 0)
                         return;
                     else
                         tm[it.url] = -1;
