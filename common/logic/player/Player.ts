@@ -6,7 +6,7 @@ class Player {
     private static serializableFields = [
         "currentStoreyPos", "finishedStoreyPos", "finishedWorldMap", "finishedEvent", "battleRandomSeed",  
         "deathStep", "maxDeathStep", "hp", "maxHp", "power", "defence", "dodge", 
-        "occupation", "exp", "lv", "money", "globalEventFinishedCount"];
+        "occupation", "exp", "lv", "money", "globalEventFinishedCount", "relicsEquippedCapacity"];
 
     // 所属战斗
     private $$bt;
@@ -46,7 +46,7 @@ class Player {
         p.dodge = 0;
         p.power = [4, 0];
         p.playerRandom = new SRandom();
-        p.money = 0;
+        p.money = 20;
         p.exp = 0;
         p.lv = 0;
 

@@ -1,6 +1,6 @@
 {
     "rookiePlay":[
-        {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1"]]}, 
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1"], ["treasureBox1", "treasureBox2", "treasureBox2"]]}, 
         {"type":"LevelLogicTakeKey"},
         {"type":"LevelLogicMarkAllAward", "ps":["markAllAward"]}
         ],

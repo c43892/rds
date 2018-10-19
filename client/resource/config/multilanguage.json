@@ -337,6 +337,8 @@
 		"makeSureGoOnTitle":{"EN": "sure", "CNS": "确定", "CNT": "确定"},
 		"makeSureGoOnContent":{"EN": "be sure to save exchanges?", "CNS": "确定保存交换操作?", "CNT": "确定保存交换操作?"},
 		"passiveTrigger": {"EN": "trigger passively", "CNS": "被动触发", "CNT": "被动触发"},
+		"invalidOperate":{"EN": "can not do that", "CNS": "这是一个无效的操作", "CNT": "这是一个无效的操作"},
+		"tipOnDrag":{"EN": "can not do that", "CNS": "只能在营火处装备或交换技能", "CNT": "只能在营火处装备或交换技能"},
 		"": {}
 	}
 }

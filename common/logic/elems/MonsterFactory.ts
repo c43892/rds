@@ -744,17 +744,18 @@ class MonsterFactory {
     // 宝箱怪死亡时添加随机掉落
     static addRandomOnDie(n:number, m:Monster):Monster {
         return <Monster>ElemFactory.addDieAI(async () => {
-            var rdpsOnDie = m.attrs.rdpsOnDie;
-            if(rdpsOnDie.length > n){
-                var dnum = rdpsOnDie.length - n
+            var boxMonsterRdps = m.bt().level["boxMonsterRdps"];
+            Utils.assert(boxMonsterRdps, "this level has no boxMonsterRdps");
+            if(boxMonsterRdps.length > n){
+                var dnum = boxMonsterRdps.length - n
                 for(var i = 0; i < dnum; i++){
-                    var rdpsOnDie = Utils.removeAt(rdpsOnDie, m.bt().srand.nextInt(0, rdpsOnDie.length));
+                    var boxMonsterRdps = Utils.removeAt(boxMonsterRdps, m.bt().srand.nextInt(0, boxMonsterRdps.length));
                 }
             }
-            for (var rdpOnDie of rdpsOnDie){
+            for (var boxMonsterRdp of boxMonsterRdps){
                 var dropItems = [];
-                var rdpOnDie = GCfg.getRandomDropGroupCfg(rdpOnDie);
-                var dropItems = Utils.randomSelectByWeightWithPlayerFilter(m.bt().player, rdpOnDie.elems, m.bt().srand, rdpOnDie.num[0], rdpOnDie.num[1], true, undefined);
+                var boxMonsterRdp = GCfg.getRandomDropGroupCfg(boxMonsterRdp);
+                var dropItems = Utils.randomSelectByWeightWithPlayerFilter(m.bt().player, boxMonsterRdp.elems, m.bt().srand, boxMonsterRdp.num[0], boxMonsterRdp.num[1], true, undefined);
                 for(var dpType of dropItems){
                     if(!dpType) return;
 

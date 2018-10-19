@@ -1,9 +1,12 @@
 class LevelLogicAddBoxAndKey extends LevelLogic{
     public rdps:string[];
-    constructor(rdps:string[]){
+    public boxMonsterRdps:string[];
+
+    constructor(rdps:string[], boxMonsterRdps:string[] = ["treasureBox1", "treasureBox2", "treasureBox2"]){
         super("LevelLogicAddBoxAndKey");
 
         this.rdps = rdps;
+        this.boxMonsterRdps = boxMonsterRdps;
 
         this.addAI("beforeLevelInited", async (ps) => {
             var bt = this.level.bt;
@@ -25,8 +28,10 @@ class LevelLogicAddBoxAndKey extends LevelLogic{
             else{
                 var tb1 = this.level.createElem("TreasureBox", {"rdp": this.rdps[0]});
                 var changeToMonsterBox = bt.srand.next100();
-                if(changeToMonsterBox < cfg.monsterBox) // 是否变成怪物宝箱
+                if(changeToMonsterBox < cfg.monsterBox){ // 是否变成怪物宝箱
                     boxes.push(this.level.createElem("TreasureBox", {"rdp":"MonsterBox"}));
+                    this.level["boxMonsterRdps"] = this.boxMonsterRdps;
+                }
                 else
                     boxes.push(tb1);
 

@@ -121,7 +121,7 @@
     "PoisonJellyfish":{"name":"毒性水母", "power":1, "hp":5, "buffCnt":3, "poisonPs":[3, 1], "dropItems":["CoinsSmall"]},
     "SkeletonKing":{"name":"骷髅王", "power":1, "hp":5, "rdp":"SkeletonKing", "dropItems":["CoinsSmall"], "cannotTake":true, "refElems":["HeadBone"]},
     "SwatheZombie":{"name":"缠绕僵尸", "power":1, "hp":5, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}], "invalid":["Cocoon", "Rock", "Hole", "IceBlock"], "dropItems":["CoinsSmall"], "repRes":["SwatheZombie", "Cocoon"]},
-    "BoxMonster":{"name":"愤怒宝箱", "power":2, "hp":5, "shield":3, "rdpsOnDie":["treasureBox1", "treasureBox2", "treasureBox2"]},
+    "BoxMonster":{"name":"愤怒宝箱", "power":2, "hp":5, "shield":3},
     "Ghost":{"name":"幽灵", "attackFlags":["AmorPenetrate"], "dropItems":["CoinsSmall"], "cannotTake":true},
     "RedSlime":{"name":"红色史莱姆", "power":3, "hp":10, "esOnNormalAttack":1, "dropItems":["CoinsSmall"]},
     "GreenSlime":{"name":"绿色史莱姆", "power":3, "hp":10, "dropItems":["CoinsTiny"]},
