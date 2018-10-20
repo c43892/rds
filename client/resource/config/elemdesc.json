@@ -364,7 +364,7 @@
             "<font color=#7d0403 bold=true size=21>伏击</font>\n<font color=#000000 bold=false size=20>离开本层时，进行一次攻击</font>"
         ]},
         "BombAbomination":{"name":"自爆憎恶", "desc":[
-            "<font color=#7d0403 bold=true size=21>自爆</font>\n<font color=#000000 bold=false size=20>出现后 </font><font color=#294c22 size=20>{rounds} </font><font color=#000000 size=20>回合自爆，造成攻击x</font><font color=#294c22 size=20>3 <font color=#000000 size=20>的伤害</font>"
+            "<font color=#7d0403 bold=true size=21>自爆</font>\n<font color=#000000 bold=false size=20>出现后 </font><font color=#294c22 size=20>{rounds} </font><font color=#000000 size=20>回合自爆，翻开周围8个格子并造成造成攻击x</font><font color=#294c22 size=20>3 <font color=#000000 size=20>的伤害</font>"
         ]},
         "EyeDemon":{"name":"眼魔", "desc":[
             "<font color=#7d0403 bold=true size=21>透视</font>\n<font color=#000000 bold=false size=20>死亡时探索2个空方格</font>"
@@ -455,19 +455,19 @@
             "<font color=#7d0403 bold=true size=21>透视</font>\n<font color=#000000 bold=false size=20>死亡时探索2个空方格</font>"
         ]},
         "NutWall1":{"name":"坚果墙", "desc":[
-            "<font color=#7d0403 bold=true size=21>园艺大师</font>\n<font color=#000000 bold=false size=20>lv1: 替你承担所受伤害的30%</font>\n<font color=#aeaeae bold=false size=20>lv2: 生命值+5</font>\n<font color=#aeaeae bold=false size=20>lv3: 替你承担所受伤害的40%</font>\n<font color=#aeaeae bold=false size=20>lv4: 生命值+10</font>\n<font color=#aeaeae bold=false size=20>lv5: 替你承担所受伤害的40%</font>"
+            "<font color=#7d0403 bold=true size=21>园艺大师</font>\n<font color=#000000 bold=false size=20>lv1: 替你承担所受伤害的50%</font>\n<font color=#aeaeae bold=false size=20>lv2: 生命值+5</font>\n<font color=#aeaeae bold=false size=20>lv3: 替你承担所受伤害的75%</font>\n<font color=#aeaeae bold=false size=20>lv4: 生命值+10</font>\n<font color=#aeaeae bold=false size=20>lv5: 替你承担所受伤害的100%</font>"
         ]},
         "NutWall2":{"name":"坚果墙", "desc":[
-            "<font color=#7d0403 bold=true size=21>园艺大师</font>\n<font color=#000000 bold=false size=20>lv1: 替你承担所受伤害的30%</font>\n<font color=#000000 bold=false size=20>lv2: 生命值+5</font>\n<font color=#aeaeae bold=false size=20>lv3: 替你承担所受伤害的40%</font>\n<font color=#aeaeae bold=false size=20>lv4: 生命值+10</font>\n<font color=#aeaeae bold=false size=20>lv5: 替你承担所受伤害的40%</font>"
+            "<font color=#7d0403 bold=true size=21>园艺大师</font>\n<font color=#000000 bold=false size=20>lv1: 替你承担所受伤害的50%</font>\n<font color=#000000 bold=false size=20>lv2: 生命值+5</font>\n<font color=#aeaeae bold=false size=20>lv3: 替你承担所受伤害的75%</font>\n<font color=#aeaeae bold=false size=20>lv4: 生命值+10</font>\n<font color=#aeaeae bold=false size=20>lv5: 替你承担所受伤害的100%</font>"
         ]},
         "NutWall3":{"name":"坚果墙", "desc":[
-            "<font color=#7d0403 bold=true size=21>园艺大师</font>\n<font color=#000000 bold=false size=20>lv1: 替你承担所受伤害的30%</font>\n<font color=#000000 bold=false size=20>lv2: 生命值+5</font>\n<font color=#000000 bold=false size=20>lv3: 替你承担所受伤害的40%</font>\n<font color=#aeaeae bold=false size=20>lv4: 生命值+10</font>\n<font color=#aeaeae bold=false size=20>lv5: 替你承担所受伤害的40%</font>"
+            "<font color=#7d0403 bold=true size=21>园艺大师</font>\n<font color=#000000 bold=false size=20>lv1: 替你承担所受伤害的50%</font>\n<font color=#000000 bold=false size=20>lv2: 生命值+5</font>\n<font color=#000000 bold=false size=20>lv3: 替你承担所受伤害的75%</font>\n<font color=#aeaeae bold=false size=20>lv4: 生命值+10</font>\n<font color=#aeaeae bold=false size=20>lv5: 替你承担所受伤害的100%</font>"
         ]},
         "NutWall4":{"name":"坚果墙", "desc":[
-            "<font color=#7d0403 bold=true size=21>园艺大师</font>\n<font color=#000000 bold=false size=20>lv1: 替你承担所受伤害的30%</font>\n<font color=#000000 bold=false size=20>lv2: 生命值+5</font>\n<font color=#000000 bold=false size=20>lv3: 替你承担所受伤害的40%</font>\n<font color=#000000 bold=false size=20>lv4: 生命值+10</font>\n<font color=#aeaeae bold=false size=20>lv5: 替你承担所受伤害的40%</font>"
+            "<font color=#7d0403 bold=true size=21>园艺大师</font>\n<font color=#000000 bold=false size=20>lv1: 替你承担所受伤害的50%</font>\n<font color=#000000 bold=false size=20>lv2: 生命值+5</font>\n<font color=#000000 bold=false size=20>lv3: 替你承担所受伤害的75%</font>\n<font color=#000000 bold=false size=20>lv4: 生命值+10</font>\n<font color=#aeaeae bold=false size=20>lv5: 替你承担所受伤害的100%</font>"
         ]},
         "NutWall5":{"name":"坚果墙", "desc":[
-            "<font color=#7d0403 bold=true size=21>园艺大师</font>\n<font color=#000000 bold=false size=20>lv1: 替你承担所受伤害的30%</font>\n<font color=#000000 bold=false size=20>lv2: 生命值+5</font>\n<font color=#000000 bold=false size=20>lv3: 替你承担所受伤害的40%</font>\n<font color=#000000 bold=false size=20>lv4: 生命值+10</font>\n<font color=#000000 bold=false size=20>lv5: 替你承担所受伤害的40%</font>"
+            "<font color=#7d0403 bold=true size=21>园艺大师</font>\n<font color=#000000 bold=false size=20>lv1: 替你承担所受伤害的50%</font>\n<font color=#000000 bold=false size=20>lv2: 生命值+5</font>\n<font color=#000000 bold=false size=20>lv3: 替你承担所受伤害的75%</font>\n<font color=#000000 bold=false size=20>lv4: 生命值+10</font>\n<font color=#000000 bold=false size=20>lv5: 替你承担所受伤害的100%</font>"
         ]},
         "Peashooter1":{"name":"豌豆射手", "desc":[
             "<font color=#7d0403 bold=true size=21>园艺大师</font>\n<font color=#000000 bold=false size=20>lv1: 每5个回合，随机对一个敌方目标发动远程伤害</font>\n<font color=#aeaeae bold=false size=20>lv2: 攻击+2</font>\n<font color=#aeaeae bold=false size=20>lv3: 暴击几率+10%</font>\n<font color=#aeaeae bold=false size=20>lv4: 减少一回合攻击冷却</font>\n<font color=#aeaeae bold=false size=20>lv5:获得连击能力</font>"
