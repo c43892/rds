@@ -120,7 +120,7 @@ class RelicFactory {
                     return
                 };
                 ElemFactory.addAI("onCalcAttacking", (ps) => {
-                    ps.attackerAttrs.critical.b += attrs.dSneakCritical; // 增加暴击率
+                    ps.attackerAttrs.power.b += attrs.dPower; // 增加攻击
                 }, r, (ps) => ps.subType == "player2monster" && Utils.contains(ps.targetAttrs.targetFlags, "Sneaked"), false, true);
             });
         },
@@ -424,6 +424,7 @@ class RelicFactory {
                 r = <Relic>ElemFactory.addAI("onStartupRegionUncovered", async (ps) => {
                     var bt = r.bt();
                     var ep = ps.ep;
+                    // 找到在创建初始元素阶段根据职业配置加入的特定物品
                     var es = BattleUtils.findRandomElems(bt, r.attrs.moveNum, (e:Elem) => e["occupationInitItem"]);
                     for(var e of es){
                         var oriPos = {x:e.pos.x, y:e.pos.y};

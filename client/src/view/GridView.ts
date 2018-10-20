@@ -730,8 +730,8 @@ class GridView extends egret.DisplayObjectContainer {
 
                     if (!GridView.draggingElemImg) {
                         GridView.draggingElemImg = new egret.Bitmap();
-                        GridView.draggingElemImg.width = GridView.dragFrom.width;
-                        GridView.draggingElemImg.height = GridView.dragFrom.height;
+                        // GridView.draggingElemImg.width = GridView.dragFrom.width;
+                        // GridView.draggingElemImg.height = GridView.dragFrom.height;
                     }
 
                     if (!GridView.draggingElemImgTex)

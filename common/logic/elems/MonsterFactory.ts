@@ -332,8 +332,8 @@ class MonsterFactory {
             Utils.assert(canTake(), m.type + "has a dropItem that isn't Coins, cannot take any Item.");
             var eatNum = m.attrs.eatNum ? m.attrs.eatNum : 1;
             // 一些相对有较为固定的感觉的物品不要被拿走了,比如后续可能出现的祭坛等.
-            var fobiddenItems = ["Key", "Door", "Cocoon", "TreasureBox", "Hole", "Rock"];
-            var fobiddenItemsDropOnDie = ["Door", "Cocoon", "TreasureBox", "Hole", "Rock"];
+            var fobiddenItems = ["Key", "Door", "NextLevelPort", "Cocoon", "TreasureBox", "Hole", "Rock"];
+            var fobiddenItemsDropOnDie = ["Door", "NextLevelPort", "Cocoon", "TreasureBox", "Hole", "Rock"];
             var es = BattleUtils.findRandomElems(m.bt(), eatNum, (e:Elem) => {
                 if(dropOnDie)
                     return !(e instanceof Monster) && !e.getGrid().isCovered() && (Utils.indexOf(fobiddenItemsDropOnDie, (s:string) => e.type == s) < 0);
@@ -633,34 +633,35 @@ class MonsterFactory {
     // 拾取周围的道具和金钱
     static doTakeItemsAround(m:Monster):Monster {
         var itemTook = false;
-        var targetElems:Elem[]
+        var targetElems: Elem[]
         var findTarget = () => { //遍历周围8格寻找目标物品
-                m.map().travel8Neighbours(m.pos.x, m.pos.y, (x, y, g:Grid)=>{
-                    var e = g.getElem();
-                    if(e && !e.getGrid().isCovered() && isTargetType(e)){
-                        targetElems.push(e);
-                    }
-                });
-            };
+            m.map().travel8Neighbours(m.pos.x, m.pos.y, (x, y, g: Grid) => {
+                var e = g.getElem();
+                if (e && !e.getGrid().isCovered() && isTargetType(e)) {
+                    targetElems.push(e);
+                }
+            });
+        };
 
         var takeTarget = async () => { //在周围8格中随机拿走一个物品
-                var targetElem = targetElems[m.bt().srand.nextInt(0, targetElems.length)];
-                await m.bt().implMonsterTakeElems(m, [targetElem], true);
-                await m.bt().fireEvent("onElemChanged", {subType:"takeItem", e:m});
-                if(targetElem.type != "Coins"){
-                    itemTook = true;
-                }
-            };
+            var targetElem = targetElems[m.bt().srand.nextInt(0, targetElems.length)];
+            await m.bt().implMonsterTakeElems(m, [targetElem], true);
+            await m.bt().fireEvent("onElemChanged", { subType: "takeItem", e: m });
+            if (targetElem.type != "Coins") {
+                itemTook = true;
+            }
+        };
 
-        var isTargetType = (e:Elem) => { //判断elem是否是当前可用的目标
-                if(!itemTook){
-                    if((e instanceof Prop || e instanceof Item || e instanceof Relic) && e.type != "Door" && e.type != "TreasureBox" && e.type != "Cocoon" )
-                        return true;
-                } else if(e.type == "Coins"){
+        var isTargetType = (e: Elem) => { //判断elem是否是当前可用的目标
+            var invalidElems = ["Door", "NextLevelPort", "TreasureBox", "Cocoon", "Hole", "Rock"];
+            if (!itemTook) {
+                if ((e instanceof Prop || e instanceof Item || e instanceof Relic) && Utils.indexOf(invalidElems, (type) => e.type == type) == -1)
                     return true;
-                } else
-                    return false;
-            };
+            } else if (e.type == "Coins") {
+                return true;
+            } else
+                return false;
+        };
 
         // 在当前位置周围8格找目标,没有则在地图上找,找到后移动,移动结束在周围找目标拿走,未移动到目标则行动结束
         return <Monster>ElemFactory.addAI("onPlayerActed", async () => {

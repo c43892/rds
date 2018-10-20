@@ -42,7 +42,7 @@
             {"type":"+hp", "attrs":15, "weight":10},
             {"type":"-hp", "attrs":-15, "weight":10},
             {"type":"box", "attrs":"ttrdp1", "weight":10},
-            {"type":"coins", "attrs":10, "weight":10},
+            {"type":"coins", "attrs":50, "weight":10},
             {"type":"item", "attrs":"ttrdp2", "weight":10},
             {"type":"item", "attrs":"ttrdp2", "weight":10}
         ],
@@ -88,7 +88,7 @@
             {"type":"+hp", "attrs":15, "weight":10},
             {"type":"-hp", "attrs":-15, "weight":10},
             {"type":"box", "attrs":"ttrdp1", "weight":10},
-            {"type":"coins", "attrs":10, "weight":10},
+            {"type":"coins", "attrs":50, "weight":10},
             {"type":"item", "attrs":"ttrdp2", "weight":10},
             {"type":"item", "attrs":"ttrdp2", "weight":10}
         ],
@@ -136,7 +136,7 @@
             {"type":"+hp", "attrs":15, "weight":10},
             {"type":"-hp", "attrs":-15, "weight":10},
             {"type":"box", "attrs":"ttrdp1", "weight":10},
-            {"type":"coins", "attrs":10, "weight":10},
+            {"type":"coins", "attrs":75, "weight":10},
             {"type":"item", "attrs":"ttrdp2", "weight":10},
             {"type":"item", "attrs":"ttrdp2", "weight":10}
         ]

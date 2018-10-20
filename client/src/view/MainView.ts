@@ -83,7 +83,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.openTurntable = async (turntable) => await this.openTurntable(turntable);
         this.wmv.openEventSels = async (title, desc, bg, sels) => await this.openWorldMapEventSels(title, desc, bg, sels);
         this.wmv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
-        this.wmv.selRelic = async (elems, funcOnClinked, title, tip) => await this.openAllElemsView(elems, funcOnClinked, title, tip);
+        this.wmv.selRelic = async () => await this.openRelicExchangeView(false, false, "selectRelic", true, true);
         this.wmv.openFinishGameView = async () => await this.openFinishGameView();
         this.wmtv = new WorldMapTopView(w, 80);
         this.wmtv.openSettingView = async () => await this.openSettingView();
@@ -472,14 +472,14 @@ class MainView extends egret.DisplayObjectContainer {
         return yesno;
     }
 
-    public async openRelicExchangeView(canDrag:boolean, inBattle:boolean, funcOnClinked = "showDesc", hideRelicLvMax = false){
+    public async openRelicExchangeView(canDrag:boolean, inBattle:boolean, funcOnClinked = "showDesc", hideRelicLvMax = false, hideGoBackBtn = false){
         this.rev.player = this.p;
         this.addChild(this.rev);
 
         if (!inBattle)
             this.setChildIndex(this.wmtv, -1);
 
-        var result = await this.rev.open(canDrag, funcOnClinked, hideRelicLvMax);
+        var result = await this.rev.open(canDrag, funcOnClinked, hideRelicLvMax, hideGoBackBtn);
         this.removeChild(this.rev);
         return result;
     }

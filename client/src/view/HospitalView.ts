@@ -96,8 +96,7 @@ class HospitalView extends egret.DisplayObjectContainer {
     }
 
     async openReinforce() {
-        this.alpha = 0;
-        var rs = Utils.filter(this.player.relicsEquipped, (r:Relic) => r.canReinfoce());        
+        this.alpha = 0; 
         while (1) {
             var r = await this.selRelic();
             if (r instanceof Relic){

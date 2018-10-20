@@ -26,9 +26,9 @@
             {"dDodge":20}, {"dDodge":30}, {"dDodge":40}, {"dDodge":50}
         ]
     },
-    "Fierce":{"name":"凶暴", "dSneakCritical":10,
+    "Fierce":{"name":"凶暴", "dPower":2,
         "reinforce":[
-            {"dSneakCritical":20}, {"dSneakCritical":30}
+            {"dPower":4}, {"dPower":6}, {"dPower":8}, {"dPower":10}
         ]
     },
     "Unback2Sneak":{"name":"先动"},

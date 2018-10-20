@@ -87,7 +87,7 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
         this.setEmptyGrids();
     }
 
-    public async open(canDrag:boolean = true, funcOnClick = "showDesc", hideRelicLvMax = false) {
+    public async open(canDrag:boolean = true, funcOnClick = "showDesc", hideRelicLvMax = false, hideGoBackBtn = false) {
         Utils.assert(!(canDrag && hideRelicLvMax), "cannot drag on hide some relics");
         this.canDrag = canDrag;
         this.funcOnClick = funcOnClick;
@@ -107,12 +107,20 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
             this.rsEquipped = [...this.player.relicsEquipped];
             this.rsInBag = [...this.player.relicsInBag];
         }
+        // 处理返回和前进按钮
         if (!this.canDrag){
             this.goOnBtn.alpha = 0;
             this.goOnBtn.touchEnabled = false;
         } else {
             this.goOnBtn.alpha = 1;
             this.goOnBtn.touchEnabled = true;
+        }
+        if (hideGoBackBtn){
+            this.goBackBtn.alpha = 0;
+            this.goBackBtn.touchEnabled = false;
+        } else {
+            this.goBackBtn.alpha = 1;
+            this.goBackBtn.touchEnabled = true;
         }
         this.refresh();
         return new Promise<number>((resolve, reject) => this.doClose = resolve);
@@ -355,7 +363,7 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
         if (RelicExchangeView.dragging) {
             // 在不允许拖动的界面上拖动遗物时需要给出提示
             if (!this.canDrag && RelicExchangeView.dragFromImg["elem"] == "relicAndStar")
-                await AniUtils.tipAt(ViewUtils.getTipText("tipOnDrag"), {x:this.width/2, y:this.height/2}, 50);
+                await AniUtils.tipAt(ViewUtils.getTipText("tipOnDrag"), {x:this.width/2, y:this.height/2});
             else {
                 RelicExchangeView.dragging = false;
                 this.relicsArea.removeChild(RelicExchangeView.draggingImg);
@@ -373,7 +381,7 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
                 else if (evt.target["elem"] == "emptyGrid") {
                     // 是背包的空技能格,则给出提示
                     if (evt.target["arr"] == this.rsInBag)
-                        await AniUtils.tipAt(ViewUtils.getTipText("invalidOperate"), { x: this.width / 2, y: this.height / 2 }, 50);
+                        await AniUtils.tipAt(ViewUtils.getTipText("invalidOperate"), { x: this.width / 2, y: this.height / 2 });
 
                     // 将未装备的技能拖到已解锁的空的技能格
                     else if (RelicExchangeView.dragFromImg["arr"] == this.rsInBag) {
