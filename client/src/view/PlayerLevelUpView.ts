@@ -104,7 +104,7 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
                 fakeRelic.setReinfoceLv(fakeLv);
             }
             var nameAndDesc = ViewUtils.getElemNameAndDesc(this.choices[i]);
-            var shortDesc = ViewUtils.replaceByProperties(nameAndDesc.shortDesc, fakeRelic, this.player);
+            var shortDesc = ViewUtils.replaceByProperties(nameAndDesc.shortDesc, fakeRelic, this.player, 1);
             this.btnSelsRelicTxts[i].textFlow = ViewUtils.fromHtml(shortDesc);
         }       
     }

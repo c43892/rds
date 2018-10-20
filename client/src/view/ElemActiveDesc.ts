@@ -42,6 +42,19 @@ class ElemActiveDesc {
             "percent": (p:Player, e:Elem) => e.attrs.suckBlood.percent
         }
     }
+
+    public static getRelicReinforceLvOnPlayerAddLv(player:Player, e:Relic, attrType, addLv) {
+        var ars = player.allRelics;
+        var n = Utils.indexOf(ars, (r) => r.type == e.type);
+        var nowLv = n < 0 ? -1 : ars[n].reinforceLv;
+        var calcLv = nowLv + addLv - 1;
+        if (calcLv >= 0)
+            return e.attrs.reinforce[calcLv][attrType];
+        else if (calcLv == -1)
+            return e.attrs.originalAttrsBeforeReinforce[attrType];
+        else
+            return undefined;
+    }
     
     // 获取elem受各因素影响后的cd
     static getElemCD(p:Player, e:Elem){

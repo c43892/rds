@@ -274,7 +274,7 @@ class ViewUtils {
     }
 
     // 根据对象身上的动态属性，替换掉目标字符串中的 {propertyName} 标签
-    public static replaceByProperties(s:string, e, player):string {
+    public static replaceByProperties(s:string, e, player, forLevelUp:number = undefined):string {
         const r = /\{[a-z,A-Z,0-9,_,-]*\}/g;        
         var ss = s;
         var m = r.exec(s);
@@ -282,11 +282,23 @@ class ViewUtils {
             var value = m[0];
             var key = value.substr(1, value.length - 2);
             if(ElemActiveDesc.elems[e.type] && ElemActiveDesc.elems[e.type][key])
-                ss = ss.replace(value, ElemActiveDesc.elems[e.type][key](player, e));                
+                ss = ss.replace(value, ElemActiveDesc.elems[e.type][key](player, e));
             else if (e[key] != undefined)
-                ss = ss.replace(value, e[key].toString());
-            else if (e.attrs[key] != undefined)
-                ss = ss.replace(value, e.attrs[key].toString());
+                ss = ss.replace(value, e[key].toString());                
+            else if (e.attrs[key] != undefined) {
+                if (forLevelUp != undefined && e.attrs.reinforce[0] && e.attrs.reinforce[0][key]) { // 针对升级属性特别处理
+                    var lastValue = ElemActiveDesc.getRelicReinforceLvOnPlayerAddLv(player, e, key, forLevelUp-1);
+                    var nowValue = ElemActiveDesc.getRelicReinforceLvOnPlayerAddLv(player, e, key, forLevelUp);
+                    if (!lastValue)
+                        ss = ss.replace(value, e.attrs[key].toString());
+                    else {
+                        var dv = nowValue - lastValue;
+                        var dvStr = dv >= 0 ? "+" + dv.toString() : dv.toString();
+                        ss = ss.replace(value, lastValue + dvStr);
+                    }
+                } else
+                    ss = ss.replace(value, e.attrs[key].toString());
+            }
 
             m = r.exec(s);
         }

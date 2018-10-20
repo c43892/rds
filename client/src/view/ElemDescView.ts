@@ -31,7 +31,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         this.tip.x = 0;
     }
 
-    public async open(e:Elem, fromNewMonsterTipView:boolean = false) {
+    public async open(e:Elem, forRelicLevelUp:number, fromNewMonsterTipView:boolean = false) {
         this.removeChildren();
 
         var uiArr = [];
@@ -42,7 +42,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         }
         else if (e instanceof Relic) {
             uiArr = this.buildRelicDescView();
-            refresh = (e) => this.refreshRelicDesc(e, fromNewMonsterTipView);
+            refresh = (e) => this.refreshRelicDesc(e, forRelicLevelUp, fromNewMonsterTipView);
         }
         else {
             uiArr = this.buildItemDescView();
@@ -241,7 +241,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         return [this.relicDescBg, this.relicIcon, this.relicName];
     }
 
-    refreshRelicDesc(e:Elem, fromNewMonsterTipView:boolean = false) {
+    refreshRelicDesc(e:Elem, forRelicLevelUp:number, fromNewMonsterTipView:boolean = false) {
         var uiArr = [];
         
         ViewUtils.setTexName(this.relicIcon, e.getElemImgRes() + "_png");
@@ -260,7 +260,8 @@ class ElemDescView extends egret.DisplayObjectContainer {
         ];
 
         var descArr = ViewUtils.getElemNameAndDesc(e.type).desc;
-        descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(ViewUtils.replaceByProperties(desc, e, fromNewMonsterTipView ? undefined : this.player)));
+        descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(
+            ViewUtils.replaceByProperties(desc, e, fromNewMonsterTipView ? undefined : this.player, forRelicLevelUp)));
 
         // 第一组描述文字根据配置排版，后续的对齐第一组
         var relicDescTxt0 = ViewUtils.createTextField(0, 0x000000);

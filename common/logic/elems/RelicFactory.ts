@@ -23,8 +23,15 @@ class RelicFactory {
             var p = bt.player;
             await bt.implPickupRelic(e);
         };
+
         if (attrs.reinforceLv) // 初始强化等级
             e.setReinfoceLv(attrs.reinforceLv);
+        
+        if (attrs.reinforce && attrs.reinforce.length > 0) { // 设计遗留问题，需要额外保留一下初始属性值
+            attrs.originalAttrsBeforeReinforce = {};
+            for (var k in attrs.reinforce[0])
+                attrs.originalAttrsBeforeReinforce[k] = attrs[k];
+        }
 
         // 强化时需要重置效果
         if (needResetOnReinforceLvUp) {

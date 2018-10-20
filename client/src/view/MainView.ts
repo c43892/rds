@@ -107,6 +107,7 @@ class MainView extends egret.DisplayObjectContainer {
         PropView.showElemDesc = async (e) => await this.showElemDesc(e);
         TurntableView.showElemDesc = async (e) => await this.showElemDesc(e);
         BoxRoomView.showElemDesc = async (e) => await this.showElemDesc(e);
+        this.av.showRelicLevelUpDesc = async (e) => await this.showElemDesc(e, 0);
 
         // 展示给定的Elem列表
         this.aev = new AllElemsView(w, h);
@@ -447,12 +448,12 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 显示元素描述信息
-    public async showElemDesc(e:Elem) {
+    public async showElemDesc(e:Elem, forRelicLevelUp = undefined) {
         this.addChild(this.idv);
         if (!this.isInBattle)
             this.setChildIndex(this.wmtv, -1);
         this.idv.player = this.p;
-        await this.idv.open(e);
+        await this.idv.open(e, forRelicLevelUp);
         this.removeChild(this.idv);
     }
 
