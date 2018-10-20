@@ -179,7 +179,7 @@ class GridView extends egret.DisplayObjectContainer {
             this.showLayer.addChild(this.elemImg);
             if (e instanceof Monster) { // 怪物
                 var m = <Monster>e;
-                Utils.assert(!(m.shield && m.shield != 0 && m["attackInterval"]), "shield can not coexist with attackInterval on:" + m.type);
+                Utils.assert(!(m.shield && m.shield != 0 && m.attrs["attackInterval"] > 0), "shield can not coexist with attackInterval on:" + m.type);
 
                 // 血量，右下角
                 if (e.hp > 0) {

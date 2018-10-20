@@ -241,9 +241,9 @@ class MonsterFactory {
         if (m.attrs.specialCharmed){
             cm["Charmed"] = "special";
             switch(m.type){
-                case "BombAbomination":{                    
+                case "BombAbomination":{
                     cm = MonsterFactory.doSelfExplodeAfterNRound(cm);
-                    cm["cnt"] = m["cnt"];
+                    cm["doCount"] = m["doCount"];
                     break;
                 }
                 case "EyeDemon":{
@@ -448,14 +448,22 @@ class MonsterFactory {
         }, m);
     }
 
-    // N 回合后自爆,一个区域内造成攻击力的 N 倍伤害
+    // 被翻开后开始自爆倒计时
+    static doSelfExplodeCountAfterUncovered(m:Monster):Monster {
+        m = <Monster>ElemFactory.addAI("onGridChanged", async () => {
+            m["doCount"] = 0;
+        }, m, (ps) => ps.x == m.pos.x && ps.y == m.pos.y && ps.subType == "gridUncovered")
+        return m;
+    }
+
+    // 被翻开N回合后自爆,一个区域内造成攻击力的 N 倍伤害
     static doSelfExplodeAfterNRound(m:Monster):Monster {
-        m["cnt"] = 0;
+        m = MonsterFactory.doSelfExplodeCountAfterUncovered(m);
         return <Monster>ElemFactory.addAI("onPlayerActed", async () => {
-            m["cnt"]++;
-            m["attackInterval"] = m.attrs.selfExplode.cnt - m["cnt"] + 1; 
+            m["doCount"]++;
+            m["attackInterval"] = m.attrs.selfExplode.cnt - m["doCount"] + 1; 
             await m.bt().fireEvent("onElemChanged", {subType:"attackInterval", e:m})
-            if(m["cnt"] > m.attrs.selfExplode.cnt)
+            if(m["doCount"] > m.attrs.selfExplode.cnt)
                 await m.bt().implMonsterDoSelfExplode(m, {a:m.attrs.selfExplode.mult - 1, b:0, c:0}, false);            
         }, m);
     }
