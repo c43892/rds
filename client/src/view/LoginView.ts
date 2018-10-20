@@ -59,7 +59,7 @@ class LoginView extends egret.DisplayObjectContainer {
         this.btnNewPlay.onClicked = () => this.close("newPlay"); 
         this.btnOpenRank.onClicked = () => this.close("openRank");
 
-        var btnSound = () => this.acFact.play("btn1");
+        var btnSound = () => AudioFactory.play("btn1");
         this.btnContinue.onDown.push(btnSound);
         this.btnNewPlay.onDown.push(btnSound);
         this.btnOpenRank.onDown.push(btnSound);

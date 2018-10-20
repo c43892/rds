@@ -16,10 +16,12 @@ class ElemActiveDesc {
             "elemCD": (p:Player, e:Elem) => ElemActiveDesc.getElemCD(p, e)
         },
         "SuperPotion":{
-            "elemCD": (p:Player, e:Elem) => ElemActiveDesc.getElemCD(p, e)
+            "elemCD": (p:Player, e:Elem) => ElemActiveDesc.getElemCD(p, e),
+            "immunizeCnt-1": (p:Player, e:Elem) => e.attrs["immunizeCnt"] - 1
         },
         "StrengthPotion":{
-            "elemCD": (p:Player, e:Elem) => ElemActiveDesc.getElemCD(p, e)
+            "elemCD": (p:Player, e:Elem) => ElemActiveDesc.getElemCD(p, e),
+            "enhanceCnt-1": (p:Player, e:Elem) => e.attrs["enhanceCnt"] - 1
         },
         "IceGun":{
             "elemCD": (p:Player, e:Elem) => ElemActiveDesc.getElemCD(p, e)
