@@ -26,7 +26,8 @@ class LevelLogicAddBoxAndKey extends LevelLogic{
                     boxes.push(this.level.createElem("TreasureBox", {"rdp": this.rdps[i]}));
             }
             else{
-                var tb1 = this.level.createElem("TreasureBox", {"rdp": this.rdps[0]});
+                var boxesConfig = this.level.bt.lvCfg.boxesConfig;
+                var tb1 = this.level.createElem("TreasureBox", {"rdp": boxesConfig ? boxesConfig[0] : this.rdps[0]});
                 var changeToMonsterBox = bt.srand.next100();
                 if(changeToMonsterBox < cfg.monsterBox){ // 是否变成怪物宝箱
                     boxes.push(this.level.createElem("TreasureBox", {"rdp":"MonsterBox"}));

@@ -264,5 +264,9 @@
         "SuperPotion":10,
         "StrengthPotion":10,
         "CandyCannon":10
+    }},
+
+    "rookiePlay_1Box": {"num": [1, 2], "elems": {
+        "Storer":10
     }}
 }
