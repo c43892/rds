@@ -11,6 +11,8 @@ class AniView extends egret.DisplayObjectContainer {
     private aniCover:egret.Bitmap; // 播放动画时的操作屏蔽层
     public aniFact:AnimationFactory; // 动画工厂
 
+    public showRelicLevelUpDesc; // 遗物升级时的信息提示    
+
     public constructor(w:number, h:number, mainView:MainView) {
         super();
         this.width = w;
@@ -302,7 +304,7 @@ class AniView extends egret.DisplayObjectContainer {
             await AniUtils.fly2(fromObj, fromObj, toImg, true, 1);
             fromObj["resetSelf"]();
             toImg["dispose"]();
-            await GridView.showElemDesc(e);
+            await this.showRelicLevelUpDesc(e);
         } else if (ps.subType == "addRelicBySel") {
             var e:Elem = ps.e;
             var fromPos = PlayerLevelUpView.lastSelectedRelicImgGlobalPos
@@ -370,7 +372,7 @@ class AniView extends egret.DisplayObjectContainer {
     // 遗物获得短提示
     async tipRelicShortDesc(r:Relic) {
         var nameAndDesc = ViewUtils.getElemNameAndDesc(r.type);
-        var shortDesc = ViewUtils.replaceByProperties(nameAndDesc.shortDesc, r, this.player);
+        var shortDesc = ViewUtils.replaceByProperties(nameAndDesc.shortDesc, r, this.player, 0);
         AniUtils.tipAt(shortDesc, {x:this.width/2, y:this.height/3}, 25, 0xffffff, 1500);
     }
 
