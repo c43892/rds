@@ -28,7 +28,7 @@
   "targets": {
     "android": {
       "appname": "rds",
-      "packagename": "com.rds.daybreak"
+      "packagename": "rds.daybreak.com"
     }
   }
 }
