@@ -228,9 +228,13 @@ class RelicFactory {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) {
                     r.clearAIAtLogicPoint("onLevelInited");
+                    r.clearAIAtLogicPoint("onCalcElemAttrs");
                     return;
                 }                
                 r = RelicFactory.addElemsOnLevelInit(r);
+                r = <Relic>ElemFactory.addAI("onCalcElemAttrs", (ps) => {
+                    ps.dPower += 1;
+                }, r, (ps) => ps.e.type == "Vest", false, true);
             })
         },
 

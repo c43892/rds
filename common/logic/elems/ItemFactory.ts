@@ -202,8 +202,10 @@ class ItemFactory {
                 var fs = ps.attackerAttrs.attackFlags;
                 if (Utils.indexOf(fs, (s:string) => s == "AmorPenetrate") > -1) return;
 
-                var attackerAttrs = ps.attackerAttrs;                
-                attackerAttrs.power.b += e.attrs.powerD;
+                var attackerAttrs = ps.attackerAttrs;
+                var calcElemAttrsPs = {e:e, dPower:0};
+                e.bt().triggerLogicPointSync("onCalcElemAttrs", calcElemAttrsPs);
+                attackerAttrs.power.b -= (e.attrs.dPower + calcElemAttrsPs.dPower);
                 attackerAttrs.power.b = attackerAttrs.power.b < 1 ? 1 : attackerAttrs.power.b;
             }, e, (ps) => e.isValid() && ps.attackerAttrs.owner instanceof Monster && ps.attackerAttrs.owner.isHazard(), true, true);
             return e;

@@ -1022,12 +1022,8 @@ class AniView extends egret.DisplayObjectContainer {
         var g = this.bv.mapView.getGridViewAt(m.pos.x, m.pos.y);
 
         if (Utils.contains(flags, "attackOnPlayerLeave") && m.type == "Gengar")
-            await this.gengarLick(sv);
-        else if (Utils.contains(flags, "selfExplode")) {
-            AudioFactory.play("selfExplode");
-            var explodeEff = g.addEffect("effSelfExplode", 1);
-            explodeEff["wait"]().then(() => g.removeEffect("effSelfExplode"));
-        } else if (m.isBoss && Utils.contains(ps.addFlags, "roundedAttacking")) { // boss 主动攻击
+            await this.gengarLick(sv);       
+        else if (m.isBoss && Utils.contains(ps.addFlags, "roundedAttacking")) { // boss 主动攻击
             var fsx = sv.scaleX;
             var fsy = sv.scaleY;
             var fromPos = AniUtils.ani2global(sv);
@@ -1046,6 +1042,15 @@ class AniView extends egret.DisplayObjectContainer {
             await AniUtils.shakeTo(sv);
 
         sv["resetSelf"]();
+    }
+
+    // 自爆憎恶自爆
+    public onSelfExplode(ps) {
+        var m:Monster = ps.m;
+        var g = this.bv.mapView.getGridViewAt(m.pos.x, m.pos.y);
+        AudioFactory.play("selfExplode");
+        var explodeEff = g.addEffect("effSelfExplode", 1);
+        explodeEff["wait"]().then(() => g.removeEffect("effSelfExplode"));
     }
 
     // 怪物吃食物
