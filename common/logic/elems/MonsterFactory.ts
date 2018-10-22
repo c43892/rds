@@ -464,7 +464,7 @@ class MonsterFactory {
             m["attackInterval"] = m.attrs.selfExplode.cnt - m["doCount"] + 1; 
             await m.bt().fireEvent("onElemChanged", {subType:"attackInterval", e:m})
             if(m["doCount"] > m.attrs.selfExplode.cnt){
-                m.bt().fireEventSync("onSelfExplode", {m:m});
+                await m.bt().fireEvent("onSelfExplode", {m:m});
                 await m.bt().implMonsterDoSelfExplode(m, {a:m.attrs.selfExplode.mult - 1, b:0, c:0}, false);}
         }, m);
     }
@@ -952,7 +952,7 @@ class MonsterFactory {
                     monster["hideHazardNumber"] = true;
 
                 m["hideHazardStatus"] = "hide";
-                m.bt().fireEventSync("refreshMap");
+                await m.bt().fireEvent("refreshMap");
             }
             else if (m.bt().player["san"] >= 70 && m["hideHazardStatus"] != "show") {
                 var ms = m.bt().level.map.findAllElems((e: Elem) => e instanceof Monster && e.type != "PlaceHolder" && !e.isBoss && e.isHazard());
@@ -960,7 +960,7 @@ class MonsterFactory {
                     monster["hideHazardNumber"] = false;
 
                 m["hideHazardStatus"] = "show";
-                m.bt().fireEventSync("refreshMap");
+                await m.bt().fireEvent("refreshMap");
             }
         }, m, (ps) => ps.subType == "san");
         m = MonsterFactory.doHideHazardNumberOnNewMonsterAdded(m);

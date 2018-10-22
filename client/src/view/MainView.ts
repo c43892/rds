@@ -201,7 +201,7 @@ class MainView extends egret.DisplayObjectContainer {
             "onElemMoving", "onElemFlying", "onElemImgFlying", "onAllCoveredAtInit", "onSuckPlayerBlood", "onMonsterTakeElem", "onBuffAdded", "onBuffRemoved",
             "onEyeDemonUncoverGrids", "onElemFloating", "canNotUseItem", "onColddownChanged", "onMonsterEatFood",
             "onAddDeathGodStep", "onElem2NextLevel", "onUseElemAt", "onUseElem", "onGoOutLevel", "onNotifyElemsDropped",
-            "onCandyCannon", "onMakeWanted", "onInitBattleView", "onRelicAddElem", "onMonsterCharmed", "onCloakImmunizeSneak",
+            "onCandyCannon", "onMakeWanted", "onInitBattleView", "onRelicEffect", "onMonsterCharmed", "onCloakImmunizeSneak",
             "onSwatheItemWithCocoon", "summonByDancer", "onGetMarkAllAward", "onStartupRegionUncovered", "onSneaking", "onGoOutLevel",
             "relicsEquippedMaxNumAdded", "onPlayerDying", "onPlayerReborn", "onUseProp", "onElemRevive", "refreshMap", 
             "onPlayerLevelUp", "onSelfExplode"

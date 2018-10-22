@@ -232,6 +232,15 @@ class GridView extends egret.DisplayObjectContainer {
                     this.showLayer.addChild(this.cdImg);
                 }
 
+                // 护盾，右上角
+                if (e["shield"] > 0) {
+                    this.shieldBg.x = this.width - this.shieldBg.width; this.shieldBg.y = 0;
+                    this.showLayer.addChild(this.shieldBg);
+                    this.shield.text = e["shield"].toString();
+                    this.putNumOnBg(this.shield, this.shieldBg);
+                    this.showLayer.addChild(this.shield);
+                }
+
                 // 禁止符号
                 if (!e.attrs.invisible && !this.map.isGenerallyValid(e.pos.x, e.pos.y) && e.type != "Hole")
                     this.showLayer.addChild(this.banImg);

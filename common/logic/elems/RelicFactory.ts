@@ -156,7 +156,8 @@ class RelicFactory {
                 ElemFactory.addAI("beforeElemRevive", async (ps) => {
                     if(!ps.achieve)
                         return;
-
+                    
+                    await r.bt().fireEvent("onRelicEffect", {r:r});
                     ps.achieve = false;
                 }, r)
             })
@@ -202,6 +203,7 @@ class RelicFactory {
                     return;
                 }
                 ElemFactory.addAI("onElemChanged", async () => {
+                    await r.bt().fireEvent("onRelicEffect", {r:r});
                     await r.bt().implAddPlayerExp(attrs.dexp, r.pos);
                 }, r, (ps) => ps.subType == "die" && ps.e instanceof Monster && ps.e.isHazard())
             })
@@ -217,13 +219,14 @@ class RelicFactory {
                 ElemFactory.addAI("onElemChanged", async (ps) => {
                     var m = <Monster>ps.e;
                     if(Utils.indexOf(m.dropItems, (e:Elem) => e.type == "Coins") < 0) return;
-                                        
+                    
+                    await r.bt().fireEvent("onRelicEffect", {r:r});
                     m.addDropItem(m.bt().level.createElem("Coins", {cnt:attrs.num}));
                 }, r, (ps) => ps.subType == "preDie" && ps.e instanceof Monster)
             })
         },
 
-        // 防护专精,每层额外增加一件防护服
+        // 防护专精,每层额外增加一件防护服,防护服额外减少敌人1点攻击
         "DefenseProficient": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) {
@@ -235,6 +238,53 @@ class RelicFactory {
                 r = <Relic>ElemFactory.addAI("onCalcElemAttrs", (ps) => {
                     ps.dPower += 1;
                 }, r, (ps) => ps.e.type == "Vest", false, true);
+            })
+        },
+
+        // 防护探索	每层额外增加一件防护服，你知道所有防护服的位置
+        "VestDetector": (attrs) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) {
+                    r.clearAIAtLogicPoint("onLevelInited");
+                    r.clearAIAtLogicPoint("onStartupRegionUncovered");
+                    return;
+                }                
+                r = RelicFactory.addElemsOnLevelInit(r);
+                r = <Relic>ElemFactory.addAI("onStartupRegionUncovered", async () => {
+                    var vests = r.bt().level.map.findAllElems((e:Elem) => e.getGrid().isCovered() && !e.getGrid().isMarked() && e.type == "Vest");
+                    for (var vest of vests){
+                        await r.bt().fireEvent("onRelicEffect", {r:r});
+                        await r.bt().implMark(vest.pos.x, vest.pos.y);
+                    }
+                }, r);
+            })
+        },
+
+        // 防护免疫	每层额外增加一件防护服，防护服可用的时候有2%的几率免疫伤害（每级+2%，最高5）
+        "VestImmune": (attrs) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) {
+                    r.clearAIAtLogicPoint("onLevelInited");
+                    return;
+                }
+                r = RelicFactory.addElemsOnLevelInit(r);
+            })
+        },
+
+        // 防护反伤	每层额外增加一件防护服，你受到攻击时对怪物造成2点反伤（每级+2，最高5）
+        "VestThorns": (attrs) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) {
+                    r.clearAIAtLogicPoint("onLevelInited");
+                    r.clearAIAtLogicPoint("onAttacked");
+                    return;
+                }                
+                r = RelicFactory.addElemsOnLevelInit(r);
+                r = <Relic>ElemFactory.addAI("onAttacked", async (ps) => {
+                    if (ps.r.r != "attacked" || ps.r.dhp >= 0) return;
+                    await r.bt().fireEvent("onRelicEffect", {r:r});
+                    await r.bt().implAddMonsterHp(ps.attackerAttrs.owner, r.attrs.thornsDamage);
+                }, r, (ps) => ps.targetAttrs.owner instanceof Player);
             })
         },
 
@@ -289,6 +339,27 @@ class RelicFactory {
             })
         },
 
+        // 飞刀专精	每场战斗增加一把飞刀，飞刀攻击时无视护甲
+        "KnifeProficient": (attrs) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) {
+                    r.clearAIAtLogicPoint("onCalcAttacking");
+                    r.clearAIAtLogicPoint("onLevelInited");
+                    return;
+                }
+                r = <Relic>ElemFactory.addAI("onCalcAttacking", (ps) => {
+                    ps.attackerAttrs.attackFlags.push("Pierce");
+                }, r, (ps) => ps.subType == "player2monster" && ps.weapon && ps.weapon.type == "Knife", false, true)
+                r = RelicFactory.addElemsOnLevelInit(r);
+            })
+        },
+
+        // 飞刀流3	每场战斗增加一把飞刀，你的飞刀可以攻击任意格子（boss技能）
+        // 剧毒之刃	每场战斗增加一把飞刀，飞刀攻击附加一层毒（每级+1，最高5）
+        // 无尽之刃	每场战斗增加一把飞刀，飞刀杀死怪物后有15%的几率不会消耗（每级+15，最高5）
+        // 飞刀流6	每场战斗增加一把飞刀，你知道所有飞刀的位置
+
+
         // 怪物猎人,每场战斗开始时标记X个怪物（最多5级）
         "MonsterHunter": (attrs) => {
             return this.createRelic(attrs, false, (r: Relic, enable: boolean) => {
@@ -305,21 +376,6 @@ class RelicFactory {
             })
         },
 
-        // 飞刀专精	每场战斗增加一把飞刀，飞刀攻击时无视护甲
-        "KnifeProficient": (attrs) => {
-            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
-                if (!enable) {
-                    r.clearAIAtLogicPoint("onCalcAttacking");
-                    r.clearAIAtLogicPoint("onLevelInited");
-                    return;
-                }
-                r = <Relic>ElemFactory.addAI("onCalcAttacking", (ps) => {
-                    ps.attackerAttrs.attackFlags.push("Pierce");
-                }, r, (ps) => ps.subType == "player2monster" && ps.weapon && ps.weapon.type == "Knife", false, true)
-                r = RelicFactory.addElemsOnLevelInit(r);
-            })
-        },
-
         // 探索强化	一只怪物死亡，则随机显示一件物品的位置
         "ExploreEnhanced": (attrs) => {
             return this.createRelic(attrs, false, (r: Relic, enable: boolean) => {
@@ -331,7 +387,7 @@ class RelicFactory {
                     var e = BattleUtils.findRandomElems(r.bt(), 1, (e: Elem) => e.getGrid().isCovered() && !e.getGrid().isMarked() && !(e instanceof Monster))[0];
                     if (e)
                         await r.bt().implMark(e.pos.x, e.pos.y);
-                }, r, (ps) => ps.subType == "die" && ps.e instanceof Monster && ps.e.isHazard())
+                }, r, (ps) => ps.subType == "die" && ps.e instanceof Monster && ps.e.isHazard() && ps.e.type != "PlaceHolder")
             })
         },
 
@@ -390,10 +446,68 @@ class RelicFactory {
                     r.clearAIAtLogicPoint("onCalcCD");
                     return;
                 }
+                r = RelicFactory.addElemsOnLevelInit(r);
                 <Relic>ElemFactory.addAI("onCalcCD", (ps) => {
                     ps.dcd.b -= r.attrs.dcd;
                 }, r, (ps) => ps.subType == "resetCD" && ps.e.type == "Shield", false, true)
+            })
+        },
+
+        // 盾牌格挡	每场战斗增加一面盾牌，盾牌的吸收伤害提升2点（每级+2，最高5级）
+        "ShieldBlock": (attrs) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) {
+                    r.clearAIAtLogicPoint("onLevelInited");
+                    r.clearAIAtLogicPoint("onLevelCreateElem");
+                    return;
+                }
                 r = RelicFactory.addElemsOnLevelInit(r);
+                r = <Relic>ElemFactory.addAI("onLevelCreateElem", (ps) => {
+                    var e:Elem = ps.e;
+                    e["shield"] += r.attrs.dShield;
+                }, r, (ps) => ps.type == "Shield", false, true);
+            })
+        },
+
+        // 盾牌猛击	每场战斗增加一面盾牌，你可以将你的盾牌投掷出去造成不超过剩余吸收阈值的伤害，达到阈值后盾牌碎裂（boss技能）
+        "ShieldSlam": (attrs) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) {
+                    r.clearAIAtLogicPoint("onLevelInited");
+                    r.clearAIAtLogicPoint("onLevelCreateElem");
+                    return;
+                }
+                r = RelicFactory.addElemsOnLevelInit(r);
+                // 给新创建的盾牌加入使用逻辑,如果在战斗中,还要找到地图中所有的盾牌,加入使用逻辑
+                if (r.player && r.player.bt) {
+                    var bt = r.player.bt();
+                    var shields = bt.level.map.findAllElems((e:Elem) => e.type == "Shield");
+                    for (var shield of shields)
+                        shield = ItemFactory.addUseLogicToShield(shield);
+                }
+                r = <Relic>ElemFactory.addAI("onLevelCreateElem", (ps) => {
+                    var shield = ps.e;
+                    shield = ItemFactory.addUseLogicToShield(shield);
+                }, r, (ps) => ps.type == "Shield", false, true);
+            })
+        },
+
+        // 盾牌流4	每场战斗增加一面盾牌，你知道所有盾牌的位置
+        "ShieldDetector": (attrs) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) {
+                    r.clearAIAtLogicPoint("onLevelInited");
+                    r.clearAIAtLogicPoint("onStartupRegionUncovered");
+                    return;
+                }                
+                r = RelicFactory.addElemsOnLevelInit(r);
+                r = <Relic>ElemFactory.addAI("onStartupRegionUncovered", async () => {
+                    var vests = r.bt().level.map.findAllElems((e:Elem) => !e.getGrid().isUncoveredOrMarked() && e.type == "Shield");
+                    for (var vest of vests) {
+                        await r.bt().fireEvent("onRelicEffect", {r:r});
+                        await r.bt().implMark(vest.pos.x, vest.pos.y);
+                    }
+                }, r);
             })
         },
 
@@ -416,7 +530,7 @@ class RelicFactory {
                     if(g){
                         var elemType = elemTypes[r.bt().srand.nextInt(0, elemTypes.length)];
                         var plant = bt.level.createElem(elemType, undefined, r.bt().player);
-                        await bt.fireEvent("onRelicAddElem", {r:r, e:plant});
+                        await bt.fireEvent("onRelicEffect", {r:r});
                         await bt.implAddElemAt(plant, g.pos.x, g.pos.y);
                     }
                     
@@ -463,7 +577,7 @@ class RelicFactory {
                 if(g){
                     var elemType = r.attrs.addOnLevelInit.elems[r.bt().srand.nextInt(0, r.attrs.addOnLevelInit.elems.length)];
                     var e = bt.level.createElem(elemType, undefined, r.bt().player);
-                    await bt.fireEvent("onRelicAddElem", {r:r, e:e});
+                    await bt.fireEvent("onRelicEffect", {r:r});
                     await bt.implAddElemAt(e, g.pos.x, g.pos.y);
                 }
             }

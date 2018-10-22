@@ -1503,7 +1503,7 @@ class AniView extends egret.DisplayObjectContainer {
         sv["resetSelf"]();
     }
 
-    public async onRelicAddElem(ps){
+    public async onRelicEffect(ps){
         var relics = this.bv.relics;
         var relicImg = this.getBitmapOfRelic(ps.r);
         if(relicImg)

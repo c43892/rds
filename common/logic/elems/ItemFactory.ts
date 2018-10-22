@@ -149,16 +149,21 @@ class ItemFactory {
             e = ElemFactory.addAI("onCalcAttackResult", async (ps) => {
                 var fs = ps.attackerAttrs.attackFlags;
                 if (Utils.indexOf(fs, (s:string) => s == "AmorPenetrate") > -1) return;
-
-                var priorCD = e.cd;
-                e.resetCD();
+                
                 ps.r.r = "blocked";
+                e["shield"] += ps.r.dhp;
                 ps.r.dhp = ps.r.dshield = 0;
-                await e.bt().fireEvent("onColddownChanged", {e:e, priorCD:priorCD});
+                if (e["shield"] > 0) {
+                    var priorCD = e.cd;
+                    e.resetCD();
+                    await e.bt().fireEvent("onColddownChanged", { e: e, priorCD: priorCD });
+                }
+                else await e.bt().implOnElemDie(e);
             }, e, (ps) => {
                 return e.isValid() && ps.r.r == "attacked" && ps.subType == "monster2targets" && ps.targetAttrs.owner instanceof Player});
             e = ElemFactory.triggerColddownLogic(e);
             e.getElemImgRes = () => (e.cd <= 0) ? e.type : e.type + "Back";
+            e["shield"] = attrs.shield;
             return e;
         },
 
@@ -310,4 +315,9 @@ class ItemFactory {
             return e;
         }
     };
+
+    // 给盾牌增加使用逻辑,你可以将你的盾牌投掷出去造成不超过剩余吸收阈值的伤害，达到阈值后盾牌碎裂
+    public static addUseLogicToShield(e:Elem):Elem {
+        return e;
+    }
 }

@@ -71,7 +71,12 @@ class Level {
             }
         }
 
-        return ElemFactory.doDropItemsOnDie(e);
+        e = ElemFactory.doDropItemsOnDie(e);
+        
+        // 部分元素的创建过程受到遗物的影响,此处只能触发同步逻辑点
+        this.bt.triggerLogicPointSync("onLevelCreateElem", {e:e, type:type})
+
+        return e;
     }
 
     // 创建初始元素
