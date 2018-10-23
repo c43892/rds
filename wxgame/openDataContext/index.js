@@ -356,7 +356,7 @@ wx.onMessage(data => {
  * 渲染标脏量
  * 会在被标脏（true）后重新渲染
  */
-let renderDirty = true;
+let renderDirty = false;
 
 /**
  * 当前绘制组
