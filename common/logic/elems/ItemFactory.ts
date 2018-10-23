@@ -145,7 +145,7 @@ class ItemFactory {
         "Shield": (attrs) => {
             var e = this.createItem();
             e.canUse = () => false;
-            e.canNotUseReason = () => "passiveTrigger"
+            e.canNotUseReason = () => "shieldPassiveTriggerDesc"
             e = ElemFactory.addAI("onCalcAttackResult", async (ps) => {
                 var fs = ps.attackerAttrs.attackFlags;
                 if (Utils.indexOf(fs, (s:string) => s == "AmorPenetrate") > -1) return;
@@ -191,7 +191,7 @@ class ItemFactory {
         // 警棍
         "Baton": (attrs) => {
             var e = this.createItem();
-            e.canNotUseReason = () => "passiveTrigger";
+            e.canNotUseReason = () => "batonPassiveTriggerDesc";
             e = ElemFactory.addAI("onCalcAttacking", (ps) => {
                 var attackerAttrs = ps.attackerAttrs;
                 if (!(attackerAttrs.owner instanceof Player)) return;
@@ -280,7 +280,7 @@ class ItemFactory {
         "Cloak": (attrs) => {
             var e = this.createItem();
             e.canUse = () => false;
-            e.canNotUseReason = () => "passiveTrigger"
+            e.canNotUseReason = () => "cloakPassiveTriggerDesc"
             e = ElemFactory.addAI("onSneaking", async (ps) => {
                     if (ps.immunized) return;
                     ps.immunized = true;
