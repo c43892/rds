@@ -16,7 +16,12 @@
  */
 var assets = {
   box: "openDataContext/assets/box.png",
-  panel: "openDataContext/assets/panel.png",
+  box2: "openDataContext/assets/box2.png",
+  ceng: "openDataContext/assets/characterCeng.png",
+  crown1: "openDataContext/assets/crown1.png",
+  crown2: "openDataContext/assets/crown2.png",
+  crown3: "openDataContext/assets/crown3.png",
+  numUnderLine: "openDataContext/assets/numUnderLine.png"
 };
 /**
  * canvas 大小
@@ -81,11 +86,13 @@ function init() {
   preOffsetY = barHeight; // (RankHeight - barHeight) / (perPageMaxNum + 1);
 
   startX = offsetX_rankToBorder; // + offsetX_rankToBorder;
-  startY = offsetY_rankToBorder; //  + preOffsetY;
-  avatarSize = barHeight - 10;
+  startY = offsetY_rankToBorder + 10; //  + preOffsetY;
+  avatarSize = barHeight - 15;
   intervalX = barWidth / 20;
   textOffsetY = (barHeight + fontSize) / 2;
   textMaxSize = 250;
+  
+  context.font = fontSize + "px Arial";
   indexWidth = context.measureText("99").width;
 
   //按钮绘制数据初始化
@@ -113,10 +120,14 @@ function init() {
  * 根据当前绘制组绘制排行榜
  */
 function drawRankByGroup(currentGroup) {
-  for (let i = 0; i < currentGroup.length; i++) {
+  var len = currentGroup.length + 3;
+  len = len < 8 ? 8 : len;
+  for (let i = 0; i < len; i++) {
     let data = currentGroup[i];
     drawByData(data, i);
   }
+  
+  context.drawImage(assets.box2, startX, len * barHeight - 25, barWidth, 52);
 }
 
 /**
@@ -125,19 +136,32 @@ function drawRankByGroup(currentGroup) {
 function drawByData(data, i) {
   let x = startX;
   //绘制底框
-  context.drawImage(assets.box, startX, startY + i * preOffsetY, barWidth, barHeight);
-  x += 10;
+  context.drawImage(assets.box, startX, startY + i * preOffsetY - 9, barWidth, barHeight);
+  
+  if (!data)
+	return;
+  
+  x += 60;
   // 文字颜色
-  context.fillStyle = "black";
-  //设置字体
-  context.font = fontSize + "px Arial";
+  context.fillStyle = "#75dbd0";
+  
   //绘制序号
-  context.fillText(data.key + "", x, startY + i * preOffsetY + textOffsetY, textMaxSize);
-  x += indexWidth + intervalX;
+  context.fillText(data.key + "", x, startY + i * preOffsetY + textOffsetY + 5, textMaxSize);
+  
+  // 下划线
+  context.drawImage(assets.numUnderLine, x-25, startY + i * preOffsetY + textOffsetY + 7, 83, 21);
+  
+  // 皇冠
+  if (i < 3)
+	  context.drawImage(assets["crown" + (i+1).toString()], x-14, startY + i * preOffsetY+12, 38, 35);
+
+  x += indexWidth + intervalX - 20;
+  
   //绘制头像
   // context.drawImage(data.url, x, startY + i * preOffsetY + (barHeight - avatarSize) / 2, avatarSize, avatarSize);
-  var imgX = x;
-  var imgY = startY + i * preOffsetY + (barHeight - avatarSize) / 2;
+  var imgX = x + 10;
+  
+  var imgY = startY + i * preOffsetY + (barHeight - avatarSize) / 2 + 5;
   let image = wx.createImage();
   image.src = data.url;
   image.onload = function (event) {
@@ -147,10 +171,17 @@ function drawByData(data, i) {
    
   x += avatarSize + intervalX;
   //绘制名称
+  context.fillStyle = "white";
   context.fillText(data.name + "", x, startY + i * preOffsetY + textOffsetY, textMaxSize);
   x += textMaxSize + intervalX;
   //绘制分数
-  context.fillText(data.scroes + "", x, startY + i * preOffsetY + textOffsetY, textMaxSize);
+  context.fillStyle = "#3e3633";
+  var y = startY + i * preOffsetY + textOffsetY;
+  context.fillText(data.scroes + "", x, y, textMaxSize);  
+  
+  
+  // 汉字：层
+  context.drawImage(assets.ceng, x + 60, y - 38, 38, 47);
 }
 
 /**

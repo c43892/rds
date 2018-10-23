@@ -5,9 +5,10 @@ class RankingView extends egret.DisplayObjectContainer {
     public weeklyRankInfo;
     public roleRankInfo;
 
-    bg:egret.Bitmap;
+    bg1:egret.Bitmap;
+    bg2:egret.Bitmap;
+    curSelMark:egret.Bitmap;
     closeBtn:egret.Bitmap;
-    title:egret.TextField;
     tabMenu:egret.TextField[]; // 顶端不同榜单切换
     rankViewContainer:egret.ScrollView; // 榜单区域
     wxRankImg; // 微信好友榜单
@@ -21,11 +22,48 @@ class RankingView extends egret.DisplayObjectContainer {
         this.height = h;
 
         // 背景
-        this.bg = ViewUtils.createBitmapByName("translucent_png");
-        this.bg.width = this.width;
-        this.bg.height = this.height;
-        this.bg.touchEnabled = true;
-        this.addChild(this.bg);
+        this.bg1 = ViewUtils.createBitmapByName("rkBg1_png");
+        this.bg1.x = 0;
+        this.bg1.y = -30;
+        this.bg1.width = this.width;
+        this.bg1.fillMode = egret.BitmapFillMode.REPEAT;
+        this.addChild(this.bg1);
+
+        this.bg2 = ViewUtils.createBitmapByName("rkBg2_png");
+        this.bg2.x = 0;
+        this.bg2.y = this.bg1.y + this.bg1.height;
+        this.bg2.width = this.width;
+        this.bg2.height = this.height - this.bg1.height - this.bg1.y;
+        this.bg2.fillMode = egret.BitmapFillMode.REPEAT;
+        this.addChild(this.bg2);
+
+        // 切换按钮
+        var menu = window.platform.platformType == "wx" ? ["friendRank"] : ["roleRank", "weeklyRank"];
+        var x = 80;
+        var y = this.bg1.height / 2 + this.bg1.y;
+        for (var m of menu) {
+            let menuBtn = ViewUtils.createBitmapByName("friendRank" + "Btn_png");
+            menuBtn.x = x;
+            menuBtn.y = y;
+            x += menuBtn.width + 30;
+            menuBtn["rankType"] = m;
+            this.menu.push(menuBtn);
+            this.addChild(menuBtn);
+            menuBtn.touchEnabled = true;
+            menuBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onMenuSel, this);
+        }
+        
+        // 排名区域
+        var top = y + 80;
+        this.rankViewContainer = new egret.ScrollView();
+        this.rankViewContainer.verticalScrollPolicy = "auto";
+        this.rankViewContainer.horizontalScrollPolicy = "off";
+        this.rankViewContainer.bounces = true;
+        this.rankViewContainer.x = 0;
+        this.rankViewContainer.y = top;
+        this.rankViewContainer.width = this.width;
+        this.rankViewContainer.height = this.height - top - 30;
+        this.addChild(this.rankViewContainer);
 
         // 关闭按钮
         this.closeBtn = ViewUtils.createBitmapByName("goBack_png");
@@ -35,42 +73,11 @@ class RankingView extends egret.DisplayObjectContainer {
         this.closeBtn.touchEnabled = true;
         this.closeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onCloseBtn, this);
 
-        // 标题
-        this.title = ViewUtils.createTextField(50, 0x0000ff);
-        this.title.text = "排行榜";
-        this.title.x = 0;
-        this.title.y = 0;
-        this.title.width = this.width;
-        this.addChild(this.title);
-
-        var y = this.title.y + this.title.height + 50;
-        // 切换按钮
-        this.menu = window.platform.platformType == "wx" ? ["friendRank"] : ["weeklyRank", "roleRank"];
-        var x = 0;
-        for (var m of this.menu) {
-            var menuBtn = ViewUtils.createTextField(30, 0x0000ff);
-            menuBtn.text = this.menuDisplayName[m];
-            menuBtn.x = x;
-            menuBtn.y = y;
-            menuBtn.width = this.width / this.menu.length;
-            x += menuBtn.width;
-            menuBtn["rankType"] = m;
-            this.addChild(menuBtn);
-            menuBtn.touchEnabled = true;
-            menuBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onMenuSel, this);
-        }
-        
-        // 排名区域
-        var top = y + 150;
-        this.rankViewContainer = new egret.ScrollView();
-        this.rankViewContainer.verticalScrollPolicy = "auto";
-        this.rankViewContainer.horizontalScrollPolicy = "off";
-        this.rankViewContainer.bounces = true;
-        this.rankViewContainer.x = 0;
-        this.rankViewContainer.y = top;
-        this.rankViewContainer.width = this.width;
-        this.rankViewContainer.height = this.height - top - 200;
-        this.addChild(this.rankViewContainer);
+        // 红圈圈
+        this.curSelMark = ViewUtils.createBitmapByName("rkCurSel_png");
+        this.curSelMark.anchorOffsetX = this.curSelMark.width / 2;
+        this.curSelMark.anchorOffsetY = this.curSelMark.height / 2;
+        this.addChild(this.curSelMark);
     }
 
     onMenuSel(evt:egret.TouchEvent) {
@@ -93,7 +100,16 @@ class RankingView extends egret.DisplayObjectContainer {
 
     doClose;
     public open(rankType:string = undefined):Promise<void> {
-        rankType = rankType ? rankType : this.menu[0];
+        rankType = rankType ? rankType : this.menu[0]["rankType"];
+        this.menu.forEach((btn, _) => {
+            if (btn["rankType"] == rankType) {
+                btn.alpha = 1;
+                this.curSelMark.x = btn.x + btn.width / 2;
+                this.curSelMark.y = btn.y + btn.height / 2;
+            } else 
+                btn.alpha = 0.5;
+            
+        });
         this.openRank(rankType);
         return new Promise<void>((resolve, reject) => this.doClose = resolve);
     }
