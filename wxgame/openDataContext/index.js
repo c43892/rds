@@ -48,9 +48,7 @@ context.globalCompositeOperation = "source-over";
  * 包括姓名，头像图片，得分
  * 排位序号i会根据parge*perPageNum+i+1进行计算
  */
-let totalGroup = [
-  // { key: 1, name: "1111111111", url: assets.icon, scroes: 10000 },
-];
+let totalGroup = [];
 
 /**
  * 创建排行榜
@@ -66,7 +64,9 @@ function drawRankPanel() {
   // context.drawImage(title, titleX, titleY);
   //获取当前要渲染的数据组
   let start = perPageMaxNum * page;
+  
   currentGroup = totalGroup.slice(start, start + perPageMaxNum);
+  
   //创建头像Bar
   drawRankByGroup(currentGroup);
   //创建按钮
@@ -75,7 +75,9 @@ function drawRankPanel() {
 /**
  * 根据屏幕大小初始化所有绘制数据
  */
+let inited = false;
 function init() {
+  inited = true;
   //排行榜绘制数据初始化
   RankWidth = canvasWidth - 20; // * 4 / 5;
   RankHeight = canvasHeight; // * 4 / 5;
@@ -120,10 +122,13 @@ function init() {
  * 根据当前绘制组绘制排行榜
  */
 function drawRankByGroup(currentGroup) {
+  if (!inited)
+	return;
+
   var len = currentGroup.length + 3;
   len = len < 8 ? 8 : len;
   for (let i = 0; i < len; i++) {
-    let data = currentGroup[i];
+	let data = currentGroup[i];
     drawByData(data, i);
   }
   
