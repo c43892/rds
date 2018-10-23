@@ -293,7 +293,7 @@ class ViewUtils {
                         ss = ss.replace(value, e.attrs[key].toString());
                     else {
                         var dv = nowValue - lastValue;
-                        var dvStr = dv >= 0 ? "+" + dv.toString() : dv.toString();
+                        var dvStr = "(" + (dv >= 0 ? "+" + dv.toString() : dv.toString()) + ")";
                         ss = ss.replace(value, lastValue + dvStr);
                     }
                 } else
