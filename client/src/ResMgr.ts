@@ -1,14 +1,14 @@
 class ResMgr {
 
     public static getRes(name:string):any {
-        if (window.platform.platformType == "wx1")
+        if (window.platform.platformType == "wx")
             return ResMgr.getResWX(name);
         else 
             return ResMgr.getResNormal(name);
     }
 
     public static async loadResGroup(group, eventHandler) {
-        if (window.platform.platformType == "wx1")
+        if (window.platform.platformType == "wx")
             await ResMgr.loadResGroupWX(group, eventHandler);
         else 
             await ResMgr.loadResGroupNormal(group, eventHandler);
