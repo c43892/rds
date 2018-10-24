@@ -334,7 +334,7 @@
             "useDescArr":["<font color=#e4d5a5 size=25>解除中毒效果</font>", "<font color=#e4d5a5 size=25>解毒药剂（点击地图任意位置使用）</font>"]},
         "Magazine":{"name":"自然杂志", "desc":["<font color=#000000 size=20>每次点击获得<font color=#294c22 size=20> {dexp} </font><font color=#000000 size=20>经验值</font>"]},
         "EconomyMagazine":{"name":"金融杂志", "desc":["<font color=#000000 size=20>每次点击获得</font> <font color=#294c22 size=20> {dexp} </font>经验值及<font color=#294c22 size=20> {money} </font><font color=#000000 size=20>金钱</font>"]},
-        "Shield":{"name":"盾牌", "desc":["<font color=#000000 size=20>抵挡一次攻击伤害，冷却时间<font color=#294c22 size=20> {elemCD} </font><font color=#000000 size=20>回合</font>"]},
+        "Shield":{"name":"盾牌", "desc":["<font color=#000000 size=20>抵挡一次攻击伤害，冷却时间<font color=#294c22 size=20> {elemCD} </font><font color=#000000 size=20>回合</font>\n<font color=#000000 size=20>总共可抵挡<font color=#294c22 size=20> {shield} </font><font color=#000000 size=20>点伤害</font>"]},
         "HeadBone":{"name":"骷髅头", "desc":["<font color=#000000 size=20>每当你被怪物突袭时，骷髅王都会原地复活</font>"]},
         "OpenRelicSpace":{"name":"技能格", "desc":["<font color=#000000 bold=false size=20>增加一个技能装备格</font>"]},
 
@@ -430,15 +430,14 @@
         ]},
         "SlimeKing":{"name":"史莱姆之王", "desc":[
             "<font color=#7d0403 bold=true size=21>史莱姆冲击</font>\n<font color=#000000 bold=false size=20>每3回合进行一次撞击，伤害是攻击的4倍</font>",
-            "<font color=#7d0403 bold=true size=21>指挥</font>\n<font color=#000000 bold=false size=20>所有其他怪物血量和攻击翻倍</font>",
-            "<font color=#7d0403 bold=true size=21>死亡和新生</font>\n<font color=#000000 bold=false size=20>死亡后分裂为四个史莱姆，3回合后史莱姆全部存活，史莱姆之王将会原地复活并回复30%的血量</font>",
+            "<font color=#7d0403 bold=true size=21>死亡和新生</font>\n<font color=#000000 bold=false size=20>血量低于50%史莱姆之王会分裂为4个史莱姆，4回合后会重新合成史莱姆之王，血量是史莱姆的血量之和</font>",
             "<font color=#7d0403 bold=true size=21>粘液</font>\n<font color=#000000 bold=false size=20>每次攻击需要额外消耗2回合</font>",
             "<font color=#7d0403 bold=true size=21>回复</font>\n<font color=#000000 bold=false size=20>每回合恢复5%的生命值</font>"
         ]},
         "BrainOfCthulhu":{"name":"克苏鲁之脑", "desc":[
             "<font color=#7d0403 bold=true size=21>精神接触</font>\n<font color=#000000 bold=false size=20>每3个回合主动攻击1次，造成3倍伤害，并降低10点san值</font>",
             "<font color=#7d0403 bold=true size=21>指挥</font>\n<font color=#000000 bold=false size=20>所有其他怪物血量和攻击翻倍</font>",
-            "<font color=#7d0403 bold=true size=21>恐惧光环</font>\n<font color=#000000 bold=false size=20>每回合都会降低你的san值，随着你的san值越低，你会做出一些越来越奇怪的行为……san值低于70：怪物的所有属性都显示成问号；san值低于35：本层的所有地图数字都会显示为问号；san值为0：你的攻击将随机点击可点击的地方</font>",
+            "<font color=#7d0403 bold=true size=21>恐惧光环</font>\n<font color=#000000 bold=false size=20>每回合都会降低你的san值，随着你的san值越低，你会做出一些越来越奇怪的行为……san值低于70：本层的所有地图数字都会显示为问号；san值低于35：怪物的所有属性都显示成问号；san值为0：你的攻击将随机点击可点击的地方</font>",
             "<font color=#7d0403 bold=true size=21>精神污染</font>\n<font color=#000000 bold=false size=20>boss被翻开后本关的所有普通怪物显示为克苏鲁的触手</font>",
             "<font color=#7d0403 bold=true size=21>克苏鲁的呼唤</font>\n<font color=#000000 bold=false size=20>克苏鲁之脑每5回合在随机位置召唤一只克苏鲁的触手，你每杀死一只克苏鲁的触手，恢复10点san值</font>"
         ]},
@@ -508,19 +507,19 @@
             ]},
         "CharmingMushroom1":{"name":"魅惑菇", "desc":[
             "<font color=#7d0403 bold=true size=21>园艺大师</font>\n<font color=#000000 bold=false size=20>lv1: 可以魅惑一个普通怪物为你而战</font>\n<font color=#aeaeae bold=false size=20>lv2: 魅惑后的怪物，攻击力+1</font>\n<font color=#aeaeae bold=false size=20>lv3: 魅惑后的怪物，生命值+2</font>\n<font color=#aeaeae bold=false size=20>lv4: 魅惑后的怪物，暴击几率+10</font>\n<font color=#aeaeae bold=false size=20>lv5: 魅惑后的怪物，闪避几率+10</font>"
-            ]},
+            ],"useDescArr":["<font color=#e4d5a5 size=25>可以魅惑一个普通怪物为你而战</font>", "<font color=#e4d5a5 size=25>魅惑菇（选择目标）</font>"]},
         "CharmingMushroom2":{"name":"魅惑菇", "desc":[
            "<font color=#7d0403 bold=true size=21>园艺大师</font>\n<font color=#000000 bold=false size=20>lv1: 可以魅惑一个普通怪物为你而战</font>\n<font color=#000000 bold=false size=20>lv2: 魅惑后的怪物，攻击力+1</font>\n<font color=#aeaeae bold=false size=20>lv3: 魅惑后的怪物，生命值+2</font>\n<font color=#aeaeae bold=false size=20>lv4: 魅惑后的怪物，暴击几率+10</font>\n<font color=#aeaeae bold=false size=20>lv5: 魅惑后的怪物，闪避几率+10</font>"
-            ]},
+            ],"useDescArr":["<font color=#e4d5a5 size=25>可以魅惑一个普通怪物为你而战</font>", "<font color=#e4d5a5 size=25>魅惑菇（选择目标）</font>"]},
         "CharmingMushroom3":{"name":"魅惑菇", "desc":[
             "<font color=#7d0403 bold=true size=21>园艺大师</font>\n<font color=#000000 bold=false size=20>lv1: 可以魅惑一个普通怪物为你而战</font>\n<font color=#000000 bold=false size=20>lv2: 魅惑后的怪物，攻击力+1</font>\n<font color=#000000 bold=false size=20>lv3: 魅惑后的怪物，生命值+2</font>\n<font color=#aeaeae bold=false size=20>lv4: 魅惑后的怪物，暴击几率+10</font>\n<font color=#aeaeae bold=false size=20>lv5: 魅惑后的怪物，闪避几率+10</font>"
-            ]},
+            ],"useDescArr":["<font color=#e4d5a5 size=25>可以魅惑一个普通怪物为你而战</font>", "<font color=#e4d5a5 size=25>魅惑菇（选择目标）</font>"]},
         "CharmingMushroom4":{"name":"魅惑菇", "desc":[
             "<font color=#7d0403 bold=true size=21>园艺大师</font>\n<font color=#000000 bold=false size=20>lv1: 可以魅惑一个普通怪物为你而战</font>\n<font color=#000000 bold=false size=20>lv2: 魅惑后的怪物，攻击力+1</font>\n<font color=#000000 bold=false size=20>lv3: 魅惑后的怪物，生命值+2</font>\n<font color=#000000 bold=false size=20>lv4: 魅惑后的怪物，暴击几率+10</font>\n<font color=#aeaeae bold=false size=20>lv5: 魅惑后的怪物，闪避几率+10</font>"
-            ]},
+            ],"useDescArr":["<font color=#e4d5a5 size=25>可以魅惑一个普通怪物为你而战</font>", "<font color=#e4d5a5 size=25>魅惑菇（选择目标）</font>"]},
         "CharmingMushroom5":{"name":"魅惑菇", "desc":[
            "<font color=#7d0403 bold=true size=21>园艺大师</font>\n<font color=#000000 bold=false size=20>lv1: 可以魅惑一个普通怪物为你而战</font>\n<font color=#000000 bold=false size=20>lv2: 魅惑后的怪物，攻击力+1</font>\n<font color=#000000 bold=false size=20>lv3: 魅惑后的怪物，生命值+2</font>\n<font color=#000000 bold=false size=20>lv4: 魅惑后的怪物，暴击几率+10</font>\n<font color=#000000 bold=false size=20>lv5: 魅惑后的怪物，闪避几率+10</font>"
-            ]},
+            ],"useDescArr":["<font color=#e4d5a5 size=25>可以魅惑一个普通怪物为你而战</font>", "<font color=#e4d5a5 size=25>魅惑菇（选择目标）</font>"]},
 
         "PlaceHolder":{"name":"Boss精英占位", "desc":""},
         "BossBunny":{"name":"boss兔子", "desc":""},
