@@ -158,7 +158,7 @@ class AniView extends egret.DisplayObjectContainer {
                 if (ps.e instanceof Plant) {
                     // 植物都是玩家这边的，直接加魅惑表现
                     bv.addEffect("effCharmed");
-                    AudioFactory.play("charmed", -1);
+                    AudioFactory.play("charmed");
                 } else if (e.attrs.addInEffect == "noEffect") {
                     // 不需要额外表现效果
                 } else if (e instanceof Monster) // 怪物是从地下冒出
