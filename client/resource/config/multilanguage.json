@@ -341,6 +341,9 @@
 		"cloakPassiveTriggerDesc": {"EN": "cloak trigger passively", "CNS": "披风被动触发", "CNT": "被动触发"},
 		"invalidOperate":{"EN": "can not do that", "CNS": "这是一个无效的操作", "CNT": "这是一个无效的操作"},
 		"tipOnDrag":{"EN": "can not do that", "CNS": "只能在营火处装备或交换技能", "CNT": "只能在营火处装备或交换技能"},
+		"nutWallUseDesc":{"EN": "I'm going to share the damage", "CNS": "我会帮你分担伤害", "CNT": "我会帮你分担伤害"},
+		"peashooterUseDesc":{"EN": "shooting!", "CNS": "射击！射击！", "CNT": "射击！射击！"},
+		"headBoneUseDesc":{"EN": "get the monster sneaking!", "CNS": "让怪物突袭你吧！", "CNT": "让怪物突袭你吧！"},
 		"": {}
 	}
 }

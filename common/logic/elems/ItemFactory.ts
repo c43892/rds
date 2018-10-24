@@ -226,6 +226,7 @@ class ItemFactory {
                 var actBeforeRevive = async () => await bt.implRemoveElemAt(grid.pos.x, grid.pos.y)
                 await bt.implReviveElemAt("SkeletonKing", undefined, grid.pos.x, grid.pos.y, actBeforeRevive);
             }, e);
+            e.canNotUseReason = () => "headBoneUseDesc";
             return e;
         },
 
