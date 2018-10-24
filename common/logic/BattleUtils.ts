@@ -306,12 +306,17 @@ class BattleUtils {
         return Utils.indexOf(sps, (p) => p.lv == sp.lv && p.n == sp.n) >= 0;
     }
 
-    // 将一个指定类型的元素移动到指定区域
-    public static moveElemType2Area(bt:Battle, elemType:string, areaLeftCorner, areaSize):Elem {
-        var e = bt.level.map.findFirstElem((elem:Elem) => elem.type == elemType);
-        if (!e) return e; // 没找到指定元素
-        
-        return BattleUtils.moveElem2Area(bt, e, areaLeftCorner, areaSize);
+    // 将指定类型的元素移动到指定区域
+    public static moveElems2Area(bt:Battle, f, areaLeftCorner, areaSize) {
+        var es = bt.level.map.findAllElems((elem:Elem) => f(elem));
+        var orgPos = [];
+        for (var i = 0; i < es.length; i++) {
+            let e = es[i];
+            orgPos[i] = {x:e.pos.x, y:e.pos.y};
+            BattleUtils.moveElem2Area(bt, e, areaLeftCorner, areaSize);
+        }
+
+        return {es:es, orgPos:orgPos};
     }
 
     // 将一个指定元素移动到指定区域

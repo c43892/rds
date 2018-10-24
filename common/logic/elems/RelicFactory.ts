@@ -556,8 +556,8 @@ class RelicFactory {
                         var e = BattleUtils.moveElem2Area(bt, e, ep.pos, ep.attrs.size);
                         if (e) {
                             await r.bt().fireEvent("onElemImgFlying", {e:e, fromPos:oriPos, toPos:e.pos});
-                            await bt.fireEvent("onGridChanged", {x:e.pos.x, y:e.pos.y, e:e, subType:"moveShopNpc"});
-                            await bt.triggerLogicPoint("onGridChanged", {x:e.pos.x, y:e.pos.y, e:e, subType:"moveShopNpc"});
+                            await bt.fireEvent("onGridChanged", {x:e.pos.x, y:e.pos.y, e:e, subType:"move2StartupRegion"});
+                            await bt.triggerLogicPoint("onGridChanged", {x:e.pos.x, y:e.pos.y, e:e, subType:"move2StartupRegion"});
                         }
                     }
                 }, r);

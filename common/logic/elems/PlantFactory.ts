@@ -1,5 +1,5 @@
 class Plant extends Monster {
-    constructor() { super();}
+    constructor() { super(); this.canBeDragDrop = true; }
 }
 
 class PlantFactory {

@@ -301,12 +301,6 @@ class GridView extends egret.DisplayObjectContainer {
             break;
         }
 
-        // 哪些特效在什么情况下要移除，需要仔细处理
-        if (!e) {
-            var effOnTar = ["effWantedOrder", "effCharmed"];
-            effOnTar.forEach((eff, _) => this.removeEffect(eff));
-        }
-
         this.refreshDropItem(); // 刷新掉落物品显示
         
         var w = this.width;
@@ -355,6 +349,36 @@ class GridView extends egret.DisplayObjectContainer {
                 eff.scaleX = eff.scaleY = 1;
             });
         }
+
+        this.refreshEffects();
+    }
+
+    // 这里需要手动处理各种状态对应特效的刷新
+    refreshEffects() {
+        var e = this.getElem();
+        if (!(e instanceof Monster)) {
+            this.removeEffect("effCharmed");
+            this.removeEffect("effBurning");
+            this.removeEffect("elemPoisoned");
+            this.removeEffect("effWantedOrder");
+        } else {
+            var m = <Monster>e;
+            var checker = [
+                {chk:() => m["Charmed"] || m instanceof Plant, eff:"effCharmed"},
+                {chk:() => m.existsBuff("BuffFlame"), eff:"effBurning"},
+                {chk:() => m.existsBuff("BuffPoison"), eff:"elemPoisoned"},
+                {chk:() => m["isWanted"], eff:"effWantedOrder"},
+            ];
+            
+            checker.forEach((f, _) => {
+                var chk = f.chk;
+                var eff = f.eff;
+                if (chk() && !this.effects[eff])
+                    this.addEffect(eff);
+                else if (!chk() && this.effects[eff])
+                    this.removeEffect(eff);
+            });
+        }
     }
 
     public clear() {
@@ -372,14 +396,27 @@ class GridView extends egret.DisplayObjectContainer {
         return this.map.getGridAt(this.gx, this.gy);
     }
 
-    public getShowLayer():egret.DisplayObject {
+    public getShowLayer():egret.DisplayObjectContainer {
         return this.showLayer;
+    }
+
+    public getEffectLayer():egret.DisplayObjectContainer {
+        return this.effLayer;
+    }
+
+    public getEffects() {
+        return this.effects;
     }
 
     private effects = {}; // 所有挂在这个格子上的特效    
     public addEffect(effName, playTimes = -1, aniName = "default", noScale = false) {
         if (this.effects[effName])
             this.removeEffect(effName);
+
+        if (Utils.contains(["elemPoisoned", "gridPoisoned"], effName)) {
+            this.addColorEffect(effName);
+            return;
+        }
 
         var eff:egret.MovieClip = ViewUtils.createFrameAni(effName, aniName);
         this.effects[effName] = eff;
@@ -435,7 +472,7 @@ class GridView extends egret.DisplayObjectContainer {
         return effWrapper;
     }
 
-    public addColorEffect(effName) {
+    private addColorEffect(effName) {
         if (this.effects[effName]) return this.effects[effName];
 
         var poisonFromMat = [
@@ -485,10 +522,12 @@ class GridView extends egret.DisplayObjectContainer {
         delete this.effects[effName];
     }
 
-    public clearAllEffects() {
-        for (var effName in this.effects) {
-            var eff = this.effects[effName];
-            eff.stop();
+    public clearAllEffects(autoStopEffect = true) {
+        if (autoStopEffect) {
+            for (var effName in this.effects) {
+                var eff = this.effects[effName];
+                eff.stop();
+            }
         }
 
         this.effLayer.removeChildren();        
