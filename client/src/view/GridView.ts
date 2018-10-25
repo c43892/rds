@@ -563,7 +563,7 @@ class GridView extends egret.DisplayObjectContainer {
             case GridStatus.Uncovered: {
                 let e = this.map.getElemAt(this.gx, this.gy);
                 if (e) {
-                    if (e.useWithTarget()) {
+                    if (e.useWithTarget() && e.isValid()) {
                         await e.bt().fireEvent("onElemFloating", {e:e});
                         var pos = await GridView.selectGrid((x, y) => e.canUseAt(x, y), e);
                         await e.bt().fireEvent("onElemFloating", {e:e, stop:true});

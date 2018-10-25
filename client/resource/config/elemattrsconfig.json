@@ -85,6 +85,24 @@
                 {"moveNum":2}, {"moveNum":3}
             ]
     },
+    "ShieldBlock":{"name":"盾牌格挡", "dShield":2,
+        "reinforce":[
+            {"dShield":4}, {"dShield":6}, {"dShield":8}, {"dShield":10}
+        ], 
+        "refElems":["Shield"], "addOnLevelInit":{"num":1, "elems":["Shield"]}},
+    "ShieldDetector":{"name":"盾牌探测", "refElems":["Shield"], "addOnLevelInit":{"num":1, "elems":["Shield"]}},
+    "ShieldSlam":{"name":"盾牌猛击", "refElems":["Shield"], "addOnLevelInit":{"num":1, "elems":["Shield"]}},
+    "VestDetector":{"name":"防护探测", "refElems":["Vest"], "addOnLevelInit":{"num":1, "elems":["Vest"]}},
+    "VestImmune":{"name":"防护免疫", "percent":50,
+        "reinforce":[
+            {"percent":4}, {"percent":6}, {"percent":8}, {"percent":10}
+        ], 
+        "refElems":["Vest"], "addOnLevelInit":{"num":1, "elems":["Vest"]}},
+    "VestThorns":{"name":"防护反伤", "thornsDamage":2,
+        "reinforce":[
+            {"thornsDamage":4}, {"thornsDamage":6}, {"thornsDamage":8}, {"thornsDamage":10}
+        ], 
+        "refElems":["Vest"], "addOnLevelInit":{"num":1, "elems":["Vest"]}},
 
     "Coins":{"name":"金币", "cnt":1, "canOverlap":true, "useWithoutConfirm":true, 
         "repRes":["Coins1", "Coins2", "Coins3", "Coins4", "Coins5", "Coins6", "Coins7", "Coins8", "Coins9"]},
@@ -97,7 +115,7 @@
     "HpPotion":{"name":"医疗药剂", "heal":10, "canOverlap":true},
     "Magazine":{"name":"自然杂志", "cnt":5, "dexp":3, "useWithoutConfirm":true},
     "EconomyMagazine":{"name":"金融杂志", "cnt":5, "dexp":2, "useWithoutConfirm":true},
-    "Shield":{"name":"盾牌", "cd":15, "shield":10, "showCDNum":true, "repRes":["Shield", "ShieldBack"]},
+    "Shield":{"name":"盾牌", "cd":15, "shield":10, "useWithTarget":true, "validTarget":"markedMonster|uncoveredMonser", "showCDNum":true, "repRes":["Shield", "ShieldBack"]},
     "HeadBone":{"name":"骷髅头"},
 
     "DeathGod":{"name":"死神", "deathStep":15, "cannotTake":true, "addInEffect":"noEffect"},
@@ -123,7 +141,7 @@
     "ConfusionZombie":{"name":"疑惑僵尸", "hideHazardNum":true, "dropItems":["CoinsSmall"]},
     "Mummy":{"name":"木乃伊", "dropItems":["CoinsSmall"]},
     "PoisonJellyfish":{"name":"毒性水母", "power":1, "hp":5, "buffCnt":3, "poisonPs":[3, 1], "dropItems":["CoinsSmall"]},
-    "SkeletonKing":{"name":"骷髅王", "power":1, "hp":5, "rdp":"SkeletonKing", "dropItems":["CoinsSmall"], "cannotTake":true, "refElems":["HeadBone"]},
+    "SkeletonKing":{"name":"骷髅王", "power":1, "hp":5, "shield":2, "rdp":"SkeletonKing", "dropItems":["CoinsSmall"], "cannotTake":true, "refElems":["HeadBone"]},
     "SwatheZombie":{"name":"缠绕僵尸", "power":1, "hp":5, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}], "invalid":["Cocoon", "Rock", "Hole", "IceBlock"], "dropItems":["CoinsSmall"], "repRes":["SwatheZombie", "Cocoon"]},
     "BoxMonster":{"name":"愤怒宝箱", "power":2, "hp":5, "shield":3},
     "Ghost":{"name":"幽灵", "attackFlags":["AmorPenetrate"], "dropItems":["CoinsSmall"], "cannotTake":true},

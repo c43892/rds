@@ -319,6 +319,12 @@
             "shortDesc":"每层都可以获得植物的援助"},
         "StrikeFirst":{"name":"先发制人", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>随机选择{moveNum}件道具移动到初始区域</font>"],
              "shortDesc":"随机选择1个道具加入初始区域"},
+        "ShieldBlock":{"name":"盾牌格挡", "desc":[""], "shortDesc":""},
+        "ShieldDetector":{"name":"盾牌探测", "desc":[""], "shortDesc":""},
+        "ShieldSlam":{"name":"盾牌猛击", "desc":[""], "shortDesc":""},
+        "VestDetector":{"name":"防护探测", "desc":[""], "shortDesc":""},
+        "VestImmune":{"name":"防护免疫", "desc":[""], "shortDesc":""},
+        "VestThorns":{"name":"防护反伤", "desc":[""], "shortDesc":""},        
         
         
         "Coins":{"name":"金币", "desc":["<font color=#294c22 size=20> {cnt} </font><font color=#000000 size=20>个金币</font>"]},

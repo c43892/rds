@@ -337,6 +337,7 @@
 		"makeSureGoOnTitle":{"EN": "sure", "CNS": "确定", "CNT": "确定"},
 		"makeSureGoOnContent":{"EN": "be sure to save exchanges?", "CNS": "确定保存交换操作?", "CNT": "确定保存交换操作?"},
 		"shieldPassiveTriggerDesc": {"EN": "shield trigger passively", "CNS": "盾牌被动触发", "CNT": "被动触发"},
+		"inCD":{"EN": "not ready", "CNS": "冷却中", "CNT": "冷却中"},
 		"batonPassiveTriggerDesc": {"EN": "baton trigger passively", "CNS": "警棍被动触发", "CNT": "被动触发"},
 		"cloakPassiveTriggerDesc": {"EN": "cloak trigger passively", "CNS": "披风被动触发", "CNT": "被动触发"},
 		"invalidOperate":{"EN": "can not do that", "CNS": "这是一个无效的操作", "CNT": "这是一个无效的操作"},

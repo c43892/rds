@@ -19,7 +19,7 @@ class BuffSuper extends Buff{
 
         // 免疫攻击伤害和buff
         this.addAI("onCalcAttacking", (ps) => {
-            if(ps.subType != "monster2targets")
+            if(ps.subType != "monster2targets" || !(ps.targetAttrs.owner instanceof Player))
                 return;
 
             ps.targetAttrs.targetFlags.push("cancelAttack");

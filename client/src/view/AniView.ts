@@ -499,13 +499,13 @@ class AniView extends egret.DisplayObjectContainer {
     // 对目标位置使用物品
     public async onUseElemAt(ps) {
         var e = ps.e;
-        if (e.type == "Key" || e.type == "Knife" || e.type == "SmallRock") { // 钥匙飞向目标
+        if (e.type == "Key" || e.type == "Knife" || e.type == "SmallRock" || e.type == "Shield") { // 钥匙飞向目标
             var g = this.getSV(e);
             var tar = this.bv.mapView.getGridViewAt(ps.toPos.x, ps.toPos.y).getElem();
             var tg = this.bv.mapView.getGridViewAt(ps.toPos.x, ps.toPos.y);
             AniUtils.clearAll(g);
 
-            if (e.type == "Knife") { // 要调整图片方向
+            if (e.type == "Knife"|| e.type == "Shield") { // 要调整图片方向
                 var rot = Utils.getRotationFromTo(
                     AniUtils.ani2global(g), 
                     AniUtils.ani2global(tg));
@@ -525,7 +525,28 @@ class AniView extends egret.DisplayObjectContainer {
             }
 
             g["resetSelf"]();
+
+            // // 盾牌飞出去后需要隐藏原来格子的显示内容
+            // if (e.type == "Shield")
+            //     g.alpha = 0;
         }
+    }
+
+    // 处理盾牌攻击完成后的动画
+    public async onShieldFlyBack(ps) {
+        var e:Elem = ps.e;
+        var g = this.getSV(e);
+        if (ps.back) {
+            var fg = this.bv.mapView.getGridViewAt(ps.from.pos.x, ps.from.pos.y);
+            var fp = AniUtils.ani2global(fg);
+            var tp = AniUtils.ani2global(g);
+            var img = AniUtils.createImg(e.getElemImgRes() + "_png");
+            img.x = fp.x;
+            img.y = fp.y;
+            await AniUtils.flyAndFadeout(img, tp, 150, 1, 1, 0, egret.Ease.quintIn);
+            img["dispose"]();
+        }
+        g.alpha = 1;
     }
 
     // 怪物属性发生变化

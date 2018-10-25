@@ -970,7 +970,7 @@ class Battle {
     }
 
     // 角色尝试攻击指定位置
-    public async implPlayerAttackAt(x:number, y:number, weapon:Elem = undefined) {
+    public async implPlayerAttackAt(x:number, y:number, weapon:Elem = undefined, results = []) {
         var map = this.level.map;
         var mapsize = map.size;
 
@@ -1060,12 +1060,13 @@ class Battle {
                 for (var b of r.addBuffs)
                     await this.implAddBuff(tar, "Buff" + b.type, ...b.ps);
             }
+            results.push(r); // 将攻击结果存起来,有可能外面要用到
             await this.triggerLogicPoint("onAttacked", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon, r:r});
         }
     }
 
     // 怪物尝试攻击指定目标
-    public async implMonsterAttackTargets(m:Monster, targets, extraPowerABC = {a:0, b:0, c:0}, selfExplode = false, addFlags:string[] = []) {
+    public async implMonsterAttackTargets(m:Monster, targets, extraPowerABC = {a:0, b:0, c:0}, selfExplode = false, addFlags:string[] = [], results = []) {
         var map = this.level.map;
         var mapsize = map.size;
 
@@ -1140,6 +1141,7 @@ class Battle {
                     for (var b of r.addBuffs)
                         await this.implAddBuff(tar, "Buff" + b.type, ...b.ps);
                 }
+                results.push(r); // 将攻击结果存起来,有可能外面要用到
                 await this.triggerLogicPoint("onAttacked", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
             }
         }

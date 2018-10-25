@@ -268,6 +268,14 @@ class RelicFactory {
                     return;
                 }
                 r = RelicFactory.addElemsOnLevelInit(r);
+                r = <Relic>ElemFactory.addAI("onCalcAttacking", (ps) => {
+                    var vests = r.bt().level.map.findAllElems((e:Elem) => !e.getGrid().isCovered() && e.type == "Vest"  && e.isValid());
+                    if (vests.length > 0){
+                        var rand = r.bt().srand.nextInt(0, 100);
+                        if (rand < r.attrs.percent)
+                            ps.targetAttrs.targetFlags.push("cancelAttack");
+                    }
+                }, r, (ps) => ps.targetAttrs.owner instanceof Player, false, true);
             })
         },
 
@@ -355,10 +363,38 @@ class RelicFactory {
         },
 
         // 飞刀流3	每场战斗增加一把飞刀，你的飞刀可以攻击任意格子（boss技能）
+        "KnifeRange": (attrs) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) {
+                    r.clearAIAtLogicPoint("onCalcAttacking");
+                    r.clearAIAtLogicPoint("onLevelInited");
+                    return;
+                }
+                r = RelicFactory.addElemsOnLevelInit(r);
+                                
+            })
+        },
+
         // 剧毒之刃	每场战斗增加一把飞刀，飞刀攻击附加一层毒（每级+1，最高5）
         // 无尽之刃	每场战斗增加一把飞刀，飞刀杀死怪物后有15%的几率不会消耗（每级+15，最高5）
         // 飞刀流6	每场战斗增加一把飞刀，你知道所有飞刀的位置
-
+        "KnifeDetector": (attrs) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) {
+                    r.clearAIAtLogicPoint("onCalcAttacking");
+                    r.clearAIAtLogicPoint("onLevelInited");
+                    return;
+                }
+                r = RelicFactory.addElemsOnLevelInit(r);
+                r = <Relic>ElemFactory.addAI("onStartupRegionUncovered", async () => {
+                    var knives = r.bt().level.map.findAllElems((e:Elem) => !e.getGrid().isUncoveredOrMarked() && e.type == "Knife");
+                    for (var knife of knives) {
+                        await r.bt().fireEvent("onRelicEffect", {r:r});
+                        await r.bt().implMark(knife.pos.x, knife.pos.y);
+                    }
+                }, r);
+            })
+        },
 
         // 怪物猎人,每场战斗开始时标记X个怪物（最多5级）
         "MonsterHunter": (attrs) => {
@@ -478,17 +514,17 @@ class RelicFactory {
                     return;
                 }
                 r = RelicFactory.addElemsOnLevelInit(r);
-                // 给新创建的盾牌加入使用逻辑,如果在战斗中,还要找到地图中所有的盾牌,加入使用逻辑
-                if (r.player && r.player.bt) {
-                    var bt = r.player.bt();
-                    var shields = bt.level.map.findAllElems((e:Elem) => e.type == "Shield");
-                    for (var shield of shields)
-                        shield = ItemFactory.addUseLogicToShield(shield);
-                }
-                r = <Relic>ElemFactory.addAI("onLevelCreateElem", (ps) => {
-                    var shield = ps.e;
-                    shield = ItemFactory.addUseLogicToShield(shield);
-                }, r, (ps) => ps.type == "Shield", false, true);
+                // // 给新创建的盾牌加入使用逻辑,如果在战斗中,还要找到地图中所有的盾牌,加入使用逻辑
+                // if (r.player && r.player.bt) {
+                //     var bt = r.player.bt();
+                //     var shields = bt.level.map.findAllElems((e:Elem) => e.type == "Shield");
+                //     for (var shield of shields)
+                //         shield = ItemFactory.addUseLogicToShield(shield);
+                // }
+                // r = <Relic>ElemFactory.addAI("onLevelCreateElem", (ps) => {
+                //     var shield = ps.e;
+                //     shield = ItemFactory.addUseLogicToShield(shield);
+                // }, r, (ps) => ps.type == "Shield", false, true);
             })
         },
 
@@ -502,10 +538,10 @@ class RelicFactory {
                 }                
                 r = RelicFactory.addElemsOnLevelInit(r);
                 r = <Relic>ElemFactory.addAI("onStartupRegionUncovered", async () => {
-                    var vests = r.bt().level.map.findAllElems((e:Elem) => !e.getGrid().isUncoveredOrMarked() && e.type == "Shield");
-                    for (var vest of vests) {
+                    var shields = r.bt().level.map.findAllElems((e:Elem) => !e.getGrid().isUncoveredOrMarked() && e.type == "Shield");
+                    for (var shield of shields) {
                         await r.bt().fireEvent("onRelicEffect", {r:r});
-                        await r.bt().implMark(vest.pos.x, vest.pos.y);
+                        await r.bt().implMark(shield.pos.x, shield.pos.y);
                     }
                 }, r);
             })
