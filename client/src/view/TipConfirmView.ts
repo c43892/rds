@@ -83,7 +83,7 @@ class TipConfirmView extends egret.DisplayObjectContainer {
         this.yesnoBg = ViewUtils.createBitmapByName("confirmBg_png");
         this.yesnoBg.name = "yesnoBg";
 
-        this.yesnoTitle = ViewUtils.createTextField(30, 0xff0000);
+        this.yesnoTitle = ViewUtils.createTextField(30, 0x7d0403);
         this.yesnoTitle.bold = true;
         this.yesnoTitle.name = "yesnoTitle";
 
