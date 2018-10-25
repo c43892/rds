@@ -566,7 +566,7 @@
                     "group": "b21"
                  }                
             },{
-                "desc": "<font color=#000000 size=20>[购买技能]</font></font><font color=#000000 size=20>花费{money}金币，</font><font color=#00b050 size=20>获得两个随机道具</font>",
+                "desc": "<font color=#000000 size=20>[购买道具]</font></font><font color=#000000 size=20>花费{money}金币，</font><font color=#00b050 size=20>获得两个随机道具</font>",
                 "func": ["-money", "+randomItems", "redirectSelGroup"],
                 "ps": {
                     "money": 50,
