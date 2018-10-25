@@ -15,12 +15,12 @@ class Relic extends Elem {
         if (!this.canReinfoce())
             return false;
 
-        if (this.beforeReinforceLvUp)
+        if (this.beforeReinforceLvUp && this.player)
             this.beforeReinforceLvUp();
 
         this.setReinfoceLv(this.reinforceLv + 1);
 
-        if (this.afterReinforceLvUp)
+        if (this.afterReinforceLvUp && this.player)
             this.afterReinforceLvUp();
 
         return true;
