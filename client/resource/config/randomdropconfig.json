@@ -191,8 +191,7 @@
         "Bazooka":10,
         "SuperPotion":10,
         "StrengthPotion":10,
-        "CandyCannon":10,
-        "HorticultureProficient":10
+        "CandyCannon":10
     }},
 
     "ttrdp1":{"num":[1, 2],"elems":{
