@@ -86,7 +86,7 @@ class HospitalView extends egret.DisplayObjectContainer {
     }
 
     async onCure() {
-        var yesno = await this.confirmOkYesNo(undefined, "确定治疗？(回复最多 30% 生命)", true);
+        var yesno = await this.confirmOkYesNo("确定治疗", "回复最多 30% 生命", true);
         if (yesno) {
             await this.player.fireEvent("onHospitalCureStart");
             this.player.addHp(Math.floor(this.player.maxHp * 0.3));
@@ -131,7 +131,7 @@ class HospitalView extends egret.DisplayObjectContainer {
 
     // 死神回退
     async onDeathGodBack() {
-        var yesno = await this.confirmOkYesNo(undefined, "确定驱逐死神？(死神回退 75 步)", true);
+        var yesno = await this.confirmOkYesNo("确定驱逐死神", "死神回退 75 步", true);
         if (yesno) {
             var deathStep = this.player.deathStep + 75;
             this.player.deathStep = deathStep > this.player.maxDeathStep ? this.player.maxDeathStep : deathStep;
