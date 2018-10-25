@@ -467,6 +467,7 @@ class Player {
             if (e.type == type) {
                 this.relicsEquipped = Utils.removeAt(this.relicsEquipped, i);
                 (<Relic>e).removeAllEffects();
+                e.player = undefined;
                 return e;
             }
         }

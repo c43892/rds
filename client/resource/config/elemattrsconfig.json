@@ -203,7 +203,7 @@
     "Bazooka":{"name":"火箭筒", "canOverlap":true, "useWithTarget":true, "cd":5,
         "validTarget":"markedMonster|uncoveredMonster|uncoverable|blocked",
         "attackFlags":["Flame", "Pierce"], 
-        "addBuffs":[{"type":"Flame", "rate":100, "ps":[3, 1]}], "power":3
+        "addBuffs":[{"type":"Flame", "rate":100, "ps":[3, 1]}], "power":5
     },
     "RayGun":{"name":"火焰射线", "canOverlap":true, "useWithTarget":true, "cd":5, 
         "validTarget": "all",
