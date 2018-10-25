@@ -526,7 +526,7 @@ class MainView extends egret.DisplayObjectContainer {
 
         // 自动设置大地图位置
         this.openWorldMap(this.p.worldmap);
-        var p = this.p.currentStoreyPos.lv / this.p.worldmap.nodes.length;
+        var p = 1 - this.p.currentStoreyPos.lv / this.p.worldmap.nodes.length;
         this.wmv.mapScrollPos = p;
 
         if (this.p.currentStoreyPos.status == "finished") {

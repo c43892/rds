@@ -371,11 +371,20 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
     // 设置滚动位置(0:顶部 - 1:底部)
     public set mapScrollPos(p:number) {
+        var pTop = this.mapArea.height / 2 / this.viewContent.height;
+        var pBottom = 1 - pTop;
+        if (p <= pTop)
+            p = 0;
+        else if (p >= pBottom)
+            p = 1;
+        else
+            p = (p - pTop) / pBottom;
+        
         var top = (this.viewContent.height - this.mapArea.height) * p;
         this.mapArea.scrollTop = top;
     }
 
-    // 设置当前大地图滚动位置
+    // 获取当前大地图滚动位置
     public get mapScrollPos() {
         return this.mapArea.scrollTop / (this.viewContent.height - this.mapArea.height);
     }
