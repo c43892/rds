@@ -66,8 +66,8 @@ class WorldMap {
                         for(var k = 0; k < info.length; k++){
                             var parent = WorldMapNode.getNode(info[k].x, info[k].y, worldmap.nodes);
                             var newRoute = new WorldMapRoute(parent, worldmap.nodes[i][j]);
-                            worldmap.nodes[i][j].addParent(parent);
-                            parent.addRoute(newRoute);
+                            // worldmap.nodes[i][j].addParent(parent);
+                            // parent.addRoute(newRoute);
                         }
                     }
                 index++;

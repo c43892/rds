@@ -34,6 +34,7 @@ class WorldMapNode{
 
     //添加父节点
     public addParent(parentNode:WorldMapNode){
+        Utils.assert(!Utils.contains(this.parents, parentNode), "worldmapnode parents conflict");
         this.parents.push(parentNode);
     }
 

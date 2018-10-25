@@ -69,6 +69,10 @@ class Monster extends Elem {constructor() { super();}
 
         return buff;
     }
+
+    public existsBuff(type:string) {
+        return Utils.indexOf(this.buffs, (b) => b.type == type) >= 0;
+    }
 }
 
 // 怪物
@@ -465,7 +469,6 @@ class MonsterFactory {
             m["attackInterval"] = m.attrs.selfExplode.cnt - m["doCount"] + 1; 
             await m.bt().fireEvent("onElemChanged", {subType:"attackInterval", e:m})
             if(m["doCount"] > m.attrs.selfExplode.cnt){
-                await m.bt().fireEvent("onSelfExplode", {m:m});
                 await m.bt().implMonsterDoSelfExplode(m, {a:m.attrs.selfExplode.mult - 1, b:0, c:0}, false);}
         }, m);
     }

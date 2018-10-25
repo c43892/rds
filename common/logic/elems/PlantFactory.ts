@@ -1,5 +1,5 @@
 class Plant extends Monster {
-    constructor() { super();}
+    constructor() { super(); this.canBeDragDrop = true; }
 }
 
 class PlantFactory {
@@ -11,6 +11,7 @@ class PlantFactory {
             var p = this.createPlant(attrs);
             p = MonsterFactory.doShareDamageOnPlayerHurt(50, p);
             p.getElemImgRes = () => "NutWall";
+            p.canNotUseReason = () => "nutWallUseDesc";
             return p;
         },
 
@@ -22,6 +23,7 @@ class PlantFactory {
             var p = this.createPlant(attrs);
             p = MonsterFactory.doShareDamageOnPlayerHurt(50, p);
             p.getElemImgRes = () => "NutWall";
+            p.canNotUseReason = () => "nutWallUseDesc";
             return p;
         },
 
@@ -33,6 +35,7 @@ class PlantFactory {
             var p = this.createPlant(attrs);
             p = MonsterFactory.doShareDamageOnPlayerHurt(75, p);
             p.getElemImgRes = () => "NutWall";
+            p.canNotUseReason = () => "nutWallUseDesc";
             return p;
         },
 
@@ -45,6 +48,7 @@ class PlantFactory {
             var p = this.createPlant(attrs);
             p = MonsterFactory.doShareDamageOnPlayerHurt(75, p);
             p.getElemImgRes = () => "NutWall";
+            p.canNotUseReason = () => "nutWallUseDesc";
             return p;
         },
 
@@ -57,6 +61,7 @@ class PlantFactory {
             var p = this.createPlant(attrs);
             p = MonsterFactory.doShareDamageOnPlayerHurt(100, p);
             p.getElemImgRes = () => "NutWall";
+            p.canNotUseReason = () => "nutWallUseDesc";
             return p;
         },
 
@@ -74,6 +79,7 @@ class PlantFactory {
                 return ms[p.bt().srand.nextInt(0, ms.length)];
             }, attrs.attackInterval);
             p.getElemImgRes = () => "Peashooter";
+            p.canNotUseReason = () => "peashooterUseDesc";
             return p;
         },
 
@@ -92,6 +98,7 @@ class PlantFactory {
                 return ms[p.bt().srand.nextInt(0, ms.length)];
             }, attrs.attackInterval);
             p.getElemImgRes = () => "Peashooter";
+            p.canNotUseReason = () => "peashooterUseDesc";
             return p;
         },
 
@@ -111,6 +118,7 @@ class PlantFactory {
                 return ms[p.bt().srand.nextInt(0, ms.length)];
             }, attrs.attackInterval);
             p.getElemImgRes = () => "Peashooter";
+            p.canNotUseReason = () => "peashooterUseDesc";
             return p;
         },
 
@@ -131,6 +139,7 @@ class PlantFactory {
                 return ms[p.bt().srand.nextInt(0, ms.length)];
             }, attrs.attackInterval);
             p.getElemImgRes = () => "Peashooter";
+            p.canNotUseReason = () => "peashooterUseDesc";
             return p;
         },
 
@@ -153,6 +162,7 @@ class PlantFactory {
                 return ms[p.bt().srand.nextInt(0, ms.length)];
             }, attrs.attackInterval);
             p.getElemImgRes = () => "Peashooter";
+            p.canNotUseReason = () => "peashooterUseDesc";
             return p;
         },
 

@@ -132,7 +132,7 @@ class AniView extends egret.DisplayObjectContainer {
         var e:Elem = ps.e;
         if(!e)
             e = this.bv.player.bt().level.map.getElemAt(ps.x, ps.y);
-        var bv = this.bv.mapView.getGridViewAt(ps.x, ps.y);
+        var sv = this.bv.mapView.getGridViewAt(ps.x, ps.y);
         var doRefresh = () => this.bv.mapView.refreshAt(ps.x, ps.y, e && e.isBig() ? e.attrs.size : undefined);
         if(e && e.type == "Vest") {
             var bt = this.bv.player.bt();
@@ -146,8 +146,8 @@ class AniView extends egret.DisplayObjectContainer {
         switch (ps.subType) {
             case "elemAdded": // 有元素被添加进地图
                 if (e.type == "DeathGod") {
-                    await bv.addEffect("effDeathGodIn", 1)["wait"]();
-                    bv.removeEffect("effDeathGodIn");
+                    await sv.addEffect("effDeathGodIn", 1)["wait"]();
+                    sv.removeEffect("effDeathGodIn");
                 }
 
                 doRefresh();
@@ -157,8 +157,9 @@ class AniView extends egret.DisplayObjectContainer {
                 var obj = this.getSVByPos(ps.x, ps.y);
                 if (ps.e instanceof Plant) {
                     // 植物都是玩家这边的，直接加魅惑表现
-                    bv.addEffect("effCharmed");
-                    AudioFactory.play("charmed", -1);
+                    // sv.addEffect("effCharmed");
+                    this.bv.mapView.refreshAt(ps.x, ps.y);
+                    AudioFactory.play("charmed");
                 } else if (e.attrs.addInEffect == "noEffect") {
                     // 不需要额外表现效果
                 } else if (e instanceof Monster) // 怪物是从地下冒出
@@ -172,13 +173,13 @@ class AniView extends egret.DisplayObjectContainer {
                 break;
             case "gridBlocked": {
                 var img = AniUtils.createImg("blocked_png");
-                img.width = bv.width;
-                img.height = bv.height;
+                img.width = sv.width;
+                img.height = sv.height;
                 img.anchorOffsetX = img.width / 2;
                 img.anchorOffsetY = img.height / 2;
-                var toPos = AniUtils.ani2global(bv);
-                img.x = toPos.x + bv.width / 2;
-                img.y = toPos.y + bv.height / 2;
+                var toPos = AniUtils.ani2global(sv);
+                img.x = toPos.x + sv.width / 2;
+                img.y = toPos.y + sv.height / 2;
                 img.alpha = 0;
                 img.scaleX = img.scaleY = 5;
                 await this.aniFact.createAni("tr", {
@@ -193,13 +194,13 @@ class AniView extends egret.DisplayObjectContainer {
             case "gridUnblocked": {
                 doRefresh();
                 var img = AniUtils.createImg("blocked_png");
-                img.width = bv.width;
-                img.height = bv.height;
+                img.width = sv.width;
+                img.height = sv.height;
                 img.anchorOffsetX = img.width / 2;
                 img.anchorOffsetY = img.height / 2;
-                var toPos = AniUtils.ani2global(bv);
-                img.x = toPos.x + bv.width / 2;
-                img.y = toPos.y + bv.height / 2;
+                var toPos = AniUtils.ani2global(sv);
+                img.x = toPos.x + sv.width / 2;
+                img.y = toPos.y + sv.height / 2;
                 img.alpha = 1;
                 img.scaleX = img.scaleY = 1;
                 await this.aniFact.createAni("tr", {
@@ -211,10 +212,10 @@ class AniView extends egret.DisplayObjectContainer {
             break;
             case "gridUncovered": {
                 doRefresh();
-                bv.removeEffect("effPoisonMist"); // 翻开就去掉毒雾
+                sv.removeEffect("effPoisonMist"); // 翻开就去掉毒雾
                 if (ps.stateBeforeUncover != GridStatus.Marked) {
-                    var eff = bv.addEffect("effUncover", 1); // 翻开特效
-                    eff["wait"]().then(() => bv.removeEffect("effUncover"));
+                    var eff = sv.addEffect("effUncover", 1); // 翻开特效
+                    eff["wait"]().then(() => sv.removeEffect("effUncover"));
                 }
 
                 if (e instanceof Monster && (<Monster>e).isBoss)
@@ -226,7 +227,6 @@ class AniView extends egret.DisplayObjectContainer {
                 AudioFactory.play("mark");
                 if (!e.attrs.invisible) {
                     var img = AniUtils.createImg(e.getElemImgRes() + "_png");
-                    var sv = this.getSVByPos(ps.x, ps.y);
                     var pos = AniUtils.ani2global(sv);
                     img.x = pos.x;
                     img.y = pos.y;
@@ -242,6 +242,10 @@ class AniView extends egret.DisplayObjectContainer {
                     await AniUtils.delay(100);
                 }
             }
+            break;
+            // 以下情况需要连特效一起移动
+            case "move2StartupRegion":
+                this.bv.mapView.refresh(); // 整地图刷新，不然会看到残留的魅惑特效之类的
             break;
             default:
                 doRefresh();
@@ -1190,8 +1194,9 @@ class AniView extends egret.DisplayObjectContainer {
     // 怪物被魅惑
     public async onMonsterCharmed(ps) {
         var tar:Monster = ps.m;
-        var gv = this.bv.mapView.getGridViewAt(tar.pos.x, tar.pos.y);
-        gv.addEffect("effCharmed");
+        // var gv = this.bv.mapView.getGridViewAt(tar.pos.x, tar.pos.y);
+        // gv.addEffect("effCharmed");
+        this.bv.mapView.refreshAt(tar.pos.x, tar.pos.y);
         AudioFactory.play("charmed");
     }
 
@@ -1218,19 +1223,21 @@ class AniView extends egret.DisplayObjectContainer {
         var evs = this.bv.mapView.getGridViewsWithElem(elemsCanMove, true);
         evs.forEach((ev, _) => {
             var sv = ev.getShowLayer();
-            sv["gx"] = ev.getElem().pos.x;
-            sv["gy"] = ev.getElem().pos.y;
-            sv["tgx1"] = rand.nextInt(actualMapRange.minX, actualMapRange.maxX);
-            sv["tgy1"] = rand.nextInt(actualMapRange.minY, actualMapRange.maxY);
-            sv["tgx2"] = rand.nextInt(actualMapRange.minX, actualMapRange.maxX);
-            sv["tgy2"] = rand.nextInt(actualMapRange.minY, actualMapRange.maxY);
-            sv["tgx3"] = rand.nextInt(actualMapRange.minX, actualMapRange.maxX);
-            sv["tgy3"] = rand.nextInt(actualMapRange.minY, actualMapRange.maxY);
-            sv["delay1"] = rand.nextInt(100, 1000);
-            sv["delay2"] = rand.nextInt(100, 1000);
-            sv["delay3"] = rand.nextInt(100, 1000);
-            sv["delay4"] = rand.nextInt(100, 1000);
+            var effv = ev.getEffectLayer();
+            effv["gx"] = sv["gx"] = ev.getElem().pos.x;
+            effv["gy"] = sv["gy"] = ev.getElem().pos.y;
+            effv["tgx1"] = sv["tgx1"] = rand.nextInt(actualMapRange.minX, actualMapRange.maxX);
+            effv["tgy1"] = sv["tgy1"] = rand.nextInt(actualMapRange.minY, actualMapRange.maxY);
+            effv["tgx2"] = sv["tgx2"] = rand.nextInt(actualMapRange.minX, actualMapRange.maxX);
+            effv["tgy2"] = sv["tgy2"] = rand.nextInt(actualMapRange.minY, actualMapRange.maxY);
+            effv["tgx3"] = sv["tgx3"] = rand.nextInt(actualMapRange.minX, actualMapRange.maxX);
+            effv["tgy3"] = sv["tgy3"] = rand.nextInt(actualMapRange.minY, actualMapRange.maxY);
+            effv["delay1"] = sv["delay1"] = rand.nextInt(100, 1000);
+            effv["delay2"] = sv["delay2"] = rand.nextInt(100, 1000);
+            effv["delay3"] = sv["delay3"] = rand.nextInt(100, 1000);
+            effv["delay4"] = sv["delay4"] = rand.nextInt(100, 1000);
             svArr.push(sv);
+            svArr.push(effv);
         });
 
         // 开始乱窜
@@ -1367,8 +1374,9 @@ class AniView extends egret.DisplayObjectContainer {
     // 通缉令
     public async onMakeWanted(ps) {
         await this.onElemFlying(ps);
-        var g = this.bv.mapView.getGridViewAt(ps.toPos.x, ps.toPos.y);
-        g.addEffect("effWantedOrder");
+        // var g = this.bv.mapView.getGridViewAt(ps.toPos.x, ps.toPos.y);
+        // g.addEffect("effWantedOrder");
+        this.bv.mapView.refreshAt(ps.toPos.x, ps.toPos.y);
     }
 
     // 标记所有怪物的奖励
@@ -1443,7 +1451,7 @@ class AniView extends egret.DisplayObjectContainer {
                 case "BuffPoisonOnGrids": {
                     var gs = Utils.map(buff.grids, (g) => this.bv.mapView.getGridViewAt(g.pos.x, g.pos.y));
                     gs.forEach((g:GridView, _) => {
-                        g.addColorEffect("gridPoisoned");
+                        g.addEffect("gridPoisoned");
                         g.addRandomDelayLoopEffect("effPoisonMist", AniUtils.rand, [0, 30000]);
                     });
                 }
@@ -1456,18 +1464,19 @@ class AniView extends egret.DisplayObjectContainer {
             }
         } else {
             if (ps.target.isDead())
-                return;
+                 return;
 
             var e = <Elem>(ps.target);
-            var g = this.bv.mapView.getGridViewAt(e.pos.x, e.pos.y);
-            switch (buffType) {
-                case "BuffPoison":
-                    g.addColorEffect("elemPoisoned");
-                break;
-                case "BuffFlame":
-                    g.addEffect("effBurning");
-                break;
-            }
+            // var g = this.bv.mapView.getGridViewAt(e.pos.x, e.pos.y);
+            // switch (buffType) {
+            //     case "BuffPoison":
+            //         g.addEffect("elemPoisoned");
+            //     break;
+            //     case "BuffFlame":
+            //         g.addEffect("effBurning");
+            //     break;
+            // }
+            this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
         }
     }
 
@@ -1495,15 +1504,16 @@ class AniView extends egret.DisplayObjectContainer {
         }
         else {
             var e = <Elem>(ps.target);
-            var g = this.bv.mapView.getGridViewAt(e.pos.x, e.pos.y);
-            switch (buffType) {
-                case "BuffPoison":
-                    g.removeEffect("elemPoisoned");
-                break;
-                case "BuffFlame":
-                    g.removeEffect("effBurning");
-                break;
-            }
+            // var g = this.bv.mapView.getGridViewAt(e.pos.x, e.pos.y);
+            // switch (buffType) {
+            //     case "BuffPoison":
+            //         g.removeEffect("elemPoisoned");
+            //     break;
+            //     case "BuffFlame":
+            //         g.removeEffect("effBurning");
+            //     break;
+            // }
+            this.bv.mapView.refreshAt(e.pos.x, e.pos.y);
         }
     }
 

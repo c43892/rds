@@ -153,11 +153,18 @@ class Battle {
             }
         }
 
-        // 如果有商人，要移动到起始区域
-        var shopNpc = BattleUtils.moveElemType2Area(this, "ShopNpc", ep.pos, ep.attrs.size);
-        if (shopNpc) {
-            await this.fireEvent("onGridChanged", {x:shopNpc.pos.x, y:shopNpc.pos.y, e:shopNpc, subType:"moveShopNpc"});
-            await this.triggerLogicPoint("onGridChanged", {x:shopNpc.pos.x, y:shopNpc.pos.y, e:shopNpc, subType:"moveShopNpc"});
+        // 如果有商人或植物，要移动到起始区域
+        var moveResult = BattleUtils.moveElems2Area(this, (elem:Elem) => {
+            return elem.type == "ShopNpc" || elem instanceof Plant;
+        }, ep.pos, ep.attrs.size);
+        var plants = moveResult.es;
+        var orgPos = moveResult.orgPos;
+        for (var i = 0; i < plants.length; i++) {
+            let p = plants[i];
+            var fx = orgPos[i].x;
+            var fy = orgPos[i].y;
+            await this.fireEvent("onGridChanged", {fx:fx, fy:fy, x:p.pos.x, y:p.pos.y, e:p, subType:"move2StartupRegion"});
+            await this.triggerLogicPoint("onGridChanged", {fx:fx, fy:fy, x:p.pos.x, y:p.pos.y, e:p, subType:"move2StartupRegion"});
         }
 
         // 将玩家从上一层带下来的元素置入
@@ -539,10 +546,10 @@ class Battle {
             // 将元素移动到空地
             map.removeElemAt(fx, fy);
             map.addElemAt(e, x, y);
-            await this.fireEvent("onGridChanged", {x:fx, y:fy, e:e, subType:"elemSwitchFrom"});
-            await this.fireEvent("onGridChanged", {x:x, y:y, e:e, subType:"elemSwitchTo"});
-            await this.triggerLogicPoint("onGridChanged", {x:fx, y:fy, e:e, subType:"elemSwitchFrom"});
-            await this.triggerLogicPoint("onGridChanged", {x:x, y:y, e:e, subType:"elemSwitchTo"});
+            await this.fireEvent("onGridChanged", {x:fx, y:fy, tx:x, ty:y, e:e, subType:"elemSwitchFrom"});
+            await this.fireEvent("onGridChanged", {x:x, y:y, fx:fx, fy:fy, e:e, subType:"elemSwitchTo"});
+            await this.triggerLogicPoint("onGridChanged", {x:fx, y:fy, tx:x, ty:y, e:e, subType:"elemSwitchFrom"});
+            await this.triggerLogicPoint("onGridChanged", {x:x, y:y, fx:fx, fy:fy, e:e, subType:"elemSwitchTo"});
         };
     }
 
@@ -1180,6 +1187,7 @@ class Battle {
             }
         }
         extraPowerABC = extraPowerABC ? extraPowerABC : {a:0, b:0, c:0};
+        await m.bt().fireEvent("onSelfExplode", {m:m});
         await m.bt().implMonsterAttackPoses(m, poses, extraPowerABC, true, ["immuneAttackBack"], attackPlayer);
     }
 

@@ -22,7 +22,10 @@ class WxgamePlatform {
 				fail: () =>  {
 					console.log("not shared");
 					resolve(false);
-				}
+				},
+				complete: () => {
+					console.log("share complete");
+				},
 			};
 		});
 	}

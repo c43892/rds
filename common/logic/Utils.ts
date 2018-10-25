@@ -328,8 +328,10 @@ class Utils {
     // 载入角色数据
     public static loadPlayer() {
         var oldVer = +Utils.$$loadItem("Version");
-        if (Version.isCompatible(oldVer))
-            return {ver:oldVer, player:Player.fromString(Utils.$$loadItem("Player"))};
+        if (Version.isCompatible(oldVer)) {
+            var playerSaveString = Utils.$$loadItem("Player");
+            return {ver:oldVer, player:Player.fromString(playerSaveString)};
+        }
         else
             return {ver:oldVer, player:undefined};
     }

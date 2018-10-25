@@ -10,7 +10,10 @@ class WorldMapRoute{
          this.dstNode = dstNode;
          this.offsetX = dstNode.x - strNode.x;
          this.offsetY = 1;
-         dstNode.addParent(strNode);
-         strNode.addRoute(this);
+
+         if (!Utils.contains(dstNode.parents, strNode)) {
+            dstNode.addParent(strNode);
+            strNode.addRoute(this);
+         }
      }
 }

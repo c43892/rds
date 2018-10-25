@@ -1,6 +1,6 @@
 class Version {
     // 当前版本号
-    public static currentVersion:number = 0.24;
+    public static currentVersion:number = 0.25;
 
     // 版本是否兼容
     public static isCompatible(oldVer:number) {
