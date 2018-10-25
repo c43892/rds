@@ -176,6 +176,7 @@ class MonsterFactory {
             m = MonsterFactory.doHideHazardNumberOnView(m);
             m = MonsterFactory.doChangeMonsterImg(m);
             m = MonsterFactory.doAttackRandomGrid(m);
+            m = MonsterFactory.doSummonTentaclePer5Rounds(m);
             m = MonsterFactory.doRemoveSanEffectAfterDie(m);
             return m;
         },

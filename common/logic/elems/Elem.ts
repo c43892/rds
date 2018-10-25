@@ -45,7 +45,7 @@ class Elem {
             case "uncoveredMonser": // 揭开的怪
                 return e instanceof Monster && !g.isCovered();
             case "markedMonster|uncoveredMonser": // 标记或者揭开的怪
-                return e instanceof Monster && g.isMarked();
+                return e instanceof Monster && g.isUncoveredOrMarked();
             default:
                 return false;
         }

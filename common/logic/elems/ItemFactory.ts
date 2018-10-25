@@ -144,12 +144,49 @@ class ItemFactory {
         // 盾牌
         "Shield": (attrs) => {
             var e = this.createItem();
+            e.useWithTarget = () => Utils.indexOf(e.bt().player.relicsEquipped, (r: Relic) => r.type == "ShieldSlam") > -1;
             e.canUse = () => false;
-            e.canNotUseReason = () => "shieldPassiveTriggerDesc"
+            e.canNotUseReason = () => {
+                if (Utils.indexOf(e.bt().player.relicsEquipped, (r: Relic) => r.type == "ShieldSlam") > -1)
+                    return "inCD";
+                else
+                    return "shieldPassiveTriggerDesc";
+            };
+            e.useAt = async (x: number, y: number) => {
+                // 需要cd结束可用
+                if (!e.isValid()) return e["shield"] > 0;
+
+                var results = [];
+                Utils.assert(e.bt().level.map.getElemAt(x, y) instanceof Monster, "shield can only attack a monster");
+                var monster = <Monster>e.bt().level.map.getElemAt(x, y);
+                var hp = monster.hp;
+                var shield = monster.shield;
+                await e.bt().implPlayerAttackAt(x, y, e, results);                
+
+                // 根据伤害值来变更剩余护盾值,为0则消耗盾牌
+                var result = results[0];
+                var damage;
+                if (result.dhp < 0)
+                    damage = Math.min(hp, Math.abs(result.dhp));
+                else
+                    damage = Math.min(shield, Math.abs(result.dShield));
+
+                e["shield"] -= damage;
+                // 需要处理之前在"onUseElemAt"中隐藏显示的格子,如果没被消耗还需要飞回来
+                // await e.bt().fireEvent("onShieldFlyBack", {e:e, from:monster, back:e["shield"] > 0});
+                if (e["shield"] > 0){                    
+                    // 进入CD
+                    var priorCD = e.cd;
+                    e.resetCD();
+                    await e.bt().fireEvent("onColddownChanged", { e: e, priorCD: priorCD });
+                }
+                return e["shield"] > 0;
+            }
+
             e = ElemFactory.addAI("onCalcAttackResult", async (ps) => {
                 var fs = ps.attackerAttrs.attackFlags;
-                if (Utils.indexOf(fs, (s:string) => s == "AmorPenetrate") > -1) return;
-                
+                if (Utils.indexOf(fs, (s: string) => s == "AmorPenetrate") > -1) return;
+
                 ps.r.r = "blocked";
                 e["shield"] += ps.r.dhp;
                 ps.r.dhp = ps.r.dshield = 0;
@@ -160,7 +197,13 @@ class ItemFactory {
                 }
                 else await e.bt().implOnElemDie(e);
             }, e, (ps) => {
-                return e.isValid() && ps.r.r == "attacked" && ps.subType == "monster2targets" && ps.targetAttrs.owner instanceof Player});
+                return e.isValid() && ps.r.r == "attacked" && ps.subType == "monster2targets" && ps.targetAttrs.owner instanceof Player
+            });
+
+            // 确定盾牌的攻击力
+            e = ElemFactory.addAI("onCalcAttacking", (ps) => {
+                ps.attackerAttrs.power.b = e["shield"]
+            }, e, (ps) => ps.weapon == e, true, true);
             e = ElemFactory.triggerColddownLogic(e);
             e.getElemImgRes = () => (e.cd <= 0) ? e.type : e.type + "Back";
             e["shield"] = attrs.shield;
@@ -316,9 +359,4 @@ class ItemFactory {
             return e;
         }
     };
-
-    // 给盾牌增加使用逻辑,你可以将你的盾牌投掷出去造成不超过剩余吸收阈值的伤害，达到阈值后盾牌碎裂
-    public static addUseLogicToShield(e:Elem):Elem {
-        return e;
-    }
 }
