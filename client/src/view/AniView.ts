@@ -1609,9 +1609,9 @@ class AniView extends egret.DisplayObjectContainer {
                 AniUtils.ac.removeChild(numTxt);
             };
         }
-
+        
         return new Promise<void>((r, _) => {
-            var tw = egret.Tween.get(this.wmv).to({mapScrollPos:p}, time, egret.Ease.cubicInOut);
+            var tw = egret.Tween.get(this.wmv).to({rawMapScrollPosRange:p}, time, egret.Ease.cubicInOut);
             tw.call(() => {
                 if (rev) rev();
                 this.decBlockLayer();

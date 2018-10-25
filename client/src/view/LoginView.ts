@@ -2,6 +2,7 @@
 class LoginView extends egret.DisplayObjectContainer {
     public player:Player;
     public acFact:AudioFactory;
+    public confirmOkYesNo;
 
     bg:egret.Bitmap;
     title:egret.Bitmap;
@@ -56,7 +57,16 @@ class LoginView extends egret.DisplayObjectContainer {
         this.btnAchievement.setDownBg("AchievementDown_png");
 
         this.btnContinue.onClicked = () => this.close("continuePlay");
-        this.btnNewPlay.onClicked = () => this.close("newPlay"); 
+        this.btnNewPlay.onClicked = () => {
+            if (!!this.player) {
+                this.confirmOkYesNo(ViewUtils.getTipText("newPlayConfirmTitle"), 
+                    ViewUtils.getTipText("newPlayConfirmContent"), true).then((ok) => {
+                        if (ok)
+                            this.close("newPlay");
+                    });
+            } else
+                this.close("newPlay");
+        }
         this.btnOpenRank.onClicked = () => this.close("openRank");
 
         var btnSound = () => AudioFactory.play("btn1");

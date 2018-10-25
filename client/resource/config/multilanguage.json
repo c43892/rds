@@ -344,6 +344,8 @@
 		"nutWallUseDesc":{"EN": "I'm going to share the damage", "CNS": "我会帮你分担伤害", "CNT": "我会帮你分担伤害"},
 		"peashooterUseDesc":{"EN": "shooting!", "CNS": "射击！射击！", "CNT": "射击！射击！"},
 		"headBoneUseDesc":{"EN": "get the monster sneaking!", "CNS": "让怪物突袭你吧！", "CNT": "让怪物突袭你吧！"},
+		"newPlayConfirmTitle":{"EN": "!", "CNS": "!", "CNT": "!"},
+		"newPlayConfirmContent":{"EN": "discard the current progress?", "CNS": "确定放弃当前进度？", "CNT": "确定放弃当前进度？"},
 		"": {}
 	}
 }

@@ -59,6 +59,7 @@ class MainView extends egret.DisplayObjectContainer {
         // 登录界面
         this.lgv = new LoginView(w, h);
         this.lgv.acFact = audioFact;
+        this.lgv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
 
         // 设置界面
         this.st = new SettingView(w, h);
