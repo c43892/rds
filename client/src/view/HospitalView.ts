@@ -12,7 +12,7 @@ class HospitalView extends egret.DisplayObjectContainer {
     private tip:egret.TextField;
     private btnCure:TextButtonWithBg; // 治疗
     private btnReinforce:TextButtonWithBg; // 强化
-    private btnMutate:TextButtonWithBg; // 变异
+    private btnDeathGodBack:TextButtonWithBg; // 死神回退
     private btnExchangeRelic:TextButtonWithBg // 交换遗物
     private btnGoOn:TextButtonWithBg;
 
@@ -57,11 +57,11 @@ class HospitalView extends egret.DisplayObjectContainer {
         this.btnReinforce.name = "btnReinforce";
         this.btnReinforce.onClicked = () => this.openReinforce();
 
-        // // 变异
-        // this.btnMutate = new TextButtonWithBg("btnBg_png", 30);
-        // this.btnMutate.text = ViewUtils.getTipText("hospitalMutate");
-        // this.btnMutate.name = "btnMutate";
-        // this.btnMutate.onClicked = async () => await this.openMutate();
+        // 死神回退
+        this.btnDeathGodBack = new TextButtonWithBg("btnBg_png", 30);
+        this.btnDeathGodBack.text = ViewUtils.getTipText("hospitalDeathGodBack");
+        this.btnDeathGodBack.name = "btnDeathGodBack";
+        this.btnDeathGodBack.onClicked = async () => this.onDeathGodBack();
 
         // 交换遗物
         this.btnExchangeRelic = new TextButtonWithBg("btnBg_png", 30);
@@ -74,7 +74,7 @@ class HospitalView extends egret.DisplayObjectContainer {
         this.btnGoOn.name = "btnGoOn";
         this.btnGoOn.onClicked = () => this.onGoOn();
 
-        var objs = [this.bg1, this.bg2, this.title, this.tip, this.btnCure, this.btnReinforce, this.btnExchangeRelic, this.btnGoOn];        
+        var objs = [this.bg1, this.bg2, this.title, this.tip, this.btnCure, this.btnDeathGodBack, this.btnReinforce, this.btnExchangeRelic, this.btnGoOn];        
         ViewUtils.multiLang(this, ...objs);
         objs.forEach((obj, _) => this.addChild(obj));
     }
@@ -128,6 +128,16 @@ class HospitalView extends egret.DisplayObjectContainer {
 
     //     parent.addChild(this);
     // }
+
+    // 死神回退
+    async onDeathGodBack() {
+        var yesno = await this.confirmOkYesNo(undefined, "确定驱逐死神？(死神回退 75 步)", true);
+        if (yesno) {
+            var deathStep = this.player.deathStep + 75;
+            this.player.deathStep = deathStep > this.player.maxDeathStep ? this.player.maxDeathStep : deathStep;
+            this.doClose();
+        }
+    }
 
     async openExchangeRelic() {
         var sel = -1;

@@ -420,7 +420,8 @@ class RelicFactory {
                     return;
                 }
                 ElemFactory.addAI("onElemChanged", async () => {
-                    var e = BattleUtils.findRandomElems(r.bt(), 1, (e: Elem) => e.getGrid().isCovered() && !e.getGrid().isMarked() && !(e instanceof Monster))[0];
+                    // 找到一个随机物品(即地图上不是怪物的元素,除开黑洞)
+                    var e = BattleUtils.findRandomElems(r.bt(), 1, (e: Elem) => e.getGrid().isCovered() && !e.getGrid().isMarked() && !(e instanceof Monster) && e.type != "Hole")[0];
                     if (e)
                         await r.bt().implMark(e.pos.x, e.pos.y);
                 }, r, (ps) => ps.subType == "die" && ps.e instanceof Monster && ps.e.isHazard() && ps.e.type != "PlaceHolder")

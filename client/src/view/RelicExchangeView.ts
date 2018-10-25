@@ -441,26 +441,6 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
 
     // 保存遗物交换操作
     savePlayerRelicExchange() {
-        this.rsEquipped.forEach((relic: Relic, i) => {
-            if (!relic) return;
-            if (relic == this.player.relicsEquipped[i])
-                return;
-            else if (Utils.indexOf(this.player.relicsEquipped, (r: Relic) => r == relic) > -1)
-                return;
-            else
-                relic.toRelic(this.player);
-        })
-
-        this.rsInBag.forEach((relic: Relic, i) => {
-            if (relic == this.player.relicsInBag[i])
-                return;
-            else if (Utils.indexOf(this.player.relicsInBag, (r: Relic) => r == relic) > -1)
-                return;
-            else
-                relic.removeAllEffects();
-        })
-
-        this.player.relicsEquipped = this.rsEquipped;
-        this.player.relicsInBag = this.rsInBag;
+        this.player.changeRelicPosition(this.rsEquipped, this.rsInBag);
     }
 }

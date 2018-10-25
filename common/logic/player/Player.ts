@@ -482,6 +482,33 @@ class Player {
         Utils.assert(false, "player has no relic: " + type + " to remove");
     }
 
+    // 改变遗物位置
+    public changeRelicPosition(rsEquipped:Relic[], rsInBag:Relic[]) {
+        rsEquipped.forEach((relic: Relic, i) => {
+            if (!relic) return;
+            if (relic == this.relicsEquipped[i])
+                return;
+            else if (Utils.indexOf(this.relicsEquipped, (r: Relic) => r == relic) > -1)
+                return;
+            else
+                relic.toRelic(this);
+        })
+
+        rsInBag.forEach((relic: Relic, i) => {
+            if (relic == this.relicsInBag[i])
+                return;
+            else if (Utils.indexOf(this.relicsInBag, (r: Relic) => r == relic) > -1)
+                return;
+            else{
+                relic.removeAllEffects();
+                relic.player = undefined;
+            }
+        })
+
+        this.relicsEquipped = rsEquipped;
+        this.relicsInBag = rsInBag;
+    }
+
     // 道具相关逻辑
 
     public props:Elem[] = []; // 所有道具

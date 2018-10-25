@@ -240,14 +240,15 @@
 		
 		"hospitalView":{
 			"layout": {
-				"bg1": {"x":20, "y":180, "w":600, "h":764},
-				"bg2": {"x":172, "y":280},		
-				"title":{"x":70, "y":195, "w":500, "h":50},		
-				"tip":{"x":70, "y":245, "w":500, "h":50},	
+				"bg1": {"x":20, "y":130, "w":600, "h":849},
+				"bg2": {"x":172, "y":230},		
+				"title":{"x":70, "y":145, "w":500, "h":50},		
+				"tip":{"x":70, "y":195, "w":500, "h":50},	
 				"btnMutate":{"x":119, "y":520},
-				"btnCure":{"x":119, "y":605},
-				"btnReinforce":{"x":119, "y":690},
-				"btnExchangeRelic":{"x":119, "y":775},
+				"btnCure":{"x":119, "y":555},
+				"btnDeathGodBack":{"x":119, "y":635},
+				"btnReinforce":{"x":119, "y":720},
+				"btnExchangeRelic":{"x":119, "y":805},
 				"btnGoOn":{"x":417, "y":960} 
 			}
 		},
@@ -313,6 +314,7 @@
 		"hospitalTitle": {"EN": "safe house", "CNS": "安全屋", "CNT": "安全屋"},
 		"hospitalTip": {"EN": "what's your choice?", "CNS": "你想要做什么?", "CNT": "你想要做什麼?"},
 		"hospitalCure":{"EN": "cure", "CNS": "休息（恢复30%生命）", "CNT": "治療"},
+		"hospitalDeathGodBack":{"EN": "death god back", "CNS": "驱逐（死神回退75步）", "CNT": "驱逐（死神回退75步）"},
 		"hospitalReinforce":{"EN": "reinforce", "CNS": "强化（升级某项技能）", "CNT": "強化"},
 		"hospitalMutate":{"EN": "mutate", "CNS": "变异", "CNT": "變異"},
 		"hospitalExchangeRelic": {"EN": "exchange", "CNS": "装备技能", "CNT": "装备技能"},
