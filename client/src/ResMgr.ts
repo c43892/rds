@@ -65,7 +65,7 @@ class ResMgr {
                 }
                 else if (tb[itUrl])
                     tb[itUrl].retry = retryTimes;
-            }, 20000);
+            }, 40000);
             retryTimes++;
         }
 
@@ -87,7 +87,7 @@ class ResMgr {
                 }
                 else if (soundTB[itUrl])
                     soundTB[itUrl].retry = retryTimes;
-            }, 20000);
+            }, 40000);
             retryTimes++;
         }
     }
