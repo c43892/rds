@@ -43,12 +43,11 @@ class LevelLogicAddBoxAndKey extends LevelLogic{
             
             for(var i = 0; i < boxes.length; i++){
                 var key = this.level.createElem("Key");
-                var gs = BattleUtils.findRandomGrids(bt, (g:Grid) => !g.getElem() && !g.isCovered(), 2);
-                if(gs.length == 2){
-                    bt.addElemAt(boxes[i], gs[0].pos.x, gs[0].pos.y);
-                    await bt.fireEvent("onGridChanged", {"subType":"elemAdded" , x:gs[0].pos.x, y:gs[0].pos.y, e:boxes[i]});
-                    bt.addElemAt(key, gs[1].pos.x, gs[1].pos.y);
-                    await bt.fireEvent("onGridChanged", {"subType":"elemAdded" , x:gs[1].pos.x, y:gs[1].pos.y, e:key});
+                var g = BattleUtils.findRandomGrids(bt, (g:Grid) => !g.getElem() && !g.isCovered(), 1)[0];
+                if(g){
+                    bt.addElemAt(boxes[i], g.pos.x, g.pos.y);
+                    await bt.fireEvent("onGridChanged", {"subType":"elemAdded" , x:g.pos.x, y:g.pos.y, e:boxes[i]});
+                    this.level.keys.push(key);
                 }
             }
         })

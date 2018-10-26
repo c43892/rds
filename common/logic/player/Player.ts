@@ -6,7 +6,7 @@ class Player {
     private static serializableFields = [
         "currentStoreyPos", "finishedStoreyPos", "finishedWorldMap", "finishedEvent", "battleRandomSeed",  
         "deathStep", "maxDeathStep", "hp", "maxHp", "power", "defence", "dodge", 
-        "occupation", "exp", "lv", "money", "globalEventFinishedCount", "relicsEquippedCapacity"];
+        "occupation", "exp", "lv", "money", "globalEventFinishedCount", "relicsEquippedCapacity", "worldName"];
 
     // 所属战斗
     private $$bt;
@@ -23,6 +23,8 @@ class Player {
 
     // 关卡逻辑
     public worldmap:WorldMap;
+    public worldName:string;
+    public worldmapRandomSeed:number; // 世界地图随机种子
     public playerRandom:SRandom; // 伴随角色的随机数，会被 save/load
     public currentStoreyPos; // 当前所在层数以及该层位置
     public currentTotalStorey = () => Utils.playerFinishedStorey(this); // 当前总层数
@@ -46,6 +48,7 @@ class Player {
         p.dodge = 0;
         p.power = [4, 0];
         p.playerRandom = new SRandom();
+        p.worldmapRandomSeed = p.playerRandom.nextInt(0, 1000000000);
         p.money = 20;
         p.exp = 0;
         p.lv = 0;
@@ -304,11 +307,10 @@ class Player {
         }
 
         // 目前 buff 不参与
-
-        var world = this.worldmap.toString();
         var srand = this.playerRandom.toString();
+        var worldmapRandomSeed = this.worldmapRandomSeed;
 
-        var pinfo = {relicsEquipped:relicsEquipped, relicsInBag:relicsInBag, props:props, elems2NextLevel:elems2NextLevel, world:world, srand:srand};
+        var pinfo = {relicsEquipped:relicsEquipped, relicsInBag:relicsInBag, props:props, elems2NextLevel:elems2NextLevel, worldmapRandomSeed:worldmapRandomSeed, srand:srand};
         for (var f of Player.serializableFields)
             pinfo[f] = this[f];
 
@@ -366,10 +368,9 @@ class Player {
         }
 
         // 目前 buff 不参与
-
-        p.worldmap = WorldMap.fromString(pinfo.world);
-        p.worldmap.player = p;
         p.playerRandom = SRandom.fromString(pinfo.srand);
+        p.worldmapRandomSeed = pinfo.worldmapRandomSeed;        
+        p.worldmap = WorldMap.buildFromConfig(p.worldName, p);        
         p = Occupation.makeOccupationBuff(p);
 
         return p

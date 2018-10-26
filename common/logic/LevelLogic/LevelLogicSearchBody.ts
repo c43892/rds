@@ -1,5 +1,6 @@
+// 冒险者的尸体事件专用逻辑
 class LevelLogicSearchBody extends LevelLogic{
-    public rdps;
+    public rdps; // 掉落表数组
     constructor(rdps){
         super("LevelLogicSearchBody");
         this.rdps = rdps;
@@ -7,6 +8,7 @@ class LevelLogicSearchBody extends LevelLogic{
         this.addAI("beforeLevelInited", async (ps) => {
             var bt = this.level.bt;
             for(var i = 0; i < rdps.length; i++){
+                // 约定:传入的不是数字则为掉落组,是数字则为钱的数量
                 if(isNaN(rdps[i]))
                     var box = this.level.createElem("TreasureBox", {rdp:rdps[i]});
                 else{
@@ -15,10 +17,10 @@ class LevelLogicSearchBody extends LevelLogic{
                     box.addDropItem(coins);
                 }
                 var key = this.level.createElem("Key");
-                var gs = BattleUtils.findRandomGrids(bt, (g:Grid) => !g.getElem() && !g.isCovered(), 2);
-                if(gs.length == 2){
-                    await bt.implAddElemAt(box, gs[0].pos.x, gs[0].pos.y);
-                    await bt.implAddElemAt(key, gs[1].pos.x, gs[1].pos.y);
+                var g = BattleUtils.findRandomGrids(bt, (g:Grid) => !g.getElem() && !g.isCovered(), 1)[0];
+                if(g){
+                    await bt.implAddElemAt(box, g.pos.x, g.pos.y);
+                    this.level.keys.push(key);
                 }
             }
         })

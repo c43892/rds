@@ -86,7 +86,8 @@ class Battle {
         await this.fireEvent("onInitBattleView", {bt:this});
 
         await this.triggerLogicPoint("beforeLevelInited", {bt:this});
-        await this.fireEvent("onLevelInited", {bt:this});
+        // await this.fireEvent("onLevelInited", {bt:this});
+        await this.triggerLogicPoint("beforeLevelInitedKey", {bt:this});
         await this.triggerLogicPoint("beforeLevelInited2", {bt:this});
         await this.triggerLogicPoint("onLevelInited", {bt:this});
         
@@ -1324,5 +1325,11 @@ class Battle {
         }
 
         await this.fireEvent("onMonsterTakeElem", {m:m, es:es, toDropList:toDropList})
+    }
+    
+    // 怪物增加掉落元素
+    public async implMonsterAddDropItem(m:Monster, e:Elem) {
+        m.addDropItem(e);
+        await this.fireEvent("onElemChanged", {subType:"addDropItem", e:m});
     }
 }

@@ -4,6 +4,7 @@ class Level {
     public displayName:string;
     public map:Map;
     public bt:Battle; // 反向引用回所属 battle
+    public keys:Elem[] = []; // 装着所有的关卡初始钥匙
     private cfg;
     private lv;
 
@@ -88,8 +89,9 @@ class Level {
             this.createElem("EscapePort", {size: init_uncovered_size}), // 逃跑出口
         ];
 
+        // 钥匙存在关卡身上,等待统一安排
         for(var i = 0; i < doorUnlock; i++){
-            elems.push(this.createElem("Key"));
+            this.keys.push(this.createElem("Key"));
         }
         
         // 添加固定元素
@@ -147,47 +149,6 @@ class Level {
             }
         }
     }
-
-    // // 乱序所有元素
-    // public RandomElemsPos() {
-
-    //     var biggerElems = [];
-    //     var normalElems = [];
-
-    //     // 先分开大尺寸元素和普通元素
-    //     this.map.travelAll((x, y) => {
-    //         var e = this.map.getElemAt(x, y);
-    //         if (!e) return;
-
-    //         if (e.type == "PlaceHolder")
-    //             return;            
-
-    //         if (e.isBig())
-    //             biggerElems.push(e);
-    //         else
-    //             normalElems.push(e);
-
-    //         this.map.removeElemAt(e.pos.x, e.pos.y);
-    //     });
-
-    //     // 先给大尺寸元素找到随机位置
-    //     for (var e of biggerElems) {
-    //         var esize = e.attrs.size;
-    //         var g = BattleUtils.findRandomEmptyGrid(this.bt, false, esize);
-    //         Utils.assert(!!g, "can not place big " + e.type + " with size of " + esize);
-    //         this.map.addElemAt(e, g.pos.x, g.pos.y);
-    //         var hds:Elem[] = e["placeHolders"]();
-    //         Utils.assert(hds.length == esize.w * esize.h - 1, "big elem size mismatch the number of it's placeholders");
-    //     }
-
-    //     // 再放置普通元素
-    //     for (var e of normalElems) {
-    //         Utils.assert(e.type != "PlaceHolder", "place holders should be placed already");
-    //         var g = BattleUtils.findRandomEmptyGrid(this.bt, false);
-    //         Utils.assert(!!g, "no more place for elem");
-    //         this.map.addElemAt(e, g.pos.x, g.pos.y);
-    //     }
-    // }
 
     // 根据配置将部分元素放置在固定位置,其余元素随机
     public setElemPosByCfg(cfg, covered:boolean = true){

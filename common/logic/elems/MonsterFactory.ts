@@ -255,6 +255,12 @@ class MonsterFactory {
                     cm = MonsterFactory.doUncoverGridOnDie(2, cm);
                     break;
                 }
+                case "SwatheZombie" :{
+                    var cocoons = m.bt().level.map.findAllElems((e:Elem) => e.type == "Cocoon" && e["swathedBy"] == m);
+                    for (var cocoon of cocoons)
+                        cocoon["swathedBy"] == cm;
+                    break;
+                }
             }
 
         }
@@ -897,10 +903,10 @@ class MonsterFactory {
                     pos.x = kingPos.x + posOffset.x;
                     pos.y = kingPos.y + posOffset.y;
                     poses.push(pos);
-                    var elem = bt.level.map.getElemAt(pos.x, pos.y);                    
+                    var elem = bt.level.map.getElemAt(pos.x, pos.y);
                     if (!!elem && elem.type == "Key")
                         keys.push(elem);
-                    else if (!!elem && elem["summonKing"]){
+                    else if (!!elem){
                         var key = Utils.filter(elem.dropItems, (k:Elem) => k.type == "Key")[0];
                         if(key)
                             keys.push(key);
