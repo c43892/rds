@@ -35,10 +35,8 @@ class GuideView extends egret.DisplayObjectContainer {
 
     onTapped;
     touchTap(evt:egret.TouchEvent) {
-        if (this.onTapped) {
+        if (this.onTapped)
             this.onTapped(evt);
-            this.onTapped = undefined;
-        }
     }
 
     onLongPressed;
@@ -699,8 +697,8 @@ class GuideView extends egret.DisplayObjectContainer {
         await this.showDialog("Nurse", "护士", "点击就可以打开格子", 0, 550, true);
         await this.tapGridWithDialog(1, 2, "Nurse", "护士", "跟着我点击闪光的格子", 0, 550, true);
         // await this.pressGridWithDialog(0, 2, "GoblinThief", "哥布林", "我就测试一下说话的同时指引点击", 140, 500, true);
-        await this.showDialog("Nurse", "护士", "做的不错，你发现了一把匕首，当你无法确定时，可以用匕首来探路", 0, 550, true);
-        await this.tapGridWithDialog(1, 2, "Nurse", "护士", "捡起匕首，我们来用它探路", 0, 550, true);
+        await this.showDialog("Nurse", "护士", "做的不错，你发现了一把飞刀，当你无法确定时，可以用飞刀来探路", 0, 550, true);
+        await this.tapGridWithDialog(1, 2, "Nurse", "护士", "捡起飞刀，我们来用它探路", 0, 550, true);
         await this.tapSelGridWithDialog(1, 3, "Nurse", "护士", "好的，你成功了！下来让我们攻击一个格子", 0, 550, true);
         await this.showDialog("Nurse", "护士", "看来我们遇到了对手", 0, 550, true);
         await this.showDialog("Nurse", "护士", "怪物的详细信息可以通过长按来查看", 0, 550, true);
@@ -728,7 +726,7 @@ class GuideView extends egret.DisplayObjectContainer {
         var nameAndDesc = ViewUtils.getElemNameAndDesc(m.type);
         await this.showDialog("Nurse", "护士", "哎呀，你被怪物突袭了", 0, 550, true);
         await this.showDialog("Nurse", "护士", "你要尽量避免出现这种情况，怪物突袭时会有各种技能来伤害你", 0, 550, true);
-        await this.showDialog("Nurse", "护士", "如果不好分辨格子是不是有怪物，你可以使用匕首和道具来探路", 0, 550, true);
+        await this.showDialog("Nurse", "护士", "如果不好分辨格子是不是有怪物，你可以使用飞刀和道具来探路", 0, 550, true);
     }
 
     // 怪物被标记指引
