@@ -35,10 +35,8 @@ class GuideView extends egret.DisplayObjectContainer {
 
     onTapped;
     touchTap(evt:egret.TouchEvent) {
-        if (this.onTapped) {
+        if (this.onTapped)
             this.onTapped(evt);
-            this.onTapped = undefined;
-        }
     }
 
     onLongPressed;

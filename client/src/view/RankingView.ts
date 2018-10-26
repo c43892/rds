@@ -188,11 +188,11 @@ class RankingView extends egret.DisplayObjectContainer {
     async loopChecker(bmp:egret.Bitmap) {
         this.rankViewContainer.verticalScrollPolicy = "off";
 
-        while (!bmp.hitTestPoint(bmp.width / 2, this.PerItemHeight / 2, true))
+        while (!bmp.hitTestPoint(50, this.PerItemHeight / 2, true))
             await AniUtils.delay(50);
 
         for (var i = this.PerItemHeight / 2; i < bmp.height; i += this.PerItemHeight) {
-            if (!bmp.hitTestPoint(bmp.width / 2, i, true)) {
+            if (!bmp.hitTestPoint(50, i, true)) {
                 this.rankViewContainer.setContent(bmp);
                 bmp.height = i;
                 break;
