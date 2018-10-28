@@ -12,19 +12,8 @@ class LevelLogicTakeKey extends LevelLogic{
             var seniorTypes = GCfg.getBattleTypes("senior");
             var bossTypes = GCfg.getBattleTypes("boss");
             
-            // 普通关卡将钥匙分配至普通怪物身上,地上留0~1把钥匙
-            if(btType == "normal") {
-                var takeNum = bt.srand.nextInt(keys.length - 1, keys.length + 1);
-                keys = await this.normalMonsterTakeKey(bt, keys, takeNum);
-                if (keys.length > 0) {
-                    var gs = BattleUtils.findRandomGrids(bt, (g:Grid) => !g.getElem(), keys.length);
-                    Utils.assert(gs.length == keys.length, "not enough empty grids");
-                    for (var i = 0; i < gs.length; i++)
-                        await bt.implAddElemAt(keys[i], gs[i].pos.x, gs[i].pos.y);
-                }
-            }
             // 精英关卡,如果是双精英怪,每个精英怪取走2把,单精英则取走4把
-            else if(Utils.indexOf(seniorTypes, (t:string) => t == btType) > -1){
+            if(Utils.indexOf(seniorTypes, (t:string) => t == btType) > -1){
                 var elites = <Monster[]>bt.level.map.findAllElems((e:Elem) => e instanceof Monster && e.isBig());
                 // 多个精英怪
                 if(elites.length > 1){
@@ -70,6 +59,17 @@ class LevelLogicTakeKey extends LevelLogic{
                 keys = await this.normalMonsterTakeKey(bt, keys, keys.length);
                 if (keys.length > 0) {
                     var gs = BattleUtils.findRandomGrids(bt, (g: Grid) => !g.getElem(), keys.length);
+                    Utils.assert(gs.length == keys.length, "not enough empty grids");
+                    for (var i = 0; i < gs.length; i++)
+                        await bt.implAddElemAt(keys[i], gs[i].pos.x, gs[i].pos.y);
+                }
+            }
+            // 普通关卡将钥匙分配至普通怪物身上,地上留0~1把钥匙
+            else {
+                var takeNum = bt.srand.nextInt(keys.length - 1, keys.length + 1);
+                keys = await this.normalMonsterTakeKey(bt, keys, takeNum);
+                if (keys.length > 0) {
+                    var gs = BattleUtils.findRandomGrids(bt, (g:Grid) => !g.getElem(), keys.length);
                     Utils.assert(gs.length == keys.length, "not enough empty grids");
                     for (var i = 0; i < gs.length; i++)
                         await bt.implAddElemAt(keys[i], gs[i].pos.x, gs[i].pos.y);
