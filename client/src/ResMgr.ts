@@ -92,8 +92,8 @@ class ResMgr {
         return new Promise((r, _) => {
             arr.forEach((item, i) => {
                 let it = item;
-                RES.getResAsync(it.name, (res) => {
-                    if (!res) {
+                // RES.getResAsync(it.name, (res) => {
+                //     if (!res) {
                         RES.getResByUrl(ResMgr.URLPrefix + it.url + "?ver=" + Version.currentVersion.toString(), (res) => {
                             if (!res) {
                                 failed.push(res);
@@ -108,13 +108,13 @@ class ResMgr {
                                     r();
                             }
                         }, this, it.type);
-                    } else {
-                        cb(it.url, it.name, res);
-                        cnt--;
-                        if (cnt == 0)
-                            r();
-                    }
-                }, this);
+                //     } else {
+                //         cb(it.url, it.name, res);
+                //         cnt--;
+                //         if (cnt == 0)
+                //             r();
+                //     }
+                // }, this);
             });
         });
     }
