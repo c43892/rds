@@ -470,7 +470,8 @@ class RelicFactory {
                         var forbiddens = ["Coins", "Door", "TreasureBox", "Cocoon", "Hole", "IceBlock", "HeadBone", "NextLevelPort", "Rock"];
                         return !e.getGrid().isCovered() && e instanceof Item && Utils.indexOf(forbiddens, (s) => e.type == s) == -1
                     })[0];
-                    await r.bt().implElemFollow2NextLevel(e);
+                    if (e)
+                        await r.bt().implElemFollow2NextLevel(e);
                 }, r)
             })
         },
