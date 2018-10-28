@@ -39,9 +39,9 @@ class ResMgr {
         var soundTB = {};
         items.forEach((it, _) => {
             if (it.type == "sound")
-                soundTB[it.url] = {name:it.name, url:it.url, type:it.type, retry:0};
+                soundTB[it.url] = {name:it.name, url:it.url, type:it.type};
             else
-                tb[it.url] = {name:it.name, url:it.url, type:it.type, retry:0};
+                tb[it.url] = {name:it.name, url:it.url, type:it.type};
         });
 
         var total = items.length;
@@ -50,12 +50,10 @@ class ResMgr {
 
         // 一般资源 2 线程加载
         RES.setMaxLoadingThread(2);
-        while (true) {
-            var arr = Utils.values(tb);
-            if (arr.length == 0) // 加载完毕
-                break;
-
+        var arr = Utils.values(tb);
+        while (arr.length > 0) {
             Utils.log("loading res " + arr.length + " items(loaded=" + loaded + ", retry=" + retryTimes + ")");
+            var failed = [];
             await ResMgr.loadResItemsWx(arr, (itUrl, name, res) => {
                 if (res) {
                     ResMgr.resMap[name] = res;
@@ -63,21 +61,18 @@ class ResMgr {
                     loaded++;
                     eventHandler.onProgress(loaded, total);
                 }
-                else if (tb[itUrl])
-                    tb[itUrl].retry = retryTimes;
-            }, 40000);
+            }, failed);
+            arr = failed;
             retryTimes++;
         }
 
         // mp3 单线程加载，不然总是遇到加载 mp3 卡住的问题
         RES.setMaxLoadingThread(1);
         retryTimes = 0;
-        while (true) {
-            var arr = Utils.values(soundTB);
-            if (arr.length == 0) // 加载完毕
-                break;
-
+        var arr = Utils.values(soundTB);
+        while (arr.length > 0) {
             Utils.log("loading mp3 " + arr.length + " items(loaded=" + loaded + ", retry=" + retryTimes + ")");
+            var failed = [];
             await ResMgr.loadResItemsWx(arr, (itUrl, name, res) => {
                 if (res) {
                     ResMgr.resMap[name] = res;
@@ -85,44 +80,41 @@ class ResMgr {
                     loaded++;
                     eventHandler.onProgress(loaded, total);
                 }
-                else if (soundTB[itUrl])
-                    soundTB[itUrl].retry = retryTimes;
-            }, 40000);
+            }, failed);
             retryTimes++;
+            arr = failed;
         }
     }
 
-    static async loadResItemsWx(arr, cb, expiredTime) {
+    static async loadResItemsWx(arr, cb, failed) {
         var cnt = arr.length;
         var tm = {};
         return new Promise((r, _) => {
             arr.forEach((item, i) => {
                 let it = item;
-                tm[it.url] = 0;
-                egret.setTimeout(() => {
-                    if (tm[it.url] > 0)
-                        return;
-                    else
-                        tm[it.url] = -1;
-
-                    cb(it.url, it.name, undefined);
-                    cnt--;
-                    Utils.log("load " + it.url + " timeout");
-                    if (cnt == 0)
-                        r();
-                }, this, expiredTime);
-
-                RES.getResByUrl(ResMgr.URLPrefix + it.url, (res) => {
-                    if (tm[it.url] < 0)
-                        return;
-                    else
-                        tm[it.url] = 1;
-
-                    cb(it.url, it.name, res);
-                    cnt--;
-                    if (cnt == 0)
-                        r();
-                }, this, it.type);
+                RES.getResAsync(it.name, (res) => {
+                    if (!res) {
+                        RES.getResByUrl(ResMgr.URLPrefix + it.url + "?ver=" + Version.currentVersion.toString(), (res) => {
+                            if (!res) {
+                                failed.push(res);
+                                cb(it.url, it.name, res);
+                                cnt--;
+                                if (cnt == 0)
+                                    r();
+                            } else {
+                                cb(it.url, it.name, res);
+                                cnt--;
+                                if (cnt == 0)
+                                    r();
+                            }
+                        }, this, it.type);
+                    } else {
+                        cb(it.url, it.name, res);
+                        cnt--;
+                        if (cnt == 0)
+                            r();
+                    }
+                }, this);
             });
         });
     }
