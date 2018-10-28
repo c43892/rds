@@ -635,5 +635,15 @@ class Utils {
         var actualMapRange = bt.lvCfg.actualMapRange;
         actualMapRange = actualMapRange ? actualMapRange : {"minX":0, "maxX":6, "minY":0, "maxY":8};
         return actualMapRange;
-    }; 
+    } 
+
+    // 将字符串按一定规则转换成数字
+    public static string2Number(str:string):number {
+        var number = 0;
+        for (var i = 0; i < str.length; i++){
+            var c = str.charAt(i);
+            number = number * 10 + c.charCodeAt(0);
+        }
+        return number;
+    }
 }

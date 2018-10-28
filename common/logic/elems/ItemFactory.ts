@@ -277,11 +277,7 @@ class ItemFactory {
         "Cocoon": (attrs) => {
             var e = this.createItem();
             e.canBeDragDrop = false;
-            e.canUse = () => {
-                if(e["swathedBy"].isDead())
-                    return true;
-                else return false;
-            };
+            e.canUse = () => !e["swathedBy"].isInMap();
             e.canNotUseReason = () => e.canUse() ? undefined : "swathed";
             e.use = () => {};
             return e;

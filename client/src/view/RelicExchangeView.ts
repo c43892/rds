@@ -79,9 +79,10 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
         this.relicsAreaBg = new egret.Bitmap();
         this.relicsAreaBg.width = this.relicsArea.width;
         this.relicsAreaBg.height = this.relicsArea.height;
-        this.relicsAreaBg.addEventListener(egret.TouchEvent.TOUCH_MOVE, (evt) => this.onTouchMove(evt), this.relicsAreaBg);
-        this.relicsAreaBg.addEventListener(egret.TouchEvent.TOUCH_END, (evt) => this.onTouchEnd(evt), this.relicsAreaBg);
+        var rev = this;
+        this.relicsAreaBg.addEventListener(egret.TouchEvent.TOUCH_MOVE, (evt) => RelicExchangeView.onEvent(rev, "onTouchMove", evt), this.relicsAreaBg);
         this.relicsAreaBg.touchEnabled = true;
+        this.relicsAreaBg.name = "this.relicsAreaBg";
         this.relicsArea.addChild(this.relicsAreaBg);
 
         this.setEmptyGrids();
@@ -189,10 +190,12 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
                 this.relicsArea.addChild(noElemImg);
                 this.relicsArea.addChild(grid);
 
-                grid.addEventListener(egret.TouchEvent.TOUCH_BEGIN, (evt) => this.onTouchBegin(evt), grid);
-                grid.addEventListener(egret.TouchEvent.TOUCH_MOVE, (evt) => this.onTouchMove(evt), grid);
-                grid.addEventListener(egret.TouchEvent.TOUCH_END, (evt) => this.onTouchEnd(evt), grid);
-                grid.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, (evt) => this.onTouchEnd(evt), grid);
+                var rev = this;
+                grid.addEventListener(egret.TouchEvent.TOUCH_BEGIN, (evt) => RelicExchangeView.onEvent(rev, "onTouchBegin", evt), grid);
+                grid.addEventListener(egret.TouchEvent.TOUCH_MOVE, (evt) => RelicExchangeView.onEvent(rev, "onTouchMove", evt), grid);
+                grid.addEventListener(egret.TouchEvent.TOUCH_END, (evt) => RelicExchangeView.onEvent(rev, "onTouchEnd", evt), grid);
+                grid.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, (evt) => RelicExchangeView.onEvent(rev, "onTouchEnd", evt), grid);
+                grid.name = j + "grid" + i;
 
                 if (j == 0)
                     this.equippedGrids.push(grid);
@@ -209,7 +212,7 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
     }
 
     // 刷新格子里的遗物图像等,只刷新装备的或背包里的12个格子
-    private refreshGrids(relics: Relic[] = [], equipped) {
+    private refreshGrids(relics: Relic[] = [], equipped:boolean) {
         if (equipped)
             var containerArr = this.equippedGrids;
         else
@@ -219,6 +222,7 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
             var container = containerArr[i];
             container.removeChildren();
             container["index"] = i;
+            // 该index是遗物
             if (i < relics.length && relics[i]) {
                 var r = relics[i];
                 container["elem"] = "relicAndStar";
@@ -229,6 +233,7 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
                 container.addChild(relicImg);
                 stars.forEach((star, _) => container.addChild(star));
             }
+            // 该index没有遗物了,如果是装备着的,需要显示空格或锁
             else if (equipped) {
                 container["relic"] = undefined;
                 container["arr"] = this.rsEquipped;
@@ -245,6 +250,7 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
                     container.addChild(l);
                 }
             }
+            // 背包中的显示空格
             else{
                 container["elem"] = "emptyGrid";
                 container["relic"] = undefined;
@@ -288,19 +294,38 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
     static longPressed:boolean = false; 
     static pressTimer:egret.Timer
     static longPressThreshold = 500;
-    static dragLimit = 100; // 判断为拖动的距离
+    static dragLimit = 1600; // 判断为拖动的距离
     static dragging: boolean = false; // 产生拖拽事件
     static draggingImg: egret.Bitmap; // 拖拽中的图片
     static draggingImgTex: egret.RenderTexture; //拖动图片的动态纹理
     static dragFromImg: egret.Bitmap;
     static dragFromPos;
 
+    static eventArr = [];
+    static onEvent(rev, eventType:string, evt:egret.TouchEvent) {
+        RelicExchangeView.eventArr.push({rev:rev, eventType:eventType, evt:evt})
+        if (RelicExchangeView.eventArr.length == 1)
+            RelicExchangeView.startEvent();
+    }
+
+    static async startEvent() {
+        while(RelicExchangeView.eventArr.length > 0){
+            let event = RelicExchangeView.eventArr[0];
+            let rev = event.rev;
+            let eventType:string = event.eventType;
+            let evt:egret.TouchEvent = event.evt;
+            await rev[eventType](evt);
+            RelicExchangeView.eventArr.shift();
+            if (eventType == "onTouchEnd")
+                RelicExchangeView.eventArr = [];
+        }
+    }
+
     async onTouchBegin(evt: egret.TouchEvent) {
         RelicExchangeView.pressed = true;
-        RelicExchangeView.dragging = false;
-        RelicExchangeView.longPressed = false;
+        RelicExchangeView.dragging = false;        
         RelicExchangeView.dragFromImg = evt.target;
-        RelicExchangeView.dragFromPos = { x: evt.localX + evt.target.x, y: evt.localX + evt.target.x };
+        RelicExchangeView.dragFromPos = { x: evt.localX + evt.target.x, y: evt.localY + evt.target.y };
 
         if (!RelicExchangeView.pressTimer){
             RelicExchangeView.pressTimer = new egret.Timer(RelicExchangeView.longPressThreshold, 1);
@@ -315,16 +340,13 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
         RelicExchangeView.pressTimer.stop();
         // 暂时没有长按响应
         RelicExchangeView.pressed = false;
+        RelicExchangeView.longPressed = false;
     }
 
     async onTouchMove(evt: egret.TouchEvent) {
         if (RelicExchangeView.longPressed) return;
-        // 在不允许拖动的界面上拖动遗物时需要给出提示
-        if (!this.canDrag && RelicExchangeView.dragFromImg["elem"] == "relicAndStar") {
-            RelicExchangeView.dragging = true;
-            return;
-        }
-        if (!RelicExchangeView.dragFromImg || RelicExchangeView.dragFromImg["elem"] != "relicAndStar") return;
+
+        if (!(RelicExchangeView.dragFromImg && RelicExchangeView.dragFromImg["elem"] == "relicAndStar")) return;
 
         var currentX = evt.localX + evt.target.x;
         var currentY = evt.localY + evt.target.y;
@@ -334,6 +356,7 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
             if (dx * dx + dy * dy > RelicExchangeView.dragLimit) {
                 RelicExchangeView.dragging = true;
                 RelicExchangeView.pressed = false;
+                if (!this.canDrag) return;
                 if (!RelicExchangeView.draggingImg)
                     RelicExchangeView.draggingImg = new egret.Bitmap();
 
@@ -354,69 +377,88 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
             }
         }
         else {
+            if (!this.canDrag) return;
             RelicExchangeView.draggingImg.x = currentX;
             RelicExchangeView.draggingImg.y = currentY;
         }
     }
 
     async onTouchEnd(evt: egret.TouchEvent) {
-        if (RelicExchangeView.dragging) {
+        if (RelicExchangeView.dragging && RelicExchangeView.dragFromImg && RelicExchangeView.dragFromImg["elem"] == "relicAndStar") {            
             // 在不允许拖动的界面上拖动遗物时需要给出提示
-            if (!this.canDrag && RelicExchangeView.dragFromImg["elem"] == "relicAndStar")
+            if (!this.canDrag)
                 await AniUtils.tipAt(ViewUtils.getTipText("tipOnDrag"), {x:this.width/2, y:this.height/2});
             else {
-                RelicExchangeView.dragging = false;
                 this.relicsArea.removeChild(RelicExchangeView.draggingImg);
                 RelicExchangeView.dragFromImg.alpha = 1;
 
                 // 拖动技能到另一个技能的位置, 则交换两个技能的位置.
-                if (evt.target["elem"] == "relicAndStar" && evt.target != RelicExchangeView.dragFromImg) {
+                if (evt.target["elem"] == "relicAndStar") {
                     var from = RelicExchangeView.dragFromImg;
                     var to = evt.target;
-                    from["arr"][from["index"]] = to["relic"];
-                    to["arr"][to["index"]] = from["relic"];
+                    // 如果拖动中存在背包中的遗物,其grids index不等于relics index,因为存在翻页
+                    var fromIndex = from["arr"] == this.rsInBag ? from["index"] + this.page * this.ShowNum : from["index"];
+                    var toIndex = to["arr"] == this.rsInBag ? to["index"] + this.page * this.ShowNum : to["index"];
+                    from["arr"][fromIndex] = to["relic"];
+                    to["arr"][toIndex] = from["relic"];
                     this.refresh();
                 }
                 // 拖动技能到空的技能格
                 else if (evt.target["elem"] == "emptyGrid") {
-                    // 是背包的空技能格,则给出提示
-                    if (evt.target["arr"] == this.rsInBag)
-                        await AniUtils.tipAt(ViewUtils.getTipText("invalidOperate"), { x: this.width / 2, y: this.height / 2 });
+                    var from = RelicExchangeView.dragFromImg;
+                    var to = evt.target;
+                    var fromBag = from["arr"] == this.rsInBag;
+                    var toBag = to["arr"] == this.rsInBag;
+                    // 技能从原有数组移除
+                    if (fromBag) 
+                        this.rsInBag = Utils.remove(this.rsInBag, from["relic"]);                    
+                    else 
+                        this.rsEquipped = Utils.remove(this.rsEquipped, from["relic"]);
+                    
+                    // 技能添加到新数组
+                    if (toBag)
+                        this.rsInBag.push(from["relic"]);                    
+                    else 
+                        this.rsEquipped.push(from["relic"]);
 
-                    // 将未装备的技能拖到已解锁的空的技能格
-                    else if (RelicExchangeView.dragFromImg["arr"] == this.rsInBag) {
-                        var from = RelicExchangeView.dragFromImg;
-                        var to = evt.target;
-                        this.rsInBag = Utils.removeAt(this.rsInBag, from["index"]);
-                        this.rsEquipped.push(from["relic"])
+                    // 被拖动的技能的目标位置
+                    var target = toBag ? this.inBagGrids[this.rsInBag.length - this.page * this.ShowNum - 1] : this.equippedGrids[this.rsEquipped.length - 1];
+                    // 如果拖动到的最终位置不是目标位置,需要一个飞到目标位置的动画
+                    if (target != to) {
+                        from.alpha = 0;
+                        // 创建用于动画的图片relicAndStarImg
+                        // 将技能和星星装在一个DisplayObjectContainer内后绘制纹理
+                        var relic = <Relic>from["relic"];
+                        var relicImg = ViewUtils.createBitmapByName(relic.getElemImgRes() + "_png");
+                        var stars = ViewUtils.createRelicLevelStars(relic, relicImg);
+                        var relicAndStar = new egret.DisplayObjectContainer();
+                        relicAndStar.addChild(relicImg);
+                        stars.forEach((star, _) => relicAndStar.addChild(star));
+                        var relicAndStarTex = new egret.RenderTexture();
+                        relicAndStarTex.drawToTexture(relicAndStar);
+                        var relicAndStarImg = AniUtils.createImg("");
+                        relicAndStarImg.texture = relicAndStarTex;
+                        relicAndStarImg.width = relicAndStarTex.textureWidth;
+                        relicAndStarImg.height = relicAndStarTex.textureHeight;
 
-                        var target = this.equippedGrids[this.rsEquipped.length - 1];
-                        // 如果不是第一个空位,需要一个改变位置的动画表现
-                        if (target != to) {
-                            from.alpha = 0;
-                            var relic = <Relic>from["relic"];
-                            var relicImg = AniUtils.createImg(relic.getElemImgRes() + "_png");
-                            var fromImg = AniUtils.ani2global(to);
-                            relicImg.x = fromImg.x;
-                            relicImg.y = fromImg.y;
-                            relicImg.width = relicImg.height = this.GridSize;
-                            await AniUtils.fly2(relicImg, to, target, true, 1, true);
-                            relicImg["dispose"]();
-                        }
+                        var fromImg = AniUtils.ani2global(to);
+                        var toPos = AniUtils.ani2global(target);
+                        relicAndStarImg.x = fromImg.x;
+                        relicAndStarImg.y = fromImg.y;
+                        this.refresh();
+                        from.alpha = 1;
+                        target.alpha = 0;
+                        await AniUtils.flyAndFadeout(relicAndStarImg, toPos, 200, 1, 1, 0, egret.Ease.quintOut);
+                        relicAndStarImg["dispose"]();
+                        target.alpha = 1;
+                    }
+                    else {
                         this.refresh();
                         from.alpha = 1;
                     }
-                    // 将装备中的技能拖到已解锁的空的技能格,则给出提示
-                    else if (RelicExchangeView.dragFromImg["arr"] == this.rsEquipped)
-                        await AniUtils.tipAt(ViewUtils.getTipText("invalidOperate"), { x: this.width / 2, y: this.height / 2 });
-
-                    // 不应该有其他情况
-                    else Utils.log("error on draging at RelicExchangeView");
                 }
-
-                RelicExchangeView.dragFromImg = undefined;
-                RelicExchangeView.dragFromPos = undefined;
             }
+            RelicExchangeView.dragging = false;
         }
         else if (RelicExchangeView.pressed) {
             RelicExchangeView.pressed = false;
@@ -437,6 +479,8 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
                 }
             }
         }
+        RelicExchangeView.dragFromImg = undefined;
+        RelicExchangeView.dragFromPos = undefined;
     }
 
     // 保存遗物交换操作

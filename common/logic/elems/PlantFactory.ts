@@ -9,7 +9,7 @@ class PlantFactory {
             var attrs = level.getElemCfg("NutWall").attrs;
             attrs = Utils.clone(attrs);
             var p = this.createPlant(attrs);
-            p = MonsterFactory.doShareDamageOnPlayerHurt(50, p);
+            p = MonsterFactory.doShareDamageOnPlayerHurt(attrs.level1Share, p);
             p.getElemImgRes = () => "NutWall";
             p.canNotUseReason = () => "nutWallUseDesc";
             return p;
@@ -19,21 +19,21 @@ class PlantFactory {
             var level = player.bt().level;
             var attrs = level.getElemCfg("NutWall").attrs;
             attrs = Utils.clone(attrs);
-            attrs = this.addNumberTypeAttr(attrs, "hp", 5);
+            attrs = this.addNumberTypeAttr(attrs, "hp", attrs.level2AddHp);
             var p = this.createPlant(attrs);
-            p = MonsterFactory.doShareDamageOnPlayerHurt(50, p);
+            p = MonsterFactory.doShareDamageOnPlayerHurt(attrs.level1Share, p);
             p.getElemImgRes = () => "NutWall";
             p.canNotUseReason = () => "nutWallUseDesc";
             return p;
         },
 
-        "NutWall3": (player:Player) => { // 坚果墙3 承担伤害提升为60%
+        "NutWall3": (player:Player) => { // 坚果墙3 承担伤害提升
             var level = player.bt().level;
             var attrs = level.getElemCfg("NutWall").attrs;
             attrs = Utils.clone(attrs);
-            attrs = this.addNumberTypeAttr(attrs, "hp", 5);
+            attrs = this.addNumberTypeAttr(attrs, "hp", attrs.level2AddHp);
             var p = this.createPlant(attrs);
-            p = MonsterFactory.doShareDamageOnPlayerHurt(75, p);
+            p = MonsterFactory.doShareDamageOnPlayerHurt(attrs.level1Share + attrs.level3Share, p);
             p.getElemImgRes = () => "NutWall";
             p.canNotUseReason = () => "nutWallUseDesc";
             return p;
@@ -43,23 +43,23 @@ class PlantFactory {
             var level = player.bt().level;
             var attrs = level.getElemCfg("NutWall").attrs;
             attrs = Utils.clone(attrs);
-            attrs = this.addNumberTypeAttr(attrs, "hp", 5);
-            attrs = this.addNumberTypeAttr(attrs, "hp", 5);
+            attrs = this.addNumberTypeAttr(attrs, "hp", attrs.level2AddHp);
+            attrs = this.addNumberTypeAttr(attrs, "hp", attrs.level4AddHp);
             var p = this.createPlant(attrs);
-            p = MonsterFactory.doShareDamageOnPlayerHurt(75, p);
+            p = MonsterFactory.doShareDamageOnPlayerHurt(attrs.level1Share + attrs.level3Share, p);
             p.getElemImgRes = () => "NutWall";
             p.canNotUseReason = () => "nutWallUseDesc";
             return p;
         },
 
-        "NutWall5": (player:Player) => { // 坚果墙5 承担伤害提升为50%
+        "NutWall5": (player:Player) => { // 坚果墙5 承担伤害提升
             var level = player.bt().level;
             var attrs = level.getElemCfg("NutWall").attrs;
             attrs = Utils.clone(attrs);
-            attrs = this.addNumberTypeAttr(attrs, "hp", 5);
-            attrs = this.addNumberTypeAttr(attrs, "hp", 5);
+            attrs = this.addNumberTypeAttr(attrs, "hp", attrs.level2AddHp);
+            attrs = this.addNumberTypeAttr(attrs, "hp", attrs.level4AddHp);
             var p = this.createPlant(attrs);
-            p = MonsterFactory.doShareDamageOnPlayerHurt(100, p);
+            p = MonsterFactory.doShareDamageOnPlayerHurt(attrs.level1Share + attrs.level3Share + attrs.level5Share, p);
             p.getElemImgRes = () => "NutWall";
             p.canNotUseReason = () => "nutWallUseDesc";
             return p;
@@ -87,7 +87,7 @@ class PlantFactory {
             var level = player.bt().level;
             var attrs = level.getElemCfg("Peashooter").attrs;
             attrs = Utils.clone(attrs);
-            attrs = this.addNumberTypeAttr(attrs, "power", 2);
+            attrs = this.addNumberTypeAttr(attrs, "power", attrs.level2Power);
             var p = MonsterFactory.doAttackBack(this.createPlant(attrs));
             p = MonsterFactory.doAttack("onPlayerActed", p, () => {
                 var ms = p.map().findAllElems((e:Elem) => {
@@ -106,8 +106,8 @@ class PlantFactory {
             var level = player.bt().level;
             var attrs = level.getElemCfg("Peashooter").attrs;
             attrs = Utils.clone(attrs);
-            attrs = this.addNumberTypeAttr(attrs, "power", 2);
-            attrs = this.addNumberTypeAttr(attrs, "critical", 10);
+            attrs = this.addNumberTypeAttr(attrs, "power", attrs.level2Power);
+            attrs = this.addNumberTypeAttr(attrs, "critical", attrs.level3Critical);
             var p = MonsterFactory.doAttackBack(this.createPlant(attrs));
             p = MonsterFactory.doAttack("onPlayerActed", p, () => {
                 var ms = p.map().findAllElems((e:Elem) => {
@@ -126,9 +126,9 @@ class PlantFactory {
             var level = player.bt().level;
             var attrs = level.getElemCfg("Peashooter").attrs;
             attrs = Utils.clone(attrs);
-            attrs = this.addNumberTypeAttr(attrs, "power", 2);
-            attrs = this.addNumberTypeAttr(attrs, "critical", 10);
-            attrs = this.addNumberTypeAttr(attrs, "attackInterval", -1);
+            attrs = this.addNumberTypeAttr(attrs, "power", attrs.level2Power);
+            attrs = this.addNumberTypeAttr(attrs, "critical", attrs.level3Critical);
+            attrs = this.addNumberTypeAttr(attrs, "attackInterval", - attrs.level4MinusInterval);
             var p = MonsterFactory.doAttackBack(this.createPlant(attrs));
             p = MonsterFactory.doAttack("onPlayerActed", p, () => {
                 var ms = p.map().findAllElems((e:Elem) => {
@@ -147,9 +147,9 @@ class PlantFactory {
             var level = player.bt().level;
             var attrs = level.getElemCfg("Peashooter").attrs;
             attrs = Utils.clone(attrs);
-            attrs = this.addNumberTypeAttr(attrs, "power", 2);
-            attrs = this.addNumberTypeAttr(attrs, "critical", 10);
-            attrs = this.addNumberTypeAttr(attrs, "attackInterval", -1);
+            attrs = this.addNumberTypeAttr(attrs, "power", attrs.level2Power);
+            attrs = this.addNumberTypeAttr(attrs, "critical", attrs.level3Critical);
+            attrs = this.addNumberTypeAttr(attrs, "attackInterval", - attrs.level4MinusInterval);
             attrs["muiltAttack"] = 2;
             var p = MonsterFactory.doAttackBack(this.createPlant(attrs));
             p = MonsterFactory.doAttack("onPlayerActed", p, () => {
@@ -193,7 +193,7 @@ class PlantFactory {
             var level = player.bt().level;
             var attrs = level.getElemCfg("CherryBomb").attrs;
             attrs = Utils.clone(attrs);
-            attrs = this.addNumberTypeAttr(attrs, "power", 2);
+            attrs = this.addNumberTypeAttr(attrs, "power", attrs.level2Power);
             var p = this.createPlant(attrs);
             p.canUse = () => true;
             p.use = async () => { 
@@ -213,12 +213,12 @@ class PlantFactory {
             return p;
         },
 
-        "CherryBomb3": (player:Player) => { // 樱桃炸弹3 攻击+X
+        "CherryBomb3": (player:Player) => { // 樱桃炸弹3 暴击+X
             var level = player.bt().level;
             var attrs = level.getElemCfg("CherryBomb").attrs;
             attrs = Utils.clone(attrs);
-            attrs = this.addNumberTypeAttr(attrs, "power", 2);
-            attrs = this.addNumberTypeAttr(attrs, "critical", 10);
+            attrs = this.addNumberTypeAttr(attrs, "power", attrs.level2power);
+            attrs = this.addNumberTypeAttr(attrs, "critical", attrs.level3Critical);
             var p = this.createPlant(attrs);
             p.canUse = () => true;
             p.use = async () => { 
@@ -242,12 +242,12 @@ class PlantFactory {
             var level = player.bt().level;
             var attrs = level.getElemCfg("CherryBomb").attrs;
             attrs = Utils.clone(attrs);
-            attrs = this.addNumberTypeAttr(attrs, "power", 2);
-            attrs = this.addNumberTypeAttr(attrs, "critical", 10);
+            attrs = this.addNumberTypeAttr(attrs, "power", attrs.level2power);
+            attrs = this.addNumberTypeAttr(attrs, "critical", attrs.level3Critical);
             var p = this.createPlant(attrs);
             p.canUse = () => true;
             p.use = async () => { 
-                await p.bt().implMonsterDoSelfExplode(p, {a:0.5, b:0, c:0}, false); 
+                await p.bt().implMonsterDoSelfExplode(p, {a:attrs.level4BoomDamage / 100, b:0, c:0}, false); 
                 return true;
             }
             p = MonsterFactory.doAttack("onPlayerActed", p, () => {
@@ -267,13 +267,13 @@ class PlantFactory {
             var level = player.bt().level;
             var attrs = level.getElemCfg("CherryBomb").attrs;
             attrs = Utils.clone(attrs);
-            attrs = this.addNumberTypeAttr(attrs, "power", 2);
-            attrs = this.addNumberTypeAttr(attrs, "critical", 10);
+            attrs = this.addNumberTypeAttr(attrs, "power", attrs.level2power);
+            attrs = this.addNumberTypeAttr(attrs, "critical", attrs.level3Critical);
             attrs = this.addArrTypeAttr(attrs, "attackFlags", "Pierce");
             var p = this.createPlant(attrs);
             p.canUse = () => true;
             p.use = async () => { 
-                await p.bt().implMonsterDoSelfExplode(p, {a:0.5, b:0, c:0}, false); 
+                await p.bt().implMonsterDoSelfExplode(p, {a:attrs.level4BoomDamage, b:0, c:0}, false); 
                 return true;
             }
             p = MonsterFactory.doAttack("onPlayerActed", p, () => {
@@ -293,7 +293,7 @@ class PlantFactory {
             var level = player.bt().level;
             var attrs = level.getElemCfg("Sunflower").attrs;
             attrs = Utils.clone(attrs);
-            var p = this.createPlant(attrs);            
+            var p = this.createPlant(attrs);
             p.canUse = () => true;
             p.use = async () => { 
                 await p.bt().implAddPlayerHp(Math.floor(p.bt().player.maxHp * attrs.dhpPercent / 100), p);
@@ -307,11 +307,10 @@ class PlantFactory {
             var level = player.bt().level;
             var attrs = level.getElemCfg("Sunflower").attrs;
             attrs = Utils.clone(attrs);
-            attrs = this.addNumberTypeAttr(attrs, "dhpPercent", 10);
-            var p = this.createPlant(attrs);            
+            var p = this.createPlant(attrs);
             p.canUse = () => true;
             p.use = async () => { 
-                await p.bt().implAddPlayerHp(Math.floor(p.bt().player.maxHp * attrs.dhpPercent / 100), p);
+                await p.bt().implAddPlayerHp(Math.floor(p.bt().player.maxHp * (attrs.dhpPercent + attrs.level2AddDhpPercent) / 100), p);
                 return false;
             }
             p.getElemImgRes = () => "Sunflower";
@@ -322,13 +321,12 @@ class PlantFactory {
             var level = player.bt().level;
             var attrs = level.getElemCfg("Sunflower").attrs;
             attrs = Utils.clone(attrs);
-            attrs = this.addNumberTypeAttr(attrs, "dhpPercent", 10);
             var p = this.createPlant(attrs);            
             p.canUse = () => true;
             p.use = async () => { 
-                await p.bt().implAddPlayerHp(Math.floor(p.bt().player.maxHp * attrs.dhpPercent / 100), p);
+                await p.bt().implAddPlayerHp(Math.floor(p.bt().player.maxHp * (attrs.dhpPercent + attrs.level2AddDhpPercent) / 100), p);
                 var currentExp = GCfg.playerCfg.exp2Lv[player.lv];
-                await p.bt().implAddPlayerExp(Math.floor(currentExp * 0.3), p.pos);
+                await p.bt().implAddPlayerExp(Math.floor(currentExp * attrs.level3AddExpPercent / 100), p.pos);
                 return false;
             }
             p.getElemImgRes = () => "Sunflower";
@@ -339,14 +337,13 @@ class PlantFactory {
             var level = player.bt().level;
             var attrs = level.getElemCfg("Sunflower").attrs;
             attrs = Utils.clone(attrs);
-            attrs = this.addNumberTypeAttr(attrs, "dhpPercent", 10);
             var p = this.createPlant(attrs);
             p.canUse = () => true;
             p.use = async () => { 
-                await p.bt().implAddPlayerHp(Math.floor(p.bt().player.maxHp * attrs.dhpPercent / 100), p);
+                await p.bt().implAddPlayerHp(Math.floor(p.bt().player.maxHp * (attrs.dhpPercent + attrs.level2AddDhpPercent) / 100), p);
                 var currentExp = GCfg.playerCfg.exp2Lv[player.lv];
-                await p.bt().implAddPlayerExp(Math.floor(currentExp * 0.3), p.pos);
-                await p.bt().implAddMoney(50, p);
+                await p.bt().implAddPlayerExp(Math.floor(currentExp * attrs.level3AddExpPercent / 100), p.pos);
+                await p.bt().implAddMoney(attrs.level4AddMoney, p);
                 return false;
             }
             p.getElemImgRes = () => "Sunflower";
@@ -357,16 +354,14 @@ class PlantFactory {
             var level = player.bt().level;
             var attrs = level.getElemCfg("Sunflower").attrs;
             attrs = Utils.clone(attrs);
-            attrs = this.addNumberTypeAttr(attrs, "dhpPercent", 10);
-            var p = this.createPlant(attrs);            
+            var p = this.createPlant(attrs);
             p.canUse = () => true;
             p.use = async () => { 
-                await p.bt().implAddPlayerHp(Math.floor(p.bt().player.maxHp * attrs.dhpPercent / 100), p);
+                await p.bt().implAddPlayerHp(Math.floor(p.bt().player.maxHp * (attrs.dhpPercent + attrs.level2AddDhpPercent) / 100), p);
                 var currentExp = GCfg.playerCfg.exp2Lv[player.lv];
-                await p.bt().implAddPlayerExp(Math.floor(currentExp * 0.3), p.pos);
-                await p.bt().implAddMoney(50, p);
-                await p.bt().implAddPlayerMaxHp(20, p);
-                await p.bt().implAddPlayerHp(10, p);
+                await p.bt().implAddPlayerExp(Math.floor(currentExp * attrs.level3AddExpPercent / 100), p.pos);
+                await p.bt().implAddMoney(attrs.level4AddMoney, p);
+                await p.bt().implAddPlayerMaxHp(attrs.level5AddMaxHp, p);
                 return false;
             }
             p.getElemImgRes = () => "Sunflower";
@@ -406,7 +401,7 @@ class PlantFactory {
             
             p.useAt = async (x:number, y:number) => { 
                 var tarm = <Monster>p.map().getElemAt(x, y);
-                var dattrs = [{type:"power", num:1}]
+                var dattrs = [{type:"power", num:attrs.level2AddPower}]
                 await p.bt().implCharmMonster(tarm, dattrs);
                 return false;
             }
@@ -427,7 +422,7 @@ class PlantFactory {
             
             p.useAt = async (x:number, y:number) => { 
                 var tarm = <Monster>p.map().getElemAt(x, y);
-                var dattrs = [{type:"power", num:1}, {type:"hp", num:2}]
+                var dattrs = [{type:"power", num:attrs.level2AddPower}, {type:"hp", num:attrs.level3AddHp}]
                 await p.bt().implCharmMonster(tarm, dattrs);
                 return false;
             }
@@ -448,7 +443,7 @@ class PlantFactory {
             
             p.useAt = async (x:number, y:number) => { 
                 var tarm = <Monster>p.map().getElemAt(x, y);
-                var dattrs = [{type:"power", num:1}, {type:"hp", num:2}, {type:"critical", num:10}]
+                var dattrs = [{type:"power", num:attrs.level2AddPower}, {type:"hp", num:attrs.level3AddHp}, {type:"critical", num:attrs.level4AddCritical}]
                 await p.bt().implCharmMonster(tarm, dattrs);
                 return false;
             }
@@ -469,7 +464,10 @@ class PlantFactory {
             
             p.useAt = async (x:number, y:number) => { 
                 var tarm = <Monster>p.map().getElemAt(x, y);
-                var dattrs = [{type:"power", num:1}, {type:"hp", num:2}, {type:"critical", num:10}, {type:"dodge", num:10}]
+                var dattrs = [
+                    {type:"power", num:attrs.level2AddPower}, {type:"hp", num:attrs.level3AddHp}, {type:"critical", num:attrs.level4AddCritical}, 
+                    {type:"dodge", num:attrs.level5AddDodge}
+                    ]
                 await p.bt().implCharmMonster(tarm, dattrs);
                 return false;
             }
