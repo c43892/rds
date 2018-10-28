@@ -197,7 +197,7 @@ class Player {
     // 复活
     public reborn() {
         this.clear();
-        this.hp = this.maxHp / 2;
+        this.hp = Math.floor(this.maxHp / 2);
     }
 
     // 触发逻辑点，参数为逻辑点名称，该名称直接字面对应个各元素对逻辑点的处理函数，
