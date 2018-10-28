@@ -34,7 +34,7 @@ class TextProcessor {
                         resolve(data);
                     } else {
                         //通过url加载，加载成功后加入本地缓存
-                        loadText("https://rds.wudouwxg.xyz/" + xhrURL).then((content) => {
+                        loadText("https://rds.wudouwxg.xyz/ver028/" + xhrURL).then((content) => {
                             const dirname = path.dirname(targetFilename);
                             fs.mkdirsSync(dirname);
                             fs.writeSync(targetFilename, content);

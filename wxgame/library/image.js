@@ -42,7 +42,7 @@ class ImageProcessor {
                     // console.log('缓存命中:', url, target)
                     return loadImage(path.getWxUserPath(fullname), scale9Grid);
                 } else {
-                    return download("https://rds.wudouwxg.xyz/" + imageSrc, fullname).then(
+                    return download("https://rds.wudouwxg.xyz/ver028/" + imageSrc, fullname).then(
                         (filePath) => {
                             fs.setFsCache(fullname, 1);
                             return loadImage(filePath, scale9Grid);

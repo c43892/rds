@@ -31,7 +31,7 @@ class SoundProcessor {
                 if (fs.existsSync(fullname)) {
                     return loadSound(path.getWxUserPath(fullname));
                 } else {
-                    return download("https://rds.wudouwxg.xyz/" + soundSrc, fullname)
+                    return download("https://rds.wudouwxg.xyz/ver028/" + soundSrc, fullname)
                         .then((filePath) => {
                             fs.setFsCache(fullname, 1);
                             return loadSound(filePath);
