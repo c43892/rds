@@ -7,6 +7,8 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
     private equippedGrids:egret.DisplayObjectContainer[] = [];
     private inBagGrids:egret.DisplayObjectContainer[] = [];
     private relicsAreaBg:egret.Bitmap;
+    private leftSplitLine:egret.Bitmap;
+    private rightSplitLine:egret.Bitmap;
     private titleInBag:egret.TextField;
     private pageUpBtn:TextButtonWithBg;
     private pageDownBtn:TextButtonWithBg;
@@ -51,11 +53,18 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
         this.titleInBag.text = ViewUtils.getTipText("titleInBag");
         this.titleInBag.name = "titleInBag";
 
-        this.pageUpBtn = new TextButtonWithBg("moreRelicsBtn_png", 30);
+        this.leftSplitLine = ViewUtils.createBitmapByName("leftSplitLine_png");
+        this.leftSplitLine.name = "leftSplitLine";
+
+        this.rightSplitLine = ViewUtils.createBitmapByName("leftSplitLine_png");
+        this.rightSplitLine.scaleX = -1;
+        this.rightSplitLine.name = "rightSplitLine";
+
+        this.pageUpBtn = new TextButtonWithBg("pageUpBtn_png", 30);
         this.pageUpBtn.name = "pageUpBtn";
         this.pageUpBtn.onClicked = () => this.pageUp();
 
-        this.pageDownBtn = new TextButtonWithBg("moreRelicsBtn_png", 30);
+        this.pageDownBtn = new TextButtonWithBg("pageUpBtn_png", 30);
         this.pageDownBtn.name = "pageDownBtn";
         this.pageDownBtn.bg.scaleX = -1;
         this.pageDownBtn.onClicked = () => this.pageDown();
@@ -72,7 +81,7 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
         this.goOnBtn.touchEnabled = true;
         this.goOnBtn.onClicked = () => this.goOn();
 
-        var objs = [this.bg1, this.titleEquipped, this.titleInBag, this.goBackBtn, this.goOnBtn, this.pageUpBtn, this.pageDownBtn, this.relicsArea];
+        var objs = [this.bg1, this.titleEquipped, this.titleInBag, this.leftSplitLine, this.rightSplitLine, this.goBackBtn, this.goOnBtn, this.pageUpBtn, this.pageDownBtn, this.relicsArea];
         objs.forEach((obj, _) => this.addChild(obj));
         ViewUtils.multiLang(this, ...objs);
 
@@ -244,9 +253,13 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
                     container.addChild(emptyGridBg);
                 }
                 else if (i >= this.player.relicsEquippedCapacity) {
+                    container["relic"] = undefined;
                     container["elem"] = "lock";                    
                     var l = ViewUtils.createBitmapByName("relicLock_png");
-                    l.width = l.height = this.GridSize;
+                    l.anchorOffsetX = l.width / 2;
+                    l.anchorOffsetY = l.height / 2;
+                    l.x = container.width / 2;
+                    l.y = container.height / 2;
                     container.addChild(l);
                 }
             }
@@ -301,7 +314,7 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
     static dragFromImg: egret.Bitmap;
     static dragFromPos;
 
-    static eventArr = [];
+    static eventArr = []; // 等待响应的事件列
     static onEvent(rev, eventType:string, evt:egret.TouchEvent) {
         RelicExchangeView.eventArr.push({rev:rev, eventType:eventType, evt:evt})
         if (RelicExchangeView.eventArr.length == 1)
