@@ -8,9 +8,32 @@ class AudioFactory {
             AudioFactory.soundsCache[r].stop();
 
         AudioFactory.soundsCache = {};
+        AudioFactory.bgs = {};
+        AudioFactory.curBgs = undefined;
     }
 
     public static AudioOn = 1;
+
+    static bgs = {};
+    static curBgs = undefined;
+    public static playBg(bg:string) {
+        if (AudioFactory.curBgs) {
+            if (AudioFactory.curBgs.name == bg)
+                return;
+            else
+                AudioFactory.curBgs.ch.stop();
+        }
+
+        if (!AudioFactory.bgs[bg]) {
+            var s:egret.Sound = ResMgr.getRes(bg + "_mp3");
+            if (!s)
+                return;
+
+            AudioFactory.bgs[bg] = s;
+        }
+
+        AudioFactory.curBgs = {name:bg, ch:AudioFactory.bgs[bg].play(0, -1)};
+    }
 
     // 播放声音
     public static play(name, playTimes = 1) {

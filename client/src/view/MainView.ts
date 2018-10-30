@@ -164,6 +164,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.bv.height = this.height;
         this.addChild(this.bv);
         this.isInBattle = true;
+        AudioFactory.playBg("btBgs");
 
         GridView.confirmOkYesNo = async (title, content, yesno) => this.confirmOkYesNo(title, content, yesno);
         GridView.selectGrid = async (f, e) => {
@@ -210,7 +211,8 @@ class MainView extends egret.DisplayObjectContainer {
         bt.registerEvent("onBattleEnded", async (ps) => {
             await this.av.blackIn();
             this.isInBattle = false;
-            this.removeChild(this.bv);            
+            this.removeChild(this.bv); 
+            AudioFactory.playBg("bgs");
             this.battleEndedCallback(bt);
             await this.av.blackOut();
         });
@@ -378,6 +380,7 @@ class MainView extends egret.DisplayObjectContainer {
 
         this.wmv.player = this.p;
         this.wmv.setWorldMap(worldmap);
+        AudioFactory.playBg("bgs");
     }
 
     // 登录
@@ -403,6 +406,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.lgv.player = p;
         this.addChild(this.lgv);
         this.lgv.open();
+        AudioFactory.playBg("bgs");
         await this.av.blackOut();        
         this.lgv.onClose = async (op:string) => {
             if (op == "openRank")
