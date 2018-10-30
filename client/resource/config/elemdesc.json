@@ -333,6 +333,7 @@
         "Door":{"name":"门", "desc":["<font color=#000000 size=20>打开可通往下一层</font>"]},
         "TreasureBox":{"name":"宝箱", "desc":["<font color=#000000 size=20>可被钥匙打开，产出随机道具</font>"]},
         "RandomEgg":{"name":"彩蛋", "desc":["<font color=#000000 size=20>打开获得随机道具</font>"]},
+        "LuxuryChest":{"name":"豪华宝箱", "desc":["<font color=#000000 size=20>产出好东西</font>"]},
         "Clock":{"name":"钟表", "desc":["<font color=#000000 size=20>死神后退<font color=#294c22 size=20> 15 </font><font color=#000000 size=20>步</font>"]},
         "HpPotion":{"name":"医疗药剂", "desc":["<font color=#000000 size=20>使用回复<font color=#294c22 size=20> {heal} </font><font color=#000000 size=20>生命</font>"], 
             "useDescArr":["<font color=#e4d5a5 size=25>使用回复</font><font color=#56ba42 size=25> {heal} </font><font color=#e4d5a5 size=25>生命</font>", "<font color=#e4d5a5 size=25>医疗药剂（点击地图任意位置使用）</font>"]},

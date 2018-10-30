@@ -91,6 +91,11 @@ class BattleRecorder {
             e.setBattle(bt);
             await bt.implSelRelic(e);
         });
+        BattleRecorder.onReplayOp("try2ChooseFromLuxuryChest", async (ps) => {
+            var relic = bt.level.createElem(ps.relicType);
+            relic.setBattle(bt);
+            await bt.implSelRelicInLuxuryChest(relic);
+        })
     }
 
     private static replayOpHandlers = {}; // 执行所有录像指令

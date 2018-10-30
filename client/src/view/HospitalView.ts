@@ -131,9 +131,9 @@ class HospitalView extends egret.DisplayObjectContainer {
 
     // 死神回退
     async onDeathGodBack() {
-        var yesno = await this.confirmOkYesNo("确定驱逐死神", "死神回退 75 步", true);
+        var yesno = await this.confirmOkYesNo("确定驱逐死神", "死神回退 50 步", true);
         if (yesno) {
-            var deathStep = this.player.deathStep + 75;
+            var deathStep = this.player.deathStep + 50;
             this.player.deathStep = deathStep > this.player.maxDeathStep ? this.player.maxDeathStep : deathStep;
             this.doClose();
         }

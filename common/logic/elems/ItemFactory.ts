@@ -97,8 +97,31 @@ class ItemFactory {
             return e;
         },
 
+        // boss三选一宝箱
+        "LuxuryChest": (attrs) => {
+            var e = this.createItem();
+            e.canUse = () => true;
+            e.use = async () => {
+                var b = await e.bt().implOpenLuxuryChest(e);
+                return b;
+            };
+            return e;
+        },
+
         // 钟表
         "Clock": (attrs) => {
+            var e = this.createItem();
+            e.canUse = () => true;
+            e.use = async () => {
+                var bt = e.bt();
+                await bt.implAddDeathGodStep(e.attrs.deathStepBack, e);
+            }
+
+            return e;
+        },
+
+        // 大本钟
+        "BigBen": (attrs) => {
             var e = this.createItem();
             e.canUse = () => true;
             e.use = async () => {

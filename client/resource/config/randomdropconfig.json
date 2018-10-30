@@ -76,13 +76,13 @@
         "HorticultureProficient":10,
         "HorticultureMaster":10,
         "StrikeFirst":10,
-        "IceGun":30,
-        "RayGun":30,
-        "HpPotion":30,
-        "Bazooka":30,
-        "SuperPotion":30,
-        "StrengthPotion":30,
-        "CandyCannon":30
+        "IceGun":150,
+        "RayGun":150,
+        "HpPotion":150,
+        "Bazooka":150,
+        "SuperPotion":150,
+        "StrengthPotion":150,
+        "CandyCannon":150
     }},
 
     "bossBox1": {"num":[1, 2], "elems":{
@@ -123,7 +123,7 @@
     }},
 
     "bossBox5": {"num":[1, 2], "elems":{        
-        "Clock":1
+        "BigBen":1
     }},
 
     "RandomEgg": {"num":[1, 2], "elems":{

@@ -285,6 +285,19 @@
 				"goBackBtn": {"x":10, "y":960},
 				"goOnBtn": {"x":417, "y":960}
 			}
+		},
+		
+		"LuxuryChestView":{
+			"layout": {
+				"bg1":{"x":111, "y":250, "w":418, "h":300},
+				"relicImg1":{"x":278, "y":200},
+				"relicImg2":{"x":150, "y":300},
+				"relicImg3":{"x":406, "y":300},
+				"goBackBtn":{"x":10, "y":960},
+				"relicDescArea":{"x":111, "y":450},
+				"relicName":{"x":111, "y":20},
+				"goOnBtn":{"x":306, "y":510}
+			}
 		}
     },
 
@@ -351,6 +364,7 @@
 		"headBoneUseDesc":{"EN": "get the monster sneaking!", "CNS": "让怪物突袭你吧！", "CNT": "让怪物突袭你吧！"},
 		"newPlayConfirmTitle":{"EN": "!", "CNS": "<font color=#7d0403>提示</font>", "CNT": "!"},
 		"newPlayConfirmContent":{"EN": "discard the current progress?", "CNS": "确定放弃当前进度？", "CNT": "确定放弃当前进度？"},
+		"chooseThisRelic":{"EN": "choose this skill", "CNS": "选择此技能", "CNT": "选择此技能"},
 		"": {}
 	}
 }

@@ -310,7 +310,6 @@ class AniView extends egret.DisplayObjectContainer {
             toImg["dispose"]();
             await this.showRelicLevelUpDesc(e);
         } else if (ps.subType == "addRelicBySel") {
-            var e:Elem = ps.e;
             var fromPos = PlayerLevelUpView.lastSelectedRelicImgGlobalPos
             if (fromPos) {
                 var fromImg = AniUtils.createImg(e.getElemImgRes() + "_png");
@@ -325,7 +324,6 @@ class AniView extends egret.DisplayObjectContainer {
             }
             this.tipRelicShortDesc(<Relic>e);
         } else if (ps.subType == "addRelicByRookie") {
-            var e:Elem = ps.e;
             var fromImg = AniUtils.createImg(e.getElemImgRes() + "_png");
             fromImg.x = this.width / 2;
             fromImg.y = this.height / 2;
@@ -334,6 +332,17 @@ class AniView extends egret.DisplayObjectContainer {
             fromImg["dispose"]();
             toImg["dispose"]();
             await GridView.showElemDesc(e);
+        } else if (ps.subType == "addRelicByLuxuryChest") {
+            var fromObj = this.getSV(ps.fromBox);
+            var fromObjPos = AniUtils.ani2global(fromObj);
+            var flyImg = AniUtils.createImg(e.getElemImgRes() + "_png");
+            flyImg.x = fromObjPos.x;
+            flyImg.y = fromObjPos.y;
+            fromObj.alpha = 0;
+            await AniUtils.fly2(flyImg, fromObj, toImg, true, 1);
+            flyImg["dispose"]();
+            await this.showRelicLevelUpDesc(e);
+            fromObj.alpha = 1;
         }
 
         this.bv.refreshRelics();

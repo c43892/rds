@@ -129,7 +129,7 @@ class MonsterFactory {
         "BombAbomination": (attrs) => MonsterFactory.doSelfExplodeAfterNRound(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //自爆憎恶
         "EyeDemon": (attrs) => MonsterFactory.doUncoverGridOnDie(2, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //眼魔
         "RandomEggZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //彩蛋僵尸
-        "LustZombie": (attrs) => MonsterFactory.doSneakReduseDeathStep(15, MonsterFactory.doAttackBack(this.createMonster(attrs))), //色欲僵尸
+        "LustZombie": (attrs) => MonsterFactory.doAddDeathStepOnDie(MonsterFactory.doSneakReduseDeathStep(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //色欲僵尸
         "CommanderZombie": (attrs) => MonsterFactory.doEnhanceAura(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //指挥官僵尸
         "RageZombie": (attrs) => MonsterFactory.doAddPowerOnHurt(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //狂暴僵尸
         "HideZombie": (attrs) => MonsterFactory.doHideAfterUncovered(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //隐匿僵尸
@@ -374,9 +374,9 @@ class MonsterFactory {
     }
 
     //偷袭：死神提前N回合到来
-    static doSneakReduseDeathStep(n:number, m:Monster):Monster {
+    static doSneakReduseDeathStep(m:Monster):Monster {
         return MonsterFactory.addSneakAI(async () => {
-            await m.bt().implAddDeathGodStep(-n, m);
+            await m.bt().implAddDeathGodStep(m.attrs.deathStepOnSneak, m);
         }, m);
     }
 
@@ -809,42 +809,6 @@ class MonsterFactory {
         }, m, (ps) => ps.targetAttrs.owner == m, true, true);
     }
 
-    // // 史莱姆之王死前将钥匙清空,准备分配给小史莱姆
-    // static doClearKeys(m:Monster):Monster {
-    //     m = <Monster>ElemFactory.addBeforeDieAI(() => {
-    //         m["keys"] = Utils.filter(m.dropItems, (e:Elem) => e.type == "Key");
-    //         m.dropItems = [];
-    //     }, m);
-    //     return m;
-    // }
-
-    // // 史莱姆之王死亡时召唤四个特殊史莱姆
-    // static doSummonSlimesOnDie(m:Monster):Monster {
-    //     m = <Monster>ElemFactory.addAfterDieAI(async () => {
-    //         Utils.assert(m.type == "SlimeKing", "this can only effect on SlimeKing");
-    //         var bt = m.bt();
-    //         var poses = [];
-    //         for(var i = 0; i < 2; i++){
-    //             for(var j = 0; j < 2; j++){
-    //                 var newPos = {x:0, y:0};
-    //                 newPos.x = m.pos.x + i;
-    //                 newPos.y = m.pos.y + j;
-    //                 poses.push(newPos);
-    //             }
-    //         }
-    //         var slimeTypes = ["RedSlime", "GreenSlime", "GreenSlime", "RedSlime"];
-    //         for(var i = 0; i < 4; i++){
-    //             var slime = <Monster>bt.level.createElem(slimeTypes[i]);
-    //             slime = MonsterFactory.doSummonSlimeKing(slime);
-    //             if (m["keys"][i])
-    //                 slime.dropItems = [m["keys"][i]];
-    //             slime["lockDoor"] = true;
-    //             await bt.implAddElemAt(slime, poses[i].x, poses[i].y);
-    //         }
-    //     }, m)
-    //     return m;
-    // }
-
     // 史莱姆之王半血时分裂为4个小史莱姆
     static doSummonSlimesOnHalfHp(m:Monster):Monster{
         m = <Monster>ElemFactory.addAI("onMonsterHurt", async () => {
@@ -1116,6 +1080,13 @@ class MonsterFactory {
                 }
         }, m);
         return m;
+    }
+
+    // 死亡时死神回退
+    static doAddDeathStepOnDie(m:Monster):Monster {
+        return <Monster>ElemFactory.addDieAI(async () => {
+            await m.bt().implAddDeathGodStep(m.attrs.deathStepOnDie, m);
+        }, m);
     }
 
     // boss 特殊逻辑

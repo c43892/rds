@@ -18,6 +18,7 @@ class MainView extends egret.DisplayObjectContainer {
     public scv:ShopConfirmView; // 遗物对比界面
     public st:SettingView; // 设置视图
     public rev:RelicExchangeView; // 交换遗物视图
+    public lcv:LuxuryChestView; // 开boss三选一界面
     public av:AniView; // 动画层
 
     isInBattle:boolean; // 是否在战斗中
@@ -74,6 +75,8 @@ class MainView extends egret.DisplayObjectContainer {
         this.rev.confirmOkYesNo = async (title, content, yesno:boolean, btnText = {}) => await this.confirmOkYesNo(title, content, yesno, btnText);
         this.rev.relicConfirmView = async (p:Player, e:Elem, price:number, showPrice = true) => await this.openShopConfirmView(p, e, price, showPrice);
 
+        this.lcv = new LuxuryChestView(w, h);
+
         // 世界地图
         this.wmv = new WorldMapView(w, h);
         this.wmv.openShop = async (shop) => await this.openShopOnWorldMap(shop);
@@ -129,6 +132,7 @@ class MainView extends egret.DisplayObjectContainer {
             bt.prepare();
             bt.openShop = async (items, prices, onBuy) => {}; // 录像回放中的战斗内商店特殊处理
             bt.openRelicSel2Add = async (choices, onSel) => {}; // 录像回放中的升级选择遗物特殊处理
+            bt.openLuxuryChest = async (relics) => {}; // 录像回放中的boss三选一宝箱的特殊处理
             this.startNewBattle(bt).then(() => this.openWorldMap(p.worldmap));
         };
 
@@ -149,6 +153,7 @@ class MainView extends egret.DisplayObjectContainer {
             bt.prepare();
             bt.openShop = async (items, prices, onBuy, onRob) => await this.openShopInBattle(items, prices, onBuy, onRob);
             bt.openRelicSel2Add = async (choices, onSel) => await this.openRelicSel2Add(choices, onSel);
+            bt.openLuxuryChest = async (relics) => await this.openLuxuryChestView(relics);
             BattleRecorder.startNew(bt.id, bt.player, bt.btType, bt.btRandomSeed, bt.trueRandomSeed, bt.extraLevelLogic);
             await this.startNewBattle(bt);
         }
@@ -517,6 +522,14 @@ class MainView extends egret.DisplayObjectContainer {
         this.setChildIndex(this.wmtv, -1);
         await this.st.open();
         this.removeChild(this.st);
+    }
+
+    // 打开boss三选一宝箱
+    public async openLuxuryChestView(relics:Relic[]) {
+        this.addChild(this.lcv);
+        var r = await this.lcv.open(relics);
+        this.removeChild(this.lcv);
+        return r;
     }
 
     // 按照本地存档继续游戏

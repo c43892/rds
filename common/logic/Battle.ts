@@ -16,6 +16,7 @@ class Battle {
 
     public openShop; // 执行打开商店的操作
     public openRelicSel2Add; // 执行升级选择遗物逻辑
+    public openLuxuryChest; // 打开boss三选一宝箱
 
     constructor(randomseed:number, trueRandomSeed:number) {
         Utils.assert(randomseed != undefined, "the randomseed should be specified");
@@ -1200,7 +1201,7 @@ class Battle {
     }
 
     // 魅惑怪物
-    public async implCharmMonster(m:Monster, dattrs = undefined){
+    public async implCharmMonster(m:Monster, dattrs = undefined) {
         Utils.assert(m.isHazard() && !m.isBoss, "only hazard monster can be charmed");
         var pos = m.pos;
         if(m.getGrid().isCovered())
@@ -1211,6 +1212,31 @@ class Battle {
         this.removeElemAt(pos.x, pos.y);
         await this.fireEvent("onMonsterCharmed", {m:m, cm:cm});
         await this.implAddElemAt(cm, pos.x, pos.y);
+    }
+
+    // boss三选一宝箱
+    public async implOpenLuxuryChest(e:Elem) {
+        if (!e["relics"]) {
+            var rdp = GCfg.getRandomDropGroupCfg(e.attrs.randomDropList);
+            var elemTypes = Utils.randomSelectByWeightWithPlayerFilter(e.bt().player, rdp.elems, e.bt().srand, 3, 4, true);
+            var relics = [];
+            elemTypes.forEach((elemType, _) => {
+                var relic = this.level.createElem(elemType);
+                relics.push(relic);
+            })
+            e["relics"] = relics;
+        }
+
+        Utils.assert(e["relics"].length == 3, "there should be 3 relics in LuxuryChest");
+        var chosenRelic = await this.openLuxuryChest(e["relics"]);
+        var c = 0;
+        if (!!chosenRelic && chosenRelic instanceof Relic){
+            await this.implSelRelicInLuxuryChest(chosenRelic, e);
+            this.fireEventSync("onPlayerOp", {op:"try2ChooseFromLuxuryChest", ps:{relicType:chosenRelic.type}});
+            return false;
+        }
+        else
+            return true;
     }
 
     // 角色+经验
@@ -1243,6 +1269,16 @@ class Battle {
     public async implPickupRelic(e:Elem) {
         this.player.addRelic(<Relic>e);
         await this.fireEvent("onRelicChanged", {subType:"addRelicByPickup", e:e});
+        await this.triggerLogicPoint("onRelicChanged", {subType:"addRelic", e:e});
+    }
+
+    public async implSelRelicInLuxuryChest(e:Elem, fromBox = undefined) {
+        Utils.assert(fromBox.type == "LuxuryChest", "only LuxuryChest can use this function")
+        e.setBattle(this);
+        this.player.addRelic(<Relic>e);
+        if (fromBox)
+            await this.fireEvent("onRelicChanged", {subType:"addRelicByLuxuryChest", e:e, fromBox:fromBox});    
+                
         await this.triggerLogicPoint("onRelicChanged", {subType:"addRelic", e:e});
     }
 
