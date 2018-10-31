@@ -14,6 +14,7 @@ rd client_wxgame\resource\assets\occupation /Q /S
 rd client_wxgame\resource\assets\props /Q /S
 rd client_wxgame\resource\assets\relics /Q /S
 rd client_wxgame\resource\assets\ui /Q /S
+rd client_wxgame\resource\assets\audio /Q /S
 rd client_wxgame\resource\config /Q /S
 
 pause
