@@ -381,7 +381,8 @@
             "<font color=#7d0403 bold=true size=21>彩蛋</font>\n<font color=#000000 bold=false size=20>死亡必定掉落彩蛋</font>"
         ]},
         "LustZombie":{"name":"魅魔", "desc":[
-            "<font color=#7d0403 bold=true size=21>魅惑</font>\n<font color=#000000 bold=false size=20>突袭时死神提前15回合</font>"
+            "<font color=#7d0403 bold=true size=21>魅惑</font>\n<font color=#000000 bold=false size=20>突袭时死神提前{deathStepOnSneak}回合</font>",
+            "<font color=#7d0403 bold=true size=21>回馈</font>\n<font color=#000000 bold=false size=20>死亡时死神退后{deathStepOnDie}回合</font>"
         ], "skillNames":["魅惑"]},
         "CommanderZombie":{"name":"指挥官僵尸", "desc":[
             "<font color=#7d0403 bold=true size=21>统领</font>\n<font color=#000000 bold=false size=20>在场时其他所有怪物攻击和生命值翻倍</font>"
