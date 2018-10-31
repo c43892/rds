@@ -4,15 +4,27 @@ class AudioFactory {
 
     static soundsCache = {};
     public static clearCache() {
-        for (var r in AudioFactory.soundsCache)
-            AudioFactory.soundsCache[r].stop();
-
+        AudioFactory.stopAll();
         AudioFactory.soundsCache = {};
         AudioFactory.bgs = {};
         AudioFactory.curBgs = undefined;
     }
 
-    public static AudioOn = 1;
+    static stopAll() {
+        if (AudioFactory.curBgs)
+            AudioFactory.curBgs.ch.stop();
+    }
+
+    static auidoOn = 1;
+    public static set AudioOn(on:number) {
+        AudioFactory.auidoOn = on;
+        if (on) {
+            if (AudioFactory.curBgs)
+                AudioFactory.curBgs.ch = AudioFactory.curBgs.s.play(0, -1);
+        }
+        else
+            AudioFactory.stopAll();
+    }
 
     static bgs = {};
     static curBgs = undefined;
@@ -24,15 +36,17 @@ class AudioFactory {
                 AudioFactory.curBgs.ch.stop();
         }
 
+        var s:egret.Sound;
         if (!AudioFactory.bgs[bg]) {
-            var s:egret.Sound = ResMgr.getRes(bg + "_mp3");
+            s = ResMgr.getRes(bg + "_mp3");
             if (!s)
                 return;
 
             AudioFactory.bgs[bg] = s;
-        }
+        } else
+            s = AudioFactory.bgs[bg];
 
-        AudioFactory.curBgs = {name:bg, ch:AudioFactory.bgs[bg].play(0, -1)};
+        AudioFactory.curBgs = {name:bg, s:s, ch:s.play(0, -1)};
     }
 
     // 播放声音

@@ -52,7 +52,6 @@ class ResMgr {
         RES.setMaxLoadingThread(2);
         var arr = Utils.values(tb);
         while (arr.length > 0) {
-            Utils.log("loading res " + arr.length + " items(loaded=" + loaded + ", retry=" + retryTimes + ")");
             var failed = [];
             await ResMgr.loadResItemsWx(arr, (itUrl, name, res) => {
                 if (res) {
@@ -64,6 +63,7 @@ class ResMgr {
             }, failed);
             arr = failed;
             retryTimes++;
+            Utils.log("loading res " + arr.length + " items(loaded=" + loaded + ", retry=" + retryTimes + ")");
         }
 
         // mp3 单线程加载，不然总是遇到加载 mp3 卡住的问题
@@ -71,7 +71,6 @@ class ResMgr {
         retryTimes = 0;
         var arr = Utils.values(soundTB);
         while (arr.length > 0) {
-            Utils.log("loading mp3 " + arr.length + " items(loaded=" + loaded + ", retry=" + retryTimes + ")");
             var failed = [];
             await ResMgr.loadResItemsWx(arr, (itUrl, name, res) => {
                 if (res) {
@@ -81,8 +80,9 @@ class ResMgr {
                     eventHandler.onProgress(loaded, total);
                 }
             }, failed);
-            retryTimes++;
             arr = failed;
+            retryTimes++;
+            Utils.log("loading mp3 " + arr.length + " items(loaded=" + loaded + ", retry=" + retryTimes + ")");
         }
     }
 
