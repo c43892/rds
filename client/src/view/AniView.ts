@@ -155,7 +155,7 @@ class AniView extends egret.DisplayObjectContainer {
                 if (e && Utils.indexOf(GCfg.getBattleViewElemTipTypes(), (s: string) => s == e.type) > -1) 
                     this.bv.refreshElemsTip();
                 var obj = this.getSVByPos(ps.x, ps.y);
-                if (ps.e instanceof Plant) {
+                if (ps.e instanceof Plant || (ps.e instanceof Monster && ps.e.type == "ShopNpc")) {
                     // 植物都是玩家这边的，直接加魅惑表现
                     // sv.addEffect("effCharmed");
                     this.bv.mapView.refreshAt(ps.x, ps.y);

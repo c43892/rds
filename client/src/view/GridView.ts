@@ -364,7 +364,7 @@ class GridView extends egret.DisplayObjectContainer {
         } else {
             var m = <Monster>e;
             var checker = [
-                {chk:() => m["Charmed"] || m instanceof Plant, eff:"effCharmed"},
+                {chk:() => m["Charmed"] || m instanceof Plant || m.type == "ShopNpc", eff:"effCharmed"},
                 {chk:() => m.existsBuff("BuffFlame"), eff:"effBurning"},
                 {chk:() => m.existsBuff("BuffPoison"), eff:"elemPoisoned"},
                 {chk:() => m["isWanted"], eff:"effWantedOrder"},
