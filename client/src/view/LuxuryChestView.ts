@@ -66,6 +66,7 @@ class LuxuryChestView extends egret.DisplayObjectContainer {
 
     async open(relics:Relic[]) {
         this.relics = relics;
+        this.currentChosenRelic = undefined;
         this.refresh();
         return new Promise<Relic>((resolve, reject) => this.doClose = resolve);
     }
@@ -96,20 +97,19 @@ class LuxuryChestView extends egret.DisplayObjectContainer {
 
     // 只刷新详情区域
     refreshRelicDescArea(relicImg:egret.DisplayObject = undefined) {
+        this.relicDescArea.removeChildren();
         if (!!relicImg){
-            this.relicDescArea.alpha = 1;
             this.goOnBtn.touchEnabled = true;
             this.showDesc(relicImg);
         }
         else {
-            this.relicDescArea.alpha = 0;
             this.goOnBtn.touchEnabled = false;
         }
     }
 
+    // 管理技能详情内容
     private currentChosenRelic;
-    showDesc(relicImg:egret.DisplayObject) {
-        this.relicDescArea.removeChildren();
+    showDesc(relicImg:egret.DisplayObject) {        
         var relic:Relic = relicImg["relic"];
         this.relicName.text = relic.attrs.name;
         this.relicName.width = 200;

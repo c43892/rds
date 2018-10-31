@@ -646,4 +646,56 @@ class Utils {
         }
         return number;
     }
+
+    // 围绕特定坐标,找到其周围第n圈的所有坐标
+    public static findPosAroundByNStorey(pos, n:number, size = {w:1, h:1}, mapsize = {w:7, h:9}) {
+        var ps = {posLeftCeil:pos, poses:undefined, size:size, mapsize:mapsize}
+        for (var i = 0; i < n; i++)
+            ps = Utils.findPosAround(ps.posLeftCeil, ps.size, ps.mapsize);
+        
+        return ps;
+    }
+
+    // 围绕特定坐标,找到其周围的所有坐标
+    public static findPosAround(pos, size = {w:1, h:1}, mapsize = {w:7, h:9}) {
+        var isValid = (pos) => pos.x >=0 && pos.x < mapsize.w && pos.y >=0 && pos.y < mapsize.h;
+        Utils.assert(isValid(pos), "original pos invalid");
+
+        // 得到所有属于pos的坐标
+        var posesInside = [];
+        for (var i = 0; i < size.w; i++)
+            for (var j = 0; j < size.h; j++){
+                var newPos = {x:<number>pos.x + i, y:<number>pos.y + j};
+                if(isValid(newPos))
+                    posesInside.push(newPos);
+            }
+
+        // 得到周围一圈的所有坐标
+        var allPoses = [];
+        var width = size.w + 2;
+        var height = size.h + 2;
+        var posLeftCeil = {x:pos.x - 1, y:pos.y - 1};        
+        for (var i = 0; i < width; i++)
+            for (var j = 0; j < height; j++){
+                var newPos = {x:posLeftCeil.x + i, y:posLeftCeil.y + j};
+                if(isValid(newPos) && Utils.indexOf(posesInside, (pos) => pos == newPos) == -1)
+                    allPoses.push(newPos);
+            }        
+        
+        // 确定周围一圈的左上角坐标以及宽和高
+        var newPosLeftCeil = isValid(posLeftCeil) ? posLeftCeil : pos;
+        var xmin = 6;
+        var xmax = 0;
+        var ymin = 8;
+        var ymax = 0;
+        for (var testPos of allPoses){
+            xmin = testPos.x < xmin ? testPos.x : xmin;
+            xmax = testPos.x > xmax ? testPos.x : xmax;
+            ymin = testPos.y < ymin ? testPos.y : ymin;
+            ymax = testPos.y > ymax ? testPos.y : ymax;            
+        }
+        var newSize = {w:xmax - xmin + 1, h:ymax - ymin + 1}
+
+        return {posLeftCeil:newPosLeftCeil, poses:allPoses, size:newSize, mapsize:mapsize}
+    }
 }

@@ -77,7 +77,7 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
 
         this.goOnBtn = new TextButtonWithBg("goForward_png", 30);
         this.goOnBtn.name = "goOnBtn";
-        this.goOnBtn.text = ViewUtils.getTipText("continueBtn");
+        this.goOnBtn.text = ViewUtils.getTipText("saveExchange");
         this.goOnBtn.touchEnabled = true;
         this.goOnBtn.onClicked = () => this.goOn();
 

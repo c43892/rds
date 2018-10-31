@@ -140,13 +140,15 @@ class HospitalView extends egret.DisplayObjectContainer {
     }
 
     async openExchangeRelic() {
-        var sel = -1;
-        this.bg.alpha = 0;
-        sel = await this.exchangeRelic();
-        this.bg.alpha = 1;
-        if (sel == 1){
-            this.doClose();
-        }
+        // 可以在营火无限次进行装备技能的操作
+        // "btnExchangeRelic":{"x":119, "y":805},
+        // var sel = -1;
+        this.alpha = 0;
+        await this.exchangeRelic();
+        this.alpha = 1;
+        // if (sel == 1){
+        //     this.doClose();
+        // }
     }
 
     onGoOn() {

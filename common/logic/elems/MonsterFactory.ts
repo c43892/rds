@@ -1118,6 +1118,8 @@ class MonsterFactory {
         return m;
     }
 
+    // boss通用逻辑,死亡前逐步炸开所有地块并消灭其中的敌对怪物(阻止并其复活)
+
     // 商店 npc 逻辑
     static makeShopNPC(m:Monster):Monster {
         m.isHazard = () => false;
