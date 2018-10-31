@@ -131,7 +131,7 @@
     "BombAbomination":{"name":"自爆憎恶", "power":1, "hp":6, "attackInterval":0, "selfExplode":{"cnt":5, "mult":3, "aoe":{"w":3, "h":3}}, "dropItems":["CoinsSmall"], "specialCharmed":true},
     "EyeDemon":{"name":"眼魔", "power":2, "hp":4, "dropItems":["CoinsTiny"], "repRes":["EyeDemon", "eyeDemonEye"], "specialCharmed":true},
     "RandomEggZombie":{"name":"彩蛋僵尸", "power":2, "hp":5, "shield":3, "dropItems":["RandomEgg"], "cannotTake":true, "refElems":["RandomEgg"]},
-    "LustZombie":{"name":"色欲僵尸","deathStepOnSneak":-15, "deathStepOnDie":5, "dropItems":["CoinsSmall"]},
+    "LustZombie":{"name":"色欲僵尸","deathStepOnSneak":15, "deathStepOnDie":5, "dropItems":["CoinsSmall"]},
     "CommanderZombie":{"name":"指挥官僵尸", "dropItems":["CoinsSmall"]},
     "RageZombie":{"name":"狂暴僵尸", "dropItems":["CoinsSmall"]},
     "HideZombie":{"name":"隐匿僵尸", "dropItems":["CoinsSmall"]},

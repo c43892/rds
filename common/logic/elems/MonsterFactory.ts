@@ -376,7 +376,7 @@ class MonsterFactory {
     //偷袭：死神提前N回合到来
     static doSneakReduseDeathStep(m:Monster):Monster {
         return MonsterFactory.addSneakAI(async () => {
-            await m.bt().implAddDeathGodStep(m.attrs.deathStepOnSneak, m);
+            await m.bt().implAddDeathGodStep(-m.attrs.deathStepOnSneak, m);
         }, m);
     }
 
