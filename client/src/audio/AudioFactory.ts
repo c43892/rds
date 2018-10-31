@@ -26,11 +26,15 @@ class AudioFactory {
             AudioFactory.stopAll();
     }
 
+    public static get AudioOn() {
+        return AudioFactory.auidoOn;
+    }
+
     static bgs = {};
     static curBgs = undefined;
     public static playBg(bg:string) {
         if (AudioFactory.curBgs) {
-            if (AudioFactory.curBgs.name == bg)
+            if (AudioFactory.curBgs.name == bg && AudioFactory.AudioOn)
                 return;
             else
                 AudioFactory.curBgs.ch.stop();
@@ -47,6 +51,8 @@ class AudioFactory {
             s = AudioFactory.bgs[bg];
 
         AudioFactory.curBgs = {name:bg, s:s, ch:s.play(0, -1)};
+        if (AudioFactory.AudioOn == 0)
+            AudioFactory.curBgs.ch.stop();
     }
 
     // 播放声音
