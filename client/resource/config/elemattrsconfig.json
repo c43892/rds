@@ -112,7 +112,7 @@
     "TreasureBox":{"name":"宝箱", "useWithoutConfirm":true, "refElems":["BoxMonster"]},
     "RandomEgg":{"name":"彩蛋","rdp":"RandomEgg", "useWithoutConfirm":true, "audioOnUsing":"openBox"},
     "LuxuryChest":{"name":"豪华宝箱", "randomDropList":"bossBox3", "useWithoutConfirm":true},
-    "Clock":{"name":"钟表", "deathStepBack":10, "useWithoutConfirm":true},
+    "Clock":{"name":"钟表", "deathStepBack":15, "useWithoutConfirm":true},
     "BigBen":{"name":"大本钟", "deathStepBack":50, "useWithoutConfirm":true},
     "HpPotion":{"name":"医疗药剂", "heal":6, "canOverlap":true},
     "Magazine":{"name":"自然杂志", "cnt":5, "dexp":3, "useWithoutConfirm":true},
