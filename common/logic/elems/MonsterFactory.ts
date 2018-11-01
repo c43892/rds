@@ -227,7 +227,8 @@ class MonsterFactory {
         var cm = <Monster>m.bt().level.createElem("CharmedMonster", attrs);
         cm.type = m.type + "Charmed";
         cm["Charmed"] = "normal";
-        cm.getElemImgRes = m.getElemImgRes;
+        // 怪物的显示图标可能被替换,今后在可能出现的替换时需要统一使用该字段"origGetElemImgRes"
+        cm.getElemImgRes = m["origGetElemImgRes"] ? m["origGetElemImgRes"] : m.getElemImgRes;
         cm.dropItems = m.dropItems;
         cm.canUse = () => false;
         cm.hazard = false;
@@ -903,24 +904,24 @@ class MonsterFactory {
         return m;
     }
 
-    // 赋予玩家san值概念，未现身的时候san值就会一直降低，san值初始为100，每回合降低，低于100时开始显示迷惑头像
+    // 赋予玩家san值概念，未现身的时候san值就会一直降低，san值初始为100，每回合降低2，低于100时开始显示迷惑头像
     static doMinusSanPerRound(m:Monster):Monster {
         return <Monster>ElemFactory.addAIEvenCovered("onPlayerActed", async () => {
             if(!m.bt().player["san"])
                 m.bt().player["san"] = 100;
             
-            m.bt().player["san"] = (m.bt().player["san"] - 1) > 0 ? (m.bt().player["san"] - 1) : 0;
+            m.bt().player["san"] = (m.bt().player["san"] - 2) > 0 ? (m.bt().player["san"] - 2) : 0;
             
             await m.bt().fireEvent("onPlayerChanged", {"subType":"san"});
             await m.bt().triggerLogicPoint("onPlayerChanged", {"subType":"san"});
         }, m);
     }
 
-    // san值低于70：本层的所有地图数字都会显示为问号
+    // san值低于60：本层的所有地图数字都会显示为问号
     static doHideHazardNumberOnView(m: Monster): Monster {
         m = <Monster>ElemFactory.addAIEvenCovered("onPlayerChanged", async () => {
             if (!m.bt().player["san"]) return;
-            else if (m.bt().player["san"] < 70 && m["hideHazardStatus"] != "hide") {                
+            else if (m.bt().player["san"] < 60 && m["hideHazardStatus"] != "hide") {                
                 var ms = m.bt().level.map.findAllElems((e: Elem) => e instanceof Monster && e.type != "PlaceHolder" && !e.isBoss && e.isHazard());
                 for (var monster of ms)
                     monster["hideHazardNumber"] = true;
@@ -932,7 +933,7 @@ class MonsterFactory {
                     m["hideHazardNumberTip"] = true;
                 }
             }
-            else if (m.bt().player["san"] >= 70 && m["hideHazardStatus"] != "show") {
+            else if (m.bt().player["san"] >= 60 && m["hideHazardStatus"] != "show") {
                 var ms = m.bt().level.map.findAllElems((e: Elem) => e instanceof Monster && e.type != "PlaceHolder" && !e.isBoss && e.isHazard());
                 for (var monster of ms)
                     monster["hideHazardNumber"] = false;
@@ -951,17 +952,17 @@ class MonsterFactory {
             if (!m.bt().player["san"]) return;
             if (ps.e instanceof Monster && !ps.e.isBoss && ps.e.type != "PlaceHolder" && ps.e.isHazard()) {
                 var newMonster = ps.e;
-                if (m.bt().player["san"] < 70)
+                if (m.bt().player["san"] < 60)
                     newMonster["hideHazardNumber"] = true;
             }
         }, m)
     }
 
-    // san值低于35：怪物的所有属性都显示成问号
+    // san值低于30：怪物的所有属性都显示成问号
     static doHideMonsterAttrsOnView(m:Monster):Monster {
         m = <Monster>ElemFactory.addAIEvenCovered("onPlayerChanged", async () => {
             if (!m.bt().player["san"]) return;
-            else if (m.bt().player["san"] < 35 && m["hideAttrsStatus"] != "hide"){
+            else if (m.bt().player["san"] < 30 && m["hideAttrsStatus"] != "hide"){
                 var ms = m.bt().level.map.findAllElems((e:Elem) => e instanceof Monster && !e.isBoss && e.type != "PlaceHolder" && e.isHazard());
                 for (var monster of ms)
                     monster["hideMonsterAttrs"] = true;
@@ -972,7 +973,7 @@ class MonsterFactory {
                     m["hideMonsterAttrsTip"] = true;
                 }
             }
-            else if(m.bt().player["san"] >= 35 && m["hideAttrsStatus"] != "show") {
+            else if(m.bt().player["san"] >= 30 && m["hideAttrsStatus"] != "show") {
                 var ms = m.bt().level.map.findAllElems((e:Elem) => e instanceof Monster && !e.isBoss && e.type != "PlaceHolder" && e.isHazard());
                 for (var monster of ms)
                     monster["hideMonsterAttrs"] = false;
@@ -990,7 +991,7 @@ class MonsterFactory {
             if (!m.bt().player["san"]) return;
             if (ps.e instanceof Monster && !ps.e.isBoss && ps.e.type != "PlaceHolder" && ps.e.isHazard()) {
                 var newMonster = ps.e;
-                if (m.bt().player["san"] < 35)
+                if (m.bt().player["san"] < 30)
                     newMonster["hideMonsterAttrs"] = true;
             }
         }, m)
@@ -1027,6 +1028,10 @@ class MonsterFactory {
                 monster["origGetElemImgRes"] = monster.getElemImgRes;
                 monster.getElemImgRes = tentacle.getElemImgRes;
                 await m.bt().fireEvent("onElemChanged", {subType:"elemImgChanged", e:monster});
+            }
+            if (!m["changeMonsterImgTip"]){
+                await m.bt().fireEvent("onSanThreshold", {subType:"changeMonsterImg", m:m});
+                m["changeMonsterImgTip"] = true;
             }
         }, m, (ps) => ps.x == m.pos.x && ps.y == m.pos.y && ps.subType == "gridUncovered");
         m = MonsterFactory.doChangeNewMonsterImg(m);

@@ -1,12 +1,12 @@
 class LevelLogicAddBoxAndKey extends LevelLogic{
-    public rdps:string[];
-    public boxMonsterRdps:string[];
+    public rdps:string[]; // 多个宝箱的掉落表,每个宝箱对应其中的一个
+    public boxMonsterRdps:string[]; // 宝箱怪的掉落列表,默认为三选二,新手关自行配置
 
     constructor(rdps:string[], boxMonsterRdps:string[] = ["treasureBox1", "treasureBox2", "treasureBox2"]){
         super("LevelLogicAddBoxAndKey");
 
-        this.rdps = rdps;
-        this.boxMonsterRdps = boxMonsterRdps;
+        this.rdps = rdps; 
+        this.boxMonsterRdps = boxMonsterRdps; 
 
         this.addAI("beforeLevelInited", async (ps) => {
             var bt = this.level.bt;
@@ -31,7 +31,7 @@ class LevelLogicAddBoxAndKey extends LevelLogic{
                 var changeToMonsterBox = bt.srand.next100();
                 if(changeToMonsterBox < cfg.monsterBox){ // 是否变成怪物宝箱
                     boxes.push(this.level.createElem("TreasureBox", {"rdp":"MonsterBox"}));
-                    this.level["boxMonsterRdps"] = this.boxMonsterRdps;
+                    this.level["boxMonsterRdps"] = this.boxMonsterRdps; // 宝箱怪的掉落列表记在关卡身上,等需要的时候(宝箱怪死亡)取
                 }
                 else
                     boxes.push(tb1);

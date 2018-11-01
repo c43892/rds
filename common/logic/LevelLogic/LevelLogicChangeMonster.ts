@@ -10,6 +10,7 @@ class LevelLogicChangeMonster extends LevelLogic{
             var bt = this.level.bt;
             var noDropItems = (e:Elem) => Utils.filter(e.dropItems, (d:Elem) => d.type != "Coins").length == 0;
             var notSameType = (e:Elem) => Utils.indexOf(this.changeTypes, (changeType:string) => e.type == changeType) < 0;
+            // 筛选不同种类并且不含金币以外掉落的敌对怪进行替换
             var tarms = BattleUtils.findRandomElems(bt, this.num, (e:Elem) => {
                     if(!(e instanceof Monster)) return false;
                     return e.isHazard() && !e.isBoss && noDropItems(e) && notSameType(e) && e.type != type && e.type != "PlaceHolder";})

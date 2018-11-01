@@ -39,7 +39,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -80,7 +80,8 @@
         "treasureBoxNum": 1,
         "constElems": { "ShopNpc": 1, "RandomEggZombie": 1 },
         "levelLogics": [
-            {"type":"LevelLogicAddRelicOnRookie"}
+            {"type":"LevelLogicAddRelicOnRookie"},
+            {"type":"LevelLogicAddShopNpc"}
         ],
         "randomGroups": [
             {
@@ -160,7 +161,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -203,7 +204,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -250,7 +251,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -297,7 +298,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -347,7 +348,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 10, 11 ],
@@ -403,7 +404,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 10, 11 ],
@@ -459,7 +460,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 10, 11 ],
@@ -519,7 +520,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 10, 11 ],
@@ -579,7 +580,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 10, 11 ],
@@ -642,7 +643,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 12, 13 ],
@@ -705,7 +706,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 12, 13 ],
@@ -768,7 +769,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 12, 13 ],
@@ -831,7 +832,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 12, 13 ],
@@ -894,7 +895,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 14, 15 ],
@@ -957,7 +958,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 14, 15 ],
@@ -1020,7 +1021,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 14, 15 ],
@@ -1083,7 +1084,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 14, 15 ],
@@ -1146,7 +1147,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 14, 15 ],
@@ -1209,7 +1210,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 16, 17 ],
@@ -1272,7 +1273,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 16, 17 ],
@@ -1335,7 +1336,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 16, 17 ],
@@ -1398,7 +1399,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 16, 17 ],
@@ -1461,7 +1462,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 16, 17 ],
@@ -1524,7 +1525,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 18, 19 ],
@@ -1587,7 +1588,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 18, 19 ],
@@ -1650,7 +1651,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 18, 19 ],
@@ -1713,7 +1714,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 18, 19 ],
@@ -1776,7 +1777,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -1823,7 +1824,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -1872,7 +1873,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -1925,7 +1926,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -1978,7 +1979,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -2034,7 +2035,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -2090,7 +2091,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -2146,7 +2147,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -2206,7 +2207,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -2266,7 +2267,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -2329,7 +2330,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 9, 10 ],
@@ -2392,7 +2393,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 9, 10 ],
@@ -2455,7 +2456,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 9, 10 ],
@@ -2518,7 +2519,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 9, 10 ],
@@ -2581,7 +2582,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -2644,7 +2645,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -2707,7 +2708,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -2770,7 +2771,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -2833,7 +2834,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -2896,7 +2897,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -2959,7 +2960,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -3022,7 +3023,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -3085,7 +3086,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -3148,7 +3149,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -3211,7 +3212,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 9, 10 ],
@@ -3274,7 +3275,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 9, 10 ],
@@ -3337,7 +3338,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 9, 10 ],
@@ -3400,7 +3401,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 9, 10 ],
@@ -3463,7 +3464,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 5,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 10, 11 ],
@@ -3514,7 +3515,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 5,
-        "constElems": { "ShopNpc": 1 },
+        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
         "randomGroups": [
             {
                 "num": [ 10, 11 ],

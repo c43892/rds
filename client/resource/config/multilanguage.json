@@ -367,6 +367,10 @@
 		"chooseThisRelic":{"EN": "choose this skill", "CNS": "选择此技能", "CNT": "选择此技能"},
 		"saveExchange":{"EN": "sava", "CNS": "保存", "CNT": "保存"},
 		"useDeluxeMeal":{"EN": "使用豪华大餐回复50%生命值？", "CNS": "使用豪华大餐回复50%生命值？", "CNT": "使用豪华大餐回复50%生命值？"},
+		"hideHazardNumber":{"EN": "hideHazardNumber", "CNS": "怪物周围的计数将被隐藏", "CNT": "怪物周围的计数将被隐藏"},
+		"hideMonsterAttrs":{"EN": "hideMonsterAttrs", "CNS": "怪物的属性值将被隐藏", "CNT": "怪物的属性值将被隐藏"},
+		"attackRandomGrid":{"EN": "attackRandomGrid", "CNS": "将攻击随机的敌方目标", "CNT": "将攻击随机的敌方目标"},
+		"changeMonsterImg":{"EN": "changeMonsterImg", "CNS": "怪物的图标都显示为克苏鲁的触手", "CNT": "怪物的图标都显示为克苏鲁的触手"},
 		"": {}
 	}
 }

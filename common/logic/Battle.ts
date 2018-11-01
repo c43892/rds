@@ -155,27 +155,15 @@ class Battle {
             }
         }
 
-        // 如果有商人或植物，要移动到起始区域
-        var moveResult = BattleUtils.moveElems2Area(this, (elem:Elem) => {
-            return elem.type == "ShopNpc" || elem instanceof Plant;
-        }, ep.pos, ep.attrs.size);
-        var plants = moveResult.es;
-        var orgPos = moveResult.orgPos;
-        for (var i = 0; i < plants.length; i++) {
-            let p = plants[i];
-            var fx = orgPos[i].x;
-            var fy = orgPos[i].y;
-            await this.fireEvent("onGridChanged", {fx:fx, fy:fy, x:p.pos.x, y:p.pos.y, e:p, subType:"move2StartupRegion"});
-            await this.triggerLogicPoint("onGridChanged", {fx:fx, fy:fy, x:p.pos.x, y:p.pos.y, e:p, subType:"move2StartupRegion"});
-        }
+        // 此时才在起始揭开区域添加商人和植物
+        await this.triggerLogicPoint("onStartupRegionUncoveredAddShopNpc", {bt:this, ep:ep});
+        await this.triggerLogicPoint("onStartupRegionUncoveredAddPlant", {bt:this, ep:ep});
 
         // 将玩家从上一层带下来的元素置入
         for(var e of this.player.elems2NextLevel){
             var g = BattleUtils.findRandomEmptyGrid(this, false);
-            if(!g)
-                return;
-            
-            await this.implAddElemAt(e, g.pos.x, g.pos.y, ep.pos);
+            if(g)
+                await this.implAddElemAt(e, g.pos.x, g.pos.y, ep.pos);
         }
         this.player.elems2NextLevel = [];
 
@@ -728,6 +716,15 @@ class Battle {
         this.addElemAt(e, x, y);
         await this.fireEvent("onGridChanged", {x:x, y:y, e:e, fromPos:fromPos, subType:"elemAdded"});
         await this.triggerLogicPoint("onGridChanged", {e:e, subType:"elemAdded"});
+    }
+
+    // 将一个指定元素添加到指定区域
+    public async implAddElem2Area(elem:Elem, areaLeftCorner, areaSize) {
+        Utils.assert(!elem.isBig(), "this is a big elem."); // 暂不支持加入大元素
+        var grid = BattleUtils.findRandomGrids(this, (g:Grid) => Utils.isInArea(g.pos, areaLeftCorner, areaSize) && !g.getElem())[0];
+        if (!grid) return; // 没找到空位置
+
+        await this.implAddElemAt(elem, grid.pos.x, grid.pos.y);
     }
 
     // 通知一批物品掉落

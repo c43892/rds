@@ -553,25 +553,20 @@ class RelicFactory {
         "HorticultureMaster": (attrs) => {
             var r = this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) {
-                    r.clearAIAtLogicPoint("onLevelInited");
+                    r.clearAIAtLogicPoint("onStartupRegionUncoveredAddPlant");
                     return;
                 }
-                ElemFactory.addAI("onLevelInited", async () => {
+                ElemFactory.addAI("onStartupRegionUncoveredAddPlant", async (ps) => {
                     var bt = r.bt();
                     var level = Utils.filter(bt.player.relicsEquipped, (r:Relic) => r.type == "HorticultureMaster")[0].reinforceLv;
                     var pTypes = GCfg.getMiscConfig("PlantTypes");
                     var elemTypes = [];
                     for (var pType of pTypes)
                         elemTypes.push(pType + (level + 1).toString());
-
-                    var g = BattleUtils.findRandomEmptyGrid(bt);
-                    if(g){
-                        var elemType = elemTypes[r.bt().srand.nextInt(0, elemTypes.length)];
-                        var plant = bt.level.createElem(elemType, undefined, r.bt().player);
-                        await bt.fireEvent("onRelicEffect", {r:r});
-                        await bt.implAddElemAt(plant, g.pos.x, g.pos.y);
-                    }
                     
+                    var elemType = elemTypes[r.bt().srand.nextInt(0, elemTypes.length)];
+                    var plant = bt.level.createElem(elemType, undefined, r.bt().player);
+                    await r.bt().implAddElem2Area(plant, ps.ep.pos, ps.ep.attrs.size);
                 }, r)
             })
             return r;

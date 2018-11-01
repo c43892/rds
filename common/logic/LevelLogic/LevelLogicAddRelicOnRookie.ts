@@ -1,3 +1,4 @@
+// 专门用于在新手关增加园艺大师技能
 class LevelLogicAddRelicOnRookie extends LevelLogic {
     constructor() {
         super("LevelLogicAddRelicOnRookie");

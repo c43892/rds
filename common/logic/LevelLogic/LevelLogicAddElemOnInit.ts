@@ -1,3 +1,4 @@
+// 用于在关卡创建时添加特定的元素,该元素可能不方便在配置中确定,典型的用途是添加一个Boss
 class LevelLogicAddElemOnInit extends LevelLogic {
     public elemTypes: string[] = [];
 

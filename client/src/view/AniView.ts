@@ -1378,13 +1378,16 @@ class AniView extends egret.DisplayObjectContainer {
         var m:Monster = ps.m;
         var bt:Battle = ps.m.bt();
         if (ps.subType == "hideHazardNumber"){
-            var tip = "123";
+            var tip = ViewUtils.getTipText("hideHazardNumber");
             await this.bv.confirmOkYesNo("", tip, false);
         } else if (ps.subType == "hideMonsterAttrs"){
-            var tip = "123";
+            var tip = ViewUtils.getTipText("hideMonsterAttrs");
             await this.bv.confirmOkYesNo("", tip, false);
         } else if (ps.subType == "attackRandomGrid"){
-            var tip = "123";
+            var tip = ViewUtils.getTipText("attackRandomGrid");
+            await this.bv.confirmOkYesNo("", tip, false);
+        } else if (ps.subType == "changeMonsterImg"){
+            var tip = ViewUtils.getTipText("changeMonsterImg");
             await this.bv.confirmOkYesNo("", tip, false);
         }
     }
