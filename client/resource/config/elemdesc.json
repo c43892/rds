@@ -260,7 +260,7 @@
         "Cocoon":{"name":"繭", "desc":["<font color=#000000 bold=false size=20>被繭包裹的物品無法使用</font>"]},
         "WantedOrder":{"name":"通緝令", "desc":["<font color=#000000 bold=false size=20>標記一個隨機怪物，掉落金錢變為10倍</font>"]},
         "Cloak":{"name":"披風", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>免疫一次敵方突襲效果</font>"]},
-        "LifeSpring":{"name":"生命之泉", "desc":[""]},
+        "DeluxeMeal":{"name":"生命之泉", "desc":[""]},
 
         "NextLevelPort":{"name":"下一層", "desc":["<font color=#000000 bold=false size=20>前往下一层</font>"]},
         "EscapePort":{"name":"逃跑", "desc":["<font color=#000000 bold=false size=20>离开地牢</font>"]}
@@ -567,7 +567,7 @@
         "Cocoon":{"name":"茧", "desc":["<font color=#000000 size=20>被茧包裹的物品无法使用</font>"]},
         "WantedOrder":{"name":"通缉令", "desc":["<font color=#000000 size=20>标记一个随机怪物，掉落</font><font color=#294c22 size=20> 10 </font><font color=#000000 size=20>倍金钱</font>"]},
         "Cloak":{"name":"披风", "desc":["<font color=#000000 size=20>免疫一次敌方突袭效果</font>"]},
-        "LifeSpring":{"name":"豪华大餐", "desc":["<font color=#000000 size=20>回复<font color=#294c22 size=20> 50% </font>的血量</font>"]},
+        "DeluxeMeal":{"name":"豪华大餐", "desc":["<font color=#000000 size=20>回复<font color=#294c22 size=20> 50% </font>的血量</font>"]},
 
         "NextLevelPort":{"name":"下一层", "desc":["<font color=#000000 bold=false size=20>离开地牢</font>"]},
         "EscapePort":{"name":"逃跑", "desc":["<font color=#000000 bold=false size=20>离开地牢</font>"]}
@@ -833,7 +833,7 @@
         "Cocoon":{"name":"繭", "desc":["<font color=#000000 bold=false size=20>被繭包裹的物品無法使用</font>"]},
         "WantedOrder":{"name":"通緝令", "desc":["<font color=#000000 bold=false size=20>標記一個隨機怪物，掉落金錢變為10倍</font>"]},
         "Cloak":{"name":"披風", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>免疫一次敵方突襲效果</font>"]},
-        "LifeSpring":{"name":"生命之泉", "desc":[""]},
+        "DeluxeMeal":{"name":"生命之泉", "desc":[""]},
 
         "NextLevelPort":{"name":"下一層", "desc":["<font color=#000000 bold=false size=20>前往下一層</font>"]},
         "EscapePort":{"name":"逃跑", "desc":["<font color=#000000 bold=false size=20>離開地牢</font>"]}

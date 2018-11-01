@@ -237,7 +237,7 @@
         "repRes":["Cocoon", "CocoonLIne"]},
     "WantedOrder":{"name":"通缉令", "useWithoutConfirm":true},
     "Cloak":{"name":"披风"},
-    "LifeSpring":{"name":"生命之泉", "percent":50},
+    "DeluxeMeal":{"name":"豪华大餐", "percent":50, "useWithConfirm":true, "useTipContent":"useDeluxeMeal"},
 
     "NextLevelPort":{"name":"下一层", "addInEffect":"noEffect", "useWithConfirm":true, "useTipContent":"goToNextLevel"},
     "EscapePort":{"name":"逃跑", "invisible":true},

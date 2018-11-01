@@ -126,7 +126,7 @@ class ItemFactory {
             e.canUse = () => true;
             e.use = async () => {
                 var bt = e.bt();
-                await bt.implAddDeathGodStep(10, e);
+                await bt.implAddDeathGodStep(e.attrs.deathStepBack, e);
             }
 
             return e;
@@ -354,7 +354,7 @@ class ItemFactory {
         },
 
         // 生命之泉
-        "LifeSpring": (attrs) => {
+        "DeluxeMeal": (attrs) => {
             var e = this.createItem();
             e.canUse = () => e.isValid();
             e.canBeDragDrop = false;

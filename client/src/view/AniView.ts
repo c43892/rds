@@ -1373,6 +1373,22 @@ class AniView extends egret.DisplayObjectContainer {
         summons.forEach((summon, _) => summon["dispose"]());
     }
 
+    // 克苏鲁之脑BOSS战中san值降低到各个阈值时的提示
+    public async onSanThreshold(ps) {
+        var m:Monster = ps.m;
+        var bt:Battle = ps.m.bt();
+        if (ps.subType == "hideHazardNumber"){
+            var tip = "123";
+            await this.bv.confirmOkYesNo("", tip, false);
+        } else if (ps.subType == "hideMonsterAttrs"){
+            var tip = "123";
+            await this.bv.confirmOkYesNo("", tip, false);
+        } else if (ps.subType == "attackRandomGrid"){
+            var tip = "123";
+            await this.bv.confirmOkYesNo("", tip, false);
+        }
+    }
+
     // 物品被拿起等待使用时的悬浮效果
     public async onElemFloating(ps) {
         var e:Elem = ps.e;

@@ -920,13 +920,17 @@ class MonsterFactory {
     static doHideHazardNumberOnView(m: Monster): Monster {
         m = <Monster>ElemFactory.addAIEvenCovered("onPlayerChanged", async () => {
             if (!m.bt().player["san"]) return;
-            else if (m.bt().player["san"] < 70 && m["hideHazardStatus"] != "hide") {
+            else if (m.bt().player["san"] < 70 && m["hideHazardStatus"] != "hide") {                
                 var ms = m.bt().level.map.findAllElems((e: Elem) => e instanceof Monster && e.type != "PlaceHolder" && !e.isBoss && e.isHazard());
                 for (var monster of ms)
                     monster["hideHazardNumber"] = true;
 
                 m["hideHazardStatus"] = "hide";
                 await m.bt().fireEvent("refreshMap");
+                if (!m["hideHazardNumberTip"]) {
+                    await m.bt().fireEvent("onSanThreshold", {subType:"hideHazardNumber", m:m});
+                    m["hideHazardNumberTip"] = true;
+                }
             }
             else if (m.bt().player["san"] >= 70 && m["hideHazardStatus"] != "show") {
                 var ms = m.bt().level.map.findAllElems((e: Elem) => e instanceof Monster && e.type != "PlaceHolder" && !e.isBoss && e.isHazard());
@@ -963,6 +967,10 @@ class MonsterFactory {
                     monster["hideMonsterAttrs"] = true;
 
                 m["hideAttrsStatus"] = "hide";
+                if (!m["hideMonsterAttrsTip"]) {
+                    await m.bt().fireEvent("onSanThreshold", {subType:"hideMonsterAttrs", m:m});
+                    m["hideMonsterAttrsTip"] = true;
+                }
             }
             else if(m.bt().player["san"] >= 35 && m["hideAttrsStatus"] != "show") {
                 var ms = m.bt().level.map.findAllElems((e:Elem) => e instanceof Monster && !e.isBoss && e.type != "PlaceHolder" && e.isHazard());
@@ -993,6 +1001,10 @@ class MonsterFactory {
         return <Monster>ElemFactory.addAIEvenCovered("onPlayerTry2AttackAt", async (ps) => {
             if (!m.bt().player["san"]) return;
             else if (m.bt().player["san"] <= 0){
+                if (!m["attackRandomGridTip"]){
+                    await m.bt().fireEvent("onSanThreshold", {subType:"attackRandomGrid", m:m});
+                    m["attackRandomGridTip"] = true;
+                }
                 var gs = m.bt().level.map.findAllGrid((x, y, g:Grid) => {
                     var e = g.getElem();
                     return g.isUncoveredOrMarked() && !!e && e instanceof Monster && e.isHazard();
