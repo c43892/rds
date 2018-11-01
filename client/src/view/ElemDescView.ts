@@ -131,20 +131,20 @@ class ElemDescView extends egret.DisplayObjectContainer {
             power = powerABC.b * (1 + powerABC.a) + powerABC.c;
         }
         else power = m.attrs.power;
-        this.powerTxt.text = power ? m.attrs.power.toString() : 0;
+        this.powerTxt.text = m["hideMonsterAttrs"] ? "?" : (power ? m.attrs.power.toString() : 0);
         attrs.push(this.powerBg, this.powerTxt);
         n++;
 
-        this.hpTxt.text = m.hp.toString();
+        this.hpTxt.text = m["hideMonsterAttrs"] ? "?" : m.hp.toString();
         attrs.push(this.hpBg, this.hpTxt);
         n++;
 
-        this.moveRangeTxt.text = m.attrs.moveRange ? m.attrs.moveRange.toString() : 0;
+        this.moveRangeTxt.text = m["hideMonsterAttrs"] ? "?" : m.attrs.moveRange ? m.attrs.moveRange.toString() : 0;
         attrs.push(this.moveRangeBg, this.moveRangeTxt);
         n++;
 
         if (m.shield > 0) {
-            this.shieldTxt.text = m.shield.toString();
+            this.shieldTxt.text = m["hideMonsterAttrs"] ? "?" : m.shield.toString();
             attrs.push(this.shieldBg, this.shieldTxt);
             n++;
         } else {
@@ -156,7 +156,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         if(!fromNewMonsterTipView) attackInterval = m.bt().calcMonsterAttackInterval(m);
         else attackInterval = m.attrs.attackInterva;        
         if (attackInterval > 0) {
-            this.attackIntervalTxt.text = attackInterval.toString();
+            this.attackIntervalTxt.text = m["hideMonsterAttrs"] ? "?" : attackInterval.toString();
             attrs.push(this.attackIntervalBg, this.attackIntervalTxt);
             n++;
         } else {
@@ -167,19 +167,25 @@ class ElemDescView extends egret.DisplayObjectContainer {
         ViewUtils.multiLang(this, ...attrs);
 
         var descArr;
-        if(e["Charmed"] == "normal"){
-            var index = e.type.indexOf("Charmed");
-            var type = e.type.substring(0 , index);
-            this.monsterName.text = ViewUtils.getElemNameAndDesc(type).name;
+        if(m["Charmed"] == "normal"){
+            var index = m.type.indexOf("Charmed");
+            var type = m.type.substring(0 , index);
+            this.monsterName.text = m["hideType"] ? "?" : ViewUtils.getElemNameAndDesc(type).name;
             this.monsterName.bold = true;            
             descArr = ViewUtils.getElemNameAndDesc("CharmedNormal").desc;
         } else {
-            var nameAndDesc = ViewUtils.getElemNameAndDesc(e.type);
-            this.monsterName.text = nameAndDesc.name;
+            var nameAndDesc = ViewUtils.getElemNameAndDesc(m.type);
+            this.monsterName.text = m["hideType"] ? "?" : nameAndDesc.name;
             descArr = nameAndDesc.desc;
         }
 
-        descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(ViewUtils.replaceByProperties(desc, e, fromNewMonsterTipView ? undefined : this.player)));
+        // 需要隐藏怪物类型时,将怪物特性描述省去并重定义界面长度
+        if (m["hideType"]) {
+            this.monsterBg.height = 300;
+            return uiArr;
+        }        
+
+        descArr = Utils.map(descArr, (desc) => ViewUtils.fromHtml(ViewUtils.replaceByProperties(desc, m, fromNewMonsterTipView ? undefined : this.player)));
 
         // 第一组描述文字根据配置排版，后续的对齐第一组
         var monsterDescTxt0 = ViewUtils.createTextField(0, 0x000000);

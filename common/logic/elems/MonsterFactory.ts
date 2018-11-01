@@ -907,7 +907,7 @@ class MonsterFactory {
     // 赋予玩家san值概念，未现身的时候san值就会一直降低，san值初始为100，每回合降低2，低于100时开始显示迷惑头像
     static doMinusSanPerRound(m:Monster):Monster {
         return <Monster>ElemFactory.addAIEvenCovered("onPlayerActed", async () => {
-            if(!m.bt().player["san"])
+            if(m.bt().player["san"] == undefined)
                 m.bt().player["san"] = 100;
             
             m.bt().player["san"] = (m.bt().player["san"] - 2) > 0 ? (m.bt().player["san"] - 2) : 0;
@@ -920,7 +920,7 @@ class MonsterFactory {
     // san值低于60：本层的所有地图数字都会显示为问号
     static doHideHazardNumberOnView(m: Monster): Monster {
         m = <Monster>ElemFactory.addAIEvenCovered("onPlayerChanged", async () => {
-            if (!m.bt().player["san"]) return;
+            if (m.bt().player["san"] == undefined) return;
             else if (m.bt().player["san"] < 60 && m["hideHazardStatus"] != "hide") {                
                 var ms = m.bt().level.map.findAllElems((e: Elem) => e instanceof Monster && e.type != "PlaceHolder" && !e.isBoss && e.isHazard());
                 for (var monster of ms)
@@ -928,6 +928,8 @@ class MonsterFactory {
 
                 m["hideHazardStatus"] = "hide";
                 await m.bt().fireEvent("refreshMap");
+                
+                // 如果是本次战斗第一次执行该逻辑,需要弹出提示
                 if (!m["hideHazardNumberTip"]) {
                     await m.bt().fireEvent("onSanThreshold", {subType:"hideHazardNumber", m:m});
                     m["hideHazardNumberTip"] = true;
@@ -949,7 +951,7 @@ class MonsterFactory {
     // 新加入的怪也要使地图数字隐藏
     static doHideHazardNumberOnNewMonsterAdded(m:Monster):Monster {
         return MonsterFactory.addAIOnNewElemsJoin(async (ps) => {
-            if (!m.bt().player["san"]) return;
+            if (m.bt().player["san"] == undefined) return;
             if (ps.e instanceof Monster && !ps.e.isBoss && ps.e.type != "PlaceHolder" && ps.e.isHazard()) {
                 var newMonster = ps.e;
                 if (m.bt().player["san"] < 60)
@@ -961,13 +963,17 @@ class MonsterFactory {
     // san值低于30：怪物的所有属性都显示成问号
     static doHideMonsterAttrsOnView(m:Monster):Monster {
         m = <Monster>ElemFactory.addAIEvenCovered("onPlayerChanged", async () => {
-            if (!m.bt().player["san"]) return;
+            if (m.bt().player["san"] == undefined) return;
             else if (m.bt().player["san"] < 30 && m["hideAttrsStatus"] != "hide"){
                 var ms = m.bt().level.map.findAllElems((e:Elem) => e instanceof Monster && !e.isBoss && e.type != "PlaceHolder" && e.isHazard());
-                for (var monster of ms)
+                for (var monster of ms){
                     monster["hideMonsterAttrs"] = true;
+                    await m.bt().fireEvent("onElemChanged", {subType:"elemImgChanged", e:monster});
+                }
 
                 m["hideAttrsStatus"] = "hide";
+
+                // 如果是本次战斗第一次执行该逻辑,需要弹出提示
                 if (!m["hideMonsterAttrsTip"]) {
                     await m.bt().fireEvent("onSanThreshold", {subType:"hideMonsterAttrs", m:m});
                     m["hideMonsterAttrsTip"] = true;
@@ -988,11 +994,13 @@ class MonsterFactory {
     // 新加入的怪的属性也要显示为问号
     static doHideMonsterAttrsOnNewMonsterAdded(m:Monster):Monster {
         return MonsterFactory.addAIOnNewElemsJoin(async (ps) => {
-            if (!m.bt().player["san"]) return;
+            if (m.bt().player["san"] == undefined) return;
             if (ps.e instanceof Monster && !ps.e.isBoss && ps.e.type != "PlaceHolder" && ps.e.isHazard()) {
                 var newMonster = ps.e;
-                if (m.bt().player["san"] < 30)
+                if (m.bt().player["san"] < 30){
                     newMonster["hideMonsterAttrs"] = true;
+                    await m.bt().fireEvent("onElemChanged", {subType:"elemImgChanged", e:newMonster});
+                }
             }
         }, m)
     }
@@ -1000,8 +1008,9 @@ class MonsterFactory {
     // san值为0：你的攻击将随机点击可点击的地方
     static doAttackRandomGrid(m:Monster):Monster {
         return <Monster>ElemFactory.addAIEvenCovered("onPlayerTry2AttackAt", async (ps) => {
-            if (!m.bt().player["san"]) return;
+            if (m.bt().player["san"] == undefined) return;
             else if (m.bt().player["san"] <= 0){
+                // 如果是本次战斗第一次执行该逻辑,需要弹出提示
                 if (!m["attackRandomGridTip"]){
                     await m.bt().fireEvent("onSanThreshold", {subType:"attackRandomGrid", m:m});
                     m["attackRandomGridTip"] = true;
@@ -1025,6 +1034,7 @@ class MonsterFactory {
             var ms = m.bt().level.map.findAllElems((e:Elem) => e instanceof Monster && !e.isBoss && e.type != "PlaceHolder" && e.isHazard());
             var tentacle = m.bt().level.createElem("ReviveZombie");
             for (var monster of ms){
+                monster["hideType"] = true;
                 monster["origGetElemImgRes"] = monster.getElemImgRes;
                 monster.getElemImgRes = tentacle.getElemImgRes;
                 await m.bt().fireEvent("onElemChanged", {subType:"elemImgChanged", e:monster});
@@ -1045,6 +1055,7 @@ class MonsterFactory {
             if (ps.e instanceof Monster && !ps.e.isBoss && ps.e.type != "PlaceHolder" && ps.e.isHazard()) {
                 var newMonster = ps.e;
                 var tentacle = m.bt().level.createElem("ReviveZombie");
+                newMonster["hideName"] = true;
                 newMonster["origGetElemImgRes"] = newMonster.getElemImgRes;
                 newMonster.getElemImgRes = tentacle.getElemImgRes;
                 await m.bt().fireEvent("onElemChanged", { subType: "elemImgChanged", e: newMonster });
@@ -1073,7 +1084,7 @@ class MonsterFactory {
     // 你每杀死一次克苏鲁的触手，恢复10点san值
     static doRecoverSanOnDie(m:Monster):Monster {
         return <Monster>ElemFactory.addDieAI(async () => {
-            if(m.bt().player["san"]){
+            if(m.bt().player["san"] != undefined){
                 m.bt().player["san"] += 10;
                 m.bt().player["san"] = m.bt().player["san"] > 100 ? 100 : m.bt().player["san"];
                 await m.bt().fireEvent("onPlayerChanged", { "subType": "san" });
@@ -1093,6 +1104,8 @@ class MonsterFactory {
                     monster["hideHazardNumber"] = false;
                     if(monster["origGetElemImgRes"])
                         monster.getElemImgRes = monster["origGetElemImgRes"];
+                    if(monster["hideName"])
+                        monster["hideName"] = false;
                     await m.bt().fireEvent("onElemChanged", {subType:"elemImgChanged", e:monster});
                 }
         }, m);
