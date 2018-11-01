@@ -2,6 +2,7 @@
 class WorldMapView extends egret.DisplayObjectContainer {
     public player:Player;
     private viewContent:egret.DisplayObjectContainer;
+    private bg0:egret.Bitmap;
     private bg1:egret.Bitmap;
     private bg2:egret.Bitmap;
     private bgc:egret.DisplayObjectContainer;
@@ -26,9 +27,11 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.height = h;
         this.name = "worldmap";
 
-        this.bg1 = ViewUtils.createBitmapByName("WorldMapBg_png", egret.BitmapFillMode.REPEAT);
-        this.bg2 = ViewUtils.createBitmapByName("WorldMapBg_png", egret.BitmapFillMode.REPEAT);
+        this.bg0 = ViewUtils.createBitmapByName("WorldMapBg_png", egret.BitmapFillMode.REPEAT);
+        this.bg1 = ViewUtils.createBitmapByName("WorldMapBgBorder_png", egret.BitmapFillMode.REPEAT);
+        this.bg2 = ViewUtils.createBitmapByName("WorldMapBgBorder_png", egret.BitmapFillMode.REPEAT);
         this.bgc = new egret.DisplayObjectContainer();
+        this.bgc.addChild(this.bg0);
         this.bgc.addChild(this.bg1);
         this.bgc.addChild(this.bg2);
         this.viewContent = new egret.DisplayObjectContainer();
@@ -108,105 +111,108 @@ class WorldMapView extends egret.DisplayObjectContainer {
         ViewUtils.asFullBg(this.bgc);
         this.bgc.y = 0;
 
+        this.bg0.anchorOffsetX = this.bg0.width / 2;
+        this.bg0.x = this.viewContent.width / 2;
+        this.bg0.y = 0;
+        this.bg0.height = this.viewContent.height;
+
         this.bg1.x = 0;
         this.bg1.y = 0;
-        this.bg1.width = this.bgc.width / 2;
         this.bg1.height = this.viewContent.height;
 
         this.bg2.x = this.bgc.width;
         this.bg2.y = 0;
-        this.bg2.width = this.bgc.width / 2;
         this.bg2.height = this.viewContent.height;
         this.bg2.scaleX = -1;
 
         // 外框
 
-        var xSpace = 10;
-        var ySpace = 20;
+        // var xSpace = 10;
+        // var ySpace = 20;
 
-        var head = ViewUtils.createBitmapByName("WorldMapBg2_png");
-        head.x = this.viewContent.width / 2 - head.width;
-        head.y = -15 + topLine;
-        this.viewContent.addChild(head);
+        // var head = ViewUtils.createBitmapByName("WorldMapBg2_png");
+        // head.x = this.viewContent.width / 2 - head.width;
+        // head.y = -15 + topLine;
+        // this.viewContent.addChild(head);
 
-        var head2 = ViewUtils.createBitmapByName("WorldMapBg2_png");
-        head2.x = this.viewContent.width / 2 + head.width;
-        head2.y = head.y;
-        head2.scaleX = -1;        
-        this.viewContent.addChild(head2);
+        // var head2 = ViewUtils.createBitmapByName("WorldMapBg2_png");
+        // head2.x = this.viewContent.width / 2 + head.width;
+        // head2.y = head.y;
+        // head2.scaleX = -1;        
+        // this.viewContent.addChild(head2);
 
-        var head3 = ViewUtils.createBitmapByName("WorldMapBg2_png");
-        head3.x = head.x;
-        head3.y = this.viewContent.height - (ySpace - 15);
-        head3.scaleY = -1;
-        this.viewContent.addChild(head3);
+        // var head3 = ViewUtils.createBitmapByName("WorldMapBg2_png");
+        // head3.x = head.x;
+        // head3.y = this.viewContent.height - (ySpace - 15);
+        // head3.scaleY = -1;
+        // this.viewContent.addChild(head3);
 
-        var head4 = ViewUtils.createBitmapByName("WorldMapBg2_png");
-        head4.x = head2.x;
-        head4.y = head3.y;
-        head4.scaleX = -1;
-        head4.scaleY = -1;
-        this.viewContent.addChild(head4);
+        // var head4 = ViewUtils.createBitmapByName("WorldMapBg2_png");
+        // head4.x = head2.x;
+        // head4.y = head3.y;
+        // head4.scaleX = -1;
+        // head4.scaleY = -1;
+        // this.viewContent.addChild(head4);
 
-        var clt = ViewUtils.createBitmapByName("WorldMapBgCorner_png");
-        clt.x = this.viewContent.width - this.width + xSpace;
-        clt.y = topLine;
-        clt.scale9Grid = new egret.Rectangle(clt.width - 2, clt.height - 2, 1, 1);
-        clt.width = this.width / 2 - head.width - clt.x;
-        clt.height = this.viewContent.height / 2 - clt.y;
-        this.viewContent.addChild(clt);
+        // var clt = ViewUtils.createBitmapByName("WorldMapBgCorner_png");
+        // clt.x = this.viewContent.width - this.width + xSpace;
+        // clt.y = topLine;
+        // clt.scale9Grid = new egret.Rectangle(clt.width - 2, clt.height - 2, 1, 1);
+        // clt.width = this.width / 2 - head.width - clt.x;
+        // clt.height = this.viewContent.height / 2 - clt.y;
+        // this.viewContent.addChild(clt);
 
-        var crt = ViewUtils.createBitmapByName("WorldMapBgCorner_png");
-        crt.width = clt.width;
-        crt.height = clt.height;        
-        crt.scale9Grid = clt.scale9Grid;
-        crt.x = this.viewContent.width / 2 + crt.width + head.width;
-        crt.y = topLine;
-        crt.scaleX = -1;
-        this.viewContent.addChild(crt);
+        // var crt = ViewUtils.createBitmapByName("WorldMapBgCorner_png");
+        // crt.width = clt.width;
+        // crt.height = clt.height;        
+        // crt.scale9Grid = clt.scale9Grid;
+        // crt.x = this.viewContent.width / 2 + crt.width + head.width;
+        // crt.y = topLine;
+        // crt.scaleX = -1;
+        // this.viewContent.addChild(crt);
 
-        var clb = ViewUtils.createBitmapByName("WorldMapBgCorner_png");
-        clb.x = clt.x;
-        clb.y = this.viewContent.height - ySpace;
-        clb.scale9Grid = clt.scale9Grid;
-        clb.width = clt.width;
-        clb.height = clt.height;
-        clb.scaleY = -1;
-        this.viewContent.addChild(clb);
+        // var clb = ViewUtils.createBitmapByName("WorldMapBgCorner_png");
+        // clb.x = clt.x;
+        // clb.y = this.viewContent.height - ySpace;
+        // clb.scale9Grid = clt.scale9Grid;
+        // clb.width = clt.width;
+        // clb.height = clt.height;
+        // clb.scaleY = -1;
+        // this.viewContent.addChild(clb);
 
-        var crb = ViewUtils.createBitmapByName("WorldMapBgCorner_png");
-        crb.width = clt.width;
-        crb.height = clt.height;
-        crb.scale9Grid = clt.scale9Grid;
-        crb.x = crt.x;
-        crb.y = clb.y;
-        crb.scaleX = -1;
-        crb.scaleY = -1;
-        this.viewContent.addChild(crb);
+        // var crb = ViewUtils.createBitmapByName("WorldMapBgCorner_png");
+        // crb.width = clt.width;
+        // crb.height = clt.height;
+        // crb.scale9Grid = clt.scale9Grid;
+        // crb.x = crt.x;
+        // crb.y = clb.y;
+        // crb.scaleX = -1;
+        // crb.scaleY = -1;
+        // this.viewContent.addChild(crb);
 
-        var cn1 = ViewUtils.createBitmapByName("WorldMapBg1_png");
-        cn1.x = clt.x + 20;
-        cn1.y = clt.y + 12;
-        this.viewContent.addChild(cn1);
+        // var cn1 = ViewUtils.createBitmapByName("WorldMapBg1_png");
+        // cn1.x = clt.x + 20;
+        // cn1.y = clt.y + 12;
+        // this.viewContent.addChild(cn1);
 
-        var cn2= ViewUtils.createBitmapByName("WorldMapBg1_png");
-        cn2.x = crt.x - 20;
-        cn2.y = cn1.y;
-        cn2.scaleX = -1;
-        this.viewContent.addChild(cn2);
+        // var cn2= ViewUtils.createBitmapByName("WorldMapBg1_png");
+        // cn2.x = crt.x - 20;
+        // cn2.y = cn1.y;
+        // cn2.scaleX = -1;
+        // this.viewContent.addChild(cn2);
 
-        var cn3 = ViewUtils.createBitmapByName("WorldMapBg1_png");
-        cn3.x = cn1.x;
-        cn3.y = clb.y - 12;
-        cn3.scaleY = -1;
-        this.viewContent.addChild(cn3);
+        // var cn3 = ViewUtils.createBitmapByName("WorldMapBg1_png");
+        // cn3.x = cn1.x;
+        // cn3.y = clb.y - 12;
+        // cn3.scaleY = -1;
+        // this.viewContent.addChild(cn3);
 
-        var cn4 = ViewUtils.createBitmapByName("WorldMapBg1_png");
-        cn4.x = cn2.x;
-        cn4.y = cn3.y;
-        cn4.scaleX = -1;
-        cn4.scaleY = -1;
-        this.viewContent.addChild(cn4);
+        // var cn4 = ViewUtils.createBitmapByName("WorldMapBg1_png");
+        // cn4.x = cn2.x;
+        // cn4.y = cn3.y;
+        // cn4.scaleX = -1;
+        // cn4.scaleY = -1;
+        // this.viewContent.addChild(cn4);
     }
 
     private refreshNodes() {
@@ -215,13 +221,27 @@ class WorldMapView extends egret.DisplayObjectContainer {
         // 显示每个节点
         var imgs = [];
         var adoptImgs = [];
+        var moutainImgs = [];
         var xEdgeBlank = 100; // 节点与左右边缘留白大小
         var topGap = 50;
         var yGap = (this.viewContent.height - topGap) / wp.nodes.length;
         var xGap = (this.mapArea.width - 2 * xEdgeBlank) / (wp.cfg.width - 1);
         var xSwing = 0.2; // 节点在地图上偏离标准位置的抖动幅度
         var ySwing = 0.2;
-        var dotScale = 1.2; // 节点放大
+        var dotScale = 0.9; // 节点缩放
+
+        var mountainRes = ["mountain1_png", "mountain2_png", "mountain3_png", "mountain4_png", 
+            "mountain5_png", "mountain6_png", "mountain7_png"]
+        var r = new SRandom(Number(this.player.playerRandom.toString()));
+        for (var i = 0; i < 150; i++) {
+            var mRes = mountainRes[r.nextInt(0, mountainRes.length)];
+            var mImg = ViewUtils.createBitmapByName(mRes);
+            moutainImgs.push(mImg);
+            this.viewContent.addChild(mImg);
+            mImg.x = r.nextInt(0, this.viewContent.width);
+            mImg.y = r.nextInt(0, this.viewContent.height);
+            mImg.alpha = 0.4;
+        }
 
         // 遍历所有节点,将具有父节点的作为可用节点,并记录该节点的属性.
         for (var i = 0; i < wp.nodes.length; i++) {
@@ -231,7 +251,9 @@ class WorldMapView extends egret.DisplayObjectContainer {
             for (var j = 0; j < wp.nodes[i].length; j++) {
                 if(wp.nodes[i][j].parents.length != 0){
                     var pt = wp.nodes[i][j].roomType;
-                    var img = ViewUtils.createBitmapByName("Node" + pt + "_png");
+                    var img = pt == "boss"
+                        ? ViewUtils.createBitmapByName("Node" + pt + wp.cfg.name + "_png")
+                        : ViewUtils.createBitmapByName("Node" + pt + "_png");
                     if(i == wp.nodes.length - 1){
                         img.x = (wp.nodes[i].length - 1) / 2 * xGap + xEdgeBlank;// boss点位置特殊处理
                         img.y = WorldMapNode.getNodeYposOnView(wp.nodes[i][j], this.viewContent.height, yGap, 0);
@@ -245,8 +267,8 @@ class WorldMapView extends egret.DisplayObjectContainer {
                     img["ptStoreyLv"] = i;
                     img["ptStoreyN"] = j;
                     img.touchEnabled = true;
-                    img.scaleX = img.scaleY = 1.2;
-                    img.alpha = 0.5;
+                    img.scaleX = img.scaleY = pt == "boss" ? dotScale * 1.5 : dotScale;
+                    // img.alpha = 0.5;
                     row.push(img);
 
                     var adpImg = ViewUtils.createBitmapByName("Adopt_png");
@@ -311,7 +333,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
                             stepImg.anchorOffsetY = stepImg.height / 2;
                             stepImg.rotation = stepRotation + (st%2==0?-15:15);
                             stepImg.scaleX = st%2==0?1:-1; // 左右脚印需要对称反转
-                            stepImg.alpha = 0.5;
                             stepImgArr.push(stepImg);
                             this.viewContent.addChild(stepImg);
                         }
@@ -329,11 +350,19 @@ class WorldMapView extends egret.DisplayObjectContainer {
             var img:egret.Bitmap = imgs[sp.lv][sp.n];
             if (!img) continue;
             img.alpha = 1;
-            var tw = egret.Tween.get(img, {loop:true});
-            var w = img.width;
-            var h = img.height;
-            tw.to({scaleX:1.5, scaleY:1.5}, 1000, egret.Ease.quadInOut)
-                .to({scaleX:dotScale, scaleY:dotScale}, 1000, egret.Ease.quadInOut);
+            var outline = ViewUtils.createBitmapByName("BoxRoomFlash_png");
+            img.parent.addChild(outline);
+            img.parent.setChildIndex(img, -1);
+            outline.anchorOffsetX = outline.width / 2;
+            outline.anchorOffsetY = outline.height / 2;
+            outline.x = img.x;
+            outline.y = img.y;
+            // tw.to({scaleX:1.25*dotScale, scaleY:1.25*dotScale}, 1000, egret.Ease.quadInOut)
+            //    .to({scaleX:dotScale, scaleY:dotScale}, 1000, egret.Ease.quadInOut);
+            outline.alpha = 0.5;
+            var tw = egret.Tween.get(outline, {loop:true});
+            tw.to({alpha:0.25}, 1000, egret.Ease.quadInOut)
+                .to({alpha:0.5}, 1000, egret.Ease.quadInOut);
         }
 
         // 显示可经过的节点
@@ -579,7 +608,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 // 全局次数限制
                 var globalCnt = this.player.globalEventFinishedCount[evt];
                 this.player.globalEventFinishedCount[evt] = globalCnt ? globalCnt + 1 : 1;
-                    
             }
         }
     }
