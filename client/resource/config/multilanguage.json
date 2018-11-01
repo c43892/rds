@@ -366,6 +366,7 @@
 		"newPlayConfirmContent":{"EN": "discard the current progress?", "CNS": "确定放弃当前进度？", "CNT": "确定放弃当前进度？"},
 		"chooseThisRelic":{"EN": "choose this skill", "CNS": "选择此技能", "CNT": "选择此技能"},
 		"saveExchange":{"EN": "sava", "CNS": "保存", "CNT": "保存"},
+		"useDeluxeMeal":{"EN": "使用豪华大餐回复50%生命值？", "CNS": "使用豪华大餐回复50%生命值？", "CNT": "使用豪华大餐回复50%生命值？"},
 		"": {}
 	}
 }

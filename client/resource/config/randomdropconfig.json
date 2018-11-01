@@ -119,7 +119,7 @@
     }},
 
     "bossBox4": {"num":[1, 2], "elems":{
-        "LifeSpring":1
+        "DeluxeMeal":1
     }},
 
     "bossBox5": {"num":[1, 2], "elems":{        
