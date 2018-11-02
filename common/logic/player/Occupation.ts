@@ -47,6 +47,7 @@ class Occupation {
         // p.addRelic(<Relic>ElemFactory.create("VestDetector")); // 初始遗物
         // p.addRelic(<Relic>ElemFactory.create("VestImmune")); // 初始遗物
         // p.addRelic(<Relic>ElemFactory.create("VestThorns")); // 初始遗物
+        // p.addRelic(<Relic>ElemFactory.create("Watchmaker")); // 初始遗物
         p.addItem(<Prop>ElemFactory.create("HpPotion")); // 初始物品
         return p;
     }

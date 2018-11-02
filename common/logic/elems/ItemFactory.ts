@@ -114,7 +114,9 @@ class ItemFactory {
             e.canUse = () => true;
             e.use = async () => {
                 var bt = e.bt();
-                await bt.implAddDeathGodStep(e.attrs.deathStepBack, e);
+                var ps = {e:e, deathStepBack:e.attrs.deathStepBack};
+                e.bt().triggerLogicPointSync("onUseClock", ps);
+                await bt.implAddDeathGodStep(ps.deathStepBack, e);
             }
 
             return e;

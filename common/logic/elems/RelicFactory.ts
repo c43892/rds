@@ -248,7 +248,7 @@ class RelicFactory {
                     r.clearAIAtLogicPoint("onLevelInited");
                     r.clearAIAtLogicPoint("onStartupRegionUncovered");
                     return;
-                }                
+                }
                 r = RelicFactory.addElemsOnLevelInit(r);
                 r = <Relic>ElemFactory.addAI("onStartupRegionUncovered", async () => {
                     var vests = r.bt().level.map.findAllElems((e:Elem) => e.getGrid().isCovered() && !e.getGrid().isMarked() && e.type == "Vest");
@@ -301,9 +301,14 @@ class RelicFactory {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) {
                     r.clearAIAtLogicPoint("onLevelInited");
+                    r.clearAIAtLogicPoint("onElemChanged");
                     return;
                 }                
                 r = RelicFactory.addElemsOnLevelInit(r);
+                r = <Relic>ElemFactory.addAI("onElemChanged", async (ps) => {
+                    if (!Utils.contains(ps.e.attrs.tags, "food")) return;
+                    await r.bt().implAddPlayerExp(r.attrs.dexp, ps.e.pos);
+                }, r, (ps) => ps.subType == "useElem");
             })
         },
 
@@ -448,6 +453,7 @@ class RelicFactory {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) {
                     r.clearAIAtLogicPoint("onStartupRegionUncovered");
+                    r.clearAIAtLogicPoint("onLevelInited");
                     return;
                 }
                 ElemFactory.addAI("onStartupRegionUncovered", async () => {
@@ -455,6 +461,18 @@ class RelicFactory {
                     for (var f of fs)
                         await r.bt().implMark(f.pos.x, f.pos.y);
                 }, r)
+                ElemFactory.addAI("onLevelInited", async () => {
+                     var food = BattleUtils.findRandomElems(r.bt(), 1, (f:Elem) => Utils.contains(f.attrs.tags, "food"))[0];
+                     if (food) {
+                         var changeToDeluxeMeal = r.bt().srand.next100() < r.attrs.percent;
+                         if (changeToDeluxeMeal) {
+                             var pos = food.pos;
+                             await r.bt().implRemoveElemAt(pos.x, pos.y);
+                             var DeluxeMeal = r.bt().level.createElem("DeluxeMeal");
+                             await r.bt().implAddElemAt(DeluxeMeal, pos.x, pos.y);
+                         }
+                     }                        
+                }, r);
             })
         },
 
@@ -594,6 +612,23 @@ class RelicFactory {
                         }
                     }
                 }, r);
+            })
+            return r;
+        },
+
+        // 钟表匠 每层增加一个钟表,使用钟表回退步数+1(升级+1,最高5级)
+        "Watchmaker": (attrs) => {
+            var r = this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) {
+                    r.clearAIAtLogicPoint("onLevelInited");
+                    r.clearAIAtLogicPoint("onUseClock");
+                    return;
+                }
+                r = RelicFactory.addElemsOnLevelInit(r);
+                r = <Relic>ElemFactory.addAI("onUseClock", (ps) => {
+                    Utils.assert(ps.e.type == "Clock", "only effect on Clock.");
+                    ps.deathStepBack += r.attrs.addDeathStepBack;
+                }, r, undefined, false, true);
             })
             return r;
         },
