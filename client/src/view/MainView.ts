@@ -211,7 +211,7 @@ class MainView extends egret.DisplayObjectContainer {
             "onCandyCannon", "onMakeWanted", "onInitBattleView", "onRelicEffect", "onMonsterCharmed", "onCloakImmunizeSneak",
             "onSwatheItemWithCocoon", "summonByDancer", "onGetMarkAllAward", "onStartupRegionUncovered", "onSneaking", "onGoOutLevel",
             "relicsEquippedMaxNumAdded", "onPlayerDying", "onPlayerReborn", "onUseProp", "onElemRevive", "refreshMap", 
-            "onPlayerLevelUp", "onSelfExplode", "onShieldFlyBack", "onSanThreshold"
+            "onPlayerLevelUp", "onSelfExplode", "onShieldFlyBack", "onSanThreshold", "monsterAttackSingleTargetAct"
         ], (e) => (ps) => this.bv.av[e](ps));
         bt.registerEvent("onBattleEnded", async (ps) => {
             await this.av.blackIn();

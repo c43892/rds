@@ -1123,6 +1123,7 @@ class Battle {
                 // 目标属性
                 var targetAttrs = tar.getAttrsAsTarget();
                 for (var j = 0; j < attackerAttrs.muiltAttack && !tar.isDead(); j++) {
+                    await this.fireEvent("monsterAttackSingleTargetAct", {m:m, target: tar}); // 对单个目标的攻击表现
                     var r = await this.calcAttack("monster2targets", attackerAttrs, targetAttrs);
                     if (r.r == "attacked") {
                         if (tar instanceof Player) {
