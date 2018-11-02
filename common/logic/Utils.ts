@@ -533,7 +533,7 @@ class Utils {
             var e = Utils.randomSelectByWeightWithPlayerFilter(player, iw, rand, 1, 2, false)[0];
             dropItems.push(e);
             if(e == "OpenRelicSpace"){
-                var index = player.relicsEquippedCapacity - 4;
+                var index = player.relicsEquippedCapacity - Utils.getPlayerInitRelicsEquippedCapacity(player.difficulty);
                 prices[e] = GCfg.getMiscConfig("unlockPrices")[index];
             }
             else 
@@ -706,5 +706,11 @@ class Utils {
         var type = e.type;
         var plantType = type.substring(0, type.length - 1);
         return plantType;
+    }
+
+    // 根据游戏难度获取玩家初始技能格子的数量
+    public static getPlayerInitRelicsEquippedCapacity(difficulty = "level0") {
+        var cfg = GCfg.playerCfg["playerInitRelicsEquippedCapacity"];
+        return cfg[difficulty];
     }
 }
