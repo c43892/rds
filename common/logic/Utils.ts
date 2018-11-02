@@ -698,4 +698,13 @@ class Utils {
 
         return {posLeftCeil:newPosLeftCeil, poses:allPoses, size:newSize, mapsize:mapsize}
     }
+
+    // 获取植物类型
+    public static getPlantType(e:Elem) {
+        if (!(e instanceof Plant))
+            return false;
+        var type = e.type;
+        var plantType = type.substring(0, type.length - 1);
+        return plantType;
+    }
 }

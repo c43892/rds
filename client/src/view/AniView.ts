@@ -1078,6 +1078,27 @@ class AniView extends egret.DisplayObjectContainer {
         sv["resetSelf"]();
     }
 
+    // 怪物的攻击动作,只针对单个目标的单次攻击
+    public async monsterAttackSingleTargetAct(ps) {
+        var m:Monster = ps.m;
+        var msv = this.getSV(m);
+        var target = ps.target;
+        var tsv = target instanceof Player ? this.bv.avatar : this.getSV(target);
+        if (Utils.getPlantType(m) == "Peashooter") {
+            var peaImg = AniUtils.createImg("Pea_png");
+            var fromPos = AniUtils.ani2global(msv);
+            fromPos.x += msv.width / 2;
+            fromPos.y += msv.height / 2;
+            peaImg.x = fromPos.x;
+            peaImg.y = fromPos.y;
+            var toPos = AniUtils.ani2global(tsv);
+            toPos.x += tsv.width / 2;
+            toPos.y += tsv.height / 2;
+            await AniUtils.flyAndFadeout(peaImg, toPos, 250, 1, 0, 0, egret.Ease.quintIn);
+            peaImg["dispose"]();
+        }
+    }
+
     // 自爆憎恶自爆
     public onSelfExplode(ps) {
         var m:Monster = ps.m;
