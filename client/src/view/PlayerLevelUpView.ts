@@ -113,7 +113,7 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
         // 龙出现
         ske.animation.play("stand");
 
-        await Utils.delay(500);
+        await Utils.delay(750);
 
         // 经验条顶端爆炸
         var eff1 = AniUtils.createFrameAni("effPlayerLevelUp2", 1);
@@ -127,6 +127,7 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
         await Utils.delay(100);
         var eff2 = ViewUtils.createFrameAni("effPlayerLevelUp1");
         let track = new BazierControllerWrapper(eff2);
+        track.rotationDelta = 180;
         AniUtils.ac.addChild(track);
         eff2.play(1);
         eff2.x = effPos.x;

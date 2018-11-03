@@ -6,6 +6,8 @@ class BazierControllerWrapper extends egret.DisplayObjectContainer {
         this.addChild(obj);
     }
 
+    public rotationDelta = 0;
+
     bazierFromPos;
     bazierControlPos;
     bazierToPos;
@@ -35,6 +37,6 @@ class BazierControllerWrapper extends egret.DisplayObjectContainer {
         this.obj.x = (1 - p) * (1 - p) * x1 + 2 * p * (1 - p) * x2 + p * p * x3;
         this.obj.y = (1 - p) * (1 - p) * y1 + 2 * p * (1 - p) * y2 + p * p * y3;
         var r = Utils.getRotationFromTo({x:this.obj.x, y:this.obj.y}, {x:lastX, y:lastY});
-        this.obj.rotation = r;
+        this.obj.rotation = r + this.rotationDelta;
     }
 }

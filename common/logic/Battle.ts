@@ -1027,7 +1027,6 @@ class Battle {
 
                 await this.uncover(pos.x, pos.y, weapon != undefined, false, !weapon);
             }
-                
         };
 
         await this.triggerLogicPoint("onAttacking", {subType:"player2monster", x:x, y:y, weapon:weapon, targets:tars});
