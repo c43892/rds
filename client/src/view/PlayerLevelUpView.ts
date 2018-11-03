@@ -2,9 +2,11 @@
 class PlayerLevelUpView extends egret.DisplayObjectContainer {    
     public player:Player;
 
-    bg:egret.Bitmap; // 背景
-    lvBg:egret.Bitmap; // 恶魔头像
-    lvBg2:egret.Bitmap; // 恶魔尾巴
+    // bg:egret.Bitmap; // 背景
+    // lvBg:egret.Bitmap; // 恶魔头像
+    // lvBg2:egret.Bitmap; // 恶魔尾巴
+
+    public bv:BattleView; // 战斗界面
 
     lvTxt:egret.BitmapText; // 等级数字
     btnOk:TextButtonWithBg; // 确定按钮
@@ -106,9 +108,36 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
         var shuzi = ske.getSlot("shuzi");
         shuzi.display = this.lvTxt;
         this.lvTxt.anchorOffsetX = this.lvTxt.width / 2;
-        this.lvTxt.anchorOffsetY = this.lvTxt.height / 2;
+        this.lvTxt.anchorOffsetY = this.lvTxt.height / 2;        
 
-        ske.animation.play("stand3");
+        // 龙出现
+        ske.animation.play("stand");
+
+        await Utils.delay(100);
+
+        // 经验条顶端爆炸
+        var eff1 = AniUtils.createFrameAni("effPlayerLevelUp2", 1);
+        var bvPos = AniUtils.ani2global(this.bv.avatarBg);
+        var effPos = {x: bvPos.x + this.bv.avatarBg.width - 20, y:bvPos.y + 10};
+        eff1.x = effPos.x;
+        eff1.y = effPos.y;
+        eff1["wait"]().then(() => eff1["dispose"]());
+
+        // 飞行效果
+        await Utils.delay(100);
+        var eff2 = ViewUtils.createFrameAni("effPlayerLevelUp1");
+        let track = new BazierControllerWrapper(eff2);
+        track.rotationDelta = 180;
+        AniUtils.ac.addChild(track);
+        eff2.play(1);
+        eff2.x = effPos.x;
+        eff2.y = effPos.y;
+        var toPos = AniUtils.ani2global(this);
+        toPos.x += this.width / 2;
+        toPos.y += this.height / 4 + 50;
+        await AniUtils.createFlyTrack(track, effPos, toPos, 500);
+        eff2["stop"]();
+        AniUtils.ac.removeChild(track);
 
         return new Promise<string>((resolve, reject) => {
             this.doSel = (r) => {
