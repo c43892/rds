@@ -16,7 +16,7 @@ class Level {
         this.InitMap(cfg.map);
         this.InitElems(bt.btType, cfg.elems, cfg.constElems, cfg.randomGroups, 
             GCfg.mapsize.w * GCfg.mapsize.h + cfg.init_uncovered.w + cfg.init_uncovered.h, 
-            cfg.init_uncovered, cfg.doorUnlock, cfg.extraTreasureBox, cfg.treasureBoxNum, cfg.monsterBox);
+            cfg.init_uncovered, cfg.doorUnlock, cfg.treasureBoxNum, cfg.monsterBox);
         if (cfg.levelLogics) {
             for (var levelLogic of cfg.levelLogics) {
                 var ll = LevelLogicFactory.createLevelLogic(levelLogic.type, ...levelLogic.ps);
@@ -81,7 +81,7 @@ class Level {
     }
 
     // 创建初始元素
-    public InitElems(btType:string, elemsCfg, constElemsCfg, randomGroupsCfg, elemNumLimit, init_uncovered_size, doorUnlock, extraTreasureBox, treasureBoxNum, monsterBox) {
+    public InitElems(btType:string, elemsCfg, constElemsCfg, randomGroupsCfg, elemNumLimit, init_uncovered_size, doorUnlock, treasureBoxNum, monsterBox) {
         this.elemsCfgInLevel = elemsCfg;
         var maxNumLimit = 0; // 做最大可能数量的检查
         var elems = [

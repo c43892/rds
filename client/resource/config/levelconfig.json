@@ -5,7 +5,6 @@
         "displayName": "普通战斗1",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 0,
         "monsterBox": 0,
         "elemPosConfig":"rookiePlay_1",
         "elemPosConfigForView":"rookiePlay_1ForView",
@@ -31,7 +30,6 @@
         "displayName": "普通战斗3",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 20,
         "monsterBox": 100,
         "init_uncovered": {
             "w": 3,
@@ -70,7 +68,6 @@
         "displayName": "普通战斗5",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 20,
         "monsterBox": 0,
         "init_uncovered": {
             "w": 3,
@@ -114,7 +111,6 @@
         "displayName": "普通战斗1",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 20,
         "monsterBox": 0,
         "init_uncovered": {
             "w": 3,
@@ -153,7 +149,6 @@
         "displayName": "普通战斗2",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 20,
         "monsterBox": 6,
         "init_uncovered": {
             "w": 3,
@@ -161,7 +156,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -196,7 +191,6 @@
         "displayName": "普通战斗3",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 20,
         "monsterBox": 6,
         "init_uncovered": {
             "w": 3,
@@ -204,7 +198,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -243,7 +237,6 @@
         "displayName": "普通战斗4",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 20,
         "monsterBox": 7,
         "init_uncovered": {
             "w": 3,
@@ -251,7 +244,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -290,7 +283,6 @@
         "displayName": "普通战斗5",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 20,
         "monsterBox": 7,
         "init_uncovered": {
             "w": 3,
@@ -298,7 +290,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -340,7 +332,6 @@
         "displayName": "普通战斗6",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 20,
         "monsterBox": 7,
         "init_uncovered": {
             "w": 3,
@@ -348,7 +339,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 10, 11 ],
@@ -396,7 +387,6 @@
         "displayName": "普通战斗7",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 20,
         "monsterBox": 7,
         "init_uncovered": {
             "w": 3,
@@ -404,7 +394,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 10, 11 ],
@@ -452,7 +442,6 @@
         "displayName": "普通战斗8",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 20,
         "monsterBox": 7,
         "init_uncovered": {
             "w": 3,
@@ -460,7 +449,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 10, 11 ],
@@ -512,7 +501,6 @@
         "displayName": "普通战斗9",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 20,
         "monsterBox": 8,
         "init_uncovered": {
             "w": 3,
@@ -520,7 +508,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 10, 11 ],
@@ -572,7 +560,6 @@
         "displayName": "普通战斗10",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 20,
         "monsterBox": 8,
         "init_uncovered": {
             "w": 3,
@@ -580,7 +567,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 10, 11 ],
@@ -635,7 +622,6 @@
         "displayName": "普通战斗11",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 20,
         "monsterBox": 8,
         "init_uncovered": {
             "w": 3,
@@ -643,7 +629,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 12, 13 ],
@@ -698,7 +684,6 @@
         "displayName": "普通战斗12",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 20,
         "monsterBox": 8,
         "init_uncovered": {
             "w": 3,
@@ -706,7 +691,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 12, 13 ],
@@ -761,7 +746,6 @@
         "displayName": "普通战斗13",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 20,
         "monsterBox": 8,
         "init_uncovered": {
             "w": 3,
@@ -769,7 +753,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 12, 13 ],
@@ -824,7 +808,6 @@
         "displayName": "普通战斗14",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 20,
         "monsterBox": 8,
         "init_uncovered": {
             "w": 3,
@@ -832,7 +815,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 12, 13 ],
@@ -887,7 +870,6 @@
         "displayName": "普通战斗16",
         "map": {},
         "doorUnlock": 2,
-        "extraTreasureBox": 30,
         "monsterBox": 9,
         "init_uncovered": {
             "w": 3,
@@ -895,7 +877,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 14, 15 ],
@@ -950,7 +932,6 @@
         "displayName": "普通战斗17",
         "map": {},
         "doorUnlock": 2,
-        "extraTreasureBox": 30,
         "monsterBox": 9,
         "init_uncovered": {
             "w": 3,
@@ -958,7 +939,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 14, 15 ],
@@ -1013,7 +994,6 @@
         "displayName": "普通战斗18",
         "map": {},
         "doorUnlock": 2,
-        "extraTreasureBox": 30,
         "monsterBox": 9,
         "init_uncovered": {
             "w": 3,
@@ -1021,7 +1001,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 14, 15 ],
@@ -1076,7 +1056,6 @@
         "displayName": "普通战斗19",
         "map": {},
         "doorUnlock": 2,
-        "extraTreasureBox": 30,
         "monsterBox": 9,
         "init_uncovered": {
             "w": 3,
@@ -1084,7 +1063,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 14, 15 ],
@@ -1139,7 +1118,6 @@
         "displayName": "普通战斗20",
         "map": {},
         "doorUnlock": 2,
-        "extraTreasureBox": 30,
         "monsterBox": 9,
         "init_uncovered": {
             "w": 3,
@@ -1147,7 +1125,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 14, 15 ],
@@ -1202,7 +1180,6 @@
         "displayName": "普通战斗21",
         "map": {},
         "doorUnlock": 2,
-        "extraTreasureBox": 30,
         "monsterBox": 9,
         "init_uncovered": {
             "w": 3,
@@ -1210,7 +1187,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 16, 17 ],
@@ -1265,7 +1242,6 @@
         "displayName": "普通战斗22",
         "map": {},
         "doorUnlock": 2,
-        "extraTreasureBox": 30,
         "monsterBox": 9,
         "init_uncovered": {
             "w": 3,
@@ -1273,7 +1249,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 16, 17 ],
@@ -1328,7 +1304,6 @@
         "displayName": "普通战斗23",
         "map": {},
         "doorUnlock": 2,
-        "extraTreasureBox": 30,
         "monsterBox": 9,
         "init_uncovered": {
             "w": 3,
@@ -1336,7 +1311,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 16, 17 ],
@@ -1391,7 +1366,6 @@
         "displayName": "普通战斗24",
         "map": {},
         "doorUnlock": 2,
-        "extraTreasureBox": 30,
         "monsterBox": 9,
         "init_uncovered": {
             "w": 3,
@@ -1399,7 +1373,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 16, 17 ],
@@ -1454,7 +1428,6 @@
         "displayName": "普通战斗25",
         "map": {},
         "doorUnlock": 2,
-        "extraTreasureBox": 30,
         "monsterBox": 10,
         "init_uncovered": {
             "w": 3,
@@ -1462,7 +1435,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 16, 17 ],
@@ -1517,7 +1490,6 @@
         "displayName": "普通战斗26",
         "map": {},
         "doorUnlock": 2,
-        "extraTreasureBox": 30,
         "monsterBox": 10,
         "init_uncovered": {
             "w": 3,
@@ -1525,7 +1497,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 18, 19 ],
@@ -1580,7 +1552,6 @@
         "displayName": "普通战斗27",
         "map": {},
         "doorUnlock": 2,
-        "extraTreasureBox": 30,
         "monsterBox": 10,
         "init_uncovered": {
             "w": 3,
@@ -1588,7 +1559,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 18, 19 ],
@@ -1643,7 +1614,6 @@
         "displayName": "普通战斗28",
         "map": {},
         "doorUnlock": 2,
-        "extraTreasureBox": 30,
         "monsterBox": 10,
         "init_uncovered": {
             "w": 3,
@@ -1651,7 +1621,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 18, 19 ],
@@ -1706,7 +1676,6 @@
         "displayName": "普通战斗29",
         "map": {},
         "doorUnlock": 2,
-        "extraTreasureBox": 30,
         "monsterBox": 10,
         "init_uncovered": {
             "w": 3,
@@ -1714,7 +1683,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 18, 19 ],
@@ -1769,7 +1738,6 @@
         "displayName": "精英战斗1",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 0,
         "monsterBox": 0,
         "init_uncovered": {
             "w": 3,
@@ -1777,7 +1745,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -1816,7 +1784,6 @@
         "displayName": "精英战斗2",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 0,
         "monsterBox": 6,
         "init_uncovered": {
             "w": 3,
@@ -1824,7 +1791,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -1865,7 +1832,6 @@
         "displayName": "精英战斗3",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 0,
         "monsterBox": 6,
         "init_uncovered": {
             "w": 3,
@@ -1873,7 +1839,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -1918,7 +1884,6 @@
         "displayName": "精英战斗4",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 0,
         "monsterBox": 7,
         "init_uncovered": {
             "w": 3,
@@ -1926,7 +1891,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -1971,7 +1936,6 @@
         "displayName": "精英战斗5",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 0,
         "monsterBox": 7,
         "init_uncovered": {
             "w": 3,
@@ -1979,7 +1943,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -2027,7 +1991,6 @@
         "displayName": "精英战斗6",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 0,
         "monsterBox": 7,
         "init_uncovered": {
             "w": 3,
@@ -2035,7 +1998,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -2083,7 +2046,6 @@
         "displayName": "精英战斗7",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 0,
         "monsterBox": 7,
         "init_uncovered": {
             "w": 3,
@@ -2091,7 +2053,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -2139,7 +2101,6 @@
         "displayName": "精英战斗8",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 0,
         "monsterBox": 7,
         "init_uncovered": {
             "w": 3,
@@ -2147,7 +2108,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -2199,7 +2160,6 @@
         "displayName": "精英战斗9",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 0,
         "monsterBox": 8,
         "init_uncovered": {
             "w": 3,
@@ -2207,7 +2167,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -2259,7 +2219,6 @@
         "displayName": "精英战斗10",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 0,
         "monsterBox": 8,
         "init_uncovered": {
             "w": 3,
@@ -2267,7 +2226,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -2322,7 +2281,6 @@
         "displayName": "精英战斗11",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 0,
         "monsterBox": 8,
         "init_uncovered": {
             "w": 3,
@@ -2330,7 +2288,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 9, 10 ],
@@ -2385,7 +2343,6 @@
         "displayName": "精英战斗12",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 0,
         "monsterBox": 8,
         "init_uncovered": {
             "w": 3,
@@ -2393,7 +2350,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 9, 10 ],
@@ -2448,7 +2405,6 @@
         "displayName": "精英战斗13",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 0,
         "monsterBox": 8,
         "init_uncovered": {
             "w": 3,
@@ -2456,7 +2412,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 9, 10 ],
@@ -2511,7 +2467,6 @@
         "displayName": "精英战斗14",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 0,
         "monsterBox": 8,
         "init_uncovered": {
             "w": 3,
@@ -2519,7 +2474,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 9, 10 ],
@@ -2574,7 +2529,6 @@
         "displayName": "精英战斗16",
         "map": {},
         "doorUnlock": 2,
-        "extraTreasureBox": 0,
         "monsterBox": 9,
         "init_uncovered": {
             "w": 3,
@@ -2582,7 +2536,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -2637,7 +2591,6 @@
         "displayName": "精英战斗17",
         "map": {},
         "doorUnlock": 2,
-        "extraTreasureBox": 0,
         "monsterBox": 9,
         "init_uncovered": {
             "w": 3,
@@ -2645,7 +2598,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -2700,7 +2653,6 @@
         "displayName": "精英战斗18",
         "map": {},
         "doorUnlock": 2,
-        "extraTreasureBox": 0,
         "monsterBox": 9,
         "init_uncovered": {
             "w": 3,
@@ -2708,7 +2660,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -2763,7 +2715,6 @@
         "displayName": "精英战斗19",
         "map": {},
         "doorUnlock": 2,
-        "extraTreasureBox": 0,
         "monsterBox": 9,
         "init_uncovered": {
             "w": 3,
@@ -2771,7 +2722,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -2826,7 +2777,6 @@
         "displayName": "精英战斗20",
         "map": {},
         "doorUnlock": 2,
-        "extraTreasureBox": 0,
         "monsterBox": 9,
         "init_uncovered": {
             "w": 3,
@@ -2834,7 +2784,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -2889,7 +2839,6 @@
         "displayName": "精英战斗21",
         "map": {},
         "doorUnlock": 2,
-        "extraTreasureBox": 0,
         "monsterBox": 9,
         "init_uncovered": {
             "w": 3,
@@ -2897,7 +2846,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -2952,7 +2901,6 @@
         "displayName": "精英战斗22",
         "map": {},
         "doorUnlock": 2,
-        "extraTreasureBox": 0,
         "monsterBox": 9,
         "init_uncovered": {
             "w": 3,
@@ -2960,7 +2908,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -3015,7 +2963,6 @@
         "displayName": "精英战斗23",
         "map": {},
         "doorUnlock": 2,
-        "extraTreasureBox": 0,
         "monsterBox": 9,
         "init_uncovered": {
             "w": 3,
@@ -3023,7 +2970,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -3078,7 +3025,6 @@
         "displayName": "精英战斗24",
         "map": {},
         "doorUnlock": 2,
-        "extraTreasureBox": 0,
         "monsterBox": 9,
         "init_uncovered": {
             "w": 3,
@@ -3086,7 +3032,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -3141,7 +3087,6 @@
         "displayName": "精英战斗25",
         "map": {},
         "doorUnlock": 2,
-        "extraTreasureBox": 0,
         "monsterBox": 10,
         "init_uncovered": {
             "w": 3,
@@ -3149,7 +3094,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 8, 9 ],
@@ -3204,7 +3149,6 @@
         "displayName": "精英战斗26",
         "map": {},
         "doorUnlock": 2,
-        "extraTreasureBox": 0,
         "monsterBox": 10,
         "init_uncovered": {
             "w": 3,
@@ -3212,7 +3156,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 9, 10 ],
@@ -3267,7 +3211,6 @@
         "displayName": "精英战斗27",
         "map": {},
         "doorUnlock": 2,
-        "extraTreasureBox": 0,
         "monsterBox": 10,
         "init_uncovered": {
             "w": 3,
@@ -3275,7 +3218,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 9, 10 ],
@@ -3330,7 +3273,6 @@
         "displayName": "精英战斗28",
         "map": {},
         "doorUnlock": 2,
-        "extraTreasureBox": 0,
         "monsterBox": 10,
         "init_uncovered": {
             "w": 3,
@@ -3338,7 +3280,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 9, 10 ],
@@ -3393,7 +3335,6 @@
         "displayName": "精英战斗29",
         "map": {},
         "doorUnlock": 2,
-        "extraTreasureBox": 0,
         "monsterBox": 10,
         "init_uncovered": {
             "w": 3,
@@ -3401,7 +3342,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 2,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 9, 10 ],
@@ -3456,7 +3397,6 @@
         "displayName": "Boss战斗15",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 0,
         "monsterBox": 8,
         "init_uncovered": {
             "w": 3,
@@ -3464,7 +3404,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 5,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 10, 11 ],
@@ -3507,7 +3447,6 @@
         "displayName": "Boss战斗30",
         "map": {},
         "doorUnlock": 1,
-        "extraTreasureBox": 0,
         "monsterBox": 10,
         "init_uncovered": {
             "w": 3,
@@ -3515,7 +3454,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 5,
-        "levelLogics": [{"type":"LevelLogicAddShopNpc"}],
+        "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
                 "num": [ 10, 11 ],
