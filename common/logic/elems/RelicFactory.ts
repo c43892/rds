@@ -286,7 +286,7 @@ class RelicFactory {
                     r.clearAIAtLogicPoint("onLevelInited");
                     r.clearAIAtLogicPoint("onAttacked");
                     return;
-                }                
+                }
                 r = RelicFactory.addElemsOnLevelInit(r);
                 r = <Relic>ElemFactory.addAI("onAttacked", async (ps) => {
                     if (ps.r.r != "attacked" || ps.r.dhp >= 0) return;
@@ -371,11 +371,20 @@ class RelicFactory {
         "KnifeRange": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) {
-                    r.clearAIAtLogicPoint("onCalcAttacking");
                     r.clearAIAtLogicPoint("onLevelInited");
+                    r.clearAIAtLogicPoint("canUseAt");
                     return;
                 }
-                r = RelicFactory.addElemsOnLevelInit(r);                                
+                r = RelicFactory.addElemsOnLevelInit(r);
+                r = <Relic>ElemFactory.addAI("canUseAt", (ps) => {
+                    if (!ps.canUseAt){
+                        var g:Grid = r.map().getGridAt(ps.x, ps.y);
+                        if (g.isCovered())
+                            ps.canUseAt = true;
+                        else if (g.getElem() && g.getElem() instanceof Monster)
+                            ps.canUseAt = true;
+                    }
+                }, r, (ps) => ps.e.type == "Knife", false, true);
             })
         },
 
@@ -394,18 +403,24 @@ class RelicFactory {
             })
         },
 
-        // 无尽之刃	每场战斗增加一把飞刀，飞刀杀死怪物后有15%的几率不会消耗（每级+15，最高5）
+        // 无尽之刃	每场战斗增加一把飞刀，飞刀杀死怪物后有15%的获得一把飞刀（每级+15，最高5）
         "InfinityKnife": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) {
                     r.clearAIAtLogicPoint("onLevelInited");
+                    r.clearAIAtLogicPoint("onAttacked");
                     return;
                 }
                 r = RelicFactory.addElemsOnLevelInit(r);
                 r = <Relic>ElemFactory.addAI("onAttacked", async (ps) => {
                     var knife = ps.weapon;
-                    if (r.bt().srand.next100() < r.attrs.percent)
-                        knife.cnt ++;
+                    if (r.bt().srand.next100() < r.attrs.percent){
+                        var g = BattleUtils.findRandomEmptyGrid(r.bt(), false);
+                        if (g){
+                            var newKnife = r.bt().level.createElem("Knife");
+                            await r.bt().implAddElemAt(newKnife, g.pos.x, g.pos.y);
+                        }
+                    }
                 }, r, (ps) => ps.weapon && ps.weapon.type == "Knife" && ps.targetAttrs.owner.isDead())
             })
         },
@@ -558,20 +573,14 @@ class RelicFactory {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) {
                     r.clearAIAtLogicPoint("onLevelInited");
+                    r.clearAIAtLogicPoint("useWithTarget");
                     return;
                 }
                 r = RelicFactory.addElemsOnLevelInit(r);
-                // // 给新创建的盾牌加入使用逻辑,如果在战斗中,还要找到地图中所有的盾牌,加入使用逻辑
-                // if (r.player && r.player.bt) {
-                //     var bt = r.player.bt();
-                //     var shields = bt.level.map.findAllElems((e:Elem) => e.type == "Shield");
-                //     for (var shield of shields)
-                //         shield = ItemFactory.addUseLogicToShield(shield);
-                // }
-                // r = <Relic>ElemFactory.addAI("onLevelCreateElem", (ps) => {
-                //     var shield = ps.e;
-                //     shield = ItemFactory.addUseLogicToShield(shield);
-                // }, r, (ps) => ps.type == "Shield", false, true);
+                r = <Relic>ElemFactory.addAI("useWithTarget", (ps) => {
+                    if (!ps.useWithTarget)
+                        ps.useWithTarget = true;
+                }, r, (ps) => ps.e.type == "Shield", false, true);
             })
         },
 

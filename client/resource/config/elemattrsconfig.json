@@ -73,6 +73,17 @@
         ]
     },
     "KnifeProficient":{"name":"飞刀专精", "refElems":["Knife"], "addOnLevelInit":{"num":1, "elems":["Knife"]}},
+    "KnifeRange":{"name":"飞刀射程", "refElems":["Knife"], "addOnLevelInit":{"num":1, "elems":["Knife"]}},
+    "PoisonKnife":{"name":"剧毒之刃", "poisonCnt":1, "reinforce":[
+            {"poisonCnt":2}, {"poisonCnt":3}, {"poisonCnt":4}, {"poisonCnt":5}
+        ],
+        "refElems":["Knife"], "addOnLevelInit":{"num":1, "elems":["Knife"]}
+    },
+    "InfinityKnife":{"name":"无尽之刃", "percent":15, "reinforce":[
+            {"percent":30}, {"percent":45}, {"percent":60}, {"percent":75}
+        ],
+        "refElems":["Knife"], "addOnLevelInit":{"num":1, "elems":["Knife"]}
+    },
     "ExploreEnhanced":{"name":"探索强化"},
     "HorticultureProficient":{"name":"园艺专精", "refElems":["Apple"], "addOnLevelInit":{"num":1, "elems":["Apple"]}},
     "SmellEnhanced":{"name":"嗅觉强化", "percent":5,
@@ -127,7 +138,7 @@
     "HpPotion":{"name":"医疗药剂", "heal":6, "canOverlap":true},
     "Magazine":{"name":"自然杂志", "cnt":5, "dexp":3, "tags":["book"], "useWithoutConfirm":true},
     "EconomyMagazine":{"name":"金融杂志", "cnt":5, "dexp":2, "tags":["book"], "useWithoutConfirm":true},
-    "Shield":{"name":"盾牌", "cd":15, "shield":10, "useWithTarget":true, "validTarget":"markedMonster|uncoveredMonser", "showCDNum":true, "repRes":["Shield", "ShieldBack"]},
+    "Shield":{"name":"盾牌", "cd":15, "shield":10, "validTarget":"markedMonster|uncoveredMonser", "showCDNum":true, "repRes":["Shield", "ShieldBack"]},
     "HeadBone":{"name":"骷髅头"},
 
     "DeathGod":{"name":"死神", "deathStep":15, "cannotTake":true, "addInEffect":"noEffect"},

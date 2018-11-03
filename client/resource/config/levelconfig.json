@@ -78,7 +78,7 @@
         },
         "shopCfg": "inbattle",
         "treasureBoxNum": 1,
-        "constElems": { "ShopNpc": 1, "RandomEggZombie": 1 },
+        "constElems": { "RandomEggZombie": 1 },
         "levelLogics": [
             {"type":"LevelLogicAddRelicOnRookie"},
             {"type":"LevelLogicAddShopNpc"}

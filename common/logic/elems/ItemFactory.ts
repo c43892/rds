@@ -169,7 +169,6 @@ class ItemFactory {
         // 盾牌
         "Shield": (attrs) => {
             var e = this.createItem();
-            e.useWithTarget = () => Utils.indexOf(e.bt().player.relicsEquipped, (r: Relic) => r.type == "ShieldSlam") > -1;
             e.canUse = () => false;
             e.canNotUseReason = () => {
                 if (Utils.indexOf(e.bt().player.relicsEquipped, (r: Relic) => r.type == "ShieldSlam") > -1)

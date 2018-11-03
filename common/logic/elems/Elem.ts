@@ -26,8 +26,22 @@ class Elem {
     // 各逻辑点，挂接的都是函数
     public canUse = () => { return false; } // 一个 function():boolean
     public canNotUseReason = () => undefined;
-    public useWithTarget = () => this.attrs.useWithTarget;
+    public useWithTarget = () => {
+        Utils.assert(!!this.bt(), "useWithTarget() can only use in battle");  // 只有战斗中才会调用此方法
+        // 部分技能会影响元素的useWithTarget结果
+        var ps = {e:this, useWithTarget:undefined};
+        this.bt().triggerLogicPointSync("useWithTarget", ps);
+        if (ps.useWithTarget != undefined) return ps.useWithTarget;
+
+        return this.attrs.useWithTarget
+    };
     public canUseAt = (x:number, y:number):boolean => {  // 是否可对指定位置使用
+        Utils.assert(!!this.bt(), "canUseAt() can only use in battle");  // 只有战斗中才会调用此方法
+        // 部分技能会影响元素的canUseAt结果
+        var ps = {e:this, x:x, y:y, canUseAt:undefined};
+        this.bt().triggerLogicPointSync("canUseAt", ps);
+        if (ps.canUseAt != undefined) return ps.canUseAt;
+
         if (!this.attrs.useWithTarget) return false;
         var actualMapRange = Utils.getActualMapRange(this.bt());
         if (x > actualMapRange.maxX || x < actualMapRange.minX || y > actualMapRange.maxY || y < actualMapRange.minY) return false;
