@@ -6,7 +6,7 @@ class Player {
     private static serializableFields = [
         "currentStoreyPos", "finishedStoreyPos", "finishedWorldMap", "finishedEvent", "battleRandomSeed",  
         "deathStep", "maxDeathStep", "hp", "maxHp", "power", "defence", "dodge", 
-        "occupation", "exp", "lv", "money", "globalEventFinishedCount", "relicsEquippedCapacity", "worldName"];
+        "occupation", "exp", "lv", "money", "globalEventFinishedCount", "relicsEquippedCapacity", "worldName", "difficulty"];
 
     // 所属战斗
     private $$bt;
@@ -32,10 +32,12 @@ class Player {
     public finishedWorldMap = []; // 已经完成的世界
     public finishedEvent = [];
     public globalEventFinishedCount = {}; // 全局事件计数
+    public difficulty:string; // 游戏难度
 
     // 重新创建角色
-    public static createTestPlayer():Player {
+    public static createTestPlayer(difficulty = "level0"):Player {
         var p = new Player();
+        p.difficulty = difficulty;
         p.worldmap = undefined;
         p.currentStoreyPos = {lv:0, n:0, status:"finished"};
         p.finishedStoreyPos = [{lv:0, n:0}];
@@ -52,6 +54,7 @@ class Player {
         p.money = 20;
         p.exp = 0;
         p.lv = 0;
+        p.relicsEquippedCapacity = Utils.getPlayerInitRelicsEquippedCapacity(p.difficulty);
 
         return p;
     }
@@ -410,7 +413,7 @@ class Player {
     // 遗物相关逻辑
 
     public relicEquippedCapacityMax = 12; // 装备格上限
-    public relicsEquippedCapacity = 4; // 遗物装备格容量
+    public relicsEquippedCapacity; // 遗物装备格容量
     public relicsEquipped:Relic[] = []; // 已经装备的遗物
     public relicsInBag:Relic[] = []; // 包裹中的遗物
     public get allRelics():Relic[] {
