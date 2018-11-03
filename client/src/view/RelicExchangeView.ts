@@ -327,7 +327,8 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
             let rev = event.rev;
             let eventType:string = event.eventType;
             let evt:egret.TouchEvent = event.evt;
-            await rev[eventType](evt);
+            if (evt.target) // 操作系统的差异可能导致evt.target为空,则忽略此事件
+                await rev[eventType](evt);
             RelicExchangeView.eventArr.shift();
             if (eventType == "onTouchEnd")
                 RelicExchangeView.eventArr = [];
