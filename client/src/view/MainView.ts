@@ -56,6 +56,7 @@ class MainView extends egret.DisplayObjectContainer {
 
         // 角色升级界面
         this.pluv = new PlayerLevelUpView(w, h);
+        this.pluv.bv = this.bv;
 
         // 登录界面
         this.lgv = new LoginView(w, h);
