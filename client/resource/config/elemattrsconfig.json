@@ -99,9 +99,9 @@
     "ShieldDetector":{"name":"盾牌探测", "refElems":["Shield"], "addOnLevelInit":{"num":1, "elems":["Shield"]}},
     "ShieldSlam":{"name":"盾牌猛击", "refElems":["Shield"], "addOnLevelInit":{"num":1, "elems":["Shield"]}},
     "VestDetector":{"name":"防护探测", "refElems":["Vest"], "addOnLevelInit":{"num":1, "elems":["Vest"]}},
-    "VestImmune":{"name":"防护免疫", "percent":50,
+    "VestImmune":{"name":"防护免疫", "percent":1,
         "reinforce":[
-            {"percent":4}, {"percent":6}, {"percent":8}, {"percent":10}
+            {"percent":2}, {"percent":3}, {"percent":4}, {"percent":5}
         ], 
         "refElems":["Vest"], "addOnLevelInit":{"num":1, "elems":["Vest"]}},
     "VestThorns":{"name":"防护反伤", "thornsDamage":2,

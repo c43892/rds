@@ -260,7 +260,7 @@ class RelicFactory {
             })
         },
 
-        // 防护免疫	每层额外增加一件防护服，防护服可用的时候有2%的几率免疫伤害（每级+2%，最高5）
+        // 防护免疫	每层额外增加一件防护服，每一件防护服可用的时候有1%的几率免疫伤害（每级+1%，最高5）
         "VestImmune": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) {
@@ -272,7 +272,7 @@ class RelicFactory {
                     var vests = r.bt().level.map.findAllElems((e:Elem) => !e.getGrid().isCovered() && e.type == "Vest"  && e.isValid());
                     if (vests.length > 0){
                         var rand = r.bt().srand.nextInt(0, 100);
-                        if (rand < r.attrs.percent)
+                        if (rand < r.attrs.percent * vests.length)
                             ps.targetAttrs.targetFlags.push("cancelAttack");
                     }
                 }, r, (ps) => ps.targetAttrs.owner instanceof Player, false, true);
@@ -375,13 +375,41 @@ class RelicFactory {
                     r.clearAIAtLogicPoint("onLevelInited");
                     return;
                 }
-                r = RelicFactory.addElemsOnLevelInit(r);
-                                
+                r = RelicFactory.addElemsOnLevelInit(r);                                
             })
         },
 
         // 剧毒之刃	每场战斗增加一把飞刀，飞刀攻击附加一层毒（每级+1，最高5）
+        "PoisonKnife": (attrs) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) {
+                    r.clearAIAtLogicPoint("onCalcAttacking");
+                    r.clearAIAtLogicPoint("onLevelInited");
+                    return;
+                }
+                r = RelicFactory.addElemsOnLevelInit(r);
+                r = <Relic>ElemFactory.addAI("onCalcAttacking", (ps) => {
+                    ps.attackerAttrs.addBuffs.push({"type":"Poison", "rate":100, "ps":[r.attrs.poisonCnt ,1]});
+                }, r, (ps) => ps.weapon && ps.weapon.type =="Knife", false, true);
+            })
+        },
+
         // 无尽之刃	每场战斗增加一把飞刀，飞刀杀死怪物后有15%的几率不会消耗（每级+15，最高5）
+        "InfinityKnife": (attrs) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) {
+                    r.clearAIAtLogicPoint("onLevelInited");
+                    return;
+                }
+                r = RelicFactory.addElemsOnLevelInit(r);
+                r = <Relic>ElemFactory.addAI("onAttacked", async (ps) => {
+                    var knife = ps.weapon;
+                    if (r.bt().srand.next100() < r.attrs.percent)
+                        knife.cnt ++;
+                }, r, (ps) => ps.weapon && ps.weapon.type == "Knife" && ps.targetAttrs.owner.isDead())
+            })
+        },
+
         // 飞刀流6	每场战斗增加一把飞刀，你知道所有飞刀的位置
         "KnifeDetector": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
@@ -530,7 +558,6 @@ class RelicFactory {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) {
                     r.clearAIAtLogicPoint("onLevelInited");
-                    r.clearAIAtLogicPoint("onLevelCreateElem");
                     return;
                 }
                 r = RelicFactory.addElemsOnLevelInit(r);

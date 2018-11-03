@@ -1059,7 +1059,7 @@ class Battle {
 
                 if (r.r == "attacked") {
                     await this.implAddMonsterHp(tar, r.dhp);
-                    await this.implAddMonsterShield(tar, r.dShield)
+                    await this.implAddMonsterShield(tar, r.dShield);
                 }
 
                 // 处理附加 buff
