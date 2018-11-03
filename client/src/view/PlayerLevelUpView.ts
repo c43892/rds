@@ -113,12 +113,12 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
         // 龙出现
         ske.animation.play("stand");
 
-        await Utils.delay(750);
+        await Utils.delay(100);
 
         // 经验条顶端爆炸
         var eff1 = AniUtils.createFrameAni("effPlayerLevelUp2", 1);
         var bvPos = AniUtils.ani2global(this.bv.avatarBg);
-        var effPos = {x: bvPos.x + this.bv.avatarBg.width - 10, y:bvPos.y + 10};
+        var effPos = {x: bvPos.x + this.bv.avatarBg.width - 20, y:bvPos.y + 10};
         eff1.x = effPos.x;
         eff1.y = effPos.y;
         eff1["wait"]().then(() => eff1["dispose"]());
