@@ -709,7 +709,8 @@ class Utils {
     }
 
     // 根据游戏难度获取玩家初始技能格子的数量
-    public static getPlayerInitRelicsEquippedCapacity(difficulty = "level0") {
+    public static getPlayerInitRelicsEquippedCapacity(difficulty) {
+        difficulty = difficulty ? difficulty : "level0";
         var cfg = GCfg.playerCfg["playerInitRelicsEquippedCapacity"];
         return cfg[difficulty];
     }
