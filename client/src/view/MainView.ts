@@ -444,7 +444,7 @@ class MainView extends egret.DisplayObjectContainer {
             if (ps.reborn)
                 window.platform.shareGame();
         } else {
-            await this.confirmOkYesNo("不幸死亡", "微信版本可分享复活", false);
+            await this.confirmOkYesNo("不幸死亡", "Game Over", false);
             ps.reborn = false;
         }
     }
