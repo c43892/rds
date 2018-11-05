@@ -371,6 +371,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         for (var sp of this.worldmap.player.finishedStoreyPos) {
             if (!imgs[sp.lv][sp.n]) continue;
             imgs[sp.lv][sp.n].alpha = 1;
+            ViewUtils.makeGray(imgs[sp.lv][sp.n]);
             
             // 处理脚步路径
             if (lastSp) {
