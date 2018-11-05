@@ -69,7 +69,9 @@ class BoxRoomView extends egret.DisplayObjectContainer {
 
     private dropItems;
     private doClose;
-    public async open():Promise<void> {
+    public async open():Promise<void> {        
+        this.box.anchorOffsetY = this.box.height / 2; // 宝箱动画修改过宝箱图的坐标和锚点
+        ViewUtils.multiLang(this, this.box);
         this.elemImgs = [];
         this.openBoxBtn.touchEnabled = true;
         this.addChild(this.openBoxBtn);
@@ -124,6 +126,8 @@ class BoxRoomView extends egret.DisplayObjectContainer {
 
         // 宝箱动画
         egret.Tween.removeTweens(this.box);
+        this.box.anchorOffsetY = this.box.height * 3 / 4;
+        this.box.y = this.box.y + this.box.height * (3 / 4 - 1 / 2);
         egret.Tween.get(this.box, {loop:true}).to({rotation:0}, 1000)
             .to({rotation:-15}, 50)
             .to({rotation:15}, 100)

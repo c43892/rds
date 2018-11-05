@@ -287,7 +287,7 @@ class Player {
 
         var elems2NextLevel = [];
         for(var e of this.elems2NextLevel){
-            var elemInfo = {type:{}, attrs:{}, hp:{}, shield:{}};
+            var elemInfo = {type:undefined, attrs:undefined, hp:undefined, shield:undefined};
             if(e instanceof Item || e instanceof Prop){
                 elemInfo.type = "ItemProp";
                 elemInfo.attrs = e.toString();

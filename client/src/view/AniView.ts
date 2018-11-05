@@ -776,6 +776,25 @@ class AniView extends egret.DisplayObjectContainer {
                 ], obj:this.bv.hpBar, noWait:true});
                 this.bv.refreshHpAt();
             }
+            break;
+            case "san": {
+                var san:number = ps.san;
+                if (san){
+                    var sanLevel:number[] = GCfg.getMiscConfig("sanLevel");
+                    var num;
+                    for (var i = 0; i < sanLevel.length - 1; i++) {
+                        if (san > sanLevel[i + 1] && san <= sanLevel[i]){
+                            num = i + 1;
+                            break;
+                        }
+                    }
+                    this.bv.playAvatarAni("Charmed", num);
+                } else { // san值被移除,停止动画
+                    this.bv.avatarSke.animation.stop("Charmed");
+                    this.bv.avatarItemSke.animation.stop("Charmed");
+                }
+                break;
+            }
             default:
         }
     }
@@ -1291,6 +1310,8 @@ class AniView extends egret.DisplayObjectContainer {
     // 离开关卡时清除所有角色 buff 效果
     public async onGoOutLevel(ps) {
         this.clearPlayerBuffEffect();
+        this.bv.playAvatarAni("Downstairs");
+        await Utils.delay(2500);
     }
 
     // 死亡

@@ -908,20 +908,20 @@ class MonsterFactory {
     static doMinusSanPerRound(m:Monster):Monster {
         return <Monster>ElemFactory.addAIEvenCovered("onPlayerActed", async () => {
             if(m.bt().player["san"] == undefined)
-                m.bt().player["san"] = 100;
+                m.bt().player["san"] = GCfg.getMiscConfig("sanLevel")[0];
             
             m.bt().player["san"] = (m.bt().player["san"] - 2) > 0 ? (m.bt().player["san"] - 2) : 0;
             
-            await m.bt().fireEvent("onPlayerChanged", {"subType":"san"});
-            await m.bt().triggerLogicPoint("onPlayerChanged", {"subType":"san"});
+            await m.bt().fireEvent("onPlayerChanged", {"subType":"san", "san":m.bt().player["san"]});
+            await m.bt().triggerLogicPoint("onPlayerChanged", {"subType":"san", "san":m.bt().player["san"]});
         }, m);
     }
 
-    // san值低于60：本层的所有地图数字都会显示为问号
+    // san值低于sanLevel1：本层的所有地图数字都会显示为问号
     static doHideHazardNumberOnView(m: Monster): Monster {
         m = <Monster>ElemFactory.addAIEvenCovered("onPlayerChanged", async () => {
             if (m.bt().player["san"] == undefined) return;
-            else if (m.bt().player["san"] < 60 && m["hideHazardStatus"] != "hide") {                
+            else if (m.bt().player["san"] <= GCfg.getMiscConfig("sanLevel")[1] && m["hideHazardStatus"] != "hide") {                
                 var ms = m.bt().level.map.findAllElems((e: Elem) => e instanceof Monster && e.type != "PlaceHolder" && !e.isBoss && e.isHazard());
                 for (var monster of ms)
                     monster["hideHazardNumber"] = true;
@@ -935,7 +935,7 @@ class MonsterFactory {
                     m["hideHazardNumberTip"] = true;
                 }
             }
-            else if (m.bt().player["san"] >= 60 && m["hideHazardStatus"] != "show") {
+            else if (m.bt().player["san"] > GCfg.getMiscConfig("sanLevel")[1] && m["hideHazardStatus"] != "show") {
                 var ms = m.bt().level.map.findAllElems((e: Elem) => e instanceof Monster && e.type != "PlaceHolder" && !e.isBoss && e.isHazard());
                 for (var monster of ms)
                     monster["hideHazardNumber"] = false;
@@ -954,17 +954,17 @@ class MonsterFactory {
             if (m.bt().player["san"] == undefined) return;
             if (ps.e instanceof Monster && !ps.e.isBoss && ps.e.type != "PlaceHolder" && ps.e.isHazard()) {
                 var newMonster = ps.e;
-                if (m.bt().player["san"] < 60)
+                if (m.bt().player["san"] <= GCfg.getMiscConfig("sanLevel")[1])
                     newMonster["hideHazardNumber"] = true;
             }
         }, m)
     }
 
-    // san值低于30：怪物的所有属性都显示成问号
+    // san值低于sanLevel2：怪物的所有属性都显示成问号
     static doHideMonsterAttrsOnView(m:Monster):Monster {
         m = <Monster>ElemFactory.addAIEvenCovered("onPlayerChanged", async () => {
             if (m.bt().player["san"] == undefined) return;
-            else if (m.bt().player["san"] < 30 && m["hideAttrsStatus"] != "hide"){
+            else if (m.bt().player["san"] <= GCfg.getMiscConfig("sanLevel")[2] && m["hideAttrsStatus"] != "hide"){
                 var ms = m.bt().level.map.findAllElems((e:Elem) => e instanceof Monster && !e.isBoss && e.type != "PlaceHolder" && e.isHazard());
                 for (var monster of ms){
                     monster["hideMonsterAttrs"] = true;
@@ -979,7 +979,7 @@ class MonsterFactory {
                     m["hideMonsterAttrsTip"] = true;
                 }
             }
-            else if(m.bt().player["san"] >= 30 && m["hideAttrsStatus"] != "show") {
+            else if(m.bt().player["san"] > GCfg.getMiscConfig("sanLevel")[2] && m["hideAttrsStatus"] != "show") {
                 var ms = m.bt().level.map.findAllElems((e:Elem) => e instanceof Monster && !e.isBoss && e.type != "PlaceHolder" && e.isHazard());
                 for (var monster of ms)
                     monster["hideMonsterAttrs"] = false;
@@ -997,7 +997,7 @@ class MonsterFactory {
             if (m.bt().player["san"] == undefined) return;
             if (ps.e instanceof Monster && !ps.e.isBoss && ps.e.type != "PlaceHolder" && ps.e.isHazard()) {
                 var newMonster = ps.e;
-                if (m.bt().player["san"] < 30){
+                if (m.bt().player["san"] <= GCfg.getMiscConfig("sanLevel")[2]){
                     newMonster["hideMonsterAttrs"] = true;
                     await m.bt().fireEvent("onElemChanged", {subType:"elemImgChanged", e:newMonster});
                 }
@@ -1005,11 +1005,11 @@ class MonsterFactory {
         }, m)
     }
 
-    // san值为0：你的攻击将随机点击可点击的地方
+    // san值低于sanLevel3：你的攻击将随机点击可点击的地方
     static doAttackRandomGrid(m:Monster):Monster {
         return <Monster>ElemFactory.addAIEvenCovered("onPlayerTry2AttackAt", async (ps) => {
             if (m.bt().player["san"] == undefined) return;
-            else if (m.bt().player["san"] <= 0){
+            else if (m.bt().player["san"] <= GCfg.getMiscConfig("sanLevel")[3]){
                 // 如果是本次战斗第一次执行该逻辑,需要弹出提示
                 if (!m["attackRandomGridTip"]){
                     await m.bt().fireEvent("onSanThreshold", {subType:"attackRandomGrid", m:m});
@@ -1087,8 +1087,8 @@ class MonsterFactory {
             if(m.bt().player["san"] != undefined){
                 m.bt().player["san"] += 10;
                 m.bt().player["san"] = m.bt().player["san"] > 100 ? 100 : m.bt().player["san"];
-                await m.bt().fireEvent("onPlayerChanged", { "subType": "san" });
-                await m.bt().triggerLogicPoint("onPlayerChanged", { "subType": "san" });
+                await m.bt().fireEvent("onPlayerChanged", {"subType":"san", "san":m.bt().player["san"]});
+                await m.bt().triggerLogicPoint("onPlayerChanged", {"subType":"san", "san":m.bt().player["san"]});
             }
         }, m)
     }
@@ -1098,6 +1098,7 @@ class MonsterFactory {
     static doRemoveSanEffectAfterDie(m:Monster):Monster {
         m = <Monster>ElemFactory.addAfterDieAI(async () => {
             m.bt().player["san"] = undefined;
+            await m.bt().fireEvent("onPlayerChanged", {"subType":"san", "san":m.bt().player["san"]});
             var ms = m.bt().level.map.findAllElems((e:Elem) => e instanceof Monster && !e.isBoss && e.type != "PlaceHolder"  && e.isHazard());
                 for (var monster of ms){
                     monster["hideMonsterAttrs"] = false;

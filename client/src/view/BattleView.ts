@@ -86,9 +86,16 @@ class BattleView extends egret.DisplayObjectContainer {
     }
 
     // 播放头像相关动画
-    public playAvatarAni(aniName) {
+    public playAvatarAni(aniName, wenhaoNum = undefined) {
         if (aniName == "Idle")
-            this.avatarSke.animation.play("Idle", 0);
+            this.avatarSke.animation.play("Idle", 0); 
+        else if (aniName == "Charmed") { // 魅惑动画需要循环播放
+            this.onAvatarAniFinished = (ani) => {
+                this.avatarSke.animation.play("Idle", 0);
+                this.onAvatarAniFinished = undefined;
+            };
+            this.avatarSke.animation.play(aniName, 0);
+        }
         else {
             this.onAvatarAniFinished = (ani) => {
                 this.avatarSke.animation.play("Idle", 0);
@@ -97,9 +104,19 @@ class BattleView extends egret.DisplayObjectContainer {
             this.avatarSke.animation.play(aniName);
         }
 
-        if (aniName == "Book" || aniName == "Block" || aniName == "Charmed") {
+        if (aniName == "Book" || aniName == "Block") {
             this.avatarItemSke.display.alpha = 1;
             this.avatarItemSke.animation.play(aniName);
+        } else if (aniName == "Charmed") { // 魅惑动画需要循环播放,且需要控制问号数量
+            this.avatarItemSke.display.alpha = 1;
+            for (var i = 0; i < 4; i++){
+                var wenhaoSlot = this.avatarItemSke.getSlot("wenhao" + (i + 1));
+                if (i < wenhaoNum)
+                    wenhaoSlot.display = this.avatarItemSke["wenhao" + (i + 1)];
+                else
+                    wenhaoSlot.display = new egret.Bitmap();
+            }
+            this.avatarItemSke.animation.play(aniName, 0);
         } else
             this.avatarItemSke.display.alpha = 0;
     }
@@ -112,6 +129,8 @@ class BattleView extends egret.DisplayObjectContainer {
         // 头像道具
         this.avatarItemSke = ViewUtils.createSkeletonAni("Daoju");
         this.avatarItemSke.display.alpha = 0;
+        for (var i = 0; i < 4; i++)            
+            this.avatarItemSke["wenhao" + (i + 1)] = this.avatarItemSke.getSlot("wenhao" + (i + 1)).display;
 
         // 头像
         this.avatar = new egret.DisplayObjectContainer();
@@ -183,6 +202,11 @@ class BattleView extends egret.DisplayObjectContainer {
 
         objs.forEach((obj, _) => this.addChild(obj));
         ViewUtils.multiLang(this, ...objs);
+
+        this.avatarItemSke.display.scaleX = this.avatarBg.width / this.avatarItemSke.display.width;
+        this.avatarItemSke.display.scaleY = this.avatarBg.height / this.avatarItemSke.display.height;
+        this.avatarItemSke.display.x = this.avatarBg.x;
+        this.avatarItemSke.display.y = this.avatarBg.y;
 
         this.refreshExpBar();
         this.refreshHpAt();
