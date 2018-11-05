@@ -306,7 +306,7 @@ class RelicFactory {
                 }                
                 r = RelicFactory.addElemsOnLevelInit(r);
                 r = <Relic>ElemFactory.addAI("onElemChanged", async (ps) => {
-                    if (!Utils.contains(ps.e.attrs.tags, "food")) return;
+                    if (!Utils.contains(ps.e.attrs.tags, "book")) return;
                     await r.bt().implAddPlayerExp(r.attrs.dexp, ps.e.pos);
                 }, r, (ps) => ps.subType == "useElem");
             })
