@@ -156,7 +156,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         if(!fromNewMonsterTipView) attackInterval = m.bt().calcMonsterAttackInterval(m);
         else attackInterval = m.attrs.attackInterva;        
         if (attackInterval > 0) {
-            this.attackIntervalTxt.text = m["hideMonsterAttrs"] ? "?" : attackInterval.toString();
+            this.attackIntervalTxt.text = attackInterval.toString();
             attrs.push(this.attackIntervalBg, this.attackIntervalTxt);
             n++;
         } else {

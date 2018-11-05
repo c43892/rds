@@ -329,7 +329,7 @@
 		"hospitalTitle": {"EN": "safe house", "CNS": "安全屋", "CNT": "安全屋"},
 		"hospitalTip": {"EN": "what's your choice?", "CNS": "你想要做什么?", "CNT": "你想要做什麼?"},
 		"hospitalCure":{"EN": "cure", "CNS": "休息（恢复30%生命）", "CNT": "治療"},
-		"hospitalDeathGodBack":{"EN": "death god back", "CNS": "驱逐（死神回退75步）", "CNT": "驱逐（死神回退75步）"},
+		"hospitalDeathGodBack":{"EN": "death god back", "CNS": "驱逐（死神回退50步）", "CNT": "驱逐（死神回退50步）"},
 		"hospitalReinforce":{"EN": "reinforce", "CNS": "强化（升级某项技能）", "CNT": "強化"},
 		"hospitalMutate":{"EN": "mutate", "CNS": "变异", "CNT": "變異"},
 		"hospitalExchangeRelic": {"EN": "exchange", "CNS": "装备技能", "CNT": "装备技能"},

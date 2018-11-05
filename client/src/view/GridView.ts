@@ -204,7 +204,7 @@ class GridView extends egret.DisplayObjectContainer {
                     this.attackIntervalBg.x = this.width - this.attackIntervalBg.width; 
                     this.attackIntervalBg.y = 0;
                     this.showLayer.addChild(this.attackIntervalBg);
-                    this.attackInterval.text = e["hideMonsterAttrs"] ? "?" : m["attackInterval"].toString();
+                    this.attackInterval.text = m["attackInterval"].toString();
                     this.putNumOnBg(this.attackInterval, this.attackIntervalBg);
                     this.showLayer.addChild(this.attackInterval);
                 }

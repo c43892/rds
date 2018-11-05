@@ -965,7 +965,7 @@ class MonsterFactory {
         m = <Monster>ElemFactory.addAIEvenCovered("onPlayerChanged", async () => {
             if (m.bt().player["san"] == undefined) return;
             else if (m.bt().player["san"] <= GCfg.getMiscConfig("sanLevel")[2] && m["hideAttrsStatus"] != "hide"){
-                var ms = m.bt().level.map.findAllElems((e:Elem) => e instanceof Monster && !e.isBoss && e.type != "PlaceHolder" && e.isHazard());
+                var ms = m.bt().level.map.findAllElems((e:Elem) => e instanceof Monster && e.type != "PlaceHolder" && e.isHazard());
                 for (var monster of ms){
                     monster["hideMonsterAttrs"] = true;
                     await m.bt().fireEvent("onElemChanged", {subType:"elemImgChanged", e:monster});
@@ -980,7 +980,7 @@ class MonsterFactory {
                 }
             }
             else if(m.bt().player["san"] > GCfg.getMiscConfig("sanLevel")[2] && m["hideAttrsStatus"] != "show") {
-                var ms = m.bt().level.map.findAllElems((e:Elem) => e instanceof Monster && !e.isBoss && e.type != "PlaceHolder" && e.isHazard());
+                var ms = m.bt().level.map.findAllElems((e:Elem) => e instanceof Monster && e.type != "PlaceHolder" && e.isHazard());
                 for (var monster of ms)
                     monster["hideMonsterAttrs"] = false;
                 
@@ -1039,10 +1039,6 @@ class MonsterFactory {
                 monster.getElemImgRes = tentacle.getElemImgRes;
                 await m.bt().fireEvent("onElemChanged", {subType:"elemImgChanged", e:monster});
             }
-            if (!m["changeMonsterImgTip"]){
-                await m.bt().fireEvent("onSanThreshold", {subType:"changeMonsterImg", m:m});
-                m["changeMonsterImgTip"] = true;
-            }
         }, m, (ps) => ps.x == m.pos.x && ps.y == m.pos.y && ps.subType == "gridUncovered");
         m = MonsterFactory.doChangeNewMonsterImg(m);
         return m;
@@ -1085,7 +1081,7 @@ class MonsterFactory {
     static doRecoverSanOnDie(m:Monster):Monster {
         return <Monster>ElemFactory.addDieAI(async () => {
             if(m.bt().player["san"] != undefined){
-                m.bt().player["san"] += 10;
+                m.bt().player["san"] += 4;
                 m.bt().player["san"] = m.bt().player["san"] > 100 ? 100 : m.bt().player["san"];
                 await m.bt().fireEvent("onPlayerChanged", {"subType":"san", "san":m.bt().player["san"]});
                 await m.bt().triggerLogicPoint("onPlayerChanged", {"subType":"san", "san":m.bt().player["san"]});

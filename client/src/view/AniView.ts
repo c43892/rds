@@ -1311,7 +1311,7 @@ class AniView extends egret.DisplayObjectContainer {
     public async onGoOutLevel(ps) {
         this.clearPlayerBuffEffect();
         this.bv.playAvatarAni("Downstairs");
-        await Utils.delay(2500);
+        await Utils.delay(2000);
     }
 
     // 死亡
@@ -1427,9 +1427,6 @@ class AniView extends egret.DisplayObjectContainer {
             await this.bv.confirmOkYesNo("", tip, false);
         } else if (ps.subType == "attackRandomGrid"){
             var tip = ViewUtils.getTipText("attackRandomGrid");
-            await this.bv.confirmOkYesNo("", tip, false);
-        } else if (ps.subType == "changeMonsterImg"){
-            var tip = ViewUtils.getTipText("changeMonsterImg");
             await this.bv.confirmOkYesNo("", tip, false);
         }
     }

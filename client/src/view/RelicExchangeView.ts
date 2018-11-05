@@ -327,17 +327,22 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
             let rev = event.rev;
             let eventType:string = event.eventType;
             let evt:egret.TouchEvent = event.evt;
-            if (evt.target) // 操作系统的差异可能导致evt.target为空,则忽略此事件
+            if (!evt.target){ // 操作系统的差异可能导致evt.target为空,则忽略此事件
+                // Utils.log("get undefined evt.target at " + eventType);
+                RelicExchangeView.eventArr.shift();
+            } else {
+                // Utils.log(evt.target.name);
                 await rev[eventType](evt);
-            RelicExchangeView.eventArr.shift();
-            if (eventType == "onTouchEnd")
-                RelicExchangeView.eventArr = [];
+                RelicExchangeView.eventArr.shift();
+                if (eventType == "onTouchEnd")
+                    RelicExchangeView.eventArr = [];                
+            }
         }
     }
 
     async onTouchBegin(evt: egret.TouchEvent) {
         RelicExchangeView.pressed = true;
-        RelicExchangeView.dragging = false;        
+        RelicExchangeView.dragging = false;
         RelicExchangeView.dragFromImg = evt.target;
         RelicExchangeView.dragFromPos = { x: evt.localX + evt.target.x, y: evt.localY + evt.target.y };
 
