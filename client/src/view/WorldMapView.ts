@@ -357,11 +357,12 @@ class WorldMapView extends egret.DisplayObjectContainer {
             outline.anchorOffsetY = outline.height / 2;
             outline.x = img.x;
             outline.y = img.y;
+            img.alpha = 0.5;
             // tw.to({scaleX:1.25*dotScale, scaleY:1.25*dotScale}, 1000, egret.Ease.quadInOut)
             //    .to({scaleX:dotScale, scaleY:dotScale}, 1000, egret.Ease.quadInOut);
-            outline.alpha = 0.5;
-            var tw = egret.Tween.get(outline, {loop:true});
-            tw.to({alpha:0.25}, 1000, egret.Ease.quadInOut)
+            egret.Tween.get(outline, {loop:true}).to({alpha:0}, 1000, egret.Ease.quadInOut)
+                .to({alpha:1}, 1000, egret.Ease.quadInOut);
+            egret.Tween.get(img, {loop:true}).to({alpha:1}, 1000, egret.Ease.quadInOut)
                 .to({alpha:0.5}, 1000, egret.Ease.quadInOut);
         }
 
