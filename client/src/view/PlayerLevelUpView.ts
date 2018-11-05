@@ -93,12 +93,16 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
                 img.anchorOffsetY = img.height / 2;
                 biao.display = img;
                 var txt = this.btnSelsRelicTxts[i];
+                zi.display = txt;
+                txt.width = 265;
+                txt.height = 100;
                 txt.anchorOffsetX = txt.width / 2;
                 txt.anchorOffsetY = txt.height / 2;
-                zi.display = txt;
-                this.btnSels[i].anchorOffsetX = this.btnSels[i].width / 2;
-                this.btnSels[i].anchorOffsetY = this.btnSels[i].height / 2;
-                pai.display = this.btnSels[i];
+                var btn = this.btnSels[i];
+                btn.anchorOffsetX = this.btnSels[i].width / 2;
+                btn.anchorOffsetY = this.btnSels[i].height / 2;
+                // btn.setTexName("lvSelBarNormal_png");
+                pai.display = btn;
             } else {
                 biao.display = pai.display = zi.display = undefined;
             }
