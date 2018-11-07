@@ -21,6 +21,9 @@ class Player {
             p.setBattle(bt);
     }
 
+    // 战斗统计
+    public st:BattleStatistics;
+
     // 关卡逻辑
     public worldmap:WorldMap;
     public worldName:string;
@@ -55,6 +58,8 @@ class Player {
         p.exp = 0;
         p.lv = 0;
         p.relicsEquippedCapacity = Utils.getPlayerInitRelicsEquippedCapacity(p.difficulty);
+
+        p.st = new BattleStatistics();
 
         return p;
     }
@@ -309,11 +314,18 @@ class Player {
                 Utils.log("Unknown type in elems2NextLevel");
         }
 
+        // 统计数据
+        var st = this.st.toString();
+
         // 目前 buff 不参与
         var srand = this.playerRandom.toString();
         var worldmapRandomSeed = this.worldmapRandomSeed;
 
-        var pinfo = {relicsEquipped:relicsEquipped, relicsInBag:relicsInBag, props:props, elems2NextLevel:elems2NextLevel, worldmapRandomSeed:worldmapRandomSeed, srand:srand};
+        var pinfo = {relicsEquipped:relicsEquipped, 
+            relicsInBag:relicsInBag, props:props, 
+            elems2NextLevel:elems2NextLevel, 
+            worldmapRandomSeed:worldmapRandomSeed, srand:srand, 
+            statistics:st};
         for (var f of Player.serializableFields)
             pinfo[f] = this[f];
 
@@ -373,7 +385,8 @@ class Player {
         // 目前 buff 不参与
         p.playerRandom = SRandom.fromString(pinfo.srand);
         p.worldmapRandomSeed = pinfo.worldmapRandomSeed;        
-        p.worldmap = WorldMap.buildFromConfig(p.worldName, p);        
+        p.worldmap = WorldMap.buildFromConfig(p.worldName, p);
+        p.st = BattleStatistics.fromString(pinfo.statistics);
         p = Occupation.makeOccupationBuff(p);
 
         return p
@@ -558,6 +571,8 @@ class Player {
 
         this.currentStoreyPos.status = "finished";
         this.finishedStoreyPos.push({lv:lv, n:n});
+
+        this.st.notifyStoreyPosFinished(lv, n);
     }
 
     // 进入新的世界地图

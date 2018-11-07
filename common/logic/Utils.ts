@@ -601,7 +601,7 @@ class Utils {
 
     // 判断是否是处于新手期
     public static checkRookiePlay():boolean {
-        // return false;
+        // return true;
         return !Utils.loadLocalData("rookiePlay") || Utils.loadLocalData("rookiePlay") != "finished";
     }
 

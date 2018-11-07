@@ -29,6 +29,11 @@
     "android": {
       "appname": "rds",
       "packagename": "rds.daybreak.com"
+    },
+    "ios": {
+      "appname": "rds",
+      "packagename": "com.daybreak.rds",
+      "hybrid": true
     }
   }
 }

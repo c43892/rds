@@ -48,6 +48,7 @@ class LevelLogicMarkAllAward extends LevelLogic {
                         e.addDropItem(key);
                         await bt.fireEvent("onElemImgFlying", { e: key, fromPos: boxGrid.pos, toPos: keyGrid.pos });
                     }
+                    await bt.triggerLogicPoint("onGetMarkAllAward");
                 }
             }
         })
