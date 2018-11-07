@@ -1142,10 +1142,28 @@ class MonsterFactory {
         m["getElemImgResInIce"] = () => {
             return frozenRound > 0 ? priorGetElemImgRes() : undefined;
         }
+        // m = MonsterFactory.boomBeforeDie(m);
         return m;
     }
 
     // boss通用逻辑,死亡前逐步炸开所有地块并消灭其中的敌对怪物(阻止并其复活)
+    static boomBeforeDie(m:Monster):Monster {
+        Utils.assert(m.isBoss, "only boss can get this ability.");
+        m = <Monster>ElemFactory.addBeforeDieAI(async () => {
+            var n = Utils.findFarthestPos(m.pos, m.attrs.size);
+            var findNPoses = Utils.findPosesAroundByNStorey(m.pos, n, m.attrs.size);
+            var gridsN = [];
+            for (var find of findNPoses){
+                var grids = [];
+                for (var pos of find.poses)
+                    grids.push(m.map().getGridAt(pos.x, pos.y))
+                
+                gridsN.push(grids);
+            }
+                                    
+        }, m)
+        return m;
+    }
 
     // 商店 npc 逻辑
     static makeShopNPC(m:Monster):Monster {

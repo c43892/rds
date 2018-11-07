@@ -52,7 +52,7 @@
     "DefenseProficient":{"name":"防护大师", "refElems":["Vest"], "addOnLevelInit":{"num":1, "elems":["Vest"]}},
     "BookMaster":{"name":"图书大师", "dexp":1,
         "reinforce":[
-            {"dexp":2}, {"dexp":3}, {"dexp":4}, {"dexp":5}
+            {"dexp":2}, {"dexp":3}
         ], "refElems":["Magazine", "EconomyMagazine"], "addOnLevelInit":{"num":1, "elems":["Magazine", "EconomyMagazine"]}},
     "TradeMaster":{"name":"交易大师", "discount":5,
         "reinforce":[
@@ -75,7 +75,7 @@
     "KnifeProficient":{"name":"飞刀专精", "refElems":["Knife"], "addOnLevelInit":{"num":1, "elems":["Knife"]}},
     "KnifeRange":{"name":"飞刀射程", "refElems":["Knife"], "addOnLevelInit":{"num":1, "elems":["Knife"]}},
     "PoisonKnife":{"name":"剧毒之刃", "poisonCnt":1, "reinforce":[
-            {"poisonCnt":2}, {"poisonCnt":3}, {"poisonCnt":4}, {"poisonCnt":5}
+            {"poisonCnt":2}, {"poisonCnt":3}
         ],
         "refElems":["Knife"], "addOnLevelInit":{"num":1, "elems":["Knife"]}
     },
@@ -88,12 +88,12 @@
     "HorticultureProficient":{"name":"园艺专精", "refElems":["Apple"], "addOnLevelInit":{"num":1, "elems":["Apple"]}},
     "SmellEnhanced":{"name":"嗅觉强化", "percent":5,
         "reinforce":[
-            {"percent":10}, {"percent":15}, {"percent":20}, {"percent":25}
+            {"percent":10}, {"percent":15}
         ]},
     "Storer":{"name":"囤积居奇"},
     "ShieldProficient":{"name":"盾牌专精", "dcd":1,
         "reinforce":[
-            {"dcd":2}, {"dcd":3}, {"dcd":4}, {"dcd":5}
+            {"dcd":2}, {"dcd":3}
         ],
         "refElems":["Shield"], "addOnLevelInit":{"num":1, "elems":["Shield"]}},
     "HorticultureMaster":{"name":"园艺大师", "occupations":["Horticulturist"], "refElems":["NutWall", "Peashooter", "CherryBomb", "Sunflower", "CharmingMushroom"]},
@@ -122,7 +122,7 @@
         "refElems":["Vest"], "addOnLevelInit":{"num":1, "elems":["Vest"]}},
     "Watchmaker":{"name":"钟表匠", "addDeathStepBack":1, "refElems":["Clock"], "addOnLevelInit":{"num":1, "elems":["Clock"]},
         "reinforce":[
-            {"addDeathStepBack":2}, {"addDeathStepBack":3}, {"addDeathStepBack":4}, {"addDeathStepBack":5}
+            {"addDeathStepBack":2}, {"addDeathStepBack":3}
         ]},
 
     "Coins":{"name":"金币", "cnt":1, "canOverlap":true, "useWithoutConfirm":true, 

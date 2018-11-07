@@ -647,17 +647,30 @@ class Utils {
         return number;
     }
 
-    // 围绕特定坐标,找到其周围第n圈的所有坐标
-    public static findPosAroundByNStorey(pos, n:number, size = {w:1, h:1}, mapsize = {w:7, h:9}) {
-        var ps = {posLeftCeil:pos, poses:undefined, size:size, mapsize:mapsize}
+    // 找到距离坐标区域最远的坐标的x或y方向上距离
+    public static findFarthestPos(pos = {x:0, y:0}, size = {w:1, h:1}, mapsize = {w:7, h:9}) {
+        var dmax = 0;
+        for (var i = 0; i < 2; i++)
+            for (var j = 0; j < 2; j++) {
+                var testPos = {x:pos.x + (size.w - 1) * i, y:pos.y + (size.h - 1) * j};
+                var targetPos = {x:(mapsize.w - 1) * i, y: (mapsize.h - 1) * j}
+                var d = Math.max(Math.abs(testPos.x - targetPos.x), Math.abs(testPos.y - targetPos.y));
+                dmax = d >= dmax ? d : dmax;
+            }
+        return dmax;
+    }
+
+    // 围绕特定坐标,找到其周围n圈的所有坐标
+    public static findPosesAroundByNStorey(pos, n:number, size = {w:1, h:1}, mapsize = {w:7, h:9}) {
+        var ps = [{posLeftCeil:pos, poses:undefined, size:size, mapsize:mapsize}];
         for (var i = 0; i < n; i++)
-            ps = Utils.findPosAround(ps.posLeftCeil, ps.size, ps.mapsize);
+            ps.push(Utils.findPosesAround(ps[i].posLeftCeil, ps[i].size, ps[i].mapsize));
         
         return ps;
     }
 
     // 围绕特定坐标,找到其周围的所有坐标
-    public static findPosAround(pos, size = {w:1, h:1}, mapsize = {w:7, h:9}) {
+    public static findPosesAround(pos, size = {w:1, h:1}, mapsize = {w:7, h:9}) {
         var isValid = (pos) => pos.x >=0 && pos.x < mapsize.w && pos.y >=0 && pos.y < mapsize.h;
         Utils.assert(isValid(pos), "original pos invalid");
 
@@ -678,12 +691,12 @@ class Utils {
         for (var i = 0; i < width; i++)
             for (var j = 0; j < height; j++){
                 var newPos = {x:posLeftCeil.x + i, y:posLeftCeil.y + j};
-                if(isValid(newPos) && Utils.indexOf(posesInside, (pos) => pos == newPos) == -1)
+                if(isValid(newPos) && Utils.indexOf(posesInside, (pos) => pos.x == newPos.x && pos.y == newPos.y) == -1)
                     allPoses.push(newPos);
             }        
         
         // 确定周围一圈的左上角坐标以及宽和高
-        var newPosLeftCeil = isValid(posLeftCeil) ? posLeftCeil : pos;
+        var newPosLeftCeil = {x:mapsize.w - 1, y:mapsize.h - 1};
         var xmin = 6;
         var xmax = 0;
         var ymin = 8;
@@ -692,9 +705,11 @@ class Utils {
             xmin = testPos.x < xmin ? testPos.x : xmin;
             xmax = testPos.x > xmax ? testPos.x : xmax;
             ymin = testPos.y < ymin ? testPos.y : ymin;
-            ymax = testPos.y > ymax ? testPos.y : ymax;            
+            ymax = testPos.y > ymax ? testPos.y : ymax;
+            if (testPos.x <= newPosLeftCeil.x && testPos.y <= newPosLeftCeil.y)
+                newPosLeftCeil = testPos;
         }
-        var newSize = {w:xmax - xmin + 1, h:ymax - ymin + 1}
+        var newSize = {w:xmax - xmin + 1, h:ymax - ymin + 1};
 
         return {posLeftCeil:newPosLeftCeil, poses:allPoses, size:newSize, mapsize:mapsize}
     }
