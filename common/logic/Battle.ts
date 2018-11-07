@@ -87,7 +87,7 @@ class Battle {
         await this.fireEvent("onInitBattleView", {bt:this});
 
         await this.triggerLogicPoint("beforeLevelInited", {bt:this});
-        // await this.fireEvent("onLevelInited", {bt:this});
+        await this.fireEvent("onLevelInited", {bt:this});
         await this.triggerLogicPoint("beforeLevelInitedKey", {bt:this});
         await this.triggerLogicPoint("beforeLevelInited2", {bt:this});
         await this.triggerLogicPoint("onLevelInited", {bt:this});
@@ -319,6 +319,9 @@ class Battle {
 
         // 关卡逻辑
         hs.push(...this.level.levelLogics);
+
+        // 战斗统计
+        hs.push(this.player.st);
 
         return hs;
     }

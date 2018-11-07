@@ -230,18 +230,18 @@ class WorldMapView extends egret.DisplayObjectContainer {
         var ySwing = 0.2;
         var dotScale = 0.9; // 节点缩放
 
-        var mountainRes = ["mountain1_png", "mountain2_png", "mountain3_png", "mountain4_png", 
-            "mountain5_png", "mountain6_png", "mountain7_png"]
-        var r = new SRandom(Number(this.player.playerRandom.toString()));
-        for (var i = 0; i < 150; i++) {
-            var mRes = mountainRes[r.nextInt(0, mountainRes.length)];
-            var mImg = ViewUtils.createBitmapByName(mRes);
-            moutainImgs.push(mImg);
-            this.viewContent.addChild(mImg);
-            mImg.x = r.nextInt(0, this.viewContent.width);
-            mImg.y = r.nextInt(0, this.viewContent.height);
-            mImg.alpha = 0.4;
-        }
+        // var mountainRes = ["mountain0_png", "mountain1_1_png", "mountain1_2_png"];
+        // var r = new SRandom(Number(this.player.playerRandom.toString()));
+        // for (var i = 0; i < 100; i++) {
+        //     var mRes = mountainRes[r.nextInt(0, mountainRes.length)];
+        //     var mImg = ViewUtils.createBitmapByName(mRes);
+        //     moutainImgs.push(mImg);
+        //     this.viewContent.addChild(mImg);
+        //     mImg.x = r.nextInt(0, this.viewContent.width);
+        //     mImg.y = r.nextInt(0, this.viewContent.height);
+        //     mImg.scaleX = mImg.scaleY = 2;
+        //     mImg.alpha = 0.4;
+        // }
 
         // 遍历所有节点,将具有父节点的作为可用节点,并记录该节点的属性.
         for (var i = 0; i < wp.nodes.length; i++) {
@@ -371,7 +371,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         for (var sp of this.worldmap.player.finishedStoreyPos) {
             if (!imgs[sp.lv][sp.n]) continue;
             imgs[sp.lv][sp.n].alpha = 1;
-            ViewUtils.makeGray(imgs[sp.lv][sp.n]);
+            // ViewUtils.makeGray(imgs[sp.lv][sp.n]);
             
             // 处理脚步路径
             if (lastSp) {

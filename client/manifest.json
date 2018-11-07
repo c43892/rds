@@ -20,6 +20,7 @@
 		"bin-debug/logic/elems/RelicFactory.js",
 		"bin-debug/logic/LevelLogic/LevelLogic.js",
 		"bin-debug/logic/LevelLogic/LevelLogicFactory.js",
+		"bin-debug/logic/BattleStatistics.js",
 		"bin-debug/logic/BattleUtils.js",
 		"bin-debug/logic/GCfg.js",
 		"bin-debug/logic/Level.js",
