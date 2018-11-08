@@ -228,6 +228,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         var xSwing = 0.2; // 节点在地图上偏离标准位置的抖动幅度
         var ySwing = 0.2;
         var dotScale = 0.75; // 节点缩放
+        var bossDotScale = dotScale * 2; // boss 节点缩放
 
         // 遍历所有节点,将具有父节点的作为可用节点,并记录该节点的属性.
         for (var i = 0; i < wp.nodes.length; i++) {
@@ -253,7 +254,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                     img["ptStoreyLv"] = i;
                     img["ptStoreyN"] = j;
                     img.touchEnabled = true;
-                    img.scaleX = img.scaleY = pt == "boss" ? dotScale * 2 : dotScale;
+                    img.scaleX = img.scaleY = pt == "boss" ? bossDotScale : dotScale;
                     img.alpha = 0.75;
                     ViewUtils.makeGray(img, true);
                     row.push(img);
@@ -435,8 +436,9 @@ class WorldMapView extends egret.DisplayObjectContainer {
             if (!img) continue;
             img.alpha = 1;
             var t = sr.nextInt(1000, 2000);
-            egret.Tween.get(img, {loop:true}).to({scaleX:1.1*dotScale, scaleY:1.1*dotScale}, t, egret.Ease.quadInOut)
-                .to({scaleX:dotScale, scaleY:dotScale}, t, egret.Ease.quadInOut);
+            var s = img["ptType"] == "boss" ? bossDotScale : dotScale;
+            egret.Tween.get(img, {loop:true}).to({scaleX:1.1*s, scaleY:1.1*s}, t, egret.Ease.quadInOut)
+                .to({scaleX:s, scaleY:s}, t, egret.Ease.quadInOut);
             egret.Tween.get(img, {loop:true}).to({alpha:2.5}, t, egret.Ease.quadInOut)
                 .to({alpha:1}, t, egret.Ease.quadInOut);
 
