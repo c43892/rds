@@ -333,6 +333,33 @@ class WorldMapView extends egret.DisplayObjectContainer {
             }
         }
 
+        // 显示可经过的节点
+        var lastSp;
+        for (var sp of this.worldmap.player.finishedStoreyPos) {
+            var adpImg:egret.Bitmap = adoptImgs[sp.lv][sp.n];
+            if (!adpImg) continue;
+            adpImg.alpha = 1;
+            // ViewUtils.makeGray(imgs[sp.lv][sp.n]);
+            
+            // 处理脚步路径
+            if (lastSp) {
+                var from = lastSp;
+                var to = sp;
+                
+                for (var k = 0; k < wp.nodes[from.lv][from.n].routes.length; k++) {
+                    var kr = wp.nodes[from.lv][from.n].routes[k];
+                    if (to.lv == kr.dstNode.y && to.n == kr.dstNode.x) {
+                        allSteps[from.lv][from.n][k].forEach((img, _) => img.alpha = 1);
+                        break;
+                    }
+                }
+            }
+
+            lastSp = sp;
+            adpImg.scaleX = adpImg.scaleY = dotScale;
+            this.viewContent.addChild(adpImg);
+        }
+
         // 显示可选区域
         var sps = BattleUtils.getSelectableStoreyPos(this.worldmap.player);
         var imgArr:egret.Bitmap[] = Utils.map(sps, (sp) => {
@@ -419,33 +446,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
             // egret.Tween.get(img, {loop:true}).to({alpha:1}, 1000, egret.Ease.quadInOut)
             //     .to({alpha:0.5}, 1000, egret.Ease.quadInOut);
         }
-
-        // 显示可经过的节点
-        // var lastSp;
-        // for (var sp of this.worldmap.player.finishedStoreyPos) {
-        //     var adpImg:egret.Bitmap = adoptImgs[sp.lv][sp.n];
-        //     if (!adpImg) continue;
-        //     adpImg.alpha = 1;
-        //     // ViewUtils.makeGray(imgs[sp.lv][sp.n]);
-            
-        //     // 处理脚步路径
-        //     if (lastSp) {
-        //         var from = lastSp;
-        //         var to = sp;
-                
-        //         for (var k = 0; k < wp.nodes[from.lv][from.n].routes.length; k++) {
-        //             var kr = wp.nodes[from.lv][from.n].routes[k];
-        //             if (to.lv == kr.dstNode.y && to.n == kr.dstNode.x) {
-        //                 allSteps[from.lv][from.n][k].forEach((img, _) => img.alpha = 1);
-        //                 break;
-        //             }
-        //         }
-        //     }
-
-        //     lastSp = sp;
-        //     adpImg.scaleX = adpImg.scaleY = dotScale;
-        //     this.viewContent.addChild(adpImg);
-        // }
 
         // // 处理脚步路径
         // if (lastSp) {
