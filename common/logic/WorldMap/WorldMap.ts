@@ -17,4 +17,16 @@ class WorldMap {
 
         return w;
     }
+
+    // 获取可到达的所有点
+    public getValidNodes():WorldMapNode[]{
+        var vns = [];
+        for (var i = 0; i < this.nodes.length; i++) {
+            for (var j = 0; j < this.nodes[i].length; j++) {
+                if (this.nodes[i][j].hasParents())
+                    vns.push(this.nodes[i][j]);
+            }
+        }
+        return vns;
+    }
 }

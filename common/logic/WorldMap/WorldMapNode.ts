@@ -1,18 +1,20 @@
 //世界地图节点
 class WorldMapNode{
-    public x:number;//世界地图横坐标
-    public y:number;//世界地图层数
-    public routes:WorldMapRoute[] = [];//该点通往上一层的路线
-    public roomType:string;//该点房间类型
-    public parents:WorldMapNode[] = [];//该点的父节点
+    public worldMap:WorldMap // 所属世界地图
+    public x:number; //世界地图横坐标
+    public y:number; //世界地图层数
+    public routes:WorldMapRoute[] = []; //该点通往上一层的路线
+    public roomType:string; //该点房间类型
+    public parents:WorldMapNode[] = []; //该点的父节点    
     public xOffsetOnView:number
     public yOffsetOnView:number
 
-    constructor(x:number, y:number, xOffset:number, yOffset:number){
+    constructor(x:number, y:number, xOffset:number, yOffset:number, worldMap:WorldMap){
         this.x = x;
         this.y = y;
         this.xOffsetOnView = xOffset;
         this.yOffsetOnView = yOffset;
+        this.worldMap = worldMap;
     }
 
     public static getNode(x, y, nodes):WorldMapNode{
@@ -31,6 +33,16 @@ class WorldMapNode{
     public getParents(){
         return this.parents;
     }
+
+    //该点的子节点
+    public getChildren():WorldMapNode[]{
+        var children = [];
+        for (var route of this.routes)
+            children.push(route.dstNode)
+        
+        return children;
+    }
+    
 
     //添加父节点
     public addParent(parentNode:WorldMapNode){
@@ -175,22 +187,43 @@ class WorldMapNode{
         return mapAreaHeight - node.y * yGap - node.yOffsetOnView * yGap * swing;
     }
 
-    public toString() {
-        var nInfo = {
-            x:this.x,
-            y:this.y,
-            roomType:this.roomType,
-            xOffset:this.xOffsetOnView,
-            yOffset:this.yOffsetOnView,
-        };
-
-        return JSON.stringify(nInfo);
+    // 获取该点在某个地图上连通的所有点,只包括更高层的的点
+    public getConnectedNodes():WorldMapNode[] {
+        var nodes = [];
+        var parents = [this];
+        var temp = [];
+        while (parents.length > 0){
+            temp = [];
+            for(var parent of parents){
+                var children = parent.getChildren();
+                for (var child of children){
+                    if (Utils.indexOf(nodes, (node:WorldMapNode) => node == child) == -1){
+                        nodes.push(child);                                        
+                        temp.push(child);
+                    }
+                }
+            }
+            parents = temp;
+        }
+        return nodes;
     }
 
-    public toStringForParents(){
-            var parentsInfo = Utils.map(this.parents, (p) => { return {x:p.x, y:p.y}; });
-            return JSON.stringify(parentsInfo);
-    }
+    // public toString() {
+    //     var nInfo = {
+    //         x:this.x,
+    //         y:this.y,
+    //         roomType:this.roomType,
+    //         xOffset:this.xOffsetOnView,
+    //         yOffset:this.yOffsetOnView,
+    //     };
+
+    //     return JSON.stringify(nInfo);
+    // }
+
+    // public toStringForParents(){
+    //         var parentsInfo = Utils.map(this.parents, (p) => { return {x:p.x, y:p.y}; });
+    //         return JSON.stringify(parentsInfo);
+    // }
 
 //     public static fromString(str):WorldMapNode{
 //         var nInfo = JSON.parse(str);
