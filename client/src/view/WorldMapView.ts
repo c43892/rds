@@ -254,7 +254,8 @@ class WorldMapView extends egret.DisplayObjectContainer {
                     img["ptStoreyN"] = j;
                     img.touchEnabled = true;
                     img.scaleX = img.scaleY = pt == "boss" ? dotScale * 2 : dotScale;
-                    // img.alpha = 0.5;
+                    img.alpha = 0.75;
+                    ViewUtils.makeGray(img, true);
                     row.push(img);
 
                     var adpImg = ViewUtils.createBitmapByName("Adopt_png");
@@ -304,10 +305,10 @@ class WorldMapView extends egret.DisplayObjectContainer {
                         var stepRotation = Utils.getRotationFromTo(pt1, pt2); // 确定脚步方向
 
                         // 根据方向计算左右距离中心线的位置偏移
-                        var dPosX1 = Math.cos((stepRotation - 90) * Math.PI / 180) * 5;
-                        var dPosY1 = Math.sin((stepRotation - 90) * Math.PI / 180) * 5;
-                        var dPosX2 = Math.cos((stepRotation + 90) * Math.PI / 180) * 5;
-                        var dPosY2 = Math.sin((stepRotation + 90) * Math.PI / 180) * 5;
+                        // var dPosX1 = Math.cos((stepRotation - 90) * Math.PI / 180) * 5;
+                        // var dPosY1 = Math.sin((stepRotation - 90) * Math.PI / 180) * 5;
+                        // var dPosX2 = Math.cos((stepRotation + 90) * Math.PI / 180) * 5;
+                        // var dPosY2 = Math.sin((stepRotation + 90) * Math.PI / 180) * 5;
 
                         // 首尾让出来几步，避免盖住节点图标
                         var stepImgArr:egret.Bitmap[] = [];
@@ -331,33 +332,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
                     this.viewContent.addChild(imgs[i][j]);
                 }
             }
-        }
-
-        // 显示可经过的节点
-        var lastSp;
-        for (var sp of this.worldmap.player.finishedStoreyPos) {
-            var adpImg:egret.Bitmap = adoptImgs[sp.lv][sp.n];
-            if (!adpImg) continue;
-            adpImg.alpha = 1;
-            // ViewUtils.makeGray(imgs[sp.lv][sp.n]);
-            
-            // 处理脚步路径
-            if (lastSp) {
-                var from = lastSp;
-                var to = sp;
-                
-                for (var k = 0; k < wp.nodes[from.lv][from.n].routes.length; k++) {
-                    var kr = wp.nodes[from.lv][from.n].routes[k];
-                    if (to.lv == kr.dstNode.y && to.n == kr.dstNode.x) {
-                        allSteps[from.lv][from.n][k].forEach((img, _) => img.alpha = 1);
-                        break;
-                    }
-                }
-            }
-
-            lastSp = sp;
-            adpImg.scaleX = adpImg.scaleY = dotScale;
-            this.viewContent.addChild(adpImg);
         }
 
         // 显示可选区域
@@ -390,7 +364,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         mistBg.x = mistBg.y = 0;
         mistBg.width = this.viewContent.width;
         mistBg.height = this.viewContent.height;
-        mistBg.alpha = 0.75;
+        mistBg.alpha = 0.7;
         mistContainer.addChild(mistBg);
 
         // 两层亮斑区域，一层擦除黑色背景，一层是实际显示效果
@@ -420,6 +394,39 @@ class WorldMapView extends egret.DisplayObjectContainer {
         mistBmp.x = mistBmp.y = 0;
         this.viewContent.addChild(mistBmp);
 
+        // 显示可经过的节点
+        var lastSp;
+        for (var sp of this.worldmap.player.finishedStoreyPos) {
+            var adpImg:egret.Bitmap = adoptImgs[sp.lv][sp.n];
+            if (!adpImg) continue;
+            adpImg.alpha = 1;
+            ViewUtils.makeGray(imgs[sp.lv][sp.n], false);
+            
+            // 处理脚步路径
+            if (lastSp) {
+                var from = lastSp;
+                var to = sp;
+                
+                for (var k = 0; k < wp.nodes[from.lv][from.n].routes.length; k++) {
+                    var kr = wp.nodes[from.lv][from.n].routes[k];
+                    if (to.lv == kr.dstNode.y && to.n == kr.dstNode.x) {
+                        allSteps[from.lv][from.n][k].forEach((img, _) => {
+                            img.alpha = 1;
+                            this.viewContent.setChildIndex(img, -1);
+                        });
+                        break;
+                    }
+                }
+            }
+
+            lastSp = sp;
+            adpImg.scaleX = adpImg.scaleY = dotScale;
+            this.viewContent.addChild(adpImg);
+
+            this.viewContent.setChildIndex(imgs[sp.lv][sp.n], -1);
+            this.viewContent.setChildIndex(adpImg, -1);
+        }
+
         // 显示可选节点动画
         var sps = BattleUtils.getSelectableStoreyPos(this.worldmap.player);
         var sr = new SRandom();
@@ -445,6 +452,28 @@ class WorldMapView extends egret.DisplayObjectContainer {
             //     .to({alpha:1}, 1000, egret.Ease.quadInOut);
             // egret.Tween.get(img, {loop:true}).to({alpha:1}, 1000, egret.Ease.quadInOut)
             //     .to({alpha:0.5}, 1000, egret.Ease.quadInOut);
+        }
+
+        // 所有未来可达的点
+        var currentNode = WorldMapNode.getNode(this.player.currentStoreyPos.n, this.player.currentStoreyPos.lv, this.player.worldmap.nodes);
+        var connectableNodes = currentNode.getConnectableNodes();
+        for (var nd of connectableNodes) {
+            var lv = nd.y;
+            var ndN = nd.x;
+
+            // 对应的路径脚步
+            for (var k = 0; k < nd.routes.length; k++) {
+                var kr = nd.routes[k];
+                allSteps[lv][ndN][k].forEach((stepImg, _) => {
+                    stepImg.alpha = 1;
+                    this.viewContent.setChildIndex(stepImg, -1);
+                });
+            }
+
+            var img:egret.Bitmap = imgs[lv][ndN];
+            ViewUtils.makeGray(img, false);
+            img.alpha = 1;
+            this.viewContent.setChildIndex(img, -1);
         }
 
         // // 处理脚步路径
