@@ -789,9 +789,10 @@ class AniView extends egret.DisplayObjectContainer {
                         }
                     }
                     this.bv.playAvatarAni("Charmed", num);
-                } else { // san值被移除,停止动画
+                } else { // san值被移除,停止魅惑动作,播放待机动作
                     this.bv.avatarSke.animation.stop("Charmed");
                     this.bv.avatarItemSke.animation.stop("Charmed");
+                    this.bv.playAvatarAni("Idle");
                 }
                 break;
             }
