@@ -1142,26 +1142,53 @@ class MonsterFactory {
         m["getElemImgResInIce"] = () => {
             return frozenRound > 0 ? priorGetElemImgRes() : undefined;
         }
-        // m = MonsterFactory.boomBeforeDie(m);
+        m = MonsterFactory.boomBeforeDieAndPreventRevive(m);
         return m;
     }
 
-    // boss通用逻辑,死亡前逐步炸开所有地块并消灭其中的敌对怪物(阻止并其复活)
-    static boomBeforeDie(m:Monster):Monster {
+    // boss通用逻辑,死亡前逐步炸开所有地块并消灭其中的敌对怪物,阻止其复活
+    static boomBeforeDieAndPreventRevive(m:Monster):Monster {
         Utils.assert(m.isBoss, "only boss can get this ability.");
+        // 添加阻止复活的逻辑
+        m = <Monster>ElemFactory.addAI("beforeElemRevive", async (ps) => {
+            if (!ps.achieve) return;
+
+            ps.achieve = false;
+        }, m);
+        m = MonsterFactory.boomBeforeDie(m);
+        return m;
+    }
+
+    // 死亡前逐步炸开所有地块并消灭其中的敌对怪物
+    static boomBeforeDie(m:Monster):Monster {
         m = <Monster>ElemFactory.addBeforeDieAI(async () => {
+            var bt = m.bt();
             var n = Utils.findFarthestPos(m.pos, m.attrs.size);
             var findNPoses = Utils.findPosesAroundByNStorey(m.pos, n, m.attrs.size);
             var gridsN = [];
             for (var find of findNPoses){
                 var grids = [];
-                for (var pos of find.poses)
-                    grids.push(m.map().getGridAt(pos.x, pos.y))
-                
-                gridsN.push(grids);
+                if (find.poses){
+                    for (var pos of find.poses)
+                        grids.push(m.map().getGridAt(pos.x, pos.y));
+
+                    gridsN.push(grids);
+                }
             }
-                                    
-        }, m)
+            // 将所有地块分层翻开并消灭怪物
+            // 这里的翻开不触发各类逻辑包括加经验等,
+            for (var gs of gridsN){
+                for (var g of gs){
+                    if(g.isCovered())
+                        await bt.uncover(g.pos.x, g.pos.y, true);        
+                }
+                for (var g of gs){
+                    var e = g.getElem();
+                    if (e && e instanceof Monster && e.isHazard() && e.type != "Hole")
+                        await bt.implOnElemDie(e);
+                }
+            }
+        }, m);
         return m;
     }
 
