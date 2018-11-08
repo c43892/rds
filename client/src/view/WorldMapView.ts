@@ -221,27 +221,13 @@ class WorldMapView extends egret.DisplayObjectContainer {
         // 显示每个节点
         var imgs = [];
         var adoptImgs = [];
-        var moutainImgs = [];
         var xEdgeBlank = 100; // 节点与左右边缘留白大小
         var topGap = 50;
         var yGap = (this.viewContent.height - topGap) / wp.nodes.length;
         var xGap = (this.mapArea.width - 2 * xEdgeBlank) / (wp.cfg.width - 1);
         var xSwing = 0.2; // 节点在地图上偏离标准位置的抖动幅度
         var ySwing = 0.2;
-        var dotScale = 0.9; // 节点缩放
-
-        // var mountainRes = ["mountain0_png", "mountain1_1_png", "mountain1_2_png"];
-        // var r = new SRandom(Number(this.player.playerRandom.toString()));
-        // for (var i = 0; i < 100; i++) {
-        //     var mRes = mountainRes[r.nextInt(0, mountainRes.length)];
-        //     var mImg = ViewUtils.createBitmapByName(mRes);
-        //     moutainImgs.push(mImg);
-        //     this.viewContent.addChild(mImg);
-        //     mImg.x = r.nextInt(0, this.viewContent.width);
-        //     mImg.y = r.nextInt(0, this.viewContent.height);
-        //     mImg.scaleX = mImg.scaleY = 2;
-        //     mImg.alpha = 0.4;
-        // }
+        var dotScale = 0.75; // 节点缩放
 
         // 遍历所有节点,将具有父节点的作为可用节点,并记录该节点的属性.
         for (var i = 0; i < wp.nodes.length; i++) {
@@ -267,7 +253,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                     img["ptStoreyLv"] = i;
                     img["ptStoreyN"] = j;
                     img.touchEnabled = true;
-                    img.scaleX = img.scaleY = pt == "boss" ? dotScale * 1.5 : dotScale;
+                    img.scaleX = img.scaleY = pt == "boss" ? dotScale * 2 : dotScale;
                     // img.alpha = 0.5;
                     row.push(img);
 
@@ -312,7 +298,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                         var pt1 = {x:pt1x, y:pt1y};
                         var pt2 = {x:pt2x, y:pt2y};
                         var dist = Utils.getDist(pt1, pt2);
-                        var steps = dist / 20; // 根据距离确定步数
+                        var steps = dist / 40; // 根据距离确定步数
                         var stepsDx = (pt2x - pt1x) / steps;
                         var stepsDy = (pt2y - pt1y) / steps;
                         var stepRotation = Utils.getRotationFromTo(pt1, pt2); // 确定脚步方向
@@ -325,14 +311,17 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
                         // 首尾让出来几步，避免盖住节点图标
                         var stepImgArr:egret.Bitmap[] = [];
-                        for (var st = 2; st < steps - 1; st++) {
+                        for (var st = 1; st < steps - 1; st++) {
                             var stepImg = ViewUtils.createBitmapByName("FootPrint_png");
-                            stepImg.x = pt1x + stepsDx * st + (st%2==0?dPosX1:dPosX2);
-                            stepImg.y = pt1y + stepsDy * st + (st%2==0?dPosY1:dPosY2);
+                            stepImg.x = pt1x + stepsDx * st; // + (st%2==0?dPosX1:dPosX2);
+                            stepImg.y = pt1y + stepsDy * st; // + (st%2==0?dPosY1:dPosY2);
                             stepImg.anchorOffsetX = stepImg.width / 2;
                             stepImg.anchorOffsetY = stepImg.height / 2;
-                            stepImg.rotation = stepRotation + (st%2==0?-15:15);
-                            stepImg.scaleX = st%2==0?1:-1; // 左右脚印需要对称反转
+                            stepImg.rotation = stepRotation; // + (st%2==0?-15:15);
+                            // stepImg.scaleX = st%2==0?1:-1; // 左右脚印需要对称反转
+                            // stepImg.scaleX = 0.75;
+                            // stepImg.scaleY = 0.75;
+                            stepImg.alpha = 0.5;
                             stepImgArr.push(stepImg);
                             this.viewContent.addChild(stepImg);
                         }
@@ -344,33 +333,12 @@ class WorldMapView extends egret.DisplayObjectContainer {
             }
         }
 
-        // 显示可选节点动画
-        var sps = BattleUtils.getSelectableStoreyPos(this.worldmap.player);
-        for (var sp of sps) {
-            var img:egret.Bitmap = imgs[sp.lv][sp.n];
-            if (!img) continue;
-            img.alpha = 1;
-            var outline = ViewUtils.createBitmapByName("BoxRoomFlash_png");
-            img.parent.addChild(outline);
-            img.parent.setChildIndex(img, -1);
-            outline.anchorOffsetX = outline.width / 2;
-            outline.anchorOffsetY = outline.height / 2;
-            outline.x = img.x;
-            outline.y = img.y;
-            img.alpha = 0.5;
-            // tw.to({scaleX:1.25*dotScale, scaleY:1.25*dotScale}, 1000, egret.Ease.quadInOut)
-            //    .to({scaleX:dotScale, scaleY:dotScale}, 1000, egret.Ease.quadInOut);
-            egret.Tween.get(outline, {loop:true}).to({alpha:0}, 1000, egret.Ease.quadInOut)
-                .to({alpha:1}, 1000, egret.Ease.quadInOut);
-            egret.Tween.get(img, {loop:true}).to({alpha:1}, 1000, egret.Ease.quadInOut)
-                .to({alpha:0.5}, 1000, egret.Ease.quadInOut);
-        }
-
         // 显示可经过的节点
         var lastSp;
         for (var sp of this.worldmap.player.finishedStoreyPos) {
-            if (!imgs[sp.lv][sp.n]) continue;
-            imgs[sp.lv][sp.n].alpha = 1;
+            var adpImg:egret.Bitmap = adoptImgs[sp.lv][sp.n];
+            if (!adpImg) continue;
+            adpImg.alpha = 1;
             // ViewUtils.makeGray(imgs[sp.lv][sp.n]);
             
             // 处理脚步路径
@@ -388,16 +356,104 @@ class WorldMapView extends egret.DisplayObjectContainer {
             }
 
             lastSp = sp;
-            this.viewContent.addChild(adoptImgs[sp.lv][sp.n]);
+            adpImg.scaleX = adpImg.scaleY = dotScale;
+            this.viewContent.addChild(adpImg);
         }
 
-        // 处理脚步路径
-        if (lastSp) {
-            for (var k = 0; k < wp.nodes[lastSp.lv][lastSp.n].routes.length; k++) {
-                var kr = wp.nodes[lastSp.lv][lastSp.n].routes[k];
-                allSteps[lastSp.lv][lastSp.n][k].forEach((img, _) => img.alpha = 1);
-            }
+        // 显示可选区域
+        var sps = BattleUtils.getSelectableStoreyPos(this.worldmap.player);
+        var imgArr:egret.Bitmap[] = Utils.map(sps, (sp) => {
+            return imgs[sp.lv][sp.n];
+        });
+
+        // 计算可选节点的中心位置和横向范围距离
+        var xMin = Number.MAX_VALUE;
+        var xMax = -Number.MAX_VALUE;
+        var xSum = 0;
+        var ySum = 0;
+        for (var img of imgArr) {
+            xSum += img.x;
+            ySum += img.y;
+            if (xMin > img.x) xMin = img.x;
+            if (xMax < img.x) xMax = img.x;
         }
+
+        var cx = xSum / imgArr.length;
+        var cy = ySum / imgArr.length;
+        var dx = xMax == xMin ? this.viewContent.width / 8 : xMax - xMin;
+
+        // 用一个容器先构造好迷雾效果
+        var mistContainer = new egret.DisplayObjectContainer();
+
+        // 黑色压暗背景
+        var mistBg = ViewUtils.createBitmapByName("mistBg_png");
+        mistBg.x = mistBg.y = 0;
+        mistBg.width = this.viewContent.width;
+        mistBg.height = this.viewContent.height;
+        mistBg.alpha = 0.75;
+        mistContainer.addChild(mistBg);
+
+        // 两层亮斑区域，一层擦除黑色背景，一层是实际显示效果
+
+        var mistSpot1 = ViewUtils.createBitmapByName("mistSpot_png");
+        mistSpot1.blendMode = egret.BlendMode.ERASE;
+        mistSpot1.width = dx * 4;
+        mistSpot1.height = dx * 2;
+        mistSpot1.x = cx - mistSpot1.width / 2;
+        mistSpot1.y = cy - mistSpot1.height / 2;
+        mistSpot1.alpha = 10;
+        mistContainer.addChild(mistSpot1);
+
+        var mistSpot2 = ViewUtils.createBitmapByName("mistSpot_png");
+        mistSpot2.width = dx * 4;
+        mistSpot2.height = dx * 2;
+        mistSpot2.x = cx - mistSpot2.width / 2;
+        mistSpot2.y = cy - mistSpot2.height / 2;
+        mistContainer.addChild(mistSpot2);
+
+        // 将迷雾效果渲染到纹理，再加入图层
+
+        var mistRT = new egret.RenderTexture();
+        var mistBmp = new egret.Bitmap();
+        mistRT.drawToTexture(mistContainer);
+        ViewUtils.setTex(mistBmp, mistRT);
+        mistBmp.x = mistBmp.y = 0;
+        this.viewContent.addChild(mistBmp);
+
+        // 显示可选节点动画
+        var sps = BattleUtils.getSelectableStoreyPos(this.worldmap.player);
+        var sr = new SRandom();
+        for (var sp of sps) {
+            var img:egret.Bitmap = imgs[sp.lv][sp.n];
+            if (!img) continue;
+            img.alpha = 1;
+            var t = sr.nextInt(1000, 2000);
+            egret.Tween.get(img, {loop:true}).to({scaleX:1.1*dotScale, scaleY:1.1*dotScale}, t, egret.Ease.quadInOut)
+                .to({scaleX:dotScale, scaleY:dotScale}, t, egret.Ease.quadInOut);
+            egret.Tween.get(img, {loop:true}).to({alpha:2.5}, t, egret.Ease.quadInOut)
+                .to({alpha:1}, t, egret.Ease.quadInOut);
+
+            // var outline = ViewUtils.createBitmapByName("BoxRoomFlash_png");
+            // img.parent.addChild(outline);
+            // img.parent.setChildIndex(img, -1);
+            // outline.anchorOffsetX = outline.width / 2;
+            // outline.anchorOffsetY = outline.height / 2;
+            // outline.x = img.x;
+            // outline.y = img.y;
+            // img.alpha = 0.5;
+            // egret.Tween.get(outline, {loop:true}).to({alpha:0}, 1000, egret.Ease.quadInOut)
+            //     .to({alpha:1}, 1000, egret.Ease.quadInOut);
+            // egret.Tween.get(img, {loop:true}).to({alpha:1}, 1000, egret.Ease.quadInOut)
+            //     .to({alpha:0.5}, 1000, egret.Ease.quadInOut);
+        }
+
+        // // 处理脚步路径
+        // if (lastSp) {
+        //     for (var k = 0; k < wp.nodes[lastSp.lv][lastSp.n].routes.length; k++) {
+        //         var kr = wp.nodes[lastSp.lv][lastSp.n].routes[k];
+        //         allSteps[lastSp.lv][lastSp.n][k].forEach((img, _) => img.alpha = 1);
+        //     }
+        // }
     }
 
     // 设置滚动位置(0:顶部 - 1:底部)

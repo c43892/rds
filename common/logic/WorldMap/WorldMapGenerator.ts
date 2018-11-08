@@ -24,7 +24,7 @@ class WorldMapGenerator{
             for(var x = 0; x < width; x++){
                 var xOffset = rand.nextInt(-100, 100) / 100;
                 var yOffset = rand.nextInt(-100, 100) / 100;
-                row.push(new WorldMapNode(x, y, xOffset, yOffset));
+                row.push(new WorldMapNode(x, y, xOffset, yOffset, worldMap));
             }
             nodes[y] = row;
         }

@@ -296,7 +296,7 @@ class RelicFactory {
             })
         },
 
-        // 图书大师,每层额外增加一本书
+        // 图书大师,每层额外增加一本书,读书增加1点经验
         "BookMaster": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) {
