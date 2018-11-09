@@ -46,9 +46,9 @@ class BattleUtils {
         // 确定最大搜索半径
         var w = map.size.w;
         var h = map.size.h;
-        var dxl = pos.x;
+        var dxl = pos.x + 1;
         var dxr = w - pos.x;
-        var dyt = pos.y;
+        var dyt = pos.y + 1;
         var dyb = h - pos.y;
         var maxDx = dxl > dxr ? dxl : dxr;
         var maxDy = dyt > dyb ? dyt : dyb;
@@ -359,4 +359,27 @@ class BattleUtils {
         } else (e)
         return isAroundPos(gridA.pos, gridB.pos);
     }
+
+    //遍历周围8格寻找被揭开的目标物品
+    public static findUncoveredTargetElems8Neighbours(bt:Battle, elem:Elem, f){
+        var targetElems = [];
+        bt.level.map.travel8Neighbours(elem.pos.x, elem.pos.y, (x, y, g: Grid) => {
+            var e = g.getElem();
+            if (e && !e.getGrid().isCovered() && f(e)) 
+                targetElems.push(e);            
+        });
+        return targetElems;
+    };
+
+    //遍历上下左右4格寻找被揭开的目标物品
+    public static findUncoveredTargetElems4Neighbours(bt:Battle, elem:Elem, f){
+        var targetElems = [];
+        var poses = Utils.findManhattanDistance1Poses(elem.pos);
+        for (var pos of poses){
+            var e = bt.level.map.getElemAt(pos.x, pos.y);
+            if (e && !e.getGrid().isCovered() && f(e)) 
+                targetElems.push(e);            
+        }
+        return targetElems;
+    };
 }

@@ -660,6 +660,19 @@ class Utils {
         return dmax;
     }
 
+    // 找到距离坐标区域最远的坐标的x或y方向上距离(曼哈顿距离)
+    public static findFarthestPosByManhattanDistance(pos = {x:0, y:0}, size = {w:1, h:1}, mapsize = {w:7, h:9}) {
+        var dmax = 0;
+        for (var i = 0; i < 2; i++)
+            for (var j = 0; j < 2; j++) {
+                var testPos = {x:pos.x + (size.w - 1) * i, y:pos.y + (size.h - 1) * j};
+                var targetPos = {x:(mapsize.w - 1) * i, y: (mapsize.h - 1) * j}
+                var d = Math.max(Math.abs(testPos.x - targetPos.x) + Math.abs(testPos.y - targetPos.y));
+                dmax = d >= dmax ? d : dmax;
+            }
+        return dmax;
+    }
+
     // 围绕特定坐标,找到其周围n圈的所有坐标
     public static findPosesAroundByNStorey(pos, n:number, size = {w:1, h:1}, mapsize = {w:7, h:9}) {
         var ps = [{posLeftCeil:pos, poses:undefined, size:size, mapsize:mapsize}];
@@ -697,9 +710,9 @@ class Utils {
         
         // 确定周围一圈的左上角坐标以及宽和高
         var newPosLeftCeil = {x:mapsize.w - 1, y:mapsize.h - 1};
-        var xmin = 6;
+        var xmin = mapsize.w - 1;
         var xmax = 0;
-        var ymin = 8;
+        var ymin = mapsize.h - 1;
         var ymax = 0;
         for (var testPos of allPoses){
             xmin = testPos.x < xmin ? testPos.x : xmin;
@@ -712,6 +725,50 @@ class Utils {
         var newSize = {w:xmax - xmin + 1, h:ymax - ymin + 1};
 
         return {posLeftCeil:newPosLeftCeil, poses:allPoses, size:newSize, mapsize:mapsize}
+    }
+
+    // 获取距离方正区域边缘为1~n的格子坐标
+    public static findManhattanDistanceNPoses(distance, pos = {x:0, y:0}, size = {w:1, h:1}, mapsize = {w:7, h:9}) {
+        var posesInside = [];
+        for (var i = 0; i < size.w; i++)
+            for (var j = 0; j < size.h; j++){
+                var newPos = {x:<number>pos.x + i, y:<number>pos.y + j};
+                posesInside.push(newPos);
+            }
+        var poses = [];
+
+        var ps = {poses:undefined, posesInside:posesInside}
+
+        for (var d = 0; d < distance; d ++){
+            ps = Utils.findManhattanDistance1PosesForArea(ps.posesInside, mapsize);
+            poses.push(ps.poses);
+        }
+        return poses;
+    }
+
+    // 获取距离特定区域边缘为1的格子坐标
+    public static findManhattanDistance1PosesForArea(posesInside, mapsize = {w:7, h:9}) {
+        var poses = [];
+        for (var posInside of posesInside){
+            var tempPoses = Utils.findManhattanDistance1Poses(posInside, mapsize);
+            for (var p of tempPoses)
+                if (Utils.indexOf(posesInside, (pi) => pi.x == p.x && pi.y == p.y) == -1 && Utils.indexOf(poses, (pi) => pi.x == p.x && pi.y == p.y) == -1)
+                    poses.push(p);
+        }
+        posesInside = [...posesInside, ...poses];
+        return {poses:poses, posesInside:posesInside}
+    }
+
+    // 获取与大小为1的格子曼哈顿距离为1的格子坐标,即上下左右4个
+    public static findManhattanDistance1Poses(pos = {x:0, y:0}, mapsize = {w:7, h:9}) {
+        var isValid = (pos) => pos.x >=0 && pos.x < mapsize.w && pos.y >=0 && pos.y < mapsize.h;
+        var poses = [];
+        var testPoses = [{x:pos.x - 1, y:pos.y}, {x:pos.x + 1, y:pos.y}, {x:pos.x, y:pos.y - 1}, {x:pos.x, y:pos.y + 1}];
+        for (var tp of testPoses)
+            if (isValid(tp))
+                poses.push(tp);
+
+        return poses;
     }
 
     // 获取植物类型
