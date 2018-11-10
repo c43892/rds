@@ -2,7 +2,7 @@ class Utils {
 
     // 将当前所见地图信息打印在控制台
     public static logMap(map:Map) {
-        console.log("==============\r\n");
+        egret.log("==============\r\n");
         var str = "";
         for (var j = 0; j < map.size.h; j++) {
             for (var i = 0; i < map.size.w; i++) {
@@ -21,7 +21,7 @@ class Utils {
             }
             str += "\r\n";
         }
-        console.log(str);
+        egret.log(str);
     }
 
     // 条件断言
@@ -164,7 +164,7 @@ class Utils {
     }
 
     // log 多个参数
-    public static log(...params:any[]) { console.log(Utils.logStr(...params)); }
+    public static log(...params:any[]) { egret.log(Utils.logStr(...params)); }
     static logStr(...params:any[]):string {
         var str = "";
         for (var p of params) {
@@ -188,7 +188,7 @@ class Utils {
             str += "}";
         }
 
-        console.log(str);
+        egret.log(str);
     }
 
     // 寻找第一个满足条件的元素，f 表示判断条件, fromIndex 表示开始搜索的位置，
