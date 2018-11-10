@@ -84,69 +84,38 @@ class MonsterFactory {
             m = <Monster>ElemFactory.addDieAI(async () => m.bt().implAddDeathGodStep(m.attrs.deathStep, m), m);
             m = <Monster>ElemFactory.addAI("beforeGoOutLevel1", () => m.clearAIAtLogicPoint("onPlayerActed"), m);
             m = MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player);
-            // m = MonsterFactory.doRandomFly("onPlayerActed", m);
+            m = MonsterFactory.doMoveOnPlayerActed(m);
             return m;
         },
 
-        // "Bunny": (attrs) => this.createMonster(attrs) // 什么都不做
-        // "Bunny": (attrs) => MonsterFactory.doAttack("onPlayerActed", this.createMonster(attrs)) // 每回合攻击玩家
-        "Bunny": (attrs) => MonsterFactory.doAttackBack(this.createMonster(attrs)), // 被攻击时反击
-        // "Bunny": (attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakAttack(this.createMonster(attrs))) // 偷袭行为是攻击，被攻击时反击
-        // "Bunny": (attrs) => MonsterFactory.doAttackBack(MonsterFactory.doSneakStealMoney(this.createMonster(attrs))) // 偷袭行为是偷钱，被攻击时反击
-        // "Bunny": (attrs) => MonsterFactory.doSneakSuckBlood(this.createMonster(attrs)) // 偷袭行为是吸血
-        // "Bunny": (attrs) => MonsterFactory.doSneakEatItems(this.createMonster(attrs), true) // 偷袭行为是拿走道具
-        // "Bunny": (attrs) => MonsterFactory.doSneakSummon(this.createMonster(attrs)) // 偷袭行为是召唤
-        // "Bunny": (attrs) => { // 死亡时放毒
-        //     var m = this.createMonster(attrs);
-        //     m = <Monster>ElemFactory.addDieAI(async () => m.bt().implAddBuff(m.bt().player, "BuffPoison", 3, 1), m);
-        //     return m;
-        // }
-        // "Bunny": (attrs) => { // 玩家离开时，偷袭玩家
-        //     var m = this.createMonster(attrs);
-        //     m = <Monster>ElemFactory.addAIEvenCovered("beforeGoOutLevel1", async () => {
-        //         var g = m.getGrid();
-        //         if (g.isCovered()) // 先揭开，再攻击
-        //             await m.bt().implUncoverAt(g.pos.x, g.pos.y);
-
-        //         await m.bt().implMonsterAttackPlayer(m);
-        //     }, m);
-        //     return m;
-        // }
-        // "Bunny": (attrs) => {
-        //     var m = this.createMonster(attrs);
-        //     m = <Monster>ElemFactory.addDieAI(async () => m.bt().implMonsterAttackPlayer(m, true), m);
-        //     return m;
-        // }
-
-        // "NormalZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(MonsterFactory.doMove2FoodAndEatIt("onPlayerActed", this.createMonster(attrs), attrs.movePs.moveRange))), //普通僵尸
-        "NormalZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //普通僵尸
-        "GoblinThief": (attrs) => MonsterFactory.doSneakStealMoney(false, MonsterFactory.doAttackBack(this.createMonster(attrs))), //哥布林窃贼
-        "HoundZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //猎犬僵尸
-        "Vampire": (attrs) => MonsterFactory.doSneakSuckBlood(MonsterFactory.doAttackBack(this.createMonster(attrs))), //吸血鬼
-        "DancerZombie": (attrs) => MonsterFactory.doSneakSummon(MonsterFactory.doAttackBack(this.createMonster(attrs))), //舞王僵尸
-        "GluttonyZombie": (attrs) => MonsterFactory.doSneakTakeItems(MonsterFactory.doAttackBack(this.createMonster(attrs)), false), //暴食僵尸
-        "Gengar": (attrs) => MonsterFactory.doAttackOnPlayerLeave(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //耿鬼
+        "NormalZombie": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //普通僵尸
+        "GoblinThief": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doSneakStealMoney(false, MonsterFactory.doAttackBack(this.createMonster(attrs)))), //哥布林窃贼
+        "HoundZombie": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //猎犬僵尸
+        "Vampire": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doSneakSuckBlood(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //吸血鬼
+        "DancerZombie": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doSneakSummon(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //舞王僵尸
+        "GluttonyZombie": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doSneakTakeItems(MonsterFactory.doAttackBack(this.createMonster(attrs)), false)), //暴食僵尸
+        "Gengar": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doAttackOnPlayerLeave(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))))), //耿鬼
         "BombAbomination": (attrs) => MonsterFactory.doSelfExplodeAfterNRound(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //自爆憎恶
         "EyeDemon": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doUncoverGridOnDie(2, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))))), //眼魔
-        "RandomEggZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //彩蛋僵尸
-        "LustZombie": (attrs) => MonsterFactory.doAddDeathStepOnDie(MonsterFactory.doSneakReduseDeathStep(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //色欲僵尸
+        "RandomEggZombie": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //彩蛋僵尸
+        "LustZombie": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doAddDeathStepOnDie(MonsterFactory.doSneakReduseDeathStep(MonsterFactory.doAttackBack(this.createMonster(attrs))))), //色欲僵尸
         "CommanderZombie": (attrs) => MonsterFactory.doEnhanceAura(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //指挥官僵尸
         "RageZombie": (attrs) => MonsterFactory.doAddPowerOnHurt(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //狂暴僵尸
         "HideZombie": (attrs) => MonsterFactory.doHideAfterUncovered(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //隐匿僵尸
-        "BallShito": (attrs) => MonsterFactory.doProtectMonsterAround(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //圆球使徒
+        "BallShito": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doProtectMonsterAround(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))))), //圆球使徒
         "ReviveZombie": (attrs) => MonsterFactory.doRecoverSanOnDie(MonsterFactory.doReviveOndie(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))))), //复生僵尸
         "CowardZombie": (attrs) => MonsterFactory.doHideOnOtherMonsterDie(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //胆怯僵尸
         "MarkZombie":  (attrs) => MonsterFactory.doMarkMonsterOnHurt(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //标记僵尸
         "ConfusionZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //疑惑僵尸
         "GreedyZombie": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //贪婪僵尸
         "Mummy": (attrs) => MonsterFactory.doCoverGridAround(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //木乃伊
-        "PoisonJellyfish": (attrs) => MonsterFactory.doMakeCoveredGridsPoison(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //毒性水母
-        "SkeletonKing": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //骷髅王僵尸
-        "SwatheZombie": (attrs) => MonsterFactory.doSwatheItemsOnSneak(MonsterFactory.doAttackBack(this.createMonster(attrs))), //缠绕僵尸
+        "PoisonJellyfish": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doMakeCoveredGridsPoison(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))))), //毒性水母
+        "SkeletonKing": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //骷髅王僵尸
+        "SwatheZombie": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doSwatheItemsOnSneak(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //缠绕僵尸
         "BoxMonster": (attrs) => MonsterFactory.addRandomOnDie(2, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //宝箱怪
-        "Ghost": (attrs) => MonsterFactory.doChaseToNextLevel(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //幽灵
-        "RedSlime": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //红色史莱姆
-        "GreenSlime": (attrs) => MonsterFactory.doAddHpPerRound(Math.floor(attrs.hp * 0.2) > 1 ? Math.floor(attrs.hp * 0.2) : 1, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //绿色史莱姆
+        "Ghost": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doChaseToNextLevel(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))))), //幽灵
+        "RedSlime": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //红色史莱姆
+        "GreenSlime": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doAddHpPerRound(Math.floor(attrs.hp * 0.2) > 1 ? Math.floor(attrs.hp * 0.2) : 1, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))))), //绿色史莱姆
         "ShopNpc": (attrs) => MonsterFactory.makeShopNPC(this.createMonster(attrs)),
         "Gardener": (attrs) => this.createMonster(attrs), // 测试用园艺师
 
@@ -1187,18 +1156,28 @@ class MonsterFactory {
     // 处理所有onPlayerActed逻辑点的怪物移动行为
     static doMoveOnPlayerActed(m:Monster):Monster {
         m = <Monster>ElemFactory.addAI("onPlayerActed", async () => {
+            if (!m.attrs.movePs) return;
             var bt = m.bt();
             var map = m.bt().level.map;
             var acted = false;
             if (m.isDead()) return;
             var moveType = m.attrs.movePs.moveType;
             var targetType = m.attrs.movePs.targetType;
+
+            // 尝试攻击商人
+            var attackShopNpc = async () => {
+                var shopNpcs = BattleUtils.findUncoveredTargetElems4Neighbours(bt, m, (e: Elem) => e.type == "ShopNpc");
+                if (shopNpcs.length > 0) {
+                    await bt.implMonsterAttackTargets(m, [shopNpcs[0]]);
+                    acted = true;
+                }
+            }
             
             // 移动的目的行为
             var act = async () => {
                 // 检查周围有没有优先目标,攻击行为为4格,操作物品为8格
-                if (targetType == "eatFood") { // 有食物优先吃食物
-                    var foods = BattleUtils.findUncoveredTargetElems4Neighbours(bt, m, (e: Elem) => Utils.contains(e.attrs.tags, "food"));
+                if (targetType == "eatFood") { // 有食物优先吃食物,没有食物则攻击商人
+                    var foods = BattleUtils.findUncoveredTargetElems8Neighbours(bt, m, (e: Elem) => Utils.contains(e.attrs.tags, "food"));
                     if (foods.length > 0) {
                         // 吃一口
                         var f = foods[0];
@@ -1208,31 +1187,40 @@ class MonsterFactory {
                         else
                             await f.bt().fireEvent("onMonsterEatFood", { m: m, food: f });
                         acted = true;
-                    } else { //没有食物则攻击商人
-                        var shopNpcs = BattleUtils.findUncoveredTargetElems4Neighbours(bt, m, (e: Elem) => e.type == "ShopNpc");
-                        if (shopNpcs.length > 0) {
-                            await bt.implMonsterAttackTargets(m, [shopNpcs[0]]);
-                            acted = true;
-                        }
-                    }
-                } else { // 默认攻击商人 if (targetType == "attackShopNpc")
-                    var shopNpcs = BattleUtils.findUncoveredTargetElems4Neighbours(bt, m, (e: Elem) => e.type == "ShopNpc");
-                    if (shopNpcs.length > 0) {
-                        await bt.implMonsterAttackTargets(m, [shopNpcs[0]]);
+                    } else 
+                        await attackShopNpc();
+                } else if (targetType == "pickupCoins") { // 优先拾取金币,没有金币则攻击商人
+                    var coins = BattleUtils.findUncoveredTargetElems8Neighbours(bt, m, (e: Elem) => e.type == "Coins");
+                    if (coins.length > 0) {
+                        var coin = coins[0];
+                        await bt.implMonsterTakeElems(m, [coin], true);
                         acted = true;
-                    }
-                }
+                    } else 
+                        await attackShopNpc();
+                } else  
+                    // 默认攻击商人 if (targetType == "attackShopNpc")
+                    await attackShopNpc();
             }
-            // 找商人坐标
+            // 找最近的商人坐标
             var getShopNpcPos = () => {
-                var shopNpc = BattleUtils.findNearestGrid(map, m.pos, (g: Grid) => !g.isCovered() && g.getElem() && g.getElem().type == "ShopNpc");
-                return shopNpc ? shopNpc.pos : undefined;
+                var shopNpcGrid = BattleUtils.findNearestGrid(map, m.pos, (g: Grid) => !g.isCovered() && g.getElem() && g.getElem().type == "ShopNpc");
+                return shopNpcGrid ? shopNpcGrid.pos : undefined;
             };
-            // 找食物坐标
+            // 找最近的食物坐标
             var getFoodPos = () => {
-                var food = BattleUtils.findNearestGrid(map, m.pos, (g: Grid) => !g.isCovered() && g.getElem() && Utils.contains(g.getElem().attrs.tags, "food"));
-                return food ? food.pos : undefined;
+                var foodGrid = BattleUtils.findNearestGrid(map, m.pos, (g: Grid) => !g.isCovered() && g.getElem() && Utils.contains(g.getElem().attrs.tags, "food"));
+                return foodGrid ? foodGrid.pos : undefined;
             };
+            // 找最近的金币坐标
+            var getCoinPos = () => {
+                var coinGrid = BattleUtils.findNearestGrid(map, m.pos, (g: Grid) => !g.isCovered() && g.getElem() && g.getElem().type == "Coins");
+                return coinGrid ? coinGrid.pos : undefined;
+            }
+            // 找一个随机的目标,距离大于可移动距离
+            var getRandomTarget = () => {
+                var targetGrid = BattleUtils.findRandomGrid(bt, (g:Grid) => Math.abs(g.pos.x - m.pos.x) + Math.abs(g.pos.y - m.pos.y) >= m.attrs.movePs.moveRange);
+                return targetGrid ? targetGrid.pos : undefined;
+            }
 
             // 移动前先尝试行动
             await act();
@@ -1246,7 +1234,7 @@ class MonsterFactory {
                     await bt.implElemFly(m, targetPos.pos);
             } else {
                 // 根据配置决定普通移动方式中的目标                
-                if (targetType == "attackShopNpc") {                    
+                if (targetType == "attackShopNpc") {
                     await ElemFactory.moveFunc(m, m.attrs.movePs.moveRange, getShopNpcPos)();
                 } else if (targetType == "eatFood") {
                     // 优先找食物                    
@@ -1255,18 +1243,16 @@ class MonsterFactory {
                     // 没有找到就找商人
                     else 
                         await ElemFactory.moveFunc(m, m.attrs.movePs.moveRange, getShopNpcPos)();
-                } else { //　随机移动
-                    var path = [];
-                    var dir = [[-1,0],[1,0],[0,-1],[0,1]];
-                    for (var i = 0; i < m.attrs.movePs.moveRange; i++) {
-                        var d = dir[m.bt().srand.nextInt(0, dir.length)];
-                        var lastPt = path[path.length - 1];
-                        var x = lastPt.x + d[0];
-                        var y = lastPt.y + d[1];
-                        if ((m.pos.x == x && m.pos.y == y) || m.bt().level.map.isWalkable(x, y))
-                            path.push({x:x, y:y});
-                    }
-                    await m.bt().implElemMoving(m, path);
+                }  else if (targetType == "pickupCoins") {
+                    // 优先找金币                   
+                    if (getCoinPos())
+                        await ElemFactory.moveFunc(m, m.attrs.movePs.moveRange, getCoinPos)();
+                    // 没有找到就找商人
+                    else 
+                        await ElemFactory.moveFunc(m, m.attrs.movePs.moveRange, getShopNpcPos)();
+                } else { // 随机移动
+                    if (getRandomTarget())
+                        await ElemFactory.moveFunc(m, m.attrs.movePs.moveRange, getRandomTarget)();
                 }
                 // 移动后尝试行动
                 await act();

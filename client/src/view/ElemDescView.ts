@@ -139,7 +139,7 @@ class ElemDescView extends egret.DisplayObjectContainer {
         attrs.push(this.hpBg, this.hpTxt);
         n++;
 
-        this.moveRangeTxt.text = m["hideMonsterAttrs"] ? "?" : (m.attrs.movePs ? m.attrs.movePs.moveRange.toString() : 0);
+        this.moveRangeTxt.text = m["hideMonsterAttrs"] ? "?" : (m.attrs.movePs ? (m.attrs.movePs.moveRange ? m.attrs.movePs.moveRange.toString() : "∞") : 0);
         attrs.push(this.moveRangeBg, this.moveRangeTxt);
         n++;
 

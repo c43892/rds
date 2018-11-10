@@ -2,7 +2,7 @@
 // 战斗相关工具方法
 class BattleUtils {
 
-    // 寻找一个随机的满足条件的位置，f 是形如 function(g:Grid):boolean 的函数，最多 maxNum 个
+    // 寻找一组随机的满足条件的位置，f 是形如 function(g:Grid):boolean 的函数，最多 maxNum 个
     public static findRandomGrids(bt:Battle, f, maxNum:number = 1):Grid[] {
         var gs:Grid[] = [];
         var map = bt.level.map;
@@ -23,6 +23,12 @@ class BattleUtils {
         }
 
         return rs;
+    }
+
+    // 寻找一个随机的满足条件的位置，f 是形如 function(g:Grid):boolean 的函数
+    public static findRandomGrid(bt:Battle, f):Grid {
+        var gs = BattleUtils.findRandomGrids(bt, f);
+        return gs[bt.srand.nextInt(0, gs.length)];
     }
 
     // 寻找一个随机的空白位置
