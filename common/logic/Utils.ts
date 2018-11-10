@@ -349,7 +349,7 @@ class Utils {
     }
 
     // 删除指定数据
-    public static removeLocalDate(key:string) {
+    public static removeLocalData(key:string) {
         var data = Utils.$$loadItem(key);
         if (data)
             Utils.$$removeItem(key);
