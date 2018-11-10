@@ -299,31 +299,19 @@ class Utils {
         return r;
     }
 
-    // 用 cookie 替代 localstorage 绕开 ios hybrid 上 localstorage 被自动清除的问题
-    static cookieStorage = {};
-    public static initLocalStorage() {
-        var cookieStr = window.document.cookie;
-        Utils.cookieStorage = !cookieStr ? {} : JSON.parse(cookieStr);
-    }
-
     // 测试期间用，本地存储部分数据
     public static $$saveItem(key:string, value:string) {
-        // egret.localStorage.setItem(key, value);
-        Utils.cookieStorage[key] = value;
-        window.document.cookie = JSON.stringify(Utils.cookieStorage);
+        egret.localStorage.setItem(key, value);
     }
 
     // 测试期间用，本地存储数据清除
     public static $$removeItem(key:string) {
-        // egret.localStorage.removeItem(key);
-        delete Utils.cookieStorage[key];
-        window.document.cookie = JSON.stringify(Utils.cookieStorage);
+        egret.localStorage.removeItem(key);
     }
 
     // 测试期间用，从本地存储读取数据
     public static $$loadItem(key:string):string {
-        // return egret.localStorage.getItem(key);
-        return Utils.cookieStorage[key];
+        return egret.localStorage.getItem(key);
     }
 
     // 保存角色数据
