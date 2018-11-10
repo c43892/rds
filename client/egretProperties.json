@@ -1,39 +1,39 @@
 {
-	"engineVersion": "5.2.12",
-	"compilerVersion": "5.2.12",
-	"template": {},
-	"target": {
-		"current": "web"
-	},
-	"modules": [
-		{
-			"name": "egret"
-		},
-		{
-			"name": "game"
-		},
-		{
-			"name": "tween"
-		},
-		{
-			"name": "assetsmanager"
-		},
-		{
-			"name": "promise"
-		},
-		{
-			"name": "dragonBones"
-		}
-	],
-	"targets": {
-		"android": {
-			"appname": "rds",
-			"packagename": "rds.daybreak.com"
-		},
-		"ios": {
-			"appname": "rds",
-			"packagename": "com.daybreak.rds",
-			"hybrid": true
-		}
-	}
+  "engineVersion": "5.2.12",
+  "compilerVersion": "5.2.12",
+  "template": {},
+  "target": {
+    "current": "web"
+  },
+  "modules": [
+    {
+      "name": "egret"
+    },
+    {
+      "name": "game"
+    },
+    {
+      "name": "tween"
+    },
+    {
+      "name": "assetsmanager"
+    },
+    {
+      "name": "promise"
+    },
+    {
+      "name": "dragonBones"
+    }
+  ],
+  "targets": {
+    "android": {
+      "appname": "rds",
+      "packagename": "rds.daybreak.com"
+    },
+    "ios": {
+      "appname": "rds",
+      "packagename": "com.daybreak.rds",
+      "hybrid": true
+    }
+  }
 }

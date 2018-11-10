@@ -30,9 +30,13 @@ class AnimationFactory {
         if (cfg.type == "seq" || cfg.type == "gp") {
             var aniArr = [];
             var defaultObj = cfg.obj;
+            var defaultObjs = cfg.objs;
             for (var subCfg of cfg.arr) {
                 if (!subCfg.obj)
                     subCfg.obj = defaultObj;
+                
+                if (!subCfg.objs)
+                    subCfg.objs = defaultObjs;
 
                 subCfg.manuallyStart = true; // 子动画都不是自动播放，要等待顶层动画对象通知播放
                 subCfg.noWait = subCfg.noWait || cfg.noWait;
@@ -50,6 +54,7 @@ class AnimationFactory {
     // 创建指定类型的动画
     public createAni(aniType:string, ps = undefined):Promise<void> {
         var aw;
+        var aws;
         if (aniType == "seq")
             aw = this.aniSeq(ps.subAniArr);
         else if (aniType == "gp")
@@ -57,81 +62,99 @@ class AnimationFactory {
         else if (aniType == "skeleton")
             aw = this.skeleton(ps);
         else {
-            var ani:egret.Tween;
+
+            var objs = [];
+            if (ps.objs) objs.push(...ps.objs);
+            if (ps.obj) objs.push(ps.obj);
+
+            var anis:egret.Tween[];
             switch (aniType) {
-                case "delay": ani = this.trans(ps.obj, {time:ps.time}); break;
-                case "tr": ani = this.trans(ps.obj, ps); break;
-                case "op": ani = this.op(ps.obj, ps.delay, ps.op); break;
-                case "moveOnPath": ani = this.moveOnPath(ps.obj, ps); break;
-                case "cycleMask": ani = this.cycleMask(ps.obj, ps); break;
-                case "bezierTrack": ani = this.bezierTrack(ps.obj, ps); break;
-                case "shakeCamera": ani = this.shakeCamera(ps.times, ps.interval); break;
+                case "delay": anis = this.trans(objs, {time:ps.time}); break;
+                case "tr": anis = this.trans(objs, ps); break;
+                case "op": anis = this.op(objs, ps.delay, ps.op); break;
+                case "moveOnPath": anis = this.moveOnPath(objs, ps); break;
+                case "cycleMask": anis = this.cycleMask(objs, ps); break;
+                case "bezierTrack": anis = this.bezierTrack(objs, ps); break;
+                case "shakeCamera": anis = [this.shakeCamera(ps.times, ps.interval)]; break;
+                default: Utils.log("unknown aniType: " + aniType);
             }
 
-            if (!ani) Utils.log("unknown aniType: " + aniType);
-            aw = ani ? new Promise<void>((r, _) => ani.call(r)) : Utils.delay(1);
+            if (anis.length > 1)
+                aws = Utils.map(anis, (ani) => {
+                    let aw = ani ? new Promise<void>((r, _) => ani.call(r)) : Utils.delay(1);
+                    aw["ani"] = ani;
+                    return aw;
+                });
+            else {
+                aw = anis[0] ? new Promise<void>((r, _) => anis[0].call(r)) : Utils.delay(1);
+                aw["ani"] = anis[0];
+            }
         }
-        
-        aw["name"] = (ps && ps.name) ? ps.name : undefined;
-        aw["ani"] = ani;
-        aw["onStarted"] = [
-            // () => Utils.log("ani: " + aw["name"] + " started"),
-        ];
-        
-        aw["onEnded"] = [
-            // () => Utils.log("ani: " + aw["name"] + " ended"),
-        ];
 
-        var notifyStart = ps && !ps.noWait;
-        aw["start"] = () => {
-            for (var cb of aw["onStarted"]) cb();
-            if (ani) ani.setPaused(false);
-            else if (aw["startimpl"]) aw["startimpl"]();
-            if (notifyStart && this.notifyAniStarted) this.notifyAniStarted(aw, aniType, ps);
+        var wrapAW = (_aw) => {
+            let ani = _aw["ani"];
+            _aw["name"] = (ps && ps.name) ? ps.name : undefined;
+            _aw["onStarted"] = [
+                // () => Utils.log("ani: " + _aw["name"] + " started"),
+            ];
+            
+            _aw["onEnded"] = [
+                // () => Utils.log("ani: " + _aw["name"] + " ended"),
+            ];
+
+            var notifyStart = ps && !ps.noWait;
+            _aw["start"] = () => {
+                for (var cb of _aw["onStarted"]) cb();
+                if (ani) ani.setPaused(false);
+                else if (_aw["startimpl"]) _aw["startimpl"]();
+                if (notifyStart && this.notifyAniStarted) this.notifyAniStarted(_aw, aniType, ps);
+            };
+
+            _aw["pause"] = () => {
+                // Utils.log("ani: " + _aw["name"] + " paused");
+                if (ani) ani.setPaused(true);
+                else if (_aw["pauseimpl"]) _aw["pauseimpl"]();
+            };
+
+            _aw["stop"] = () => {
+                if (ani) egret.Tween.removeTweens(ps.obj);
+                else if (_aw["stopimpl"]) _aw["stopimpl"]();
+            };
+
+            // 不要自动播放
+            if (ani && ps.manuallyStart)
+                _aw["pause"]();
+            else // 自动播放
+                _aw["start"]();
+            
+            _aw.then(() => {
+                for (var cb of _aw["onEnded"])
+                    cb()
+            });
+
+            return _aw;
         };
 
-        aw["pause"] = () => {
-            // Utils.log("ani: " + aw["name"] + " paused");
-            if (ani) ani.setPaused(true);
-            else if (aw["pauseimpl"]) aw["pauseimpl"]();
-        };
-
-        aw["stop"] = () => {
-            if (ani) egret.Tween.removeTweens(ps.obj);
-            else if (aw["stopimpl"]) aw["stopimpl"]();
-        };
-
-        // 不要自动播放
-        if (ani && ps.manuallyStart)
-            aw["pause"]();
-        else // 自动播放
-            aw["start"]();
-        
-        aw.then(() => {
-            for (var cb of aw["onEnded"])
-                cb()
-        });
-
-        return aw;
+        return aws ? wrapAW(this.aniGroup(Utils.map(aws, (_aw) => wrapAW(_aw)))) : wrapAW(aw);
     }
 
     // 创建按指定路径移动的动画
-    moveOnPath(g:egret.DisplayObject, ps):egret.Tween {
-        var tw = egret.Tween.get(g);
-        var t = ps.time ? ps.time : 1000;
-        for (var pt of ps.path) {
-            var x = pt.x;
-            var y = pt.y;
-            tw = tw.to({x:x, y:y}, t, ps.mode);
-        }
+    moveOnPath(objs:egret.DisplayObject[], ps):egret.Tween[] {
+        return Utils.map(objs, (g) => {
+            let tw = egret.Tween.get(g);
+            let t = ps.time ? ps.time : 1000;
+            for (var pt of ps.path) {
+                var x = pt.x;
+                var y = pt.y;
+                tw = tw.to({x:x, y:y}, t, ps.mode);
+            }
 
-        return tw;
+            return tw;
+        });
     }
 
     // 渐隐渐显
-    public trans(g:egret.DisplayObject, ps):egret.Tween {
-        Utils.assert(!!g, "the transform object should not be undefined");
-        
+    public trans(objs:egret.DisplayObject[], ps):egret.Tween[] {
         // properties from
         var psf = {};
         if (ps.fx != undefined) psf["x"] = ps.fx;
@@ -157,48 +180,60 @@ class AnimationFactory {
         if (ps.tskx != undefined) pst["skewX"] = ps.fskx;
         if (ps.tsky != undefined) pst["skewY"] = ps.fsky;
 
-        var t = ps.time != undefined ? ps.time : 1000;
-        return egret.Tween.get(g).to(psf, 0).to(pst, t, ps.mode);
+        return Utils.map(objs, (g) => {
+            Utils.assert(!!g, "the transform object should not be undefined");
+            var t = ps.time != undefined ? ps.time : 1000;
+            return egret.Tween.get(g).to(psf, 0).to(pst, t, ps.mode);
+        });
     }
 
     // 环形转圈
-    cycleMask(g:egret.DisplayObject, ps):egret.Tween {
+    cycleMask(objs:egret.DisplayObject[], ps):egret.Tween[] {
         var r = ps.r;
         var x = ps.x;
         var y = ps.y;
-        
-        g.alpha = ps.fa != undefined ? ps.fa : g.alpha;
-        g["$$TweenAniFactor"] = 0;
 
-        var shape = new egret.Shape();
-        g.mask = shape;
-        g.parent.addChild(shape);
-        var refresh = (p) => {
-            var arc = p * Math.PI * 2;            
-            shape.graphics.clear();
-            shape.graphics.beginFill(0xffffff);
-            shape.graphics.moveTo(x, y);
-            shape.graphics.lineTo(x + r, y);
-            shape.graphics.drawArc(x, y, r, 0, arc);
-            shape.graphics.lineTo(x + Math.cos(arc) * r, y + Math.sin(arc) * r);
-            shape.graphics.endFill();
-        };
+        var tws = [];
 
-        var a = ps.ta ? ps.ta : g.alpha;
-        var time = ps.time;
-        refresh(0);
-        var tw = egret.Tween.get(g, { onChange:() => refresh(g["$$TweenAniFactor"]) });
-        tw.to({alpha:a, p:1}, time).call(() => shape.parent.removeChild(shape));
-        return tw;
+        for (var g of objs) {
+
+            g.alpha = ps.fa != undefined ? ps.fa : g.alpha;
+            g["$$TweenAniFactor"] = 0;
+
+            var shape = new egret.Shape();
+            g.mask = shape;
+            g.parent.addChild(shape);
+            var refresh = (p) => {
+                var arc = p * Math.PI * 2;            
+                shape.graphics.clear();
+                shape.graphics.beginFill(0xffffff);
+                shape.graphics.moveTo(x, y);
+                shape.graphics.lineTo(x + r, y);
+                shape.graphics.drawArc(x, y, r, 0, arc);
+                shape.graphics.lineTo(x + Math.cos(arc) * r, y + Math.sin(arc) * r);
+                shape.graphics.endFill();
+            };
+
+            var a = ps.ta ? ps.ta : g.alpha;
+            var time = ps.time;
+            refresh(0);
+            var tw = egret.Tween.get(g, { onChange:() => refresh(g["$$TweenAniFactor"]) });
+            tw.to({alpha:a, p:1}, time).call(() => shape.parent.removeChild(shape));
+            tws.push(tw);
+        }
+
+        return tws;
     }
 
     // 贝塞尔轨迹
-    bezierTrack(obj, ps):egret.Tween {
+    bezierTrack(objs, ps):egret.Tween[] {
         var fromPos = ps.fromPos;
         var controlPos = ps.controlPos;
         var toPos = ps.toPos;
-        obj.setBazierPoints(fromPos, controlPos, toPos);
-        return egret.Tween.get(obj).to({"bezierFactor":0}, 0).to({"bezierFactor":1}, ps.time);
+        return Utils.map(objs, (obj) => {
+            obj.setBazierPoints(fromPos, controlPos, toPos);
+            return egret.Tween.get(obj).to({"bezierFactor":0}, 0).to({"bezierFactor":1}, ps.time);
+        });
     }
 
     // 屏幕震动
@@ -279,9 +314,11 @@ class AnimationFactory {
     }
 
     // 执行指定动作
-    op(g:egret.DisplayObject, delay, op):egret.Tween {
-        delay = delay ? delay : 0;
-        return egret.Tween.get(g).wait(delay).call(() => op()).wait(0);
+    op(objs:egret.DisplayObject[], delay, op):egret.Tween[] {
+        return Utils.map(objs, (g) => {
+            delay = delay ? delay : 0;
+            return egret.Tween.get(g).wait(delay).call(() => op()).wait(0);
+        });
     }
 
     // 龙骨动画
