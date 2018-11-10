@@ -444,7 +444,7 @@
             "<font color=#7d0403 bold=true size=21>愤怒</font>\n<font color=#000000 bold=false size=20>宝箱的复仇</font>"
         ]},
         "Ghost":{"name":"幽灵", "desc":[
-            "<font color=#7d0403 bold=true size=21>穿透</font>\n<font color=#000000 bold=false size=20>攻击无视防暴服和防护服</font>",
+            "<font color=#7d0403 bold=true size=21>穿透</font>\n<font color=#000000 bold=false size=20>攻击无视防暴盾和防护服</font>",
             "<font color=#7d0403 bold=true size=21>纠缠</font>\n<font color=#000000 bold=false size=20>尾随玩家进入下一层</font>"
         ]},
         "RedSlime":{"name":"红色史莱姆", "desc":[
