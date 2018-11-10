@@ -191,6 +191,9 @@ class Main extends egret.DisplayObjectContainer {
 
     private mv:MainView;
     private async runGame() {
+        Utils.initLocalStorage();
+
+        egret.Logger.logLevel = egret.Logger.ALL;
         Utils.log(DEBUG ? "DEBUG version" : "RELEASE version");
 
         window.platform.init();
@@ -207,7 +210,7 @@ class Main extends egret.DisplayObjectContainer {
         this.globalInit(); // 初始化全局配置
         Utils.log("global initialize finished");
         this.mv = this.createMainView(); // 创建主场景
-
+        
         // 排行榜服务器通信用
         if (platform instanceof DebugPlatform)
             (<DebugPlatform>platform).wc = new WebClient("http://127.0.0.1:81");
