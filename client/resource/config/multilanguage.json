@@ -177,7 +177,7 @@
 			"layout": {
 				"yesnoBg": {"x":100, "y":500, "w":460, "h":260},
 				"yesnoTitle": {"x":100, "y":525, "w":460, "h":50},
-				"yesnoContent": {"x":100, "y":535, "w":460, "h":150},
+				"yesnoContent": {"x":165, "y":535, "w":330, "h":150},
 				"btnYes": {"x":360, "y":670, "w":120, "h":50},
 				"btnNo": {"x":180, "y":670, "w":120, "h":50},
 				"btnOk": {"x":260, "y":670, "w":120, "h":50}
@@ -358,7 +358,8 @@
 		"batonPassiveTriggerDesc": {"EN": "baton trigger passively", "CNS": "警棍增加1攻击", "CNT": "被动触发"},
 		"cloakPassiveTriggerDesc": {"EN": "cloak trigger passively", "CNS": "披风抵挡一次突袭", "CNT": "被动触发"},
 		"invalidOperate":{"EN": "can not do that", "CNS": "这是一个无效的操作", "CNT": "这是一个无效的操作"},
-		"tipOnDrag":{"EN": "can not do that", "CNS": "只能在营火处装备或交换技能", "CNT": "只能在营火处装备或交换技能"},
+		"tipOnDrag":{"EN": "can not do that", "CNS": "只能在营火的切换技能处装备或交换技能", "CNT": "只能在营火的切换技能处装备或交换技能"},
+		"tipOnCannotReinfoce":{"EN": "can not reinfoce", "CNS": "该技能不能再升级", "CNT": "该技能不能再升级"},
 		"nutWallUseDesc":{"EN": "I'm going to share the damage", "CNS": "我会帮你分担伤害", "CNT": "我会帮你分担伤害"},
 		"peashooterUseDesc":{"EN": "shooting!", "CNS": "射击！射击！", "CNT": "射击！射击！"},
 		"headBoneUseDesc":{"EN": "get the monster sneaking!", "CNS": "让怪物突袭你吧！", "CNT": "让怪物突袭你吧！"},

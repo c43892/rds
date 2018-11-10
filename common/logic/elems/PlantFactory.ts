@@ -303,14 +303,14 @@ class PlantFactory {
             return p;
         },
 
-        "Sunflower2": (player:Player) => { // 太阳花2 额外恢复X%生命值
+        "Sunflower2": (player:Player) => { // 太阳花2 额外恢复X点生命值
             var level = player.bt().level;
             var attrs = level.getElemCfg("Sunflower").attrs;
             attrs = Utils.clone(attrs);
             var p = this.createPlant(attrs);
             p.canUse = () => true;
             p.use = async () => { 
-                await p.bt().implAddPlayerHp(Math.floor(p.bt().player.maxHp * (attrs.dhpPercent + attrs.level2AddDhpPercent) / 100), p);
+                await p.bt().implAddPlayerHp(Math.floor(p.bt().player.maxHp * attrs.dhpPercent / 100 + attrs.level2AddHp), p);
                 return false;
             }
             p.getElemImgRes = () => "Sunflower";
@@ -324,7 +324,7 @@ class PlantFactory {
             var p = this.createPlant(attrs);            
             p.canUse = () => true;
             p.use = async () => { 
-                await p.bt().implAddPlayerHp(Math.floor(p.bt().player.maxHp * (attrs.dhpPercent + attrs.level2AddDhpPercent) / 100), p);
+                await p.bt().implAddPlayerHp(Math.floor(p.bt().player.maxHp * attrs.dhpPercent / 100 + attrs.level2AddHp), p);
                 var currentExp = GCfg.playerCfg.exp2Lv[player.lv];
                 await p.bt().implAddPlayerExp(Math.floor(currentExp * attrs.level3AddExpPercent / 100), p.pos);
                 return false;
@@ -340,7 +340,7 @@ class PlantFactory {
             var p = this.createPlant(attrs);
             p.canUse = () => true;
             p.use = async () => { 
-                await p.bt().implAddPlayerHp(Math.floor(p.bt().player.maxHp * (attrs.dhpPercent + attrs.level2AddDhpPercent) / 100), p);
+                await p.bt().implAddPlayerHp(Math.floor(p.bt().player.maxHp * attrs.dhpPercent / 100 + attrs.level2AddHp), p);
                 var currentExp = GCfg.playerCfg.exp2Lv[player.lv];
                 await p.bt().implAddPlayerExp(Math.floor(currentExp * attrs.level3AddExpPercent / 100), p.pos);
                 await p.bt().implAddMoney(attrs.level4AddMoney, p);
@@ -357,7 +357,7 @@ class PlantFactory {
             var p = this.createPlant(attrs);
             p.canUse = () => true;
             p.use = async () => { 
-                await p.bt().implAddPlayerHp(Math.floor(p.bt().player.maxHp * (attrs.dhpPercent + attrs.level2AddDhpPercent) / 100), p);
+                await p.bt().implAddPlayerHp(Math.floor(p.bt().player.maxHp * attrs.dhpPercent / 100 + attrs.level2AddHp), p);
                 var currentExp = GCfg.playerCfg.exp2Lv[player.lv];
                 await p.bt().implAddPlayerExp(Math.floor(currentExp * attrs.level3AddExpPercent / 100), p.pos);
                 await p.bt().implAddMoney(attrs.level4AddMoney, p);

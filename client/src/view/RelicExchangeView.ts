@@ -97,26 +97,12 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
         this.setEmptyGrids();
     }
 
-    public async open(canDrag:boolean = true, funcOnClick = "showDesc", hideRelicLvMax = false, hideGoBackBtn = false) {
-        Utils.assert(!(canDrag && hideRelicLvMax), "cannot drag on hide some relics");
+    public async open(canDrag:boolean = true, funcOnClick = "showDesc", hideGoBackBtn = false) {
         this.canDrag = canDrag;
         this.funcOnClick = funcOnClick;
         this.page = 0;
-        if (hideRelicLvMax) {
-            this.rsEquipped = [];
-            this.player.relicsEquipped.forEach((relic, _) => {
-                if (relic.canReinfoce())
-                    this.rsEquipped.push(relic);
-            })
-            this.rsInBag = [];
-            this.player.relicsInBag.forEach((relic, _) => {
-                if (relic.canReinfoce())
-                    this.rsInBag.push(relic);
-            })            
-        } else {
-            this.rsEquipped = [...this.player.relicsEquipped];
-            this.rsInBag = [...this.player.relicsInBag];
-        }
+        this.rsEquipped = [...this.player.relicsEquipped];
+        this.rsInBag = [...this.player.relicsInBag];
         // 处理返回和前进按钮
         if (!this.canDrag){
             this.goOnBtn.alpha = 0;
@@ -489,11 +475,16 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
                 }
                 case "selectRelic": {
                     if (RelicExchangeView.dragFromImg["elem"] == "relicAndStar") {
-                        var r = RelicExchangeView.dragFromImg["relic"];
-                        var reinforceRelic = ElemFactory.create(r.type);
-                        var yesno = await this.relicConfirmView(this.player, reinforceRelic, undefined, false);
-                        if (yesno) 
-                            this.doClose(r);
+                        var r:Relic = RelicExchangeView.dragFromImg["relic"];
+                        if (r.canReinfoce()){
+                            var reinforceRelic = ElemFactory.create(r.type);
+                            var yesno = await this.relicConfirmView(this.player, reinforceRelic, undefined, false);
+                            if (yesno) 
+                                this.doClose(r);
+                        } else {
+                            await AniUtils.tipAt(ViewUtils.getTipText("tipOnCannotReinfoce"), {x:this.width/2, y:this.height/2});
+                        }
+                        break;
                     }
                 }
             }

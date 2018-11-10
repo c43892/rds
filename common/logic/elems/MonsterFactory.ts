@@ -445,8 +445,8 @@ class MonsterFactory {
             m["doCount"]++;
             m["attackInterval"] = m.attrs.selfExplode.cnt - m["doCount"] + 1; 
             await m.bt().fireEvent("onElemChanged", {subType:"attackInterval", e:m})
-            if(m["doCount"] > m.attrs.selfExplode.cnt){
-                await m.bt().implMonsterDoSelfExplode(m, {a:m.attrs.selfExplode.mult - 1, b:0, c:0}, false);}
+            if(m["doCount"] > m.attrs.selfExplode.cnt)
+                await m.bt().implMonsterDoSelfExplode(m, {a:m.attrs.selfExplode.mult - 1, b:0, c:0}, true);            
         }, m);
     }
 
