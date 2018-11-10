@@ -117,7 +117,7 @@ namespace astar{
 						this.buildPath(nearest);
 						return true;
 					} else 
-						return false; // console.log("AStar >> no path found");
+						return false; // egret.log("AStar >> no path found");
 				}
 				
 				let openLen = this._open.length;

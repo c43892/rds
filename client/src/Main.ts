@@ -53,7 +53,7 @@ class Main extends egret.DisplayObjectContainer {
         }
 
         this.runGame().catch(e => {
-            console.log(e);
+            egret.log(e);
         })
     }
 
