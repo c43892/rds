@@ -21,7 +21,11 @@ declare interface Platform {
 class DefaultPaltform implements Platform {
     public wc:WebClient;
     
+    iOSLoadLocalStorageDataCallback;
     async init() {
+        window["ExternalInterface"].addCallback("rdsLoadLocalStorageDataCallback", (str) => {
+            this.iOSLoadLocalStorageDataCallback(str);
+        });
     }
 
     setUserCloudStorage(data) {
@@ -45,22 +49,38 @@ class DefaultPaltform implements Platform {
     async getUserLocalStorage() {
         if (egret.Capabilities.os == "iOS") {
             return new Promise((r, _) => {
-                window["ExternalInterface"].addCallback("rdsLoadLocalStorageCallback", (str) => {
-                    var data = str ? JSON.parse(str) : {};
-                    r(data);
-                });
+                this.iOSLoadLocalStorageDataCallback = (str) => {
+                    try {
+                        var byteArray = new egret.ByteArray(egret.Base64Util.decode(str));
+                        str = byteArray.readUTF();
+                        var data = str ? JSON.parse(str) : {};
+                        r(data);
+                    } catch (ex) {
+                        r({});
+                    }
+                };
 
-                window["ExternalInterface"].call("rdsLoadLocalStorageFile");
+                window["ExternalInterface"].call("rdsLoadLocalStorageData");
             });
         } else {
             var str = egret.localStorage.getItem("localStorageData");
+            var byteArray = new egret.ByteArray(egret.Base64Util.decode(str));
+            str = byteArray.readUTF();
             await Utils.delay(1);
-            return str ? JSON.parse(str) : {};
+            try {
+                var data = str ? JSON.parse(str) : {};
+                return data;
+            } catch (ex) {
+                return {};
+            }
         }
     }
 
     setUserLocalStorage(data) {
         var str = JSON.stringify(data);
+        var byteArray = new egret.ByteArray();
+        byteArray.writeUTF(str);
+        str = egret.Base64Util.encode(byteArray.buffer);
         if (egret.Capabilities.os == "iOS") {
             window["ExternalInterface"].call("rdsSaveLocalStorageData", str);
         } else 
