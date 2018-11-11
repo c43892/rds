@@ -446,4 +446,16 @@ class ViewUtils {
 
         return [bg, icon, title, title, ...stars, ...descObjs];
     }
+
+    // 尝试移除一个子DisplayObject
+    public static try2RemoveChild(parent:egret.DisplayObjectContainer, child:egret.DisplayObject){
+        if (parent.getChildIndex(child) > -1)
+                parent.removeChildAt(parent.getChildIndex(child));
+    }
+
+    // 尝试添加一个子DisplayObject
+    public static tyr2AddChild(parent:egret.DisplayObjectContainer, child:egret.DisplayObject){
+        if (parent.getChildIndex(child) == -1)
+                parent.addChild(child);
+    }
 }

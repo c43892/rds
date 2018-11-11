@@ -289,14 +289,14 @@
 		
 		"LuxuryChestView":{
 			"layout": {
-				"bg1":{"x":111, "y":250, "w":418, "h":300},
-				"relicImg1":{"x":278, "y":200},
-				"relicImg2":{"x":150, "y":300},
-				"relicImg3":{"x":406, "y":300},
+				"bg1":{"x":63, "y":120},
+				"shineImg":{},
+				"relicImg1":{"x":320, "y":290, "w":100, "h":100},
+				"relicImg2":{"x":212, "y":430, "w":100, "h":100},
+				"relicImg3":{"x":428, "y":430, "w":100, "h":100},
 				"goBackBtn":{"x":10, "y":960},
-				"relicDescArea":{"x":111, "y":450},
-				"relicName":{"x":111, "y":20},
-				"goOnBtn":{"x":306, "y":510}
+				"goOnBtn":{"x":417, "y":960},
+				"elemDesc":{"x":0, "y":590}
 			}
 		}
     },
