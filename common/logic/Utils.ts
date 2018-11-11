@@ -299,6 +299,8 @@ class Utils {
         return r;
     }
 
+    static iosLocalStorageData = {};
+
     // 测试期间用，本地存储部分数据
     public static $$saveItem(key:string, value:string) {
         egret.localStorage.setItem(key, value);

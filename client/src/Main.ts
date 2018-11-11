@@ -193,7 +193,7 @@ class Main extends egret.DisplayObjectContainer {
     private async runGame() {
         egret.Logger.logLevel = egret.Logger.ALL;
 
-        window.platform.init();
+        await window.platform.init();
         Utils.log("platform: " + window.platform.platformType + " initialized");
 
         this.calcArea(); // 计算屏幕适配
@@ -211,8 +211,8 @@ class Main extends egret.DisplayObjectContainer {
         Utils.log(DEBUG ? "DEBUG version" : "RELEASE version");
         
         // 排行榜服务器通信用
-        if (platform instanceof DebugPlatform)
-            (<DebugPlatform>platform).wc = new WebClient("http://127.0.0.1:81");
+        if (platform instanceof DefaultPaltform)
+            (<DefaultPaltform>platform).wc = new WebClient("http://127.0.0.1:81");
 
         // 载入用户数据
         var savedData = Utils.loadPlayer();

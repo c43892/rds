@@ -17,10 +17,12 @@ declare interface Platform {
     openDataContext;
 }
 
-class DebugPlatform implements Platform {
+class DefaultPaltform implements Platform {
     public wc:WebClient;
     
-    init() {}
+    async init() {
+        await this.initLocalStorage();
+    }
 
     async login() {
         var uid = Utils.$$loadItem("UserID");
@@ -58,17 +60,42 @@ class DebugPlatform implements Platform {
         });
     }
 
+    async initLocalStorage() {
+        if (egret.Capabilities.os == "iOS") {
+            return new Promise((r, _) => {
+                window["ExternalInterface"].addCallback("rdsLoadLocalStorageCallback", (str) => {
+                    var data = str ? JSON.parse(str) : {};
+                    r(data);
+                });
+
+                window["ExternalInterface"].call("rdsLoadLocalStorageFile");
+            });
+        } else {
+            var str = egret.localStorage.getItem("localStorageData");
+            await Utils.delay(1);
+            return str ? JSON.parse(str) : {};
+        }
+    }
+
+    setLocalStorage(data) {
+        var str = JSON.stringify(data);
+        if (egret.Capabilities.os == "iOS") {
+            window["ExternalInterface"].call("rdsSaveLocalStorageData", str);
+        } else 
+            egret.localStorage.setItem("localStorageData", str);
+    }
+
     canShare(): boolean { return false; }
     shareGame() {}
 
-    platformType = "debug";
+    platformType = egret.Capabilities.os;
     openDataContext = {
         createDisplayObject: () => {}
     }
 }
 
 if (!window.platform) {
-    window.platform = new DebugPlatform();
+    window.platform = new DefaultPaltform();
 }
 
 declare let platform: Platform;
