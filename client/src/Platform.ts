@@ -45,22 +45,37 @@ class DefaultPaltform implements Platform {
     async getUserLocalStorage() {
         if (egret.Capabilities.os == "iOS") {
             return new Promise((r, _) => {
-                window["ExternalInterface"].addCallback("rdsLoadLocalStorageCallback", (str) => {
-                    var data = str ? JSON.parse(str) : {};
-                    r(data);
-                });
+                if (!window["ExternalInterfaceInited"]) {
+                    window["ExternalInterfaceInited"] = true;
+                    window["ExternalInterface"].addCallback("rdsLoadLocalStorageCallback", (str) => {
+                        var byteArray = new egret.ByteArray(egret.Base64Util.decode(str));
+                        str = byteArray.readUTF();
+                        var data = str ? JSON.parse(str) : {};
+                        r(data);
+                    });
+                }
 
                 window["ExternalInterface"].call("rdsLoadLocalStorageFile");
             });
         } else {
             var str = egret.localStorage.getItem("localStorageData");
+            var byteArray = new egret.ByteArray(egret.Base64Util.decode(str));
+            str = byteArray.readUTF();
             await Utils.delay(1);
-            return str ? JSON.parse(str) : {};
+            try {
+            var data = str ? JSON.parse(str) : {};
+                return data;
+            } catch (ex) {
+                return {};
+            }
         }
     }
 
     setUserLocalStorage(data) {
         var str = JSON.stringify(data);
+        var byteArray = new egret.ByteArray();
+        byteArray.writeUTF(str);
+        str = egret.Base64Util.encode(byteArray.buffer);
         if (egret.Capabilities.os == "iOS") {
             window["ExternalInterface"].call("rdsSaveLocalStorageData", str);
         } else 
