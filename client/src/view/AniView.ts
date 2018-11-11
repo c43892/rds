@@ -983,7 +983,7 @@ class AniView extends egret.DisplayObjectContainer {
 
             // 这个效果不等待
             if (aniArr.length > 0)
-                this.aniFact.createAniByCfg({type:"gp", arr:aniArr, noWait:true});
+                await aniArr[0];
 
             // 刀光
             var e = ps.targets[0];
