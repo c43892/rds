@@ -7,8 +7,9 @@
 declare interface Platform {
 
     init();
-    login(): Promise<any>;
     setUserCloudStorage(data);
+    getUserLocalStorage();    
+    setUserLocalStorage(data);
 
     canShare(): boolean;
     shareGame();
@@ -21,46 +22,27 @@ class DefaultPaltform implements Platform {
     public wc:WebClient;
     
     async init() {
-        await this.initLocalStorage();
-    }
-
-    async login() {
-        var uid = Utils.$$loadItem("UserID");
-        var r = await this.wc.request({
-            type: "GetRank",
-            uid: uid ? uid : ""
-        });
-
-        if (r.ok) {
-            uid = r.usr.uid;
-            var nickName = r.usr.nickName;
-            Utils.$$saveItem("UserID", uid);
-            Utils.$$saveItem("UserNickName", nickName);
-            return {ok:true, usr:r.usr, rank:r.rank.usrs};
-        }
-        else
-            return {ok:false};
     }
 
     setUserCloudStorage(data) {
-        var uid = Utils.$$loadItem("UserID");
-        var score = data.score;
-        var nickName = data.nickName;
-        this.wc.request({
-            type: "SetUserInfo",
-            uid: uid ? uid : "",
-            nickName: nickName ? nickName : "",
-            score: score ? score : 0
-        }).then((r) => {
-            if (!r.ok) return;
-            uid = r.usr.uid;
-            var nickName = r.usr.nickName;
-            Utils.$$saveItem("UserID", uid);
-            Utils.$$saveItem("UserNickName", nickName);
-        });
+        // var uid = Utils.loadLocalItem("UserID");
+        // var score = data.score;
+        // var nickName = data.nickName;
+        // this.wc.request({
+        //     type: "SetUserInfo",
+        //     uid: uid ? uid : "",
+        //     nickName: nickName ? nickName : "",
+        //     score: score ? score : 0
+        // }).then((r) => {
+        //     if (!r.ok) return;
+        //     uid = r.usr.uid;
+        //     var nickName = r.usr.nickName;
+        //     Utils.saveLocalItem("UserID", uid);
+        //     Utils.saveLocalItem("UserNickName", nickName);
+        // });
     }
 
-    async initLocalStorage() {
+    async getUserLocalStorage() {
         if (egret.Capabilities.os == "iOS") {
             return new Promise((r, _) => {
                 window["ExternalInterface"].addCallback("rdsLoadLocalStorageCallback", (str) => {
@@ -77,7 +59,7 @@ class DefaultPaltform implements Platform {
         }
     }
 
-    setLocalStorage(data) {
+    setUserLocalStorage(data) {
         var str = JSON.stringify(data);
         if (egret.Capabilities.os == "iOS") {
             window["ExternalInterface"].call("rdsSaveLocalStorageData", str);

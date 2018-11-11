@@ -389,20 +389,6 @@ class MainView extends egret.DisplayObjectContainer {
         AudioFactory.playBg("bgs");
     }
 
-    // 登录
-    public async doLoginAndGetRank() {
-        var retry = true;
-        while (retry) {
-            var r = await platform.login();
-            if (!r.ok)
-                retry = await this.confirmOkYesNo(undefined, "连接服务器失败", true, {yes:"retry", no:"cancel"});
-            else
-                return r;
-        }
-
-        return undefined;
-    }
-
     // 开启初始登录界面
     public async openStartup(p:Player) {
         this.clear();

@@ -193,7 +193,7 @@ class Main extends egret.DisplayObjectContainer {
     private async runGame() {
         egret.Logger.logLevel = egret.Logger.ALL;
 
-        await window.platform.init();
+        Utils.initPlatform();
         Utils.log("platform: " + window.platform.platformType + " initialized");
 
         this.calcArea(); // 计算屏幕适配
