@@ -21,7 +21,11 @@ declare interface Platform {
 class DefaultPaltform implements Platform {
     public wc:WebClient;
     
+    iOSLoadLocalStorageDataCallback;
     async init() {
+        window["ExternalInterface"].addCallback("rdsLoadLocalStorageDataCallback", (str) => {
+            this.iOSLoadLocalStorageDataCallback(str);
+        });
     }
 
     setUserCloudStorage(data) {
@@ -45,17 +49,18 @@ class DefaultPaltform implements Platform {
     async getUserLocalStorage() {
         if (egret.Capabilities.os == "iOS") {
             return new Promise((r, _) => {
-                if (!window["ExternalInterfaceInited"]) {
-                    window["ExternalInterfaceInited"] = true;
-                    window["ExternalInterface"].addCallback("rdsLoadLocalStorageCallback", (str) => {
+                this.iOSLoadLocalStorageDataCallback = (str) => {
+                    try {
                         var byteArray = new egret.ByteArray(egret.Base64Util.decode(str));
                         str = byteArray.readUTF();
                         var data = str ? JSON.parse(str) : {};
                         r(data);
-                    });
-                }
+                    } catch (ex) {
+                        r({});
+                    }
+                };
 
-                window["ExternalInterface"].call("rdsLoadLocalStorageFile");
+                window["ExternalInterface"].call("rdsLoadLocalStorageData");
             });
         } else {
             var str = egret.localStorage.getItem("localStorageData");
@@ -63,7 +68,7 @@ class DefaultPaltform implements Platform {
             str = byteArray.readUTF();
             await Utils.delay(1);
             try {
-            var data = str ? JSON.parse(str) : {};
+                var data = str ? JSON.parse(str) : {};
                 return data;
             } catch (ex) {
                 return {};
