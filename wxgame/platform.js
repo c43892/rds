@@ -44,13 +44,13 @@ class WxgamePlatform {
         });
 	}
 	
-    login() {
-		return new Promise((resolve, reject) => {
-			this.wxLogin().then((r) => {
-				resolve(r);
-			});
-		});
-    }
+    // login() {
+		// return new Promise((resolve, reject) => {
+			// this.wxLogin().then((r) => {
+				// resolve(r);
+			// });
+		// });
+    // }
 	
 	setUserCloudStorage(data) {
 		data.type = "setUserData";
@@ -82,6 +82,18 @@ class WxgamePlatform {
 			imageUrl: 'https://rds.wudouwxg.xyz/shareIcon.png', // 分享图标
 		});
 	}
+	
+	getUserLocalStorage() {
+		return new Promise((r, _) => {
+			var str = window.localStorage.getItem("localStorageData");
+			r(str ? JSON.parse(str) : {});
+		});
+    }
+
+    setUserLocalStorage(data) {
+		var str = JSON.stringify(data);
+		window.localStorage.setItem("localStorageData", str);
+    }
 	
 	platformType = "wx";
 

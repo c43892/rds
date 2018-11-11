@@ -28,13 +28,13 @@ class BattleRecorder {
 
     // 读取当前录像列表
     public static getReplayList() {
-        var replayList = JSON.parse(Utils.$$loadItem("replayList"));
+        var replayList = Utils.loadLocalItem("replayList");
         return replayList;
     }
 
     // 从 json 载入录像
     public static loadReplay(btid:string):Replay {
-        var str = Utils.$$loadItem(btid);
+        var str = Utils.loadLocalItem(btid);
         BattleRecorder.replay = Replay.fromString(str);
         return BattleRecorder.replay;
     }
@@ -109,18 +109,18 @@ class BattleRecorder {
         var bt = BattleRecorder.getRecord();
 
         var btid = "replay_" + bt.btid;
-        if (Utils.$$loadItem(btid) == undefined) {
-            var replayList = JSON.parse(Utils.$$loadItem("replayList"));
+        if (Utils.loadLocalItem(btid) == undefined) {
+            var replayList = Utils.loadLocalItem("replayList");
             if (!replayList)
                 replayList = [];
             else if (replayList.length > 10)
                 replayList.shift();
 
             replayList.push({id:btid, time:(new Date()).toLocaleString()});
-            Utils.$$saveItem("replayList", JSON.stringify(replayList));
+            Utils.saveLocalItem("replayList", replayList);
         }
 
         var r = bt.toString();
-        Utils.$$saveItem(btid, r);
+        Utils.saveLocalItem(btid, r);
     }
 }

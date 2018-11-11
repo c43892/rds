@@ -299,37 +299,44 @@ class Utils {
         return r;
     }
 
-    // 测试期间用，本地存储部分数据
-    public static $$saveItem(key:string, value:string) {
-        egret.localStorage.setItem(key, value);
+    public static async initPlatform() {
+        window.platform.init();
+        Utils.localStorageData = await window.platform.getUserLocalStorage();
+        if (!Utils.localStorageData)
+            Utils.localStorageData = {};
     }
 
-    // 测试期间用，本地存储数据清除
-    public static $$removeItem(key:string) {
-        egret.localStorage.removeItem(key);
+    static localStorageData = {};
+
+    // 本地存储部分数据
+    public static saveLocalItem(key:string, value) {
+        Utils.localStorageData[key] = value;
+        window.platform.setUserLocalStorage(Utils.localStorageData);
     }
 
-    // 测试期间用，从本地存储读取数据
-    public static $$loadItem(key:string):string {
-        return egret.localStorage.getItem(key);
+    // 从本地存储读取数据
+    public static loadLocalItem(key:string) {
+        return Utils.localStorageData[key];
     }
 
     // 保存角色数据
     public static savePlayer(p:Player) {
         if (p) {
-            Utils.$$saveItem("Version", Version.currentVersion.toString());
-            Utils.$$saveItem("Player", p.toString());
+            Utils.localStorageData["Version"] = Version.currentVersion;
+            Utils.localStorageData["Player"] = p.toString();
         } else {
-            Utils.$$removeItem("Player");
-            Utils.$$removeItem("Version");
+            delete Utils.localStorageData["Version"];
+            delete Utils.localStorageData["Player"];
         }
+
+        window.platform.setUserLocalStorage(Utils.localStorageData);
     }
 
     // 载入角色数据
     public static loadPlayer() {
-        var oldVer = +Utils.$$loadItem("Version");
+        var oldVer = Utils.loadLocalItem("Version");
         if (Version.isCompatible(oldVer)) {
-            var playerSaveString = Utils.$$loadItem("Player");
+            var playerSaveString = Utils.loadLocalItem("Player");
             return {ver:oldVer, player:Player.fromString(playerSaveString)};
         }
         else
@@ -338,21 +345,20 @@ class Utils {
 
     // 载入指定数据
     public static loadLocalData(key:string) {
-        var data = Utils.$$loadItem(key);
+        var data = Utils.loadLocalItem(key);
         return data ? JSON.parse(data) : undefined;
     }
 
     // 保存指定数据
     public static saveLocalData(key:string, data) {
         if (data != undefined)
-            Utils.$$saveItem(key, JSON.stringify(data));
+            Utils.saveLocalItem(key, JSON.stringify(data));
     }
 
     // 删除指定数据
     public static removeLocalData(key:string) {
-        var data = Utils.$$loadItem(key);
-        if (data)
-            Utils.$$removeItem(key);
+        delete Utils.localStorageData[key];
+        window.platform.setUserLocalStorage(Utils.localStorageData);
     }
 
     // 根据指定权重，随机选取若干目标，集合格式为 {type:weight, type:weight, ...}
