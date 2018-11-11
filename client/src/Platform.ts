@@ -23,7 +23,7 @@ class DefaultPaltform implements Platform {
     
     iOSLoadLocalStorageDataCallback;
     async init() {
-        if (this.platformType == "iOS") {
+        if (egret.Capabilities.os == "iOS") {
             window["ExternalInterface"].addCallback("rdsLoadLocalStorageDataCallback", (str) => {
                 this.iOSLoadLocalStorageDataCallback(str);
             });
@@ -49,7 +49,7 @@ class DefaultPaltform implements Platform {
     }
 
     async getUserLocalStorage() {
-        if (this.platformType == "iOS") {
+        if (egret.Capabilities.os == "iOS") {
             return new Promise((r, _) => {
                 this.iOSLoadLocalStorageDataCallback = (str) => {
                     try {
