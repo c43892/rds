@@ -61,7 +61,7 @@ class ItemFactory {
                 var key = e.bt().level.map.findFirstElem((elem:Elem) => elem.type == "Key" && !elem.getGrid().isCovered() && elem.isValid());
                 Utils.assert(!!key, "no key for door");
                 await e.bt().impl2UseElemAt(key, e.pos.x, e.pos.y);
-                return {reserve: true, consumeDeathStep: false};
+                return {reserve: true, asPlayerActed: false};
             };
             e["useWithKey"] = async (key) => {
                 e.cnt--;
@@ -81,7 +81,7 @@ class ItemFactory {
                 var key = e.bt().level.map.findFirstElem((elem:Elem) => elem.type == "Key" && !elem.getGrid().isCovered() && elem.isValid());
                 Utils.assert(!!key, "no key for door");
                 await e.bt().impl2UseElemAt(key, e.pos.x, e.pos.y);
-                return {reserve: true, consumeDeathStep: false};
+                return {reserve: true, asPlayerActed: false};
             };
             e["useWithKey"] = async (key) => {
                 await e.bt().implOnElemDie(e);
@@ -334,7 +334,7 @@ class ItemFactory {
             e.use = async () => {
                 await e.bt().implGo2NextLevel(); // 离开当前战斗
                 e.bt().finished = !e.bt().player.isDead(); // 最后一次死掉的机会
-                return {reserve: true, consumeDeathStep: false};
+                return {reserve: true, asPlayerActed: false};
             };
             return e;
         },
