@@ -136,9 +136,10 @@ func setUserScore(usrInfo *UserInfo) {
 		if usr != nil && usr.Uid == usrInfo.Uid {
 			if usr.Score < usrInfo.Score { // new high score
 				usr.Score = usrInfo.Score;
+				dbc.HSet(usrInfo.Uid, "score", usr.Score);
+				sortRank();
 			}
 
-			sortRank();
 			return;
 		}
 	}
@@ -190,13 +191,15 @@ func onSetUserInfo(msg *RequestMsg) (*UserInfo) {
 		// set user score and rebuild the rank
 		score, _ := strconv.Atoi(msg.Value);
 		usrInfo.Score = score
-		setUserScore(usrInfo);
+		setUserScore(usrInfo);		
+	} else if (msg.Key[:3] == "st.") {
+		// statistics
+		dbc.HSet(msg.Uid, msg.Key, msg.Value);
 	} else {
 		usrInfo.Info[msg.Key] = msg.Value;
+		info, _ := json.Marshal(usrInfo.Info);
+		dbc.HSet(msg.Uid, "info", string(info));
 	}
-		
-	data, _ := json.Marshal(usrInfo);
-	dbc.Set("uid_" + msg.Uid, data, 0);
 
 	// get rank info
 	return usrInfo;
@@ -205,14 +208,19 @@ func onSetUserInfo(msg *RequestMsg) (*UserInfo) {
 // load or create user
 func loadOrCreateUser(uid string) *UserInfo {
 	var usrInfo *UserInfo;
-	r, err := dbc.Get("uid_" + uid).Result();
-	if (err != nil || r == "") {
+	r, err := dbc.HGetAll(uid).Result();
+	if (err != nil || r["info"] == "") {
 		usrInfo = createUser(uid);
-		data, _ := json.Marshal(usrInfo);
-		dbc.Set("uid_" + usrInfo.Uid, string(data), 0);
+		dbc.HSet(uid, "score", usrInfo.Score);
+		info, _ := json.Marshal(usrInfo.Info);
+		dbc.HSet(uid, "info", string(info));
 	} else {
 		usrInfo = &UserInfo{};
-		json.Unmarshal([]byte(r), usrInfo);
+		usrInfo.Uid = uid;
+		score, _ := strconv.Atoi(r["score"]);
+		usrInfo.Score = score;
+		usrInfo.Info = map[string]string{};
+		json.Unmarshal([]byte(r["info"]), &usrInfo.Info);
 	}
 
 	return usrInfo;
@@ -223,7 +231,7 @@ func createUser(uid string) *UserInfo {
 	usrInfo := &UserInfo{};
 
 	usrInfo.Uid = uid;
-	usrInfo.Info = make(map[string]string);
+	usrInfo.Info = map[string]string{};
 	usrInfo.Score = 0;
 
 	return usrInfo;

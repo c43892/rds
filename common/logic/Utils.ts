@@ -342,7 +342,7 @@ class Utils {
         window.platform.setUserLocalStorage(Utils.localStorageData);
 
         // 送到云端存一下
-        Utils.saveCloudData("player", JSON.stringify(Utils.localStorageData));
+        Utils.saveCloudData("player", p ? JSON.stringify(Utils.localStorageData["Player"]) : "{}");
     }
 
     // 载入角色数据

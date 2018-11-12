@@ -593,17 +593,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
             break;
         }
 
-        // 保存进度
-        this.player.notifyStoreyPosFinished(this.player.currentStoreyPos.lv, this.player.currentStoreyPos.n);
-
-        // 如果是新手玩家,要标记为已完成新手指引关
-        if(Utils.checkRookiePlay() && trueLv >= 5) {
-            Utils.saveLocalData("rookiePlay", "finished");
-            Utils.pt("rookiePlay finished", true);
-        }
-
-        Utils.savePlayer(this.player);
-
         // 检查死亡
         if (this.player.isDead()) {
             var diePs = {reborn:false};
@@ -618,8 +607,20 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 await this.player.fireEvent("onPlayerDead");
             }
         }
+
+        Utils.savePlayer(this.player);
         
+        // 可能又被复活了
         if (!this.player.isDead()) {
+            // 保存进度
+            this.player.notifyStoreyPosFinished(this.player.currentStoreyPos.lv, this.player.currentStoreyPos.n);
+
+            // 如果是新手玩家,要标记为已完成新手指引关
+            if(Utils.checkRookiePlay() && trueLv >= 5) {
+                Utils.saveLocalData("rookiePlay", "finished");
+                Utils.pt("rookiePlayFinished", true);
+            }
+
             // 更新最高分
             Utils.saveCloudData("score", trueLv);
             Utils.pt("score", trueLv);
