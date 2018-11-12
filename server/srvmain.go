@@ -36,8 +36,8 @@ func initDB() {
 
 type UserInfo struct {
 	Uid string `json:"uid"`
-	NickName string `json:"nickName"`
-	Score int `json:"score"`
+	Score int `json:"store"`
+	Info map[string]string `json:"info"`
 }
 
 type RankInfo struct {
@@ -85,15 +85,15 @@ func main() {
 
 type HttpResp struct {
 	Ok bool `json:"ok"`
-	Usr UserInfo `json:"usr"`
+	Usr UserInfo `json:"usr"` 
 	Rank RankInfo `json:"rank"`
 }
 
 type RequestMsg struct {
 	Type string `json:"type"`
 	Uid string `json:"uid"`
-	NickName string `json:"nickName"`
-	Score int `json:"score"`
+	Key string `json:"key"`
+	Value string `json:"value"`
 }
 
 // process the client http request
@@ -113,8 +113,7 @@ func handleMsgfunc(w http.ResponseWriter, r *http.Request) {
 		res.Ok = true;
 		res.Usr = *usr;
 		res.Rank = *rankInfo;
-
-	} else if (msg.Type == "SetUserInfo") {
+	} else if (msg.Type == "setUserCloudData") {
 		usr := onSetUserInfo(msg);
 		res = &HttpResp{};
 		res.Ok = true;
@@ -188,16 +187,17 @@ func onGetRank(msg *RequestMsg) (*UserInfo) {
 func onSetUserInfo(msg *RequestMsg) (*UserInfo) {
 	// get user info
 	usrInfo := loadOrCreateUser(msg.Uid);
-
-	if (msg.NickName != "") {
-		usrInfo.NickName = msg.NickName;
-	}
-
-	// set user score and rebuild the rank
-	if (msg.Score > usrInfo.Score) {
-		usrInfo.Score = msg.Score;
+	if (msg.Key == "score") {
+		// set user score and rebuild the rank
+		score, _ := strconv.Atoi(msg.Value);
+		usrInfo.Score = score
 		setUserScore(usrInfo);
+	} else {
+		usrInfo.Info[msg.Key] = msg.Value;
 	}
+		
+	data, _ := json.Marshal(usrInfo);
+	dbc.Set("uid_" + msg.Uid, data, 0);
 
 	// get rank info
 	return usrInfo;
@@ -224,7 +224,7 @@ func createUser() *UserInfo {
 	usrInfo := &UserInfo{};
 
 	usrInfo.Uid = strconv.Itoa(rand.Int() % 10000);
-	usrInfo.NickName = "name of " + usrInfo.Uid;
+	usrInfo.Info = make(map[string]string);
 	usrInfo.Score = 0;
 
 	return usrInfo;

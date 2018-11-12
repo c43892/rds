@@ -193,7 +193,7 @@ class Main extends egret.DisplayObjectContainer {
     private async runGame() {
         egret.Logger.logLevel = egret.Logger.ALL;
 
-        Utils.initPlatform();
+        await Utils.initPlatform();
 
         Utils.log("platform: " + window.platform.platformType + " initialized");
         Utils.pt("Progress", "platform " + window.platform.platformType + " inited");

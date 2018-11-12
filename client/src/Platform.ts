@@ -36,10 +36,10 @@ class DefaultPaltform implements Platform {
     }
 
     get UserID():string {
-        var now = new Date();
-        var r = new SRandom(now.getMilliseconds());
         var uid = Utils.loadLocalItem("UserID");
         if (!uid) {
+            var now = new Date();
+            var r = new SRandom(now.getMilliseconds());
             uid = now.toUTCString() + ":" + r.nextInt(100000, 1000000);
             Utils.saveLocalItem("UserID", uid);
         }
