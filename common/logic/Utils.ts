@@ -326,7 +326,7 @@ class Utils {
 
     // 打点统计
     public static pt(key:string, value) {
-        window.platform.setUserCloudStorage((new Date()).toUTCString() + ":" + "st." + key, JSON.stringify(value));
+        window.platform.setUserCloudStorage("st." + key, JSON.stringify(value));
     }
 
     // 保存角色数据

@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"strconv"
 	"net/http"
-	"math/rand"
 	"github.com/go-redis/redis"
 	"sort"
 	"time"
@@ -208,7 +207,7 @@ func loadOrCreateUser(uid string) *UserInfo {
 	var usrInfo *UserInfo;
 	r, err := dbc.Get("uid_" + uid).Result();
 	if (err != nil || r == "") {
-		usrInfo = createUser();
+		usrInfo = createUser(uid);
 		data, _ := json.Marshal(usrInfo);
 		dbc.Set("uid_" + usrInfo.Uid, string(data), 0);
 	} else {
@@ -220,10 +219,10 @@ func loadOrCreateUser(uid string) *UserInfo {
 }
 
 // create new user
-func createUser() *UserInfo {
+func createUser(uid string) *UserInfo {
 	usrInfo := &UserInfo{};
 
-	usrInfo.Uid = strconv.Itoa(rand.Int() % 10000);
+	usrInfo.Uid = uid;
 	usrInfo.Info = make(map[string]string);
 	usrInfo.Score = 0;
 
