@@ -58,6 +58,7 @@ class LoginView extends egret.DisplayObjectContainer {
 
         this.btnContinue.onClicked = () => this.close("continuePlay");
         this.btnNewPlay.onClicked = () => {
+            Utils.pt("Progress", "new game");
             if (!!this.player) {
                 this.confirmOkYesNo(ViewUtils.getTipText("newPlayConfirmTitle"), 
                     ViewUtils.getTipText("newPlayConfirmContent"), true).then((ok) => {

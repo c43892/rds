@@ -7,7 +7,7 @@
 declare interface Platform {
 
     init();
-    setUserCloudStorage(data);
+    setUserCloudStorage(key, value);
     getUserLocalStorage();    
     setUserLocalStorage(data);
 
@@ -19,7 +19,7 @@ declare interface Platform {
 }
 
 class DefaultPaltform implements Platform {
-    public wc:WebClient;
+    wc:WebClient;
     
     iOSLoadLocalStorageDataCallback;
     async init() {
@@ -28,24 +28,33 @@ class DefaultPaltform implements Platform {
                 this.iOSLoadLocalStorageDataCallback(str);
             });
         }
+
+        if (egret.Capabilities.os == "Windows PC") // 开发环境
+            this.wc = new WebClient("http://127.0.0.1:81");
+        else
+            this.wc = new WebClient(ResMgr.URLPrefix + ":81");
     }
 
-    setUserCloudStorage(data) {
-        // var uid = Utils.loadLocalItem("UserID");
-        // var score = data.score;
-        // var nickName = data.nickName;
-        // this.wc.request({
-        //     type: "SetUserInfo",
-        //     uid: uid ? uid : "",
-        //     nickName: nickName ? nickName : "",
-        //     score: score ? score : 0
-        // }).then((r) => {
-        //     if (!r.ok) return;
-        //     uid = r.usr.uid;
-        //     var nickName = r.usr.nickName;
-        //     Utils.saveLocalItem("UserID", uid);
-        //     Utils.saveLocalItem("UserNickName", nickName);
-        // });
+    get UserID():string {
+        var now = new Date();
+        var r = new SRandom(now.getMilliseconds());
+        var uid = undefined; /// Utils.loadLocalItem("UserID");
+        if (!uid) {
+            uid = now.toUTCString() + ":" + r.nextInt(100000, 1000000);
+            Utils.saveLocalItem("UserID", uid);
+        }
+
+        return uid;
+    }
+
+    setUserCloudStorage(key:string, value) {
+        var uid = this.UserID;
+        this.wc.request({
+            type: "setUserCloudData",
+            uid: uid,
+            key: key,
+            value: value
+        });
     }
 
     async getUserLocalStorage() {
@@ -106,8 +115,3 @@ declare let platform: Platform;
 declare interface Window {
     platform: Platform
 }
-
-
-
-
-

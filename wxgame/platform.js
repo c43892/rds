@@ -52,8 +52,12 @@ class WxgamePlatform {
 		// });
     // }
 	
-	setUserCloudStorage(data) {
-		data.type = "setUserData";
+	setUserCloudStorage(key, value) {
+		if (key != "score")
+			return;
+	
+		var data = {type:"setUserData"};
+		data[key] = value;
 		this.openDataContext.postMessage(data);
     }
 	

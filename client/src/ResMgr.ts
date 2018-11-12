@@ -26,7 +26,8 @@ class ResMgr {
 
     // for weixin game
 
-    static URLPrefix = "https://rds.wudouwxg.xyz/ver031/resource/";
+    public static URLPrefix = "https://rds.wudouwxg.xyz";
+    static ResURLPrefix = ResMgr.URLPrefix + "/ver031/resource/";
     static resMap = {};
     
     static getResWX(name:string):any {
@@ -94,7 +95,7 @@ class ResMgr {
                 let it = item;
                 // RES.getResAsync(it.name, (res) => {
                 //     if (!res) {
-                        RES.getResByUrl(ResMgr.URLPrefix + it.url + "?ver=" + Version.currentVersion.toString(), (res) => {
+                        RES.getResByUrl(ResMgr.ResURLPrefix + it.url + "?ver=" + Version.currentVersion.toString(), (res) => {
                             if (!res) {
                                 failed.push(res);
                                 cb(it.url, it.name, res);

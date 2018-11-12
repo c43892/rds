@@ -329,7 +329,6 @@ wx.onMessage(data => {
 
 				if (!oldScore || oldScore < data.score) {
 					var newScore = data.score;
-					var day = 
 					wx.setUserCloudStorage({
 						KVDataList: [{key:"score", value:newScore.toString()}, {key:"scoreDay", value:newScoreDay.toString()}],
 						success: () => {

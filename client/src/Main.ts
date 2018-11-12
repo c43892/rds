@@ -194,7 +194,9 @@ class Main extends egret.DisplayObjectContainer {
         egret.Logger.logLevel = egret.Logger.ALL;
 
         Utils.initPlatform();
+
         Utils.log("platform: " + window.platform.platformType + " initialized");
+        Utils.pt("Progress", "platform " + window.platform.platformType + " inited");
 
         this.calcArea(); // 计算屏幕适配
 
@@ -204,15 +206,12 @@ class Main extends egret.DisplayObjectContainer {
         this.ldv = new LoadingUI();
         await this.loadResGroups("preload"); // 加载初始资源
         Utils.log("preload finished");
+        Utils.pt("Progress", "preload finished");
         this.globalInit(); // 初始化全局配置
         Utils.log("global initialize finished");
         this.mv = this.createMainView(); // 创建主场景
 
         Utils.log(DEBUG ? "DEBUG version" : "RELEASE version");
-        
-        // 排行榜服务器通信用
-        if (platform instanceof DefaultPaltform)
-            (<DefaultPaltform>platform).wc = new WebClient("http://127.0.0.1:81");
 
         // 载入用户数据
         var savedData = Utils.loadPlayer();

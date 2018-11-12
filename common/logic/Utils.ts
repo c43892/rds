@@ -319,6 +319,16 @@ class Utils {
         return Utils.localStorageData[key];
     }
 
+    // 云端存储部分数据
+    public static saveCloudData(key:string, data) {
+        window.platform.setUserCloudStorage(key, JSON.stringify(data));
+    }
+
+    // 打点统计
+    public static pt(key:string, value) {
+        Utils.saveCloudData("stpt." + key, value);
+    }
+
     // 保存角色数据
     public static savePlayer(p:Player) {
         if (p) {

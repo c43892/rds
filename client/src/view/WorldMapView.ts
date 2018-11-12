@@ -597,8 +597,10 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.player.notifyStoreyPosFinished(this.player.currentStoreyPos.lv, this.player.currentStoreyPos.n);
 
         // 如果是新手玩家,要标记为已完成新手指引关
-        if(Utils.checkRookiePlay() && trueLv >= 5)
+        if(Utils.checkRookiePlay() && trueLv >= 5) {
             Utils.saveLocalData("rookiePlay", "finished");
+            Utils.pt("rookiePlay finished", true);
+        }
 
         Utils.savePlayer(this.player);
 
@@ -619,7 +621,8 @@ class WorldMapView extends egret.DisplayObjectContainer {
         
         if (!this.player.isDead()) {
             // 更新最高分
-            window.platform.setUserCloudStorage({"score": trueLv});
+            Utils.saveCloudData("score", trueLv);
+            Utils.pt("score", trueLv);
             
             // 判断此世界是否已经完成
             if(this.player.currentStoreyPos.lv >= this.player.worldmap.cfg.totalLevels){
