@@ -75,8 +75,10 @@ class DefaultPaltform implements Platform {
             });
         } else {
             var str = egret.localStorage.getItem("localStorageData");
-            var byteArray = new egret.ByteArray(egret.Base64Util.decode(str));
-            str = byteArray.readUTF();
+            if (str) {
+                var byteArray = new egret.ByteArray(egret.Base64Util.decode(str));
+                str = byteArray.readUTF();
+            }
             await Utils.delay(1);
             try {
                 var data = str ? JSON.parse(str) : {};
