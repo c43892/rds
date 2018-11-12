@@ -326,7 +326,7 @@ class Utils {
 
     // 打点统计
     public static pt(key:string, value) {
-        Utils.saveCloudData("stpt." + key, value);
+        
     }
 
     // 保存角色数据
@@ -340,6 +340,9 @@ class Utils {
         }
 
         window.platform.setUserLocalStorage(Utils.localStorageData);
+
+        // 送到云端存一下
+        Utils.saveCloudData("player", JSON.stringify(Utils.localStorageData));
     }
 
     // 载入角色数据

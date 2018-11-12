@@ -38,7 +38,7 @@ class DefaultPaltform implements Platform {
     get UserID():string {
         var now = new Date();
         var r = new SRandom(now.getMilliseconds());
-        var uid = undefined; /// Utils.loadLocalItem("UserID");
+        var uid = Utils.loadLocalItem("UserID");
         if (!uid) {
             uid = now.toUTCString() + ":" + r.nextInt(100000, 1000000);
             Utils.saveLocalItem("UserID", uid);
@@ -48,6 +48,7 @@ class DefaultPaltform implements Platform {
     }
 
     setUserCloudStorage(key:string, value) {
+        Utils.log("send " + key + ":" + value);
         var uid = this.UserID;
         this.wc.request({
             type: "setUserCloudData",
