@@ -1320,11 +1320,6 @@ class AniView extends egret.DisplayObjectContainer {
         await Utils.delay(2000);
     }
 
-    // 死亡
-    public async onPlayerDying(ps) {
-        AudioFactory.play("playerDie");
-    }
-
     // 复活
     public async onPlayerReborn(ps) {
         if (ps.inBattle) {
