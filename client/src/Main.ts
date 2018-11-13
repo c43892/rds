@@ -198,6 +198,14 @@ class Main extends egret.DisplayObjectContainer {
         Utils.log("platform: " + window.platform.platformType + " initialized");
         Utils.pt("Progress", "platform " + window.platform.platformType + " inited");
 
+        // 心跳统计在线时长
+        var startTime = (new Date()).toLocaleString();
+        Utils.pt(startTime, startTime);
+        egret.setInterval(() => {
+            var nowTime = (new Date()).toLocaleString();
+            Utils.pt(startTime, nowTime);
+        }, this, 60000);
+
         this.calcArea(); // 计算屏幕适配
 
         await RES.loadConfig("resource/default.res.json", "resource/"); // 加载资源配置
