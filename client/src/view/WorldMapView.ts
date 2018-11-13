@@ -239,7 +239,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 if(wp.nodes[i][j].parents.length != 0){
                     var pt = wp.nodes[i][j].roomType;
                     var img = pt == "boss"
-                        ? ViewUtils.createBitmapByName("Node" + pt + wp.cfg.name + "_png")
+                        ? ViewUtils.createBitmapByName(wp.bossType + "BossNode" + "_png")
                         : ViewUtils.createBitmapByName("Node" + pt + "_png");
                     if(i == wp.nodes.length - 1){
                         img.x = (wp.nodes[i].length - 1) / 2 * xGap + xEdgeBlank;// boss点位置特殊处理
@@ -570,8 +570,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
             case "boss":
                 var btRandonSeed = p.playerRandom.nextInt(0, 10000);
                 this.refreshShopSoldout() // 刷新战斗内商店销售状态
-                var bossTypes = GCfg.getBattleTypes("boss");
-                var bossType = bossTypes[this.player.playerRandom.nextInt(0, bossTypes.length)];
+                var bossType = this.worldmap.bossType;
                 await this.startNewBattle(p, bossType, trueLv, n, btRandonSeed, skipBlackIn);
                 break;
             case "shop":
