@@ -718,6 +718,10 @@ class MonsterFactory {
                 var slime = <Monster>bt.level.createElem(slimeTypes[i]);
                 slime.hp = Math.ceil(m.hp / 4);
                 slime = MonsterFactory.doSummonSlimeKing(slime);
+                slime = MonsterFactory.boomBeforeDieAndPreventRevive(slime, () => {
+                    var num = bt.level.map.findAllElems((e:Elem) => e["summonKing"] && (e.type == "GreenSlime" || e.type == "RedSlime")).length;
+                    return num == 1;
+                })
                 if (m["keys"][i])
                     slime.dropItems = [m["keys"][i]];
                 slime["lockDoor"] = true;
@@ -1031,21 +1035,21 @@ class MonsterFactory {
     }
 
     // boss通用逻辑,死亡前逐步炸开所有地块并消灭其中的敌对怪物,阻止其复活
-    static boomBeforeDieAndPreventRevive(m:Monster):Monster {
-        Utils.assert(m.isBoss, "only boss can get this ability.");
+    static boomBeforeDieAndPreventRevive(m:Monster, condition = undefined):Monster {
         // 添加阻止复活的逻辑
         m = <Monster>ElemFactory.addAI("beforeElemRevive", async (ps) => {
             if (!ps.achieve) return;
 
             ps.achieve = false;
-        }, m);
-        m = MonsterFactory.boomBeforeDie(m);
+        }, m, () => condition ? condition() : true);
+        m = MonsterFactory.boomBeforeDie(m, condition);
         return m;
     }
 
     // 死亡前逐步炸开所有地块并消灭其中的敌对怪物
-    static boomBeforeDie(m:Monster):Monster {
+    static boomBeforeDie(m:Monster, condition = undefined):Monster {
         m = <Monster>ElemFactory.addBeforeDieAI(async () => {
+            if (!(condition ? condition() : true))  return;
             var bt = m.bt();
             // var n = Utils.findFarthestPos(m.pos, m.attrs.size);
             // var findNPoses = Utils.findPosesAroundByNStorey(m.pos, n, m.attrs.size);

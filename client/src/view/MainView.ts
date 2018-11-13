@@ -19,6 +19,7 @@ class MainView extends egret.DisplayObjectContainer {
     public st:SettingView; // 设置视图
     public rev:RelicExchangeView; // 交换遗物视图
     public lcv:LuxuryChestView; // 开boss三选一界面
+    public scoreview:ScoreView // 死亡或通关后的分数结算界面
     public av:AniView; // 动画层
 
     isInBattle:boolean; // 是否在战斗中
@@ -71,12 +72,17 @@ class MainView extends egret.DisplayObjectContainer {
             await this.openStartup(undefined);
         };
 
+        // 技能交换,选择或展示界面
         this.rev = new RelicExchangeView(w, h);
         this.rev.showDescView = async (r:Relic) => await this.showElemDesc(r);
         this.rev.confirmOkYesNo = async (title, content, yesno:boolean, btnText = {}) => await this.confirmOkYesNo(title, content, yesno, btnText);
         this.rev.relicConfirmView = async (p:Player, e:Elem, price:number, showPrice = true) => await this.openShopConfirmView(p, e, price, showPrice);
 
+        // boss豪华宝箱界面
         this.lcv = new LuxuryChestView(w, h);
+
+        // 得分结算界面
+        this.scoreview = new ScoreView(w, h);
 
         // 世界地图
         this.wmv = new WorldMapView(w, h);
@@ -522,6 +528,14 @@ class MainView extends egret.DisplayObjectContainer {
         var r = await this.lcv.open(relics);
         this.removeChild(this.lcv);
         return r;
+    }
+
+    // 死亡后打开分数结算界面
+    public async openScoreView() {
+        this.scoreview.player = this.p;
+        this.addChild(this.scoreview);
+        await this.scoreview.open();
+        this.removeChild(this.scoreview);        
     }
 
     // 按照本地存档继续游戏

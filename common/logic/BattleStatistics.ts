@@ -30,7 +30,7 @@ class BattleStatistics {
     
     public onElemChanged(ps) {
         // 怪物死亡统计
-        if (ps.subType == "die" && ps.e instanceof Monster) {
+        if (ps.subType == "die" && ps.e instanceof Monster && ps.e.isHazard()) {
             var m = <Monster>ps.e;
             if (m.isBoss)
                 this.monsterKilled.boss++;

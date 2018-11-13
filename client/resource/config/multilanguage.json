@@ -298,6 +298,18 @@
 				"goOnBtn":{"x":417, "y":960},
 				"elemDesc":{"x":0, "y":590}
 			}
+		},
+		
+		"scoreView":{
+			"layout":{
+				"bg1":{"x":0, "y":0},
+				"avatar":{"x":0, "y":0},
+				"avatarBg":{"x":0, "y":0},
+				"finalScore":{"x":0, "y":0},
+				"playerName":{"x":0, "y":0},
+				"exp":{"x":0, "y":0},
+				"level":{"x":0, "y":0}
+			}
 		}
     },
 
