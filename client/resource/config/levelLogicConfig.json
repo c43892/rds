@@ -18,15 +18,15 @@
         {"type":"LevelLogicTakeKey"}
         ],
     "slimeKing":[
-        {"type":"LevelLogicAddBoxAndKey", "ps":[["bossBox1", "bossBox2", "bossBox3", "bossBox4", "bossBox5"]]}, 
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["bossBox1", "bossBox2", "bossBox4", "bossBox5"]]}, 
         {"type":"LevelLogicTakeKey"}, 
         {"type":"LevelLogicChangeMonster", "ps":[["RedSlime", "GreenSlime"], 5]},
-        {"type":"LevelLogicAddElemOnInit", "ps":[["SlimeKing"]]}
+        {"type":"LevelLogicBoss", "ps":[["SlimeKing"]]}
         ],
     "brainOfCthulhu":[
-        {"type":"LevelLogicAddBoxAndKey", "ps":[["bossBox1", "bossBox2", "bossBox3", "bossBox4", "bossBox5"]]}, 
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["bossBox1", "bossBox2", "bossBox4", "bossBox5"]]}, 
         {"type":"LevelLogicTakeKey"}, 
         {"type":"LevelLogicChangeMonster", "ps":[["ReviveZombie"], 5]},
-        {"type":"LevelLogicAddElemOnInit", "ps":[["BrainOfCthulhu"]]}
+        {"type":"LevelLogicBoss", "ps":[["BrainOfCthulhu"]]}
         ]
 }

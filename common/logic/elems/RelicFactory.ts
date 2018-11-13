@@ -132,7 +132,7 @@ class RelicFactory {
             });
         },
 
-        // 先动，免疫突袭时的反击
+        // 料敌先机，免疫突袭时的反击
         "Unback2Sneak": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) {
@@ -195,8 +195,8 @@ class RelicFactory {
             return thisRelic;
         },
 
-        // 杀死怪物可以额外获得1点经验，每升一级提高1，最高5
-        "UndefinedName2": (attrs) => {
+        // 经验勋章 杀死怪物可以额外获得1点经验，每升一级提高1，最高5
+        "ExpMedal": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) {
                     r.clearAIAtLogicPoint("onElemChanged");
@@ -209,8 +209,8 @@ class RelicFactory {
             })
         },
 
-        // 每个怪物掉落的金钱增加1，每升一级提高1，最高5
-        "UndefinedName3": (attrs) => {
+        // 金钱勋章 每个怪物掉落的金钱增加1，每升一级提高1，最高5
+        "GoldMedal": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) {
                     r.clearAIAtLogicPoint("onElemChanged");
@@ -425,7 +425,7 @@ class RelicFactory {
             })
         },
 
-        // 飞刀流6	每场战斗增加一把飞刀，你知道所有飞刀的位置
+        // 飞刀侦测	每场战斗增加一把飞刀，你知道所有飞刀的位置
         "KnifeDetector": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) {
@@ -552,7 +552,7 @@ class RelicFactory {
             })
         },
 
-        // 盾牌格挡	每场战斗增加一面盾牌，盾牌的吸收伤害提升2点（每级+2，最高5级）
+        // 圣甲虫的壳 每场战斗增加一面盾牌，盾牌的吸收伤害提升2点（每级+2，最高5级）
         "ShieldBlock": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) {

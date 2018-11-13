@@ -25,8 +25,8 @@ class Occupation {
         // p.addRelic(<Relic>ElemFactory.create("Unback2Sneak")); // 初始遗物
         // p.addRelic(<Relic>ElemFactory.create("Crucifix")); // 初始遗物
         // p.addRelic(<Relic>ElemFactory.create("WeaponMaster")); // 初始遗物
-        // p.addRelic(<Relic>ElemFactory.create("UndefinedName2")); // 初始遗物
-        // p.addRelic(<Relic>ElemFactory.create("UndefinedName3")); // 初始遗物
+        // p.addRelic(<Relic>ElemFactory.create("ExpMedal")); // 初始遗物
+        // p.addRelic(<Relic>ElemFactory.create("GoldMedal")); // 初始遗物
         // p.addRelic(<Relic>ElemFactory.create("DefenseProficient")); // 初始遗物
         // p.addRelic(<Relic>ElemFactory.create("BookMaster")); // 初始遗物
         // p.addRelic(<Relic>ElemFactory.create("TradeMaster")); // 初始遗物

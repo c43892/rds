@@ -57,6 +57,7 @@
 		"bin-debug/logic/LevelLogic/LevelLogicAddElemOnInit.js",
 		"bin-debug/logic/LevelLogic/LevelLogicAddRelicOnRookie.js",
 		"bin-debug/logic/LevelLogic/LevelLogicAddShopNpc.js",
+		"bin-debug/logic/LevelLogic/LevelLogicBoss.js",
 		"bin-debug/logic/LevelLogic/LevelLogicChangeMonster.js",
 		"bin-debug/Main.js",
 		"bin-debug/logic/LevelLogic/LevelLogicMarkAllAward.js",

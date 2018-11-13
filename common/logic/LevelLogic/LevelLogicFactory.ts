@@ -10,6 +10,7 @@ class LevelLogicFactory{
             case "LevelLogicMarkAllAward" : levelLogic = new LevelLogicMarkAllAward(ps[0]); break;
             case "LevelLogicAddRelicOnRookie" : levelLogic = new LevelLogicAddRelicOnRookie(); break;
             case "LevelLogicAddShopNpc": levelLogic = new LevelLogicAddShopNpc(); break;
+            case "LevelLogicBoss": levelLogic = new LevelLogicBoss(ps[0]); break;
         }
         return levelLogic;
     };

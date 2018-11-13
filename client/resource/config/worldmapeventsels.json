@@ -76,15 +76,15 @@
             "sels": [{
                 "desc": "<font color=#000000 size=20>[逃跑]</font><font color=#7d0403 size=20>失去{money}金币</font>",
                 "func": ["+item", "-money", "redirectSelGroup"],
-                "ps": {"item": "UndefinedName3", "money": 50, "group": "a211"}
+                "ps": {"item": "GoldMedal", "money": 50, "group": "a211"}
             },{
                 "desc": "<font color=#000000 size=20>[抵挡]</font><font color=#7d0403 size=20>生命上限减少{maxHp}</font>",
                 "func": ["+item", "-maxHp", "redirectSelGroup"],
-                "ps": {"item" : "UndefinedName3", "maxHp": 5, "group": "a212"}
+                "ps": {"item" : "GoldMedal", "maxHp": 5, "group": "a212"}
             },{
                 "desc": "<font color=#000000 size=20>[躲藏]</font><font color=#7d0403 size=20>失去{hp}生命</font>",
                 "func": ["+item", "-hpPrecentage", "redirectSelGroup"],
-                "ps": {"item" : "UndefinedName3", "hpPrecentage": 20, "group": "a213"}
+                "ps": {"item" : "GoldMedal", "hpPrecentage": 20, "group": "a213"}
             }],
             "bg":"CherryBomb"
         },

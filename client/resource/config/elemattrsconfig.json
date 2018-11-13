@@ -1,37 +1,37 @@
 {
-    "MedicineBox":{"name":"医药箱", "dhp":5, 
+    "MedicineBox":{"name":"医疗专精", "dhp":5, 
         "reinforce":[
             {"dhp":10}, {"dhp":15}, {"dhp":20}, {"dhp":25}
         ],
         "occupations":["Nurse"]
     },
     "Hawkeye":{"name":"鹰眼"},
-    "TimeMachine":{"name":"时光机", "deathGodBackStep":5,
+    "TimeMachine":{"name":"敌意消退", "deathGodBackStep":5,
         "reinforce":[
             {"deathGodBackStep":10}, {"deathGodBackStep":15}, {"deathGodBackStep":20}, {"deathGodBackStep":25}
         ]
     },
-    "Endurance":{"name":"耐力", "dMaxHp":10, 
+    "Endurance":{"name":"耐力强化", "dMaxHp":10, 
         "reinforce":[
             {"dMaxHp":20}, {"dMaxHp":30}, {"dMaxHp":40}, {"dMaxHp":50}
         ]
     },
-    "Power":{"name":"力量", "dPower":1,
+    "Power":{"name":"力量强化", "dPower":1,
     "reinforce":[
             {"dPower":2}, {"dPower":3}, {"dPower":4}, {"dPower":5}
         ]
     },
-    "Agile":{"name":"机敏", "dDodge":10,
+    "Agile":{"name":"闪避强化", "dDodge":10,
     "reinforce":[
             {"dDodge":20}, {"dDodge":30}, {"dDodge":40}, {"dDodge":50}
         ]
     },
-    "Fierce":{"name":"凶暴", "dPower":2,
+    "Fierce":{"name":"杀戮专精", "dPower":2,
         "reinforce":[
             {"dPower":4}, {"dPower":6}, {"dPower":8}, {"dPower":10}
         ]
     },
-    "Unback2Sneak":{"name":"先动"},
+    "Unback2Sneak":{"name":"料敌先机"},
     "Crucifix":{"name":"十字架"},
     "WeaponMaster":{"name":"武器大师", "refElems":["Baton"], "addOnLevelInit":{"num":1, "elems":["Baton"]}},
     "UndefinedName1":{"name":"未命名1", "uncoverCnt":5,
@@ -39,17 +39,17 @@
             {"uncoverCnt":4}, {"uncoverCnt":3}, {"uncoverCnt":14}, {"uncoverCnt":12}
         ]
     },
-    "UndefinedName2":{"name":"未命名2", "dexp":1,
+    "ExpMedal":{"name":"经验勋章", "dexp":1,
         "reinforce":[
             {"dexp":2}, {"dexp":3}, {"dexp":4}, {"dexp":5}
         ]
     },
-    "UndefinedName3":{"name":"未命名3", "num":1,
+    "GoldMedal":{"name":"未命名3", "num":1,
         "reinforce":[
             {"num":2}, {"num":3}, {"num":4}, {"num":5}
         ]
     },
-    "DefenseProficient":{"name":"防护大师", "refElems":["Vest"], "addOnLevelInit":{"num":1, "elems":["Vest"]}},
+    "DefenseProficient":{"name":"防护专精", "refElems":["Vest"], "addOnLevelInit":{"num":1, "elems":["Vest"]}},
     "BookMaster":{"name":"图书大师", "dexp":1,
         "reinforce":[
             {"dexp":2}, {"dexp":3}
@@ -73,7 +73,7 @@
         ]
     },
     "KnifeProficient":{"name":"飞刀专精", "refElems":["Knife"], "addOnLevelInit":{"num":1, "elems":["Knife"]}},
-    "KnifeRange":{"name":"飞刀射程", "refElems":["Knife"], "addOnLevelInit":{"num":1, "elems":["Knife"]}},
+    "KnifeRange":{"name":"随意之刃", "refElems":["Knife"], "addOnLevelInit":{"num":1, "elems":["Knife"]}},
     "PoisonKnife":{"name":"剧毒之刃", "poisonCnt":1, "reinforce":[
             {"poisonCnt":2}, {"poisonCnt":3}
         ],
@@ -84,8 +84,9 @@
         ],
         "refElems":["Knife"], "addOnLevelInit":{"num":1, "elems":["Knife"]}
     },
+    "KnifeDetector":{"name":"飞刀侦测", "refElems":["Knife"], "addOnLevelInit":{"num":1, "elems":["Knife"]}},
     "ExploreEnhanced":{"name":"探索强化"},
-    "HorticultureProficient":{"name":"园艺专精", "refElems":["Apple"], "addOnLevelInit":{"num":1, "elems":["Apple"]}},
+    "HorticultureProficient":{"name":"厨艺大师", "refElems":["Apple"], "addOnLevelInit":{"num":1, "elems":["Apple"]}},
     "SmellEnhanced":{"name":"嗅觉强化", "percent":5,
         "reinforce":[
             {"percent":10}, {"percent":15}
@@ -104,22 +105,22 @@
                 {"moveNum":2}, {"moveNum":3}
             ]
     },
-    "ShieldBlock":{"name":"盾牌格挡", "dShield":2,
+    "ShieldBlock":{"name":"圣甲虫的壳", "dShield":2,
         "reinforce":[
             {"dShield":4}, {"dShield":6}, {"dShield":8}, {"dShield":10}
         ], 
         "refElems":["Shield"], "addOnLevelInit":{"num":1, "elems":["Shield"]}},
-    "ShieldDetector":{"name":"盾牌探测", "refElems":["Shield"], "addOnLevelInit":{"num":1, "elems":["Shield"]}},
+    "ShieldDetector":{"name":"盾牌侦测", "refElems":["Shield"], "addOnLevelInit":{"num":1, "elems":["Shield"]}},
     "ShieldSlam":{"name":"盾牌猛击", "refElems":["Shield"], "addOnLevelInit":{"num":1, "elems":["Shield"]}},
-    "VestDetector":{"name":"防护探测", "refElems":["Vest"], "addOnLevelInit":{"num":1, "elems":["Vest"]}},
+    "VestDetector":{"name":"防护侦测", "refElems":["Vest"], "addOnLevelInit":{"num":1, "elems":["Vest"]}},
     "VestImmune":{"name":"防护免疫", "percent":1,
         "reinforce":[
             {"percent":2}, {"percent":3}, {"percent":4}, {"percent":5}
         ], 
         "refElems":["Vest"], "addOnLevelInit":{"num":1, "elems":["Vest"]}},
-    "VestThorns":{"name":"防护反伤", "thornsDamage":2,
+    "VestThorns":{"name":"荆棘防护", "thornsDamage":1,
         "reinforce":[
-            {"thornsDamage":4}, {"thornsDamage":6}, {"thornsDamage":8}, {"thornsDamage":10}
+            {"thornsDamage":2}, {"thornsDamage":3}, {"thornsDamage":4}, {"thornsDamage":5}
         ], 
         "refElems":["Vest"], "addOnLevelInit":{"num":1, "elems":["Vest"]}},
     "Watchmaker":{"name":"钟表匠", "addDeathStepBack":1, "refElems":["Clock"], "addOnLevelInit":{"num":1, "elems":["Clock"]},
