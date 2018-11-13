@@ -204,13 +204,7 @@ class MainView extends egret.DisplayObjectContainer {
             this.bv.hideAllBanImg(false);
         });
         bt.registerEvent("onPlayerDying", async (ps) => await this.openPlayerDieView(ps));
-        bt.registerEvent("onPlayerDead", async () => {
-            Utils.pt("die." + (new Date()).toLocaleString(), this.p.currentStoreyPos);
-            Utils.savePlayer(undefined);
-            this.p = undefined;
-            await this.av.blackIn();
-            await this.openStartup(undefined);
-        });
+        bt.registerEvent("onPlayerDead", async (ps) => await this.onPlayerDead(ps));
         Utils.registerEventHandlers(bt, [
             "onGridChanged", "onPlayerChanged", "onAttacking", "onAttacked", "onElemChanged", "onPropChanged", "onRelicChanged",
             "onElemMoving", "onElemFlying", "onElemImgFlying", "onAllCoveredAtInit", "onSuckPlayerBlood", "onMonsterTakeElem", "onBuffAdded", "onBuffRemoved",
@@ -218,7 +212,7 @@ class MainView extends egret.DisplayObjectContainer {
             "onAddDeathGodStep", "onElem2NextLevel", "onUseElemAt", "onUseElem", "onGoOutLevel", "onNotifyElemsDropped",
             "onCandyCannon", "onMakeWanted", "onInitBattleView", "onRelicEffect", "onMonsterCharmed", "onCloakImmunizeSneak",
             "onSwatheItemWithCocoon", "summonByDancer", "onGetMarkAllAward", "onStartupRegionUncovered", "onSneaking",
-            "relicsEquippedMaxNumAdded", "onPlayerDying", "onPlayerReborn", "onUseProp", "onElemRevive", "refreshMap", 
+            "relicsEquippedMaxNumAdded", "onPlayerReborn", "onUseProp", "onElemRevive", "refreshMap", 
             "onPlayerLevelUp", "onSelfExplode", "onShieldFlyBack", "onSanThreshold", "monsterAttackSingleTargetAct"
         ], (e) => (ps) => this.bv.av[e](ps));
         bt.registerEvent("onBattleEnded", async (ps) => {
@@ -430,6 +424,15 @@ class MainView extends egret.DisplayObjectContainer {
         };
     }
 
+    // 角色死亡
+    public async onPlayerDead(ps) {
+        Utils.pt("die." + (new Date()).toLocaleString(), this.p.currentStoreyPos);
+        Utils.savePlayer(undefined);
+        this.p = undefined;
+        await this.av.blackIn();
+        await this.openStartup(undefined);
+    }
+
     // 打开角色死亡界面
     public async openPlayerDieView(ps) {
         if (window.platform.canShare()) {
@@ -593,7 +596,10 @@ class MainView extends egret.DisplayObjectContainer {
     registerPlayerEvents() {
         Utils.registerEventHandlers(this.p, [
             "onGetElemInWorldmap", "onGetMoneyInWorldmap", "onGetHpInWorldmap", "onGetHpMaxInWorldmap",
-            "onHospitalCureStart", "onHospitalCureEnd", "onPlayerDying", "onPlayerReborn", "onPlayerDead"
+            "onHospitalCureStart", "onHospitalCureEnd", "onPlayerReborn",
         ], (e) => (ps) => this.bv.av[e](ps));
+
+        this.p.registerEvent("onPlayerDying", async (ps) => await this.openPlayerDieView(ps));
+        this.p.registerEvent("onPlayerDead", async (ps) => await this.onPlayerDead(ps));
     }
 }
