@@ -199,6 +199,7 @@ class MainView extends egret.DisplayObjectContainer {
         });
         bt.registerEvent("onPlayerDying", async (ps) => await this.openPlayerDieView(ps));
         bt.registerEvent("onPlayerDead", async () => {
+            Utils.pt("die." + (new Date()).toLocaleString(), this.p.currentStoreyPos);
             Utils.savePlayer(undefined);
             this.p = undefined;
             await this.av.blackIn();

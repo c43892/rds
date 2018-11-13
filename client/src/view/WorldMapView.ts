@@ -555,7 +555,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         var p = this.worldmap.player;
         var trueLv = p.currentTotalStorey();
         switch(nodeType) {
-            case "normal":                
+            case "normal":
                 var btRandonSeed = p.playerRandom.nextInt(0, 10000);
                 this.refreshShopSoldout() // 刷新战斗内商店销售状态
                 await this.startNewBattle(p, nodeType, trueLv, n, btRandonSeed, skipBlackIn);
