@@ -118,7 +118,7 @@ func handleMsgfunc(w http.ResponseWriter, r *http.Request) {
 		res.Ok = true;
 		res.Usr = *usr;
 	} else {
-		log.Fatal("unsupported message type: " + msg.Type);
+		log.Println("unsupported message type: " + msg.Type);
 	}
 
 	// send the response

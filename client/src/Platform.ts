@@ -29,10 +29,10 @@ class DefaultPaltform implements Platform {
             });
         }
 
-        if (egret.Capabilities.os == "Windows PC") // 开发环境
-            this.wc = new WebClient("http://127.0.0.1:81");
+        if (DEBUG && egret.Capabilities.os == "Windows PC") // 开发环境
+            this.wc = new WebClient("http://127.0.0.1:81/");
         else
-            this.wc = new WebClient(ResMgr.URLPrefix + ":81");
+            this.wc = new WebClient("http://119.23.110.78:81/");
     }
 
     get UserID():string {
@@ -40,7 +40,7 @@ class DefaultPaltform implements Platform {
         if (!uid) {
             var now = new Date();
             var r = new SRandom(now.getMilliseconds());
-            uid = "uid_" + "_" + r.nextInt(100000, 1000000) + now.toUTCString();
+            uid = "uid_" + r.nextInt(100000, 1000000) + "_"  + now.toUTCString();
             Utils.saveLocalItem("UserID", uid);
         }
 
