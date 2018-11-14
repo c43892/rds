@@ -509,7 +509,7 @@
                 "ps": {
                     "rateArr": [75, 50, 25],
                     "titleArr": ["冒险者的尸体", "冒险者的尸体", "冒险者的尸体"],
-                    "upDescArr": ["你找到了</font><font color=#00b050 size=25>{lastDropped}，</font>还想继续找么？", "你找到了</font><font color=#00b050 size=25>{lastDropped}，</font>还想继续找么？", "你找到了</font><font color=#00b050 size=25>{lastDropped}，</font>，现在冒险者身上已经没有东西了，你满意的离开了。"],
+                    "upDescArr": ["你找到了</font><font color=#00b050 size=25>{lastDropped}，</font>还想继续找么？", "你找到了</font><font color=#00b050 size=25>{lastDropped}，</font>还想继续找么？", "你找到了</font><font color=#00b050 size=25>{lastDropped}</font>，现在冒险者身上已经没有东西了，你满意的离开了。"],
                     "descArr": ["<font color=#000000 size=20>[继续翻找]</font></font><font color=#00b050 size=20>50%获得奖励，</font></font><font color=#7d0403 size=20>50%进入战斗</font>", "<font color=#000000 size=20>[搜索]</font></font><font color=#00b050 size=20>25%获得奖励，</font></font><font color=#7d0403 size=20>75%进入战斗</font>", "你并不想步冒险者的后尘，于是果断离开了。"],
                     "toDrop": ["Coins", "worldmapeventa91", "worldmapeventa92"],
                     "money": 50,
