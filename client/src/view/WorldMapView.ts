@@ -606,8 +606,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 await this.player.fireEvent("onPlayerDead");
             }
         }
-
-        Utils.savePlayer(this.player);
         
         // 可能又被复活了
         if (!this.player.isDead()) {
@@ -619,6 +617,8 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 Utils.saveLocalData("rookiePlay", "finished");
                 Utils.pt("rookiePlayFinished", true);
             }
+
+            Utils.savePlayer(this.player);
 
             // 更新最高分
             Utils.saveCloudData("score", trueLv);
