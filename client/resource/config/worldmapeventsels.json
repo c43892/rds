@@ -207,7 +207,7 @@
                     "func": ["+randomItems", "-hp", "redirectSelGroup"],
                     "rates": [20],
                     "failedFunc": ["-hp", "redirectSelGroup2"],
-                    "ps": [{"randomNum": 1, "items": {"WeaponMaster": 10, "DefenseProficient": 10, "BookMaster": 10, "TreasureBoxDetector": 10, "KnifeMaster": 10, "MonsterHunter": 10, "KnifeProficient": 10, "ExploreEnhanced": 10, "HorticultureProficient": 10, "SmellEnhanced": 10, "Storer": 10, "ShieldProficient": 10, "StrikeFirst": 10 }, "hp":1, "group": "a411", "group2": "a421"}]
+                    "ps": [{"randomNum": 1, "items": {"ShieldBlock": 10, "ExpMedal": 10, "KnifeMaster": 10, "MonsterHunter": 10, "VestThorns": 10, "InfinityKnife": 10, "VestImmune": 10}, "hp":1, "group": "a411", "group2": "a421"}]
                     }
                 },{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
@@ -233,7 +233,7 @@
                     "func": ["+randomItems", "-hp", "redirectSelGroup"],
                     "rates": [35],
                     "failedFunc": ["-hp", "redirectSelGroup2"],
-                    "ps": [{"randomNum": 1, "items": {"WeaponMaster": 10, "DefenseProficient": 10, "BookMaster": 10, "TreasureBoxDetector": 10, "KnifeMaster": 10, "MonsterHunter": 10, "KnifeProficient": 10, "ExploreEnhanced": 10, "HorticultureProficient": 10, "SmellEnhanced": 10, "Storer": 10, "ShieldProficient": 10, "StrikeFirst": 10 }, "hp":2, "group": "a411", "group2": "a422"}]
+                    "ps": [{"randomNum": 1, "items": {"ShieldBlock": 10, "ExpMedal": 10, "KnifeMaster": 10, "MonsterHunter": 10, "VestThorns": 10, "InfinityKnife": 10, "VestImmune": 10}, "hp":2, "group": "a411", "group2": "a422"}]
                     }
                 },{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
@@ -251,7 +251,7 @@
                     "func": ["+randomItems", "-hp", "redirectSelGroup"],
                     "rates": [50],
                     "failedFunc": ["-hp", "redirectSelGroup2"],
-                    "ps": [{"randomNum": 1, "items": {"WeaponMaster": 10, "DefenseProficient": 10, "BookMaster": 10, "TreasureBoxDetector": 10, "KnifeMaster": 10, "MonsterHunter": 10, "KnifeProficient": 10, "ExploreEnhanced": 10, "HorticultureProficient": 10, "SmellEnhanced": 10, "Storer": 10, "ShieldProficient": 10, "StrikeFirst": 10 }, "hp":3, "group": "a411", "group2": "a423"}]
+                    "ps": [{"randomNum": 1, "items": {"ShieldBlock": 10, "ExpMedal": 10, "KnifeMaster": 10, "MonsterHunter": 10, "VestThorns": 10, "InfinityKnife": 10, "VestImmune": 10}, "hp":3, "group": "a411", "group2": "a423"}]
                     }
                 },{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
@@ -269,7 +269,7 @@
                     "func": ["+randomItems", "-hp", "redirectSelGroup"],
                     "rates": [65],
                     "failedFunc": ["-hp", "redirectSelGroup2"],
-                    "ps": [{"randomNum": 1, "items": {"WeaponMaster": 10, "DefenseProficient": 10, "BookMaster": 10, "TreasureBoxDetector": 10, "KnifeMaster": 10, "MonsterHunter": 10, "KnifeProficient": 10, "ExploreEnhanced": 10, "HorticultureProficient": 10, "SmellEnhanced": 10, "Storer": 10, "ShieldProficient": 10, "StrikeFirst": 10 }, "hp":4, "group": "a411", "group2": "a424"}]
+                    "ps": [{"randomNum": 1, "items": {"ShieldBlock": 10, "ExpMedal": 10, "KnifeMaster": 10, "MonsterHunter": 10, "VestThorns": 10, "InfinityKnife": 10, "VestImmune": 10}, "hp":4, "group": "a411", "group2": "a424"}]
                     }
                 },{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
@@ -287,7 +287,7 @@
                     "func": ["+randomItems", "-hp", "redirectSelGroup"],
                     "rates": [80],
                     "failedFunc": ["-hp", "redirectSelGroup2"],
-                    "ps": [{"randomNum": 1, "items": {"WeaponMaster": 10, "DefenseProficient": 10, "BookMaster": 10, "TreasureBoxDetector": 10, "KnifeMaster": 10, "MonsterHunter": 10, "KnifeProficient": 10, "ExploreEnhanced": 10, "HorticultureProficient": 10, "SmellEnhanced": 10, "Storer": 10, "ShieldProficient": 10, "StrikeFirst": 10 }, "hp":5, "group": "a411", "group2": "a425"}]
+                    "ps": [{"randomNum": 1, "items": {"ShieldBlock": 10, "ExpMedal": 10, "KnifeMaster": 10, "MonsterHunter": 10, "VestThorns": 10, "InfinityKnife": 10, "VestImmune": 10}, "hp":5, "group": "a411", "group2": "a425"}]
                     }
                 },{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
@@ -305,7 +305,7 @@
                     "func": ["+randomItems", "-hp", "redirectSelGroup"],
                     "rates": [95],
                     "failedFunc": ["-hp", "redirectSelGroup2"],
-                    "ps": [{"randomNum": 1, "items": {"WeaponMaster": 10, "DefenseProficient": 10, "BookMaster": 10, "TreasureBoxDetector": 10, "KnifeMaster": 10, "MonsterHunter": 10, "KnifeProficient": 10, "ExploreEnhanced": 10, "HorticultureProficient": 10, "SmellEnhanced": 10, "Storer": 10, "ShieldProficient": 10, "StrikeFirst": 10 }, "hp":6, "group": "a411", "group2": "a426"}]
+                    "ps": [{"randomNum": 1, "items": {"ShieldBlock": 10, "ExpMedal": 10, "KnifeMaster": 10, "MonsterHunter": 10, "VestThorns": 10, "InfinityKnife": 10, "VestImmune": 10 }, "hp":6, "group": "a411", "group2": "a426"}]
                     }
                 },{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
@@ -323,7 +323,7 @@
                     "func": ["+randomItems", "-hp", "redirectSelGroup"],
                     "rates": [100],
                     "failedFunc": ["-hp", "redirectSelGroup2"],
-                    "ps": [{"randomNum": 1, "items": {"WeaponMaster": 10, "DefenseProficient": 10, "BookMaster": 10, "TreasureBoxDetector": 10, "KnifeMaster": 10, "MonsterHunter": 10, "KnifeProficient": 10, "ExploreEnhanced": 10, "HorticultureProficient": 10, "SmellEnhanced": 10, "Storer": 10, "ShieldProficient": 10, "StrikeFirst": 10 }, "hp":7, "group": "a411", "group2": "a426"}]
+                    "ps": [{"randomNum": 1, "items": {"ShieldBlock": 10, "ExpMedal": 10, "KnifeMaster": 10, "MonsterHunter": 10, "VestThorns": 10, "InfinityKnife": 10, "VestImmune": 10 }, "hp":7, "group": "a411", "group2": "a426"}]
                     }
                 },{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
