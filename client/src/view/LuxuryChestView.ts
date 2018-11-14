@@ -17,7 +17,7 @@ class LuxuryChestView extends egret.DisplayObjectContainer {
         this.height = h;
         this.name = "LuxuryChestView"; 
 
-        this.bg = new egret.Bitmap();
+        this.bg = ViewUtils.createBitmapByName("translucent_png");
         this.bg.name = "bg";
         this.bg.width = this.width;
         this.bg.height = this.height;
