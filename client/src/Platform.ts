@@ -84,6 +84,9 @@ class DefaultPaltform implements Platform {
                 var data = str ? JSON.parse(str) : {};
                 return data;
             } catch (ex) {
+                var exMsg = "load localstorage exception: " + ex.toString();
+                Utils.log(exMsg);
+                Utils.pt((new Date()).toLocaleString() + ":ex:loadstorage", exMsg);
                 return {};
             }
         }
