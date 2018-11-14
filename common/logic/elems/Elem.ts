@@ -42,7 +42,7 @@ class Elem {
         this.bt().triggerLogicPointSync("canUseAt", ps);
         if (ps.canUseAt != undefined) return ps.canUseAt;
 
-        if (!this.attrs.useWithTarget) return false;
+        if (!this.useWithTarget()) return false;
         var actualMapRange = Utils.getActualMapRange(this.bt());
         if (x > actualMapRange.maxX || x < actualMapRange.minX || y > actualMapRange.maxY || y < actualMapRange.minY) return false;
         var g = this.map().getGridAt(x, y);

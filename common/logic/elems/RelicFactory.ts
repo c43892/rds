@@ -279,7 +279,7 @@ class RelicFactory {
             })
         },
 
-        // 防护反伤	每层额外增加一件防护服，你受到攻击时对怪物造成2点反伤（每级+2，最高5）
+        // 防护反伤	每层额外增加一件防护服，你受到攻击时对怪物造成1点反伤（每级+1，最高5）
         "VestThorns": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) {
@@ -291,7 +291,7 @@ class RelicFactory {
                 r = <Relic>ElemFactory.addAI("onAttacked", async (ps) => {
                     if (ps.r.r != "attacked" || ps.r.dhp >= 0) return;
                     await r.bt().fireEvent("onRelicEffect", {r:r});
-                    await r.bt().implAddMonsterHp(ps.attackerAttrs.owner, r.attrs.thornsDamage);
+                    await r.bt().implAddMonsterHp(ps.attackerAttrs.owner, - r.attrs.thornsDamage);
                 }, r, (ps) => ps.targetAttrs.owner instanceof Player);
             })
         },

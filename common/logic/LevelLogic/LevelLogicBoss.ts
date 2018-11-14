@@ -8,8 +8,8 @@ class LevelLogicBoss extends LevelLogic {
 
         // 创建关卡时添加boss
         this.addAI("onLevelInitElems", (ps) => {            
-            var e = this.level.createElem(bossType);
-            ps.elems.push(e);            
+            var e = this.level.createElem(this.bossType);
+            ps.elems.push(e);
         }, true)
 
         // boss被消灭后添加豪华宝箱
