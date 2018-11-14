@@ -33,13 +33,13 @@
         "VestThorns":10,
         "InfinityKnife":10,
         "VestImmune":10,
-        "IceGun":38,
-        "RayGun":38,
-        "HpPotion":38,
-        "Bazooka":38,
-        "SuperPotion":38,
-        "StrengthPotion":38,
-        "CandyCannon":38
+        "IceGun":100,
+        "RayGun":100,
+        "HpPotion":100,
+        "Bazooka":100,
+        "SuperPotion":100,
+        "StrengthPotion":100,
+        "CandyCannon":100
     }},
 
     "markAllAward": {"num":[1, 2], "elems":{
