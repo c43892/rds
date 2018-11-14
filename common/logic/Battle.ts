@@ -1363,6 +1363,18 @@ class Battle {
 
         await this.fireEvent("onMonsterTakeElem", {m:m, es:es, toDropList:toDropList})
     }
+
+    // 怪物吃食物
+    public async implMonsterEatFood(m:Monster, food:Elem){
+        Utils.assert(Utils.contains(food.attrs.tags, "food"), "only food can be ate");
+        food.cnt--;
+        if (food.cnt <= 0)
+            await this.implRemoveElemAt(food.pos.x, food.pos.y);
+        else
+            await this.fireEvent("onMonsterEatFood", { m: m, food: food });
+        
+        await this.implAddMonsterHp(m, food.attrs.dhp);
+    }
     
     // 怪物增加掉落元素
     public async implMonsterAddDropItem(m:Monster, e:Elem) {

@@ -1226,7 +1226,7 @@ class AniView extends egret.DisplayObjectContainer {
         showPath.shift();
         var sv = this.getSVByPos(fromPt.x, fromPt.y);
         var ev = this.getEVByPos(fromPt.x, fromPt.y);
-        await this.aniFact.createAni("moveOnPath", {objs: [sv, ev], path: showPath, time:250, mode:egret.Ease.sineInOut});
+        await this.aniFact.createAni("moveOnPath", {objs: [sv, ev], path: showPath, time:150, mode:egret.Ease.sineInOut});
         sv["resetSelf"]();
         // 刷新格子显示
         this.bv.mapView.refreshAt(fromPt.x, fromPt.y);

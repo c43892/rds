@@ -1185,11 +1185,7 @@ class MonsterFactory {
                     if (foods.length > 0) {
                         // 吃一口
                         var f = foods[0];
-                        f.cnt--;
-                        if (f.cnt <= 0)
-                            await f.bt().implRemoveElemAt(f.pos.x, f.pos.y);
-                        else
-                            await f.bt().fireEvent("onMonsterEatFood", { m: m, food: f });
+                        await m.bt().implMonsterEatFood(m, f);
                         acted = true;
                     } else 
                         await attackShopNpc();
