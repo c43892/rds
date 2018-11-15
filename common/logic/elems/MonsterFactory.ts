@@ -555,7 +555,7 @@ class MonsterFactory {
                 await m.bt().uncover(m.pos.x, m.pos.y, true);
             
             ps.targets[tarN] = m; // 变更目标
-        }, m, (ps) => Utils.filter(ps.targets, filter).length > 0);
+        }, m, (ps) => Utils.filter(ps.targets, filter).length > 0 && !ps.suppressProtect);
     }
 
     // 其他怪物死亡时逃进阴影

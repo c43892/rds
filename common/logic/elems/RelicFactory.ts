@@ -61,10 +61,10 @@ class RelicFactory {
         "Hawkeye": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) {
-                    r.clearAIAtLogicPoint("onStartupRegionUncovered");
+                    r.clearAIAtLogicPoint("onStartupRegionUncoveredMark");
                     return
                 };
-                ElemFactory.addAI("onStartupRegionUncovered", async () => {
+                ElemFactory.addAI("onStartupRegionUncoveredMark", async () => {
                     var ms = BattleUtils.findRandomElems(r.bt(), 1, (m) => {
                         if (!(m instanceof Monster)) return false;
                         if (!m.getGrid().isCovered() || m.getGrid().isMarked()) return false;
@@ -246,11 +246,11 @@ class RelicFactory {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) {
                     r.clearAIAtLogicPoint("onLevelInited");
-                    r.clearAIAtLogicPoint("onStartupRegionUncovered");
+                    r.clearAIAtLogicPoint("onStartupRegionUncoveredMark");
                     return;
                 }
                 r = RelicFactory.addElemsOnLevelInit(r);
-                r = <Relic>ElemFactory.addAI("onStartupRegionUncovered", async () => {
+                r = <Relic>ElemFactory.addAI("onStartupRegionUncoveredMark", async () => {
                     var vests = r.bt().level.map.findAllElems((e:Elem) => e.getGrid().isCovered() && !e.getGrid().isMarked() && e.type == "Vest");
                     for (var vest of vests){
                         await r.bt().fireEvent("onRelicEffect", {r:r});
@@ -291,7 +291,7 @@ class RelicFactory {
                 r = <Relic>ElemFactory.addAI("onAttacked", async (ps) => {
                     if (ps.r.r != "attacked" || ps.r.dhp >= 0) return;
                     await r.bt().fireEvent("onRelicEffect", {r:r});
-                    await r.bt().implAddMonsterHp(ps.attackerAttrs.owner, - r.attrs.thornsDamage);
+                    await r.bt().implAddMonsterHp(ps.attackerAttrs.owner, - r.attrs.thornsDamage, "thorns");
                 }, r, (ps) => ps.targetAttrs.owner instanceof Player);
             })
         },
@@ -326,10 +326,10 @@ class RelicFactory {
         "TreasureBoxDetector": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) {
-                    r.clearAIAtLogicPoint("onStartupRegionUncovered");
+                    r.clearAIAtLogicPoint("onStartupRegionUncoveredMark");
                     return;
                 }
-                ElemFactory.addAI("onStartupRegionUncovered", async () => {
+                ElemFactory.addAI("onStartupRegionUncoveredMark", async () => {
                     var tb = BattleUtils.findRandomElems(r.bt(), 1, (e:Elem) => e.getGrid().isCovered() && !e.getGrid().isMarked() && e.type == "TreasureBox")[0];
                     if(tb)
                         await r.bt().implMark(tb.pos.x, tb.pos.y);
@@ -429,12 +429,12 @@ class RelicFactory {
         "KnifeDetector": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) {
-                    r.clearAIAtLogicPoint("onCalcAttacking");
+                    r.clearAIAtLogicPoint("onStartupRegionUncoveredMark");
                     r.clearAIAtLogicPoint("onLevelInited");
                     return;
                 }
                 r = RelicFactory.addElemsOnLevelInit(r);
-                r = <Relic>ElemFactory.addAI("onStartupRegionUncovered", async () => {
+                r = <Relic>ElemFactory.addAI("onStartupRegionUncoveredMark", async () => {
                     var knives = r.bt().level.map.findAllElems((e:Elem) => !e.getGrid().isUncoveredOrMarked() && e.type == "Knife");
                     for (var knife of knives) {
                         await r.bt().fireEvent("onRelicEffect", {r:r});
@@ -448,10 +448,10 @@ class RelicFactory {
         "MonsterHunter": (attrs) => {
             return this.createRelic(attrs, false, (r: Relic, enable: boolean) => {
                 if (!enable) {
-                    r.clearAIAtLogicPoint("onStartupRegionUncovered");
+                    r.clearAIAtLogicPoint("onStartupRegionUncoveredMark");
                     return;
                 }
-                ElemFactory.addAI("onStartupRegionUncovered", async () => {
+                ElemFactory.addAI("onStartupRegionUncoveredMark", async () => {
                     var ms = BattleUtils.findRandomElems(r.bt(), attrs.markNum, (e: Elem) =>
                         !e.getGrid().isUncoveredOrMarked() && e instanceof Monster && e.isHazard() && !e.isBig() && e.type != "PlaceHolder");
                     for (var m of ms)
@@ -495,11 +495,11 @@ class RelicFactory {
         "SmellEnhanced": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) {
-                    r.clearAIAtLogicPoint("onStartupRegionUncovered");
+                    r.clearAIAtLogicPoint("onStartupRegionUncoveredMark");
                     r.clearAIAtLogicPoint("onLevelInited");
                     return;
                 }
-                ElemFactory.addAI("onStartupRegionUncovered", async () => {
+                ElemFactory.addAI("onStartupRegionUncoveredMark", async () => {
                     var fs = r.map().findAllElems((e:Elem) => e.getGrid().isCovered() && !e.getGrid().isMarked() && Utils.contains(e.attrs.tags, "food"));
                     for (var f of fs)
                         await r.bt().implMark(f.pos.x, f.pos.y);
@@ -589,11 +589,11 @@ class RelicFactory {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) {
                     r.clearAIAtLogicPoint("onLevelInited");
-                    r.clearAIAtLogicPoint("onStartupRegionUncovered");
+                    r.clearAIAtLogicPoint("onStartupRegionUncoveredMark");
                     return;
                 }                
                 r = RelicFactory.addElemsOnLevelInit(r);
-                r = <Relic>ElemFactory.addAI("onStartupRegionUncovered", async () => {
+                r = <Relic>ElemFactory.addAI("onStartupRegionUncoveredMark", async () => {
                     var shields = r.bt().level.map.findAllElems((e:Elem) => !e.getGrid().isUncoveredOrMarked() && e.type == "Shield");
                     for (var shield of shields) {
                         await r.bt().fireEvent("onRelicEffect", {r:r});
@@ -637,7 +637,7 @@ class RelicFactory {
                     var bt = r.bt();
                     var ep = ps.ep;
                     // 找到在创建初始元素阶段根据职业配置加入的特定物品
-                    var es = BattleUtils.findRandomElems(bt, r.attrs.moveNum, (e:Elem) => e["occupationInitItem"]);
+                    var es = BattleUtils.findRandomElems(bt, r.attrs.moveNum, (e:Elem) => e["occupationInitItem"] && e.getGrid().isCovered());
                     for(var e of es){
                         var oriPos = {x:e.pos.x, y:e.pos.y};
                         var e = BattleUtils.moveElem2Area(bt, e, ep.pos, ep.attrs.size);

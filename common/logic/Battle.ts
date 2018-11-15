@@ -168,6 +168,7 @@ class Battle {
         this.player.elems2NextLevel = [];
 
         await this.triggerLogicPoint("onStartupRegionUncovered", {bt:this, ep:ep});
+        await this.triggerLogicPoint("onStartupRegionUncoveredMark", {bt:this, ep:ep});
     }
 
     // 计算一片指定大小的区域，该区域尽量以逃跑的出口位置为中心，
@@ -800,7 +801,7 @@ class Battle {
     }
 
     // 怪物+hp
-    public async implAddMonsterHp(m:Monster, dhp:number) {
+    public async implAddMonsterHp(m:Monster, dhp:number, flag = undefined) {
         if (dhp == 0) return;
         m.addHp(dhp);
         if (dhp < 0) {
@@ -811,7 +812,7 @@ class Battle {
         if (m.isDead())
             await this.implOnElemDie(m);
         else {
-            await this.fireEvent("onElemChanged", {subType:"monsterHp", e:m, dhp:dhp});
+            await this.fireEvent("onElemChanged", {subType:"monsterHp", e:m, dhp:dhp, flag:flag});
             await this.triggerLogicPoint("onElemChanged", {"subType": "monsterHp", e:m, dhp:dhp});
         }
     }
@@ -887,10 +888,8 @@ class Battle {
         var targetAttrs = m.getAttrsAsTarget();
         var attackerAttrs = weapon.getAttrsAsAttacker();
 
-        await this.fireEvent("onAttacking", {subType:"player2monster", x:x, y:y, targets:[m], weapon:weapon});
-        await this.triggerLogicPoint("onAttacking", {subType:"player2monster", x:x, y:y, targets:[m], weapon:weapon});
-        
-        // 不受援护逻辑影响
+        await this.fireEvent("onAttacking", {subType:"player2monster", x:x, y:y, targets:[m], weapon:weapon, suppressProtect:true});
+        await this.triggerLogicPoint("onAttacking", {subType:"player2monster", x:x, y:y, targets:[m], weapon:weapon, suppressProtect:true});
 
         // 检查免疫
         if (Utils.contains(targetAttrs.targetFlags, "Frozen"))

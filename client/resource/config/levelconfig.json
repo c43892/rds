@@ -1747,7 +1747,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 20, 21 ],
+                "num": [ 18, 19 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -1809,7 +1809,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 20, 21 ],
+                "num": [ 18, 19 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -1871,7 +1871,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 20, 21 ],
+                "num": [ 18, 19 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -1933,7 +1933,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 20, 21 ],
+                "num": [ 18, 19 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -1995,7 +1995,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 20, 21 ],
+                "num": [ 18, 19 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -2057,7 +2057,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 22, 23 ],
+                "num": [ 20, 21 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -2119,7 +2119,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 22, 23 ],
+                "num": [ 20, 21 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -2181,7 +2181,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 22, 23 ],
+                "num": [ 20, 21 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -2243,7 +2243,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 22, 23 ],
+                "num": [ 20, 21 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -2305,7 +2305,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 22, 23 ],
+                "num": [ 20, 21 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -2367,7 +2367,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 24, 25 ],
+                "num": [ 22, 23 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -2429,7 +2429,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 24, 25 ],
+                "num": [ 22, 23 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -2491,7 +2491,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 24, 25 ],
+                "num": [ 22, 23 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -2553,7 +2553,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 24, 25 ],
+                "num": [ 22, 23 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -2615,7 +2615,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 26, 27 ],
+                "num": [ 22, 23 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -2677,7 +2677,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 26, 27 ],
+                "num": [ 22, 23 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -2739,7 +2739,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 26, 27 ],
+                "num": [ 22, 23 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -2801,7 +2801,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 26, 27 ],
+                "num": [ 22, 23 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -2863,7 +2863,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 26, 27 ],
+                "num": [ 22, 23 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -2925,7 +2925,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 28, 29 ],
+                "num": [ 24, 25 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -2987,7 +2987,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 28, 29 ],
+                "num": [ 24, 25 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -3049,7 +3049,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 28, 29 ],
+                "num": [ 24, 25 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -3111,7 +3111,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 28, 29 ],
+                "num": [ 24, 25 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -3173,7 +3173,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 28, 29 ],
+                "num": [ 24, 25 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -3235,7 +3235,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 30, 31 ],
+                "num": [ 26, 27 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -3297,7 +3297,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 30, 31 ],
+                "num": [ 26, 27 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -3359,7 +3359,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 30, 31 ],
+                "num": [ 26, 27 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -3421,7 +3421,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 30, 31 ],
+                "num": [ 26, 27 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -5142,7 +5142,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 24, 25 ],
+                "num": [ 22, 23 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -5204,7 +5204,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 24, 25 ],
+                "num": [ 22, 23 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -5266,7 +5266,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 24, 25 ],
+                "num": [ 22, 23 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -5328,7 +5328,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 24, 25 ],
+                "num": [ 22, 23 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -5390,7 +5390,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 24, 25 ],
+                "num": [ 22, 23 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -5452,7 +5452,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 24, 25 ],
+                "num": [ 22, 23 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -5514,7 +5514,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 24, 25 ],
+                "num": [ 22, 23 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -5576,7 +5576,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 24, 25 ],
+                "num": [ 22, 23 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -5638,7 +5638,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 25, 26 ],
+                "num": [ 23, 24 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -5700,7 +5700,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 25, 26 ],
+                "num": [ 23, 24 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -5762,7 +5762,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 25, 26 ],
+                "num": [ 23, 24 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -5824,7 +5824,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 25, 26 ],
+                "num": [ 23, 24 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -5886,7 +5886,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 25, 26 ],
+                "num": [ 23, 24 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -5948,7 +5948,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 25, 26 ],
+                "num": [ 23, 24 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -6010,7 +6010,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 28, 29 ],
+                "num": [ 25, 26 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -6072,7 +6072,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 28, 29 ],
+                "num": [ 25, 26 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -6134,7 +6134,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 28, 29 ],
+                "num": [ 25, 26 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -6196,7 +6196,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 28, 29 ],
+                "num": [ 25, 26 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -6258,7 +6258,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 28, 29 ],
+                "num": [ 25, 26 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -6320,7 +6320,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 28, 29 ],
+                "num": [ 25, 26 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -6382,7 +6382,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 28, 29 ],
+                "num": [ 25, 26 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -6444,7 +6444,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 28, 29 ],
+                "num": [ 25, 26 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -6506,7 +6506,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 29, 30 ],
+                "num": [ 26, 27 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -6568,7 +6568,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 29, 30 ],
+                "num": [ 26, 27 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -6630,7 +6630,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 29, 30 ],
+                "num": [ 26, 27 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -6692,7 +6692,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 29, 30 ],
+                "num": [ 26, 27 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -6754,7 +6754,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 29, 30 ],
+                "num": [ 26, 27 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -6816,7 +6816,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 29, 30 ],
+                "num": [ 26, 27 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -6978,7 +6978,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 26, 27 ],
+                "num": [ 24, 25 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,
@@ -7034,7 +7034,7 @@
         "levelLogics": [ { "type": "LevelLogicAddShopNpc" } ],
         "randomGroups": [
             {
-                "num": [ 30, 31 ],
+                "num": [ 27, 28 ],
                 "elems": {
                     "GoblinThief": 689,
                     "Vampire": 689,

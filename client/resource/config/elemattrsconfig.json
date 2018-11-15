@@ -79,8 +79,8 @@
         ],
         "refElems":["Knife"], "addOnLevelInit":{"num":1, "elems":["Knife"]}
     },
-    "InfinityKnife":{"name":"无尽之刃", "percent":15, "reinforce":[
-            {"percent":30}, {"percent":45}, {"percent":60}, {"percent":75}
+    "InfinityKnife":{"name":"无尽之刃", "percent":20, "reinforce":[
+            {"percent":40}, {"percent":60}, {"percent":80}, {"percent":100}
         ],
         "refElems":["Knife"], "addOnLevelInit":{"num":1, "elems":["Knife"]}
     },
@@ -246,7 +246,6 @@
     "RayGun":{"name":"火焰射线", "canOverlap":true, "useWithTarget":true, "cd":5, 
         "validTarget": "all",
         "attackFlags":["Flame", "Pierce"],
-        "occupations":["Policewoman"],
         "addBuffs":[{"type":"Flame", "rate":100, "ps":[3, 1]}], "power":3, "aoe":{"w":3, "h":3}
     },
     "IceGun":{"name":"冰冻射线", "canOverlap":true, "useWithTarget":true, "refElems":["IceBlock"], "cd":5,
