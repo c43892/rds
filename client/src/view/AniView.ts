@@ -583,8 +583,12 @@ class AniView extends egret.DisplayObjectContainer {
                 AniUtils.tipAt(ViewUtils.getTipText("cure"), {x:p.x+44, y:p.y+1}, 30);
                 AniUtils.jumpingTip(dhp.toString(), {x:p.x+sv.width,  y:p.y}, "lvFnt");
             }
-            else if (dhp < 0 && !e.isDead())
+            else if (dhp < 0 && !e.isDead()){
+                if (ps.flag == "thorns")
+                    AniUtils.tipAt(ViewUtils.getTipText("thorns"), {x:p.x+44, y:p.y+31}, 30);
+
                 AniUtils.jumpingTip((-dhp).toString(), {x:p.x+sv.width,  y:p.y-sv.height/2}, "wmFnt");
+            }
         } else if (ps.subType == "die" && e instanceof Monster) {
             if (e.type == "ShopNpc" && Utils.contains(ps.flags, "byUse")) {
                 await AniUtils.flashOut(sv, false);
@@ -767,7 +771,7 @@ class AniView extends egret.DisplayObjectContainer {
             break;
             case "hp": {
                 var dm = this.bv.deadlyMask;
-                if (this.bv.player.hp <= 5) {
+                if (this.bv.player.hp <= 10) {
                     egret.Tween.get(dm, {loop:true}).to({"alpha": 1}, 1000).to({"alpha": 0}, 1000);
                 } else {
                     egret.Tween.removeTweens(dm);
@@ -1238,7 +1242,7 @@ class AniView extends egret.DisplayObjectContainer {
 
     public async onInitBattleView(ps) {
         var dm = this.bv.deadlyMask;
-        if (this.bv.player.hp <= 5) {
+        if (this.bv.player.hp <= 10) {
             egret.Tween.get(dm, {loop:true}).to({"alpha": 1}, 1000).to({"alpha": 0}, 1000);
         } else {
             egret.Tween.removeTweens(dm);

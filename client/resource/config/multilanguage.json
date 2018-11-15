@@ -324,6 +324,7 @@
 		"doorLocked": { "EN": "The door is locked by boss", "CNS": "Boss锁住了门", "CNT": "Boss锁住了门" },
 		"swathed":{ "EN": "spider is still alive", "CNS": "需要先消灭蜘蛛", "CNT": "需要先消灭蜘蛛" },
 		"cure": { "EN": "cure", "CNS": "愈合", "CNT": "愈合" },
+		"thorns": { "EN": "thorns", "CNS": "荆棘", "CNT": "荆棘" },
 		"makeSureReinforceRelic": {"EN": "", "CNS": "确定强化{0}?", "CNT": "确定强化{0}?" },
 		"makeSureBuy": {"EN": "", "CNS": "花费{0}金币?", "CNT": ""},
 		"relics": {"EN": "Skills", "CNS": "技能", "CNT": "技能"},

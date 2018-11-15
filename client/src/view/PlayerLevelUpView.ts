@@ -104,7 +104,7 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
                 // btn.setTexName("lvSelBarNormal_png");
                 pai.display = btn;
             } else {
-                biao.display = pai.display = zi.display = undefined;
+                biao.display = pai.display = zi.display = new egret.Bitmap();
             }
         }
 
