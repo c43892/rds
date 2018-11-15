@@ -13,10 +13,10 @@
         "Cloak":15,
         "Knife":5,
         "HpPotion": 25,
-        "SuperPotion": 25,
-        "StrengthPotion": 25,
-        "IceGun":25,
-        "RayGun":25,
+        "SuperPotion": 50,
+        "StrengthPotion": 50,
+        "IceGun":50,
+        "RayGun":50,
         "Bazooka":25,
         "CandyCannon": 25,
         "ShieldDetector": 50,
@@ -64,7 +64,7 @@
             "Knife":10
         },
         "items":[
-            {"HpPotion":10, "SuperPotion":10, "StrengthPotion":10},
+            {"HpPotion":15, "SuperPotion":10, "StrengthPotion":10},
             {"IceGun":10, "CandyCannon":10},
             {"RayGun":10, "Bazooka":10},
             {"ShieldDetector":10, "KnifeDetector":10, "Storer":10, "SmellEnhanced":10, "Watchmaker":10, "ShieldBlock":10, "ExpMedal":10},
