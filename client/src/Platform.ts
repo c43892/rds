@@ -73,20 +73,21 @@ class DefaultPaltform implements Platform {
 
                 window["ExternalInterface"].call("rdsLoadLocalStorageData");
             });
-        } else {
-            var str = egret.localStorage.getItem("localStorageData");
-            if (str) {
-                var byteArray = new egret.ByteArray(egret.Base64Util.decode(str));
-                str = byteArray.readUTF();
-            }
-            await Utils.delay(1);
+        } else {            
             try {
+                var str = egret.localStorage.getItem("localStorageData");
+                Utils.log("load str: " + str.length);
+                if (str) {
+                    var byteArray = new egret.ByteArray(egret.Base64Util.decode(str));
+                    str = byteArray.readUTF();
+                }
+                await Utils.delay(1);
                 var data = str ? JSON.parse(str) : {};
                 return data;
             } catch (ex) {
-                var exMsg = "load localstorage exception: " + ex.toString();
+                var exMsg = "load localstorage exception: " + str + ":" + ex.toString();
                 Utils.log(exMsg);
-                Utils.pt((new Date()).toLocaleString() + ":ex:loadstorage", exMsg);
+                Utils.pt((new Date()).toLocaleString() + ":" + str + ":ex:loadstorage:", exMsg);
                 return {};
             }
         }
