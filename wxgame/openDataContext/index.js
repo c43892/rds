@@ -268,8 +268,8 @@ function getFriendCloudStorage() {
 			var kvs = data[i].KVDataList;
 			var score = getByKey(kvs, "score");
 			var scoreDay = getByKey(kvs, "scoreDay");
-			var nowDay = (new Date()).getDay();
-			if (!scoreDay || nowDay - scoreDay >= 7 || nowDay < scoreDay)
+			var nowDay = (new Date()).getTime();
+			if (!scoreDay || nowDay - scoreDay >= 7 * 24 * 3600 * 1000 || nowDay < scoreDay)
 				continue;
 
 			totalGroup.push({				
@@ -321,10 +321,10 @@ wx.onMessage(data => {
 				var oldScore = getByKey(kvs, "score");
 				var oldScoreDay = getByKey(kvs, "scoreDay");
 				var newScore = data.score;
-				var newScoreDay = (new Date()).getDay();
+				var newScoreDay = (new Date()).getTime();
 				
 				// 每周一旧分数过期
-				if (!oldScoreDay || newScoreDay - oldScoreDay >= 7 || newScoreDay < oldScoreDay)
+				if (!oldScoreDay || newScoreDay - oldScoreDay >= 7 * 24 * 3600 * 1000 || newScoreDay < oldScoreDay)
 					oldScore = undefined;
 
 				if (!oldScore || oldScore < data.score) {
