@@ -555,6 +555,7 @@ class MonsterFactory {
                 await m.bt().uncover(m.pos.x, m.pos.y, true);
             
             ps.targets[tarN] = m; // 变更目标
+            await m.bt().fireEvent("onProtect", {m:m});
         }, m, (ps) => Utils.filter(ps.targets, filter).length > 0 && !ps.suppressProtect);
     }
 

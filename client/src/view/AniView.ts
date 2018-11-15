@@ -1613,6 +1613,22 @@ class AniView extends egret.DisplayObjectContainer {
             await AniUtils.flash(relicImg, 200, false);
     }
 
+    // 援护提示
+    public async onProtect(ps){
+        var m = ps.m;
+        var sv = this.getSV(m);
+        var p = AniUtils.ani2global(sv);
+        AniUtils.tipAt(ViewUtils.getTipText("protect"), {x:p.x, y:p.y+1}, 30);
+    }
+
+    // 连击提示
+    public async onMultAttack(ps){
+        var m = ps.m;
+        var sv = this.getSV(m);
+        var p = AniUtils.ani2global(sv);
+        AniUtils.tipAt(ViewUtils.getTipText("multAttack"), {x:p.x + 88, y:p.y+1}, 30);
+    }
+
     // 耿鬼长舌头攻击动画
     async gengarLick(sv:egret.DisplayObject) {
         var bodyOffset = {x:sv.width / 2, y:sv.height};
