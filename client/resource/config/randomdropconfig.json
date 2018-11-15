@@ -33,13 +33,13 @@
         "VestThorns":10,
         "InfinityKnife":10,
         "VestImmune":10,
-        "IceGun":100,
-        "RayGun":100,
-        "HpPotion":100,
-        "Bazooka":100,
-        "SuperPotion":100,
-        "StrengthPotion":100,
-        "CandyCannon":100
+        "IceGun":92,
+        "RayGun":92,
+        "HpPotion":138,
+        "Bazooka":276,
+        "SuperPotion":92,
+        "StrengthPotion":92,
+        "CandyCannon":92
     }},
 
     "markAllAward": {"num":[1, 2], "elems":{
@@ -72,13 +72,13 @@
         "VestThorns":10,
         "InfinityKnife":10,
         "VestImmune":10,
-        "IceGun":125,
-        "RayGun":125,
-        "HpPotion":125,
-        "Bazooka":125,
-        "SuperPotion":125,
-        "StrengthPotion":125,
-        "CandyCannon":125
+        "IceGun":92,
+        "RayGun":92,
+        "HpPotion":138,
+        "Bazooka":276,
+        "SuperPotion":92,
+        "StrengthPotion":92,
+        "CandyCannon":92
     }},
 
     "bossBox1": {"num":[1, 2], "elems":{
@@ -86,13 +86,13 @@
     }},
 
     "bossBox2": {"num":[1, 2], "elems":{
-        "IceGun":10,
-        "RayGun":10,
-        "HpPotion":10,
-        "Bazooka":10,
-        "SuperPotion":10,
-        "StrengthPotion":10,
-        "CandyCannon":10
+        "IceGun":7,
+        "RayGun":7,
+        "HpPotion":11,
+        "Bazooka":22,
+        "SuperPotion":7,
+        "StrengthPotion":7,
+        "CandyCannon":7
     }},
 
     "bossBox3": {"num":[1, 2], "elems":{
@@ -142,13 +142,13 @@
         "VestThorns":5,
         "InfinityKnife":5,
         "VestImmune":5,
-        "IceGun":38,
-        "RayGun":38,
-        "HpPotion":38,
-        "Bazooka":38,
-        "SuperPotion":38,
-        "StrengthPotion":38,
-        "CandyCannon":38,
+        "IceGun":28,
+        "RayGun":28,
+        "HpPotion":42,
+        "Bazooka":84,
+        "SuperPotion":28,
+        "StrengthPotion":28,
+        "CandyCannon":28,
         "Clock":38,
         "Vest":38, 
         "Magazine":38, 
@@ -201,13 +201,13 @@
     }},
 
     "boxRoomProp":{"num":[1, 2], "elems":{
-        "IceGun":10,
-        "RayGun":10,
-        "HpPotion":10,
-        "Bazooka":10,
-        "SuperPotion":10,
-        "StrengthPotion":10,
-        "CandyCannon":10
+        "IceGun":7,
+        "RayGun":7,
+        "HpPotion":11,
+        "Bazooka":22,
+        "SuperPotion":7,
+        "StrengthPotion":7,
+        "CandyCannon":7
     }},
 
     "ttrdp1":{"num":[1, 2],"elems":{
@@ -243,23 +243,23 @@
     }},
 
     "ttrdp2":{"num":[1, 2],"elems":{
-        "IceGun":10,
-        "RayGun":10,
-        "HpPotion":10,
-        "Bazooka":10,
-        "SuperPotion":10,
-        "StrengthPotion":10,
-        "CandyCannon":10
+        "IceGun":7,
+        "RayGun":7,
+        "HpPotion":11,
+        "Bazooka":22,
+        "SuperPotion":7,
+        "StrengthPotion":7,
+        "CandyCannon":7
     }},
 
     "worldmapeventa91": {"num": [1, 2], "elems": {
-        "IceGun":10,
-        "RayGun":10,
-        "HpPotion":10,
-        "Bazooka":10,
-        "SuperPotion":10,
-        "StrengthPotion":10,
-        "CandyCannon":10
+        "IceGun":7,
+        "RayGun":7,
+        "HpPotion":11,
+        "Bazooka":22,
+        "SuperPotion":7,
+        "StrengthPotion":7,
+        "CandyCannon":7
     }},
     
     "worldmapeventa92": {"num": [1, 2], "elems": {
@@ -295,13 +295,13 @@
     }},
 
     "rookiePlayBox": {"num": [1, 2], "elems": {
-        "IceGun":10,
-        "RayGun":10,
-        "HpPotion":10,
-        "Bazooka":10,
-        "SuperPotion":10,
-        "StrengthPotion":10,
-        "CandyCannon":10
+        "IceGun":7,
+        "RayGun":7,
+        "HpPotion":11,
+        "Bazooka":22,
+        "SuperPotion":7,
+        "StrengthPotion":7,
+        "CandyCannon":7
     }},
 
     "rookiePlay_1Box": {"num": [1, 2], "elems": {
