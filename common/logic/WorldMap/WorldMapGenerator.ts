@@ -232,7 +232,7 @@ class WorldMapGenerator{
         var checkNum = 5;
         if (node.y >= nodes.length - checkNum || node.routes.length == 0) return false;
         for (var i = 0; i < checkNum; i++) {
-            if (testNode.routes.length > 1)
+            if (testNode.routes.length > 1 || testNode.getParents().length > 1)
                 return false;
             else 
                 testNode = testNode.routes[0].dstNode;
