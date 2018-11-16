@@ -427,6 +427,7 @@ class MainView extends egret.DisplayObjectContainer {
     // 角色死亡
     public async onPlayerDead(ps) {
         Utils.pt("die." + (new Date()).toLocaleString(), this.p.currentStoreyPos);
+        await this.openScoreView();
         Utils.savePlayer(undefined);
         this.p = undefined;
         await this.av.blackIn();
@@ -538,7 +539,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.scoreview.player = this.p;
         this.addChild(this.scoreview);
         await this.scoreview.open();
-        this.removeChild(this.scoreview);        
+        this.removeChild(this.scoreview);
     }
 
     // 按照本地存档继续游戏
