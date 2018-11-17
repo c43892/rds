@@ -311,10 +311,10 @@
 				"level":{"x":0, "y":0},
 				"shareBtn":{"x":10, "y":960},
 				"goOnBtn":{"x":417, "y":960},
-				"scrollArea":{"x":50, "y":120, "h":540, "w":500},
+				"scrollArea":{"x":50, "y":120, "h":543, "w":500},
 				"title":{"x":20, "y":0},
 				"score":{"x":400, "y":0},
-				"line":{"x":0, "y":30}
+				"line":{"x":0, "y":32}
 			}
 		}
     },
@@ -357,6 +357,7 @@
 		"selRelic": {"EN": "select a skill", "CNS": "选择一个技能", "CNT": "選擇一個技能"},
 		"makeSureSelRelic": {"EN": "be sure to select ", "CNS": "确定选择", "CNT": "確定選擇"},
 		"continueBtn":{"EN": "continue", "CNS": "继续", "CNT": "繼續"},
+		"shareBtn":{"EN": "share", "CNS": "分享", "CNT": "分享"},
 		"rob":{"EN": "Rob", "CNS": "抢劫", "CNT": ""},
 		"goBackBtn":{"EN": "go back", "CNS": "返回", "CNT": "返回"},
 		"showDeathGodStep":{"EN": "{0}", "CNS": "死神距离你还有<font color=#7d0403>{0}</font>步", "CNT": "{0}"},

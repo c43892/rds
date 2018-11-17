@@ -54,23 +54,29 @@ class ScoreView extends egret.DisplayObjectContainer{
         this.scrollArea.verticalScrollPolicy = "auto";
         this.scrollArea.horizontalScrollPolicy = "off";
         this.scrollArea.bounces = true;
+        this.scrollArea.addEventListener(egret.Event.CHANGE, () => this.setInfoContainers(), this);
 
         this.shareBtn = new TextButtonWithBg("goBack_png", 30);
+        this.shareBtn.text = ViewUtils.getTipText("shareBtn");
         this.shareBtn.name = "shareBtn";
-        this.shareBtn.onClicked = () => this.onShare();
+        this.shareBtn.onClicked = () => this.doShare();
 
         this.goOnBtn = new TextButtonWithBg("goForward_png", 30);
+        this.goOnBtn.text = ViewUtils.getTipText("continueBtn");
         this.goOnBtn.name = "goOnBtn";
         this.goOnBtn.onClicked = () => this.doClose();
 
-        var objs = [this.bg1, this.avatarBg, this.avatar, this.playerName, this.finalScore, this.scrollArea, this.shareBtn, this.goOnBtn];
+        var objs = [this.bg, this.bg1, this.avatarBg, this.avatar, this.playerName, this.finalScore, this.scrollArea, this.shareBtn, this.goOnBtn];
         objs.forEach((obj, _) => this.addChild(obj));
         ViewUtils.multiLang(this, ...objs);
 
         this.scrollContent.width = this.scrollArea.width;
     }
 
+    onUsing;
+
     open(scoreInfos = []){
+        this.onUsing = true;
         this.scoreInfos = GCfg.getMiscConfig("scoreInfos");
         // this.scoreInfos = scoreInfos;
         this.refresh();
@@ -78,15 +84,25 @@ class ScoreView extends egret.DisplayObjectContainer{
         return new Promise<void>((resolve, reject) => this.doClose = resolve);
     }
 
-    doClose;
+    doClose(){
+        this.onUsing = false;
+    }
+    doShare(){}
 
     readonly yGap = 60;
     readonly xGap = 50;
-    readonly xRight = 200;
+    readonly xShort = 180;
+    readonly yLimit = 335;
 
     refresh() {
         // 设置头像
+        var ske = ViewUtils.createSkeletonAni(this.player.occupation);
+        ske.animation.play("Idle");
+        var avatar = ske.display;
+        ViewUtils.setTex(this.avatar, avatar, true);
+        
         // 设置经验条
+
         // 设置总得分
         this.refreshInfoContainers();
     }
@@ -99,6 +115,11 @@ class ScoreView extends egret.DisplayObjectContainer{
         for (var i = 0; i < this.scoreInfos.length; i++) {
             var scoreInfo = this.scoreInfos[i];
             var infoContainer = this.createSingleStoreInfo(scoreInfo);
+            if (i > 5)
+                this.setShortInfo(infoContainer);
+            else 
+                this.setLongInfo(infoContainer);
+
             infoContainer.x = this.xGap;
             infoContainer.y = y;
             this.infoContainers.push(infoContainer);
@@ -118,15 +139,14 @@ class ScoreView extends egret.DisplayObjectContainer{
 
     // 创建单条得分信息,其中包括标题,得分以及横线
     createSingleStoreInfo(info) {
-        var title = ViewUtils.createTextField(30, 0x000000);
+        var title = ViewUtils.createTextField(40, 0x000000);
         title.text = info.title;
         title.name = "title";
-        var score = ViewUtils.createTextField(30, 0x000000);
+        var score = ViewUtils.createTextField(40, 0x000000);
         score.text = info.score;
         score.name = "score";
         var line = ViewUtils.createBitmapByName("scoreViewLine_png");
         line.name = "line";
-        ViewUtils.multiLang(this, title, score, line);
 
         // 将内容装在一起
         var container = new egret.DisplayObjectContainer();
@@ -140,5 +160,35 @@ class ScoreView extends egret.DisplayObjectContainer{
         return container;
     }
 
-    onShare(){}
+    onScrolling(evt:egret.Event){}
+
+    onScrollEnd(evt:egret.Event){}
+
+    setInfoContainers(){
+        if (!this.onUsing) return;
+        for (var c of this.infoContainers) {
+            if (c.y - this.scrollArea.scrollTop > this.yLimit)
+                this.setShortInfo(c);
+            else this.setLongInfo(c);
+        }
+    }
+
+    // 将一条得分信息设置为长格式
+    setLongInfo(c:egret.DisplayObjectContainer){
+        if (c["status"] == "long") return;
+
+        ViewUtils.multiLang(this, c["title"], c["score"], c["line"]);
+        c["line"].scaleX = 1;
+        c["status"] = "long";
+    }
+
+    // 将一条得分信息设置为短格式
+    setShortInfo(c:egret.DisplayObjectContainer){
+        if (c["status"] == "short") return;
+
+        ViewUtils.multiLang(this, c["title"], c["score"], c["line"]);
+        c["title"].x = c["line"].x  = this.xShort;
+        c["line"].scaleX = 0.6;
+        c["status"] = "short";
+    }
 }

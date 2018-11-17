@@ -251,11 +251,11 @@ class ViewUtils {
             // layout
             if (curCfg.layout && curCfg.layout[name]) {
                 var lyt = curCfg.layout[name][mlCfg.currentLanguage] ? curCfg.layout[name][mlCfg.currentLanguage] : curCfg.layout[name];
-                p.x = lyt.x ? lyt.x : p.x;
-                p.y = lyt.y ? lyt.y : p.y;
-                p.width = lyt.w ? lyt.w : p.width;
-                p.height = lyt.h ? lyt.h : p.height;
-                p.size = lyt.size ? lyt.size : p.size;
+                p.x = lyt.x != undefined ? lyt.x : p.x;
+                p.y = lyt.y != undefined ? lyt.y : p.y;
+                p.width = lyt.w != undefined ? lyt.w : p.width;
+                p.height = lyt.h != undefined ? lyt.h : p.height;
+                p.size = lyt.size != undefined ? lyt.size : p.size;
             }
 
             // text

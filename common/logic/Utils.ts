@@ -805,4 +805,18 @@ class Utils {
         var cfg = GCfg.playerCfg["playerInitRelicsEquippedCapacity"];
         return cfg[difficulty];
     }
+
+    // 玩家某个职业获得经验
+    public static addOccupationExp(occupation:string, exp:number){     
+        var occupationExp = Utils.loadLocalData("occupationExp");
+        occupationExp = occupationExp ? occupationExp : {};
+        occupationExp[occupation] = occupationExp["occupation"] ? occupationExp["occupation"] : 0 + exp;
+        Utils.saveLocalData("occupationExp", occupationExp);
+    }
+
+    // 获取玩家某个职业的升级经验信息
+    public static loadOccupationExp(occupation:string){
+        var occupationExp = Utils.loadLocalData("occupationExp");
+        return occupationExp ? (occupationExp[occupation] ? occupationExp[occupation] : 0) : 0;
+    }
 }
