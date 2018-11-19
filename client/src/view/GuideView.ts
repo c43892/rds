@@ -734,7 +734,7 @@ class GuideView extends egret.DisplayObjectContainer {
         var nameAndDesc = ViewUtils.getElemNameAndDesc(m.type);
         await AniUtils.delay(700);
         await this.showDialog("Nurse", "护士", "bingo，你成功的标记了一个怪物", 0, 550, true);
-        await this.showDialog("Nurse", "护士", "攻击被标记的怪物可以额外造成2点伤害", 0, 550, true);
+        await this.showDialog("Nurse", "护士", "攻击被标记的怪物可以额外造成3点伤害", 0, 550, true);
         await this.showDialog("Nurse", "护士", "你也可以看到怪物的属性来判断是不是要击杀这个怪物", 0, 550, true);
         await this.showDialog("Nurse", "护士", "注意哦，你不一定要击杀所有怪物，拿到宝物就可以去下一层了", 0, 550, true);
 
