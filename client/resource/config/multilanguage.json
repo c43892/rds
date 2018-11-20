@@ -302,18 +302,18 @@
 		
 		"scoreView":{
 			"layout":{
-				"bg1":{"x":0, "y":0},
-				"avatar":{"x":0, "y":0},
-				"avatarBg":{"x":68, "y":510},
-				"finalScore":{"x":350, "y":680},
-				"playerName":{"x":88, "y":680},
+				"bg1":{"x":0, "y":50},
+				"avatar":{"x":84, "y":591, "w":100, "h":100},
+				"avatarBg":{"x":68, "y":560},
+				"finalScore":{"x":350, "y":730, "w":120, "h":60, "size":40},
+				"playerName":{"x":88, "y":730},
 				"exp":{"x":0, "y":0},
 				"level":{"x":0, "y":0},
 				"shareBtn":{"x":10, "y":960},
 				"goOnBtn":{"x":417, "y":960},
-				"scrollArea":{"x":50, "y":120, "h":543, "w":500},
+				"scrollArea":{"x":50, "y":170, "h":543, "w":500},
 				"title":{"x":20, "y":0},
-				"score":{"x":400, "y":0},
+				"score":{"x":450, "y":0},
 				"line":{"x":0, "y":32}
 			}
 		}
@@ -394,6 +394,13 @@
 		"hideMonsterAttrs":{"EN": "hideMonsterAttrs", "CNS": "怪物的属性值将被隐藏", "CNT": "怪物的属性值将被隐藏"},
 		"attackRandomGrid":{"EN": "attackRandomGrid", "CNS": "将攻击随机的敌方目标", "CNT": "将攻击随机的敌方目标"},
 		"changeMonsterImg":{"EN": "changeMonsterImg", "CNS": "怪物的图标都显示为克苏鲁的触手", "CNT": "怪物的图标都显示为克苏鲁的触手"},
+		"totalStoreyLevel": {"EN": "totalStoreyLevel", "CNS": "层数得分", "CNT": "总层数"},
+		"playerLevel": {"EN": "playerLevel", "CNS": "等级得分", "CNT": "等级得分"},
+		"totalCoins": {"EN": "totalCoins", "CNS": "金币得分", "CNT": "金币得分"},
+		"totalRelicLevel": {"EN": "totalRelicLevel", "CNS": "技能得分", "CNT": "技能得分"},
+		"totalMonster": {"EN": "totalMonster", "CNS": "消灭怪物得分", "CNT": "消灭怪物得分"},
+		"clearBonusCount": {"EN": "clearBonusCount", "CNS": "清关得分", "CNT": "清关得分"},
+		"difficulty": {"EN": "difficulty", "CNS": "难度系数", "CNT": "难度系数"},
 		"": {}
 	}
 }

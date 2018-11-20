@@ -640,13 +640,21 @@ class Utils {
         return Utils.indexOf(cfg.initItems, (t:string) => t == itemType) > -1;
     }
 
-    // 得到player完成的总层数
-    public static playerFinishedStorey(p:Player){
+    // 得到player当前所在的总层数
+    public static playerCurrentTotalStorey(p:Player){
         var storey = p.currentStoreyPos.lv;
         for(var world of p.finishedWorldMap)
             storey += world.totalLevels;
         
         return storey;
+    }
+
+    // 得到player当前已完成的总层数
+    public static playerFinishedTotalStorey(p:Player){
+        if (p.currentStoreyPos.status == "finished")
+            return Utils.playerCurrentTotalStorey(p);
+        else
+            return Utils.playerCurrentTotalStorey(p) - 1;
     }
 
     // 获取战斗实际所使用的地图范围

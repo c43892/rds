@@ -34,7 +34,7 @@ class LevelLogicMarkAllAward extends LevelLogic {
                 // 分配好宝箱和钥匙的目标位置都才一起掉落出来
                 if (keyGrid) {
                     this.valid = false;
-                    await bt.fireEvent("onGetMarkAllAward");
+                    await bt.fireEvent("onGetMarkAllAward", {btType:"normal"});
                     var box = this.level.createElem("TreasureBox", { rdp: this.rdp });
                     await bt.implAddElemAt(box, boxGrid.pos.x, boxGrid.pos.y);
                     var key = this.level.createElem("Key");
@@ -48,7 +48,7 @@ class LevelLogicMarkAllAward extends LevelLogic {
                         e.addDropItem(key);
                         await bt.fireEvent("onElemImgFlying", { e: key, fromPos: boxGrid.pos, toPos: keyGrid.pos });
                     }
-                    await bt.triggerLogicPoint("onGetMarkAllAward");
+                    await bt.triggerLogicPoint("onGetMarkAllAward", {btType:"normal"});
                 }
             }
         })

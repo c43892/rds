@@ -77,17 +77,24 @@ class ScoreView extends egret.DisplayObjectContainer{
 
     open(scoreInfos = []){
         this.onUsing = true;
-        this.scoreInfos = GCfg.getMiscConfig("scoreInfos");
-        // this.scoreInfos = scoreInfos;
+        this.scoreInfos = BattleStatistics.getScoreInfos(this.player.st);
         this.refresh();
         
         return new Promise<void>((resolve, reject) => this.doClose = resolve);
     }
 
-    doClose(){
+    doClose;
+
+    onGoOn() {
+        // 获得经验
+
         this.onUsing = false;
+        this.doClose();
     }
-    doShare(){}
+
+    doShare(){
+        this.refresh();
+    }
 
     readonly yGap = 60;
     readonly xGap = 50;
@@ -96,14 +103,13 @@ class ScoreView extends egret.DisplayObjectContainer{
 
     refresh() {
         // 设置头像
-        var ske = ViewUtils.createSkeletonAni(this.player.occupation);
-        ske.animation.play("Idle");
-        var avatar = ske.display;
-        ViewUtils.setTex(this.avatar, avatar, true);
-        
+        ViewUtils.setTexName(this.avatar, "avatar" + this.player.occupation + "_png", true);
+
         // 设置经验条
 
         // 设置总得分
+        this.finalScore.text = BattleStatistics.getFinalScore(this.scoreInfos).toString();        
+
         this.refreshInfoContainers();
     }
 
@@ -112,10 +118,10 @@ class ScoreView extends egret.DisplayObjectContainer{
         this.scrollContent.removeChildren();
         this.infoContainers = [];
         var y = 20;
-        for (var i = 0; i < this.scoreInfos.length; i++) {
-            var scoreInfo = this.scoreInfos[i];
-            var infoContainer = this.createSingleStoreInfo(scoreInfo);
-            if (i > 5)
+        var index = 0
+        for (var title in this.scoreInfos) {
+            var infoContainer = this.createSingleStoreInfo(title, this.scoreInfos[title]);
+            if (index > 5)
                 this.setShortInfo(infoContainer);
             else 
                 this.setLongInfo(infoContainer);
@@ -125,6 +131,7 @@ class ScoreView extends egret.DisplayObjectContainer{
             this.infoContainers.push(infoContainer);
             this.scrollContent.addChild(infoContainer);
             y += this.yGap;
+            index ++;
         }
 
         this.scrollContent.height = y;
@@ -138,13 +145,14 @@ class ScoreView extends egret.DisplayObjectContainer{
     }
 
     // 创建单条得分信息,其中包括标题,得分以及横线
-    createSingleStoreInfo(info) {
-        var title = ViewUtils.createTextField(40, 0x000000);
-        title.text = info.title;
+    createSingleStoreInfo(t:string, s:number) {
+        var title = ViewUtils.createTextField(30, 0x000000);
+        title.text = ViewUtils.getTipText(t);
         title.name = "title";
-        var score = ViewUtils.createTextField(40, 0x000000);
-        score.text = info.score;
+        var score = ViewUtils.createTextField(30, 0x000000);
+        score.text = t == "difficulty" ? ("× " + s.toString()) : s.toString();
         score.name = "score";
+        score.anchorOffsetX = score.width;
         var line = ViewUtils.createBitmapByName("scoreViewLine_png");
         line.name = "line";
 
@@ -159,10 +167,6 @@ class ScoreView extends egret.DisplayObjectContainer{
 
         return container;
     }
-
-    onScrolling(evt:egret.Event){}
-
-    onScrollEnd(evt:egret.Event){}
 
     setInfoContainers(){
         if (!this.onUsing) return;
