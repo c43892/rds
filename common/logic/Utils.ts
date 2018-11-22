@@ -815,16 +815,52 @@ class Utils {
     }
 
     // 玩家某个职业获得经验
-    public static addOccupationExp(occupation:string, exp:number){     
+    public static addOccupationExp(occupation:string, exp:number) {     
+        Utils.try2InitOccupationExpInfo(occupation);
         var occupationExp = Utils.loadLocalData("occupationExp");
-        occupationExp = occupationExp ? occupationExp : {};
-        occupationExp[occupation] = occupationExp["occupation"] ? occupationExp["occupation"] : 0 + exp;
+        occupationExp[occupation] += exp;
         Utils.saveLocalData("occupationExp", occupationExp);
     }
 
     // 获取玩家某个职业的升级经验信息
-    public static loadOccupationExp(occupation:string){
+    public static getOccupationExp(occupation:string){
+        Utils.try2InitOccupationExpInfo(occupation);
+        return Utils.loadLocalData("occupationExp")[occupation];
+    }
+
+    // 初始化某职业的升级经验信息
+    public static try2InitOccupationExpInfo(occupation:string) {
         var occupationExp = Utils.loadLocalData("occupationExp");
-        return occupationExp ? (occupationExp[occupation] ? occupationExp[occupation] : 0) : 0;
+        if (!occupationExp) 
+            Utils.saveLocalData("occupationExp", {});
+        
+        var exp = Utils.loadLocalData("occupationExp")[occupation];
+        if (!exp){
+            var occupationExp = Utils.loadLocalData("occupationExp");
+            occupationExp[occupation] = 0;
+            Utils.saveLocalData("occupationExp", occupationExp);
+        }
+    }
+
+    // 根据得分获取所得经验
+    public static score2Exp(s:number) {
+        return s;
+    }
+
+    // 根据玩家在某个职业积累的经验值,获取该职业目前的等级和当前等级经验
+    public static getOccupationLevelAndExp(occupation:string) {
+        Utils.try2InitOccupationExpInfo(occupation);
+        var exp = Utils.getOccupationExp(occupation);
+        var occupationLevelCfg = GCfg.getMiscConfig("occupationLevelCfg");
+        for (var i = 0; i < occupationLevelCfg.length; i++){
+            var e = occupationLevelCfg[i];
+            if (exp > e)
+                exp -= e;            
+            else break;
+        }
+        if (i == occupationLevelCfg.length)
+            return {level:-1, exp:0};
+        else 
+            return {level:i + 1, exp:exp};
     }
 }

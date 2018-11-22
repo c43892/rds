@@ -41,9 +41,23 @@ class ScoreView extends egret.DisplayObjectContainer{
 
         this.playerName = new egret.TextField();
         this.playerName.name ="playerName";
+        this.playerName.textColor = 0X000000;
+        this.playerName.verticalAlign = egret.VerticalAlign.MIDDLE;
 
         this.finalScore = new egret.TextField();
         this.finalScore.name = "finalScore";
+        this.finalScore.textColor = 0X000000;
+        this.finalScore.textAlign = egret.HorizontalAlign.CENTER;
+
+        this.exp = new egret.TextField();
+        this.exp.name = "exp";
+        this.exp.textColor = 0X000000;
+        this.exp.verticalAlign = egret.VerticalAlign.MIDDLE;
+
+        this.level = new egret.TextField();
+        this.level.name = "level";
+        this.level.textColor = 0X000000;
+        this.level.verticalAlign = egret.VerticalAlign.MIDDLE;
 
         // 滚动区域中的内容
         this.scrollContent = new egret.DisplayObjectContainer();
@@ -64,9 +78,9 @@ class ScoreView extends egret.DisplayObjectContainer{
         this.goOnBtn = new TextButtonWithBg("goForward_png", 30);
         this.goOnBtn.text = ViewUtils.getTipText("continueBtn");
         this.goOnBtn.name = "goOnBtn";
-        this.goOnBtn.onClicked = () => this.doClose();
+        this.goOnBtn.onClicked = () => this.onGoOn();
 
-        var objs = [this.bg, this.bg1, this.avatarBg, this.avatar, this.playerName, this.finalScore, this.scrollArea, this.shareBtn, this.goOnBtn];
+        var objs = [this.bg, this.bg1, this.avatarBg, this.avatar, this.playerName, this.finalScore, this.exp, this.level, this.scrollArea, this.shareBtn, this.goOnBtn];
         objs.forEach((obj, _) => this.addChild(obj));
         ViewUtils.multiLang(this, ...objs);
 
@@ -85,9 +99,15 @@ class ScoreView extends egret.DisplayObjectContainer{
 
     doClose;
 
-    onGoOn() {
-        // 获得经验
-
+    async onGoOn() {
+        // 未满级则获得经验
+        if (Utils.getOccupationLevelAndExp(this.player.occupation).level != -1){
+            var getExp = Utils.score2Exp(BattleStatistics.getFinalScore(this.scoreInfos));
+            await Utils.delay(2000);
+            Utils.addOccupationExp(this.player.occupation, getExp);
+            this.setExpTip();
+        }
+        await Utils.delay(2000);
         this.onUsing = false;
         this.doClose();
     }
@@ -106,6 +126,7 @@ class ScoreView extends egret.DisplayObjectContainer{
         ViewUtils.setTexName(this.avatar, "avatar" + this.player.occupation + "_png", true);
 
         // 设置经验条
+        this.setExpTip();
 
         // 设置总得分
         this.finalScore.text = BattleStatistics.getFinalScore(this.scoreInfos).toString();        
@@ -168,6 +189,7 @@ class ScoreView extends egret.DisplayObjectContainer{
         return container;
     }
 
+    // 滚动时调整得分信息的显示方式
     setInfoContainers(){
         if (!this.onUsing) return;
         for (var c of this.infoContainers) {
@@ -194,5 +216,20 @@ class ScoreView extends egret.DisplayObjectContainer{
         c["title"].x = c["line"].x  = this.xShort;
         c["line"].scaleX = 0.6;
         c["status"] = "short";
+    }
+
+    // 设置经验显示
+    setExpTip(){
+        var info = Utils.getOccupationLevelAndExp(this.player.occupation);
+        if (info.level == -1){
+            this.exp.alpha = 0;
+            this.level.alpha = 0;
+        }
+        else {
+            this.exp.alpha = 1;
+            this.exp.text = "[" + info.exp + "/" + GCfg.getMiscConfig("occupationLevelCfg")[info.level - 1] + "]";
+            this.level.alpha = 1;
+            this.level.text = (info.level + 1).toString();
+        }
     }
 }
