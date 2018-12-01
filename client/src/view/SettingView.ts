@@ -82,7 +82,7 @@ class SettingView extends egret.DisplayObjectContainer{
             this.switchSound();
     }
 
-    public async open():Promise<void>{
+    public async open(){
         this.title.text = ViewUtils.getTipText("setting");
         return new Promise<void>((resolve, reject) => this.doClose = resolve);
     }

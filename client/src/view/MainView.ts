@@ -2,6 +2,7 @@
 class MainView extends egret.DisplayObjectContainer {
     private p:Player; // 当前玩家数据
     public lgv:LoginView; // 主界面菜单
+    public osv:OccupationSelView; // 
     public bv:BattleView; // 战斗视图
     public sv:ShopView; // 商店视图
     public hv:HospitalView; // 医院视图
@@ -63,6 +64,9 @@ class MainView extends egret.DisplayObjectContainer {
         this.lgv = new LoginView(w, h);
         this.lgv.acFact = audioFact;
         this.lgv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
+
+        // 角色选择界面
+        this.osv = new OccupationSelView(w, h);
 
         // 设置界面
         this.st = new SettingView(w, h);
@@ -395,12 +399,15 @@ class MainView extends egret.DisplayObjectContainer {
         this.clear();
         // Utils.removeLocalDate("rookiePlay"); // 删除新手数据存档
 
+        ////----
+        await this.openOccSelView();
+
         this.p = p;
         this.lgv.player = p;
         this.addChild(this.lgv);
         this.lgv.open();
         AudioFactory.playBg("bgs");
-        await this.av.blackOut();        
+        await this.av.blackOut();
         this.lgv.onClose = async (op:string) => {
             if (op == "openRank")
                 await this.openRankView();
@@ -413,11 +420,14 @@ class MainView extends egret.DisplayObjectContainer {
                 else if (op == "newPlay") {
                     if(Utils.checkRookiePlay())
                         await this.rookiePlay();
-                    else {
-                        this.newPlay();
-                        this.wmv.mapScrollPos = 0;
-                        await this.av.blackOut();
-                        await this.av.doWorldMapSlide(1, 2000, 1);
+                    else {                        
+                        var sel = await this.openOccSelView();
+                        if (sel) { // sel 为 undefined 则表示是返回
+                            this.newPlay();
+                            this.wmv.mapScrollPos = 0;
+                            await this.av.blackOut();
+                            await this.av.doWorldMapSlide(1, 2000, 1);
+                        }
                     }
                 }
             }
@@ -530,6 +540,16 @@ class MainView extends egret.DisplayObjectContainer {
         this.addChild(this.lcv);
         var r = await this.lcv.open(relics);
         this.removeChild(this.lcv);
+        return r;
+    }
+
+    // 打开角色选择界面
+    public async openOccSelView() {
+        await this.av.blackOut();
+        this.addChild(this.osv);
+        var r = await this.osv.open();
+        await this.av.blackIn();
+        this.removeChild(this.osv);
         return r;
     }
 
