@@ -11,7 +11,7 @@ class OccupationSelView extends egret.DisplayObjectContainer {
     occItemImg:egret.Bitmap; // 职业物品图标
     occItemDesc:egret.TextField; // 职业物品描述
 
-    occAvatarBgLst:egret.Bitmap[]; // 候选职业背景
+    occAvatarBgLst:TextButtonWithBg[]; // 候选职业背景
     occAvatarLst:egret.DisplayObjectContainer[]; // 候选职业列表头像
 
     diffImgLst:egret.Bitmap[]; // 难度图标
@@ -59,9 +59,9 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         // 职业列表
         this.occAvatarBgLst = [];
         for (var i = 0; i < 8; i++) {
-            var img = new egret.Bitmap();
-            img.name = "occAvatarBgLst" + (i + 1);
-            this.occAvatarBgLst.push(img);
+            var btn = new TextButtonWithBg("occLockedBg_png");
+            btn.name = "occAvatarBgLst" + (i + 1);
+            this.occAvatarBgLst.push(btn);
         }
 
         this.occAvatarLst = [];
@@ -93,7 +93,7 @@ class OccupationSelView extends egret.DisplayObjectContainer {
     public async open() {
         ViewUtils.asFullBg(this.bg);
 
-        this.setAvailableOccList(["Nurse"]);
+        this.setAvailableOccList(["Nurse", "Rogue"]);
         this.selOcc("Nurse");
         this.selDifficulty(0);
 
@@ -104,22 +104,38 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         });
     }
 
+    occArr;
     setAvailableOccList(occArr:string[]) {
+        this.occArr = occArr;
         for (var i = 0; i < this.occAvatarBgLst.length; i++) {
             this.occAvatarLst[i].removeChildren();
+            this.occAvatarBgLst[i].setTexName("occUnlockedBg_png");
+            this.occAvatarBgLst[i].setDisableBg("occLockedBg_png");
             if (i < occArr.length) {
-                ViewUtils.setTexName(this.occAvatarBgLst[i], "occUnlockedBg_png");
-                 let ske = ViewUtils.createSkeletonAni(occArr[i]);
-                 ske.animation.play("Idle", 0);
-                 this.occAvatarLst[i].addChild(ske.display);
+                let occ = occArr[i];
+                this.occAvatarBgLst[i].enabled = true;
+                this.occAvatarBgLst[i].onClicked = () => {
+                    this.selOcc(occ);
+                };
+
+                let ske = ViewUtils.createSkeletonAni(occArr[i]);
+                ske.animation.play("Idle", 0);
+                this.occAvatarLst[i].addChild(ske.display);
             }
             else
-                ViewUtils.setTexName(this.occAvatarBgLst[i], "occLockedBg_png");
+                this.occAvatarBgLst[i].enabled = false;
         }
     }
 
     selOcc(occ:string) {
         this.occ = occ;
+
+        for (var i = 0; i < this.occArr.length; i++) {
+            if (this.occArr[i] == occ)
+                this.occAvatarBgLst[i].setTexName("occSelBg_png");
+            else
+                this.occAvatarBgLst[i].setTexName("occUnlockedBg_png");
+        }
 
         this.occAvatar.removeChildren();
         var ske = ViewUtils.createSkeletonAni(occ);
