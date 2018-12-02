@@ -420,14 +420,11 @@ class MainView extends egret.DisplayObjectContainer {
                 else if (op == "newPlay") {
                     if(Utils.checkRookiePlay())
                         await this.rookiePlay();
-                    else {                        
-                        var sel = await this.openOccSelView();
-                        if (sel) { // sel 为 undefined 则表示是返回
-                            this.newPlay();
-                            this.wmv.mapScrollPos = 0;
-                            await this.av.blackOut();
-                            await this.av.doWorldMapSlide(1, 2000, 1);
-                        }
+                    else {
+                        this.newPlay();
+                        this.wmv.mapScrollPos = 0;
+                        await this.av.blackOut();
+                        await this.av.doWorldMapSlide(1, 2000, 1);
                     }
                 }
             }
@@ -436,7 +433,7 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 角色死亡
     public async onPlayerDead(ps) {
-        Utils.pt("die." + (new Date()).toLocaleString(), this.p.currentStoreyPos);
+        Utils.pt("die." + (new Date()).toLocaleString('en-GB', { timeZone: 'UTC' }), this.p.currentStoreyPos);
         Utils.savePlayer(undefined);
         this.p = undefined;
         await this.av.blackIn();

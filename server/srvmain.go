@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"io"
 	"encoding/json"
 	"log"
@@ -10,6 +11,7 @@ import (
 	"github.com/go-redis/redis"
 	"sort"
 	"time"
+	"strings"
 )
 
 func assert(condition bool, msg string) {
@@ -74,12 +76,67 @@ func loadRankInfo() {
 	log.Println("rank info loaded: " + strconv.Itoa(len(rankInfo.Usrs)));
 }
 
-func main() {
-	initDB();
+func runServer() {
 	loadRankInfo();
 	fmt.Println("rds server started.")
 	http.HandleFunc("/",  handleMsgfunc)
     http.ListenAndServe(":81", nil)
+}
+
+func stServer(ps string) {
+	
+	var keys, _ = dbc.Keys("uid_*").Result()
+	for i := 0; i < len(keys); i++ {
+		var uid = keys[i]
+		usrInfo := loadOrCreateUser(uid)
+		uidStr := strings.Replace(uid, ",", " ", -1);
+		if (ps == "score") {
+			rookiePlayFinished, _ := dbc.HGet(uid, "st.rookiePlayFinished").Result()
+			fmt.Println(uid + "," + strconv.Itoa(usrInfo.Score) + "," + rookiePlayFinished)
+		} else if (ps == "st.t") {
+			stKeys, _ := dbc.HKeys(uid).Result()
+			var firstStartDate = -1;
+			for j := 0; j < len(stKeys); j++ {
+				stKey := stKeys[j];
+				if (len(stKey) > 8 && stKey[:8] == "st.2018/") {
+					startTimeStr := stKey[3:];
+					startDateStr := startTimeStr[8:10];
+					startDate, _ := strconv.Atoi(startDateStr);
+					if (firstStartDate == -1) {
+						firstStartDate = startDate;
+					} else if (startDate != firstStartDate) {
+						fmt.Println(uidStr + ", " + strconv.Itoa(firstStartDate) + "," + strconv.Itoa(startDate));
+						break;
+					}
+				}
+			}
+		} else if (ps[:3] == "st.") {
+			v, err := dbc.HGet(uid, ps).Result()
+			if (err == nil && v != "") {
+				fmt.Println(uidStr + "," + v);
+			}
+		} else {
+			v := usrInfo.Info[ps]
+			fmt.Println(uidStr + "," + v);
+		}
+	}
+}
+
+func main() {
+	initDB()
+
+	if (len(os.Args) > 1) {
+		var launchType = os.Args[1]
+		if (launchType == "st") {
+			stServer(os.Args[2]);
+			return;
+		} else if (launchType != "default") {
+			log.Fatal("unknown launch type: " + launchType);
+			return
+		}
+	}
+
+	runServer()
 }
 
 type HttpResp struct {
@@ -136,7 +193,6 @@ func setUserScore(usrInfo *UserInfo) {
 		if usr != nil && usr.Uid == usrInfo.Uid {
 			if usr.Score < usrInfo.Score { // new high score
 				usr.Score = usrInfo.Score;
-				dbc.HSet(usrInfo.Uid, "score", usr.Score);
 				sortRank();
 			}
 
@@ -190,8 +246,12 @@ func onSetUserInfo(msg *RequestMsg) (*UserInfo) {
 	if (msg.Key == "score") {
 		// set user score and rebuild the rank
 		score, _ := strconv.Atoi(msg.Value);
-		usrInfo.Score = score
-		setUserScore(usrInfo);		
+		if (usrInfo.Score < score) {
+			usrInfo.Score = score
+			dbc.HSet(usrInfo.Uid, "score", score)
+		}
+
+		setUserScore(usrInfo);
 	} else if (msg.Key[:3] == "st.") {
 		// statistics
 		dbc.HSet(msg.Uid, msg.Key, msg.Value);

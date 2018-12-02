@@ -199,11 +199,11 @@ class Main extends egret.DisplayObjectContainer {
         Utils.pt("Progress", "platform " + window.platform.platformType + " inited");
 
         // 心跳统计在线时长
-        var startTime = (new Date()).toLocaleString();
-        Utils.pt(startTime, startTime);
+        var startTime = (new Date()).toLocaleString('en-GB', { timeZone: 'UTC' });
+        Utils.pt("t." + startTime, startTime);
         egret.setInterval(() => {
-            var nowTime = (new Date()).toLocaleString();
-            Utils.pt(startTime, nowTime);
+            var nowTime = (new Date()).toLocaleString('en-GB', { timeZone: 'UTC' });
+            Utils.pt("t." + startTime, nowTime);
         }, this, 60000);
 
         this.calcArea(); // 计算屏幕适配

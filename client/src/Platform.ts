@@ -41,6 +41,7 @@ class DefaultPaltform implements Platform {
             var now = new Date();
             var r = new SRandom(now.getMilliseconds());
             uid = "uid_" + r.nextInt(100000, 1000000) + "_"  + now.toUTCString();
+            uid = uid.replace("," + " ");
             Utils.saveLocalItem("UserID", uid);
         }
 
@@ -87,7 +88,7 @@ class DefaultPaltform implements Platform {
             } catch (ex) {
                 var exMsg = "load localstorage exception: " + str + ":" + ex.toString();
                 Utils.log(exMsg);
-                Utils.pt((new Date()).toLocaleString() + ":" + str + ":ex:loadstorage:", exMsg);
+                Utils.pt((new Date()).toLocaleString('en-GB', { timeZone: 'UTC' }) + ":" + str + ":ex:loadstorage:", exMsg);
                 return {};
             }
         }

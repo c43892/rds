@@ -71,6 +71,17 @@ class OccupationSelView extends egret.DisplayObjectContainer {
             this.occAvatarLst.push(c);
         }
 
+        // 难度列表
+        this.diffImgLst = [];
+        // for (var i = 0; i < 5; i++) {
+        //     var img = ViewUtils.createBitmapByName("")
+        // }
+
+        this.diffFlagBg = ViewUtils.createBitmapByName("diffFlagBg_png");
+        this.diffFlagBg.name = "diffFlagBg";
+        this.diffFlagDesc = ViewUtils.createTextField(30, 0x000000);
+        this.diffFlagDesc.name = "diffFlagDesc";
+
         var uis = [this.occAvatar, this.occDesc, this.occRelicImg, this.occRelicDesc, 
             this.occItemImg, this.occItemDesc, ...this.occAvatarBgLst, ...this.occAvatarLst,
             this.btnCancel, this.btnOk];
