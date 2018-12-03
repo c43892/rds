@@ -81,19 +81,22 @@ class OccupationSelView extends egret.DisplayObjectContainer {
             btn.setDisableBg(undefined);
             btn.enabled = false;
             btn.name = "diff" + (i + 1);
+            btn.anchorOffsetX = btn.width / 2;
+            btn.anchorOffsetY = btn.height;
             let diff = i;
             btn.onClicked = () => this.selDifficulty(diff);
             this.diffImgLst.push(btn);
         }
 
         this.diffFlagBg = ViewUtils.createBitmapByName("diffFlagBg_png");
+        this.diffFlagBg.anchorOffsetX = this.diffFlagBg.width / 2;
         this.diffFlagBg.name = "diffFlagBg";
-        this.diffFlagDesc = ViewUtils.createTextField(30, 0x000000);
+        this.diffFlagDesc = ViewUtils.createTextField(25, 0x000000);
         this.diffFlagDesc.name = "diffFlagDesc";
 
         var uis = [this.occAvatar, this.occDesc, this.occRelicImg, this.occRelicDesc, 
             this.occPropImg, this.occPropDesc, ...this.occAvatarBgLst, ...this.occAvatarLst,
-            ...this.diffImgLst, this.btnCancel, this.btnOk];
+            ...this.diffImgLst, this.diffFlagBg, this.diffFlagDesc, this.btnCancel, this.btnOk];
 
         for (var ui of uis)
             this.addChild(ui);
@@ -188,6 +191,17 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         for (var i = 0; i < this.diffUnlocked; i++)
             this.diffImgLst[i].setTexName("diffUnlocked" + (i+1) + "_png");
 
-        this.diffImgLst[d].setTexName("diffSel" + (d+1) + "_png");
+        var diff = this.diffImgLst[d];
+        diff.setTexName("diffSel" + (d+1) + "_png");
+
+        this.diffFlagBg.x = diff.x;
+        this.diffFlagBg.y = diff.y - 20;
+        this.diffFlagDesc.text = ViewUtils.getTipText("diff" + (d + 1));
+        this.diffFlagDesc.x = this.diffFlagBg.x - this.diffFlagBg.anchorOffsetX;
+        this.diffFlagDesc.y = this.diffFlagBg.y + 12;
+        this.diffFlagDesc.width = this.diffFlagBg.width;
+        this.diffFlagDesc.height = this.diffFlagBg.height - 12;
+        this.diffFlagDesc.textAlign = egret.HorizontalAlign.CENTER;
+        this.diffFlagDesc.verticalAlign = egret.VerticalAlign.MIDDLE;
     }
 }
