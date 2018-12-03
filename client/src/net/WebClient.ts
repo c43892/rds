@@ -28,7 +28,7 @@ class WebClient {
         }, this);
 
         r.addEventListener(egret.IOErrorEvent.IO_ERROR, (event:egret.Event) => {
-            doResolve(event);
+            doResolve(undefined);
         },this);
 
         r.open(this.srv, egret.HttpMethod.POST);

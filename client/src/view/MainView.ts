@@ -406,8 +406,10 @@ class MainView extends egret.DisplayObjectContainer {
         AudioFactory.playBg("bgs");
         await this.av.blackOut();
         this.lgv.onClose = async (op:string) => {
-            if (op == "openRank")
+            if (op == "openRank") {
                 await this.openRankView();
+                this.lgv.open();
+            }
             else {
                 await this.av.blackIn();
                 this.removeChild(this.lgv);
@@ -504,9 +506,15 @@ class MainView extends egret.DisplayObjectContainer {
     public async openRankView() {
         var p = window.platform;
         if (p.platformType != "wxgame") {
+            this.av.addBlockLayer();
             var r = await p.getRankInfo();
-            if (!r)
+            this.av.decBlockLayer();
+            if (!r) {
+                AniUtils.tipAt(ViewUtils.getTipText("cannotconnect2server"), 
+                    {x: this.width / 2, y: this.height / 2 - 100},
+                    50, 0xffffff, 1000);
                 return;
+            }
 
             this.rankv.usrInfo = r.usr;
             this.rankv.weeklyRankInfo = r.rank;

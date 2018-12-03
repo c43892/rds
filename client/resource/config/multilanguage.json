@@ -373,6 +373,7 @@
 		"close": { "EN": "close", "CNS": "关闭", "CNT": "关闭" },
 		"ok": { "EN": "OK", "CNS": "确定", "CNT": "确定" },
 		"retry": { "EN": "Retry", "CNS": "重试", "CNT": "重试" },
+		"cannotconnect2server": { "EN": "Cannot connect to the server", "CNS": "无法连接到服务器", "CNT": "无法连接到服务器" },
 		"notHungry": { "EN": "I'm not hungry", "CNS": "我不饿", "CNT": "人家不饿" },
 		"noKey": { "EN": "I don't have enough key", "CNS": "没有钥匙", "CNT": "人家没有钥匙" },
 		"doorLocked": { "EN": "The door is locked by boss", "CNS": "Boss锁住了门", "CNT": "Boss锁住了门" },

@@ -47,18 +47,18 @@ class TipConfirmView extends egret.DisplayObjectContainer {
 
     tip:egret.TextField;
     public addTip(str) {
-        if (!this.tip)
+        if (this.tip)
             this.removeChild(this.tip);
         
-        this.tip = ViewUtils.createTextField(30, 0x000000);
+        this.tip = ViewUtils.createTextField(30, 0xffffff);
         this.tip.textFlow = ViewUtils.fromHtml(str);
         this.tip.width = this.width;
         this.addChild(this.tip);
 
         AniUtils.aniFact.createAni("tr", {
             obj: this.tip,
-            fy: this.height / 2 - 150,
-            ty: this.height / 2,
+            fy: this.height / 2,
+            ty: this.height / 2 - 150,
             fa: 0, ta:1
         }).then(() => {});
     }

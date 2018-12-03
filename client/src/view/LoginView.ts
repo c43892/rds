@@ -83,7 +83,6 @@ class LoginView extends egret.DisplayObjectContainer {
     close(type) {
         this.ani.animation.stop("idle");
         this.onClose(type);
-        this.ani.animation.play("idle", 0);
     }
 
     public onClose;
