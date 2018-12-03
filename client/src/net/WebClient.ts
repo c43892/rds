@@ -33,7 +33,7 @@ class WebClient {
 
         r.open(this.srv, egret.HttpMethod.POST);
         r.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
-        r.send("msg=" + JSON.stringify(msg));
+        r.send("msg=" + JSON.stringify(msg) + "&datetime=" + (new Date()).getUTCSeconds());
         return new Promise<any>((resolve, reject) => {
             doResolve = resolve;
         });

@@ -10,6 +10,7 @@ declare interface Platform {
     setUserCloudStorage(key, value);
     getUserLocalStorage();    
     setUserLocalStorage(data);
+    getRankInfo();
 
     canShare(): boolean;
     shareGame();
@@ -46,6 +47,14 @@ class DefaultPaltform implements Platform {
         }
 
         return uid;
+    }
+
+    async getRankInfo() {
+        var r = await this.wc.request({
+            type: "getRank",
+        });
+
+        return r;
     }
 
     setUserCloudStorage(key:string, value) {

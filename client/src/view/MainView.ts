@@ -502,12 +502,16 @@ class MainView extends egret.DisplayObjectContainer {
 
     // ranking
     public async openRankView() {
-        // var r = await this.doLoginAndGetRank();
-        // if (!r) return;
+        var p = window.platform;
+        if (p.platformType != "wxgame") {
+            var r = await p.getRankInfo();
+            if (!r)
+                return;
 
-        // this.rankv.usrInfo = r.usr;
-        // this.rankv.weeklyRankInfo = r.rank;
-        // this.rankv.roleRankInfo = undefined;
+            this.rankv.usrInfo = r.usr;
+            this.rankv.weeklyRankInfo = r.rank;
+            this.rankv.roleRankInfo = undefined;
+        }
 
         this.addChild(this.rankv);
         await this.rankv.open();

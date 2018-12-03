@@ -621,7 +621,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
             Utils.savePlayer(this.player);
 
             // 更新最高分
-            Utils.saveCloudData("score", trueLv);
+            Utils.saveCloudData("score", trueLv + "," + this.player.occupation);
             Utils.pt("score", trueLv);
             
             // 判断此世界是否已经完成

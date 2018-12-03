@@ -37,12 +37,13 @@ func initDB() {
 
 type UserInfo struct {
 	Uid string `json:"uid"`
-	Score int `json:"store"`
+	Score int `json:"score"`
 	Info map[string]string `json:"info"`
 }
 
 type RankInfo struct {
 	Usrs [100]*UserInfo `json:"usrs"`
+	Occupations [100]string `json:"occupations"`
 }
 
 // sort interface
@@ -145,7 +146,7 @@ func main() {
 type HttpResp struct {
 	Ok bool `json:"ok"`
 	Usr UserInfo `json:"usr"` 
-	Rank RankInfo `json:"rank"`
+	Rank *RankInfo `json:"rank"` 
 }
 
 type RequestMsg struct {
@@ -166,12 +167,12 @@ func handleMsgfunc(w http.ResponseWriter, r *http.Request) {
 	var res *HttpResp; // response
 
 	// handle the request message
-	if (msg.Type == "GetRank") {
+	if (msg.Type == "getRank") {
 		usr := onGetRank(msg);
 		res = &HttpResp{};
 		res.Ok = true;
 		res.Usr = *usr;
-		res.Rank = *rankInfo;
+		res.Rank = rankInfo;
 	} else if (msg.Type == "setUserCloudData") {
 		usr := onSetUserInfo(msg);
 		res = &HttpResp{};
@@ -179,6 +180,7 @@ func handleMsgfunc(w http.ResponseWriter, r *http.Request) {
 		res.Usr = *usr;
 	} else {
 		log.Println("unsupported message type: " + msg.Type);
+		return;
 	}
 
 	// send the response
@@ -189,13 +191,14 @@ func handleMsgfunc(w http.ResponseWriter, r *http.Request) {
 }
 
 // refresh the rank
-func setUserScore(usrInfo *UserInfo) {
+func setUserScore(usrInfo *UserInfo, occupation string) {
 	var len = len(rankInfo.Usrs);
 	for i := 0; i < len; i++ {
 		var usr = rankInfo.Usrs[i];
 		if usr != nil && usr.Uid == usrInfo.Uid {
 			if usr.Score < usrInfo.Score { // new high score
 				usr.Score = usrInfo.Score;
+				rankInfo.Occupations[i] = occupation;
 				sortRank();
 			}
 
@@ -248,13 +251,16 @@ func onSetUserInfo(msg *RequestMsg) (*UserInfo) {
 	usrInfo := loadOrCreateUser(msg.Uid);
 	if (msg.Key == "score") {
 		// set user score and rebuild the rank
-		score, _ := strconv.Atoi(msg.Value);
+		splitePos := strings.Index(msg.Value, ",");
+		scoreStr := msg.Value[1:splitePos];
+		occupation := msg.Value[splitePos+1:len(msg.Value) - 1];
+		score, _ := strconv.Atoi(scoreStr);
 		if (usrInfo.Score < score) {
 			usrInfo.Score = score
 			dbc.HSet(usrInfo.Uid, "score", score)
 		}
 
-		setUserScore(usrInfo);
+		setUserScore(usrInfo, occupation);
 	} else if (msg.Key[:3] == "st.") {
 		// statistics
 		dbc.HSet(msg.Uid, msg.Key, msg.Value);

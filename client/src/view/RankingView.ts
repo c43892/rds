@@ -10,7 +10,8 @@ class RankingView extends egret.DisplayObjectContainer {
     curSelMark:egret.Bitmap;
     closeBtn:egret.Bitmap;
     tabMenu:egret.TextField[]; // 顶端不同榜单切换
-    rankViewContainer:egret.ScrollView; // 榜单区域
+    rankViewScrollArea:egret.ScrollView; // 榜单滚动窗口区域
+    rankViewContainer:egret.DisplayObjectContainer; // 榜单区域
     wxRankImg; // 微信好友榜单
     menu = [];
     menuDisplayName = {"weeklyRank":"周榜", "roleRank":"角色榜", "friendRank":"好友榜"};
@@ -38,7 +39,7 @@ class RankingView extends egret.DisplayObjectContainer {
         this.addChild(this.bg2);
 
         // 切换按钮
-        var menu = window.platform.platformType == "wx" ? ["friendRank"] : ["roleRank", "weeklyRank"];
+        var menu = window.platform.platformType == "wx" ? ["friendRank"] : ["weeklyRank"/*, "roleRank"*/];
         var x = 80;
         var y = this.bg1.height / 2 + this.bg1.y;
         for (var m of menu) {
@@ -55,15 +56,17 @@ class RankingView extends egret.DisplayObjectContainer {
         
         // 排名区域
         var top = y + 80;
-        this.rankViewContainer = new egret.ScrollView();
-        this.rankViewContainer.verticalScrollPolicy = "auto";
-        this.rankViewContainer.horizontalScrollPolicy = "off";
-        this.rankViewContainer.bounces = true;
-        this.rankViewContainer.x = 0;
-        this.rankViewContainer.y = top;
-        this.rankViewContainer.width = this.width;
-        this.rankViewContainer.height = this.height - top - 30;
-        this.addChild(this.rankViewContainer);
+        this.rankViewScrollArea = new egret.ScrollView();
+        this.rankViewScrollArea.verticalScrollPolicy = "auto";
+        this.rankViewScrollArea.horizontalScrollPolicy = "off";
+        this.rankViewScrollArea.bounces = true;
+        this.rankViewScrollArea.x = 0;
+        this.rankViewScrollArea.y = top;
+        this.rankViewScrollArea.width = this.width;
+        this.rankViewScrollArea.height = this.height - top - 30;
+        this.addChild(this.rankViewScrollArea);
+
+        this.rankViewContainer = new egret.DisplayObjectContainer();
 
         // 关闭按钮
         this.closeBtn = ViewUtils.createBitmapByName("goBack_png");
@@ -114,22 +117,23 @@ class RankingView extends egret.DisplayObjectContainer {
         return new Promise<void>((resolve, reject) => this.doClose = resolve);
     }
 
-    rebuildRank(usrs, fromIndex:number, cnt:number) {
+    rebuildRank(usrs, occupations, fromIndex:number, cnt:number) {
         this.rankViewContainer.removeChildren();
         if (!usrs) return;
 
         var y = 0;
-        var h = 30;
+        var h = 80;
         var wAvatar = h;
-        var wName = (this.width - wAvatar) / 2;
-        var wScore = (this.width - wAvatar) / 2;
+        var wScore = 100;
+        var wName = this.width - wAvatar - wScore;
         for (var i = fromIndex; i < (fromIndex + cnt) && i < usrs.length; i++) {
             var usr = usrs[i];
             if (!usr || !usr.uid || usr.uid == "" || usr.score == 0) // no more user
-                return;
+                break;
 
-            var avatar = ViewUtils.createBitmapByName("avatar1_png");
-            avatar.x = 0;
+            var occ = occupations[i];
+            var avatar = ViewUtils.createBitmapByName((occ ? occ : "Nurse") + "_png");
+            avatar.x = 20;
             avatar.y = y;
             avatar.width = wAvatar;
             avatar.height = h;
@@ -140,7 +144,7 @@ class RankingView extends egret.DisplayObjectContainer {
             name.y = y;
             name.width = wName;
             name.height = h;
-            name.text = usr.nickName;
+            name.text = usr.uid; //usr.nickName;
             this.rankViewContainer.addChild(name);
 
             var score = ViewUtils.createTextField(30, 0x0000ff);
@@ -150,7 +154,11 @@ class RankingView extends egret.DisplayObjectContainer {
             score.height = h;
             score.text = usr.score.toString();
             this.rankViewContainer.addChild(score);
+
+            this.rankViewContainer.height = score.y + score.height;
         }
+
+        this.rankViewScrollArea.setContent(this.rankViewContainer);
     }
 
     currentPageIndex = 0;
@@ -158,12 +166,12 @@ class RankingView extends egret.DisplayObjectContainer {
 
     // 周榜单
     public openWeeklyRank() {
-        this.rebuildRank(this.weeklyRankInfo, this.currentPageIndex * this.pageSize, this.pageSize);
+        this.rebuildRank(this.weeklyRankInfo.usrs, this.weeklyRankInfo.occupations, this.currentPageIndex * this.pageSize, this.pageSize);
     }
 
     // 角色榜单
     public openRoleRank() {
-        this.rebuildRank(this.roleRankInfo, this.currentPageIndex * this.pageSize, this.pageSize);
+        this.rebuildRank(this.roleRankInfo.usrs, this.weeklyRankInfo.occupations, this.currentPageIndex * this.pageSize, this.pageSize);
     }
 
     MaxNumInRank = 100; // 最多显示多少条目
@@ -171,11 +179,11 @@ class RankingView extends egret.DisplayObjectContainer {
 
     // 显示微信好友榜单
     public openWxFriendRank() {
-        if (this.wxRankImg) this.rankViewContainer.removeChild(this.wxRankImg);
+        if (this.wxRankImg) this.rankViewScrollArea.removeChild(this.wxRankImg);
 
         var platform = window.platform;
         var bmp:egret.Bitmap = platform.openDataContext.createDisplayObject(null, 
-            this.rankViewContainer.width, 
+            this.rankViewScrollArea.width, 
             this.MaxNumInRank * this.PerItemHeight);
 
         if (!bmp)
@@ -186,21 +194,21 @@ class RankingView extends egret.DisplayObjectContainer {
     }
 
     async loopChecker(bmp:egret.Bitmap) {
-        this.rankViewContainer.verticalScrollPolicy = "off";
+        this.rankViewScrollArea.verticalScrollPolicy = "off";
 
         while (!bmp.hitTestPoint(50, this.PerItemHeight / 2, true))
             await AniUtils.delay(50);
 
         for (var i = this.PerItemHeight / 2; i < bmp.height; i += this.PerItemHeight) {
             if (!bmp.hitTestPoint(50, i, true)) {
-                this.rankViewContainer.setContent(bmp);
+                this.rankViewScrollArea.setContent(bmp);
                 bmp.height = i;
                 break;
             }
         }
 
         bmp.fillMode = egret.BitmapFillMode.CLIP;
-        this.rankViewContainer.verticalScrollPolicy = "auto";
+        this.rankViewScrollArea.verticalScrollPolicy = "auto";
     }
     
     public onCloseBtn(evt:egret.TouchEvent) {
