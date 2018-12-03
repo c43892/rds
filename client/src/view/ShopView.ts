@@ -67,7 +67,11 @@ class ShopView extends egret.DisplayObjectContainer {
 
         this.btnRob = new TextButtonWithBg("btnRob_png", 0);
         this.btnRob.name = "btnRob";
-        this.btnRob.onClicked = () => this.doRob();
+        this.btnRob.onClicked = async () => {
+            await this.doRob();
+            if (this.onRobbed)
+                await this.onRobbed();
+        };
         this.addChild(this.btnRob);
 
         ViewUtils.multiLang(this, this.bg1, ...this.grids, ...this.prices, this.btnGoBack, this.btnRob);
@@ -76,12 +80,14 @@ class ShopView extends egret.DisplayObjectContainer {
     private onCancel;
     private onSel;
     private onRob;
+    private onRobbed;
     private autoCloseOnRob;
-    public async open(items, prices, onBuy, onRob, autoCloseOnRob:boolean):Promise<void> {
+    public async open(items, prices, onBuy, onRob, autoCloseOnRob:boolean, onRobbed):Promise<void> {
         this.items = Utils.map(items, (it) => !it ? undefined : ElemFactory.create(it));
         this.items.forEach((it, i) => this.items[i] = this.soldout[i] ? undefined : this.items[i]);
         this.itemPrices = prices;
         this.onRob = onRob;
+        this.onRobbed = onRobbed;
         this.autoCloseOnRob = autoCloseOnRob;
         this.refresh();
 

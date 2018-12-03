@@ -70,5 +70,6 @@
             {"ShieldDetector":10, "KnifeDetector":10, "Storer":10, "SmellEnhanced":10, "Watchmaker":10, "ShieldBlock":10, "ExpMedal":10},
             {"VestDetector":10, "ExploreEnhanced":10, "TreasureBoxDetector":10, "BookMaster":10, "ShieldProficient":10, "KnifeMaster":10, "MonsterHunter":10},
             {"WeaponMaster":10, "HorticultureProficient":10, "PoisonKnife":10, "StrikeFirst":10, "VestThorns":10, "InfinityKnife":10, "VestImmune":10}
-    ]}
+        ]
+    }
 }

@@ -1,10 +1,9 @@
 {
     "inShop": {
-        "robNum": [10, 11, 1, 1, 0, 1],
         "robItems": [1, 1, 1, 1, 1, 1],
-        "extra": {
+        "extraOnWorldMap": {
             "tip": "youGotAnotherItem",
-            "items": {"HpPotion":1, "PowerPotion":1}
+            "items": {"HpPotion":1}
         }
     },
 

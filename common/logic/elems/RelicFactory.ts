@@ -62,12 +62,31 @@ class RelicFactory {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) {
                     r.clearAIAtLogicPoint("beforeOpenShopInBattle");
+                    r.clearAIAtLogicPoint("beforeOpenShopOnWorldmap");
                     return;
                 }
-               
+                
+                // level 1&4
                 ElemFactory.addAI("beforeOpenShopInBattle", (robChecker) => {
-                    robChecker.canRob = true;
+                    if (r.reinforceLv >= 3)
+                        robChecker.robNum = r.player.playerRandom.next100() < 50 ? 2 : 1;
+                    else
+                        robChecker.robNum = 1;
                 }, r, () => true, false, true);
+
+                // level 3
+                if (r.reinforceLv >= 2) {
+                    ElemFactory.addAI("beforeOpenShopOnWorldmap", (robChecker) => {
+                        robChecker.robNum = 1;
+                    }, r, () => true, false, true);
+                }
+
+                // level 5
+                if (r.reinforceLv >= 4) {
+                    ElemFactory.addAI("onRobbedOnWorldmap", (extraRobChecker) => {
+                        extraRobChecker.robExtraItem = r.player.playerRandom.next100() < 25;
+                    }, r, () => true, false, true);
+                }
             });
         },
 
