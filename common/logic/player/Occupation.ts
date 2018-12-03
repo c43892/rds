@@ -75,6 +75,9 @@ class Occupation {
         "Nurse": (p:Player) => {
             p.addBuff(new BuffNurse()); // 职业buff
         },
+
+        "Rogue": (p:Player) => {
+        },
     };
 
     static exists(occupation) {

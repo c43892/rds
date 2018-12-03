@@ -4,7 +4,8 @@ class OccupationSelView extends egret.DisplayObjectContainer {
     btnCancel:TextButtonWithBg; // 返回
     btnOk:TextButtonWithBg; // 确定
 
-    occAvatarBg:egret.Bitmap;
+    occAvatarFrame:egret.Bitmap;
+    occAvatarFrameMask:egret.Bitmap;
     occAvatar:egret.DisplayObjectContainer; // 当前选中职业头像
     occDesc:egret.TextField; // 当前选中职业描述
     occRelicImg:egret.Bitmap; // 职业技能图标
@@ -44,8 +45,10 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         });
 
         // 职业头像及物品技能信息
-        this.occAvatarBg = ViewUtils.createBitmapByName("occUnlockedBg_png");
-        this.occAvatarBg.name = "occAvatarBg";
+        this.occAvatarFrame = ViewUtils.createBitmapByName("occAvatarFrame_png");
+        this.occAvatarFrame.name = "occAvatarFrame";
+        this.occAvatarFrameMask = ViewUtils.createBitmapByName("occAvatarFrameMask_png");
+        this.occAvatarFrameMask.name = "occAvatarFrameMask";
         this.occAvatar = new egret.DisplayObjectContainer();
         this.occAvatar.name = "occAvatar";
         this.occDesc = new egret.TextField();
@@ -94,7 +97,7 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         this.diffFlagDesc = ViewUtils.createTextField(25, 0x000000);
         this.diffFlagDesc.name = "diffFlagDesc";
 
-        var uis = [this.occAvatar, this.occDesc, this.occRelicImg, this.occRelicDesc, 
+        var uis = [this.occAvatar, this.occAvatarFrame, this.occAvatarFrameMask, this.occDesc, this.occRelicImg, this.occRelicDesc, 
             this.occPropImg, this.occPropDesc, ...this.occAvatarBgLst, ...this.occAvatarLst,
             ...this.diffImgLst, this.diffFlagBg, this.diffFlagDesc, this.btnCancel, this.btnOk];
 
@@ -102,6 +105,8 @@ class OccupationSelView extends egret.DisplayObjectContainer {
             this.addChild(ui);
 
         ViewUtils.multiLang(this, ...uis);
+
+        this.occAvatar.mask = this.occAvatarFrameMask;
     }
 
     onClose;

@@ -420,8 +420,7 @@ class MainView extends egret.DisplayObjectContainer {
                     else {
                         var r = await this.openOccSelView(p);
                         if (r) {
-                            console.log("sel:" + r["occ"] + ", " + r["d"]);
-                            this.newPlay();
+                            this.newPlay(r["occ"], r["d"]);
                             this.wmv.mapScrollPos = 0;
                             await this.av.blackOut();
                             await this.av.doWorldMapSlide(1, 2000, 1);
@@ -590,8 +589,8 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 开始新游戏，本地存档被新游戏覆盖
-    newPlay() {
-        var p = Player.createTestPlayer();
+    newPlay(occ:string, diff:number) {
+        var p = Player.createPlayer(occ, diff);
         p = Occupation.makeOccupation(p);
         p.worldmap = WorldMap.buildFromConfig("world1", p);
         this.p = p;
@@ -602,7 +601,7 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 新手指引
     rookiePlay() {
-        var p = Player.createTestPlayer();
+        var p = Player.createPlayer("Nurse", 0);
         p = Occupation.makeOccupation(p);
         p.worldmap = WorldMap.buildFromConfig("rookieWorld", p);
         this.p = p;

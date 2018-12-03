@@ -316,8 +316,9 @@
 			"layout": {
 				"cancelBtn":{"x":35, "y":970},
 				"okBtn":{"x":400, "y":970},
-				"occAvatarBg": {"x":20, "y":70, "w":150, "h":150},
-				"occAvatar": {"x":120, "y":130, "w":100, "h":100},
+				"occAvatar": {"x":125, "y":135, "w":100, "h":100},
+				"occAvatarFrame": {"x":30, "y":55},
+				"occAvatarFrameMask": {"x":30, "y":55},
 				"occDesc": {"x":200, "y":100, "w":400, "h":150},
 				"occRelicImg": {"x":55, "y":213, "w":80, "h":80},
 				"occRelicDesc": {"x":150, "y":223, "w":430, "h":80},
