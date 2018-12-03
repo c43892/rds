@@ -117,47 +117,62 @@ class RankingView extends egret.DisplayObjectContainer {
         return new Promise<void>((resolve, reject) => this.doClose = resolve);
     }
 
-    rebuildRank(usrs, occupations, fromIndex:number, cnt:number) {
+    rebuildRank(usrs, occupations) { // , fromIndex:number, cnt:number) {
         this.rankViewContainer.removeChildren();
         if (!usrs) return;
 
-        var y = 0;
         var h = 80;
+        var wN = 60;
         var wAvatar = h;
         var wScore = 100;
-        var wName = this.width - wAvatar - wScore;
-        for (var i = fromIndex; i < (fromIndex + cnt) && i < usrs.length; i++) {
+        var wName = this.width - wAvatar - wN - wScore - 30;
+        this.rankViewContainer.height = 10;
+
+        for (var i = 0; i < usrs.length; i++) {
             var usr = usrs[i];
-            if (!usr || !usr.uid || usr.uid == "" || usr.score == 0) // no more user
+            if (!usr || !usr.uid || usr.uid == "") // no more user
                 break;
+
+            var y = this.rankViewContainer.height;
+
+            var n = ViewUtils.createTextField(30, 0x000000);
+            n.x = 10;
+            n.y = y;
+            n.width = wN;
+            n.height = h;
+            n.text = (i+1).toString();
+            this.rankViewContainer.addChild(n);
 
             var occ = occupations[i];
             var avatar = ViewUtils.createBitmapByName((occ ? occ : "Nurse") + "_png");
-            avatar.x = 20;
+            avatar.x = n.x + n.width + 10;
             avatar.y = y;
             avatar.width = wAvatar;
             avatar.height = h;
             this.rankViewContainer.addChild(avatar);
 
-            var name = ViewUtils.createTextField(30, 0x0000ff);
-            name.x = avatar.x + avatar.width;
+            var name = ViewUtils.createTextField(30, 0x000000);
+            name.x = avatar.x + avatar.width + 10;
             name.y = y;
             name.width = wName;
             name.height = h;
             name.text = usr.uid; //usr.nickName;
             this.rankViewContainer.addChild(name);
 
-            var score = ViewUtils.createTextField(30, 0x0000ff);
-            score.x = name.x + name.width;
+            var score = ViewUtils.createTextField(30, 0x000000);
+            score.x = name.x + name.width + 10;
             score.y = y;
             score.width = wScore;
             score.height = h;
             score.text = usr.score.toString();
             this.rankViewContainer.addChild(score);
 
-            this.rankViewContainer.height = score.y + score.height;
+            this.rankViewContainer.height = score.y + score.height + 10;
         }
 
+        this.rankViewContainer.height += 100;
+        this.rankViewScrollArea.touchEnabled = true;
+        this.rankViewScrollArea.scrollTop = 0;
         this.rankViewScrollArea.setContent(this.rankViewContainer);
     }
 
@@ -166,12 +181,12 @@ class RankingView extends egret.DisplayObjectContainer {
 
     // 周榜单
     public openWeeklyRank() {
-        this.rebuildRank(this.weeklyRankInfo.usrs, this.weeklyRankInfo.occupations, this.currentPageIndex * this.pageSize, this.pageSize);
+        this.rebuildRank(this.weeklyRankInfo.usrs, this.weeklyRankInfo.occupations); // , this.currentPageIndex * this.pageSize, this.pageSize);
     }
 
     // 角色榜单
     public openRoleRank() {
-        this.rebuildRank(this.roleRankInfo.usrs, this.weeklyRankInfo.occupations, this.currentPageIndex * this.pageSize, this.pageSize);
+        this.rebuildRank(this.roleRankInfo.usrs, this.weeklyRankInfo.occupations); // , this.currentPageIndex * this.pageSize, this.pageSize);
     }
 
     MaxNumInRank = 100; // 最多显示多少条目
