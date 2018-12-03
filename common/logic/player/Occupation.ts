@@ -18,7 +18,7 @@ class Occupation {
     public static getInitialItems(occ:string) {
         return {
             "Nurse": {"relic": "MedicineBox", "prop":"HpPotion", "prop4All": "HpPotion"},
-            "Rogue": {"relic": "MedicineBox", "prop":"HpPotion", "prop4All": "HpPotion"}
+            "Rogue": {"relic": "GangMember", "prop":"StrengthPotion", "prop4All": "StrengthPotion"}
         }[occ];
     }
     
@@ -68,6 +68,7 @@ class Occupation {
 
     // 流氓
     static makeRogue(p:Player):Player {
+        p.addRelic(<Relic>ElemFactory.create("GangMember")); // 初始遗物
         return p;
     }
 

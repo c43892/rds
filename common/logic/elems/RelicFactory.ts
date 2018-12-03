@@ -57,6 +57,20 @@ class RelicFactory {
             });
         },
 
+        // 黑帮
+        "GangMember": (attrs) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) {
+                    r.clearAIAtLogicPoint("beforeOpenShopInBattle");
+                    return;
+                }
+               
+                ElemFactory.addAI("beforeOpenShopInBattle", (robChecker) => {
+                    robChecker.canRob = true;
+                }, r, () => true, false, true);
+            });
+        },
+
         // 鹰眼，每关开始前标注一个带钥匙的怪物
         "Hawkeye": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {

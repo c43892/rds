@@ -1150,7 +1150,11 @@ class MonsterFactory {
         m.use = async () => {
             if (!shopItemAndPrice)
                 shopItemAndPrice = Utils.genRandomShopItems(m.bt().player, m.bt().lvCfg["shopCfg"], m.bt().srand, 6);
-            await m.bt().try2OpenShop(m, shopItemAndPrice.items, shopItemAndPrice.prices, onBuy, undefined /*, m["robbed"] ? undefined :onRob*/);
+            
+            var robChecker = {canRob:false};
+            m.bt().triggerLogicPointSync("beforeOpenShopInBattle", robChecker);
+            var canRob = !m["robbed"] && robChecker.canRob && shopItemAndPrice.items.length > 0;
+            await m.bt().try2OpenShop(m, shopItemAndPrice.items, shopItemAndPrice.prices, onBuy, canRob ? onRob : undefined);
             // 成功购买后，NPC不再保留，才消耗死神步数
             return {reserve: !m["bought"], asPlayerActed: !!m["bought"]};
         };
