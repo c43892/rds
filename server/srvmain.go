@@ -96,16 +96,19 @@ func stServer(ps string) {
 		} else if (ps == "st.t") {
 			stKeys, _ := dbc.HKeys(uid).Result()
 			var firstStartDate = -1;
+			var firstStartMonth = -1;
 			for j := 0; j < len(stKeys); j++ {
 				stKey := stKeys[j];
 				if (len(stKey) > 8 && stKey[:8] == "st.2018/") {
 					startTimeStr := stKey[3:];
 					startDateStr := startTimeStr[8:10];
 					startDate, _ := strconv.Atoi(startDateStr);
+					startMonth, _ := strconv.Atoi(startTimeStr[5:7]);
 					if (firstStartDate == -1) {
 						firstStartDate = startDate;
-					} else if (startDate != firstStartDate) {
-						fmt.Println(uidStr + ", " + strconv.Itoa(firstStartDate) + "," + strconv.Itoa(startDate));
+						firstStartMonth = startMonth;
+					} else if (startMonth != firstStartMonth || startDate != firstStartDate) {
+						fmt.Println(uidStr + ", " + strconv.Itoa(firstStartMonth) + "-" + strconv.Itoa(firstStartDate) + "," + strconv.Itoa(startMonth) + "-" + strconv.Itoa(startDate));
 						break;
 					}
 				}

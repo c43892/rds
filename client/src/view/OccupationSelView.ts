@@ -4,17 +4,18 @@ class OccupationSelView extends egret.DisplayObjectContainer {
     btnCancel:TextButtonWithBg; // 返回
     btnOk:TextButtonWithBg; // 确定
 
+    occAvatarBg:egret.Bitmap;
     occAvatar:egret.DisplayObjectContainer; // 当前选中职业头像
     occDesc:egret.TextField; // 当前选中职业描述
     occRelicImg:egret.Bitmap; // 职业技能图标
     occRelicDesc:egret.TextField; // 职业技能描述
-    occItemImg:egret.Bitmap; // 职业物品图标
-    occItemDesc:egret.TextField; // 职业物品描述
+    occPropImg:egret.Bitmap; // 职业物品图标
+    occPropDesc:egret.TextField; // 职业物品描述
 
     occAvatarBgLst:TextButtonWithBg[]; // 候选职业背景
     occAvatarLst:egret.DisplayObjectContainer[]; // 候选职业列表头像
 
-    diffImgLst:egret.Bitmap[]; // 难度图标
+    diffImgLst:TextButtonWithBg[]; // 难度图标
     diffFlagBg:egret.Bitmap; // 难度描述背景
     diffFlagDesc:egret.TextField; // 难度描述文字
 
@@ -43,6 +44,8 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         });
 
         // 职业头像及物品技能信息
+        this.occAvatarBg = ViewUtils.createBitmapByName("occUnlockedBg_png");
+        this.occAvatarBg.name = "occAvatarBg";
         this.occAvatar = new egret.DisplayObjectContainer();
         this.occAvatar.name = "occAvatar";
         this.occDesc = new egret.TextField();
@@ -51,10 +54,10 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         this.occRelicImg.name = "occRelicImg";
         this.occRelicDesc = new egret.TextField();
         this.occRelicDesc.name = "occRelicDesc";
-        this.occItemImg = new egret.Bitmap();
-        this.occItemImg.name = "occItemImg";
-        this.occItemDesc = new egret.TextField();
-        this.occItemDesc.name = "occItemDesc";
+        this.occPropImg = new egret.Bitmap();
+        this.occPropImg.name = "occPropImg";
+        this.occPropDesc = new egret.TextField();
+        this.occPropDesc.name = "occPropDesc";
 
         // 职业列表
         this.occAvatarBgLst = [];
@@ -73,9 +76,15 @@ class OccupationSelView extends egret.DisplayObjectContainer {
 
         // 难度列表
         this.diffImgLst = [];
-        // for (var i = 0; i < 5; i++) {
-        //     var img = ViewUtils.createBitmapByName("")
-        // }
+        for (var i = 0; i < 5; i++) {
+            var btn = new TextButtonWithBg("diffUnlocked" + (i + 1) + "_png");
+            btn.setDisableBg(undefined);
+            btn.enabled = false;
+            btn.name = "diff" + (i + 1);
+            let diff = i;
+            btn.onClicked = () => this.selDifficulty(diff);
+            this.diffImgLst.push(btn);
+        }
 
         this.diffFlagBg = ViewUtils.createBitmapByName("diffFlagBg_png");
         this.diffFlagBg.name = "diffFlagBg";
@@ -83,21 +92,13 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         this.diffFlagDesc.name = "diffFlagDesc";
 
         var uis = [this.occAvatar, this.occDesc, this.occRelicImg, this.occRelicDesc, 
-            this.occItemImg, this.occItemDesc, ...this.occAvatarBgLst, ...this.occAvatarLst,
-            this.btnCancel, this.btnOk];
+            this.occPropImg, this.occPropDesc, ...this.occAvatarBgLst, ...this.occAvatarLst,
+            ...this.diffImgLst, this.btnCancel, this.btnOk];
 
         for (var ui of uis)
             this.addChild(ui);
 
         ViewUtils.multiLang(this, ...uis);
-
-        for (var i = 0; i < this.occAvatarLst.length; i++) {
-            var c = this.occAvatarLst[i];
-            var img = this.occAvatarBgLst[i];
-            c.width = img.width; c.height = img.height;
-            c.x = img.x + img.width / 2;
-            c.y = img.y + img.height / 2;
-        }
     }
 
     onClose;
@@ -105,6 +106,7 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         ViewUtils.asFullBg(this.bg);
 
         this.setAvailableOccList(["Nurse", "Rogue"]);
+        this.setAvailableDiff(5);
         this.selOcc("Nurse");
         this.selDifficulty(0);
 
@@ -113,6 +115,13 @@ class OccupationSelView extends egret.DisplayObjectContainer {
                 resolve(r);
             };
         });
+    }
+
+    diffUnlocked;
+    setAvailableDiff(n) {
+        this.diffUnlocked = n;
+        for (var i = 0; i < this.diffImgLst.length; i++)
+            this.diffImgLst[i].enabled = i < this.diffUnlocked;
     }
 
     occArr;
@@ -129,9 +138,15 @@ class OccupationSelView extends egret.DisplayObjectContainer {
                     this.selOcc(occ);
                 };
 
-                let ske = ViewUtils.createSkeletonAni(occArr[i]);
-                ske.animation.play("Idle", 0);
-                this.occAvatarLst[i].addChild(ske.display);
+                // let ske = ViewUtils.createSkeletonAni(occArr[i]);
+                // ske.animation.play("Idle", 0);
+                // this.occAvatarLst[i].addChild(ske.display);
+                var c = this.occAvatarLst[i];
+                let occImg = ViewUtils.createBitmapByName(occArr[i] + "_png");
+                occImg.width = c.width;
+                occImg.height = c.height;
+                occImg.x = occImg.y = 0;
+                c.addChild(occImg);
             }
             else
                 this.occAvatarBgLst[i].enabled = false;
@@ -148,13 +163,31 @@ class OccupationSelView extends egret.DisplayObjectContainer {
                 this.occAvatarBgLst[i].setTexName("occUnlockedBg_png");
         }
 
+        // 头像
         this.occAvatar.removeChildren();
         var ske = ViewUtils.createSkeletonAni(occ);
         ske.animation.play("Idle", 0);
         this.occAvatar.addChild(ske.display);
+
+        // 职业描述
+        var mlCfg = ViewUtils.languageCfg;
+        var curCfg = mlCfg.occupations;
+        var desc = curCfg[occ]["desc"][mlCfg.currentLanguage];
+        this.occDesc.textFlow = ViewUtils.fromHtml(desc);
+        
+        // 初始物品
+        var initialItems = Occupation.getInitialItems(occ);
+        ViewUtils.setTexName(this.occRelicImg, initialItems["relic"] + "_png");
+        this.occRelicDesc.textFlow = ViewUtils.fromHtml(ViewUtils.getElemNameAndDesc(initialItems["relic"]).initialDesc);
+        ViewUtils.setTexName(this.occPropImg, initialItems["prop"] + "_png");
+        this.occPropDesc.textFlow = ViewUtils.fromHtml(ViewUtils.getElemNameAndDesc(initialItems["prop"]).initialDesc);
     }
     
     selDifficulty(d:number) {
         this.difficultyDegree = d;
+        for (var i = 0; i < this.diffUnlocked; i++)
+            this.diffImgLst[i].setTexName("diffUnlocked" + (i+1) + "_png");
+
+        this.diffImgLst[d].setTexName("diffSel" + (d+1) + "_png");
     }
 }

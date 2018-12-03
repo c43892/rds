@@ -13,6 +13,14 @@ class Occupation {
         "Nurse": Occupation.makeNurse,
         "Rogue": Occupation.makeRogue,
     }
+
+    // 获取各职业初始物品配置
+    public static getInitialItems(occ:string) {
+        return {
+            "Nurse": {"relic": "MedicineBox", "prop":"HpPotion", "prop4All": "HpPotion"},
+            "Rogue": {"relic": "MedicineBox", "prop":"HpPotion", "prop4All": "HpPotion"}
+        }[occ];
+    }
     
     // 护士
     static makeNurse(p:Player):Player {

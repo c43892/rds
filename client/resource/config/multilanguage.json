@@ -316,16 +316,37 @@
 			"layout": {
 				"cancelBtn":{"x":35, "y":970},
 				"okBtn":{"x":400, "y":970},
-				"occAvatar": {"x":150, "y":150, "w":100, "h":100},
+				"occAvatarBg": {"x":20, "y":70, "w":150, "h":150},
+				"occAvatar": {"x":120, "y":130, "w":100, "h":100},
+				"occDesc": {"x":180, "y":100, "w":400, "h":150},
+				"occRelicImg": {"x":55, "y":213, "w":80, "h":80},
+				"occRelicDesc": {"x":150, "y":223, "w":430, "h":80},
+				"occPropImg": {"x":60, "y":293, "w":70, "h":70},
+				"occPropDesc": {"x":150, "y":298, "w":430, "h":70},
 				
-				"occAvatarBgLst1": {"x":50, "y":400, "w":152, "h":141},
-				"occAvatarBgLst2": {"x":200, "y":400, "w":152, "h":141},
-				"occAvatarBgLst3": {"x":350, "y":400, "w":152, "h":141},
-				"occAvatarBgLst4": {"x":500, "y":400, "w":152, "h":141},
-				"occAvatarBgLst5": {"x":50, "y":550, "w":152, "h":141},
-				"occAvatarBgLst6": {"x":200, "y":550, "w":152, "h":141},
-				"occAvatarBgLst7": {"x":350, "y":550, "w":152, "h":141},
-				"occAvatarBgLst8": {"x":500, "y":550, "w":152, "h":141}
+				"occAvatarBgLst1": {"x":30, "y":440, "w":150, "h":150},
+				"occAvatarBgLst2": {"x":170, "y":440, "w":150, "h":150},
+				"occAvatarBgLst3": {"x":310, "y":440, "w":150, "h":150},
+				"occAvatarBgLst4": {"x":450, "y":440, "w":150, "h":150},
+				"occAvatarBgLst5": {"x":30, "y":580, "w":150, "h":150},
+				"occAvatarBgLst6": {"x":170, "y":580, "w":150, "h":150},
+				"occAvatarBgLst7": {"x":310, "y":580, "w":150, "h":150},
+				"occAvatarBgLst8": {"x":450, "y":580, "w":150, "h":150},
+				
+				"occAvatarLst1": {"x":50, "y":455, "w":120, "h":120},
+				"occAvatarLst2": {"x":190, "y":455, "w":120, "h":120},
+				"occAvatarLst3": {"x":330, "y":455, "w":120, "h":120},
+				"occAvatarLst4": {"x":470, "y":455, "w":120, "h":120},
+				"occAvatarLst5": {"x":50, "y":595, "w":120, "h":120},
+				"occAvatarLst6": {"x":190, "y":595, "w":120, "h":120},
+				"occAvatarLst7": {"x":330, "y":595, "w":120, "h":120},
+				"occAvatarLst8": {"x":470, "y":595, "w":120, "h":120},
+				
+				"diff1": {"x":102, "y":800},
+				"diff2": {"x":186, "y":782},
+				"diff3": {"x":270, "y":790},
+				"diff4": {"x":356, "y":774},
+				"diff5": {"x":440, "y":759}
 			},
 			
 			"text": {
@@ -334,6 +355,16 @@
 			}
 		}
     },
+	
+	"occupations": {
+		"Nurse": {
+			"desc": { "EN": "description of Nurse", "CNS": "这是护士的描述。这是护士的描述。这是护士的描述。这是护士的描述。", "CNT": "这是护士的描述" }
+		},
+		
+		"Rogue": {
+			"desc": { "EN": "description of Rogue", "CNS": "这是混混的描述。这是混混的描述。这是混混的描述。这是混混的描述。", "CNT": "这是混混的描述" }
+		}
+	},
 
 	"tips": {
 		"yes": { "EN": "yes", "CNS": "确定", "CNT": "确定" },
