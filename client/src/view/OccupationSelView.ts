@@ -77,7 +77,7 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         // 难度列表
         this.diffImgLst = [];
         for (var i = 0; i < 5; i++) {
-            var btn = new TextButtonWithBg("diffUnlocked" + (i + 1) + "_png");
+            var btn = new TextButtonWithBg("diffUnlocked" + (i+1) + "_png");
             btn.setDisableBg(undefined);
             btn.enabled = false;
             btn.name = "diff" + (i + 1);
@@ -105,14 +105,16 @@ class OccupationSelView extends egret.DisplayObjectContainer {
     }
 
     onClose;
-    public async open() {
+    public refresh(p:Player) {
         ViewUtils.asFullBg(this.bg);
 
         this.setAvailableOccList(["Nurse", "Rogue"]);
-        this.setAvailableDiff(5);
+        this.setAvailableDiff(3);
         this.selOcc("Nurse");
         this.selDifficulty(0);
+    }
 
+    public async open() {
         return new Promise((resolve, _) => {
             this.onClose = (r) => {
                 resolve(r);
@@ -123,8 +125,16 @@ class OccupationSelView extends egret.DisplayObjectContainer {
     diffUnlocked;
     setAvailableDiff(n) {
         this.diffUnlocked = n;
-        for (var i = 0; i < this.diffImgLst.length; i++)
-            this.diffImgLst[i].enabled = i < this.diffUnlocked;
+        for (var i = 0; i < this.diffImgLst.length; i++) {
+            var diffImg = this.diffImgLst[i];
+            if (i < this.diffUnlocked) {
+                diffImg.setTexName("diffUnlocked" + (i+1) + "_png");
+                diffImg.enabled = true;
+            } else {
+                diffImg.setTexName(undefined);
+                diffImg.enabled = false;
+            }
+        }
     }
 
     occArr;

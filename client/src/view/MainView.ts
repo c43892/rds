@@ -399,9 +399,6 @@ class MainView extends egret.DisplayObjectContainer {
         this.clear();
         // Utils.removeLocalDate("rookiePlay"); // 删除新手数据存档
 
-        ////----
-        await this.openOccSelView();
-
         this.p = p;
         this.lgv.player = p;
         this.addChild(this.lgv);
@@ -421,10 +418,16 @@ class MainView extends egret.DisplayObjectContainer {
                     if(Utils.checkRookiePlay())
                         await this.rookiePlay();
                     else {
-                        this.newPlay();
-                        this.wmv.mapScrollPos = 0;
-                        await this.av.blackOut();
-                        await this.av.doWorldMapSlide(1, 2000, 1);
+                        var r = await this.openOccSelView(p);
+                        if (r) {
+                            console.log("sel:" + r["occ"] + ", " + r["d"]);
+                            this.newPlay();
+                            this.wmv.mapScrollPos = 0;
+                            await this.av.blackOut();
+                            await this.av.doWorldMapSlide(1, 2000, 1);
+                        } else {
+                            this.openStartup(p);
+                        }
                     }
                 }
             }
@@ -541,9 +544,10 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 打开角色选择界面
-    public async openOccSelView() {
-        await this.av.blackOut();
+    public async openOccSelView(p:Player) {
         this.addChild(this.osv);
+        this.osv.refresh(p);
+        await this.av.blackOut();
         var r = await this.osv.open();
         await this.av.blackIn();
         this.removeChild(this.osv);
