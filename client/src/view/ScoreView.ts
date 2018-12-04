@@ -91,7 +91,7 @@ class ScoreView extends egret.DisplayObjectContainer{
 
     onUsing; // 是否处于使用该界面的状态,决定是否检测滚动区域内信息的变化
 
-    open(scoreInfos = []){
+    async open(scoreInfos = []){
         this.onUsing = true;
         this.scoreInfos = BattleStatistics.getScoreInfos(this.player.st);
         this.refresh();
@@ -128,7 +128,7 @@ class ScoreView extends egret.DisplayObjectContainer{
         ViewUtils.setTexName(this.avatar, "avatar" + this.player.occupation + "_png", true);
 
         // 设置玩家名
-        var name = Utils.loadLocalData("playerName") ? Utils.loadLocalData("playerName") : "一个新玩家";
+        var name = Utils.getPlayerName() ? Utils.getPlayerName() : "一个新玩家";
         this.playerName.text = name;
 
         // 设置经验条

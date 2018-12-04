@@ -1,6 +1,5 @@
 // 玩家起名界面
 class NameView extends egret.DisplayObjectContainer {
-    public player:Player;
     private bg:egret.Bitmap;
     private bg1:egret.Bitmap;
     private keyInName:egret.TextField;
@@ -46,7 +45,8 @@ class NameView extends egret.DisplayObjectContainer {
         ViewUtils.multiLang(this, ...objs);
     }
 
-    public open() {
+    public async open() {
+        Utils.log("open");
         return new Promise<void>((resolve, reject) => this.doClose = resolve);
     }
 

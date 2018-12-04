@@ -870,4 +870,9 @@ class Utils {
         
         return true;
     }
+
+    // 获取玩家名
+    public static getPlayerName(){
+        return Utils.loadLocalData("playerName");
+    }
 }

@@ -449,7 +449,7 @@ class MainView extends egret.DisplayObjectContainer {
                     if(Utils.checkRookiePlay())
                         await this.rookiePlay();
                     else {
-						if (!Utils.loadLocalData("playerName"))
+						if (!Utils.getPlayerName())
                             await this.openNameView();
                         var r = await this.openOccSelView(p);
                         if (r) {
@@ -607,7 +607,6 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 提供起名的界面
     public async openNameView() {
-        this.nameView.player = this.p;
         this.addChild(this.nameView);
         await this.nameView.open();
         this.removeChild(this.nameView);
