@@ -89,7 +89,7 @@ class RelicFactory {
                 // level 5
                 if (r.reinforceLv >= 4) {
                     ElemFactory.addAI("onRobbedOnWorldmap", (extraRobChecker) => {
-                        extraRobChecker.robExtraItem = r.player.playerRandom.next100() < 25;
+                        extraRobChecker.robExtraItem = r.player.playerRandom.next100() < 100; // 25;
                     }, r, () => true, false, true);
                 }
             });

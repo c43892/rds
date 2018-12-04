@@ -749,4 +749,9 @@ class GuideView extends egret.DisplayObjectContainer {
         await this.showDialog("Gardener", "园艺师", "现在把我的宝物给你，你就可以操纵我的植物了", 0, 550, true);
         await this.showDialog("Nurse", "护士", "继续前进吧，勇士", 0, 550, true);    
     }
+
+    // 额外抢劫剧情
+    async robExtraItemDialog(msg) {
+        await this.showDialog("ShopNpc", "商人", msg, 0, 350, false);
+    }
 }
