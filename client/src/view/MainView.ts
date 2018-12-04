@@ -19,7 +19,8 @@ class MainView extends egret.DisplayObjectContainer {
     public st:SettingView; // 设置视图
     public rev:RelicExchangeView; // 交换遗物视图
     public lcv:LuxuryChestView; // 开boss三选一界面
-    public scoreview:ScoreView // 死亡或通关后的分数结算界面
+    public scoreview:ScoreView; // 死亡或通关后的分数结算界面
+    public nameView:NameView; // 玩家起名界面
     public av:AniView; // 动画层
 
     isInBattle:boolean; // 是否在战斗中
@@ -83,6 +84,9 @@ class MainView extends egret.DisplayObjectContainer {
 
         // 得分结算界面
         this.scoreview = new ScoreView(w, h);
+
+        // 玩家起名界面
+        this.nameView = new NameView(w, h);
 
         // 世界地图
         this.wmv = new WorldMapView(w, h);
@@ -415,6 +419,10 @@ class MainView extends egret.DisplayObjectContainer {
                         await this.rookiePlay();
                     else {
                         this.newPlay();
+                        // 不是新手教程的新战斗,需要玩家起名
+                        if (!Utils.loadLocalData("playerName"))
+                            await this.openNameView();
+                            
                         this.wmv.mapScrollPos = 0;
                         await this.av.blackOut();
                         await this.av.doWorldMapSlide(1, 2000, 1);
@@ -540,6 +548,14 @@ class MainView extends egret.DisplayObjectContainer {
         this.addChild(this.scoreview);
         await this.scoreview.open();
         this.removeChild(this.scoreview);
+    }
+
+    // 提供起名的界面
+    public async openNameView() {
+        this.nameView.player = this.p;
+        this.addChild(this.nameView);
+        await this.nameView.open();
+        this.removeChild(this.nameView);
     }
 
     // 按照本地存档继续游戏

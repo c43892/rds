@@ -316,6 +316,14 @@
 				"score":{"x":450, "y":0},
 				"line":{"x":0, "y":32}
 			}
+		},
+
+		"nameView":{
+			"layout":{
+				"bg1":{"x":63, "y":120},
+				"keyInName":{"x":200, "y":300, "h":40, "w": 200},
+				"goOnBtn":{"x":417, "y":960}
+			}
 		}
     },
 
@@ -401,6 +409,9 @@
 		"totalMonster": {"EN": "totalMonster", "CNS": "消灭怪物得分", "CNT": "消灭怪物得分"},
 		"clearBonusCount": {"EN": "clearBonusCount", "CNS": "清关得分", "CNT": "清关得分"},
 		"difficulty": {"EN": "difficulty", "CNS": "难度系数", "CNT": "难度系数"},
+		"needName": {"EN": "need a name", "CNS": "需要一个名字", "CNT": "需要一个名字"},
+		"tooLongName": {"EN": "this name is too long", "CNS": "名字过长", "CNT": "名字过长"},
+		"inValidName": {"EN": "invalid name", "CNS": "名字不合规", "CNT": "名字不合规"},
 		"": {}
 	}
 }

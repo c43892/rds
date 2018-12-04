@@ -620,8 +620,8 @@ class Utils {
 
     // 判断是否是处于新手期
     public static checkRookiePlay():boolean {
-        // return true;
-        return !Utils.loadLocalData("rookiePlay") || Utils.loadLocalData("rookiePlay") != "finished";
+        return false;
+        // return !Utils.loadLocalData("rookiePlay") || Utils.loadLocalData("rookiePlay") != "finished";
     }
 
     // 根据btType找到该关卡对应的levelLogics
@@ -862,5 +862,10 @@ class Utils {
             return {level:-1, exp:0};
         else 
             return {level:i + 1, exp:exp};
+    }
+
+    // 玩家起名的合法性
+    public static checkValidName(name:string){
+        return true;
     }
 }
