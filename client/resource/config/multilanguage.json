@@ -321,9 +321,10 @@
 		"nameView":{
 			"layout":{
 				"bg1":{"x":13, "y":200},
-				"keyInName":{"x":63, "y":340, "h":40, "w": 400},
+				"keyInName":{"x":63, "y":340, "h":40, "w": 400, "size":40},
 				"randomBtn":{"x":519, "y":304},
-				"goOnBtn":{"x":417, "y":960}
+				"goOnBtn":{"x":417, "y":960},
+				"tip":{"x":65, "y":250, "w":400, "h":40, "size":40}
 			}
 		}, 
 		
@@ -473,6 +474,7 @@
 		"needName": {"EN": "need a name", "CNS": "需要一个名字", "CNT": "需要一个名字"},
 		"tooLongName": {"EN": "this name is too long", "CNS": "名字最长七个字", "CNT": "名字最长七个字"},
 		"inValidName": {"EN": "invalid name", "CNS": "名字不合规", "CNT": "名字不合规"},
+		"keyInNewName": {"EN": "key in a new name", "CNS": "请输入一个新名字", "CNT": "请输入一个新名字"},
 		"": {}
 	}
 }
