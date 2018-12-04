@@ -74,6 +74,11 @@ class RelicFactory {
                         robChecker.robNum = 1;
                 }, r, () => true, false, true);
 
+                // level 2
+                ElemFactory.addAI("beforeCreateWorldMapEventSelGroup", (robChecker) => {
+                    robChecker.doExtraRobSel = r.reinforceLv >= 1;
+                }, r, () => true, false, true);
+
                 // level 3
                 if (r.reinforceLv >= 2) {
                     ElemFactory.addAI("beforeOpenShopOnWorldmap", (robChecker) => {
