@@ -69,10 +69,6 @@ class Occupation {
     // 流氓
     static makeRogue(p:Player):Player {
         p.addRelic(<Relic>ElemFactory.create("GangMember")); // 初始遗物
-        p.addRelic(<Relic>ElemFactory.create("GangMember"));
-        p.addRelic(<Relic>ElemFactory.create("GangMember"));
-        p.addRelic(<Relic>ElemFactory.create("GangMember"));
-        p.addRelic(<Relic>ElemFactory.create("GangMember"));
         return p;
     }
 

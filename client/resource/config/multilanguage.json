@@ -302,13 +302,28 @@
 		
 		"scoreView":{
 			"layout":{
-				"bg1":{"x":0, "y":0},
-				"avatar":{"x":0, "y":0},
-				"avatarBg":{"x":0, "y":0},
-				"finalScore":{"x":0, "y":0},
-				"playerName":{"x":0, "y":0},
-				"exp":{"x":0, "y":0},
-				"level":{"x":0, "y":0}
+				"bg1":{"x":0, "y":50},
+				"avatar":{"x":71, "y":591, "w":100, "h":100},
+				"avatarBg":{"x":55, "y":560},
+				"finalScore":{"x":320, "y":735, "w":120, "h":60, "size":40},
+				"playerName":{"x":83, "y":745, "w":140, "h":20, "size":20},
+				"exp":{"x":110, "y":838, "w":300, "h":60, "size":40},
+				"level":{"x":510, "y":838, "w":60, "h":60, "size":40},
+				"shareBtn":{"x":10, "y":980},
+				"goOnBtn":{"x":465, "y":980},
+				"scrollArea":{"x":65, "y":170, "h":548, "w":500},
+				"title":{"x":20, "y":0},
+				"score":{"x":450, "y":0},
+				"line":{"x":0, "y":32}
+			}
+		},
+
+		"nameView":{
+			"layout":{
+				"bg1":{"x":13, "y":200},
+				"keyInName":{"x":63, "y":340, "h":40, "w": 400},
+				"randomBtn":{"x":519, "y":304},
+				"goOnBtn":{"x":417, "y":960}
 			}
 		}, 
 		
@@ -406,6 +421,7 @@
 		"selRelic": {"EN": "select a skill", "CNS": "选择一个技能", "CNT": "選擇一個技能"},
 		"makeSureSelRelic": {"EN": "be sure to select ", "CNS": "确定选择", "CNT": "確定選擇"},
 		"continueBtn":{"EN": "continue", "CNS": "继续", "CNT": "繼續"},
+		"shareBtn":{"EN": "share", "CNS": "分享", "CNT": "分享"},
 		"rob":{"EN": "Rob", "CNS": "抢劫", "CNT": ""},
 		"goBackBtn":{"EN": "go back", "CNS": "返回", "CNT": "返回"},
 		"showDeathGodStep":{"EN": "{0}", "CNS": "死神距离你还有<font color=#7d0403>{0}</font>步", "CNT": "{0}"},
@@ -447,6 +463,16 @@
 		"diff3":{"EN": "diff3", "CNS": "普通", "CNT":"普通"},
 		"diff4":{"EN": "diff4", "CNS": "困难", "CNT":"困难"},
 		"diff5":{"EN": "diff5", "CNS": "地狱", "CNT":"地狱"},
+		"totalStoreyLevel": {"EN": "totalStoreyLevel", "CNS": "层数得分", "CNT": "总层数"},
+		"playerLevel": {"EN": "playerLevel", "CNS": "等级得分", "CNT": "等级得分"},
+		"totalCoins": {"EN": "totalCoins", "CNS": "金币得分", "CNT": "金币得分"},
+		"totalRelicLevel": {"EN": "totalRelicLevel", "CNS": "技能得分", "CNT": "技能得分"},
+		"totalMonster": {"EN": "totalMonster", "CNS": "消灭怪物得分", "CNT": "消灭怪物得分"},
+		"clearBonusCount": {"EN": "clearBonusCount", "CNS": "清关得分", "CNT": "清关得分"},
+		"difficulty": {"EN": "difficulty", "CNS": "难度系数", "CNT": "难度系数"},
+		"needName": {"EN": "need a name", "CNS": "需要一个名字", "CNT": "需要一个名字"},
+		"tooLongName": {"EN": "this name is too long", "CNS": "名字最长七个字", "CNT": "名字最长七个字"},
+		"inValidName": {"EN": "invalid name", "CNS": "名字不合规", "CNT": "名字不合规"},
 		"": {}
 	}
 }

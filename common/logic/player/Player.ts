@@ -30,7 +30,8 @@ class Player {
     public worldmapRandomSeed:number; // 世界地图随机种子
     public playerRandom:SRandom; // 伴随角色的随机数，会被 save/load
     public currentStoreyPos; // 当前所在层数以及该层位置
-    public currentTotalStorey = () => Utils.playerFinishedStorey(this); // 当前总层数
+    public currentTotalStorey = () => Utils.playerCurrentTotalStorey(this); // 当前所在的总层数
+    public finishedTotalStorey = () => Utils.playerFinishedTotalStorey(this); // 当前所在的总层数
     public finishedStoreyPos; // 已经完成的世界地图节点
     public finishedWorldMap = []; // 已经完成的世界
     public finishedEvent = [];
@@ -45,10 +46,10 @@ class Player {
         p.currentStoreyPos = {lv:0, n:0, status:"finished"};
         p.finishedStoreyPos = [{lv:0, n:0}];
         p.occupation = occ;
-        p.deathStep = 11; // 150;
+        p.deathStep = 150;
 
         p.maxDeathStep = 150;
-        p.hp = 40;
+        p.hp = 1;
         p.maxHp = 40;
         p.dodge = 0;
         p.power = [4, 0];
@@ -59,7 +60,7 @@ class Player {
         p.lv = 0;
         p.relicsEquippedCapacity = Utils.getPlayerInitRelicsEquippedCapacity(p.difficulty);
 
-        p.st = new BattleStatistics();
+        p.st = new BattleStatistics(p);
 
         return p;
     }
@@ -105,6 +106,9 @@ class Player {
     public money:number; // 金币
 
     public addMoney(dm:number):boolean {
+        if (dm > 0)
+            this.st.addCoins(dm);
+
         if (this.money  + dm < 0)
             return false;
 
@@ -386,7 +390,7 @@ class Player {
         p.playerRandom = SRandom.fromString(pinfo.srand);
         p.worldmapRandomSeed = pinfo.worldmapRandomSeed;        
         p.worldmap = WorldMap.buildFromConfig(p.worldName, p);
-        p.st = BattleStatistics.fromString(pinfo.statistics);
+        p.st = BattleStatistics.fromString(p, pinfo.statistics);
         p = Occupation.makeOccupationBuff(p);
 
         return p
@@ -571,8 +575,6 @@ class Player {
 
         this.currentStoreyPos.status = "finished";
         this.finishedStoreyPos.push({lv:lv, n:n});
-
-        this.st.notifyStoreyPosFinished(lv, n);
     }
 
     // 进入新的世界地图

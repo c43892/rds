@@ -169,6 +169,12 @@ class Main extends egret.DisplayObjectContainer {
             Utils.assert(misc[type], "config " + type + " do not exist.")
             return misc[type];
         };
+
+        // 随机名字
+        GCfg.getRandomNameCfg = () => ResMgr.getRes("randomName_json");
+
+        // 不合规名字配置
+        GCfg.getInvalidNameCfg = () => ResMgr.getRes("invalidName_json");
     }
 
     // 加载指定资源组

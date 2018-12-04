@@ -4,5 +4,25 @@
     "bossTypes" : ["slimeKing", "brainOfCthulhu"],
     "unlockPrices": [50,75,125,250,250,300,350,400],
     "PlantTypes": ["NutWall", "Peashooter", "CherryBomb", "Sunflower", "CharmingMushroom"],
-    "sanLevel": [101, 60, 30, 0]
+    "sanLevel": [101, 60, 30, 0],
+    "scoreInfoPs":{
+        "totalStoreyLevel":5, 
+        "playerLevel":10, 
+        "totalCoins":0.2, 
+        "totalRelicLevel":2, 
+        "normalMonster":1, 
+        "eliteMonster":5, 
+        "bossMonster":10, 
+        "normalBonus":1, 
+        "eliteBonus":5, 
+        "bossBonus":10,
+        "difficulty":{
+            "level0":0.5,
+            "level1":0.8,
+            "level2":1,
+            "level3":1.5,
+            "level4":2
+        }
+    },
+    "occupationLevelCfg":[2, 20, 300, 400, 500, 600, 700, 800, 900, 1000]
 }

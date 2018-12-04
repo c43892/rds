@@ -20,7 +20,8 @@ class MainView extends egret.DisplayObjectContainer {
     public st:SettingView; // 设置视图
     public rev:RelicExchangeView; // 交换遗物视图
     public lcv:LuxuryChestView; // 开boss三选一界面
-    public scoreview:ScoreView // 死亡或通关后的分数结算界面
+    public scoreview:ScoreView; // 死亡或通关后的分数结算界面
+    public nameView:NameView; // 玩家起名界面
     public av:AniView; // 动画层
 
     isInBattle:boolean; // 是否在战斗中
@@ -87,6 +88,9 @@ class MainView extends egret.DisplayObjectContainer {
 
         // 得分结算界面
         this.scoreview = new ScoreView(w, h);
+
+        // 玩家起名界面
+        this.nameView = new NameView(w, h);
 
         // 世界地图
         this.wmv = new WorldMapView(w, h);
@@ -445,6 +449,9 @@ class MainView extends egret.DisplayObjectContainer {
                     if(Utils.checkRookiePlay())
                         await this.rookiePlay();
                     else {
+						if (!Utils.getPlayerName())
+                            await this.openNameView();
+
                         var r = await this.openOccSelView(p);
                         if (r) {
                             this.newPlay(r["occ"], r["d"]);
@@ -463,6 +470,7 @@ class MainView extends egret.DisplayObjectContainer {
     // 角色死亡
     public async onPlayerDead(ps) {
         Utils.pt("die." + (new Date()).toLocaleString('en-GB', { timeZone: 'UTC' }), this.p.currentStoreyPos);
+        await this.openScoreView();
         Utils.savePlayer(undefined);
         this.p = undefined;
         await this.av.blackIn();
@@ -595,7 +603,16 @@ class MainView extends egret.DisplayObjectContainer {
         this.scoreview.player = this.p;
         this.addChild(this.scoreview);
         await this.scoreview.open();
-        this.removeChild(this.scoreview);        
+        this.removeChild(this.scoreview);
+    }
+
+    // 提供起名的界面
+    public async openNameView() {
+        this.addChild(this.nameView);
+        await this.av.blackOut();
+        await this.nameView.open();
+        await this.av.blackIn();
+        this.removeChild(this.nameView);
     }
 
     // 按照本地存档继续游戏

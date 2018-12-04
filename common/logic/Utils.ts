@@ -637,13 +637,21 @@ class Utils {
         return Utils.indexOf(cfg.initItems, (t:string) => t == itemType) > -1;
     }
 
-    // 得到player完成的总层数
-    public static playerFinishedStorey(p:Player){
+    // 得到player当前所在的总层数
+    public static playerCurrentTotalStorey(p:Player){
         var storey = p.currentStoreyPos.lv;
         for(var world of p.finishedWorldMap)
             storey += world.totalLevels;
         
         return storey;
+    }
+
+    // 得到player当前已完成的总层数
+    public static playerFinishedTotalStorey(p:Player){
+        if (p.currentStoreyPos.status == "finished")
+            return Utils.playerCurrentTotalStorey(p);
+        else
+            return Utils.playerCurrentTotalStorey(p) - 1;
     }
 
     // 获取战斗实际所使用的地图范围
@@ -801,5 +809,70 @@ class Utils {
         difficulty = difficulty ? difficulty : "level0";
         var cfg = GCfg.playerCfg["playerInitRelicsEquippedCapacity"];
         return cfg[difficulty];
+    }
+
+    // 玩家某个职业获得经验
+    public static addOccupationExp(occupation:string, exp:number) {     
+        Utils.try2InitOccupationExpInfo(occupation);
+        var occupationExp = Utils.loadLocalData("occupationExp");
+        occupationExp[occupation] += exp;
+        Utils.saveLocalData("occupationExp", occupationExp);
+    }
+
+    // 获取玩家某个职业的升级经验信息
+    public static getOccupationExp(occupation:string){
+        Utils.try2InitOccupationExpInfo(occupation);
+        return Utils.loadLocalData("occupationExp")[occupation];
+    }
+
+    // 初始化某职业的升级经验信息
+    public static try2InitOccupationExpInfo(occupation:string) {
+        var occupationExp = Utils.loadLocalData("occupationExp");
+        if (!occupationExp) 
+            Utils.saveLocalData("occupationExp", {});
+        
+        var exp = Utils.loadLocalData("occupationExp")[occupation];
+        if (!exp){
+            var occupationExp = Utils.loadLocalData("occupationExp");
+            occupationExp[occupation] = 0;
+            Utils.saveLocalData("occupationExp", occupationExp);
+        }
+    }
+
+    // 根据得分获取所得经验
+    public static score2Exp(s:number) {
+        return s;
+    }
+
+    // 根据玩家在某个职业积累的经验值,获取该职业目前的等级和当前等级经验
+    public static getOccupationLevelAndExp(occupation:string) {
+        Utils.try2InitOccupationExpInfo(occupation);
+        var exp = Utils.getOccupationExp(occupation);
+        var occupationLevelCfg = GCfg.getMiscConfig("occupationLevelCfg");
+        for (var i = 0; i < occupationLevelCfg.length; i++){
+            var e = occupationLevelCfg[i];
+            if (exp > e)
+                exp -= e;
+            else break;
+        }
+        if (i == occupationLevelCfg.length)
+            return {level:-1, exp:0};
+        else 
+            return {level:i + 1, exp:exp};
+    }
+
+    // 玩家起名的合法性
+    public static checkValidName(name:string){
+        var invalidNameCfg = GCfg.getInvalidNameCfg();
+        for(var n of invalidNameCfg)
+            if(name.indexOf(n) > -1)
+                return false;
+        
+        return true;
+    }
+
+    // 获取玩家名
+    public static getPlayerName(){
+        return Utils.loadLocalData("playerName");
     }
 }

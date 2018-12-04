@@ -22,10 +22,10 @@ class LevelLogicBoss extends LevelLogic {
                 this.valid = false;
                 var g = BattleUtils.findRandomEmptyGrid(this.level.bt, false);
                 if (g){
-                    await bt.fireEvent("onGetMarkAllAward");
+                    await bt.fireEvent("onGetMarkAllAward", {btType:"boss"});
                     var luxuryChest = this.level.createElem("LuxuryChest");
                     await bt.implAddElemAt(luxuryChest, g.pos.x, g.pos.y);
-                    await bt.triggerLogicPoint("onGetMarkAllAward");
+                    await bt.triggerLogicPoint("onGetMarkAllAward", {btType:"boss"});
                 }
             }
         })

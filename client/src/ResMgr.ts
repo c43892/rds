@@ -27,7 +27,7 @@ class ResMgr {
     // for weixin game
 
     public static URLPrefix = "https://rds.wudouwxg.xyz";
-    static ResURLPrefix = ResMgr.URLPrefix + "/ver033/resource/";
+    static ResURLPrefix = ResMgr.URLPrefix + "/preview/resource/";
     static resMap = {};
     
     static getResWX(name:string):any {
