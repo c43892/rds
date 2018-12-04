@@ -16,6 +16,7 @@ class NameView extends egret.DisplayObjectContainer {
         this.bg.width = w;
         this.bg.height = h;
         this.bg.touchEnabled = true;
+        this.bg.alpha = 0.2;
         this.bg.name = "bg";
 
         this.bg1 = ViewUtils.createBitmapByName("nameViewBg_png");
