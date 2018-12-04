@@ -1532,6 +1532,7 @@ class AniView extends egret.DisplayObjectContainer {
                     this.addColorEffect("poison", 2000, this.bv.poisonedHpBar, this.bv.avatar);
                 break;
                 case "BuffSuper":
+                    this.bv.addAvaterEffect("effSuperPotion");
                 break;
             }
         } else {
@@ -1571,6 +1572,7 @@ class AniView extends egret.DisplayObjectContainer {
                     this.removeColorEffect("poison", this.bv.poisonedHpBar, this.bv.avatar);
                 break;
                 case "BuffSuper":
+                    this.bv.removeAvatarEffect("effSuperPotion");
                 break;
             }
         }

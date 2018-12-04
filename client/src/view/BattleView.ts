@@ -11,6 +11,7 @@ class BattleView extends egret.DisplayObjectContainer {
     public avatarItemSke:dragonBones.Armature;
     public avatar:egret.DisplayObjectContainer; // 角色头像
     public avatarAreaMask:egret.Bitmap; // 角色区域的遮罩
+    public avatarEffs = {}; // 各种特殊效果，比如超能药水的效果
     public expBar:egret.Bitmap; // 经验条
     public expBarMask:egret.Shape; // 经验条遮罩
     public deadlyMask:egret.Bitmap; // 濒死效果
@@ -129,6 +130,9 @@ class BattleView extends egret.DisplayObjectContainer {
         this.avatarItemSke.display.alpha = 0;
         for (var i = 0; i < 4; i++)            
             this.avatarItemSke["wenhao" + (i + 1)] = this.avatarItemSke.getSlot("wenhao" + (i + 1)).display;
+
+        // 物品特殊效果，比如超能药水
+        this.avatarEffs = {};
 
         // 头像
         this.avatar = new egret.DisplayObjectContainer();
@@ -389,6 +393,35 @@ class BattleView extends egret.DisplayObjectContainer {
     public setMap(map:Map, title:string) {
         this.mapView.setMap(map);
         this.selView.rebuild(this.mapView.x, this.mapView.y, this.mapView.gsize.w, this.mapView.gsize.h, this.mapView.gw, this.mapView.gh);
+    }
+
+    // 角色特殊效果
+    public addAvaterEffect(effName) {
+        var eff:dragonBones.Armature = this.avatarEffs[effName];
+        if (!eff) {
+            eff = ViewUtils.createSkeletonAni(effName);
+            eff.animation.play("stand", 0);
+            this.avatarEffs[effName] = eff;
+        }
+
+        var d = eff.display;
+        if (!this.contains(d))
+            this.addChild(d);
+
+        d.scaleX = d.scaleY = 4.5;
+        d.x = this.avatarBg.x + this.avatarBg.width / 2;
+        d.y = this.avatarBg.y + this.avatarBg.height / 2;
+    }
+
+    public removeAvatarEffect(effName) {
+        var eff:dragonBones.Armature = this.avatarEffs[effName];
+        if (!eff)
+            return;
+
+        eff.animation.stop("stand");
+        var d = eff.display;
+        if (this.contains(d))
+            this.removeChild(d);
     }
 
     // 设置角色数据，但并不刷新显示，需要手动刷新
