@@ -19,7 +19,14 @@ class WorldMapEventSelFactory {
     public openTurntable; // 打开转盘
 
     // 创建一组选项
-    public createGroup(player:Player, sels) {
+    public createGroup(player:Player, sels:any[], extraRobSel) {
+        // 额外的抢劫事件
+        var robChecker = {sels:sels, doExtraRobSel:false}
+        player.triggerLogicPointSync("beforeCreateWorldMapEventSelGroup", robChecker);
+        Utils.log("robChecker.doExtraRobSel = " + robChecker.doExtraRobSel);
+        if (robChecker.doExtraRobSel && extraRobSel)
+            sels.unshift(extraRobSel);
+
         var ss = [];
         for (var i = 0; i < sels.length; i++) {
             var sel = sels[i];
@@ -147,6 +154,11 @@ class WorldMapEventSelFactory {
             var hp = Math.ceil(p.maxHp * ps.hpPrecentage / 100);
             ps["hp"] = hp;
             return this.exec(async () => await this.implAddHp(p, -hp), sel);
+        },
+        "+hpPrecentage": (sel:WMES, p:Player, ps) => { 
+            var hp = Math.ceil(p.maxHp * ps.hpPrecentage / 100);
+            ps["hp"] = hp;
+            return this.exec(async () => await this.implAddHp(p, hp), sel);
         },
         "-maxHpPrecentage": (sel:WMES, p:Player, ps) => {
             var maxHp = Math.ceil(p.maxHp * ps.maxHpPrecentage / 100);

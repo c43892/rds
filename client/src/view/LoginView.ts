@@ -83,7 +83,6 @@ class LoginView extends egret.DisplayObjectContainer {
     close(type) {
         this.ani.animation.stop("idle");
         this.onClose(type);
-        this.ani.animation.play("idle", 0);
     }
 
     public onClose;
@@ -92,6 +91,6 @@ class LoginView extends egret.DisplayObjectContainer {
         this.ani.animation.play("idle", 0);
         this.btnContinue.enabled = !!this.player;
         this.btnAchievement.enabled = false; // 暂时不可用
-        this.btnOpenRank.enabled = window.platform.platformType == "wx"; // 暂时只有微信可用
+        this.btnOpenRank.enabled = true;
     }
 }

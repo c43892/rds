@@ -217,7 +217,7 @@ class ViewUtils {
         var curCfg = mlCfg.tips;
         return curCfg[key][mlCfg.currentLanguage];
     }
-
+    
     // 创建一批图像对象并赋值
     public static createImgs(view:egret.DisplayObjectContainer, varNames:string[], texNames:string[]) {
         Utils.assert(varNames.length == texNames.length, "var nubmer mismatched the tex number");

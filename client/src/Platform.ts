@@ -10,6 +10,7 @@ declare interface Platform {
     setUserCloudStorage(key, value);
     getUserLocalStorage();    
     setUserLocalStorage(data);
+    getRankInfo();
 
     canShare(): boolean;
     shareGame();
@@ -41,10 +42,19 @@ class DefaultPaltform implements Platform {
             var now = new Date();
             var r = new SRandom(now.getMilliseconds());
             uid = "uid_" + r.nextInt(100000, 1000000) + "_"  + now.toUTCString();
+            uid = uid.replace("," + " ");
             Utils.saveLocalItem("UserID", uid);
         }
 
         return uid;
+    }
+
+    async getRankInfo() {
+        var r = await this.wc.request({
+            type: "getRank",
+        });
+
+        return r;
     }
 
     setUserCloudStorage(key:string, value) {
@@ -87,7 +97,7 @@ class DefaultPaltform implements Platform {
             } catch (ex) {
                 var exMsg = "load localstorage exception: " + str + ":" + ex.toString();
                 Utils.log(exMsg);
-                Utils.pt((new Date()).toLocaleString() + ":" + str + ":ex:loadstorage:", exMsg);
+                Utils.pt((new Date()).toLocaleString('en-GB', { timeZone: 'UTC' }) + ":" + str + ":ex:loadstorage:", exMsg);
                 return {};
             }
         }

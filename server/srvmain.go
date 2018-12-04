@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"io"
 	"encoding/json"
 	"log"
@@ -10,6 +11,7 @@ import (
 	"github.com/go-redis/redis"
 	"sort"
 	"time"
+	"strings"
 )
 
 func assert(condition bool, msg string) {
@@ -35,12 +37,13 @@ func initDB() {
 
 type UserInfo struct {
 	Uid string `json:"uid"`
-	Score int `json:"store"`
+	Score int `json:"score"`
 	Info map[string]string `json:"info"`
 }
 
 type RankInfo struct {
 	Usrs [100]*UserInfo `json:"usrs"`
+	Occupations [100]string `json:"occupations"`
 }
 
 // sort interface
@@ -74,18 +77,76 @@ func loadRankInfo() {
 	log.Println("rank info loaded: " + strconv.Itoa(len(rankInfo.Usrs)));
 }
 
-func main() {
-	initDB();
+func runServer() {
 	loadRankInfo();
 	fmt.Println("rds server started.")
 	http.HandleFunc("/",  handleMsgfunc)
     http.ListenAndServe(":81", nil)
 }
 
+func stServer(ps string) {
+	
+	var keys, _ = dbc.Keys("uid_*").Result()
+	for i := 0; i < len(keys); i++ {
+		var uid = keys[i]
+		usrInfo := loadOrCreateUser(uid)
+		uidStr := strings.Replace(uid, ",", " ", -1);
+		if (ps == "score") {
+			rookiePlayFinished, _ := dbc.HGet(uid, "st.rookiePlayFinished").Result()
+			fmt.Println(uid + "," + strconv.Itoa(usrInfo.Score) + "," + rookiePlayFinished)
+		} else if (ps == "st.t") {
+			stKeys, _ := dbc.HKeys(uid).Result()
+			var firstStartDate = -1;
+			var firstStartMonth = -1;
+			for j := 0; j < len(stKeys); j++ {
+				stKey := stKeys[j];
+				if (len(stKey) > 8 && stKey[:8] == "st.2018/") {
+					startTimeStr := stKey[3:];
+					startDateStr := startTimeStr[8:10];
+					startDate, _ := strconv.Atoi(startDateStr);
+					startMonth, _ := strconv.Atoi(startTimeStr[5:7]);
+					if (firstStartDate == -1) {
+						firstStartDate = startDate;
+						firstStartMonth = startMonth;
+					} else if (startMonth != firstStartMonth || startDate != firstStartDate) {
+						fmt.Println(uidStr + ", " + strconv.Itoa(firstStartMonth) + "-" + strconv.Itoa(firstStartDate) + "," + strconv.Itoa(startMonth) + "-" + strconv.Itoa(startDate));
+						break;
+					}
+				}
+			}
+		} else if (ps[:3] == "st.") {
+			v, err := dbc.HGet(uid, ps).Result()
+			if (err == nil && v != "") {
+				fmt.Println(uidStr + "," + v);
+			}
+		} else {
+			v := usrInfo.Info[ps]
+			fmt.Println(uidStr + "," + v);
+		}
+	}
+}
+
+func main() {
+	initDB()
+
+	if (len(os.Args) > 1) {
+		var launchType = os.Args[1]
+		if (launchType == "st") {
+			stServer(os.Args[2]);
+			return;
+		} else if (launchType != "default") {
+			log.Fatal("unknown launch type: " + launchType);
+			return
+		}
+	}
+
+	runServer()
+}
+
 type HttpResp struct {
 	Ok bool `json:"ok"`
 	Usr UserInfo `json:"usr"` 
-	Rank RankInfo `json:"rank"`
+	Rank *RankInfo `json:"rank"` 
 }
 
 type RequestMsg struct {
@@ -106,12 +167,12 @@ func handleMsgfunc(w http.ResponseWriter, r *http.Request) {
 	var res *HttpResp; // response
 
 	// handle the request message
-	if (msg.Type == "GetRank") {
+	if (msg.Type == "getRank") {
 		usr := onGetRank(msg);
 		res = &HttpResp{};
 		res.Ok = true;
 		res.Usr = *usr;
-		res.Rank = *rankInfo;
+		res.Rank = rankInfo;
 	} else if (msg.Type == "setUserCloudData") {
 		usr := onSetUserInfo(msg);
 		res = &HttpResp{};
@@ -119,6 +180,7 @@ func handleMsgfunc(w http.ResponseWriter, r *http.Request) {
 		res.Usr = *usr;
 	} else {
 		log.Println("unsupported message type: " + msg.Type);
+		return;
 	}
 
 	// send the response
@@ -129,14 +191,14 @@ func handleMsgfunc(w http.ResponseWriter, r *http.Request) {
 }
 
 // refresh the rank
-func setUserScore(usrInfo *UserInfo) {
+func setUserScore(usrInfo *UserInfo, occupation string) {
 	var len = len(rankInfo.Usrs);
 	for i := 0; i < len; i++ {
 		var usr = rankInfo.Usrs[i];
 		if usr != nil && usr.Uid == usrInfo.Uid {
 			if usr.Score < usrInfo.Score { // new high score
 				usr.Score = usrInfo.Score;
-				dbc.HSet(usrInfo.Uid, "score", usr.Score);
+				rankInfo.Occupations[i] = occupation;
 				sortRank();
 			}
 
@@ -189,9 +251,16 @@ func onSetUserInfo(msg *RequestMsg) (*UserInfo) {
 	usrInfo := loadOrCreateUser(msg.Uid);
 	if (msg.Key == "score") {
 		// set user score and rebuild the rank
-		score, _ := strconv.Atoi(msg.Value);
-		usrInfo.Score = score
-		setUserScore(usrInfo);		
+		splitePos := strings.Index(msg.Value, ",");
+		scoreStr := msg.Value[1:splitePos];
+		occupation := msg.Value[splitePos+1:len(msg.Value) - 1];
+		score, _ := strconv.Atoi(scoreStr);
+		if (usrInfo.Score < score) {
+			usrInfo.Score = score
+			dbc.HSet(usrInfo.Uid, "score", score)
+		}
+
+		setUserScore(usrInfo, occupation);
 	} else if (msg.Key[:3] == "st.") {
 		// statistics
 		dbc.HSet(msg.Uid, msg.Key, msg.Value);

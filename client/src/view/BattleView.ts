@@ -32,7 +32,7 @@ class BattleView extends egret.DisplayObjectContainer {
     public deathGodStepBtn:egret.Bitmap; // 用于点击后提示死神剩余步数
     public effDeathGodRed:egret.MovieClip; // 死神快到的时候
     public effDeathGodGray:egret.MovieClip; // 死神平时
-    public effDeathGodRedEff:egret.MovieClip;
+    public effDeathGodRedEff:dragonBones.Armature;
 
     readonly ShowMaxRelicNum = 12;
     public relicsBg:egret.DisplayObjectContainer; // 遗物区域
@@ -68,13 +68,11 @@ class BattleView extends egret.DisplayObjectContainer {
         this.effDeathGodRed.name = "deathGodRed";
         this.effDeathGodRed.gotoAndPlay(0, -1);
         this.addChild(this.effDeathGodRed);
-        // this.effDeathGodRedEff = ViewUtils.createFrameAni("effIceGun");
-        // this.effDeathGodRedEff.name = "deathGodRed";
-        // this.effDeathGodRedEff.gotoAndPlay(0, -1);
-        // this.addChild(this.effDeathGodRedEff);
         this.effDeathGodGray = ViewUtils.createFrameAni("effDeathGodGray");
         this.effDeathGodGray.name = "deathGodGray";
         this.addChild(this.effDeathGodGray);
+        this.effDeathGodRedEff = ViewUtils.createSkeletonAni("sishen");
+
         this.deathGodStepBtn = ViewUtils.createBitmapByName();
         this.deathGodStepBtn.width = 50;
         this.deathGodStepBtn.height = 50;
@@ -82,7 +80,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.deathGodStepBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, (evt:egret.TouchEvent) => this.showDeathGodStep(evt), this);
         this.addChild(this.deathGodStepBtn);
         
-        ViewUtils.multiLang(this, /*this.deathGodBarBg,*/ this.deathGodBar, this.effDeathGodRed, /*this.effDeathGodRedEff,*/ this.effDeathGodGray);
+        ViewUtils.multiLang(this, /*this.deathGodBarBg,*/ this.deathGodBar, this.effDeathGodRed, this.effDeathGodGray);
     }
 
     // 播放头像相关动画
@@ -437,22 +435,29 @@ class BattleView extends egret.DisplayObjectContainer {
         this.effDeathGodGray.width = this.deathGodBarWidth * p;
         this.effDeathGodRed.x = this.effDeathGodGray.x;
         this.effDeathGodRed.width = this.effDeathGodGray.width;
-        // this.effDeathGodRedEff.x = this.effDeathGodGray.x;
-        // this.effDeathGodRedEff.width = this.effDeathGodGray.width;
 
         this.deathGodStepBtn.x = this.effDeathGodGray.x - this.deathGodStepBtn.width / 2;
         this.deathGodStepBtn.y = this.effDeathGodGray.y - this.deathGodStepBtn.height / 2;
 
         // 死神临近效果
+        var effDisplay = this.effDeathGodRedEff.display;        
         if (stepAt <= this.deathGodWarningStep) {
             this.effDeathGodGray.alpha = 0;
             this.effDeathGodRed.alpha = 1;
-            // this.effDeathGodRedEff.alpha = 1;
+            if (!this.contains(effDisplay))
+                this.addChild(effDisplay);
+
+            this.effDeathGodRedEff.animation.play("stand", 0);
+            effDisplay.x = this.effDeathGodRed.x;
+            effDisplay.y = this.effDeathGodRed.y;
+            effDisplay.scaleX = effDisplay.scaleY = 2;
         }
         else {
             this.effDeathGodGray.alpha = 1;
             this.effDeathGodRed.alpha = 0;
-            // this.effDeathGodRedEff.alpha = 0;
+            this.effDeathGodRedEff.animation.stop("stand");
+            if (this.contains(effDisplay))
+                this.removeChild(effDisplay);
         }
     }
 

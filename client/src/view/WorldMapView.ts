@@ -621,7 +621,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
             Utils.savePlayer(this.player);
 
             // 更新最高分
-            Utils.saveCloudData("score", trueLv);
+            Utils.saveCloudData("score", trueLv + "," + this.player.occupation);
             Utils.pt("score", trueLv);
             
             // 判断此世界是否已经完成
@@ -691,7 +691,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 };
 
                 this.wmesFact.selRelic = this.selRelic;
-
                 await this.openSelGroup(p, evt);
 
                 // 这一类事件是出现一次就不在出现
@@ -706,7 +705,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
     async openSelGroup(p:Player, group) {
         var selsGroup = GCfg.getWorldMapEventSelGroupsCfg(group);
-        var sels = this.wmesFact.createGroup(p, selsGroup.sels);
+        var sels = this.wmesFact.createGroup(p, selsGroup.sels, selsGroup.extraRobSel);
         await this.openEventSels(selsGroup.title, selsGroup.desc, selsGroup.bg, sels);
     }
 

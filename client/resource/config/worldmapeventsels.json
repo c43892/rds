@@ -8,6 +8,7 @@
         "-hp": "失去 {hp} hp",
         "+hp": "获得 {hp} hp",
         "-hpPrecentage": "损失 {hp} hp",
+        "+hpPrecentage": "恢复 {hp} hp",
         "-maxHpPrecentage": "血量上限减少 {maxHp}",
         "-maxHp": "血量上限减少 {maxHp}",
         "+maxHp": "血量上限增加 {maxHp}",
@@ -373,6 +374,11 @@
                 "func": ["exit", "redirectSelGroup"],
                 "ps": {"group": "a53"}
             }],
+            "extraRobSel": {
+                "desc": "<font color=#000000 size=20>你丝毫不知道什么叫怜香惜玉，劫了财还顺便劫了个色。</font>",
+                "func": ["+hpPrecentage", "+money"],
+                "ps": {"hpPrecentage":100, "money": 50}
+            },
             "bg":"CharmingMushroom"
         },
         "a51": {

@@ -57,6 +57,44 @@ class RelicFactory {
             });
         },
 
+        // 黑帮
+        "GangMember": (attrs) => {
+            return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if (!enable) {
+                    r.clearAIAtLogicPoint("beforeOpenShopInBattle");
+                    r.clearAIAtLogicPoint("beforeOpenShopOnWorldmap");
+                    return;
+                }
+                
+                // level 1&4
+                ElemFactory.addAI("beforeOpenShopInBattle", (robChecker) => {
+                    if (r.reinforceLv >= 3)
+                        robChecker.robNum = r.player.playerRandom.next100() < 50 ? 2 : 1;
+                    else
+                        robChecker.robNum = 1;
+                }, r, () => true, false, true);
+
+                // level 2
+                ElemFactory.addAI("beforeCreateWorldMapEventSelGroup", (robChecker) => {
+                    robChecker.doExtraRobSel = r.reinforceLv >= 1;
+                }, r, () => true, false, true);
+
+                // level 3
+                if (r.reinforceLv >= 2) {
+                    ElemFactory.addAI("beforeOpenShopOnWorldmap", (robChecker) => {
+                        robChecker.robNum = 1;
+                    }, r, () => true, false, true);
+                }
+
+                // level 5
+                if (r.reinforceLv >= 4) {
+                    ElemFactory.addAI("onRobbedOnWorldmap", (extraRobChecker) => {
+                        extraRobChecker.robExtraItem = r.player.playerRandom.next100() < 100; // 25;
+                    }, r, () => true, false, true);
+                }
+            });
+        },
+
         // 鹰眼，每关开始前标注一个带钥匙的怪物
         "Hawkeye": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {

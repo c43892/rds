@@ -2,6 +2,7 @@
 class MainView extends egret.DisplayObjectContainer {
     private p:Player; // 当前玩家数据
     public lgv:LoginView; // 主界面菜单
+    public osv:OccupationSelView; // 
     public bv:BattleView; // 战斗视图
     public sv:ShopView; // 商店视图
     public hv:HospitalView; // 医院视图
@@ -64,6 +65,9 @@ class MainView extends egret.DisplayObjectContainer {
         this.lgv = new LoginView(w, h);
         this.lgv.acFact = audioFact;
         this.lgv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
+
+        // 角色选择界面
+        this.osv = new OccupationSelView(w, h);
 
         // 设置界面
         this.st = new SettingView(w, h);
@@ -251,7 +255,7 @@ class MainView extends egret.DisplayObjectContainer {
     public async openShopInBattle(items, prices, onBuy, onRob) {
         this.sv.player = this.p;
         this.addChild(this.sv);
-        await this.sv.open(items, prices, onBuy, onRob, true);
+        await this.sv.open(items, prices, onBuy, onRob, true, undefined);
         this.removeChild(this.sv);
     }
 
@@ -299,27 +303,52 @@ class MainView extends egret.DisplayObjectContainer {
             await this.p.fireEvent("onGetElemInWorldmap", {e:elem, fromPos:ShopView.lastSelectedElemGlobalPos});
         };
 
-        var onRob = async (elems) => {
-            // 抢劫逻辑
-            Utils.assert(!robbed, "can only be robbed one time");
-            robbed = true;
-            var shopCfg = GCfg.getShopCfg(shop);
-            var robCfg = GCfg.getRobCfg(shopCfg.rob);
-            var es = Utils.doRobInShop(elems, robCfg, this.p.playerRandom);
-            for (var i = 0; i < es.length; i++) {
-                var e = es[i];
-                this.p.addItem(e);
-                var n = Utils.indexOf(r.items, (it) => it == e.type);
-                ShopView.lastSelectedElemGlobalPos = this.sv.getGlobaPosAndSize(n);
-                this.sv.refreshFakeElemAt(n, undefined, 0);
-                await this.p.fireEvent("onGetElemInWorldmap", {e:e, price:r.prices[n], fromPos:ShopView.lastSelectedElemGlobalPos});
-            }
+        var shopCfg = GCfg.getShopCfg(shop);
+        var robCfg = GCfg.getRobCfg(shopCfg.rob);
 
-            robbedElems = es;
-            return es;
+        var onRob = (robNum) => {
+            return async (elems) => {
+                // 抢劫逻辑
+                Utils.assert(!robbed, "can only be robbed one time");
+                robbed = true;
+                var es = Utils.doRobInShop(elems, robCfg, robNum, this.p.playerRandom);
+                for (var i = 0; i < es.length; i++) {
+                    var e = es[i];
+                    this.p.addItem(e);
+                    var n = Utils.indexOf(r.items, (it) => it == e.type);
+                    ShopView.lastSelectedElemGlobalPos = this.sv.getGlobaPosAndSize(n);
+                    this.sv.refreshFakeElemAt(n, undefined, 0);
+                    await this.p.fireEvent("onGetElemInWorldmap", {e:e, price:r.prices[n], fromPos:ShopView.lastSelectedElemGlobalPos});
+                }
+
+                robbedElems = es;
+                return es;
+            };
         };
 
-        await this.sv.open(r.items, r.prices, onBuy, undefined /*robbed ? undefined : onRob*/, false);
+        // 可能还有个额外的奖励
+        var onRobbed = async () => {
+            var extraRobChecker = {robExtraItem:false};
+            this.p.triggerLogicPointSync("onRobbedOnWorldmap", extraRobChecker);
+            if (extraRobChecker.robExtraItem) {
+                // 这里出个对话，然后获得一个额外物品
+                var extraItem = Utils.randomSelectByWeightWithPlayerFilter(this.p, robCfg.extraOnWorldMap.items, this.p.playerRandom, 1, 2, false)[0];
+                if (!extraItem)
+                    return;
+
+                var e = ElemFactory.create(extraItem);
+                var iconPos = await this.gv.robExtraItemDialog(e);
+
+                this.p.addItem(e);
+                ShopView.lastSelectedElemGlobalPos = iconPos;
+                await this.p.fireEvent("onGetElemInWorldmap", {e:e, price:0, fromPos:ShopView.lastSelectedElemGlobalPos});         
+            }
+        };
+
+        var robChecker = {robNum:0};
+        this.p.triggerLogicPointSync("beforeOpenShopOnWorldmap", robChecker);
+        var canRob = robChecker.robNum > 0 && !robbed;
+        await this.sv.open(r.items, r.prices, onBuy, canRob ? onRob(robChecker.robNum) : undefined, false, onRobbed);
         this.removeChild(this.sv);
     }
 
@@ -404,10 +433,12 @@ class MainView extends egret.DisplayObjectContainer {
         this.addChild(this.lgv);
         this.lgv.open();
         AudioFactory.playBg("bgs");
-        await this.av.blackOut();        
+        await this.av.blackOut();
         this.lgv.onClose = async (op:string) => {
-            if (op == "openRank")
+            if (op == "openRank") {
                 await this.openRankView();
+                this.lgv.open();
+            }
             else {
                 await this.av.blackIn();
                 this.removeChild(this.lgv);
@@ -418,14 +449,17 @@ class MainView extends egret.DisplayObjectContainer {
                     if(Utils.checkRookiePlay())
                         await this.rookiePlay();
                     else {
-                        this.newPlay();
-                        // 不是新手教程的新战斗,如果没有玩家名字,需要玩家起名
-                        if (!Utils.loadLocalData("playerName"))
+						if (!Utils.loadLocalData("playerName"))
                             await this.openNameView();
-                            
-                        this.wmv.mapScrollPos = 0;
-                        await this.av.blackOut();
-                        await this.av.doWorldMapSlide(1, 2000, 1);
+                        var r = await this.openOccSelView(p);
+                        if (r) {
+                            this.newPlay(r["occ"], r["d"]);
+                            this.wmv.mapScrollPos = 0;
+                            await this.av.blackOut();
+                            await this.av.doWorldMapSlide(1, 2000, 1);
+                        } else {
+                            this.openStartup(p);
+                        }
                     }
                 }
             }
@@ -434,7 +468,7 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 角色死亡
     public async onPlayerDead(ps) {
-        Utils.pt("die." + (new Date()).toLocaleString(), this.p.currentStoreyPos);
+        Utils.pt("die." + (new Date()).toLocaleString('en-GB', { timeZone: 'UTC' }), this.p.currentStoreyPos);
         await this.openScoreView();
         Utils.savePlayer(undefined);
         this.p = undefined;
@@ -502,12 +536,22 @@ class MainView extends egret.DisplayObjectContainer {
 
     // ranking
     public async openRankView() {
-        // var r = await this.doLoginAndGetRank();
-        // if (!r) return;
+        var p = window.platform;
+        if (p.platformType != "wxgame") {
+            this.av.addBlockLayer();
+            var r = await p.getRankInfo();
+            this.av.decBlockLayer();
+            if (!r) {
+                AniUtils.tipAt(ViewUtils.getTipText("cannotconnect2server"), 
+                    {x: this.width / 2, y: this.height / 2 - 100},
+                    50, 0xffffff, 1000);
+                return;
+            }
 
-        // this.rankv.usrInfo = r.usr;
-        // this.rankv.weeklyRankInfo = r.rank;
-        // this.rankv.roleRankInfo = undefined;
+            this.rankv.usrInfo = r.usr;
+            this.rankv.weeklyRankInfo = r.rank;
+            this.rankv.roleRankInfo = undefined;
+        }
 
         this.addChild(this.rankv);
         await this.rankv.open();
@@ -539,6 +583,17 @@ class MainView extends egret.DisplayObjectContainer {
         this.addChild(this.lcv);
         var r = await this.lcv.open(relics);
         this.removeChild(this.lcv);
+        return r;
+    }
+
+    // 打开角色选择界面
+    public async openOccSelView(p:Player) {
+        this.addChild(this.osv);
+        this.osv.refresh(p);
+        await this.av.blackOut();
+        var r = await this.osv.open();
+        await this.av.blackIn();
+        this.removeChild(this.osv);
         return r;
     }
 
@@ -586,8 +641,8 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 开始新游戏，本地存档被新游戏覆盖
-    newPlay() {
-        var p = Player.createTestPlayer();
+    newPlay(occ:string, diff:number) {
+        var p = Player.createPlayer(occ, diff);
         p = Occupation.makeOccupation(p);
         p.worldmap = WorldMap.buildFromConfig("world1", p);
         this.p = p;
@@ -598,7 +653,7 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 新手指引
     rookiePlay() {
-        var p = Player.createTestPlayer();
+        var p = Player.createPlayer("Nurse", 0);
         p = Occupation.makeOccupation(p);
         p.worldmap = WorldMap.buildFromConfig("rookieWorld", p);
         this.p = p;

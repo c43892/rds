@@ -69,7 +69,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
 
     private dropItems;
     private doClose;
-    public async open():Promise<void> {        
+    public async open() {        
         this.box.anchorOffsetY = this.box.height / 2; // 宝箱动画修改过宝箱图的坐标和锚点
         ViewUtils.multiLang(this, this.box);
         this.elemImgs = [];

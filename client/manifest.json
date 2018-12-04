@@ -91,6 +91,7 @@
 		"bin-debug/view/MapView.js",
 		"bin-debug/view/NameView.js",
 		"bin-debug/view/NewMonsterTipView.js",
+		"bin-debug/view/OccupationSelView.js",
 		"bin-debug/view/PlayerLevelUpView.js",
 		"bin-debug/view/PropsView.js",
 		"bin-debug/view/PropView.js",

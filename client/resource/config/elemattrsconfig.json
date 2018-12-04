@@ -5,6 +5,8 @@
         ],
         "occupations":["Nurse"]
     },
+    "GangMember":{"name":"黑帮", 
+        "reinforce":[{}, {}, {}, {}], "occupations":["Rogue"]},
     "Hawkeye":{"name":"鹰眼"},
     "TimeMachine":{"name":"敌意消退", "deathGodBackStep":5,
         "reinforce":[

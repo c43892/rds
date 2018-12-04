@@ -39,14 +39,14 @@ class Player {
     public difficulty:string; // 游戏难度
 
     // 重新创建角色
-    public static createTestPlayer(difficulty = "level0"):Player {
+    public static createPlayer(occ:string, diff:number):Player {
         var p = new Player();
-        p.difficulty = difficulty;
+        p.difficulty = "level" + diff;
         p.worldmap = undefined;
         p.currentStoreyPos = {lv:0, n:0, status:"finished"};
         p.finishedStoreyPos = [{lv:0, n:0}];
-        p.occupation = "Nurse";
-        p.deathStep = 150;
+        p.occupation = occ;
+        p.deathStep = 1; // 150;
 
         p.maxDeathStep = 150;
         p.hp = 1;

@@ -1120,37 +1120,44 @@ class MonsterFactory {
 
         // 抢劫
         m["robbed"] = false;
-        var onRob = async (elems) => {
-            Utils.assert(!m["robbed"], "can not be robbed one time");
-            m["robbed"] = true;
-            var shopCfg = GCfg.getShopCfg(m.bt().lvCfg["shopCfg"]);
-            var robCfg = GCfg.getRobCfg(shopCfg.rob);
-            var es = Utils.doRobInShop(elems, robCfg, m.bt().srand);
-            var droppedElems = [];
-            for (var i = 0; i < es.length; i++) {
-                var e:Elem = es[i];
-                if (e.attrs.autoUse) { // 购买后直接使用
-                    await e["autoUseInBattle"](m.bt());
-                } else {
-                    var g = BattleUtils.findNearestGrid(m.bt().level.map, m.pos, (g:Grid) => !g.isCovered() && !g.getElem());
-                    if (g) {
-                        m.bt().addElemAt(e, g.pos.x, g.pos.y);
-                        droppedElems.push(e);
+        var onRob = (robNum) => {
+            return async (elems) => {
+                Utils.assert(!m["robbed"], "can not be robbed one time");
+                m["robbed"] = true;
+                var shopCfg = GCfg.getShopCfg(m.bt().lvCfg["shopCfg"]);
+                var robCfg = GCfg.getRobCfg(shopCfg.rob);
+                var es = Utils.doRobInShop(elems, robCfg, robNum, m.bt().srand);
+                var droppedElems = [];
+                for (var i = 0; i < es.length; i++) {
+                    var e:Elem = es[i];
+                    if (e.attrs.autoUse) { // 购买后直接使用
+                        await e["autoUseInBattle"](m.bt());
+                    } else {
+                        var g = BattleUtils.findNearestGrid(m.bt().level.map, m.pos, (g:Grid) => !g.isCovered() && !g.getElem());
+                        if (g) {
+                            m.bt().addElemAt(e, g.pos.x, g.pos.y);
+                            droppedElems.push(e);
+                        }
                     }
-                }
+                };
+
+                if (droppedElems.length > 0)
+                    await m.bt().notifyElemsDropped(droppedElems, m.pos);
+
+                return droppedElems;
             };
-
-            if (droppedElems.length > 0)
-                await m.bt().notifyElemsDropped(droppedElems, m.pos);
-
-            return droppedElems;
         };
 
         var shopItemAndPrice;
         m.use = async () => {
             if (!shopItemAndPrice)
                 shopItemAndPrice = Utils.genRandomShopItems(m.bt().player, m.bt().lvCfg["shopCfg"], m.bt().srand, 6);
-            await m.bt().try2OpenShop(m, shopItemAndPrice.items, shopItemAndPrice.prices, onBuy, undefined /*, m["robbed"] ? undefined :onRob*/);
+            
+            var robChecker = {robNum:0};
+            m.bt().triggerLogicPointSync("beforeOpenShopInBattle", robChecker);
+            var itemCnt = Utils.Count(shopItemAndPrice.items, (item) => item.type != "OpenRelicSpace");
+            var canRob = !m["robbed"] && robChecker.robNum > 0 && itemCnt > 0;
+            await m.bt().try2OpenShop(m, shopItemAndPrice.items, shopItemAndPrice.prices, onBuy, canRob ? onRob(robChecker.robNum) : undefined);
             // 成功购买后，NPC不再保留，才消耗死神步数
             return {reserve: !m["bought"], asPlayerActed: !!m["bought"]};
         };

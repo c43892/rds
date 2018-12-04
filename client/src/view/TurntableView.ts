@@ -103,7 +103,7 @@ class TurntableView extends egret.DisplayObjectContainer {
     private doClsoe;
 
     // 打开转盘界面
-    public async open():Promise<void> {
+    public async open() {
         this.refresh();
         
         var cfg = this.player.worldmap.cfg.turntable;

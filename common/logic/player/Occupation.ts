@@ -13,6 +13,14 @@ class Occupation {
         "Nurse": Occupation.makeNurse,
         "Rogue": Occupation.makeRogue,
     }
+
+    // 获取各职业初始物品配置
+    public static getInitialItems(occ:string) {
+        return {
+            "Nurse": {"relic": "MedicineBox", "prop":"HpPotion", "prop4All": "HpPotion"},
+            "Rogue": {"relic": "GangMember", "prop":"StrengthPotion", "prop4All": "StrengthPotion"}
+        }[occ];
+    }
     
     // 护士
     static makeNurse(p:Player):Player {
@@ -60,12 +68,20 @@ class Occupation {
 
     // 流氓
     static makeRogue(p:Player):Player {
+        p.addRelic(<Relic>ElemFactory.create("GangMember")); // 初始遗物
+        p.addRelic(<Relic>ElemFactory.create("GangMember"));
+        p.addRelic(<Relic>ElemFactory.create("GangMember"));
+        p.addRelic(<Relic>ElemFactory.create("GangMember"));
+        p.addRelic(<Relic>ElemFactory.create("GangMember"));
         return p;
     }
 
     static occupationMakers = {
         "Nurse": (p:Player) => {
             p.addBuff(new BuffNurse()); // 职业buff
+        },
+
+        "Rogue": (p:Player) => {
         },
     };
 
