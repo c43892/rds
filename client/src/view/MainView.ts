@@ -333,10 +333,10 @@ class MainView extends egret.DisplayObjectContainer {
                     return;
 
                 var e = ElemFactory.create(extraItem);
-                await this.gv.robExtraItemDialog(ViewUtils.getTipText(robCfg.extraOnWorldMap.tip) + e.attrs.name);
+                var iconPos = await this.gv.robExtraItemDialog(e);
 
                 this.p.addItem(e);
-                ShopView.lastSelectedElemGlobalPos = {x:this.x + this.width / 2, y:this.y + this.height / 2};
+                ShopView.lastSelectedElemGlobalPos = iconPos;
                 await this.p.fireEvent("onGetElemInWorldmap", {e:e, price:0, fromPos:ShopView.lastSelectedElemGlobalPos});         
             }
         };

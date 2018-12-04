@@ -447,7 +447,6 @@
 		"diff3":{"EN": "diff3", "CNS": "普通", "CNT":"普通"},
 		"diff4":{"EN": "diff4", "CNS": "困难", "CNT":"困难"},
 		"diff5":{"EN": "diff5", "CNS": "地狱", "CNT":"地狱"},
-		"youGotAnotherItem":{"EN": "you got another item: ", "CNS": "额外抢到一件物品：", "CNT":"额外抢到一件物品："},
 		"": {}
 	}
 }

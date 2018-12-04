@@ -437,7 +437,10 @@ class GuideView extends egret.DisplayObjectContainer {
         content.textAlign = egret.HorizontalAlign.LEFT;
         content.verticalAlign = egret.VerticalAlign.TOP;
 
-        var objs = [bg, avatar1, avatarName1, avatar2, avatarName2, content];
+        var icon = ViewUtils.createBitmapByName(undefined); // 图标
+        icon.name = "icon";
+
+        var objs = [bg, avatar1, avatarName1, avatar2, avatarName2, content, icon];
         objs.forEach((obj, _) => this.dlgFrame.addChild(obj));
         ViewUtils.multiLang(this.dlgFrame, ...objs);
         this.dlgFrame.width = this.bg.width;
@@ -445,7 +448,9 @@ class GuideView extends egret.DisplayObjectContainer {
     }
 
     // 构建对话内容
-    makeDialog(tex:string, name:string, str:string, x:number, y:number, onLeft:boolean = true, flipAvatar:boolean = false) {
+    makeDialog(tex:string, name:string, str:string, 
+            x:number, y:number, onLeft:boolean = true, flipAvatar:boolean = false,
+            iconRes = undefined, iconPos = undefined) {
         var avatar1 = <egret.DisplayObjectContainer>this.dlgFrame.getChildByName("avatar1");
         var avatar2 = <egret.DisplayObjectContainer>this.dlgFrame.getChildByName("avatar2");
         avatar1.removeChildren();
@@ -487,6 +492,13 @@ class GuideView extends egret.DisplayObjectContainer {
         this.dlgFrame.x = x;
         this.dlgFrame.y = y;
 
+        var icon = <egret.Bitmap>this.dlgFrame.getChildByName("icon");
+        if (iconRes) {
+            icon.x = iconPos.x; icon.y = iconPos.y;
+            ViewUtils.setTexName(icon, iconRes + "_png");
+        } else 
+            ViewUtils.setTexName(icon, undefined);
+
         return () => {
             this.removeChild(this.dlgFrame);
             if (ske)
@@ -495,10 +507,12 @@ class GuideView extends egret.DisplayObjectContainer {
     }
 
     // 显示对话内容
-    async showDialog(tex:string, name:string, str:string, x:number, y:number, onLeft:boolean = true, flipAvatar:boolean = false) {
+    async showDialog(tex:string, name:string, str:string, 
+                x:number, y:number, onLeft:boolean = true, 
+                flipAvatar:boolean = false, iconRes = undefined, iconPos = undefined) {
         this.bg.alpha = 0;
         this.addChild(this.bg);
-        var rev = this.makeDialog(tex, name, str, x, y, onLeft, flipAvatar);
+        var rev = this.makeDialog(tex, name, str, x, y, onLeft, flipAvatar, iconRes, iconPos);
         return new Promise<void>((r, _) => {
             this.onBgClicked = (evt:egret.TouchEvent) => {
                 this.removeChild(this.bg);
@@ -751,7 +765,14 @@ class GuideView extends egret.DisplayObjectContainer {
     }
 
     // 额外抢劫剧情
-    async robExtraItemDialog(msg) {
-        await this.showDialog("ShopNpc", "商人", msg, 0, 350, false);
+    async robExtraItemDialog(item:Elem) {
+        var iconPos = {x:480, y:150}; // 图标位置
+        await this.showDialog("ShopNpc", "商人", 
+            "额外抢到一件物品：" + item.attrs.name, 
+            0, 350, true, false, 
+            item.getElemImgRes() /* 获取图标资源 */, iconPos /* 图标位置 */);
+
+        // 把图标位置返回，外面播动画用
+        return {x:this.x + this.dlgFrame.x + iconPos.x, y:this.y + this.dlgFrame.y + iconPos.y};
     }
 }
