@@ -855,7 +855,7 @@ class Utils {
         for (var i = 0; i < occupationLevelCfg.length; i++){
             var e = occupationLevelCfg[i];
             if (exp > e)
-                exp -= e;            
+                exp -= e;
             else break;
         }
         if (i == occupationLevelCfg.length)
@@ -866,6 +866,11 @@ class Utils {
 
     // 玩家起名的合法性
     public static checkValidName(name:string){
+        var invalidNameCfg = GCfg.getInvalidNameCfg();
+        for(var n of invalidNameCfg)
+            if(name.indexOf(n) > -1)
+                return false;
+        
         return true;
     }
 }

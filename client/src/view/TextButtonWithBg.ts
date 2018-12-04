@@ -214,3 +214,14 @@ class TextButtonWithBg extends egret.DisplayObjectContainer {
         }
     }
 }
+
+// 专门用于底部的箭头按钮
+class ArrowButton extends TextButtonWithBg{
+    public constructor(toRight:boolean, bgTexName:string, fontSize:number = 0){
+        super(bgTexName, fontSize);
+        if (toRight)
+            this.textFieldOffset = {t:-15, l:-5};
+        else
+            this.textFieldOffset = {t:-15, l:-5};
+    }
+}

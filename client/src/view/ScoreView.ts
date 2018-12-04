@@ -1,3 +1,4 @@
+// 结算界面
 class ScoreView extends egret.DisplayObjectContainer{
     private bg:egret.Bitmap;
     private bg1:egret.Bitmap;
@@ -7,8 +8,8 @@ class ScoreView extends egret.DisplayObjectContainer{
     private playerName:egret.TextField;
     private exp:egret.TextField;
     private level:egret.TextField;
-    private shareBtn:TextButtonWithBg;
-    private goOnBtn:TextButtonWithBg;
+    private shareBtn:ArrowButton;
+    private goOnBtn:ArrowButton;
 
     private scrollContent:egret.DisplayObjectContainer;
     private scrollArea:egret.ScrollView;
@@ -40,9 +41,10 @@ class ScoreView extends egret.DisplayObjectContainer{
         this.avatar.name = "avatar";
 
         this.playerName = new egret.TextField();
-        this.playerName.name ="playerName";
+        this.playerName.name = "playerName";
         this.playerName.textColor = 0X000000;
         this.playerName.verticalAlign = egret.VerticalAlign.MIDDLE;
+        this.playerName.textAlign = egret.HorizontalAlign.CENTER;
 
         this.finalScore = new egret.TextField();
         this.finalScore.name = "finalScore";
@@ -70,12 +72,12 @@ class ScoreView extends egret.DisplayObjectContainer{
         this.scrollArea.bounces = true;
         this.scrollArea.addEventListener(egret.Event.CHANGE, () => this.setInfoContainers(), this);
 
-        this.shareBtn = new TextButtonWithBg("goBack_png", 30);
+        this.shareBtn = new ArrowButton(false, "goShare_png", 30);
         this.shareBtn.text = ViewUtils.getTipText("shareBtn");
         this.shareBtn.name = "shareBtn";
         this.shareBtn.onClicked = () => this.doShare();
 
-        this.goOnBtn = new TextButtonWithBg("goForward_png", 30);
+        this.goOnBtn = new ArrowButton(true, "goForward_png", 30);
         this.goOnBtn.text = ViewUtils.getTipText("continueBtn");
         this.goOnBtn.name = "goOnBtn";
         this.goOnBtn.onClicked = () => this.onGoOn();
@@ -87,7 +89,7 @@ class ScoreView extends egret.DisplayObjectContainer{
         this.scrollContent.width = this.scrollArea.width;
     }
 
-    onUsing;
+    onUsing; // 是否处于使用该界面的状态,决定是否检测滚动区域内信息的变化
 
     open(scoreInfos = []){
         this.onUsing = true;
@@ -100,15 +102,15 @@ class ScoreView extends egret.DisplayObjectContainer{
     doClose;
 
     async onGoOn() {
+        this.goOnBtn.touchEnabled = false;
         // 未满级则获得经验
         if (Utils.getOccupationLevelAndExp(this.player.occupation).level != -1){
             var getExp = Utils.score2Exp(BattleStatistics.getFinalScore(this.scoreInfos));
             await Utils.delay(2000);
             Utils.addOccupationExp(this.player.occupation, getExp);
-            this.setExpTip();
         }
-        await Utils.delay(2000);
         this.onUsing = false;
+        this.goOnBtn.touchEnabled = true;
         this.doClose();
     }
 
@@ -116,14 +118,18 @@ class ScoreView extends egret.DisplayObjectContainer{
         this.refresh();
     }
 
-    readonly yGap = 60;
-    readonly xGap = 50;
-    readonly xShort = 180;
+    readonly yGap = 50;
+    readonly xGap = 0;
+    readonly xShort = 195;
     readonly yLimit = 335;
 
     refresh() {
         // 设置头像
         ViewUtils.setTexName(this.avatar, "avatar" + this.player.occupation + "_png", true);
+
+        // 设置玩家名
+        var name = Utils.loadLocalData("playerName") ? Utils.loadLocalData("playerName") : "一个新玩家";
+        this.playerName.text = name;
 
         // 设置经验条
         this.setExpTip();
@@ -138,11 +144,11 @@ class ScoreView extends egret.DisplayObjectContainer{
     refreshInfoContainers() {
         this.scrollContent.removeChildren();
         this.infoContainers = [];
-        var y = 20;
+        var y = 5;
         var index = 0
         for (var title in this.scoreInfos) {
             var infoContainer = this.createSingleStoreInfo(title, this.scoreInfos[title]);
-            if (index > 5)
+            if (index > 6)
                 this.setShortInfo(infoContainer);
             else 
                 this.setLongInfo(infoContainer);
@@ -168,7 +174,7 @@ class ScoreView extends egret.DisplayObjectContainer{
     // 创建单条得分信息,其中包括标题,得分以及横线
     createSingleStoreInfo(t:string, s:number) {
         var title = ViewUtils.createTextField(30, 0x000000);
-        title.text = ViewUtils.getTipText(t);
+        title.text = t.indexOf("test") > -1 ? t : ViewUtils.getTipText(t);
         title.name = "title";
         var score = ViewUtils.createTextField(30, 0x000000);
         score.text = t == "difficulty" ? ("× " + s.toString()) : s.toString();

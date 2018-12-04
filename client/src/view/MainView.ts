@@ -419,7 +419,7 @@ class MainView extends egret.DisplayObjectContainer {
                         await this.rookiePlay();
                     else {
                         this.newPlay();
-                        // 不是新手教程的新战斗,需要玩家起名
+                        // 不是新手教程的新战斗,如果没有玩家名字,需要玩家起名
                         if (!Utils.loadLocalData("playerName"))
                             await this.openNameView();
                             

@@ -20,4 +20,6 @@ class GCfg {
     public static getBattleViewElemTipTypes; // 获取战斗内需要特殊元素提示的类型
     public static getBattleTypes; // 获取各种战斗关卡的战斗类型,boss或senior
     public static getMiscConfig; // 在misc.json获取各类单独的小配置
+    public static getRandomNameCfg; // 获取随机玩家名所用的配置
+    public static getInvalidNameCfg; // 获取随机玩家名所用的配置
 }
