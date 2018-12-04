@@ -450,6 +450,7 @@ class BattleView extends egret.DisplayObjectContainer {
             this.effDeathGodRedEff.animation.play("stand", 0);
             effDisplay.x = this.effDeathGodRed.x;
             effDisplay.y = this.effDeathGodRed.y;
+            effDisplay.scaleX = effDisplay.scaleY = 2;
         }
         else {
             this.effDeathGodGray.alpha = 1;
