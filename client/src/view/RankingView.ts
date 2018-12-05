@@ -156,8 +156,8 @@ class RankingView extends egret.DisplayObjectContainer {
         var usrSelf = undefined; // 自己在排行榜中的信息
         var usrSelfRanking = -1; // 自己在排行榜中的位置
 
-        for (var i = 0; i < 100/*usrs.length*/; i++) {
-            var usr = usrs[0]; // [i];
+        for (var i = 0; i < usrs.length; i++) {
+            var usr = usrs[i];
             if (!usr || !usr.uid || usr.uid == "") // no more user
                 break;
 

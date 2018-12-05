@@ -621,8 +621,9 @@ class WorldMapView extends egret.DisplayObjectContainer {
             Utils.savePlayer(this.player);
 
             // 更新最高分
-            Utils.saveCloudData("score", trueLv + "," + this.player.occupation);
-            Utils.pt("score", trueLv);
+            var score = BattleStatistics.getFinalScore(BattleStatistics.getScoreInfos(this.player.st));
+            Utils.saveCloudData("score", score + "," + this.player.occupation);
+            Utils.pt("score", score);
             
             // 判断此世界是否已经完成
             if(this.player.currentStoreyPos.lv >= this.player.worldmap.cfg.totalLevels){
