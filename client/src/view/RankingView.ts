@@ -7,6 +7,7 @@ class RankingView extends egret.DisplayObjectContainer {
 
     bg1:egret.Bitmap;
     bg2:egret.Bitmap;
+    lns:egret.Bitmap[] = [];
     curSelMark:egret.Bitmap;
     closeBtn:egret.Bitmap;
     tabMenu:egret.TextField[]; // 顶端不同榜单切换
@@ -43,7 +44,7 @@ class RankingView extends egret.DisplayObjectContainer {
         var x = 80;
         var y = this.bg1.height / 2 + this.bg1.y;
         for (var m of menu) {
-            let menuBtn = ViewUtils.createBitmapByName("friendRank" + "Btn_png");
+            let menuBtn = ViewUtils.createBitmapByName(menu + "Btn_png");
             menuBtn.x = x;
             menuBtn.y = y;
             x += menuBtn.width + 30;
@@ -125,18 +126,18 @@ class RankingView extends egret.DisplayObjectContainer {
         var wN = 60;
         var wAvatar = h;
         var wScore = 100;
-        var wName = this.width - wAvatar - wN - wScore - 30;
-        this.rankViewContainer.height = 10;
+        var wName = this.width - wAvatar - wN - wScore - 50;
+        this.rankViewContainer.height = 20;
 
-        for (var i = 0; i < usrs.length; i++) {
-            var usr = usrs[i];
+        for (var i = 0; i < 100/*usrs.length*/; i++) {
+            var usr = usrs[0]; // [i];
             if (!usr || !usr.uid || usr.uid == "") // no more user
                 break;
 
             var y = this.rankViewContainer.height;
 
             var n = ViewUtils.createTextField(30, 0x000000);
-            n.x = 10;
+            n.x = 30;
             n.y = y;
             n.width = wN;
             n.height = h;
@@ -151,7 +152,7 @@ class RankingView extends egret.DisplayObjectContainer {
             avatar.height = h;
             this.rankViewContainer.addChild(avatar);
 
-            var name = ViewUtils.createTextField(30, 0x000000);
+            var name = ViewUtils.createTextField(30, 0x000000, false);
             name.x = avatar.x + avatar.width + 10;
             name.y = y;
             name.width = wName;
@@ -167,10 +168,30 @@ class RankingView extends egret.DisplayObjectContainer {
             score.text = usr.score.toString();
             this.rankViewContainer.addChild(score);
 
+            var ln = ViewUtils.createBitmapByName("rankLine1_png");
+            ln.x = 0;
+            ln.y = y - 15;
+            ln.width = this.rankViewContainer.width;
+            ln.height = h + 10;
+            this.rankViewContainer.addChild(ln);
+
+            if (i < 3) {
+                var crown = ViewUtils.createBitmapByName("rankUsr" + (i+1) + "_png");
+                crown.x = n.x;
+                crown.y = n.y;
+                this.rankViewContainer.addChild(crown);
+            }
+
             this.rankViewContainer.height = score.y + score.height + 10;
         }
 
-        this.rankViewContainer.height += 100;
+        var ln = ViewUtils.createBitmapByName("rankLine2_png");
+        ln.x = 0;
+        ln.y = y + h - 15;
+        ln.width = this.rankViewContainer.width;
+        this.rankViewContainer.addChild(ln);
+
+        this.rankViewContainer.height += 200;
         this.rankViewScrollArea.touchEnabled = true;
         this.rankViewScrollArea.scrollTop = 0;
         this.rankViewScrollArea.setContent(this.rankViewContainer);

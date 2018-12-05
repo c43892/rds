@@ -10,8 +10,8 @@ import (
 	"net/http"
 	"github.com/go-redis/redis"
 	"sort"
-	"time"
 	"strings"
+	"time"
 )
 
 func assert(condition bool, msg string) {
@@ -169,10 +169,10 @@ func handleMsgfunc(w http.ResponseWriter, r *http.Request) {
 
 	// handle the request message
 	if (msg.Type == "getRank") {
-		usr := onGetRank(msg);
+		refreshRank(msg);
 		res = &HttpResp{};
 		res.Ok = true;
-		res.Usr = *usr;
+		// res.Usr = *usr;
 		res.Rank = rankInfo;
 	} else if (msg.Type == "setUserCloudData") {
 		usr := onSetUserInfo(msg);
@@ -229,10 +229,7 @@ func sortRank() {
 }
 
 // msg: GetRank
-func onGetRank(msg *RequestMsg) (*UserInfo) {
-	// get user info
-	usrInfo := loadOrCreateUser(msg.Uid);
-
+func refreshRank(msg *RequestMsg) {
 	// weekly refresh
 	_, nowWeeks := time.Now().ISOWeek();
 	data, _ := dbc.Get("weeklyRank_timestamp").Result();
@@ -241,9 +238,6 @@ func onGetRank(msg *RequestMsg) (*UserInfo) {
 		rankInfo = &RankInfo{};
 		dbc.Set("weeklyRank_timestamp", strconv.Itoa(nowWeeks), 0);
 	}
-
-	// get rank info
-	return usrInfo;
 }
 
 // msg: SetUserInfo
