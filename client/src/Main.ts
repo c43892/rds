@@ -230,7 +230,7 @@ class Main extends egret.DisplayObjectContainer {
         // 载入用户数据
         var savedData = Utils.loadPlayer();
         var p:Player = savedData.player;
-        await this.mv.openStartup(p);
+        this.mv.openStartup(p);
     }
 
     // 计算安全区域和主显示区域

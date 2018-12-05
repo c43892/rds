@@ -103,6 +103,8 @@ class NameView extends egret.DisplayObjectContainer {
     }
 
     saveName() {
-        Utils.saveLocalData("playerName", this.keyInName.text);
+        var name = this.keyInName.text;
+        window.platform.setUserCloudStorage("playerName", name);
+        Utils.saveLocalData("playerName", name);
     }
 }

@@ -156,7 +156,7 @@ class RankingView extends egret.DisplayObjectContainer {
             name.y = y;
             name.width = wName;
             name.height = h;
-            name.text = usr.uid; //usr.nickName;
+            name.text = usr.name;
             this.rankViewContainer.addChild(name);
 
             var score = ViewUtils.createTextField(30, 0x000000);

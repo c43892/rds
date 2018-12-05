@@ -38,6 +38,7 @@ func initDB() {
 type UserInfo struct {
 	Uid string `json:"uid"`
 	Score int `json:"score"`
+	Name string `json:"name"`
 	Info map[string]string `json:"info"`
 }
 
@@ -261,6 +262,9 @@ func onSetUserInfo(msg *RequestMsg) (*UserInfo) {
 		}
 
 		setUserScore(usrInfo, occupation);
+	} else if (msg.Key == "playerName") {
+		usrInfo.Name = msg.Value;
+		dbc.HSet(usrInfo.Uid, "playerName", msg.Value);
 	} else if (msg.Key[:3] == "st.") {
 		// statistics
 		dbc.HSet(msg.Uid, msg.Key, msg.Value);
@@ -281,6 +285,7 @@ func loadOrCreateUser(uid string) *UserInfo {
 	if (err != nil || r["info"] == "") {
 		usrInfo = createUser(uid);
 		dbc.HSet(uid, "score", usrInfo.Score);
+		dbc.HSet(uid, "playerName", usrInfo.Name);
 		info, _ := json.Marshal(usrInfo.Info);
 		dbc.HSet(uid, "info", string(info));
 	} else {
@@ -288,6 +293,7 @@ func loadOrCreateUser(uid string) *UserInfo {
 		usrInfo.Uid = uid;
 		score, _ := strconv.Atoi(r["score"]);
 		usrInfo.Score = score;
+		usrInfo.Name = r["playerName"];
 		usrInfo.Info = map[string]string{};
 		json.Unmarshal([]byte(r["info"]), &usrInfo.Info);
 	}
