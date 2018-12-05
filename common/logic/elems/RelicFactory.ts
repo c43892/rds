@@ -707,6 +707,21 @@ class RelicFactory {
             return r;
         },
 
+        
+        // 连击 攻击有护甲的单位时额外连击一次
+        "DoubleAttack": (attrs) => {
+            var r = this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
+                if(!enable) {
+                    r.clearAIAtLogicPoint("onGetAttackerAndTargetAttrs");
+                    return;
+                }
+                r = <Relic>ElemFactory.addAI("onGetAttackerAndTargetAttrs", (ps) => {
+                    ps.attackerAttrs.muiltAttack += 1;
+                }, r, (ps) => ps.attackerAttrs.owner instanceof Player && ps.targetAttrs.owner.shield > 0 && !ps.weapon, false, true)
+            });
+            return r;
+        },
+
         "":{}
     };
 

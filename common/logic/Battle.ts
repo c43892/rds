@@ -1053,6 +1053,8 @@ class Battle {
             if (Utils.indexOf(marked, (t) => t == tar) > -1 && !weapon)
                 (<string[]>targetAttrs.targetFlags).push("Sneaked"); // 突袭标记
 
+            this.triggerLogicPointSync("onGetAttackerAndTargetAttrs", {attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon});
+
             for (var j = 0; j < attackerAttrs.muiltAttack && !tar.isDead(); j++) {
                 var r = await this.calcAttack("player2monster", attackerAttrs, targetAttrs, weapon);
                 
