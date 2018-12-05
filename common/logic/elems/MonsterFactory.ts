@@ -430,10 +430,18 @@ class MonsterFactory {
         }, m);
     }
 
-    // 受伤害时增加攻击力
+    // 受伤害时增加攻击力,数值与所受伤害相同
     static doAddPowerOnHurt(m:Monster):Monster {
         return <Monster>ElemFactory.addAI("onMonsterHurt", async (ps) => {
             m.btAttrs.power -= ps.dhp;
+            await m.bt().fireEvent("onElemChanged", {subType:"power", e:m});
+        }, m, (ps) => ps.m == m);
+    }
+
+    // 受到伤害时攻击力翻倍
+    static doDoublePowerOnHurt(m:Monster):Monster {
+        return <Monster>ElemFactory.addAI("onMonsterHurt", async (ps) => {
+            m.btAttrs.power *= 2;
             await m.bt().fireEvent("onElemChanged", {subType:"power", e:m});
         }, m, (ps) => ps.m == m);
     }
@@ -693,6 +701,34 @@ class MonsterFactory {
             if(m.bt().srand.next100() < n)
                 ps.targetAttrs.targetFlags.push("cancelAttack");
         }, m, (ps) => ps.targetAttrs.owner == m, true, true);
+    }
+
+    // 现身后每回合减少玩家一点生命
+    static doReduceHpPerRoundOnUncovered(m:Monster):Monster {
+        return <Monster>ElemFactory.addAI("onPlayerActed", async () => await m.bt().implAddPlayerHp(-1, m), m);
+    }
+
+    // 攻击时吸取生命
+    static suckBloodOnAttack(m:Monster):Monster {
+        m = <Monster>ElemFactory.addAI("onSingleAttacked", async (ps) => {
+            var d = - ps.r.dhp;
+            if(d == 0) return;
+            
+            await m.bt().implAddMonsterHp(m, Math.ceil(d * m.attrs.suckBloodOnAttack / 100));
+        }, m, (ps) => ps.attackerAttrs.owner == m && ps.r.r == "attacked");
+        return m;
+    }
+
+    // 现身时玩家无法使用任何道具
+
+    // 每次攻击摧毁一件非钥匙物品
+    
+    // 受到攻击时，会同时伤害你和周围的怪物
+
+    // 受到普通攻击时，反射50%的伤害
+    static doThornsDamageOnNormalAttacked(m:Monster):Monster {
+        
+        return m;
     }
 
     // 史莱姆之王半血时分裂为4个小史莱姆
@@ -1082,7 +1118,7 @@ class MonsterFactory {
             for (var gs of gridsN){
                 for (var g of gs){
                     if(g.isCovered())
-                        await bt.uncover(g.pos.x, g.pos.y, true);        
+                        await bt.uncover(g.pos.x, g.pos.y, true);
                 }
                 for (var g of gs){
                     var e = g.getElem();

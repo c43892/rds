@@ -1057,7 +1057,8 @@ class Battle {
                 var r = await this.calcAttack("player2monster", attackerAttrs, targetAttrs, weapon);
                 
                 // 这里可能是各种攻击结果，成功，闪避，无敌等
-                await this.fireEvent("onAttacked", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon, r:r});                
+                await this.fireEvent("onSingleAttacked", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon, r:r});   
+                await this.triggerLogicPoint("onSingleAttacked", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon, r:r});                
 
                 if (r.r == "attacked") {
                     await this.implAddMonsterHp(tar, r.dhp);
@@ -1069,7 +1070,8 @@ class Battle {
                     await this.implAddBuff(tar, "Buff" + b.type, ...b.ps);
             }
             results.push(r); // 将攻击结果存起来,有可能外面要用到
-            await this.triggerLogicPoint("onAttacked", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon, r:r});
+            await this.fireEvent("onAttacked", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon, rs:results});
+            await this.triggerLogicPoint("onAttacked", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon, rs:results});
         }
     }
 
@@ -1148,14 +1150,18 @@ class Battle {
                     }
 
                     // 这里可能是各种攻击结果，成功，闪避，无敌等
-                    await this.fireEvent("onAttacked", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
+                    // await this.fireEvent("onAttacked", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
+                    await this.fireEvent("onSingleAttacked", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
+                    await this.triggerLogicPoint("onSingleAttacked", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
 
                     // 处理附加 buff
                     for (var b of r.addBuffs)
                         await this.implAddBuff(tar, "Buff" + b.type, ...b.ps);
                 }
                 results.push(r); // 将攻击结果存起来,有可能外面要用到
-                await this.triggerLogicPoint("onAttacked", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
+                await this.fireEvent("onAttacked", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, rs:results});
+                await this.triggerLogicPoint("onAttacked", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, rs:results});
+                // await this.triggerLogicPoint("onAttacked", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
             }
         }
         

@@ -322,11 +322,11 @@ class RelicFactory {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) {
                     r.clearAIAtLogicPoint("onLevelInited");
-                    r.clearAIAtLogicPoint("onAttacked");
+                    r.clearAIAtLogicPoint("onSingleAttacked");
                     return;
                 }
                 r = RelicFactory.addElemsOnLevelInit(r);
-                r = <Relic>ElemFactory.addAI("onAttacked", async (ps) => {
+                r = <Relic>ElemFactory.addAI("onSingleAttacked", async (ps) => {
                     if (ps.r.r != "attacked" || ps.r.dhp >= 0) return;
                     await r.bt().fireEvent("onRelicEffect", {r:r});
                     await r.bt().implAddMonsterHp(ps.attackerAttrs.owner, - r.attrs.thornsDamage, "thorns");

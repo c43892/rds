@@ -24,6 +24,11 @@ class Elem {
     public isInMap = () => this.bt() && this.bt().level.map.getElemAt(this.pos.x, this.pos.y) == this;
 
     // 各逻辑点，挂接的都是函数
+    public forbbiden = () => {
+        var forbbidenBy = undefined;
+        this.bt().triggerLogicPointSync("forbbiden", {forbbidenBy:forbbidenBy});
+        return forbbidenBy;
+    }
     public canUse = () => { return false; } // 一个 function():boolean
     public canNotUseReason = () => undefined;
     public useWithTarget = () => {

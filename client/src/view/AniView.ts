@@ -918,7 +918,7 @@ class AniView extends egret.DisplayObjectContainer {
     }
 
     // 得到攻击结果
-    public async onAttacked(ps) {
+    public async onSingleAttacked(ps) {
         if (ps.targetAttrs.owner instanceof Player)
             await this.onPlayerGotAttacked(ps);
         else 
