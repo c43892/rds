@@ -7,7 +7,9 @@ class RankingView extends egret.DisplayObjectContainer {
 
     bg1:egret.Bitmap;
     bg2:egret.Bitmap;
-    lns:egret.Bitmap[] = [];
+    rankSelfBg:egret.Bitmap;
+    rankSelfAvatar:egret.Bitmap;
+    rankSelfText:egret.TextField;
     curSelMark:egret.Bitmap;
     closeBtn:egret.Bitmap;
     tabMenu:egret.TextField[]; // 顶端不同榜单切换
@@ -69,6 +71,29 @@ class RankingView extends egret.DisplayObjectContainer {
 
         this.rankViewContainer = new egret.DisplayObjectContainer();
 
+        // 自己名次部分
+        this.rankSelfBg = ViewUtils.createBitmapByName("rankSelfBg_png");
+        this.rankSelfBg.anchorOffsetY = this.rankSelfBg.height / 2;
+        this.rankSelfBg.x = 0;
+        this.rankSelfBg.y = this.height - 200;
+        this.addChild(this.rankSelfBg);
+
+        var selfPosY = this.rankSelfBg.y - this.rankSelfBg.anchorOffsetY;
+        this.rankSelfAvatar = new egret.Bitmap();
+        this.rankSelfAvatar.x = 30;        
+        this.rankSelfAvatar.width = this.rankSelfAvatar.height = 120;
+        this.rankSelfAvatar.y = selfPosY + 15;
+        this.addChild(this.rankSelfAvatar);
+
+        this.rankSelfText = new egret.TextField();
+        this.rankSelfText.textAlign = egret.HorizontalAlign.LEFT;
+        this.rankSelfText.verticalAlign = egret.VerticalAlign.MIDDLE;
+        this.rankSelfText.x = 180;
+        this.rankSelfText.y = selfPosY;
+        this.rankSelfText.height = this.rankSelfBg.height;
+        this.rankSelfText.width = this.rankSelfBg.width - this.rankSelfText.x;
+        this.addChild(this.rankSelfText);
+
         // 关闭按钮
         this.closeBtn = ViewUtils.createBitmapByName("goBack_png");
         this.closeBtn.x = 0;
@@ -118,7 +143,7 @@ class RankingView extends egret.DisplayObjectContainer {
         return new Promise<void>((resolve, reject) => this.doClose = resolve);
     }
 
-    rebuildRank(usrs, occupations) { // , fromIndex:number, cnt:number) {
+    rebuildRank(usrs, meInfo, occupations) { // , fromIndex:number, cnt:number) {
         this.rankViewContainer.removeChildren();
         if (!usrs) return;
 
@@ -128,14 +153,22 @@ class RankingView extends egret.DisplayObjectContainer {
         var wScore = 100;
         var wName = this.width - wAvatar - wN - wScore - 50;
         this.rankViewContainer.height = 20;
+        var usrSelf = undefined; // 自己在排行榜中的信息
+        var usrSelfRanking = -1; // 自己在排行榜中的位置
 
         for (var i = 0; i < 100/*usrs.length*/; i++) {
             var usr = usrs[0]; // [i];
             if (!usr || !usr.uid || usr.uid == "") // no more user
                 break;
 
+            if (!usrSelf && usr.uid == window.platform.getUserID()) {
+                usrSelf = usr;
+                usrSelfRanking = i;
+            }
+
             var y = this.rankViewContainer.height;
 
+            // 名次
             var n = ViewUtils.createTextField(30, 0x000000);
             n.x = 30;
             n.y = y;
@@ -144,14 +177,16 @@ class RankingView extends egret.DisplayObjectContainer {
             n.text = (i+1).toString();
             this.rankViewContainer.addChild(n);
 
+            // 职业头像
             var occ = occupations[i];
-            var avatar = ViewUtils.createBitmapByName((occ ? occ : "Nurse") + "_png");
+            var avatar = ViewUtils.createBitmapByName(occ ? occ + "_png" : undefined);
             avatar.x = n.x + n.width + 10;
             avatar.y = y;
             avatar.width = wAvatar;
             avatar.height = h;
             this.rankViewContainer.addChild(avatar);
 
+            // 名字
             var name = ViewUtils.createTextField(30, 0x000000, false);
             name.x = avatar.x + avatar.width + 10;
             name.y = y;
@@ -160,6 +195,7 @@ class RankingView extends egret.DisplayObjectContainer {
             name.text = usr.name;
             this.rankViewContainer.addChild(name);
 
+            // 分数
             var score = ViewUtils.createTextField(30, 0x000000);
             score.x = name.x + name.width + 10;
             score.y = y;
@@ -168,6 +204,7 @@ class RankingView extends egret.DisplayObjectContainer {
             score.text = usr.score.toString();
             this.rankViewContainer.addChild(score);
 
+            // 间隔线
             var ln = ViewUtils.createBitmapByName("rankLine1_png");
             ln.x = 0;
             ln.y = y - 15;
@@ -175,6 +212,7 @@ class RankingView extends egret.DisplayObjectContainer {
             ln.height = h + 10;
             this.rankViewContainer.addChild(ln);
 
+            // 皇冠
             if (i < 3) {
                 var crown = ViewUtils.createBitmapByName("rankUsr" + (i+1) + "_png");
                 crown.x = n.x;
@@ -195,19 +233,27 @@ class RankingView extends egret.DisplayObjectContainer {
         this.rankViewScrollArea.touchEnabled = true;
         this.rankViewScrollArea.scrollTop = 0;
         this.rankViewScrollArea.setContent(this.rankViewContainer);
-    }
 
-    currentPageIndex = 0;
-    pageSize = 10;
+        // 自己的名次
+        if (usrSelf) {
+            ViewUtils.setTexName(this.rankSelfAvatar, occupations[usrSelfRanking] + "_png", false);
+            var txt = ViewUtils.getTipText("scoreInRank").replace("{score}", usrSelf.score).replace("{ranking}", usrSelfRanking + 1);
+            this.rankSelfText.textFlow = ViewUtils.fromHtml(txt);
+        } else {
+            ViewUtils.setTexName(this.rankSelfAvatar, undefined, false);
+            var txt = ViewUtils.getTipText("notInRank").replace("{score}", meInfo && meInfo.score ? meInfo.score : 0);
+            this.rankSelfText.textFlow = ViewUtils.fromHtml(txt);
+        }
+    }
 
     // 周榜单
     public openWeeklyRank() {
-        this.rebuildRank(this.weeklyRankInfo.usrs, this.weeklyRankInfo.occupations); // , this.currentPageIndex * this.pageSize, this.pageSize);
+        this.rebuildRank(this.weeklyRankInfo.usrs, this.weeklyRankInfo.usr, this.weeklyRankInfo.occupations);
     }
 
     // 角色榜单
     public openRoleRank() {
-        this.rebuildRank(this.roleRankInfo.usrs, this.weeklyRankInfo.occupations); // , this.currentPageIndex * this.pageSize, this.pageSize);
+        this.rebuildRank(this.roleRankInfo.usrs, this.weeklyRankInfo.usr, this.weeklyRankInfo.occupations);
     }
 
     MaxNumInRank = 100; // 最多显示多少条目

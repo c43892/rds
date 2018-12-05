@@ -11,6 +11,7 @@ declare interface Platform {
     getUserLocalStorage();    
     setUserLocalStorage(data);
     getRankInfo();
+    getUserID():string;
 
     canShare(): boolean;
     shareGame();
@@ -36,7 +37,7 @@ class DefaultPaltform implements Platform {
             this.wc = new WebClient("http://119.23.110.78:81/");
     }
 
-    get UserID():string {
+    public getUserID():string {
         var uid = Utils.loadLocalItem("UserID");
         if (!uid) {
             var now = new Date();
@@ -58,7 +59,7 @@ class DefaultPaltform implements Platform {
     }
 
     setUserCloudStorage(key:string, value) {
-        var uid = this.UserID;
+        var uid = this.getUserID();
         this.wc.request({
             type: "setUserCloudData",
             uid: uid,

@@ -58,7 +58,10 @@ func (r *RankInfo) Less(i, j int) bool {
 		return r.Usrs[i].Score > r.Usrs[j].Score;
 	}
 }
-func (r *RankInfo) Swap(i, j int) { tmp := r.Usrs[i]; r.Usrs[i] = r.Usrs[j]; r.Usrs[j] = tmp; }
+func (r *RankInfo) Swap(i, j int) { 
+	usr := r.Usrs[i]; r.Usrs[i] = r.Usrs[j]; r.Usrs[j] = usr;
+	occ := r.Occupations[i]; r.Occupations[i] = r.Occupations[j]; r.Occupations[j] = occ;
+}
 
 var rankInfo *RankInfo;
 func loadRankInfo() {
@@ -71,6 +74,8 @@ func loadRankInfo() {
 		} else {
 			rankInfo.Usrs[i] = &UserInfo{};
 			json.Unmarshal([]byte(data), rankInfo.Usrs[i]);
+			occ, _ := dbc.Get("rank_occ_" + strconv.Itoa(i)).Result();
+			rankInfo.Occupations[i] = occ;
 		}
 	}
 
@@ -172,7 +177,7 @@ func handleMsgfunc(w http.ResponseWriter, r *http.Request) {
 		refreshRank(msg);
 		res = &HttpResp{};
 		res.Ok = true;
-		// res.Usr = *usr;
+		res.Usr = *loadOrCreateUser(msg.Uid);
 		res.Rank = rankInfo;
 	} else if (msg.Type == "setUserCloudData") {
 		usr := onSetUserInfo(msg);
@@ -214,6 +219,7 @@ func setUserScore(usrInfo *UserInfo, occupation string) {
 	}
 
 	rankInfo.Usrs[len - 1] = usrInfo;
+	rankInfo.Occupations[len - 1] = occupation;
 	sortRank();
 }
 
@@ -225,6 +231,7 @@ func sortRank() {
 	for i := 0; i < len(rankInfo.Usrs); i++ {
 		data, _ := json.Marshal(rankInfo.Usrs[i]);
 		dbc.Set("rank_" + strconv.Itoa(i), string(data), 0);
+		dbc.Set("rank_occ_" + strconv.Itoa(i), rankInfo.Occupations[i], 0);
 	}
 }
 

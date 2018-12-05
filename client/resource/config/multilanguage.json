@@ -475,6 +475,8 @@
 		"tooLongName": {"EN": "this name is too long", "CNS": "名字最长七个字", "CNT": "名字最长七个字"},
 		"inValidName": {"EN": "invalid name", "CNS": "名字不合规", "CNT": "名字不合规"},
 		"keyInNewName": {"EN": "key in a new name", "CNS": "请输入一个新名字", "CNT": "请输入一个新名字"},
+		"notInRank": {"EN": "not in the rank. best score {score}", "CNS": "未上榜, 最好成绩 {score}", "CNT": "未上榜, 最好成绩 {score}"},
+		"scoreInRank": {"EN": "ranking: {ranking}, best score {score}", "CNS": "排名: {ranking}, 最好成绩 {score}", "CNT": "排名: {1}, 最好成绩 {score}"},
 		"": {}
 	}
 }
