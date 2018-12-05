@@ -449,9 +449,6 @@ class MainView extends egret.DisplayObjectContainer {
                     if(Utils.checkRookiePlay())
                         await this.rookiePlay();
                     else {
-						if (!Utils.getPlayerName())
-                            await this.openNameView();
-
                         var r = await this.openOccSelView(p);
                         if (r) {
                             this.newPlay(r["occ"], r["d"]);
@@ -592,6 +589,12 @@ class MainView extends egret.DisplayObjectContainer {
         this.addChild(this.osv);
         this.osv.refresh(p);
         await this.av.blackOut();
+
+        if (!Utils.getPlayerName()){
+            await Utils.delay(300);
+            await this.openNameView();
+        }
+
         var r = await this.osv.open();
         await this.av.blackIn();
         this.removeChild(this.osv);
@@ -609,9 +612,7 @@ class MainView extends egret.DisplayObjectContainer {
     // 提供起名的界面
     public async openNameView() {
         this.addChild(this.nameView);
-        await this.av.blackOut();
         await this.nameView.open();
-        await this.av.blackIn();
         this.removeChild(this.nameView);
     }
 

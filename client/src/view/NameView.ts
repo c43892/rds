@@ -5,6 +5,7 @@ class NameView extends egret.DisplayObjectContainer {
     private keyInName:egret.TextField;
     private randomBtn:egret.Bitmap;
     private goOnBtn:ArrowButton;
+    private tip:egret.TextField;
     constructor(w, h) {
         super();
         
@@ -21,14 +22,20 @@ class NameView extends egret.DisplayObjectContainer {
         this.bg1 = ViewUtils.createBitmapByName("nameViewBg_png");
         this.bg1.name = "bg1";
 
+        this.tip = new egret.TextField();
+        this.tip.name = "tip";
+        this.tip.text = ViewUtils.getTipText("keyInNewName");
+        this.tip.textColor = 0x4a3728;
+        this.tip.textAlign = egret.HorizontalAlign.CENTER;
+
         this.keyInName = new egret.TextField();
         this.keyInName.name = "keyInName";
         this.keyInName.touchEnabled = true;
         this.keyInName.type = egret.TextFieldType.INPUT;
-        this.keyInName.size = 40;
         this.keyInName.textAlign = egret.HorizontalAlign.CENTER;
-        this.keyInName.text = "点击输入名字"
-        this.keyInName.addEventListener(egret.TouchEvent.TOUCH_TAP, (evt) => this.clearDefaultName(), this);
+        this.keyInName.textColor = 0x4a3728;
+        // this.keyInName.text = "点击输入名字"
+        // this.keyInName.addEventListener(egret.TouchEvent.TOUCH_TAP, (evt) => this.clearDefaultName(), this);
 
         this.randomBtn = ViewUtils.createBitmapByName("randomNameBtn_png");
         this.randomBtn.name = "randomBtn";
@@ -40,7 +47,7 @@ class NameView extends egret.DisplayObjectContainer {
         this.goOnBtn.name = "goOnBtn";
         this.goOnBtn.onClicked = () => this.onGoOn();
 
-        var objs = [this.bg, this.bg1, this.keyInName, this.randomBtn, this.goOnBtn];
+        var objs = [this.bg, this.bg1, this.tip, this.keyInName, this.randomBtn, this.goOnBtn];
         objs.forEach((obj, _) => this.addChild(obj));
         ViewUtils.multiLang(this, ...objs);
     }
