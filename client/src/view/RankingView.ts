@@ -31,6 +31,7 @@ class RankingView extends egret.DisplayObjectContainer {
         this.bg1.y = -30;
         this.bg1.width = this.width;
         this.bg1.fillMode = egret.BitmapFillMode.REPEAT;
+        this.bg1.touchEnabled = true;
         this.addChild(this.bg1);
 
         this.bg2 = ViewUtils.createBitmapByName("rkBg2_png");
@@ -39,6 +40,7 @@ class RankingView extends egret.DisplayObjectContainer {
         this.bg2.width = this.width;
         this.bg2.height = this.height - this.bg1.height - this.bg1.y;
         this.bg2.fillMode = egret.BitmapFillMode.REPEAT;
+        this.bg2.touchEnabled = true;
         this.addChild(this.bg2);
 
         // 切换按钮

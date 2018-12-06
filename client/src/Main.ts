@@ -201,8 +201,9 @@ class Main extends egret.DisplayObjectContainer {
 
         await Utils.initPlatform();
 
+        Utils.pt("runGame." + (new Date().toUTCString()), window.platform.platformType);
         Utils.log("platform: " + window.platform.platformType + " initialized");
-        Utils.pt("Progress", "platform " + window.platform.platformType + " inited");
+        // Utils.pt("Progress", "platform " + window.platform.platformType + " inited");
 
         // 心跳统计在线时长
         var startTime = (new Date()).toLocaleString('en-GB', { timeZone: 'UTC' });

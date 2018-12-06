@@ -24,7 +24,13 @@ class WebClient {
 
         r.addEventListener(egret.Event.COMPLETE, (event:egret.Event) => {
             var request = <egret.HttpRequest>event.currentTarget;
-            doResolve(request.response ? JSON.parse(request.response) : undefined);
+            var response = undefined;
+            try {
+                response = request.response ? JSON.parse(request.response) : undefined;
+            } catch(ex) {
+            }
+
+            doResolve(response);
         }, this);
 
         r.addEventListener(egret.IOErrorEvent.IO_ERROR, (event:egret.Event) => {
