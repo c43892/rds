@@ -13,6 +13,8 @@ class WebClient {
         try {
             r.open(this.srv, egret.HttpMethod.POST);
             r.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+            r.addEventListener(egret.IOErrorEvent.IO_ERROR, (event:egret.Event) => {
+            },this);
             r.send("msg=" + JSON.stringify(msg));
         } catch (ex) {
         }
