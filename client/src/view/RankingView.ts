@@ -11,7 +11,7 @@ class RankingView extends egret.DisplayObjectContainer {
     rankSelfAvatar:egret.Bitmap;
     rankSelfText:egret.TextField;
     curSelMark:egret.Bitmap;
-    closeBtn:egret.Bitmap;
+    closeBtn:ArrowButton;
     tabMenu:egret.TextField[]; // 顶端不同榜单切换
     rankViewScrollArea:egret.ScrollView; // 榜单滚动窗口区域
     rankViewContainer:egret.DisplayObjectContainer; // 榜单区域
@@ -97,12 +97,11 @@ class RankingView extends egret.DisplayObjectContainer {
         this.addChild(this.rankSelfText);
 
         // 关闭按钮
-        this.closeBtn = ViewUtils.createBitmapByName("goBack_png");
-        this.closeBtn.x = 0;
-        this.closeBtn.y = this.height - this.closeBtn.height;
+        this.closeBtn = new ArrowButton(false, "goBack_png", 30);
+        this.closeBtn.x = 10;
+        this.closeBtn.y = 980;
         this.addChild(this.closeBtn);
-        this.closeBtn.touchEnabled = true;
-        this.closeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onCloseBtn, this);
+        this.closeBtn.onClicked = () => this.onCloseBtn();
 
         // 红圈圈
         this.curSelMark = ViewUtils.createBitmapByName("rkCurSel_png");
@@ -295,7 +294,7 @@ class RankingView extends egret.DisplayObjectContainer {
         this.rankViewScrollArea.verticalScrollPolicy = "auto";
     }
     
-    public onCloseBtn(evt:egret.TouchEvent) {
+    public onCloseBtn() {
         this.doClose();
     }
 }
