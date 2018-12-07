@@ -6,6 +6,11 @@ class Monster extends Elem {constructor() { super();}
     public isDead = () => this.hp <= 0; // 是否已经死亡
     public isBoss = false;
     public trapped = false;
+    public canFrozen = () => { // 怪物是否能被冰冻,存在动态变化的可能
+        var b = this.attrs.targetFlags ? !Utils.contains(this.attrs.targetFlags, "immuneFrozen") : true;
+        this.bt().triggerLogicPointSync("canFrozen", {m:this, canFrozen:b})
+        return b;
+    }
 
     // 是否在射程范围内
     public inAttackRange(target) {
@@ -363,7 +368,7 @@ class MonsterFactory {
                     // 如果是打怪，需要判断射程
                     if (target instanceof Monster && !m.inAttackRange(target)) return;
                     
-                    await m.bt().implMonsterAttackTargets(m, [target], extraPowerABC, false, ["roundedAttacking"]);
+                    await m.bt().implMonsterAttackTargets(m, [target], extraPowerABC, false, ["activeAttack"]);
                 }
             }
         }, m);
@@ -703,9 +708,16 @@ class MonsterFactory {
         }, m, (ps) => ps.targetAttrs.owner == m, true, true);
     }
 
+    // 死亡时死神回退
+    static doAddDeathStepOnDie(m:Monster):Monster {
+        return <Monster>ElemFactory.addDieAI(async () => {
+            await m.bt().implAddDeathGodStep(m.attrs.deathStepOnDie, m);
+        }, m);
+    }
+
     // 现身后每回合减少玩家一点生命
     static doReduceHpPerRoundOnUncovered(m:Monster):Monster {
-        return <Monster>ElemFactory.addAI("onPlayerActed", async () => await m.bt().implAddPlayerHp(-1, m), m);
+        return MonsterFactory.doReduceHpPerRound(m, true);
     }
 
     // 攻击时吸取生命
@@ -720,14 +732,36 @@ class MonsterFactory {
     }
 
     // 现身时玩家无法使用任何道具
+    static forbiddenUsingProp(m:Monster):Monster {
+        return <Monster>ElemFactory.addAI("isForbidden", (ps) => {
+            ps.forbiddenBy = m;
+            ps.forbiddenReason = "forbiddenBy" + m.type;
+        }, m, (ps) => ps.e instanceof Prop && ps.e.isPicked, true, true);
+    }
 
-    // 每次攻击摧毁一件非钥匙物品
+    // 每次攻击摧毁一件物品(默认不能是钥匙)
+    static doDestroyItemOnAttack(m:Monster):Monster {
+        return <Monster>ElemFactory.addAI("onSingleAttacked", async () => {
+            var types = GCfg.getMiscConfig("itemsCanDestroy");
+            var te = BattleUtils.findRandomElems(m.bt(), 1, (e:Elem) => !e.getGrid().isCovered() && Utils.contains(types, e.type))[0];
+            if(te)
+                await m.bt().implRemoveElemAt(te.pos.x, te.pos.y);
+        }, m);
+    }
     
-    // 受到攻击时，会同时伤害你和周围的怪物
+    // 攻击时，会同时用闪电伤害玩家和周围的怪物
+    static doThunderDamageAroundOnAttack(m:Monster):Monster {
+        return <Monster>ElemFactory.addAI("onAttacked", async () => {
+            var tars = [];
+            tars.push(BattleUtils.findAllElems8Neighbours(m, (e:Elem) => e instanceof Monster));
+            await m.bt().implAddPlayerHp(m.attrs.thunderDamage);
+            for(var tar of tars)
+                await m.bt().implAddMonsterHp(tar, m.attrs.thunderDamage);
+        }, m, (ps) => ps.attackerAttrs.owner == m);
+    }
 
     // 受到普通攻击时，反射50%的伤害
     static doThornsDamageOnNormalAttacked(m:Monster):Monster {
-        
         return m;
     }
 
@@ -1034,11 +1068,110 @@ class MonsterFactory {
         return m;
     }
 
-    // 死亡时死神回退
-    static doAddDeathStepOnDie(m:Monster):Monster {
-        return <Monster>ElemFactory.addDieAI(async () => {
-            await m.bt().implAddDeathGodStep(m.attrs.deathStepOnDie, m);
-        }, m);
+    // 克拉肯主动攻击时随机摧毁一件非金钱的物品
+    static doDestroyItemOnActiveAttack(m: Monster): Monster {
+        return <Monster>ElemFactory.addAI("onSingleAttacked", async () => {
+            var types = GCfg.getMiscConfig("itemsCanDestroy");
+            types = Utils.remove(types, "Coins");
+            var te = BattleUtils.findRandomElems(m.bt(), 1, (e: Elem) => !e.getGrid().isCovered() && Utils.contains(types, e.type))[0];
+            if (te)
+                await m.bt().implRemoveElemAt(te.pos.x, te.pos.y);
+        }, m, (ps) => Utils.contains(ps.attackerAttrs.attackFlags, "activeAttack"));
+    }
+
+    // 克拉肯存在时，每回合对你造成1点伤害，无论它是否处于现身状态
+    static doReduceHpPerRound(m:Monster, onlyUncovered = false):Monster{
+        return <Monster>ElemFactory.addAI("onPlayerActed", async () => await m.bt().implAddPlayerHp(-1, m), m, undefined, onlyUncovered);
+    }
+
+    // 血量低于50%时，每回合都会进行主动攻击(不被别的技能所影响,暂时未做优先级区分,改用极大的数来保证)
+    static doActiveAttackPerRoundOn50Hp(m:Monster):Monster {
+        return <Monster>ElemFactory.addAI("onCalcAttackInterval", (ps) => {
+            if(m.hp / m.attrs.hp < 0.5)
+                ps.dattackInterval.c = -9999;
+        }, m, (ps) => ps.m == m, true, true);
+    }
+
+    // 受到火焰伤害时效果加倍
+    static doDoubleFlameDamage(m:Monster):Monster {
+        return <Monster>ElemFactory.addAI("onGetAttackerAndTargetAttrs", (ps) => {
+            ps.attackerAttrs.power.b *= 2;
+        }, m, (ps) => ps.targetAttrs.owner == m && Utils.contains(ps.attackerAttrs.attackFlags, "Flame"), false, true);
+    }
+
+    // 血量每减少30%，则进入防护模式，为自己加上一个近乎无敌的防护罩，受到除火焰以外的任何伤害均为1，防护罩在受到5次伤害后解除
+    static protectiveShield(m: Monster):Monster {
+        return MonsterFactory.doRemoveProtectiveShieldAfter5Damages(
+            MonsterFactory.doReduceDamageByProtectiveShield(
+                MonsterFactory.doAddProtectiveShieldOnLose30Hp(m)
+            )
+        );
+    }
+
+    // 血量每减少30%，则进入防护模式，为自己加上一个近乎无敌的防护罩
+    static doAddProtectiveShieldOnLose30Hp(m:Monster):Monster {
+        m["protectiveShield"] = 0;
+        return <Monster>ElemFactory.addAI("onMonsterHurt", async () => {
+            var p = m.hp / m.attrs.hp * 100;
+            if (p >= 70) return;
+            else if (p < 70 && p >= 40 && !m["protectiveShield70"]) {
+                // 若之前没有被盾保护,则需要加表现效果,并且将护盾标记为新添加
+                if (!m["protectiveShield"]){
+                    await m.bt().fireEvent("protectiveShield", {subType:"add"});
+                    m["newProtectiveShield"] = true;
+                }
+
+                m["protectiveShield"] = 5;
+                m["protectiveShield70"] = true;
+            } else if (p < 40 && p >= 10 && !m["protectiveShield40"]) {
+                if (!m["protectiveShield"]){
+                    await m.bt().fireEvent("protectiveShield", {subType:"add"});
+                    m["newProtectiveShield"] = true;
+                }
+
+                m["protectiveShield"] = 5;
+                m["protectiveShield70"] = true;
+                m["protectiveShield40"] = true;
+            } else if (p < 10 && p > 0 && !m["protectiveShield10"]) {
+                if (!m["protectiveShield"]){
+                    await m.bt().fireEvent("protectiveShield", {subType:"add"});
+                    m["newProtectiveShield"] = true;
+                }
+
+                m["protectiveShield"] = 5;
+                m["protectiveShield70"] = true;
+                m["protectiveShield40"] = true;
+                m["protectiveShield10"] = true;
+            }
+        }, m, (ps) => ps.m == m && !m.isDead());
+    }
+
+    // 防护罩使万圣节树妖受到除火焰以外的任何伤害均为1
+    static doReduceDamageByProtectiveShield(m:Monster):Monster {
+        return <Monster>ElemFactory.addAI("gotFinalCalcAttackResult", (ps) => {
+            ps.r.dhp = ps.r.dhp < -1 ? -1 : ps.r.dhp;
+        }, m, (ps) => m["protectiveShield"] && ps.targetAttrs.owner == m && !Utils.contains(ps.attackerAttrs.attackFlags, "Flame") && ps.r.r == "attacked", false, true);
+    }
+
+    // 防护罩在受到5次伤害后解除
+    static doRemoveProtectiveShieldAfter5Damages(m:Monster):Monster {
+        return <Monster>ElemFactory.addAI("afterMonsterHurt", async () => {
+            // 新添加的护盾没有生效,故不会移除层数
+            if (m["newProtectiveShield"]){
+                m["newProtectiveShield"] = false;
+                return;
+            }
+            m["protectiveShield"] --;
+            if(!m["protectiveShield"])
+                await m.bt().fireEvent("protectiveShield", {subType:"remove"});
+        }, m, (ps) => m["protectiveShield"] && ps.m == m);
+    }
+
+    // 被火焰伤害会进入点燃状态
+    static doBurnByFlameDamage(m:Monster):Monster {
+        return <Monster>ElemFactory.addAI("gotFinalCalcAttackResult", (ps) => {
+            ps.r.addBuffs.push({type:"Flame", ps:[3, 1]});
+        }, m, (ps) => ps.targetAttrs.owner == m && Utils.contains(ps.attackerAttrs.attackFlags, "Flame") && ps.r.r == "attacked", false, true);
     }
 
     // boss 特殊逻辑

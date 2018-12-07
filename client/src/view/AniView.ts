@@ -1085,7 +1085,7 @@ class AniView extends egret.DisplayObjectContainer {
 
         if (Utils.contains(flags, "attackOnPlayerLeave") && m.type == "Gengar")
             await this.gengarLick(sv);       
-        else if (m.isBoss && Utils.contains(ps.addFlags, "roundedAttacking")) { // boss 主动攻击
+        else if (m.isBoss && Utils.contains(ps.addFlags, "activeAttack")) { // boss 主动攻击
             var fsx = sv.scaleX;
             var fsy = sv.scaleY;
             var fromPos = AniUtils.ani2global(sv);

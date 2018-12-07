@@ -24,10 +24,11 @@ class Elem {
     public isInMap = () => this.bt() && this.bt().level.map.getElemAt(this.pos.x, this.pos.y) == this;
 
     // 各逻辑点，挂接的都是函数
-    public forbbiden = () => {
-        var forbbidenBy = undefined;
-        this.bt().triggerLogicPointSync("forbbiden", {forbbidenBy:forbbidenBy});
-        return forbbidenBy;
+    // 是否被禁用
+    public isForbidden = () => {
+        var isForbiddenPs = {e:this ,forbiddenBy:undefined, forbiddenReason:undefined};
+        this.bt().triggerLogicPointSync("isForbidden", isForbiddenPs);
+        return !isForbiddenPs.forbiddenBy ? false : isForbiddenPs;
     }
     public canUse = () => { return false; } // 一个 function():boolean
     public canNotUseReason = () => undefined;
@@ -65,6 +66,13 @@ class Elem {
                 return e instanceof Monster && !g.isCovered();
             case "markedMonster|uncoveredMonser": // 标记或者揭开的怪
                 return e instanceof Monster && g.isUncoveredOrMarked();
+            case "markedMonster|uncoveredMonster|uncoverable|blocked&canFrozen": // 需要目标能被冰冻
+                if(e instanceof Monster && g.isUncoveredOrMarked() && (e.isHazard() || (e["linkTo"] && e["linkTo"].isHazard())) || (g.isUncoverable() || g.status == GridStatus.Blocked)){
+                    if (e && e instanceof Monster)
+                        return e.canFrozen();
+                    else return true;
+                }                    
+                else return false
             default:
                 return false;
         }

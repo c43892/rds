@@ -52,7 +52,7 @@ class MainView extends egret.DisplayObjectContainer {
 
         // 宝箱房间
         this.brv = new BoxRoomView(w, h);
-        this.brv.confirmOkYesNo = (title, content, yesno) => this.confirmOkYesNo(title, content, yesno);
+        this.brv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
 
         //转盘事件
         this.ttv = new TurntableView(w, h);
@@ -71,11 +71,8 @@ class MainView extends egret.DisplayObjectContainer {
 
         // 设置界面
         this.st = new SettingView(w, h);
-        this.st.confirmOkYesNo = (title, content, yesno) => this.confirmOkYesNo(title, content, yesno);
-        this.st.openStartup = async () => {
-            await this.av.blackIn();
-            await this.openStartup(undefined);
-        };
+        this.st.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
+        this.st.onPlayerDead = async () => await this.onPlayerDead(undefined);
 
         // 技能交换,选择或展示界面
         this.rev = new RelicExchangeView(w, h);

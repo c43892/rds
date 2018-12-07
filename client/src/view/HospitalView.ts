@@ -69,7 +69,7 @@ class HospitalView extends egret.DisplayObjectContainer {
         this.btnExchangeRelic.name = "btnExchangeRelic";
         this.btnExchangeRelic.onClicked = () => this.openExchangeRelic();
 
-        this.btnGoOn = new TextButtonWithBg("goForward_png", 30);
+        this.btnGoOn = new ArrowButton(true, "goForward_png", 30);
         this.btnGoOn.text = ViewUtils.getTipText("continueBtn");
         this.btnGoOn.name = "btnGoOn";
         this.btnGoOn.onClicked = () => this.onGoOn();

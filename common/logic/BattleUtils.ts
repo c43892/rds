@@ -388,4 +388,28 @@ class BattleUtils {
         }
         return targetElems;
     };
+
+    // 找到Elem周围的所有符合条件的元素,包含大元素,不包含本身,去重
+    public static findAllElems8Neighbours(e:Elem, f){
+        var bt = e.bt();
+        var map = bt.level.map;
+        var poses = Utils.findPosesAround(e.pos, e.attrs.size ? e.attrs.size : {w:1, h:1}, map.size).poses;
+        var es:Elem[] = [];
+        for (var pos of poses) {
+            var elem = map.getElemAt(pos.x, pos.y);
+            if (elem) {
+                if (elem.type == "PlaceHolders")
+                    elem = elem["linkTo"];
+                
+                if(!f || f(elem))
+                    es.push(elem);
+            }
+        }
+        // 去重
+        var noDuplicatedEs:Elem[] = [];
+        for(var elem of es)
+            if(!Utils.contains(noDuplicatedEs, elem))
+                noDuplicatedEs.push(elem);        
+        return noDuplicatedEs;
+    }
 }

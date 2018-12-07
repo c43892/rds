@@ -43,7 +43,7 @@ class AllElemsView extends egret.DisplayObjectContainer {
         this.scrollArea.setContent(this.viewContent);
         this.scrollArea.bounces = true;
 
-        this.closeBtn = new TextButtonWithBg("goBack_png", 30);
+        this.closeBtn = new ArrowButton(false, "goBack_png", 30);
         this.closeBtn.name = "closeBtn";
         this.closeBtn.touchEnabled = true;
         this.closeBtn.onClicked = () => this.onGoBack();

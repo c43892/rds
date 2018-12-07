@@ -7,20 +7,27 @@ class BattleStatistics {
     public monsterKilled = {normal:0, elite:0, boss:0}; // 杀死怪物计数    
     public clearBonusCount = {normal:0, elite:0, boss:0}; // 清关奖励计数
 
+    public toStringKeys = ["totalCoins", "monsterKilled", "monsterKilled", "clearBonusCount"];
+
     constructor(p:Player){
         this.player = p;
     }
 
     public toString():string {
-        return "";
-    }
-
-    public fromString(str:string) {
+        var info = {};
+        for (var key of this.toStringKeys)
+            info[key] = this[key];
+        
+        var saveData = JSON.stringify(info);
+        return saveData;
     }
 
     public static fromString(p:Player, str:string):BattleStatistics {
         var st = new BattleStatistics(p);
-        st.fromString(str);
+        var info = JSON.parse(str);
+        for (var key of st.toStringKeys)
+            st[key] = info[key];
+        
         return st;
     }
     
