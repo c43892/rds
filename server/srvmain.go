@@ -168,7 +168,8 @@ func handleMsgfunc(w http.ResponseWriter, r *http.Request) {
 	// parse the request message
 	r.ParseForm();
 	msg := &RequestMsg{};
-	json.Unmarshal([]byte(r.PostFormValue("msg")), msg);
+	msgStr := r.PostFormValue("msg");
+	json.Unmarshal([]byte(msgStr), msg);
 
 	var res *HttpResp; // response
 

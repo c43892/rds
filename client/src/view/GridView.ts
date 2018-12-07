@@ -837,8 +837,12 @@ class GridView extends egret.DisplayObjectContainer {
         }
 
         var e = from.getElem();
-        if (e && !e.getGrid().isCovered() && e.canBeDragDrop && this.map.isGenerallyValid(e.pos.x, e.pos.y))
-            await GridView.reposElemTo(e, to.gx, to.gy);
+        if (e && !e.getGrid().isCovered()) {
+            if (e.canUseAt(to.gx, to.gy)) // 直接对目标使用
+                await GridView.try2UseElemAt(e, to.gx, to.gy);
+            else if (e.canBeDragDrop && this.map.isGenerallyValid(e.pos.x, e.pos.y)) // 移动到目标位置
+                await GridView.reposElemTo(e, to.gx, to.gy);
+        }
 
         GridView.checkOutPhrase();
     }

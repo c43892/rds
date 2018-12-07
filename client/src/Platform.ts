@@ -43,7 +43,7 @@ class DefaultPaltform implements Platform {
             var now = new Date();
             var r = new SRandom(now.getMilliseconds());
             uid = "uid_" + r.nextInt(100000, 1000000) + "_"  + now.toUTCString();
-            uid = uid.replace("," + " ");
+            uid = uid.replace(",", "");
             Utils.saveLocalItem("UserID", uid);
         }
 
@@ -60,7 +60,7 @@ class DefaultPaltform implements Platform {
 
     setUserCloudStorage(key:string, value) {
         var uid = this.getUserID();
-        this.wc.request({
+        this.wc.send({
             type: "setUserCloudData",
             uid: uid,
             key: key,
@@ -99,6 +99,7 @@ class DefaultPaltform implements Platform {
                 var exMsg = "load localstorage exception: " + str + ":" + ex.toString();
                 Utils.log(exMsg);
                 Utils.pt((new Date()).toLocaleString('en-GB', { timeZone: 'UTC' }) + ":" + str + ":ex:loadstorage:", exMsg);
+                egret.localStorage.setItem("localStorageData", "");
                 return {};
             }
         }
