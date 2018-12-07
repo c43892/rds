@@ -48,7 +48,7 @@ class RelicSelView extends egret.DisplayObjectContainer {
         this.selArea.setContent(this.viewContent);
         this.selArea.bounces = false;
 
-        this.btnGoBack = new TextButtonWithBg("goBack_png", 30);
+        this.btnGoBack = new ArrowButton(false, "goBack_png", 30);
         this.btnGoBack.text = ViewUtils.getTipText("goBackBtn");
         this.btnGoBack.x = 0;
         this.btnGoBack.y = this.height - this.btnGoBack.height;

@@ -807,6 +807,8 @@ class Battle {
         if (dhp < 0) {
             await this.fireEvent("onMonsterHurt", {dhp:dhp, m:m});
             await this.triggerLogicPoint("onMonsterHurt", {dhp:dhp, m:m});
+
+            await this.triggerLogicPoint("afterMonsterHurt", {dhp:dhp, m:m});
         }
         
         if (m.isDead())
@@ -862,6 +864,9 @@ class Battle {
         this.triggerLogicPointSync("onCalcAttacking", {subType:subType, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon});
         var r = this.bc.doAttackCalc(attackerAttrs, targetAttrs); // 可能有免疫或者盾牌需要替换掉这个结果
         await this.triggerLogicPoint("onCalcAttackResult", {subType:subType, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r}); // 提供盾牌使用
+        
+        // 优先级最高的处理点,尽量只处理数值变动
+        this.triggerLogicPointSync("gotFinalCalcAttackResult", {subType:subType, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
         return r;
     }
 
@@ -892,7 +897,7 @@ class Battle {
         await this.triggerLogicPoint("onAttacking", {subType:"player2monster", x:x, y:y, targets:[m], weapon:weapon, suppressProtect:true});
 
         // 检查免疫
-        if (Utils.contains(targetAttrs.targetFlags, "Frozen"))
+        if (Utils.contains(targetAttrs.targetFlags, "immuneFrozen"))
             return;
 
         // 计算冻结参数
@@ -958,7 +963,7 @@ class Battle {
     // 计算某个怪物受一切地图元素影响所得到的攻击间隔
     public calcMonsterAttackInterval(m:Monster){
         var attackInterval = m.attrs.attackInterval;
-        var attackIntervalPs = {subType:"setAttackInterval", m:m, dattackInterval:{a:0, b:0, c:0}};
+        var attackIntervalPs = {subType:"calcAttackInterval", m:m, dattackInterval:{a:0, b:0, c:0}};
         m.bt().triggerLogicPointSync("onCalcAttackInterval", attackIntervalPs);
         var caledAttackInterval = (attackInterval + attackIntervalPs.dattackInterval.b) * (1 + attackIntervalPs.dattackInterval.a) + attackIntervalPs.dattackInterval.c;        
         caledAttackInterval = caledAttackInterval < 0 ? 0 : caledAttackInterval;
@@ -1101,6 +1106,9 @@ class Battle {
             }
         }
 
+        // 通知目标确定,有可能因外部因素需要增减
+        this.triggerLogicPointSync("gotAttackTargets", {subType:"monstar2targets", m:m, targets:tars});
+
         if (selfExplode)
             addFlags.push("selfExplode");
 
@@ -1152,7 +1160,6 @@ class Battle {
                     }
 
                     // 这里可能是各种攻击结果，成功，闪避，无敌等
-                    // await this.fireEvent("onAttacked", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
                     await this.fireEvent("onSingleAttacked", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
                     await this.triggerLogicPoint("onSingleAttacked", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
 
@@ -1163,7 +1170,6 @@ class Battle {
                 results.push(r); // 将攻击结果存起来,有可能外面要用到
                 await this.fireEvent("onAttacked", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, rs:results});
                 await this.triggerLogicPoint("onAttacked", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, rs:results});
-                // await this.triggerLogicPoint("onAttacked", {subType:"monster2targets", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r});
             }
         }
         

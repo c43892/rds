@@ -2,6 +2,7 @@
 class Prop extends Elem {
     constructor() { super(); }
     public toProp; // 从地上的道具物品，变成真正的物品，这时才具备物品逻辑
+    public isPicked = false; // 是否是真正的处于道具栏中的道具
 }
 
 // 道具刚被创建时，是一个 item，其拾取操作，才生成一个道具到玩家身上
@@ -12,8 +13,9 @@ class PropFactory {
         var e = new Prop();
         e.canUse = () => true;
         e.canBeDragDrop = true;
-        e.useWithTarget = () => false;
+        e.useWithTarget = () => false;        
         e.toProp = () => {
+            e.isPicked = true;
             e.use = undefined;
             e.canBeDragDrop = false;
             e.cnt = e.attrs.cnt ? e.attrs.cnt : 1;
@@ -121,6 +123,28 @@ class PropFactory {
                     await e.bt().implAddMoney(dm);
                     await e.bt().fireEvent("onCandyCannon", {e:e, tar:m, dm:dm})
                     await e.bt().implDestoryAt(x, y, e);
+                    return e.cnt > 0;
+                };
+                return e;
+            })
+        },
+
+        // 剧毒药水
+        "PoisonPotion": (attrs) => {
+            return this.createProp(attrs, (e:Elem) => {
+                e.canUse = () => false;
+                e.useAt = async (x:number, y:number) => {
+                    e.resetCD();
+                    e.cnt --;
+                    var map = e.bt().level.map;
+                    var m = <Monster>map.getElemAt(x, y);
+                    var index = Utils.indexOf(m.buffs, (b:Buff) => b.type == "BuffPoison");
+                    if (index == -1)
+                        await e.bt().implAddBuff(m, "BuffPoison", [3, 1]);
+                     else {
+                        var buff = m.buffs[index];
+                        await e.bt().implAddBuff(m, "BuffPoison", [buff.cnt, 1]);
+                    }
                     return e.cnt > 0;
                 };
                 return e;

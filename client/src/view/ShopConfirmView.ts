@@ -256,13 +256,13 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
         }
 
         // 确定返回按钮
-        var btnCancel = new TextButtonWithBg("goBack_png", 30);
+        var btnCancel = new ArrowButton(false, "goBack_png", 30);
         btnCancel.x = 10;
         btnCancel.y = 960;
         btnCancel.text = ViewUtils.getTipText("cancel");
         this.addChild(btnCancel);
 
-        var btnYes = new TextButtonWithBg("goForward_png", 30);
+        var btnYes = new ArrowButton(true, "goForward_png", 30);
         btnYes.x = 417;
         btnYes.y = 960;
         btnYes.text = ViewUtils.getTipText("yes");

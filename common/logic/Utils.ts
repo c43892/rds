@@ -733,7 +733,7 @@ class Utils {
             }        
         
         // 确定周围一圈的左上角坐标以及宽和高
-        var newPosLeftCeil = {x:mapsize.w - 1, y:mapsize.h - 1};
+        var newPosLeftCeil = {x:mapsize.w - 1, y:mapsize.h - 1}; //假定为地图右下角
         var xmin = mapsize.w - 1;
         var xmax = 0;
         var ymin = mapsize.h - 1;

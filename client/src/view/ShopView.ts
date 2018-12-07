@@ -58,7 +58,7 @@ class ShopView extends egret.DisplayObjectContainer {
             this.soldout.push(false);
         }
 
-        this.btnGoBack = new TextButtonWithBg("goBack_png", 30)
+        this.btnGoBack = new ArrowButton(false, "goBack_png", 30)
         this.btnGoBack.name = "btnGoBack";
         this.btnGoBack.touchEnabled = true;
         this.addChild(this.btnGoBack);

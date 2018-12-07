@@ -69,13 +69,13 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
         this.pageDownBtn.bg.scaleX = -1;
         this.pageDownBtn.onClicked = () => this.pageDown();
 
-        this.goBackBtn = new TextButtonWithBg("goBack_png", 30);
+        this.goBackBtn = new ArrowButton(false, "goBack_png", 30);
         this.goBackBtn.name = "goBackBtn";
         this.goBackBtn.text = ViewUtils.getTipText("goBackBtn");
         this.goBackBtn.touchEnabled = true;
         this.goBackBtn.onClicked = () => this.goBack();
 
-        this.goOnBtn = new TextButtonWithBg("goForward_png", 30);
+        this.goOnBtn = new ArrowButton(true, "goForward_png", 30);
         this.goOnBtn.name = "goOnBtn";
         this.goOnBtn.text = ViewUtils.getTipText("saveExchange");
         this.goOnBtn.touchEnabled = true;

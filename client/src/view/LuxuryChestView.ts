@@ -48,13 +48,13 @@ class LuxuryChestView extends egret.DisplayObjectContainer {
 
         this.relicImgs.push(this.relicImg1, this.relicImg2, this.relicImg3);
 
-        this.goBackBtn = new TextButtonWithBg("goBack_png", 30);
+        this.goBackBtn = new ArrowButton(false, "goBack_png", 30);
         this.goBackBtn.name = "goBackBtn";
         this.goBackBtn.text = ViewUtils.getTipText("goBackBtn");
         this.goBackBtn.touchEnabled = true;
         this.goBackBtn.onClicked = () => this.onGoBack();
 
-        this.goOnBtn = new TextButtonWithBg("goForward_png", 30);
+        this.goOnBtn = new ArrowButton(true, "goForward_png", 30);
         this.goOnBtn.name = "goOnBtn";
         this.goOnBtn.text = ViewUtils.getTipText("chooseThisRelic");
         this.goOnBtn.touchEnabled = true;

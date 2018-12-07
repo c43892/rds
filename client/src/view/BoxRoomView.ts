@@ -49,7 +49,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
         this.openBoxBtn.name = "openBoxBtn";
         this.openBoxBtn.onClicked = () => this.onOpenBox();
 
-        this.goOutBtn = new TextButtonWithBg("goForward_png", 30);
+        this.goOutBtn = new ArrowButton(true, "goForward_png", 30);
         this.goOutBtn.text = ViewUtils.getTipText("continueBtn");
         this.goOutBtn.name = "goOutBtn"
         this.goOutBtn.onClicked = () => this.onClose();

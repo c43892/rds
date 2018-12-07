@@ -33,11 +33,11 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         this.bg = ViewUtils.createBitmapByName("occSelViewBg_png");
         this.addChild(this.bg);
 
-        this.btnCancel = new TextButtonWithBg("goBack_png", 30);
+        this.btnCancel = new ArrowButton(false, "goBack_png", 30);
         this.btnCancel.name = "cancelBtn";
         this.btnCancel.onClicked = () => this.onClose(undefined);
 
-        this.btnOk = new TextButtonWithBg("goForward_png", 30);
+        this.btnOk = new ArrowButton(true, "goForward_png", 30);
         this.btnOk.name = "okBtn";
         this.btnOk.onClicked = () => this.onClose({
             occ:this.occ,

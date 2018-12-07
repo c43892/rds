@@ -10,7 +10,7 @@ class SettingView extends egret.DisplayObjectContainer{
     private goBackBtn:TextButtonWithBg;
     private btnsBg:egret.DisplayObjectContainer
     public confirmOkYesNo;
-    public openStartup;
+    public onPlayerDead;
     
     public openAllRelicsView; // 查看所有遗物
     public openAllPropsView; // 查看所有道具
@@ -53,7 +53,7 @@ class SettingView extends egret.DisplayObjectContainer{
         this.exitBtn.name = "exitBtn";
         this.exitBtn.onClicked = () => this.exitThisGame();
 
-        this.goBackBtn = new TextButtonWithBg("goBack_png", 30);
+        this.goBackBtn = new ArrowButton(false, "goBack_png", 30);
         this.goBackBtn.text = ViewUtils.getTipText("goBackBtn");
         this.goBackBtn.name = "goBackBtn";
         this.goBackBtn.onClicked =  () => this.doClose();        
@@ -109,7 +109,7 @@ class SettingView extends egret.DisplayObjectContainer{
         var ok = await this.confirmOkYesNo(undefined, content, true);
         if (ok){
             Utils.savePlayer(undefined);
-            await this.openStartup();
+            await this.onPlayerDead();
         }
     }
 }
