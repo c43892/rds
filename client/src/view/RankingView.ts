@@ -98,6 +98,7 @@ class RankingView extends egret.DisplayObjectContainer {
 
         // 关闭按钮
         this.closeBtn = new ArrowButton(false, "goBack_png", 30);
+        this.closeBtn.text = ViewUtils.getTipText("goBackBtn");
         this.closeBtn.x = 10;
         this.closeBtn.y = 980;
         this.addChild(this.closeBtn);
