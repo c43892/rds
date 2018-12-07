@@ -408,7 +408,6 @@ class BattleView extends egret.DisplayObjectContainer {
         if (!this.contains(d))
             this.addChild(d);
 
-        d.scaleX = d.scaleY = 4.5;
         d.x = this.avatarBg.x + this.avatarBg.width / 2;
         d.y = this.avatarBg.y + this.avatarBg.height / 2;
     }
@@ -483,7 +482,6 @@ class BattleView extends egret.DisplayObjectContainer {
             this.effDeathGodRedEff.animation.play("stand", 0);
             effDisplay.x = this.effDeathGodRed.x;
             effDisplay.y = this.effDeathGodRed.y;
-            effDisplay.scaleX = effDisplay.scaleY = 2;
         }
         else {
             this.effDeathGodGray.alpha = 1;

@@ -10,9 +10,12 @@ class WebClient {
     public send(msg) {
         var r = new egret.HttpRequest();
         r.responseType = egret.HttpResponseType.TEXT;
-        r.open(this.srv, egret.HttpMethod.POST);
-        r.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
-        r.send("msg=" + JSON.stringify(msg));
+        try {
+            r.open(this.srv, egret.HttpMethod.POST);
+            r.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+            r.send("msg=" + JSON.stringify(msg));
+        } catch (ex) {
+        }
     }
 
     // 发送数据，并等待回执
@@ -21,27 +24,29 @@ class WebClient {
         r.responseType = egret.HttpResponseType.TEXT;
 
         var doResolve;
-
         r.addEventListener(egret.Event.COMPLETE, (event:egret.Event) => {
             var request = <egret.HttpRequest>event.currentTarget;
             var response = undefined;
+            response = request.response ? JSON.parse(request.response) : undefined;
             try {
-                response = request.response ? JSON.parse(request.response) : undefined;
-            } catch(ex) {
+                doResolve(response);
+            } catch (ex) {
+                doResolve(undefined);
             }
-
-            doResolve(response);
         }, this);
 
         r.addEventListener(egret.IOErrorEvent.IO_ERROR, (event:egret.Event) => {
             doResolve(undefined);
         },this);
 
-        r.open(this.srv, egret.HttpMethod.POST);
-        r.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
-        r.send("msg=" + JSON.stringify(msg) + "&datetime=" + (new Date()).getUTCSeconds());
-        return new Promise<any>((resolve, reject) => {
-            doResolve = resolve;
-        });
+        try {
+            r.open(this.srv, egret.HttpMethod.POST);
+            r.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+            r.send("msg=" + JSON.stringify(msg) + "&datetime=" + (new Date()).getUTCSeconds());
+            return new Promise<any>((resolve, reject) => {
+                doResolve = resolve;
+            });
+        } catch(ex) {
+        }
     }
 }
