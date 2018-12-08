@@ -48,10 +48,10 @@ class BattleView extends egret.DisplayObjectContainer {
     public monsterTip:NewMonsterTipView; // 新怪物提示
     public elemsTip:egret.DisplayObjectContainer;// 特殊元素提示
     public elemsTipBitmaps:egret.Bitmap[] = []; // 特殊元素提示图
-    public sanValue:egret.DisplayObjectContainer; // san值区域
 
     public openAllRelicsView; // 查看所有的某类元素如玩家的遗物或者道具
     public confirmOkYesNo;
+    public openCharacterView;
 
     // 角色头像区域，以及金钱，层数，死神
     createPlayerAttrs() {
@@ -142,6 +142,8 @@ class BattleView extends egret.DisplayObjectContainer {
         // 头像区域背景
         this.avatarBg = ViewUtils.createBitmapByName("avatarBg_png");
         this.avatarBg.name = "avatarBg";
+        this.avatarBg.touchEnabled = true;
+        this.avatarBg.addEventListener(egret.TouchEvent.TOUCH_TAP, (evt:egret.TouchEvent) => this.openCharacterView(), this);
 
         // 经验条
         this.expBar = ViewUtils.createBitmapByName("expBar_png");
@@ -362,11 +364,6 @@ class BattleView extends egret.DisplayObjectContainer {
             }, this);
         }
 
-        // san值区域
-        this.sanValue = new egret.DisplayObjectContainer();
-        this.sanValue.name = "sanValue";
-        this.addChild(this.sanValue);
-
         // 录像
         this.repView = new ReplayView(w, h);
         this.addChild(this.repView);
@@ -382,7 +379,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.deadlyMask.height = this.height;
         this.addChild(this.deadlyMask);
 
-        ViewUtils.multiLang(this, this.avatarBg, this.avatarAreaMask, this.avatar, this.power, this.dodge, this.elemsTip, this.propsView, this.moreRelics, this.sanValue, this.mapView);
+        ViewUtils.multiLang(this, this.avatarBg, this.avatarAreaMask, this.avatar, this.power, this.dodge, this.elemsTip, this.propsView, this.moreRelics, this.mapView);
 
         // 格子选择
         this.selView = new SelView(w, h, this.propsView.y);
@@ -603,11 +600,6 @@ class BattleView extends egret.DisplayObjectContainer {
                 bmp.alpha = 0;
             }
         }
-    }
-
-    // 刷新玩家san值
-    public refeshPlayerSanValue(){
-        Utils.assert(this.player["san"], "player don't have san value.");        
     }
 
     // 清除所有地图显示元素

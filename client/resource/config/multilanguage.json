@@ -330,8 +330,8 @@
 		
 		"occSelView": {
 			"layout": {
-				"cancelBtn":{"x":35, "y":970},
-				"okBtn":{"x":400, "y":970},
+				"cancelBtn":{"x":10, "y":980},
+				"okBtn":{"x":465, "y":980},
 				"occAvatar": {"x":125, "y":135, "w":100, "h":100},
 				"occAvatarFrame": {"x":30, "y":55},
 				"occAvatarFrameMask": {"x":30, "y":55},
@@ -370,16 +370,39 @@
 				"cancelBtn": { "EN": "Return", "CNS": "返回", "CNT": "返回" },
 				"okBtn": { "EN": "Continue", "CNS": "继续", "CNT": "继续" }
 			}
+		},
+		
+		"characterView":{
+			"layout": {
+				"attrsBg":{"x":5, "y":10},
+				"commonRelicsBg":{"x":132, "y":267, "rotation":24},
+				"switchBtnBg":{"x":5, "y":735},
+				"avatar":{"x":50, "y":61, "w":120, "h":120},
+				"avatarBg":{"x":30, "y":46, "w":150, "h":150},
+				"occupationName":{"x":267, "y":93, "size":30, "w":150, "h":30},
+				"expBar":{"x":195, "y":145},
+				"level":{"x":214, "y":165, "size":30, "w":60, "h":30},
+				"exp":{"x":443, "y":143, "size":25, "w":125, "h":25},
+				"power":{"x":165, "y":244, "size":30, "w":120, "h":30},
+				"hp":{"x":355, "y":240, "size":30, "w":120, "h":30},
+				"dogde":{"x":545, "y":240, "size":30, "w":120, "h":30},
+				"coins":{"x":175, "y":307, "size":30, "w":150, "h":30},
+				"currentStorey":{"x":391, "y":307, "size":30, "w":120, "h":30},
+				"goBackBtn":{"x":10, "y":980},
+				"exitBtn":{"x":528, "y":46}
+			}
 		}
     },
 	
 	"occupations": {
 		"Nurse": {
-			"desc": { "EN": "description of Nurse", "CNS": "这是护士的描述。这是护士的描述。这是护士的描述。这是护士的描述。", "CNT": "这是护士的描述" }
+			"desc": { "EN": "description of Nurse", "CNS": "这是护士的描述。这是护士的描述。这是护士的描述。这是护士的描述。", "CNT": "这是护士的描述" },
+			"name": { "EN": "Nurse", "CNS": "护士妹妹", "CNT": "护士妹妹" }
 		},
 		
 		"Rogue": {
-			"desc": { "EN": "description of Rogue", "CNS": "这是混混的描述。这是混混的描述。这是混混的描述。这是混混的描述。", "CNT": "这是混混的描述" }
+			"desc": { "EN": "description of Rogue", "CNS": "这是混混的描述。这是混混的描述。这是混混的描述。这是混混的描述。", "CNT": "这是混混的描述" },
+			"name": { "EN": "Rogue", "CNS": "黑帮混混", "CNT": "黑帮混混" }
 		}
 	},
 

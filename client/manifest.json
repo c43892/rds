@@ -80,6 +80,7 @@
 		"bin-debug/view/AniView.js",
 		"bin-debug/logic/BattleCaculator.js",
 		"bin-debug/view/BoxRoomView.js",
+		"bin-debug/view/CharacterView.js",
 		"bin-debug/view/ElemActiveDesc.js",
 		"bin-debug/view/ElemDescView.js",
 		"bin-debug/view/GridView.js",

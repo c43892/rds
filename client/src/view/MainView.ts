@@ -22,6 +22,7 @@ class MainView extends egret.DisplayObjectContainer {
     public lcv:LuxuryChestView; // 开boss三选一界面
     public scoreview:ScoreView; // 死亡或通关后的分数结算界面
     public nameView:NameView; // 玩家起名界面
+    public characterView:CharacterView; // 角色详情界面
     public av:AniView; // 动画层
 
     isInBattle:boolean; // 是否在战斗中
@@ -49,6 +50,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.bv = new BattleView(w, h);
         this.bv.av = this.av;
         this.bv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
+        this.bv.openCharacterView = async () => await this.openCharacterView();
 
         // 宝箱房间
         this.brv = new BoxRoomView(w, h);
@@ -88,6 +90,11 @@ class MainView extends egret.DisplayObjectContainer {
 
         // 玩家起名界面
         this.nameView = new NameView(w, h);
+
+        // 角色详情界面
+        this.characterView = new CharacterView(w, h);
+        this.characterView.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
+        this.characterView.onPlayerDead = async () => await this.onPlayerDead(undefined);
 
         // 世界地图
         this.wmv = new WorldMapView(w, h);
@@ -613,7 +620,16 @@ class MainView extends egret.DisplayObjectContainer {
         this.removeChild(this.nameView);
     }
 
-    // 按照本地存档继续游戏
+    // 打开角色详情界面
+    public async openCharacterView(){
+        this.characterView.player = this.p;
+        this.addChild(this.characterView);
+        var r = await this.characterView.open();
+        this.removeChild(this.characterView);
+        return r;
+    }
+
+    // 按照本地存档继续游戏 
     async continuePlay() {
         if (!this.p) return;
 

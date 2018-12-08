@@ -256,6 +256,7 @@ class ViewUtils {
                 p.width = lyt.w != undefined ? lyt.w : p.width;
                 p.height = lyt.h != undefined ? lyt.h : p.height;
                 p.size = lyt.size != undefined ? lyt.size : p.size;
+                p.rotation = lyt.rotation != undefined ? lyt.rotation : p.rotation;
             }
 
             // text
