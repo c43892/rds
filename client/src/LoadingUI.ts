@@ -87,6 +87,7 @@ class LoadingUI extends egret.DisplayObjectContainer implements RES.PromiseTaskR
     }
 
     onProgress(current: number, total: number): void {
+        Utils.log("loading " + current + ":" + total);
         this.setProgress(current / total);
     }
 
