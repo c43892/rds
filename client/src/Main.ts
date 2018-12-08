@@ -240,7 +240,6 @@ class Main extends egret.DisplayObjectContainer {
         if (canvas) {
             var sw = canvas.width;
             var sh = canvas.height;
-            Utils.log();
             this.stage.setContentSize(sw, sh);
         }
         

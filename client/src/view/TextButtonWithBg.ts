@@ -197,10 +197,10 @@ class TextButtonWithBg extends egret.DisplayObjectContainer {
             var dt = this.textFieldOffset["t"] ? this.textFieldOffset["t"] : 0;
             var dr = this.textFieldOffset["r"] ? this.textFieldOffset["r"] : 0;
             var db = this.textFieldOffset["b"] ? this.textFieldOffset["b"] : 0;
-            this.textField.x += dl;
-            this.textField.y += dt;
-            this.textField.width += (dr - dl);
-            this.textField.height += (db - dt);
+            this.textField.x = dl;
+            this.textField.y = dt;
+            this.textField.width = this.width - dl - dr;
+            this.textField.height = this.height - dt - db;
         }
 
         if (this.floatingBg) { // 下对齐
@@ -223,5 +223,7 @@ class ArrowButton extends TextButtonWithBg{
             this.textFieldOffset = {t:-15, l:-5};
         else
             this.textFieldOffset = {t:-15, l:-5};
+
+        this.refresh();
     }
 }
