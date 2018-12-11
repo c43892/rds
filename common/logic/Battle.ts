@@ -88,9 +88,9 @@ class Battle {
 
         await this.triggerLogicPoint("beforeLevelInited", {bt:this});
         await this.fireEvent("onLevelInited", {bt:this});
-        await this.triggerLogicPoint("beforeLevelInitedKey", {bt:this});
+        await this.triggerLogicPoint("beforeLevelInitedTakeKey", {bt:this});
         await this.triggerLogicPoint("beforeLevelInited2", {bt:this});
-        await this.triggerLogicPoint("onLevelInited", {bt:this});
+        await this.triggerLogicPoint("onLevelInited", {bt:this, skipAniSwitch:"initAddElemAni"});
         
         await this.coverAllAtInit();
         this.level.setElemPosByCfg(this.lvCfg.elemPosConfig); // 设置元素位置,部分元素需要固定
@@ -716,9 +716,13 @@ class Battle {
     }
 
     // 向地图添加 Elem
-    public async implAddElemAt(e:Elem, x:number, y:number, fromPos = undefined) {
+    public async implAddElemAt(e:Elem, x:number, y:number, fromPos = undefined, skipAniSwitch = undefined) {
         this.addElemAt(e, x, y);
-        await this.fireEvent("onGridChanged", {x:x, y:y, e:e, fromPos:fromPos, subType:"elemAdded"});
+        if (skipAniSwitch && !Switch[skipAniSwitch]())
+            this.fireEventSync("onGridChanged", {x:x, y:y, e:e, fromPos:fromPos, subType:"elemAdded"});
+        else
+            await this.fireEvent("onGridChanged", {x:x, y:y, e:e, fromPos:fromPos, subType:"elemAdded"});
+
         await this.triggerLogicPoint("onGridChanged", {e:e, subType:"elemAdded"});
     }
 

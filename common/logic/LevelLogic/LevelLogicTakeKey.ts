@@ -2,7 +2,7 @@ class LevelLogicTakeKey extends LevelLogic{
     constructor(){
         super("LevelLogicTakeKey");
 
-        this.addAI("beforeLevelInitedKey", async (ps) => {
+        this.addAI("beforeLevelInitedTakeKey", async (ps) => {
             var bt = this.level.bt;
             var keys = this.level.keys;
 

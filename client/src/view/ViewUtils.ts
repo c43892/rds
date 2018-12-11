@@ -356,7 +356,7 @@ class ViewUtils {
     }
 
     // 针对给定遗物生成等级符号并布局
-    public static createRelicLevelStars(r:Relic, g:egret.DisplayObject):egret.Bitmap[] {
+    public static createRelicLevelStars(r:Relic, g:egret.DisplayObject, fakeRelic = false):egret.Bitmap[] {
         var totalLevel;
         var scale = g.width / 84;
         if(GCfg.getElemAttrsCfg(r.type).reinforce)
@@ -381,8 +381,10 @@ class ViewUtils {
             star.rotation = 90 - angle;
             bmps.push(star);
         }
-        for (var i = 0; i <= r.reinforceLv; i++)
-            ViewUtils.setTexName(bmps[i], "relicLvSign2_png");
+        // 部分只做表现用的技能是没有等级的
+        if (!fakeRelic)
+            for (var i = 0; i <= r.reinforceLv; i++)
+                ViewUtils.setTexName(bmps[i], "relicLvSign2_png");
 
         return bmps;
     }

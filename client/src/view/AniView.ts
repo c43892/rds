@@ -395,16 +395,17 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 在大地图上获得金钱
     public async onGetMoneyInWorldmap(ps) {
-        var coin = this.wmtv.getMoneyIcon();
-        var d = ps.dm > 0 ? 1 : -1;
-        var p = this.wmv.player;
-        var toPos = ps.reason == "shop" ? this.sv.shopNpcSlotGlobalPos : WorldMapEventSelsView.lastSelectionGlobalPos;
+        if (Switch.coinAni()){
+            var coin = this.wmtv.getMoneyIcon();
+            var d = ps.dm > 0 ? 1 : -1;
+            var p = this.wmv.player;
+            var toPos = ps.reason == "shop" ? this.sv.shopNpcSlotGlobalPos : WorldMapEventSelsView.lastSelectionGlobalPos;
 
-        if (d > 0)
-            await this.coinsFly(undefined, toPos, coin, ps.dm);
-        else
-            await this.coinsFly(undefined, coin, toPos, ps.dm);
-
+            if (d > 0)
+                await this.coinsFly(undefined, toPos, coin, ps.dm);
+            else
+                await this.coinsFly(undefined, coin, toPos, ps.dm);
+        }
         this.wmtv.refreshMoney();
     }
 
@@ -814,14 +815,16 @@ class AniView extends egret.DisplayObjectContainer {
    
         var e = ps.e;
         var d = ps.d > 0 ? 1 : -1;
-        var coinSV = this.getSV(e);
+        if (Switch.coinAni()){
+            var coinSV = this.getSV(e);
 
-        if (d > 0)
-            await this.coinsFly(e, coinSV, txt, ps.d)
-        else if (e.type != "ShopNpc")
-            await this.coinsFly(e, txt, coinSV, ps.d)
+            if (d > 0)
+                await this.coinsFly(e, coinSV, txt, ps.d)
+            else if (e.type != "ShopNpc")
+                await this.coinsFly(e, txt, coinSV, ps.d)
 
-        coinSV["resetSelf"]();
+            coinSV["resetSelf"]();
+        }
         this.bv.refreshMoney();
     }
 
@@ -1612,7 +1615,7 @@ class AniView extends egret.DisplayObjectContainer {
         var relics = this.bv.relics;
         var relicImg = this.getBitmapOfRelic(ps.r);
         if(relicImg)
-            await AniUtils.flash(relicImg, 200, false);
+            await AniUtils.flash(relicImg, 100, false);
     }
 
     // 援护提示

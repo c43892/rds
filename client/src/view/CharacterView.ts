@@ -18,15 +18,17 @@ class CharacterView extends egret.DisplayObjectContainer {
     private currentStorey:egret.TextField; // 当前游戏所在层数
     private commonRelicsBg:egret.Bitmap; // 通用技能背景
     private commonRelicsArea:egret.DisplayObjectContainer; // 通用技能区域
+    private commonRelics:egret.DisplayObjectContainer[]; // 通用技能
     private switchBtnBg:egret.Bitmap; // 开关背景
-    private initAniSwitchBtn:TextButtonWithBg; // 创建关卡时的动画开关
+    private initAddElemAniAniSwitchBtn:TextButtonWithBg; // 创建关卡时的动画开关
     private coinAniSwitchBtn:TextButtonWithBg; // 金币获取动画开关
     private volumeSwitchBtn:TextButtonWithBg; // 游戏音乐开关
+    private forbidIcons:egret.DisplayObjectContainer; // 禁止标志
     private goBackBtn:ArrowButton; // 返回按钮
 
     public onPlayerDead;
     public confirmOkYesNo;
-
+    
     constructor(w, h){
         super();
 
@@ -46,6 +48,9 @@ class CharacterView extends egret.DisplayObjectContainer {
         
         this.commonRelicsBg = ViewUtils.createBitmapByName("commonRelicsBg_png");
         this.commonRelicsBg.name = "commonRelicsBg";
+        
+        this.commonRelicsArea = new egret.DisplayObjectContainer();
+        this.commonRelicsArea.name = "commonRelicsArea";
 
         this.switchBtnBg = ViewUtils.createBitmapByName("switchBtnBg_png");
         this.switchBtnBg.name = "switchBtnBg";
@@ -91,14 +96,41 @@ class CharacterView extends egret.DisplayObjectContainer {
         this.currentStorey = new egret.TextField();
         this.currentStorey.name = "currentStorey";
 
+        this.volumeSwitchBtn = new TextButtonWithBg("volumeSwitchBtn_png");
+        this.volumeSwitchBtn.name = "volumeSwitchBtn";
+        this.volumeSwitchBtn["switchType"] = "volume";
+        this.volumeSwitchBtn.onClicked = () => this.onSwitch(this.volumeSwitchBtn);
+        
+        this.initAddElemAniAniSwitchBtn = new TextButtonWithBg("initAddElemAniAniSwitchBtn_png");
+        this.initAddElemAniAniSwitchBtn.name = "initAddElemAniAniSwitchBtn";
+        this.initAddElemAniAniSwitchBtn["switchType"] = "initAddElemAni";
+        this.initAddElemAniAniSwitchBtn.onClicked = () => this.onSwitch(this.initAddElemAniAniSwitchBtn);
+
+        this.coinAniSwitchBtn = new TextButtonWithBg("coinAniSwitchBtn_png");
+        this.coinAniSwitchBtn.name = "coinAniSwitchBtn";
+        this.coinAniSwitchBtn["switchType"] = "coinAni";
+        this.coinAniSwitchBtn.onClicked = () => this.onSwitch(this.coinAniSwitchBtn);
+
+        this.forbidIcons = new egret.DisplayObjectContainer();
+        this.forbidIcons.name = "forbidIcons";
+        var switches = [this.volumeSwitchBtn, this.initAddElemAniAniSwitchBtn, this.coinAniSwitchBtn];
+        for (var i = 0; i < 3; i++){
+            var forbidIcon = ViewUtils.createBitmapByName("switchBtnOff_png");
+            forbidIcon.name = switches[i].name + "ForbidIcon";
+            this.forbidIcons[switches[i].name] = forbidIcon;
+            this.forbidIcons.addChild(forbidIcon);
+            ViewUtils.multiLang(this, forbidIcon);
+        }
+
         this.goBackBtn = new ArrowButton(false, "goBack_png", 30);
         this.goBackBtn.name = "goBackBtn";
         this.goBackBtn.onClicked = () => this.goBack();
         this.goBackBtn.text = ViewUtils.getTipText("goBackBtn");
 
         var objs = [
-            this.bg, this.attrsBg, this.switchBtnBg, this.commonRelicsBg, this.avatar, this.avatarBg, this.occupationName, this.expBar, this.level, this.exp,
-            this.power, this.hp, this.dodge, this.coins, this.currentStorey, this.expBarMask, this.goBackBtn, this.exitBtn
+            this.bg, this.attrsBg, this.switchBtnBg, this.commonRelicsBg, this.commonRelicsArea, this.avatar, this.avatarBg, this.occupationName, this.expBar, this.level, this.exp,
+            this.expBarMask, this.power, this.hp, this.dodge, this.coins, this.currentStorey, this.volumeSwitchBtn, this.initAddElemAniAniSwitchBtn,
+            this.coinAniSwitchBtn, this.forbidIcons, this.goBackBtn, this.exitBtn
         ];
         ViewUtils.multiLang(this, ...objs);
 
@@ -122,6 +154,8 @@ class CharacterView extends egret.DisplayObjectContainer {
         this.refreshExpBar();
         this.refreshAttrs();
         this.refreshAvatar();
+        this.refreshSwitchStatus();
+        this.refreshCommonRelicsArea();
     }
 
     // 刷新头像和职业名称
@@ -166,6 +200,83 @@ class CharacterView extends egret.DisplayObjectContainer {
         this.currentStorey.text = this.player.currentTotalStorey().toString();
     }
 
+    // 刷新开关状态
+    refreshSwitchStatus(btns:TextButtonWithBg[] = undefined){
+        var switches = btns ? btns : [this.volumeSwitchBtn, this.initAddElemAniAniSwitchBtn, this.coinAniSwitchBtn];
+        for (var i = 0; i < switches.length; i++){
+            var s = switches[i];
+            if(Switch[s["switchType"]]()){
+                s.setTexName(s.name + "_png");
+                this.forbidIcons[s.name].alpha = 0;
+            }
+            else {
+                s.setTexName(s.name + "Gray_png");
+                this.forbidIcons[s.name].alpha = 1;
+            }
+        }
+    }
+
+    // 点击某个开关
+    onSwitch(btn:TextButtonWithBg){
+        Switch.onSwitch(btn["switchType"]);
+        this.refreshSwitchStatus([btn]);
+    }
+
+    xGap = 114;
+    yGap = 98;
+    xNum = 4;
+
+    // 刷新通用技能显示
+    refreshCommonRelicsArea(){
+        this.commonRelicsArea.removeChildren();
+
+        var commonRelics:string[] = GCfg.getOccupationCfg(this.player.occupation).commonRelics;
+
+        // 设置8个通用技能
+        var x = 72;
+        var y = 130;
+        var j = 0;
+        for (var i = 0; i < 8; i++) {
+            var relicType = commonRelics[i];
+            if (relicType){
+                var index = Utils.indexOf(this.player.allRelics, (r:Relic) => r.type == relicType);
+                if (index > -1){
+                    var relic = this.player.allRelics[index];
+                    var relicImg = ViewUtils.createBitmapByName(relic.getElemImgRes() + "_png");
+                    relicImg.x = x;
+                    relicImg.y = y;
+                    this.commonRelicsArea.addChild(relicImg);
+                    var stars = ViewUtils.createRelicLevelStars(relic, relicImg);
+                    stars.forEach((star, _) => this.commonRelicsArea.addChild(star));
+                }
+                // 玩家不带有此技能时,做一个假的用于显示的技能
+                else {
+                    var relic = <Relic>ElemFactory.create(relicType);
+                    var relicImg = ViewUtils.createBitmapByName(relic.getElemImgRes() + "_png");
+                    relicImg.x = x;
+                    relicImg.y = y;
+                    this.commonRelicsArea.addChild(relicImg);
+                    var stars = ViewUtils.createRelicLevelStars(relic, relicImg, true);
+                    stars.forEach((star, _) => this.commonRelicsArea.addChild(star));
+                }
+            }
+            else {
+                var relicImg = ViewUtils.createBitmapByName("lockedCommonRelick_png");
+                relicImg.x = x;
+                relicImg.y = y;
+                this.commonRelicsArea.addChild(relicImg);
+            }
+
+            x += this.xGap;
+            j ++;
+            if (j >= 4){
+                j = 0;
+                x = 72;
+                y = y + this.yGap;
+            }
+        }    
+    }
+
     doClose;
 
     goBack(r = undefined){
@@ -178,6 +289,6 @@ class CharacterView extends egret.DisplayObjectContainer {
         var ok = await this.confirmOkYesNo(undefined, content, true);
         if (ok)
             this.goBack("giveUpGame");
-        
+
     }
 }

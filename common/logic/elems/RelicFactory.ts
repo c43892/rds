@@ -727,15 +727,18 @@ class RelicFactory {
 
     // 每层增加n个相同Elem,Elem从给定的elemTypes里随机选取
     public static addElemsOnLevelInit(r:Relic):Relic{
-        return <Relic>ElemFactory.addAI("onLevelInited", async () => {
+        return <Relic>ElemFactory.addAI("onLevelInited", async (ps) => {
             var bt = r.bt();
             for(var i = 0; i < r.attrs.addOnLevelInit.num; i++){
                 var g = BattleUtils.findRandomEmptyGrid(bt);
                 if(g){
                     var elemType = r.attrs.addOnLevelInit.elems[r.bt().srand.nextInt(0, r.attrs.addOnLevelInit.elems.length)];
                     var e = bt.level.createElem(elemType, undefined, r.bt().player);
-                    await bt.fireEvent("onRelicEffect", {r:r});
-                    await bt.implAddElemAt(e, g.pos.x, g.pos.y);
+                    if (ps.skipAniSwitch && !Switch[ps.skipAniSwitch]())
+                        bt.fireEventSync("onRelicEffect", {r:r, skipAniSwitch:ps.skipAniSwitch});
+                    else
+                        await bt.fireEvent("onRelicEffect", {r:r, skipAniSwitch:ps.skipAniSwitch});
+                    await bt.implAddElemAt(e, g.pos.x, g.pos.y, undefined, ps.skipAniSwitch);
                 }
             }
         }, r)

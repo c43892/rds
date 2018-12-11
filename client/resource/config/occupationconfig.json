@@ -1,6 +1,7 @@
 {
     "Nurse":{
         "relics":{},
+        "commonRelics":["MedicineBox", "Power", "Endurance", "Agile", "Fierce", "TimeMachine", "MonsterHunter"],
         "initItems":["Clock", "Knife", "Magazine", "Shield", "Vest", "Baton", "Cloak", "WantedOrder", "EconomyMagazine"],
         "constItems":{"Clock":1, "Knife":1},
         "randomItems":{"num":[2, 3], "elems":{
@@ -16,6 +17,7 @@
     },
     "Rogue":{
         "relics":{},
+        "commonRelics":["GangMember", "Power", "Endurance", "Agile", "Fierce", "TimeMachine", "MonsterHunter"],
         "initItems":["Clock", "Knife", "Magazine", "Shield", "Vest", "Baton", "Cloak", "WantedOrder", "EconomyMagazine"],
         "constItems":{"Clock":1, "Knife":1},
         "randomItems":{"num":[2, 3], "elems":{

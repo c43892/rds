@@ -46,7 +46,7 @@ class PlantFactory {
             attrs = this.addNumberTypeAttr(attrs, "hp", attrs.level2AddHp);
             attrs = this.addNumberTypeAttr(attrs, "hp", attrs.level4AddHp);
             var p = this.createPlant(attrs);
-            p = MonsterFactory.doShareDamageOnPlayerHurt(attrs.level1Share + attrs.level3Share, p);
+            p = MonsterFactory.doShareDamageOnPlayerHurt(attrs.level1Share + attrs.level3AddShare, p);
             p.getElemImgRes = () => "NutWall";
             p.canNotUseReason = () => "nutWallUseDesc";
             return p;
@@ -59,7 +59,7 @@ class PlantFactory {
             attrs = this.addNumberTypeAttr(attrs, "hp", attrs.level2AddHp);
             attrs = this.addNumberTypeAttr(attrs, "hp", attrs.level4AddHp);
             var p = this.createPlant(attrs);
-            p = MonsterFactory.doShareDamageOnPlayerHurt(attrs.level1Share + attrs.level3Share + attrs.level5Share, p);
+            p = MonsterFactory.doShareDamageOnPlayerHurt(attrs.level1Share + attrs.level3AddShare + attrs.level5AddShare, p);
             p.getElemImgRes = () => "NutWall";
             p.canNotUseReason = () => "nutWallUseDesc";
             return p;
@@ -217,7 +217,7 @@ class PlantFactory {
             var level = player.bt().level;
             var attrs = level.getElemCfg("CherryBomb").attrs;
             attrs = Utils.clone(attrs);
-            attrs = this.addNumberTypeAttr(attrs, "power", attrs.level2power);
+            attrs = this.addNumberTypeAttr(attrs, "power", attrs.level2Power);
             attrs = this.addNumberTypeAttr(attrs, "critical", attrs.level3Critical);
             var p = this.createPlant(attrs);
             p.canUse = () => true;
@@ -242,7 +242,7 @@ class PlantFactory {
             var level = player.bt().level;
             var attrs = level.getElemCfg("CherryBomb").attrs;
             attrs = Utils.clone(attrs);
-            attrs = this.addNumberTypeAttr(attrs, "power", attrs.level2power);
+            attrs = this.addNumberTypeAttr(attrs, "power", attrs.level2Power);
             attrs = this.addNumberTypeAttr(attrs, "critical", attrs.level3Critical);
             var p = this.createPlant(attrs);
             p.canUse = () => true;
@@ -267,7 +267,7 @@ class PlantFactory {
             var level = player.bt().level;
             var attrs = level.getElemCfg("CherryBomb").attrs;
             attrs = Utils.clone(attrs);
-            attrs = this.addNumberTypeAttr(attrs, "power", attrs.level2power);
+            attrs = this.addNumberTypeAttr(attrs, "power", attrs.level2Power);
             attrs = this.addNumberTypeAttr(attrs, "critical", attrs.level3Critical);
             attrs = this.addArrTypeAttr(attrs, "attackFlags", "Pierce");
             var p = this.createPlant(attrs);

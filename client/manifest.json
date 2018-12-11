@@ -26,6 +26,7 @@
 		"bin-debug/logic/Level.js",
 		"bin-debug/logic/MonsterMarker.js",
 		"bin-debug/LoadingUI.js",
+		"bin-debug/logic/Switch.js",
 		"bin-debug/logic/User.js",
 		"bin-debug/logic/Utils.js",
 		"bin-debug/logic/Version.js",
