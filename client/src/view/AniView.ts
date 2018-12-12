@@ -1634,6 +1634,11 @@ class AniView extends egret.DisplayObjectContainer {
         AniUtils.tipAt(ViewUtils.getTipText("multAttack"), {x:p.x + 88, y:p.y+1}, 30);
     }
 
+    // 成就完成提示
+    public async onAchvFinished(ps){
+        AniUtils.tipAt("恭喜!完成成就:" + ps.achvName, {x:this.width/2, y:this.height/2}, 30);
+    }
+
     // 耿鬼长舌头攻击动画
     async gengarLick(sv:egret.DisplayObject) {
         var bodyOffset = {x:sv.width / 2, y:sv.height};

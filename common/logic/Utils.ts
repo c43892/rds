@@ -875,4 +875,29 @@ class Utils {
     public static getPlayerName(){
         return Utils.loadLocalData("playerName");
     }
+
+    // 保存成就数据
+    public static saveAchvData(key:string, data){
+        if (data != undefined){
+            var achvData = Utils.loadLocalData("Achv");
+            if (!achvData){
+                Utils.saveLocalData("Achv", {});
+                achvData = Utils.loadLocalData("Achv");
+            }
+            achvData[key] = data;
+            Utils.saveLocalData("Achv", achvData);
+        }
+    }
+
+    // 读取成就数据
+    public static loadAchvData(key:string) {
+        var achvData = Utils.loadLocalData("Achv");
+        // 如果还没有成就数据,则先存一个空的成就数据;
+        if (!achvData){
+            Utils.saveLocalData("Achv", {});
+            achvData = Utils.loadLocalData("Achv");
+        }       
+        
+        return achvData[key] ? JSON.parse(achvData[key]) : undefined;
+    }
 }

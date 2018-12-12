@@ -324,6 +324,9 @@ class Battle {
         // 战斗统计
         hs.push(this.player.st);
 
+        // 成就管理器
+        hs.push(this.player.am);
+
         return hs;
     }
 

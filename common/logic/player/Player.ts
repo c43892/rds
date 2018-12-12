@@ -24,6 +24,10 @@ class Player {
     // 战斗统计
     public st:BattleStatistics;
 
+    // 成就管理
+    public am:AchvMgr;
+    public preFinishAchvs:string[] = [];
+
     // 关卡逻辑
     public worldmap:WorldMap;
     public worldName:string;
@@ -61,6 +65,7 @@ class Player {
         p.relicsEquippedCapacity = Utils.getPlayerInitRelicsEquippedCapacity(p.difficulty);
 
         p.st = new BattleStatistics(p);
+        p.am = AchvMgrFactory.createAchvMgr(p);
 
         return p;
     }
@@ -392,6 +397,7 @@ class Player {
         p.worldmap = WorldMap.buildFromConfig(p.worldName, p);
         p.st = BattleStatistics.fromString(p, pinfo.statistics);
         p = Occupation.makeOccupationBuff(p);
+        p.am = AchvMgrFactory.createAchvMgr(p);
 
         return p
     }

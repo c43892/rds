@@ -175,6 +175,9 @@ class Main extends egret.DisplayObjectContainer {
 
         // 不合规名字配置
         GCfg.getInvalidNameCfg = () => ResMgr.getRes("invalidName_json");
+
+        // 成就配置
+        GCfg.getAchvCfg = () => ResMgr.getRes("achvCfg_json");
     }
 
     // 加载指定资源组
@@ -232,6 +235,7 @@ class Main extends egret.DisplayObjectContainer {
         var savedData = Utils.loadPlayer();
         var p:Player = savedData.player;
         this.mv.openStartup(p);
+        // Utils.removeLocalData("Achv"); // 删除所有成就数据
     }
 
     // 计算安全区域和主显示区域

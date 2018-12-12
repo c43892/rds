@@ -22,4 +22,5 @@ class GCfg {
     public static getMiscConfig; // 在misc.json获取各类单独的小配置
     public static getRandomNameCfg; // 获取随机玩家名所用的配置
     public static getInvalidNameCfg; // 获取随机玩家名所用的配置
+    public static getAchvCfg; // 获取成就配置
 }

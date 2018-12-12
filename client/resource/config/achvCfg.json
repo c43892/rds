@@ -1,0 +1,5 @@
+{
+    "Killed1":{"type":"monsterKilled", "condition":{"type":"EyeDemon", "killed":2}},
+    "Killed2":{"type":"monsterKilled", "condition":{"type":"ReviveZombie", "killed":2}},
+    "killed3":{"type":"multAchv", "condition":["Killed1", "Killed2"]}
+}
