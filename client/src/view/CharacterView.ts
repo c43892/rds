@@ -28,6 +28,7 @@ class CharacterView extends egret.DisplayObjectContainer {
 
     public onPlayerDead;
     public confirmOkYesNo;
+    public showElemDesc;
     
     constructor(w, h){
         super();
@@ -248,6 +249,9 @@ class CharacterView extends egret.DisplayObjectContainer {
                     this.commonRelicsArea.addChild(relicImg);
                     var stars = ViewUtils.createRelicLevelStars(relic, relicImg);
                     stars.forEach((star, _) => this.commonRelicsArea.addChild(star));
+                    relicImg["relic"] = relic;
+                    relicImg.touchEnabled = true;
+                    relicImg.addEventListener(egret.TouchEvent.TOUCH_TAP, (evt) => this.onClickRelic(evt), this);
                 }
                 // 玩家不带有此技能时,做一个假的用于显示的技能
                 else {
@@ -258,6 +262,8 @@ class CharacterView extends egret.DisplayObjectContainer {
                     this.commonRelicsArea.addChild(relicImg);
                     var stars = ViewUtils.createRelicLevelStars(relic, relicImg, true);
                     stars.forEach((star, _) => this.commonRelicsArea.addChild(star));
+                    relicImg.touchEnabled = true;
+                    relicImg.addEventListener(egret.TouchEvent.TOUCH_TAP, () => this.onClickFakeRelic(), this);
                 }
             }
             else {
@@ -265,6 +271,8 @@ class CharacterView extends egret.DisplayObjectContainer {
                 relicImg.x = x;
                 relicImg.y = y;
                 this.commonRelicsArea.addChild(relicImg);
+                relicImg.touchEnabled = true;
+                relicImg.addEventListener(egret.TouchEvent.TOUCH_TAP, () => this.onClickLock(), this);
             }
 
             x += this.xGap;
@@ -290,5 +298,21 @@ class CharacterView extends egret.DisplayObjectContainer {
         if (ok)
             this.goBack("giveUpGame");
 
+    }
+
+    // 点击玩家有的技能
+    async onClickRelic(evt:egret.TouchEvent){
+        var relic = evt.target["relic"];
+        await this.showElemDesc(relic);
+    }
+
+    // 点击玩家没有的技能
+    async onClickFakeRelic(){
+        await AniUtils.tipAt(ViewUtils.getTipText("noThisRelic"), {x:this.width/2, y:this.height/2});
+    }
+
+    // 点击禁用的图标
+    async onClickLock(){
+        await AniUtils.tipAt(ViewUtils.getTipText("thisIsLocked"), {x:this.width/2, y:this.height/2});
     }
 }

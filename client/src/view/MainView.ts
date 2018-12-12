@@ -95,6 +95,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.characterView = new CharacterView(w, h);
         this.characterView.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
         this.characterView.onPlayerDead = async () => await this.onPlayerDead(undefined);
+        this.characterView.showElemDesc = async (r:Relic) => await this.showElemDesc(r);
 
         // 世界地图
         this.wmv = new WorldMapView(w, h);
