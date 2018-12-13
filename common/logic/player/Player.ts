@@ -26,7 +26,6 @@ class Player {
 
     // 成就管理
     public am:AchvMgr;
-    public preFinishAchvs:string[] = [];
 
     // 关卡逻辑
     public worldmap:WorldMap;
@@ -345,6 +344,12 @@ class Player {
 
         for(var relic of removedRelicsInBag)
             this.addRelicInternal(relic, false);
+
+        // 确定获得预备完成的成就
+        for (var achvInfo of this.am.preFinishAchvs)
+            Utils.saveAchvData(achvInfo["achvName"], achvInfo["stage"]);
+
+        this.am.preFinishAchvs = [];
 
         return saveData;
     }

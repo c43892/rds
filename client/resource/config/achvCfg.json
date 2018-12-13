@@ -1,5 +1,31 @@
 {
-    "Killed1":{"type":"monsterKilled", "condition":{"type":"EyeDemon", "killed":2}},
-    "Killed2":{"type":"monsterKilled", "condition":{"type":"ReviveZombie", "killed":2}},
-    "killed3":{"type":"multAchv", "condition":["Killed1", "Killed2"]}
+    "Killed1": {
+        "type": "monsterKilled",
+        "stages": [
+            {"condition":{"type": "EyeDemon", "killed": 2}},
+            {"condition":{"type": "EyeDemon", "killed": 3}},
+            {"condition":{"type": "EyeDemon", "killed": 5}},
+            {"condition":{"type": "EyeDemon", "killed": 10}}
+        ]
+    },
+    "Killed2":{
+        "type":"monsterKilled", 
+        "stages":[
+            {"condition":{"type":"ReviveZombie", "killed":1}}
+        ]
+    },
+    "Killed3":{
+        "type":"monsterKilled", 
+        "stages":[
+            {"condition":{"type":"EyeDemon", "killed":1}}
+        ]
+    },
+    "Killed4":{
+        "type":"multAchv", 
+        "conditions":["Killed2", "Killed3"]
+    },
+    "Killed5":{
+        "type":"multAchv", 
+        "conditions":["Killed2", "Killed3", "Killed4"]
+    }
 }

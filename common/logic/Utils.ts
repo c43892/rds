@@ -879,25 +879,27 @@ class Utils {
     // 保存成就数据
     public static saveAchvData(key:string, data){
         if (data != undefined){
-            var achvData = Utils.loadLocalData("Achv");
-            if (!achvData){
-                Utils.saveLocalData("Achv", {});
-                achvData = Utils.loadLocalData("Achv");
-            }
+            var achvData = Utils.loadLocalItem("Achv");
+            if (!achvData)
+                achvData = Utils.initAchvData();
+
             achvData[key] = data;
-            Utils.saveLocalData("Achv", achvData);
+            Utils.saveLocalItem("Achv", achvData);
         }
     }
 
     // 读取成就数据
     public static loadAchvData(key:string) {
-        var achvData = Utils.loadLocalData("Achv");
+        var achvData = Utils.loadLocalItem("Achv");
         // 如果还没有成就数据,则先存一个空的成就数据;
-        if (!achvData){
-            Utils.saveLocalData("Achv", {});
-            achvData = Utils.loadLocalData("Achv");
-        }       
+        if (!achvData)  
+            achvData = Utils.initAchvData();
         
-        return achvData[key] ? JSON.parse(achvData[key]) : undefined;
+        return achvData[key] ? achvData[key] : undefined;
+    }
+
+    public static initAchvData(){
+        Utils.saveLocalItem("Achv", {});
+        return Utils.loadLocalItem("Achv");
     }
 }
