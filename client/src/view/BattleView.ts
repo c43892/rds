@@ -659,7 +659,7 @@ class BattleView extends egret.DisplayObjectContainer {
         return r;
     }
 
-    public showDeathGodStep(evt:egret.TouchEvent){
+    public showDeathGodStep(evt:egret.TouchEvent){        
         var tip = ViewUtils.formatString(ViewUtils.getTipText("showDeathGodStep"), this.player.deathStep);
         this.confirmOkYesNo("", tip, false);
     }

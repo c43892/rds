@@ -129,6 +129,20 @@ class GuideView extends egret.DisplayObjectContainer {
             // 存一下指引标记
             Utils.saveLocalData("onMonsterMarkedGuideFinished", true);
         });
+
+        // 遗物出现
+        bt.registerEvent("onRelicChanged", async (ps) => {
+            var subType = ps.subType;
+            if (subType != "addRelicByPickup")
+                return;
+
+            var e:Elem = ps.e;
+            var bt = e.bt();
+            if (bt.btType != "rookiePlay_5")
+                return;
+
+            await this.openAavatarView(this.bv.getChildByName("avatar"));
+        });
     }
 
     // 点击指引
@@ -688,6 +702,30 @@ class GuideView extends egret.DisplayObjectContainer {
         rev1();
     }
 
+    // 指引点击同时有对话框
+    async tapAtWithDialog(target:egret.DisplayObject, tex:string, name:string, str:string, x:number, y:number, onLeft:boolean = true, flipAvatar:boolean = false) {
+        this.forGuideType = "tap";
+        var rev1;
+        var rev2;
+
+        return new Promise<void>((r, _) => {
+            this.onTapped = (evt:egret.TouchEvent) => {
+                rev2();
+                rev1();
+
+                egret.TouchEvent.dispatchTouchEvent(this.tapTarget, egret.TouchEvent.TOUCH_TAP,
+                    evt.bubbles, evt.cancelable,
+                    evt.stageX, evt.stageY, evt.touchPointID, evt.touchDown);
+
+                r();
+                this.onTapped = undefined; 
+            };
+
+            rev1 = this.tapOrPressPrepare(target, true, {x:target.width/2, y:target.height/2});
+            rev2 = this.makeDialog(tex, name, str, x, y, onLeft, flipAvatar);
+        });
+    }
+
     // 各种引导流程
 
     // 测试对话
@@ -774,5 +812,12 @@ class GuideView extends egret.DisplayObjectContainer {
 
         // 把图标位置返回，外面播动画用
         return {x:this.x + this.dlgFrame.x + iconPos.x, y:this.y + this.dlgFrame.y + iconPos.y};
+    }
+
+    // 引导点击头像界面
+    async openAavatarView(avatar:egret.DisplayObject) {
+        await this.tapAtWithDialog(avatar, "ShopNpc", "name", "message", 0, 550);
+        await AniUtils.delay(2000);
+        await this.showDialog("Nurse", "护士", "干得好", 0, 550, true);
     }
 }

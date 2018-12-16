@@ -24,7 +24,7 @@
             "layout": {
 				"occupationBg": {"x":10, "y":-50},
 				"avatarBg": {"x":0, "y":0},
-				"avatar": {"x":100, "y":70},
+				"avatar": {"x":90, "y":70},
 				"avatarWeapon": {"x":50, "y":-150},
                 "expBar": {"x":3, "y":4},
                 "hpBar": {"x":144, "y":5},
