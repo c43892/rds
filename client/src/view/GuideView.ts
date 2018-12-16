@@ -133,7 +133,7 @@ class GuideView extends egret.DisplayObjectContainer {
         // 遗物出现
         bt.registerEvent("onRelicChanged", async (ps) => {
             var subType = ps.subType;
-            if (subType != "addRelicByPickup")
+            if (subType != "addRelicByRookie")
                 return;
 
             var e:Elem = ps.e;
