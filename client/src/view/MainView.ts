@@ -142,7 +142,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.st.openAllPropsView = async (props) => await this.openAllElemsView(props);
 
         // 指引层
-        this.gv = new GuideView(w, h, this.wmv, this.bv);
+        this.gv = new GuideView(w, h, this.wmv, this.bv, this.characterView);
 
         // 录像机如何启动新的录像战斗
         BattleRecorder.startNewBattleImpl = (p:Player, btType:string, btRandomSeed:number, trueRandomSeed:number, extraLevelLogic:string[]) => {

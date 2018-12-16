@@ -2,15 +2,17 @@
 class GuideView extends egret.DisplayObjectContainer {
     wmv:WorldMapView;
     bv:BattleView;
+    cv:CharacterView;
     
     bg:egret.Bitmap;
-    public constructor(w, h, wmv, bv) {
+    public constructor(w, h, wmv, bv, cv) {
         super();
         this.name = "guide";
         this.width = w;
         this.height = h;
         this.wmv = wmv;
         this.bv = bv;
+        this.cv = cv;
 
         // 背景响应点击
         this.bg = ViewUtils.createBitmapByName("translucent_png");
@@ -141,7 +143,7 @@ class GuideView extends egret.DisplayObjectContainer {
             if (bt.btType != "rookiePlay_5")
                 return;
 
-            await this.openAavatarView(this.bv.getChildByName("avatarBg"));
+            await this.openAvatarView();
         });
     }
 
@@ -792,9 +794,14 @@ class GuideView extends egret.DisplayObjectContainer {
     }
 
     // 引导点击头像界面
-    async openAavatarView(avatar:egret.DisplayObject) {
+    async openAvatarView() {
+        var avatar = this.bv.getChildByName("avatarBg");
         await this.tapWithDialog(avatar, "ShopNpc", "name", "message", 0, 550);
+
         await AniUtils.delay(2000);
         await this.showDialog("Nurse", "护士", "干得好", 0, 550, true);
+
+        var avatar = this.cv.getChildByName("goBackBtn");
+        await this.tapWithDialog(avatar, "ShopNpc", "name", "message", 0, 550);
     }
 }
