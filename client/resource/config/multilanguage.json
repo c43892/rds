@@ -26,26 +26,27 @@
 				"avatarBg": {"x":0, "y":0},
 				"avatar": {"x":100, "y":70},
 				"avatarWeapon": {"x":50, "y":-150},
-                "expBar": {"x":5, "y":4},
-                "hpBar": {"x":150, "y":5},
+                "expBar": {"x":3, "y":4},
+                "hpBar": {"x":144, "y":5},
 				"poisonedHpBar": {"x":150, "y":5},
-				"hp": {"x":148, "y":120, "w":30, "h":30},
+				"hp": {"x":144, "y":104, "w":30, "h":30},
+				"exp": {"x":2, "y":104, "w":30, "h":30},
 				
-				"moneyAndStoriesBg": {"x":190, "y":-10},
-                "power": {"x":44, "y":123, "w":50, "h":30},
-                "dodge": {"x":102, "y":123, "w":50, "h":30},
-                "money": {"x":230, "y":-1, "w":50, "h":30},
-                "storeyLv": {"x":305, "y":-1, "w":50, "h":30},
+                "power": {"x":40, "y":133, "w":50, "h":30},
+                "dodge": {"x":117, "y":133, "w":50, "h":30},
+                "money": {"x":15, "y":1065, "w":50, "h":30},
+                "storeyLv": {"x":570, "y":980, "w":50, "h":30},
 				
-				"deathGodBarBg": {"x":30, "y":975, "w":500},
-				"deathGodBar": {"x":50, "y":1003, "w":520},
-                "deathGodRed": {"x":30, "y":989},
-				"deathGodGray": {"x":30, "y":989},
+				"deathGodBarBg": {"x":213, "y":150, "w":365, "h":10},
+				"deathGodBar": {"x":213, "y":150, "w":365, "h":10},
+                "deathGodRed": {"x":213, "y":150},
+				"deathGodGray": {"x":213, "y":150},
 				
-				"relicsBg": {"x":188, "y":51, "w":281, "h":85},
-				"moreRelics": {"x":483, "y":65},
-				"elemsTip": {"x":215, "y":135, "w":420, "h":45},
-				"propsView": {"x":48, "y":1027, "w":535, "h":84},
+				"relicsBg": {"x":203, "y":10, "w":368, "h":120},
+				"moreRelics": {"x":586, "y":35, "h":80},
+				"moreProps": {"x":566, "y":1035},
+				"elemsTip": {"x":50, "y":975, "w":520, "h":45},
+				"propsView": {"x":74, "y":1028, "w":490, "h":86},
 				
 				"mapView": {"x":20, "y":190, "w":602, "h":774}
             }
@@ -510,6 +511,7 @@
 		"scoreInRank": {"EN": "ranking: {ranking}, best score {score}", "CNS": "排名: {ranking}, 最好成绩 {score}", "CNT": "排名: {1}, 最好成绩 {score}"},
 		"noThisRelic":{"EN": "don't have this skill", "CNS": "还未获得此技能", "CNT":"还未获得此技能"},
 		"thisIsLocked":{"EN": "this is locked", "CNS": "还未解锁", "CNT":"还未解锁"},
+		"notOpenYet":{"EN": "Do not open yet", "CNS": "暂未开放", "CNT": "暂未开放"},
 		"": {}
 	}
 }

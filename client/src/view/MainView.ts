@@ -236,7 +236,7 @@ class MainView extends egret.DisplayObjectContainer {
             this.battleEndedCallback(bt);
             await this.av.blackOut();
         });
-        bt.registerEvent("onGridChanged", (ps) => this.bv.monsterTip.onGridChanged(ps));
+        // bt.registerEvent("onGridChanged", (ps) => this.bv.monsterTip.onGridChanged(ps));
 
         // 新手指引
         this.gv.registerEvents(bt);
