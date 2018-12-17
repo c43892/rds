@@ -23,7 +23,6 @@ class WorldMapEventSelFactory {
         // 额外的抢劫事件
         var robChecker = {sels:sels, doExtraRobSel:false}
         player.triggerLogicPointSync("beforeCreateWorldMapEventSelGroup", robChecker);
-        Utils.log("robChecker.doExtraRobSel = " + robChecker.doExtraRobSel);
         if (robChecker.doExtraRobSel && extraRobSel)
             sels.unshift(extraRobSel);
 

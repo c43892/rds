@@ -49,7 +49,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.wmesFact = new WorldMapEventSelFactory();
         this.wmesFact.confirmOkYesNo = this.confirmOkYesNo;
         this.wmesFact.selRelic = this.selRelic;
-        this.wmesFact.openEventSelGroup = async (p:Player, group) => await this.openSelGroup(p, group);
+        this.wmesFact.openEventSelGroup = async (p:Player, group) => await this.openSelGroupByName(p, group);
         this.wmesFact.openSels = async (p:Player, title, desc, bg, sels) => await this.openSels(p, title, desc, bg, sels);
         this.wmesFact.openTurntable = async (turntable) => await this.openTurntable(turntable);
 
@@ -606,6 +606,13 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 await this.player.fireEvent("onPlayerDead");
             }
         }
+
+        // 记住当前信息，可能开局要给奖励
+        Utils.saveLocalData("lastLevelCompletedInfo", {
+            "lv": trueLv,
+            "relics": Utils.map(this.player.allRelics, (r:Relic) => r.type),
+            "props": Utils.map(this.player.props, (p:Prop) => p.type)
+        });
         
         // 可能又被复活了
         if (!this.player.isDead()) {
@@ -692,7 +699,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 };
 
                 this.wmesFact.selRelic = this.selRelic;
-                await this.openSelGroup(p, evt);
+                await this.openSelGroupByName(p, evt);
 
                 // 这一类事件是出现一次就不在出现
                 this.player.finishedEvent.push(evt);
@@ -704,10 +711,14 @@ class WorldMapView extends egret.DisplayObjectContainer {
         }
     }
 
+    async openSelGroupByName(p:Player, groupName) {
+        var selsGroup = GCfg.getWorldMapEventSelGroupsCfg(groupName);
+        await this.openSelGroup(p, selsGroup);
+    }
+
     async openSelGroup(p:Player, group) {
-        var selsGroup = GCfg.getWorldMapEventSelGroupsCfg(group);
-        var sels = this.wmesFact.createGroup(p, selsGroup.sels, selsGroup.extraRobSel);
-        await this.openEventSels(selsGroup.title, selsGroup.desc, selsGroup.bg, sels);
+        var sels = this.wmesFact.createGroup(p, group.sels, group.extraRobSel);
+        await this.openEventSels(group.title, group.desc, group.bg, sels);
     }
 
     async openSels(p:Player, title, desc, bg, sels) {

@@ -454,12 +454,42 @@ class MainView extends egret.DisplayObjectContainer {
                     if(Utils.checkRookiePlay())
                         await this.rookiePlay();
                     else {
-                        var r = await this.openOccSelView(p);
+                        var r = await this.openOccSelView();
                         if (r) {
                             this.newPlay(r["occ"], r["d"]);
+                            p = this.p; // newPlay 已经创建了新的 player
+
                             this.wmv.mapScrollPos = 0;
                             await this.av.blackOut();
                             await this.av.doWorldMapSlide(1, 2000, 1);
+
+                            // 根据上一次层数发放奖励
+                            var lastLevelCompletedInfo = Utils.loadLocalData("lastLevelCompletedInfo");
+                            if (lastLevelCompletedInfo) {
+                                var awardLv = Math.floor(lastLevelCompletedInfo.lv / 15);
+                                if (awardLv > 0) {
+                                    var selsGroup = GCfg.getWorldMapEventSelGroupsCfg("newPlayAward");
+                                    // 随机两个技能
+                                    var sel0 = selsGroup.sels[0];
+                                    var desc0 = sel0.desc;
+                                    sel0.desc = desc0.replace("$relicLv$", awardLv.toString());
+                                    sel0.ps.items = {};
+                                    for (var relicType of lastLevelCompletedInfo.relics)
+                                        sel0.ps.items[relicType] = 1;
+
+                                    // 随机多个技能
+                                    var sel1 = selsGroup.sels[1];
+                                    var desc1 = sel1.desc;
+                                    var propNum = awardLv * 3;
+                                    sel1.desc = desc1.replace("$propsNum$", propNum.toString());
+                                    sel1.ps.randomNum = propNum;
+                                    sel1.ps.items = {};
+                                    for (var propType of lastLevelCompletedInfo.props)
+                                        sel1.ps.items[propType] = 1;
+
+                                    await this.wmv.openSelGroup(p, selsGroup);
+                                }
+                            }
                         } else {
                             this.openStartup(p);
                         }
@@ -590,9 +620,9 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 打开角色选择界面
-    public async openOccSelView(p:Player) {
+    public async openOccSelView() {
         this.addChild(this.osv);
-        this.osv.refresh(p);
+        this.osv.refresh();
         await this.av.blackOut();
 
         if (!Utils.getPlayerName()){

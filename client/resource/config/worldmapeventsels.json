@@ -23,10 +23,27 @@
         "redirectSelGroup": "重建选项列表",
         "redirectSelGroup2": "重建选项列表",
         "toTurnTable": "",
-        "searchOnCorpse": "摸尸体"
+        "searchOnCorpse": "摸尸体",
+        "+specificRelics": "指定获得 {num} 个技能"
     },
 
     "groups": {
+        "newPlayAward": {
+            "title": "你想得到什么",
+            "desc": "做为你上一次努力的奖赏",
+            "sels": [{
+              "desc": "继承 2 个 $relicLv$ 级的随机技能",
+              "func": ["+randomItems"],
+              "ps": {"randomNum": 2, "items": {}}
+            }, {
+              "desc": "继承 $propsNum$ 个随机道具",
+              "func": ["+randomItems"],
+              "ps": {"randomNum": 0, "items": {}}
+            }, {
+              "desc": "<font color=#000000 size=20>[离开]</font>",
+              "func": ["exit"]
+            }]
+        },
         "a1": {
             "title": "天堂之光",
             "desc": "神圣的光芒落在你的面前，隔着远远你就能感受到它的威严和圣洁。",
