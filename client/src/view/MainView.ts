@@ -466,7 +466,7 @@ class MainView extends egret.DisplayObjectContainer {
                             // 根据上一次层数发放奖励
                             var lastLevelCompletedInfo = Utils.loadLocalData("lastLevelCompletedInfo");
                             if (lastLevelCompletedInfo) {
-                                var awardLv = Math.floor(lastLevelCompletedInfo.lv / 15);
+                                var awardLv = 2; // Math.floor(lastLevelCompletedInfo.lv / 15);
                                 if (awardLv > 0) {
                                     var selsGroup = GCfg.getWorldMapEventSelGroupsCfg("newPlayAward");
                                     // 随机两个技能
@@ -474,8 +474,10 @@ class MainView extends egret.DisplayObjectContainer {
                                     var desc0 = sel0.desc;
                                     sel0.desc = desc0.replace("$relicLv$", awardLv.toString());
                                     sel0.ps.items = {};
-                                    for (var relicType of lastLevelCompletedInfo.relics)
+                                    for (var relicType of lastLevelCompletedInfo.relics) {
                                         sel0.ps.items[relicType] = 1;
+                                        sel0.ps.relicLvs[relicType] = awardLv;
+                                    }
 
                                     // 随机多个技能
                                     var sel1 = selsGroup.sels[1];

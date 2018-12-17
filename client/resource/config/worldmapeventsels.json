@@ -34,7 +34,7 @@
             "sels": [{
               "desc": "继承 2 个 $relicLv$ 级的随机技能",
               "func": ["+randomItems"],
-              "ps": {"randomNum": 2, "items": {}}
+              "ps": {"randomNum": 2, "items": {}, "relicLvs":{}}
             }, {
               "desc": "继承 $propsNum$ 个随机道具",
               "func": ["+randomItems"],

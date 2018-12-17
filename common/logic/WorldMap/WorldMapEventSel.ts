@@ -209,6 +209,14 @@ class WorldMapEventSelFactory {
             var es = Utils.randomSelectByWeightWithPlayerFilter(p, ps.items, p.playerRandom, ps.randomNum, ps.randomNum+1, true);
             for (var et of es) {
                 var e = ElemFactory.create(et);
+
+                // 需要增加额外等级
+                if (e instanceof Relic && ps.relicLvs && ps.relicLvs[et] > 1) {
+                    var r = <Relic>e;
+                    for (var lv = 1; lv < ps.relicLvs[et]; lv++)
+                        r.reinforceLvUp();
+                }
+
                 delete ps.items[et];
                 await this.implAddItem(p, e);
             }

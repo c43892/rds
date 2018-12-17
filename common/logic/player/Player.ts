@@ -482,7 +482,9 @@ class Player {
         var allRelics = this.allRelics;
         var n = Utils.indexOf(allRelics, (r) => r.type == e.type);
         if (n >= 0) {
-            allRelics[n].reinforceLvUp();
+            for (var i = 0; i <= e.reinforceLv; i++)
+                allRelics[n].reinforceLvUp();
+
             return;
         }
 
