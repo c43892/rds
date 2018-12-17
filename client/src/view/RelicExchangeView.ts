@@ -22,7 +22,6 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
     public showDescView;
     public confirmOkYesNo;
     public relicConfirmView;
-    
 
     constructor(w, h) {
         super();
@@ -97,14 +96,24 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
         this.setEmptyGrids();
     }
 
-    public async open(canDrag:boolean = true, funcOnClick = "showDesc", hideGoBackBtn = false) {
+public async open(canDrag:boolean = true, funcOnClick = "showDesc", hideGoBackBtn = false, relics4Sel = undefined) {
         this.canDrag = canDrag;
         this.funcOnClick = funcOnClick;
         this.page = 0;
-        this.rsEquipped = [...this.player.relicsEquipped];
-        this.rsInBag = [...this.player.relicsInBag];
+        if (!relics4Sel) { // 没指定候选表， 默认用角色身上的
+            this.rsEquipped = [...this.player.relicsEquipped];
+            this.rsInBag = [...this.player.relicsInBag];
+            this.titleEquipped.alpha = 1;
+            this.titleInBag.alpha = 1;
+        } else { // 有单独给候选表，就用给的
+            this.rsEquipped = relics4Sel.length > 12 ? relics4Sel.slice(0, 12) : relics4Sel;
+            this.rsInBag = relics4Sel.length > 12 ? relics4Sel.slice(12, relics4Sel.length) : [];
+            this.titleEquipped.alpha = 0;
+            this.titleInBag.alpha = 0;
+        }
+        
         // 处理返回和前进按钮
-        if (!this.canDrag){
+        if (!this.canDrag) {
             this.goOnBtn.alpha = 0;
             this.goOnBtn.touchEnabled = false;
         } else {
@@ -118,14 +127,14 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
             this.goBackBtn.alpha = 1;
             this.goBackBtn.touchEnabled = true;
         }
-        this.refresh();
+        this.refresh(!!relics4Sel);
         return new Promise<number>((resolve, reject) => this.doClose = resolve);
     }
 
     private doClose;
 
-    private refresh() {
-        this.refreshRelicEquipped();
+    private refresh(hideLock = false) {
+        this.refreshRelicEquipped(hideLock);
         this.refreshRelicInBagArea();
     }
 
@@ -133,8 +142,8 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
     readonly GridSize = 84; // 图标大小
     readonly ShowNum = 12; // 单页展示数量
 
-    private refreshRelicEquipped() {
-        this.refreshGrids(this.rsEquipped, true);
+    private refreshRelicEquipped(hideLock) {
+        this.refreshGrids(this.rsEquipped, true, hideLock);
     }
 
     private refreshRelicInBagArea() {
@@ -207,7 +216,7 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
     }
 
     // 刷新格子里的遗物图像等,只刷新装备的或背包里的12个格子
-    private refreshGrids(relics: Relic[] = [], equipped:boolean) {
+    private refreshGrids(relics: Relic[] = [], equipped:boolean, hideLock:boolean = false) {
         if (equipped)
             var containerArr = this.equippedGrids;
         else
@@ -238,7 +247,7 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
                     emptyGridBg.width = emptyGridBg.height = this.GridSize;
                     container.addChild(emptyGridBg);
                 }
-                else if (i >= this.player.relicsEquippedCapacity) {
+                else if (!hideLock && i >= this.player.relicsEquippedCapacity) {
                     container["relic"] = undefined;
                     container["elem"] = "lock";                    
                     var l = ViewUtils.createBitmapByName("relicLock_png");
@@ -484,6 +493,14 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
                         } else {
                             await AniUtils.tipAt(ViewUtils.getTipText("tipOnCannotReinfoce"), {x:this.width/2, y:this.height/2});
                         }
+                        break;
+                    }
+                }
+                case "selectRelicWithoutConfirm": {
+                    if (RelicExchangeView.dragFromImg["elem"] == "relicAndStar") {
+                        var r:Relic = RelicExchangeView.dragFromImg["relic"];
+                        r = <Relic>ElemFactory.create(r.type);
+                        this.doClose(r);
                         break;
                     }
                 }

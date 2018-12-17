@@ -14,6 +14,7 @@ class WorldMapEventSelFactory {
     public startBattle;
     public confirmOkYesNo; // yesno 确认
     public selRelic; // 选择遗物
+    public selRelic2Inherit; // 选择要继承的遗物
     public openEventSelGroup; // 重新打开一个选项组
     public openSels; // 重新打开一个选项列表
     public openTurntable; // 打开转盘
@@ -219,6 +220,24 @@ class WorldMapEventSelFactory {
 
                 delete ps.items[et];
                 await this.implAddItem(p, e);
+            }
+        }, sel),
+        "+specificRelics": (sel:WMES, p:Player, ps) => this.exec(async () => {
+            // 选择几个指定技能，并获取
+            var num = ps.num;
+            var items = Utils.map(ps.items, (it) => ElemFactory.create(it));
+            while (num > 0 && items.length > 0) {
+                var r = await this.selRelic2Inherit(items);
+                if (r instanceof Relic) {
+                    if (ps.relicLvs && ps.relicLvs[r.type] > 1) {
+                        for (var lv = 1; lv < ps.relicLvs[r.type]; lv++)
+                            r.reinforceLvUp();
+                    }
+
+                    num--;
+                    items = Utils.removeFirstWhen(items, (it) => it.type == r.type);
+                    await this.implAddItem(p, r);
+                }
             }
         }, sel),
         "redirectSelGroup": (sel:WMES, p:Player, ps) => this.exec(async () => {

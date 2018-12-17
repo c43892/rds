@@ -104,7 +104,7 @@ class SettingView extends egret.DisplayObjectContainer{
         Utils.saveLocalData("SysSetting_AudioOn", AudioFactory.AudioOn);
     }
 
-    async exitThisGame(){
+    async exitThisGame() {
         var content = ViewUtils.formatString(ViewUtils.getTipText("makeSureExitThisGame"));
         var ok = await this.confirmOkYesNo(undefined, content, true);
         if (ok){

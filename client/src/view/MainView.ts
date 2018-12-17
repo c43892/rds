@@ -107,6 +107,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.openEventSels = async (title, desc, bg, sels) => await this.openWorldMapEventSels(title, desc, bg, sels);
         this.wmv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
         this.wmv.selRelic = async () => await this.openRelicExchangeView(false, false, "selectRelic", true);
+        this.wmv.selRelic2Inherit = async (relics4Sel) => await this.openRelicExchangeView(false, false, "selectRelicWithoutConfirm", false, relics4Sel);
         this.wmv.openFinishGameView = async () => await this.openFinishGameView();
         this.wmtv = new WorldMapTopView(w, 80);
         this.wmtv.openSettingView = async () => await this.openSettingView();
@@ -466,32 +467,45 @@ class MainView extends egret.DisplayObjectContainer {
                             // 根据上一次层数发放奖励
                             var lastLevelCompletedInfo = Utils.loadLocalData("lastLevelCompletedInfo");
                             if (lastLevelCompletedInfo) {
-                                var awardLv = 2; // Math.floor(lastLevelCompletedInfo.lv / 15);
+                                var awardLv = Math.floor(lastLevelCompletedInfo.lv / 15);
                                 if (awardLv > 0) {
                                     var selsGroup = GCfg.getWorldMapEventSelGroupsCfg("newPlayAward");
-                                    // 随机两个技能
+
+                                    // 指定一个技能
                                     var sel0 = selsGroup.sels[0];
                                     var desc0 = sel0.desc;
                                     sel0.desc = desc0.replace("$relicLv$", awardLv.toString());
-                                    sel0.ps.items = {};
+                                    sel0.ps.items = [];
                                     for (var relicType of lastLevelCompletedInfo.relics) {
-                                        sel0.ps.items[relicType] = 1;
+                                        sel0.ps.items.push(relicType);
                                         sel0.ps.relicLvs[relicType] = awardLv;
                                     }
 
-                                    // 随机多个技能
+                                    // 随机两个技能
                                     var sel1 = selsGroup.sels[1];
                                     var desc1 = sel1.desc;
-                                    var propNum = awardLv * 3;
-                                    sel1.desc = desc1.replace("$propsNum$", propNum.toString());
-                                    sel1.ps.randomNum = propNum;
+                                    sel1.desc = desc1.replace("$relicLv$", awardLv.toString());
                                     sel1.ps.items = {};
+                                    for (var relicType of lastLevelCompletedInfo.relics) {
+                                        sel1.ps.items[relicType] = 1;
+                                        sel1.ps.relicLvs[relicType] = awardLv;
+                                    }
+
+                                    // 随机多个技能
+                                    var sel2 = selsGroup.sels[2];
+                                    var desc0 = sel2.desc;
+                                    var propNum = awardLv * 3;
+                                    sel2.desc = desc0.replace("$propsNum$", propNum.toString());
+                                    sel2.ps.randomNum = propNum;
+                                    sel2.ps.items = {};
                                     for (var propType of lastLevelCompletedInfo.props)
-                                        sel1.ps.items[propType] = 1;
+                                        sel2.ps.items[propType] = 1;
 
                                     await this.wmv.openSelGroup(p, selsGroup);
                                 }
                             }
+
+                            Utils.saveLocalData("lastLevelCompletedInfo", undefined);
                         } else {
                             this.openStartup(p);
                         }
@@ -557,14 +571,14 @@ class MainView extends egret.DisplayObjectContainer {
         return yesno;
     }
 
-    public async openRelicExchangeView(inBattle:boolean, canDrag:boolean, funcOnClinked = "showDesc", hideGoBackBtn = false){
+    public async openRelicExchangeView(inBattle:boolean, canDrag:boolean, funcOnClinked = "showDesc", hideGoBackBtn = false, relics4Sel = undefined){
         this.rev.player = this.p;
         this.addChild(this.rev);
 
         if (!inBattle)
             this.setChildIndex(this.wmtv, -1);
 
-        var result = await this.rev.open(canDrag, funcOnClinked, hideGoBackBtn);
+        var result = await this.rev.open(canDrag, funcOnClinked, hideGoBackBtn, relics4Sel);
         this.removeChild(this.rev);
         return result;
     }

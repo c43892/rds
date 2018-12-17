@@ -17,6 +17,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
     public openEventSels; // 选项事件
     public confirmOkYesNo; // yesno 确认
     public selRelic; // 选择遗物
+    public selRelic2Inherit; // 选择用于继承的遗物
     public openFinishGameView; // 通关
 
     private wmesFact:WorldMapEventSelFactory;
@@ -48,10 +49,13 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
         this.wmesFact = new WorldMapEventSelFactory();
         this.wmesFact.confirmOkYesNo = this.confirmOkYesNo;
-        this.wmesFact.selRelic = this.selRelic;
+        this.wmesFact.selRelic = async () => await this.selRelic();
         this.wmesFact.openEventSelGroup = async (p:Player, group) => await this.openSelGroupByName(p, group);
         this.wmesFact.openSels = async (p:Player, title, desc, bg, sels) => await this.openSels(p, title, desc, bg, sels);
         this.wmesFact.openTurntable = async (turntable) => await this.openTurntable(turntable);
+        this.wmesFact.selRelic2Inherit = async (relics4sel) => {
+            return await this.selRelic2Inherit(relics4sel);
+        };
 
         this.btnSymbolDesc = new TextButtonWithBg("SymbolDescbtn_png");
         this.btnSymbolDesc.name = "btnSymbolDesc";
@@ -554,6 +558,14 @@ class WorldMapView extends egret.DisplayObjectContainer {
         var nodeType = this.worldmap.nodes[lv][n].roomType;
         var p = this.worldmap.player;
         var trueLv = p.currentTotalStorey();
+
+        // 记住当前信息，可能开局要给奖励
+        Utils.saveLocalData("lastLevelCompletedInfo", {
+            "lv": trueLv,
+            "relics": Utils.map(this.player.allRelics, (r:Relic) => r.type),
+            "props": Utils.map(this.player.props, (p:Prop) => p.type)
+        });
+        
         switch(nodeType) {
             case "normal":
                 var btRandonSeed = p.playerRandom.nextInt(0, 10000);
@@ -698,7 +710,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                     await this.startNewBattle(p, battleType, lv, n, btRandonSeed, false, extraLevelLogic);
                 };
 
-                this.wmesFact.selRelic = this.selRelic;
+                // this.wmesFact.selRelic = this.selRelic;
                 await this.openSelGroupByName(p, evt);
 
                 // 这一类事件是出现一次就不在出现

@@ -364,8 +364,7 @@ class Utils {
 
     // 保存指定数据
     public static saveLocalData(key:string, data) {
-        if (data != undefined)
-            Utils.saveLocalItem(key, JSON.stringify(data));
+        Utils.saveLocalItem(key, !!data ? JSON.stringify(data) : undefined);
     }
 
     // 删除指定数据
