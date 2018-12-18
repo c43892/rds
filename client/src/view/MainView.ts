@@ -107,7 +107,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.openEventSels = async (title, desc, bg, sels) => await this.openWorldMapEventSels(title, desc, bg, sels);
         this.wmv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
         this.wmv.selRelic = async () => await this.openRelicExchangeView(false, false, "selectRelic", true);
-        this.wmv.selRelic2Inherit = async (relics4Sel) => await this.openRelicExchangeView(false, false, "selectRelicWithoutConfirm", false, relics4Sel);
+        this.wmv.selRelic2Inherit = async (relics4Sel) => await this.openRelicExchangeView(false, false, "selectRelicWithoutConfirm", true, relics4Sel);
         this.wmv.openFinishGameView = async () => await this.openFinishGameView();
         this.wmtv = new WorldMapTopView(w, 80);
         this.wmtv.openSettingView = async () => await this.openSettingView();
@@ -458,7 +458,6 @@ class MainView extends egret.DisplayObjectContainer {
                         var r = await this.openOccSelView();
                         if (r) {
                             this.newPlay(r["occ"], r["d"]);
-                            p = this.p; // newPlay 已经创建了新的 player
 
                             this.wmv.mapScrollPos = 0;
                             await this.av.blackOut();
@@ -466,44 +465,8 @@ class MainView extends egret.DisplayObjectContainer {
 
                             // 根据上一次层数发放奖励
                             var lastLevelCompletedInfo = Utils.loadLocalData("lastLevelCompletedInfo");
-                            if (lastLevelCompletedInfo) {
-                                var awardLv = Math.floor(lastLevelCompletedInfo.lv / 15);
-                                if (awardLv > 0) {
-                                    var selsGroup = GCfg.getWorldMapEventSelGroupsCfg("newPlayAward");
-
-                                    // 指定一个技能
-                                    var sel0 = selsGroup.sels[0];
-                                    var desc0 = sel0.desc;
-                                    sel0.desc = desc0.replace("$relicLv$", awardLv.toString());
-                                    sel0.ps.items = [];
-                                    for (var relicType of lastLevelCompletedInfo.relics) {
-                                        sel0.ps.items.push(relicType);
-                                        sel0.ps.relicLvs[relicType] = awardLv;
-                                    }
-
-                                    // 随机两个技能
-                                    var sel1 = selsGroup.sels[1];
-                                    var desc1 = sel1.desc;
-                                    sel1.desc = desc1.replace("$relicLv$", awardLv.toString());
-                                    sel1.ps.items = {};
-                                    for (var relicType of lastLevelCompletedInfo.relics) {
-                                        sel1.ps.items[relicType] = 1;
-                                        sel1.ps.relicLvs[relicType] = awardLv;
-                                    }
-
-                                    // 随机多个技能
-                                    var sel2 = selsGroup.sels[2];
-                                    var desc0 = sel2.desc;
-                                    var propNum = awardLv * 3;
-                                    sel2.desc = desc0.replace("$propsNum$", propNum.toString());
-                                    sel2.ps.randomNum = propNum;
-                                    sel2.ps.items = {};
-                                    for (var propType of lastLevelCompletedInfo.props)
-                                        sel2.ps.items[propType] = 1;
-
-                                    await this.wmv.openSelGroup(p, selsGroup);
-                                }
-                            }
+                            if (lastLevelCompletedInfo)
+                                await this.selAwardInherited(lastLevelCompletedInfo);
 
                             Utils.saveLocalData("lastLevelCompletedInfo", undefined);
                         } else {
@@ -513,6 +476,46 @@ class MainView extends egret.DisplayObjectContainer {
                 }
             }
         };
+    }
+
+    // 选择继承奖励
+    public async selAwardInherited(lastLevelCompletedInfo) {
+        var awardLv = Math.floor(lastLevelCompletedInfo.lv / 15);
+        if (awardLv > 0) {
+            var selsGroup = GCfg.getWorldMapEventSelGroupsCfg("newPlayAward");
+
+            // 指定一个技能
+            var sel0 = selsGroup.sels[0];
+            var desc0 = sel0.desc;
+            sel0.desc = desc0.replace("$relicLv$", awardLv.toString());
+            sel0.ps.items = [];
+            for (var relicType of lastLevelCompletedInfo.relics) {
+                sel0.ps.items.push(relicType);
+                sel0.ps.relicLvs[relicType] = awardLv;
+            }
+
+            // 随机两个技能
+            var sel1 = selsGroup.sels[1];
+            var desc1 = sel1.desc;
+            sel1.desc = desc1.replace("$relicLv$", awardLv.toString());
+            sel1.ps.items = {};
+            for (var relicType of lastLevelCompletedInfo.relics) {
+                sel1.ps.items[relicType] = 1;
+                sel1.ps.relicLvs[relicType] = awardLv;
+            }
+
+            // 随机多个技能
+            var sel2 = selsGroup.sels[2];
+            var desc0 = sel2.desc;
+            var propNum = awardLv * 3;
+            sel2.desc = desc0.replace("$propsNum$", propNum.toString());
+            sel2.ps.randomNum = propNum;
+            sel2.ps.items = {};
+            for (var propType of lastLevelCompletedInfo.props)
+                sel2.ps.items[propType] = 1;
+
+            await this.wmv.openSelGroup(this.p, selsGroup);
+        }
     }
 
     // 角色死亡

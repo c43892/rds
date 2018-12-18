@@ -282,7 +282,7 @@ public async open(canDrag:boolean = true, funcOnClick = "showDesc", hideGoBackBt
 
     async goBack() {
         if (!this.canDrag) 
-            this.doClose(-1);        
+            this.doClose(-1);
         else {
             var yesno = await this.confirmOkYesNo(ViewUtils.getTipText("makeSureGiveUpTitle"), ViewUtils.getTipText("makeSureGiveUpContent"), true);
             if (yesno) 
