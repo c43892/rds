@@ -484,12 +484,15 @@ class MainView extends egret.DisplayObjectContainer {
         if (awardLv > 0) {
             var selsGroup = GCfg.getWorldMapEventSelGroupsCfg("newPlayAward");
 
+            var relics = Utils.filter(lastLevelCompletedInfo.relics, (r) => Utils.occupationCompatible(this.p.occupation, r));
+            var props = Utils.filter(lastLevelCompletedInfo.props, (p) => Utils.occupationCompatible(this.p.occupation, p));
+
             // 指定一个技能
             var sel0 = selsGroup.sels[0];
             var desc0 = sel0.desc;
             sel0.desc = desc0.replace("$relicLv$", awardLv.toString());
             sel0.ps.items = [];
-            for (var relicType of lastLevelCompletedInfo.relics) {
+            for (var relicType of relics) {
                 sel0.ps.items.push(relicType);
                 sel0.ps.relicLvs[relicType] = awardLv;
             }
@@ -499,10 +502,12 @@ class MainView extends egret.DisplayObjectContainer {
             var desc1 = sel1.desc;
             sel1.desc = desc1.replace("$relicLv$", awardLv.toString());
             sel1.ps.items = {};
-            for (var relicType of lastLevelCompletedInfo.relics) {
+            for (var relicType of relics) {
                 sel1.ps.items[relicType] = 1;
                 sel1.ps.relicLvs[relicType] = awardLv;
             }
+            if (relics.length < sel1.ps.randomNum)
+                sel1.ps.randomNum = relics.length;
 
             // 随机多个技能
             var sel2 = selsGroup.sels[2];
@@ -511,8 +516,10 @@ class MainView extends egret.DisplayObjectContainer {
             sel2.desc = desc0.replace("$propsNum$", propNum.toString());
             sel2.ps.randomNum = propNum;
             sel2.ps.items = {};
-            for (var propType of lastLevelCompletedInfo.props)
+            for (var propType of props)
                 sel2.ps.items[propType] = 1;
+            if (props.length < sel2.ps.randomNum)
+                sel2.ps.randomNum = props.length;
 
             await this.wmv.openSelGroup(this.p, selsGroup);
         }

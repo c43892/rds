@@ -206,7 +206,7 @@ class WorldMapEventSelFactory {
                 if (nextSelsGroup)
                     await this.openEventSelGroup(p, nextSelsGroup);
         }, sel)),
-        "+randomItems": (sel:WMES, p:Player, ps) => this.exec(async () => {
+        "+randomItems": (sel:WMES, p:Player, ps) => this.valid(() => ps.randomNum > 0, this.exec(async () => {
             var es = Utils.randomSelectByWeightWithPlayerFilter(p, ps.items, p.playerRandom, ps.randomNum, ps.randomNum+1, true);
             for (var et of es) {
                 var e = ElemFactory.create(et);
@@ -221,8 +221,8 @@ class WorldMapEventSelFactory {
                 delete ps.items[et];
                 await this.implAddItem(p, e);
             }
-        }, sel),
-        "+specificRelics": (sel:WMES, p:Player, ps) => this.exec(async () => {
+        }, sel)),
+        "+specificRelics": (sel:WMES, p:Player, ps) => this.valid(() => ps.num > 0 && ps.items.length > 0, this.exec(async () => {
             // 选择几个指定技能，并获取
             var num = ps.num;
             var items = Utils.map(ps.items, (it) => ElemFactory.create(it));
@@ -239,7 +239,7 @@ class WorldMapEventSelFactory {
                     await this.implAddItem(p, r);
                 }
             }
-        }, sel),
+        }, sel)),
         "redirectSelGroup": (sel:WMES, p:Player, ps) => this.exec(async () => {
             if (p.isDead())
                 sel.exit = () => true;
