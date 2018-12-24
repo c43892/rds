@@ -512,6 +512,8 @@
 		"noThisRelic":{"EN": "don't have this skill", "CNS": "还未获得此技能", "CNT":"还未获得此技能"},
 		"thisIsLocked":{"EN": "this is locked", "CNS": "还未解锁", "CNT":"还未解锁"},
 		"notOpenYet":{"EN": "Do not open yet", "CNS": "暂未开放", "CNT": "暂未开放"},
+		"watchRewardAds":{"EN": "Watch Ads", "CNS": "看广告", "CNT": "看广告"},
+		"justDie":{"EN": "Just Die", "CNS": "死亡", "CNT": "死亡"},
 		"": {}
 	}
 }
