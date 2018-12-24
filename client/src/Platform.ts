@@ -60,22 +60,23 @@ class DefaultPaltform implements Platform {
     }
 
     public canPlayAdsReborn() {
-        return /* this.adMobReady && */ (egret.Capabilities.os == "iOS" || egret.Capabilities.os == "Android");
+        return this.adMobReady && (egret.Capabilities.os == "iOS" || egret.Capabilities.os == "Android");
     }
 
-    // public async playRewardAds(callback) {
-    public playRewardAds(callback) {
+    public async playRewardAds(callback) {
+    // public playRewardAds(callback) {
         if (this.canPlayAdsReborn()) { // egret.Capabilities.os == "iOS" || egret.Capabilities.os == "Android") {
-            // var promise = new Promise((r, _) => {
-            //     this.rewardAdsCompletedCallback = (msg) => {
-            //         Utils.log("ads reward callback: " + msg);
-            //         callback(msg == "");
-            //         r();
-            //     };
-            // });
+            var promise = new Promise((r, _) => {
+                this.rewardAdsCompletedCallback = (msg) => {
+                    Utils.log("ads reward callback: " + msg);
+                    callback(msg == "");
+                    r();
+                };
+            });
+            this.adMobReady = false;
             window["ExternalInterface"].call("rdsPlayRewardAds", "");
             callback(true);
-            // return promise;
+            return promise;
         } else {
             Utils.log("ads: play reward ads: adMobReady = " + this.adMobReady);
         }

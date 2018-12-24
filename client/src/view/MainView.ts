@@ -537,22 +537,22 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 打开角色死亡界面
     public async openPlayerDieView(ps) {
-        if (window.platform.canShare()) {
-            ps.reborn = await this.confirmOkYesNo("不幸死亡", "确定分享给好友并复活吗？", true);
-            if (ps.reborn)
-                window.platform.shareGame();
-        } else if (window.platform.canPlayAdsReborn()) {
-            var watchAds = true;
-            while (watchAds && !ps.reborn) {
-                watchAds = await this.confirmOkYesNo("不幸死亡", "是否观看广告复活？", true, 
-                    {yes:"watchRewardAds", cancel:"justDie"});
-
-                if (watchAds)
-                    window.platform.playRewardAds((reward) => ps.reborn = reward);
+        var watchAds = true;
+        while (watchAds && !ps.reborn) {
+            if (window.platform.canShare()) {
+                watchAds = false;
+                ps.reborn = await this.confirmOkYesNo("不幸死亡", "确定分享给好友并复活吗？", true);
+                if (ps.reborn)
+                    window.platform.shareGame();
+            } else if (window.platform.canPlayAdsReborn()) {
+                if (await this.confirmOkYesNo("不幸死亡", "是否观看广告复活？", true, 
+                    {yes:"watchRewardAds", cancel:"justDie"}))
+                    await window.platform.playRewardAds((reward) => ps.reborn = reward);
+            } else {
+                watchAds = false;
+                await this.confirmOkYesNo("不幸死亡", "游戏结束", false);
+                ps.reborn = false;
             }
-        } else {
-            await this.confirmOkYesNo("不幸死亡", "游戏结束", false);
-            ps.reborn = false;
         }
     }
 
