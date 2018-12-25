@@ -739,11 +739,9 @@ class GuideView extends egret.DisplayObjectContainer {
         await AniUtils.delay(1400);
         await this.showDialog("Nurse", "护士", "免费小贴士，不一定要击杀所有怪物，拿到宝物然后去下一层也是不错的选择", 0, 550, true);                
         await this.showDialog("EyeDemon", "眼魔", "啊，我的眼睛，魔王的战士会再次归来的！", 0, 550, false);
-        await this.showDialog("Nurse", "护士", "看到了吧，眼魔死亡会打开空着的格子。现在我们学习一些新的操作", 0, 550, true);
-        await this.slide2OpenGridsWithDialog(1, 4, 4, 4, "Nurse", "护士", "来，跟着小手在屏幕上滑动", 0, 630, true);
-        await this.showDialog("Nurse", "护士", "干得漂亮，滑动可以快速开启格子，以后可以多使用", 0, 630, true);
-        await this.showDialog("Nurse", "护士", "现在我们看到一个苹果", 0, 630, true);
-        await this.slide2DragItemWithDialog(1, 4, 1, 2, "Nurse", "护士", "拖动它，看看格子上的数字是多少", 0, 630, true);
+        await this.showDialog("Nurse", "护士", "看到了吧，眼魔死亡会打开空着的格子。", 0, 550, true);
+        await this.tapGridWithDialog(1, 4, "Nurse", "护士", "现在点开闪光的格子", 0, 650, true);
+        await this.slide2DragItemWithDialog(1, 4, 1, 2, "Nurse", "护士", "有一个苹果，让我们拖动它，看看格子上的数字是多少", 0, 630, true);
         await this.showDialog("Nurse", "护士", "操作完成，数字是1，现在我们知道下面两个格子中有一个怪物。等等，我闻到了怪物的气息", 0, 630, true);
         await this.showDialog("Nurse", "护士", "再来一个新操作，我们手动做记号，提醒自己那个格子有怪物", 0, 550, true);
         await this.pressGridWithDialog(5, 1, "Nurse", "护士", "跟着小手长按那个格子", 0, 550, true);
