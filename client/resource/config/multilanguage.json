@@ -405,12 +405,12 @@
 	
 	"occupations": {
 		"Nurse": {
-			"desc": { "EN": "description of Nurse", "CNS": "这是护士的描述。这是护士的描述。这是护士的描述。这是护士的描述。", "CNT": "这是护士的描述" },
+			"desc": { "EN": "description of Nurse", "CNS": "护士妹妹拥有良好的恢复能力，是持久战的好手。", "CNT": "这是护士的描述" },
 			"name": { "EN": "Nurse", "CNS": "护士妹妹", "CNT": "护士妹妹" }
 		},
 		
 		"Rogue": {
-			"desc": { "EN": "description of Rogue", "CNS": "这是混混的描述。这是混混的描述。这是混混的描述。这是混混的描述。", "CNT": "这是混混的描述" },
+			"desc": { "EN": "description of Rogue", "CNS": "作为一个黑帮混混，抢劫商店是必备能力。", "CNT": "这是混混的描述" },
 			"name": { "EN": "Rogue", "CNS": "黑帮混混", "CNT": "黑帮混混" }
 		}
 	},
