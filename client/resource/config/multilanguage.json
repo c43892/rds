@@ -496,6 +496,11 @@
 		"diff3":{"EN": "diff3", "CNS": "普通", "CNT":"普通"},
 		"diff4":{"EN": "diff4", "CNS": "困难", "CNT":"困难"},
 		"diff5":{"EN": "diff5", "CNS": "地狱", "CNT":"地狱"},
+		"levelDifficultyDesc":{
+			"EN":["新手难度\r\n初始格子数 8", "简单难度\r\n初始格子数 7", "普通难度\r\n初始格子数 6", "困难难度\r\n初始格子数 5", "地狱难度\r\n初始格子数 4"],
+			"CNS":["新手难度\r\n初始格子数 8", "简单难度\r\n初始格子数 7", "普通难度\r\n初始格子数 6", "困难难度\r\n初始格子数 5", "地狱难度\r\n初始格子数 4"],
+			"CNT":["新手难度\r\n初始格子数 8", "简单难度\r\n初始格子数 7", "普通难度\r\n初始格子数 6", "困难难度\r\n初始格子数 5", "地狱难度\r\n初始格子数 4"]
+		},
 		"totalStoreyLevel": {"EN": "totalStoreyLevel", "CNS": "层数得分", "CNT": "总层数"},
 		"playerLevel": {"EN": "playerLevel", "CNS": "等级得分", "CNT": "等级得分"},
 		"totalCoins": {"EN": "totalCoins", "CNS": "金币得分", "CNT": "金币得分"},
