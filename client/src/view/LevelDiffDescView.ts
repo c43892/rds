@@ -4,7 +4,6 @@ class LevelDiffDescView extends egret.DisplayObjectContainer {
     descArr:egret.TextField[]; // 等级描述
     bbg:egret.Bitmap; // 半透明区域背景，点击关闭
     bg:egret.Bitmap; // 底图
-    bgMask:egret.Bitmap; // 底图
     btnLeft:TextButtonWithBg; // 向左箭头
     btnRight:TextButtonWithBg; // 向左箭头
 
@@ -15,6 +14,7 @@ class LevelDiffDescView extends egret.DisplayObjectContainer {
 
         // 半透明背景
         this.bbg = ViewUtils.createBitmapByName("black_png");
+        this.bbg.alpha = 0.75;
         this.bbg.width = this.width;
         this.bbg.height = this.height;
         this.bbg.x = this.bbg.y = 0;
@@ -27,11 +27,6 @@ class LevelDiffDescView extends egret.DisplayObjectContainer {
         this.bg.x = (this.width - this.bg.width) / 2;
         this.bg.y = (this.height - this.bg.height) / 2;
         this.addChild(this.bg);
-
-        this.bgMask = ViewUtils.createBitmapByName("confirmBg_png");
-        this.bgMask.x = this.bg.x;
-        this.bgMask.y = this.bg.y;
-        this.addChild(this.bgMask);
         
         // 五个等级的描述
         var descTxt = ViewUtils.getTipText("levelDifficultyDesc");
@@ -43,7 +38,13 @@ class LevelDiffDescView extends egret.DisplayObjectContainer {
             desc.y = this.bg.y;
             desc.x = this.bg.x + desc.width * i;
             desc.textFlow = ViewUtils.fromHtml(descTxt[i]);
-            desc.mask = this.bgMask;
+
+            var bgMask = ViewUtils.createBitmapByName("confirmBgMask_png");
+            bgMask.x = this.bg.x;
+            bgMask.y = this.bg.y;
+            desc.mask = bgMask;
+            this.addChild(bgMask);
+
             this.descArr.push(desc);
             this.addChild(desc);
         }
