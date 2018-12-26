@@ -14,8 +14,8 @@ declare interface Platform {
     getUserID():string;
 
     canPlayAdsReborn();
-    playRewardAds(callback);
 
+    playRewardAds(callback);
     canShare(): boolean;
     shareGame();
 
@@ -32,7 +32,7 @@ class DefaultPaltform implements Platform {
     rewardAdsCompletedCallback;
     async init() {
         if (egret.Capabilities.os == "iOS") {
-            window["ExternalInterface"].addCallback("rdsLoadLocalStorageDataCallback", (str) => {
+            egret.ExternalInterface.addCallback("rdsLoadLocalStorageDataCallback", (str) => {
                 this.iOSLoadLocalStorageDataCallback(str);
             });
         }
@@ -44,13 +44,12 @@ class DefaultPaltform implements Platform {
 
             Utils.log("ads registed callback");
 
-            window["ExternalInterface"].addCallback("notifyAdMobLoaded", (msg) => {
+            egret.ExternalInterface.addCallback("notifyAdMobLoaded", (msg) => {
                 Utils.log("ads notifyAdMobLoaded");
                 this.adMobReady = true;
             });
 
-            window["ExternalInterface"].addCallback("notifyRewardAdCompleted", (msg) => {
-                Utils.log("ads notifyRewardAdCompleted: " + msg);
+            egret.ExternalInterface.addCallback("notifyRewardAdCompleted", (msg) => {
                 if (this.rewardAdsCompletedCallback)
                     this.rewardAdsCompletedCallback(msg);
 
@@ -74,7 +73,7 @@ class DefaultPaltform implements Platform {
                 };
             });
             this.adMobReady = false;
-            window["ExternalInterface"].call("rdsPlayRewardAds", "");
+            egret.ExternalInterface.call("rdsPlayRewardAds", "");
             callback(true);
             return promise;
         } else {
@@ -127,7 +126,7 @@ class DefaultPaltform implements Platform {
                     }
                 };
 
-                window["ExternalInterface"].call("rdsLoadLocalStorageData", "");
+                egret.ExternalInterface.call("rdsLoadLocalStorageData", "");
             });
         } else {            
             try {
@@ -156,7 +155,7 @@ class DefaultPaltform implements Platform {
         byteArray.writeUTF(str);
         str = egret.Base64Util.encode(byteArray.buffer);
         if (egret.Capabilities.os == "iOS") {
-            window["ExternalInterface"].call("rdsSaveLocalStorageData", str);
+            egret.ExternalInterface.call("rdsSaveLocalStorageData", str);
         } else 
             egret.localStorage.setItem("localStorageData", str);
     }
