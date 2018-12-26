@@ -36,7 +36,8 @@ class LevelDiffDescView extends egret.DisplayObjectContainer {
             desc.width = this.bg.width;
             desc.height = this.bg.height;
             desc.y = this.bg.y;
-            desc.x = this.bg.x + desc.width * i;
+            desc.x = this.bg.x + this.bg.width * i;
+            desc.textAlign = egret.HorizontalAlign.CENTER;
             desc.textFlow = ViewUtils.fromHtml(descTxt[i]);
 
             var bgMask = ViewUtils.createBitmapByName("confirmBgMask_png");
@@ -83,7 +84,7 @@ class LevelDiffDescView extends egret.DisplayObjectContainer {
         for (var i = 0; i < this.descArr.length; i++) {
             var desc = this.descArr[i];
             egret.Tween.removeTweens(desc);
-            var posX = this.bg.width * i - dPosX;
+            var posX = this.bg.x + this.bg.width * i - dPosX;
             egret.Tween.get(desc).to({x:posX}, time, egret.Ease.cubicInOut);
         }
     }
