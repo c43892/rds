@@ -6,6 +6,7 @@ class NameView extends egret.DisplayObjectContainer {
     private randomBtn:egret.Bitmap;
     private goOnBtn:ArrowButton;
     private tip:egret.TextField;
+
     constructor(w, h) {
         super();
         
@@ -40,6 +41,8 @@ class NameView extends egret.DisplayObjectContainer {
         this.randomBtn = ViewUtils.createBitmapByName("randomNameBtn_png");
         this.randomBtn.name = "randomBtn";
         this.randomBtn.touchEnabled = true;
+        this.randomBtn.anchorOffsetX = this.randomBtn.width / 2;
+        this.randomBtn.anchorOffsetY = this.randomBtn.height / 2;
         this.randomBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, (evt) => this.getRandomName(), this);
 
         this.goOnBtn = new ArrowButton(true, "goForward_png", 30);
@@ -70,6 +73,13 @@ class NameView extends egret.DisplayObjectContainer {
         var middle = nameCfg.middle[rd.nextInt(0, nameCfg.middle.length)];
         var last = nameCfg.last[rd.nextInt(0, nameCfg.last.length)];
         this.keyInName.text = first + middle + last;
+        egret.Tween.removeTweens(this.randomBtn);
+        this.randomBtn.alpha = 1;
+        this.scaleX = 1;
+        this.scaleY = 1;
+        egret.Tween.get(this.randomBtn)
+            .to({alpha:3, scaleX:1.1, scaleY:1.1}, 250, egret.Ease.cubicIn)
+            .to({alpha:1, scaleX:1, scaleY:1}, 250, egret.Ease.cubicOut);
     }
 
     // 点击继续按钮时检查起名

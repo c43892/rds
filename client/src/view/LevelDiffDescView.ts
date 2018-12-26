@@ -74,16 +74,23 @@ class LevelDiffDescView extends egret.DisplayObjectContainer {
 
     currentN;
     moveDesc(n, time) {
-        Utils.log("move " + n);
         n = n < 0 ? 0 : (n >= this.descArr.length ? this.descArr.length - 1 : n);
         if (this.currentN == n)
             return;
+
+        this.currentN = n;
+        var dPosX = this.bg.width * n;
+        for (var i = 0; i < this.descArr.length; i++) {
+            var desc = this.descArr[i];
+            egret.Tween.removeTweens(desc);
+            var posX = this.bg.width * i - dPosX;
+            egret.Tween.get(desc).to({x:posX}, time, egret.Ease.cubicInOut);
+        }
     }
 
     doClose;
     public async open(n) {
-        this.currentN = 0;
-        this.moveDesc(this.currentN, 1);
+        this.moveDesc(n, 1);
         return new Promise((r, _) => {
             this.doClose = r;
         });
