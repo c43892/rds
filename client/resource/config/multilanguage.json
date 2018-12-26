@@ -497,8 +497,8 @@
 		"diff4":{"EN": "diff4", "CNS": "困难", "CNT":"困难"},
 		"diff5":{"EN": "diff5", "CNS": "地狱", "CNT":"地狱"},
 		"levelDifficultyDesc":{
-			"EN":["新手难度\r\n初始格子数 8", "简单难度\r\n初始格子数 7", "普通难度\r\n初始格子数 6", "困难难度\r\n初始格子数 5", "地狱难度\r\n初始格子数 4"],
-			"CNS":["新手难度\r\n初始格子数 8", "简单难度\r\n初始格子数 7", "普通难度\r\n初始格子数 6", "困难难度\r\n初始格子数 5", "地狱难度\r\n初始格子数 4"],
+			"EN":["<font color=#000000 size=25>新手难度</font>\r\n初始格子数 8", "简单难度\r\n初始格子数 7", "普通难度\r\n初始格子数 6", "困难难度\r\n初始格子数 5", "地狱难度\r\n初始格子数 4"],
+			"CNS":["\r\n\r\n<font color=#7d0403 size=25>简单难度</font>\r\n<font color=#000000 size=23>初始格子数：8</font>\r\n<font color=#000000 size=23>怪物属性：80%</font>\r\n<font color=#000000 size=23>获得金钱数：200%</font>\r\n<font color=#000000 size=23>初始生命值：40</font>\r\n<font color=#000000 size=23>死神初始步数：180</font>\r\n", "\r\n\r\n<font color=#7d0403 size=25>普通难度</font>\r\n<font color=#000000 size=23>初始格子数：7</font>\r\n<font color=#000000 size=23>怪物属性：90%</font>\r\n<font color=#000000 size=23>获得金钱数：150%</font>\r\n<font color=#000000 size=23>初始生命值：40</font>\r\n<font color=#000000 size=23>死神初始步数：160</font>\r\n", "\r\n\r\n<font color=#7d0403 size=25>困难难度</font>\r\n<font color=#000000 size=23>初始格子数：6</font>\r\n<font color=#000000 size=23>怪物属性：100%</font>\r\n<font color=#000000 size=23>获得金钱数：100%</font>\r\n<font color=#000000 size=23>初始生命值：40</font>\r\n<font color=#000000 size=23>死神初始步数：140</font>\r\n", "\r\n\r\n<font color=#7d0403 size=25>噩梦难度</font>\r\n<font color=#000000 size=23>初始格子数：5</font>\r\n<font color=#000000 size=23>怪物属性：110%</font>\r\n<font color=#000000 size=23>获得金钱数：100%</font>\r\n<font color=#000000 size=23>初始生命值：30</font>\r\n<font color=#000000 size=23>死神初始步数：120</font>\r\n", "\r\n\r\n<font color=#7d0403 size=25>地狱难度</font>\r\n<font color=#000000 size=23>初始格子数：4</font>\r\n<font color=#000000 size=23>怪物属性：120%</font>\r\n<font color=#000000 size=23>获得金钱数：100%</font>\r\n<font color=#000000 size=23>初始生命值：20</font>\r\n<font color=#000000 size=23>死神初始步数：100</font>\r\n"],
 			"CNT":["新手难度\r\n初始格子数 8", "简单难度\r\n初始格子数 7", "普通难度\r\n初始格子数 6", "困难难度\r\n初始格子数 5", "地狱难度\r\n初始格子数 4"]
 		},
 		"totalStoreyLevel": {"EN": "totalStoreyLevel", "CNS": "层数得分", "CNT": "总层数"},
