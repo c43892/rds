@@ -540,6 +540,8 @@
 		"notOpenYet":{"EN": "Do not open yet", "CNS": "暂未开放", "CNT": "暂未开放"},
 		"watchRewardAds":{"EN": "Watch Ads", "CNS": "看广告", "CNT": "看广告"},
 		"justDie":{"EN": "Just Die", "CNS": "死亡", "CNT": "死亡"},
+		"useCherryBomb": {"EN": "Just Die", "CNS": "引爆后，翻开周围3*3的格子并造成伤害", "CNT": "死亡"},
+		"useSunflower": {"EN": "Just Die", "CNS": "使用后恢复生命值", "CNT": "死亡"},
 		"": {}
 	}
 }
