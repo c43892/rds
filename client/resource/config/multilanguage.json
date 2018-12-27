@@ -400,7 +400,28 @@
 				"goBackBtn":{"x":10, "y":980},
 				"exitBtn":{"x":528, "y":46}
 			}
-		}
+		},
+		
+		"achvView":{
+			"layout":{
+				"bg1":{"x":22, "y":100},
+				"achvListBtn":{"x":30, "y":51},
+				"achvAwardBtn":{"x":225, "y":51},
+				"redPoint":{"x":407, "y":56},
+				"goBackBtn":{"x":10, "y":980},
+				"achvListScrollArea":{"x":35, "y":143, "w":560, "h":760},
+				"achvAwardScrollArea":{"x":35, "y":143, "w":560, "h":760},				
+				"stars":{"x":415, "y":40},
+				"finishedSign":{"x":375, "y":38, "rotation":-24},
+				"achvIcon":{"x":17, "y":12},
+				"title":{"x":125, "y":12, "w":300, "h":40, "size":40},
+				"desc":{"x":125, "y":57, "w":300, "h":30, "size":30},
+				"awardIcon":{"x":88, "y":81},
+				"awardReceiveBtn":{"x":0, "y":151},
+				"unlockTip":{"x":88, "y":145, "h":20, "w":120, "size":18},
+				"unlockDesc":{"x":88, "y":175, "h":25, "w":125, "size":25}
+			}
+		}			
     },
 	
 	"occupations": {

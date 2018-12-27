@@ -54,7 +54,7 @@ class AchvMgr {
 
     // 读取成就是否已经被完成或已经完成到某阶段(包括预完成)
     public checkAchvFinished(achvName:string, stage = undefined){
-        if (Utils.loadAchvData(achvName) && (Utils.loadAchvData(achvName) == "finished" || (stage && Utils.loadAchvData(achvName) >= stage)))
+        if (Utils.loadAchvData(achvName) && (Utils.loadAchvData(achvName) == "finished" || (stage != undefined && Utils.loadAchvData(achvName) >= stage)))
             return true;
         else if (this.checkAchvPreFinished(achvName, stage))
             return true;
@@ -65,7 +65,7 @@ class AchvMgr {
     // 成就是否被预完成或已经完成到某阶段
     public checkAchvPreFinished(achvName:string, stage){
         return Utils.indexOf(this.preFinishAchvs, (achvInfo) => achvInfo.achvName == achvName 
-        && (achvInfo.stage == "finished" || (stage && achvInfo.stage == stage)) ) > -1;
+        && (achvInfo.stage == "finished" || (stage != undefined && achvInfo.stage == stage)) ) > -1;
     }
 
     // 预完成某成就
@@ -79,14 +79,78 @@ class AchvMgr {
     }
 
     // 获取某成就的完成进度
-    public static getAchvFinishedPercent(achvName:string){
+    public static getAchvFinishedStatus(achvName:string){
+        var achvInfo = GCfg.getAchvCfg()[achvName];
+        var all = achvInfo.stages ? achvInfo.stages.length : 1;
+        var finished = Utils.loadAchvData(achvName) ? (Utils.loadAchvData(achvName) == "finished" ? all : Utils.loadAchvData(achvName)) : 0;
+        return {finished:finished, all:all};
+    }
 
+    // 某个成就奖励的状态
+    public static getAchvAwardStatus(awardName:string){
+        var status = Utils.loadAchvData(awardName);
+        if (status && status == "received") return status;
+        else {
+            if (AchvMgr.isAchvAwardValid(awardName))
+                return "wait4Receive";
+            else 
+                return "unfinished";
+        }
+    }
+
+    // 某个成就奖励是否可以领取
+    private static isAchvAwardValid(awardName:string){
+        var awardInfo = GCfg.getAchvAwardCfg()[awardName];
+        var valid = false;
+        switch (awardInfo.type) {
+            case "achvFinished": {  
+                var achvFinishedInfo = AchvMgr.getAchvFinishedStatus(awardInfo.achv);              
+                if (achvFinishedInfo.all == achvFinishedInfo.finished)
+                    valid = true;
+
+                break;
+            }
+            case "achvStageFinished": {
+                var achvFinishedInfo = AchvMgr.getAchvFinishedStatus(awardInfo.achv);
+                if (achvFinishedInfo.finished >= awardInfo)
+                    valid = true;
+
+                break;
+            }
+            case "achvPoint": {
+                if (Utils.loadAchvData("achvPoint") && Utils.loadAchvData("achvPoint") >= awardInfo.point)
+                    valid = true;
+
+                break;
+            }
+        }
+        return valid;
+    }
+
+    // 领取成就奖励
+    public static receiveAchvAward(awardName:string) {
+        Utils.assert(AchvMgr.getAchvAwardStatus(awardName) == "wait4Receive", "this award is not ready");
+        var awardInfo = GCfg.getAchvAwardCfg()[awardName];
+        switch (awardInfo.awardContent.type) {
+            case "unlockRelic":{
+                var unlocked = Utils.loadAchvData("unlockedRelics");
+                if (!unlocked)
+                    unlocked = [];
+                
+                unlocked.push(awardInfo.awardContent.relic);
+                Utils.saveAchvData("unlockedRelics", unlocked);
+                break;
+            }
+        }
+        Utils.saveAchvData(awardName, "received");
     }
 }
 
 class AchvMgrFactory {
     public static logicPoints = ["onElemChanged"];
 
+    // 创建一个成就管理器,并在各逻辑点挂上响应函数
+    // 响应函数以某个逻辑点的特殊行为开始,其后检查该逻辑点可能直接完成的成就,最后循环检查符合条件的所有复合型成就
     public static createAchvMgr(p:Player){
         var am = new AchvMgr();
         am.player = p;

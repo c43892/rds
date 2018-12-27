@@ -1,31 +1,67 @@
 {
-    "Killed1": {
+    "killed1": {
         "type": "monsterKilled",
         "stages": [
             {"condition":{"type": "EyeDemon", "killed": 2}},
             {"condition":{"type": "EyeDemon", "killed": 3}},
             {"condition":{"type": "EyeDemon", "killed": 5}},
             {"condition":{"type": "EyeDemon", "killed": 10}}
-        ]
+        ],
+        "icon":"EyeDemon",
+        "titles":["killed1title1","killed1title2","killed1title3","killed1title4"],
+        "descs":["killed1desc1","killed1desc2","killed1desc3","killed1desc4"]
     },
-    "Killed2":{
+    "killed2":{
         "type":"monsterKilled", 
         "stages":[
             {"condition":{"type":"ReviveZombie", "killed":1}}
-        ]
+        ],
+        "icon":"ReviveZombie",
+        "titles":["killed2title1"],
+        "descs":["killed2desc1"]
     },
-    "Killed3":{
+    "killed3":{
         "type":"monsterKilled", 
         "stages":[
             {"condition":{"type":"EyeDemon", "killed":1}}
-        ]
+        ],
+        "icon":"EyeDemon",
+        "titles":["killed3title1"],
+        "descs":["killed3desc1"]
     },
-    "Killed4":{
+    "killed4":{
         "type":"multAchv", 
-        "conditions":["Killed2", "Killed3"]
+        "conditions":["killed2", "killed3"],
+        "icon":"GreenSlime",
+        "titles":["killed4title1"],
+        "descs":["killed4desc1"]
     },
-    "Killed5":{
+    "killed5":{
         "type":"multAchv", 
-        "conditions":["Killed2", "Killed3", "Killed4"]
+        "conditions":["killed2", "killed3", "killed4"],
+        "icon":"GreenSlime",
+        "titles":["killed5title1"],
+        "descs":["killed5desc1"]
+    },
+    "killed6":{
+        "type":"multAchv", 
+        "conditions":["killed2", "killed3", "killed4"],
+        "icon":"GreenSlime",
+        "titles":["killed6title1"],
+        "descs":["killed6desc1"]
+    },
+    "killed7":{
+        "type":"multAchv", 
+        "conditions":["killed2", "killed3", "killed4"],
+        "icon":"GreenSlime",
+        "titles":["killed7title1"],
+        "descs":["killed7desc1"]
+    },
+    "killed8":{
+        "type":"multAchv", 
+        "conditions":["killed2", "killed3", "killed4"],
+        "icon":"GreenSlime",
+        "titles":["killed8title1"],
+        "descs":["killed8desc1"]
     }
 }

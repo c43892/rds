@@ -3,6 +3,7 @@ class LoginView extends egret.DisplayObjectContainer {
     public player:Player;
     public acFact:AudioFactory;
     public confirmOkYesNo;
+    public openAchvView;
 
     bg:egret.Bitmap;
     title:egret.Bitmap;
@@ -55,6 +56,7 @@ class LoginView extends egret.DisplayObjectContainer {
         this.btnAchievement.name = "achievementBtn";
         this.btnAchievement.setDisableBg("AchievementDisabled_png");
         this.btnAchievement.setDownBg("AchievementDown_png");
+        this.btnAchievement.onClicked = () => this.openAchvView();
 
         this.btnContinue.onClicked = () => this.close("continuePlay");
         this.btnNewPlay.onClicked = () => {
@@ -90,7 +92,7 @@ class LoginView extends egret.DisplayObjectContainer {
         ViewUtils.asFullBg(this.bg);
         this.ani.animation.play("idle", 0);
         this.btnContinue.enabled = !!this.player;
-        this.btnAchievement.enabled = false; // 暂时不可用
+        this.btnAchievement.enabled = true; // 暂时不可用
         this.btnOpenRank.enabled = true;
     }
 }

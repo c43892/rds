@@ -1,0 +1,32 @@
+{
+    "award1":{
+        "type":"achvFinished",
+        "achv":"killed1",
+        "awardContent":{
+            "type":"unlockRelic",
+            "relic":"GoldMedal"
+        },
+        "icon":"GoldMedal",
+        "desc":"killed1"
+    },
+    "award2":{
+        "type":"achvFinished",
+        "achv":"killed2",
+        "awardContent":{
+            "type":"unlockRelic",
+            "relic":"ExpMedal"
+        },
+        "icon":"ExpMedal",
+        "desc":"killed2"
+    },
+    "award3":{
+        "type":"achvFinished",
+        "achv":"killed3",
+        "awardContent":{
+            "type":"unlockRelic",
+            "relic":"DoubleAttack"
+        },
+        "icon":"DoubleAttack",
+        "desc":"killed3"
+    }
+}

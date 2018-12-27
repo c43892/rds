@@ -23,6 +23,7 @@ class MainView extends egret.DisplayObjectContainer {
     public scoreview:ScoreView; // 死亡或通关后的分数结算界面
     public nameView:NameView; // 玩家起名界面
     public characterView:CharacterView; // 角色详情界面
+    public achvView:AchvView; // 成就界面
     public av:AniView; // 动画层
 
     isInBattle:boolean; // 是否在战斗中
@@ -67,6 +68,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.lgv = new LoginView(w, h);
         this.lgv.acFact = audioFact;
         this.lgv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
+        this.lgv.openAchvView = async () => await this.openAchvView();
 
         // 角色选择界面
         this.osv = new OccupationSelView(w, h);
@@ -125,6 +127,9 @@ class MainView extends egret.DisplayObjectContainer {
 
         // 排行榜视图
         this.rankv = new RankingView(w, h);
+
+        // 成就界面
+        this.achvView = new AchvView(w, h);
 
         // 元素描述信息视图
         this.idv = new ElemDescView(w, h);
@@ -624,6 +629,13 @@ class MainView extends egret.DisplayObjectContainer {
         this.addChild(this.rankv);
         await this.rankv.open();
         this.removeChild(this.rankv);
+    }
+
+    // 打开成就界面
+    public async openAchvView() {
+        this.addChild(this.achvView);
+        await this.achvView.open();
+        this.removeChild(this.achvView);
     }
 
     // all relics view
