@@ -800,5 +800,7 @@ class GuideView extends egret.DisplayObjectContainer {
 
         var avatar = this.cv.getChildByName("goBackBtn");
         await this.tapWithDialog(avatar, "ShopNpc", "name", "message", 0, 550);
+
+        
     }
 }
