@@ -487,9 +487,22 @@ class BattleView extends egret.DisplayObjectContainer {
         this.deathGodStepBtn.x = this.effDeathGodGray.x - this.deathGodStepBtn.width / 2;
         this.deathGodStepBtn.y = this.effDeathGodGray.y - this.deathGodStepBtn.height / 2;
 
-        // 死神临近效果
-        var effDisplay = this.effDeathGodRedEff.display;        
-        if (stepAt <= this.deathGodWarningStep) {
+        // 计算是否可以回满死神时间
+        var tmN = Utils.indexOf(this.player.relicsInBag, (r:Relic) => r.type == "TimeMechine", 0);
+        var deathGodRecoverCount = tmN >= 0 ? this.player.relicsInBag[tmN].attrs.deathGodBackStep : 0;
+        deathGodRecoverCount += 40; // 加上初始步数
+
+        var effDisplay = this.effDeathGodRedEff.display;
+
+        // 可以回满
+        if (stepAt + deathGodRecoverCount >= this.player.maxDeathStep) {
+            this.effDeathGodGray.alpha = 1;
+            this.effDeathGodRed.alpha = 0;
+            this.effDeathGodRedEff.animation.stop("stand");
+            if (this.contains(effDisplay))
+                this.removeChild(effDisplay);
+
+        } else {
             this.effDeathGodGray.alpha = 0;
             this.effDeathGodRed.alpha = 1;
             if (!this.contains(effDisplay))
@@ -498,13 +511,14 @@ class BattleView extends egret.DisplayObjectContainer {
             this.effDeathGodRedEff.animation.play("stand", 0);
             effDisplay.x = this.effDeathGodRed.x;
             effDisplay.y = this.effDeathGodRed.y;
-        }
-        else {
-            this.effDeathGodGray.alpha = 1;
-            this.effDeathGodRed.alpha = 0;
-            this.effDeathGodRedEff.animation.stop("stand");
-            if (this.contains(effDisplay))
-                this.removeChild(effDisplay);
+
+            if (stepAt <= this.deathGodWarningStep) { // 死神临近
+                effDisplay.scaleX = 2;
+                effDisplay.scaleY = 2;
+            } else {
+                effDisplay.scaleX = 1;
+                effDisplay.scaleY = 1;
+            }
         }
     }
 
