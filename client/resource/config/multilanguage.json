@@ -323,7 +323,7 @@
 			"layout":{
 				"bg1":{"x":13, "y":200},
 				"keyInName":{"x":63, "y":340, "h":40, "w": 400, "size":40},
-				"randomBtn":{"x":519, "y":304},
+				"randomBtn":{"x":551, "y":351},
 				"goOnBtn":{"x":465, "y":980},
 				"tip":{"x":65, "y":250, "w":400, "h":40, "size":40}
 			}
@@ -426,12 +426,12 @@
 	
 	"occupations": {
 		"Nurse": {
-			"desc": { "EN": "description of Nurse", "CNS": "这是护士的描述。这是护士的描述。这是护士的描述。这是护士的描述。", "CNT": "这是护士的描述" },
+			"desc": { "EN": "description of Nurse", "CNS": "护士妹妹拥有良好的恢复能力，是持久战的好手。", "CNT": "这是护士的描述" },
 			"name": { "EN": "Nurse", "CNS": "护士妹妹", "CNT": "护士妹妹" }
 		},
 		
 		"Rogue": {
-			"desc": { "EN": "description of Rogue", "CNS": "这是混混的描述。这是混混的描述。这是混混的描述。这是混混的描述。", "CNT": "这是混混的描述" },
+			"desc": { "EN": "description of Rogue", "CNS": "作为一个黑帮混混，抢劫商店是必备能力。", "CNT": "这是混混的描述" },
 			"name": { "EN": "Rogue", "CNS": "黑帮混混", "CNT": "黑帮混混" }
 		}
 	},
@@ -517,6 +517,11 @@
 		"diff3":{"EN": "diff3", "CNS": "普通", "CNT":"普通"},
 		"diff4":{"EN": "diff4", "CNS": "困难", "CNT":"困难"},
 		"diff5":{"EN": "diff5", "CNS": "地狱", "CNT":"地狱"},
+		"levelDifficultyDesc":{
+			"EN":["<font color=#000000 size=25>新手难度</font>\r\n初始格子数 8", "简单难度\r\n初始格子数 7", "普通难度\r\n初始格子数 6", "困难难度\r\n初始格子数 5", "地狱难度\r\n初始格子数 4"],
+			"CNS":["\r\n\r\n<font color=#7d0403 size=25>简单难度</font>\r\n<font color=#000000 size=23>初始格子数：8</font>\r\n<font color=#000000 size=23>怪物属性：80%</font>\r\n<font color=#000000 size=23>获得金钱数：200%</font>\r\n<font color=#000000 size=23>初始生命值：40</font>\r\n<font color=#000000 size=23>死神初始步数：180</font>\r\n", "\r\n\r\n<font color=#7d0403 size=25>普通难度</font>\r\n<font color=#000000 size=23>初始格子数：7</font>\r\n<font color=#000000 size=23>怪物属性：90%</font>\r\n<font color=#000000 size=23>获得金钱数：150%</font>\r\n<font color=#000000 size=23>初始生命值：40</font>\r\n<font color=#000000 size=23>死神初始步数：160</font>\r\n", "\r\n\r\n<font color=#7d0403 size=25>困难难度</font>\r\n<font color=#000000 size=23>初始格子数：6</font>\r\n<font color=#000000 size=23>怪物属性：100%</font>\r\n<font color=#000000 size=23>获得金钱数：100%</font>\r\n<font color=#000000 size=23>初始生命值：40</font>\r\n<font color=#000000 size=23>死神初始步数：140</font>\r\n", "\r\n\r\n<font color=#7d0403 size=25>噩梦难度</font>\r\n<font color=#000000 size=23>初始格子数：5</font>\r\n<font color=#000000 size=23>怪物属性：110%</font>\r\n<font color=#000000 size=23>获得金钱数：100%</font>\r\n<font color=#000000 size=23>初始生命值：30</font>\r\n<font color=#000000 size=23>死神初始步数：120</font>\r\n", "\r\n\r\n<font color=#7d0403 size=25>地狱难度</font>\r\n<font color=#000000 size=23>初始格子数：4</font>\r\n<font color=#000000 size=23>怪物属性：120%</font>\r\n<font color=#000000 size=23>获得金钱数：100%</font>\r\n<font color=#000000 size=23>初始生命值：20</font>\r\n<font color=#000000 size=23>死神初始步数：100</font>\r\n"],
+			"CNT":["新手难度\r\n初始格子数 8", "简单难度\r\n初始格子数 7", "普通难度\r\n初始格子数 6", "困难难度\r\n初始格子数 5", "地狱难度\r\n初始格子数 4"]
+		},
 		"totalStoreyLevel": {"EN": "totalStoreyLevel", "CNS": "层数得分", "CNT": "总层数"},
 		"playerLevel": {"EN": "playerLevel", "CNS": "等级得分", "CNT": "等级得分"},
 		"totalCoins": {"EN": "totalCoins", "CNS": "金币得分", "CNT": "金币得分"},

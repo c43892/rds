@@ -52,7 +52,7 @@ class Player {
         p.deathStep = 150;
 
         p.maxDeathStep = 150;
-        p.maxHp = 2; // 40;
+        p.maxHp = 40;
         p.hp = p.maxHp;
         p.dodge = 0;
         p.power = [4, 0];

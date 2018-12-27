@@ -23,6 +23,8 @@ class OccupationSelView extends egret.DisplayObjectContainer {
     occ:string; // 当前选中职业
     difficultyDegree:number; // 当前选中难度
 
+    diffDesc:LevelDiffDescView; // 难度详情
+
     public constructor(w:number, h:number) {
         super();
 
@@ -88,6 +90,10 @@ class OccupationSelView extends egret.DisplayObjectContainer {
             btn.anchorOffsetY = btn.height;
             let diff = i;
             btn.onClicked = () => this.selDifficulty(diff);
+            btn.onPressed = () => {
+                this.addChild(this.diffDesc);
+                this.diffDesc.open(diff).then(() => this.removeChild(this.diffDesc));
+            };
             this.diffImgLst.push(btn);
         }
 
@@ -107,6 +113,9 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         ViewUtils.multiLang(this, ...uis);
 
         this.occAvatar.mask = this.occAvatarFrameMask;
+
+        this.diffDesc = new LevelDiffDescView(w, h);
+        this.diffDesc.x = this.diffDesc.y = 0;
     }
 
     onClose;

@@ -89,6 +89,7 @@
 		"bin-debug/view/GridView.js",
 		"bin-debug/view/GuideView.js",
 		"bin-debug/view/HospitalView.js",
+		"bin-debug/view/LevelDiffDescView.js",
 		"bin-debug/view/LoginView.js",
 		"bin-debug/view/LuxuryChestView.js",
 		"bin-debug/view/MainView.js",

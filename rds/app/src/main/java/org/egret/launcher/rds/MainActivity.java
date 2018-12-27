@@ -27,7 +27,7 @@ public class MainActivity extends NativeActivity implements RewardedVideoAdListe
     *   true: show FPS panel
     *   false: hide FPS panel
     * */
-    private final boolean showFPS = false;
+    private final boolean showFPS = true;
 
     private FrameLayout rootLayout = null;
     
@@ -133,8 +133,18 @@ public class MainActivity extends NativeActivity implements RewardedVideoAdListe
         MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
         mAds = MobileAds.getRewardedVideoAdInstance(this);
         mAds.setRewardedVideoAdListener(this);
-        mAds.loadAd("ca-app-pub-3940256099942544/5224354917", new AdRequest.Builder().build());
+        loadAds();
     }
+
+    /*private void setExternalInterfaces() {
+        launcher.setExternalInterface("callNative", new INativePlayer.INativeInterface() {
+            @Override
+            public void callback(String s) {
+                Log.d("Egret Launcher", s);
+                launcher.callExternalInterface("callJS", "message from native");
+            }
+        });
+    }*/
 
     private void setExternalInterfaces() {
         launcher.setExternalInterface("rdsPlayRewardAds", new INativePlayer.INativeInterface() {
@@ -171,14 +181,25 @@ public class MainActivity extends NativeActivity implements RewardedVideoAdListe
 
     }
 
-    @Override
-    public void onRewardedVideoAdClosed() {
-        launcher.callExternalInterface("notifyRewardAdCompleted", "canceled");
+    boolean notified;
+    private void loadAds() {
+        notified = false;
         mAds.loadAd("ca-app-pub-3940256099942544/5224354917", new AdRequest.Builder().build());
     }
 
     @Override
+    public void onRewardedVideoAdClosed() {
+        if (!notified) {
+            notified = true;
+            launcher.callExternalInterface("notifyRewardAdCompleted", "canceled");
+        }
+
+        loadAds();
+    }
+
+    @Override
     public void onRewarded(RewardItem rewardItem) {
+        notified = true;
         launcher.callExternalInterface("notifyRewardAdCompleted", "");
     }
 
@@ -194,6 +215,10 @@ public class MainActivity extends NativeActivity implements RewardedVideoAdListe
 
     @Override
     public void onRewardedVideoCompleted() {
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

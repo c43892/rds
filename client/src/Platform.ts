@@ -14,8 +14,8 @@ declare interface Platform {
     getUserID():string;
 
     canPlayAdsReborn();
-    playRewardAds(callback);
 
+    playRewardAds(callback);
     canShare(): boolean;
     shareGame();
 
@@ -32,7 +32,7 @@ class DefaultPaltform implements Platform {
     rewardAdsCompletedCallback;
     async init() {
         if (egret.Capabilities.os == "iOS") {
-            window["ExternalInterface"].addCallback("rdsLoadLocalStorageDataCallback", (str) => {
+            egret.ExternalInterface.addCallback("rdsLoadLocalStorageDataCallback", (str) => {
                 this.iOSLoadLocalStorageDataCallback(str);
             });
         }
@@ -44,13 +44,12 @@ class DefaultPaltform implements Platform {
 
             Utils.log("ads registed callback");
 
-            window["ExternalInterface"].addCallback("notifyAdMobLoaded", (msg) => {
+            egret.ExternalInterface.addCallback("notifyAdMobLoaded", (msg) => {
                 Utils.log("ads notifyAdMobLoaded");
                 this.adMobReady = true;
             });
 
-            window["ExternalInterface"].addCallback("notifyRewardAdCompleted", (msg) => {
-                Utils.log("ads notifyRewardAdCompleted: " + msg);
+            egret.ExternalInterface.addCallback("notifyRewardAdCompleted", (msg) => {
                 if (this.rewardAdsCompletedCallback)
                     this.rewardAdsCompletedCallback(msg);
 
@@ -60,22 +59,23 @@ class DefaultPaltform implements Platform {
     }
 
     public canPlayAdsReborn() {
-        return /* this.adMobReady && */ (egret.Capabilities.os == "iOS" || egret.Capabilities.os == "Android");
+        return this.adMobReady && (egret.Capabilities.os == "iOS" || egret.Capabilities.os == "Android");
     }
 
-    // public async playRewardAds(callback) {
-    public playRewardAds(callback) {
+    public async playRewardAds(callback) {
+    // public playRewardAds(callback) {
         if (this.canPlayAdsReborn()) { // egret.Capabilities.os == "iOS" || egret.Capabilities.os == "Android") {
-            // var promise = new Promise((r, _) => {
-            //     this.rewardAdsCompletedCallback = (msg) => {
-            //         Utils.log("ads reward callback: " + msg);
-            //         callback(msg == "");
-            //         r();
-            //     };
-            // });
-            window["ExternalInterface"].call("rdsPlayRewardAds", "");
+            var promise = new Promise((r, _) => {
+                this.rewardAdsCompletedCallback = (msg) => {
+                    Utils.log("ads reward callback: " + msg);
+                    callback(msg == "");
+                    r();
+                };
+            });
+            this.adMobReady = false;
+            egret.ExternalInterface.call("rdsPlayRewardAds", "");
             callback(true);
-            // return promise;
+            return promise;
         } else {
             Utils.log("ads: play reward ads: adMobReady = " + this.adMobReady);
         }
@@ -126,7 +126,7 @@ class DefaultPaltform implements Platform {
                     }
                 };
 
-                window["ExternalInterface"].call("rdsLoadLocalStorageData", "");
+                egret.ExternalInterface.call("rdsLoadLocalStorageData", "");
             });
         } else {            
             try {
@@ -155,7 +155,7 @@ class DefaultPaltform implements Platform {
         byteArray.writeUTF(str);
         str = egret.Base64Util.encode(byteArray.buffer);
         if (egret.Capabilities.os == "iOS") {
-            window["ExternalInterface"].call("rdsSaveLocalStorageData", str);
+            egret.ExternalInterface.call("rdsSaveLocalStorageData", str);
         } else 
             egret.localStorage.setItem("localStorageData", str);
     }

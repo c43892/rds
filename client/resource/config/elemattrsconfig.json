@@ -1,7 +1,7 @@
 {
-    "MedicineBox":{"name":"医疗专精", "dhp":5, 
+    "MedicineBox":{"name":"医疗专精", "dhp":3, 
         "reinforce":[
-            {"dhp":10}, {"dhp":15}, {"dhp":20}, {"dhp":25}
+            {"dhp":6}, {"dhp":9}, {"dhp":12}, {"dhp":15}
         ],
         "occupations":["Nurse"]
     },
