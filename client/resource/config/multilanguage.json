@@ -426,12 +426,12 @@
 	
 	"occupations": {
 		"Nurse": {
-			"desc": { "EN": "description of Nurse", "CNS": "护士妹妹拥有良好的恢复能力，是持久战的好手。", "CNT": "这是护士的描述" },
+			"desc": { "EN": "description of Nurse", "CNS": "护士妹妹拥有良好的恢复能力，所有职业初始可携带一瓶医疗药剂。", "CNT": "这是护士的描述" },
 			"name": { "EN": "Nurse", "CNS": "护士妹妹", "CNT": "护士妹妹" }
 		},
 		
 		"Rogue": {
-			"desc": { "EN": "description of Rogue", "CNS": "作为一个黑帮混混，抢劫商店是必备能力。", "CNT": "这是混混的描述" },
+			"desc": { "EN": "description of Rogue", "CNS": "作为一个黑帮混混，抢劫商店是必备能力，所有职业获得1级杀戮专精。", "CNT": "这是混混的描述" },
 			"name": { "EN": "Rogue", "CNS": "黑帮混混", "CNT": "黑帮混混" }
 		}
 	},
@@ -540,6 +540,8 @@
 		"notOpenYet":{"EN": "Do not open yet", "CNS": "暂未开放", "CNT": "暂未开放"},
 		"watchRewardAds":{"EN": "Watch Ads", "CNS": "看广告", "CNT": "看广告"},
 		"justDie":{"EN": "Just Die", "CNS": "死亡", "CNT": "死亡"},
+		"useCherryBomb": {"EN": "Just Die", "CNS": "引爆后，翻开周围3*3的格子并造成伤害", "CNT": "死亡"},
+		"useSunflower": {"EN": "Just Die", "CNS": "使用后恢复生命值", "CNT": "死亡"},
 		"": {}
 	}
 }
