@@ -48,11 +48,12 @@ class CharacterView extends egret.DisplayObjectContainer {
         this.attrsBg = ViewUtils.createBitmapByName("attrsBg_png");
         this.attrsBg.name = "attrsBg";
         
-        this.commonRelicsBg = ViewUtils.createBitmapByName("commonRelicsBg_png");
-        this.commonRelicsBg.name = "commonRelicsBg";
-        
         this.commonRelicsArea = new egret.DisplayObjectContainer();
         this.commonRelicsArea.name = "commonRelicsArea";
+
+        this.commonRelicsBg = ViewUtils.createBitmapByName("commonRelicsBg_png");
+        this.commonRelicsBg.name = "commonRelicsBg";
+        this.commonRelicsArea.addChild(this.commonRelicsBg);
 
         this.switchesArea = new egret.DisplayObjectContainer();
         this.switchesArea.name = "switchesArea";
@@ -143,8 +144,8 @@ class CharacterView extends egret.DisplayObjectContainer {
         this.goBackBtn.text = ViewUtils.getTipText("goBackBtn");
 
         var objs = [
-            this.bg, this.attrsBg, this.commonRelicsBg, this.commonRelicsArea, this.avatar, this.avatarBg, this.occupationName, this.expBar, this.level, this.exp,
-            this.expBarMask, this.power, this.hp, this.dodge, this.coins, this.currentStorey, this.switchesArea, this.goBackBtn, this.exitBtn
+            this.bg, this.switchesArea, this.commonRelicsArea, this.attrsBg, this.avatar, this.avatarBg, this.occupationName, this.expBar, this.level, this.exp,
+            this.expBarMask, this.power, this.hp, this.dodge, this.coins, this.currentStorey, this.goBackBtn, this.exitBtn
         ];
         ViewUtils.multiLang(this, ...objs);
 
@@ -161,7 +162,21 @@ class CharacterView extends egret.DisplayObjectContainer {
 
     public async open() {
         this.refresh();
+        // 第一次打开时有掉下来的动画
         if(!Utils.loadLocalData("openedCharacterView")){
+            var switchesAreaPos = {y:this.switchesArea.y};
+            var relicAreaPos = {x:this.commonRelicsArea.x, y:this.commonRelicsArea.y, rotation:this.commonRelicsArea.rotation};
+            
+            var sa = egret.Tween.get(this.switchesArea);
+            var ra = egret.Tween.get(this.commonRelicsArea);
+            this.switchesArea.y = 25;
+            this.commonRelicsArea.x = 25;
+            this.commonRelicsArea.y = 25;
+            this.commonRelicsArea.rotation = 0;
+            this.setChildIndex(this.switchesArea, 1);
+            this.setChildIndex(this.commonRelicsArea, 2);
+            sa.to(switchesAreaPos, 500);
+            ra.to(relicAreaPos, 500).call(() => this.setChildIndex(this.commonRelicsArea, -1));
             
             Utils.saveLocalData("openedCharacterView", true);
         }
@@ -247,6 +262,7 @@ class CharacterView extends egret.DisplayObjectContainer {
     // 刷新通用技能显示
     refreshCommonRelicsArea(){
         this.commonRelicsArea.removeChildren();
+        this.commonRelicsArea.addChild(this.commonRelicsBg);
 
         var commonRelics:string[] = GCfg.getOccupationCfg(this.player.occupation).commonRelics;
 
