@@ -19,6 +19,7 @@ class CharacterView extends egret.DisplayObjectContainer {
     private commonRelicsBg:egret.Bitmap; // 通用技能背景
     private commonRelicsArea:egret.DisplayObjectContainer; // 通用技能区域
     private commonRelics:egret.DisplayObjectContainer[]; // 通用技能
+    private switchesArea:egret.DisplayObjectContainer; // 开关区域
     private switchBtnBg:egret.Bitmap; // 开关背景
     private initAddElemAniAniSwitchBtn:TextButtonWithBg; // 创建关卡时的动画开关
     private coinAniSwitchBtn:TextButtonWithBg; // 金币获取动画开关
@@ -53,8 +54,13 @@ class CharacterView extends egret.DisplayObjectContainer {
         this.commonRelicsArea = new egret.DisplayObjectContainer();
         this.commonRelicsArea.name = "commonRelicsArea";
 
+        this.switchesArea = new egret.DisplayObjectContainer();
+        this.switchesArea.name = "switchesArea";
+
         this.switchBtnBg = ViewUtils.createBitmapByName("switchBtnBg_png");
         this.switchBtnBg.name = "switchBtnBg";
+        ViewUtils.multiLang(this, this.switchBtnBg);
+        this.switchesArea.addChild(this.switchBtnBg);
 
         this.avatar = new egret.Bitmap();
         this.avatar.name = "avatar";
@@ -101,16 +107,22 @@ class CharacterView extends egret.DisplayObjectContainer {
         this.volumeSwitchBtn.name = "volumeSwitchBtn";
         this.volumeSwitchBtn["switchType"] = "volume";
         this.volumeSwitchBtn.onClicked = () => this.onSwitch(this.volumeSwitchBtn);
+        ViewUtils.multiLang(this, this.volumeSwitchBtn);
+        this.switchesArea.addChild(this.volumeSwitchBtn);
         
         this.initAddElemAniAniSwitchBtn = new TextButtonWithBg("initAddElemAniAniSwitchBtn_png");
         this.initAddElemAniAniSwitchBtn.name = "initAddElemAniAniSwitchBtn";
         this.initAddElemAniAniSwitchBtn["switchType"] = "initAddElemAni";
         this.initAddElemAniAniSwitchBtn.onClicked = () => this.onSwitch(this.initAddElemAniAniSwitchBtn);
+        ViewUtils.multiLang(this, this.initAddElemAniAniSwitchBtn);
+        this.switchesArea.addChild(this.initAddElemAniAniSwitchBtn);
 
         this.coinAniSwitchBtn = new TextButtonWithBg("coinAniSwitchBtn_png");
         this.coinAniSwitchBtn.name = "coinAniSwitchBtn";
         this.coinAniSwitchBtn["switchType"] = "coinAni";
         this.coinAniSwitchBtn.onClicked = () => this.onSwitch(this.coinAniSwitchBtn);
+        ViewUtils.multiLang(this, this.coinAniSwitchBtn);
+        this.switchesArea.addChild(this.coinAniSwitchBtn);
 
         this.forbidIcons = new egret.DisplayObjectContainer();
         this.forbidIcons.name = "forbidIcons";
@@ -122,6 +134,8 @@ class CharacterView extends egret.DisplayObjectContainer {
             this.forbidIcons.addChild(forbidIcon);
             ViewUtils.multiLang(this, forbidIcon);
         }
+        ViewUtils.multiLang(this, this.forbidIcons);
+        this.switchesArea.addChild(this.forbidIcons);
 
         this.goBackBtn = new ArrowButton(false, "goBack_png", 30);
         this.goBackBtn.name = "goBackBtn";
@@ -129,9 +143,8 @@ class CharacterView extends egret.DisplayObjectContainer {
         this.goBackBtn.text = ViewUtils.getTipText("goBackBtn");
 
         var objs = [
-            this.bg, this.attrsBg, this.switchBtnBg, this.commonRelicsBg, this.commonRelicsArea, this.avatar, this.avatarBg, this.occupationName, this.expBar, this.level, this.exp,
-            this.expBarMask, this.power, this.hp, this.dodge, this.coins, this.currentStorey, this.volumeSwitchBtn, this.initAddElemAniAniSwitchBtn,
-            this.coinAniSwitchBtn, this.forbidIcons, this.goBackBtn, this.exitBtn
+            this.bg, this.attrsBg, this.commonRelicsBg, this.commonRelicsArea, this.avatar, this.avatarBg, this.occupationName, this.expBar, this.level, this.exp,
+            this.expBarMask, this.power, this.hp, this.dodge, this.coins, this.currentStorey, this.switchesArea, this.goBackBtn, this.exitBtn
         ];
         ViewUtils.multiLang(this, ...objs);
 
@@ -148,6 +161,10 @@ class CharacterView extends egret.DisplayObjectContainer {
 
     public async open() {
         this.refresh();
+        if(!Utils.loadLocalData("openedCharacterView")){
+            
+            Utils.saveLocalData("openedCharacterView", true);
+        }
         return new Promise((resolve, reject) => this.doClose = resolve);
     }
 

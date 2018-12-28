@@ -27,5 +27,6 @@
             "level4":2
         }
     },
-    "occupationLevelCfg":[2, 20, 300, 400, 500, 600, 700, 800, 900, 1000]
+    "occupationLevelCfg":[2, 20, 300, 400, 500, 600, 700, 800, 900, 1000],
+    "relicsNeedUnlock":["GoldMedal", "ExpMedal", "DoubleAttack"]
 }

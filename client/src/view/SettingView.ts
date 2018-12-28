@@ -78,7 +78,7 @@ class SettingView extends egret.DisplayObjectContainer{
     }
 
     loadSysSettings() {
-        if (Utils.loadLocalData("SysSetting_AudioOn") == 0)
+        if (Utils.loadLocalData("SysSetting_AudioOn") == "off")
             this.switchSound();
     }
 
@@ -93,15 +93,12 @@ class SettingView extends egret.DisplayObjectContainer{
         if (this.volumeBtn["statue"] == "on"){
             this.volumeBtn["statue"] = "off";
             this.volumeBtn.setTexName("stOff_png");
-            AudioFactory.AudioOn = 0;
         }
         else{
             this.volumeBtn["statue"] = "on";
             this.volumeBtn.setTexName("stOn_png");
-            AudioFactory.AudioOn = 1;
         }
-
-        Utils.saveLocalData("SysSetting_AudioOn", AudioFactory.AudioOn);
+        Switch.onSwitch("volume");
     }
 
     async exitThisGame() {

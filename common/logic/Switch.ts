@@ -1,11 +1,11 @@
 // 各类开关
 class Switch {
     // 音乐开关
-    public static volume = () => Utils.loadLocalData("SysSetting_AudioOn") == 0 ? false : true;
+    public static volume = () => Utils.loadLocalData("SysSetting_AudioOn") == "off" ? false : true;
     // 金币动画开关
-    public static coinAni = () => Utils.loadLocalData("coinAni") == undefined ? true : Utils.loadLocalData("coinAni");
+    public static coinAni = () => Utils.loadLocalData("coinAni") == "off" ? false : true;
     // 初始增添元素动画开关
-    public static initAddElemAni  = () => Utils.loadLocalData("initAddElemAni") == undefined ? true : Utils.loadLocalData("initAddElemAni");
+    public static initAddElemAni  = () => Utils.loadLocalData("initAddElemAni") == "off" ? false : true;
 
     // 切换开关状态
     public static onSwitch(type:string){
@@ -13,18 +13,18 @@ class Switch {
             case "coinAni":
             case "initAddElemAni":
                 if (Switch[type]())
-                    Utils.saveLocalData(type, false);
+                    Utils.saveLocalData(type, "off");
                 else 
-                    Utils.saveLocalData(type, true);
+                    Utils.saveLocalData(type, "on");
                 
                 break;
             case "volume":
                 if(AudioFactory.AudioOn){
-                    Utils.saveLocalData("SysSetting_AudioOn", 0);
+                    Utils.saveLocalData("SysSetting_AudioOn", "off");
                     AudioFactory.AudioOn = 0;
                 }
                 else {
-                    Utils.saveLocalData("SysSetting_AudioOn", 1);
+                    Utils.saveLocalData("SysSetting_AudioOn", "on");
                     AudioFactory.AudioOn = 1;
                 }
                 break;

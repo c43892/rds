@@ -170,7 +170,8 @@
 				"price3": {"x":151, "y":760, "w":100, "h":20},
 				"price4": {"x":311, "y":760, "w":100, "h":20},
 				"price5": {"x":472, "y":760, "w":100, "h":20},
-				"btnRob": {"x":300, "y":860}
+				"btnRob": {"x":300, "y":860},
+				"btnExchangeRelic":{"x":10, "y":980}
 			}
 		},
 		
@@ -378,7 +379,6 @@
 				"attrsBg":{"x":5, "y":10},
 				"commonRelicsBg":{"x":132, "y":267, "rotation":24},				
 				"commonRelicsArea":{"x":132, "y":267, "rotation":24},
-				"switchBtnBg":{"x":5, "y":735},
 				"avatar":{"x":50, "y":61, "w":120, "h":120},
 				"avatarBg":{"x":30, "y":46, "w":150, "h":150},
 				"occupationName":{"x":267, "y":93, "size":30, "w":150, "h":30},
@@ -390,10 +390,12 @@
 				"dogde":{"x":545, "y":240, "size":30, "w":120, "h":30},
 				"coins":{"x":175, "y":307, "size":30, "w":150, "h":30},
 				"currentStorey":{"x":391, "y":307, "size":30, "w":120, "h":30},
-				"volumeSwitchBtn":{"x":57, "y":789},
-				"initAddElemAniAniSwitchBtn":{"x":189, "y":782},
-				"coinAniSwitchBtn":{"x":324, "y":782},
-				"forbidIcons":{"x":5, "y":735},
+				"switchesArea":{"x":5, "y":735},
+				"switchBtnBg":{"x":0, "y":0},
+				"volumeSwitchBtn":{"x":52, "y":54},
+				"initAddElemAniAniSwitchBtn":{"x":184, "y":47},
+				"coinAniSwitchBtn":{"x":319, "y":47},
+				"forbidIcons":{"x":0, "y":0},
 				"volumeSwitchBtnForbidIcon":{"x":53, "y":60},
 				"initAddElemAniAniSwitchBtnForbidIcon":{"x":191, "y":60},
 				"coinAniSwitchBtnForbidIcon":{"x":322, "y":60},

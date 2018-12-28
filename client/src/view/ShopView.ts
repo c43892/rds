@@ -12,9 +12,11 @@ class ShopView extends egret.DisplayObjectContainer {
     private btnGoBack:TextButtonWithBg;
     private saleIndex;1
     private btnRob:TextButtonWithBg; // 抢劫按钮
+    private btnExchangeRelic:TextButtonWithBg // 交换遗物
 
     public player:Player;
     public openConfirmView;
+    public openExchangeRelic;
 
     public get shopNpcSlotGlobalPos() {
         var p = AniUtils.ani2global(this.bg1);
@@ -74,7 +76,13 @@ class ShopView extends egret.DisplayObjectContainer {
         };
         this.addChild(this.btnRob);
 
-        ViewUtils.multiLang(this, this.bg1, ...this.grids, ...this.prices, this.btnGoBack, this.btnRob);
+        // 交换遗物
+        this.btnExchangeRelic = new TextButtonWithBg("exchange_png", 30);
+        this.btnExchangeRelic.name = "btnExchangeRelic";
+        this.btnExchangeRelic.onClicked = () => this.openExchangeRelic();
+        this.addChild(this.btnExchangeRelic);
+
+        ViewUtils.multiLang(this, this.bg1, ...this.grids, ...this.prices, this.btnGoBack, this.btnRob, this.btnExchangeRelic);
     }
 
     private onCancel;
@@ -82,13 +90,21 @@ class ShopView extends egret.DisplayObjectContainer {
     private onRob;
     private onRobbed;
     private autoCloseOnRob;
-    public async open(items, prices, onBuy, onRob, autoCloseOnRob:boolean, onRobbed):Promise<void> {
+    public async open(items, prices, onBuy, onRob, autoCloseOnRob:boolean, onRobbed, afterBoss = false):Promise<void> {
         this.items = Utils.map(items, (it) => !it ? undefined : ElemFactory.create(it));
         this.items.forEach((it, i) => this.items[i] = this.soldout[i] ? undefined : this.items[i]);
         this.itemPrices = prices;
         this.onRob = onRob;
         this.onRobbed = onRobbed;
         this.autoCloseOnRob = autoCloseOnRob;
+        if (afterBoss){
+            this.btnExchangeRelic.alpha = 1;
+            this.btnExchangeRelic.enabled = true;
+        } else {
+            this.btnExchangeRelic.alpha = 0;
+            this.btnExchangeRelic.enabled = false;
+        }
+
         this.refresh();
 
         if (this.onRob && !this.contains(this.btnRob))

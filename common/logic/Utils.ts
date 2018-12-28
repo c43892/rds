@@ -427,6 +427,15 @@ class Utils {
         return !eCfg.occupations || Utils.contains(eCfg.occupations, occupation);
     }
 
+    // 判断技能是否已经解锁
+    public static isRelicUnlocked(type){
+        var relicsNeedUnlock = GCfg.getMiscConfig("relicsNeedUnlock");
+        if (Utils.contains(relicsNeedUnlock, type) && !Utils.contains(Utils.loadAchvData("unlockedRelics"), type))
+            return false;
+        else
+            return true;
+    }
+
     // 在 randomSelectByWeight 之前，从掉落列表中，过滤掉玩家有携带遗物并且已经到达顶级强化等级的遗物，如果
     // 过滤后列表为空，则填入一个指定的替代品
     public static randomSelectByWeightWithPlayerFilter(p:Player, elemsWithWeight, srand:SRandom, 
@@ -455,6 +464,10 @@ class Utils {
                 if (!r.canReinfoce())
                     continue;
             }
+
+            // 检查解锁
+            if (!Utils.isRelicUnlocked(e))
+                continue;
 
             elems[e] = elemsWithWeight[e];
             cnt++;
@@ -616,6 +629,7 @@ class Utils {
 
     // 判断是否是处于新手期
     public static checkRookiePlay():boolean {
+        // return false;
         return !Utils.loadLocalData("rookiePlay") || Utils.loadLocalData("rookiePlay") != "finished";
     }
 
