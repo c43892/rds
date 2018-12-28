@@ -186,11 +186,14 @@
     "CherryBomb":{
         "name":"樱桃炸弹", "hp":10, "power":5, "selfExplode":{"aoe":{"w":3, "h":3}},
         "level2Power":2, "level3Critical":10, "level4BoomDamage":50,
-        "useWithConfirm":true, "tags":["plant"], "noNewMonsterTip":true
+        "useWithConfirm":true, "tags":["plant"], "noNewMonsterTip":true,
+        "useTipContent":"useCherryBomb"
         },
     "Sunflower":{"name":"太阳花", "hp":10, "dhpPercent":15, 
         "level2AddHp":6, "level3AddExpPercent":20, "level4AddMoney":10, "level5AddMaxHp":1,
-        "useWithConfirm":true, "tags":["plant"], "noNewMonsterTip":true},
+        "useWithConfirm":true, "tags":["plant"], "noNewMonsterTip":true,
+        "useTipContent":"useSunflower"
+        },
     "CharmingMushroom":{"name":"魅惑菇", "hp":10, 
         "level2AddPower":1, "level3AddHp":2, "level4AddCritical":10, "level5AddDodge":10,
         "useWithTarget":true, "tags":["plant"], "noNewMonsterTip":true},

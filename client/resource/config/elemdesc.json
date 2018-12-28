@@ -270,9 +270,10 @@
             "<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>离开每层时回复</font><font color=#294c22 size=20> {dhp} </font><font color=#000000 size=20>点生命值</font>"],
         "shortDesc":"离开每层时回复 {dhp} 点生命值",
 		"initialDesc":"<font color=#000000 size=28>离开每层时回复 3/6/9/12/15点生命值。</font>"},
-		"GangMember":{"name":"黑帮", "desc":[],
-        "shortDesc":"具备抢夺能力。",
-		"initialDesc":"<font color=#000000 size=28>具备抢夺能力。</font>。"},
+		"GangMember":{"name":"黑帮", "desc":[
+           " <font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>可以抢劫商店和事件NPC</font>"],
+        "shortDesc":"可以抢劫商店和事件NPC",
+		"initialDesc":"<font color=#000000 size=28>可以抢劫商店和事件NPC</font>。"},
         "Endurance":{"name":"耐力强化", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>耐力：增加</font><font color=#294c22 size=20> {dMaxHp} </font><font color=#000000 size=20>点最大生命值</font>"], 
             "shortDesc":"增加{dMaxHp}点最大生命值"},
         "Power":{"name":"力量强化", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>攻击力+</font><font color=#294c22 size=20> {dPower}</font>"], 

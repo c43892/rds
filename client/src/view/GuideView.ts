@@ -135,7 +135,7 @@ class GuideView extends egret.DisplayObjectContainer {
         // 遗物出现
         bt.registerEvent("onRelicChanged", async (ps) => {
             var subType = ps.subType;
-            if (subType != "addRelicByRookie")
+            if (subType != "addRelicBySel")
                 return;
 
             var e:Elem = ps.e;
@@ -741,9 +741,15 @@ class GuideView extends egret.DisplayObjectContainer {
         await this.showDialog("EyeDemon", "眼魔", "啊，我的眼睛，魔王的战士会再次归来的！", 0, 550, false);
         await this.showDialog("Nurse", "护士", "看到了吧，眼魔死亡会打开空着的格子。", 0, 550, true);
         await this.tapGridWithDialog(1, 4, "Nurse", "护士", "现在点开闪光的格子", 0, 650, true);
-        await this.slide2DragItemWithDialog(1, 4, 1, 2, "Nurse", "护士", "有一个苹果，让我们拖动它，看看格子上的数字是多少", 0, 630, true);
-        await this.showDialog("Nurse", "护士", "操作完成，数字是1，现在我们知道下面两个格子中有一个怪物。等等，我闻到了怪物的气息", 0, 630, true);
-        await this.showDialog("Nurse", "护士", "再来一个新操作，我们手动做记号，提醒自己那个格子有怪物", 0, 550, true);
+        await this.slide2DragItemWithDialog(1, 4, 1, 2, "Nurse", "护士", "有一个苹果，我们可以拖动它方便我们看格子上的数字", 0, 630, true);
+        await this.tapGridWithDialog(4, 4, "Nurse", "护士", "让我们再点开一个闪光的格子", 0, 650, true);
+        await this.tapGridWithDialog(4, 4, "Nurse", "护士", "好像有一瓶药水，我们来点击一下", 0, 650, true);
+        var propGrid = this.bv.propsView.getPropViewByIndex(2);
+        await this.tapWithDialog(propGrid, "Nurse", "护士", "它进入道具栏了，让我们继续", 0, 550);
+        await this.tapSelGridWithDialog(2, 6, "Nurse", "护士", "一切就绪，我们来尝试一下爆炸药水的效果吧", 0, 250, true);
+        await AniUtils.delay(2000);
+        await this.showDialog("Nurse", "护士", "操作完成，现在我们学习一个新操作，手动标注怪物", 0, 630, true);
+        await this.showDialog("Nurse", "护士", "我们手动在格子上做记号，提醒自己那个格子有怪物", 0, 550, true);
         await this.pressGridWithDialog(5, 1, "Nurse", "护士", "跟着小手长按那个格子", 0, 550, true);
         await this.pressGridWithDialog(5, 2, "Nurse", "护士", "好的，你成功了，让我们再来一次", 0, 550, true);
         await this.showDialog("Nurse", "护士", "非常好，魔王的手下遍布地牢，谨慎的向前探索吧，勇士", 0, 550, true);
@@ -763,7 +769,6 @@ class GuideView extends egret.DisplayObjectContainer {
         var nameAndDesc = ViewUtils.getElemNameAndDesc(m.type);
         await AniUtils.delay(700);
         await this.showDialog("Nurse", "护士", "bingo，你成功的标记了一个怪物", 0, 550, true);
-        await this.showDialog("Nurse", "护士", "攻击被标记的怪物可以额外造成3点伤害", 0, 550, true);
         await this.showDialog("Nurse", "护士", "你也可以看到怪物的属性来判断是不是要击杀这个怪物", 0, 550, true);
         await this.showDialog("Nurse", "护士", "注意哦，你不一定要击杀所有怪物，拿到宝物就可以去下一层了", 0, 550, true);
 
@@ -801,5 +806,7 @@ class GuideView extends egret.DisplayObjectContainer {
 
         var avatar = this.cv.getChildByName("goBackBtn");
         await this.tapWithDialog(avatar, "ShopNpc", "name", "message", 0, 550);
+
+        
     }
 }

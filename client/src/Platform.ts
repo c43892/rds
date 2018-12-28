@@ -56,6 +56,14 @@ class DefaultPaltform implements Platform {
                 this.rewardAdsCompletedCallback = undefined;
             });
         }
+
+        egret.lifecycle.onPause = () => {
+            AudioFactory.AudioOn = 0;
+        };
+
+        egret.lifecycle.onResume = () => {
+            AudioFactory.AudioOn = 1;
+        };
     }
 
     public canPlayAdsReborn() {
