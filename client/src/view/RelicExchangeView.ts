@@ -2,23 +2,30 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
     public player:Player;
     private bg:egret.Bitmap;
     private bg1:egret.Bitmap;
-    private titleEquipped:egret.TextField;
     private relicsArea:egret.DisplayObjectContainer;
+    private commonGrids:egret.DisplayObjectContainer[] = [];
     private equippedGrids:egret.DisplayObjectContainer[] = [];
     private inBagGrids:egret.DisplayObjectContainer[] = [];
+    private titleCommon:egret.TextField;
     private relicsAreaBg:egret.Bitmap;
-    private leftSplitLine:egret.Bitmap;
-    private rightSplitLine:egret.Bitmap;
+    private titleEquipped:egret.TextField;
+    private leftSplitLine1:egret.Bitmap;
+    private rightSplitLine1:egret.Bitmap;
+    private leftSplitLine2:egret.Bitmap;
+    private rightSplitLine2:egret.Bitmap;
     private titleInBag:egret.TextField;
     private pageUpBtn:TextButtonWithBg;
     private pageDownBtn:TextButtonWithBg;
     private goBackBtn:TextButtonWithBg;
     private goOnBtn:TextButtonWithBg;
     private page:number;
+    private rsCommon:Relic[];
     private rsEquipped:Relic[];
     private rsInBag:Relic[];
     private canDrag:boolean;
+    private relics4Sel:boolean;
     private funcOnClick:string;
+
     public showDescView;
     public confirmOkYesNo;
     public relicConfirmView;
@@ -41,6 +48,10 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
         this.bg1 = ViewUtils.createBitmapByName("bigBg_png");
         this.bg1.name = "bg1";
 
+        this.titleCommon = ViewUtils.createTextField(45, 0x7d0403);
+        this.titleCommon.text = ViewUtils.getTipText("titleCommon");
+        this.titleCommon.name = "titleCommon";
+
         this.titleEquipped = ViewUtils.createTextField(45, 0x7d0403);
         this.titleEquipped.text = ViewUtils.getTipText("titleEquipped");
         this.titleEquipped.name = "titleEquipped";
@@ -52,12 +63,20 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
         this.titleInBag.text = ViewUtils.getTipText("titleInBag");
         this.titleInBag.name = "titleInBag";
 
-        this.leftSplitLine = ViewUtils.createBitmapByName("leftSplitLine_png");
-        this.leftSplitLine.name = "leftSplitLine";
+        this.leftSplitLine1 = ViewUtils.createBitmapByName("leftSplitLine_png");
+        this.leftSplitLine1.name = "leftSplitLine1";
+        this.leftSplitLine1.scaleX = 0.8;
 
-        this.rightSplitLine = ViewUtils.createBitmapByName("leftSplitLine_png");
-        this.rightSplitLine.scaleX = -1;
-        this.rightSplitLine.name = "rightSplitLine";
+        this.rightSplitLine1 = ViewUtils.createBitmapByName("leftSplitLine_png");
+        this.rightSplitLine1.name = "rightSplitLine1";
+        this.rightSplitLine1.scaleX = -0.8;
+
+        this.leftSplitLine2 = ViewUtils.createBitmapByName("leftSplitLine_png");
+        this.leftSplitLine2.name = "leftSplitLine2";
+
+        this.rightSplitLine2 = ViewUtils.createBitmapByName("leftSplitLine_png");
+        this.rightSplitLine2.scaleX = -1;
+        this.rightSplitLine2.name = "rightSplitLine2";
 
         this.pageUpBtn = new TextButtonWithBg("pageUpBtn_png", 30);
         this.pageUpBtn.name = "pageUpBtn";
@@ -80,7 +99,7 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
         this.goOnBtn.touchEnabled = true;
         this.goOnBtn.onClicked = () => this.goOn();
 
-        var objs = [this.bg1, this.titleEquipped, this.titleInBag, this.leftSplitLine, this.rightSplitLine, this.goBackBtn, this.goOnBtn, this.pageUpBtn, this.pageDownBtn, this.relicsArea];
+        var objs = [this.bg1, this.titleCommon, this.titleEquipped, this.leftSplitLine1, this.rightSplitLine1, this.titleInBag, this.leftSplitLine2, this.rightSplitLine2, this.goBackBtn, this.goOnBtn, this.pageUpBtn, this.pageDownBtn, this.relicsArea];
         objs.forEach((obj, _) => this.addChild(obj));
         ViewUtils.multiLang(this, ...objs);
 
@@ -99,15 +118,19 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
 public async open(canDrag:boolean = true, funcOnClick = "showDesc", hideGoBackBtn = false, relics4Sel = undefined) {
         this.canDrag = canDrag;
         this.funcOnClick = funcOnClick;
+        this.relics4Sel = relics4Sel;
         this.page = 0;
         if (!relics4Sel) { // 没指定候选表， 默认用角色身上的
             this.rsEquipped = [...this.player.relicsEquipped];
             this.rsInBag = [...this.player.relicsInBag];
+            this.titleCommon.alpha = 1;
             this.titleEquipped.alpha = 1;
             this.titleInBag.alpha = 1;
         } else { // 有单独给候选表，就用给的
-            this.rsEquipped = relics4Sel.length > 12 ? relics4Sel.slice(0, 12) : relics4Sel;
-            this.rsInBag = relics4Sel.length > 12 ? relics4Sel.slice(12, relics4Sel.length) : [];
+            this.rsCommon = relics4Sel.length > 8 ? relics4Sel.slice(0, 8) : relics4Sel;
+            this.rsEquipped = relics4Sel.length > 8 ? (relics4Sel.length > 20 ? relics4Sel.slice(8, 20) : relics4Sel.slice(0, relics4Sel.length)) : [];
+            this.rsInBag = relics4Sel.length > 20 ? relics4Sel.slice(20, relics4Sel.length) : [];
+            this.titleCommon.alpha = 0;
             this.titleEquipped.alpha = 0;
             this.titleInBag.alpha = 0;
         }
@@ -131,16 +154,103 @@ public async open(canDrag:boolean = true, funcOnClick = "showDesc", hideGoBackBt
         return new Promise<number>((resolve, reject) => this.doClose = resolve);
     }
 
+    // 在背景上放置圆盘和用于装入遗物图的格子
+    private setEmptyGrids() {
+        var xGap = (this.relicsArea.width - (this.ColNum * this.GridSize)) / (this.ColNum + 1);
+        for (var j = 0; j < 3; j++) {
+            // j == 1, 装备着的.  j == 2, 背包里的.
+            var x = xGap;
+            var y = j == 0 ? 20 : (j == 1 ? (xGap + 220) : (xGap + 535));
+            for (var i = 0; i < (j == 0 ? this.CommonNum : this.ShowNum); i++) {
+                var grid = new egret.DisplayObjectContainer();
+                grid.width = grid.height = this.GridSize;
+                grid.x = x;
+                grid.y = y;
+                grid.touchEnabled = true;
+                let noElemImg = ViewUtils.createBitmapByName("aevNoElem_png");
+                noElemImg.anchorOffsetX = noElemImg.width / 2;
+                noElemImg.anchorOffsetY = noElemImg.height / 2;
+                noElemImg.x = grid.x + this.GridSize / 2;
+                noElemImg.y = grid.y + this.GridSize / 2;
+                this.relicsArea.addChild(noElemImg);
+                this.relicsArea.addChild(grid);
+
+                var rev = this;
+                grid.addEventListener(egret.TouchEvent.TOUCH_BEGIN, (evt) => RelicExchangeView.onEvent(rev, "onTouchBegin", evt), grid);
+                grid.addEventListener(egret.TouchEvent.TOUCH_MOVE, (evt) => RelicExchangeView.onEvent(rev, "onTouchMove", evt), grid);
+                grid.addEventListener(egret.TouchEvent.TOUCH_END, (evt) => RelicExchangeView.onEvent(rev, "onTouchEnd", evt), grid);
+                grid.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, (evt) => RelicExchangeView.onEvent(rev, "onTouchEnd", evt), grid);
+                grid.name = j + "grid" + i;
+
+                if (j == 0)
+                    this.commonGrids.push(grid);
+                else if (j == 1)
+                    this.equippedGrids.push(grid);
+                else
+                    this.inBagGrids.push(grid);
+
+                x += this.GridSize + xGap;
+                if (x >= this.relicsArea.width) {
+                    x = xGap;
+                    y += this.GridSize + xGap - 25;
+                }
+            }
+        }
+    }
+
     private doClose;
 
     private refresh(hideLock = false) {
+        this.refreshCommonRelics();
         this.refreshRelicEquipped(hideLock);
         this.refreshRelicInBagArea();
     }
 
     readonly ColNum = 4; // 每一行 4 个
     readonly GridSize = 84; // 图标大小
+    readonly CommonNum = 8;
     readonly ShowNum = 12; // 单页展示数量
+
+    private refreshCommonRelics() {
+        var relicTypes = this.player.commonRelicTypes;
+        for (var i = 0; i < this.CommonNum; i++){
+            var container = this.commonGrids[i];
+            container.removeChildren();
+            container["index"] = i;
+            var type = relicTypes[i];
+            // 可能没解锁双职业,只有7个技能
+            if (type){
+                var index = Utils.indexOf(this.player.commonRelics, (r:Relic) => r.type == type);
+                // 玩家是否已拥有此通用技能
+                if (index > -1) {
+                    var r = this.player.commonRelics[index];
+                    container["relic"] = r;
+                    container["elem"] = "commonRelic";
+                }
+                else {
+                    var r = <Relic>ElemFactory.create(type);
+                    container["relic"] = undefined;
+                    container["elem"] = "fakeRelic";
+                }                
+                var relicImg = ViewUtils.createBitmapByName(r.getElemImgRes() + "_png");
+                var stars = ViewUtils.createRelicLevelStars(r, relicImg, index == -1);
+                container.addChild(relicImg);
+                stars.forEach((star, _) => container.addChild(star));
+            }
+            else {
+                container["relic"] = undefined;
+                if (!this.relics4Sel) {                    
+                    container["elem"] = "lock";
+                    var l = ViewUtils.createBitmapByName("relicLock_png");
+                    l.anchorOffsetX = l.width / 2;
+                    l.anchorOffsetY = l.height / 2;
+                    l.x = container.width / 2;
+                    l.y = container.height / 2;
+                    container.addChild(l);
+                }
+            }
+        }
+    }
 
     private refreshRelicEquipped(hideLock) {
         this.refreshGrids(this.rsEquipped, true, hideLock);
@@ -171,48 +281,6 @@ public async open(canDrag:boolean = true, funcOnClick = "showDesc", hideGoBackBt
                 relics.push(relic);
         })
         this.refreshGrids(relics, false);
-    }
-
-    // 在背景上放置圆盘和用于装入遗物图的格子
-    private setEmptyGrids() {
-        for (var j = 0; j < 2; j++) {
-            // j == 0, 装备着的.  j == 1, 背包里的.
-            var space = (this.relicsArea.width - (this.ColNum * this.GridSize)) / (this.ColNum + 1);
-            var x = space;
-            var y = j == 0 ? (space - 25) : (space - 25 + 380);
-            for (var i = 0; i < this.ShowNum; i++) {
-                var grid = new egret.DisplayObjectContainer();
-                grid.width = grid.height = this.GridSize;
-                grid.x = x;
-                grid.y = y;
-                grid.touchEnabled = true;
-                let noElemImg = ViewUtils.createBitmapByName("aevNoElem_png");
-                noElemImg.anchorOffsetX = noElemImg.width / 2;
-                noElemImg.anchorOffsetY = noElemImg.height / 2;
-                noElemImg.x = grid.x + this.GridSize / 2;
-                noElemImg.y = grid.y + this.GridSize / 2;
-                this.relicsArea.addChild(noElemImg);
-                this.relicsArea.addChild(grid);
-
-                var rev = this;
-                grid.addEventListener(egret.TouchEvent.TOUCH_BEGIN, (evt) => RelicExchangeView.onEvent(rev, "onTouchBegin", evt), grid);
-                grid.addEventListener(egret.TouchEvent.TOUCH_MOVE, (evt) => RelicExchangeView.onEvent(rev, "onTouchMove", evt), grid);
-                grid.addEventListener(egret.TouchEvent.TOUCH_END, (evt) => RelicExchangeView.onEvent(rev, "onTouchEnd", evt), grid);
-                grid.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, (evt) => RelicExchangeView.onEvent(rev, "onTouchEnd", evt), grid);
-                grid.name = j + "grid" + i;
-
-                if (j == 0)
-                    this.equippedGrids.push(grid);
-                else
-                    this.inBagGrids.push(grid);
-
-                x += this.GridSize + space;
-                if (x >= this.relicsArea.width) {
-                    x = space;
-                    y += this.GridSize + space;
-                }
-            }
-        }
     }
 
     // 刷新格子里的遗物图像等,只刷新装备的或背包里的12个格子
@@ -360,7 +428,10 @@ public async open(canDrag:boolean = true, funcOnClick = "showDesc", hideGoBackBt
     async onTouchMove(evt: egret.TouchEvent) {
         if (RelicExchangeView.longPressed) return;
 
-        if (!(RelicExchangeView.dragFromImg && RelicExchangeView.dragFromImg["elem"] == "relicAndStar")) return;
+        if (!(RelicExchangeView.dragFromImg && RelicExchangeView.dragFromImg["elem"] == "relicAndStar")) {
+            RelicExchangeView.dragging = true;
+            return
+        };
 
         var currentX = evt.localX + evt.target.x;
         var currentY = evt.localY + evt.target.y;
@@ -401,7 +472,7 @@ public async open(canDrag:boolean = true, funcOnClick = "showDesc", hideGoBackBt
         if (RelicExchangeView.dragging && RelicExchangeView.dragFromImg && RelicExchangeView.dragFromImg["elem"] == "relicAndStar") {            
             // 在不允许拖动的界面上拖动遗物时需要给出提示
             if (!this.canDrag)
-                await AniUtils.tipAt(ViewUtils.getTipText("tipOnDrag"), {x:this.width/2, y:this.height/2});
+                await AniUtils.tipAt(ViewUtils.getTipText("tipOnDrag"), {x:this.width/2, y:this.height/2});            
             else {
                 this.relicsArea.removeChild(RelicExchangeView.draggingImg);
                 RelicExchangeView.dragFromImg.alpha = 1;
@@ -474,16 +545,25 @@ public async open(canDrag:boolean = true, funcOnClick = "showDesc", hideGoBackBt
             }
             RelicExchangeView.dragging = false;
         }
-        else if (RelicExchangeView.pressed) {
+        // 拖动操作,不能交换固有技能
+        else if (RelicExchangeView.dragging && this.canDrag && RelicExchangeView.dragFromImg["elem"] == "commonRelic")
+            await AniUtils.tipAt(ViewUtils.getTipText("canNotDragCommonRelic"), {x:this.width/2, y:this.height/2});
+        // 拖动操作,不能交换假技能
+        else if (RelicExchangeView.dragging && this.canDrag && RelicExchangeView.dragFromImg["elem"] == "fakeRelic")
+            await AniUtils.tipAt(ViewUtils.getTipText("noThisRelic"), {x:this.width/2, y:this.height/2});
+        // 点击操作
+        else if (!RelicExchangeView.dragging && RelicExchangeView.pressed) {
             RelicExchangeView.pressed = false;
             switch (this.funcOnClick) {
                 case "showDesc": {
-                    if (RelicExchangeView.dragFromImg["elem"] == "relicAndStar")
+                    if (RelicExchangeView.dragFromImg["elem"] == "relicAndStar" || RelicExchangeView.dragFromImg["elem"] == "commonRelic")
                         await this.showDescView(RelicExchangeView.dragFromImg["relic"]);
+                    else if (RelicExchangeView.dragFromImg["elem"] == "fakeRelic")
+                        await AniUtils.tipAt(ViewUtils.getTipText("noThisRelic"), {x:this.width/2, y:this.height/2});
                     break;
                 }
                 case "selectRelic": {
-                    if (RelicExchangeView.dragFromImg["elem"] == "relicAndStar") {
+                    if (RelicExchangeView.dragFromImg["elem"] == "relicAndStar" || RelicExchangeView.dragFromImg["elem"] == "commonRelic") {
                         var r:Relic = RelicExchangeView.dragFromImg["relic"];
                         if (r.canReinfoce()){
                             var reinforceRelic = ElemFactory.create(r.type);
@@ -497,12 +577,14 @@ public async open(canDrag:boolean = true, funcOnClick = "showDesc", hideGoBackBt
                     }
                 }
                 case "selectRelicWithoutConfirm": {
-                    if (RelicExchangeView.dragFromImg["elem"] == "relicAndStar") {
+                    if (RelicExchangeView.dragFromImg["elem"] == "relicAndStar" || RelicExchangeView.dragFromImg["elem"] == "commonRelic") {
                         var r:Relic = RelicExchangeView.dragFromImg["relic"];
                         r = <Relic>ElemFactory.create(r.type);
                         this.doClose(r);
-                        break;
                     }
+                    else if (RelicExchangeView.dragFromImg["elem"] == "fakeRelic")
+                        await AniUtils.tipAt(ViewUtils.getTipText("noThisRelic"), {x:this.width/2, y:this.height/2});
+                    break;
                 }
             }
         }

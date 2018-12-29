@@ -603,8 +603,8 @@ class MainView extends egret.DisplayObjectContainer {
         this.rev.player = this.p;
         this.addChild(this.rev);
 
-        if (!inBattle)
-            this.setChildIndex(this.wmtv, -1);
+        // if (!inBattle)
+        //     this.setChildIndex(this.wmtv, -1);
 
         var result = await this.rev.open(canDrag, funcOnClinked, hideGoBackBtn, relics4Sel);
         this.removeChild(this.rev);

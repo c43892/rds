@@ -302,7 +302,7 @@ class Battle {
         hs.push(...this.player.buffs);
 
         // 玩家遗物
-        hs.push(...this.player.relicsEquipped);
+        hs.push(...this.player.commonRelics, ...this.player.relicsEquipped);
 
         // 玩家道具
         hs.push(...this.player.props);

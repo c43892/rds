@@ -265,7 +265,7 @@ class CharacterView extends egret.DisplayObjectContainer {
         this.commonRelicsArea.removeChildren();
         this.commonRelicsArea.addChild(this.commonRelicsBg);
 
-        var commonRelics:string[] = GCfg.getOccupationCfg(this.player.occupation).commonRelics;
+        var commonRelics = this.player.commonRelicTypes;
 
         // 设置8个通用技能
         var x = 72;

@@ -205,7 +205,7 @@ class Player {
     collectAllLogicHandler() {
         var hs = [];
 
-        hs.push(...this.relicsEquipped);
+        hs.push(...this.commonRelics, ...this.relicsEquipped);
 
         return hs;
     }
@@ -279,9 +279,14 @@ class Player {
 
     public toString():string {
         // 序列化之前，要先把遗物移除，这样才能去掉遗物的数值影响，处理完之后，再放回来
-
+        var commonRelics = [];
         var relicsEquipped = [];
+        var removedCommonRelics = this.commonRelics;
         var removedRelicsEquipped = this.relicsEquipped;
+        for (var r of this.commonRelics){
+            commonRelics.push(r.toString());
+            this.removeRelic(r.type);
+        }
         for (var r of this.relicsEquipped){
             relicsEquipped.push(r.toString());
             this.removeRelic(r.type);
@@ -329,7 +334,7 @@ class Player {
         var srand = this.playerRandom.toString();
         var worldmapRandomSeed = this.worldmapRandomSeed;
 
-        var pinfo = {relicsEquipped:relicsEquipped, 
+        var pinfo = {commonRelics:commonRelics, relicsEquipped:relicsEquipped, 
             relicsInBag:relicsInBag, props:props, 
             elems2NextLevel:elems2NextLevel, 
             worldmapRandomSeed:worldmapRandomSeed, srand:srand, 
@@ -338,6 +343,9 @@ class Player {
             pinfo[f] = this[f];
 
         var saveData = JSON.stringify(pinfo);
+
+        for(var relic of removedCommonRelics)
+            this.addRelicInternal(relic, true);
 
         for(var relic of removedRelicsEquipped)
             this.addRelicInternal(relic, true);
@@ -359,6 +367,12 @@ class Player {
         var p = new Player();
         for (var f of Player.serializableFields)
             p[f] = pinfo[f];
+
+        for (var r of pinfo.commonRelics) {
+            var relic = Relic.fromString(r);
+            p.addRelicInternal(relic, true);
+            (<Relic>relic).redoAllMutatedEffects();
+        }
 
         for (var r of pinfo.relicsEquipped) {
             var relic = Relic.fromString(r);
@@ -442,10 +456,14 @@ class Player {
 
     public relicEquippedCapacityMax = 12; // 装备格上限
     public relicsEquippedCapacity; // 遗物装备格容量
+    public commonRelics:Relic[] = []; // 通用技能
+    public get commonRelicTypes():string[] { 
+        return GCfg.getOccupationCfg(this.occupation).commonRelics;
+    }
     public relicsEquipped:Relic[] = []; // 已经装备的遗物
     public relicsInBag:Relic[] = []; // 包裹中的遗物
     public get allRelics():Relic[] {
-        return [...this.relicsEquipped, ...this.relicsInBag];
+        return [...this.commonRelics, ...this.relicsEquipped, ...this.relicsInBag];
     }
 
     // 获取还可以强化的遗物
@@ -471,8 +489,12 @@ class Player {
     // player 内部使用
     private addRelicInternal(e:Relic, equipped:boolean) {
         Utils.assert(Utils.indexOf(this.allRelics, (r) => r.type == e.type) < 0, "relic conflicted in add4internal");
-        if (equipped)
-            this.relicsEquipped.push(e.toRelic(this));
+        if (equipped){
+            if (Utils.contains(this.commonRelicTypes, e.type))
+                this.commonRelics.push(e.toRelic(this));
+            else
+                this.relicsEquipped.push(e.toRelic(this));
+        }
         else
             this.relicsInBag.push(e);
     }
@@ -489,13 +511,28 @@ class Player {
         }
 
         // 新的
-        if (this.relicsEquipped.length < this.relicsEquippedCapacity)
-            this.relicsEquipped.push(e.toRelic(this));
-        else
-            this.relicsInBag.push(e);
+        // 是否属于通用技能,不属于则根据装备栏是否已满决定去处
+        if (Utils.contains(this.commonRelicTypes, e.type))
+            this.commonRelics.push(e.toRelic(this));
+        else {
+            if (this.relicsEquipped.length < this.relicsEquippedCapacity)
+                this.relicsEquipped.push(e.toRelic(this));
+            else
+                this.relicsInBag.push(e);
+        }
     }
 
     public removeRelic(type:string):Elem {
+        for (var i in this.commonRelics) {
+            var e = this.commonRelics[i];
+            if (e.type == type) {
+                this.commonRelics = Utils.removeAt(this.commonRelics, i);
+                (<Relic>e).removeAllEffects();
+                e.player = undefined;
+                return e;
+            }
+        }
+
         for (var i in this.relicsEquipped) {
             var e = this.relicsEquipped[i];
             if (e.type == type) {
