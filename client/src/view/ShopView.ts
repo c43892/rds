@@ -13,6 +13,7 @@ class ShopView extends egret.DisplayObjectContainer {
     private saleIndex;1
     private btnRob:TextButtonWithBg; // 抢劫按钮
     private btnExchangeRelic:TextButtonWithBg // 交换遗物
+    private btnGoOn:ArrowButton; // 前进按钮
 
     public player:Player;
     public openConfirmView;
@@ -65,7 +66,7 @@ class ShopView extends egret.DisplayObjectContainer {
         this.btnGoBack.touchEnabled = true;
         this.addChild(this.btnGoBack);
         this.btnGoBack.text = ViewUtils.getTipText("goBackBtn");
-        this.btnGoBack.onClicked = () => this.onGoBack();
+        this.btnGoBack.onClicked = () => this.onGoBack();        
 
         this.btnRob = new TextButtonWithBg("btnRob_png", 0);
         this.btnRob.name = "btnRob";
@@ -81,8 +82,15 @@ class ShopView extends egret.DisplayObjectContainer {
         this.btnExchangeRelic.name = "btnExchangeRelic";
         this.btnExchangeRelic.onClicked = () => this.openExchangeRelic();
         this.addChild(this.btnExchangeRelic);
+        
+        this.btnGoOn = new ArrowButton(true, "goForward_png", 30)
+        this.btnGoOn.name = "btnGoOn";
+        this.btnGoOn.touchEnabled = true;
+        this.addChild(this.btnGoOn);
+        this.btnGoOn.text = ViewUtils.getTipText("continueBtn");
+        this.btnGoOn.onClicked = () => this.onGoOn();
 
-        ViewUtils.multiLang(this, this.bg1, ...this.grids, ...this.prices, this.btnGoBack, this.btnRob, this.btnExchangeRelic);
+        ViewUtils.multiLang(this, this.bg1, ...this.grids, ...this.prices, this.btnGoBack, this.btnRob, this.btnExchangeRelic, this.btnGoOn);
     }
 
     private onCancel;
@@ -100,9 +108,17 @@ class ShopView extends egret.DisplayObjectContainer {
         if (afterBoss){
             this.btnExchangeRelic.alpha = 1;
             this.btnExchangeRelic.enabled = true;
+            this.btnGoOn.alpha = 1;
+            this.btnGoOn.enabled = true;
+            this.btnGoBack.alpha = 0;
+            this.btnGoBack.touchEnabled = false;
         } else {
             this.btnExchangeRelic.alpha = 0;
             this.btnExchangeRelic.enabled = false;
+            this.btnGoOn.alpha = 0;
+            this.btnGoOn.enabled = false;
+            this.btnGoBack.alpha = 1;
+            this.btnGoBack.touchEnabled = true;
         }
 
         this.refresh();
@@ -225,5 +241,9 @@ class ShopView extends egret.DisplayObjectContainer {
 
     public refreshSoldout(){
         this.soldout.forEach((b, i) => this.soldout[i] = false);
+    }
+
+    onGoOn(){
+        this.onCancel();
     }
 }

@@ -171,7 +171,8 @@
 				"price4": {"x":311, "y":760, "w":100, "h":20},
 				"price5": {"x":472, "y":760, "w":100, "h":20},
 				"btnRob": {"x":300, "y":860},
-				"btnExchangeRelic":{"x":10, "y":980}
+				"btnExchangeRelic":{"x":10, "y":980},
+				"btnGoOn":{"x":465, "y":980}
 			}
 		},
 		
@@ -211,7 +212,7 @@
 				"tipBg":{"x":111, "y":730},
 				"tipContent":{"x":171, "y":740, "w":300, "h":90},
 				"tipReward":{"x":171, "y":743},
-				"goOutBtn":{"x":427, "y":970},
+				"goOutBtn":{"x":465, "y":980},
 				"destination":{"x":320, "y":0}
 			}
 		},		
@@ -376,8 +377,7 @@
 		
 		"characterView":{
 			"layout": {
-				"attrsBg":{"x":5, "y":10},
-				"commonRelicsBg":{"x":132, "y":267, "rotation":24},				
+				"attrsBg":{"x":5, "y":10},			
 				"commonRelicsArea":{"x":132, "y":267, "rotation":24},
 				"avatar":{"x":50, "y":61, "w":120, "h":120},
 				"avatarBg":{"x":30, "y":46, "w":150, "h":150},

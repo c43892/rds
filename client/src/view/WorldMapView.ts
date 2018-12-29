@@ -648,12 +648,8 @@ class WorldMapView extends egret.DisplayObjectContainer {
             if(this.player.currentStoreyPos.lv >= this.player.worldmap.cfg.totalLevels){
                 this.player.finishedWorldMap.push(this.worldmap.cfg);
                 var newtWorldName = this.worldmap.cfg.nextWorld;
-                if(newtWorldName){
-                    var newWorld = WorldMap.buildFromConfig(newtWorldName, this.player);
-                    this.player.goToNewWorld(newWorld);
-                    this.setWorldMap(p.worldmap);
-                    await (<AniView>AniUtils.ac).doWorldMapSlide(1, 2000, this.worldmap.cfg.worldNum);
-                }
+                if(newtWorldName)
+                    await this.onPlayerGo2NewWorld(newtWorldName);
                 else 
                     await this.openFinishGameView();
             }
@@ -735,5 +731,15 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
     async openSels(p:Player, title, desc, bg, sels) {
         await this.openEventSels(title, desc, bg, sels);
+    }
+
+    // 进入新的世界地图
+    async onPlayerGo2NewWorld(newtWorldName){
+        // 先进入整备界面
+        await this.openShop(this.worldmap.cfg.shop, true);
+        var newWorld = WorldMap.buildFromConfig(newtWorldName, this.player);
+        this.player.goToNewWorld(newWorld);
+        this.setWorldMap(this.player.worldmap);
+        await (<AniView>AniUtils.ac).doWorldMapSlide(1, 2000, this.worldmap.cfg.worldNum);
     }
 }

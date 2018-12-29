@@ -46,6 +46,7 @@ class MainView extends egret.DisplayObjectContainer {
         // 商店视图
         this.sv = new ShopView(w, h);
         this.sv.openConfirmView = async (player:Player, e:Elem, price:number, showPrice = true) => await this.openShopConfirmView(player, e, price, showPrice);
+        this.sv.openExchangeRelic = async () => await this.openRelicExchangeView(false, true);
 
         // 战斗视图
         this.bv = new BattleView(w, h);
@@ -101,7 +102,7 @@ class MainView extends egret.DisplayObjectContainer {
 
         // 世界地图
         this.wmv = new WorldMapView(w, h);
-        this.wmv.openShop = async (shop) => await this.openShopOnWorldMap(shop);
+        this.wmv.openShop = async (shop, afterBoss = false) => await this.openShopOnWorldMap(shop, afterBoss);
         this.wmv.refreshShopSoldout = () => this.sv.refreshSoldout();
         this.wmv.openHospital = async () => await this.openHospital();
         this.wmv.openBoxRoom = async () => await this.openBoxRoom();
@@ -111,6 +112,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.selRelic = async () => await this.openRelicExchangeView(false, false, "selectRelic", true);
         this.wmv.selRelic2Inherit = async (relics4Sel) => await this.openRelicExchangeView(false, false, "selectRelicWithoutConfirm", true, relics4Sel);
         this.wmv.openFinishGameView = async () => await this.openFinishGameView();
+        
         this.wmtv = new WorldMapTopView(w, 80);
         this.wmtv.openSettingView = async () => await this.openSettingView();
         this.wmv.wmtv = this.wmtv;
@@ -285,7 +287,7 @@ class MainView extends egret.DisplayObjectContainer {
     }
 
     // 世界地图上开启商店界面
-    public async openShopOnWorldMap(shop) {
+    public async openShopOnWorldMap(shop, afterBoss = false) {
         this.sv.player = this.p;
         this.addChild(this.sv);
         this.setChildIndex(this.wmtv, -1);
@@ -359,7 +361,7 @@ class MainView extends egret.DisplayObjectContainer {
         var robChecker = {robNum:0};
         this.p.triggerLogicPointSync("beforeOpenShopOnWorldmap", robChecker);
         var canRob = robChecker.robNum > 0 && !robbed;
-        await this.sv.open(r.items, r.prices, onBuy, canRob ? onRob(robChecker.robNum) : undefined, false, onRobbed);
+        await this.sv.open(r.items, r.prices, onBuy, canRob ? onRob(robChecker.robNum) : undefined, false, onRobbed, afterBoss);
         this.removeChild(this.sv);
     }
 
@@ -722,6 +724,9 @@ class MainView extends egret.DisplayObjectContainer {
 
         if (this.p.currentStoreyPos.status == "finished") {
             await this.av.blackOut();
+            // 如果当前已完成的是boss层,需要准备进入新地图(其中包含进入整备界面)
+            if (this.p.currentStoreyPos.lv >= this.p.worldmap.cfg.totalLevels && this.p.worldmap.cfg.nextWorld)
+                await this.wmv.onPlayerGo2NewWorld(this.p.worldmap.cfg.nextWorld);
         }
         else {
             var lv = this.p.currentStoreyPos.lv;

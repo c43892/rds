@@ -180,6 +180,7 @@ class CharacterView extends egret.DisplayObjectContainer {
             
             Utils.saveLocalData("openedCharacterView", true);
         }
+        else this.setChildIndex(this.commonRelicsArea, -1);
         return new Promise((resolve, reject) => this.doClose = resolve);
     }
 
