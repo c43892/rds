@@ -476,6 +476,7 @@ class MainView extends egret.DisplayObjectContainer {
                             if (lastLevelCompletedInfo)
                                 await this.selAwardInherited(lastLevelCompletedInfo);
 
+                            Utils.savePlayer(this.p);
                             Utils.saveLocalData("lastLevelCompletedInfo", undefined);
                         } else {
                             this.openStartup(p);
