@@ -1468,6 +1468,66 @@ class AniView extends egret.DisplayObjectContainer {
         AniUtils.ac.removeChild(d);
     }
 
+    // Boss爆炸特效
+    public async onBossExplosion(ps){
+        var endedBig = false;
+        var skeBig = ViewUtils.createSkeletonAni("bossdabaozha", () => endedBig = true);
+        var dBig = skeBig.display;
+        dBig.x = this.width / 2;
+        dBig.y = this.height / 2;
+        dBig.scaleX = dBig.scaleY = this.mv.width / dBig.width;
+
+        var finishedTimes = 0;
+        var endedSmall;
+        var repeat = 3;
+        var skeSmall = ViewUtils.createSkeletonAni("bossxiaobaozha", () => {
+            finishedTimes++;
+            endedSmall = true;
+        });
+        var dSmall = skeSmall.display;
+        var isBig = ps.m.isBig();
+        var gv = this.bv.mapView.getGridViewAt(ps.m.pos.x, ps.m.pos.y);
+        var pos = {x:AniUtils.ani2global(gv).x + (isBig ? 84 : 42), y:AniUtils.ani2global(gv).y + (isBig ? 84 : 42)};
+        var poses = [];
+        var rand = new SRandom();
+        for (var i = 0; i < repeat; i++){
+            var randPos = {x:pos.x + rand.nextInt(0, isBig ? 80 : 40), y:pos.y + rand.nextInt(0, isBig ? 80 : 40)};
+            poses.push(randPos);
+        }
+
+        AniUtils.ac.addChild(dBig);
+        AniUtils.ac.addChild(dSmall);
+
+        skeBig.animation.play("stand", 1);
+
+        for (var i = 0; i < repeat; i++) {
+            dSmall.x = poses[finishedTimes].x;
+            dSmall.y = poses[finishedTimes].y;
+            skeSmall.animation.play("stand", 1);
+            await Utils.waitUtil(() => endedSmall);
+            endedSmall = false;
+        }
+        
+        await Utils.waitUtil(() => endedBig);
+
+        skeBig["stop"]();
+        AniUtils.ac.removeChild(dBig);
+        skeSmall["stop"]();
+        AniUtils.ac.removeChild(dSmall);
+    }
+
+    // Boss炸开地块的特效
+    public async onBossUncoverGridByExplosion(){
+        var ended = false;
+        var ske = ViewUtils.createSkeletonAni("bossxiaobaozha", () => ended = true);
+        var d = ske.display;
+        AniUtils.ac.addChild(d);
+        ske.animation.play("stand", 1);
+        await Utils.waitUtil(() => ended);
+        ske["stop"]();
+        AniUtils.ac.removeChild(d);
+    }
+
     // 移除颜色效果
     removeColorEffect(effName, ...objs) {
         effName += "Effect";

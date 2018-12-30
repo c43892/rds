@@ -1234,6 +1234,8 @@ class MonsterFactory {
             //     }
             // }
 
+            await bt.fireEvent("onBossExplosion", {m:m});
+
             var n = Utils.findFarthestPosByManhattanDistance(m.pos, m.attrs.size);
             var findNPoses = Utils.findManhattanDistanceNPoses(n, m.pos, m.attrs.size);
             var gridsN = [];
