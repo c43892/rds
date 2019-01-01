@@ -157,7 +157,7 @@ class RelicFactory {
             });
         },
 
-        // 凶暴
+        // 杀戮专精
         "Fierce": (attrs) => {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) {

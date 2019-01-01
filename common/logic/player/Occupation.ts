@@ -6,6 +6,7 @@ class Occupation {
 
         p = c(p);
         p = Occupation.makeOccupationBuff(p);
+        p = Occupation.getEffet4All(p);
         return p;
     }
 
@@ -62,7 +63,6 @@ class Occupation {
         // p.addRelic(<Relic>ElemFactory.create("PoisonKnife")); // 初始遗物
         // p.addRelic(<Relic>ElemFactory.create("KnifeRange")); // 初始遗物
         // p.addRelic(<Relic>ElemFactory.create("InfinityKnife")); // 初始遗物
-        p.addItem(<Prop>ElemFactory.create("HpPotion")); // 初始物品
         p.addItem(<Prop>ElemFactory.create("SuperPotion"));
         return p;
     }
@@ -70,6 +70,7 @@ class Occupation {
     // 流氓
     static makeRogue(p:Player):Player {
         p.addRelic(<Relic>ElemFactory.create("GangMember")); // 初始遗物
+        p.addItem(<Prop>ElemFactory.create("StrengthPotion")); // 初始物品
         return p;
     }
 
@@ -84,6 +85,34 @@ class Occupation {
 
     static exists(occupation) {
         return !!Occupation.occupationMakers[occupation];
+    }
+
+    // 根据解锁的职业获取全职业通用效果
+    static getEffet4All(p){
+        var unlockedOccupation = Utils.loadLocalData("unlockedOccupation");
+        // 暂时没有解锁逻辑,默认为都解锁了
+        if (!unlockedOccupation)
+            unlockedOccupation = ["Nurse", "Rouge"];
+
+        for (var occ of unlockedOccupation){
+            p = Occupation.effect4All[occ](p);
+        }
+        return p;
+    }
+
+    // 职业效果
+    static effect4All = {
+        // 初始物品增加医疗药剂
+        "Nurse": (p: Player) => {
+            p.addItem(<Prop>ElemFactory.create("HpPotion"));
+            return p;
+        },
+
+        // 初始遗物增加杀戮专精
+        "Rouge": (p: Player) => {
+            p.addRelic(<Relic>ElemFactory.create("Fierce"));
+            return p;
+        }
     }
 
     // 设置职业 buff
