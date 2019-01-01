@@ -57,7 +57,6 @@ class BattleCalculator {
             // 计算+-伤害和抵抗
             var damage = power + damageAdd - damageDec;
             damage = Math.floor(damage * (100 - resist) / 100);
-            if (Utils.contains(targetFlags, "Sneaked")) damage += 3;
 
             var dShared = Math.ceil(damage - ((damage - damageShared.b) * (100 - damageShared.a) / 100 - damageShared.c)); // 伤害分担
             r.dShared = - dShared;
