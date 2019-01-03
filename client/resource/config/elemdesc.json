@@ -159,6 +159,16 @@
         "GreenSlime":{"name":"綠色史萊姆", "desc":[
             "<font color=#7d0403 bold=true size=21>治癒</font>\n<font color=#000000 bold=false size=20>每回合回復1點生命值</font>"
         ]},
+        "Siren":{"name":"塞壬", "desc":[]},
+        "Worm":{"name":"吞噬蠕虫", "desc":[]},
+        "Hag":{"name":"女妖", "desc":[]},
+        "Nightmare":{"name":"梦魇兽", "desc":[]},
+        "ThunderElemental":{"name":"雷元素", "desc":[]},
+        "FlameElemental":{"name":"火元素", "desc":[]},
+        "Echinus":{"name":"海胆", "desc":[]},
+        "Werewolf":{"name":"狼人", "desc":[]},
+        "Kraken":{"name":"克拉肯", "desc":[]},
+        "HalloweenTreant":{"name":"万圣节树妖", "desc":[]},
         "ShopNpc":{"name":"商人", "desc":[
             "</font><font color=#7d0403 bold=true  size=20>奸商</font>\n<font color=#000000 bold=false size=20>顧客才是我的上帝</font>"
         ]},
@@ -458,7 +468,17 @@
         ]},
         "GreenSlime":{"name":"绿色史莱姆", "desc":[
             "<font color=#7d0403 bold=true size=21>治愈</font>\n<font color=#000000 bold=false size=20>每回合回复当前生命值</font><font color=#294c22 size=20> 20</font><font color=#000000 bold=false size=20>%的血量</font>"
-        ]},
+        ]},        
+        "Siren":{"name":"塞壬", "desc":[]},
+        "Worm":{"name":"吞噬蠕虫", "desc":[]},
+        "Hag":{"name":"女妖", "desc":[]},
+        "Nightmare":{"name":"梦魇兽", "desc":[]},
+        "ThunderElemental":{"name":"雷元素", "desc":[]},
+        "FlameElemental":{"name":"火元素", "desc":[]},
+        "Echinus":{"name":"海胆", "desc":[]},
+        "Werewolf":{"name":"狼人", "desc":[]},
+        "Kraken":{"name":"克拉肯", "desc":[]},
+        "HalloweenTreant":{"name":"万圣节树妖", "desc":[]},
         "SlimeKing":{"name":"史莱姆之王", "desc":[
             "<font color=#7d0403 bold=true size=21>史莱姆冲击</font>\n<font color=#000000 bold=false size=20>每3回合进行一次撞击，伤害是攻击的4倍</font>",
             "<font color=#7d0403 bold=true size=21>死亡和新生</font>\n<font color=#000000 bold=false size=20>血量低于50%史莱姆之王会分裂为4个史莱姆，4回合后会重新合成史莱姆之王，血量是史莱姆的血量之和</font>",
@@ -756,6 +776,16 @@
         "GreenSlime":{"name":"綠色史萊姆", "desc":[
             "<font color=#7d0403 bold=true size=21>治癒</font>\n<font color=#000000 bold=false size=20>每回合回復1點生命值</font>"
         ]},
+        "Siren":{"name":"塞壬", "desc":[]},
+        "Worm":{"name":"吞噬蠕虫", "desc":[]},
+        "Hag":{"name":"女妖", "desc":[]},
+        "Nightmare":{"name":"梦魇兽", "desc":[]},
+        "ThunderElemental":{"name":"雷元素", "desc":[]},
+        "FlameElemental":{"name":"火元素", "desc":[]},
+        "Echinus":{"name":"海胆", "desc":[]},
+        "Werewolf":{"name":"狼人", "desc":[]},
+        "Kraken":{"name":"克拉肯", "desc":[]},
+        "HalloweenTreant":{"name":"万圣节树妖", "desc":[]},
         "ShopNpc":{"name":"商人", "desc":[
             "</font><font color=#7d0403 bold=true  size=20>奸商</font>\n<font color=#000000 bold=false size=20>顧客才是我的上帝</font>"
         ]},

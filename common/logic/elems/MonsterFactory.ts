@@ -121,9 +121,18 @@ class MonsterFactory {
         "Ghost": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doChaseToNextLevel(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))))), //幽灵
         "RedSlime": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //红色史莱姆
         "GreenSlime": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doAddHpPerRound(Math.floor(attrs.hp * 0.2) > 1 ? Math.floor(attrs.hp * 0.2) : 1, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))))), //绿色史莱姆
+        "Siren": (attrs) => MonsterFactory.doReduceHpPerRoundOnUncovered(MonsterFactory.doSneakReduseDeathStep(this.createMonster(attrs))), // 塞壬
+        "Worm": (attrs) => MonsterFactory.suckBloodOnAttack(MonsterFactory.doSneakTakeItems(this.createMonster(attrs), false)), // 吞噬蠕虫
+        "Hag": (attrs) => MonsterFactory.forbiddenUsingProp(this.createMonster(attrs)), // 女妖
+        "Nightmare": (attrs) => MonsterFactory.doDestroyItemOnAttack(this.createMonster(attrs)), // 梦魇
+        "ThunderElemental": (attrs) => MonsterFactory.doThunderDamageAroundOnAttack(this.createMonster(attrs)), // 雷元素
+        "FlameElemental": (attrs) => this.createMonster(attrs), // 火元素
+        "Echinus": (attrs) => MonsterFactory.doThornsDamageOnNormalAttacked(this.createMonster(attrs)), // 海胆
+        "Werewolf": (attrs) => MonsterFactory.doDoublePowerOnHurt(MonsterFactory.doAddHpPerRound(Math.floor(attrs.hp * 0.2) > 1 ? Math.floor(attrs.hp * 0.2) : 1, this.createMonster(attrs))), // 狼人
         "ShopNpc": (attrs) => MonsterFactory.makeShopNPC(this.createMonster(attrs)),
         "Gardener": (attrs) => this.createMonster(attrs), // 测试用园艺师
 
+        // 史莱姆之王
         "SlimeKing": (attrs) => {
             var m = this.createMonster(attrs);
             MonsterFactory.makeBoss(
@@ -137,6 +146,7 @@ class MonsterFactory {
             return m;
         },
 
+        // 克苏鲁之脑
         "BrainOfCthulhu": (attrs) => {
             var m = this.createMonster(attrs);
             MonsterFactory.makeBoss(
@@ -154,6 +164,12 @@ class MonsterFactory {
             m = MonsterFactory.doRemoveSanEffectAfterDie(m);
             return m;
         },
+
+        // 克拉肯
+        "Kraken": (attrs) => this.createMonster(attrs), 
+
+        // 万圣节树妖
+        "HalloweenTreant": (attrs) => this.createMonster(attrs), 
 
         "CharmedMonster": (attrs) => this.createMonster(attrs),
         "PlaceHolder": (attrs) => this.createMonster(attrs)
