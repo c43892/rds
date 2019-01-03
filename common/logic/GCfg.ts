@@ -24,4 +24,5 @@ class GCfg {
     public static getInvalidNameCfg; // 获取随机玩家名所用的配置
     public static getAchvCfg; // 获取成就配置
     public static getAchvAwardCfg; // 成就奖励配置
+    public static getDifficultyCfg; // 难度相关配置
 }

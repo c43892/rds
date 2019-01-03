@@ -11,14 +11,6 @@
         "TradeMaster":10,
         "HorticultureMaster":10
     },
-
-    "playerInitRelicsEquippedCapacity":{
-        "level0":8,
-        "level1":7,
-        "level2":6,
-        "level3":5,
-        "level4":4
-    },
-
+    
     "":{}
 }

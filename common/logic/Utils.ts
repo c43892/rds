@@ -818,8 +818,8 @@ class Utils {
     // 根据游戏难度获取玩家初始技能格子的数量
     public static getPlayerInitRelicsEquippedCapacity(difficulty) {
         difficulty = difficulty ? difficulty : "level0";
-        var cfg = GCfg.playerCfg["playerInitRelicsEquippedCapacity"];
-        return cfg[difficulty];
+        var cfg = GCfg.getDifficultyCfg()[difficulty];
+        return cfg["playerInitRelicsEquippedCapacity"];
     }
 
     // 玩家某个职业获得经验

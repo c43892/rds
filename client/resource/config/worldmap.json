@@ -236,5 +236,99 @@
             {"type":"item", "attrs":"ttrdp2", "weight":10},
             {"type":"item", "attrs":"ttrdp2", "weight":10}
         ]
+    },
+
+    "world5":{
+        "name":"world5",
+        "worldNum":4,
+        "totalLevels":15,
+        "width":5,
+        "routesMax":4,
+        "specs": {
+            "shop":{"percent":5},
+            "camp":{"percent":12},
+            "senior":{"percent":8},
+            "event":{"percent":22}
+        },
+        "fixedRow": {
+            "14":"camp",
+            "8":"box"
+        },
+        "boxroomDrops":{
+            "relic":"boxRoomRelic",
+            "prop":"boxRoomProp",
+            "coins":70
+        },
+        "events":{
+            "shop":10,
+            "normal":10,
+            "box":10,
+            "a1": 10,
+            "a2": 10,
+            "a3": 10,
+            "a4": 10,
+            "a5": 10,
+            "a7": 10,
+            "a8": 10,
+            "a9": 10,
+            "b1": 10,
+            "b2": 10
+        },
+        "shop": "world1shop",
+        "turntable": [
+            {"type":"+hp", "attrs":15, "weight":10},
+            {"type":"-hp", "attrs":-15, "weight":10},
+            {"type":"box", "attrs":"ttrdp1", "weight":10},
+            {"type":"coins", "attrs":150, "weight":10},
+            {"type":"item", "attrs":"ttrdp2", "weight":10},
+            {"type":"item", "attrs":"ttrdp2", "weight":10}
+        ]
+    },
+
+    "world6":{
+        "name":"world6",
+        "worldNum":4,
+        "totalLevels":15,
+        "width":5,
+        "routesMax":4,
+        "specs": {
+            "shop":{"percent":5},
+            "camp":{"percent":12},
+            "senior":{"percent":8},
+            "event":{"percent":22}
+        },
+        "fixedRow": {
+            "14":"camp",
+            "8":"box"
+        },
+        "boxroomDrops":{
+            "relic":"boxRoomRelic",
+            "prop":"boxRoomProp",
+            "coins":80
+        },
+        "events":{
+            "shop":10,
+            "normal":10,
+            "box":10,
+            "a1": 10,
+            "a2": 10,
+            "a3": 10,
+            "a4": 10,
+            "a5": 10,
+            "a7": 10,
+            "a8": 10,
+            "a9": 10,
+            "b1": 10,
+            "b2": 10
+        },
+        "shop": "world1shop",
+        "turntable": [
+            {"type":"+hp", "attrs":15, "weight":10},
+            {"type":"-hp", "attrs":-15, "weight":10},
+            {"type":"box", "attrs":"ttrdp1", "weight":10},
+            {"type":"coins", "attrs":125, "weight":10},
+            {"type":"item", "attrs":"ttrdp2", "weight":10},
+            {"type":"item", "attrs":"ttrdp2", "weight":10}
+        ]
     }
 }

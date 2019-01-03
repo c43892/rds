@@ -646,10 +646,14 @@ class WorldMapView extends egret.DisplayObjectContainer {
             
             // 判断此世界是否已经完成
             if(this.player.currentStoreyPos.lv >= this.player.worldmap.cfg.totalLevels){
+                // 已完成的话,判断该难度下时候有下一个世界
                 this.player.finishedWorldMap.push(this.worldmap.cfg);
-                var newtWorldName = this.worldmap.cfg.nextWorld;
-                if(newtWorldName)
-                    await this.onPlayerGo2NewWorld(newtWorldName);
+                var thisWorldName = this.worldmap.cfg.name;
+                var worlds = GCfg.getDifficultyCfg()[this.player.difficulty].worlds;
+                var nextWorldName = worlds[Utils.indexOf(worlds, (name) => name == thisWorldName) + 1];
+
+                if(nextWorldName)
+                    await this.onPlayerGo2NewWorld(nextWorldName);
                 else 
                     await this.openFinishGameView();
             }

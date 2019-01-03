@@ -64,6 +64,10 @@ class Level {
         attrs = attrs ? attrs : {};
         var e = ElemFactory.create(type, attrs, player);
 
+        // 根据难度对怪物的血量进行调整
+        if (e instanceof Monster && e.isHazard() && e.hp)
+            e.hp = Math.ceil(e.hp * GCfg.getDifficultyCfg()[this.bt.player.difficulty]["monsterHp"] / 100);
+
         // 处理携带物品
         if (attrs.dropItems) {
             for (var dpType of attrs.dropItems) {

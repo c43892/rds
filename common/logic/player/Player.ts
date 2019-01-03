@@ -49,7 +49,7 @@ class Player {
         p.currentStoreyPos = {lv:0, n:0, status:"finished"};
         p.finishedStoreyPos = [{lv:0, n:0}];
         p.occupation = occ;
-        p.deathStep = 150;
+        p.deathStep = GCfg.getDifficultyCfg()[p.difficulty]["deathStep"];
 
         p.maxDeathStep = 150;
         p.maxHp = 40;
