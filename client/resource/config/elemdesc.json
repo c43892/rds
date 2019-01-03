@@ -469,16 +469,42 @@
         "GreenSlime":{"name":"绿色史莱姆", "desc":[
             "<font color=#7d0403 bold=true size=21>治愈</font>\n<font color=#000000 bold=false size=20>每回合回复当前生命值</font><font color=#294c22 size=20> 20</font><font color=#000000 bold=false size=20>%的血量</font>"
         ]},        
-        "Siren":{"name":"塞壬", "desc":[]},
-        "Worm":{"name":"吞噬蠕虫", "desc":[]},
-        "Hag":{"name":"女妖", "desc":[]},
-        "Nightmare":{"name":"梦魇兽", "desc":[]},
-        "ThunderElemental":{"name":"雷元素", "desc":[]},
-        "FlameElemental":{"name":"火元素", "desc":[]},
-        "Echinus":{"name":"海胆", "desc":[]},
-        "Werewolf":{"name":"狼人", "desc":[]},
-        "Kraken":{"name":"克拉肯", "desc":[]},
-        "HalloweenTreant":{"name":"万圣节树妖", "desc":[]},
+        "Siren":{"name":"塞壬", "desc":[
+            "<font color=#7d0403 bold=true size=21>惊恐</font>\n<font color=#000000 bold=false size=20>突袭时，死神将会提前15步；现身时，你每回合失去一点生命</font>"
+        ]},
+        "Worm":{"name":"吞噬蠕虫", "desc":[
+            "<font color=#7d0403 bold=true size=21>暴食</font>\n<font color=#000000 bold=false size=20>突袭时，吞噬所有非钥匙的物品，攻击时吸取生命</font>"
+        ]},
+        "Hag":{"name":"女妖", "desc":[
+            "<font color=#7d0403 bold=true size=21>诱惑</font>\n<font color=#000000 bold=false size=20>现身时，你无法使用任何药水</font>"
+        ]},
+        "Nightmare":{"name":"梦魇兽", "desc":[
+            "<font color=#7d0403 bold=true size=21>梦魇</font>\n<font color=#000000 bold=false size=20>每次攻击摧毁一件非钥匙的物品，攻击无视防暴盾和防护服</font>"
+        ]},
+        "ThunderElemental":{"name":"闪电水母", "desc":[
+            "<font color=#7d0403 bold=true size=21>电击</font>\n<font color=#000000 bold=false size=20>身上围绕着闪电的怪物，受到攻击时，会同时伤害你和周围的怪物</font>"
+        ]},
+        "FlameElemental":{"name":"火元素", "desc":[
+            "<font color=#7d0403 bold=true size=21>火焰</font>\n<font color=#000000 bold=false size=20>免疫火焰伤害，死后掉落火焰药水</font>"
+        ]},
+        "Echinus":{"name":"海胆", "desc":[
+            "<font color=#7d0403 bold=true size=21>反伤</font>\n<font color=#000000 bold=false size=20>受到普通攻击时，反射50%的伤害</font>"
+        ]},
+        "Werewolf":{"name":"狼人", "desc":[
+            "<font color=#7d0403 bold=true size=21>狂猛</font>\n<font color=#000000 bold=false size=20>每回合回复20%的生命值，每受到一次伤害攻击翻倍</font>"
+        ]},
+        "Kraken":{"name":"克拉肯", "desc":[
+            "<font color=#7d0403 bold=true size=21>海怪吞噬</font>\n<font color=#000000 bold=false size=20>每3个回合主动攻击1次，造成3倍伤害，并随机摧毁一件非金钱的物品</font>",
+            "<font color=#7d0403 bold=true size=21>深海窒息</font>\n<font color=#000000 bold=false size=20>克拉肯存在时，每回合对你造成1点伤害，无论它是否处于现身状态</font>",
+            "<font color=#7d0403 bold=true size=21>狂暴</font>\n<font color=#000000 bold=false size=20>血量低于50%时，每回合都会进行海怪吞噬</font>",
+            "<font color=#7d0403 bold=true size=21>深寒</font>\n<font color=#000000 bold=false size=20>无法被冰冻，受到火焰伤害时效果加倍</font>"
+        ]},
+        "HalloweenTreant":{"name":"万圣节树妖", "desc":[
+             "<font color=#7d0403 bold=true size=21>古树缠绕</font>\n<font color=#000000 bold=false size=20>每3个回合主动攻击1次，造成4倍伤害</font>",
+            "<font color=#7d0403 bold=true size=21>植物军团</font>\n<font color=#000000 bold=false size=20>将所有怪物变为植物，初始将5个随机怪物变成豌豆射手，豌豆射手将在战斗开始时自动现身，N回合攻击一次玩家（不攻击商人）</font>",
+            "<font color=#7d0403 bold=true size=21>防护</font>\n<font color=#000000 bold=false size=20>血量每减少30%，则进入防护模式，为自己加上一个近乎无敌的防护罩，受到除火焰以外的任何伤害均为1，防护罩在受到5次伤害后解除</font>",
+            "<font color=#7d0403 bold=true size=21>易燃</font>\n<font color=#000000 bold=false size=20>被火焰伤害会进入点燃状态，免疫中毒</font>"
+        ]},
         "SlimeKing":{"name":"史莱姆之王", "desc":[
             "<font color=#7d0403 bold=true size=21>史莱姆冲击</font>\n<font color=#000000 bold=false size=20>每3回合进行一次撞击，伤害是攻击的4倍</font>",
             "<font color=#7d0403 bold=true size=21>死亡和新生</font>\n<font color=#000000 bold=false size=20>血量低于50%史莱姆之王会分裂为4个史莱姆，4回合后会重新合成史莱姆之王，血量是史莱姆的血量之和</font>",
