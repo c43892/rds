@@ -376,7 +376,7 @@ class PlantFactory {
             p.canUseAt = (x:number, y:number) => {
                 var e = p.map().getElemAt(x, y);
                 var g = p.map().getGridAt(x, y);
-                return (!g.isCovered() || g.isMarked()) && e && e instanceof Monster && e.isHazard() && !e.isBoss && e.type != "PlaceHolder";
+                return (!g.isCovered() || g.isMarked()) && e && e instanceof Monster && e.isHazard() && !e.isBoss && e.type != "PlaceHolder" && !e.attrs.cannotCharm;
             };
             
             p.useAt = async (x:number, y:number) => { 
@@ -396,7 +396,7 @@ class PlantFactory {
             p.canUseAt = (x:number, y:number) => {
                 var e = p.map().getElemAt(x, y);
                 var g = p.map().getGridAt(x, y);
-                return (!g.isCovered() || g.isMarked()) && e && e instanceof Monster && e.isHazard() && !e.isBoss && e.type != "PlaceHolder";
+                return (!g.isCovered() || g.isMarked()) && e && e instanceof Monster && e.isHazard() && !e.isBoss && e.type != "PlaceHolder" && !e.attrs.cannotCharm;
             };
             
             p.useAt = async (x:number, y:number) => { 
@@ -417,7 +417,7 @@ class PlantFactory {
             p.canUseAt = (x:number, y:number) => {
                 var e = p.map().getElemAt(x, y);
                 var g = p.map().getGridAt(x, y);
-                return (!g.isCovered() || g.isMarked()) && e && e instanceof Monster && e.isHazard() && !e.isBoss && e.type != "PlaceHolder";
+                return (!g.isCovered() || g.isMarked()) && e && e instanceof Monster && e.isHazard() && !e.isBoss && e.type != "PlaceHolder" && !e.attrs.cannotCharm;
             };
             
             p.useAt = async (x:number, y:number) => { 
@@ -438,7 +438,7 @@ class PlantFactory {
             p.canUseAt = (x:number, y:number) => {
                 var e = p.map().getElemAt(x, y);
                 var g = p.map().getGridAt(x, y);
-                return (!g.isCovered() || g.isMarked()) && e && e instanceof Monster && e.isHazard() && !e.isBoss && e.type != "PlaceHolder";
+                return (!g.isCovered() || g.isMarked()) && e && e instanceof Monster && e.isHazard() && !e.isBoss && e.type != "PlaceHolder" && !e.attrs.cannotCharm;
             };
             
             p.useAt = async (x:number, y:number) => { 
@@ -459,7 +459,7 @@ class PlantFactory {
             p.canUseAt = (x:number, y:number) => {
                 var e = p.map().getElemAt(x, y);
                 var g = p.map().getGridAt(x, y);
-                return (!g.isCovered() || g.isMarked()) && e && e instanceof Monster && e.isHazard() && !e.isBoss && e.type != "PlaceHolder";
+                return (!g.isCovered() || g.isMarked()) && e && e instanceof Monster && e.isHazard() && !e.isBoss && e.type != "PlaceHolder" && !e.attrs.cannotCharm;
             };
             
             p.useAt = async (x:number, y:number) => { 

@@ -493,6 +493,11 @@
         "Werewolf":{"name":"狼人", "desc":[
             "<font color=#7d0403 bold=true size=21>狂猛</font>\n<font color=#000000 bold=false size=20>每回合回复20%的生命值，每受到一次伤害攻击翻倍</font>"
         ]},
+        "MNutWall":{"name":"坚果墙", "desc":[]},
+        "MPeashooter":{"name":"豌豆射手", "desc":[]},
+        "MCherryBomb":{"name":"樱桃炸弹", "desc":[]},
+        "MSunflower":{"name":"太阳花", "desc":[]},
+        "MCharmingMushroom":{"name":"魅惑菇", "desc":[]},
         "Kraken":{"name":"克拉肯", "desc":[
             "<font color=#7d0403 bold=true size=21>海怪吞噬</font>\n<font color=#000000 bold=false size=20>每3个回合主动攻击1次，造成3倍伤害，并随机摧毁一件非金钱的物品</font>",
             "<font color=#7d0403 bold=true size=21>深海窒息</font>\n<font color=#000000 bold=false size=20>克拉肯存在时，每回合对你造成1点伤害，无论它是否处于现身状态</font>",

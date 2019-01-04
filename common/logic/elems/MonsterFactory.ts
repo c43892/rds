@@ -121,14 +121,19 @@ class MonsterFactory {
         "Ghost": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doChaseToNextLevel(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))))), //幽灵
         "RedSlime": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //红色史莱姆
         "GreenSlime": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doAddHpPerRound(Math.floor(attrs.hp * 0.2) > 1 ? Math.floor(attrs.hp * 0.2) : 1, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))))), //绿色史莱姆
-        "Siren": (attrs) => MonsterFactory.doReduceHpPerRoundOnUncovered(MonsterFactory.doSneakReduseDeathStep(this.createMonster(attrs))), // 塞壬
-        "Worm": (attrs) => MonsterFactory.suckBloodOnAttack(MonsterFactory.doSneakTakeItems(this.createMonster(attrs), false)), // 吞噬蠕虫
-        "Hag": (attrs) => MonsterFactory.forbiddenUsingProp(this.createMonster(attrs)), // 女妖
-        "Nightmare": (attrs) => MonsterFactory.doDestroyItemOnAttack(this.createMonster(attrs)), // 梦魇
-        "ThunderElemental": (attrs) => MonsterFactory.doThunderDamageAroundOnAttack(this.createMonster(attrs)), // 雷元素
-        "FlameElemental": (attrs) => this.createMonster(attrs), // 火元素
+        "Siren": (attrs) => MonsterFactory.doReduceHpPerRoundOnUncovered(MonsterFactory.doSneakReduseDeathStep(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 塞壬
+        "Worm": (attrs) => MonsterFactory.suckBloodOnAttack(MonsterFactory.doSneakTakeItems(MonsterFactory.doAttackBack(this.createMonster(attrs)), false)), // 吞噬蠕虫
+        "Hag": (attrs) => MonsterFactory.forbiddenUsingProp(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 女妖
+        "Nightmare": (attrs) => MonsterFactory.doDestroyItemOnAttack(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 梦魇
+        "ThunderElemental": (attrs) => MonsterFactory.doThunderDamageAroundOnAttack(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 雷元素
+        "FlameElemental": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), // 火元素
         "Echinus": (attrs) => MonsterFactory.doThornsDamageOnNormalAttacked(this.createMonster(attrs)), // 海胆
         "Werewolf": (attrs) => MonsterFactory.doDoublePowerOnHurt(MonsterFactory.doAddHpPerRound(Math.floor(attrs.hp * 0.2) > 1 ? Math.floor(attrs.hp * 0.2) : 1, this.createMonster(attrs))), // 狼人
+        "MNutWall": (attrs) => <Plant>MonsterFactory.doProtectMonsterAround(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 怪物坚果墙
+        "MPeashooter": (attrs) => <Plant>MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //怪物豌豆射手
+        "MCherryBomb": (attrs) => (attrs) => <Plant>MonsterFactory.doSelfExplodeAfterNRound(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 怪物樱桃炸弹
+        "MSunflower": (attrs) => <Plant>MonsterFactory.doAddMonsterHpPerNRound(attrs.rounds, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 怪物太阳花
+        "MCharmingMushroom": (attrs) => <Plant>MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), // 怪物魅惑菇
         "ShopNpc": (attrs) => MonsterFactory.makeShopNPC(this.createMonster(attrs)),
         "Gardener": (attrs) => this.createMonster(attrs), // 测试用园艺师
 
@@ -166,10 +171,34 @@ class MonsterFactory {
         },
 
         // 克拉肯
-        "Kraken": (attrs) => this.createMonster(attrs), 
+        "Kraken": (attrs) => { 
+            var m = this.createMonster(attrs);
+            MonsterFactory.makeBoss(
+                MonsterFactory.doSneakAttack(
+                    MonsterFactory.doAttackBack(
+                        MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player, attrs.attackInterval, () => !m.trapped, {a:2, b:0, c:0}), 
+                    () => !m.trapped)));
+            m = MonsterFactory.doEnhanceAura(m);
+            m = MonsterFactory.doDestroyItemOnActiveAttack(m);
+            m = MonsterFactory.doReduceHpPerRound(m);
+            m = MonsterFactory.doDoubleFlameDamage(m);
+            m = MonsterFactory.doActiveAttackPerRoundOn50Hp(m);
+            return m;
+        }, 
 
         // 万圣节树妖
-        "HalloweenTreant": (attrs) => this.createMonster(attrs), 
+        "HalloweenTreant": (attrs) => { 
+            var m = this.createMonster(attrs);
+            MonsterFactory.makeBoss(
+                MonsterFactory.doSneakAttack(
+                    MonsterFactory.doAttackBack(
+                        MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player, attrs.attackInterval, () => !m.trapped, {a:3, b:0, c:0}), 
+                    () => !m.trapped)));
+            m = MonsterFactory.doEnhanceAura(m);
+            m = MonsterFactory.doAddProtectiveShieldOnLose30Hp(m);
+            m = MonsterFactory.doBurnByFlameDamage(m);
+            return m;
+        }, 
 
         "CharmedMonster": (attrs) => this.createMonster(attrs),
         "PlaceHolder": (attrs) => this.createMonster(attrs)
@@ -250,6 +279,18 @@ class MonsterFactory {
                     var cocoons = m.bt().level.map.findAllElems((e:Elem) => e.type == "Cocoon" && e["swathedBy"] == m);
                     for (var cocoon of cocoons)
                         cocoon["swathedBy"] == cm;
+                    break;
+                }
+                // 植物怪的魅惑
+                case "MNutWall":
+                case "MPeashooter":
+                case "MCherryBomb":
+                case "MSunflower": {
+                    var relics = [...m.bt().player.commonRelics, ...m.bt().player.relicsEquipped];
+                    var relicIndex = Utils.indexOf(relics, (r:Relic) => r.type == "HorticultureMaster");
+                    var newType = m.type.substring(1) + (relicIndex > -1 ? relics[relicIndex].reinforceLv + 1 : 1);
+                    var plant = <Plant>m.bt().level.createElem(newType, undefined, m.bt().player);
+                    cm = plant;
                     break;
                 }
             }
@@ -573,7 +614,7 @@ class MonsterFactory {
     static doProtectMonsterAround(m:Monster):Monster {
         var filter = (tar) => {            
             return !(tar instanceof Player) 
-                && tar.type != "BallShito"
+                && tar.type != "BallShito" || "MNutWall"
                 && tar.isHazard() && BattleUtils.isAround(m.map().getGridAt(tar.pos.x, tar.pos.y), m.getGrid());}
 
         return <Monster>ElemFactory.addAIEvenCovered("onAttacking", async (ps) => {
@@ -728,6 +769,23 @@ class MonsterFactory {
     static doAddDeathStepOnDie(m:Monster):Monster {
         return <Monster>ElemFactory.addDieAI(async () => {
             await m.bt().implAddDeathGodStep(m.attrs.deathStepOnDie, m);
+        }, m);
+    }
+
+    // 每n回合为所有现身的怪物回复1点生命值
+    static doAddMonsterHpPerNRound(n:number, m:Monster):Monster{
+        return <Monster>ElemFactory.addAI("onPlayerActed", async () => {
+            if (!m["doAddMonsterHpPerNRound"])
+                m["doAddMonsterHpPerNRound"] = 0;
+            
+            m["doAddMonsterHpPerNRound"] ++;
+            if (m["doAddMonsterHpPerNRound"] >= n) {
+                m["doAddMonsterHpPerNRound"] = 0;
+                var bt = m.bt();
+                var ms = <Monster[]>bt.level.map.findAllElems((e: Elem) => e instanceof Monster && e.isHazard() && e.hp > 0);
+                for (var monster of ms)
+                    await bt.implAddMonsterHp(monster, 1);
+            }
         }, m);
     }
 
