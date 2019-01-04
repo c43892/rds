@@ -9,23 +9,27 @@ PODS:
   - CocoaLumberjack/Default (3.3.0)
   - CocoaLumberjack/Extensions (3.3.0):
     - CocoaLumberjack/Default
+  - Google-Mobile-Ads-SDK (7.37.0)
 
 DEPENDENCIES:
   - CocoaAsyncSocket (~> 7.6.1)
   - CocoaHTTPServer (~> 2.3)
   - CocoaLumberjack (~> 3.3.0)
+  - Google-Mobile-Ads-SDK
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - CocoaAsyncSocket
     - CocoaHTTPServer
     - CocoaLumberjack
+    - Google-Mobile-Ads-SDK
 
 SPEC CHECKSUMS:
   CocoaAsyncSocket: 7eadd3f59e1a6c84e2aefc93e9ff7b55156fe174
   CocoaHTTPServer: 5624681fc3473d43b18202f635f9b3abb013b530
   CocoaLumberjack: 3c8c74683302f9012bb168e1c4b7ae3c0b558431
+  Google-Mobile-Ads-SDK: d028682d7450749a1955679da050eaf70d997b3e
 
-PODFILE CHECKSUM: cf2aff1258bbb8fb2ea381bfc47c5cd4b7ac0362
+PODFILE CHECKSUM: 1f7dce6c5c25005776fd4a7b571bdf5c0840dc1e
 
 COCOAPODS: 1.5.3
