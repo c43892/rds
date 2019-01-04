@@ -81,8 +81,8 @@ class BattleCalculator {
         // 根据概率计算 buff 效果
         for (var b of addBuffs) {
             var buffType = b.type;
-            if (this.srand.next100() < b.rate)
-                r.addBuffs.push({type:buffType, ps:b.ps});
+            if (!Utils.contains(targetFlags, buffType) && this.srand.next100() < b.rate)
+                    r.addBuffs.push({type:buffType, ps:b.ps});
         }
 
         return r;
