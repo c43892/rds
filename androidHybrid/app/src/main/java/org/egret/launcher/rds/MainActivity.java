@@ -18,8 +18,10 @@ import org.egret.runtime.launcherInterface.INativePlayer;
 
 public class MainActivity extends NativeActivity implements RewardedVideoAdListener {
     private final String token = "5e76eea7bdab035f68e75cf6792287bef4ab0d8eaa0a04f904024cb3f821989c";
-    private final String APP_ID = "ca-app-pub-1800218346925652~6940599097"; // "ca-app-pub-3940256099942544~3347511713"
-    private final String AD_UNIT_ID = "ca-app-pub-1800218346925652/3739720681"; // "ca-app-pub-3940256099942544/5224354917"
+    private final String APP_ID = "ca-app-pub-3940256099942544~3347511713"; //  test if
+    private final String AD_UNIT_ID = "ca-app-pub-3940256099942544/5224354917"; // test id
+    // private final String APP_ID = "ca-app-pub-1800218346925652~6940599097";
+    // private final String AD_UNIT_ID = "ca-app-pub-1800218346925652/3739720681";
 
     /*
     * 设置是否显示FPS面板
@@ -187,7 +189,9 @@ public class MainActivity extends NativeActivity implements RewardedVideoAdListe
     private void loadAds() {
         notified = false;
         if (!mAds.isLoaded()) {
-            mAds.loadAd(AD_UNIT_ID, new AdRequest.Builder().build());
+            AdRequest.Builder bd = new AdRequest.Builder();
+            // bd.addTestDevice("D27B095B86C70BF9C00B72DE5AC77015");
+            mAds.loadAd(AD_UNIT_ID, bd.build());
         }
     }
 
@@ -215,6 +219,7 @@ public class MainActivity extends NativeActivity implements RewardedVideoAdListe
     @Override
     public void onRewardedVideoAdFailedToLoad(int i) {
         Log.println(Log.DEBUG, "ads", "failed to load ads");
+        loadAds();
     }
 
     @Override
