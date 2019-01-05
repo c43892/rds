@@ -18,10 +18,12 @@ import org.egret.runtime.launcherInterface.INativePlayer;
 
 public class MainActivity extends NativeActivity implements RewardedVideoAdListener {
     private final String token = "5e76eea7bdab035f68e75cf6792287bef4ab0d8eaa0a04f904024cb3f821989c";
-    private final String APP_ID = "ca-app-pub-3940256099942544~3347511713"; //  test if
-    private final String AD_UNIT_ID = "ca-app-pub-3940256099942544/5224354917"; // test id
+    // private final String APP_ID = "ca-app-pub-3940256099942544~3347511713"; //  test if
+    // private final String AD_UNIT_ID = "ca-app-pub-3940256099942544/5224354917"; // test id
     // private final String APP_ID = "ca-app-pub-1800218346925652~6940599097";
     // private final String AD_UNIT_ID = "ca-app-pub-1800218346925652/3739720681";
+    String APP_ID;
+    String AD_UNIT_ID;
 
     /*
     * 设置是否显示FPS面板
@@ -31,7 +33,7 @@ public class MainActivity extends NativeActivity implements RewardedVideoAdListe
     *   true: show FPS panel
     *   false: hide FPS panel
     * */
-    private final boolean showFPS = true;
+    private final boolean showFPS = false;
 
     private FrameLayout rootLayout = null;
     
@@ -133,11 +135,6 @@ public class MainActivity extends NativeActivity implements RewardedVideoAdListe
             }
         };
         launcher.loadRuntime(token);
-
-        MobileAds.initialize(this, APP_ID);
-        mAds = MobileAds.getRewardedVideoAdInstance(this);
-        mAds.setRewardedVideoAdListener(this);
-        loadAds();
     }
 
     /*private void setExternalInterfaces() {
@@ -150,11 +147,34 @@ public class MainActivity extends NativeActivity implements RewardedVideoAdListe
         });
     }*/
 
+    // init admob
+    private void initAdMob(String appID, String adID) {
+        APP_ID = appID;
+        AD_UNIT_ID = adID;
+        MobileAds.initialize(this, APP_ID);
+        mAds = MobileAds.getRewardedVideoAdInstance(this);
+        mAds.setRewardedVideoAdListener(this);
+        loadAds();
+    }
+
     private void setExternalInterfaces() {
         launcher.setExternalInterface("rdsPlayRewardAds", new INativePlayer.INativeInterface() {
             @Override
             public void callback(String s) {
                 playRewardAds();
+            }
+        });
+
+        launcher.setExternalInterface("rdsInitAdMob", new INativePlayer.INativeInterface() {
+            @Override
+            public void callback(final String s) {
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String[] ids = s.split(";");
+                        MainActivity.this.initAdMob(ids[0], ids[1]);
+                    }
+                });
             }
         });
     }

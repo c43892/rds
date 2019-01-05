@@ -505,20 +505,21 @@ class BattleView extends egret.DisplayObjectContainer {
         } else {
             this.effDeathGodGray.alpha = 0;
             this.effDeathGodRed.alpha = 1;
-            if (!this.contains(effDisplay))
-                this.addChild(effDisplay);
-
-            effDisplay.x = this.effDeathGodRed.x;
-            effDisplay.y = this.effDeathGodRed.y;
 
             if (stepAt <= this.deathGodWarningStep) { // 死神临近
-                this.effDeathGodRedEff.animation.play("stand", 0);
+                if (!this.contains(effDisplay))
+                    this.addChild(effDisplay);
+
+                effDisplay.x = this.effDeathGodRed.x;
+                effDisplay.y = this.effDeathGodRed.y;
                 effDisplay.scaleX = 2;
                 effDisplay.scaleY = 2;
+                this.effDeathGodRedEff.animation.play("stand", 0);
+                
             } else {
+                if (this.contains(effDisplay))
+                    this.removeChild(effDisplay);
                 this.effDeathGodRedEff.animation.stop("stand");
-                effDisplay.scaleX = 1;
-                effDisplay.scaleY = 1;
             }
         }
     }

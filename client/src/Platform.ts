@@ -27,6 +27,8 @@ class DefaultPaltform implements Platform {
     wc:WebClient;
     
     adMobReady:boolean = false;
+    adMobAppID:string = "ca-app-pub-3940256099942544~3347511713";
+    adMobAdID:string = "ca-app-pub-3940256099942544/5224354917";
 
     iOSLoadLocalStorageDataCallback;
     rewardAdsCompletedCallback;
@@ -55,6 +57,8 @@ class DefaultPaltform implements Platform {
 
                 this.rewardAdsCompletedCallback = undefined;
             });
+
+            egret.ExternalInterface.call("rdsInitAdMob", this.adMobAppID + ";" + this.adMobAdID);
         }
 
         egret.lifecycle.onPause = () => {
