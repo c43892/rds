@@ -168,6 +168,10 @@
         "HeadBone":10
     }},
 
+    "Bazooka":{"num":[1, 2], "elems":{
+        "Bazooka":10
+    }},
+
     "boxRoomRelic":{"num":[1, 2], "elems":{
         "ShieldDetector":10,
         "KnifeDetector":10,

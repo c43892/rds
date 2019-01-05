@@ -13,7 +13,7 @@ class LevelLogicChangeMonster extends LevelLogic{
             // 筛选不属于要改变的种类之一并且不含金币以外掉落的敌对怪进行替换
             var tarms = BattleUtils.findRandomElems(bt, this.num, (e:Elem) => {
                     if(!(e instanceof Monster)) return false;
-                    return e.isHazard() && !e.isBoss && noDropItems(e) && notSameType(e) && !Utils.contains(this.changeTypes, e.type) && e.type != "PlaceHolder";})
+                    return e.isHazard() && !e.isBoss && !e.isElite && noDropItems(e) && notSameType(e) && !Utils.contains(this.changeTypes, e.type) && e.type != "PlaceHolder";})
             
             // 部分变化属于优先的 prior是形如{type1:num1, type2:num2}的表
             if (prior){

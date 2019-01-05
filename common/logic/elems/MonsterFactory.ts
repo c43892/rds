@@ -5,6 +5,7 @@ class Monster extends Elem {constructor() { super();}
 
     public isDead = () => this.hp <= 0; // 是否已经死亡
     public isBoss = false;
+    public isElite = false;
     public trapped = false;
     public canFrozen = () => { // 怪物是否能被冰冻,存在动态变化的可能
         var b = this.attrs.targetFlags ? !Utils.contains(this.attrs.targetFlags, "immuneFrozen") : true;
@@ -137,6 +138,83 @@ class MonsterFactory {
         "ShopNpc": (attrs) => MonsterFactory.makeShopNPC(this.createMonster(attrs)),
         "Gardener": (attrs) => this.createMonster(attrs), // 测试用园艺师
 
+        // 精英怪
+        // 精英哥布林小偷
+        "EliteGoblinThief": (attrs) => {
+            var m = MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doSneakStealMoney(false, MonsterFactory.doAttackBack(this.createMonster(attrs))));
+            m = MonsterFactory.makeElite(m);
+            // 为所有其他怪物附加突袭偷窃能力，突袭时偷取玩家15%的当前金钱
+            m = <Monster>ElemFactory.addAI("onSneaked", async (ps) => {
+                await m.bt().implAddMoney(Math.floor(m.bt().player.money * 0.15), ps.m);
+            }, m, (ps) => ps.m != m, false);
+            return m;
+        },
+
+        // 精英吸血鬼
+        "EliteVampire": (attrs) => {
+            var m = MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doSneakSuckBlood(MonsterFactory.doAttackBack(this.createMonster(attrs))));
+            m = MonsterFactory.makeElite(m);
+            // 为所有怪物附加突袭吸血能力，突袭时吸收玩家15%的当前生命
+            m = <Monster>ElemFactory.addAI("onSneaked", async (ps) => {
+                await m.bt().implAddPlayerHp(Math.floor(m.bt().player.hp * 0.15), ps.m);
+            }, m, (ps) => ps.m != m, false);
+            return m;
+        },
+
+        // 精英魅魔
+        "EliteLustZombie": (attrs) => {
+            var m = MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doAddDeathStepOnDie(MonsterFactory.doSneakReduseDeathStep(MonsterFactory.doAttackBack(this.createMonster(attrs)))));
+            m = MonsterFactory.makeElite(m);
+            // 为所有怪物附加魅惑功能，突袭时死神前进10步
+            m = <Monster>ElemFactory.addAI("onSneaked", async (ps) => {
+                await m.bt().implAddDeathGodStep(-10, ps.m);
+            }, m, (ps) => ps.m != m, false);
+            return m;
+        }, 
+
+        // 精英黑寡妇蜘蛛
+        "EliteSwatheZombie": (attrs) => {
+            var m = MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doSwatheItemsOnSneak(MonsterFactory.doAttackBack(this.createMonster(attrs))));
+            m = MonsterFactory.makeElite(m);
+            // 为所有怪物附加魅惑功能，突袭时死神前进10步
+            m = <Monster>ElemFactory.addAI("onSneaked", async (ps) => {
+            var items:Elem[] = BattleUtils.findRandomElems(m.bt(), 3, (e:Elem) => {
+                return !(e instanceof Monster) && !e.getGrid().isCovered() && (Utils.indexOf(["Cocoon", "Rock", "Hole", "IceBlock"], (ie) => e.type == ie) < 0);
+            });
+            var bt = m.bt();
+            for(var i = 0; i < items.length; i++){
+                var e = items[i];
+                var grid = e.getGrid();
+                var cocoon = bt.level.createElem("Cocoon");
+                cocoon.addDropItem(items[i]);
+                await bt.fireEvent("onSwatheItemWithCocoon", {m:ps.m, e:e});
+                await bt.implRemoveElemAt(grid.pos.x, grid.pos.y);
+                await bt.implAddElemAt(cocoon, grid.pos.x, grid.pos.y);
+                cocoon["swathedBy"] = ps.m;
+            }
+        }, m, (ps) => ps.m != m, false);
+            return m;
+        },
+
+        // 精英触手
+        "EliteReviveZombie": (attrs) => {
+            var m = MonsterFactory.doReviveOndie(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))));
+            m = MonsterFactory.makeElite(m);
+            // 为所有怪物附加复生能力，死亡时会复活一次（本来能复活的怪物不会复活两次）
+            m = <Monster>ElemFactory.addAI("onElemChanged", async (ps) => {
+                var dm = <Monster>ps.e;
+                if(dm["revivedByERZ"]) return;
+
+                var rm = m.bt().level.createElem(dm.type);
+                rm["revivedByERZ"] = true;
+                var g = BattleUtils.findRandomEmptyGrid(m.bt(), false);
+                if(g)
+                    await m.bt().implAddElemAt(rm, g.pos.x, g.pos.y);
+            }, m, (ps) => ps.subType == "dead" && ps.e instanceof Monster && ps.e.isHazard() && ps.e != m && ps.e.type != "ReviveZombie", false);
+            return m;
+        }, 
+
+        // Boss
         // 史莱姆之王
         "SlimeKing": (attrs) => {
             var m = this.createMonster(attrs);
@@ -614,7 +692,7 @@ class MonsterFactory {
     static doProtectMonsterAround(m:Monster):Monster {
         var filter = (tar) => {            
             return !(tar instanceof Player) 
-                && tar.type != "BallShito" || "MNutWall"
+                && tar.type != "BallShito" && tar.type != "MNutWall"
                 && tar.isHazard() && BattleUtils.isAround(m.map().getGridAt(tar.pos.x, tar.pos.y), m.getGrid());}
 
         return <Monster>ElemFactory.addAIEvenCovered("onAttacking", async (ps) => {
@@ -1248,11 +1326,25 @@ class MonsterFactory {
         }, m, (ps) => ps.targetAttrs.owner == m && Utils.contains(ps.attackerAttrs.attackFlags, "Flame") && ps.r.r == "attacked", false, true);
     }
 
+    // 精英特殊逻辑
+    static makeElite(m:Monster):Monster {
+        m.isElite = true;
+        m = MonsterFactory.canNotFrozenToDeath(m);
+        return m;
+    }
+
     // boss 特殊逻辑
     static makeBoss(m:Monster):Monster {
-        var frozenRound = 0;
         m.isBoss = true;
-        m["lockDoor"] = true;
+        m = MonsterFactory.canNotFrozenToDeath(m);
+        m["lockDoor"] = true;        
+        m = MonsterFactory.boomBeforeDieAndPreventRevive(m);
+        return m;
+    }
+
+    // boss和精英不会直接冻结死亡
+    static canNotFrozenToDeath(m:Monster):Monster{
+        var frozenRound = 0;
         m.isHazard = () => frozenRound == 0;
         m["makeFrozen"] = async (frozenAttrs) => {
             frozenRound += frozenAttrs.rounds;
@@ -1274,7 +1366,6 @@ class MonsterFactory {
         m["getElemImgResInIce"] = () => {
             return frozenRound > 0 ? priorGetElemImgRes() : undefined;
         }
-        m = MonsterFactory.boomBeforeDieAndPreventRevive(m);
         return m;
     }
 

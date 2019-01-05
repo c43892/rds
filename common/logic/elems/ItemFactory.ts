@@ -312,7 +312,7 @@ class ItemFactory {
             var e = this.createItem();
             e.canUse = () => true;
             e.use = async () => {
-                var ms = BattleUtils.findRandomElems(e.bt(), 1, (e:Elem) => e instanceof Monster && e.isHazard() && !e.isBoss && !e["isWanted"]
+                var ms = BattleUtils.findRandomElems(e.bt(), 1, (e:Elem) => e instanceof Monster && e.isHazard() && !e.isBoss && !e.isElite && !e["isWanted"]
                     && Utils.indexOf(e.dropItems, (d:Elem) => d.type == "Coins") > -1);
                 if(ms.length == 0) return;
 
