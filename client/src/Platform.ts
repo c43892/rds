@@ -76,7 +76,7 @@ class DefaultPaltform implements Platform {
             var promise = new Promise((r, _) => {
                 this.rewardAdsCompletedCallback = (msg) => {
                     Utils.log("ads reward callback: " + msg);
-                    callback(msg == "");
+                    callback(msg == undefined || msg == "");
                     r();
                 };
             });

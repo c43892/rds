@@ -492,7 +492,7 @@ class BattleView extends egret.DisplayObjectContainer {
         var deathGodRecoverCount = tmN >= 0 ? this.player.relicsInBag[tmN].attrs.deathGodBackStep : 0;
         deathGodRecoverCount += 40; // 加上初始步数
 
-        var effDisplay = this.effDeathGodRedEff.display;
+        var effDisplay = this.effDeathGodRedEff.display;67
 
         // 可以回满
         if (stepAt + deathGodRecoverCount >= this.player.maxDeathStep) {
@@ -508,14 +508,15 @@ class BattleView extends egret.DisplayObjectContainer {
             if (!this.contains(effDisplay))
                 this.addChild(effDisplay);
 
-            this.effDeathGodRedEff.animation.play("stand", 0);
             effDisplay.x = this.effDeathGodRed.x;
             effDisplay.y = this.effDeathGodRed.y;
 
             if (stepAt <= this.deathGodWarningStep) { // 死神临近
+                this.effDeathGodRedEff.animation.play("stand", 0);
                 effDisplay.scaleX = 2;
                 effDisplay.scaleY = 2;
             } else {
+                this.effDeathGodRedEff.animation.stop("stand");
                 effDisplay.scaleX = 1;
                 effDisplay.scaleY = 1;
             }
