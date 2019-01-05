@@ -164,6 +164,7 @@ bool notified;
 - (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd
     didFailToLoadWithError:(nonnull NSError *)error {
     NSLog(@"Reward based video ad failed to load. %@", error);
+	[self loadAds];
 }
 
 @end
