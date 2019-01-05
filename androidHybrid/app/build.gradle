@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion '28.0.3'
     defaultConfig {
-        applicationId "org.egret.launcher.rds"
+        applicationId "com.daybreak.rds"
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
