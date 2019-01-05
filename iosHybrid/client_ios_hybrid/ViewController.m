@@ -127,6 +127,7 @@ bool notified;
         reward.type,
      [reward.amount doubleValue]];
     NSLog(rewardMessage);
+	[EgretWebViewLib callExternalInterface:@"notifyRewardAdCompleted" Value:@""];
 }
 
 - (void)rewardBasedVideoAdDidReceiveAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
@@ -139,12 +140,6 @@ bool notified;
 }
 
 - (void)rewardBasedVideoAdDidStartPlaying:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
-    
-}
-
-- (void)rewardBasedVideoAdDidCompletePlaying:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
-    notified = true;
-    [EgretWebViewLib callExternalInterface:@"notifyRewardAdCompleted" Value:@""];
     
 }
 
