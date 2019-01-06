@@ -8481,6 +8481,16 @@
     "brainOfCthulhu_30": {"redirect": "boss_30"},
     "brainOfCthulhu_45": {"redirect": "boss_45"},
     "brainOfCthulhu_60": {"redirect": "boss_60"},
+    
+    "kraken_15": {"redirect": "boss_15"},
+    "kraken_30": {"redirect": "boss_30"},
+    "kraken_45": {"redirect": "boss_45"},
+    "kraken_60": {"redirect": "boss_60"},
+    
+    "halloweenTreant_15": {"redirect": "boss_15"},
+    "halloweenTreant_30": {"redirect": "boss_30"},
+    "halloweenTreant_45": {"redirect": "boss_45"},
+    "halloweenTreant_60": {"redirect": "boss_60"},
 
     "_abcd": {
         "displayName": "Boss战斗15",

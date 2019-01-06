@@ -28,5 +28,16 @@
         {"type":"LevelLogicTakeKey"}, 
         {"type":"LevelLogicChangeMonster", "ps":[["ReviveZombie"], 5]},
         {"type":"LevelLogicBoss", "ps":[["BrainOfCthulhu"]]}
-        ]
+        ],
+    "kraken":[
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["bossBox1", "bossBox2", "bossBox4", "bossBox5"]]}, 
+        {"type":"LevelLogicTakeKey"}, 
+        {"type":"LevelLogicBoss", "ps":[["Kraken"]]}
+    ],
+    "halloweenTreant":[
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["bossBox1", "bossBox2", "bossBox4", "bossBox5"]]}, 
+        {"type":"LevelLogicTakeKey"},
+        {"type":"LevelLogicBoss", "ps":[["HalloweenTreant"]]},
+        {"type":"LevelLogicChangeMonster", "ps":[["MPeashooter", "MCherryBomb", "MSunflower", "MCharmingMushroom", "MNutWall"], 63, {"MPeashooter":5}]}
+    ]
 }
