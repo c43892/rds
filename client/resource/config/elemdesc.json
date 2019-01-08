@@ -498,11 +498,28 @@
         "MCherryBomb":{"name":"樱桃炸弹", "desc":[]},
         "MSunflower":{"name":"太阳花", "desc":[]},
         "MCharmingMushroom":{"name":"魅惑菇", "desc":[]},
-        "EliteGoblinThief":{"name":"精英哥布林窃贼", "desc":[]},
-        "EliteVampire":{"name":"精英吸血鬼", "desc":[]},
-        "EliteLustZombie":{"name":"精英魅魔", "desc":[]},
-        "EliteSwatheZombie":{"name":"精英黑寡妇蜘蛛", "desc":[]},
-        "EliteReviveZombie":{"name":"精英克苏鲁触手", "desc":[]},
+        "EliteGoblinThief":{"name":"精英哥布林窃贼", "desc":[
+            "<font color=#7d0403 bold=true size=21>偷窃</font>\n<font color=#000000 bold=false size=20>突袭时偷取玩家的金币</font>",
+            "<font color=#7d0403 bold=true size=21>精英</font>\n<font color=#000000 bold=false size=20>为所有怪物附加突袭偷窃能力，突袭时偷取玩家15%的当前金钱</font>"
+        ]},
+        "EliteVampire":{"name":"精英吸血鬼", "desc":[
+            "<font color=#7d0403 bold=true size=21>吸血</font>\n<font color=#000000 bold=false size=20>突袭时吸取{percent}%的生命值</font>",
+            "<font color=#7d0403 bold=true size=21>精英</font>\n<font color=#000000 bold=false size=20>为所有怪物附加突袭吸血能力，突袭时吸收玩家15%的当前生命</font>"
+        ]},
+        "EliteLustZombie":{"name":"精英魅魔", "desc":[
+            "<font color=#7d0403 bold=true size=21>魅惑</font>\n<font color=#000000 bold=false size=20>突袭时死神提前{deathStepOnSneak}回合</font>",
+            "<font color=#7d0403 bold=true size=21>回馈</font>\n<font color=#000000 bold=false size=20>死亡时死神退后{deathStepOnDie}回合</font>",
+            "<font color=#7d0403 bold=true size=21>精英</font>\n<font color=#000000 bold=false size=20>为所有怪物附加魅惑功能，突袭时死神前进10步</font>"
+        ]},
+        "EliteSwatheZombie":{"name":"精英黑寡妇蜘蛛", "desc":[
+            "<font color=#7d0403 bold=true size=21>缠绕</font>\n<font color=#000000 bold=false size=20>突袭时锁定三项已显形物品，死亡后才可解锁</font>",
+            "<font color=#7d0403 bold=true size=21>剧毒</font>\n<font color=#000000 bold=false size=20>攻击附带中毒效果</font>",
+            "<font color=#7d0403 bold=true size=21>精英</font>\n<font color=#000000 bold=false size=20>为所有怪物附加缠绕能力，突袭时可缠绕两件物品</font>"
+        ]},
+        "EliteReviveZombie":{"name":"精英克苏鲁触手", "desc":[
+            "<font color=#7d0403 bold=true size=21>复生</font>\n<font color=#000000 bold=false size=20>死亡后可以复活一次</font>",
+            "<font color=#7d0403 bold=true size=21>精英</font>\n<font color=#000000 bold=false size=20>为所有怪物附加复生能力，死亡时会复活一次（本来能复活的怪物不会复活两次）</font>"
+        ]},
         "Kraken":{"name":"克拉肯", "desc":[
             "<font color=#7d0403 bold=true size=21>海怪吞噬</font>\n<font color=#000000 bold=false size=20>每3个回合主动攻击1次，造成3倍伤害，并随机摧毁一件非金钱的物品</font>",
             "<font color=#7d0403 bold=true size=21>深海窒息</font>\n<font color=#000000 bold=false size=20>克拉肯存在时，每回合对你造成1点伤害，无论它是否处于现身状态</font>",
