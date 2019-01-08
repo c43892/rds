@@ -145,7 +145,7 @@ class MonsterFactory {
             m = MonsterFactory.makeElite(m);
             // 为所有其他怪物附加突袭偷窃能力，突袭时偷取玩家15%的当前金钱
             m = <Monster>ElemFactory.addAI("onSneaked", async (ps) => {
-                await m.bt().implAddMoney(Math.floor(m.bt().player.money * 0.15), ps.m);
+                await m.bt().implAddMoney(-Math.floor(m.bt().player.money * 0.15), ps.m);
             }, m, (ps) => ps.m != m, false);
             return m;
         },
@@ -156,7 +156,7 @@ class MonsterFactory {
             m = MonsterFactory.makeElite(m);
             // 为所有怪物附加突袭吸血能力，突袭时吸收玩家15%的当前生命
             m = <Monster>ElemFactory.addAI("onSneaked", async (ps) => {
-                await m.bt().implAddPlayerHp(Math.floor(m.bt().player.hp * 0.15), ps.m);
+                await m.bt().implAddPlayerHp(-Math.floor(m.bt().player.hp * 0.15), ps.m);
             }, m, (ps) => ps.m != m, false);
             return m;
         },

@@ -61,6 +61,7 @@
 		"bin-debug/logic/LevelLogic/LevelLogicAddShopNpc.js",
 		"bin-debug/logic/LevelLogic/LevelLogicBoss.js",
 		"bin-debug/logic/LevelLogic/LevelLogicChangeMonster.js",
+		"bin-debug/logic/LevelLogic/LevelLogicElite.js",
 		"bin-debug/logic/LevelLogic/LevelLogicFactory.js",
 		"bin-debug/Main.js",
 		"bin-debug/logic/LevelLogic/LevelLogicSearchBody.js",

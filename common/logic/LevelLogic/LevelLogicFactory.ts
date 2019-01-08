@@ -11,6 +11,7 @@ class LevelLogicFactory{
             case "LevelLogicAddRelicOnRookie" : levelLogic = new LevelLogicAddRelicOnRookie(); break;
             case "LevelLogicAddShopNpc": levelLogic = new LevelLogicAddShopNpc(); break;
             case "LevelLogicBoss": levelLogic = new LevelLogicBoss(ps[0]); break;
+            case "LevelLogicElite": levelLogic = new LevelLogicElite(ps[0]); break;
         }
         return levelLogic;
     };

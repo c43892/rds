@@ -1,6 +1,6 @@
 {
     "battleViewElemTipTypes" : ["Clock", "Gengar", "TreasureBox", "RandomEggZombie"],
-    "seniorTypes" : ["randomEgg"],
+    "seniorTypes" : ["randomEgg", "eliteGoblinThief", "eliteVampire", "eliteLustZombie", "eliteSwatheZombie", "eliteReviveZombie"],
     "bossTypes" : ["slimeKing", "brainOfCthulhu", "kraken", "halloweenTreant"],
     "unlockPrices": [50,75,125,250,250,300,350,400],
     "PlantTypes": ["NutWall", "Peashooter", "CherryBomb", "Sunflower", "CharmingMushroom"],

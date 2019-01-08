@@ -14,6 +14,31 @@
         {"type":"LevelLogicTakeKey"}, 
         {"type":"LevelLogicChangeMonster", "ps":[["RandomEggZombie"], 5]}
         ],
+    "eliteGoblinThief":[
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox2"]]}, 
+        {"type":"LevelLogicTakeKey"}, 
+        {"type":"LevelLogicElite", "ps":[["EliteGoblinThief"]]}
+        ],
+    "eliteVampire":[
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox2"]]}, 
+        {"type":"LevelLogicTakeKey"}, 
+        {"type":"LevelLogicElite", "ps":[["EliteVampire"]]}
+        ],
+    "eliteLustZombie":[
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox2"]]}, 
+        {"type":"LevelLogicTakeKey"}, 
+        {"type":"LevelLogicElite", "ps":[["EliteLustZombie"]]}
+        ],
+    "eliteSwatheZombie":[
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox2"]]}, 
+        {"type":"LevelLogicTakeKey"}, 
+        {"type":"LevelLogicElite", "ps":[["EliteSwatheZombie"]]}
+        ],
+    "eliteReviveZombie":[
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox2"]]}, 
+        {"type":"LevelLogicTakeKey"}, 
+        {"type":"LevelLogicElite", "ps":[["EliteReviveZombie"]]}
+        ],
     "searchBody":[
         {"type":"LevelLogicTakeKey"}
         ],
