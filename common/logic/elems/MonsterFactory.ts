@@ -132,7 +132,7 @@ class MonsterFactory {
         "Werewolf": (attrs) => MonsterFactory.doDoublePowerOnHurt(MonsterFactory.doAddHpPerRound(Math.floor(attrs.hp * 0.2) > 1 ? Math.floor(attrs.hp * 0.2) : 1, this.createMonster(attrs))), // 狼人
         "MNutWall": (attrs) => <Plant>MonsterFactory.doProtectMonsterAround(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 怪物坚果墙
         "MPeashooter": (attrs) => <Plant>MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //怪物豌豆射手
-        "MCherryBomb": (attrs) => (attrs) => <Plant>MonsterFactory.doSelfExplodeAfterNRound(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 怪物樱桃炸弹
+        "MCherryBomb": (attrs) => <Plant>MonsterFactory.doSelfExplodeAfterNRound(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 怪物樱桃炸弹
         "MSunflower": (attrs) => <Plant>MonsterFactory.doAddMonsterHpPerNRound(attrs.rounds, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 怪物太阳花
         "MCharmingMushroom": (attrs) => <Plant>MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), // 怪物魅惑菇
         "ShopNpc": (attrs) => MonsterFactory.makeShopNPC(this.createMonster(attrs)),
@@ -238,13 +238,8 @@ class MonsterFactory {
                         MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player, attrs.attackInterval, () => !m.trapped, {a:2, b:0, c:0}), 
                     () => !m.trapped)));
             m = MonsterFactory.doEnhanceAura(m);
-            m = MonsterFactory.doMinusSanPerRound(m);
-            m = MonsterFactory.doHideMonsterAttrsOnView(m);
-            m = MonsterFactory.doHideHazardNumberOnView(m);
-            m = MonsterFactory.doChangeMonsterImg(m);
-            m = MonsterFactory.doAttackRandomGrid(m);
+            m = MonsterFactory.sanLogic(m);
             m = MonsterFactory.doSummonTentaclePer5Rounds(m);
-            m = MonsterFactory.doRemoveSanEffectAfterDie(m);
             return m;
         },
 
@@ -1019,6 +1014,18 @@ class MonsterFactory {
                 await bt.implAddElemAt(king, kingPos.x, kingPos.y);
             }
         }, m);
+        return m;
+    }
+
+    // 克苏鲁之脑的san值相关逻辑
+    static sanLogic(m:Monster):Monster{
+        Utils.assert(m.type == "BrainOfCthulhu", "only BrainOfCthulhu has san logic");
+        m = MonsterFactory.doMinusSanPerRound(m);
+        m = MonsterFactory.doHideMonsterAttrsOnView(m);
+        m = MonsterFactory.doHideHazardNumberOnView(m);
+        m = MonsterFactory.doChangeMonsterImg(m);
+        m = MonsterFactory.doAttackRandomGrid(m);
+        m = MonsterFactory.doRemoveSanEffectAfterDie(m);
         return m;
     }
 
