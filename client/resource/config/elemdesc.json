@@ -493,11 +493,21 @@
         "Werewolf":{"name":"狼人", "desc":[
             "<font color=#7d0403 bold=true size=21>狂猛</font>\n<font color=#000000 bold=false size=20>每回合回复20%的生命值，每受到一次伤害攻击翻倍</font>"
         ]},
-        "MNutWall":{"name":"坚果墙", "desc":[]},
-        "MPeashooter":{"name":"豌豆射手", "desc":[]},
-        "MCherryBomb":{"name":"樱桃炸弹", "desc":[]},
-        "MSunflower":{"name":"太阳花", "desc":[]},
-        "MCharmingMushroom":{"name":"魅惑菇", "desc":[]},
+        "MNutWall":{"name":"坚果墙", "desc":[
+            "<font color=#7d0403 bold=true size=21>护卫</font>\n<font color=#000000 bold=false size=20>附近8格中有其他怪物受到攻击时，承受其伤害</font>"
+        ]},
+        "MPeashooter":{"name":"豌豆射手", "desc":[
+            "<font color=#7d0403 bold=true size=21>连击</font>\n<font color=#000000 bold=false size=20>每4回合攻击一次</font>"            
+        ]},
+        "MCherryBomb":{"name":"樱桃炸弹", "desc":[
+            "<font color=#7d0403 bold=true size=21>自爆</font>\n<font color=#000000 bold=false size=20>出现后 </font><font color=#294c22 size=20>{rounds} </font><font color=#000000 size=20>回合自爆，翻开周围8个格子并造成造成攻击x</font><font color=#294c22 size=20>3 <font color=#000000 size=20>的伤害</font>"
+        ]},
+        "MSunflower":{"name":"太阳花", "desc":[
+            "<font color=#7d0403 bold=true size=21>恢复</font>\n<font color=#000000 bold=false size=20>每3回合为已所有现身怪物回复一点生命</font>"
+        ]},
+        "MCharmingMushroom":{"name":"魅惑菇", "desc":[
+            "<font color=#7d0403 bold=true size=21>免疫</font>\n<font color=#000000 bold=false size=20>无法被魅惑</font>"
+        ]},
         "EliteGoblinThief":{"name":"精英哥布林窃贼", "desc":[
             "<font color=#7d0403 bold=true size=21>偷窃</font>\n<font color=#000000 bold=false size=20>突袭时偷取玩家的金币</font>",
             "<font color=#7d0403 bold=true size=21>精英</font>\n<font color=#000000 bold=false size=20>为所有怪物附加突袭偷窃能力，突袭时偷取玩家15%的当前金钱</font>"
