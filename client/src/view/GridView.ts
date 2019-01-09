@@ -361,6 +361,8 @@ class GridView extends egret.DisplayObjectContainer {
             this.removeEffect("effBurning");
             this.removeEffect("elemPoisoned");
             this.removeEffect("effWantedOrder");
+            this.removeEffect("effEliteHaloBehind");
+            this.removeEffect("effEliteHaloFront");
         } else {
             var m = <Monster>e;
             var checker = [
@@ -368,6 +370,8 @@ class GridView extends egret.DisplayObjectContainer {
                 {chk:() => m.existsBuff("BuffFlame"), eff:"effBurning"},
                 {chk:() => m.existsBuff("BuffPoison"), eff:"elemPoisoned"},
                 {chk:() => m["isWanted"], eff:"effWantedOrder"},
+                {chk:() => m.isElite && (!this.getGrid().isCovered() || this.getGrid().isMarked()), eff:"effEliteHaloBehind"},
+                {chk:() => m.isElite && (!this.getGrid().isCovered() || this.getGrid().isMarked()), eff:"effEliteHaloFront"}
             ];
             
             checker.forEach((f, _) => {
