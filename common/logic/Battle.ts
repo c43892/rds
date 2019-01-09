@@ -808,14 +808,14 @@ class Battle {
     }
 
     // 怪物+hp
-    public async implAddMonsterHp(m:Monster, dhp:number, flag = undefined) {
+    public async implAddMonsterHp(m:Monster, dhp:number, flag = undefined, hurtBy = undefined, isNormalAttack = false) {
         if (dhp == 0) return;
         m.addHp(dhp);
         if (dhp < 0) {
             await this.fireEvent("onMonsterHurt", {dhp:dhp, m:m});
-            await this.triggerLogicPoint("onMonsterHurt", {dhp:dhp, m:m});
+            await this.triggerLogicPoint("onMonsterHurt", {dhp:dhp, m:m, hurtBy:hurtBy, isNormalAttack:isNormalAttack});
 
-            await this.triggerLogicPoint("afterMonsterHurt", {dhp:dhp, m:m});
+            await this.triggerLogicPoint("afterMonsterHurt", {dhp:dhp, m:m, hurtBy:hurtBy, isNormalAttack:isNormalAttack});
         }
         
         if (m.isDead())
@@ -1075,7 +1075,7 @@ class Battle {
                 await this.triggerLogicPoint("onSingleAttacked", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon, r:r});                
 
                 if (r.r == "attacked") {
-                    await this.implAddMonsterHp(tar, r.dhp);
+                    await this.implAddMonsterHp(tar, r.dhp, undefined, attackerAttrs["owner"], !weapon);
                     await this.implAddMonsterShield(tar, r.dShield);
                 }
 
@@ -1090,7 +1090,7 @@ class Battle {
     }
 
     // 怪物尝试攻击指定目标
-    public async implMonsterAttackTargets(m:Monster, targets, extraPowerABC = {a:0, b:0, c:0}, selfExplode = false, addFlags:string[] = [], results = []) {
+    public async implMonsterAttackTargets(m:Monster, targets, extraPowerABC = {a:0, b:0, c:0}, selfExplode = false, addFlags:string[] = [], results = [], isNormalAttack = false) {
         var map = this.level.map;
         var mapsize = map.size;
 
@@ -1157,11 +1157,11 @@ class Battle {
                             if (r.dShared != 0) { // 处理伤害被分担的情况
                                 var dSharedMonster = targetAttrs.damageSharedMonster;
                                 Utils.assert(dSharedMonster instanceof Monster, "damage should be shared by monster but got" + dSharedMonster.type);
-                                await this.implAddMonsterHp(dSharedMonster, r.dShared);
+                                await this.implAddMonsterHp(dSharedMonster, r.dShared, m, isNormalAttack);
                             }
                         } else {
                             Utils.assert(tar instanceof Monster, "the target should monster, but got " + tar.type);
-                            await this.implAddMonsterHp(tar, r.dhp);
+                            await this.implAddMonsterHp(tar, r.dhp, undefined, m, isNormalAttack);
                             await this.implAddMonsterShield(tar, r.dShield);
                         }
                     }
@@ -1184,7 +1184,7 @@ class Battle {
             await this.implOnElemDie(m, ["selfExplode"]);
     }
 
-    public async implMonsterAttackPoses(m:Monster, poses, extraPowerABC = {a:0, b:0, c:0}, selfExplode = false, addFlags:string[] = [], attackPlayer = false){
+    public async implMonsterAttackPoses(m:Monster, poses, extraPowerABC = {a:0, b:0, c:0}, selfExplode = false, addFlags:string[] = [], attackPlayer = false, isNormalAttack = false){
         var targets = [];
         for(var pos of poses){
             if(m.map().getGridAt(pos.x, pos.y).isCovered())
@@ -1196,7 +1196,7 @@ class Battle {
         }
         if (attackPlayer) targets.push(m.bt().player);
 
-        await m.bt().implMonsterAttackTargets(m, targets, extraPowerABC, selfExplode, addFlags);
+        await m.bt().implMonsterAttackTargets(m, targets, extraPowerABC, selfExplode, addFlags, undefined, isNormalAttack);
     }
 
     public async implMonsterDoSelfExplode(m:Monster, extraPowerABC, attackPlayer = false){

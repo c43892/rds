@@ -128,7 +128,7 @@ class MonsterFactory {
         "Nightmare": (attrs) => MonsterFactory.doDestroyItemOnAttack(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 梦魇
         "ThunderElemental": (attrs) => MonsterFactory.doThunderDamageAroundOnAttack(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 雷元素
         "FlameElemental": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), // 火元素
-        "Echinus": (attrs) => MonsterFactory.doThornsDamageOnNormalAttacked(this.createMonster(attrs)), // 海胆
+        "Echinus": (attrs) => MonsterFactory.doThornsDamageOnNormalAttacked(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 海胆
         "Werewolf": (attrs) => MonsterFactory.doDoublePowerOnHurt(MonsterFactory.doAddHpPerRound(Math.floor(attrs.hp * 0.2) > 1 ? Math.floor(attrs.hp * 0.2) : 1, this.createMonster(attrs))), // 狼人
         "MNutWall": (attrs) => <Plant>MonsterFactory.doProtectMonsterAround(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 怪物坚果墙
         "MPeashooter": (attrs) => <Plant>MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //怪物豌豆射手
@@ -387,7 +387,7 @@ class MonsterFactory {
     // 偷袭：攻击
     static doSneakAttack(m:Monster):Monster {
         // 怪物偷袭，其实并没有 Sneak 标记，不影响战斗计算过程
-        return MonsterFactory.addSneakAI(async () => m.bt().implMonsterAttackTargets(m, [m.bt().player]), m, true);
+        return MonsterFactory.addSneakAI(async () => await m.bt().implMonsterAttackTargets(m, [m.bt().player], undefined, false, undefined, undefined, true), m, true);
     }
 
     // 偷袭：偷钱
@@ -470,7 +470,7 @@ class MonsterFactory {
             if (Utils.contains(ps.targetAttrs.targetFlags, "Sneaked"))
                 addFlags.push("back2sneak");
 
-            await m.bt().implMonsterAttackTargets(m, [ps.attackerAttrs.owner], undefined, false, addFlags);
+            await m.bt().implMonsterAttackTargets(m, [ps.attackerAttrs.owner], undefined, false, addFlags, undefined, true);
         }, m, (ps) => {
             return !ps.weapon && ps.targetAttrs.owner == m && !m.isDead() && condition()
         });
@@ -503,7 +503,7 @@ class MonsterFactory {
                     // 如果是打怪，需要判断射程
                     if (target instanceof Monster && !m.inAttackRange(target)) return;
                     
-                    await m.bt().implMonsterAttackTargets(m, [target], extraPowerABC, false, ["activeAttack"]);
+                    await m.bt().implMonsterAttackTargets(m, [target], extraPowerABC, false, ["activeAttack"], undefined, true);
                 }
             }
         }, m);
@@ -523,7 +523,7 @@ class MonsterFactory {
                     await m.bt().fireEvent("onGridChanged", {x:m.pos.x, y:m.pos.y, subType:"gridUncovered", stateBeforeUncover:stateBeforeUncover});
                 }
 
-                await m.bt().implMonsterAttackTargets(m, [player], undefined, false, ["attackOnPlayerLeave"]);
+                await m.bt().implMonsterAttackTargets(m, [player], undefined, false, ["attackOnPlayerLeave"], undefined, true);
             }, m);
     }
 
@@ -914,7 +914,14 @@ class MonsterFactory {
 
     // 受到普通攻击时，反射50%的伤害
     static doThornsDamageOnNormalAttacked(m:Monster):Monster {
-        return m;
+        return <Monster>ElemFactory.addAI("onMonsterHurt", async (ps) => {
+            var target = ps.hurtBy;
+            if (target instanceof Player)
+                await m.bt().implAddPlayerHp(Math.floor(ps.dhp / 2), m);
+            else if (target instanceof Monster)
+                await m.bt().implAddMonsterHp(target, Math.floor(ps.dhp / 2));
+
+        }, m, (ps) => ps.m == m && !m.isDead() && ps.isNormalAttack && ps.hurtBy);
     }
 
     // 史莱姆之王半血时分裂为4个小史莱姆
@@ -1516,7 +1523,7 @@ class MonsterFactory {
             var attackShopNpc = async () => {
                 var shopNpcs = BattleUtils.findUncoveredTargetElems4Neighbours(bt, m, (e: Elem) => e.type == "ShopNpc");
                 if (shopNpcs.length > 0) {
-                    await bt.implMonsterAttackTargets(m, [shopNpcs[0]]);
+                    await bt.implMonsterAttackTargets(m, [shopNpcs[0]], undefined, false, undefined, undefined, true);
                     acted = true;
                 }
             }
