@@ -1,32 +1,32 @@
 {
     "award1":{
         "type":"achvFinished",
-        "achv":"killed1",
+        "achv":"HalloweenTreantNoPeashooter",
         "awardContent":{
             "type":"unlockRelic",
             "relic":"GoldMedal"
         },
         "icon":"GoldMedal",
-        "desc":"killed1"
+        "desc":"突突突"
     },
     "award2":{
         "type":"achvFinished",
-        "achv":"killed2",
+        "achv":"SkillMaster",
         "awardContent":{
             "type":"unlockRelic",
             "relic":"ExpMedal"
         },
         "icon":"ExpMedal",
-        "desc":"killed2"
+        "desc":"技能达人"
     },
     "award3":{
         "type":"achvFinished",
-        "achv":"killed3",
+        "achv":"DifficultyMode",
         "awardContent":{
             "type":"unlockRelic",
             "relic":"DoubleAttack"
         },
         "icon":"DoubleAttack",
-        "desc":"killed3"
+        "desc":"困难模式"
     }
 }

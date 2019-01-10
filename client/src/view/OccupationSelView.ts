@@ -80,7 +80,7 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         }
 
         // 难度列表
-        this.diffImgLst = [];
+        this.diffImgLst = [];        
         for (var i = 0; i < 5; i++) {
             var btn = new TextButtonWithBg("diffUnlocked" + (i+1) + "_png");
             btn.setDisableBg(undefined);
@@ -123,7 +123,7 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         ViewUtils.asFullBg(this.bg);
 
         this.setAvailableOccList(["Rogue", "Nurse"]);
-        this.setAvailableDiff(3);
+        this.setAvailableDiff(Utils.loadAchvData("availableDiff") ? Utils.loadAchvData("availableDiff") : 1);
         this.selOcc("Rogue");
         this.selDifficulty(0);
     }

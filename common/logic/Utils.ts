@@ -330,7 +330,27 @@ class Utils {
     }
 
     // 保存角色数据
-    public static savePlayer(p:Player) {
+    public static savePlayer(p:Player, reason = undefined) {
+        // player数据存档时,同时将预完成成就数据存档.        
+        for (var preFinishInfo of AchievementMgr.mgr.allPreFinishedAchvs())
+             AchievementMgr.mgr.finishAchvAndSave(preFinishInfo);
+        // 部分特殊节点需要刷新一下成就管理器
+        if (reason){
+            switch (reason){
+                case "onBattleEnd":{
+                    AchievementMgr.mgr.actOnLogicPointSync("onBattleEnd");
+                    AchievementMgr.mgr.actOnLogicPointSync("refreshAchvOnBattleEnd");
+                    break;
+                }
+                case "onGameEnd":{
+                    AchievementMgr.mgr.actOnLogicPointSync("onGameEnd");
+                    AchievementMgr.mgr.actOnLogicPointSync("refreshAchvOnGameEnd");
+                    break;
+                }
+            }            
+        }
+        AchievementMgr.mgr.player = p;
+
         if (p) {
             Utils.localStorageData["Version"] = Version.currentVersion;
             Utils.localStorageData["Player"] = p.toString();
@@ -350,6 +370,7 @@ class Utils {
         var oldVer = Utils.loadLocalItem("Version");
         if (Version.isCompatible(oldVer)) {
             var playerSaveString = Utils.loadLocalItem("Player");
+            AchievementMgr.mgr.refresh();
             return {ver:oldVer, player:Player.fromString(playerSaveString)};
         }
         else

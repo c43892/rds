@@ -1,5 +1,4 @@
 class AchvView extends egret.DisplayObjectContainer {
-    private achvCfg; // 成就配置
     private awardCfg; // 成就奖励配置
     private onAchvList:boolean; // 处于成就列表页签的状态
     private currentScrollView; // 当前显示的滚动区域
@@ -86,7 +85,6 @@ class AchvView extends egret.DisplayObjectContainer {
     // 打开界面
     public async open() {
         this.onAchvList = true;
-        this.achvCfg = GCfg.getAchvCfg();
         this.awardCfg = GCfg.getAchvAwardCfg();
         this.refresh();
         return new Promise((resolve, reject) => this.doClose = resolve);
@@ -107,9 +105,8 @@ class AchvView extends egret.DisplayObjectContainer {
         listBg.touchEnabled = true;
         this.achvListContent.addChild(listBg);
         var i = 0;
-        for (var achv in this.achvCfg){
-            var achvInfo = this.achvCfg[achv];
-            var achvContainer = this.createSingleAchvInfoByCfg(achv, achvInfo);
+        for (var achv of AchievementMgr.mgr.allAchvs){
+            var achvContainer = this.createSingleAchvInfoByCfg(achv);
             achvContainer.x = 10;
             achvContainer.y = 10 + i * 120;
             this.achvListContent.addChild(achvContainer);
@@ -164,43 +161,40 @@ class AchvView extends egret.DisplayObjectContainer {
     refreshRedPoint() {
         this.redPoint.alpha = 0;
         for (var award in this.awardCfg)
-            if (AchvMgr.getAchvAwardStatus(award) == "wait4Receive") {
+            if (AchievementMgr.getAchvAwardStatus(award) == "wait4Receive") {
                 this.redPoint.alpha = 1;
                 break;
             }
     }
 
     // 根据配置生成单条成就信息
-    private createSingleAchvInfoByCfg(achvName, info):egret.DisplayObjectContainer {
-        var achvContainer = new egret.DisplayObjectContainer();
-        
-        var finishedInfo = AchvMgr.getAchvFinishedStatus(achvName);
-        var finished = finishedInfo.all == finishedInfo.finished;
-
+    private createSingleAchvInfoByCfg(achv:Achievement):egret.DisplayObjectContainer {
+        var achvContainer = new egret.DisplayObjectContainer();        
+        var cfg = achv.cfg;
         // 背景
-        var bgName = finished ? "achvFinished_png" : "achvUnfinished_png"
+        var bgName = achv.isFinished() ? "achvFinished_png" : "achvUnfinished_png";
         var bg = ViewUtils.createBitmapByName(bgName);
 
         // 图标
-        var icon = ViewUtils.createBitmapByName(info.icon + "_png");
+        var icon = ViewUtils.createBitmapByName(cfg.icon + "_png");
         icon.name = "achvIcon";
 
         // 标题
         var title = new egret.TextField();
         title.name = "title";
-        title.text = info.titles[finished ? finishedInfo.finished - 1 : finishedInfo.finished];
+        title.text = cfg.title;
 
         // 描述
-        var desc = new egret.TextField();
-        desc.name = "desc";
-        desc.text = info.descs[finished ? finishedInfo.finished - 1 : finishedInfo.finished];
+        var shortDesc = new egret.TextField();
+        shortDesc.name = "shortDesc";
+        shortDesc.text = cfg.shortDesc;
 
-        var objs = [bg, icon, title, desc];
+        var objs = [bg, icon, title, shortDesc];
         ViewUtils.multiLang(this, ...objs);
         objs.forEach((obj, _) => achvContainer.addChild(obj));
 
         // 完成进度用的星星或已完成标志
-        if (finished) {
+        if (achv.isFinished()) {
             var finishedSign = ViewUtils.createBitmapByName("achvFinishedSign_png");
             finishedSign.name = "finishedSign";
             ViewUtils.multiLang(this, finishedSign);
@@ -210,13 +204,19 @@ class AchvView extends egret.DisplayObjectContainer {
             var stars = new egret.DisplayObjectContainer();
             stars.name = "stars";
             stars.anchorOffsetX = stars.width / 2;
-            var achvStar = finishedInfo.all;
-            var grayStar = finishedInfo.all - finishedInfo.finished;
-            for (var i = 0; i < achvStar; i++) {
-                var starTextName = (achvStar - i > grayStar) ? "achvStar_png" : "achvStarGray_png"
+            if (achv.stages()){
+                var achvStarNum = achv.stages();
+                var grayStarNum = achv.stages() - achv.finishedStage();
+            } else {
+                var achvStarNum = 1;
+                var grayStarNum = 1;
+            }
+                        
+            for (var i = 0; i < achvStarNum; i++) {
+                var starTextName = (achvStarNum - i > grayStarNum) ? "achvStar_png" : "achvStarGray_png"
                 var star = ViewUtils.createBitmapByName(starTextName);
                 star.anchorOffsetX = star.width / 2;
-                star.x = 62 + (i - achvStar / 2) * star.width;
+                star.x = 62 + (i - achvStarNum / 2) * star.width;
                 stars.addChild(star);
             }
             ViewUtils.multiLang(this, stars);
@@ -229,7 +229,7 @@ class AchvView extends egret.DisplayObjectContainer {
     // 根据配置生成单条成就奖励信息
     private createSingleAwardInfoByCfg(awardName, info) {
         var awardContainer = new egret.DisplayObjectContainer();
-        var status = AchvMgr.getAchvAwardStatus(awardName);
+        var status = AchievementMgr.getAchvAwardStatus(awardName);
         
         var bgName = undefined;
         if (status == "unfinished") {
@@ -293,7 +293,7 @@ class AchvView extends egret.DisplayObjectContainer {
     // 领取成就奖励
     onReceiveBtn(btn:TextButtonWithBg){
         var awardName = btn["awardName"];
-        AchvMgr.receiveAchvAward(awardName);
+        AchievementMgr.receiveAchvAward(awardName);
         btn.enabled = false;
         btn.text = "已领取";
         this.refreshRedPoint();

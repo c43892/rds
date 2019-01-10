@@ -637,7 +637,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 Utils.pt("rookiePlayFinished", true);
             }
 
-            Utils.savePlayer(this.player);
+            Utils.savePlayer(this.player, "onBattleEnd");
 
             // 更新最高分
             var score = BattleStatistics.getFinalScore(BattleStatistics.getScoreInfos(this.player.st));

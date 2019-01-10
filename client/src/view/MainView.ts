@@ -441,6 +441,8 @@ class MainView extends egret.DisplayObjectContainer {
     public async openStartup(p:Player) {
         this.clear();
         // Utils.removeLocalDate("rookiePlay"); // 删除新手数据存档
+        // Utils.initAchvData(); // 初始化成就数据
+        // AchievementMgr.mgr.finishAchvAndSave({type:"HalloweenTreantNoPeashooter", isFinished:true, finishedStage:undefined});
 
         this.p = p;
         this.lgv.player = p;
@@ -538,7 +540,7 @@ class MainView extends egret.DisplayObjectContainer {
     public async onPlayerDead(ps) {
         Utils.pt("die." + (new Date()).toLocaleString('en-GB', { timeZone: 'UTC' }), this.p.currentStoreyPos);
         await this.openScoreView();
-        Utils.savePlayer(undefined);
+        Utils.savePlayer(undefined, "onGameEnd");
         this.p = undefined;
         await this.av.blackIn();
         await this.openStartup(undefined);
@@ -569,7 +571,7 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 打开通关界面
     public async openFinishGameView(){
-        Utils.savePlayer(undefined);
+        Utils.savePlayer(undefined, "onGameEnd");
         await this.confirmOkYesNo("<font color=#7d0403 size=30>恭喜你,通关了</font>", "<font color=#000000 size=20>开始下一次冒险吧</font>", false);
         this.p = undefined;
         await this.av.blackIn();

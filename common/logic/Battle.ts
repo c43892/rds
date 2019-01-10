@@ -325,7 +325,7 @@ class Battle {
         hs.push(this.player.st);
 
         // 成就管理器
-        hs.push(this.player.am);
+        hs.push(...AchievementMgr.mgr.unfinishedAchvs);
 
         return hs;
     }

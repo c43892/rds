@@ -2,20 +2,20 @@ class LevelLogicChangeMonster extends LevelLogic{
     public changeTypes:string[];
     public invalidTypes:string[];
     public num:number;
-    constructor(changeTypes:string[], num, prior = undefined, extraInvalidType = []){
+    constructor(changeTypes:string[], num, prior = undefined, extraInvalidTypes = []){
         super("LevelLogicChangeMonster");
         this.changeTypes = changeTypes;
-        this.invalidTypes = [...changeTypes, ...extraInvalidType];
+        this.invalidTypes = [...changeTypes, ...extraInvalidTypes];
         this.num = num;
 
         this.addAI("onLevelInited", async (ps) => {
             var bt = this.level.bt;
-            var noDropItems = (e:Elem) => Utils.filter(e.dropItems, (d:Elem) => d.type != "Coins").length == 0;
-            var notSameType = (e:Elem) => Utils.indexOf(this.changeTypes, (changeType:string) => e.type == changeType) < 0;
+            var noExtraDropItems = (e:Elem) => Utils.filter(e.dropItems, (d:Elem) => d.type != "Coins" && d.type != "Key").length == 0;
+            var hasKey = (e:Elem) => Utils.filter(e.dropItems, (d:Elem) => d.type == "Key").length != 0;
             // 筛选不属于要改变的种类之一并且不含金币以外掉落的敌对怪进行替换
             var tarms = BattleUtils.findRandomElems(bt, this.num, (e:Elem) => {
                     if(!(e instanceof Monster)) return false;
-                    return e.isHazard() && !e.isBoss && !e.isElite && noDropItems(e) && notSameType(e) && !Utils.contains(this.invalidTypes, e.type) && e.type != "PlaceHolder";})
+                    return e.isHazard() && !e.isBoss && !e.isElite && noExtraDropItems(e) && !Utils.contains(this.invalidTypes, e.type) && e.type != "PlaceHolder";})
             
             // 部分变化属于优先的 prior是形如{type1:num1, type2:num2}的表
             if (prior){
@@ -25,6 +25,12 @@ class LevelLogicChangeMonster extends LevelLogic{
                             var target = tarms.shift();
                             var pos = target.pos;
                             var m = this.level.createElem(priorType);
+                            if (hasKey(target)){
+                                var hasKeys = Utils.filter(target.dropItems, (d:Elem) => d.type == "Key");
+                                for (var key of hasKeys)
+                                    m.addDropItem(key);
+                            }
+                                
                             await bt.implRemoveElemAt(pos.x, pos.y);
                             await bt.implAddElemAt(m, pos.x, pos.y);
                     }
@@ -34,6 +40,11 @@ class LevelLogicChangeMonster extends LevelLogic{
                 var type = changeTypes[bt.srand.nextInt(0, changeTypes.length)];
                 var m = this.level.createElem(type);
                 var pos = tarms[i].pos;
+                if (hasKey(tarms[i])) {
+                    var hasKeys = Utils.filter(tarms[i].dropItems, (d: Elem) => d.type == "Key");
+                    for (var key of hasKeys)
+                        m.addDropItem(key);
+                }
                 await bt.implRemoveElemAt(pos.x, pos.y);
                 await bt.implAddElemAt(m, pos.x, pos.y);
             }

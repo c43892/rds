@@ -5,6 +5,7 @@ class Level {
     public map:Map;
     public bt:Battle; // 反向引用回所属 battle
     public keys:Elem[] = []; // 装着所有的关卡初始钥匙
+    public levelType; // 关卡种类
     private cfg;
     private lv;
 
@@ -13,6 +14,7 @@ class Level {
         this.bt = bt;
         this.cfg = cfg;
         this.lv = bt.player.currentTotalStorey();
+        this.levelType = this.getLevelType();
         this.InitMap(cfg.map);
         this.InitElems(bt.btType, cfg.elems, cfg.constElems, cfg.randomGroups, 
             GCfg.mapsize.w * GCfg.mapsize.h + cfg.init_uncovered.w + cfg.init_uncovered.h, 
@@ -260,5 +262,11 @@ class Level {
             levelLogic = this.levelLogics[n];
             this.levelLogics = Utils.removeAt(this.levelLogics, n);
         }
+    }
+
+    private getLevelType() {
+        var index = this.bt.btType.indexOf("_");
+        var levelType = this.bt.btType.substring(0 , index);
+        return levelType;
     }
 }

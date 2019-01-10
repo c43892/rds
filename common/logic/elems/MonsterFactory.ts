@@ -1246,8 +1246,12 @@ class MonsterFactory {
     }
 
     // 克拉肯存在时，每回合对你造成1点伤害，无论它是否处于现身状态
-    static doReduceHpPerRound(m:Monster, onlyUncovered = false):Monster{
-        return <Monster>ElemFactory.addAI("onPlayerActed", async () => await m.bt().implAddPlayerHp(-1, m), m, undefined, onlyUncovered);
+    static doReduceHpPerRound(m: Monster, onlyUncovered = false): Monster {
+        return <Monster>ElemFactory.addAI("onPlayerActed", async () => {
+            await m.bt().implAddPlayerHp(-1, m);
+            if (m.type == "Kraken")
+                m.bt().triggerLogicPointSync("onKrakenDeepFrozen");
+        }, m, undefined, onlyUncovered);
     }
 
     // 血量低于50%时，每回合都会进行主动攻击(不被别的技能所影响,暂时未做优先级区分,改用极大的数来保证)

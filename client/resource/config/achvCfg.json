@@ -1,67 +1,63 @@
 {
-    "killed1": {
-        "type": "monsterKilled",
-        "stages": [
-            {"condition":{"type": "EyeDemon", "killed": 2}},
-            {"condition":{"type": "EyeDemon", "killed": 3}},
-            {"condition":{"type": "EyeDemon", "killed": 5}},
-            {"condition":{"type": "EyeDemon", "killed": 10}}
-        ],
-        "icon":"EyeDemon",
-        "titles":["killed1title1","killed1title2","killed1title3","killed1title4"],
-        "descs":["killed1desc1","killed1desc2","killed1desc3","killed1desc4"]
+    "HalloweenTreantNoPeashooter":{
+        "achvClass":"singleBattle",        
+        "title":"突突突",
+        "shortDesc":"不杀死任何豌豆射手击败万圣节树妖",
+        "icon":"HalloweenTreant",
+        "achvPoint":10
     },
-    "killed2":{
-        "type":"monsterKilled", 
-        "stages":[
-            {"condition":{"type":"ReviveZombie", "killed":1}}
-        ],
-        "icon":"ReviveZombie",
-        "titles":["killed2title1"],
-        "descs":["killed2desc1"]
+    "DeepFrozen":{
+        "achvClass":"singleBattle",
+        "title":"极度深寒",
+        "shortDesc":"被深寒窒息造成50点伤害的情况下击败克拉克",
+        "icon":"Kraken",
+        "achvPoint":10
     },
-    "killed3":{
-        "type":"monsterKilled", 
-        "stages":[
-            {"condition":{"type":"EyeDemon", "killed":1}}
-        ],
-        "icon":"EyeDemon",
-        "titles":["killed3title1"],
-        "descs":["killed3desc1"]
+    "RichMan":{
+        "achvClass":"singleGame",
+        "money":1000,
+        "title":"大富翁",
+        "shortDesc":"一局游戏内获得1000金钱",
+        "icon":"Coins9",
+        "achvPoint":10
     },
-    "killed4":{
-        "type":"multAchv", 
-        "conditions":["killed2", "killed3"],
-        "icon":"GreenSlime",
-        "titles":["killed4title1"],
-        "descs":["killed4desc1"]
+    "KnowlegdeChangesDestiny":{
+        "achvClass":"singleGame",
+        "readNum":20,
+        "title":"知识改变命运",
+        "shortDesc":"一局游戏内阅读20本书籍",
+        "icon":"Magazine",
+        "achvPoint":10
     },
-    "killed5":{
-        "type":"multAchv", 
-        "conditions":["killed2", "killed3", "killed4"],
-        "icon":"GreenSlime",
-        "titles":["killed5title1"],
-        "descs":["killed5desc1"]
+    "DeathGodKiller":{
+        "achvClass":"singleGame",
+        "killNum":10,
+        "title":"死神克星",
+        "shortDesc":"一局游戏内杀死10次死神",
+        "icon":"DeathGod",
+        "achvPoint":10
     },
-    "killed6":{
-        "type":"multAchv", 
-        "conditions":["killed2", "killed3", "killed4"],
-        "icon":"GreenSlime",
-        "titles":["killed6title1"],
-        "descs":["killed6desc1"]
+    "SkillMaster":{
+        "achvClass":"singleGame",
+        "relicNum":8,
+        "relicLv":5,
+        "title":"技能达人",
+        "shortDesc":"一局游戏内将8个技能升至5级",
+        "icon":"HalloweenTreant",
+        "achvPoint":10
     },
-    "killed7":{
-        "type":"multAchv", 
-        "conditions":["killed2", "killed3", "killed4"],
-        "icon":"GreenSlime",
-        "titles":["killed7title1"],
-        "descs":["killed7desc1"]
+    "NormalMode":{
+        "achvClass":"singleGame",
+        "title":"普通模式",
+        "shortDesc":"解锁普通模式",
+        "icon":"HalloweenTreant",
+        "achvPoint":10
     },
-    "killed8":{
-        "type":"multAchv", 
-        "conditions":["killed2", "killed3", "killed4"],
-        "icon":"GreenSlime",
-        "titles":["killed8title1"],
-        "descs":["killed8desc1"]
+    "DifficultyMode":{
+        "achvClass":"singleGame",
+        "title":"困难模式",
+        "shortDesc":"解锁困难模式",
+        "icon":"HalloweenTreant",
+        "achvPoint":10
     }
 }

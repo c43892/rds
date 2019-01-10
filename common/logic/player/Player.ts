@@ -24,9 +24,6 @@ class Player {
     // 战斗统计
     public st:BattleStatistics;
 
-    // 成就管理
-    public am:AchvMgr;
-
     // 关卡逻辑
     public worldmap:WorldMap;
     public worldName:string;
@@ -64,7 +61,6 @@ class Player {
         p.relicsEquippedCapacity = Utils.getPlayerInitRelicsEquippedCapacity(p.difficulty);
 
         p.st = new BattleStatistics(p);
-        p.am = AchvMgrFactory.createAchvMgr(p);
 
         return p;
     }
@@ -110,8 +106,12 @@ class Player {
     public money:number; // 金币
 
     public addMoney(dm:number):boolean {
-        if (dm > 0)
+        if (dm > 0) {
             this.st.addCoins(dm);
+
+            if (!this.bt())
+                AchievementMgr.mgr.actOnLogicPointSync("onPlayerGetMoneyOutside", {num:dm});
+        }
 
         if (this.money  + dm < 0)
             return false;
@@ -206,6 +206,8 @@ class Player {
         var hs = [];
 
         hs.push(...this.commonRelics, ...this.relicsEquipped);
+
+        hs.push(...AchievementMgr.mgr.unfinishedAchvs);
 
         return hs;
     }
@@ -330,6 +332,9 @@ class Player {
         // 统计数据
         var st = this.st.toString();
 
+        // 成就管理器中部分需要保存的数据
+        var achievementMgrInfo = AchievementMgr.mgr.toString();
+
         // 目前 buff 不参与
         var srand = this.playerRandom.toString();
         var worldmapRandomSeed = this.worldmapRandomSeed;
@@ -338,7 +343,7 @@ class Player {
             relicsInBag:relicsInBag, props:props, 
             elems2NextLevel:elems2NextLevel, 
             worldmapRandomSeed:worldmapRandomSeed, srand:srand, 
-            statistics:st};
+            statistics:st, achievementMgrInfo:achievementMgrInfo};
         for (var f of Player.serializableFields)
             pinfo[f] = this[f];
 
@@ -352,12 +357,6 @@ class Player {
 
         for(var relic of removedRelicsInBag)
             this.addRelicInternal(relic, false);
-
-        // 确定获得预备完成的成就
-        for (var achvInfo of this.am.preFinishAchvs)
-            Utils.saveAchvData(achvInfo["achvName"], achvInfo["stage"]);
-
-        this.am.preFinishAchvs = [];
 
         return saveData;
     }
@@ -415,8 +414,8 @@ class Player {
         p.worldmapRandomSeed = pinfo.worldmapRandomSeed;        
         p.worldmap = WorldMap.buildFromConfig(p.worldName, p);
         p.st = BattleStatistics.fromString(p, pinfo.statistics);
+        AchievementMgr.mgr.fromString(pinfo.achievementMgrInfo);
         p = Occupation.makeOccupationBuff(p);
-        p.am = AchvMgrFactory.createAchvMgr(p);
 
         return p
     }
@@ -520,6 +519,9 @@ class Player {
             else
                 this.relicsInBag.push(e);
         }
+        
+        if (!this.bt())
+            AchievementMgr.mgr.actOnLogicPointSync("onAddRelicOutside", {relicType:e.type});
     }
 
     public removeRelic(type:string):Elem {

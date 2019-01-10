@@ -182,6 +182,8 @@ class Main extends egret.DisplayObjectContainer {
 
         // 难度配置
         GCfg.getDifficultyCfg = () => ResMgr.getRes("difficulty_json");
+
+        AchievementMgr.mgr = AchievementMgr.createAchvMgr();
     }
 
     // 加载指定资源组

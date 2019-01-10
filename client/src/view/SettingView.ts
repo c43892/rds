@@ -105,7 +105,7 @@ class SettingView extends egret.DisplayObjectContainer{
         var content = ViewUtils.formatString(ViewUtils.getTipText("makeSureExitThisGame"));
         var ok = await this.confirmOkYesNo(undefined, content, true);
         if (ok){
-            Utils.savePlayer(undefined);
+            Utils.savePlayer(undefined, "onGameEnd");
             await this.onPlayerDead();
         }
     }
