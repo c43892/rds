@@ -24,7 +24,8 @@ class AchievementMgr {
 
     public refresh(){
         var achvCfgs = GCfg.getAchvCfg();
-
+        this.allAchvs = [];
+        this.unfinishedAchvs = [];
         for (var type in achvCfgs){
             var achv = AchievementFactory.createAchievement(type);
             achv.mgr = this;
