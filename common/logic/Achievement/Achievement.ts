@@ -10,7 +10,6 @@ class Achievement {
     public refresh;
     public refreshFields = [];
     public toStringFields = [];
-
     
     // 是否被完成
     public isFinished(){
@@ -48,10 +47,19 @@ class Achievement {
         return finishedStage;
     }
 
-    // 完成的百分比
-    public finishedPercent() {
-        if (this.isFinished()) return 100;
+    // 获取成就的完成进度信息
+    public finishedProgressInfo():string {
+        if(this.cfg.multiAchv){
 
-        return this.stages() ? (this.finishedStage() / this.stages() * 100) : 0;
+        }
+        else if (this.cfg.conditions){
+
+        }
+        else {
+            if (this.isFinished())
+                return "已完成";
+            else 
+                return "0 / 1";
+        }
     }
 }

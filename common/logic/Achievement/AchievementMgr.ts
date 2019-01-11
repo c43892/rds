@@ -2,6 +2,7 @@ class AchievementMgr {
     public player:Player;
     public allAchvs:Achievement[] = []; // 所有成就
     public unfinishedAchvs:Achievement[] = []; // 未完成的成就,只有未完成的成就需要响应相关逻辑,已完成的基本只需要在表现时使用.
+    private factory:AchievementFactory;
 
     static mgr:AchievementMgr;
 
@@ -18,20 +19,24 @@ class AchievementMgr {
     // 根据配置生成成就并装入管理器
     static createAchvMgr(){
         var mgr = new AchievementMgr();
+        mgr.factory = new AchievementFactory();
         mgr.refresh();
         return mgr;
     }
 
     public refresh(){
+        Utils.log("refresh mgr");
         var achvCfgs = GCfg.getAchvCfg();
         this.allAchvs = [];
         this.unfinishedAchvs = [];
         for (var type in achvCfgs){
-            var achv = AchievementFactory.createAchievement(type);
+            var cfg = achvCfgs[type];
+            var achv = <Achievement>this.factory.creator[type](cfg);
+            achv.type = type;
             achv.mgr = this;
             this.allAchvs.push(achv);
             if (!achv.isFinished())
-                this.unfinishedAchvs.push(achv);
+                this.unfinishedAchvs.push(achv);            
         }
     }
 
@@ -159,13 +164,13 @@ class AchievementMgr {
     public fromString(mgrInfo) {
         if (!mgrInfo) return;
 
-        for (var achvInfo of mgrInfo){
-            var achv = <Achievement>Utils.filter(AchievementMgr.mgr.allAchvs, (achv:Achievement) => achv.type == mgrInfo.type)[0];
-            Utils.assert(!!achv, "no such achievement, type: " + mgrInfo.type);
+        for (var achvType in mgrInfo){
+            var achv = <Achievement>Utils.filter(AchievementMgr.mgr.allAchvs, (achv:Achievement) => achv.type == achvType)[0];
+            Utils.assert(!!achv, "no such achievement, type: " + achvType);
             Utils.assert(achv.achvClass() == "singleGame", "this achievement don't need save and load, type: " + achv.type);
 
-            for (var toStringField in achvInfo)
-                achv[toStringField] = achvInfo[toStringField];
+            for (var toStringField in mgrInfo[achvType])
+                achv[toStringField] = mgrInfo[achvType][toStringField];
             
         }
     }

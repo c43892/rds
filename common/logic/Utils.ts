@@ -931,6 +931,7 @@ class Utils {
     }
 
     public static initAchvData(){
+        Utils.removeLocalData("Achv");
         Utils.saveLocalItem("Achv", {});
         return Utils.loadLocalItem("Achv");
     }

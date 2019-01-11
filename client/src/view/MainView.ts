@@ -24,6 +24,7 @@ class MainView extends egret.DisplayObjectContainer {
     public nameView:NameView; // 玩家起名界面
     public characterView:CharacterView; // 角色详情界面
     public achvView:AchvView; // 成就界面
+    public achvDescView:AchvDescView; // 成就详情界面
     public av:AniView; // 动画层
 
     isInBattle:boolean; // 是否在战斗中
@@ -132,6 +133,10 @@ class MainView extends egret.DisplayObjectContainer {
 
         // 成就界面
         this.achvView = new AchvView(w, h);
+        this.achvView.openAchvDescView = (achv:Achievement) => this.openAchvDescView(achv);
+
+        // 成就详情界面
+        this.achvDescView = new AchvDescView(w, h);
 
         // 元素描述信息视图
         this.idv = new ElemDescView(w, h);
@@ -442,7 +447,6 @@ class MainView extends egret.DisplayObjectContainer {
         this.clear();
         // Utils.removeLocalDate("rookiePlay"); // 删除新手数据存档
         // Utils.initAchvData(); // 初始化成就数据
-        // AchievementMgr.mgr.finishAchvAndSave({type:"HalloweenTreantNoPeashooter", isFinished:true, finishedStage:undefined});
 
         this.p = p;
         this.lgv.player = p;
@@ -644,6 +648,13 @@ class MainView extends egret.DisplayObjectContainer {
         this.addChild(this.achvView);
         await this.achvView.open();
         this.removeChild(this.achvView);
+    }
+
+    // 打开成就详情界面
+    public async openAchvDescView(achv:Achievement) {
+        this.addChild(this.achvDescView);
+        await this.achvDescView.open(achv);
+        this.removeChild(this.achvDescView);
     }
 
     // all relics view

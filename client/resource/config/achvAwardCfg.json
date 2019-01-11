@@ -21,12 +21,12 @@
     },
     "award3":{
         "type":"achvFinished",
-        "achv":"DifficultyMode",
+        "achv":"NormalModeUnlock",
         "awardContent":{
             "type":"unlockRelic",
             "relic":"DoubleAttack"
         },
         "icon":"DoubleAttack",
-        "desc":"困难模式"
+        "desc":"普通模式"
     }
 }

@@ -285,7 +285,7 @@ class ViewUtils {
             if(ElemActiveDesc.elems[e.type] && ElemActiveDesc.elems[e.type][key])
                 ss = ss.replace(value, ElemActiveDesc.elems[e.type][key](player, e));
             else if (e[key] != undefined)
-                ss = ss.replace(value, e[key].toString());                
+                ss = ss.replace(value, e[key].toString());
             else if (e.attrs[key] != undefined) {
                 if (forLevelUp != undefined && e.attrs.reinforce[0] && e.attrs.reinforce[0][key]) { // 针对升级属性特别处理
                     var lastValue = ElemActiveDesc.getRelicReinforceLvOnPlayerAddLv(player, e, key, forLevelUp-1);

@@ -179,6 +179,7 @@ class Main extends egret.DisplayObjectContainer {
         // 成就配置
         GCfg.getAchvCfg = () => ResMgr.getRes("achvCfg_json");
         GCfg.getAchvAwardCfg = () => ResMgr.getRes("achvAwardCfg_json");
+        GCfg.getAchvDescCfg = (achvType) => ResMgr.getRes("achvDesc_json")[achvType];
 
         // 难度配置
         GCfg.getDifficultyCfg = () => ResMgr.getRes("difficulty_json");

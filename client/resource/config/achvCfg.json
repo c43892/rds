@@ -1,63 +1,39 @@
 {
     "HalloweenTreantNoPeashooter":{
-        "achvClass":"singleBattle",        
-        "title":"突突突",
-        "shortDesc":"不杀死任何豌豆射手击败万圣节树妖",
-        "icon":"HalloweenTreant",
+        "achvClass":"singleBattle",
         "achvPoint":10
     },
     "DeepFrozen":{
         "achvClass":"singleBattle",
-        "title":"极度深寒",
-        "shortDesc":"被深寒窒息造成50点伤害的情况下击败克拉克",
-        "icon":"Kraken",
         "achvPoint":10
     },
     "RichMan":{
         "achvClass":"singleGame",
         "money":1000,
-        "title":"大富翁",
-        "shortDesc":"一局游戏内获得1000金钱",
-        "icon":"Coins9",
         "achvPoint":10
     },
     "KnowlegdeChangesDestiny":{
         "achvClass":"singleGame",
         "readNum":20,
-        "title":"知识改变命运",
-        "shortDesc":"一局游戏内阅读20本书籍",
-        "icon":"Magazine",
         "achvPoint":10
     },
     "DeathGodKiller":{
         "achvClass":"singleGame",
         "killNum":10,
-        "title":"死神克星",
-        "shortDesc":"一局游戏内杀死10次死神",
-        "icon":"DeathGod",
         "achvPoint":10
     },
     "SkillMaster":{
         "achvClass":"singleGame",
         "relicNum":8,
         "relicLv":5,
-        "title":"技能达人",
-        "shortDesc":"一局游戏内将8个技能升至5级",
-        "icon":"HalloweenTreant",
         "achvPoint":10
     },
-    "NormalMode":{
+    "EasyModeUnlock":{
         "achvClass":"singleGame",
-        "title":"普通模式",
-        "shortDesc":"解锁普通模式",
-        "icon":"HalloweenTreant",
         "achvPoint":10
     },
-    "DifficultyMode":{
+    "NormalModeUnlock":{
         "achvClass":"singleGame",
-        "title":"困难模式",
-        "shortDesc":"解锁困难模式",
-        "icon":"HalloweenTreant",
         "achvPoint":10
     }
 }

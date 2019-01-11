@@ -16,6 +16,7 @@ class AchvView extends egret.DisplayObjectContainer {
 
 
     public receiveAchvAward;
+    public openAchvDescView;
 
     constructor(w, h) {
         super();
@@ -169,11 +170,14 @@ class AchvView extends egret.DisplayObjectContainer {
 
     // 根据配置生成单条成就信息
     private createSingleAchvInfoByCfg(achv:Achievement):egret.DisplayObjectContainer {
-        var achvContainer = new egret.DisplayObjectContainer();        
-        var cfg = achv.cfg;
+        var achvContainer = new egret.DisplayObjectContainer();
+        var cfg = GCfg.getAchvDescCfg(achv.type);
         // 背景
         var bgName = achv.isFinished() ? "achvFinished_png" : "achvUnfinished_png";
         var bg = ViewUtils.createBitmapByName(bgName);
+        bg.touchEnabled = true;
+        bg["achv"] = achv;
+        bg.addEventListener(egret.TouchEvent.TOUCH_TAP, (evt:egret.TouchEvent) => this.onClickAchv(evt), this);
 
         // 图标
         var icon = ViewUtils.createBitmapByName(cfg.icon + "_png");
@@ -288,6 +292,12 @@ class AchvView extends egret.DisplayObjectContainer {
             }
         }
         return awardContainer;
+    }
+
+    // 查看成就详情
+    async onClickAchv(evt:egret.TouchEvent){
+        var bg = evt.target;
+        await this.openAchvDescView(bg["achv"]);
     }
 
     // 领取成就奖励

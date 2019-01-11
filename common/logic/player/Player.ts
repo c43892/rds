@@ -62,6 +62,8 @@ class Player {
 
         p.st = new BattleStatistics(p);
 
+        AchievementMgr.mgr.player = p;
+
         return p;
     }
 
@@ -110,7 +112,7 @@ class Player {
             this.st.addCoins(dm);
 
             if (!this.bt())
-                AchievementMgr.mgr.actOnLogicPointSync("onPlayerGetMoneyOutside", {num:dm});
+                AchievementMgr.mgr.actOnLogicPointSync("onPlayerGetMoneyOutside", {d:dm});
         }
 
         if (this.money  + dm < 0)

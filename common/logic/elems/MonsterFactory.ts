@@ -855,7 +855,7 @@ class MonsterFactory {
             if (m["doAddMonsterHpPerNRound"] >= n) {
                 m["doAddMonsterHpPerNRound"] = 0;
                 var bt = m.bt();
-                var ms = <Monster[]>bt.level.map.findAllElems((e: Elem) => e instanceof Monster && e.isHazard() && e.hp > 0);
+                var ms = <Monster[]>bt.level.map.findAllElems((e: Elem) => e instanceof Monster && e.isHazard() && e.hp > 0 && !e.getGrid().isCovered());
                 for (var monster of ms)
                     await bt.implAddMonsterHp(monster, 1);
             }
@@ -1401,7 +1401,7 @@ class MonsterFactory {
 
     // 死亡前逐步炸开所有地块并消灭其中的敌对怪物
     static boomBeforeDie(m:Monster, condition = undefined):Monster {
-        m = <Monster>ElemFactory.addBeforeDieAI(async () => {
+        m = <Monster>ElemFactory.addAI("onElemChanged", async () => {
             if (!(condition ? condition() : true))  return;
             var bt = m.bt();
             // var n = Utils.findFarthestPos(m.pos, m.attrs.size);
@@ -1444,7 +1444,7 @@ class MonsterFactory {
                         await bt.implOnElemDie(e);
                 }
             }
-        }, m);
+        }, m, (ps) => ps.subType == "beforeDieAndRemoved" && ps.e == m);
         return m;
     }
 

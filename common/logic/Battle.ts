@@ -853,8 +853,11 @@ class Battle {
 
     // 执行元素死亡逻辑
     public async implOnElemDie(e:Elem, flags:string[] = []) {
+        await this.triggerLogicPoint("onElemChanged", {subType:"going2Die", e:e, flags:flags});
+
         if (e.beforeDie) await e.beforeDie();
 
+        await this.triggerLogicPoint("onElemChanged", {subType:"beforeDieAndRemoved", e:e, flags:flags});
         this.removeElemAt(e.pos.x, e.pos.y);
         await this.fireEvent("onElemChanged", {subType:"die", e:e, flags:flags});
         await this.triggerLogicPoint("onElemChanged", {"subType": "preDie", e:e, flags:flags});
