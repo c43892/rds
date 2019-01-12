@@ -184,12 +184,14 @@ class AchvView extends egret.DisplayObjectContainer {
         icon.name = "achvIcon";
 
         // 标题
-        var title = new egret.TextField();
+        var title = ViewUtils.createTextField(40, 0x000000);
+        title.textAlign = egret.HorizontalAlign.LEFT;
         title.name = "title";
         title.text = cfg.title;
 
         // 描述
-        var shortDesc = new egret.TextField();
+        var shortDesc = ViewUtils.createTextField(20, 0x000000);
+        shortDesc.textAlign = egret.HorizontalAlign.LEFT;
         shortDesc.name = "shortDesc";
         shortDesc.text = cfg.shortDesc;
 
@@ -243,13 +245,13 @@ class AchvView extends egret.DisplayObjectContainer {
             awardContainer.addChild(cardBg);
 
             // 提示内容
-            var tip = new egret.TextField();
+            var tip = ViewUtils.createTextField(18, 0x000000);
             tip.name = "unlockTip";
             tip.text = "解锁于成就"
             awardContainer.addChild(tip);
 
             // 描述
-            var desc = new egret.TextField();
+            var desc = ViewUtils.createTextField(25, 0x000000);
             desc.name = "unlockDesc";
             desc.text = info.desc;
             awardContainer.addChild(desc);

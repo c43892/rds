@@ -124,6 +124,7 @@ class OccupationSelView extends egret.DisplayObjectContainer {
 
         this.setAvailableOccList(["Rogue", "Nurse"]);
         this.setAvailableDiff(Utils.loadAchvData("availableDiff") ? Utils.loadAchvData("availableDiff") : 1);
+        this.selOcc("Rogue");
         this.selDifficulty(0);
     }
 
