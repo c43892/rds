@@ -25,6 +25,7 @@ class MainView extends egret.DisplayObjectContainer {
     public characterView:CharacterView; // 角色详情界面
     public achvView:AchvView; // 成就界面
     public achvDescView:AchvDescView; // 成就详情界面
+    public newAchvView:NewAchvView; // 新成就界面
     public av:AniView; // 动画层
 
     isInBattle:boolean; // 是否在战斗中
@@ -133,10 +134,14 @@ class MainView extends egret.DisplayObjectContainer {
 
         // 成就界面
         this.achvView = new AchvView(w, h);
-        this.achvView.openAchvDescView = (achv:Achievement) => this.openAchvDescView(achv);
+        this.achvView.openAchvDescView = async (achv:Achievement) => await this.openAchvDescView(achv);
 
         // 成就详情界面
         this.achvDescView = new AchvDescView(w, h);
+
+        // 新成就界面
+        this.newAchvView = new NewAchvView(w, h);
+        this.newAchvView.openAchvDescView = async (achv:Achievement) => await this.openAchvDescView(achv);
 
         // 元素描述信息视图
         this.idv = new ElemDescView(w, h);
@@ -239,7 +244,7 @@ class MainView extends egret.DisplayObjectContainer {
             "onCandyCannon", "onMakeWanted", "onInitBattleView", "onRelicEffect", "onMonsterCharmed", "onCloakImmunizeSneak",
             "onSwatheItemWithCocoon", "summonByDancer", "onGetMarkAllAward", "onStartupRegionUncovered", "onSneaking",
             "relicsEquippedMaxNumAdded", "onPlayerReborn", "onUseProp", "onElemRevive", "refreshMap", 
-            "onPlayerLevelUp", "onSelfExplode", "onShieldFlyBack", "onSanThreshold", "monsterAttackSingleTargetAct", "onProtect", "onMultAttack" ,"onAchvFinished", 
+            "onPlayerLevelUp", "onSelfExplode", "onShieldFlyBack", "onSanThreshold", "monsterAttackSingleTargetAct", "onProtect", "onMultAttack" ,"onPreFinishAchv", 
             "onBossExplosion"
         ], (e) => (ps) => this.bv.av[e](ps));
         bt.registerEvent("onBattleEnded", async (ps) => {
@@ -655,6 +660,17 @@ class MainView extends egret.DisplayObjectContainer {
         this.addChild(this.achvDescView);
         await this.achvDescView.open(achv);
         this.removeChild(this.achvDescView);
+    }
+
+    // 打开获得新成就界面
+    public async openNewAchvView(achv: Achievement) {
+        if (!this.newAchvView.isOpened) {
+            this.addChild(this.newAchvView);
+            await this.newAchvView.open(achv);
+            this.removeChild(this.newAchvView);
+        } else {
+            this.newAchvView.addNewAchv(achv);
+        }
     }
 
     // all relics view

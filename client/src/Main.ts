@@ -234,7 +234,8 @@ class Main extends egret.DisplayObjectContainer {
         Utils.pt("Progress", "preload finished");
         this.globalInit(); // 初始化全局配置
         Utils.log("global initialize finished");
-        this.mv = this.createMainView(); // 创建主场景
+        this.mv = this.createMainView(); // 创建主场景        
+        AchievementMgr.mgr.mv = this.mv;
 
         Utils.log(DEBUG ? "DEBUG version" : "RELEASE version");
 
@@ -242,7 +243,6 @@ class Main extends egret.DisplayObjectContainer {
         var savedData = Utils.loadPlayer();
         var p:Player = savedData.player;
         this.mv.openStartup(p);
-        // Utils.removeLocalData("Achv"); // 删除所有成就数据
     }
 
     // 计算安全区域和主显示区域

@@ -2,6 +2,7 @@ class AchievementMgr {
     public player:Player;
     public allAchvs:Achievement[] = []; // 所有成就
     public unfinishedAchvs:Achievement[] = []; // 未完成的成就,只有未完成的成就需要响应相关逻辑,已完成的基本只需要在表现时使用.
+    public mv:MainView;
     private factory:AchievementFactory;
 
     static mgr:AchievementMgr;
@@ -36,7 +37,7 @@ class AchievementMgr {
             achv.mgr = this;
             this.allAchvs.push(achv);
             if (!achv.isFinished())
-                this.unfinishedAchvs.push(achv);            
+                this.unfinishedAchvs.push(achv);
         }
     }
 
@@ -55,8 +56,11 @@ class AchievementMgr {
         if (!finishedStage)
             this.unfinishedAchvs = Utils.removeFirstWhen(this.unfinishedAchvs, (achv:Achievement) => achv.type == type);
 
-        if (!!this.player)
-            await this.player.triggerLogicPoint("onAchvPreFinished", preFinishInfo);
+        if (!!this.player && this.player.bt())
+            await this.player.bt().fireEvent("onPreFinishAchv", preFinishInfo);
+        else
+            await this.mv.openNewAchvView(achv);
+        
     }
 
     // 完成某个成就并存档

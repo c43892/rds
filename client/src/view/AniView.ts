@@ -1695,9 +1695,9 @@ class AniView extends egret.DisplayObjectContainer {
     }
 
     // 成就完成提示
-    public async onAchvFinished(ps){
-        var text = "恭喜!完成成就:" + ps.achvName + ( ps.stage != "finished" ? "的阶段" + ps.stage : "") + ".";
-        AniUtils.tipAt(text, {x:this.width/2, y:this.height/2 + new SRandom().nextInt(-400, 400)}, 30);
+    public async onPreFinishAchv(ps){
+        var achv = <Achievement>Utils.filter(AchievementMgr.mgr.allAchvs, (a:Achievement) => a.type = ps.type)[0];
+        await this.mv.openNewAchvView(achv);
     }
 
     // 耿鬼长舌头攻击动画
