@@ -39,12 +39,12 @@ class AchvDescView extends egret.DisplayObjectContainer {
         this.desc.name = "desc";
         this.desc.textAlign = egret.HorizontalAlign.LEFT;
 
-        this.progressTip = ViewUtils.createTextField(20, 0x000000);
+        this.progressTip = ViewUtils.createTextField(25, 0x000000);
         this.progressTip.name = "progressTip";
         this.progressTip.text = "当前进度"
         this.progressTip.textAlign = egret.HorizontalAlign.CENTER;
 
-        this.achvPoint = ViewUtils.createTextField(20, 0x000000);
+        this.achvPoint = ViewUtils.createTextField(25, 0x000000);
         this.achvPoint.name = "achvPoint";
         this.achvPoint.textAlign = egret.HorizontalAlign.CENTER;
 
