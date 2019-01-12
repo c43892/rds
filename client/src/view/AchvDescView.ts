@@ -31,7 +31,7 @@ class AchvDescView extends egret.DisplayObjectContainer {
         // this.icon = new egret.Bitmap();
         // this.icon.name = "icon";
 
-        this.title = new egret.TextField();
+        this.title = ViewUtils.createTextField(40, 0x000000);
         this.title.name = "title";
         this.title.textAlign = egret.HorizontalAlign.CENTER;
 
@@ -39,12 +39,12 @@ class AchvDescView extends egret.DisplayObjectContainer {
         this.desc.name = "desc";
         this.desc.textAlign = egret.HorizontalAlign.LEFT;
 
-        this.progressTip = new egret.TextField();
+        this.progressTip = ViewUtils.createTextField(20, 0x000000);
         this.progressTip.name = "progressTip";
         this.progressTip.text = "当前进度"
         this.progressTip.textAlign = egret.HorizontalAlign.CENTER;
 
-        this.achvPoint = new egret.TextField();
+        this.achvPoint = ViewUtils.createTextField(20, 0x000000);
         this.achvPoint.name = "achvPoint";
         this.achvPoint.textAlign = egret.HorizontalAlign.CENTER;
 
