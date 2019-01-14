@@ -26,7 +26,6 @@ class AchievementMgr {
     }
 
     public refresh(){
-        Utils.log("refresh mgr");
         var achvCfgs = GCfg.getAchvCfg();
         this.allAchvs = [];
         this.unfinishedAchvs = [];
@@ -73,6 +72,24 @@ class AchievementMgr {
         var achvClass = GCfg.getAchvCfg()[preFinishInfo.type]["achvClass"];
         this.preFinishedAchv[achvClass] = Utils.remove(this.preFinishedAchv[achvClass], (preInfo) =>
             preInfo.type == preFinishInfo && preInfo.isFinished == preFinishInfo.isFinished && preInfo.finishedStage == preFinishInfo.finishedStage);
+    }
+
+    // 获取总成就点
+    public getTotalAchvPoint(){
+        var p = 0;
+        for (var achv of this.allAchvs){
+            var finishedStage = achv.finishedStage();
+            if (finishedStage == -1)
+                p += achv.cfg.achvPoint;
+            else if (finishedStage > 0){
+                var ap = 0;
+                for (var i = 0; i < finishedStage; i++)
+                    ap += achv.cfg.achvPoints[i];
+
+                p += ap;
+            }
+        }
+        return p;
     }
 
     // 手动触发某个逻辑点,通常是因为不在战斗内

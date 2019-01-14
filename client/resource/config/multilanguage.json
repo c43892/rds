@@ -415,7 +415,7 @@
 				"redPoint":{"x":407, "y":56},
 				"goBackBtn":{"x":10, "y":980},
 				"achvListScrollArea":{"x":35, "y":143, "w":560, "h":760},
-				"achvAwardScrollArea":{"x":35, "y":143, "w":560, "h":760},				
+				"achvAwardScrollArea":{"x":35, "y":163, "w":560, "h":740},				
 				"stars":{"x":415, "y":40},
 				"finishedSign":{"x":375, "y":38, "rotation":-24},
 				"achvIcon":{"x":19, "y":14, "w":80, "h":80},
@@ -424,7 +424,8 @@
 				"awardIcon":{"x":88, "y":81},
 				"awardReceiveBtn":{"x":0, "y":151},
 				"unlockTip":{"x":88, "y":145, "h":20, "w":120, "size":18},
-				"unlockDesc":{"x":88, "y":175, "h":25, "w":125, "size":25}
+				"unlockDesc":{"x":88, "y":175, "h":25, "w":125, "size":25},
+				"achvPointTip":{"x":120, "y":120, "w":400, "h":40}
 			}
 		},
 
@@ -572,6 +573,7 @@
 		"useCherryBomb": {"EN": "Just Die", "CNS": "引爆后，翻开周围3*3的格子并造成伤害", "CNT": "死亡"},
 		"useSunflower": {"EN": "Just Die", "CNS": "使用后恢复生命值", "CNT": "死亡"},
 		"getNewAchvTitle":{"EN": "You've got a new achievement:", "CNS": "恭喜获得成就:", "CNT": "恭喜获得成就:"},
+		"currentAchvPoint":{"EN": "Current achievement point:", "CNS": "当前成就点:", "CNT": "当前成就点:"},
 		"": {}
 	}
 }

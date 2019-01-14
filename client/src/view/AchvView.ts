@@ -9,9 +9,10 @@ class AchvView extends egret.DisplayObjectContainer {
     private achvAwardBtn:egret.Bitmap; // 成就奖励页签
     private achvListScrollArea:egret.ScrollView; // 显示成就列表的滚动区域
     private achvAwardScrollArea:egret.ScrollView; // 显示成就奖励的滚动区域
-    private achvListContent:egret.DisplayObjectContainer; // 成就列表显示内容
-    private achvAwardContent:egret.DisplayObjectContainer; // 奖励显示内容
+    private achvListContent:egret.DisplayObjectContainer; // 成就列表滚动区域内的显示内容
+    private achvAwardContent:egret.DisplayObjectContainer; // 成就奖励滚动区域的显示内容
     private redPoint:egret.Bitmap; // 红点提示
+    private achvPointTip:egret.TextField; // 总成就点
     private goBackBtn:ArrowButton; // 返回按钮
 
 
@@ -68,13 +69,17 @@ class AchvView extends egret.DisplayObjectContainer {
         this.redPoint.name = "redPoint";
         this.redPoint.anchorOffsetX = this.redPoint.width / 2;
         this.redPoint.anchorOffsetY = this.redPoint.height / 2;
+
+        
+        this.achvPointTip = ViewUtils.createTextField(30, 0x000000);
+        this.achvPointTip.name = "achvPointTip";
         
         this.goBackBtn = new ArrowButton(false, "goBack_png");
         this.goBackBtn.onClicked = () => this.onGoBack();
         this.goBackBtn.text = ViewUtils.getTipText("goBackBtn");
         this.goBackBtn.name = "goBackBtn";
 
-        var objs = [this.bg, this.bg1, this.achvListBtn, this.achvAwardBtn, this.redPoint, this.goBackBtn];
+        var objs = [this.bg, this.bg1, this.achvListBtn, this.achvAwardBtn, this.redPoint, this.achvPointTip, this.goBackBtn];
         ViewUtils.multiLang(this, ...objs);
         objs.forEach((obj, _) => this.addChild(obj));
 
@@ -92,7 +97,8 @@ class AchvView extends egret.DisplayObjectContainer {
     }
 
     // 刷新界面信息
-    refresh(){
+    refresh(){        
+        this.achvPointTip.text = ViewUtils.getTipText("currentAchvPoint") + " " + AchievementMgr.mgr.getTotalAchvPoint();
         this.refreshAchvListAndAward();
         this.refreshTabBtns();
         this.refreshRedPoint();
@@ -121,6 +127,8 @@ class AchvView extends egret.DisplayObjectContainer {
         var awardBg = new egret.Bitmap();
         awardBg.touchEnabled = true;
         this.achvAwardContent.addChild(awardBg);
+
+        // 每项成就奖励
         var j = 0;
         var x = 9;
         var y = 0;
@@ -137,7 +145,7 @@ class AchvView extends egret.DisplayObjectContainer {
             }
         }
         this.achvAwardContent.width = awardBg.width = this.achvAwardScrollArea.width;
-        this.achvAwardContent.height = awardBg.height = y;
+        this.achvAwardContent.height = awardBg.height = y;        
     }
 
     // 根据所处界面刷新页签和滚动区域内的显示
@@ -149,11 +157,13 @@ class AchvView extends egret.DisplayObjectContainer {
             ViewUtils.setTexName(this.achvListBtn, "achvListBtn_png");
             ViewUtils.setTexName(this.achvAwardBtn, "achvAwardBtnGray_png");
             this.currentScrollView = this.achvListScrollArea;
+            this.achvPointTip.alpha = 0;
         }
         else {
             ViewUtils.setTexName(this.achvListBtn, "achvListBtnGray_png");
             ViewUtils.setTexName(this.achvAwardBtn, "achvAwardBtn_png");
             this.currentScrollView = this.achvAwardScrollArea;
+            this.achvPointTip.alpha = 1;
         }
         this.addChild(this.currentScrollView);
     }
