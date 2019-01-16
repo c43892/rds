@@ -155,8 +155,8 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
         var desc = ViewUtils.createTextField(20, 0x000000);
         var shortDesc = ViewUtils.replaceByProperties(nameAndDesc.shortDesc, e, player);
         desc.textFlow = ViewUtils.fromHtml(shortDesc);
-        desc.width = bg.width;
-        desc.x = bg.x;
+        desc.width = bg.width - 200;
+        desc.x = bg.x + 100;
         desc.y = title.y + title.height + 45;
         this.addChild(desc);
 
