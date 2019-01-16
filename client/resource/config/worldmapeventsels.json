@@ -90,6 +90,11 @@
                 "ps": {"group": "a22"}
             }],
             "globalCountMax":1,
+             "extraRobSel": {
+                "desc": "<font color=#000000 size=20>[打劫]</font><font color=#00b050 size=20>获得技能</font>",
+                "func": ["rob", "redirectSelGroup"],
+                "ps": {"rob":"inEvent1", "group": "a23"}
+            },
             "bg":"CherryBomb"
         },
         "a21": {
@@ -140,6 +145,15 @@
         "a22": {
             "title": "樱桃炸弹",
             "desc": "做贼是不好的。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit"]
+            }],
+            "bg":"CherryBomb"
+        },
+        "a23": {
+            "title": "樱桃炸弹",
+            "desc": "樱桃炸弹还没来得及爆炸，就被你抢走了他的<font color=#00b050 size=25>宝物</font>",
             "sels": [{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit"]
@@ -396,9 +410,9 @@
                 "ps": {"group": "a53"}
             }],
             "extraRobSel": {
-                "desc": "<font color=#000000 size=20>你丝毫不知道什么叫怜香惜玉，劫了财还顺便劫了个色。</font>",
-                "func": ["+hpPrecentage", "+money"],
-                "ps": {"hpPrecentage":100, "money": 50}
+                "desc": "<font color=#000000 size=20>[打劫]</font><font color=#000000 size=20>获得250金币</font>",
+                "func": ["+money", "redirectSelGroup"],
+                "ps": {"money": 250, "group": "a54"}
             },
             "bg":"CharmingMushroom"
         },
@@ -429,6 +443,15 @@
             }],
             "bg":"CharmingMushroom"
         },
+        "a54": {
+            "title": "魅惑菇",
+            "desc": "小孩子才做选择题，<font color=#00b050 size=25>我全都要！</font>",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit"]
+            }],
+            "bg":"CharmingMushroom"
+        },
         "a6": {
             "title": "恶作剧",
             "desc": "“不给糖果就捣蛋！”死神用沙哑的声音缓缓说道，你觉得它好像是认真的。",
@@ -441,6 +464,11 @@
                 "func": ["-money", "+item", "redirectSelGroup"],
                 "ps": {"money": 50, "item": "TimeMachine", "group":"a62"}
             }],
+            "extraRobSel": {
+                "desc": "<font color=#000000 size=20>[打劫]</font><font color=#7d0403 size=20>你不知道会发生什么……</font>",
+                "func": ["-hp", "redirectSelGroup"],
+                "ps": {"hp": 5, "group":"a63"}
+            },
             "bg":"DeathGod"
         },
         "a61": {
@@ -455,6 +483,15 @@
         "a62": {
             "title": "恶作剧",
             "desc": "死神悄然离去了，你虽然少了点</font><font color=#7d0403 size=25>钱，</font>但也发现了</font><font color=#00b050 size=25>驱逐</font>它的方法。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit"]
+            }],
+            "bg":"DeathGod"
+        },
+        "a63": {
+            "title": "恶作剧",
+            "desc": "你被死神毫无怜悯的砍倒在地，你爬起来仓皇逃窜，庆幸着自己只是受了点</font><font color=#7d0403 size=25>轻伤</font>。",
             "sels": [{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit"]
@@ -506,6 +543,11 @@
                 "func": ["redirectSelGroup", "+dodge"],
                 "ps": {"group": "a82", "dodge": 5}
             }],
+            "extraRobSel": {
+                "desc": "<font color=#000000 size=20>[打劫]</font><font color=#000000 size=20>你什么都不会获得</font>",
+                "func": ["redirectSelGroup"],
+                "ps": {"group":"a83"}
+            },
             "globalCountMax":6,
             "bg":"Sunflower"
         },
@@ -521,6 +563,15 @@
         "a82": {
             "title": "太阳花",
             "desc": "太阳花怒视着你，你开始瑟瑟发抖，并想找个地方藏起来</font><font color=#00b050 size=25>躲避</font>它的视线。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit"]
+            }],
+            "bg":"Sunflower"
+        },
+        "a83": {
+            "title": "太阳花",
+            "desc": "你把太阳花踹倒在地，开始动手翻找，可惜什么都没找到。",
             "sels": [{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit"]
@@ -606,6 +657,11 @@
                 "func": ["exit", "redirectSelGroup"],
                 "ps": {"group": "b23"}
             }],
+             "extraRobSel": {
+                "desc": "<font color=#000000 size=20>[打劫]</font><font color=#00b050 size=20>获得一件道具或技能</font>",
+                "func": ["rob", "redirectSelGroup"],
+                "ps": {"rob":"inEvent", "group": "b24"}
+            },
             "bg":"ShopNpc"
         },
         "b21": {
@@ -634,6 +690,63 @@
                 "func": ["exit"]
             }],
             "bg":"ShopNpc"
+        },
+        "b24": {
+            "title": "智能机械管家",
+            "desc": "你把智能机械管家粗鲁的推倒在地，抢走了它的<font color=#00b050 size=20>货物</font>。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit"]
+            }],
+            "bg":"ShopNpc"
+        },
+        "b3": {
+            "title": "魅魔之吻",
+            "desc": "魅魔向你抛来一个飞吻，你立刻变得神魂颠倒起来。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[和谐]</font></font><font color=#7d0403 size=20>失去所有金币，</font><font color=#00b050 size=20>最大生命值+10</font>",
+                "func": ["-allMoney", "+maxHp", "+hpPrecentage" , "redirectSelGroup"],
+                "ps": {
+                    "maxHp": 10,"hpPrecentage": 100,"group": "b31"
+                 }                
+            },{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit", "redirectSelGroup"],
+                "ps": {"group": "b32"}
+            }],
+             "extraRobSel": {
+                "desc": "<font color=#000000 size=20>[打劫]</font><font color=#00b050 size=20>回复所有生命，获得50金币</font>",
+                "func": ["+hpPrecentage", "+money", "redirectSelGroup"],
+                "ps": {"hpPrecentage": 100, "money": 50, "group": "b33"}
+            },
+            "bg":"LustZombie"
+        },
+        "b31": {
+            "title": "魅魔之吻",
+            "desc": "早晨醒来，你感觉自己的<font color=#00b050 size=25>状态从未这么好过</font>，然后你发现自己的</font><font color=#7d0403 size=25>钱包遗失</font>了。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit"]
+            }],
+            "bg":"LustZombie"
+        },
+        "b32": {
+            "title": "魅魔之吻",
+            "desc": "“你拼命抵抗着魅魔的诱惑，逃离了那里。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit"]
+            }],
+            "bg":"LustZombie"
+        },
+        "b33": {
+            "title": "魅魔之吻",
+            "desc": "你丝毫不知道什么叫怜香惜玉，<font color=#00b050 size=25>劫了钱</font>还顺便<font color=#00b050 size=25>劫了个色</font>。",
+            "sels": [{
+                "desc": "<font color=#000000 size=20>[离开]</font>",
+                "func": ["exit"]
+            }],
+            "bg":"LustZombie"
         },
         "g4": {
             "title": "事件标题",
