@@ -7,9 +7,14 @@
     },
 
     "inEvent": {
-        "drop1": "bossBox2",
-        "drop2": "treasureBox2",
+        "drop1": "worldmapeventa92",
+        "drop2": "worldmapeventa91",
         "drop2Weight" : 0.5
+    },
+    "inEvent1": {
+        "drop1": "worldmapeventa92",
+        "drop2": "worldmapeventa91",
+        "drop2Weight" : 0
     },
 
     "": {}
