@@ -664,13 +664,10 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 打开获得新成就界面
     public async openNewAchvView(achv: Achievement) {
-        if (!this.newAchvView.isOpened) {
-            this.addChild(this.newAchvView);
-            await this.newAchvView.open(achv);
+        this.addChild(this.newAchvView);
+        var r = await this.newAchvView.open(achv);
+        if (r)
             this.removeChild(this.newAchvView);
-        } else {
-            this.newAchvView.addNewAchv(achv);
-        }
     }
 
     // all relics view

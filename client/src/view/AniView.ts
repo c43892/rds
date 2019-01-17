@@ -805,6 +805,10 @@ class AniView extends egret.DisplayObjectContainer {
                 }
                 break;
             }
+            case "power": {
+                this.bv.refreshPower();
+                break;
+            }
             default:
         }
     }
@@ -1298,6 +1302,20 @@ class AniView extends egret.DisplayObjectContainer {
             effv["delay2"] = sv["delay2"] = rand.nextInt(100, 1000);
             effv["delay3"] = sv["delay3"] = rand.nextInt(100, 1000);
             effv["delay4"] = sv["delay4"] = rand.nextInt(100, 1000);
+            var effvb = ev.getEffectLayerBottom();
+            effvb["gx"] = sv["gx"] = ev.getElem().pos.x;
+            effvb["gy"] = sv["gy"] = ev.getElem().pos.y;
+            effvb["tgx1"] = sv["tgx1"] = rand.nextInt(actualMapRange.minX, actualMapRange.maxX);
+            effvb["tgy1"] = sv["tgy1"] = rand.nextInt(actualMapRange.minY, actualMapRange.maxY);
+            effvb["tgx2"] = sv["tgx2"] = rand.nextInt(actualMapRange.minX, actualMapRange.maxX);
+            effvb["tgy2"] = sv["tgy2"] = rand.nextInt(actualMapRange.minY, actualMapRange.maxY);
+            effvb["tgx3"] = sv["tgx3"] = rand.nextInt(actualMapRange.minX, actualMapRange.maxX);
+            effvb["tgy3"] = sv["tgy3"] = rand.nextInt(actualMapRange.minY, actualMapRange.maxY);
+            effvb["delay1"] = sv["delay1"] = rand.nextInt(100, 1000);
+            effvb["delay2"] = sv["delay2"] = rand.nextInt(100, 1000);
+            effvb["delay3"] = sv["delay3"] = rand.nextInt(100, 1000);
+            effvb["delay4"] = sv["delay4"] = rand.nextInt(100, 1000);
+            svArr.push(effvb);
             svArr.push(sv);
             svArr.push(effv);
         });

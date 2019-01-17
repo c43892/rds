@@ -97,6 +97,7 @@ class PropFactory {
                     e.resetCD();
                     e.cnt --;
                     await e.bt().implAddBuff(e.bt().player, "BuffStrangth", attrs.enhanceCnt);
+                    await e.bt().fireEvent("onPlayerChanged", {"subType": "power", source:e});
                     return e.cnt > 0;
                 };
                 return e;

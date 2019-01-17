@@ -7,6 +7,7 @@ class GridView extends egret.DisplayObjectContainer {
     private showLayer:egret.DisplayObjectContainer; // 装入所有显示内容
     private opLayer:egret.Bitmap; // 专门用于接收操作事件
     private effLayer:egret.DisplayObjectContainer; // 用于放置最上层特效
+    private effLayerBottom:egret.DisplayObjectContainer; // 用于放置最下层特效    
     private elemImg:egret.Bitmap; // 元素图
     private elemImgInIce:egret.Bitmap; // 冰冻中的元素图
     private banImg:egret.Bitmap; // 禁止符号
@@ -35,6 +36,9 @@ class GridView extends egret.DisplayObjectContainer {
         this.attackIntervalBg = ViewUtils.createBitmapByName("monsterAttackIntervalBg_png");
         this.blockedImg = ViewUtils.createBitmapByName("blocked_png"); // 危险
         this.uncoverableImg = ViewUtils.createBitmapByName("uncoverable_png"); // 覆盖图
+
+        this.effLayerBottom = new egret.DisplayObjectContainer(); // 放置特效
+        this.addChild(this.effLayerBottom);
 
         this.elemImg = new egret.Bitmap(); // 元素图
         this.elemImgInIce = new egret.Bitmap(); // 冰冻中的元素图
@@ -314,7 +318,7 @@ class GridView extends egret.DisplayObjectContainer {
             this.showLayer.rotation = 0;
         }
 
-        var arr = [this.opLayer, this.effLayer, this.elemImg, this.elemImgInIce, this.banImg, this.blockedImg, this.coveredImg, this.markedBg, this.uncoverableImg];
+        var arr = [this.effLayerBottom, this.opLayer, this.effLayer, this.elemImg, this.elemImgInIce, this.banImg, this.blockedImg, this.coveredImg, this.markedBg, this.uncoverableImg];
         arr.forEach((a) => {
             a.alpha = 1;
             a.x = 0;
@@ -327,7 +331,15 @@ class GridView extends egret.DisplayObjectContainer {
         this.cdImg.x = (this.showLayer.width - this.cdImg.width) / 2;
         this.cdImg.y = (this.showLayer.height - this.cdImg.height) / 2;
 
-        if (e && e.isBig() && g.status != GridStatus.Covered) {
+        if (e && e.isBig() && g.status != GridStatus.Covered) {            
+            this.effLayerBottom.scaleX = e.attrs.size.w;
+            this.effLayerBottom.scaleY = e.attrs.size.h;
+            ViewUtils.forEachChild(this.effLayerBottom, (eff:egret.DisplayObject) => {
+                if (eff["noScale"]) {
+                    eff.scaleX = 1 / e.attrs.size.w;
+                    eff.scaleY = 1 / e.attrs.size.h;
+                }
+            });
             this.showLayer.scaleX = e.attrs.size.w;
             this.showLayer.scaleY = e.attrs.size.h;
             this.effLayer.scaleX = e.attrs.size.w;
@@ -340,6 +352,11 @@ class GridView extends egret.DisplayObjectContainer {
             });
         }
         else {
+            this.effLayerBottom.scaleX = 1;
+            this.effLayerBottom.scaleY = 1;
+            ViewUtils.forEachChild(this.effLayerBottom, (eff: egret.DisplayObject) => {
+                eff.scaleX = eff.scaleY = 1;
+            });
             this.showLayer.scaleX = 1;
             this.showLayer.scaleY = 1;
             this.effLayer.scaleX = 1;
@@ -370,15 +387,16 @@ class GridView extends egret.DisplayObjectContainer {
                 {chk:() => m.existsBuff("BuffFlame"), eff:"effBurning"},
                 {chk:() => m.existsBuff("BuffPoison"), eff:"elemPoisoned"},
                 {chk:() => m["isWanted"], eff:"effWantedOrder"},
-                {chk:() => m.isElite && (!this.getGrid().isCovered() || this.getGrid().isMarked()), eff:"effEliteHaloBehind"},
+                {chk:() => m.isElite && (!this.getGrid().isCovered() || this.getGrid().isMarked()), eff:"effEliteHaloBehind", toBottom:true},
                 {chk:() => m.isElite && (!this.getGrid().isCovered() || this.getGrid().isMarked()), eff:"effEliteHaloFront"}
             ];
             
             checker.forEach((f, _) => {
                 var chk = f.chk;
                 var eff = f.eff;
+                var toBottom = f["toBottom"];
                 if (chk() && !this.effects[eff])
-                    this.addEffect(eff);
+                    this.addEffect(eff, -1, "default", false, toBottom);
                 else if (!chk() && this.effects[eff])
                     this.removeEffect(eff);
             });
@@ -408,12 +426,16 @@ class GridView extends egret.DisplayObjectContainer {
         return this.effLayer;
     }
 
+    public getEffectLayerBottom():egret.DisplayObjectContainer {
+        return this.effLayerBottom;
+    }
+
     public getEffects() {
         return this.effects;
     }
 
     private effects = {}; // 所有挂在这个格子上的特效    
-    public addEffect(effName, playTimes = -1, aniName = "default", noScale = false) {
+    public addEffect(effName, playTimes = -1, aniName = "default", noScale = false, toBottom = false) {
         if (this.effects[effName])
             this.removeEffect(effName);
 
@@ -424,10 +446,12 @@ class GridView extends egret.DisplayObjectContainer {
 
         var eff:egret.MovieClip = ViewUtils.createFrameAni(effName, aniName);
         this.effects[effName] = eff;
-        this.effLayer.addChild(eff);
+        var layer = toBottom ? this.effLayerBottom : this.effLayer;
+        layer.addChild(eff);
         eff.x = this.width / 2;
         eff.y = this.height / 2;
         eff["noScale"] = noScale;
+        eff["toBottom"] = toBottom;
         if (playTimes != 0)
             eff.gotoAndPlay(0, playTimes);
 
@@ -435,7 +459,7 @@ class GridView extends egret.DisplayObjectContainer {
     }
 
     // 添加带指定延迟循环播放的特效
-    public addRandomDelayLoopEffect(effName, rand:SRandom, delays, aniName = "default", noScale = false) {
+    public addRandomDelayLoopEffect(effName, rand:SRandom, delays, aniName = "default", noScale = false, toBottom = false) {
         var eff = this.addEffect(effName, 1, aniName, noScale);
         this.removeEffect(effName);
         eff.alpha = 0;
@@ -449,7 +473,8 @@ class GridView extends egret.DisplayObjectContainer {
             stopped = true;
         };
         this.effects[effName] = effWrapper;
-        this.effLayer.addChild(effWrapper);
+        var layer = toBottom ? this.effLayerBottom : this.effLayer;
+        layer.addChild(effWrapper);
                
         var doDelay;
         var doEff;
@@ -522,7 +547,8 @@ class GridView extends egret.DisplayObjectContainer {
         if (!this.effects[effName]) return;
         var eff = this.effects[effName];
         eff.stop();
-        this.effLayer.removeChild(eff);
+        var layer = eff["toBottom"] ? this.effLayerBottom : this.effLayer;
+        layer.removeChild(eff);
         delete this.effects[effName];
     }
 
@@ -534,7 +560,8 @@ class GridView extends egret.DisplayObjectContainer {
             }
         }
 
-        this.effLayer.removeChildren();        
+        this.effLayer.removeChildren();
+        this.effLayerBottom.removeChildren();        
         this.effects = {};
     }
 

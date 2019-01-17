@@ -54,11 +54,18 @@ class NewAchvView extends egret.DisplayObjectContainer {
     }
 
     public async open(achv:Achievement) {
-        this.isOpened = true;
-        this.currentAchv = achv;
-        this.newAchvs.push(achv);
-        this.refresh();
-        return new Promise((resolve, reject) => this.doClose = resolve);
+        if (!this.isOpened){
+            this.isOpened = true;
+            this.currentAchv = achv;
+            this.newAchvs.push(achv);
+            this.refresh();
+            return new Promise((resolve, reject) => this.doClose = resolve);
+        }
+        else {
+            this.newAchvs.push(achv);
+            this.refresh();
+            return;
+        }
     }
 
     doClose;
@@ -79,7 +86,7 @@ class NewAchvView extends egret.DisplayObjectContainer {
             this.refresh();
         } else{
             this.isOpened = false;
-            this.doClose();
+            this.doClose(1);
         }
     }
 

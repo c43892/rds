@@ -16,7 +16,7 @@ class BuffStrangth extends Buff{
             var attackerAttrs = ps.attackerAttrs;
             if (!(attackerAttrs.owner instanceof Player)) return;
 
-            attackerAttrs.power.b += 1;
+            attackerAttrs.power.b *= 2;
             if(Utils.indexOf(attackerAttrs.attackFlags, (s) => s == "immuneAttackBack") > -1) return;
 
             attackerAttrs.attackFlags.push("immuneAttackBack");

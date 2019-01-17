@@ -44,7 +44,6 @@ class AchievementFactory {
                 achv["fail"] = true;
             }, achv, (ps) => ps.subType == "dead" && ps.e.type == "MPeashooter" && achv.activated);
             achv = AchievementFactory.addLogic("onElemChanged", async (ps) => {
-                Utils.log("get in subType going2Die");
                 await AchievementMgr.mgr.preFinishAchv(achv.type);
             }, achv, (ps) => ps.subType == "going2Die" && ps.e.type == "HalloweenTreant" && achv.activated && !achv["fail"]);
 

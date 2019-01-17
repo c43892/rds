@@ -81,6 +81,38 @@
         "CandyCannon":92
     }},
 
+    "eliteBonusBox":{"num":[1, 2], "elems":{
+        "ShieldDetector":10,
+        "KnifeDetector":10,
+        "Storer":10,
+        "VestDetector":10,
+        "ExploreEnhanced":10,
+        "TreasureBoxDetector":10,
+        "WeaponMaster":10,
+        "HorticultureProficient":10,
+        "SmellEnhanced":10,
+        "Watchmaker":10,
+        "BookMaster":10,
+        "ShieldProficient":10,
+        "PoisonKnife":10,
+        "StrikeFirst":10,
+        "MedicineBox":10,
+        "Power":10,
+        "Endurance":10,
+        "Fierce":10,
+        "TimeMachine":10,
+        "Agile":10,
+        "ShieldBlock":10,
+        "ExpMedal":10,
+        "HorticultureMaster":10,
+        "TradeMaster":10,
+        "KnifeMaster":10,
+        "MonsterHunter":10,
+        "VestThorns":10,
+        "InfinityKnife":10,
+        "VestImmune":10
+    }},
+
     "bossBox1": {"num":[1, 2], "elems":{
         "CoinsHuge":5
     }},

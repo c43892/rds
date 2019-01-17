@@ -309,6 +309,12 @@ class BattleView extends egret.DisplayObjectContainer {
         }
     }
 
+    public refreshPower(){
+        var attackerAttrs = this.player.bt().calcPlayerAttackerAttrs();
+        var power = attackerAttrs.power.b * (1 + attackerAttrs.power.a) + attackerAttrs.power.c;
+        this.power.text = power.toString();
+    }
+
     public constructor(w:number, h:number) {
         super();
 
@@ -575,9 +581,7 @@ class BattleView extends egret.DisplayObjectContainer {
         if (!this.deathGodBarWidth) this.deathGodBarWidth = this.deathGodBar.width;
         this.refreshDeathGod();
 
-        var attackerAttrs = this.player.bt().calcPlayerAttackerAttrs();
-        var power = attackerAttrs.power.b * (1 + attackerAttrs.power.a) + attackerAttrs.power.c;
-        this.power.text = power.toString();
+        this.refreshPower();
         
         var targetAttrs = this.player.bt().calcPlayerTargetAttrs();
         var dodge = targetAttrs.dodge.b * (1 + targetAttrs.dodge.a) + targetAttrs.dodge.c;

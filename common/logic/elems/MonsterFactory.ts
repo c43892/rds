@@ -129,7 +129,7 @@ class MonsterFactory {
         "ThunderElemental": (attrs) => MonsterFactory.doThunderDamageAroundOnAttack(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 雷元素
         "FlameElemental": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), // 火元素
         "Echinus": (attrs) => MonsterFactory.doThornsDamageOnNormalAttacked(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 海胆
-        "Werewolf": (attrs) => MonsterFactory.doDoublePowerOnHurt(MonsterFactory.doAddHpPerRound(Math.floor(attrs.hp * 0.2) > 1 ? Math.floor(attrs.hp * 0.2) : 1, this.createMonster(attrs))), // 狼人
+        "Werewolf": (attrs) => MonsterFactory.doDoublePowerOnHurt(MonsterFactory.doAddHpPerRound(Math.floor(attrs.hp * 0.2) > 1 ? Math.floor(attrs.hp * 0.2) : 1, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))))), // 狼人
         "MNutWall": (attrs) => <Plant>MonsterFactory.doProtectMonsterAround(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 怪物坚果墙
         "MPeashooter": (attrs) => <Plant>MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //怪物豌豆射手
         "MCherryBomb": (attrs) => <Plant>MonsterFactory.doSelfExplodeAfterNRound(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 怪物樱桃炸弹
@@ -198,7 +198,7 @@ class MonsterFactory {
 
         // 精英触手
         "EliteReviveZombie": (attrs) => {
-            var m = MonsterFactory.doReviveOndie(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))));
+            var m = MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)));
             m = MonsterFactory.makeElite(m);
             // 为所有怪物附加复生能力，死亡时会复活一次（本来能复活的怪物不会复活两次）
             m = <Monster>ElemFactory.addAI("onElemChanged", async (ps) => {
@@ -210,7 +210,7 @@ class MonsterFactory {
                 var g = BattleUtils.findRandomEmptyGrid(m.bt(), false);
                 if(g)
                     await m.bt().implAddElemAt(rm, g.pos.x, g.pos.y);
-            }, m, (ps) => ps.subType == "dead" && ps.e instanceof Monster && ps.e.isHazard() && ps.e != m && ps.e.type != "ReviveZombie", false);
+            }, m, (ps) => ps.subType == "dead" && ps.e instanceof Monster && ps.e.isHazard() && ps.e.type != "EliteReviveZombie" && ps.e != m && ps.e.type != "ReviveZombie", false);
             return m;
         }, 
 
@@ -270,6 +270,8 @@ class MonsterFactory {
             m = MonsterFactory.doEnhanceAura(m);
             m = MonsterFactory.doAddProtectiveShieldOnLose30Hp(m);
             m = MonsterFactory.doBurnByFlameDamage(m);
+            m = MonsterFactory.doUncoverMPeashooter(m);
+            m = MonsterFactory.protectiveShield(m);
             return m;
         }, 
 
@@ -848,12 +850,12 @@ class MonsterFactory {
     // 每n回合为所有现身的怪物回复1点生命值
     static doAddMonsterHpPerNRound(n:number, m:Monster):Monster{
         return <Monster>ElemFactory.addAI("onPlayerActed", async () => {
-            if (!m["doAddMonsterHpPerNRound"])
-                m["doAddMonsterHpPerNRound"] = 0;
+            if (!m["attackInterval"])
+                m["attackInterval"] = n;
             
-            m["doAddMonsterHpPerNRound"] ++;
-            if (m["doAddMonsterHpPerNRound"] >= n) {
-                m["doAddMonsterHpPerNRound"] = 0;
+            m["attackInterval"] --;
+            if (m["attackInterval"] <= 0) {
+                m["attackInterval"] = n;
                 var bt = m.bt();
                 var ms = <Monster[]>bt.level.map.findAllElems((e: Elem) => e instanceof Monster && e.isHazard() && e.hp > 0 && !e.getGrid().isCovered());
                 for (var monster of ms)
@@ -899,12 +901,18 @@ class MonsterFactory {
     // 攻击时，会同时用闪电伤害玩家和周围的怪物
     static doThunderDamageAroundOnAttack(m:Monster):Monster {
         return <Monster>ElemFactory.addAI("onAttacked", async () => {
-            var tars = [];
-            tars.push(BattleUtils.findAllElems8Neighbours(m, (e:Elem) => e instanceof Monster));
-            await m.bt().implAddPlayerHp(m.attrs.thunderDamage);
-            for(var tar of tars)
-                await m.bt().implAddMonsterHp(tar, m.attrs.thunderDamage);
-        }, m, (ps) => ps.attackerAttrs.owner == m);
+            var poses = Utils.findPosesAround(m.pos).poses;
+            var grids = <Grid[]>Utils.map(poses, (pos) => m.map().getGridAt(pos.x, pos.y));
+            await m.bt().implAddPlayerHp(- m.attrs.thunderDamage);
+            for(var grid of grids){
+                if (grid.isCovered())
+                    await m.bt().uncover(grid.pos.x, grid.pos.y, true);
+
+                var e = grid.getElem();
+                if (e instanceof Monster)
+                    await m.bt().implAddMonsterHp(e, - m.attrs.thunderDamage);
+            }
+        }, m, (ps) => ps.attackerAttrs.owner == m && !m.isDead());
     }
 
     // 受到普通攻击时，反射50%的伤害
@@ -1019,7 +1027,7 @@ class MonsterFactory {
 
     // 克苏鲁之脑的san值相关逻辑
     static sanLogic(m:Monster):Monster{
-        Utils.assert(m.type == "BrainOfCthulhu", "only BrainOfCthulhu has san logic");
+        // Utils.assert(m.type == "BrainOfCthulhu", "only BrainOfCthulhu has san logic");
         m = MonsterFactory.doMinusSanPerRound(m);
         m = MonsterFactory.doHideMonsterAttrsOnView(m);
         m = MonsterFactory.doHideHazardNumberOnView(m);
@@ -1344,11 +1352,62 @@ class MonsterFactory {
         }, m, (ps) => ps.targetAttrs.owner == m && Utils.contains(ps.attackerAttrs.attackFlags, "Flame") && ps.r.r == "attacked", false, true);
     }
 
+    // 将豌豆射手直接现身
+    static doUncoverMPeashooter(m:Monster):Monster {
+        return <Monster>ElemFactory.addAIEvenCovered("onStartupRegionUncoveredMark", async () => {
+            var MPeashooters = m.bt().level.map.findAllElems((e:Elem) => e.type == "MPeashooter");
+            for (var mp of MPeashooters){
+                var g = mp.getGrid();
+                await m.bt().uncover(g.pos.x, g.pos.y, true);
+            }
+        }, m);
+    }
+
     // 精英特殊逻辑
     static makeElite(m:Monster):Monster {
         m.isElite = true;
         m = MonsterFactory.canNotFrozenToDeath(m);
+        m = MonsterFactory.addBonusBoxAfterEliteDie(m);
         return m;
+    }
+
+    // 精英死亡后添加bonus宝箱
+    static addBonusBoxAfterEliteDie(m:Monster):Monster {
+        return <Monster>ElemFactory.addAIEvenCovered("onElemChanged", async () => {
+            var bt = m.bt();
+            var boxGrid = BattleUtils.findRandomEmptyGrid(bt);
+            if (boxGrid) {
+                // 钥匙优先掉落在怪物身上
+                var keyGrid = bt.level.map.findFirstGrid((x, y, g: Grid) => {
+                    if (g == boxGrid) return false;
+                    var e = g.getElem();
+                    if (e && e instanceof Monster && e.isHazard() && !e.isBig() && e.type != "PlaceHolder" && !e.attrs.cannotTake)
+                        return Utils.indexOf(e.dropItems, (dp: Elem) => dp.type != "Coins") == -1;
+                });
+                
+                // 没有目标怪物则掉落在空地上
+                if (!keyGrid)
+                    keyGrid = BattleUtils.findRandomGrids(bt, (g:Grid) => !g.isCovered() && !g.getElem() && g != boxGrid, 1)[0];
+                
+                // 分配好宝箱和钥匙的目标位置都才一起掉落出来
+                if (keyGrid) {
+                    await bt.fireEvent("onGetMarkAllAward", {btType:"normal"});
+                    var box = bt.level.createElem("TreasureBox", { rdp: "eliteBonusBox" });
+                    await bt.implAddElemAt(box, boxGrid.pos.x, boxGrid.pos.y);
+                    var key = bt.level.createElem("Key");
+                    var e = keyGrid.getElem();
+                    if (!e) {
+                        Utils.assert(!keyGrid.isCovered(), "only uncovered grid without monster is valid");
+                        await bt.implAddElemAt(key, keyGrid.pos.x, keyGrid.pos.y);
+                    }
+                    else {
+                        Utils.assert(e instanceof Monster, "only monster can take the key: " + e.type + " at " + keyGrid.pos.x + ", " + keyGrid.pos.y);
+                        e.addDropItem(key);
+                        await bt.fireEvent("onElemImgFlying", { e: key, fromPos: boxGrid.pos, toPos: keyGrid.pos });
+                    }
+                }
+            }
+        }, m, (ps) => ps.subType == "beforeDieAndRemoved" && ps.e == m);
     }
 
     // boss 特殊逻辑
