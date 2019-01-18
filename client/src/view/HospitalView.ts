@@ -100,7 +100,12 @@ class HospitalView extends egret.DisplayObjectContainer {
         while (1) {
             var r = await this.selRelic();
             if (r instanceof Relic){
-                r.reinforceLvUp();
+                var rn = Utils.indexOf(this.player.allRelics, (relic) => relic.type == r.type);
+                if (rn >= 0)
+                    r.reinforceLvUp();
+                else {
+                    this.player.addItem(r);
+                }
                 this.doClose();
                 break;
             }

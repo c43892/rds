@@ -229,7 +229,7 @@ public async open(canDrag:boolean = true, funcOnClick = "showDesc", hideGoBackBt
                 }
                 else {
                     var r = <Relic>ElemFactory.create(type);
-                    container["relic"] = undefined;
+                    container["relic"] = r;
                     container["elem"] = "fakeRelic";
                 }                
                 var relicImg = ViewUtils.createBitmapByName(r.getElemImgRes() + "_png");
@@ -563,7 +563,8 @@ public async open(canDrag:boolean = true, funcOnClick = "showDesc", hideGoBackBt
                     break;
                 }
                 case "selectRelic": {
-                    if (RelicExchangeView.dragFromImg["elem"] == "relicAndStar" || RelicExchangeView.dragFromImg["elem"] == "commonRelic") {
+                    if (RelicExchangeView.dragFromImg["elem"] == "relicAndStar" || RelicExchangeView.dragFromImg["elem"] == "commonRelic" ||
+                        RelicExchangeView.dragFromImg["elem"] == "fakeRelic") {
                         var r:Relic = RelicExchangeView.dragFromImg["relic"];
                         if (r.canReinfoce()){
                             var reinforceRelic = ElemFactory.create(r.type);
@@ -572,9 +573,9 @@ public async open(canDrag:boolean = true, funcOnClick = "showDesc", hideGoBackBt
                                 this.doClose(r);
                         } else {
                             await AniUtils.tipAt(ViewUtils.getTipText("tipOnCannotReinfoce"), {x:this.width/2, y:this.height/2});
-                        }
-                        break;
-                    }
+                        }                        
+                    }                    
+                    break;
                 }
                 case "selectRelicWithoutConfirm": {
                     if (RelicExchangeView.dragFromImg["elem"] == "relicAndStar" || RelicExchangeView.dragFromImg["elem"] == "commonRelic") {

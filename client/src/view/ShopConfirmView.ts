@@ -160,15 +160,18 @@ class ShopConfirmView extends egret.DisplayObjectContainer {
         desc.y = title.y + title.height + 45;
         this.addChild(desc);
 
-        // 费用
-        var cost = ViewUtils.createTextField(20, 0x000000);
-        cost.textFlow = ViewUtils.fromHtml(ViewUtils.formatTip("costCoins", price.toString()));
-        cost.width = bg.width;
-        cost.x = bg.x;
-        cost.y = desc.y + desc.height + 20;
-        this.addChild(cost);
+        var currentY = desc.y + desc.height + 20;
 
-        var currentY = cost.y + cost.height;
+        // 费用
+        if (price != undefined) {
+            var cost = ViewUtils.createTextField(20, 0x000000);
+            cost.textFlow = ViewUtils.fromHtml(ViewUtils.formatTip("costCoins", price.toString()));
+            cost.width = bg.width;
+            cost.x = bg.x;
+            cost.y = currentY;
+            currentY += cost.height;
+            this.addChild(cost);
+        }
 
         // 确定取消按钮
 
