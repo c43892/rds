@@ -30,7 +30,7 @@
     "groups": {
         "newPlayAward": {
             "title": "你想得到什么",
-            "desc": "做为你上一次努力的奖赏",
+            "desc": "做为你上一次到达 $lv$ 层的奖赏",
             "sels": [{
               "desc": "继承 1 个 $relicLv$ 级的指定技能",
               "func": ["+specificRelics"],

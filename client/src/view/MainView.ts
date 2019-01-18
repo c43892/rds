@@ -507,6 +507,8 @@ class MainView extends egret.DisplayObjectContainer {
             var relics = Utils.filter(lastLevelCompletedInfo.relics, (r) => Utils.occupationCompatible(this.p.occupation, r));
             var props = Utils.filter(lastLevelCompletedInfo.props, (p) => Utils.occupationCompatible(this.p.occupation, p));
 
+            selsGroup.desc = selsGroup.desc.replace("$lv$", lastLevelCompletedInfo.lv.toString());
+
             // 指定一个技能
             var sel0 = selsGroup.sels[0];
             var desc0 = sel0.desc;
