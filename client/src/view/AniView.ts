@@ -45,6 +45,10 @@ class AniView extends egret.DisplayObjectContainer {
         return this.bv.mapView.getGridViewAt(x, y).getEffectLayer();
     }
 
+    getEVBByPos(x, y):egret.DisplayObject {
+        return this.bv.mapView.getGridViewAt(x, y).getEffectLayerBottom();
+    }
+
     // 获取一个道具对应的PropView
     getSVOfProp(p:Prop):PropView {
         var index = Utils.indexOf(this.bv.player.props, (prop:Prop) => prop.type == p.type);
@@ -1235,9 +1239,10 @@ class AniView extends egret.DisplayObjectContainer {
         // 创建路径动画
         var showPath = Utils.map(path, (pt) => this.bv.mapView.logicPos2ShowPos(pt.x - fromPt.x, pt.y - fromPt.y));
         showPath.shift();
+        var evb = this.getEVBByPos(fromPt.x, fromPt.y);
         var sv = this.getSVByPos(fromPt.x, fromPt.y);
         var ev = this.getEVByPos(fromPt.x, fromPt.y);
-        await this.aniFact.createAni("moveOnPath", {objs: [sv, ev], path: showPath, time:150, mode:egret.Ease.sineInOut});
+        await this.aniFact.createAni("moveOnPath", {objs: [evb, sv, ev], path: showPath, time:150, mode:egret.Ease.sineInOut});
         sv["resetSelf"]();
         // 刷新格子显示
         this.bv.mapView.refreshAt(fromPt.x, fromPt.y);
