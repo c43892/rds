@@ -88,6 +88,7 @@ class Battle {
 
         await this.triggerLogicPoint("beforeLevelInited", {bt:this});
         await this.fireEvent("onLevelInited", {bt:this});
+        await this.fireEvent("onLevelInitedGiveTip", {bt:this});
         await this.triggerLogicPoint("beforeLevelInitedTakeKey", {bt:this});
         await this.triggerLogicPoint("beforeLevelInited2", {bt:this});
         await this.triggerLogicPoint("onLevelInited", {bt:this, skipAniSwitch:"initAddElemAni"});

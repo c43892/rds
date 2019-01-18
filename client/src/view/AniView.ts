@@ -1257,6 +1257,19 @@ class AniView extends egret.DisplayObjectContainer {
         }   
     }
 
+    // 精英关卡提示
+    public async onLevelInitedGiveTip(ps) {
+        var bt = <Battle>ps.bt;
+        var levelType = bt.level.levelType;
+        var seniorTypes = GCfg.getBattleTypes("senior");
+        // 如果是精英关卡,给出特殊提示
+        if (Utils.contains(seniorTypes, levelType)){
+            var title = ViewUtils.getTipText("eliteLevelTipTitle");
+            var tipContent = GCfg.getMiscConfig("eliteLevelTips")[levelType];
+            await this.mv.confirmOkYesNo(title, tipContent, false);
+        }
+    }
+
     // 怪物被魅惑
     public async onMonsterCharmed(ps) {
         var tar:Monster = ps.m;

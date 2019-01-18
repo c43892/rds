@@ -190,7 +190,7 @@
     "MCherryBomb":{"name":"樱桃炸弹", "attackInterval":0, "selfExplode":{"cnt":5, "mult":3, "aoe":{"w":3, "h":3}}, "dropItems":["CoinsSmall"], "specialCharmed":true, "elemImg":"CherryBomb"},
     "MSunflower":{"name":"太阳花", "rounds":3, "dropItems":["CoinsSmall"], "attackInterval":0, "showCDNum":true, "elemImg":"Sunflower"},
     "MCharmingMushroom":{"name":"魅惑菇", "cannotCharm":true, "dropItems":["CoinsSmall"], "elemImg":"CharmingMushroom"},
-    "EliteGoblinThief":{"name":"精英哥布林窃贼", "elemImg":"GoblinThief", "steal":{"percent":20, "num":5}, "movePs":{"moveRange":3, "targetType":"pickupCoins"}, "dropItems":["Coins"], "cannotTake":true},
+    "EliteGoblinThief":{"name":"精英哥布林窃贼", "elemImg":"GoblinThief", "steal":{"percent":20, "num":5}, "movePs":{"moveRange":3, "targetType":"pickupCoins"}, "dropItems":["Coins"]},
     "EliteVampire":{"name":"精英吸血鬼", "elemImg":"Vampire", "suckBlood":{"percent":30, "num":0}, "movePs":{"moveType":"fly"}, "dropItems":["Coins"]},
     "EliteLustZombie":{"name":"精英色欲僵尸", "elemImg":"LustZombie","deathStepOnSneak":15, "deathStepOnDie":5, "movePs":{"moveRange":4, "targetType":"eatFood"}, "dropItems":["Coins"]},
     "EliteSwatheZombie":{"name":"精英缠绕僵尸", "elemImg":"SwatheZombie", "power":1, "hp":5, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}], "movePs":{"moveRange":3, "targetType":"eatFood"}, "invalid":["Cocoon", "Rock", "Hole", "IceBlock"], "dropItems":["Coins"], "repRes":["SwatheZombie", "Cocoon"]}, 

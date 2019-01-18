@@ -574,6 +574,7 @@
 		"useSunflower": {"EN": "Just Die", "CNS": "使用后恢复生命值", "CNT": "死亡"},
 		"getNewAchvTitle":{"EN": "You've got a new achievement:", "CNS": "恭喜获得成就:", "CNT": "恭喜获得成就:"},
 		"currentAchvPoint":{"EN": "Current achievement point:", "CNS": "当前成就点:", "CNT": "当前成就点:"},
+		"eliteLevelTipTitle":{"EN": "this is a tip title", "CNS": "精英关卡提示标题", "CNT": "精英关卡提示标题"},
 		"": {}
 	}
 }

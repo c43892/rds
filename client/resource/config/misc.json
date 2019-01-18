@@ -28,5 +28,13 @@
         }
     },
     "occupationLevelCfg":[2, 20, 300, 400, 500, 600, 700, 800, 900, 1000],
-    "relicsNeedUnlock":["GoldMedal", "ExpMedal", "DoubleAttack"]
+    "relicsNeedUnlock":["GoldMedal", "ExpMedal", "DoubleAttack"],
+    "eliteLevelTips": {
+        "randomEgg": "这是提示这是提示这是提示这是提示这是提示这是提示这是提示这是提示",
+        "eliteGoblinThief": "这是提示这是提示这是提示这是提示这是提示这是提示这是提示这是提示",
+        "eliteVampire": "这是提示这是提示这是提示这是提示这是提示这是提示这是提示这是提示",
+        "eliteLustZombie": "这是提示这是提示这是提示这是提示这是提示这是提示这是提示这是提示",
+        "eliteSwatheZombie": "这是提示这是提示这是提示这是提示这是提示这是提示这是提示这是提示",
+        "eliteReviveZombie": "这是提示这是提示这是提示这是提示这是提示这是提示这是提示这是提示"
+    }
 }
