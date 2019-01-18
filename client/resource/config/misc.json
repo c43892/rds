@@ -30,11 +30,11 @@
     "occupationLevelCfg":[2, 20, 300, 400, 500, 600, 700, 800, 900, 1000],
     "relicsNeedUnlock":["GoldMedal", "ExpMedal", "DoubleAttack"],
     "eliteLevelTips": {
-        "randomEgg": "这是提示这是提示这是提示这是提示这是提示这是提示这是提示这是提示",
-        "eliteGoblinThief": "这是提示这是提示这是提示这是提示这是提示这是提示这是提示这是提示",
-        "eliteVampire": "这是提示这是提示这是提示这是提示这是提示这是提示这是提示这是提示",
-        "eliteLustZombie": "这是提示这是提示这是提示这是提示这是提示这是提示这是提示这是提示",
-        "eliteSwatheZombie": "这是提示这是提示这是提示这是提示这是提示这是提示这是提示这是提示",
-        "eliteReviveZombie": "这是提示这是提示这是提示这是提示这是提示这是提示这是提示这是提示"
+        "randomEgg": "会出现多个彩蛋僵尸，击杀可以获得不错的奖励",
+        "eliteGoblinThief": "精英哥布林小偷为所有怪物附加突袭偷窃能力，突袭时偷取玩家15%的当前金钱",
+        "eliteVampire": "精英吸血鬼为所有怪物附加突袭吸血能力，突袭时吸收玩家15%的当前生命",
+        "eliteLustZombie": "精英魅魔为所有怪物附加魅惑功能，突袭时死神前进10步",
+        "eliteSwatheZombie": "精英黑寡妇蜘蛛为所有怪物附加缠绕能力，突袭时可缠绕两件物品",
+        "eliteReviveZombie": "精英克苏鲁的触手为所有怪物附加复生能力，死亡时会复活一次"
     }
 }
