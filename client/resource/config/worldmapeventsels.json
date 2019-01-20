@@ -32,11 +32,11 @@
             "title": "你想得到什么",
             "desc": "你之前的冒险达到了第$lv$层，来选择你的继承奖励吧",
             "sels": [{
-              "desc": "继承 1 个 $relicLv$ 级的指定技能",
+              "desc": "继承 1 个最高 $relicLv$ 级的指定技能",
               "func": ["+specificRelics"],
               "ps": {"num": 1, "items": {}, "relicLvs":{}}
             }, {
-              "desc": "继承 2 个 $relicLv$ 级的随机技能",
+              "desc": "继承 2 个最高 $relicLv$ 级的随机技能",
               "func": ["+randomItems"],
               "ps": {"randomNum": 2, "items": {}, "relicLvs":{}}
             }, {
@@ -52,7 +52,7 @@
             "title": "天堂之光",
             "desc": "神圣的光芒落在你的面前，隔着远远你就能感受到它的威严和圣洁。",
             "sels": [{
-                "desc": "<font color=#000000 size=20>[靠近]</font><font color=#00b050 size=20>随机升级2个技能, </font><font color=#7d0403 size=20>失去{hp}生命</font>",
+                "desc": "<font color=#000000 size=20>[靠近]</font><font color=#4c8064 size=20>随机升级2个技能, </font><font color=#7d0403 size=20>失去{hp}生命</font>",
                 "func": ["reinforceRandomRelics", "-hpPrecentage", "redirectSelGroup"],
                 "ps":{"reinforceNum": 2, "hpPrecentage": 30, "group": "a11"}
             },{
@@ -63,7 +63,7 @@
         },
         "a11": {
             "title": "闪耀之光",
-            "desc": "你走进了光芒，强大的力量让你有些</font><font color=#7d0403 size=25>禁受不住</font>，但是你坚持住了，并对<font color=#00b050 size=25>技能的领悟</font>更加深刻。",
+            "desc": "你走进了光芒，强大的力量让你有些</font><font color=#7d0403 size=25>禁受不住</font>，但是你坚持住了，并对<font color=#4c8064 size=25>技能的领悟</font>更加深刻。",
             "sels": [{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit"]
@@ -81,7 +81,7 @@
             "title": "樱桃炸弹",
             "desc": "你发现樱桃炸弹正在熟睡，旁边的宝物无人看守，不禁起了邪念。",
             "sels": [{
-                "desc": "<font color=#000000 size=20>[偷窃]</font><font color=#00b050 size=20>得到金币勋章</font>，<font color=#7d0403 size=20>受到樱桃炸弹的报复</font>",
+                "desc": "<font color=#000000 size=20>[偷窃]</font><font color=#4c8064 size=20>得到金币勋章</font>，<font color=#7d0403 size=20>受到樱桃炸弹的报复</font>",
                 "func": ["redirectSelGroup"],
                 "ps": {"group": "a21"}
             },{
@@ -91,7 +91,7 @@
             }],
             "globalCountMax":1,
              "extraRobSel": {
-                "desc": "<font color=#000000 size=20>[打劫]</font><font color=#00b050 size=20>获得技能</font>",
+                "desc": "<font color=#000000 size=20>[打劫]</font><font color=#4c8064 size=20>获得技能</font>",
                 "func": ["rob", "redirectSelGroup"],
                 "ps": {"rob":"inEvent1", "group": "a23"}
             },
@@ -153,7 +153,7 @@
         },
         "a23": {
             "title": "樱桃炸弹",
-            "desc": "樱桃炸弹还没来得及爆炸，就被你抢走了他的<font color=#00b050 size=25>宝物</font>",
+            "desc": "樱桃炸弹还没来得及爆炸，就被你抢走了他的<font color=#4c8064 size=25>宝物</font>",
             "sels": [{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit"]
@@ -164,7 +164,7 @@
             "title": "神秘雕像",
             "desc": "在你面前是一个神秘的雕像，上面似乎有着强大的力量。",
             "sels": [{
-                "desc": "<font color=#000000 size=20>[祈祷]</font><font color=#00b050 size=20>升级一项技能</font>",
+                "desc": "<font color=#000000 size=20>[祈祷]</font><font color=#4c8064 size=20>升级一项技能</font>",
                 "func": ["reinfoceRelic", "redirectSelGroup"],
                 "ps": {"group": "a31"}
             },{
@@ -239,7 +239,7 @@
             "sels": [{
                 "func": ["sequence"],
                 "ps": {
-                    "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
+                    "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#4c8064 size=20>{rate}%几率获得技能</font>",
                     "func": ["+randomItems", "-hp", "redirectSelGroup"],
                     "rates": [20],
                     "failedFunc": ["-hp", "redirectSelGroup2"],
@@ -253,7 +253,7 @@
         },
         "a411": {
             "title": "谜之声",
-            "desc": "巨大的力量灌注到你的身上，你在<font color=#7d0403 size=25>痛苦</font>中<font color=#00b050 size=25>领悟</font>到了一些东西。",
+            "desc": "巨大的力量灌注到你的身上，你在<font color=#7d0403 size=25>痛苦</font>中<font color=#4c8064 size=25>领悟</font>到了一些东西。",
             "sels": [{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit"]
@@ -265,7 +265,7 @@
             "sels": [{
                 "func": ["sequence"],
                 "ps": {
-                    "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
+                    "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#4c8064 size=20>{rate}%几率获得技能</font>",
                     "func": ["+randomItems", "-hp", "redirectSelGroup"],
                     "rates": [35],
                     "failedFunc": ["-hp", "redirectSelGroup2"],
@@ -283,7 +283,7 @@
             "sels": [{
                 "func": ["sequence"],
                 "ps": {
-                    "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
+                    "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#4c8064 size=20>{rate}%几率获得技能</font>",
                     "func": ["+randomItems", "-hp", "redirectSelGroup"],
                     "rates": [50],
                     "failedFunc": ["-hp", "redirectSelGroup2"],
@@ -301,7 +301,7 @@
             "sels": [{
                 "func": ["sequence"],
                 "ps": {
-                    "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
+                    "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#4c8064 size=20>{rate}%几率获得技能</font>",
                     "func": ["+randomItems", "-hp", "redirectSelGroup"],
                     "rates": [65],
                     "failedFunc": ["-hp", "redirectSelGroup2"],
@@ -319,7 +319,7 @@
             "sels": [{
                 "func": ["sequence"],
                 "ps": {
-                    "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
+                    "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#4c8064 size=20>{rate}%几率获得技能</font>",
                     "func": ["+randomItems", "-hp", "redirectSelGroup"],
                     "rates": [80],
                     "failedFunc": ["-hp", "redirectSelGroup2"],
@@ -337,7 +337,7 @@
             "sels": [{
                 "func": ["sequence"],
                 "ps": {
-                    "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
+                    "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#4c8064 size=20>{rate}%几率获得技能</font>",
                     "func": ["+randomItems", "-hp", "redirectSelGroup"],
                     "rates": [95],
                     "failedFunc": ["-hp", "redirectSelGroup2"],
@@ -355,7 +355,7 @@
             "sels": [{
                 "func": ["sequence"],
                 "ps": {
-                    "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#00b050 size=20>{rate}%几率获得技能</font>",
+                    "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#4c8064 size=20>{rate}%几率获得技能</font>",
                     "func": ["+randomItems", "-hp", "redirectSelGroup"],
                     "rates": [100],
                     "failedFunc": ["-hp", "redirectSelGroup2"],
@@ -397,11 +397,11 @@
             "title": "魅惑菇",
             "desc": "“不来一盘么？”魅惑菇摇晃着手中的纸牌，你感到自己完全被说服了。",
             "sels": [{
-                "desc": "<font color=#000000 size=20>[押大]赌50金币——</font><font color=#00b050 size=20>30%获得250金币</font>",
+                "desc": "<font color=#000000 size=20>[押大]赌50金币——</font><font color=#4c8064 size=20>30%获得250金币</font>",
                 "func": ["gambling"],
                 "ps": {"wager":50, "rate":30, "award":250, "succeedRedirectGroup":"a51", "failedRedirectGroup":"a52"}
             },{
-                "desc": "<font color=#000000 size=20>[押小]赌50金币——</font><font color=#00b050 size=20>70%获得100金币</font>",
+                "desc": "<font color=#000000 size=20>[押小]赌50金币——</font><font color=#4c8064 size=20>70%获得100金币</font>",
                 "func": ["gambling"],
                 "ps": {"wager":50, "rate":70, "award":100, "succeedRedirectGroup":"a51", "failedRedirectGroup":"a52"}
             },{
@@ -418,7 +418,7 @@
         },
         "a51": {
             "title": "魅惑菇",
-            "desc": "<font color=#00b050 size=25>你赌赢了。</font>“oh！shit”魅惑菇尖叫起来。“你是出老千了吧，你一定是出了老千了。”",
+            "desc": "<font color=#4c8064 size=25>你赌赢了。</font>“oh！shit”魅惑菇尖叫起来。“你是出老千了吧，你一定是出了老千了。”",
             "sels": [{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit"]
@@ -445,7 +445,7 @@
         },
         "a54": {
             "title": "魅惑菇",
-            "desc": "小孩子才做选择题，<font color=#00b050 size=25>我全都要！</font>",
+            "desc": "小孩子才做选择题，<font color=#4c8064 size=25>我全都要！</font>",
             "sels": [{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit"]
@@ -456,11 +456,11 @@
             "title": "恶作剧",
             "desc": "“不给糖果就捣蛋！”死神用沙哑的声音缓缓说道，你觉得它好像是认真的。",
             "sels": [{
-                "desc": "<font color=#000000 size=20>[无视]</font><font color=#00b050 size=20>获得{money}金币，</font><font color=#7d0403 size=20>失去{hp}生命</font>",
+                "desc": "<font color=#000000 size=20>[无视]</font><font color=#4c8064 size=20>获得{money}金币，</font><font color=#7d0403 size=20>失去{hp}生命</font>",
                 "func": ["+money", "-hp", "redirectSelGroup"],
                 "ps": {"money": 50, "hp": 5, "group": "a61"}
             },{
-                "desc": "<font color=#000000 size=20>[收买]</font><font color=#7d0403 size=20>失去{money}金币，</font><font color=#00b050 size=20>获得敌意消退</font>",
+                "desc": "<font color=#000000 size=20>[收买]</font><font color=#7d0403 size=20>失去{money}金币，</font><font color=#4c8064 size=20>获得敌意消退</font>",
                 "func": ["-money", "+item", "redirectSelGroup"],
                 "ps": {"money": 50, "item": "TimeMachine", "group":"a62"}
             }],
@@ -473,7 +473,7 @@
         },
         "a61": {
             "title": "恶作剧",
-            "desc": "死神将你</font><font color=#7d0403 size=25>砍翻</font>在地，然后离开了。让你稍以安慰的是，它离开时掉出了一些</font><font color=#00b050 size=25>金币</font>",
+            "desc": "死神将你</font><font color=#7d0403 size=25>砍翻</font>在地，然后离开了。让你稍以安慰的是，它离开时掉出了一些</font><font color=#4c8064 size=25>金币</font>",
             "sels": [{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit"]
@@ -482,7 +482,7 @@
         },
         "a62": {
             "title": "恶作剧",
-            "desc": "死神悄然离去了，你虽然少了点</font><font color=#7d0403 size=25>钱，</font>但也发现了</font><font color=#00b050 size=25>驱逐</font>它的方法。",
+            "desc": "死神悄然离去了，你虽然少了点</font><font color=#7d0403 size=25>钱，</font>但也发现了</font><font color=#4c8064 size=25>驱逐</font>它的方法。",
             "sels": [{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit"]
@@ -502,7 +502,7 @@
             "title": "复活节彩蛋",
             "desc": "你发现地上有个彩蛋，上面写着[里面没有任何奖励]，你开始觉得手痒痒了。",
             "sels": [{
-                "desc": "<font color=#000000 size=20>[打开]进入特殊</font><font color=#7d0403 size=20>战斗</font><font color=#000000 size=20>——</font><font color=#00b050 size=20>彩蛋</font><font color=#000000 size=20>关</font>",
+                "desc": "<font color=#000000 size=20>[打开]进入特殊</font><font color=#7d0403 size=20>战斗</font><font color=#000000 size=20>——</font><font color=#4c8064 size=20>彩蛋</font><font color=#000000 size=20>关</font>",
                 "func": ["redirectSelGroup"],
                 "ps": {"group": "a71"}
             },{
@@ -535,11 +535,11 @@
             "title": "太阳花",
             "desc": "“HEY！Come On”太阳花热情的邀请你给予它的新曲一些宝贵的意见。",
             "sels": [{
-                "desc": "<font color=#000000 size=20>[称赞]</font></font><font color=#00b050 size=20>最大生命值+{maxHp}</font>",
+                "desc": "<font color=#000000 size=20>[称赞]</font></font><font color=#4c8064 size=20>最大生命值+{maxHp}</font>",
                 "func": ["+maxHp", "redirectSelGroup"],
                 "ps": {"maxHp": 10, "group": "a81"}
             },{
-                "desc": "<font color=#000000 size=20>[贬低]</font></font><font color=#00b050 size=20>闪避+{dodge}%</font>",
+                "desc": "<font color=#000000 size=20>[贬低]</font></font><font color=#4c8064 size=20>闪避+{dodge}%</font>",
                 "func": ["redirectSelGroup", "+dodge"],
                 "ps": {"group": "a82", "dodge": 5}
             }],
@@ -553,7 +553,7 @@
         },
         "a81": {
             "title": "太阳花",
-            "desc": "沐浴在音乐的温暖之中，你感到自己的</font><font color=#00b050 size=25>生命获得了升华</font>。",
+            "desc": "沐浴在音乐的温暖之中，你感到自己的</font><font color=#4c8064 size=25>生命获得了升华</font>。",
             "sels": [{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit"]
@@ -562,7 +562,7 @@
         },
         "a82": {
             "title": "太阳花",
-            "desc": "太阳花怒视着你，你开始瑟瑟发抖，并想找个地方藏起来</font><font color=#00b050 size=25>躲避</font>它的视线。",
+            "desc": "太阳花怒视着你，你开始瑟瑟发抖，并想找个地方藏起来</font><font color=#4c8064 size=25>躲避</font>它的视线。",
             "sels": [{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit"]
@@ -580,15 +580,15 @@
         },
         "a9": {
             "title": "冒险者的尸体",
-            "desc": "你发现了一具冒险者的尸体！这个可怜虫浑身都被撕烂了，但他身上说不定藏着什么<font color=#00b050 size=25>好东西</font>。",
+            "desc": "你发现了一具冒险者的尸体！这个可怜虫浑身都被撕烂了，但他身上说不定藏着什么<font color=#4c8064 size=25>好东西</font>。",
             "sels": [{
                 "func": ["searchOnCorpse"],
-                "desc": "<font color=#000000 size=20>[搜索]</font></font><font color=#00b050 size=20>75%获得奖励，</font></font><font color=#7d0403 size=20>25%进入战斗</font>",
+                "desc": "<font color=#000000 size=20>[搜索]</font></font><font color=#4c8064 size=20>75%获得奖励，</font></font><font color=#7d0403 size=20>25%进入战斗</font>",
                 "ps": {
                     "rateArr": [75, 50, 25],
                     "titleArr": ["冒险者的尸体", "冒险者的尸体", "冒险者的尸体"],
-                    "upDescArr": ["你找到了</font><font color=#00b050 size=25>{lastDropped}，</font>还想继续找么？", "你找到了</font><font color=#00b050 size=25>{lastDropped}，</font>还想继续找么？", "你找到了</font><font color=#00b050 size=25>{lastDropped}</font>，现在冒险者身上已经没有东西了，你满意的离开了。"],
-                    "descArr": ["<font color=#000000 size=20>[继续翻找]</font></font><font color=#00b050 size=20>50%获得奖励，</font></font><font color=#7d0403 size=20>50%进入战斗</font>", "<font color=#000000 size=20>[搜索]</font></font><font color=#00b050 size=20>25%获得奖励，</font></font><font color=#7d0403 size=20>75%进入战斗</font>", "你并不想步冒险者的后尘，于是果断离开了。"],
+                    "upDescArr": ["你找到了</font><font color=#4c8064 size=25>{lastDropped}，</font>还想继续找么？", "你找到了</font><font color=#4c8064 size=25>{lastDropped}，</font>还想继续找么？", "你找到了</font><font color=#4c8064 size=25>{lastDropped}</font>，现在冒险者身上已经没有东西了，你满意的离开了。"],
+                    "descArr": ["<font color=#000000 size=20>[继续翻找]</font></font><font color=#4c8064 size=20>50%获得奖励，</font></font><font color=#7d0403 size=20>50%进入战斗</font>", "<font color=#000000 size=20>[搜索]</font></font><font color=#4c8064 size=20>25%获得奖励，</font></font><font color=#7d0403 size=20>75%进入战斗</font>", "你并不想步冒险者的后尘，于是果断离开了。"],
                     "toDrop": ["Coins", "worldmapeventa91", "worldmapeventa92"],
                     "money": 50,
                     "exitDescArr": ["<font color=#000000 size=20>[离开]</font>", "<font color=#000000 size=20>[离开]</font>", "<font color=#000000 size=20>[离开]</font>"],
@@ -635,7 +635,7 @@
             "title": "智能机械管家",
             "desc": "“货真价实，童叟无欺”，但不知为何，你从它那机械化的声音中听出了一丝狡诈。",
             "sels": [{
-                "desc": "<font color=#000000 size=20>[购买技能]</font></font><font color=#000000 size=20>花费{money}金币，</font><font color=#00b050 size=20>获得一个随机技能</font>",
+                "desc": "<font color=#000000 size=20>[购买技能]</font></font><font color=#000000 size=20>花费{money}金币，</font><font color=#4c8064 size=20>获得一个随机技能</font>",
                 "func": ["-money", "+randomItems", "redirectSelGroup"],
                 "ps": {
                     "money": 50,
@@ -644,7 +644,7 @@
                     "group": "b21"
                  }                
             },{
-                "desc": "<font color=#000000 size=20>[购买道具]</font></font><font color=#000000 size=20>花费{money}金币，</font><font color=#00b050 size=20>获得两个随机道具</font>",
+                "desc": "<font color=#000000 size=20>[购买道具]</font></font><font color=#000000 size=20>花费{money}金币，</font><font color=#4c8064 size=20>获得两个随机道具</font>",
                 "func": ["-money", "+randomItems", "redirectSelGroup"],
                 "ps": {
                     "money": 50,
@@ -658,7 +658,7 @@
                 "ps": {"group": "b23"}
             }],
              "extraRobSel": {
-                "desc": "<font color=#000000 size=20>[打劫]</font><font color=#00b050 size=20>获得一件道具或技能</font>",
+                "desc": "<font color=#000000 size=20>[打劫]</font><font color=#4c8064 size=20>获得一件道具或技能</font>",
                 "func": ["rob", "redirectSelGroup"],
                 "ps": {"rob":"inEvent", "group": "b24"}
             },
@@ -693,7 +693,7 @@
         },
         "b24": {
             "title": "智能机械管家",
-            "desc": "你把智能机械管家粗鲁的推倒在地，抢走了它的<font color=#00b050 size=20>货物</font>。",
+            "desc": "你把智能机械管家粗鲁的推倒在地，抢走了它的<font color=#4c8064 size=20>货物</font>。",
             "sels": [{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit"]
@@ -704,7 +704,7 @@
             "title": "魅魔之吻",
             "desc": "魅魔向你抛来一个飞吻，你立刻变得神魂颠倒起来。",
             "sels": [{
-                "desc": "<font color=#000000 size=20>[和谐]</font></font><font color=#7d0403 size=20>失去所有金币，</font><font color=#00b050 size=20>最大生命值+10</font>",
+                "desc": "<font color=#000000 size=20>[和谐]</font></font><font color=#7d0403 size=20>失去所有金币，</font><font color=#4c8064 size=20>最大生命值+10</font>",
                 "func": ["-allMoney", "+maxHp", "+hpPrecentage" , "redirectSelGroup"],
                 "ps": {
                     "maxHp": 10,"hpPrecentage": 100,"group": "b31"
@@ -715,7 +715,7 @@
                 "ps": {"group": "b32"}
             }],
              "extraRobSel": {
-                "desc": "<font color=#000000 size=20>[打劫]</font><font color=#00b050 size=20>回复所有生命，获得50金币</font>",
+                "desc": "<font color=#000000 size=20>[打劫]</font><font color=#4c8064 size=20>回复所有生命，获得50金币</font>",
                 "func": ["+hpPrecentage", "+money", "redirectSelGroup"],
                 "ps": {"hpPrecentage": 100, "money": 50, "group": "b33"}
             },
@@ -723,7 +723,7 @@
         },
         "b31": {
             "title": "魅魔之吻",
-            "desc": "早晨醒来，你感觉自己的<font color=#00b050 size=25>状态从未这么好过</font>，然后你发现自己的</font><font color=#7d0403 size=25>钱包遗失</font>了。",
+            "desc": "早晨醒来，你感觉自己的<font color=#4c8064 size=25>状态从未这么好过</font>，然后你发现自己的</font><font color=#7d0403 size=25>钱包遗失</font>了。",
             "sels": [{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit"]
@@ -741,7 +741,7 @@
         },
         "b33": {
             "title": "魅魔之吻",
-            "desc": "你丝毫不知道什么叫怜香惜玉，<font color=#00b050 size=25>劫了钱</font>还顺便<font color=#00b050 size=25>劫了个色</font>。",
+            "desc": "你丝毫不知道什么叫怜香惜玉，<font color=#4c8064 size=25>劫了钱</font>还顺便<font color=#4c8064 size=25>劫了个色</font>。",
             "sels": [{
                 "desc": "<font color=#000000 size=20>[离开]</font>",
                 "func": ["exit"]
