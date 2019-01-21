@@ -62,11 +62,11 @@ class DefaultPaltform implements Platform {
         }
 
         egret.lifecycle.onPause = () => {
-            AudioFactory.AudioOn = 0;
+            AudioFactory.Paused = 1;
         };
 
         egret.lifecycle.onResume = () => {
-            AudioFactory.AudioOn = 1;
+            AudioFactory.Paused = 0;
         };
     }
 
