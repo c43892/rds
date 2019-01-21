@@ -14,14 +14,16 @@ class LevelLogicTakeKey extends LevelLogic{
             
             // 精英关卡,如果是双精英怪,每个精英怪取走2把,单精英则取走4把
             if(Utils.indexOf(seniorTypes, (t:string) => t == btType) > -1){
-                var elites = <Monster[]>bt.level.map.findAllElems((e:Elem) => e instanceof Monster && e.isBig());
+                var elites = <Monster[]>bt.level.map.findAllElems((e:Elem) => e instanceof Monster && e.isElite);
                 // 多个精英怪
-                if(elites.length > 1){
-                    for(var elite of elites){
-                        for(var i = 0; i < 2; i++){
+                if (elites.length > 1) {
+                    for (var elite of elites) {
+                        for (var i = 0; i < 2; i++) {
                             var key = keys[bt.srand.nextInt(0, keys.length)];
-                            await bt.implMonsterAddDropItem(elite, key);
-                            keys = Utils.remove(keys, key);
+                            if (key) {
+                                await bt.implMonsterAddDropItem(elite, key);
+                                keys = Utils.remove(keys, key);
+                            }
                         }
                     }
                 }
@@ -30,8 +32,10 @@ class LevelLogicTakeKey extends LevelLogic{
                     var elite = elites[0];
                     for(var i = 0; i < 4; i++){
                         var key = keys[bt.srand.nextInt(0, keys.length)];
-                        await bt.implMonsterAddDropItem(elite, key);
-                        keys = Utils.remove(keys, key);
+                        if (key){
+                            await bt.implMonsterAddDropItem(elite, key);
+                            keys = Utils.remove(keys, key);
+                        }
                     }
                 }
 

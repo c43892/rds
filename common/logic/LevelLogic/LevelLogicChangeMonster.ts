@@ -8,7 +8,7 @@ class LevelLogicChangeMonster extends LevelLogic{
         this.invalidTypes = [...changeTypes, ...extraInvalidTypes];
         this.num = num;
 
-        this.addAI("onLevelInited", async (ps) => {
+        this.addAI("beforeLevelInitedChangeMonster", async (ps) => {
             var bt = this.level.bt;
             var hasKey = (e:Elem) => Utils.filter(e.dropItems, (d:Elem) => d.type == "Key").length != 0;
             // 筛选不属于要改变的种类之一并且不含金币以外掉落的敌对怪进行替换
