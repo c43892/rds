@@ -30,6 +30,13 @@ class AudioFactory {
         return AudioFactory.auidoOn;
     }
 
+    public static set Paused(p:number) {
+        if (p)
+            AudioFactory.stopAll();
+        else
+            AudioFactory.AudioOn = AudioFactory.AudioOn;
+    }
+
     static bgs = {};
     static curBgs = undefined;
     public static playBg(bg:string) {
