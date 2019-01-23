@@ -1,32 +1,32 @@
 {
     "award1":{
         "type":"achvFinished",
-        "achv":"HalloweenTreantNoPeashooter",
+        "achv":"RichMan",
         "awardContent":{
             "type":"unlockRelic",
             "relic":"GoldMedal"
         },
         "icon":"GoldMedal",
-        "desc":"突突突"
+        "desc":"大富翁"
     },
     "award2":{
         "type":"achvFinished",
-        "achv":"SkillMaster",
+        "achv":"KnowlegdeChangesDestiny",
         "awardContent":{
             "type":"unlockRelic",
             "relic":"ExpMedal"
         },
         "icon":"ExpMedal",
-        "desc":"技能达人"
+        "desc":"知识改变命运"
     },
     "award3":{
-        "type":"achvFinished",
-        "achv":"NormalModeUnlock",
+        "type":"achvPoint",
+        "achvPoint":50,
         "awardContent":{
             "type":"unlockRelic",
             "relic":"DoubleAttack"
         },
         "icon":"DoubleAttack",
-        "desc":"普通模式"
+        "desc":"50点"
     }
 }

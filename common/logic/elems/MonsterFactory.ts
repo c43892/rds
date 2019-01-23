@@ -924,7 +924,7 @@ class MonsterFactory {
             else if (target instanceof Monster)
                 await m.bt().implAddMonsterHp(target, Math.floor(ps.dhp / 2));
 
-        }, m, (ps) => ps.m == m && !m.isDead() && ps.isNormalAttack && ps.hurtBy);
+        }, m, (ps) => ps.m == m && ps.isNormalAttack && ps.hurtBy);
     }
 
     // 史莱姆之王半血时分裂为4个小史莱姆

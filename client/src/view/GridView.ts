@@ -387,6 +387,7 @@ class GridView extends egret.DisplayObjectContainer {
                 {chk:() => m.existsBuff("BuffFlame"), eff:"effBurning"},
                 {chk:() => m.existsBuff("BuffPoison"), eff:"elemPoisoned"},
                 {chk:() => m["isWanted"], eff:"effWantedOrder"},
+                {chk:() => m.isElite && (!this.getGrid().isCovered() || this.getGrid().isMarked()), eff:"effEliteBack", toBottom:true},
                 {chk:() => m.isElite && (!this.getGrid().isCovered() || this.getGrid().isMarked()), eff:"effEliteHaloBehind", toBottom:true},
                 {chk:() => m.isElite && (!this.getGrid().isCovered() || this.getGrid().isMarked()), eff:"effEliteHaloFront"}
             ];

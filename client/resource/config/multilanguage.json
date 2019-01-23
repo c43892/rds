@@ -423,8 +423,8 @@
 				"shortDesc":{"x":105, "y":67, "w":270, "h":20, "size":20},
 				"awardIcon":{"x":88, "y":81},
 				"awardReceiveBtn":{"x":0, "y":151},
-				"unlockTip":{"x":88, "y":145, "h":20, "w":120, "size":18},
-				"unlockDesc":{"x":88, "y":175, "h":25, "w":125, "size":25},
+				"unlockTip":{"x":88, "y":145, "h":20, "w":120},
+				"unlockDesc":{"x":88, "y":175, "h":25, "w":125},
 				"achvPointTip":{"x":120, "y":120, "w":400, "h":40}
 			}
 		},
@@ -542,10 +542,10 @@
 		"hideMonsterAttrs":{"EN": "hideMonsterAttrs", "CNS": "怪物的属性值将被隐藏", "CNT": "怪物的属性值将被隐藏"},
 		"attackRandomGrid":{"EN": "attackRandomGrid", "CNS": "将攻击随机的敌方目标", "CNT": "将攻击随机的敌方目标"},
 		"changeMonsterImg":{"EN": "changeMonsterImg", "CNS": "怪物的图标都显示为克苏鲁的触手", "CNT": "怪物的图标都显示为克苏鲁的触手"},
-		"diff1":{"EN": "diff1", "CNS": "新手", "CNT":"新手"},
-		"diff2":{"EN": "diff2", "CNS": "简单", "CNT":"简单"},
-		"diff3":{"EN": "diff3", "CNS": "普通", "CNT":"普通"},
-		"diff4":{"EN": "diff4", "CNS": "困难", "CNT":"困难"},
+		"diff1":{"EN": "diff1", "CNS": "简单", "CNT":"简单"},
+		"diff2":{"EN": "diff2", "CNS": "普通", "CNT":"普通"},
+		"diff3":{"EN": "diff3", "CNS": "困难", "CNT":"困难"},
+		"diff4":{"EN": "diff4", "CNS": "噩梦", "CNT":"噩梦"},
 		"diff5":{"EN": "diff5", "CNS": "地狱", "CNT":"地狱"},
 		"levelDifficultyDesc":{
 			"EN":["<font color=#000000 size=25>新手难度</font>\r\n初始格子数 8", "简单难度\r\n初始格子数 7", "普通难度\r\n初始格子数 6", "困难难度\r\n初始格子数 5", "地狱难度\r\n初始格子数 4"],

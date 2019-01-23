@@ -47,15 +47,15 @@
         "progressInfos":[""]
     },
     "EasyModeUnlock":{
-        "title":"简单模式",
-        "shortDesc":"解锁简单模式",
+        "title":"普通模式",
+        "shortDesc":"解锁普通模式",
         "icon":"HalloweenTreant",
         "progressType":"",
         "progressInfos":[""]
     },
     "NormalModeUnlock":{
-        "title":"普通模式",
-        "shortDesc":"解锁普通模式",
+        "title":"困难模式",
+        "shortDesc":"解锁困难模式",
         "icon":"HalloweenTreant",
         "progressType":"",
         "progressInfos":[""]

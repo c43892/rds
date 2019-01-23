@@ -142,7 +142,7 @@ class AchievementMgr {
                 break;
             }
             case "achvPoint": {
-                if (Utils.loadAchvData("achvPoint") && Utils.loadAchvData("achvPoint") >= awardInfo.point)
+                if (AchievementMgr.mgr.getTotalAchvPoint() >= awardInfo.achvPoint)
                     valid = true;
 
                 break;

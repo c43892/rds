@@ -261,7 +261,7 @@ class AchvView extends egret.DisplayObjectContainer {
             awardContainer.addChild(tip);
 
             // 描述
-            var desc = ViewUtils.createTextField(25, 0x000000);
+            var desc = ViewUtils.createTextField(20, 0x000000);
             desc.name = "unlockDesc";
             desc.text = info.desc;
             awardContainer.addChild(desc);
