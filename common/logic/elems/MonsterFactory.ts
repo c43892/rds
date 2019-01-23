@@ -129,9 +129,14 @@ class MonsterFactory {
         "ThunderElemental": (attrs) => MonsterFactory.doThunderDamageAroundOnAttack(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 雷元素
         "FlameElemental": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), // 火元素
         "Echinus": (attrs) => MonsterFactory.doThornsDamageOnNormalAttacked(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 海胆
-        "Werewolf": (attrs) => MonsterFactory.doDoublePowerOnHurt(MonsterFactory.doAddHpPerRound(Math.floor(attrs.hp * 0.2) > 1 ? Math.floor(attrs.hp * 0.2) : 1, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))))), // 狼人
+        "Werewolf": (attrs) => MonsterFactory.doDoublePowerOnHurt(10, MonsterFactory.doAddHpPerRound(Math.floor(attrs.hp * 0.2) > 1 ? Math.floor(attrs.hp * 0.2) : 1, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))))), // 狼人
         "MNutWall": (attrs) => <Plant>MonsterFactory.doProtectMonsterAround(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 怪物坚果墙
-        "MPeashooter": (attrs) => <Plant>MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), //怪物豌豆射手
+        "MPeashooter": (attrs) => { //怪物豌豆射手
+            var m = <Plant>MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)));
+            m = <Monster>ElemFactory.addAI("beforeGoOutLevel1", () => m.clearAIAtLogicPoint("onPlayerActed"), m);
+            m = MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player, attrs.attackInterval);
+            return m;
+        },
         "MCherryBomb": (attrs) => <Plant>MonsterFactory.doSelfExplodeAfterNRound(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 怪物樱桃炸弹
         "MSunflower": (attrs) => <Plant>MonsterFactory.doAddMonsterHpPerNRound(attrs.rounds, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 怪物太阳花
         "MCharmingMushroom": (attrs) => <Plant>MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), // 怪物魅惑菇
@@ -575,10 +580,10 @@ class MonsterFactory {
         }, m, (ps) => ps.m == m);
     }
 
-    // 受到伤害时攻击力翻倍
-    static doDoublePowerOnHurt(m:Monster):Monster {
+    // 受到伤害时攻击力百分比增加
+    static doDoublePowerOnHurt(n:number ,m:Monster):Monster {
         return <Monster>ElemFactory.addAI("onMonsterHurt", async (ps) => {
-            m.btAttrs.power *= 2;
+            m.btAttrs.power = Math.ceil(m.btAttrs.power * (1 + n / 100));
             await m.bt().fireEvent("onElemChanged", {subType:"power", e:m});
         }, m, (ps) => ps.m == m);
     }

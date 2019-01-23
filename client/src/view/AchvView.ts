@@ -257,7 +257,16 @@ class AchvView extends egret.DisplayObjectContainer {
             // 提示内容
             var tip = ViewUtils.createTextField(18, 0x000000);
             tip.name = "unlockTip";
-            tip.text = "解锁于成就"
+            switch (info.type) {
+                case "achvFinished":{
+                    tip.text = "解锁于成就"
+                    break;
+                }
+                case "achvPoint":{
+                    tip.text = "解锁于成就点"
+                    break;
+                }
+            }
             awardContainer.addChild(tip);
 
             // 描述
