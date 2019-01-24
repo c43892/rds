@@ -17,7 +17,6 @@ class CharacterView extends egret.DisplayObjectContainer {
     private coins:egret.TextField; // 金币
     private currentStorey:egret.TextField; // 当前游戏所在层数
     private currentDiffFlag:egret.Bitmap; // 当前难度图标
-    private currentDiffTitle:egret.TextField; // 难度
     private commonRelicsBg:egret.Bitmap; // 通用技能背景
     private commonRelicsArea:egret.DisplayObjectContainer; // 通用技能区域
     private commonRelics:egret.DisplayObjectContainer[]; // 通用技能
@@ -108,9 +107,6 @@ class CharacterView extends egret.DisplayObjectContainer {
 
         this.currentDiffFlag = new egret.Bitmap();
         this.currentDiffFlag.name = "currentDiffFlag";
-        this.currentDiffTitle = ViewUtils.createTextField(25, 0x000000);
-        this.currentDiffTitle.name = "currentDiffTitle";
-        this.currentDiffTitle.text = ViewUtils.getTipText("difficulty");
 
         this.volumeSwitchBtn = new TextButtonWithBg("volumeSwitchBtn_png");
         this.volumeSwitchBtn.name = "volumeSwitchBtn";
@@ -153,7 +149,7 @@ class CharacterView extends egret.DisplayObjectContainer {
 
         var objs = [
             this.bg, this.switchesArea, this.commonRelicsArea, this.attrsBg, this.avatar, this.avatarBg, this.occupationName, this.expBar, this.level, this.exp,
-            this.expBarMask, this.power, this.hp, this.dodge, this.coins, this.currentStorey, this.currentDiffFlag, this.currentDiffTitle,
+            this.expBarMask, this.power, this.hp, this.dodge, this.coins, this.currentStorey, this.currentDiffFlag, 
             this.goBackBtn, this.exitBtn
         ];
         ViewUtils.multiLang(this, ...objs);
