@@ -22,6 +22,7 @@ class BattleView extends egret.DisplayObjectContainer {
     public poisonedHpBar:egret.Bitmap; // 中毒后的血条
     public poisonedHpBarMask:egret.Shape; // 中毒后血条遮罩
     public power:egret.TextField; // 攻击
+    public strengthPotionEffBg:egret.Bitmap; // 力量药水效果背景
     public dodge:egret.TextField; // 闪避
 
     // 金钱和当前层数显示背景，需要置顶
@@ -185,6 +186,9 @@ class BattleView extends egret.DisplayObjectContainer {
         this.power.name = "power";
         this.dodge = ViewUtils.createTextField(20, 0xffffff, false);
         this.dodge.name = "dodge";
+        this.strengthPotionEffBg = ViewUtils.createBitmapByName("BoxRoomFlash_png");
+        this.strengthPotionEffBg.name = "strengthPotionEffBg";
+        this.strengthPotionEffBg.alpha = 0;
 
         // 金钱
         this.money = ViewUtils.createTextField(20, 0xffff00, false);
@@ -198,7 +202,7 @@ class BattleView extends egret.DisplayObjectContainer {
 
         var objs = [
             this.avatar, this.avatarBg,
-            this.currentStoryLv, this.money, this.power, this.dodge, 
+            this.currentStoryLv, this.money, this.power, this.dodge, this.strengthPotionEffBg, 
             this.hpBarMask, this.poisonedHpBarMask, this.expBarMask, this.expBar, this.hpBar, this.poisonedHpBar,
             this.hp, this.exp
         ];
@@ -442,6 +446,12 @@ class BattleView extends egret.DisplayObjectContainer {
         var d = eff.display;
         if (this.contains(d))
             this.removeChild(d);
+    }
+
+    // 设置攻击数字增强背景
+    public set EmphasizeAttackPowerNumber(b) {
+        this.refreshPower();
+        this.strengthPotionEffBg.alpha = b ? 0.5 : 0;
     }
 
     // 设置角色数据，但并不刷新显示，需要手动刷新
