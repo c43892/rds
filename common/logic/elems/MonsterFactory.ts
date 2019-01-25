@@ -1284,7 +1284,7 @@ class MonsterFactory {
 
     // 血量每减少30%，则进入防护模式，为自己加上一个近乎无敌的防护罩，受到除火焰以外的任何伤害均为1，防护罩在受到5次伤害后解除
     static protectiveShield(m: Monster):Monster {
-        return MonsterFactory.doRemoveProtectiveShieldAfter5Damages(
+        return MonsterFactory.doRemoveProtectiveShieldAfter4Damages(
             MonsterFactory.doReduceDamageByProtectiveShield(
                 MonsterFactory.doAddProtectiveShieldOnLose30Hp(m)
             )
@@ -1304,7 +1304,7 @@ class MonsterFactory {
                     m["newProtectiveShield"] = true;
                 }
 
-                m["protectiveShield"] = 5;
+                m["protectiveShield"] = 4;
                 m["protectiveShield70"] = true;
             } else if (p < 40 && p >= 10 && !m["protectiveShield40"]) {
                 if (!m["protectiveShield"]){
@@ -1312,7 +1312,7 @@ class MonsterFactory {
                     m["newProtectiveShield"] = true;
                 }
 
-                m["protectiveShield"] = 5;
+                m["protectiveShield"] = 4;
                 m["protectiveShield70"] = true;
                 m["protectiveShield40"] = true;
             } else if (p < 10 && p > 0 && !m["protectiveShield10"]) {
@@ -1321,7 +1321,7 @@ class MonsterFactory {
                     m["newProtectiveShield"] = true;
                 }
 
-                m["protectiveShield"] = 5;
+                m["protectiveShield"] = 4;
                 m["protectiveShield70"] = true;
                 m["protectiveShield40"] = true;
                 m["protectiveShield10"] = true;
@@ -1337,7 +1337,7 @@ class MonsterFactory {
     }
 
     // 防护罩在受到5次伤害后解除
-    static doRemoveProtectiveShieldAfter5Damages(m:Monster):Monster {
+    static doRemoveProtectiveShieldAfter4Damages(m:Monster):Monster {
         return <Monster>ElemFactory.addAI("afterMonsterHurt", async () => {
             // 新添加的护盾没有生效,故不会移除层数
             if (m["newProtectiveShield"]){

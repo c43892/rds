@@ -55,7 +55,7 @@ class Player {
         p.power = [4, 0];
         p.playerRandom = new SRandom();
         p.worldmapRandomSeed = p.playerRandom.nextInt(0, 1000000000);
-        p.money = 20;
+        p.money = 50;
         p.exp = 0;
         p.lv = 0;
         p.relicsEquippedCapacity = Utils.getPlayerInitRelicsEquippedCapacity(p.difficulty);

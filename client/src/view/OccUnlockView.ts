@@ -56,7 +56,7 @@ class OccUnlockView extends egret.DisplayObjectContainer {
 
     async open(occ:string, level:number) {
         this.occ = occ;
-        this.level = level;
+        this.level = level == -1 ? (GCfg.getMiscConfig("occupationLevelCfg").length + 1) : level;
         this.refresh();
         return new Promise((resolve, reject) => this.doClose = resolve);
     }
