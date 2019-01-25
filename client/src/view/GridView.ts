@@ -378,6 +378,7 @@ class GridView extends egret.DisplayObjectContainer {
             this.removeEffect("effBurning");
             this.removeEffect("elemPoisoned");
             this.removeEffect("effWantedOrder");
+            this.removeEffect("effEliteBack");
             this.removeEffect("effEliteHaloBehind");
             this.removeEffect("effEliteHaloFront");
         } else {

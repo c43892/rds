@@ -6,10 +6,10 @@
         "width":5,
         "routesMax":4,
         "specs": {
-            "shop":{"percent":5},
-            "camp":{"percent":12},
-            "senior":{"percent":8},
-            "event":{"percent":22}
+            "shop":{"percent":6},
+            "camp":{"percent":14},
+            "senior":{"percent":9},
+            "event":{"percent":25}
         },
         "fixedRow": {
             "14":"camp",
@@ -56,10 +56,10 @@
         "width":5,
         "routesMax":4,
         "specs": {
-            "shop":{"percent":5},
-            "camp":{"percent":12},
-            "senior":{"percent":8},
-            "event":{"percent":22}
+            "shop":{"percent":6},
+            "camp":{"percent":14},
+            "senior":{"percent":9},
+            "event":{"percent":25}
         },
         "fixedRow": {
             "14":"camp",
@@ -103,10 +103,10 @@
         "width":5,
         "routesMax":4,
         "specs": {
-            "shop":{"percent":5},
-            "camp":{"percent":12},
-            "senior":{"percent":8},
-            "event":{"percent":22}
+            "shop":{"percent":6},
+            "camp":{"percent":14},
+            "senior":{"percent":9},
+            "event":{"percent":25}
         },
         "fixedRow": {
             "14":"camp",
@@ -152,10 +152,10 @@
         "width":5,
         "routesMax":4,
         "specs": {
-            "shop":{"percent":5},
-            "camp":{"percent":12},
-            "senior":{"percent":8},
-            "event":{"percent":22}
+            "shop":{"percent":6},
+            "camp":{"percent":14},
+            "senior":{"percent":9},
+            "event":{"percent":25}
         },
         "fixedRow": {
             "14":"camp",
@@ -201,10 +201,10 @@
         "width":5,
         "routesMax":4,
         "specs": {
-            "shop":{"percent":5},
-            "camp":{"percent":12},
-            "senior":{"percent":8},
-            "event":{"percent":22}
+            "shop":{"percent":6},
+            "camp":{"percent":14},
+            "senior":{"percent":9},
+            "event":{"percent":25}
         },
         "fixedRow": {
             "14":"camp",
@@ -249,10 +249,10 @@
         "width":5,
         "routesMax":4,
         "specs": {
-            "shop":{"percent":5},
-            "camp":{"percent":12},
-            "senior":{"percent":8},
-            "event":{"percent":22}
+            "shop":{"percent":6},
+            "camp":{"percent":14},
+            "senior":{"percent":9},
+            "event":{"percent":25}
         },
         "fixedRow": {
             "14":"camp",
@@ -297,10 +297,10 @@
         "width":5,
         "routesMax":4,
         "specs": {
-            "shop":{"percent":5},
-            "camp":{"percent":12},
-            "senior":{"percent":8},
-            "event":{"percent":22}
+            "shop":{"percent":6},
+            "camp":{"percent":14},
+            "senior":{"percent":9},
+            "event":{"percent":25}
         },
         "fixedRow": {
             "14":"camp",
