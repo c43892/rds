@@ -20,6 +20,9 @@ class ElemFactory {
                 else{
                     e = factory.creators[type](ElemFactory.mergeAttrs(type, attrs));
                     e.attrs = attrs;
+                    // 技能的属性可能受职业等级影响
+                    if (e instanceof Relic)
+                        e.attrs = OccupationEffectMgr.effectOnCreateRelic(type, attrs);
                 }
                 Utils.assert(!!e, "unknown elem type: " + type);
                 e.type = type;

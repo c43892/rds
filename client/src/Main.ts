@@ -184,6 +184,9 @@ class Main extends egret.DisplayObjectContainer {
         // 难度配置
         GCfg.getDifficultyCfg = () => ResMgr.getRes("difficulty_json");
 
+        // 职业解锁描述
+        GCfg.getOccUnlockDesc = (occ:string) => ResMgr.getRes("occUnlockDesc_json")[occ];
+
         AchievementMgr.mgr = AchievementMgr.createAchvMgr();
     }
 

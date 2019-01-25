@@ -26,6 +26,7 @@ class MainView extends egret.DisplayObjectContainer {
     public achvView:AchvView; // 成就界面
     public achvDescView:AchvDescView; // 成就详情界面
     public newAchvView:NewAchvView; // 新成就界面
+    public occUnlockView:OccUnlockView; // 职业解锁界面
     public av:AniView; // 动画层
 
     isInBattle:boolean; // 是否在战斗中
@@ -142,6 +143,9 @@ class MainView extends egret.DisplayObjectContainer {
         // 新成就界面
         this.newAchvView = new NewAchvView(w, h);
         this.newAchvView.openAchvDescView = async (achv:Achievement) => await this.openAchvDescView(achv);
+
+        // 打开职业解锁界面
+        this.occUnlockView = new OccUnlockView(w, h);
 
         // 元素描述信息视图
         this.idv = new ElemDescView(w, h);
@@ -583,7 +587,7 @@ class MainView extends egret.DisplayObjectContainer {
     // 打开通关界面
     public async openFinishGameView(){
         Utils.savePlayer(undefined, "onGameEnd");
-        await this.confirmOkYesNo("<font color=#7d0403 size=30>恭喜你,通关了</font>", "<font color=#000000 size=20>开始下一次冒险吧</font>", false);
+        await this.openScoreView();
         this.p = undefined;
         await this.av.blackIn();
         await this.openStartup(undefined);
@@ -666,10 +670,20 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 打开获得新成就界面
     public async openNewAchvView(achv: Achievement) {
-        this.addChild(this.newAchvView);
-        var r = await this.newAchvView.open(achv);
-        if (r)
+        if (this.newAchvView.isOpened)
+            this.newAchvView.addNewAchv(achv);
+        else{
+            this.addChild(this.newAchvView);
+            await this.newAchvView.open(achv);
             this.removeChild(this.newAchvView);
+        }
+    }
+
+    // 打开职业解锁界面
+    public async openOccUnlockView(occ:string, level:number) {
+        this.addChild(this.occUnlockView);
+        await this.occUnlockView.open(occ, level);
+        this.removeChild(this.occUnlockView);
     }
 
     // all relics view
@@ -721,7 +735,10 @@ class MainView extends egret.DisplayObjectContainer {
     public async openScoreView() {
         this.scoreview.player = this.p;
         this.addChild(this.scoreview);
-        await this.scoreview.open();
+        var r = await this.scoreview.open();
+        if (r)
+            await this.openOccUnlockView(r["occ"], r["level"]);
+
         this.removeChild(this.scoreview);
     }
 

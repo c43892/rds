@@ -449,6 +449,23 @@
 				"achvIcon": {"x":270, "y":435, "w":100, "h":100},
 				"goOnBtn":{"x":465, "y":980}
 			}
+		},
+
+		"OccUnlockView":{
+			"layout":{
+				"bg1": {"x":30, "y":100, "w":580, "h":800},
+				"occAvatar":{"x":120, "y":190, "w":150, "h":150},
+				"occText":{"x":300, "y":220, "w":150, "h":40},
+				"levelUp2":{"x":300, "y":300, "w":200, "h":30},
+				"levelUpTitle":{"x":100, "y":350, "w":200, "h":30},
+				"firstInfoContainer":{"x":100, "y":390, "w":440},
+				"moreInfoContainer":{"x":100, "y":390, "w":440},
+				"infoBgFrame":{"w":440, "h":200},
+				"infoTitle":{"x":30, "y":0, "w":300, "h":100},
+				"infoICon":{"x":30, "y":80},
+				"infoDesc":{"x":120, "y":90, "w":300},
+				"goOnBtn":{"x":465, "y":980}
+			}
 		}
     },
 	
@@ -575,6 +592,8 @@
 		"getNewAchvTitle":{"EN": "You've got a new achievement:", "CNS": "恭喜获得成就:", "CNT": "恭喜获得成就:"},
 		"currentAchvPoint":{"EN": "Current achievement point:", "CNS": "当前成就点:", "CNT": "当前成就点:"},
 		"eliteLevelTipTitle":{"EN": "this is a tip title", "CNS": "精英关卡提示", "CNT": "精英关卡提示"},
+		"levelUpTitle":{"EN": "unlock", "CNS": "实力提升效果", "CNT": "实力提升效果"},
+		"unlockBtn":{"EN": "unlock", "CNS": "解锁", "CNT": "解锁"},
 		"": {}
 	}
 }

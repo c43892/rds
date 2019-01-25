@@ -6,7 +6,7 @@ class Occupation {
 
         p = c(p);
         p = Occupation.makeOccupationBuff(p);
-        p = Occupation.getEffet4All(p);
+        p = OccupationEffectMgr.effectOnCreatePlayer(p);
         return p;
     }
 

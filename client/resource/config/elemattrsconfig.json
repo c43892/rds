@@ -13,9 +13,9 @@
             {"deathGodBackStep":10}, {"deathGodBackStep":15}, {"deathGodBackStep":20}, {"deathGodBackStep":25}
         ]
     },
-    "Endurance":{"name":"耐力强化", "dMaxHp":10, 
+    "Endurance":{"name":"耐力强化", "dMaxHp":5, 
         "reinforce":[
-            {"dMaxHp":20}, {"dMaxHp":30}, {"dMaxHp":40}, {"dMaxHp":50}
+            {"dMaxHp":10}, {"dMaxHp":15}, {"dMaxHp":20}, {"dMaxHp":25}
         ]
     },
     "Power":{"name":"力量强化", "dPower":1,
@@ -23,9 +23,9 @@
             {"dPower":2}, {"dPower":3}, {"dPower":4}, {"dPower":5}
         ]
     },
-    "Agile":{"name":"闪避强化", "dDodge":10,
+    "Agile":{"name":"闪避强化", "dDodge":5,
     "reinforce":[
-            {"dDodge":20}, {"dDodge":30}, {"dDodge":40}, {"dDodge":50}
+            {"dDodge":10}, {"dDodge":15}, {"dDodge":20}, {"dDodge":25}
         ]
     },
     "Fierce":{"name":"杀戮专精", "dPower":2,

@@ -188,10 +188,10 @@ class AchievementMgr {
         for (var achvType in mgrInfo){
             var achv = <Achievement>Utils.filter(AchievementMgr.mgr.allAchvs, (achv:Achievement) => achv.type == achvType)[0];
             Utils.assert(!!achv, "no such achievement, type: " + achvType);
-            Utils.assert(achv.achvClass() == "singleGame", "this achievement don't need save and load, type: " + achv.type);
-
-            for (var toStringField in mgrInfo[achvType])
-                achv[toStringField] = mgrInfo[achvType][toStringField];
+            // Utils.assert(achv.achvClass() == "singleGame", "this achievement don't need save and load, type: " + achv.type);
+            if (achv.achvClass() == "singleGame")
+                for (var toStringField in mgrInfo[achvType])
+                    achv[toStringField] = mgrInfo[achvType][toStringField];
             
         }
     }

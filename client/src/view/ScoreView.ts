@@ -17,6 +17,8 @@ class ScoreView extends egret.DisplayObjectContainer{
     
     private scoreInfos;
     private scoreNum;
+    private currentLevel;
+    private newLevel;
     public player:Player;
 
     constructor(w, h){
@@ -93,8 +95,10 @@ class ScoreView extends egret.DisplayObjectContainer{
 
     async open(scoreInfos = []){
         this.onUsing = true;
+        this.currentLevel = Utils.getOccupationLevelAndExp(this.player.occupation).level;
         this.scoreInfos = BattleStatistics.getScoreInfos(this.player.st);
         this.refresh();
+        await this.flyIn();
         
         return new Promise<void>((resolve, reject) => this.doClose = resolve);
     }
@@ -102,16 +106,30 @@ class ScoreView extends egret.DisplayObjectContainer{
     doClose;
 
     async onGoOn() {
-        this.goOnBtn.touchEnabled = false;
-        // 未满级则获得经验
-        if (Utils.getOccupationLevelAndExp(this.player.occupation).level != -1){
-            var getExp = Utils.score2Exp(BattleStatistics.getFinalScore(this.scoreInfos));
-            await Utils.delay(2000);
-            Utils.addOccupationExp(this.player.occupation, getExp);
+        if (!this.goOnBtn["forUnlock"]) {
+            this.goOnBtn.touchEnabled = false;
+            // 未满级则获得经验
+            if (Utils.getOccupationLevelAndExp(this.player.occupation).level != -1) {
+                var getExp = Utils.score2Exp(BattleStatistics.getFinalScore(this.scoreInfos));
+                await Utils.delay(2000);
+                Utils.addOccupationExp(this.player.occupation, getExp);
+            }
+            this.onUsing = false;
+            this.goOnBtn.touchEnabled = true;
+
+            // 是否有升级
+            this.newLevel = Utils.getOccupationLevelAndExp(this.player.occupation).level;
+            if (this.newLevel > this.currentLevel) {
+                this.goOnBtn["forUnlock"] = true;
+                this.goOnBtn.text = ViewUtils.getTipText("unlockBtn");
+            }
+            else
+                this.doClose();
+        } else {
+            this.goOnBtn["forUnlock"] = false;
+            this.goOnBtn.text = ViewUtils.getTipText("continueBtn");
+            this.doClose({ occ: this.player.occupation, level: this.newLevel });
         }
-        this.onUsing = false;
-        this.goOnBtn.touchEnabled = true;
-        this.doClose();
     }
 
     doShare(){
@@ -237,5 +255,30 @@ class ScoreView extends egret.DisplayObjectContainer{
             this.level.alpha = 1;
             this.level.text = (info.level + 1).toString();
         }
+    }
+
+    async flyIn() {
+        this.exp.alpha = 0;
+        this.level.alpha = 0;
+        this.finalScore.alpha = 0;
+        var infoContainers = [];
+        for(var i = 0; i <= 6; i++){
+            if(this.infoContainers[i]){
+                infoContainers.push(this.infoContainers[i]);
+                this.infoContainers[i]["toX"] = this.infoContainers[i].x;
+                this.infoContainers[i].x = 700;
+            }
+        }
+        var finish;
+        for(var i = 0; i < infoContainers.length; i++){
+            var c = infoContainers[i];
+            var toX = c["toX"]
+            var rr = egret.Tween.get(c, {loop:false});
+            rr.to({x:toX}, 500, egret.Ease.quintIn);
+            await Utils.delay(500);
+        }
+        this.exp.alpha = 1;
+        this.level.alpha = 1;
+        this.finalScore.alpha = 1;
     }
 }

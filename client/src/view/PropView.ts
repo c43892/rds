@@ -5,6 +5,7 @@ class PropView extends egret.DisplayObjectContainer {
     private elemImg:egret.Bitmap; // 元素图
     private num:egret.TextField; // 数量，右下角
     private cd:egret.BitmapText; // cd,中心
+    private forbidden:egret.Bitmap; // 禁止符号
 
     public constructor(w, h) {
         super();
@@ -44,6 +45,11 @@ class PropView extends egret.DisplayObjectContainer {
         this.cd = new egret.BitmapText(); // cd 计数
         this.addChild(this.cd);
 
+        // 禁止符号
+        this.forbidden = ViewUtils.createBitmapByName("switchBtnOff_png");
+        this.forbidden.alpha = 0;
+        this.addChild(this.forbidden);
+
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchGrid, this);
         this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
     }
@@ -77,6 +83,13 @@ class PropView extends egret.DisplayObjectContainer {
             this.cd.alpha = 0;
             ViewUtils.makeGray(this.elemImg, false);
         }
+
+        if (e.isForbidden()) {
+            this.forbidden.x = (this.elemImg.width - this.forbidden.width) / 2;
+            this.forbidden.y = (this.elemImg.height - this.forbidden.height) / 2;
+            this.forbidden.alpha = 1;
+        } else
+            this.forbidden.alpha = 0;
     }
 
     public clear() {
@@ -84,6 +97,7 @@ class PropView extends egret.DisplayObjectContainer {
         this.num.alpha = 0;
         this.bg2.alpha = 0;
         this.cd.alpha = 0;
+        this.forbidden.alpha = 0;
     }
 
     public getElem():Elem {
@@ -148,6 +162,8 @@ class PropView extends egret.DisplayObjectContainer {
             return;
 
         if (!this.e.isValid())
+            return;
+        if (this.e.isForbidden())
             return;
         else {
             PropView.currentSelPropView = this;
