@@ -17,24 +17,33 @@ class AudioFactory {
 
     static auidoOn = 1;
     public static set AudioOn(on:number) {
+        if (AudioFactory.auidoOn == on)
+            return;
+
         AudioFactory.auidoOn = on;
-        if (on) {
-            if (AudioFactory.curBgs)
-                AudioFactory.curBgs.ch = AudioFactory.curBgs.s.play(0, -1);
-        }
-        else
-            AudioFactory.stopAll();
+        AudioFactory.resetAudioSwitch();
     }
 
     public static get AudioOn() {
         return AudioFactory.auidoOn;
     }
 
+    static paused = 0;
     public static set Paused(p:number) {
-        if (p)
-            AudioFactory.stopAll();
+        if (AudioFactory.paused == p)
+            return;
+
+        AudioFactory.paused = p;
+        AudioFactory.resetAudioSwitch();
+    }
+
+    static resetAudioSwitch() {
+        if (AudioFactory.auidoOn && !AudioFactory.paused) {
+            if (AudioFactory.curBgs)
+                AudioFactory.curBgs.ch = AudioFactory.curBgs.s.play(0, -1);
+        }
         else
-            AudioFactory.AudioOn = AudioFactory.AudioOn;
+            AudioFactory.stopAll();
     }
 
     static bgs = {};
