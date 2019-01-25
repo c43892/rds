@@ -26,4 +26,5 @@ class GCfg {
     public static getAchvDescCfg; // 获取成就描述
     public static getAchvAwardCfg; // 成就奖励配置
     public static getDifficultyCfg; // 难度相关配置
+    public static getOccUnlockDesc; // 职业解锁相关描述
 }

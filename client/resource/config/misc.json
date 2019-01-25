@@ -27,7 +27,7 @@
             "level4":2
         }
     },
-    "occupationLevelCfg":[2, 20, 300, 400, 500, 600, 700, 800, 900, 1000],
+    "occupationLevelCfg":[500, 1000, 1500, 2000],
     "relicsNeedUnlock":["GoldMedal", "ExpMedal", "DoubleAttack"],
     "eliteLevelTips": {
         "randomEgg": "会出现多个彩蛋僵尸，击杀可以获得不错的奖励",

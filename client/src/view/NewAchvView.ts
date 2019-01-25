@@ -54,18 +54,11 @@ class NewAchvView extends egret.DisplayObjectContainer {
     }
 
     public async open(achv:Achievement) {
-        if (!this.isOpened){
-            this.isOpened = true;
-            this.currentAchv = achv;
-            this.newAchvs.push(achv);
-            this.refresh();
-            return new Promise((resolve, reject) => this.doClose = resolve);
-        }
-        else {
-            this.newAchvs.push(achv);
-            this.refresh();
-            return;
-        }
+        this.isOpened = true;
+        this.currentAchv = achv;
+        this.newAchvs.push(achv);
+        this.refresh();
+        return new Promise((resolve, reject) => this.doClose = resolve);        
     }
 
     doClose;
@@ -86,7 +79,7 @@ class NewAchvView extends egret.DisplayObjectContainer {
             this.refresh();
         } else{
             this.isOpened = false;
-            this.doClose(1);
+            this.doClose();
         }
     }
 
@@ -100,5 +93,6 @@ class NewAchvView extends egret.DisplayObjectContainer {
     // 增加待显示的成就
     public addNewAchv(achv:Achievement){
         this.newAchvs.push(achv);
+        this.refresh();
     }
 }

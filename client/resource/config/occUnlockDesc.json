@@ -1,0 +1,46 @@
+{
+    "Nurse":[
+        [
+            {"title":"获得初始物品", "icon":"HpPotion", "desc":"<font color=#000000 size=25>所有职业初始携带2(1)瓶治疗药剂</font>"},
+            {"title":"技能增强", "icon":"Endurance", "desc":"<font color=#000000 size=25>每级生命+6(5)</font>"}
+        ],
+        [
+            {"title":"获得初始物品", "icon":"HpPotion", "desc":"<font color=#000000 size=25>所有职业初始携带2(1)瓶治疗药剂</font>"},
+            {"title":"技能增强", "icon":"Endurance", "desc":"<font color=#000000 size=25>每级生命+6(5)</font>"}
+        ],
+        [
+            {"title":"获得初始物品", "icon":"HpPotion", "desc":"<font color=#000000 size=25>所有职业初始携带2(1)瓶治疗药剂</font>"},
+            {"title":"技能增强", "icon":"Endurance", "desc":"<font color=#000000 size=25>每级生命+6(5)</font>"}
+        ],
+        [
+            {"title":"获得初始物品", "icon":"HpPotion", "desc":"<font color=#000000 size=25>所有职业初始携带2(1)瓶治疗药剂</font>"},
+            {"title":"技能增强", "icon":"Endurance", "desc":"<font color=#000000 size=25>每级生命+6(5)</font>"}
+        ],
+        [
+            {"title":"获得初始物品", "icon":"HpPotion", "desc":"<font color=#000000 size=25>所有职业初始携带2(1)瓶治疗药剂</font>"},
+            {"title":"技能增强", "icon":"Endurance", "desc":"<font color=#000000 size=25>每级生命+6(5)</font>"}
+        ]
+    ],
+    "Rouge":[
+        [
+            {"title":"获得初始物品", "icon":"HpPotion", "desc":"<font color=#000000 size=25>所有职业初始携带2(1)瓶治疗药剂</font>"},
+            {"title":"技能增强", "icon":"Endurance", "desc":"<font color=#000000 size=25>每级生命+6(5)</font>"}
+        ],
+        [
+            {"title":"获得初始物品", "icon":"HpPotion", "desc":"<font color=#000000 size=25>所有职业初始携带2(1)瓶治疗药剂</font>"},
+            {"title":"技能增强", "icon":"Endurance", "desc":"<font color=#000000 size=25>每级生命+6(5)</font>"}
+        ],
+        [
+            {"title":"获得初始物品", "icon":"HpPotion", "desc":"<font color=#000000 size=25>所有职业初始携带2(1)瓶治疗药剂</font>"},
+            {"title":"技能增强", "icon":"Endurance", "desc":"<font color=#000000 size=25>每级生命+6(5)</font>"}
+        ],
+        [
+            {"title":"获得初始物品", "icon":"HpPotion", "desc":"<font color=#000000 size=25>所有职业初始携带2(1)瓶治疗药剂</font>"},
+            {"title":"技能增强", "icon":"Endurance", "desc":"<font color=#000000 size=25>每级生命+6(5)</font>"}
+        ],
+        [
+            {"title":"获得初始物品", "icon":"HpPotion", "desc":"<font color=#000000 size=25>所有职业初始携带2(1)瓶治疗药剂</font>"},
+            {"title":"技能增强", "icon":"Endurance", "desc":"<font color=#000000 size=25>每级生命+6(5)</font>"}
+        ]
+    ]
+}
