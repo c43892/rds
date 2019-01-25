@@ -741,6 +741,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
     // 进入新的世界地图
     async onPlayerGo2NewWorld(newtWorldName){
         // 先进入整备界面
+        this.refreshShopSoldout();
         await this.openShop(this.worldmap.cfg.shop, true);
         var newWorld = WorldMap.buildFromConfig(newtWorldName, this.player);
         this.player.goToNewWorld(newWorld);
