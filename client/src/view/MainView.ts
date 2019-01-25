@@ -456,6 +456,8 @@ class MainView extends egret.DisplayObjectContainer {
         this.clear();
         // Utils.removeLocalDate("rookiePlay"); // 删除新手数据存档
         // Utils.initAchvData(); // 初始化成就数据
+        // Utils.removeLocalData("occupationExp"); // 删除职业解锁进度
+        // Utils.removeLocalData("playerName"); // 删除玩家名
 
         this.p = p;
         this.lgv.player = p;
