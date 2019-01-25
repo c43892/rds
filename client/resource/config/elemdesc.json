@@ -491,7 +491,7 @@
             "<font color=#7d0403 bold=true size=21>反伤</font>\n<font color=#000000 bold=false size=20>受到普通攻击时，反射50%的伤害</font>"
         ]},
         "Werewolf":{"name":"狼人", "desc":[
-            "<font color=#7d0403 bold=true size=21>狂猛</font>\n<font color=#000000 bold=false size=20>每回合回复20%的生命值，每受到一次伤害攻击翻倍</font>"
+            "<font color=#7d0403 bold=true size=21>狂猛</font>\n<font color=#000000 bold=false size=20>每回合回复20%的生命值，每受到一次伤害攻击提升10%</font>"
         ]},
         "MNutWall":{"name":"坚果墙", "desc":[
             "<font color=#7d0403 bold=true size=21>护卫</font>\n<font color=#000000 bold=false size=20>附近8格中有其他怪物受到攻击时，承受其伤害</font>"
@@ -650,7 +650,7 @@
             "useDescArr":["<font color=#e4d5a5 size=25>在</font><font color=#56ba42 size=25> {immunizeCnt-1} </font><font color=#e4d5a5 size=25>回合内，不会受到突袭，免疫所有伤害</font>\n<font color=#e4d5a5 size=25>冷却时间</font><font color=#56ba42 size=25> {elemCD} </font><font color=#e4d5a5 size=25>回合</font>", "<font color=#e4d5a5 size=25>超能药剂（点击地图任意位置使用）</font>"],
             "initialDesc":"<font color=#000000 size=28>在1回合内，不会受到突袭，免疫所有伤害。</font>"}, 
         "StrengthPotion":{"name":"力量药剂", "desc":["<font color=#000000 size=20>在</font><font color=#294c22 size=20> {enhanceCnt-1} </font><font color=#000000 size=20>回合内，攻击力+</font><font color=#294c22 size=20> 1 </font><font color=#000000 size=20>，怪物无法反击</font>"],
-            "useDescArr":["<font color=#e4d5a5 size=25>在</font><font color=#56ba42 size=25> {enhanceCnt-1} </font><font color=#e4d5a5 size=25>回合内，攻击力+</font><font color=#56ba42 size=25> 1 </font><font color=#000000 size=25>，怪物无法反击</font>\n<font color=#e4d5a5 size=25>冷却时间</font><font color=#56ba42 size=25> {elemCD} </font><font color=#e4d5a5 size=25>回合</font>", "<font color=#e4d5a5 size=25>力量药剂（点击地图任意位置使用）</font>"],
+            "useDescArr":["<font color=#e4d5a5 size=25>在</font><font color=#56ba42 size=25> {enhanceCnt-1} </font><font color=#e4d5a5 size=25>回合内，攻击力翻倍</font><font color=#000000 size=25>，怪物无法反击</font>\n<font color=#e4d5a5 size=25>冷却时间</font><font color=#56ba42 size=25> {elemCD} </font><font color=#e4d5a5 size=25>回合</font>", "<font color=#e4d5a5 size=25>力量药剂（点击地图任意位置使用）</font>"],
 		"initialDesc":"<font color=#000000 size=28>在5回合内，攻击力+1，怪物无法反击。</font>"},
         "Hole":{"name":"黑洞", "desc":["<font color=#000000 size=20>禁止通行</font>"]},
         "Apple":{"name":"苹果", "desc":["<font color=#000000 size=20>使用回复<font color=#294c22 size=20> {dhp} </font><font color=#000000 size=20>点生命值</font>"]},

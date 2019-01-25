@@ -1,38 +1,38 @@
 {
     "Nurse":[
         [
-            {"title":"获得初始物品", "icon":"HpPotion", "desc":"<font color=#000000 size=25>所有职业初始携带2(1)瓶治疗药剂</font>"},
-            {"title":"技能增强", "icon":"Endurance", "desc":"<font color=#000000 size=25>每级生命+6(5)</font>"}
+            {"title":"获得初始物品", "icon":"HpPotion", "desc":"<font color=#000000 size=25>所有职业初始携带<font color=#294c22 size=25>1→2</font>瓶治疗药剂</font>"},
+            {"title":"技能增强", "icon":"Endurance", "desc":"<font color=#000000 size=25>耐力强化，每级生命</font><font color=#294c22 size=25>+5→+6</font>"}
         ],
         [
-            {"title":"获得初始物品", "icon":"HpPotion", "desc":"<font color=#000000 size=25>所有职业初始携带2(1)瓶治疗药剂</font>"},
-            {"title":"技能增强", "icon":"Endurance", "desc":"<font color=#000000 size=25>每级生命+6(5)</font>"}
+            {"title":"获得初始物品", "icon":"HpPotion", "desc":"<font color=#000000 size=25>所有职业初始携带<font color=#294c22 size=25>2→3</font>瓶治疗药剂</font>"},
+            {"title":"技能增强", "icon":"Endurance", "desc":"<font color=#000000 size=25>耐力强化，每级生命</font><font color=#294c22 size=25>+6→+7</font>"}
         ],
         [
-            {"title":"获得初始物品", "icon":"HpPotion", "desc":"<font color=#000000 size=25>所有职业初始携带2(1)瓶治疗药剂</font>"},
-            {"title":"技能增强", "icon":"Endurance", "desc":"<font color=#000000 size=25>每级生命+6(5)</font>"}
+            {"title":"获得初始物品", "icon":"HpPotion", "desc":"<font color=#000000 size=25>所有职业初始携带<font color=#294c22 size=25>3→4</font>瓶治疗药剂</font>"},
+            {"title":"技能增强", "icon":"Endurance", "desc":"<font color=#000000 size=25>耐力强化，每级生命</font><font color=#294c22 size=25>+7→+8</font>"}
         ],
         [
-            {"title":"获得初始物品", "icon":"HpPotion", "desc":"<font color=#000000 size=25>所有职业初始携带2(1)瓶治疗药剂</font>"},
-            {"title":"技能增强", "icon":"Endurance", "desc":"<font color=#000000 size=25>每级生命+6(5)</font>"}
+            {"title":"获得初始物品", "icon":"HpPotion", "desc":"<font color=#000000 size=25>所有职业初始携带<font color=#294c22 size=25>4→5</font>瓶治疗药剂</font>"},
+            {"title":"技能增强", "icon":"Endurance", "desc":"<font color=#000000 size=25>耐力强化，每级生命</font><font color=#294c22 size=25>+8→+9</font>"}
         ]
     ],
     "Rogue":[
         [
-            {"title":"获得初始物品", "icon":"HpPotion", "desc":"<font color=#000000 size=25>所有职业初始携带2(1)瓶治疗药剂</font>"},
-            {"title":"技能增强", "icon":"Endurance", "desc":"<font color=#000000 size=25>每级生命+6(5)</font>"}
+            {"title":"获得初始物品", "icon":"Fierce", "desc":"<font color=#000000 size=25>所有职业获得1级杀戮专精，25%几率获得2级杀戮专精</font>"},
+            {"title":"技能增强", "icon":"Agile", "desc":"<font color=#000000 size=25>闪避强化，每级闪避</font><font color=#294c22 size=25>+5%→+6%</font>"}
         ],
         [
-            {"title":"获得初始物品", "icon":"HpPotion", "desc":"<font color=#000000 size=25>所有职业初始携带2(1)瓶治疗药剂</font>"},
-            {"title":"技能增强", "icon":"Endurance", "desc":"<font color=#000000 size=25>每级生命+6(5)</font>"}
+            {"title":"获得初始物品", "icon":"Fierce", "desc":"<font color=#000000 size=25>所有职业获得1级杀戮专精，50%几率获得2级杀戮专精</font>"},
+            {"title":"技能增强", "icon":"Agile", "desc":"<font color=#000000 size=25>闪避强化，每级闪避</font><font color=#294c22 size=25>+6%→+7%</font>"}
         ],
         [
-            {"title":"获得初始物品", "icon":"HpPotion", "desc":"<font color=#000000 size=25>所有职业初始携带2(1)瓶治疗药剂</font>"},
-            {"title":"技能增强", "icon":"Endurance", "desc":"<font color=#000000 size=25>每级生命+6(5)</font>"}
+            {"title":"获得初始物品", "icon":"Fierce", "desc":"<font color=#000000 size=25>所有职业获得1级杀戮专精，75%几率获得2级杀戮专精</font>"},
+            {"title":"技能增强", "icon":"Agile", "desc":"<font color=#000000 size=25>闪避强化，每级闪避</font><font color=#294c22 size=25>+7%→+8%</font>"}
         ],
         [
-            {"title":"获得初始物品", "icon":"HpPotion", "desc":"<font color=#000000 size=25>所有职业初始携带2(1)瓶治疗药剂</font>"},
-            {"title":"技能增强", "icon":"Endurance", "desc":"<font color=#000000 size=25>每级生命+6(5)</font>"}
+            {"title":"获得初始物品", "icon":"Fierce", "desc":"<font color=#000000 size=25>所有职业获得1级杀戮专精，100%几率获得2级杀戮专精</font>"},
+            {"title":"技能增强", "icon":"Agile", "desc":"<font color=#000000 size=25>闪避强化，每级闪避</font><font color=#294c22 size=25>+8%→+9%</font>"}
         ]
     ]
 }
