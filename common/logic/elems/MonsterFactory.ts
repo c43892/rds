@@ -1300,7 +1300,7 @@ class MonsterFactory {
             else if (p < 70 && p >= 40 && !m["protectiveShield70"]) {
                 // 若之前没有被盾保护,则需要加表现效果,并且将护盾标记为新添加
                 if (!m["protectiveShield"]){
-                    await m.bt().fireEvent("protectiveShield", {subType:"add"});
+                    await m.bt().fireEvent("protectiveShield", {subType:"add", m:m});
                     m["newProtectiveShield"] = true;
                 }
 
@@ -1308,7 +1308,7 @@ class MonsterFactory {
                 m["protectiveShield70"] = true;
             } else if (p < 40 && p >= 10 && !m["protectiveShield40"]) {
                 if (!m["protectiveShield"]){
-                    await m.bt().fireEvent("protectiveShield", {subType:"add"});
+                    await m.bt().fireEvent("protectiveShield", {subType:"add", m:m});
                     m["newProtectiveShield"] = true;
                 }
 
@@ -1317,7 +1317,7 @@ class MonsterFactory {
                 m["protectiveShield40"] = true;
             } else if (p < 10 && p > 0 && !m["protectiveShield10"]) {
                 if (!m["protectiveShield"]){
-                    await m.bt().fireEvent("protectiveShield", {subType:"add"});
+                    await m.bt().fireEvent("protectiveShield", {subType:"add", m:m});
                     m["newProtectiveShield"] = true;
                 }
 
@@ -1346,7 +1346,7 @@ class MonsterFactory {
             }
             m["protectiveShield"] --;
             if(!m["protectiveShield"])
-                await m.bt().fireEvent("protectiveShield", {subType:"remove"});
+                await m.bt().fireEvent("protectiveShield", {subType:"remove", m:m});
         }, m, (ps) => m["protectiveShield"] && ps.m == m);
     }
 

@@ -1720,6 +1720,17 @@ class AniView extends egret.DisplayObjectContainer {
             await AniUtils.flash(relicImg, 100, false);
     }
 
+    // 防护罩特效
+    public async protectiveShield(ps) {
+        // 这里要等特效资源改成帧动画之后再改掉这部分临时代码
+        var gv = this.bv.mapView.getGridViewAt(ps.m.pos.x, ps.m.pos.y);
+        if (ps.subType == "add") {
+            gv.addEffect("effFangHuZhao");
+        } else {
+            gv.removeEffect("effFangHuZhao");
+        }
+    }
+
     // 援护提示
     public async onProtect(ps){
         var m = ps.m;
