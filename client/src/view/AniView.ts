@@ -1633,6 +1633,9 @@ class AniView extends egret.DisplayObjectContainer {
                 case "BuffSuper":
                     this.bv.addAvaterEffect("effSuperPotion");
                 break;
+                case "BuffStrangth":
+                    this.bv.EmphasizeAttackPowerNumber = true;
+                break;
             }
         } else {
             if (ps.target.isDead())
@@ -1672,6 +1675,9 @@ class AniView extends egret.DisplayObjectContainer {
                 break;
                 case "BuffSuper":
                     this.bv.removeAvatarEffect("effSuperPotion");
+                break;
+                case "BuffStrangth":
+                    this.bv.EmphasizeAttackPowerNumber = false;
                 break;
             }
         }

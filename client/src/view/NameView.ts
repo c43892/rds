@@ -70,9 +70,8 @@ class NameView extends egret.DisplayObjectContainer {
         var nameCfg = GCfg.getRandomNameCfg();
         var rd = new SRandom();
         var first = nameCfg.first[rd.nextInt(0, nameCfg.first.length)];
-        var middle = nameCfg.middle[rd.nextInt(0, nameCfg.middle.length)];
         var last = nameCfg.last[rd.nextInt(0, nameCfg.last.length)];
-        this.keyInName.text = first + middle + last;
+        this.keyInName.text = first + last;
         egret.Tween.removeTweens(this.randomBtn);
         this.randomBtn.alpha = 1;
         this.scaleX = 1;
