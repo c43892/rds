@@ -48,7 +48,7 @@ class BattleView extends egret.DisplayObjectContainer {
     public selView:SelView; // 目标选择视图
     // public repView:ReplayView; // 录像界面
     public av:AniView; // 动画视图
-    // public monsterTip:NewMonsterTipView; // 新怪物提示
+    public monsterTip:NewMonsterTipView; // 新怪物提示
     public elemsTip:egret.DisplayObjectContainer;// 特殊元素提示
     public elemsTipBitmaps:egret.Bitmap[] = []; // 特殊元素提示图
 
@@ -395,8 +395,8 @@ class BattleView extends egret.DisplayObjectContainer {
         // this.addChild(this.repView);
 
         // 新怪的图例提示
-        // this.monsterTip = new NewMonsterTipView(w, h, this);
-        // this.addChild(this.monsterTip);
+        this.monsterTip = new NewMonsterTipView(w, h, this);
+        this.addChild(this.monsterTip);
 
         // 濒死效果
         this.deadlyMask = ViewUtils.createBitmapByName("deadlyMask_png");
@@ -672,7 +672,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.setMap(bt.level.map, bt.displayName);
         this.setPlayer(bt.player);
         this.refresh();
-        // this.monsterTip.setBattle(bt);
+        this.monsterTip.setBattle(bt);
     }
 
     // 初始状态下隐藏所有 ban 符号
