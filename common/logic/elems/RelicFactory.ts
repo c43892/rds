@@ -491,7 +491,7 @@ class RelicFactory {
                 }
                 ElemFactory.addAI("onStartupRegionUncoveredMark", async () => {
                     var ms = BattleUtils.findRandomElems(r.bt(), attrs.markNum, (e: Elem) =>
-                        !e.getGrid().isUncoveredOrMarked() && e instanceof Monster && e.isHazard() && !e.isBig() && e.type != "PlaceHolder");
+                        !e.getGrid().isUncoveredOrMarked() && e instanceof Monster && e.isHazard() && !e.isBig() && !e.isBoss && !e.isElite && e.type != "PlaceHolder");
                     for (var m of ms)
                         await r.bt().implMark(m.pos.x, m.pos.y);
                 }, r)

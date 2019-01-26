@@ -31,6 +31,7 @@ class CharacterView extends egret.DisplayObjectContainer {
     public onPlayerDead;
     public confirmOkYesNo;
     public showElemDesc;
+    public giveUpGame;
     
     constructor(w, h){
         super();
@@ -337,9 +338,10 @@ class CharacterView extends egret.DisplayObjectContainer {
     async exitThisGame(){
         var content = ViewUtils.formatString(ViewUtils.getTipText("makeSureExitThisGame"));
         var ok = await this.confirmOkYesNo(undefined, content, true);
-        if (ok)
-            this.goBack("giveUpGame");
-
+        if (ok){
+            Utils.savePlayer(undefined, "onGameEnd");
+            await this.giveUpGame();
+        }
     }
 
     // 点击玩家有的技能
