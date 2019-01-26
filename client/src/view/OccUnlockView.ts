@@ -89,7 +89,7 @@ class OccUnlockView extends egret.DisplayObjectContainer {
     }
 
     refreshUnlockInfos() {
-        var infos = GCfg.getOccUnlockDesc(this.occ)[this.level - 1];
+        var infos = GCfg.getOccUnlockDesc(this.occ)[this.level - 2];
         // 先设置第一条解锁信息
         var firstInfo = infos[0];
         var firstInfoContainer = this.createSingleUnlockInfo(firstInfo);
