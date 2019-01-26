@@ -8,8 +8,14 @@ class Monster extends Elem {constructor() { super();}
     public isElite = false;
     public trapped = false;
     public canFrozen = () => { // 怪物是否能被冰冻,存在动态变化的可能
-        var b = this.attrs.targetFlags ? !Utils.contains(this.attrs.targetFlags, "immuneFrozen") : true;
-        this.bt().triggerLogicPointSync("canFrozen", {m:this, canFrozen:b})
+        var tar:Monster;
+        if (this.type == "PlaceHolder")
+            tar = this["linkTo"];            
+        else
+            tar = this;
+
+        var b = tar.attrs.targetFlags ? !Utils.contains(tar.attrs.targetFlags, "immuneFrozen") : true;
+        this.bt().triggerLogicPointSync("canFrozen", {m:tar, canFrozen:b});
         return b;
     }
 
