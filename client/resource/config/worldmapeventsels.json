@@ -410,7 +410,7 @@
                 "ps": {"group": "a53"}
             }],
             "extraRobSel": {
-                "desc": "<font color=#000000 size=20>[打劫]</font><font color=#000000 size=20>获得250金币</font>",
+                "desc": "<font color=#000000 size=20>[打劫]</font><font color=#00b050 size=20>获得250金币</font>",
                 "func": ["+money", "redirectSelGroup"],
                 "ps": {"money": 250, "group": "a54"}
             },
