@@ -46,7 +46,7 @@ class BattleView extends egret.DisplayObjectContainer {
     public propsView:PropsView; // 道具视图
     public moreProps:egret.Bitmap; // 更多道具
     public selView:SelView; // 目标选择视图
-    public repView:ReplayView; // 录像界面
+    // public repView:ReplayView; // 录像界面
     public av:AniView; // 动画视图
     // public monsterTip:NewMonsterTipView; // 新怪物提示
     public elemsTip:egret.DisplayObjectContainer;// 特殊元素提示
@@ -391,8 +391,8 @@ class BattleView extends egret.DisplayObjectContainer {
         }
 
         // 录像
-        this.repView = new ReplayView(w, h);
-        this.addChild(this.repView);
+        // this.repView = new ReplayView(w, h);
+        // this.addChild(this.repView);
 
         // 新怪的图例提示
         // this.monsterTip = new NewMonsterTipView(w, h, this);
@@ -472,7 +472,7 @@ class BattleView extends egret.DisplayObjectContainer {
         this.refreshMap();
         this.refreshPlayer();
         this.av.refresh();
-        this.repView.refresh();
+        // this.repView.refresh();
         this.refreshElemsTip();
         if (this.contains(this.selView)) this.removeChild(this.selView);
     }
@@ -655,7 +655,7 @@ class BattleView extends egret.DisplayObjectContainer {
     public clear() {
         this.mapView.clear();
         this.av.clear();
-        this.repView.clear();
+        // this.repView.clear();
         if (this.contains(this.selView)) this.removeChild(this.selView);
         this.removeChild(this.avatar);
         for (var bmp of this.relics)
