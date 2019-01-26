@@ -122,14 +122,14 @@ class MonsterFactory {
         "Ghost": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doChaseToNextLevel(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))))), //幽灵
         "RedSlime": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), //红色史莱姆
         "GreenSlime": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doAddHpPerRound(Math.floor(attrs.hp * 0.2) > 1 ? Math.floor(attrs.hp * 0.2) : 1, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))))), //绿色史莱姆
-        "Siren": (attrs) => MonsterFactory.doReduceHpPerRoundOnUncovered(MonsterFactory.doSneakReduseDeathStep(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 塞壬
-        "Worm": (attrs) => MonsterFactory.suckBloodOnAttack(MonsterFactory.doSneakTakeItems(MonsterFactory.doAttackBack(this.createMonster(attrs)), false)), // 吞噬蠕虫
-        "Hag": (attrs) => MonsterFactory.forbiddenUsingProp(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 女妖
-        "Nightmare": (attrs) => MonsterFactory.doDestroyItemOnAttack(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 梦魇
-        "ThunderElemental": (attrs) => MonsterFactory.doThunderDamageAroundOnAttack(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 雷元素
+        "Siren": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doReduceHpPerRoundOnUncovered(MonsterFactory.doSneakReduseDeathStep(MonsterFactory.doAttackBack(this.createMonster(attrs))))), // 塞壬
+        "Worm": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.suckBloodOnAttack(MonsterFactory.doSneakTakeItems(MonsterFactory.doAttackBack(this.createMonster(attrs)), false))), // 吞噬蠕虫
+        "Hag": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.forbiddenUsingProp(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))))), // 女妖
+        "Nightmare": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doDestroyItemOnAttack(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))))), // 梦魇
+        "ThunderElemental": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doThunderDamageAroundOnAttack(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))))), // 雷元素
         "FlameElemental": (attrs) => MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))), // 火元素
-        "Echinus": (attrs) => MonsterFactory.doThornsDamageOnNormalAttacked(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 海胆
-        "Werewolf": (attrs) => MonsterFactory.doDoublePowerOnHurt(10, MonsterFactory.doAddHpPerRound(Math.floor(attrs.hp * 0.2) > 1 ? Math.floor(attrs.hp * 0.2) : 1, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))))), // 狼人
+        "Echinus": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doThornsDamageOnNormalAttacked(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs))))), // 海胆
+        "Werewolf": (attrs) => MonsterFactory.doMoveOnPlayerActed(MonsterFactory.doDoublePowerOnHurt(10, MonsterFactory.doAddHpPerRound(Math.floor(attrs.hp * 0.2) > 1 ? Math.floor(attrs.hp * 0.2) : 1, MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))))), // 狼人
         "MNutWall": (attrs) => <Plant>MonsterFactory.doProtectMonsterAround(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)))), // 怪物坚果墙
         "MPeashooter": (attrs) => { //怪物豌豆射手
             var m = <Plant>MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)));
@@ -491,12 +491,12 @@ class MonsterFactory {
 
             if (interval < caledAttackInterval){
                 interval++;
-                m["attackInterval"] = caledAttackInterval - interval + 1;
+                m["attackInterval"] = (caledAttackInterval - interval) < 0 ? 0 : (caledAttackInterval - interval) + 1;
                 await m.bt().fireEvent("onElemChanged", {subType:"attackInterval", e:m});
             }
-            else{
+            else {
                 interval = interval - caledAttackInterval + 1;
-                m["attackInterval"] = caledAttackInterval - interval + 1;
+                m["attackInterval"] = (caledAttackInterval - interval) < 0 ? 0 : (caledAttackInterval - interval) + 1;
                 await m.bt().fireEvent("onElemChanged", {subType:"attackInterval", e:m});
                 if (condition()) {
                     var target = findTarget();
