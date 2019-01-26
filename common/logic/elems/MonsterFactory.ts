@@ -481,6 +481,7 @@ class MonsterFactory {
     // 攻击一次
     static doAttack(logicPoint:string, m:Monster, findTarget, attackInterval:number = 0, condition = () => true, extraPowerABC = {a:0, b:0, c:0}):Monster {
         attackInterval = attackInterval ? attackInterval : 0;
+        m["attackInterval"] = attackInterval ? attackInterval : 1;
         var interval = 0; // 攻击行为的间隔回合记数
         return <Monster>ElemFactory.addAI(logicPoint, async () => {
             // 计算攻击间隔
@@ -491,12 +492,12 @@ class MonsterFactory {
 
             if (interval < caledAttackInterval){
                 interval++;
-                m["attackInterval"] = (caledAttackInterval - interval) < 0 ? 0 : (caledAttackInterval - interval) + 1;
+                m["attackInterval"] = (caledAttackInterval - interval) < 0 ? 1 : ((caledAttackInterval - interval) + 1);
                 await m.bt().fireEvent("onElemChanged", {subType:"attackInterval", e:m});
             }
             else {
                 interval = interval - caledAttackInterval + 1;
-                m["attackInterval"] = (caledAttackInterval - interval) < 0 ? 0 : (caledAttackInterval - interval) + 1;
+                m["attackInterval"] = (caledAttackInterval - interval) < 0 ? 1 : ((caledAttackInterval - interval) + 1);
                 await m.bt().fireEvent("onElemChanged", {subType:"attackInterval", e:m});
                 if (condition()) {
                     var target = findTarget();

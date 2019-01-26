@@ -691,9 +691,11 @@ class WorldMapView extends egret.DisplayObjectContainer {
         var p = this.worldmap.player;
 
         switch (evt) {
-            case "normal":
+            case "eliteBattle":
                 var btRandonSeed = p.playerRandom.nextInt(0, 10000);
-                await this.startNewBattle(p, "normal", lv, n, btRandonSeed);
+                var seniorTypes = GCfg.getMiscConfig("seniorTypes");
+                var seniorType = seniorTypes[p.playerRandom.nextInt(0, seniorTypes.length)];
+                await this.startNewBattle(p, seniorType, lv, n, btRandonSeed);
                 break;
             case "box":
                 await this.openBoxRoom(this.worldmap.cfg.boxroomDrops);

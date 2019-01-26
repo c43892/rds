@@ -2,12 +2,14 @@
     "exp2Lv":[100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300, 310, 320, 330, 340, 350, 360, 370, 380, 390],
 
     "levelUpChoices":{
-        "MedicineBox":10,
         "TimeMachine":10,
         "Endurance":10,
         "Power":10,
         "Agile":10,
         "Fierce":10,
+        "MonsterHunter":10,
+        "MedicineBox":10,
+        "GangMember":10,
         "TradeMaster":10,
         "HorticultureMaster":10
     },

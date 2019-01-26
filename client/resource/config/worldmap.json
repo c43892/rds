@@ -26,7 +26,7 @@
         },
         "events":{
             "shop":10,
-            "normal":10,
+            "eliteBattle":10,
             "box":10,
             "a1": 10,
             "a2": 10,
@@ -72,7 +72,7 @@
         },
         "events":{
             "shop":10,
-            "normal":10,
+            "eliteBattle":10,
             "box":10,
             "a1": 10,
             "a2": 10,
@@ -119,7 +119,7 @@
         },
         "events":{
             "shop":10,
-            "normal":10,
+            "eliteBattle":10,
             "box":10,
             "a1": 10,
             "a2": 10,
@@ -168,7 +168,7 @@
         },
         "events":{
             "shop":10,
-            "normal":10,
+            "eliteBattle":10,
             "box":10,
             "a1": 10,
             "a2": 10,
@@ -217,7 +217,7 @@
         },
         "events":{
             "shop":10,
-            "normal":10,
+            "eliteBattle":10,
             "box":10,
             "a1": 10,
             "a2": 10,
@@ -265,7 +265,7 @@
         },
         "events":{
             "shop":10,
-            "normal":10,
+            "eliteBattle":10,
             "box":10,
             "a1": 10,
             "a2": 10,
@@ -313,7 +313,7 @@
         },
         "events":{
             "shop":10,
-            "normal":10,
+            "eliteBattle":10,
             "box":10,
             "a1": 10,
             "a2": 10,
