@@ -448,7 +448,7 @@
             "<font color=#7d0403 bold=true size=21>沙尘</font>\n<font color=#000000 bold=false size=20>在自己身边制造迷雾</font>"
         ], "skillNames":["沙尘"]},
         "PoisonJellyfish":{"name":"毒性水母", "desc":[
-            "<font color=#7d0403 bold=true size=21>毒雾</font>\n<font color=#000000 bold=false size=20>死亡时使所有未揭开的方块带毒</font>"
+            "<font color=#7d0403 bold=true size=21>毒雾</font>\n<font color=#000000 bold=false size=20>死亡时使所有未揭开的方块带毒，持续3回合</font>"
         ]},
         "SkeletonKing":{"name":"骷髅王", "desc":[
             "<font color=#7d0403 bold=true size=21>不死</font>\n<font color=#000000 bold=false size=20>每当被其他怪物突袭时复活</font>"
