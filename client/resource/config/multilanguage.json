@@ -494,7 +494,7 @@
 		"notHungry": { "EN": "I'm not hungry", "CNS": "我不饿", "CNT": "人家不饿" },
 		"noKey": { "EN": "I don't have enough key", "CNS": "没有钥匙", "CNT": "人家没有钥匙" },
 		"doorLocked": { "EN": "The door is locked by boss", "CNS": "Boss锁住了门", "CNT": "Boss锁住了门" },
-		"swathed":{ "EN": "spider is still alive", "CNS": "需要先消灭蜘蛛", "CNT": "需要先消灭蜘蛛" },
+		"swathed":{ "EN": "kill the monster who swathed it first", "CNS": "需要先消灭缠绕它的怪物", "CNT": "需要先消灭缠绕它的怪物" },
 		"cure": { "EN": "cure", "CNS": "愈合", "CNT": "愈合" },
 		"thorns": { "EN": "thorns", "CNS": "荆棘", "CNT": "荆棘" },
 		"protect": { "EN": "protect", "CNS": "援护", "CNT": "援护" },

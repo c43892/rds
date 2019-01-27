@@ -331,8 +331,9 @@ class Utils {
 
     // 保存角色数据
     public static savePlayer(p:Player, reason = undefined) {
-        // player数据存档时,同时将预完成成就数据存档.        
-        for (var preFinishInfo of AchievementMgr.mgr.allPreFinishedAchvs())
+        // player数据存档时,同时将预完成成就数据存档
+        var allPreFinishedAchvs = [...AchievementMgr.mgr.allPreFinishedAchvs()];
+        for (var preFinishInfo of allPreFinishedAchvs)
              AchievementMgr.mgr.finishAchvAndSave(preFinishInfo);
         // 部分特殊节点需要刷新一下成就管理器
         if (reason){

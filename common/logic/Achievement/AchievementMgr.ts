@@ -70,8 +70,9 @@ class AchievementMgr {
             Utils.saveAchvData(preFinishInfo.type, preFinishInfo.finishedStage);
         
         var achvClass = GCfg.getAchvCfg()[preFinishInfo.type]["achvClass"];
-        this.preFinishedAchv[achvClass] = Utils.remove(this.preFinishedAchv[achvClass], (preInfo) =>
-            preInfo.type == preFinishInfo && preInfo.isFinished == preFinishInfo.isFinished && preInfo.finishedStage == preFinishInfo.finishedStage);
+        this.preFinishedAchv[achvClass] = Utils.removeFirstWhen(this.preFinishedAchv[achvClass], (preInfo) =>
+            (preInfo.type == preFinishInfo.type) && (preInfo.isFinished == preFinishInfo.isFinished) 
+            && (!preInfo.finishedStage || preInfo.finishedStage == preFinishInfo.finishedStage));
     }
 
     // 获取总成就点
