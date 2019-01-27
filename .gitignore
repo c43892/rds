@@ -4,7 +4,6 @@ client/src/logic
 client/bin-debug
 client/libs/modules
 client_wxgame
-keys
 wxOpenDataContext
 
 server/logic
