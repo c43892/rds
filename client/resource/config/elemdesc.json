@@ -390,7 +390,8 @@
             "<font color=#7d0403 bold=true size=21>吸血</font>\n<font color=#000000 bold=false size=20>突袭时吸取{percent}%的生命值</font>"
         ], "skillNames":["吸血"]},
         "GoblinThief":{"name":"哥布林窃贼", "desc":[
-            "<font color=#7d0403 bold=true size=21>偷窃</font>\n<font color=#000000 bold=false size=20>突袭时偷取玩家的金币</font>"
+            "<font color=#7d0403 bold=true size=21>偷窃</font>\n<font color=#000000 bold=false size=20>突袭时偷取玩家的金币</font>",
+            "<font color=#7d0403 bold=true size=21>拾荒</font>\n<font color=#000000 bold=false size=20>主动拾取地上的金币</font>"
         ], "skillNames":["偷窃"]},
         "HoundZombie":{"name":"恐怖猎犬", "desc":[
             "<font color=#7d0403 bold=true size=21>尸毒</font>\n<font color=#000000 bold=false size=20>攻击附带中毒效果</font>"
