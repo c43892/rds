@@ -9,7 +9,7 @@ class ScoreView extends egret.DisplayObjectContainer{
     private exp:egret.TextField;
     private expBar:egret.Bitmap;
     private level:egret.TextField;
-    private shareBtn:ArrowButton;
+    // private shareBtn:ArrowButton;
     private goOnBtn:ArrowButton;
 
     private scrollContent:egret.DisplayObjectContainer;
@@ -83,17 +83,18 @@ class ScoreView extends egret.DisplayObjectContainer{
         this.scrollArea.bounces = true;
         this.scrollArea.addEventListener(egret.Event.CHANGE, () => this.setInfoContainers(), this);
 
-        this.shareBtn = new ArrowButton(false, "goShare_png", 30);
-        this.shareBtn.text = ViewUtils.getTipText("shareBtn");
-        this.shareBtn.name = "shareBtn";
-        this.shareBtn.onClicked = () => this.doShare();
+        // this.shareBtn = new ArrowButton(false, "goShare_png", 30);
+        // this.shareBtn.text = ViewUtils.getTipText("shareBtn");
+        // this.shareBtn.name = "shareBtn";
+        // this.shareBtn.onClicked = () => this.doShare();
 
         this.goOnBtn = new ArrowButton(true, "goForward_png", 30);
         this.goOnBtn.text = ViewUtils.getTipText("continueBtn");
         this.goOnBtn.name = "goOnBtn";
         this.goOnBtn.onClicked = () => this.onGoOn();
 
-        var objs = [this.bg, this.bg1, this.avatarBg, this.avatar, this.playerName, this.finalScore, this.exp, this.expBar, this.level, this.scrollArea, this.shareBtn, this.goOnBtn];
+        var objs = [this.bg, this.bg1, this.avatarBg, this.avatar, this.playerName, this.finalScore, this.exp, this.expBar, 
+        this.level, this.scrollArea, /*this.shareBtn, */this.goOnBtn];
         objs.forEach((obj, _) => this.addChild(obj));
         ViewUtils.multiLang(this, ...objs);
 

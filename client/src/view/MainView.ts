@@ -296,7 +296,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.pluv.player = this.p;
         this.addChild(this.pluv);
         if (!this.isInBattle)
-            this.setChildIndex(this.wmtv, -1);
+            this.setTopAndRefreshWmtv();
         var sel = await this.pluv.open(choices);
         this.removeChild(this.pluv);
         await onSel(sel);
@@ -306,7 +306,7 @@ class MainView extends egret.DisplayObjectContainer {
     public async openShopOnWorldMap(shop, afterBoss = false) {
         this.sv.player = this.p;
         this.addChild(this.sv);
-        this.setChildIndex(this.wmtv, -1);
+        this.setTopAndRefreshWmtv();
         var r = Utils.genRandomShopItems(this.p, shop, this.p.playerRandom, 6);
 
         // 处理打折
@@ -385,7 +385,7 @@ class MainView extends egret.DisplayObjectContainer {
     public async openHospital() {
         this.hv.player = this.p;
         this.addChild(this.hv);
-        this.setChildIndex(this.wmtv, -1);
+        this.setTopAndRefreshWmtv();
         await this.hv.openHospital();
         this.removeChild(this.hv);
     }
@@ -394,7 +394,7 @@ class MainView extends egret.DisplayObjectContainer {
     public async openBoxRoom() {
         this.brv.player = this.p;
         this.addChild(this.brv);
-        this.setChildIndex(this.wmtv, -1);
+        this.setTopAndRefreshWmtv();
         await this.brv.open();
         this.removeChild(this.brv);
     }
@@ -412,7 +412,7 @@ class MainView extends egret.DisplayObjectContainer {
             }
         }
         this.addChild(this.ttv);
-        this.setChildIndex(this.wmtv, -1);
+        this.setTopAndRefreshWmtv();
         await this.ttv.open();
         this.removeChild(this.ttv);
     }
@@ -428,7 +428,7 @@ class MainView extends egret.DisplayObjectContainer {
         wmesv.x = wmesv.y = 0;
         wmesv.player = this.p;
         this.addChild(wmesv);
-        this.setChildIndex(this.wmtv, -1);
+        this.setTopAndRefreshWmtv();
         this.lastWmesv = wmesv;
         await wmesv.open(title, desc, bg, sels);
 
@@ -450,6 +450,12 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.player = this.p;
         this.wmv.setWorldMap(worldmap);
         AudioFactory.playBg("bgs");
+    }
+
+    // 将世界地图的顶端长条刷新并置顶
+    public setTopAndRefreshWmtv(){
+        this.wmtv.refresh();
+        this.setChildIndex(this.wmtv, -1);
     }
 
     // 开启初始登录界面
@@ -600,7 +606,7 @@ class MainView extends egret.DisplayObjectContainer {
     public async showElemDesc(e:Elem, forRelicLevelUp = undefined) {
         this.addChild(this.idv);
         if (!this.isInBattle)
-            this.setChildIndex(this.wmtv, -1);
+            this.setTopAndRefreshWmtv();
         this.idv.player = this.p;
         await this.idv.open(e, forRelicLevelUp);
         this.removeChild(this.idv);
@@ -615,7 +621,7 @@ class MainView extends egret.DisplayObjectContainer {
     public async openShopConfirmView(player:Player, e:Elem, price:number, showPrice = true){
         this.addChild(this.scv);
         if (!this.isInBattle)
-            this.setChildIndex(this.wmtv, -1);
+            this.setTopAndRefreshWmtv();
         var yesno = await this.scv.open(player, e, price, showPrice);
         this.removeChild(this.scv);
         return yesno;
@@ -626,7 +632,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.addChild(this.rev);
 
         // if (!inBattle)
-        //     this.setChildIndex(this.wmtv, -1);
+        //     this.setTopAndRefreshWmtv();
 
         var result = await this.rev.open(canDrag, funcOnClinked, hideGoBackBtn, relics4Sel);
         this.removeChild(this.rev);
@@ -693,7 +699,7 @@ class MainView extends egret.DisplayObjectContainer {
     public async openAllElemsView(elems:Elem[], funcOnClinked = undefined, title:string = undefined, tip:string = undefined) {
         this.addChild(this.aev);
         if (!this.isInBattle)
-            this.setChildIndex(this.wmtv, -1);
+            this.setTopAndRefreshWmtv();
         this.aev.player = this.p;
         var sel = await this.aev.open(elems, funcOnClinked, title, tip);
         this.removeChild(this.aev);
@@ -704,7 +710,7 @@ class MainView extends egret.DisplayObjectContainer {
     public async openSettingView() {
         this.st.player = this.p;
         this.addChild(this.st);
-        this.setChildIndex(this.wmtv, -1);
+        this.setTopAndRefreshWmtv();
         await this.st.open();
         this.removeChild(this.st);
     }
