@@ -1,8 +1,6 @@
 #import "ViewController.h"
 #import "ZipArchive.h"
 
-@import GoogleMobileAds;
-
 @interface ViewController ()
 
 @end
@@ -12,8 +10,6 @@
     NSString* _host;
     NSString* _gameUrl;
 }
-
-bool notified;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -35,10 +31,6 @@ bool notified;
         ZipFileLoader* loader = [EgretWebViewLib createZipFileLoader:zipFilePath Host:_host Delegate:self];
         [loader start];
     }
-    
-    [GADMobileAds configureWithApplicationID:@"ca-app-pub-3940256099942544~3347511713"];
-    [GADRewardBasedVideoAd sharedInstance].delegate = self;
-    [self loadAds];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -51,36 +43,6 @@ bool notified;
         NSLog(@"message: %@", msg);
         [EgretWebViewLib callExternalInterface:@"callJS" Value:@"message from native"];
     }];
-	
-	[EgretWebViewLib setExternalInterface:@"rdsLoadLocalStorageData" Callback:^(NSString* msg) {
-        NSString* docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-        NSString* strPath = [docPath stringByAppendingPathComponent:@"localStorageFile"];
-        NSString* str = [NSString stringWithContentsOfFile:strPath encoding:NSUTF8StringEncoding error:nil];
-        [EgretWebViewLib callExternalInterface:@"rdsLoadLocalStorageDataCallback" Value:str];
-    }];
-
-    [EgretWebViewLib setExternalInterface:@"rdsSaveLocalStorageData" Callback:^(NSString* data) {
-        NSString* docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-        NSString* strPath = [docPath stringByAppendingPathComponent:@"localStorageFile"];
-        [data writeToFile:strPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
-    }];
-    
-    [EgretWebViewLib setExternalInterface:@"rdsPlayRewardAds" Callback:^(NSString *s) {
-        [self playRewardAd];
-    }];
-}
-
-- (void)playRewardAd {
-    if ([[GADRewardBasedVideoAd sharedInstance] isReady]) {
-        NSLog(@"play ad");
-        [[GADRewardBasedVideoAd sharedInstance] presentFromRootViewController:self];
-    }
-}
-
-- (void)loadAds {
-    notified = false;
-    [[GADRewardBasedVideoAd sharedInstance] loadRequest:[GADRequest request]
-                                           withAdUnitID:@"ca-app-pub-3940256099942544/5224354917"];
 }
 
 - (void)onStart:(long)fileCount Size:(long)totalSize {
@@ -119,47 +81,6 @@ bool notified;
     }
     [zip UnzipCloseFile];
     return true;
-}
-
-- (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd
-   didRewardUserWithReward:(nonnull GADAdReward *)reward {
-    NSString *rewardMessage = [NSString stringWithFormat:@"reward received with currency %@, amount %lf",
-        reward.type,
-     [reward.amount doubleValue]];
-    NSLog(rewardMessage);
-	[EgretWebViewLib callExternalInterface:@"notifyRewardAdCompleted" Value:@""];
-}
-
-- (void)rewardBasedVideoAdDidReceiveAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
-    [EgretWebViewLib callExternalInterface:@"notifyAdMobLoaded" Value:@""];
-    NSLog(@"ad loaded");
-    // [self playRewardAd];
-}
-- (void)rewardBasedVideoAdDidOpen:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
-    
-}
-
-- (void)rewardBasedVideoAdDidStartPlaying:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
-    
-}
-
-- (void)rewardBasedVideoAdDidClose:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
-    if (!notified) {
-        notified = true;
-        [EgretWebViewLib callExternalInterface:@"notifyRewardAdCompleted" Value:@"canceled"];
-    }
-    
-    [self loadAds];
-}
-
-- (void)rewardBasedVideoAdWillLeaveApplication:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
-    
-}
-
-- (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd
-    didFailToLoadWithError:(nonnull NSError *)error {
-    NSLog(@"Reward based video ad failed to load. %@", error);
-	[self loadAds];
 }
 
 @end

@@ -217,8 +217,7 @@
 				TargetAttributes = {
 					30D4EFA020EF6277004DBC75 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = BL9L723UM9;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -410,9 +409,6 @@
 			baseConfigurationReference = 481D353CA75F54CE854EAAE5 /* Pods-client_ios_hybrid.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = BL9L723UM9;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SDKROOT)/usr/include/libxml2\"",
@@ -430,7 +426,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.egret.client_ios_hybrid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -439,9 +434,6 @@
 			baseConfigurationReference = 571807A69E43DF58AEE81C7A /* Pods-client_ios_hybrid.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = BL9L723UM9;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SDKROOT)/usr/include/libxml2\"",
@@ -459,7 +451,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.egret.client_ios_hybrid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
