@@ -30,7 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		30D4EFA120EF6277004DBC75 /* client_ios_hybrid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = client_ios_hybrid.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		30D4EFA120EF6277004DBC75 /* 魔塔扫雷.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "魔塔扫雷.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		30D4EFA520EF6277004DBC75 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		30D4EFA720EF6277004DBC75 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		30D4EFA820EF6277004DBC75 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -112,7 +112,7 @@
 		30D4EFA220EF6277004DBC75 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				30D4EFA120EF6277004DBC75 /* client_ios_hybrid.app */,
+				30D4EFA120EF6277004DBC75 /* 魔塔扫雷.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -203,7 +203,7 @@
 			);
 			name = client_ios_hybrid;
 			productName = client_ios_hybrid;
-			productReference = 30D4EFA120EF6277004DBC75 /* client_ios_hybrid.app */;
+			productReference = 30D4EFA120EF6277004DBC75 /* 魔塔扫雷.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -413,6 +413,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BL9L723UM9;
+				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SDKROOT)/usr/include/libxml2\"",
@@ -428,8 +429,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/libs/EgretWebViewLib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.egret.client_ios_hybrid;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.daybreak.rds;
+				PRODUCT_NAME = "魔塔扫雷";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
@@ -442,6 +443,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BL9L723UM9;
+				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SDKROOT)/usr/include/libxml2\"",
@@ -457,8 +459,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/libs/EgretWebViewLib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.egret.client_ios_hybrid;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.daybreak.rds;
+				PRODUCT_NAME = "魔塔扫雷";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
