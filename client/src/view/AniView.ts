@@ -823,16 +823,18 @@ class AniView extends egret.DisplayObjectContainer {
    
         var e = ps.e;
         var d = ps.d > 0 ? 1 : -1;
-        if (Switch.coinAni()){
-            var coinSV = this.getSV(e);
+        
+        var coinSV = this.getSV(e);
 
-            if (d > 0)
-                await this.coinsFly(e, coinSV, txt, ps.d)
-            else if (e.type != "ShopNpc")
-                await this.coinsFly(e, txt, coinSV, ps.d)
+        // 获得金钱(一般是拾取)且未关闭金币飞行动画时
+        if (d > 0 && Switch.coinAni())
+            await this.coinsFly(e, coinSV, txt, ps.d)
+        // 某个非商人的elem造成金钱减少
+        else if (d < 0 && e.type != "ShopNpc")
+            await this.coinsFly(e, txt, coinSV, ps.d)
 
-            coinSV["resetSelf"]();
-        }
+        coinSV["resetSelf"]();
+    
         this.bv.refreshMoney();
     }
 

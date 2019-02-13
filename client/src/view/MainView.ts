@@ -137,6 +137,7 @@ class MainView extends egret.DisplayObjectContainer {
         // 成就界面
         this.achvView = new AchvView(w, h);
         this.achvView.openAchvDescView = async (achv:Achievement) => await this.openAchvDescView(achv);
+        this.achvView.openRelicDesc = async (relic:Relic) => await this.showElemDesc(relic);
 
         // 成就详情界面
         this.achvDescView = new AchvDescView(w, h);
@@ -454,6 +455,7 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 将世界地图的顶端长条刷新并置顶
     public setTopAndRefreshWmtv(){
+        if (!this.wmtv.player) return;
         this.wmtv.refresh();
         this.setChildIndex(this.wmtv, -1);
     }
@@ -463,6 +465,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.clear();
         // Utils.removeLocalDate("rookiePlay"); // 删除新手数据存档
         // Utils.initAchvData(); // 初始化成就数据
+        // AchievementMgr.mgr.finishAchvAndSave({type:"RichMan", isFinished:true, finishedStage:undefined});
         // Utils.removeLocalData("occupationExp"); // 删除职业解锁进度
         // Utils.removeLocalData("playerName"); // 删除玩家名
 

@@ -2,7 +2,7 @@
     "battleViewElemTipTypes" : ["Clock", "Gengar", "TreasureBox", "RandomEggZombie"],
     "seniorTypes" : ["eliteGoblinThief", "eliteVampire", "eliteLustZombie", "eliteSwatheZombie", "eliteReviveZombie"],
     "bossTypes" : ["slimeKing", "brainOfCthulhu", "kraken", "halloweenTreant"],
-    "unlockPrices": [50,75,125,250,250,300,350,400],
+    "unlockPrices": [75,125,175,250,350,450,600,800],
     "PlantTypes": ["NutWall", "Peashooter", "CherryBomb", "Sunflower", "CharmingMushroom"],
     "sanLevel": [101, 60, 30, 0],
     "itemsCanBring2NextLevel":["Knife","Magazine","Apple","Steak","Clock","Key","Shield","WantedOrder","Baton","Vest","EconomyMagazine","Cloak"],

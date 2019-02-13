@@ -273,7 +273,7 @@
         "attackFlags":["Flame", "Pierce"],
         "power":6, "aoe":{"w":3, "h":3}
     },
-    "IceGun":{"name":"冰冻射线", "canOverlap":true, "useWithTarget":true, "refElems":["IceBlock"], "cd":5,
+    "IceGun":{"name":"冰冻射线", "canOverlap":true, "useWithTarget":true, "refElems":["IceBlock"], "cd":10,
         "validTarget":"markedMonster|uncoveredMonster|uncoverable|blocked&canFrozen", 
         "attackFlags":["Ice"],
         "frozenAttrs":{"rounds":3}

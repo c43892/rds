@@ -11,7 +11,7 @@
     "DeepFrozen":{
         "title":"极度深寒",
         "shortDesc":"以特定方式击败克拉肯",
-        "longDesc":"在被深寒窒息超过100点伤害的情况下击杀克拉肯",
+        "longDesc":"在被深寒窒息超过50点伤害的情况下击杀克拉肯",
         "icon":"Kraken",
         "progressType":"",
         "progressInfos":[""]

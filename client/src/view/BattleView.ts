@@ -451,7 +451,15 @@ class BattleView extends egret.DisplayObjectContainer {
     // 设置攻击数字增强背景
     public set EmphasizeAttackPowerNumber(b) {
         this.refreshPower();
-        this.strengthPotionEffBg.alpha = b ? 0.5 : 0;
+        if(b) {
+            this.strengthPotionEffBg.alpha = 0.5;
+            var tw = egret.Tween.get(this.strengthPotionEffBg, {loop:true});
+            tw.to({alpha:0.2}, 1000, egret.Ease.quintInOut).to({alpha:0.5}, 1000, egret.Ease.quintInOut);
+        }
+        else {            
+            egret.Tween.removeTweens(this.strengthPotionEffBg);
+            this.strengthPotionEffBg.alpha = 0;
+        }
     }
 
     // 设置角色数据，但并不刷新显示，需要手动刷新

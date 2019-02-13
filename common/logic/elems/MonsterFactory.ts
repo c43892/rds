@@ -211,6 +211,7 @@ class MonsterFactory {
         "EliteReviveZombie": (attrs) => {
             var m = MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)));
             m = MonsterFactory.makeElite(m);
+            m = MonsterFactory.doReviveOndie(m);
             // 为所有怪物附加复生能力，死亡时会复活一次（本来能复活的怪物不会复活两次）
             m = <Monster>ElemFactory.addAI("onElemChanged", async (ps) => {
                 var dm = <Monster>ps.e;

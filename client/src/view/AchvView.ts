@@ -18,6 +18,7 @@ class AchvView extends egret.DisplayObjectContainer {
 
     public receiveAchvAward;
     public openAchvDescView;
+    public openRelicDesc;
 
     constructor(w, h) {
         super();
@@ -289,11 +290,14 @@ class AchvView extends egret.DisplayObjectContainer {
 
             // 奖励图标
             var icon = ViewUtils.createBitmapByName(info.icon + "_png");
+            icon["relicType"] = info.icon;
             icon.anchorOffsetX = icon.width / 2;
             icon.anchorOffsetY = icon.height / 2;
             icon.name = "awardIcon";
             ViewUtils.multiLang(this, icon);
             icon.scaleX = icon.scaleY = 1.2;
+            icon.touchEnabled = true;
+            icon.addEventListener(egret.TouchEvent.TOUCH_TAP, (evt) => this.onAwardIconClicked(evt), this);
             awardContainer.addChild(icon);
 
             // 领取按钮
@@ -322,12 +326,27 @@ class AchvView extends egret.DisplayObjectContainer {
     }
 
     // 领取成就奖励
-    onReceiveBtn(btn:TextButtonWithBg){
+    async onReceiveBtn(btn:TextButtonWithBg){
         var awardName = btn["awardName"];
+        var cfg = GCfg.getAchvAwardCfg()[awardName];
+        // 奖励是解锁某遗物则需要显示详情
+        if (cfg["awardContent"]["type"] == "unlockRelic"){
+            var relicType = cfg["awardContent"]["relic"];
+            var relic = ElemFactory.create(relicType);
+            await this.openRelicDesc(relic);
+        }
         AchievementMgr.receiveAchvAward(awardName);
         btn.enabled = false;
         btn.text = "已领取";
         this.refreshRedPoint();
+    }
+
+    // 查看成就奖励内容
+    async onAwardIconClicked(evt:egret.Event){
+        var icon = evt.target;
+        var type = icon["relicType"];
+        var relic = ElemFactory.create(type);
+        await this.openRelicDesc(relic);
     }
 
     // 选择成就列表

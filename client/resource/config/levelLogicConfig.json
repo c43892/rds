@@ -12,7 +12,8 @@
     "randomEgg":[
         {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox2"]]}, 
         {"type":"LevelLogicTakeKey"}, 
-        {"type":"LevelLogicChangeMonster", "ps":[["RandomEggZombie"], 5]}
+        {"type":"LevelLogicChangeMonster", "ps":[["RandomEggZombie"], 5]},
+        {"type":"LevelLogicRandomEgg", "ps":["markAllAward"]}
         ],
     "eliteGoblinThief":[
         {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox2"]]}, 
