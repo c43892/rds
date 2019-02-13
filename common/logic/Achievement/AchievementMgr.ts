@@ -4,6 +4,7 @@ class AchievementMgr {
     public unfinishedAchvs:Achievement[] = []; // 未完成的成就,只有未完成的成就需要响应相关逻辑,已完成的基本只需要在表现时使用.
     public mv:MainView;
     private factory:AchievementFactory;
+    private achvCfg;
 
     static mgr:AchievementMgr;
 
@@ -21,23 +22,24 @@ class AchievementMgr {
     static createAchvMgr(){
         var mgr = new AchievementMgr();
         mgr.factory = new AchievementFactory();
+        mgr.allAchvs = [];
+        mgr.achvCfg = GCfg.getAchvCfg();
+        for (var type in mgr.achvCfg){
+            var cfg = mgr.achvCfg[type];
+            var achv = <Achievement>mgr.factory.creator[type](cfg);
+            achv.type = type;
+            achv.mgr = mgr;
+            mgr.allAchvs.push(achv);
+        }
         mgr.refresh();
         return mgr;
     }
 
     public refresh(){
-        var achvCfgs = GCfg.getAchvCfg();
-        this.allAchvs = [];
         this.unfinishedAchvs = [];
-        for (var type in achvCfgs){
-            var cfg = achvCfgs[type];
-            var achv = <Achievement>this.factory.creator[type](cfg);
-            achv.type = type;
-            achv.mgr = this;
-            this.allAchvs.push(achv);
+        for (var achv of this.allAchvs)
             if (!achv.isFinished())
-                this.unfinishedAchvs.push(achv);
-        }
+                this.unfinishedAchvs.push(achv);        
     }
 
     // 预完成一个成就
