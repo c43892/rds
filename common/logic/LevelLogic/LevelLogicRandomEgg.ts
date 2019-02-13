@@ -5,7 +5,7 @@ class LevelLogicRandomEgg extends LevelLogic {
     constructor(rdp: string){
         super("LevelLogicRandomEgg");
         this.rdp = rdp;
-        
+
         this.addAI("onElemChanged", async (ps) => {
             if (ps.subType != "dead" || !this.valid) return;
 
@@ -38,7 +38,7 @@ class LevelLogicRandomEgg extends LevelLogic {
                     // 分配好宝箱和钥匙的目标位置都才一起掉落出来
                     if (keyGrid) {
                         this.valid = false;
-                        await bt.fireEvent("onGetMarkAllAward", { btType: "normal" });
+                        await bt.fireEvent("onGetMarkAllAward", { btType: "randomEgg" });
                         var box = this.level.createElem("TreasureBox", { rdp: this.rdp });
                         await bt.implAddElemAt(box, boxGrid.pos.x, boxGrid.pos.y);
                         var key = this.level.createElem("Key");
@@ -52,7 +52,7 @@ class LevelLogicRandomEgg extends LevelLogic {
                             e.addDropItem(key);
                             await bt.fireEvent("onElemImgFlying", { e: key, fromPos: boxGrid.pos, toPos: keyGrid.pos });
                         }
-                        await bt.triggerLogicPoint("onGetMarkAllAward", { btType: "normal" });
+                        await bt.triggerLogicPoint("onGetMarkAllAward", { btType: "randomEgg" });
                     }
                 }
             }

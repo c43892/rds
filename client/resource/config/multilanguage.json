@@ -28,7 +28,7 @@
 				"avatarWeapon": {"x":50, "y":-150},
                 "expBar": {"x":3, "y":4},
                 "hpBar": {"x":144, "y":5},
-				"poisonedHpBar": {"x":146, "y":5},
+				"poisonedHpBar": {"x":144, "y":5},
 				"hp": {"x":144, "y":104, "w":30, "h":30},
 				"exp": {"x":2, "y":104, "w":30, "h":30},
 				
