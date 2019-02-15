@@ -11,7 +11,7 @@ class Achievement {
     public refreshFields = [];
     public toStringFields = [];
     
-    // 是否被完成
+    // 是否被完成,包括预完成
     public isFinished(){
         // 查找本地存档的信息,是否在之前的游戏过程已经完成
         if (Utils.loadAchvData(this.type) && Utils.loadAchvData(this.type) == "finished")

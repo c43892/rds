@@ -335,7 +335,7 @@ class Utils {
         var allPreFinishedAchvs = [...AchievementMgr.mgr.allPreFinishedAchvs()];
         for (var preFinishInfo of allPreFinishedAchvs)
              AchievementMgr.mgr.finishAchvAndSave(preFinishInfo);
-        // 部分特殊节点需要刷新一下成就管理器
+        // 战斗结束和游戏结束需要手动传递给管理器
         if (reason){
             switch (reason){
                 case "onBattleEnd":{
@@ -371,7 +371,6 @@ class Utils {
         var oldVer = Utils.loadLocalItem("Version");
         if (Version.isCompatible(oldVer)) {
             var playerSaveString = Utils.loadLocalItem("Player");
-            AchievementMgr.mgr.refresh();
             return {ver:oldVer, player:Player.fromString(playerSaveString)};
         }
         else
@@ -935,5 +934,14 @@ class Utils {
         Utils.removeLocalData("Achv");
         Utils.saveLocalItem("Achv", {});
         return Utils.loadLocalItem("Achv");
+    }
+
+    // 根据成就数据获取当前可用的最高难度
+    public static getDiffByAchvData(){
+        var allAchvs = AchievementMgr.mgr.allAchvs;
+        var tarAchv = (type:string) => allAchvs[Utils.indexOf(allAchvs, (a:Achievement) => a.type == type)];
+        if (tarAchv("NormalModeUnlock").isFinished()) return 3;
+        else if (tarAchv("EasyModeUnlock").isFinished()) return 2;
+        else return 1;
     }
 }

@@ -223,10 +223,9 @@ class AchievementFactory {
             var achv = this.createAchievement(cfg);
             achv = AchievementFactory.addLogic("onGameEnd", () => {
                 // 通关30层解锁简单难度
-                if (achv.mgr.player.currentTotalStorey() >= 30 && (!Utils.loadAchvData("availableDiff") || Utils.loadAchvData("availableDiff") < 2)){
+                if (achv.mgr.player.currentTotalStorey() >= 30 && Utils.getDiffByAchvData() < 2)
                     AchievementMgr.mgr.preFinishAchv(achv.type);
-                    Utils.saveAchvData("availableDiff", 2);
-                }
+                
             }, achv, () => !!achv.mgr.player, true);
             return achv;
         },
@@ -235,10 +234,9 @@ class AchievementFactory {
             var achv = this.createAchievement(cfg);
             achv = AchievementFactory.addLogic("onGameEnd", () => {
                 // 通关45层解锁普通难度
-                if (achv.mgr.player.currentTotalStorey() >= 45 && (!Utils.loadAchvData("availableDiff") || Utils.loadAchvData("availableDiff") < 3)){
+                if (achv.mgr.player.currentTotalStorey() >= 45 && Utils.getDiffByAchvData() < 2)
                     AchievementMgr.mgr.preFinishAchv(achv.type);
-                    Utils.saveAchvData("availableDiff", 3);
-                }
+                
             }, achv, () => !!achv.mgr.player, true);
             return achv;
         }

@@ -31,11 +31,11 @@ class AchievementMgr {
             achv.mgr = mgr;
             mgr.allAchvs.push(achv);
         }
-        mgr.refresh();
+        mgr.refreshUnfinishedAchvs();
         return mgr;
     }
 
-    public refresh(){
+    public refreshUnfinishedAchvs(){
         this.unfinishedAchvs = [];
         for (var achv of this.allAchvs)
             if (!achv.isFinished())
@@ -75,6 +75,7 @@ class AchievementMgr {
         this.preFinishedAchv[achvClass] = Utils.removeFirstWhen(this.preFinishedAchv[achvClass], (preInfo) =>
             (preInfo.type == preFinishInfo.type) && (preInfo.isFinished == preFinishInfo.isFinished) 
             && (!preInfo.finishedStage || preInfo.finishedStage == preFinishInfo.finishedStage));
+        this.refreshUnfinishedAchvs();
     }
 
     // 获取总成就点
