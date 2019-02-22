@@ -325,8 +325,8 @@ class Utils {
     }
 
     // 打点统计
-    public static pt(key:string, value) {
-        window.platform.setUserCloudStorage("st." + key, JSON.stringify(value));
+    public static st(key:string, value) {
+        window.platform.setUserCloudStorage("st." + key, value);
     }
 
     // 保存角色数据
@@ -363,7 +363,7 @@ class Utils {
         window.platform.setUserLocalStorage(Utils.localStorageData);
 
         // 送到云端存一下
-        Utils.saveCloudData("player", p ? JSON.stringify(Utils.localStorageData["Player"]) : "{}");
+        // Utils.saveCloudData("player", p ? JSON.stringify(Utils.localStorageData["Player"]) : "{}");
     }
 
     // 载入角色数据

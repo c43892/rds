@@ -565,7 +565,7 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 角色死亡
     public async onPlayerDead(ps) {
-        Utils.pt("die." + (new Date()).toLocaleString('en-GB', { timeZone: 'UTC' }), this.p.currentStoreyPos);
+        // Utils.pt("die." + (new Date()).toLocaleString('en-GB', { timeZone: 'UTC' }), this.p.currentStoreyPos);
         await this.openScoreView();
         Utils.savePlayer(undefined, "onGameEnd");
         this.p = undefined;

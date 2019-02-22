@@ -214,16 +214,14 @@ class Main extends egret.DisplayObjectContainer {
 
         await Utils.initPlatform();
 
-        Utils.pt("runGame." + (new Date().toUTCString()), window.platform.platformType);
+        var launchTime = (new Date()).toLocaleString('en-GB', { timeZone: 'UTC' });
+
+        Utils.st("launchTime", launchTime);
         Utils.log("platform: " + window.platform.platformType + " initialized");
-        // Utils.pt("Progress", "platform " + window.platform.platformType + " inited");
 
         // 心跳统计在线时长
-        var startTime = (new Date()).toLocaleString('en-GB', { timeZone: 'UTC' });
-        Utils.pt("t." + startTime, startTime);
         egret.setInterval(() => {
-            var nowTime = (new Date()).toLocaleString('en-GB', { timeZone: 'UTC' });
-            Utils.pt("t." + startTime, nowTime);
+            Utils.st("heartbeat", launchTime);
         }, this, 60000);
 
         this.calcArea(); // 计算屏幕适配
@@ -234,7 +232,7 @@ class Main extends egret.DisplayObjectContainer {
         this.ldv = new LoadingUI();
         await this.loadResGroups("preload"); // 加载初始资源
         Utils.log("preload finished");
-        Utils.pt("Progress", "preload finished");
+        // Utils.pt("Progress", "preload finished");
         this.globalInit(); // 初始化全局配置
         Utils.log("global initialize finished");
         this.mv = this.createMainView(); // 创建主场景        

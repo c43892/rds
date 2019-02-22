@@ -6,6 +6,8 @@ class WebClient {
         this.srv = serverUrl;
     }
 
+    srand = new SRandom();
+
     // 发送数据，无回执，msg 是消息代码，ps 包含所有消息参数
     public send(msg) {
         var r = new egret.HttpRequest();
@@ -15,7 +17,7 @@ class WebClient {
             r.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
             r.addEventListener(egret.IOErrorEvent.IO_ERROR, (event:egret.Event) => {
             },this);
-            r.send("msg=" + JSON.stringify(msg));
+            r.send("msg=" + JSON.stringify(msg) + "&random=" + this.srand.nextDouble().toString());
         } catch (ex) {
         }
     }

@@ -155,7 +155,7 @@ class DefaultPaltform implements Platform {
             } catch (ex) {
                 var exMsg = "load localstorage exception: " + str + ":" + ex.toString();
                 Utils.log(exMsg);
-                Utils.pt((new Date()).toLocaleString('en-GB', { timeZone: 'UTC' }) + ":" + str + ":ex:loadstorage:", exMsg);
+                // Utils.pt((new Date()).toLocaleString('en-GB', { timeZone: 'UTC' }) + ":" + str + ":ex:loadstorage:", exMsg);
                 egret.localStorage.setItem("localStorageData", "");
                 return {};
             }

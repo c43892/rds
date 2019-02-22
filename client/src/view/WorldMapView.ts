@@ -634,15 +634,15 @@ class WorldMapView extends egret.DisplayObjectContainer {
             // 如果是新手玩家,要标记为已完成新手指引关
             if(Utils.checkRookiePlay() && trueLv >= 5) {
                 Utils.saveLocalData("rookiePlay", "finished");
-                Utils.pt("rookiePlayFinished", true);
+                // Utils.pt("rookiePlayFinished", true);
             }
 
             Utils.savePlayer(this.player, "onBattleEnd");
 
             // 更新最高分
-            var score = BattleStatistics.getFinalScore(BattleStatistics.getScoreInfos(this.player.st));
+            var score = BattleStatistics.getFinalScore(BattleStatistics.getScoreInfos(this.player.st    ));
             Utils.saveCloudData("score", score + "," + this.player.occupation);
-            Utils.pt("score", score);
+            // Utils.pt("score", score);
             
             // 判断此世界是否已经完成
             if(this.player.currentStoreyPos.lv >= this.player.worldmap.cfg.totalLevels){
