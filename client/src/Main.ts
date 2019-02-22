@@ -215,13 +215,14 @@ class Main extends egret.DisplayObjectContainer {
         await Utils.initPlatform();
 
         var launchTime = (new Date()).toLocaleString('en-GB', { timeZone: 'UTC' });
+        var launchDate = launchTime.substr(0, 10);
 
-        Utils.st("launchTime", launchTime);
+        Utils.st("LaunchDate", launchDate);
         Utils.log("platform: " + window.platform.platformType + " initialized");
 
         // 心跳统计在线时长
         egret.setInterval(() => {
-            Utils.st("heartbeat", launchTime);
+            Utils.st("Heartbeat", launchDate);
         }, this, 60000);
 
         this.calcArea(); // 计算屏幕适配

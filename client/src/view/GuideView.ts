@@ -148,7 +148,6 @@ class GuideView extends egret.DisplayObjectContainer {
     }
 
     // 点击指引
-
     
     hand:egret.Bitmap;
     rt = new egret.RenderTexture();
@@ -806,7 +805,5 @@ class GuideView extends egret.DisplayObjectContainer {
 
         var avatar = this.cv.getChildByName("goBackBtn");
         await this.tapWithDialog(avatar, "ShopNpc", "name", "message", 0, 550);
-
-        
     }
 }

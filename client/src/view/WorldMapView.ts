@@ -565,6 +565,9 @@ class WorldMapView extends egret.DisplayObjectContainer {
             "relics": Utils.map(this.player.allRelics, (r:Relic) => r.type),
             "props": Utils.map(this.player.props, (p:Prop) => p.type)
         });
+
+        // 统计当前进度
+        Utils.st("Prograss", "in," + trueLv.toString() + "," + Utils.checkRookiePlay().toString() + "," + this.player.occupation + "," + this.player.difficulty.replace("level", ""));
         
         switch(nodeType) {
             case "normal":
@@ -619,6 +622,11 @@ class WorldMapView extends egret.DisplayObjectContainer {
             }
         }
 
+        // 统计当前进度
+        Utils.st("Prograss", "out," + (this.player.isDead() ? "1" : "0") + "," 
+            + this.player.occupation + "," + this.player.difficulty.replace("level", "") + ","
+        + trueLv.toString() + "," + Utils.checkRookiePlay().toString());
+
         // 记住当前信息，可能开局要给奖励
         Utils.saveLocalData("lastLevelCompletedInfo", {
             "lv": trueLv,
@@ -634,7 +642,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
             // 如果是新手玩家,要标记为已完成新手指引关
             if(Utils.checkRookiePlay() && trueLv >= 5) {
                 Utils.saveLocalData("rookiePlay", "finished");
-                // Utils.pt("rookiePlayFinished", true);
             }
 
             Utils.savePlayer(this.player, "onBattleEnd");
@@ -642,7 +649,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
             // 更新最高分
             var score = BattleStatistics.getFinalScore(BattleStatistics.getScoreInfos(this.player.st    ));
             Utils.saveCloudData("score", score + "," + this.player.occupation);
-            // Utils.pt("score", score);
             
             // 判断此世界是否已经完成
             if(this.player.currentStoreyPos.lv >= this.player.worldmap.cfg.totalLevels){
@@ -655,8 +661,11 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
                 if(nextWorldName)
                     await this.onPlayerGo2NewWorld(nextWorldName);
-                else 
+                else {
+                    Utils.st("Clearance", this.player.worldmap.cfg.totalLevels.toString() + "," + this.player.occupation + "," + this.player.difficulty.replace("level", ""));
+                    Utils.saveLocalItem("Clearance", "1");
                     await this.openFinishGameView();
+                }
             }
             else
                 this.refresh();

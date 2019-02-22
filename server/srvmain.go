@@ -295,13 +295,15 @@ func onSetUserInfo(msg *requestMsg) {
 type stInfo struct {
 	DailyGameTime map[string]int `json:"DailyGameTime"` // 每日登录时常统计
 	DailyLoginCnt map[string]int `json:"DailyLoginCnt"` // 每日登录次数
-	ClearanceCnt  int            `json:"ClearanceCnt"`  // 通关次数
+	Clearance     []string       `json:"Clearance"`     // 通关记录
+	NewGameStatus []string       `json:"NewGameStatus"` // 开始新游戏前的状态
+	EndGameStatus []string       `json:"EndGameStatus"` // 结束游戏状态
+	Prograss      string         `json:"Prograss"`      // 当前游戏状态
 }
 
-// set the statistic info
-func addStInfo(uid string, stKey string, infoStr string) {
+// load or create statistic info
+func loadOrCreateStInfo(stID string) *stInfo {
 	info := &stInfo{}
-	stID := "st." + uid
 	r, err := dbc.HGetAll(stID).Result()
 	if err != nil || r["DailyGameTime"] == "" {
 		info.DailyGameTime = make(map[string]int)
@@ -315,21 +317,69 @@ func addStInfo(uid string, stKey string, infoStr string) {
 		json.Unmarshal([]byte(r["DailyLoginCnt"]), &info.DailyLoginCnt)
 	}
 
-	if err != nil || r["ClearanceCnt"] == "" {
-		info.ClearanceCnt = 0
+	if err != nil || r["Clearance"] == "" {
+		info.Clearance = make([]string, 0)
 	} else {
-		info.ClearanceCnt, _ = strconv.Atoi(r["ClearanceCnt"])
+		json.Unmarshal([]byte(r["Clearance"]), &info.Clearance)
 	}
 
+	if err != nil || r["NewGameStatus"] == "" {
+		info.NewGameStatus = make([]string, 0)
+	} else {
+		json.Unmarshal([]byte(r["NewGameStatus"]), &info.NewGameStatus)
+	}
+
+	if err != nil || r["EndGameStatus"] == "" {
+		info.EndGameStatus = make([]string, 0)
+	} else {
+		json.Unmarshal([]byte(r["EndGameStatus"]), &info.EndGameStatus)
+	}
+
+	if err != nil || r["Prograss"] == "" {
+		info.Prograss = ""
+	} else {
+		info.Prograss = r["Prograss"]
+	}
+
+	return info
+}
+
+// set the statistic info
+func addStInfo(uid string, stKey string, infoStr string) {
+	stID := "st." + uid
+	info := loadOrCreateStInfo(stID)
+
 	switch stKey {
-	case "launchTime": // 游戏启动, infoStr 是启动时间
+	case "LaunchDate": // 游戏启动, infoStr 是启动时间
 		info.DailyLoginCnt[infoStr]++
 		dailyLoginInfo, _ := json.Marshal(info.DailyLoginCnt)
 		dbc.HSet(stID, "DailyLoginCnt", dailyLoginInfo)
-	case "heartbeat": // 心跳，infoStr 是启动时间
+	case "Heartbeat": // 心跳，infoStr 是启动时间
 		info.DailyGameTime[infoStr]++
 		gameTimeInfo, _ := json.Marshal(info.DailyGameTime)
 		dbc.HSet(stID, "DailyGameTime", string(gameTimeInfo))
+	case "Clearance": // 通关次数统计
+		info.Clearance = append(info.Clearance, infoStr)
+		clearanceInfo, _ := json.Marshal(info.Clearance)
+		dbc.HSet(stID, "Clearance", string(clearanceInfo))
+
+		info.EndGameStatus = append(info.EndGameStatus, "0,"+infoStr)
+		endGameInfo, _ := json.Marshal(info.EndGameStatus)
+		dbc.HSet(stID, "EndGameStatus", string(endGameInfo))
+
+	case "NewGameStatus": // 新游戏起始状态
+		info.NewGameStatus = append(info.NewGameStatus, infoStr)
+		newGameStatusInfo, _ := json.Marshal(info.NewGameStatus)
+		dbc.HSet(stID, "NewGameStatus", string(newGameStatusInfo))
+	case "Prograss": // 当前进度
+		info.Prograss = infoStr
+		dbc.HSet(stID, "Prograss", info.Prograss)
+
+		if infoStr[0:4] == "out," && infoStr[4:5] == "1" { // 角色死亡
+			info.EndGameStatus = append(info.EndGameStatus, infoStr[4:])
+			endGameInfo, _ := json.Marshal(info.EndGameStatus)
+			dbc.HSet(stID, "EndGameStatus", string(endGameInfo))
+		}
 	}
 }
 

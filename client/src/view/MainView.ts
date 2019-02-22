@@ -487,11 +487,18 @@ class MainView extends egret.DisplayObjectContainer {
                 if (op == "continuePlay")
                     await this.continuePlay();
                 else if (op == "newPlay") {
-                    if(Utils.checkRookiePlay())
+                    if(Utils.checkRookiePlay()) {
+                        Utils.st("NewGameStatus", "Rookie,0");
                         await this.rookiePlay();
+                    }
                     else {
                         var r = await this.openOccSelView();
                         if (r) {
+                            // 顺便记录上一次状态信息
+                            var clearanced = Utils.loadLocalItem("Clearance");
+                            clearanced = clearanced ? clearanced : "0";
+                            Utils.st("NewGameStatus", r["occ"] + "," + r["d"] + "," + clearanced);
+                            Utils.saveLocalItem("Clearance", "0")
                             this.newPlay(r["occ"], r["d"]);
 
                             this.wmv.mapScrollPos = 0;
@@ -565,7 +572,11 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 角色死亡
     public async onPlayerDead(ps) {
-        // Utils.pt("die." + (new Date()).toLocaleString('en-GB', { timeZone: 'UTC' }), this.p.currentStoreyPos);
+        var trueLv = this.p.currentTotalStorey();
+        var occ = this.p.occupation;
+        var d = this.p.difficulty.replace("level", "");
+        Utils.st("Prograss", "out,1," + trueLv.toString() + "," + Utils.checkRookiePlay().toString() + "," + occ + "," + d);
+
         await this.openScoreView();
         Utils.savePlayer(undefined, "onGameEnd");
         this.p = undefined;
