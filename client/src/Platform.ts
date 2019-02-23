@@ -99,7 +99,7 @@ class DefaultPaltform implements Platform {
         if (!uid) {
             var now = new Date();
             var r = new SRandom(now.getMilliseconds());
-            uid = this.platformType + ".uid." + r.nextInt(100000, 1000000) + "_"  + now.toUTCString();
+            uid = this.platformType + ".uid." + now.toLocaleString('en-GB', { timeZone: 'UTC' }) + "." + r.nextInt(100000, 1000000);
             uid = uid.replace(",", "");
             Utils.saveLocalItem("UserID", uid);
         }

@@ -6,7 +6,6 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"os"
 	"sort"
 	"strconv"
 	"strings"
@@ -152,14 +151,14 @@ func main() {
 	// 	}
 	// }
 
-	if len(os.Args) > 1 && os.Args[1] == "st" {
-		doSt()
-	} else {
-		runServer()
-	}
+	// if len(os.Args) > 1 && os.Args[1] == "st" {
+	// 	doSt()
+	// } else {
+	// 	runServer()
+	// }
 
 	// runServer()
-	// doSt()
+	doSt()
 }
 
 type httpResp struct {
@@ -403,9 +402,12 @@ func containsDay(days []time.Time, day time.Time) bool {
 
 func doSt() {
 	// collect all days
-	fmt.Println("collecting all days ...")
+
 	allDays := make([]time.Time, 0)
-	var keys, _ = dbc.Keys("st.uid_*").Result()
+	var keys, _ = dbc.Keys("st.uid*").Result()
+
+	// todo: sort the keys by creating time
+
 	for i := 0; i < len(keys); i++ {
 		var stID = keys[i]
 		stInfo := loadOrCreateStInfo(stID)
@@ -425,15 +427,14 @@ func doSt() {
 		}
 	}
 
-	// all days
+	// daily login count
 
-	fmt.Print("users")
+	fmt.Print("daily login count")
 	for _, d := range allDays {
 		fmt.Print("," + d.Format("02/01/2006"))
 	}
 	fmt.Println("")
 
-	// daily login count
 	for i := 0; i < len(keys); i++ {
 		var stID = keys[i]
 		stInfo := loadOrCreateStInfo(stID)
@@ -452,7 +453,14 @@ func doSt() {
 		fmt.Println("")
 	}
 
+	fmt.Print("daily game time")
+	for _, d := range allDays {
+		fmt.Print("," + d.Format("02/01/2006"))
+	}
+	fmt.Println("")
+
 	// daily game time
+
 	for i := 0; i < len(keys); i++ {
 		var stID = keys[i]
 		stInfo := loadOrCreateStInfo(stID)
@@ -470,6 +478,21 @@ func doSt() {
 
 		fmt.Println("")
 	}
+
+	// clearance count
+
+	fmt.Println("clearance count")
+	clearanceUserCnt := 0
+	for i := 0; i < len(keys); i++ {
+		var stID = keys[i]
+		stInfo := loadOrCreateStInfo(stID)
+		cnt := len(stInfo.Clearance)
+		if cnt > 0 {
+			clearanceUserCnt++
+			fmt.Println(stID + "," + strconv.Itoa(cnt))
+		}
+	}
+	fmt.Println("total," + strconv.Itoa(clearanceUserCnt) + "," + strconv.Itoa(len(keys)))
 }
 
 // load or create user
