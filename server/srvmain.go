@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
 	"sort"
 	"strconv"
 	"strings"
@@ -151,7 +152,14 @@ func main() {
 	// 	}
 	// }
 
-	runServer()
+	if len(os.Args) > 1 && os.Args[1] == "st" {
+		doSt()
+	} else {
+		runServer()
+	}
+
+	// runServer()
+	// doSt()
 }
 
 type httpResp struct {
@@ -363,7 +371,7 @@ func addStInfo(uid string, stKey string, infoStr string) {
 		clearanceInfo, _ := json.Marshal(info.Clearance)
 		dbc.HSet(stID, "Clearance", string(clearanceInfo))
 
-		info.EndGameStatus = append(info.EndGameStatus, "0,"+infoStr)
+		info.EndGameStatus = append(info.EndGameStatus, "0,false,"+infoStr)
 		endGameInfo, _ := json.Marshal(info.EndGameStatus)
 		dbc.HSet(stID, "EndGameStatus", string(endGameInfo))
 
@@ -380,6 +388,87 @@ func addStInfo(uid string, stKey string, infoStr string) {
 			endGameInfo, _ := json.Marshal(info.EndGameStatus)
 			dbc.HSet(stID, "EndGameStatus", string(endGameInfo))
 		}
+	}
+}
+
+func containsDay(days []time.Time, day time.Time) bool {
+	for _, d := range days {
+		if day.Equal(d) {
+			return true
+		}
+	}
+
+	return false
+}
+
+func doSt() {
+	// collect all days
+	fmt.Println("collecting all days ...")
+	allDays := make([]time.Time, 0)
+	var keys, _ = dbc.Keys("st.uid_*").Result()
+	for i := 0; i < len(keys); i++ {
+		var stID = keys[i]
+		stInfo := loadOrCreateStInfo(stID)
+
+		for k := range stInfo.DailyLoginCnt {
+			d, _ := time.Parse("02/01/2006", k)
+			if !containsDay(allDays, d) {
+				allDays = append(allDays, d)
+			}
+		}
+
+		for k := range stInfo.DailyGameTime {
+			d, _ := time.Parse("02/01/2006", k)
+			if !containsDay(allDays, d) {
+				allDays = append(allDays, d)
+			}
+		}
+	}
+
+	// all days
+
+	fmt.Print("users")
+	for _, d := range allDays {
+		fmt.Print("," + d.Format("02/01/2006"))
+	}
+	fmt.Println("")
+
+	// daily login count
+	for i := 0; i < len(keys); i++ {
+		var stID = keys[i]
+		stInfo := loadOrCreateStInfo(stID)
+		fmt.Print(stID)
+
+		for _, d := range allDays {
+			dStr := d.Format("02/01/2006")
+			for k, v := range stInfo.DailyLoginCnt {
+				fmt.Print(",")
+				if k == dStr {
+					fmt.Print(strconv.Itoa(v))
+				}
+			}
+		}
+
+		fmt.Println("")
+	}
+
+	// daily game time
+	for i := 0; i < len(keys); i++ {
+		var stID = keys[i]
+		stInfo := loadOrCreateStInfo(stID)
+		fmt.Print(stID)
+
+		for _, d := range allDays {
+			dStr := d.Format("02/01/2006")
+			for k, v := range stInfo.DailyGameTime {
+				fmt.Print(",")
+				if k == dStr {
+					fmt.Print(strconv.Itoa(v))
+				}
+			}
+		}
+
+		fmt.Println("")
 	}
 }
 
