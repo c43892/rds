@@ -1,9 +1,8 @@
 {
     "rookiePlay_1":{
         "EyeDemon": [{"x":1, "y":3},{"x":5, "y":7}],
-        "DancerZombie": [{"x":3, "y":5},{"x":5, "y":2}],
+        "DancerZombie": [{"x":1, "y":5},{"x":3, "y":5},{"x":5, "y":2}],
         "GluttonyZombie": [{"x":5, "y":5},{"x":5, "y":1}],
-        "ReviveZombie": [{"x":1, "y":5}],
         "Knife": [{"x":1, "y":2}],
         "RayGun": [{"x":4, "y":4}],
         "Apple": [{"x":5, "y":3},{"x":1, "y":4}],

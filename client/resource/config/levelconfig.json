@@ -16,9 +16,8 @@
         "boxesConfig":["rookiePlay_1Box"],
         "constElems":{
             "EyeDemon": 2,
-            "DancerZombie": 2,
+            "DancerZombie": 3,
             "GluttonyZombie": 2,
-            "ReviveZombie": 1,
             "RayGun": 1,
             "Apple": 2,
             "Hole": 28
