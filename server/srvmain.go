@@ -157,8 +157,8 @@ func main() {
 	// 	runServer()
 	// }
 
-	// runServer()
-	doSt()
+	runServer()
+	// doSt()
 }
 
 type httpResp struct {
@@ -283,6 +283,11 @@ func onSetUserInfo(msg *requestMsg) {
 		} else if msg.Key == "playerName" {
 			usrInfo.Name = msg.Value
 			dbc.HSet(usrInfo.UID, "playerName", msg.Value)
+
+			stID := "st." + msg.UID
+			sInfo := loadOrCreateStInfo(stID)
+			sInfo.PlayerName = msg.Value
+			dbc.HSet(stID, "PlayerName", sInfo.PlayerName)
 		}
 	}
 
@@ -300,6 +305,7 @@ func onSetUserInfo(msg *requestMsg) {
 }
 
 type stInfo struct {
+	PlayerName    string         `json:"PlayerName"`    // 角色名称
 	DailyGameTime map[string]int `json:"DailyGameTime"` // 每日登录时常统计
 	DailyLoginCnt map[string]int `json:"DailyLoginCnt"` // 每日登录次数
 	Clearance     []string       `json:"Clearance"`     // 通关记录
@@ -346,6 +352,12 @@ func loadOrCreateStInfo(stID string) *stInfo {
 		info.Prograss = ""
 	} else {
 		info.Prograss = r["Prograss"]
+	}
+
+	if err != nil || r["PlayerName"] == "" {
+		info.PlayerName = ""
+	} else {
+		info.PlayerName = r["PlayerName"]
 	}
 
 	return info
@@ -438,7 +450,7 @@ func doSt() {
 	for i := 0; i < len(keys); i++ {
 		var stID = keys[i]
 		stInfo := loadOrCreateStInfo(stID)
-		fmt.Print(stID)
+		fmt.Print(stInfo.PlayerName)
 
 		for _, d := range allDays {
 			dStr := d.Format("02/01/2006")
@@ -464,7 +476,7 @@ func doSt() {
 	for i := 0; i < len(keys); i++ {
 		var stID = keys[i]
 		stInfo := loadOrCreateStInfo(stID)
-		fmt.Print(stID)
+		fmt.Print(stInfo.PlayerName)
 
 		for _, d := range allDays {
 			dStr := d.Format("02/01/2006")
@@ -489,7 +501,7 @@ func doSt() {
 		cnt := len(stInfo.Clearance)
 		if cnt > 0 {
 			clearanceUserCnt++
-			fmt.Println(stID + "," + strconv.Itoa(cnt))
+			fmt.Println(stInfo.PlayerName + "," + strconv.Itoa(cnt))
 		}
 	}
 	fmt.Println("total," + strconv.Itoa(clearanceUserCnt) + "," + strconv.Itoa(len(keys)))

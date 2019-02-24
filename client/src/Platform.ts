@@ -95,7 +95,7 @@ class DefaultPaltform implements Platform {
     }
 
     public getUserID():string {
-        var uid = Utils.loadLocalItem("UserID");
+        var uid:string = Utils.loadLocalItem("UserID");
         if (!uid) {
             var now = new Date();
             var r = new SRandom(now.getMilliseconds());

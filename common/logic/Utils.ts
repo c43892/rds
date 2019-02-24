@@ -373,8 +373,11 @@ class Utils {
             var playerSaveString = Utils.loadLocalItem("Player");
             return {ver:oldVer, player:Player.fromString(playerSaveString)};
         }
-        else
+        else {
+            delete Utils.localStorageData["rookiePlay"];
+            delete Utils.localStorageData["Player"];
             return {ver:oldVer, player:undefined};
+        }
     }
 
     // 载入指定数据
