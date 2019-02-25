@@ -376,6 +376,7 @@ class Utils {
         else {
             delete Utils.localStorageData["rookiePlay"];
             delete Utils.localStorageData["Player"];
+            delete Utils.localStorageData["playerName"];
             return {ver:oldVer, player:undefined};
         }
     }
