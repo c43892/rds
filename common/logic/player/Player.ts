@@ -49,10 +49,10 @@ class Player {
         p.deathStep = GCfg.getDifficultyCfg()[p.difficulty]["deathStep"];
 
         p.maxDeathStep = 150;
-        p.maxHp = 400;
+        p.maxHp = 40;
         p.hp = p.maxHp;
         p.dodge = 0;
-        p.power = [100, 0];
+        p.power = [4, 0];
         p.playerRandom = new SRandom();
         p.worldmapRandomSeed = p.playerRandom.nextInt(0, 1000000000);
         p.money = 50;
