@@ -759,8 +759,8 @@ class GuideView extends egret.DisplayObjectContainer {
     async onSneakedGuide(m:Monster) {
         var nameAndDesc = ViewUtils.getElemNameAndDesc(m.type);
         await this.showDialog("Nurse", "护士", "哎呀，你被怪物突袭了", 0, 550, true);
-        await this.showDialog("Nurse", "护士", "你要尽量避免出现这种情况，怪物突袭时会有各种技能来伤害你", 0, 550, true);
-        await this.showDialog("Nurse", "护士", "如果不好分辨格子是不是有怪物，你可以使用飞刀和道具来探路", 0, 550, true);
+        await this.showDialog("Nurse", "护士", "怪物突袭时会有各种技能来伤害你", 0, 550, true);
+        await this.showDialog("Nurse", "护士", "你可以使用飞刀和道具来探路", 0, 550, true);
     }
 
     // 怪物被标记指引
@@ -798,12 +798,12 @@ class GuideView extends egret.DisplayObjectContainer {
     // 引导点击头像界面
     async openAvatarView() {
         var avatar = this.bv.getChildByName("avatarBg");
-        await this.tapWithDialog(avatar, "ShopNpc", "name", "message", 0, 550);
+        await this.tapWithDialog(avatar, "Nurse", "护士", "点击头像", 0, 550);
 
         await AniUtils.delay(2000);
-        await this.showDialog("Nurse", "护士", "干得好", 0, 550, true);
+        await this.showDialog("Nurse", "护士", "这里你可以属性，通用技能，还有一些设置可以选择", 0, 550, true);
 
         var avatar = this.cv.getChildByName("goBackBtn");
-        await this.tapWithDialog(avatar, "ShopNpc", "name", "message", 0, 550);
+        await this.tapWithDialog(avatar, "Nurse", "护士", "点击返回让我们回到战斗", 0, 550);
     }
 }
