@@ -339,16 +339,16 @@ class Utils {
         if (reason){
             switch (reason){
                 case "onBattleEnd":{
-                    AchievementMgr.mgr.actOnLogicPointSync("onBattleEnd");
+                    // AchievementMgr.mgr.actOnLogicPointSync("onBattleEnd");
                     AchievementMgr.mgr.actOnLogicPointSync("refreshAchvOnBattleEnd");
                     break;
                 }
                 case "onGameEnd":{
-                    AchievementMgr.mgr.actOnLogicPointSync("onGameEnd");
+                    // AchievementMgr.mgr.actOnLogicPointSync("onGameEnd");
                     AchievementMgr.mgr.actOnLogicPointSync("refreshAchvOnGameEnd");
                     break;
                 }
-            }            
+            }
         }
         AchievementMgr.mgr.player = p;
 
@@ -677,7 +677,7 @@ class Utils {
     public static playerCurrentTotalStorey(p:Player){
         var storey = p.currentStoreyPos.lv;
         for(var world of p.finishedWorldMap)
-            storey += world.totalLevels;
+            storey += world.cfg.totalLevels;
         
         return storey;
     }

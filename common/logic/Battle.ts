@@ -1144,11 +1144,11 @@ class Battle {
 
             // 这里开始循环处理每一个目标的相关逻辑，至此，targets 分散成为单个 target 处理
             for (var i = 0; i < tars.length; i++) {
-                var tar = tars[i];
-
-                // 目标属性
-                var targetAttrs = tar.getAttrsAsTarget();
+                var tar = tars[i];                
                 for (var j = 0; j < attackerAttrs.muiltAttack && !tar.isDead(); j++) {
+                    // 目标属性
+                    var targetAttrs = tar.getAttrsAsTarget();
+
                     // 从第二次攻击时跳出连击提示
                     if (j > 0)
                         await this.fireEvent("onMultAttack", {m:m});

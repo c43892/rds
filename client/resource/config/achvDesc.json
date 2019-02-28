@@ -51,13 +51,35 @@
         "shortDesc":"解锁普通模式",
         "icon":"HalloweenTreant",
         "progressType":"",
-        "progressInfos":[""]
+        "progressInfos":[""],
+        "detail":{
+            "title":"<font color=#000000 size=25>恭喜解锁普通难度</font>",
+            "descs":[
+                "<font color=#000000 size=25>初始格子数:8 7</font>",
+                "<font color=#000000 size=25>初始格子数:8 7</font>",
+                "<font color=#000000 size=25>初始格子数:8 7</font>",
+                "<font color=#000000 size=25>初始格子数:8 7</font>",
+                "<font color=#000000 size=25>初始格子数:8 7</font>",
+                "<font color=#000000 size=25>初始格子数:8 7</font>"
+            ]
+        }
     },
     "NormalModeUnlock":{
         "title":"困难模式",
         "shortDesc":"解锁困难模式",
         "icon":"HalloweenTreant",
         "progressType":"",
-        "progressInfos":[""]
+        "progressInfos":[""],
+        "detail":{
+            "title":"<font color=#000000 size=25>恭喜解锁困难难度</font>",
+            "descs":[
+                "<font color=#000000 size=25>初始格子数:8 7</font>",
+                "<font color=#000000 size=25>初始格子数:8 7</font>",
+                "<font color=#000000 size=25>初始格子数:8 7</font>",
+                "<font color=#000000 size=25>初始格子数:8 7</font>",
+                "<font color=#000000 size=25>初始格子数:8 7</font>",
+                "<font color=#000000 size=25>初始格子数:8 7</font>"
+            ]
+        }
     }
 }

@@ -4,7 +4,7 @@
 class Player {
     // 应该序列化的字段
     private static serializableFields = [
-        "currentStoreyPos", "finishedStoreyPos", "finishedWorldMap", "finishedEvent", "battleRandomSeed",  
+        "currentStoreyPos", "finishedStoreyPos", "finishedEvent", "finishedWorldMapName", "battleRandomSeed",  
         "deathStep", "maxDeathStep", "hp", "maxHp", "power", "defence", "dodge", 
         "occupation", "exp", "lv", "money", "globalEventFinishedCount", "relicsEquippedCapacity", "worldName", "difficulty"];
 
@@ -33,7 +33,8 @@ class Player {
     public currentTotalStorey = () => Utils.playerCurrentTotalStorey(this); // 当前所在的总层数
     public finishedTotalStorey = () => Utils.playerFinishedTotalStorey(this); // 当前所在的总层数
     public finishedStoreyPos; // 已经完成的世界地图节点
-    public finishedWorldMap = []; // 已经完成的世界
+    public finishedWorldMap:WorldMap[] = []; // 已经完成的世界
+    public finishedWorldMapName:string[] = []; // 已经完成的世界名,方便进行存档
     public finishedEvent = [];
     public globalEventFinishedCount = {}; // 全局事件计数
     public difficulty:string; // 游戏难度
@@ -415,11 +416,15 @@ class Player {
         p.playerRandom = SRandom.fromString(pinfo.srand);
         p.worldmapRandomSeed = pinfo.worldmapRandomSeed;        
         p.worldmap = WorldMap.buildFromConfig(p.worldName, p);
+        p.finishedWorldMap = [];
+        for(var finishedWorldMapName of p.finishedWorldMapName) 
+            p.finishedWorldMap.push(WorldMap.buildFromConfig(finishedWorldMapName, p));
+        
         p.st = BattleStatistics.fromString(p, pinfo.statistics);
         AchievementMgr.mgr.fromString(pinfo.achievementMgrInfo);
         p = Occupation.makeOccupationBuff(p);
 
-        return p
+        return p;
     }
 
     public occupation:string; // 当前职业

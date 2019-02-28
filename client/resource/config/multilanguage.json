@@ -450,7 +450,9 @@
 				"title": {"x":170, "y":330, "w":300, "h":50, "size":25},
 				"achvName": {"x":170, "y":370, "w":300, "h":50, "size":35},
 				"achvIcon": {"x":270, "y":435, "w":100, "h":100},
-				"goOnBtn":{"x":465, "y":980}
+				"goOnBtn":{"x":465, "y":980},
+				"dTitle":{"x":120, "y":550, "w":400, "h":30, "size":25},
+				"dDesc":{"x":120, "w":400, "h":30, "size":25}
 			}
 		},
 
@@ -499,6 +501,7 @@
 		"thorns": { "EN": "thorns", "CNS": "荆棘", "CNT": "荆棘" },
 		"protect": { "EN": "protect", "CNS": "援护", "CNT": "援护" },
 		"multAttack": { "EN": "mult-attack", "CNS": "连击", "CNT": "连击" },
+		"deepFrozen":{ "EN": "deep frozen", "CNS": "窒息", "CNT": "窒息" },
 		"makeSureReinforceRelic": {"EN": "", "CNS": "确定强化{0}?", "CNT": "确定强化{0}?" },
 		"makeSureBuy": {"EN": "", "CNS": "花费{0}金币?", "CNT": ""},
 		"relics": {"EN": "Skills", "CNS": "技能", "CNT": "技能"},

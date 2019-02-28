@@ -6,8 +6,8 @@ class NewAchvView extends egret.DisplayObjectContainer {
     private achvIcon:egret.Bitmap;
     private goOnBtn:ArrowButton;
     
-    public newAchvs:Achievement[] = [];
     private currentAchv:Achievement;
+    public newAchvs:Achievement[] = [];
     public isOpened:boolean = false;
 
     public openAchvDescView;
@@ -47,10 +47,6 @@ class NewAchvView extends egret.DisplayObjectContainer {
         this.goOnBtn.name = "goOnBtn";
         this.goOnBtn.text = ViewUtils.getTipText("continueBtn");
         this.goOnBtn.onClicked = () => this.onGoOnBtn();
-
-        var objs = [this.bg, this.bg1, this.title, this.achvName, this.achvIcon, this.goOnBtn];
-        ViewUtils.multiLang(this, ...objs);
-        objs.forEach((obj, _) => this.addChild(obj));
     }
 
     public async open(achv:Achievement) {
@@ -64,12 +60,45 @@ class NewAchvView extends egret.DisplayObjectContainer {
     doClose;
 
     refresh() {
+        this.removeChildren();
+
+        var objs = [this.bg, this.bg1, this.title, this.achvName, this.achvIcon, this.goOnBtn];
+        ViewUtils.multiLang(this, ...objs);
+        objs.forEach((obj, _) => this.addChild(obj));
+        var needMove = [this.bg1, this.title, this.achvName, this.achvIcon];
+
         // 刷新成就信息
         var cfg = GCfg.getAchvDescCfg(this.currentAchv.type);
 
         this.achvName.text = cfg.title;
 
         ViewUtils.setTexName(this.achvIcon, cfg.icon + "_png");
+
+        if(cfg.detail){
+            var dTitle = ViewUtils.createTextField(0, 0x000000, true);
+            dTitle.name = "dTitle";
+            dTitle.textFlow = ViewUtils.fromHtml(cfg.detail.title);
+            this.addChild(dTitle);
+            ViewUtils.multiLang(this, dTitle);
+            needMove.push(dTitle);
+            var y = dTitle.y + dTitle.height + 10;
+
+            for(var desc of cfg.detail.descs){
+                var dDesc = ViewUtils.createTextField(0, 0x000000, true);
+                dDesc.name = "dDesc";
+                dDesc.textFlow = ViewUtils.fromHtml(desc);
+                this.addChild(dDesc);
+                ViewUtils.multiLang(this, dDesc);
+                needMove.push(dDesc);
+                dDesc.y = y;
+                y = y + dDesc.height + 10;
+            }
+
+            this.bg1.height = y - this.bg1.y + 80;
+        }
+
+        var d = (this.height - this.bg1.height) / 2 - this.bg1.y;
+        needMove.forEach((o) => o.y += d);
     }
 
     onGoOnBtn() {

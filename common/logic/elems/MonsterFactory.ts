@@ -210,7 +210,7 @@ class MonsterFactory {
         // 精英触手
         "EliteReviveZombie": (attrs) => {
             var m = MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)));
-            m = MonsterFactory.makeElite(m);
+            m = MonsterFactory.makeElite(m, (m) => m["reviveCnt"] == 0);
             m = MonsterFactory.doReviveOndie(m);
             // 为所有怪物附加复生能力，死亡时会复活一次（本来能复活的怪物不会复活两次）
             m = <Monster>ElemFactory.addAI("onElemChanged", async (ps) => {
@@ -734,7 +734,7 @@ class MonsterFactory {
                 var g = BattleUtils.findRandomEmptyGrid(m.bt(), false);
                 var newM = await m.bt().implReviveElemAt(m.type, undefined, g.pos.x, g.pos.y);
                 if(newM)
-                newM["reviveCnt"] = m["reviveCnt"] ? m["reviveCnt"] - 1 : m.attrs.reviveCnt - 1;
+                    newM["reviveCnt"] = m["reviveCnt"] ? m["reviveCnt"] - 1 : m.attrs.reviveCnt - 1;
             }
         } ,m);
     }
@@ -841,7 +841,7 @@ class MonsterFactory {
             ps["damageShared"] = true;
             ps.targetAttrs["damageSharedMonster"] = m;
         }, m, (ps) => {
-            return ps.subType == "monster2targets" && ps.targetAttrs.owner instanceof Player && !ps["damageShared"]}, true, true);
+            return ps.subType == "monster2targets" && ps.targetAttrs.owner instanceof Player && !ps["damageShared"] && !m.isDead()}, true, true);
         return m;
     }
 
@@ -1270,8 +1270,10 @@ class MonsterFactory {
     static doReduceHpPerRound(m: Monster, onlyUncovered = false): Monster {
         return <Monster>ElemFactory.addAI("onPlayerActed", async () => {
             await m.bt().implAddPlayerHp(-1, m);
-            if (m.type == "Kraken")
+            if (m.type == "Kraken"){
                 m.bt().triggerLogicPointSync("onKrakenDeepFrozen");
+                await m.bt().fireEvent("onKrakenDeepFrozen");
+            }
         }, m, undefined, onlyUncovered);
     }
 
@@ -1312,7 +1314,7 @@ class MonsterFactory {
                     m["newProtectiveShield"] = true;
                 }
 
-                m["protectiveShield"] = 4;
+                m["protectiveShield"] = 3;
                 m["protectiveShield70"] = true;
             } else if (p < 40 && p >= 10 && !m["protectiveShield40"]) {
                 if (!m["protectiveShield"]){
@@ -1320,7 +1322,7 @@ class MonsterFactory {
                     m["newProtectiveShield"] = true;
                 }
 
-                m["protectiveShield"] = 4;
+                m["protectiveShield"] = 3;
                 m["protectiveShield70"] = true;
                 m["protectiveShield40"] = true;
             } else if (p < 10 && p > 0 && !m["protectiveShield10"]) {
@@ -1329,7 +1331,7 @@ class MonsterFactory {
                     m["newProtectiveShield"] = true;
                 }
 
-                m["protectiveShield"] = 4;
+                m["protectiveShield"] = 3;
                 m["protectiveShield70"] = true;
                 m["protectiveShield40"] = true;
                 m["protectiveShield10"] = true;
@@ -1377,16 +1379,17 @@ class MonsterFactory {
     }
 
     // 精英特殊逻辑
-    static makeElite(m:Monster):Monster {
+    static makeElite(m:Monster, bonusCondition = undefined):Monster {
         m.isElite = true;
         m = MonsterFactory.canNotFrozenToDeath(m);
-        m = MonsterFactory.addBonusBoxAfterEliteDie(m);
+        m = MonsterFactory.addBonusBoxAfterEliteDie(m, bonusCondition);
         return m;
     }
 
     // 精英死亡后添加bonus宝箱
-    static addBonusBoxAfterEliteDie(m:Monster):Monster {
+    static addBonusBoxAfterEliteDie(m:Monster, bonusCondition = undefined):Monster {
         return <Monster>ElemFactory.addAIEvenCovered("onElemChanged", async () => {
+            if (bonusCondition && !bonusCondition(m)) return;
             var bt = m.bt();
             var boxGrid = BattleUtils.findRandomEmptyGrid(bt);
             if (boxGrid) {
