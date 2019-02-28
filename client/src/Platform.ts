@@ -99,9 +99,8 @@ class DefaultPaltform implements Platform {
     public getUserID():string {
         var uid:string = Utils.loadLocalItem("UserID");
         if (!uid || uid.substring(0, 4) != "uid.") {
-            var now = new Date();
-            var r = new SRandom(now.getMilliseconds());
-            uid = "uid." + this.platformType + "." + now.toLocaleString('en-GB', { timeZone: 'UTC' }) + "." + r.nextInt(100000, 1000000);
+            var r = new SRandom((new Date()).getMilliseconds());
+            uid = "uid." + Utils.nowTimeStr() + "." + this.platformType + "."  + r.nextInt(100000, 1000000);
             uid = uid.replace(",", "");
             Utils.saveLocalItem("UserID", uid);
         }
@@ -157,7 +156,6 @@ class DefaultPaltform implements Platform {
             } catch (ex) {
                 var exMsg = "load localstorage exception: " + str + ":" + ex.toString();
                 Utils.log(exMsg);
-                // Utils.pt((new Date()).toLocaleString('en-GB', { timeZone: 'UTC' }) + ":" + str + ":ex:loadstorage:", exMsg);
                 egret.localStorage.setItem("localStorageData", "");
                 return {};
             }

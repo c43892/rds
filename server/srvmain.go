@@ -312,6 +312,7 @@ type stInfo struct {
 	NewGameStatus []string       `json:"NewGameStatus"` // 开始新游戏前的状态
 	EndGameStatus []string       `json:"EndGameStatus"` // 结束游戏状态
 	Prograss      string         `json:"Prograss"`      // 当前游戏状态
+	RookieDone    bool           `json:"RookieDone"`    // 完成新手
 }
 
 // load or create statistic info
@@ -360,6 +361,12 @@ func loadOrCreateStInfo(stID string) *stInfo {
 		info.PlayerName = r["PlayerName"]
 	}
 
+	if err != nil || r["RookieDone"] == "" {
+		info.RookieDone = false
+	} else {
+		info.RookieDone, _ = strconv.ParseBool(r["RookieDone"])
+	}
+
 	return info
 }
 
@@ -381,6 +388,7 @@ func addStInfo(uid string, stKey string, infoStr string) {
 		info.Clearance = append(info.Clearance, infoStr)
 		clearanceInfo, _ := json.Marshal(info.Clearance)
 		dbc.HSet(stID, "Clearance", string(clearanceInfo))
+		dbc.HSet(stID, "RookieDone", true)
 
 		info.EndGameStatus = append(info.EndGameStatus, "0,false,"+infoStr)
 		endGameInfo, _ := json.Marshal(info.EndGameStatus)
@@ -394,10 +402,16 @@ func addStInfo(uid string, stKey string, infoStr string) {
 		info.Prograss = infoStr
 		dbc.HSet(stID, "Prograss", info.Prograss)
 
-		if infoStr[0:4] == "out," && infoStr[4:5] == "1" { // 角色死亡
-			info.EndGameStatus = append(info.EndGameStatus, infoStr[4:])
-			endGameInfo, _ := json.Marshal(info.EndGameStatus)
-			dbc.HSet(stID, "EndGameStatus", string(endGameInfo))
+		if infoStr[0:4] == "out," {
+			if infoStr[4:5] == "1" { // 角色死亡
+				info.EndGameStatus = append(info.EndGameStatus, infoStr[4:])
+				endGameInfo, _ := json.Marshal(info.EndGameStatus)
+				dbc.HSet(stID, "EndGameStatus", string(endGameInfo))
+			} else { // 角色未死亡，通过该层
+				if infoStr[len(infoStr)-1:len(infoStr)] == "0" { // 已经不是新手
+					dbc.HSet(stID, "RookieDone", true)
+				}
+			}
 		}
 	}
 }
@@ -412,13 +426,27 @@ func containsDay(days []time.Time, day time.Time) bool {
 	return false
 }
 
+type dateArr []time.Time
+
+func (arr dateArr) Len() int           { return len(arr) }
+func (arr dateArr) Swap(i, j int)      { arr[i], arr[j] = arr[j], arr[i] }
+func (arr dateArr) Less(i, j int) bool { return arr[i].Before(arr[j]) }
+
+type stKeyArr []string
+
+func (arr stKeyArr) Len() int      { return len(arr) }
+func (arr stKeyArr) Swap(i, j int) { arr[i], arr[j] = arr[j], arr[i] }
+func (arr stKeyArr) Less(i, j int) bool {
+	d1, _ := time.Parse("02/01/2006", arr[i][6:16])
+	d2, _ := time.Parse("02/01/2006", arr[j][6:16])
+	return d1.Before(d2)
+}
+
 func doSt() {
 	// collect all days
 
 	allDays := make([]time.Time, 0)
-	var keys, _ = dbc.Keys("st.uid*").Result()
-
-	// todo: sort the keys by creating time
+	var keys, _ = dbc.Keys("st.uid.*").Result()
 
 	for i := 0; i < len(keys); i++ {
 		var stID = keys[i]
@@ -438,6 +466,12 @@ func doSt() {
 			}
 		}
 	}
+
+	// sort date
+	sort.Sort(dateArr(allDays))
+
+	// sort the keys
+	sort.Sort(stKeyArr(keys))
 
 	// daily login count
 
@@ -491,9 +525,10 @@ func doSt() {
 		fmt.Println("")
 	}
 
+	fmt.Println("total = " + strconv.Itoa(len(keys)))
+
 	// clearance count
 
-	fmt.Println("clearance count")
 	clearanceUserCnt := 0
 	for i := 0; i < len(keys); i++ {
 		var stID = keys[i]
@@ -501,10 +536,42 @@ func doSt() {
 		cnt := len(stInfo.Clearance)
 		if cnt > 0 {
 			clearanceUserCnt++
-			fmt.Println(stInfo.PlayerName + "," + strconv.Itoa(cnt))
 		}
 	}
-	fmt.Println("total," + strconv.Itoa(clearanceUserCnt) + "," + strconv.Itoa(len(keys)))
+	fmt.Println("clearance = " + strconv.Itoa(clearanceUserCnt))
+
+	// day1/3/7 retation
+	rookieDone := 0
+	rt1 := 0
+	rt3 := 0
+	rt7 := 0
+	for _, key := range keys {
+		stInfo := loadOrCreateStInfo(key)
+		if stInfo.RookieDone {
+			rookieDone++
+		}
+
+		createDate, _ := time.Parse("02/01/2006", key[6:16])
+		d1 := createDate.AddDate(0, 0, 1)
+		d3 := createDate.AddDate(0, 0, 3)
+		d7 := createDate.AddDate(0, 0, 7)
+
+		if stInfo.DailyLoginCnt[d1.Format("02/01/2006")] > 0 {
+			rt1++
+		}
+
+		if stInfo.DailyLoginCnt[d3.Format("02/01/2006")] > 0 {
+			rt3++
+		}
+
+		if stInfo.DailyLoginCnt[d7.Format("02/01/2006")] > 0 {
+			rt7++
+		}
+	}
+
+	fmt.Println("rookie, rt1, rt3, rt7 = " + strconv.Itoa(rookieDone) + "," + strconv.Itoa(rt1) + "," + strconv.Itoa(rt3) + "," + strconv.Itoa(rt7))
+
+	// finished the rookie play
 }
 
 // load or create user
