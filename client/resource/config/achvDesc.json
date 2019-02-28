@@ -55,12 +55,12 @@
         "detail":{
             "title":"<font color=#000000 size=25>恭喜解锁普通难度</font>",
             "descs":[
-                "<font color=#000000 size=20>初始格子数:</font><font color=#00b050 size=20>8→7</font>",
-                "<font color=#000000 size=20>怪物属性:</font><font color=#00b050 size=20>80%→90%</font>",
-                "<font color=#000000 size=20>获得金钱数:</font><font color=#00b050 size=20>200%→150%</font>",
-                "<font color=#000000 size=20>初始生命值:</font><font color=#00b050 size=20>40→40</font>",
-                "<font color=#000000 size=20>死神初始步数:</font><font color=#00b050 size=20>180→160</font>",
-                "<font color=#000000 size=20>世界长度:</font><font color=#00b050 size=20>2→3</font>"
+                "<font color=#000000 size=20>初始格子数:</font><font color=#294c22 size=20>8→7</font>",
+                "<font color=#000000 size=20>怪物属性:</font><font color=#294c22 size=20>80%→90%</font>",
+                "<font color=#000000 size=20>获得金钱数:</font><font color=#294c22 size=20>200%→150%</font>",
+                "<font color=#000000 size=20>初始生命值:</font><font color=#294c22 size=20>40→40</font>",
+                "<font color=#000000 size=20>死神初始步数:</font><font color=#294c22 size=20>180→160</font>",
+                "<font color=#000000 size=20>世界长度:</font><font color=#294c22 size=20>2→3</font>"
             ]
         }
     },
@@ -73,12 +73,12 @@
         "detail":{
             "title":"<font color=#000000 size=25>恭喜解锁困难难度</font>",
             "descs":[
-                "<font color=#000000 size=20>初始格子数:</font><font color=#00b050 size=20>7→6</font>",
-                "<font color=#000000 size=20>怪物属性:</font><font color=#00b050 size=20>90%→100%</font>",
-                "<font color=#000000 size=20>获得金钱数:</font><font color=#00b050 size=20>150%→100%</font>",
-                "<font color=#000000 size=20>初始生命值:</font><font color=#00b050 size=20>40→40</font>",
-                "<font color=#000000 size=20>死神初始步数:</font><font color=#00b050 size=20>160→140</font>",
-                "<font color=#000000 size=20>世界长度:</font><font color=#00b050 size=20>3→4</font>"
+                "<font color=#000000 size=20>初始格子数:</font><font color=#294c22 size=20>7→6</font>",
+                "<font color=#000000 size=20>怪物属性:</font><font color=#294c22 size=20>90%→100%</font>",
+                "<font color=#000000 size=20>获得金钱数:</font><font color=#294c22 size=20>150%→100%</font>",
+                "<font color=#000000 size=20>初始生命值:</font><font color=#294c22 size=20>40→40</font>",
+                "<font color=#000000 size=20>死神初始步数:</font><font color=#294c22 size=20>160→140</font>",
+                "<font color=#000000 size=20>世界长度:</font><font color=#294c22 size=20>3→4</font>"
             ]
         }
     }
