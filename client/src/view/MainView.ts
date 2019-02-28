@@ -466,7 +466,7 @@ class MainView extends egret.DisplayObjectContainer {
         // Utils.removeLocalDate("rookiePlay"); // 删除新手数据存档
         // Utils.initAchvData(); // 初始化成就数据
         // AchievementMgr.mgr.finishAchvAndSave({type:"RichMan", isFinished:true, finishedStage:undefined});
-        // var achv = AchievementMgr.mgr.allAchvs[Utils.indexOf(AchievementMgr.mgr.allAchvs, (a:Achievement) => a.type == "SkillMaster")];
+        // var achv = AchievementMgr.mgr.allAchvs[Utils.indexOf(AchievementMgr.mgr.allAchvs, (a:Achievement) => a.type == "EasyModeUnlock")];
         // this.openNewAchvView(achv);
         // Utils.removeLocalData("occupationExp"); // 删除职业解锁进度
         // Utils.removeLocalData("playerName"); // 删除玩家名

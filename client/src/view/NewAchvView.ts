@@ -77,18 +77,18 @@ class NewAchvView extends egret.DisplayObjectContainer {
         if(cfg.detail){
             var dTitle = ViewUtils.createTextField(0, 0x000000, true);
             dTitle.name = "dTitle";
+            ViewUtils.multiLang(this, dTitle);
             dTitle.textFlow = ViewUtils.fromHtml(cfg.detail.title);
             this.addChild(dTitle);
-            ViewUtils.multiLang(this, dTitle);
             needMove.push(dTitle);
             var y = dTitle.y + dTitle.height + 10;
 
             for(var desc of cfg.detail.descs){
                 var dDesc = ViewUtils.createTextField(0, 0x000000, true);
                 dDesc.name = "dDesc";
+                ViewUtils.multiLang(this, dDesc);
                 dDesc.textFlow = ViewUtils.fromHtml(desc);
                 this.addChild(dDesc);
-                ViewUtils.multiLang(this, dDesc);
                 needMove.push(dDesc);
                 dDesc.y = y;
                 y = y + dDesc.height + 10;
