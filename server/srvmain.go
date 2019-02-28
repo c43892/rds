@@ -442,6 +442,21 @@ func (arr stKeyArr) Less(i, j int) bool {
 	return d1.Before(d2)
 }
 
+// find the index of the substr encountered N times in str
+func indexOfStrNth(str string, substr string, n int) int {
+	cnt := 0
+	for i := 0; i <= len(str)-len(substr); i++ {
+		if str[i:i+len(substr)] == substr {
+			cnt++
+			if cnt == n {
+				return i
+			}
+		}
+	}
+
+	return -1
+}
+
 func doSt() {
 	// collect all days
 
@@ -529,6 +544,7 @@ func doSt() {
 
 	// clearance count
 
+	nonClearUserArr := make([]string, 0)
 	clearanceUserCnt := 0
 	for i := 0; i < len(keys); i++ {
 		var stID = keys[i]
@@ -536,6 +552,8 @@ func doSt() {
 		cnt := len(stInfo.Clearance)
 		if cnt > 0 {
 			clearanceUserCnt++
+		} else {
+			nonClearUserArr = append(nonClearUserArr, stID)
 		}
 	}
 	fmt.Println("clearance = " + strconv.Itoa(clearanceUserCnt))
@@ -569,9 +587,22 @@ func doSt() {
 		}
 	}
 
-	fmt.Println("rookie, rt1, rt3, rt7 = " + strconv.Itoa(rookieDone) + "," + strconv.Itoa(rt1) + "," + strconv.Itoa(rt3) + "," + strconv.Itoa(rt7))
+	fmt.Println("rookieDone, rt1, rt3, rt7 = " + strconv.Itoa(rookieDone) + "," + strconv.Itoa(rt1) + "," + strconv.Itoa(rt3) + "," + strconv.Itoa(rt7))
 
-	// finished the rookie play
+	// the last level info for these non-clearance user
+	fmt.Println("lost on level without clearance: ")
+	lostLvCnt := make(map[int]int)
+	for _, key := range nonClearUserArr {
+		stInfo := loadOrCreateStInfo(key)
+		n1 := indexOfStrNth(stInfo.Prograss, ",", 2)
+		n2 := indexOfStrNth(stInfo.Prograss, ",", 3)
+		lv, _ := strconv.Atoi(stInfo.Prograss[n1+1 : n2])
+		lostLvCnt[lv]++
+	}
+
+	for lv, cnt := range lostLvCnt {
+		fmt.Println(strconv.Itoa(lv) + "," + strconv.Itoa(cnt))
+	}
 }
 
 // load or create user
