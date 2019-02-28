@@ -596,7 +596,10 @@ class MainView extends egret.DisplayObjectContainer {
             } else if (window.platform.canPlayAdsReborn()) {
                 if (await this.confirmOkYesNo("不幸死亡", "是否观看广告复活？", true, 
                     {yes:"watchRewardAds", cancel:"justDie"}))
-                    await window.platform.playRewardAds((reward) => ps.reborn = reward);
+                    await window.platform.playRewardAds((reward) => {
+                        ps.reborn = reward;
+                        Utils.st("Reborn", this.p.currentTotalStorey() + "," + this.p.occupation + "," + this.p.difficulty.replace("level", ""));
+                    });
                 else
                     watchAds = false;
             } else {

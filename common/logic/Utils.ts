@@ -361,7 +361,6 @@ class Utils {
             Utils.localStorageData["Version"] = Version.currentVersion;
             Utils.localStorageData["Player"] = p.toString();
         } else {
-            delete Utils.localStorageData["Version"];
             delete Utils.localStorageData["Player"];
         }
 
