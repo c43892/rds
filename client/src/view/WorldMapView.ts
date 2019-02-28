@@ -651,10 +651,11 @@ class WorldMapView extends egret.DisplayObjectContainer {
             
             // 判断此世界是否已经完成
             if(this.player.currentStoreyPos.lv >= this.player.worldmap.cfg.totalLevels){
-                // 已完成的话,判断该难度下时候有下一个世界
-                this.player.finishedWorldMap.push(this.worldmap.cfg);
+                // 已完成的话,判断该难度下是否有下一个世界
+                this.player.finishedWorldMap.push(this.worldmap);
+                this.player.finishedWorldMapName.push(this.worldmap.cfg.name);
                 this.player.currentStoreyPos.lv = 0;
-                var thisWorldName = this.worldmap.cfg.name;
+                var thisWorldName = this.worldmap.cfg.name == "rookieWorld" ? "world1" : this.worldmap.cfg.name;
                 var worlds = GCfg.getDifficultyCfg()[this.player.difficulty].worlds;
                 var nextWorldName = worlds[Utils.indexOf(worlds, (name) => name == thisWorldName) + 1];
 
@@ -663,6 +664,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 else {
                     Utils.st("Clearance", this.player.worldmap.cfg.totalLevels.toString() + "," + this.player.occupation + "," + this.player.difficulty.replace("level", ""));
                     Utils.saveLocalItem("Clearance", "1");
+                    await AchievementMgr.mgr.actOnLogicPoint("onGameEnd");
                     await this.openFinishGameView();
                 }
             }

@@ -1,6 +1,6 @@
 {
     "rookieWorld":{
-        "name":"world1",
+        "name":"rookieWorld",
         "worldNum":0,
         "totalLevels":15,
         "width":5,
@@ -46,6 +46,7 @@
             {"type":"item", "attrs":"ttrdp2", "weight":10},
             {"type":"item", "attrs":"ttrdp2", "weight":10}
         ],
+        "bossTypes" : ["slimeKing", "brainOfCthulhu"],
         "nextWorld":"world2"
     },
 
@@ -93,6 +94,7 @@
             {"type":"item", "attrs":"ttrdp2", "weight":10},
             {"type":"item", "attrs":"ttrdp2", "weight":10}
         ],
+        "bossTypes" : ["slimeKing", "brainOfCthulhu"],
         "nextWorld":"world2"
     },
     
@@ -142,6 +144,7 @@
             {"type":"item", "attrs":"ttrdp2", "weight":10},
             {"type":"item", "attrs":"ttrdp2", "weight":10}
         ],
+        "bossTypes" : ["slimeKing", "brainOfCthulhu"],
         "nextWorld":"world3"
     },
 
@@ -191,6 +194,7 @@
             {"type":"item", "attrs":"ttrdp2", "weight":10},
             {"type":"item", "attrs":"ttrdp2", "weight":10}
         ],
+        "bossTypes" : ["kraken", "halloweenTreant"],
         "nextWorld":"world4"
     },
 
@@ -239,7 +243,8 @@
             {"type":"coins", "attrs":125, "weight":10},
             {"type":"item", "attrs":"ttrdp2", "weight":10},
             {"type":"item", "attrs":"ttrdp2", "weight":10}
-        ]
+        ],
+        "bossTypes" : ["kraken", "halloweenTreant"]
     },
 
     "world5":{

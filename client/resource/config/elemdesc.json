@@ -541,7 +541,7 @@
         "HalloweenTreant":{"name":"万圣节树妖", "desc":[
              "<font color=#7d0403 bold=true size=21>古树缠绕</font>\n<font color=#000000 bold=false size=20>每3个回合主动攻击1次，造成4倍伤害</font>",
             "<font color=#7d0403 bold=true size=21>植物军团</font>\n<font color=#000000 bold=false size=20>将所有怪物变为植物，初始将5个随机怪物变成豌豆射手，豌豆射手将在战斗开始时自动现身，N回合攻击一次玩家（不攻击商人）</font>",
-            "<font color=#7d0403 bold=true size=21>防护</font>\n<font color=#000000 bold=false size=20>血量每减少30%，则进入防护模式，为自己加上一个近乎无敌的防护罩，受到除火焰以外的任何伤害均为1，防护罩在受到5次伤害后解除</font>",
+            "<font color=#7d0403 bold=true size=21>防护</font>\n<font color=#000000 bold=false size=20>血量每减少30%，则进入防护模式，为自己加上一个近乎无敌的防护罩，受到除火焰以外的任何伤害均为1，防护罩在受到3次伤害后解除</font>",
             "<font color=#7d0403 bold=true size=21>易燃</font>\n<font color=#000000 bold=false size=20>被火焰伤害会进入点燃状态，免疫中毒</font>"
         ]},
         "SlimeKing":{"name":"史莱姆之王", "desc":[

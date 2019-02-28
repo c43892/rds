@@ -1749,9 +1749,16 @@ class AniView extends egret.DisplayObjectContainer {
         AniUtils.tipAt(ViewUtils.getTipText("multAttack"), {x:p.x + 88, y:p.y+1}, 30);
     }
 
+    // 深海窒息提示
+    public async onKrakenDeepFrozen(){
+        var sv = this.bv.hpBar;
+        var p = AniUtils.ani2global(sv);
+        AniUtils.tipAt(ViewUtils.getTipText("deepFrozen"), {x:p.x + 50, y:p.y + 60}, 25);
+    }
+
     // 成就完成提示
     public async onPreFinishAchv(ps){
-        var achv = <Achievement>Utils.filter(AchievementMgr.mgr.allAchvs, (a:Achievement) => a.type = ps.type)[0];
+        var achv = <Achievement>Utils.filter(AchievementMgr.mgr.allAchvs, (a:Achievement) => a.type == ps.type)[0];
         await this.mv.openNewAchvView(achv);
     }
 

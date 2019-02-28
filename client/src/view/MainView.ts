@@ -251,7 +251,7 @@ class MainView extends egret.DisplayObjectContainer {
             "onSwatheItemWithCocoon", "summonByDancer", "onGetMarkAllAward", "onStartupRegionUncovered", "onSneaking",
             "relicsEquippedMaxNumAdded", "onPlayerReborn", "onUseProp", "onElemRevive", "refreshMap", 
             "onPlayerLevelUp", "onSelfExplode", "onShieldFlyBack", "onSanThreshold", "monsterAttackSingleTargetAct", "onProtect", "onMultAttack" ,"onPreFinishAchv", 
-            "onBossExplosion", "onLevelInitedGiveTip", "protectiveShield"
+            "onBossExplosion", "onLevelInitedGiveTip", "protectiveShield", "onKrakenDeepFrozen"
         ], (e) => (ps) => this.bv.av[e](ps));
         bt.registerEvent("onBattleEnded", async (ps) => {
             await this.av.blackIn();
@@ -466,6 +466,8 @@ class MainView extends egret.DisplayObjectContainer {
         // Utils.removeLocalDate("rookiePlay"); // 删除新手数据存档
         // Utils.initAchvData(); // 初始化成就数据
         // AchievementMgr.mgr.finishAchvAndSave({type:"RichMan", isFinished:true, finishedStage:undefined});
+        // var achv = AchievementMgr.mgr.allAchvs[Utils.indexOf(AchievementMgr.mgr.allAchvs, (a:Achievement) => a.type == "EasyModeUnlock")];
+        // this.openNewAchvView(achv);
         // Utils.removeLocalData("occupationExp"); // 删除职业解锁进度
         // Utils.removeLocalData("playerName"); // 删除玩家名
 

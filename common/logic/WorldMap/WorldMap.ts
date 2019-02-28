@@ -15,7 +15,9 @@ class WorldMap {
         // 根据特定规则得到本个所用的世界的随机数
         var worldmapRandom = new SRandom(p.worldmapRandomSeed + Utils.string2Number(worldName));
         WorldMapGenerator.worldMapGenerator(w, worldmapRandom);
-        var bossTypes:string[] = GCfg.getMiscConfig("bossTypes");
+        var finishedBoss = Utils.map(p.finishedWorldMap, (wm) => wm.bossType);
+        var bossTypes:string[] = Utils.filter(w.cfg.bossTypes, (t) => !Utils.contains(finishedBoss, t));
+        Utils.assert(bossTypes.length > 0, "not enough bossType to set" );
         w.bossType = bossTypes[worldmapRandom.nextInt(0, bossTypes.length)];
 
         return w;
