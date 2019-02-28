@@ -27,8 +27,10 @@ class DefaultPaltform implements Platform {
     wc:WebClient;
     
     adMobReady:boolean = false;
-    adMobAppID:string = "ca-app-pub-3940256099942544~3347511713";
-    adMobAdID:string = "ca-app-pub-3940256099942544/5224354917";
+    adMobAppID:string = "ca-app-pub-3940256099942544~3347511713"; // google test
+    adMobAdID:string = "ca-app-pub-3940256099942544/5224354917"; // google test
+    // adMobAppID:string = "ca-app-pub-1800218346925652~6940599097";
+    // adMobAdID:string = "ca-app-pub-1800218346925652/3739720681";
 
     iOSLoadLocalStorageDataCallback;
     rewardAdsCompletedCallback;
@@ -59,7 +61,7 @@ class DefaultPaltform implements Platform {
             });
 
             // 不初始化广告模块
-            // egret.ExternalInterface.call("rdsInitAdMob", this.adMobAppID + ";" + this.adMobAdID);
+            egret.ExternalInterface.call("rdsInitAdMob", this.adMobAppID + ";" + this.adMobAdID);
         }
 
         egret.lifecycle.onPause = () => {
@@ -97,9 +99,8 @@ class DefaultPaltform implements Platform {
     public getUserID():string {
         var uid:string = Utils.loadLocalItem("UserID");
         if (!uid || uid.substring(0, 4) != "uid.") {
-            var now = new Date();
-            var r = new SRandom(now.getMilliseconds());
-            uid = this.platformType + ".uid." + now.toLocaleString('en-GB', { timeZone: 'UTC' }) + "." + r.nextInt(100000, 1000000);
+            var r = new SRandom((new Date()).getMilliseconds());
+            uid = "uid." + Utils.nowTimeStr() + "." + this.platformType + "."  + r.nextInt(100000, 1000000);
             uid = uid.replace(",", "");
             Utils.saveLocalItem("UserID", uid);
         }
@@ -155,7 +156,6 @@ class DefaultPaltform implements Platform {
             } catch (ex) {
                 var exMsg = "load localstorage exception: " + str + ":" + ex.toString();
                 Utils.log(exMsg);
-                // Utils.pt((new Date()).toLocaleString('en-GB', { timeZone: 'UTC' }) + ":" + str + ":ex:loadstorage:", exMsg);
                 egret.localStorage.setItem("localStorageData", "");
                 return {};
             }

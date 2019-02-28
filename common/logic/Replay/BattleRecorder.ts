@@ -116,7 +116,7 @@ class BattleRecorder {
             else if (replayList.length > 10)
                 replayList.shift();
 
-            replayList.push({id:btid, time:(new Date()).toLocaleString('en-GB', { timeZone: 'UTC' })});
+            replayList.push({id:btid, time:Utils.nowTimeStr()});
             Utils.saveLocalItem("replayList", replayList);
         }
 

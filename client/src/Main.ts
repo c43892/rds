@@ -214,7 +214,7 @@ class Main extends egret.DisplayObjectContainer {
 
         await Utils.initPlatform();
 
-        var launchTime = (new Date()).toLocaleString('en-GB', { timeZone: 'UTC' });
+        var launchTime = Utils.nowTimeStr();
         var launchDate = launchTime.substr(0, 10);
 
         Utils.st("LaunchDate", launchDate);

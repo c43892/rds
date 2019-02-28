@@ -329,6 +329,11 @@ class Utils {
         window.platform.setUserCloudStorage("st." + key, value);
     }
 
+    public static nowTimeStr():string {
+        return (new Date()).toLocaleString('en-GB', { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })
+        // return (new Date()).toLocaleString('en-GB', { timeZone: 'Asia/Shanghai' })
+    }
+
     // 保存角色数据
     public static savePlayer(p:Player, reason = undefined) {
         // player数据存档时,同时将预完成成就数据存档
