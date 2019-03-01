@@ -233,7 +233,7 @@ class Main extends egret.DisplayObjectContainer {
         this.ldv = new LoadingUI();
         await this.loadResGroups("preload"); // 加载初始资源
         Utils.log("preload finished");
-        // Utils.pt("Progress", "preload finished");
+        // Utils.st("ResourceLoaded", launchDate);
         this.globalInit(); // 初始化全局配置
         Utils.log("global initialize finished");
         this.mv = this.createMainView(); // 创建主场景        

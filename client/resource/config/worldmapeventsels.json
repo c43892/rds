@@ -640,7 +640,7 @@
                 "ps": {
                     "money": 50,
                     "randomNum": 1,
-                    "items": {"WeaponMaster": 10, "DefenseProficient": 10, "BookMaster": 10, "TreasureBoxDetector": 10, "KnifeMaster": 10, "MonsterHunter": 10, "KnifeProficient": 10, "ExploreEnhanced": 10, "HorticultureProficient": 10, "SmellEnhanced": 10, "Storer": 10, "ShieldProficient": 10, "StrikeFirst": 10 },
+                    "items": {"WeaponMaster": 10, "DefenseProficient": 10, "BookMaster": 10, "TreasureBoxDetector": 10, "KnifeMaster": 10, "MonsterHunter": 10, "ExploreEnhanced": 10, "HorticultureProficient": 10, "SmellEnhanced": 10, "Storer": 10, "ShieldProficient": 10, "StrikeFirst": 10 },
                     "group": "b21"
                  }                
             },{

@@ -290,18 +290,6 @@ func onSetUserInfo(msg *requestMsg) {
 			dbc.HSet(stID, "PlayerName", sInfo.PlayerName)
 		}
 	}
-
-	// } else if msg.Key[:3] == "st." {
-	// 	// statistics
-	// 	dbc.HSet(msg.UID, msg.Key, msg.Value)
-	// } else {
-	// 	usrInfo.Info[msg.Key] = msg.Value
-	// 	info, _ := json.Marshal(usrInfo.Info)
-	// 	dbc.HSet(msg.UID, "info", string(info))
-	// }
-
-	// get rank info
-	// return usrInfo
 }
 
 type stInfo struct {
@@ -313,6 +301,7 @@ type stInfo struct {
 	EndGameStatus []string       `json:"EndGameStatus"` // 结束游戏状态
 	Prograss      string         `json:"Prograss"`      // 当前游戏状态
 	RookieDone    bool           `json:"RookieDone"`    // 完成新手
+	Reborn        []string       `json:"Reborn"`        // 复活
 }
 
 // load or create statistic info
@@ -367,6 +356,12 @@ func loadOrCreateStInfo(stID string) *stInfo {
 		info.RookieDone, _ = strconv.ParseBool(r["RookieDone"])
 	}
 
+	if err != nil || r["Reborn"] == "" {
+		info.Reborn = make([]string, 0)
+	} else {
+		json.Unmarshal([]byte(r["Reborn"]), &info.Reborn)
+	}
+
 	return info
 }
 
@@ -413,6 +408,9 @@ func addStInfo(uid string, stKey string, infoStr string) {
 				}
 			}
 		}
+	case "Reborn": // 复活
+		info.Reborn = append(info.Reborn, infoStr)
+		dbc.HSet(stID, "Reborn", info.Reborn)
 	}
 }
 
@@ -558,7 +556,8 @@ func doSt() {
 	}
 	fmt.Println("clearance = " + strconv.Itoa(clearanceUserCnt))
 
-	// day1/3/7 retation
+	// reborn countd, ay1/3/7 retation
+	rebornCnt := 0
 	rookieDone := 0
 	rt1 := 0
 	rt3 := 0
@@ -568,6 +567,8 @@ func doSt() {
 		if stInfo.RookieDone {
 			rookieDone++
 		}
+
+		rebornCnt += len(stInfo.Reborn)
 
 		createDate, _ := time.Parse("02/01/2006", key[6:16])
 		d1 := createDate.AddDate(0, 0, 1)
@@ -587,7 +588,7 @@ func doSt() {
 		}
 	}
 
-	fmt.Println("rookieDone, rt1, rt3, rt7 = " + strconv.Itoa(rookieDone) + "," + strconv.Itoa(rt1) + "," + strconv.Itoa(rt3) + "," + strconv.Itoa(rt7))
+	fmt.Println("rebornTotal, rookieDone, rt1, rt3, rt7 = " + strconv.Itoa(rebornCnt) + "," + strconv.Itoa(rookieDone) + "," + strconv.Itoa(rt1) + "," + strconv.Itoa(rt3) + "," + strconv.Itoa(rt7))
 
 	// the last level info for these non-clearance user
 	fmt.Println("lost on level without clearance: ")
