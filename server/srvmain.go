@@ -284,6 +284,13 @@ func onSetUserInfo(msg *requestMsg) {
 			usrInfo.Name = msg.Value
 			dbc.HSet(usrInfo.UID, "name", msg.Value)
 
+			for _, rankUsr := range rank.Usrs {
+				if rankUsr.UID == usrInfo.UID {
+					rankUsr.Name = usrInfo.Name
+					break
+				}
+			}
+
 			stID := "st." + msg.UID
 			sInfo := loadOrCreateStInfo(stID)
 			sInfo.PlayerName = msg.Value
