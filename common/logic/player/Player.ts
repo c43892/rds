@@ -6,7 +6,8 @@ class Player {
     private static serializableFields = [
         "currentStoreyPos", "finishedStoreyPos", "finishedEvent", "finishedWorldMapName", "battleRandomSeed",  
         "deathStep", "maxDeathStep", "hp", "maxHp", "power", "defence", "dodge", 
-        "occupation", "exp", "lv", "money", "globalEventFinishedCount", "relicsEquippedCapacity", "worldName", "difficulty"];
+        "occupation", "exp", "lv", "money", "globalEventFinishedCount", "relicsEquippedCapacity",
+        "worldName", "difficulty", "rebornCnt"];
 
     // 所属战斗
     private $$bt;
@@ -20,6 +21,8 @@ class Player {
         for (var p of this.props)
             p.setBattle(bt);
     }
+
+    public rebornCnt = 0; // 复活次数统计
 
     // 战斗统计
     public st:BattleStatistics;
@@ -60,6 +63,7 @@ class Player {
         p.exp = 0;
         p.lv = 0;
         p.relicsEquippedCapacity = Utils.getPlayerInitRelicsEquippedCapacity(p.difficulty);
+        p.rebornCnt = 0;
 
         p.st = new BattleStatistics(p);
 
@@ -217,6 +221,7 @@ class Player {
 
     // 复活
     public reborn() {
+        this.rebornCnt++;
         this.clear();
         this.hp = Math.floor(this.maxHp / 2);
     }

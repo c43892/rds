@@ -373,8 +373,8 @@ class Utils {
     // 载入角色数据
     public static loadPlayer() {
         var oldVer = Utils.loadLocalItem("Version");
-        if (Version.isCompatible(oldVer)) {
-            var playerSaveString = Utils.loadLocalItem("Player");
+        var playerSaveString = Utils.loadLocalItem("Player");
+        if (Version.isCompatible(oldVer) && !!playerSaveString) {
             return {ver:oldVer, player:Player.fromString(playerSaveString)};
         }
         else {

@@ -194,7 +194,7 @@ class RankingView extends egret.DisplayObjectContainer {
             name.y = y;
             name.width = wName;
             name.height = h;
-            name.text = usr.name;
+            name.text = usr.name.length >= 2 ? usr.name.substring(1, usr.name.length - 1) : "";
             this.rankViewContainer.addChild(name);
 
             // 分数

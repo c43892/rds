@@ -282,7 +282,7 @@ func onSetUserInfo(msg *requestMsg) {
 			setUserScore(usrInfo, occupation)
 		} else if msg.Key == "playerName" {
 			usrInfo.Name = msg.Value
-			dbc.HSet(usrInfo.UID, "playerName", msg.Value)
+			dbc.HSet(usrInfo.UID, "name", msg.Value)
 
 			stID := "st." + msg.UID
 			sInfo := loadOrCreateStInfo(stID)
@@ -613,7 +613,7 @@ func loadOrCreateUser(uid string) *userInfo {
 	if err != nil || r["info"] == "" {
 		usrInfo = createUser(uid)
 		dbc.HSet(uid, "score", usrInfo.Score)
-		dbc.HSet(uid, "playerName", usrInfo.Name)
+		dbc.HSet(uid, "name", usrInfo.Name)
 		info, _ := json.Marshal(usrInfo.Info)
 		dbc.HSet(uid, "info", string(info))
 	} else {
@@ -621,7 +621,7 @@ func loadOrCreateUser(uid string) *userInfo {
 		usrInfo.UID = uid
 		score, _ := strconv.Atoi(r["score"])
 		usrInfo.Score = score
-		usrInfo.Name = r["playerName"]
+		usrInfo.Name = r["name"]
 		usrInfo.Info = map[string]string{}
 		json.Unmarshal([]byte(r["info"]), &usrInfo.Info)
 	}
