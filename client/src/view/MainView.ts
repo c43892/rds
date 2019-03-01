@@ -595,7 +595,7 @@ class MainView extends egret.DisplayObjectContainer {
                 ps.reborn = await this.confirmOkYesNo("不幸死亡", "确定分享给好友并复活吗？", true);
                 if (ps.reborn)
                     window.platform.shareGame();
-            } else if (window.platform.canPlayAdsReborn()) {
+            } else if (this.p.rebornCnt < 1 && window.platform.canPlayAdsReborn()) {
                 if (await this.confirmOkYesNo("不幸死亡", "是否观看广告复活？", true, 
                     {yes:"watchRewardAds", cancel:"justDie"}))
                     await window.platform.playRewardAds((reward) => {
