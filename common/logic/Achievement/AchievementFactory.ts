@@ -192,7 +192,7 @@ class AchievementFactory {
             // 在战斗外获得技能
             achv = AchievementFactory.addLogic("onAddRelicOutside", (ps) => {
                 var relic:Relic = Utils.filter(achv.mgr.player.allRelics, (r:Relic) => r.type == ps.relicType)[0];
-                if (relic.reinforceLv >= achv.cfg.relicLv){
+                if (relic.reinforceLv >= achv.cfg.relicLv - 1){
                     if (!achv["relicValid"])
                         achv["relicValid"] = [];
                     
