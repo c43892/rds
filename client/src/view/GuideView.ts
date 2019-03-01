@@ -801,7 +801,7 @@ class GuideView extends egret.DisplayObjectContainer {
         await this.tapWithDialog(avatar, "Nurse", "护士", "点击头像", 0, 550);
 
         await AniUtils.delay(2000);
-        await this.showDialog("Nurse", "护士", "这里你可以属性，通用技能，还有一些设置可以选择", 0, 550, true);
+        await this.showDialog("Nurse", "护士", "这里你可以看到你的属性，通用技能，还有一些设置可以选择", 0, 550, true);
 
         var avatar = this.cv.getChildByName("goBackBtn");
         await this.tapWithDialog(avatar, "Nurse", "护士", "点击返回让我们回到战斗", 0, 550);
