@@ -466,6 +466,14 @@ class Player {
     public get commonRelicTypes():string[] { 
         return GCfg.getOccupationCfg(this.occupation).commonRelics;
     }
+    public commonRelicsCanGet():Relic[] {
+        var rs = [];
+        for (var type of this.commonRelicTypes){
+            var r = <Relic>ElemFactory.create(type);
+            rs.push(r);
+        }            
+        return rs;
+    }
     public relicsEquipped:Relic[] = []; // 已经装备的遗物
     public relicsInBag:Relic[] = []; // 包裹中的遗物
     public get allRelics():Relic[] {
@@ -473,8 +481,11 @@ class Player {
     }
 
     // 获取还可以强化的遗物
-    public getReinforceableRelics() {
-        return Utils.filter(this.allRelics, (r:Relic) => r.canReinfoce());
+    public getReinforceableRelics(allCommonRelic = false) {
+        if(allCommonRelic)
+            return Utils.filter([...this.commonRelicsCanGet(), ...this.relicsEquipped, ...this.relicsInBag], (r:Relic) => r.canReinfoce());
+        else
+            return Utils.filter(this.allRelics, (r:Relic) => r.canReinfoce());
     }
 
     public addItem(e:Elem) {
