@@ -33,7 +33,7 @@ class PlantFactory {
             attrs = Utils.clone(attrs);
             attrs = this.addNumberTypeAttr(attrs, "hp", attrs.level2AddHp);
             var p = this.createPlant(attrs);
-            p = MonsterFactory.doShareDamageOnPlayerHurt(attrs.level1Share + attrs.level3Share, p);
+            p = MonsterFactory.doShareDamageOnPlayerHurt(attrs.level1Share + attrs.level3AddShare, p);
             p.getElemImgRes = () => "NutWall";
             p.canNotUseReason = () => "nutWallUseDesc";
             return p;
@@ -273,7 +273,7 @@ class PlantFactory {
             var p = this.createPlant(attrs);
             p.canUse = () => true;
             p.use = async () => { 
-                await p.bt().implMonsterDoSelfExplode(p, {a:attrs.level4BoomDamage, b:0, c:0}, false); 
+                await p.bt().implMonsterDoSelfExplode(p, {a:attrs.level4BoomDamage / 100, b:0, c:0}, false); 
                 return true;
             }
             p = MonsterFactory.doAttack("onPlayerActed", p, () => {

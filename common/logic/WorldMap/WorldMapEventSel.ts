@@ -175,15 +175,15 @@ class WorldMapEventSelFactory {
         "+power": (sel:WMES, p:Player, ps) => this.exec(async () => await this.implAddPower(p, ps.power), sel),
         "+item": (sel:WMES, p:Player, ps) => this.valid(() => Utils.occupationCompatible(p.occupation, ps.item), 
             this.exec(async () => await this.implAddItem(p, ElemFactory.create(ps.item)), sel)),
-        "reinforceRandomRelics": (sel:WMES, p:Player, ps) => this.valid(() => p.getReinforceableRelics().length > 0, 
+        "reinforceRandomRelics": (sel:WMES, p:Player, ps) => this.valid(() => p.getReinforceableRelics(true).length > 0, 
             this.exec(async () => {
-                var relics2inforce = p.getReinforceableRelics();
+                var relics2inforce = p.getReinforceableRelics(true);
                 var rs = p.playerRandom.selectN(relics2inforce, 2);
                 Utils.assert(rs.length > 0, "no relic can be reinforced");
                 for (var relic of rs)
                     await this.implAddItem(p, <Relic>ElemFactory.create(relic.type));
         }, sel)),
-        "reinfoceRelic": (sel:WMES, p:Player, ps) => this.valid(() => p.getReinforceableRelics().length > 0, 
+        "reinfoceRelic": (sel:WMES, p:Player, ps) => this.valid(() => p.getReinforceableRelics(true).length > 0, 
             this.exec(async () => {
                 while (1) {
                     var r = await this.selRelic();
