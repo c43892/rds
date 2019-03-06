@@ -60,8 +60,9 @@ class DefaultPaltform implements Platform {
                 this.rewardAdsCompletedCallback = undefined;
             });
 
-            // 不初始化广告模块
-            egret.ExternalInterface.call("rdsInitAdMob", this.adMobAppID + ";" + this.adMobAdID);
+            // 初始化广告模块
+            if (egret.Capabilities.os != "iOS")
+                egret.ExternalInterface.call("rdsInitAdMob", this.adMobAppID + ";" + this.adMobAdID);
         }
 
         egret.lifecycle.onPause = () => {
