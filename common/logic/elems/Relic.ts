@@ -23,7 +23,7 @@ class Relic extends Elem {
         if (this.afterReinforceLvUp && this.player)
             this.afterReinforceLvUp();
 
-        if (!this.player.bt())
+        if (!this.player || !this.player.bt())
             AchievementMgr.mgr.actOnLogicPointSync("onAddRelicOutside", {relicType:this.type});
 
         return true;

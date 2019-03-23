@@ -210,18 +210,19 @@ class MonsterFactory {
         // 精英触手
         "EliteReviveZombie": (attrs) => {
             var m = MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(this.createMonster(attrs)));
-            m = MonsterFactory.makeElite(m, (m) => m["reviveCnt"] == 0);
+            m = MonsterFactory.makeElite(m, (m) => m["reviveCnt"] == 0 || m["reviveFailed"]);
             m = MonsterFactory.doReviveOndie(m);
             // 为所有怪物附加复生能力，死亡时会复活一次（本来能复活的怪物不会复活两次）
             m = <Monster>ElemFactory.addAI("onElemChanged", async (ps) => {
                 var dm = <Monster>ps.e;
                 if(dm["revivedByERZ"]) return;
 
-                var rm = m.bt().level.createElem(dm.type);
-                rm["revivedByERZ"] = true;
                 var g = BattleUtils.findRandomEmptyGrid(m.bt(), false);
-                if(g)
-                    await m.bt().implAddElemAt(rm, g.pos.x, g.pos.y);
+                if (g) {
+                    var rm = await m.bt().implReviveElemAt(dm.type, undefined, g.pos.x, g.pos.y);
+                    if(rm)
+                        rm["revivedByERZ"] = true;
+                }                              
             }, m, (ps) => ps.subType == "dead" && ps.e instanceof Monster && ps.e.isHazard() && ps.e.type != "EliteReviveZombie" && ps.e != m && ps.e.type != "ReviveZombie", false);
             return m;
         }, 
@@ -728,15 +729,20 @@ class MonsterFactory {
     }
 
     // 死亡时在其他地点复活一次
-    static doReviveOndie(m:Monster):Monster {
+    static doReviveOndie(m: Monster): Monster {
         return <Monster>ElemFactory.addDieAI(async () => {
-            if(m["reviveCnt"] > 0 || m["reviveCnt"] == undefined){
+            if (m["reviveCnt"] > 0 || m["reviveCnt"] == undefined) {
                 var g = BattleUtils.findRandomEmptyGrid(m.bt(), false);
-                var newM = await m.bt().implReviveElemAt(m.type, undefined, g.pos.x, g.pos.y);
-                if(newM)
-                    newM["reviveCnt"] = m["reviveCnt"] ? m["reviveCnt"] - 1 : m.attrs.reviveCnt - 1;
+                if (g) {
+                    var newM = await m.bt().implReviveElemAt(m.type, undefined, g.pos.x, g.pos.y);
+                    if (newM)
+                        newM["reviveCnt"] = m["reviveCnt"] ? m["reviveCnt"] - 1 : m.attrs.reviveCnt - 1;
+                    else
+                        m["reviveFailed"] = true;
+                }
+                else m["reviveFailed"] = true;
             }
-        } ,m);
+        }, m);
     }
 
     // 每次受到伤害，都会标记一个随机怪物
@@ -1388,7 +1394,7 @@ class MonsterFactory {
 
     // 精英死亡后添加bonus宝箱
     static addBonusBoxAfterEliteDie(m:Monster, bonusCondition = undefined):Monster {
-        return <Monster>ElemFactory.addAIEvenCovered("onElemChanged", async () => {
+        return <Monster>ElemFactory.addAfterDieAI(async () => {
             if (bonusCondition && !bonusCondition(m)) return;
             var bt = m.bt();
             var boxGrid = BattleUtils.findRandomEmptyGrid(bt);
@@ -1423,7 +1429,7 @@ class MonsterFactory {
                     }
                 }
             }
-        }, m, (ps) => ps.subType == "beforeDieAndRemoved" && ps.e == m);
+        }, m);
     }
 
     // boss 特殊逻辑

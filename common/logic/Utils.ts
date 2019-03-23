@@ -378,9 +378,9 @@ class Utils {
             return {ver:oldVer, player:Player.fromString(playerSaveString)};
         }
         else {
-            delete Utils.localStorageData["rookiePlay"];
+            // delete Utils.localStorageData["rookiePlay"];
             delete Utils.localStorageData["Player"];
-            delete Utils.localStorageData["playerName"];
+            // delete Utils.localStorageData["playerName"];
             return {ver:oldVer, player:undefined};
         }
     }
