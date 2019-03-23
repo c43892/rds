@@ -157,8 +157,8 @@ func main() {
 	// 	runServer()
 	// }
 
-	runServer()
-	// doSt()
+	// runServer()
+	doSt()
 }
 
 type httpResp struct {
@@ -490,12 +490,22 @@ func doSt() {
 	// sort date
 	sort.Sort(dateArr(allDays))
 
+	// start from the specific date
+	startDate, _ := time.Parse("02/01/2006", "15/03/2019")
+	for i := 0; i < len(allDays); i++ {
+		if startDate.Equal(allDays[i]) {
+			allDays = allDays[i:]
+			break
+		}
+	}
+
 	// sort the keys
 	sort.Sort(stKeyArr(keys))
 
 	// daily login count
 
-	fmt.Print("daily login count")
+	fmt.Println("daily login count")
+	fmt.Print("id, name")
 	for _, d := range allDays {
 		fmt.Print("," + d.Format("02/01/2006"))
 	}
@@ -504,22 +514,23 @@ func doSt() {
 	for i := 0; i < len(keys); i++ {
 		var stID = keys[i]
 		stInfo := loadOrCreateStInfo(stID)
-		fmt.Print(stInfo.PlayerName)
+		fmt.Print(stID + ", " + stInfo.PlayerName + ", ")
 
 		for _, d := range allDays {
 			dStr := d.Format("02/01/2006")
 			for k, v := range stInfo.DailyLoginCnt {
-				fmt.Print(",")
 				if k == dStr {
 					fmt.Print(strconv.Itoa(v))
 				}
 			}
+			fmt.Print(",")
 		}
 
 		fmt.Println("")
 	}
 
-	fmt.Print("daily game time")
+	fmt.Println("daily game time")
+	fmt.Print("id, name")
 	for _, d := range allDays {
 		fmt.Print("," + d.Format("02/01/2006"))
 	}
@@ -530,16 +541,16 @@ func doSt() {
 	for i := 0; i < len(keys); i++ {
 		var stID = keys[i]
 		stInfo := loadOrCreateStInfo(stID)
-		fmt.Print(stInfo.PlayerName)
+		fmt.Print(stID + ", " + stInfo.PlayerName + ", ")
 
 		for _, d := range allDays {
 			dStr := d.Format("02/01/2006")
 			for k, v := range stInfo.DailyGameTime {
-				fmt.Print(",")
 				if k == dStr {
 					fmt.Print(strconv.Itoa(v))
 				}
 			}
+			fmt.Print(",")
 		}
 
 		fmt.Println("")
@@ -577,7 +588,7 @@ func doSt() {
 
 		rebornCnt += len(stInfo.Reborn)
 
-		createDate, _ := time.Parse("02/01/2006", key[6:16])
+		createDate, _ := time.Parse("02/01/2006", key[7:17])
 		d1 := createDate.AddDate(0, 0, 1)
 		d3 := createDate.AddDate(0, 0, 3)
 		d7 := createDate.AddDate(0, 0, 7)
@@ -604,12 +615,14 @@ func doSt() {
 		stInfo := loadOrCreateStInfo(key)
 		n1 := indexOfStrNth(stInfo.Prograss, ",", 2)
 		n2 := indexOfStrNth(stInfo.Prograss, ",", 3)
-		lv, _ := strconv.Atoi(stInfo.Prograss[n1+1 : n2])
-		lostLvCnt[lv]++
+		if n1 >= 0 && n2 >= 0 {
+			lv, _ := strconv.Atoi(stInfo.Prograss[n1+1 : n2])
+			lostLvCnt[lv]++
+		}
 	}
 
 	for lv, cnt := range lostLvCnt {
-		fmt.Println(strconv.Itoa(lv) + "," + strconv.Itoa(cnt))
+		fmt.Println(strconv.Itoa(lv+1) + "," + strconv.Itoa(cnt))
 	}
 }
 
