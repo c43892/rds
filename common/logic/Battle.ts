@@ -1062,7 +1062,6 @@ class Battle {
         // // 目前没有这种设定暂时未处理此问题,可能需要为每个target单独克隆一份原始的attackerAttrs以供使用
         // var attackerAttrs = !weapon ? this.player.getAttrsAsAttacker(0) :
         //         BattleUtils.mergeBattleAttrsPS(this.player.getAttrsAsAttacker(1), weapon.getAttrsAsAttacker());
-        
 
         // 这里开始循环处理每一个目标的相关逻辑，至此，targets 分散成为单个 target 处理
         for (var i = 0; i < tars.length; i++) {
