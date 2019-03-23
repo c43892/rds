@@ -10,6 +10,7 @@ class LuxuryChestView extends egret.DisplayObjectContainer {
     private relicImg2:egret.Bitmap;
     private relicImg3:egret.Bitmap;
     private relicDesc:ElemDescView;
+    private num:number;
 
     constructor(w, h){
         super();
@@ -88,12 +89,37 @@ class LuxuryChestView extends egret.DisplayObjectContainer {
         this.refreshRelicDescArea(undefined);
     }
 
-    // 刷新3个技能的图标
+    // 刷新3个技能的图标并根据实际的技能数量确定其位置
     refreshRelics() {
-        for (var i = 0; i < 3; i++){
-            ViewUtils.setTexName(this.relicImgs[i], this.relics[i].getElemImgRes() + "_png");
-            this.relicImgs[i].scaleX = this.relicImgs[i].scaleY = 1;
-            this.relicImgs[i]["relic"] = this.relics[i];
+        ViewUtils.multiLang(this, ...this.relicImgs);
+        this.num = 0;
+        for (var i = 0; i < 3; i++) {
+            if (!!this.relics[i]) {
+                this.num++;
+                ViewUtils.setTexName(this.relicImgs[i], this.relics[i].getElemImgRes() + "_png");
+                this.relicImgs[i].scaleX = this.relicImgs[i].scaleY = 1;
+                this.relicImgs[i]["relic"] = this.relics[i];      
+                this.relicImgs[i].touchEnabled = true;          
+            }
+            else {
+                this.relicImgs[i] = new egret.Bitmap();
+                this.relicImgs[i].scaleX = this.relicImgs[i].scaleY = 1;
+                this.relicImgs[i]["relic"] = undefined;
+                this.relicImgs[i].touchEnabled = false;
+            }
+        }
+        switch(this.num){            
+            case 2:{
+                this.relicImg1.x = this.relicImg2.x;
+                this.relicImg2.x = this.relicImg3.x;
+                this.relicImg2.y -= 50;
+                this.relicImg1.y = this.relicImg2.y;
+                break;
+            }
+            case 1:{
+                this.relicImg1.y += 80;
+                break;
+            }
         }
     }
 

@@ -1265,7 +1265,7 @@ class Battle {
             e["relics"] = relics;
         }
 
-        Utils.assert(e["relics"].length == 3, "there should be 3 relics in LuxuryChest");
+        Utils.assert(e["relics"].length > 0, "there should be at least 1 relic in LuxuryChest");
         var chosenRelic = await this.openLuxuryChest(e["relics"]);
         var c = 0;
         if (!!chosenRelic && chosenRelic instanceof Relic){
