@@ -847,7 +847,7 @@ class MonsterFactory {
             ps["damageShared"] = true;
             ps.targetAttrs["damageSharedMonster"] = m;
         }, m, (ps) => {
-            return ps.subType == "monster2targets" && ps.targetAttrs.owner instanceof Player && !ps["damageShared"] && !m.isDead()}, true, true);
+            return ps.subType == "monster2targets" && ps.targetAttrs.owner instanceof Player && !ps["damageShared"] && !m.isDead() && !ps.isMultAndNot1st}, true, true);
         return m;
     }
 

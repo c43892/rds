@@ -872,8 +872,8 @@ class Battle {
     }
 
     // 进行一次攻击计算
-    public async calcAttack(subType:string, attackerAttrs, targetAttrs, weapon:Elem = undefined) {
-        this.triggerLogicPointSync("onCalcAttacking", {subType:subType, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon});
+    public async calcAttack(subType:string, attackerAttrs, targetAttrs, weapon:Elem = undefined, isMultAndNot1st) {
+        this.triggerLogicPointSync("onCalcAttacking", {subType:subType, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon, isMultAndNot1st:isMultAndNot1st});
         var r = this.bc.doAttackCalc(attackerAttrs, targetAttrs); // 可能有免疫或者盾牌需要替换掉这个结果
         await this.triggerLogicPoint("onCalcAttackResult", {subType:subType, attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, r:r}); // 提供盾牌使用
         
@@ -1057,23 +1057,32 @@ class Battle {
         if (tars.length == 0)
             return;
 
-        // 攻击属性只需要计算一次
-        var attackerAttrs = !weapon ? this.player.getAttrsAsAttacker(0) :
-                BattleUtils.mergeBattleAttrsPS(this.player.getAttrsAsAttacker(1), weapon.getAttrsAsAttacker());
+        // // 攻击属性只需要计算一次
+        // // 这里需要注意,attackerAttrs可能会在之后被更改,如果出现多目标攻击可能会引起只对其中一个目标生效的更改被做用到其他不应该作用的的目标
+        // // 目前没有这种设定暂时未处理此问题,可能需要为每个target单独克隆一份原始的attackerAttrs以供使用
+        // var attackerAttrs = !weapon ? this.player.getAttrsAsAttacker(0) :
+        //         BattleUtils.mergeBattleAttrsPS(this.player.getAttrsAsAttacker(1), weapon.getAttrsAsAttacker());
+        
 
         // 这里开始循环处理每一个目标的相关逻辑，至此，targets 分散成为单个 target 处理
         for (var i = 0; i < tars.length; i++) {
+            // 为每个目标重新计算攻击属性,因为在攻击过程中可能攻击者被影响了(比如突袭了目标1,但是目标2并不需要偷袭加成)
+            var attackerAttrs = !weapon ? this.player.getAttrsAsAttacker(0) :
+                BattleUtils.mergeBattleAttrsPS(this.player.getAttrsAsAttacker(1), weapon.getAttrsAsAttacker());
+
             var tar = tars[i];
 
             // 目标属性
             var targetAttrs = tar.getAttrsAsTarget();
-            if (Utils.indexOf(marked, (t) => t == tar) > -1 && !weapon)
-                (<string[]>targetAttrs.targetFlags).push("Sneaked"); // 突袭标记
 
             this.triggerLogicPointSync("onGetAttackerAndTargetAttrs", {attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon});
 
             for (var j = 0; j < attackerAttrs.muiltAttack && !tar.isDead(); j++) {
-                var r = await this.calcAttack("player2monster", attackerAttrs, targetAttrs, weapon);
+                // 多重攻击可能需要更新targetAttrs
+                if (j > 0) 
+                    targetAttrs = tar.getAttrsAsTarget();
+
+                var r = await this.calcAttack("player2monster", attackerAttrs, targetAttrs, weapon, j > 0);
                 
                 // 这里可能是各种攻击结果，成功，闪避，无敌等
                 await this.fireEvent("onSingleAttacked", {subType:"player2monster", attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon, r:r});   
@@ -1154,7 +1163,7 @@ class Battle {
                         await this.fireEvent("onMultAttack", {m:m});
 
                     await this.fireEvent("monsterAttackSingleTargetAct", {m:m, target: tar}); // 对单个目标的攻击表现
-                    var r = await this.calcAttack("monster2targets", attackerAttrs, targetAttrs);
+                    var r = await this.calcAttack("monster2targets", attackerAttrs, targetAttrs, undefined, j > 0);
                     if (r.r == "attacked") {
                         if (tar instanceof Player) {
                             await this.implAddPlayerHp(r.dhp, m);
