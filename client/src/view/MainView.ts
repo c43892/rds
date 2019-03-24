@@ -463,6 +463,7 @@ class MainView extends egret.DisplayObjectContainer {
     // 开启初始登录界面
     public async openStartup(p:Player) {
         this.clear();
+        // Utils.saveLocalData("rookiePlay", "finished"); // 新手标记
         // Utils.removeLocalDate("rookiePlay"); // 删除新手数据存档
         // Utils.initAchvData(); // 初始化成就数据
         // AchievementMgr.mgr.finishAchvAndSave({type:"RichMan", isFinished:true, finishedStage:undefined});

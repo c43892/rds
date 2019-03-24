@@ -357,6 +357,8 @@
             "shortDesc":"每场战斗增加一把飞刀，飞刀杀死怪物后有{percent}%的几率不会消耗"},
         "KnifeDetector":{"name":"飞刀侦测", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>每场战斗增加一把飞刀，你知道所有飞刀的位置</font>"],
             "shortDesc":"每场战斗增加一把飞刀，你知道所有飞刀的位置"},
+        "DoubleAttack":{"name":"连击", "desc":["连击"],
+            "shortDesc":"连击"},
         
         
         "Coins":{"name":"金币", "desc":["<font color=#294c22 size=20> {cnt} </font><font color=#000000 size=20>个金币</font>"]},

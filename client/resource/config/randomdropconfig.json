@@ -133,7 +133,8 @@
         "KnifeRange": 10,
         "Unback2Sneak": 10,
         "DefenseProficient": 10,
-        "Crucifix": 10
+        "Crucifix": 10,
+        "DoubleAttack":10
     }},
 
     "bossBox4": {"num":[1, 2], "elems":{

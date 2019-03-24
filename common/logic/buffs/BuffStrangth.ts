@@ -14,7 +14,7 @@ class BuffStrangth extends Buff{
 
         this.addAI("onCalcAttacking", (ps) => {
             var attackerAttrs = ps.attackerAttrs;
-            if (!(attackerAttrs.owner instanceof Player)) return;
+            if (!(attackerAttrs.owner instanceof Player) || ps.isMultAndNot1st) return;
 
             attackerAttrs.power.b *= 2;
             if(Utils.indexOf(attackerAttrs.attackFlags, (s) => s == "immuneAttackBack") > -1) return;

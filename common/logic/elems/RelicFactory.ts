@@ -166,7 +166,7 @@ class RelicFactory {
                 };
                 ElemFactory.addAI("onCalcAttacking", (ps) => {
                     ps.attackerAttrs.power.b += attrs.dPower; // 增加攻击
-                }, r, (ps) => ps.subType == "player2monster" && Utils.contains(ps.targetAttrs.targetFlags, "Sneaked"), false, true);
+                }, r, (ps) => ps.subType == "player2monster" && Utils.contains(ps.targetAttrs.targetFlags, "Sneaked") && !ps.isMultAndNot1st, false, true);
             });
         },
 
@@ -303,6 +303,7 @@ class RelicFactory {
             return this.createRelic(attrs, false, (r:Relic, enable:boolean) => {
                 if (!enable) {
                     r.clearAIAtLogicPoint("onLevelInited");
+                    r.clearAIAtLogicPoint("onCalcAttacking");
                     return;
                 }
                 r = RelicFactory.addElemsOnLevelInit(r);
@@ -385,7 +386,7 @@ class RelicFactory {
                 }
                 r = <Relic>ElemFactory.addAI("onCalcAttacking", (ps) => {
                     ps.attackerAttrs.power.b += attrs.dpower;
-                }, r, (ps) => ps.subType == "player2monster" && ps.weapon && ps.weapon.type == "Knife", false, true);
+                }, r, (ps) => ps.subType == "player2monster" && ps.weapon && ps.weapon.type == "Knife" && !ps.isMultAndNot1st, false, true);
                 r = RelicFactory.addElemsOnLevelInit(r);
             })
         },
@@ -437,7 +438,7 @@ class RelicFactory {
                 r = RelicFactory.addElemsOnLevelInit(r);
                 r = <Relic>ElemFactory.addAI("onCalcAttacking", (ps) => {
                     ps.attackerAttrs.addBuffs.push({"type":"Poison", "rate":100, "ps":[r.attrs.poisonCnt ,1]});
-                }, r, (ps) => ps.weapon && ps.weapon.type =="Knife", false, true);
+                }, r, (ps) => ps.weapon && ps.weapon.type =="Knife" && !ps.isMultAndNot1st, false, true);
             })
         },
 
