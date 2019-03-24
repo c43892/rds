@@ -622,7 +622,7 @@ func doSt() {
 			var lvStr = stInfo.Prograss[n2+1 : n3]
 			lv, _ := strconv.Atoi(lvStr)
 			if inOrOut == "in" {
-				lostLvCnt[lv+1]++
+				lostLvCnt[lv]++
 			} else {
 				if deadStr == "0" {
 					lostLvCnt[lv+1]++
