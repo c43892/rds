@@ -624,7 +624,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
         // 统计当前进度
         Utils.st("Prograss", "out," + (this.player.isDead() ? "1" : "0") + ","
-        + trueLv.toString() + "," + this.player.occupation + "," + this.player.difficulty.replace("level", "") + "," + (Utils.checkRookiePlay() ? "1" : 0));
+        + trueLv.toString() + "," + (Utils.checkRookiePlay() ? "1" : 0) + "," + this.player.occupation + "," + this.player.difficulty.replace("level", ""));
 
         // 记住当前信息，可能开局要给奖励
         Utils.saveLocalData("lastLevelCompletedInfo", {

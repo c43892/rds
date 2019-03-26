@@ -613,16 +613,28 @@ func doSt() {
 	lostLvCnt := make(map[int]int)
 	for _, key := range nonClearUserArr {
 		stInfo := loadOrCreateStInfo(key)
-		n1 := indexOfStrNth(stInfo.Prograss, ",", 2)
-		n2 := indexOfStrNth(stInfo.Prograss, ",", 3)
-		if n1 >= 0 && n2 >= 0 {
-			lv, _ := strconv.Atoi(stInfo.Prograss[n1+1 : n2])
-			lostLvCnt[lv]++
+		n1 := indexOfStrNth(stInfo.Prograss, ",", 1)
+		n2 := indexOfStrNth(stInfo.Prograss, ",", 2)
+		n3 := indexOfStrNth(stInfo.Prograss, ",", 3)
+		if n1 >= 0 && n2 >= 0 && n3 >= 0 {
+			var inOrOut = stInfo.Prograss[0:n1]
+			var deadStr = stInfo.Prograss[n1+1 : n2]
+			var lvStr = stInfo.Prograss[n2+1 : n3]
+			lv, _ := strconv.Atoi(lvStr)
+			if inOrOut == "in" {
+				lostLvCnt[lv]++
+			} else {
+				if deadStr == "0" {
+					lostLvCnt[lv+1]++
+				} else {
+					lostLvCnt[lv]++
+				}
+			}
 		}
 	}
 
 	for lv, cnt := range lostLvCnt {
-		fmt.Println(strconv.Itoa(lv+1) + "," + strconv.Itoa(cnt))
+		fmt.Println(strconv.Itoa(lv) + "," + strconv.Itoa(cnt))
 	}
 }
 
