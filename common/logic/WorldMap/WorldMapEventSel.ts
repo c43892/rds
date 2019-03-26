@@ -138,11 +138,10 @@ class WorldMapEventSelFactory {
 
     // 强化遗物
     async implReinforceRelic(p:Player, r:Relic) {
-        // if (Utils.indexOf(p.allRelics, (relic:Relic) => relic.type == r.type) > -1)
-        //     r.reinforceLvUp();
-        // else if (Utils.indexOf(p.commonRelicTypes, (t:string) => t == r.type) > -1)
-        //     p.addRelic(r);
-        p.addRelic(r);
+        if (Utils.indexOf(p.allRelics, (relic:Relic) => relic.type == r.type) > -1)
+            r.reinforceLvUp();
+        else if (Utils.indexOf(p.commonRelicTypes, (t:string) => t == r.type) > -1)
+            p.addRelic(r);
     }
 
     creators = {
