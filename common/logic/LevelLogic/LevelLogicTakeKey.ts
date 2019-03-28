@@ -42,7 +42,9 @@ class LevelLogicTakeKey extends LevelLogic{
                 // 多余的钥匙分配给普通怪
                 if(keys.length > 0){
                     var takeByNormal = bt.srand.nextInt(keys.length - 1, keys.length + 1);
-                    keys = await this.normalMonsterTakeKey(bt, keys, takeByNormal);
+                    if(takeByNormal > 0)
+                        keys = await this.normalMonsterTakeKey(bt, keys, takeByNormal);
+
                     if (keys.length > 0) {
                         var gs = BattleUtils.findRandomGrids(bt, (g: Grid) => !g.getElem(), keys.length);
                         Utils.assert(gs.length == keys.length, "not enough empty grids");
