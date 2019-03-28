@@ -1073,13 +1073,18 @@ class Battle {
 
             // 目标属性
             var targetAttrs = tar.getAttrsAsTarget();
+            if (Utils.indexOf(marked, (t) => t == tar) > -1 && !weapon)
+                (<string[]>targetAttrs.targetFlags).push("Sneaked"); // 突袭标记
 
             this.triggerLogicPointSync("onGetAttackerAndTargetAttrs", {attackerAttrs:attackerAttrs, targetAttrs:targetAttrs, weapon:weapon});
 
             for (var j = 0; j < attackerAttrs.muiltAttack && !tar.isDead(); j++) {
                 // 多重攻击可能需要更新targetAttrs
-                if (j > 0) 
+                if (j > 0) {
                     targetAttrs = tar.getAttrsAsTarget();
+                    if (Utils.indexOf(marked, (t) => t == tar) > -1 && !weapon)
+                        (<string[]>targetAttrs.targetFlags).push("Sneaked"); // 突袭标记
+                }
 
                 var r = await this.calcAttack("player2monster", attackerAttrs, targetAttrs, weapon, j > 0);
                 
