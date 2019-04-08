@@ -527,6 +527,7 @@ class MainView extends egret.DisplayObjectContainer {
     // 选择继承奖励
     public async selAwardInherited(lastLevelCompletedInfo) {
         var awardLv = Math.floor(lastLevelCompletedInfo.lv / 15);
+        awardLv = awardLv > 5 ? 5 : awardLv;
         if (awardLv > 0) {
             var selsGroup = GCfg.getWorldMapEventSelGroupsCfg("newPlayAward");
 
