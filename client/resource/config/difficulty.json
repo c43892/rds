@@ -1,30 +1,29 @@
 {
     "level0":{
-        "worlds":["world1", "world2"],
+        "worlds":["world1"],
         "playerInitRelicsEquippedCapacity":8,
         "deathStep":150,
         "monsterHp":80
     },
     "level1":{
-        "worlds":["world1", "world2", "world3"],
+        "worlds":["world1", "world2"],
         "playerInitRelicsEquippedCapacity":7,
         "deathStep":130,
         "monsterHp":90
     },
     "level2":{
-        "worlds":["world1", "world2", "world3", "world4"],
+        "worlds":["world1", "world2", "world3"],
         "playerInitRelicsEquippedCapacity":6,
         "deathStep":110,
         "monsterHp":100
     },
     "level3":{
-        "worlds":["world1", "world2", "world3", "world4", "world5"],
+        "worlds":["world1", "world2", "world3", "world4"],
         "playerInitRelicsEquippedCapacity":5,
         "deathStep":100,
         "monsterHp":110
     },
     "level4":{
-        "worlds":["world1", "world2", "world3", "world4", "world5", "world6"],
         "playerInitRelicsEquippedCapacity":4,
         "deathStep":90,
         "monsterHp":120

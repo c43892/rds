@@ -91,6 +91,10 @@ class LuxuryChestView extends egret.DisplayObjectContainer {
 
     // 刷新3个技能的图标并根据实际的技能数量确定其位置
     refreshRelics() {
+        for(var child of this.relicImgs)
+            if(this.getChildIndex(child) > -1)
+                this.removeChild(child);
+                
         ViewUtils.multiLang(this, ...this.relicImgs);
         this.num = 0;
         for (var i = 0; i < 3; i++) {
@@ -107,6 +111,7 @@ class LuxuryChestView extends egret.DisplayObjectContainer {
                 this.relicImgs[i]["relic"] = undefined;
                 this.relicImgs[i].touchEnabled = false;
             }
+            this.addChild(this.relicImgs[i]);
         }
         switch(this.num){            
             case 2:{

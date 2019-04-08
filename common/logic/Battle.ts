@@ -429,7 +429,7 @@ class Battle {
                 await this.fireEvent("onPlayerReborn", {inBattle:true});
                 await this.triggerLogicPoint("onPlayerReborn", {inBattle:true});
             } else {
-                await this.fireEvent("onPlayerDead");
+                await this.fireEvent("onPlayerDead", {inBattle:true});
                 return true;
             }
         }

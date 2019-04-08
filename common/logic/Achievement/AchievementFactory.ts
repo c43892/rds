@@ -222,8 +222,7 @@ class AchievementFactory {
         "EasyModeUnlock": (cfg) => {
             var achv = this.createAchievement(cfg);
             achv = AchievementFactory.addLogic("onGameEnd", async () => {
-                // 通关30层解锁简单难度
-                if (achv.mgr.player.currentTotalStorey() >= 30 && Utils.getDiffByAchvData() < 2)
+                if (achv.mgr.player.currentTotalStorey() >= 15 && achv.mgr.player.difficulty == "level0")
                     await AchievementMgr.mgr.preFinishAchv(achv.type);
                 
             }, achv, () => !!achv.mgr.player);
@@ -233,8 +232,7 @@ class AchievementFactory {
         "NormalModeUnlock": (cfg) => {
             var achv = this.createAchievement(cfg);
             achv = AchievementFactory.addLogic("onGameEnd", async () => {
-                // 通关45层解锁普通难度
-                if (achv.mgr.player.currentTotalStorey() >= 45 && Utils.getDiffByAchvData() < 3)
+                if (achv.mgr.player.currentTotalStorey() >= 30 && achv.mgr.player.difficulty == "level1")
                     await AchievementMgr.mgr.preFinishAchv(achv.type);
                 
             }, achv, () => !!achv.mgr.player);

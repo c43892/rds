@@ -107,9 +107,9 @@
                 {"moveNum":2}, {"moveNum":3}
             ]
     },
-    "ShieldBlock":{"name":"圣甲虫的壳", "dShield":2,
+    "ShieldBlock":{"name":"圣甲虫的壳", "dShield":3,
         "reinforce":[
-            {"dShield":4}, {"dShield":6}, {"dShield":8}, {"dShield":10}
+            {"dShield":6}, {"dShield":9}, {"dShield":12}, {"dShield":15}
         ], 
         "refElems":["Shield"], "addOnLevelInit":{"num":1, "elems":["Shield"]}},
     "ShieldDetector":{"name":"盾牌侦测", "refElems":["Shield"], "addOnLevelInit":{"num":1, "elems":["Shield"]}},
@@ -145,6 +145,7 @@
     "Magazine":{"name":"自然杂志", "cnt":5, "dexp":3, "tags":["book"], "useWithoutConfirm":true},
     "EconomyMagazine":{"name":"金融杂志", "cnt":5, "dexp":2, "tags":["book"], "useWithoutConfirm":true},
     "Shield":{"name":"盾牌", "cd":15, "shield":5, "validTarget":"markedMonster|uncoveredMonser", "showCDNum":true, "repRes":["Shield", "ShieldBack"]},
+    "GoldenHand":{"name":"点金之手", "cnt":3, "dropNum":19, "useWithTarget":true, "useWithoutConfirm":true},
     "HeadBone":{"name":"骷髅头"},
 
     "DeathGod":{"name":"死神", "deathStep":15, "movePs":{"moveType":"fly"}, "cannotTake":true, "addInEffect":"noEffect", "attackInterval":0},
@@ -188,7 +189,7 @@
     "Werewolf":{"name":"狼人", "movePs":{"moveRange":4, "targetType":"eatFood"}, "dropItems":["CoinsSmall"]},
     "MNutWall":{"name":"坚果墙", "elemImg":"NutWall", "dropItems":["CoinsSmall"]},
     "MPeashooter":{"name":"豌豆射手", "attackInterval":4, "muiltAttack":2, "dropItems":["CoinsSmall"], "elemImg":"Peashooter"},
-    "MCherryBomb":{"name":"樱桃炸弹", "attackInterval":0, "selfExplode":{"cnt":5, "mult":3, "aoe":{"w":3, "h":3}}, "dropItems":["CoinsSmall"], "specialCharmed":true, "elemImg":"CherryBomb"},
+    "MCherryBomb":{"name":"樱桃炸弹", "attackInterval":0, "selfExplode":{"cnt":5, "mult":3, "aoe":{"w":3, "h":3}}, "rounds":5, "dropItems":["CoinsSmall"], "specialCharmed":true, "elemImg":"CherryBomb"},
     "MSunflower":{"name":"太阳花", "rounds":3, "dropItems":["CoinsSmall"], "attackInterval":0, "showCDNum":true, "elemImg":"Sunflower"},
     "MCharmingMushroom":{"name":"魅惑菇", "cannotCharm":true, "dropItems":["CoinsSmall"], "elemImg":"CharmingMushroom"},
     "EliteGoblinThief":{"name":"精英哥布林窃贼", "elemImg":"GoblinThief", "steal":{"percent":20, "num":5}, "movePs":{"moveRange":3, "targetType":"pickupCoins"}, "dropItems":["Coins"]},

@@ -377,6 +377,36 @@ class ItemFactory {
             };
 
             return e;
+        },
+
+        // 点金手
+        "GoldenHand":(attrs) => {
+            var e = this.createItem();
+            e.cnt = attrs.cnt;
+            e.canUse = () => e.isValid();
+            e.canUseAt = (x:number, y:number) => {
+                var map = e.bt().level.map;
+                var tog:Grid = map.getGridAt(x, y);
+                var toe:Elem = map.getElemAt(x, y);
+                return (!tog.isCovered() || tog.isMarked()) && toe && toe instanceof Monster && toe.isHazard() && !toe.isBoss && !toe.isElite && toe.type != "PlaceHolder";
+            };
+            // 消灭怪物并将其掉落金钱改为固定值
+            e.useAt = async (x: number, y: number) => {
+                e.cnt--;
+                var bt = e.bt();
+                var m = <Monster>bt.level.map.getElemAt(x, y);
+                var index = Utils.indexOf(m.dropItems, (c:Elem) => c.type == "Coins");
+                if(index > -1){
+                    var coins = m.dropItems[index];
+                    coins.cnt = e.attrs.dropNum;
+                } else {
+                    var coins = ElemFactory.create("Coins", {cnt:e.attrs.dropNum});
+                    m.addDropItem(coins);
+                }
+                await bt.implDestoryAt(x, y, e);
+                return e.cnt > 0;
+            }
+            return e;
         }
     };
 }

@@ -112,7 +112,7 @@ class PropFactory {
                     var map = e.bt().level.map;
                     var tog:Grid = map.getGridAt(x, y);
                     var toe:Elem = map.getElemAt(x, y);
-                    return (!tog.isCovered() || tog.isMarked()) && toe && toe instanceof Monster && !toe.isBig() && toe.type != "PlaceHolder" 
+                    return (!tog.isCovered() || tog.isMarked()) && toe && toe instanceof Monster && !toe.isBig() && !toe.isElite && toe.type != "PlaceHolder" 
                             && e.bt().player.money >= toe.hp * 3;
                 };
                 e.useAt = async (x:number, y:number) => {

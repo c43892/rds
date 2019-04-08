@@ -1376,6 +1376,14 @@ class AniView extends egret.DisplayObjectContainer {
         }
     }
 
+    // 角色死亡时清除buff效果
+    public async onPlayerDead(ps){
+        if (ps.inBattle) {
+            this.clearPlayerBuffEffect();
+            this.bv.refreshPlayer();
+        }
+    }
+
     // 偷钱
     public async onMoneyStolen(ps) {
         await this.aniFact.createAni("stealMoney", {"dm":ps.dm});

@@ -646,20 +646,27 @@ class WorldMapView extends egret.DisplayObjectContainer {
             Utils.savePlayer(this.player, "onBattleEnd");
 
             // 更新最高分
-            var score = BattleStatistics.getFinalScore(BattleStatistics.getScoreInfos(this.player.st    ));
+            var score = BattleStatistics.getFinalScore(BattleStatistics.getScoreInfos(this.player.st));
             Utils.saveCloudData("score", score + "," + this.player.occupation);
-            
+
             // 判断此世界是否已经完成
-            if(this.player.currentStoreyPos.lv >= this.player.worldmap.cfg.totalLevels){
-                // 已完成的话,判断该难度下是否有下一个世界
-                this.player.finishedWorldMap.push(this.worldmap);
-                this.player.finishedWorldMapName.push(this.worldmap.cfg.name);
+            if (this.player.currentStoreyPos.lv >= this.player.worldmap.cfg.totalLevels) {
+                // 已完成的话,判断该难度下是否有下一个世界,其中无尽模式必有下一个世界
+                // 保存已完成世界的进度
+                this.player.finishedWorld(this.worldmap);
                 this.player.currentStoreyPos.lv = 0;
                 var thisWorldName = this.worldmap.cfg.name == "rookieWorld" ? "world1" : this.worldmap.cfg.name;
-                var worlds = GCfg.getDifficultyCfg()[this.player.difficulty].worlds;
-                var nextWorldName = worlds[Utils.indexOf(worlds, (name) => name == thisWorldName) + 1];
 
-                if(nextWorldName)
+                // 非无尽模式
+                if (this.player.difficulty != "level4") {                    
+                    var worlds = GCfg.getDifficultyCfg()[this.player.difficulty].worlds;
+                    var nextWorldName:string = worlds[Utils.indexOf(worlds, (name) => name == thisWorldName) + 1];
+                }
+                // 无尽模式
+                else 
+                    var nextWorldName:string = Utils.getEndlessWorldMapName(thisWorldName);                
+
+                if (nextWorldName)
                     await this.onPlayerGo2NewWorld(nextWorldName);
                 else {
                     Utils.st("Clearance", this.player.worldmap.cfg.totalLevels.toString() + "," + this.player.occupation + "," + this.player.difficulty.replace("level", ""));
@@ -756,7 +763,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.refreshShopSoldout();
         await this.openShop(this.worldmap.cfg.shop, true);
         var newWorld = WorldMap.buildFromConfig(newtWorldName, this.player);
-        this.player.goToNewWorld(newWorld);
+        this.player.goToWorld(newWorld);
         this.setWorldMap(this.player.worldmap);
         await (<AniView>AniUtils.ac).doWorldMapSlide(1, 2000, this.worldmap.cfg.worldNum);
     }

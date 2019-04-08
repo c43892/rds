@@ -234,7 +234,7 @@ class MonsterFactory {
             MonsterFactory.makeBoss(
                 MonsterFactory.doSneakAttack(
                     MonsterFactory.doAttackBack(
-                        MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player, attrs.attackInterval, () => !m.trapped, {a:3, b:0, c:0}), 
+                        MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player, attrs.attackInterval, () => !m.trapped, {a:2, b:0, c:0}), 
                     () => !m.trapped)));
             m = MonsterFactory.doSummonSlimesOnHalfHp(m);
             m = MonsterFactory.doAddHpPerRound(Math.floor(attrs.hp * 0.05) > 1 ? Math.floor(attrs.hp * 0.05) : 1, m);
@@ -248,7 +248,7 @@ class MonsterFactory {
             MonsterFactory.makeBoss(
                 MonsterFactory.doSneakAttack(
                     MonsterFactory.doAttackBack(
-                        MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player, attrs.attackInterval, () => !m.trapped, {a:2, b:0, c:0}), 
+                        MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player, attrs.attackInterval, () => !m.trapped, {a:1, b:0, c:0}), 
                     () => !m.trapped)));
             m = MonsterFactory.doEnhanceAura(m);
             m = MonsterFactory.sanLogic(m);
@@ -262,7 +262,7 @@ class MonsterFactory {
             MonsterFactory.makeBoss(
                 MonsterFactory.doSneakAttack(
                     MonsterFactory.doAttackBack(
-                        MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player, attrs.attackInterval, () => !m.trapped, {a:2, b:0, c:0}), 
+                        MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player, attrs.attackInterval, () => !m.trapped, {a:1, b:0, c:0}), 
                     () => !m.trapped)));
             m = MonsterFactory.doEnhanceAura(m);
             m = MonsterFactory.doDestroyItemOnActiveAttack(m);
@@ -278,7 +278,7 @@ class MonsterFactory {
             MonsterFactory.makeBoss(
                 MonsterFactory.doSneakAttack(
                     MonsterFactory.doAttackBack(
-                        MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player, attrs.attackInterval, () => !m.trapped, {a:3, b:0, c:0}), 
+                        MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player, attrs.attackInterval, () => !m.trapped, {a:2, b:0, c:0}), 
                     () => !m.trapped)));
             m = MonsterFactory.doEnhanceAura(m);
             m = MonsterFactory.doAddProtectiveShieldOnLose30Hp(m);

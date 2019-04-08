@@ -222,7 +222,7 @@ class Player {
     // 复活
     public reborn() {
         this.rebornCnt++;
-        this.clear();
+        // this.clear();
         this.hp = Math.floor(this.maxHp / 2);
     }
 
@@ -419,11 +419,13 @@ class Player {
 
         // 目前 buff 不参与
         p.playerRandom = SRandom.fromString(pinfo.srand);
-        p.worldmapRandomSeed = pinfo.worldmapRandomSeed;        
-        p.worldmap = WorldMap.buildFromConfig(p.worldName, p);
-        p.finishedWorldMap = [];
+        p.worldmapRandomSeed = pinfo.worldmapRandomSeed;   
+
+        p.finishedWorldMap = [];   
         for(var finishedWorldMapName of p.finishedWorldMapName) 
             p.finishedWorldMap.push(WorldMap.buildFromConfig(finishedWorldMapName, p));
+
+        p.worldmap = WorldMap.buildFromConfig(p.worldName, p);        
         
         p.st = BattleStatistics.fromString(p, pinfo.statistics);
         AchievementMgr.mgr.fromString(pinfo.achievementMgrInfo);
@@ -652,12 +654,21 @@ class Player {
         this.finishedStoreyPos.push({lv:lv, n:n});
     }
 
+    // 完成世界地图
+    public finishedWorld(worldMap:WorldMap){
+        this.finishedWorldMap.push(worldMap);
+        this.finishedWorldMapName.push(worldMap.cfg.name);
+    }
+
     // 进入新的世界地图
-    public goToNewWorld(newWorld:WorldMap){
-        this.worldmap = newWorld;
-        this.currentStoreyPos = {lv:0, n:0, status:"finished"};
-        this.finishedStoreyPos = [{lv:0, n:0}];
-        this.finishedEvent = [];
+    public goToWorld(world:WorldMap, newWorld = true){
+        this.worldName = world.cfg.name;
+        this.worldmap = world;
+        if(newWorld){
+            this.currentStoreyPos = {lv:0, n:0, status:"finished"};
+            this.finishedStoreyPos = [{lv:0, n:0}];
+            this.finishedEvent = [];
+        }
         Utils.savePlayer(this);
     }
 }

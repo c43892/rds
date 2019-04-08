@@ -2,7 +2,7 @@
     "rookieWorld":{
         "name":"rookieWorld",
         "worldNum":0,
-        "totalLevels":15,
+        "totalLevels":10,
         "width":5,
         "routesMax":4,
         "specs": {
@@ -12,7 +12,7 @@
             "event":{"percent":25}
         },
         "fixedRow": {
-            "14":"camp",
+            "9":"camp",
             "8":"box",
             "5":"normal",
             "4":"camp",
@@ -46,8 +46,7 @@
             {"type":"item", "attrs":"ttrdp2", "weight":10},
             {"type":"item", "attrs":"ttrdp2", "weight":10}
         ],
-        "bossTypes" : ["slimeKing", "brainOfCthulhu"],
-        "nextWorld":"world2"
+        "bossTypes" : ["slimeKing", "brainOfCthulhu"]
     },
 
     "world1":{
@@ -245,101 +244,5 @@
             {"type":"item", "attrs":"ttrdp2", "weight":10}
         ],
         "bossTypes" : ["kraken", "halloweenTreant"]
-    },
-
-    "world5":{
-        "name":"world5",
-        "worldNum":4,
-        "totalLevels":15,
-        "width":5,
-        "routesMax":4,
-        "specs": {
-            "shop":{"percent":6},
-            "camp":{"percent":14},
-            "senior":{"percent":9},
-            "event":{"percent":25}
-        },
-        "fixedRow": {
-            "14":"camp",
-            "8":"box"
-        },
-        "boxroomDrops":{
-            "relic":"boxRoomRelic",
-            "prop":"boxRoomProp",
-            "coins":70
-        },
-        "events":{
-            "shop":10,
-            "eliteBattle":10,
-            "box":10,
-            "a1": 10,
-            "a2": 10,
-            "a3": 10,
-            "a4": 10,
-            "a5": 10,
-            "a7": 10,
-            "a8": 10,
-            "a9": 10,
-            "b1": 10,
-            "b2": 10,
-            "b3": 10
-        },
-        "shop": "world1shop",
-        "turntable": [
-            {"type":"+hp", "attrs":15, "weight":10},
-            {"type":"-hp", "attrs":-15, "weight":10},
-            {"type":"box", "attrs":"ttrdp1", "weight":10},
-            {"type":"coins", "attrs":150, "weight":10},
-            {"type":"item", "attrs":"ttrdp2", "weight":10},
-            {"type":"item", "attrs":"ttrdp2", "weight":10}
-        ]
-    },
-
-    "world6":{
-        "name":"world6",
-        "worldNum":4,
-        "totalLevels":15,
-        "width":5,
-        "routesMax":4,
-        "specs": {
-            "shop":{"percent":6},
-            "camp":{"percent":14},
-            "senior":{"percent":9},
-            "event":{"percent":25}
-        },
-        "fixedRow": {
-            "14":"camp",
-            "8":"box"
-        },
-        "boxroomDrops":{
-            "relic":"boxRoomRelic",
-            "prop":"boxRoomProp",
-            "coins":80
-        },
-        "events":{
-            "shop":10,
-            "eliteBattle":10,
-            "box":10,
-            "a1": 10,
-            "a2": 10,
-            "a3": 10,
-            "a4": 10,
-            "a5": 10,
-            "a7": 10,
-            "a8": 10,
-            "a9": 10,
-            "b1": 10,
-            "b2": 10,
-            "b3": 10
-        },
-        "shop": "world1shop",
-        "turntable": [
-            {"type":"+hp", "attrs":15, "weight":10},
-            {"type":"-hp", "attrs":-15, "weight":10},
-            {"type":"box", "attrs":"ttrdp1", "weight":10},
-            {"type":"coins", "attrs":125, "weight":10},
-            {"type":"item", "attrs":"ttrdp2", "weight":10},
-            {"type":"item", "attrs":"ttrdp2", "weight":10}
-        ]
     }
 }

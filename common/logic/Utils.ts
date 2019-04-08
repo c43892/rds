@@ -946,10 +946,30 @@ class Utils {
 
     // 根据成就数据获取当前可用的最高难度
     public static getDiffByAchvData(){
-        var allAchvs = AchievementMgr.mgr.allAchvs;
-        var tarAchv = (type:string) => allAchvs[Utils.indexOf(allAchvs, (a:Achievement) => a.type == type)];
-        if (tarAchv("NormalModeUnlock").isFinished()) return 3;
-        else if (tarAchv("EasyModeUnlock").isFinished()) return 2;
-        else return 1;
+        // var allAchvs = AchievementMgr.mgr.allAchvs;
+        // var tarAchv = (type:string) => allAchvs[Utils.indexOf(allAchvs, (a:Achievement) => a.type == type)];
+        // if (tarAchv("NormalModeUnlock").isFinished()) return 3;
+        // else if (tarAchv("EasyModeUnlock").isFinished()) return 2;
+        // else return 1;
+        // 全部开启
+        return 5;
     }
+
+    // 无限模式中用来生成配置
+    // 新的世界名
+    public static getEndlessWorldMapName(lastWorldName: string): string {
+        var worldIndex = Number(lastWorldName.substring(5, lastWorldName.length)) + 1;
+        return "world" + worldIndex;
+    }
+
+    // // 新的世界地图配置
+    // public static getEndlessWorldMapCfg(worldName: string) {
+    //     var worldIndex = Number(worldName.substring(5 + 1, worldName.length)) + 1;
+    //     for (var i = worldIndex; i >= 0; i--) {
+    //         var tWorld = "world" + i;
+    //         if (!!GCfg.getWorldMapCfg(tWorld))
+    //             return GCfg.getWorldMapCfg(tWorld);
+    //     }
+    //     Utils.assert(true, "can not find replace world cfg for " + worldName);
+    // }
 }

@@ -67,12 +67,21 @@ class Main extends egret.DisplayObjectContainer {
         // 关卡
         var lvCfg = ResMgr.getRes("levelconfig_json");
         GCfg.mapsize = lvCfg.mapsize;
-        GCfg.getLevelCfg = (lv:string) => {
-            if(lvCfg[lv])
+        GCfg.getLevelCfg = (lv: string) => {
+            if (lvCfg[lv])
                 return lvCfg[lv];
-            else{
+            else {
                 var index = lv.indexOf("_");
+                var type = lv.substring(0, index);
                 var level = lv.substring(index + 1, lv.length);
+                for (var i = Number(level) - 1; i > 0; i--) {
+                    var tarlv = type + "_" + i;
+                    if (lvCfg[tarlv]) {
+                        Utils.log("didn't find lvCfg of " + lv + ", turn to " + tarlv);
+                        return lvCfg[tarlv];
+                    }
+                }
+
                 var tarlv = "normal_" + level;
                 Utils.assert(lvCfg[tarlv], "didn't find normal lvCfg of " + tarlv);
 
@@ -91,9 +100,16 @@ class Main extends egret.DisplayObjectContainer {
         };
 
         var elemAttrsOfLevel = ResMgr.getRes("elemAttrsOfLevel_json");
-        GCfg.getElemAttrsOfLevel = (elemType:string, lv:number) => {
+        GCfg.getElemAttrsOfLevel = (elemType: string, lv: number) => {
             var index = elemAttrsOfLevel["index"][elemType] * 1000 + lv;
-            return elemAttrsOfLevel["attrs"][index];
+            if (!!elemAttrsOfLevel["attrs"][index])
+                return elemAttrsOfLevel["attrs"][index];
+            else
+                for (var i = 1; i < lv; i++)
+                    if (!!elemAttrsOfLevel["attrs"][index - i])
+                        return elemAttrsOfLevel["attrs"][index - i];
+
+            Utils.assert(true, "can not find any attrs cfg for " + elemType + " at level " + lv);
         }
 
         // 元素默认配置
@@ -128,8 +144,21 @@ class Main extends egret.DisplayObjectContainer {
         var worldmapCfg = ResMgr.getRes("worldmap_json");
         GCfg.worldMapConnectionCfg = worldmapCfg.connections;
         GCfg.getWorldMapCfg = (world) => {
-            Utils.assert(worldmapCfg[world], "can not find worldmap: " + world);
-            return worldmapCfg[world];
+            if (!!worldmapCfg[world])
+                return worldmapCfg[world];
+            else {
+                var worldIndex = Number(world.substring(5, world.length));
+                for (var i = worldIndex; i >= 0; i--) {
+                    var tWorld = "world" + i;
+                    if (!!worldmapCfg[tWorld]){
+                        var cfg = Utils.clone(GCfg.getWorldMapCfg(tWorld));
+                        cfg["name"] = world;
+                        cfg["worldNum"] = worldIndex;
+                        return cfg;
+                    }
+                }
+            }
+            Utils.assert(true, "can not find replace world cfg for " + world);
         }
 
         // 商店

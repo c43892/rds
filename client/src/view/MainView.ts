@@ -249,7 +249,7 @@ class MainView extends egret.DisplayObjectContainer {
             "onAddDeathGodStep", "onElem2NextLevel", "onUseElemAt", "onUseElem", "onGoOutLevel", "onNotifyElemsDropped",
             "onCandyCannon", "onMakeWanted", "onInitBattleView", "onRelicEffect", "onMonsterCharmed", "onCloakImmunizeSneak",
             "onSwatheItemWithCocoon", "summonByDancer", "onGetMarkAllAward", "onStartupRegionUncovered", "onSneaking",
-            "relicsEquippedMaxNumAdded", "onPlayerReborn", "onUseProp", "onElemRevive", "refreshMap", 
+            "relicsEquippedMaxNumAdded", "onPlayerReborn", "onPlayerDead", "onUseProp", "onElemRevive", "refreshMap", 
             "onPlayerLevelUp", "onSelfExplode", "onShieldFlyBack", "onSanThreshold", "monsterAttackSingleTargetAct", "onProtect", "onMultAttack" ,"onPreFinishAchv", 
             "onBossExplosion", "onLevelInitedGiveTip", "protectiveShield", "onKrakenDeepFrozen"
         ], (e) => (ps) => this.bv.av[e](ps));
@@ -798,11 +798,21 @@ class MainView extends egret.DisplayObjectContainer {
         var p = 1 - this.p.currentStoreyPos.lv / this.p.worldmap.nodes.length;
         this.wmv.mapScrollPos = p;
 
+        this.p.goToWorld(this.p.worldmap, false);
+
         if (this.p.currentStoreyPos.status == "finished") {
             await this.av.blackOut();
             // 如果当前已完成的是boss层,需要准备进入新地图(其中包含进入整备界面)
-            if (this.p.currentStoreyPos.lv >= this.p.worldmap.cfg.totalLevels && this.p.worldmap.cfg.nextWorld)
-                await this.wmv.onPlayerGo2NewWorld(this.p.worldmap.cfg.nextWorld);
+            if (this.p.currentStoreyPos.lv >= this.p.worldmap.cfg.totalLevels && (this.p.worldmap.cfg.nextWorld || this.p.difficulty == "level4")){
+                // 非无尽模式
+                if(this.p.difficulty != "level4")
+                    await this.wmv.onPlayerGo2NewWorld(this.p.worldmap.cfg.nextWorld);
+                // 无尽模式的下一个世界可能不存在配置,需要生成
+                else {
+                    var nextWorldName = Utils.getEndlessWorldMapName(this.p.worldName);
+                    await this.wmv.onPlayerGo2NewWorld(nextWorldName);
+                }
+            }
         }
         else {
             var lv = this.p.currentStoreyPos.lv;
@@ -821,7 +831,8 @@ class MainView extends egret.DisplayObjectContainer {
     newPlay(occ:string, diff:number) {
         var p = Player.createPlayer(occ, diff);
         p = Occupation.makeOccupation(p);
-        p.worldmap = WorldMap.buildFromConfig("world1", p);
+        p.goToWorld(WorldMap.buildFromConfig("world1", p));
+        // p.worldmap = WorldMap.buildFromConfig("world1", p);
         this.p = p;
         this.registerPlayerEvents();
         this.openWorldMap(p.worldmap);
@@ -832,7 +843,7 @@ class MainView extends egret.DisplayObjectContainer {
     rookiePlay() {
         var p = Player.createPlayer("Nurse", 0);
         p = Occupation.makeOccupation(p);
-        p.worldmap = WorldMap.buildFromConfig("rookieWorld", p);
+        p.goToWorld(WorldMap.buildFromConfig("rookieWorld", p));
         this.p = p;
         this.registerPlayerEvents();
 

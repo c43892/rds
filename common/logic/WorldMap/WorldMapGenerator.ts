@@ -288,7 +288,12 @@ class WorldMapGenerator{
     //给所有节点安排房间类型
     public static arrangeRoomToAllNodes(nodes:WorldMapNode[][], cfg, rd):WorldMapNode[][]{
         // 给特定层安排房间类型
-        WorldMapGenerator.setRoomTypeToRow(nodes, 15, "boss");
+        // 教程关没有15层
+        if(nodes.length > 15)
+            WorldMapGenerator.setRoomTypeToRow(nodes, 15, "boss");
+        else
+            WorldMapGenerator.setRoomTypeToRow(nodes, 10, "boss");
+
         WorldMapGenerator.setRoomTypeToRow(nodes, 1, "normal");
         for(var lv in cfg.fixedRow)
             WorldMapGenerator.setRoomTypeToRow(nodes, Number(lv), cfg.fixedRow[lv]);

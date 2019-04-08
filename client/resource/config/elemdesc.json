@@ -378,6 +378,8 @@
         "Magazine":{"name":"自然杂志", "desc":["<font color=#000000 size=20>每次点击获得<font color=#294c22 size=20> {dexp} </font><font color=#000000 size=20>经验值</font>"]},
         "EconomyMagazine":{"name":"金融杂志", "desc":["<font color=#000000 size=20>每次点击获得</font> <font color=#294c22 size=20> {dexp} </font>经验值及<font color=#294c22 size=20> {money} </font><font color=#000000 size=20>金钱</font>"]},
         "Shield":{"name":"盾牌", "desc":["<font color=#000000 size=20>抵挡一次攻击伤害，冷却时间<font color=#294c22 size=20> {elemCD} </font><font color=#000000 size=20>回合</font>\n<font color=#000000 size=20>总共可抵挡<font color=#294c22 size=20> {shield} </font><font color=#000000 size=20>点伤害</font>"]},
+        "GoldenHand":{"name":"点金之手", "desc":["<font color=#000000 size=20>可以将怪物转化为</font> <font color=#294c22 size=20> {dropNum} </font>金钱，还可以使用</font> <font color=#294c22 size=20> {cnt} </font>次</font>"],
+            "useDescArr":["<font color=#e4d5a5 size=25>可以将怪物转化为</font><font color=#56ba42 size=25> {dropNum} </font><font color=#e4d5a5 size=25>金钱，还可以使用</font><font color=#56ba42 size=25> {cnt} </font><font color=#e4d5a5 size=25>次</font>", "<font color=#e4d5a5 size=25>点金之手（点击目标怪物使用）</font>"]},
         "HeadBone":{"name":"骷髅头", "desc":["<font color=#000000 size=20>每当你被怪物突袭时，骷髅王都会原地复活</font>"]},
         "OpenRelicSpace":{"name":"技能格", "desc":["<font color=#000000 bold=false size=20>增加一个技能装备格</font>"]},
 
