@@ -1261,7 +1261,11 @@ class Battle {
     public async implOpenLuxuryChest(e:Elem) {
         if (!e["relics"]) {
             var rdp = GCfg.getRandomDropGroupCfg(e.attrs.randomDropList);
+            var rdpBackup = GCfg.getRandomDropGroupCfg(e.attrs.randomDropListBackup);
             var elemTypes = Utils.randomSelectByWeightWithPlayerFilter(e.bt().player, rdp.elems, e.bt().srand, 3, 4, true);
+            if(elemTypes.length == 0)
+                elemTypes = Utils.randomSelectByWeightWithPlayerFilter(e.bt().player, rdpBackup.elems, e.bt().srand, 3, 4, true);
+            
             var relics = [];
             elemTypes.forEach((elemType, _) => {
                 var relic = this.level.createElem(elemType);

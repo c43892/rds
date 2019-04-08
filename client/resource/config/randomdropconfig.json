@@ -137,6 +137,22 @@
         "DoubleAttack":10
     }},
 
+    "bossBox3Backup": {"num":[1, 2], "elems":{
+        "ExploreEnhanced":10,
+        "HorticultureProficient":10,
+        "KnifeDetector":10,
+        "ShieldDetector":10,
+        "Storer":10,
+        "TreasureBoxDetector":10,
+        "VestDetector":10,
+        "WeaponMaster":10,
+        "BookMaster":10,
+        "ShieldProficient":10,
+        "SmellEnhanced":10,
+        "StrikeFirst":10,
+        "Watchmaker":10
+    }},
+
     "bossBox4": {"num":[1, 2], "elems":{
         "DeluxeMeal":1
     }},
