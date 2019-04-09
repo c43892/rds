@@ -1274,7 +1274,11 @@ class Battle {
             e["relics"] = relics;
         }
 
-        Utils.assert(e["relics"].length > 0, "there should be at least 1 relic in LuxuryChest");
+        if(e["relics"].length == 0){
+            e.addDropItem(e.bt().level.createElem("CoinsHuge"));
+            return false;
+        }
+
         var chosenRelic = await this.openLuxuryChest(e["relics"]);
         var c = 0;
         if (!!chosenRelic && chosenRelic instanceof Relic){
