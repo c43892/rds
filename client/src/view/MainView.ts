@@ -597,15 +597,23 @@ class MainView extends egret.DisplayObjectContainer {
                 ps.reborn = await this.confirmOkYesNo("不幸死亡", "确定分享给好友并复活吗？", true);
                 if (ps.reborn)
                     window.platform.shareGame();
-            } else if (this.p.rebornCnt < 1 && window.platform.canPlayAdsReborn()) {
-                if (await this.confirmOkYesNo("不幸死亡", "是否观看广告复活？", true, 
-                    {yes:"watchRewardAds", cancel:"justDie"}))
-                    await window.platform.playRewardAds((reward) => {
-                        ps.reborn = reward;
-                        Utils.st("Reborn", this.p.currentTotalStorey() + "," + this.p.occupation + "," + this.p.difficulty.replace("level", ""));
-                    });
-                else
-                    watchAds = false;
+            } else if (this.p.rebornCnt < 1) {
+                if (window.platform.canPlayAdsReborn()) {
+                    if (await this.confirmOkYesNo("不幸死亡", "是否观看广告复活？", true, 
+                        {yes:"watchRewardAds", cancel:"justDie"}))
+                        await window.platform.playRewardAds((reward) => {
+                            ps.reborn = reward;
+                            Utils.st("Reborn", this.p.currentTotalStorey() + "," + this.p.occupation + "," + this.p.difficulty.replace("level", ""));
+                        });
+                    else
+                        watchAds = false;
+                } else if (egret.Capabilities.os == "iOS") { // 暂时不看广告直接复活
+                        if (await this.confirmOkYesNo("不幸死亡", "是立即复活？", true, 
+                            {yes:"rebornAnyway", cancel:"justDie"})) {
+                            ps.reborn = true;
+                            Utils.st("Reborn", this.p.currentTotalStorey() + "," + this.p.occupation + "," + this.p.difficulty.replace("level", ""));
+                        }
+                }
             } else {
                 watchAds = false;
                 await this.confirmOkYesNo("不幸死亡", "游戏结束", false);
