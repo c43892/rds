@@ -27,10 +27,10 @@ class DefaultPaltform implements Platform {
     wc:WebClient;
     
     adMobReady:boolean = false;
-    adMobAppID:string = "ca-app-pub-3940256099942544~3347511713"; // google test
-    adMobAdID:string = "ca-app-pub-3940256099942544/5224354917"; // google test
-    // adMobAppID:string = "ca-app-pub-1800218346925652~6940599097";
-    // adMobAdID:string = "ca-app-pub-1800218346925652/3739720681";
+    // adMobAppID:string = "ca-app-pub-3940256099942544~3347511713"; // google test
+    // adMobAdID:string = "ca-app-pub-3940256099942544/5224354917"; // google test
+    adMobAppID:string = "ca-app-pub-1800218346925652~6940599097";
+    adMobAdID:string = "ca-app-pub-1800218346925652/3739720681";
 
     iOSLoadLocalStorageDataCallback;
     rewardAdsCompletedCallback;
@@ -75,11 +75,10 @@ class DefaultPaltform implements Platform {
     }
 
     public canPlayAdsReborn() {
-        return this.adMobReady && (egret.Capabilities.os == "iOS" || egret.Capabilities.os == "Android");
+        return egret.Capabilities.os == "iOS" || (this.adMobReady || egret.Capabilities.os == "Android");
     }
 
     public async playRewardAds(callback) {
-    // public playRewardAds(callback) {
         if (this.canPlayAdsReborn()) { // egret.Capabilities.os == "iOS" || egret.Capabilities.os == "Android") {
             var promise = new Promise((r, _) => {
                 this.rewardAdsCompletedCallback = (msg) => {
