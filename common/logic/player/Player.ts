@@ -375,6 +375,10 @@ class Player {
         for (var f of Player.serializableFields)
             p[f] = pinfo[f];
 
+        // 对于玩家闪避数据的特殊处理
+        if(p.dodge > 15)
+            p.dodge = 15;
+
         for (var r of pinfo.commonRelics) {
             var relic = Relic.fromString(r);
             p.addRelicInternal(relic, true);
@@ -430,10 +434,6 @@ class Player {
         p.st = BattleStatistics.fromString(p, pinfo.statistics);
         AchievementMgr.mgr.fromString(pinfo.achievementMgrInfo);
         p = Occupation.makeOccupationBuff(p);
-
-        // 对于玩家闪避数据的特殊处理
-        if(p.dodge > 60)
-            p.dodge = 60;
 
         return p;
     }
