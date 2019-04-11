@@ -130,6 +130,7 @@
             {"addDeathStepBack":2}, {"addDeathStepBack":3}
         ]},
     "DoubleAttack":{"name":"连击"},
+    "Crown":{"name":"荆棘花冠"},
 
     "Coins":{"name":"金币", "cnt":1, "canOverlap":true, "useWithoutConfirm":true, 
         "repRes":["Coins1", "Coins2", "Coins3", "Coins4", "Coins5", "Coins6", "Coins7", "Coins8", "Coins9"]},

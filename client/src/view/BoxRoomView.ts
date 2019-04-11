@@ -86,7 +86,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
         // 宝箱中的遗物
         var relicNum = onOpenBoxRoomPs.relicNum;
         var relicCfg = GCfg.getRandomDropGroupCfg(cfg.relic);
-        var relics = Utils.randomSelectByWeightWithPlayerFilter(this.player, relicCfg.elems, this.player.playerRandom, relicNum, relicNum + 1, true);
+        var relics = Utils.randomSelectByWeightWithPlayerFilter(this.player, relicCfg.elems, this.player.playerRandom, relicNum, relicNum + 1, true, "Crown");
         arr.push(...relics);
 
         // 宝箱中的道具

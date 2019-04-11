@@ -825,7 +825,7 @@ class MonsterFactory {
             for (var boxMonsterRdp of boxMonsterRdps){
                 var dropItems = [];
                 var boxMonsterRdp = GCfg.getRandomDropGroupCfg(boxMonsterRdp);
-                var dropItems = Utils.randomSelectByWeightWithPlayerFilter(m.bt().player, boxMonsterRdp.elems, m.bt().srand, boxMonsterRdp.num[0], boxMonsterRdp.num[1], true, undefined);
+                var dropItems = Utils.randomSelectByWeightWithPlayerFilter(m.bt().player, boxMonsterRdp.elems, m.bt().srand, boxMonsterRdp.num[0], boxMonsterRdp.num[1], true, "Coins");
                 for(var dpType of dropItems){
                     if(!dpType) return;
 

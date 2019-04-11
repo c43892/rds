@@ -431,6 +431,10 @@ class Player {
         AchievementMgr.mgr.fromString(pinfo.achievementMgrInfo);
         p = Occupation.makeOccupationBuff(p);
 
+        // 对于玩家闪避数据的特殊处理
+        if(p.dodge > 60)
+            p.dodge = 60;
+
         return p;
     }
 
@@ -473,12 +477,18 @@ class Player {
     public get commonRelicTypes():string[] { 
         return GCfg.getOccupationCfg(this.occupation).commonRelics;
     }
-    public commonRelicsCanGet():Relic[] {
+    public commonRelicsIncludeNotGet():Relic[] {
         var rs = [];
         for (var type of this.commonRelicTypes){
-            var r = <Relic>ElemFactory.create(type);
+            var index = Utils.indexOf(this.commonRelics, (rt:Relic) => rt.type == type);
+            var r:Relic;
+            if(index > -1)
+                r = this.commonRelics[index];
+            else
+                r = <Relic>ElemFactory.create(type);
+                
             rs.push(r);
-        }            
+        }
         return rs;
     }
     public relicsEquipped:Relic[] = []; // 已经装备的遗物
@@ -490,7 +500,7 @@ class Player {
     // 获取还可以强化的遗物
     public getReinforceableRelics(allCommonRelic = false) {
         if(allCommonRelic)
-            return Utils.filter([...this.commonRelicsCanGet(), ...this.relicsEquipped, ...this.relicsInBag], (r:Relic) => r.canReinfoce());
+            return Utils.filter([...this.commonRelicsIncludeNotGet(), ...this.relicsEquipped, ...this.relicsInBag], (r:Relic) => r.canReinfoce());
         else
             return Utils.filter(this.allRelics, (r:Relic) => r.canReinfoce());
     }
