@@ -607,12 +607,14 @@ class MainView extends egret.DisplayObjectContainer {
                         });
                     else
                         watchAds = false;
-                } else if (egret.Capabilities.os == "iOS") { // 暂时不看广告直接复活
+                } else if (egret.Capabilities.os != "Android") { // 暂时不看广告直接复活
                         if (await this.confirmOkYesNo("不幸死亡", "是立即复活？", true, 
                             {yes:"rebornAnyway", cancel:"justDie"})) {
                             ps.reborn = true;
                             Utils.st("Reborn", this.p.currentTotalStorey() + "," + this.p.occupation + "," + this.p.difficulty.replace("level", ""));
                         }
+                        else
+                            watchAds = false;
                 }
             } else {
                 watchAds = false;
