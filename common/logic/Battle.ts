@@ -1163,9 +1163,12 @@ class Battle {
                 var targetAttrs = tar.getAttrsAsTarget(); // 目标属性
 
                 for (var j = 0; j < attackerAttrs.muiltAttack && !tar.isDead(); j++) {
-                    // 从第二次攻击时跳出连击提示
-                    if (j > 0)
+                    
+                    // 从第二次攻击时跳出连击提示,且需要更新一次targetAttrs
+                    if (j > 0){
+                        targetAttrs = tar.getAttrsAsTarget();
                         await this.fireEvent("onMultAttack", {m:m});
+                    }
 
                     await this.fireEvent("monsterAttackSingleTargetAct", {m:m, target: tar}); // 对单个目标的攻击表现
                     var r = await this.calcAttack("monster2targets", attackerAttrs, targetAttrs, undefined, j > 0);
