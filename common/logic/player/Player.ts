@@ -53,7 +53,7 @@ class Player {
         p.deathStep = GCfg.getDifficultyCfg()[p.difficulty]["deathStep"];
 
         p.maxDeathStep = 150;
-        p.maxHp = 40;
+        p.maxHp = GCfg.getDifficultyCfg()[p.difficulty]["maxHp"];
         p.hp = p.maxHp;
         p.dodge = 0;
         p.power = [4, 0];
@@ -375,9 +375,9 @@ class Player {
         for (var f of Player.serializableFields)
             p[f] = pinfo[f];
 
-        // 对于玩家闪避数据的特殊处理
-        if(p.dodge > 15)
-            p.dodge = 15;
+        // 暂用,对于玩家闪避数据的特殊处理
+        if(p.dodge > 20)
+            p.dodge = 20;
 
         for (var r of pinfo.commonRelics) {
             var relic = Relic.fromString(r);

@@ -40,23 +40,23 @@ class OccupationEffectMgr {
             var rogueLevel:number = Utils.getOccupationLevelAndExp("Rogue").level;
             switch (rogueLevel){
                 case 2:{
+                    attrs.dDodge = 5;
+                    attrs.reinforce = [{"dDodge":10}, {"dDodge":15}, {"dDodge":20}, {"dDodge":25}]
+                    break;
+                }
+                case 3:{
                     attrs.dDodge = 6;
                     attrs.reinforce = [{"dDodge":12}, {"dDodge":18}, {"dDodge":24}, {"dDodge":30}]
                     break;
                 }
-                case 3:{
+                case 4:{
                     attrs.dDodge = 7;
                     attrs.reinforce = [{"dDodge":14}, {"dDodge":21}, {"dDodge":28}, {"dDodge":35}]
                     break;
                 }
-                case 4:{
+                case -1:{
                     attrs.dDodge = 8;
                     attrs.reinforce = [{"dDodge":16}, {"dDodge":24}, {"dDodge":32}, {"dDodge":40}]
-                    break;
-                }
-                case -1:{
-                    attrs.dDodge = 9;
-                    attrs.reinforce = [{"dDodge":18}, {"dDodge":27}, {"dDodge":36}, {"dDodge":45}]
                     break;
                 }
             }

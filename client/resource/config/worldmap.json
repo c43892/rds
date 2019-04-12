@@ -39,7 +39,7 @@
         },
         "shop": "world1shop",
         "turntable": [
-            {"type":"+hp", "attrs":15, "weight":10},
+            {"type":"+maxHp", "attrs":5, "weight":10},
             {"type":"-hp", "attrs":-15, "weight":10},
             {"type":"box", "attrs":"ttrdp1", "weight":10},
             {"type":"coins", "attrs":50, "weight":10},
@@ -86,7 +86,7 @@
         },
         "shop": "world1shop",
         "turntable": [
-            {"type":"+hp", "attrs":15, "weight":10},
+            {"type":"+maxHp", "attrs":5, "weight":10},
             {"type":"-hp", "attrs":-15, "weight":10},
             {"type":"box", "attrs":"ttrdp1", "weight":10},
             {"type":"coins", "attrs":50, "weight":10},
@@ -136,7 +136,7 @@
         },
         "shop": "world1shop",
         "turntable": [
-            {"type":"+hp", "attrs":15, "weight":10},
+            {"type":"+maxHp", "attrs":5, "weight":10},
             {"type":"-hp", "attrs":-15, "weight":10},
             {"type":"box", "attrs":"ttrdp1", "weight":10},
             {"type":"coins", "attrs":75, "weight":10},
@@ -186,7 +186,7 @@
         },
         "shop": "world1shop",
         "turntable": [
-            {"type":"+hp", "attrs":15, "weight":10},
+            {"type":"+maxHp", "attrs":5, "weight":10},
             {"type":"-hp", "attrs":-15, "weight":10},
             {"type":"box", "attrs":"ttrdp1", "weight":10},
             {"type":"coins", "attrs":100, "weight":10},
@@ -236,7 +236,7 @@
         },
         "shop": "world1shop",
         "turntable": [
-            {"type":"+hp", "attrs":15, "weight":10},
+            {"type":"+maxHp", "attrs":5, "weight":10},
             {"type":"-hp", "attrs":-15, "weight":10},
             {"type":"box", "attrs":"ttrdp1", "weight":10},
             {"type":"coins", "attrs":125, "weight":10},

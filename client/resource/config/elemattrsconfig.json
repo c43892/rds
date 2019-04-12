@@ -23,9 +23,9 @@
             {"dPower":2}, {"dPower":3}, {"dPower":4}, {"dPower":5}
         ]
     },
-    "Agile":{"name":"闪避强化", "dDodge":5,
+    "Agile":{"name":"闪避强化", "dDodge":4,
     "reinforce":[
-            {"dDodge":10}, {"dDodge":15}, {"dDodge":20}, {"dDodge":25}
+            {"dDodge":8}, {"dDodge":12}, {"dDodge":16}, {"dDodge":20}
         ]
     },
     "Fierce":{"name":"杀戮专精", "dPower":2,

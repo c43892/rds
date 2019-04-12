@@ -114,7 +114,7 @@ class TurntableView extends egret.DisplayObjectContainer {
         for(var i = 0; i < this.rewardCount; i++){
             var type = cfg[i].type;
             switch(type){
-                case "+hp":
+                case "+maxHp":
                 this.imgs[i] = ViewUtils.setTexName(this.imgs[i], "turntableAddHp_png");
                 break;
                 case "-hp":
@@ -184,15 +184,15 @@ class TurntableView extends egret.DisplayObjectContainer {
         var award = this.imgs[randomIndex];
         var showRewardIcon:boolean = false;
         switch(award["type"]){
-                case "+hp":
+                case "+maxHp":
                     var hpBefore = this.player.hp;
-                    this.player.addHp(Math.ceil(this.player.hp * award["attrs"] / 100));
-                    this.tipContent.text = "+" + (this.player.hp - hpBefore) + " hp";
+                    this.player.addMaxHp(award["attrs"]);
+                    this.tipContent.text = "+" + (award["attrs"]) + " max hp";
                     break;
                 case "-hp":
                     var hpBefore = this.player.hp;
                     this.player.addHp(Math.floor(this.player.hp * award["attrs"] / 100));
-                    this.tipContent.text = "-" + (hpBefore - this.player.hp) + "hp";
+                    this.tipContent.text = "-" + (hpBefore - this.player.hp) + " hp";
                     break;
                 case "box":
                     var rdp = GCfg.getRandomDropGroupCfg(award["attrs"]);
