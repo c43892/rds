@@ -242,7 +242,7 @@
                     "desc": "<font color=#000000 size=20>[献祭]</font><font color=#7d0403 size=20>失去{hp}生命，</font><font color=#294c22 size=20>{rate}%几率获得技能</font>",
                     "func": ["+randomItems", "-hp", "redirectSelGroup"],
                     "rates": [20],
-                    "failedFunc": ["-hp", "redirectSelGroup2"],
+                    "failedFunc": ["-hp", "redirectSelGroup2", "+randomItemsFake"],
                     "ps": [{"randomNum": 1, "items": {"ShieldBlock": 10, "ExpMedal": 10, "KnifeMaster": 10, "MonsterHunter": 10, "VestThorns": 10, "InfinityKnife": 10, "VestImmune": 10}, "hp":1, "group": "a411", "group2": "a421"}]
                     }
                 },{

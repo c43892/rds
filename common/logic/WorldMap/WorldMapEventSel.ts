@@ -170,7 +170,7 @@ class WorldMapEventSelFactory {
         },
         "-maxHp": (sel:WMES, p:Player, ps) => this.exec(async () => await this.implAddMaxHp(p, -ps.maxHp), sel),
         "+maxHp": (sel:WMES, p:Player, ps) => this.exec(async () => await this.implAddMaxHp(p, ps.maxHp), sel),
-        "+dodge": (sel:WMES, p:Player, ps) => this.exec(async () => await this.implAddDodge(p, ps.dodge), sel),
+        "+dodge": (sel:WMES, p:Player, ps) => this.valid(() => p.dodge < 60,this.exec(async () => await this.implAddDodge(p, ps.dodge), sel)),
         "+power": (sel:WMES, p:Player, ps) => this.exec(async () => await this.implAddPower(p, ps.power), sel),
         "+item": (sel:WMES, p:Player, ps) => this.valid(() => Utils.occupationCompatible(p.occupation, ps.item), 
             this.exec(async () => await this.implAddItem(p, ElemFactory.create(ps.item)), sel)),
@@ -182,7 +182,9 @@ class WorldMapEventSelFactory {
                 for (var relic of rs)
                     await this.implAddItem(p, <Relic>ElemFactory.create(relic.type));
         }, sel)),
-        "reinfoceRelic": (sel:WMES, p:Player, ps) => this.valid(() => p.getReinforceableRelics(true).length > 0, 
+        "reinfoceRelic": (sel:WMES, p:Player, ps) => this.valid(() => {
+            return p.getReinforceableRelics(true).length > 0;
+        }, 
             this.exec(async () => {
                 while (1) {
                     var r = await this.selRelic();
@@ -209,7 +211,9 @@ class WorldMapEventSelFactory {
                 if (nextSelsGroup)
                     await this.openEventSelGroup(p, nextSelsGroup);
         }, sel)),
-        "+randomItems": (sel:WMES, p:Player, ps) => this.valid(() => ps.randomNum > 0, this.exec(async () => {
+        "+randomItems": (sel:WMES, p:Player, ps) => this.valid(() => {
+            return ps.randomNum > 0 && Utils.randomSelectByWeightWithPlayerFilter(p, ps.items, p.playerRandom, ps.randomNum, ps.randomNum+1, true).length > 0
+        }, this.exec(async () => {
             var es = Utils.randomSelectByWeightWithPlayerFilter(p, ps.items, p.playerRandom, ps.randomNum, ps.randomNum+1, true);
             for (var et of es) {
                 var e = ElemFactory.create(et);
@@ -225,6 +229,10 @@ class WorldMapEventSelFactory {
                 await this.implAddItem(p, e);
             }
         }, sel)),
+        // 不执行任何操作,但在谜之声事件中需要检查选项的可用性
+        "+randomItemsFake": (sel:WMES, p:Player, ps) => this.valid(() => {
+            return ps.randomNum > 0 && Utils.randomSelectByWeightWithPlayerFilter(p, ps.items, p.playerRandom, ps.randomNum, ps.randomNum+1, true).length > 0
+        }, this.exec(async () => {}, sel)),
         "+specificRelics": (sel:WMES, p:Player, ps) => this.valid(() => ps.num > 0 && ps.items.length > 0, this.exec(async () => {
             // 选择几个指定技能，并获取
             var num = ps.num;
@@ -301,7 +309,7 @@ class WorldMapEventSelFactory {
             sel["move2NextSubSel"](0);
             
             return sel;
-        },
+        },        
         "toTurnTable": (sel:WMES, p:Player, ps) => this.exec(async () => await this.openTurntable(p.worldmap.cfg.turntable), sel),
         "searchOnCorpse": (sel:WMES, p:Player, ps) => {
             var rate = ps.rateArr[0];

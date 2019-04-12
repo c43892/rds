@@ -128,6 +128,7 @@ class TurntableView extends egret.DisplayObjectContainer {
                 break;
                 case "item":
                 var rdp = GCfg.getRandomDropGroupCfg(cfg[i].attrs);
+                // 这里全是道具,不会出现无可选项
                 var dropItem = Utils.randomSelectByWeightWithPlayerFilter(this.player, rdp.elems, new SRandom, 1, 2, false)[0];
                 this.imgs[i] = ViewUtils.setTexName(this.imgs[i], dropItem + "_png");
                 break;
@@ -195,7 +196,8 @@ class TurntableView extends egret.DisplayObjectContainer {
                     break;
                 case "box":
                     var rdp = GCfg.getRandomDropGroupCfg(award["attrs"]);
-                    var dropItem = Utils.randomSelectByWeightWithPlayerFilter(this.player, rdp.elems, this.player.playerRandom, 1, 2, false)[0];
+                    // 无可选时出皇冠
+                    var dropItem = Utils.randomSelectByWeightWithPlayerFilter(this.player, rdp.elems, this.player.playerRandom, 1, 2, false, "Crown")[0];
                     var e = ElemFactory.create(dropItem);
                     this.player.addItem(e);
                     this.tipContent.text = ViewUtils.getElemNameAndDesc(dropItem).name;

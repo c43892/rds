@@ -410,8 +410,9 @@ class Battle {
         if (this.player.checkLevelUp()) {
             await this.fireEvent("onPlayerLevelUp", {bt:this});
             await this.triggerLogicPoint("onPlayerLevelUp", {bt:this});
-
+            
             var relicChoices = Utils.randomSelectByWeightWithPlayerFilter(this.player, GCfg.playerCfg.levelUpChoices, this.srand, 3, 4, true);
+            // 没有可用技能时会在下一步直接return
             await this.try2SelRelics(relicChoices);
 
             await this.fireEvent("onPlayerChanged", {subType:"lvUp", bt:this});
@@ -918,6 +919,7 @@ class Battle {
             await m["makeFrozen"](frozenAttrs);
         } else { // 普通怪物生成冰块，转移掉落物品
             var ice = this.level.createElem("IceBlock");
+            ice["frozenMonster"] = m;
             for (var dp of m.dropItems)
                 ice.addDropItem(dp);
 
@@ -1262,6 +1264,7 @@ class Battle {
             var rdp = GCfg.getRandomDropGroupCfg(e.attrs.randomDropList);
             var rdpBackup = GCfg.getRandomDropGroupCfg(e.attrs.randomDropListBackup);
             var elemTypes = Utils.randomSelectByWeightWithPlayerFilter(e.bt().player, rdp.elems, e.bt().srand, 3, 4, true);
+            // 无金色技能可选时给蓝绿技能
             if(elemTypes.length == 0)
                 elemTypes = Utils.randomSelectByWeightWithPlayerFilter(e.bt().player, rdpBackup.elems, e.bt().srand, 3, 4, true);
             
@@ -1273,6 +1276,7 @@ class Battle {
             e["relics"] = relics;
         }
 
+        // 无可用技能时给金币
         if(e["relics"].length == 0){
             e.addDropItem(e.bt().level.createElem("CoinsHuge"));
             return false;

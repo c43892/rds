@@ -260,7 +260,7 @@ class RelicFactory {
                     
                     await r.bt().fireEvent("onRelicEffect", {r:r});
                     m.addDropItem(m.bt().level.createElem("Coins", {cnt:attrs.num}));
-                }, r, (ps) => ps.subType == "preDie" && ps.e instanceof Monster)
+                }, r, (ps) => ps.subType == "preDie" && (ps.e instanceof Monster || (ps.e.type == "IceBlock" && ps.e["frozenMonster"] && ps.e["frozenMonster"] instanceof Monster)))
             })
         },
 
@@ -720,6 +720,12 @@ class RelicFactory {
                     ps.attackerAttrs.muiltAttack += 1;
                 }, r, (ps) => ps.attackerAttrs.owner instanceof Player && ps.targetAttrs.owner.shield > 0 && !ps.weapon, false, true)
             });
+            return r;
+        },
+
+        // 皇冠  只用于技能随机表内没有可以再获取的技能时,默认获得此技能
+        "Crown": (attrs) => {
+            var r = this.createRelic(attrs, false, (r:Relic, enable:boolean) => {});
             return r;
         },
 
