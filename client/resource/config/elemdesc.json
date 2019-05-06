@@ -689,73 +689,113 @@
     },
     "CNT": {
         "MedicineBox":{"name":"醫療專精", "desc":[
-            "<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>離開每層時回復<font color=#294c22 size=20> {dhp} <font color=#000000 size=20>點生命值</font>"],
-        "shortDesc":"離開每層時回復2點生命值"},
-        "Hawkeye":{"name":"鷹眼", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每關開始時標記一個帶鑰匙的怪物</font>"],
-            "shortDesc":"每關開始時標記一個帶鑰匙的怪物"},
-        "Endurance":{"name":"耐力強化", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>耐力：增加<font color=#294c22 size=20>{dMaxHp} <font color=#000000 size=20>點最大生命值</font>"],
-            "shortDesc":"增加5點最大生命值"},
-        "Power":{"name":"力量強化", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>攻擊力 <font color=#294c22 size=20>+{dPower}</font>"],
-            "shortDesc":"攻擊力+1"},
-        "Fierce":{"name":"殺戮專精", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>突襲敵人時，提升<font color=#294c22 size=20>{dPower}%<font color=#000000 size=20>的暴擊幾率</font>"],
-            "shortDesc":"突襲敵人時，提升5%的暴擊幾率"},
-        "Unback2Sneak":{"name":"料敵先機", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>突襲敵人時，敵人不能反擊</font>"],
+            "<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>離開每層時回復</font><font color=#294c22 size=20> {dhp} </font><font color=#000000 size=20>點生命值</font>"],
+        "shortDesc":"離開每層時回復 {dhp} 點生命值",
+		"initialDesc":"<font color=#000000 size=28>離開每層時回復 3/6/9/12/15點生命值。</font>"},
+		"GangMember":{"name":"黑幫", "desc":[
+           " <font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>可以搶劫商店和事件NPC</font>",
+           " <font color=#3333cc size=20>注釋</font>\n<font color=#000000 size=20>lv1：可以搶劫智慧機械管家，搶到一件物品</font>\n<font color=#000000 size=20>lv2：可以搶劫部分？事件</font>\n<font color=#000000 size=20>lv3：可以搶劫大地圖商人，搶到一件物品</font>\n<font color=#000000 size=20>lv4：搶劫智慧機械管家時，50%的幾率獲得兩件物品</font>\n<font color=#000000 size=20>lv5：搶劫大地圖商人時，25%的幾率獲得一件額外的物品</font>"],
+        "shortDesc":"可以搶劫商店和事件NPC",
+		"initialDesc":"<font color=#000000 size=28>可以搶劫商店和事件NPC</font>。"},
+        "Endurance":{"name":"耐力強化", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>耐力：增加</font><font color=#294c22 size=20> {dMaxHp} </font><font color=#000000 size=20>點最大生命值</font>"], 
+            "shortDesc":"增加{dMaxHp}點最大生命值"},
+        "Power":{"name":"力量強化", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>攻擊力+</font><font color=#294c22 size=20> {dPower}</font>"], 
+            "shortDesc":"攻擊力+{dPower}"},
+        "Fierce":{"name":"殺戮專精", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>突襲敵人時，提升</font><font color=#294c22 size=20>{dPower}</font><font color=#000000 size=20>點攻擊力</font>"], 
+            "shortDesc":"突襲敵人時，提升{dPower}點攻擊力"},
+        "Unback2Sneak":{"name":"料敵先機", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>突襲敵人時，敵人不能反擊</font>"], 
             "shortDesc":"突襲敵人時，敵人不能反擊"},
-        "Agile":{"name":"閃避強化", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>閃避 <font color=#294c22 size=20>+{dDodge}%</font>"],
-            "shortDesc":"閃避+5%"},
-        "TimeMachine":{"name":"敵意消退", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>離開本層時，死神額外回退{deathGodBackStep}步</font>"],
-            "shortDesc":"離開本層時，死神額外回退5步"},
-        "Crucifix":{"name":"十字架", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>所有的怪物無法復活</font>"],
+        "Agile":{"name":"閃避強化", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>閃避+</font><font color=#294c22 size=20> {dDodge}%</font>"], 
+            "shortDesc":"閃避+{dDodge}%"},
+        "TimeMachine":{"name":"敵意消退", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>離開本層時，死神額外回退</font><font color=#294c22 size=20> {deathGodBackStep} </font><font color=#000000 size=20>步</font>"], 
+            "shortDesc":"離開本層時，死神額外回退{deathGodBackStep}步"},
+        "Crucifix":{"name":"十字架", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>所有的怪物無法復活</font>"], 
             "shortDesc":"所有的怪物無法復活"},
-        "WeaponMaster":{"name":"武器大師", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每層額外增加一把警棍</font>"],
+        "WeaponMaster":{"name":"武器大師", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每層額外增加一把警棍</font>"], 
             "shortDesc":"每層額外增加一把警棍"},
-        "UndefinedName1":{"name":"未命名1", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>所有的怪物無法復活</font>"],
+        "UndefinedName1":{"name":"未命名1", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>所有的怪物無法復活</font>"], 
             "shortDesc":"增加5點最大生命值"},
-        "ExpMedal":{"name":"未命名2", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>所有的怪物無法復活</font>"],
-            "shortDesc":"增加5點最大生命值"},
-        "GoldMedal":{"name":"未命名3", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>所有的怪物無法復活</font>"],
-            "shortDesc":"增加5點最大生命值"},
-        "DefenseProficient":{"name":"防護大師", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每層額外增加一件防護服</font>"],
-            "shortDesc":"每層額外增加一件防護服"},
-        "BookMaster":{"name":"圖書大師", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每層額外增加一本書</font>"],
-            "shortDesc":"每層額外增加一本書"},
-        "TradeMaster":{"name":"交易大師", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>你購買物品的價格優惠5%</font>"],
+        "ExpMedal":{"name":"經驗勳章", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>殺死怪物可以額外獲得1點經驗，每升一級提高{dexp}</font>"], 
+            "shortDesc":"殺死怪物可以額外獲得{dexp}點經驗"},
+        "GoldMedal":{"name":"金幣勳章", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每個怪物掉落的金錢增加1，每升一級提高{num}</font>"],
+            "shortDesc":"每個怪物掉落的金錢增加{num}"},
+        "DefenseProficient":{"name":"防護大師", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每層額外增加一件防護服，額外降低一點敵人的攻擊力</font>"],
+            "shortDesc":"每層額外增加一件防護服,額外降低一點敵人的攻擊力"},
+        "BookMaster":{"name":"圖書大師", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每層額外增加一本書，閱讀時額外增加{dexp}點經驗</font>"],
+            "shortDesc":"每層額外增加一本書,閱讀時額外增加{dexp}點經驗"},
+        "TradeMaster":{"name":"交易大師", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>你購買物品的價格優惠</font><font color=#294c22 size=20> {discount}%</font>"],
             "shortDesc":"你購買物品的價格優惠5%"},
         "TreasureBoxDetector":{"name":"寶箱探測", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每進入一層新的戰鬥地圖，都可以標記一個寶箱的位置</font>"],
-            "shortDesc":"每進入一層新的戰鬥地圖，都可以標記一個寶箱的位置"},
-        "KnifeMaster":{"name":"飛刀大師", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每場戰鬥增加一把飛刀，飛刀造成的傷害+X</font>"],
-            "shortDesc":"每場戰鬥增加一把飛刀，飛刀造成的傷害+X"},
-        "MonsterHunter":{"name":"怪物獵人", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每場戰鬥開始時標記X個怪物</font>"],
-            "shortDesc":"每場戰鬥開始時標記X個怪物"},
+            "shortDesc":"進入戰鬥地圖，都可以標記一個寶箱的位置"},
+        "KnifeMaster":{"name":"飛刀大師", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每場戰鬥增加一把飛刀，飛刀造成的傷害+</font><font color=#294c22 size=20> {dpower}</font>"],
+            "shortDesc":"每場戰鬥增加一把飛刀，飛刀造成的傷害+1"},
+        "MonsterHunter":{"name":"怪物獵人", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每場戰鬥開始時標記</font><font color=#294c22 size=20> {markNum} </font><font color=#000000 size=20>個普通怪物</font>"],
+            "shortDesc":"每場戰鬥開始時標記1個怪物"},
         "KnifeProficient":{"name":"飛刀專精", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每場戰鬥增加一把飛刀，飛刀攻擊時無視護甲</font>"],
-            "shortDesc":"每場戰鬥增加一把飛刀，飛刀攻擊時無視護甲"},
+            "shortDesc":"每場戰鬥增加一把飛刀，飛刀無視護甲"},
         "ExploreEnhanced":{"name":"探索強化", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每當你殺死一隻怪物，則隨機顯示一件物品的位置</font>"],
-            "shortDesc":"每當你殺死一隻怪物，則隨機顯示一件物品的位置"},
-        "HorticultureProficient":{"name":"園藝專精", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每場戰鬥增加一個蘋果，每次使用蘋果額外回復一點生命</font>"],
-            "shortDesc":"每層都可以獲得植物的援助"},
-        "SmellEnhanced":{"name":"嗅覺強化", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>你知道所有食物的位置</font>"],
-            "shortDesc":"你知道所有食物的位置"},
+            "shortDesc":"每當你殺死一隻怪物，則顯示一件物品"},
+        "HorticultureProficient":{"name":"廚藝大師", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每場戰鬥增加一個蘋果，每次使用蘋果額外回復一點生命</font>"],
+            "shortDesc":"每場戰鬥增加一個蘋果，蘋果效果增強"},
+        "SmellEnhanced":{"name":"嗅覺強化", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>你知道所有食物的位置，有{percent}%的幾率使普通食物變成豪華大餐</font>"],
+            "shortDesc":"你知道所有食物的位置,有{percent}%的幾率使普通食物變成豪華大餐"},
         "Storer":{"name":"囤積居奇", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每當離開一場戰鬥地圖，都可以帶走隨機一件非金錢物品到下一場戰鬥</font>"],
-            "shortDesc":"每當離開一場戰鬥地圖，都可以帶走隨機一件非金錢物品到下一場戰鬥"},
-        "ShieldProficient":{"name":"盾牌專精", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每場戰鬥增加一面盾牌，盾牌的恢復時間減少一回合</font>"],
-            "shortDesc":"每場戰鬥增加一面盾牌，盾牌的恢復時間減少一回合"},
+            "shortDesc":"離開戰鬥地圖，都可以帶走一件隨機物品"},
+        "ShieldProficient":{"name":"盾牌專精", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每場戰鬥增加一面盾牌，盾牌的恢復時間減少{dcd}回合</font>"],
+            "shortDesc":"每場戰鬥增加一面盾牌，盾牌恢復時間減少"},
         "HorticultureMaster":{"name":"園藝大師", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每層都可以獲得植物的援助，技能升級後植物可以獲得更強的能力</font>"],
             "shortDesc":"每層都可以獲得植物的援助"},
-        "StrikeFirst":{"name":"先发制人", "desc":[""], "shortDesc":""},
+        "StrikeFirst":{"name":"先發制人", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>隨機選擇{moveNum}件道具移動到初始區域</font>"],
+             "shortDesc":"隨機選擇1個道具加入初始區域"},
+        "ShieldBlock":{"name":"聖甲蟲的殼", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每場戰鬥增加一面盾牌，盾牌的吸收傷害提升{dShield}點</font>"],
+            "shortDesc":"每場戰鬥增加一面盾牌，盾牌的吸收傷害提升{dShield}點"},
+        "ShieldDetector":{"name":"盾牌偵測", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每場戰鬥增加一面盾牌，你知道所有盾牌的位置</font>"],
+            "shortDesc":"每場戰鬥增加一面盾牌，你知道所有盾牌的位置"},
+        "ShieldSlam":{"name":"盾牌猛擊", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每場戰鬥增加一面盾牌，你可以將你的盾牌投擲出去造成不超過剩餘吸收閾值的傷害，達到閾值後盾牌碎裂</font>"],
+            "shortDesc":"每場戰鬥增加一面盾牌，你可以將你的盾牌投擲出去造成不超過剩餘吸收閾值的傷害，達到閾值後盾牌碎裂"},
+        "VestDetector":{"name":"防護偵測", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每層額外增加一件防護服，你知道所有防護服的位置</font>"],
+            "shortDesc":"每層額外增加一件防護服，你知道所有防護服的位置"},
+        "VestImmune":{"name":"防護免疫", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每層額外增加一件防護服，每件防護服可用的時候有{percent}%的幾率免疫傷害</font>"],
+            "shortDesc":"每層額外增加一件防護服，防護服可用的時候有{percent}%的幾率免疫傷害"},
+        "VestThorns":{"name":"荊棘防護", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每層額外增加一件防護服，你受到攻擊時對怪物造成{thornsDamage}點反傷</font>"], 
+            "shortDesc":"每層額外增加一件防護服，你受到攻擊時對怪物造成{thornsDamage}點反傷"},     
+        "Watchmaker":{"name":"鐘錶匠", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每層增加一個鐘錶，使用鐘錶回退時間+{addDeathStepBack}</font>"],
+            "shortDesc":"每層增加一個鐘錶，使用鐘錶回退時間+{addDeathStepBack}"},
+        "KnifeRange":{"name":"隨意之刃", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每場戰鬥增加一把飛刀，你的飛刀可以攻擊任意格子</font>"],
+            "shortDesc":"每場戰鬥增加一把飛刀，你的飛刀可以攻擊任意格子"},
+        "PoisonKnife":{"name":"劇毒之刃", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每場戰鬥增加一把飛刀，飛刀攻擊附加一層毒</font>"],
+            "shortDesc":"每場戰鬥增加一把飛刀，飛刀攻擊附加一層毒"},
+        "InfinityKnife":{"name":"無盡之刃", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每場戰鬥增加一把飛刀，飛刀殺死怪物後有{percent}%的幾率不會消耗</font>"],
+            "shortDesc":"每場戰鬥增加一把飛刀，飛刀殺死怪物後有{percent}%的幾率不會消耗"},
+        "KnifeDetector":{"name":"飛刀偵測", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每場戰鬥增加一把飛刀，你知道所有飛刀的位置</font>"],
+            "shortDesc":"每場戰鬥增加一把飛刀，你知道所有飛刀的位置"},
+        "DoubleAttack":{"name":"連擊", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>直接攻擊有護甲的怪物時額外連擊一次</font>"],
+            "shortDesc":"直接攻擊有護甲的怪物時額外連擊一次"},
+        "Crown":{"name":"荊棘花冠", "desc":["<font color=#000000 size=20>力量的象徵</font>"],
+            "shortDesc":"力量的象徵"},
         
         
-        "Coins":{"name":"金幣", "desc":["<font color=#294c22 size=20>{cnt} <font color=#000000 size=20>個金幣"]},
-        "Key":{"name":"鑰匙", "desc":["<font color=#000000 size=20>可打開寶箱或閘"]},
-        "Door":{"name":"門", "desc":["<font color=#000000 size=20>打開可通往下一層"]},
-        "TreasureBox":{"name":"寶箱", "desc":["<font color=#000000 size=20>可被鑰匙打開，產出隨機道具"]},
-        "RandomEgg":{"name":"彩蛋", "desc":["<font color=#000000 size=20>打開產出隨機道具"]},
-        "Clock":{"name":"鐘錶", "desc":["<font color=#000000 size=20>死神後退<font color=#294c22 size=20>{deathGodBackStep}<font color=#000000 size=20>步"]},
-        "HpPotion":{"name":"醫療藥劑", "desc":["<font color=#000000 size=20>每回合回復<font color=#294c22 size=20>{dhp}<font color=#000000 size=20>生命,持續5回合"]},
-        "DePoison":{"name":"解毒藥劑", "desc":["<font color=#000000 size=20>解除中毒效果"]},
-        "Magazine":{"name":"自然雜誌", "desc":["<font color=#000000 size=20>每次點擊獲得1經驗值"]},
-        "EconomyMagazine":{"name":"金融雜誌", "desc":["每次點擊獲得1經驗值及2金錢"]},
-        "Shield":{"name":"盾牌", "desc":["<font color=#000000 size=20>抵擋一次攻擊傷害，冷卻時間3回合"]},
-        "HeadBone":{"name":"骷髏頭", "desc":["<font color=#000000 size=20>每當你被怪物突襲時，骷髏王都會原地復活"]},
+        "Coins":{"name":"金幣", "desc":["<font color=#294c22 size=20> {cnt} </font><font color=#000000 size=20>個金幣</font>"]},
+        "Key":{"name":"鑰匙", "desc":["<font color=#000000 size=20>可打開寶箱或閘</font>"],
+                "useDescArr":["<font color=#e4d5a5 size=25>可打開寶箱或閘</font>", "<font color=#e4d5a5 size=25>鑰匙（選擇目標）</font>"]},
+        "Door":{"name":"門", "desc":["<font color=#000000 size=20>打開可通往下一層</font>"]},
+        "TreasureBox":{"name":"寶箱", "desc":["<font color=#000000 size=20>可被鑰匙打開，產出隨機道具</font>"]},
+        "RandomEgg":{"name":"彩蛋", "desc":["<font color=#000000 size=20>打開獲得隨機道具</font>"]},
+        "LuxuryChest":{"name":"豪華寶箱", "desc":["<font color=#000000 size=20>產出好東西</font>"]},
+        "Clock":{"name":"鐘錶", "desc":["<font color=#000000 size=20>死神後退<font color=#294c22 size=20> {deathStepBack} </font><font color=#000000 size=20>步</font>"]},
+        "BigBen":{"name":"大本鐘", "desc":["<font color=#000000 size=20>死神後退<font color=#294c22 size=20> {deathStepBack} </font><font color=#000000 size=20>步</font>"]},
+        "HpPotion":{"name":"醫療藥劑", "desc":["<font color=#000000 size=20>使用回復<font color=#294c22 size=20> {heal} </font><font color=#000000 size=20>生命</font>"], 
+            "useDescArr":["<font color=#e4d5a5 size=25>使用回復</font><font color=#56ba42 size=25> {heal} </font><font color=#e4d5a5 size=25>生命</font>", "<font color=#e4d5a5 size=25>醫療藥劑（點擊地圖任意位置使用）</font>"],
+			"initialDesc":"<font color=#000000 size=28>使用回復6生命</font>"},
+        "DePoison":{"name":"解毒藥劑", "desc":["<font color=#000000 size=20>解除中毒效果"],
+            "useDescArr":["<font color=#e4d5a5 size=25>解除中毒效果</font>", "<font color=#e4d5a5 size=25>解毒藥劑（點擊地圖任意位置使用）</font>"]},
+        "Magazine":{"name":"自然雜誌", "desc":["<font color=#000000 size=20>每次點擊獲得<font color=#294c22 size=20> {dexp} </font><font color=#000000 size=20>經驗值</font>"]},
+        "EconomyMagazine":{"name":"金融雜誌", "desc":["<font color=#000000 size=20>每次點擊獲得</font> <font color=#294c22 size=20> {dexp} </font>經驗值及<font color=#294c22 size=20> {money} </font><font color=#000000 size=20>金錢</font>"]},
+        "Shield":{"name":"盾牌", "desc":["<font color=#000000 size=20>抵擋一次攻擊傷害，冷卻時間<font color=#294c22 size=20> {elemCD} </font><font color=#000000 size=20>回合</font>\n<font color=#000000 size=20>總共可抵擋<font color=#294c22 size=20> {shield} </font><font color=#000000 size=20>點傷害</font>"]},
+        "GoldenHand":{"name":"點金之手", "desc":["<font color=#000000 size=20>可以將怪物轉化為</font> <font color=#294c22 size=20> {dropNum} </font>金錢，還可以使用</font> <font color=#294c22 size=20> {cnt} </font>次</font>"],
+            "useDescArr":["<font color=#e4d5a5 size=25>可以將怪物轉化為</font><font color=#56ba42 size=25> {dropNum} </font><font color=#e4d5a5 size=25>金錢，還可以使用</font><font color=#56ba42 size=25> {cnt} </font><font color=#e4d5a5 size=25>次</font>", "<font color=#e4d5a5 size=25>點金之手（點擊目標怪物使用）</font>"]},
+        "HeadBone":{"name":"骷髏頭", "desc":["<font color=#000000 size=20>每當你被怪物突襲時，骷髏王都會原地復活</font>"]},
+        "OpenRelicSpace":{"name":"技能格", "desc":["<font color=#000000 bold=false size=20>增加一個技能裝備格</font>"]},
 
         "DeathGod":{"name":"死神", "desc":[
             "<font color=#7d0403 bold=true size=21>漂浮</font>\n<font color=#000000 bold=false size=20>每回合都會移動位置</font>",
@@ -765,25 +805,26 @@
             "<font color=#7d0403 bold=true size=21>平淡</font>\n<font color=#000000 bold=false size=20>沒有特殊能力</font>"
         ]},
         "Vampire":{"name":"吸血鬼", "desc":[
-            "<font color=#7d0403 bold=true size=21>吸血</font>\n<font color=#000000 bold=false size=20>每次攻击吸取3点血</font>"
-        ]},
+            "<font color=#7d0403 bold=true size=21>吸血</font>\n<font color=#000000 bold=false size=20>突襲時吸取{percent}%的生命值</font>"
+        ], "skillNames":["吸血"]},
         "GoblinThief":{"name":"哥布林竊賊", "desc":[
-            "<font color=#7d0403 bold=true size=21>偷竊</font>\n突襲時偷取玩家的金幣</font>"
-        ]},
-        "HoundZombie":{"name":"獵犬僵屍", "desc":[
-            "<font color=#7d0403 bold=true size=21>屍毒</font>\n<font color=#000000 bold=false size=20>攻擊附帶2層中毒</font>"
-        ]},
+            "<font color=#7d0403 bold=true size=21>偷竊</font>\n<font color=#000000 bold=false size=20>突襲時偷取玩家的金幣</font>",
+            "<font color=#7d0403 bold=true size=21>拾荒</font>\n<font color=#000000 bold=false size=20>主動拾取地上的金幣</font>"
+        ], "skillNames":["偷竊"]},
+        "HoundZombie":{"name":"恐怖獵犬", "desc":[
+            "<font color=#7d0403 bold=true size=21>屍毒</font>\n<font color=#000000 bold=false size=20>攻擊附帶中毒效果</font>"
+        ], "skillNames":["屍毒"]},
         "DancerZombie":{"name":"舞王僵屍", "desc":[
             "<font color=#7d0403 bold=true size=21>伴舞</font>\n<font color=#000000 bold=false size=20>突襲時召喚2個同伴</font>"
-        ]},
-        "GluttonyZombie":{"name":"暴食僵屍", "desc":[
+        ], "skillNames":["伴舞"]},
+        "GluttonyZombie":{"name":"暴食", "desc":[
             "<font color=#7d0403 bold=true size=21>饕餮</font>\n<font color=#000000 bold=false size=20>突襲時吞噬1件隨機道具</font>"
-        ]},
+        ], "skillNames":["饕餮"]},
         "Gengar":{"name":"耿鬼", "desc":[
             "<font color=#7d0403 bold=true size=21>伏擊</font>\n<font color=#000000 bold=false size=20>離開本層時，進行一次攻擊</font>"
         ]},
         "BombAbomination":{"name":"自爆憎惡", "desc":[
-            "<font color=#7d0403 bold=true size=21>自爆</font>\n<font color=#000000 bold=false size=20> {cnt} 回合後自爆，造成 {mult} 倍的攻擊傷害</font>"
+            "<font color=#7d0403 bold=true size=21>自爆</font>\n<font color=#000000 bold=false size=20>出現後 </font><font color=#294c22 size=20>{rounds} </font><font color=#000000 size=20>回合自爆，翻開周圍8個格子並造成造成攻擊x</font><font color=#294c22 size=20>3 <font color=#000000 size=20>的傷害</font>"
         ]},
         "EyeDemon":{"name":"眼魔", "desc":[
             "<font color=#7d0403 bold=true size=21>透視</font>\n<font color=#000000 bold=false size=20>死亡時探索2個空方格</font>"
@@ -791,9 +832,10 @@
         "RandomEggZombie":{"name":"彩蛋僵屍", "desc":[
             "<font color=#7d0403 bold=true size=21>彩蛋</font>\n<font color=#000000 bold=false size=20>死亡必定掉落彩蛋</font>"
         ]},
-        "LustZombie":{"name":"色欲僵屍", "desc":[
-            "<font color=#7d0403 bold=true size=21>魅惑</font>\n<font color=#000000 bold=false size=20>突襲時死神提前15回合</font>"
-        ]},
+        "LustZombie":{"name":"魅魔", "desc":[
+            "<font color=#7d0403 bold=true size=21>魅惑</font>\n<font color=#000000 bold=false size=20>突襲時死神提前{deathStepOnSneak}回合</font>",
+            "<font color=#7d0403 bold=true size=21>回饋</font>\n<font color=#000000 bold=false size=20>死亡時死神退後{deathStepOnDie}回合</font>"
+        ], "skillNames":["魅惑"]},
         "CommanderZombie":{"name":"指揮官僵屍", "desc":[
             "<font color=#7d0403 bold=true size=21>統領</font>\n<font color=#000000 bold=false size=20>在場時其他所有怪物攻擊和生命值翻倍</font>"
         ]},
@@ -817,150 +859,245 @@
         ]},
         "GreedyZombie":{"name":"貪婪僵屍", "desc":[
             "<font color=#7d0403 bold=true size=21>貪婪</font>\n<font color=#000000 bold=false size=20>拾取周圍的道具和金幣</font>"
-        ]},
+        ], "skillNames":["貪婪"]},
         "ConfusionZombie":{"name":"疑惑僵屍", "desc":[
             "<font color=#7d0403 bold=true size=21>混亂</font>\n<font color=#000000 bold=false size=20>周圍的方格都會顯示成問號</font>"
-        ]},
+        ], "skillNames":["混亂"]},
         "Mummy":{"name":"木乃伊", "desc":[
             "<font color=#7d0403 bold=true size=21>沙塵</font>\n<font color=#000000 bold=false size=20>在自己身邊製造迷霧</font>"
-        ]},
+        ], "skillNames":["沙塵"]},
         "PoisonJellyfish":{"name":"毒性水母", "desc":[
-            "<font color=#7d0403 bold=true size=21>毒霧</font>\n<font color=#000000 bold=false size=20>死亡時使所有未揭開的方塊帶毒</font>"
+            "<font color=#7d0403 bold=true size=21>毒霧</font>\n<font color=#000000 bold=false size=20>死亡時使所有未揭開的方塊帶毒，持續3回合</font>"
         ]},
         "SkeletonKing":{"name":"骷髏王", "desc":[
             "<font color=#7d0403 bold=true size=21>不死</font>\n<font color=#000000 bold=false size=20>每當被其他怪物突襲時復活</font>"
         ]},
-        "SwatheZombie":{"name":"纏繞僵屍", "desc":[
+        "SwatheZombie":{"name":"黑寡婦蜘蛛", "desc":[
             "<font color=#7d0403 bold=true size=21>纏繞</font>\n<font color=#000000 bold=false size=20>突襲時鎖定三項已顯形物品，死亡後才可解鎖</font>",
-            "<font color=#7d0403 bold=true size=21>劇毒</font>\n<font color=#000000 bold=false size=20>攻擊附帶2層中毒</font>"
-        ]},
+            "<font color=#7d0403 bold=true size=21>劇毒</font>\n<font color=#000000 bold=false size=20>攻擊附帶中毒效果</font>"
+        ], "skillNames":["纏繞"]},
         "BoxMonster":{"name":"憤怒寶箱", "desc":[
             "<font color=#7d0403 bold=true size=21>憤怒</font>\n<font color=#000000 bold=false size=20>寶箱的復仇</font>"
         ]},
         "Ghost":{"name":"幽靈", "desc":[
-            "<font color=#7d0403 bold=true size=21>穿透</font>\n<font color=#000000 bold=false size=20>攻擊無視防暴服和防護服</font>",
+            "<font color=#7d0403 bold=true size=21>穿透</font>\n<font color=#000000 bold=false size=20>攻擊無視防暴盾和防護服</font>",
             "<font color=#7d0403 bold=true size=21>糾纏</font>\n<font color=#000000 bold=false size=20>尾隨玩家進入下一層</font>"
         ]},
         "RedSlime":{"name":"紅色史萊姆", "desc":[
             "<font color=#7d0403 bold=true size=21>沉重</font>\n<font color=#000000 bold=false size=20>每次攻擊額外消耗一回合</font>"
         ]},
         "GreenSlime":{"name":"綠色史萊姆", "desc":[
-            "<font color=#7d0403 bold=true size=21>治癒</font>\n<font color=#000000 bold=false size=20>每回合回復1點生命值</font>"
+            "<font color=#7d0403 bold=true size=21>治癒</font>\n<font color=#000000 bold=false size=20>每回合回復當前生命值</font><font color=#294c22 size=20> 20</font><font color=#000000 bold=false size=20>%的血量</font>"
+        ]},        
+        "Siren":{"name":"塞壬", "desc":[
+            "<font color=#7d0403 bold=true size=21>驚恐</font>\n<font color=#000000 bold=false size=20>突襲時，死神將會提前15步；現身時，你每回合失去一點生命</font>"
         ]},
-        "Siren":{"name":"塞壬", "desc":[]},
-        "Worm":{"name":"吞噬蠕虫", "desc":[]},
-        "Hag":{"name":"女妖", "desc":[]},
-        "Nightmare":{"name":"梦魇兽", "desc":[]},
-        "ThunderElemental":{"name":"雷元素", "desc":[]},
-        "FlameElemental":{"name":"火元素", "desc":[]},
-        "Echinus":{"name":"海胆", "desc":[]},
-        "Werewolf":{"name":"狼人", "desc":[]},
-        "Kraken":{"name":"克拉肯", "desc":[]},
-        "HalloweenTreant":{"name":"万圣节树妖", "desc":[]},
-        "ShopNpc":{"name":"商人", "desc":[
-            "</font><font color=#7d0403 bold=true  size=20>奸商</font>\n<font color=#000000 bold=false size=20>顧客才是我的上帝</font>"
+        "Worm":{"name":"吞噬蠕蟲", "desc":[
+            "<font color=#7d0403 bold=true size=21>暴食</font>\n<font color=#000000 bold=false size=20>突襲時，吞噬所有非鑰匙的物品，攻擊時吸取生命</font>"
+        ]},
+        "Hag":{"name":"女妖", "desc":[
+            "<font color=#7d0403 bold=true size=21>誘惑</font>\n<font color=#000000 bold=false size=20>現身時，你無法使用任何藥水</font>"
+        ]},
+        "Nightmare":{"name":"夢魘獸", "desc":[
+            "<font color=#7d0403 bold=true size=21>夢魘</font>\n<font color=#000000 bold=false size=20>每次攻擊摧毀一件非鑰匙的物品，攻擊無視防暴盾和防護服</font>"
+        ]},
+        "ThunderElemental":{"name":"閃電水母", "desc":[
+            "<font color=#7d0403 bold=true size=21>電擊</font>\n<font color=#000000 bold=false size=20>身上圍繞著閃電的怪物，受到攻擊時，會同時傷害你和周圍的怪物</font>"
+        ]},
+        "FlameElemental":{"name":"火元素", "desc":[
+            "<font color=#7d0403 bold=true size=21>火焰</font>\n<font color=#000000 bold=false size=20>免疫火焰傷害，死後掉落火焰藥水</font>"
+        ]},
+        "Echinus":{"name":"海膽", "desc":[
+            "<font color=#7d0403 bold=true size=21>反傷</font>\n<font color=#000000 bold=false size=20>受到普通攻擊時，反射50%的傷害</font>"
+        ]},
+        "Werewolf":{"name":"狼人", "desc":[
+            "<font color=#7d0403 bold=true size=21>狂猛</font>\n<font color=#000000 bold=false size=20>每回合回復20%的生命值，每受到一次傷害攻擊提升10%</font>"
+        ]},
+        "MNutWall":{"name":"堅果牆", "desc":[
+            "<font color=#7d0403 bold=true size=21>護衛</font>\n<font color=#000000 bold=false size=20>附近8格中有其他怪物受到攻擊時，承受其傷害</font>"
+        ]},
+        "MPeashooter":{"name":"豌豆射手", "desc":[
+            "<font color=#7d0403 bold=true size=21>連擊</font>\n<font color=#000000 bold=false size=20>每4回合攻擊一次</font>"            
+        ]},
+        "MCherryBomb":{"name":"櫻桃炸彈", "desc":[
+            "<font color=#7d0403 bold=true size=21>自爆</font>\n<font color=#000000 bold=false size=20>出現後 </font><font color=#294c22 size=20>{rounds} </font><font color=#000000 size=20>回合自爆，翻開周圍8個格子並造成造成攻擊x</font><font color=#294c22 size=20>3 <font color=#000000 size=20>的傷害</font>"
+        ]},
+        "MSunflower":{"name":"太陽花", "desc":[
+            "<font color=#7d0403 bold=true size=21>恢復</font>\n<font color=#000000 bold=false size=20>每3回合為已所有現身怪物回復一點生命</font>"
+        ]},
+        "MCharmingMushroom":{"name":"魅惑菇", "desc":[
+            "<font color=#7d0403 bold=true size=21>免疫</font>\n<font color=#000000 bold=false size=20>無法被魅惑</font>"
+        ]},
+        "EliteGoblinThief":{"name":"精英哥布林竊賊", "desc":[
+            "<font color=#7d0403 bold=true size=21>偷竊</font>\n<font color=#000000 bold=false size=20>突襲時偷取玩家的金幣</font>",
+            "<font color=#7d0403 bold=true size=21>精英</font>\n<font color=#000000 bold=false size=20>為所有怪物附加突襲偷竊能力，突襲時偷取玩家15%的當前金錢</font>"
+        ]},
+        "EliteVampire":{"name":"精英吸血鬼", "desc":[
+            "<font color=#7d0403 bold=true size=21>吸血</font>\n<font color=#000000 bold=false size=20>突襲時吸取{percent}%的生命值</font>",
+            "<font color=#7d0403 bold=true size=21>精英</font>\n<font color=#000000 bold=false size=20>為所有怪物附加突襲吸血能力，突襲時吸收玩家15%的當前生命</font>"
+        ]},
+        "EliteLustZombie":{"name":"精英魅魔", "desc":[
+            "<font color=#7d0403 bold=true size=21>魅惑</font>\n<font color=#000000 bold=false size=20>突襲時死神提前{deathStepOnSneak}回合</font>",
+            "<font color=#7d0403 bold=true size=21>回饋</font>\n<font color=#000000 bold=false size=20>死亡時死神退後{deathStepOnDie}回合</font>",
+            "<font color=#7d0403 bold=true size=21>精英</font>\n<font color=#000000 bold=false size=20>為所有怪物附加魅惑功能，突襲時死神前進10步</font>"
+        ]},
+        "EliteSwatheZombie":{"name":"精英黑寡婦蜘蛛", "desc":[
+            "<font color=#7d0403 bold=true size=21>纏繞</font>\n<font color=#000000 bold=false size=20>突襲時鎖定三項已顯形物品，死亡後才可解鎖</font>",
+            "<font color=#7d0403 bold=true size=21>劇毒</font>\n<font color=#000000 bold=false size=20>攻擊附帶中毒效果</font>",
+            "<font color=#7d0403 bold=true size=21>精英</font>\n<font color=#000000 bold=false size=20>為所有怪物附加纏繞能力，突襲時可纏繞兩件物品</font>"
+        ]},
+        "EliteReviveZombie":{"name":"精英克蘇魯觸手", "desc":[
+            "<font color=#7d0403 bold=true size=21>複生</font>\n<font color=#000000 bold=false size=20>死亡後可以復活一次</font>",
+            "<font color=#7d0403 bold=true size=21>精英</font>\n<font color=#000000 bold=false size=20>為所有怪物附加複生能力，死亡時會復活一次（本來能復活的怪物不會復活兩次）</font>"
+        ]},
+        "Kraken":{"name":"克拉肯", "desc":[
+            "<font color=#7d0403 bold=true size=21>海怪吞噬</font>\n<font color=#000000 bold=false size=20>每3個回合主動攻擊1次，造成3倍傷害，並隨機摧毀一件非金錢的物品</font>",
+            "<font color=#7d0403 bold=true size=21>深海窒息</font>\n<font color=#000000 bold=false size=20>克拉肯存在時，每回合對你造成1點傷害，無論它是否處於現身狀態</font>",
+            "<font color=#7d0403 bold=true size=21>狂暴</font>\n<font color=#000000 bold=false size=20>血量低於50%時，每回合都會進行海怪吞噬</font>",
+            "<font color=#7d0403 bold=true size=21>深寒</font>\n<font color=#000000 bold=false size=20>無法被冰凍，受到火焰傷害時效果加倍</font>"
+        ]},
+        "HalloweenTreant":{"name":"萬聖節樹妖", "desc":[
+             "<font color=#7d0403 bold=true size=21>古樹纏繞</font>\n<font color=#000000 bold=false size=20>每3個回合主動攻擊1次，造成4倍傷害</font>",
+            "<font color=#7d0403 bold=true size=21>植物軍團</font>\n<font color=#000000 bold=false size=20>將所有怪物變為植物，初始將5個隨機怪物變成豌豆射手，豌豆射手將在戰鬥開始時自動現身，N回合攻擊一次玩家（不攻擊商人）</font>",
+            "<font color=#7d0403 bold=true size=21>防護</font>\n<font color=#000000 bold=false size=20>血量每減少30%，則進入防護模式，為自己加上一個近乎無敵的防護罩，受到除火焰以外的任何傷害均為1，防護罩在受到3次傷害後解除</font>",
+            "<font color=#7d0403 bold=true size=21>易燃</font>\n<font color=#000000 bold=false size=20>被火焰傷害會進入點燃狀態，免疫中毒</font>"
+        ]},
+        "SlimeKing":{"name":"史萊姆之王", "desc":[
+            "<font color=#7d0403 bold=true size=21>史萊姆衝擊</font>\n<font color=#000000 bold=false size=20>每3回合進行一次撞擊，傷害是攻擊的4倍</font>",
+            "<font color=#7d0403 bold=true size=21>死亡和新生</font>\n<font color=#000000 bold=false size=20>血量低於50%史萊姆之王會分裂為4個史萊姆，4回合後會重新合成史萊姆之王，血量是史萊姆的血量之和</font>",
+            "<font color=#7d0403 bold=true size=21>粘液</font>\n<font color=#000000 bold=false size=20>每次攻擊需要額外消耗2回合</font>",
+            "<font color=#7d0403 bold=true size=21>回復</font>\n<font color=#000000 bold=false size=20>每回合恢復5%的生命值</font>"
+        ]},
+        "BrainOfCthulhu":{"name":"克蘇魯之腦", "desc":[
+            "<font color=#7d0403 bold=true size=21>精神接觸</font>\n<font color=#000000 bold=false size=20>每3個回合主動攻擊1次，造成3倍傷害，並降低10點san值</font>",
+            "<font color=#7d0403 bold=true size=21>指揮</font>\n<font color=#000000 bold=false size=20>所有其他怪物血量和攻擊翻倍</font>",
+            "<font color=#7d0403 bold=true size=21>恐懼光環</font>\n<font color=#000000 bold=false size=20>每回合都會降低你的san值，隨著你的san值越低，你會做出一些越來越奇怪的行為……san值低於70：本層的所有地圖數位都會顯示為問號；san值低於35：怪物的所有屬性都顯示成問號；san值為0：你的攻擊將隨機點擊可點擊的地方</font>",
+            "<font color=#7d0403 bold=true size=21>精神污染</font>\n<font color=#000000 bold=false size=20>boss被翻開後本關的所有普通怪物顯示為克蘇魯的觸手</font>",
+            "<font color=#7d0403 bold=true size=21>克蘇魯的呼喚</font>\n<font color=#000000 bold=false size=20>克蘇魯之腦每5回合在隨機位置召喚一隻克蘇魯的觸手，你每殺死一隻克蘇魯的觸手，恢復10點san值</font>"
+        ]},
+        "ShopNpc":{"name":"智慧機械管家", "desc":[
+            "</font><font color=#7d0403 bold=true  size=21>奸商</font>\n<font color=#000000 bold=false size=20>顧客才是我的上帝</font>"
         ]},
         "CharmedNormal":{"desc":[
-            "</font><font color=#7d0403 bold=true  size=20>呆滯</font>\n<font color=#000000 bold=false size=20>被魅惑影響了智商</font>"
+            "</font><font color=#7d0403 bold=true  size=21>呆滯</font>\n<font color=#000000 bold=false size=20>被魅惑影響了智商</font>"
         ]},
         "BombAbominationCharmed":{"name":"自曝憎惡", "desc":[
-            "<font color=#7d0403 bold=true size=21>自爆</font>\n<font color=#000000 bold=false size=20> {cnt} 回合後自爆，造成 {mult} 倍的攻擊傷害</font>"
+            "<font color=#7d0403 bold=true size=21>自爆</font>\n<font color=#000000 bold=false size=20>出現後 </font><font color=#294c22 size=20>{rounds} </font><font color=#000000 size=20>回合自爆，造成攻擊x</font><font color=#294c22 size=20>3 <font color=#000000 size=20>的傷害</font>"
         ]},
         "EyeDemonCharmed":{"name":"眼魔", "desc":[
             "<font color=#7d0403 bold=true size=21>透視</font>\n<font color=#000000 bold=false size=20>死亡時探索2個空方格</font>"
         ]},
         "NutWall1":{"name":"堅果牆", "desc":[
-            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 替你承擔所受傷害的30%</font>\n<font color=#aeaeae bold=false size=20>lv2: 生命值+5</font>\n<font color=#aeaeae bold=false size=20>lv3: 替你承擔所受傷害的40%</font>\n<font color=#aeaeae bold=false size=20>lv4: 生命值+10</font>\n<font color=#aeaeae bold=false size=20>lv5: 替你承擔所受傷害的40%</font>"
+            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 替你承擔所受傷害的{level1Share}%</font>\n<font color=#aeaeae bold=false size=20>lv2: 生命值+{level2AddHp}</font>\n<font color=#aeaeae bold=false size=20>lv3: 額外替你承擔所受傷害的{level3AddShare}%</font>\n<font color=#aeaeae bold=false size=20>lv4: 生命值+{level4AddHp}</font>\n<font color=#aeaeae bold=false size=20>lv5: 額外替你承擔所受傷害的{level5AddShare}%</font>"
         ]},
         "NutWall2":{"name":"堅果牆", "desc":[
-            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 替你承擔所受傷害的30%</font>\n<font color=#000000 bold=false size=20>lv2: 生命值+5</font>\n<font color=#aeaeae bold=false size=20>lv3: 替你承擔所受傷害的40%</font>\n<font color=#aeaeae bold=false size=20>lv4: 生命值+10</font>\n<font color=#aeaeae bold=false size=20>lv5: 替你承擔所受傷害的40%</font>"
+            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 替你承擔所受傷害的{level1Share}%</font>\n<font color=#000000 bold=false size=20>lv2: 生命值+{level2AddHp}</font>\n<font color=#aeaeae bold=false size=20>lv3: 額外替你承擔所受傷害的{level3AddShare}%</font>\n<font color=#aeaeae bold=false size=20>lv4: 生命值+{level4AddHp}</font>\n<font color=#aeaeae bold=false size=20>lv5: 額外替你承擔所受傷害的{level5AddShare}%</font>"
         ]},
         "NutWall3":{"name":"堅果牆", "desc":[
-            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 替你承擔所受傷害的30%</font>\n<font color=#000000 bold=false size=20>lv2: 生命值+5</font>\n<font color=#000000 bold=false size=20>lv3: 替你承擔所受傷害的40%</font>\n<font color=#aeaeae bold=false size=20>lv4: 生命值+10</font>\n<font color=#aeaeae bold=false size=20>lv5: 替你承擔所受傷害的40%</font>"
+            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 替你承擔所受傷害的{level1Share}%</font>\n<font color=#000000 bold=false size=20>lv2: 生命值+{level2AddHp}</font>\n<font color=#000000 bold=false size=20>lv3: 額外替你承擔所受傷害的{level3AddShare}%</font>\n<font color=#aeaeae bold=false size=20>lv4: 生命值+{level4AddHp}</font>\n<font color=#aeaeae bold=false size=20>lv5: 額外替你承擔所受傷害的{level5AddShare}%</font>"
         ]},
         "NutWall4":{"name":"堅果牆", "desc":[
-            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 替你承擔所受傷害的30%</font>\n<font color=#000000 bold=false size=20>lv2: 生命值+5</font>\n<font color=#000000 bold=false size=20>lv3: 替你承擔所受傷害的40%</font>\n<font color=#000000 bold=false size=20>lv4: 生命值+10</font>\n<font color=#aeaeae bold=false size=20>lv5: 替你承擔所受傷害的40%</font>"
+            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 替你承擔所受傷害的{level1Share}%</font>\n<font color=#000000 bold=false size=20>lv2: 生命值+{level2AddHp}</font>\n<font color=#000000 bold=false size=20>lv3: 額外替你承擔所受傷害的{level3AddShare}%</font>\n<font color=#000000 bold=false size=20>lv4: 生命值+{level4AddHp}</font>\n<font color=#aeaeae bold=false size=20>lv5: 額外替你承擔所受傷害的{level5AddShare}%</font>"
         ]},
         "NutWall5":{"name":"堅果牆", "desc":[
-            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 替你承擔所受傷害的30%</font>\n<font color=#000000 bold=false size=20>lv2: 生命值+5</font>\n<font color=#000000 bold=false size=20>lv3: 替你承擔所受傷害的40%</font>\n<font color=#000000 bold=false size=20>lv4: 生命值+10</font>\n<font color=#000000 bold=false size=20>lv5: 替你承擔所受傷害的40%</font>"
+            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 替你承擔所受傷害的{level1Share}%</font>\n<font color=#000000 bold=false size=20>lv2: 生命值+{level2AddHp}</font>\n<font color=#000000 bold=false size=20>lv3: 額外替你承擔所受傷害的{level3AddShare}%</font>\n<font color=#000000 bold=false size=20>lv4: 生命值+{level4AddHp}</font>\n<font color=#000000 bold=false size=20>lv5: 額外替你承擔所受傷害的{level5AddShare}%</font>"
         ]},
         "Peashooter1":{"name":"豌豆射手", "desc":[
-            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 每5個回合，隨機對一個敵方目標發動遠端傷害</font>\n<font color=#aeaeae bold=false size=20>lv2: 攻擊+2</font>\n<font color=#aeaeae bold=false size=20>lv3: 暴擊幾率+10%</font>\n<font color=#aeaeae bold=false size=20>lv4: 減少一回合攻擊冷卻</font>\n<font color=#aeaeae bold=false size=20>lv5:獲得連擊能力</font>"
+            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 每5個回合，隨機對一個敵方目標發動遠端傷害</font>\n<font color=#aeaeae bold=false size=20>lv2: 攻擊+{level2Power}</font>\n<font color=#aeaeae bold=false size=20>lv3: 暴擊幾率+{level3Critical}%</font>\n<font color=#aeaeae bold=false size=20>lv4: 減少{level4MinusInterval}回合攻擊冷卻</font>\n<font color=#aeaeae bold=false size=20>lv5:獲得連擊能力</font>"
         ]},
         "Peashooter2":{"name":"豌豆射手", "desc":[
-           "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 每5個回合，隨機對一個敵方目標發動遠端傷害</font>\n<font color=#000000 bold=false size=20>lv2: 攻擊+2</font>\n<font color=#aeaeae bold=false size=20>lv3: 暴擊幾率+10%</font>\n<font color=#aeaeae bold=false size=20>lv4: 減少一回合攻擊冷卻</font>\n<font color=#aeaeae bold=false size=20>lv5:獲得連擊能力</font>"]},
-        "Peashooter3":{"name":"豌豆射手", "desc":[
-            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 每5個回合，隨機對一個敵方目標發動遠端傷害</font>\n<font color=#000000 bold=false size=20>lv2: 攻擊+2</font>\n<font color=#000000 bold=false size=20>lv3: 暴擊幾率+10%</font>\n<font color=#aeaeae bold=false size=20>lv4: 減少一回合攻擊冷卻</font>\n<font color=#aeaeae bold=false size=20>lv5:獲得連擊能力</font>"]},
-        "Peashooter4":{"name":"豌豆射手", "desc":[
-           "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 每5個回合，隨機對一個敵方目標發動遠端傷害</font>\n<font color=#000000 bold=false size=20>lv2: 攻擊+2</font>\n<font color=#000000 bold=false size=20>lv3: 暴擊幾率+10%</font>\n<font color=#000000 bold=false size=20>lv4: 減少一回合攻擊冷卻</font>\n<font color=#aeaeae bold=false size=20>lv5:獲得連擊能力</font>"]},
-        "Peashooter5":{"name":"豌豆射手", "desc":[
-            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 每5個回合，隨機對一個敵方目標發動遠端傷害</font>\n<font color=#000000 bold=false size=20>lv2: 攻擊+2</font>\n<font color=#000000 bold=false size=20>lv3: 暴擊幾率+10%</font>\n<font color=#000000 bold=false size=20>lv4: 減少一回合攻擊冷卻</font>\n<font color=#000000 bold=false size=20>lv5:獲得連擊能力</font>"]},
-        "CherryBomb1":{"name":"櫻桃炸彈", "desc":[
-            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 引爆後，翻開周圍3*3的格子並造成1點傷害</font>\n<font color=#aeaeae bold=false size=20>lv2:攻擊+2</font>\n<font color=#aeaeae bold=false size=20>lv3: 暴擊幾率+10%</font>\n<font color=#aeaeae bold=false size=20>lv4: 爆炸傷害+50%</font>\n<font color=#aeaeae bold=false size=20>lv5: 傷害無視護甲</font>"
+            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 每5個回合，隨機對一個敵方目標發動遠端傷害</font>\n<font color=#000000 bold=false size=20>lv2: 攻擊+{level2Power}</font>\n<font color=#aeaeae bold=false size=20>lv3: 暴擊幾率+{level3Critical}%</font>\n<font color=#aeaeae bold=false size=20>lv4: 減少{level4MinusInterval}回合攻擊冷卻</font>\n<font color=#aeaeae bold=false size=20>lv5:獲得連擊能力</font>"
         ]},
-        "CherryBomb2":{"name":"櫻桃炸彈", "desc":[
-            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 引爆後，翻開周圍3*3的格子並造成1點傷害</font>\n<font color=#000000 bold=false size=20>lv2:攻擊+2</font>\n<font color=#aeaeae bold=false size=20>lv3: 暴擊幾率+10%</font>\n<font color=#aeaeae bold=false size=20>lv4: 爆炸傷害+50%</font>\n<font color=#aeaeae bold=false size=20>lv5: 傷害無視護甲</font>"]},
-        "CherryBomb3":{"name":"櫻桃炸彈", "desc":[
-            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 引爆後，翻開周圍3*3的格子並造成1點傷害</font>\n<font color=#000000 bold=false size=20>lv2:攻擊+2</font>\n<font color=#000000 bold=false size=20>lv3: 暴擊幾率+10%</font>\n<font color=#aeaeae bold=false size=20>lv4: 爆炸傷害+50%</font>\n<font color=#aeaeae bold=false size=20>lv5: 傷害無視護甲</font>"]},
-        "CherryBomb4":{"name":"櫻桃炸彈", "desc":[
-            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 引爆後，翻開周圍3*3的格子並造成1點傷害</font>\n<font color=#000000 bold=false size=20>lv2:攻擊+2</font>\n<font color=#000000 bold=false size=20>lv3: 暴擊幾率+10%</font>\n<font color=#000000 bold=false size=20>lv4: 爆炸傷害+50%</font>\n<font color=#aeaeae bold=false size=20>lv5: 傷害無視護甲</font>"]},
-        "CherryBomb5":{"name":"櫻桃炸彈", "desc":[
-            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 引爆後，翻開周圍3*3的格子並造成1點傷害</font>\n<font color=#000000 bold=false size=20>lv2:攻擊+2</font>\n<font color=#000000 bold=false size=20>lv3: 暴擊幾率+10%</font>\n<font color=#000000 bold=false size=20>lv4: 爆炸傷害+50%</font>\n<font color=#000000 bold=false size=20>lv5: 傷害無視護甲</font>"]},
+        "Peashooter3":{"name":"豌豆射手", "desc":[
+            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 每5個回合，隨機對一個敵方目標發動遠端傷害</font>\n<font color=#000000 bold=false size=20>lv2: 攻擊+{level2Power}</font>\n<font color=#000000 bold=false size=20>lv3: 暴擊幾率+{level3Critical}%</font>\n<font color=#aeaeae bold=false size=20>lv4: 減少{level4MinusInterval}回合攻擊冷卻</font>\n<font color=#aeaeae bold=false size=20>lv5:獲得連擊能力</font>"
+        ]},
+        "Peashooter4":{"name":"豌豆射手", "desc":[
+            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 每5個回合，隨機對一個敵方目標發動遠端傷害</font>\n<font color=#000000 bold=false size=20>lv2: 攻擊+{level2Power}</font>\n<font color=#000000 bold=false size=20>lv3: 暴擊幾率+{level3Critical}%</font>\n<font color=#000000 bold=false size=20>lv4: 減少{level4MinusInterval}回合攻擊冷卻</font>\n<font color=#aeaeae bold=false size=20>lv5:獲得連擊能力</font>"
+        ]},
+        "Peashooter5":{"name":"豌豆射手", "desc":[
+            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 每5個回合，隨機對一個敵方目標發動遠端傷害</font>\n<font color=#000000 bold=false size=20>lv2: 攻擊+{level2Power}</font>\n<font color=#000000 bold=false size=20>lv3: 暴擊幾率+{level3Critical}%</font>\n<font color=#000000 bold=false size=20>lv4: 減少{level4MinusInterval}回合攻擊冷卻</font>\n<font color=#000000 bold=false size=20>lv5:獲得連擊能力</font>"
+        ]},
+        "CherryBomb1":{"name":"櫻桃炸彈", "desc":[
+            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 引爆後，翻開周圍3*3的格子並造成{power}點傷害</font>\n<font color=#aeaeae bold=false size=20>lv2: 攻擊+{level2Power}</font>\n<font color=#aeaeae bold=false size=20>lv3: 暴擊幾率+{level3Critical}%</font>\n<font color=#aeaeae bold=false size=20>lv4: 爆炸傷害+{level4BoomDamage}%</font>\n<font color=#aeaeae bold=false size=20>lv5: 傷害無視護甲</font>"
+        ]},
+		"CherryBomb2":{"name":"櫻桃炸彈", "desc":[
+            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 引爆後，翻開周圍3*3的格子並造成{power}點傷害</font>\n<font color=#000000 bold=false size=20>lv2: 攻擊+{level2Power}</font>\n<font color=#aeaeae bold=false size=20>lv3: 暴擊幾率+{level3Critical}%</font>\n<font color=#aeaeae bold=false size=20>lv4: 爆炸傷害+{level4BoomDamage}%</font>\n<font color=#aeaeae bold=false size=20>lv5: 傷害無視護甲</font>"
+        ]},
+		"CherryBomb3":{"name":"櫻桃炸彈", "desc":[
+            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 引爆後，翻開周圍3*3的格子並造成{power}點傷害</font>\n<font color=#000000 bold=false size=20>lv2: 攻擊+{level2Power}</font>\n<font color=#000000 bold=false size=20>lv3: 暴擊幾率+{level3Critical}%</font>\n<font color=#aeaeae bold=false size=20>lv4: 爆炸傷害+{level4BoomDamage}%</font>\n<font color=#aeaeae bold=false size=20>lv5: 傷害無視護甲</font>"
+        ]},
+		"CherryBomb4":{"name":"櫻桃炸彈", "desc":[
+            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 引爆後，翻開周圍3*3的格子並造成{power}點傷害</font>\n<font color=#000000 bold=false size=20>lv2: 攻擊+{level2Power}</font>\n<font color=#000000 bold=false size=20>lv3: 暴擊幾率+{level3Critical}%</font>\n<font color=#000000 bold=false size=20>lv4: 爆炸傷害+{level4BoomDamage}%</font>\n<font color=#aeaeae bold=false size=20>lv5: 傷害無視護甲</font>"
+        ]},
+		"CherryBomb5":{"name":"櫻桃炸彈", "desc":[
+            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 引爆後，翻開周圍3*3的格子並造成{power}點傷害</font>\n<font color=#000000 bold=false size=20>lv2: 攻擊+{level2Power}</font>\n<font color=#000000 bold=false size=20>lv3: 暴擊幾率+{level3Critical}%</font>\n<font color=#000000 bold=false size=20>lv4: 爆炸傷害+{level4BoomDamage}%</font>\n<font color=#000000 bold=false size=20>lv5: 傷害無視護甲</font>"
+        ]},
         "Sunflower1":{"name":"太陽花", "desc":[
-            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 使用後，恢復5%的生命值</font>\n<font color=#aeaeae bold=false size=20>lv2: 使用後，額外恢復10點生命值</font>\n<font color=#aeaeae bold=false size=20>lv3: 使用後，額外獲得50經驗</font>\n<font color=#aeaeae bold=false size=20>lv4: 使用後，額外獲得50金幣</font>\n<font color=#aeaeae bold=false size=20>lv5: 使用後，額外獲得1點生命上限</font>"
+            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 使用後恢復{dhpPercent}%的生命值</font>\n<font color=#aeaeae bold=false size=20>lv2: 使用後額外恢復{level2AddHp}點生命值</font>\n<font color=#aeaeae bold=false size=20>lv3: 使用後額外獲得當前等級{level3AddExpPercent}%的經驗</font>\n<font color=#aeaeae bold=false size=20>lv4: 使用後額外獲得{level4AddMoney}金幣</font>\n<font color=#aeaeae bold=false size=20>lv5: 使用後額外獲得{level5AddMaxHp}點生命上限</font>"
         ]},
         "Sunflower2":{"name":"太陽花", "desc":[
-            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 使用後，恢復5%的生命值</font>\n<font color=#000000 bold=false size=20>lv2: 使用後，額外恢復10點生命值</font>\n<font color=#aeaeae bold=false size=20>lv3: 使用後，額外獲得50經驗</font>\n<font color=#aeaeae bold=false size=20>lv4: 使用後，額外獲得50金幣</font>\n<font color=#aeaeae bold=false size=20>lv5: 使用後，額外獲得1點生命上限</font>"
-            ]},
+            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 使用後恢復{dhpPercent}%的生命值</font>\n<font color=#000000 bold=false size=20>lv2: 使用後額外恢復{level2AddHp}點生命值</font>\n<font color=#aeaeae bold=false size=20>lv3: 使用後額外獲得當前等級{level3AddExpPercent}%的經驗</font>\n<font color=#aeaeae bold=false size=20>lv4: 使用後額外獲得{level4AddMoney}金幣</font>\n<font color=#aeaeae bold=false size=20>lv5: 使用後額外獲得{level5AddMaxHp}點生命上限</font>"
+        ]},
         "Sunflower3":{"name":"太陽花", "desc":[
-           "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 使用後，恢復5%的生命值</font>\n<font color=#000000 bold=false size=20>lv2: 使用後，額外恢復10點生命值</font>\n<font color=#000000 bold=false size=20>lv3: 使用後，額外獲得50經驗</font>\n<font color=#aeaeae bold=false size=20>lv4: 使用後，額外獲得50金幣</font>\n<font color=#aeaeae bold=false size=20>lv5: 使用後，額外獲得1點生命上限</font>"
-           ]},
+            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 使用後恢復{dhpPercent}%的生命值</font>\n<font color=#000000 bold=false size=20>lv2: 使用後額外恢復{level2AddHp}點生命值</font>\n<font color=#000000 bold=false size=20>lv3: 使用後額外獲得當前等級{level3AddExpPercent}%的經驗</font>\n<font color=#aeaeae bold=false size=20>lv4: 使用後額外獲得{level4AddMoney}金幣</font>\n<font color=#aeaeae bold=false size=20>lv5: 使用後額外獲得{level5AddMaxHp}點生命上限</font>"
+        ]},
         "Sunflower4":{"name":"太陽花", "desc":[
-           "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 使用後，恢復5%的生命值</font>\n<font color=#000000 bold=false size=20>lv2: 使用後，額外恢復10點生命值</font>\n<font color=#000000 bold=false size=20>lv3: 使用後，額外獲得50經驗</font>\n<font color=#000000 bold=false size=20>lv4: 使用後，額外獲得50金幣</font>\n<font color=#aeaeae bold=false size=20>lv5: 使用後，額外獲得1點生命上限</font>"
-           ]},
+            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 使用後恢復{dhpPercent}%的生命值</font>\n<font color=#000000 bold=false size=20>lv2: 使用後額外恢復{level2AddHp}點生命值</font>\n<font color=#000000 bold=false size=20>lv3: 使用後額外獲得當前等級{level3AddExpPercent}%的經驗</font>\n<font color=#000000 bold=false size=20>lv4: 使用後額外獲得{level4AddMoney}金幣</font>\n<font color=#aeaeae bold=false size=20>lv5: 使用後額外獲得{level5AddMaxHp}點生命上限</font>"
+        ]},
         "Sunflower5":{"name":"太陽花", "desc":[
-            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 使用後，恢復5%的生命值</font>\n<font color=#000000 bold=false size=20>lv2: 使用後，額外恢復10點生命值</font>\n<font color=#000000 bold=false size=20>lv3: 使用後，額外獲得50經驗</font>\n<font color=#000000 bold=false size=20>lv4: 使用後，額外獲得50金幣</font>\n<font color=#000000 bold=false size=20>lv5: 使用後，額外獲得1點生命上限</font>"
-            ]},
+            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 使用後恢復{dhpPercent}%的生命值</font>\n<font color=#000000 bold=false size=20>lv2: 使用後額外恢復{level2AddHp}點生命值</font>\n<font color=#000000 bold=false size=20>lv3: 使用後額外獲得當前等級{level3AddExpPercent}%的經驗</font>\n<font color=#000000 bold=false size=20>lv4: 使用後額外獲得{level4AddMoney}金幣</font>\n<font color=#000000 bold=false size=20>lv5: 使用後額外獲得{level5AddMaxHp}點生命上限</font>"
+        ]},
         "CharmingMushroom1":{"name":"魅惑菇", "desc":[
-            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 可以魅惑一個普通怪物為你而戰</font>\n<font color=#aeaeae bold=false size=20>lv2: 魅惑後的怪物，攻擊力+1</font>\n<font color=#aeaeae bold=false size=20>lv3: 魅惑後的怪物，生命值+2</font>\n<font color=#aeaeae bold=false size=20>lv4: 魅惑後的怪物，暴擊幾率+10</font>\n<font color=#aeaeae bold=false size=20>lv5: 魅惑後的怪物，閃避幾率+10</font>"
-            ]},
+            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 可以魅惑一個普通怪物為你而戰</font>\n<font color=#aeaeae bold=false size=20>lv2: 魅惑後的怪物攻擊力+{level2AddPower}</font>\n<font color=#aeaeae bold=false size=20>lv3: 魅惑後的怪物生命值+{level3AddHp}</font>\n<font color=#aeaeae bold=false size=20>lv4: 魅惑後的怪物暴擊幾率+{level4AddCritical}%</font>\n<font color=#aeaeae bold=false size=20>lv5: 魅惑後的怪物閃避幾率+{level5AddDodge}%</font>"
+            ],"useDescArr":["<font color=#e4d5a5 size=25>可以魅惑一個普通怪物為你而戰</font>", "<font color=#e4d5a5 size=25>魅惑菇（選擇目標）</font>"]},
         "CharmingMushroom2":{"name":"魅惑菇", "desc":[
-           "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 可以魅惑一個普通怪物為你而戰</font>\n<font color=#000000 bold=false size=20>lv2: 魅惑後的怪物，攻擊力+1</font>\n<font color=#aeaeae bold=false size=20>lv3: 魅惑後的怪物，生命值+2</font>\n<font color=#aeaeae bold=false size=20>lv4: 魅惑後的怪物，暴擊幾率+10</font>\n<font color=#aeaeae bold=false size=20>lv5: 魅惑後的怪物，閃避幾率+10</font>"
-            ]},
+            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 可以魅惑一個普通怪物為你而戰</font>\n<font color=#000000 bold=false size=20>lv2: 魅惑後的怪物攻擊力+{level2AddPower}</font>\n<font color=#aeaeae bold=false size=20>lv3: 魅惑後的怪物生命值+{level3AddHp}</font>\n<font color=#aeaeae bold=false size=20>lv4: 魅惑後的怪物暴擊幾率+{level4AddCritical}%</font>\n<font color=#aeaeae bold=false size=20>lv5: 魅惑後的怪物閃避幾率+{level5AddDodge}%</font>"
+            ],"useDescArr":["<font color=#e4d5a5 size=25>可以魅惑一個普通怪物為你而戰</font>", "<font color=#e4d5a5 size=25>魅惑菇（選擇目標）</font>"]},
         "CharmingMushroom3":{"name":"魅惑菇", "desc":[
-            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 可以魅惑一個普通怪物為你而戰</font>\n<font color=#000000 bold=false size=20>lv2: 魅惑後的怪物，攻擊力+1</font>\n<font color=#000000 bold=false size=20>lv3: 魅惑後的怪物，生命值+2</font>\n<font color=#aeaeae bold=false size=20>lv4: 魅惑後的怪物，暴擊幾率+10</font>\n<font color=#aeaeae bold=false size=20>lv5: 魅惑後的怪物，閃避幾率+10</font>"
-            ]},
+            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 可以魅惑一個普通怪物為你而戰</font>\n<font color=#000000 bold=false size=20>lv2: 魅惑後的怪物攻擊力+{level2AddPower}</font>\n<font color=#000000 bold=false size=20>lv3: 魅惑後的怪物生命值+{level3AddHp}</font>\n<font color=#aeaeae bold=false size=20>lv4: 魅惑後的怪物暴擊幾率+{level4AddCritical}%</font>\n<font color=#aeaeae bold=false size=20>lv5: 魅惑後的怪物閃避幾率+{level5AddDodge}%</font>"
+            ],"useDescArr":["<font color=#e4d5a5 size=25>可以魅惑一個普通怪物為你而戰</font>", "<font color=#e4d5a5 size=25>魅惑菇（選擇目標）</font>"]},
         "CharmingMushroom4":{"name":"魅惑菇", "desc":[
-            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 可以魅惑一個普通怪物為你而戰</font>\n<font color=#000000 bold=false size=20>lv2: 魅惑後的怪物，攻擊力+1</font>\n<font color=#000000 bold=false size=20>lv3: 魅惑後的怪物，生命值+2</font>\n<font color=#000000 bold=false size=20>lv4: 魅惑後的怪物，暴擊幾率+10</font>\n<font color=#aeaeae bold=false size=20>lv5: 魅惑後的怪物，閃避幾率+10</font>"
-            ]},
+            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 可以魅惑一個普通怪物為你而戰</font>\n<font color=#000000 bold=false size=20>lv2: 魅惑後的怪物攻擊力+{level2AddPower}</font>\n<font color=#000000 bold=false size=20>lv3: 魅惑後的怪物生命值+{level3AddHp}</font>\n<font color=#000000 bold=false size=20>lv4: 魅惑後的怪物暴擊幾率+{level4AddCritical}%</font>\n<font color=#aeaeae bold=false size=20>lv5: 魅惑後的怪物閃避幾率+{level5AddDodge}%</font>"
+            ],"useDescArr":["<font color=#e4d5a5 size=25>可以魅惑一個普通怪物為你而戰</font>", "<font color=#e4d5a5 size=25>魅惑菇（選擇目標）</font>"]},
         "CharmingMushroom5":{"name":"魅惑菇", "desc":[
-           "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 可以魅惑一個普通怪物為你而戰</font>\n<font color=#000000 bold=false size=20>lv2: 魅惑後的怪物，攻擊力+1</font>\n<font color=#000000 bold=false size=20>lv3: 魅惑後的怪物，生命值+2</font>\n<font color=#000000 bold=false size=20>lv4: 魅惑後的怪物，暴擊幾率+10</font>\n<font color=#000000 bold=false size=20>lv5: 魅惑後的怪物，閃避幾率+10</font>"
-            ]},
-
+            "<font color=#7d0403 bold=true size=21>園藝大師</font>\n<font color=#000000 bold=false size=20>lv1: 可以魅惑一個普通怪物為你而戰</font>\n<font color=#000000 bold=false size=20>lv2: 魅惑後的怪物攻擊力+{level2AddPower}</font>\n<font color=#000000 bold=false size=20>lv3: 魅惑後的怪物生命值+{level3AddHp}</font>\n<font color=#000000 bold=false size=20>lv4: 魅惑後的怪物暴擊幾率+{level4AddCritical}%</font>\n<font color=#000000 bold=false size=20>lv5: 魅惑後的怪物閃避幾率+{level5AddDodge}%</font>"
+            ],"useDescArr":["<font color=#e4d5a5 size=25>可以魅惑一個普通怪物為你而戰</font>", "<font color=#e4d5a5 size=25>魅惑菇（選擇目標）</font>"]},
+			
         "PlaceHolder":{"name":"Boss精英占位", "desc":""},
         "BossBunny":{"name":"boss兔子", "desc":""},
 
-        "SuperPotion":{"name":"超能藥水", "desc":["<font color=#000000 size=20>在<font color=#294c22 size=20>{immunizeCnt}<font color=#000000 size=20>回合內，不會受到突襲，免疫所有傷害</font>"]},
-        "StrengthPotion":{"name":"力量藥水", "desc":["<font color=#000000 bold=false size=20>在5回合內，攻擊力+1，怪物無法反擊</font>"]},
-        "Hole":{"name":"黑洞", "desc":["<font color=#000000 bold=false size=20>禁止通行</font>"]},
-        "Apple":{"name":"蘋果", "desc":["<font color=#000000 size=20>使用回復<font color=#294c22 size=20>{dhp}<font color=#000000 size=20>點生命值</font>"]},
-        "Steak":{"name":"牛排", "desc":["<font color=#000000 size=20>使用回復<font color=#294c22 size=20>{dhp}<font color=#000000 size=20>點生命值</font>"]},
-        "IceBlock":{"name":"冰塊", "desc":["<font color=#000000 bold=false size=20>可以打破消失</font>"]},
-        "Knife":{"name":"小刀", "desc":["<font color=#000000 bold=false size=20>投擲武器，造成1點傷害</font>"]},
-        "Rock":{"name":"石塊", "desc":["<font color=#000000 bold=false size=20>可以打破消失</font>"]},
-        "SmallRock":{"name":"小石塊", "desc":["<font color=#000000 bold=false size=20>投擲武器，造成1點傷害</font>"]},
-        "Bazooka":{"name":"火箭筒", "desc":["<font color=#000000 bold=false size=20>翻開3*3的格子並造成3點傷害</font>"]},
-        "RayGun":{"name":"火焰射線", "desc":["<font color=#000000 bold=false size=20>射擊後點燃目標，造成3點傷害</font>"]},
-        "IceGun":{"name":"冰凍射線", "desc":["<font color=#000000 bold=false size=20>射擊後凍結目標</font>"]},
-        "CandyCannon":{"name":"糖果炮彈", "desc":["<font color=#000000 bold=false size=20>消耗血量*3的金錢，消滅一個敵人，對精英和boss無效</font>"]},
-        "Baton":{"name":"劍", "desc":["<font color=#000000 bold=false size=20>在5回合內，攻擊力+1，怪物無法反擊</font>"]},
-        "Vest":{"name":"防護服", "desc":["<font color=#000000 bold=false size=20>降低敵人1點的攻擊</font>"]},
-        "Cocoon":{"name":"繭", "desc":["<font color=#000000 bold=false size=20>被繭包裹的物品無法使用</font>"]},
-        "WantedOrder":{"name":"通緝令", "desc":["<font color=#000000 bold=false size=20>標記一個隨機怪物，掉落金錢變為10倍</font>"]},
-        "Cloak":{"name":"披風", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>免疫一次敵方突襲效果</font>"]},
-        "DeluxeMeal":{"name":"生命之泉", "desc":[""]},
+        "SuperPotion":{"name":"超能藥劑", "desc":["<font color=#000000 size=20>在</font><font color=#294c22 size=20> {immunizeCnt-1} </font><font color=#000000 size=20>回合內，不會受到突襲，免疫所有傷害</font>"],
+            "useDescArr":["<font color=#e4d5a5 size=25>在</font><font color=#56ba42 size=25> {immunizeCnt-1} </font><font color=#e4d5a5 size=25>回合內，不會受到突襲，免疫所有傷害</font>\n<font color=#e4d5a5 size=25>冷卻時間</font><font color=#56ba42 size=25> {elemCD} </font><font color=#e4d5a5 size=25>回合</font>", "<font color=#e4d5a5 size=25>超能藥劑（點擊地圖任意位置使用）</font>"],
+            "initialDesc":"<font color=#000000 size=28>在1回合內，不會受到突襲，免疫所有傷害。</font>"}, 
+        "StrengthPotion":{"name":"力量藥劑", "desc":["<font color=#000000 size=20>在</font><font color=#294c22 size=20> {enhanceCnt-1} </font><font color=#000000 size=20>回合內，攻擊力翻倍</font><font color=#000000 size=20>，怪物無法反擊</font>"],
+            "useDescArr":["<font color=#e4d5a5 size=25>在</font><font color=#56ba42 size=25> {enhanceCnt-1} </font><font color=#e4d5a5 size=25>回合內，攻擊力翻倍</font><font color=#56ba42 size=25>，怪物無法反擊</font>\n<font color=#e4d5a5 size=25>冷卻時間</font><font color=#56ba42 size=25> {elemCD} </font><font color=#e4d5a5 size=25>回合</font>", "<font color=#e4d5a5 size=25>力量藥劑（點擊地圖任意位置使用）</font>"],
+		"initialDesc":"<font color=#000000 size=28>在5回合內，攻擊力翻倍，怪物無法反擊。</font>"},
+        "Hole":{"name":"黑洞", "desc":["<font color=#000000 size=20>禁止通行</font>"]},
+        "Apple":{"name":"蘋果", "desc":["<font color=#000000 size=20>使用回復<font color=#294c22 size=20> {dhp} </font><font color=#000000 size=20>點生命值</font>"]},
+        "Steak":{"name":"牛排", "desc":["<font color=#000000 size=20>使用回復<font color=#294c22 size=20> {dhp} </font><font color=#000000 size=20>點生命值</font>"]},
+        "IceBlock":{"name":"冰塊", "desc":["<font color=#000000 size=20>可以打破消失</font>"]},
+        "Knife":{"name":"小刀", "desc":["<font color=#000000 size=20>投擲武器，造成</font><font color=#294c22 size=20> {power} </font><font color=#000000 size=20>點傷害</font>"],
+                "useDescArr":["<font color=#e4d5a5 size=25>投擲武器，造成</font><font color=#56ba42 size=25> {power} </font><font color=#e4d5a5 size=25>點傷害</font>", "<font color=#e4d5a5 size=25>小刀（選擇目標）</font>"]},
+        "Rock":{"name":"石塊", "desc":["<font color=#000000 size=20>可以打破消失</font>"]},
+        "SmallRock":{"name":"小石塊", "desc":["<font color=#000000 size=20>投擲武器，造成</font><font color=#294c22 size=20> 1 </font><font color=#000000 size=20>點傷害</font>"],
+                "useDescArr":["<font color=#e4d5a5 size=25>投擲武器，造成</font><font color=#56ba42 size=25> {power} </font><font color=#e4d5a5 size=25>點傷害</font>", "<font color=#e4d5a5 size=25>小石塊（選擇目標）</font>"]},
+        "Bazooka":{"name":"火焰藥水", "desc":["<font color=#000000 size=20>使用後點燃目標，造成</font><font color=#294c22 size=20> {power} </font><font color=#000000 size=20>點傷害</font>"],
+                "useDescArr":["<font color=#e4d5a5 size=25>使用後點燃目標，造成</font><font color=#56ba42 size=25> {power} </font><font color=#e4d5a5 size=25>點傷害</font>\n<font color=#e4d5a5 size=25>冷卻時間</font><font color=#56ba42 size=25> {elemCD} </font><font color=#e4d5a5 size=25>回合</font>", "<font color=#e4d5a5 size=25>火焰藥水（選擇目標）</font>"]},
+        "RayGun":{"name":"爆炸藥水", "desc":["<font color=#000000 size=20>翻開3*3的格子並造成</font><font color=#294c22 size=20> {power} </font><font color=#000000 size=20>點傷害</font>"],
+                "useDescArr":["<font color=#e4d5a5 size=25>翻開3*3的格子並造成</font><font color=#56ba42 size=25> {power} </font><font color=#e4d5a5 size=25>點傷害</font>\n<font color=#e4d5a5 size=25>冷卻時間</font><font color=#56ba42 size=25> {elemCD} </font><font color=#e4d5a5 size=25>回合</font>", "<font color=#e4d5a5 size=25>爆炸藥水（選擇目標）</font>"]},
+        "IceGun":{"name":"冰凍藥水", "desc":["<font color=#000000 size=20>使用後凍結目標</font>"],
+                "useDescArr":["<font color=#e4d5a5 size=25>使用後凍結目標</font>\n<font color=#e4d5a5 size=25>冷卻時間</font><font color=#56ba42 size=25> {elemCD} </font><font color=#e4d5a5 size=25>回合</font>", "<font color=#e4d5a5 size=25>冰凍射線（選擇目標）</font>"]},
+        "CandyCannon":{"name":"糖果炮彈", "desc":["<font color=#000000 size=20>消耗</font><font color=#294c22 size=20> 3 </font><font color=#000000 size=20>倍血量的金錢，消滅一個敵人，對精英和boss無效</font>"],
+                "useDescArr":["<font color=#e4d5a5 size=25>消耗</font><font color=#56ba42 size=25> 3 </font><font color=#000000 size=25>倍血量的金錢，消滅一個敵人，對精英和boss無效</font>\n<font color=#e4d5a5 size=25>冷卻時間</font><font color=#56ba42 size=25> {elemCD} </font><font color=#e4d5a5 size=25>回合</font>", "<font color=#e4d5a5 size=25>糖果炮彈（選擇目標）</font>"]},
+        "Baton":{"name":"警棍", "desc":["<font color=#000000 size=20>攻擊力+</font><font color=#294c22 size=20> {powerA}</font>"]},
+        "Vest":{"name":"防護服", "desc":["<font color=#000000 size=20>降低敵人</font><font color=#294c22 size=20> 1 </font><font color=#000000 size=20>點的攻擊</font>"]},
+        "Cocoon":{"name":"繭", "desc":["<font color=#000000 size=20>被繭包裹的物品無法使用</font>"]},
+        "WantedOrder":{"name":"通緝令", "desc":["<font color=#000000 size=20>標記一個隨機怪物，掉落</font><font color=#294c22 size=20> 10 </font><font color=#000000 size=20>倍金錢</font>"]},
+        "Cloak":{"name":"披風", "desc":["<font color=#000000 size=20>免疫一次敵方突襲效果</font>"]},
+        "DeluxeMeal":{"name":"豪華大餐", "desc":["<font color=#000000 size=20>回復<font color=#294c22 size=20> 50% </font>的血量</font>"]},
 
-        "NextLevelPort":{"name":"下一層", "desc":["<font color=#000000 bold=false size=20>前往下一層</font>"]},
+        "NextLevelPort":{"name":"下一層", "desc":["<font color=#000000 bold=false size=20>離開地牢</font>"]},
         "EscapePort":{"name":"逃跑", "desc":["<font color=#000000 bold=false size=20>離開地牢</font>"]}
+
     }
 }
