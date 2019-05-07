@@ -1259,6 +1259,17 @@ class Battle {
         this.removeElemAt(pos.x, pos.y);
         await this.fireEvent("onMonsterCharmed", {m:m, cm:cm});
         await this.implAddElemAt(cm, pos.x, pos.y);
+        
+        // 将物品掉落出来
+        var ready2Drop = [];
+        for(var dp of cm["ready2Drop"]){
+            var g = BattleUtils.findRandomEmptyGrid(this);
+            if(g) {
+                this.addElemAt(dp, g.pos.x, g.pos.y);
+                ready2Drop.push(dp); 
+            }
+        }
+        await this.notifyElemsDropped(ready2Drop, pos);
     }
 
     // boss三选一宝箱

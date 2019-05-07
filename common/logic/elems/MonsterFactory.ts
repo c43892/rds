@@ -336,7 +336,16 @@ class MonsterFactory {
         cm["Charmed"] = "normal";
         // 怪物的显示图标可能被替换,今后在可能出现的替换时需要统一使用该字段"origGetElemImgRes"
         cm.getElemImgRes = m["origGetElemImgRes"] ? m["origGetElemImgRes"] : m.getElemImgRes;
-        cm.dropItems = m.dropItems;
+        // 处理之后的物品掉落
+        cm["ready2Drop"] = [];
+        for(var dp of m.dropItems){
+            if(dp.type != "Coins"){
+                cm["ready2Drop"].push(dp);
+            }
+            else
+                cm.dropItems.push(dp);            
+        }
+        
         cm.canUse = () => false;
         cm.hazard = false;
         cm.barrier = false;

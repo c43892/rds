@@ -46,7 +46,7 @@
             {"type":"item", "attrs":"ttrdp2", "weight":10},
             {"type":"item", "attrs":"ttrdp2", "weight":10}
         ],
-        "bossTypes" : ["slimeKing", "brainOfCthulhu"]
+        "bossTypes" : ["slimeKing"]
     },
 
     "world1":{
@@ -93,7 +93,7 @@
             {"type":"item", "attrs":"ttrdp2", "weight":10},
             {"type":"item", "attrs":"ttrdp2", "weight":10}
         ],
-        "bossTypes" : ["slimeKing", "brainOfCthulhu"],
+        "bossTypes" : ["slimeKing"],
         "nextWorld":"world2"
     },
     
@@ -143,7 +143,7 @@
             {"type":"item", "attrs":"ttrdp2", "weight":10},
             {"type":"item", "attrs":"ttrdp2", "weight":10}
         ],
-        "bossTypes" : ["slimeKing", "brainOfCthulhu"],
+        "bossTypes" : ["brainOfCthulhu"],
         "nextWorld":"world3"
     },
 
@@ -193,7 +193,7 @@
             {"type":"item", "attrs":"ttrdp2", "weight":10},
             {"type":"item", "attrs":"ttrdp2", "weight":10}
         ],
-        "bossTypes" : ["kraken", "halloweenTreant"],
+        "bossTypes" : ["halloweenTreant"],
         "nextWorld":"world4"
     },
 
@@ -243,6 +243,6 @@
             {"type":"item", "attrs":"ttrdp2", "weight":10},
             {"type":"item", "attrs":"ttrdp2", "weight":10}
         ],
-        "bossTypes" : ["kraken", "halloweenTreant"]
+        "bossTypes" : ["kraken"]
     }
 }

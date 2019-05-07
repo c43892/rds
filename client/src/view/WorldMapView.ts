@@ -563,7 +563,9 @@ class WorldMapView extends egret.DisplayObjectContainer {
         Utils.saveLocalData("lastLevelCompletedInfo", {
             "lv": trueLv,
             "relics": Utils.map(this.player.allRelics, (r:Relic) => r.type),
-            "props": Utils.map(this.player.props, (p:Prop) => p.type)
+            "props": Utils.map(this.player.props, (p:Prop) => p.type),
+            "leftMoney": this.player.money,
+            "allMoney": this.player.st.totalCoins
         });
 
         // 统计当前进度
@@ -630,7 +632,9 @@ class WorldMapView extends egret.DisplayObjectContainer {
         Utils.saveLocalData("lastLevelCompletedInfo", {
             "lv": trueLv,
             "relics": Utils.map(this.player.allRelics, (r:Relic) => r.type),
-            "props": Utils.map(this.player.props, (p:Prop) => p.type)
+            "props": Utils.map(this.player.props, (p:Prop) => p.type),
+            "leftMoney": this.player.money,
+            "allMoney": this.player.st.totalCoins
         });
         
         // 可能又被复活了

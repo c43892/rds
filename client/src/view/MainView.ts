@@ -509,8 +509,10 @@ class MainView extends egret.DisplayObjectContainer {
                             await this.av.doWorldMapSlide(1, 2000, 1);
 
                             // 根据上一次层数发放奖励
+                            // 发奖励需要版本兼容
                             var lastLevelCompletedInfo = Utils.loadLocalData("lastLevelCompletedInfo");
-                            if (lastLevelCompletedInfo)
+                            var oldVer = Utils.loadLocalItem("Version");
+                            if (lastLevelCompletedInfo && Version.isCompatible(oldVer))
                                 await this.selAwardInherited(lastLevelCompletedInfo);
 
                             Utils.savePlayer(this.p);
@@ -529,48 +531,19 @@ class MainView extends egret.DisplayObjectContainer {
         var awardLv = Math.floor(lastLevelCompletedInfo.lv / 15);
         awardLv = awardLv > 5 ? 5 : awardLv;
         if (awardLv > 0) {
-            var selsGroup = GCfg.getWorldMapEventSelGroupsCfg("newPlayAward");
-
             var relics = Utils.filter(lastLevelCompletedInfo.relics, (r) => Utils.occupationCompatible(this.p.occupation, r));
-            var props = Utils.filter(lastLevelCompletedInfo.props, (p) => Utils.occupationCompatible(this.p.occupation, p));
-
-            selsGroup.desc = selsGroup.desc.replace("$lv$", lastLevelCompletedInfo.lv.toString());
-
-            // 指定一个技能
-            var sel0 = selsGroup.sels[0];
-            var desc0 = sel0.desc;
-            sel0.desc = desc0.replace("$relicLv$", awardLv.toString());
-            sel0.ps.items = [];
-            for (var relicType of relics) {
-                sel0.ps.items.push(relicType);
-                sel0.ps.relicLvs[relicType] = awardLv;
+            // var props = Utils.filter(lastLevelCompletedInfo.props, (p) => Utils.occupationCompatible(this.p.occupation, p));
+            var rs = [];
+            // 选出两个技能
+            for(var i = 0; i < 2; i++){
+                var r = relics.length[this.p.playerRandom.nextInt(0, relics.length)];
+                if(r)
+                    relics = Utils.remove(relics, r);
+                else
+                    r = "Crown";
+                
+                rs.push(r);
             }
-
-            // 随机两个技能
-            var sel1 = selsGroup.sels[1];
-            var desc1 = sel1.desc;
-            sel1.desc = desc1.replace("$relicLv$", awardLv.toString());
-            sel1.ps.items = {};
-            for (var relicType of relics) {
-                sel1.ps.items[relicType] = 1;
-                sel1.ps.relicLvs[relicType] = awardLv;
-            }
-            if (relics.length < sel1.ps.randomNum)
-                sel1.ps.randomNum = relics.length;
-
-            // 随机多个技能
-            var sel2 = selsGroup.sels[2];
-            var desc0 = sel2.desc;
-            var propNum = awardLv * 3;
-            sel2.desc = desc0.replace("$propsNum$", propNum.toString());
-            sel2.ps.randomNum = propNum;
-            sel2.ps.items = {};
-            for (var propType of props)
-                sel2.ps.items[propType] = 1;
-            if (props.length < sel2.ps.randomNum)
-                sel2.ps.randomNum = props.length;
-
-            await this.wmv.openSelGroup(this.p, selsGroup);
         }
     }
 

@@ -59,7 +59,7 @@ class Player {
         p.power = [4, 0];
         p.playerRandom = new SRandom();
         p.worldmapRandomSeed = p.playerRandom.nextInt(0, 1000000000);
-        p.money = 50;
+        p.money = 0;
         p.exp = 0;
         p.lv = 0;
         p.relicsEquippedCapacity = Utils.getPlayerInitRelicsEquippedCapacity(p.difficulty);
@@ -68,6 +68,8 @@ class Player {
         p.st = new BattleStatistics(p);
 
         AchievementMgr.mgr.player = p;
+
+        p.addMoney(50);
 
         return p;
     }
