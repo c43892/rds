@@ -30,19 +30,11 @@
     "groups": {
         "newPlayAward": {
             "title": "你想得到什么",
-            "desc": "你之前的冒险达到了第$lv$层，来选择你的继承奖励吧",
+            "desc": "你之前的冒险达到了第$lv$层，是否要获取你的继承奖励",
             "sels": [{
-              "desc": "继承 1 个最高 $relicLv$ 级的指定技能",
-              "func": ["+specificRelics"],
-              "ps": {"num": 1, "items": {}, "relicLvs":{}}
-            }, {
-              "desc": "继承 2 个最高 $relicLv$ 级的随机技能",
-              "func": ["+randomItems"],
-              "ps": {"randomNum": 2, "items": {}, "relicLvs":{}}
-            }, {
-              "desc": "继承 $propsNum$ 个随机道具",
-              "func": ["+randomItems"],
-              "ps": {"randomNum": 0, "items": {}}
+              "desc": "是",
+              "func": ["battle"],
+              "ps": {"battleType": "awardInherited", "extraLevelLogic":[]}
             }, {
               "desc": "<font color=#000000 size=20>[离开]</font>",
               "func": ["exit"]

@@ -4,6 +4,7 @@
         {"type":"LevelLogicTakeKey"},
         {"type":"LevelLogicMarkAllAward", "ps":["rookiePlayBox"]}
         ],
+    "awardInherited":[],
     "normal":[
         {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1"]]}, 
         {"type":"LevelLogicTakeKey"},

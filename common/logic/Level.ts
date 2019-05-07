@@ -18,7 +18,7 @@ class Level {
         this.InitMap(cfg.map);
         this.InitElems(bt.btType, cfg.elems, cfg.constElems, cfg.randomGroups, 
             GCfg.mapsize.w * GCfg.mapsize.h + cfg.init_uncovered.w + cfg.init_uncovered.h, 
-            cfg.init_uncovered, cfg.doorUnlock, cfg.treasureBoxNum, cfg.monsterBox);
+            cfg.init_uncovered, cfg.doorUnlock);
         if (cfg.levelLogics) {
             for (var levelLogic of cfg.levelLogics) {
                 var ll = LevelLogicFactory.createLevelLogic(levelLogic.type, ...levelLogic.ps);
@@ -87,13 +87,16 @@ class Level {
     }
 
     // 创建初始元素
-    public InitElems(btType:string, elemsCfg, constElemsCfg, randomGroupsCfg, elemNumLimit, init_uncovered_size, doorUnlock, treasureBoxNum, monsterBox) {
+    public InitElems(btType:string, elemsCfg, constElemsCfg, randomGroupsCfg, elemNumLimit, init_uncovered_size, doorUnlock) {
         this.elemsCfgInLevel = elemsCfg;
         var maxNumLimit = 0; // 做最大可能数量的检查
         var elems = [
-            this.createElem("Door", {cnt:doorUnlock}), // 下一层入口的门
-            this.createElem("EscapePort", {size: init_uncovered_size}), // 逃跑出口
+            this.createElem("Door", {cnt:doorUnlock}) // 下一层入口的门            
         ];
+
+        // 逃跑出口,继承关卡不需要
+        if (this.levelType != "awardInherited")
+            elems.push(this.createElem("EscapePort", {size: init_uncovered_size}))
 
         // 钥匙存在关卡身上,等待统一安排
         for(var i = 0; i < doorUnlock; i++){
@@ -230,6 +233,9 @@ class Level {
 
     // 添加职业物品
     public addOccupationInitItems(items:Elem[]){
+        // 继承用的关卡不需要添加职业物品
+        if(this.levelType == "awardInherited")
+            return items;
         var cfg = GCfg.getOccupationCfg(this.bt.player.occupation);
         for(var constItem in cfg.constItems){
             for(var i = 0; i < cfg.constItems[constItem]; i++){

@@ -1,6 +1,7 @@
 {
     "Nurse":{
         "relics":{},
+        "occPropType":"SuperPotion",
         "commonRelics":["MedicineBox", "Power", "Endurance", "Agile", "Fierce", "TimeMachine", "MonsterHunter"],
         "initItems":["Clock", "Knife", "Magazine", "Shield", "Vest", "Baton", "Cloak", "WantedOrder", "EconomyMagazine"],
         "constItems":{"Clock":1, "Knife":1},
@@ -17,6 +18,7 @@
     },
     "Rogue":{
         "relics":{},
+        "occPropType":"StrengthPotion",
         "commonRelics":["GangMember", "Power", "Endurance", "Agile", "Fierce", "TimeMachine", "MonsterHunter"],
         "initItems":["Clock", "Knife", "Magazine", "Shield", "Vest", "Baton", "Cloak", "WantedOrder", "EconomyMagazine"],
         "constItems":{"Clock":1, "Knife":1},

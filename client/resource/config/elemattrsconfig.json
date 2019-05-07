@@ -137,7 +137,7 @@
     "Key":{"name":"钥匙", "useWithTarget":true, "validTargets":["Door", "TreasureBox"]},
     "Door":{"name":"门", "cnt":1, "useWithoutConfirm":true, "dropItems":["NextLevelPort"], "hideDropItems":true, "addInEffect":"noEffect",
         "repRes":["Door1", "Door2", "Door3"]},
-    "TreasureBox":{"name":"宝箱", "useWithoutConfirm":true, "refElems":["BoxMonster"]},
+    "TreasureBox":{"name":"宝箱", "useWithoutConfirm":true, "refElems":["BoxMonster"], "hideDropItems":true},
     "RandomEgg":{"name":"彩蛋","rdp":"RandomEgg", "useWithoutConfirm":true, "audioOnUsing":"openBox"},
     "LuxuryChest":{"name":"豪华宝箱", "randomDropList":"bossBox3", "randomDropListBackup":"bossBox3Backup", "useWithoutConfirm":true},
     "Clock":{"name":"钟表", "deathStepBack":15, "useWithoutConfirm":true},

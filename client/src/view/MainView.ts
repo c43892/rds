@@ -248,7 +248,7 @@ class MainView extends egret.DisplayObjectContainer {
             "onEyeDemonUncoverGrids", "onElemFloating", "canNotUseItem", "onColddownChanged", "onMonsterEatFood",
             "onAddDeathGodStep", "onElem2NextLevel", "onUseElemAt", "onUseElem", "onGoOutLevel", "onNotifyElemsDropped",
             "onCandyCannon", "onMakeWanted", "onInitBattleView", "onRelicEffect", "onMonsterCharmed", "onCloakImmunizeSneak",
-            "onSwatheItemWithCocoon", "summonByDancer", "onGetMarkAllAward", "onStartupRegionUncovered", "onSneaking",
+            "onSwatheItemWithCocoon", "summonByDancer", "onGetMarkAllAward", "onStartupRegionUncovered", "awardInheritedRefreshMap", "onSneaking",
             "relicsEquippedMaxNumAdded", "onPlayerReborn", "onPlayerDead", "onUseProp", "onElemRevive", "refreshMap", 
             "onPlayerLevelUp", "onSelfExplode", "onShieldFlyBack", "onSanThreshold", "monsterAttackSingleTargetAct", "onProtect", "onMultAttack" ,"onPreFinishAchv", 
             "onBossExplosion", "onLevelInitedGiveTip", "protectiveShield", "onKrakenDeepFrozen"
@@ -531,12 +531,16 @@ class MainView extends egret.DisplayObjectContainer {
         var awardLv = Math.floor(lastLevelCompletedInfo.lv / 15);
         awardLv = awardLv > 5 ? 5 : awardLv;
         if (awardLv > 0) {
+            var selsGroup = GCfg.getWorldMapEventSelGroupsCfg("newPlayAward");
+            
             var relics = Utils.filter(lastLevelCompletedInfo.relics, (r) => Utils.occupationCompatible(this.p.occupation, r));
-            // var props = Utils.filter(lastLevelCompletedInfo.props, (p) => Utils.occupationCompatible(this.p.occupation, p));
+
+            selsGroup.desc = selsGroup.desc.replace("$lv$", lastLevelCompletedInfo.lv.toString());
+
             var rs = [];
             // 选出两个技能
             for(var i = 0; i < 2; i++){
-                var r = relics.length[this.p.playerRandom.nextInt(0, relics.length)];
+                var r = relics[this.p.playerRandom.nextInt(0, relics.length)];
                 if(r)
                     relics = Utils.remove(relics, r);
                 else
@@ -544,6 +548,14 @@ class MainView extends egret.DisplayObjectContainer {
                 
                 rs.push(r);
             }
+            var leftCoinsNum = Math.ceil(lastLevelCompletedInfo.leftMoney * 0.02);
+            var allCoinsNum = Math.ceil(lastLevelCompletedInfo.allMoney * 0.01);
+            var levelLogicCfg = {"type":"LevelLogicAwardInherited", "ps":[{"relicTypes":rs, "leftCoinsNum":leftCoinsNum, "allCoinsNum":allCoinsNum}]};
+
+            var sel = selsGroup.sels[0];
+            sel.ps.extraLevelLogic.push(levelLogicCfg);
+
+            await this.wmv.openSelGroup(this.p, selsGroup);
         }
     }
 

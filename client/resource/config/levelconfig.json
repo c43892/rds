@@ -106,6 +106,19 @@
         ]
     },
 
+    "awardInherited_0": {
+        "displayName": "奖励继承",
+        "map": {},
+        "doorUnlock": 1,
+        "monsterBox": 0,
+        "elemPosConfig":"awardInherited_0",
+        "elemPosConfigForView":"awardInherited_0",
+        "init_uncovered": {
+            "w": 3,
+            "h": 3
+        }
+    },
+
     "normal_1": {
         "displayName": "普通战斗1",
         "map": {},

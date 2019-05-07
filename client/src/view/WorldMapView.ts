@@ -56,6 +56,10 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.wmesFact.selRelic2Inherit = async (relics4sel) => {
             return await this.selRelic2Inherit(relics4sel);
         };
+        this.wmesFact.startBattle = async (battleType, extraLevelLogic) => {
+            var btRandonSeed = this.player.playerRandom.nextInt(0, 10000);
+            await this.startNewBattle(this.player, battleType, this.player.currentTotalStorey(), this.player.currentStoreyPos.n, btRandonSeed, false, extraLevelLogic);
+        };
 
         this.btnSymbolDesc = new TextButtonWithBg("SymbolDescbtn_png");
         this.btnSymbolDesc.name = "btnSymbolDesc";
@@ -563,7 +567,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
         Utils.saveLocalData("lastLevelCompletedInfo", {
             "lv": trueLv,
             "relics": Utils.map(this.player.allRelics, (r:Relic) => r.type),
-            "props": Utils.map(this.player.props, (p:Prop) => p.type),
             "leftMoney": this.player.money,
             "allMoney": this.player.st.totalCoins
         });
@@ -632,7 +635,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
         Utils.saveLocalData("lastLevelCompletedInfo", {
             "lv": trueLv,
             "relics": Utils.map(this.player.allRelics, (r:Relic) => r.type),
-            "props": Utils.map(this.player.props, (p:Prop) => p.type),
             "leftMoney": this.player.money,
             "allMoney": this.player.st.totalCoins
         });
@@ -728,11 +730,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 await this.openTurntable(this.worldmap.cfg.turntable);
                 break;
             default: {
-                // 此外就都认为是地图选项事件
-                this.wmesFact.startBattle = async (battleType, extraLevelLogic) => {
-                    var btRandonSeed = p.playerRandom.nextInt(0, 10000);
-                    await this.startNewBattle(p, battleType, lv, n, btRandonSeed, false, extraLevelLogic);
-                };
+                // 此外就都认为是地图选项事件                
 
                 // this.wmesFact.selRelic = this.selRelic;
                 await this.openSelGroupByName(p, evt);

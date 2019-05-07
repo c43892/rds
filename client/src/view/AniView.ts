@@ -284,6 +284,15 @@ class AniView extends egret.DisplayObjectContainer {
         await AniUtils.delay(500);
     }
 
+    // 继承关卡中的地图刷新
+    public async awardInheritedRefreshMap(ps){
+        var bt:Battle = ps.bt;
+        for(var i = 0; i < bt.level.map.grids.length; i++){
+            for(var j = 0; j < bt.level.map.grids[i].length; j++)
+                this.bv.mapView.refreshAt(i, j);
+        } 
+    }
+
     // 道具发生变化
     public async onPropChanged(ps) {
         if (ps.subType == "addProp") {

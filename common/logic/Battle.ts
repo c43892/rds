@@ -93,10 +93,17 @@ class Battle {
         await this.triggerLogicPoint("beforeLevelInited2", {bt:this});
         await this.fireEvent("onLevelInitedGiveTip", {bt:this});
         await this.triggerLogicPoint("onLevelInited", {bt:this, skipAniSwitch:"initAddElemAni"});
-        
-        await this.coverAllAtInit();
-        this.level.setElemPosByCfg(this.lvCfg.elemPosConfig); // 设置元素位置,部分元素需要固定
-        await this.uncoverStartupRegion();
+
+        if (this.level.levelType != "awardInherited") {
+            await this.coverAllAtInit();
+            this.level.setElemPosByCfg(this.lvCfg.elemPosConfig); // 设置元素位置,部分元素需要固定
+            await this.uncoverStartupRegion();
+        }
+        else {
+            this.uncoverAllAtInit();
+            this.level.setElemPosByCfg(this.lvCfg.elemPosConfig, false); // 设置元素位置,部分元素需要固定
+            await this.fireEvent("awardInheritedRefreshMap", {bt:this});
+        }            
     }
 
     // 初始盖住战斗实际所使用的地图范围的格子
@@ -109,6 +116,15 @@ class Battle {
 
         await this.fireEvent("onAllCoveredAtInit", {bt:this});
         await this.triggerLogicPoint("onAllCoveredAtInit", {bt:this});
+    }
+
+    // 奖励关卡中所有格子默认为翻开的
+    public uncoverAllAtInit() {
+        var actualMapRange = Utils.getActualMapRange(this);
+        this.level.map.travelAll((x, y) => {
+            if (x <= actualMapRange.maxX && x >= actualMapRange.minX && y <= actualMapRange.maxY && y >= actualMapRange.minY)
+                this.level.map.getGridAt(x, y).status = GridStatus.Uncovered;
+        });
     }
 
     // 揭开起始区域
