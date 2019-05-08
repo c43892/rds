@@ -564,12 +564,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         var trueLv = p.currentTotalStorey();
 
         // 记住当前信息，可能开局要给奖励
-        Utils.saveLocalData("lastLevelCompletedInfo", {
-            "lv": trueLv,
-            "relics": Utils.map(this.player.allRelics, (r:Relic) => r.type),
-            "leftMoney": this.player.money,
-            "allMoney": this.player.st.totalCoins
-        });
+        this.saveLastLevelCompletedInfo(trueLv);
 
         // 统计当前进度
         Utils.st("Prograss", "in,0," + trueLv.toString() + "," + Utils.checkRookiePlay().toString() + "," + this.player.occupation + "," + this.player.difficulty.replace("level", ""));
@@ -632,12 +627,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
         + trueLv.toString() + "," + (Utils.checkRookiePlay() ? "1" : 0) + "," + this.player.occupation + "," + this.player.difficulty.replace("level", ""));
 
         // 记住当前信息，可能开局要给奖励
-        Utils.saveLocalData("lastLevelCompletedInfo", {
-            "lv": trueLv,
-            "relics": Utils.map(this.player.allRelics, (r:Relic) => r.type),
-            "leftMoney": this.player.money,
-            "allMoney": this.player.st.totalCoins
-        });
+        this.saveLastLevelCompletedInfo(trueLv);
         
         // 可能又被复活了
         if (!this.player.isDead()) {
@@ -768,5 +758,22 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.player.goToWorld(newWorld);
         this.setWorldMap(this.player.worldmap);
         await (<AniView>AniUtils.ac).doWorldMapSlide(1, 2000, this.worldmap.cfg.worldNum);
+    }
+
+    // 保存玩家信息用于继承奖励
+    saveLastLevelCompletedInfo(lv:number){
+        var relics = Utils.map(this.player.allRelics, (r:Relic) => r.type);
+        var relicsLv = {};
+
+        for(var relic of this.player.allRelics)
+            relicsLv[relic.type] = relic.reinforceLv;
+        
+        Utils.saveLocalData("lastLevelCompletedInfo", {
+            "lv": lv,
+            "relics": relics,
+            "relicsLv":relicsLv,
+            "leftMoney": this.player.money,
+            "allMoney": this.player.st.totalCoins
+        });
     }
 }

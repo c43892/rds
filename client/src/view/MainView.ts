@@ -534,6 +534,7 @@ class MainView extends egret.DisplayObjectContainer {
             var selsGroup = GCfg.getWorldMapEventSelGroupsCfg("newPlayAward");
             
             var relics = Utils.filter(lastLevelCompletedInfo.relics, (r) => Utils.occupationCompatible(this.p.occupation, r));
+            var relicsLv = lastLevelCompletedInfo.relicsLv;
 
             selsGroup.desc = selsGroup.desc.replace("$lv$", lastLevelCompletedInfo.lv.toString());
 
@@ -548,9 +549,17 @@ class MainView extends egret.DisplayObjectContainer {
                 
                 rs.push(r);
             }
+            var relicsLvInfo = {};
+            for(var r of rs){
+                if(r != "Crown")
+                    relicsLvInfo[r] = relicsLv[r] > awardLv ? awardLv : relicsLv[r];
+                else
+                    relicsLvInfo[r] = 0;
+            }
+
             var leftCoinsNum = Math.ceil(lastLevelCompletedInfo.leftMoney * 0.02);
             var allCoinsNum = Math.ceil(lastLevelCompletedInfo.allMoney * 0.01);
-            var levelLogicCfg = {"type":"LevelLogicAwardInherited", "ps":[{"relicTypes":rs, "leftCoinsNum":leftCoinsNum, "allCoinsNum":allCoinsNum}]};
+            var levelLogicCfg = {"type":"LevelLogicAwardInherited", "ps":[{"relicTypes":rs, "relicsLv":relicsLvInfo, "leftCoinsNum":leftCoinsNum, "allCoinsNum":allCoinsNum}]};
 
             var sel = selsGroup.sels[0];
             sel.ps.extraLevelLogic.push(levelLogicCfg);
