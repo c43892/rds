@@ -509,10 +509,8 @@ class MainView extends egret.DisplayObjectContainer {
                             await this.av.doWorldMapSlide(1, 2000, 1);
 
                             // 根据上一次层数发放奖励
-                            // 发奖励需要版本兼容
-                            var lastLevelCompletedInfo = Utils.loadLocalData("lastLevelCompletedInfo");
-                            var oldVer = Utils.loadLocalItem("Version");
-                            if (lastLevelCompletedInfo && Version.isCompatible(oldVer))
+                            var lastLevelCompletedInfo = Utils.loadLocalData("lastLevelCompletedInfo");                            
+                            if (lastLevelCompletedInfo)
                                 await this.selAwardInherited(lastLevelCompletedInfo);
 
                             Utils.savePlayer(this.p);
@@ -528,6 +526,10 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 选择继承奖励
     public async selAwardInherited(lastLevelCompletedInfo) {
+        // 继承奖励需要版本兼容
+        if(!lastLevelCompletedInfo.version || !Version.isCompatible(lastLevelCompletedInfo.version))
+            return;
+
         var awardLv = Math.floor(lastLevelCompletedInfo.lv / 15);
         awardLv = awardLv > 5 ? 5 : awardLv;
         if (awardLv > 0) {

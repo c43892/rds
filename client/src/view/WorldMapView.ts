@@ -769,6 +769,7 @@ class WorldMapView extends egret.DisplayObjectContainer {
             relicsLv[relic.type] = relic.reinforceLv;
         
         Utils.saveLocalData("lastLevelCompletedInfo", {
+            "version":Version.currentVersion,
             "lv": lv,
             "relics": relics,
             "relicsLv":relicsLv,
