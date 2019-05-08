@@ -314,7 +314,7 @@ class MonsterFactory {
     static async getCurrentAttrs(m:Monster) {
         var attrs;
         var cm:Monster;
-        attrs = m.attrs;
+        attrs = Utils.clone(m.attrs);
         attrs["hp"] = m.hp;
         attrs["shield"] = m.shield;
 
@@ -330,7 +330,8 @@ class MonsterFactory {
         if(dattrs)
             for (var dattr of dattrs)
                 attrs[dattr.type] += dattr.num;
-                
+        
+        attrs["dropItems"] = [];
         var cm = <Monster>m.bt().level.createElem("CharmedMonster", attrs);
         cm.type = m.type + "Charmed";
         cm["Charmed"] = "normal";
