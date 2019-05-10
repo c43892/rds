@@ -100,6 +100,7 @@ class Battle {
             await this.uncoverStartupRegion();
         }
         else {
+            await this.fireEvent("onGetMarkAllAward", {bt:this});            
             this.uncoverAllAtInit();
             this.level.setElemPosByCfg(this.lvCfg.elemPosConfig, false); // 设置元素位置,部分元素需要固定
             await this.fireEvent("awardInheritedRefreshMap", {bt:this});
