@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
 	"sort"
 	"strconv"
 	"strings"
@@ -88,6 +89,14 @@ func loadRankInfo() {
 	log.Println("rank info loaded: " + strconv.Itoa(len(rank.Usrs)))
 }
 
+func clearRankInfo() {
+	for i := 0; i < len(rank.Usrs); i++ {
+		dbc.Del("rank_" + strconv.Itoa(i))
+		dbc.Get("rank_occ_" + strconv.Itoa(i))
+	}
+	log.Println("rank info cleared: " + strconv.Itoa(len(rank.Usrs)))
+}
+
 func runServer() {
 	loadRankInfo()
 	fmt.Println("rds server started.")
@@ -95,70 +104,28 @@ func runServer() {
 	http.ListenAndServe(":81", nil)
 }
 
-// func stServer(ps string) {
-
-// 	var keys, _ = dbc.Keys("uid_*").Result()
-// 	for i := 0; i < len(keys); i++ {
-// 		var uid = keys[i]
-// 		usrInfo := loadOrCreateUser(uid)
-// 		uidStr := strings.Replace(uid, ",", " ", -1)
-// 		if ps == "score" {
-// 			rookiePlayFinished, _ := dbc.HGet(uid, "st.rookiePlayFinished").Result()
-// 			fmt.Println(uid + "," + strconv.Itoa(usrInfo.Score) + "," + rookiePlayFinished)
-// 		} else if ps == "st.t" {
-// 			stKeys, _ := dbc.HKeys(uid).Result()
-// 			var firstStartDate = -1
-// 			var firstStartMonth = -1
-// 			for j := 0; j < len(stKeys); j++ {
-// 				stKey := stKeys[j]
-// 				if len(stKey) > 8 && stKey[:8] == "st.2018/" {
-// 					startTimeStr := stKey[3:]
-// 					startDateStr := startTimeStr[8:10]
-// 					startDate, _ := strconv.Atoi(startDateStr)
-// 					startMonth, _ := strconv.Atoi(startTimeStr[5:7])
-// 					if firstStartDate == -1 {
-// 						firstStartDate = startDate
-// 						firstStartMonth = startMonth
-// 					} else if startMonth != firstStartMonth || startDate != firstStartDate {
-// 						fmt.Println(uidStr + ", " + strconv.Itoa(firstStartMonth) + "-" + strconv.Itoa(firstStartDate) + "," + strconv.Itoa(startMonth) + "-" + strconv.Itoa(startDate))
-// 						break
-// 					}
-// 				}
-// 			}
-// 		} else if ps[:3] == "st." {
-// 			v, err := dbc.HGet(uid, ps).Result()
-// 			if err == nil && v != "" {
-// 				fmt.Println(uidStr + "," + v)
-// 			}
-// 		} else {
-// 			v := usrInfo.Info[ps]
-// 			fmt.Println(uidStr + "," + v)
-// 		}
-// 	}
-// }
-
 func main() {
 	initDB()
 
-	// if len(os.Args) > 1 {
-	// 	var launchType = os.Args[1]
-	// 	if launchType == "st" {
-	// 		stServer(os.Args[2])
-	// 		return
-	// 	} else if launchType != "default" {
-	// 		log.Fatal("unknown launch type: " + launchType)
-	// 		return
-	// 	}
-	// }
+	if len(os.Args) > 1 {
+		var launchType = os.Args[1]
+		if launchType == "st" {
+			doSt()
+			return
+		} else if launchType != "default" {
+			log.Fatal("unknown launch type: " + launchType)
+			return
+		}
+	}
 
-	// if len(os.Args) > 1 && os.Args[1] == "st" {
-	// 	doSt()
-	// } else {
-	// 	runServer()
-	// }
+	if len(os.Args) > 1 && os.Args[1] == "st" {
+		doSt()
+	} else {
+		runServer()
+	}
 
 	// runServer()
-	doSt()
+	// doSt()
 }
 
 type httpResp struct {
@@ -255,6 +222,7 @@ func refreshRank(msg *requestMsg) {
 	weeklyRankTimestamp, _ := strconv.Atoi(data)
 	if nowWeeks > weeklyRankTimestamp {
 		rank = &rankInfo{}
+		clearRankInfo()
 		dbc.Set("weeklyRank_timestamp", strconv.Itoa(nowWeeks), 0)
 	}
 }
