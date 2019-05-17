@@ -713,95 +713,95 @@ class GuideView extends egret.DisplayObjectContainer {
     // 新手指引1
     async rookiePlay1(bt:Battle) {
         await AniUtils.wait4click();
-        await this.showDialog("Nurse", "护士", "！！！", 0, 200, true);
-        await this.showDialog("Nurse", "护士", "你怎么跑到这里来了", 0, 200, true);
-        await this.showDialog("Nurse", "护士", "这是魔王的地牢，每一层都有很多怪物看守", 0, 200, true);
-        await this.showDialog("Nurse", "护士", "现在你可以看到怪物和一些可以使用的道具，门后面是出口", 0, 200, true);
-        await this.showDialog("Nurse", "护士", "但是你永远无法知道出口是离开地牢还是通往下一层", 0, 200, true);
+        await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay101"), 0, 200, true);
+        await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay102"), 0, 200, true);
+        await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay103"), 0, 200, true);
+        await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay104"), 0, 200, true);
+        await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay105"), 0, 200, true);
     }
 
     // 新手指引2
     async rookiePlay2(bt:Battle) {
-        await this.showDialog("Nurse", "护士", "让我告诉你一些基本规则", 0, 550, true);
-        await this.showDialog("Nurse", "护士", "地上的数字表示它周围8个格子里隐藏的怪物的数量", 0, 550, true);
-        await this.showDialog("Nurse", "护士", "点击就可以打开格子", 0, 550, true);
-        await this.tapGridWithDialog(1, 2, "Nurse", "护士", "跟着我点击闪光的格子", 0, 550, true);
+        await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay201"), 0, 550, true);
+        await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay202"), 0, 550, true);
+        await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay203"), 0, 550, true);
+        await this.tapGridWithDialog(1, 2, "Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay204"), 0, 550, true);
         // await this.pressGridWithDialog(0, 2, "GoblinThief", "哥布林", "我就测试一下说话的同时指引点击", 140, 500, true);
-        await this.showDialog("Nurse", "护士", "当你无法确定时，可以用飞刀来探路", 0, 550, true);
-        await this.tapGridWithDialog(1, 2, "Nurse", "护士", "捡起飞刀，我们来用它探路", 0, 550, true);
-        await this.tapSelGridWithDialog(1, 3, "Nurse", "护士", "下来让我们攻击一个格子", 0, 550, true);
-        await this.showDialog("Nurse", "护士", "看来我们遇到了对手", 0, 550, true);
-        await this.showDialog("Nurse", "护士", "怪物的详细信息可以通过长按来查看", 0, 550, true);
-        await this.pressGridWithDialog(1, 3, "Nurse", "护士", "现在长按小手指向的格子吧", 0, 550, true)
-        await this.showDialog("Nurse", "护士", "每个怪物都有特殊的属性和技能，现在让我们尝试攻击一下它", 0, 550, true);
-        await this.tapGridWithDialog(1, 3, "Nurse", "护士", "来，点击怪物吧", 0, 550, true);
+        await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay205"), 0, 550, true);
+        await this.tapGridWithDialog(1, 2, "Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay206"), 0, 550, true);
+        await this.tapSelGridWithDialog(1, 3, "Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay207"), 0, 550, true);
+        await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay208"), 0, 550, true);
+        await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay209"), 0, 550, true);
+        await this.pressGridWithDialog(1, 3, "Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay210"), 0, 550, true)
+        await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay211"), 0, 550, true);
+        await this.tapGridWithDialog(1, 3, "Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay212"), 0, 550, true);
         await AniUtils.delay(1400);
-        await this.showDialog("Nurse", "护士", "眼魔死亡会打开空着的格子。", 0, 550, true);
-        await this.tapGridWithDialog(1, 4, "Nurse", "护士", "现在点开闪光的格子", 0, 650, true);
-        await this.slide2DragItemWithDialog(1, 4, 1, 2, "Nurse", "护士", "有一个苹果，我们可以拖走它方便我们看格子上的数字", 0, 630, true);
-        await this.tapGridWithDialog(4, 4, "Nurse", "护士", "让我们再点开一个闪光的格子", 0, 650, true);
-        await this.tapGridWithDialog(4, 4, "Nurse", "护士", "有一瓶药水，我们来点一下", 0, 650, true);
+        await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay213"), 0, 550, true);
+        await this.tapGridWithDialog(1, 4, "Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay214"), 0, 650, true);
+        await this.slide2DragItemWithDialog(1, 4, 1, 2, "Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay215"), 0, 630, true);
+        await this.tapGridWithDialog(4, 4, "Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay216"), 0, 650, true);
+        await this.tapGridWithDialog(4, 4, "Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay217"), 0, 650, true);
         var propGrid = this.bv.propsView.getPropViewByIndex(2);
-        await this.tapWithDialog(propGrid, "Nurse", "护士", "它进入道具栏了，让我们继续", 0, 550);
-        await this.tapSelGridWithDialog(2, 6, "Nurse", "护士", "我们来尝试一下爆炸药水的效果吧", 0, 250, true);
+        await this.tapWithDialog(propGrid, "Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay218"), 0, 550);
+        await this.tapSelGridWithDialog(2, 6, "Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay219"), 0, 250, true);
         await AniUtils.delay(2000);
-        await this.showDialog("Nurse", "护士", "现在我们学习一个新操作，手动标注怪物", 0, 630, true);
-        await this.showDialog("Nurse", "护士", "我们手动在格子上做记号，提醒自己那个格子有怪物", 0, 550, true);
-        await this.pressGridWithDialog(5, 1, "Nurse", "护士", "跟着小手长按那个格子", 0, 550, true);
-        await this.pressGridWithDialog(5, 2, "Nurse", "护士", "好的，你成功了，让我们再来一次", 0, 550, true);
-        await this.showDialog("Nurse", "护士", "非常好，魔王的手下遍布地牢，谨慎的向前探索吧，勇士", 0, 550, true);
+        await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay220"), 0, 630, true);
+        await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay221"), 0, 550, true);
+        await this.pressGridWithDialog(5, 1, "Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay222"), 0, 550, true);
+        await this.pressGridWithDialog(5, 2, "Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay223"), 0, 550, true);
+        await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay224"), 0, 550, true);
 
     }
 
     // 被怪物突袭指引
     async onSneakedGuide(m:Monster) {
         var nameAndDesc = ViewUtils.getElemNameAndDesc(m.type);
-        await this.showDialog("Nurse", "护士", "哎呀，你被怪物突袭了", 0, 550, true);
-        await this.showDialog("Nurse", "护士", "怪物突袭时会有各种技能来伤害你", 0, 550, true);
-        await this.showDialog("Nurse", "护士", "你可以使用飞刀和道具来探路", 0, 550, true);
+        await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("onSneakedGuide01"), 0, 550, true);
+        await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("onSneakedGuide02"), 0, 550, true);
+        await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("onSneakedGuide03"), 0, 550, true);
     }
 
     // 怪物被标记指引
     async onMonsterMarkedGuide(m:Monster) {
         var nameAndDesc = ViewUtils.getElemNameAndDesc(m.type);
         await AniUtils.delay(700);
-        await this.showDialog("Nurse", "护士", "bingo，你成功的标记了一个怪物", 0, 550, true);
-        await this.showDialog("Nurse", "护士", "你也可以看到怪物的属性来判断是不是要击杀这个怪物", 0, 550, true);
-        await this.showDialog("Nurse", "护士", "注意哦，你不一定要击杀所有怪物，拿到宝物就可以去下一层了", 0, 550, true);
+        await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("onMonsterMarkedGuide01"), 0, 550, true);
+        await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("onMonsterMarkedGuide02"), 0, 550, true);
+        await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("onMonsterMarkedGuide03"), 0, 550, true);
 
     }
 
     // 第五层战斗指引
     async rookiePlay5(bt:Battle) {
-        await this.showDialog("Nurse", "护士", "看来你有机会突破魔王的封锁了", 0, 550, true);
-        await this.showDialog("Nurse", "护士", "给你介绍一位强力的同伴，他会和我一起帮助你战斗", 0, 550, true);
-        await this.showDialog("Gardener", "园艺师", "其实我就是种花的，不过我的植物宝贝们都很厉害", 0, 550, true);
-        await this.showDialog("Gardener", "园艺师", "了解并熟悉它们，可以让你的战斗更加轻松", 0, 550, true);
-        await this.showDialog("Gardener", "园艺师", "现在把我的宝物给你，你就可以操纵我的植物了", 0, 550, true);
-        await this.showDialog("Nurse", "护士", "继续前进吧，勇士", 0, 550, true);    
+        await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay501"), 0, 550, true);
+        await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay502"), 0, 550, true);
+        await this.showDialog("Gardener", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("rookiePlay503"), 0, 550, true);
+        await this.showDialog("Gardener", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("rookiePlay504"), 0, 550, true);
+        await this.showDialog("Gardener", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("rookiePlay505"), 0, 550, true);
+        await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay506"), 0, 550, true);    
     }
 
     // 额外抢劫剧情
-    async robExtraItemDialog(item:Elem) {
-        var iconPos = {x:480, y:150}; // 图标位置
-        await this.showDialog("ShopNpc", "商人", 
-            "额外抢到一件物品：" + item.attrs.name, 
-            0, 350, true, false, 
+    async robExtraItemDialog(item: Elem) {
+        var iconPos = { x: 480, y: 150 }; // 图标位置
+        await this.showDialog("ShopNpc", ViewUtils.getTipText("merchant"),
+            ViewUtils.getTipText("robExtraItemDialog01") + ViewUtils.getElemNameAndDesc(item.type).name,
+            0, 350, true, false,
             item.getElemImgRes() /* 获取图标资源 */, iconPos /* 图标位置 */);
 
         // 把图标位置返回，外面播动画用
-        return {x:this.x + this.dlgFrame.x + iconPos.x, y:this.y + this.dlgFrame.y + iconPos.y};
+        return { x: this.x + this.dlgFrame.x + iconPos.x, y: this.y + this.dlgFrame.y + iconPos.y};
     }
 
     // 引导点击头像界面
     async openAvatarView() {
         var avatar = this.bv.getChildByName("avatarBg");
-        await this.tapWithDialog(avatar, "Nurse", "护士", "点击头像", 0, 550);
+        await this.tapWithDialog(avatar, "Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("openAvatarView01"), 0, 550);
 
         await AniUtils.delay(2000);
-        await this.showDialog("Nurse", "护士", "这里你可以看到你的属性，通用技能，还有一些设置可以选择", 0, 550, true);
+        await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("openAvatarView02"), 0, 550, true);
 
         var avatar = this.cv.getChildByName("goBackBtn");
-        await this.tapWithDialog(avatar, "Nurse", "护士", "点击返回让我们回到战斗", 0, 550);
+        await this.tapWithDialog(avatar, "Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("openAvatarView03"), 0, 550);
     }
 }
