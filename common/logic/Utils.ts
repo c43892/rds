@@ -946,13 +946,15 @@ class Utils {
 
     // 根据成就数据获取当前可用的最高难度
     public static getDiffByAchvData(){
-        // var allAchvs = AchievementMgr.mgr.allAchvs;
-        // var tarAchv = (type:string) => allAchvs[Utils.indexOf(allAchvs, (a:Achievement) => a.type == type)];
-        // if (tarAchv("NormalModeUnlock").isFinished()) return 3;
-        // else if (tarAchv("EasyModeUnlock").isFinished()) return 2;
-        // else return 1;
-        // 全部开启
-        return 5;
+        var allAchvs = AchievementMgr.mgr.allAchvs;
+        var tarAchv = (type:string) => allAchvs[Utils.indexOf(allAchvs, (a:Achievement) => a.type == type)];
+        if (tarAchv("NightmareUnlock").isFinished()) return 5;
+        else if (tarAchv("DifficultModeUnlock").isFinished()) return 4;
+        else if (tarAchv("NormalModeUnlock").isFinished()) return 3;
+        else if (tarAchv("EasyModeUnlock").isFinished()) return 2;
+        else return 1;
+        // // 全部开启
+        // return 5;
     }
 
     // 无限模式中用来生成配置

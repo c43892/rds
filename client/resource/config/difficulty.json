@@ -4,33 +4,38 @@
         "playerInitRelicsEquippedCapacity":8,
         "maxHp":60,
         "deathStep":150,
-        "monsterHp":80
+        "monsterHp":80,
+        "money":100
     },
     "level1":{
         "worlds":["world1", "world2"],
         "playerInitRelicsEquippedCapacity":7,
         "maxHp":50,
         "deathStep":130,
-        "monsterHp":90
+        "monsterHp":90,
+        "money":75
     },
     "level2":{
         "worlds":["world1", "world2", "world3"],
         "playerInitRelicsEquippedCapacity":6,
         "maxHp":40,
         "deathStep":110,
-        "monsterHp":100
+        "monsterHp":100,
+        "money":50
     },
     "level3":{
         "worlds":["world1", "world2", "world3", "world4"],
         "playerInitRelicsEquippedCapacity":5,
         "maxHp":40,
         "deathStep":100,
-        "monsterHp":110
+        "monsterHp":110,
+        "money":50
     },
     "level4":{
         "playerInitRelicsEquippedCapacity":4,
         "maxHp":40,
         "deathStep":90,
-        "monsterHp":120
+        "monsterHp":120,
+        "money":50
     }
 }

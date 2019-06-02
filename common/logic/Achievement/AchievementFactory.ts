@@ -237,6 +237,26 @@ class AchievementFactory {
                 
             }, achv, () => !!achv.mgr.player);
             return achv;
+        },
+
+        "DifficultModeUnlock": (cfg) => {
+            var achv = this.createAchievement(cfg);
+            achv = AchievementFactory.addLogic("onGameEnd", async () => {
+                if (achv.mgr.player.currentTotalStorey() >= 45 && achv.mgr.player.difficulty == "level2")
+                    await AchievementMgr.mgr.preFinishAchv(achv.type);
+                
+            }, achv, () => !!achv.mgr.player);
+            return achv;
+        },
+
+        "NightmareUnlock": (cfg) => {
+            var achv = this.createAchievement(cfg);
+            achv = AchievementFactory.addLogic("onGameEnd", async () => {
+                if (achv.mgr.player.currentTotalStorey() >= 60 && achv.mgr.player.difficulty == "level3")
+                    await AchievementMgr.mgr.preFinishAchv(achv.type);
+                
+            }, achv, () => !!achv.mgr.player);
+            return achv;
         }
     }
 

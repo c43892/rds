@@ -35,5 +35,13 @@
     "NormalModeUnlock":{
         "achvClass":"singleGame",
         "achvPoint":10
+    },
+    "DifficultModeUnlock":{
+        "achvClass":"singleGame",
+        "achvPoint":10
+    },
+    "NightmareUnlock":{
+        "achvClass":"singleGame",
+        "achvPoint":10
     }
 }

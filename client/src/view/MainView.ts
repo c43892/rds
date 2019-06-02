@@ -533,12 +533,12 @@ class MainView extends egret.DisplayObjectContainer {
         var awardLv = Math.floor(lastLevelCompletedInfo.lv / 15);
         awardLv = awardLv > 5 ? 5 : awardLv;
         if (awardLv > 0) {
-            var selsGroup = GCfg.getWorldMapEventSelGroupsCfg("newPlayAward");
+            var selsGroup = Utils.clone(GCfg.getWorldMapEventSelGroupsCfg("newPlayAward"));
             
             var relics = Utils.filter(lastLevelCompletedInfo.relics, (r) => Utils.occupationCompatible(this.p.occupation, r));
             var relicsLv = lastLevelCompletedInfo.relicsLv;
 
-            selsGroup.desc = selsGroup.desc.replace("$lv$", lastLevelCompletedInfo.lv.toString());
+            selsGroup["desc"] = selsGroup["desc"].replace("$lv$", lastLevelCompletedInfo.lv.toString());
 
             var rs = [];
             // 选出两个技能
@@ -563,8 +563,8 @@ class MainView extends egret.DisplayObjectContainer {
             var allCoinsNum = Math.ceil(lastLevelCompletedInfo.allMoney * 0.01);
             var levelLogicCfg = {"type":"LevelLogicAwardInherited", "ps":[{"relicTypes":rs, "relicsLv":relicsLvInfo, "leftCoinsNum":leftCoinsNum, "allCoinsNum":allCoinsNum}]};
 
-            var sel = selsGroup.sels[0];
-            sel.ps.extraLevelLogic.push(levelLogicCfg);
+            var sel = selsGroup["sels"][0];
+            sel.ps.extraLevelLogic= [levelLogicCfg];
 
             await this.wmv.openSelGroup(this.p, selsGroup);
         }

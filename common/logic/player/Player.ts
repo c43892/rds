@@ -69,7 +69,7 @@ class Player {
 
         AchievementMgr.mgr.player = p;
 
-        p.addMoney(50);
+        p.addMoney(GCfg.getDifficultyCfg()[p.difficulty]["money"]);
 
         return p;
     }

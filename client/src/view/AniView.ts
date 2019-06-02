@@ -1511,6 +1511,12 @@ class AniView extends egret.DisplayObjectContainer {
 
     // 标记所有怪物的奖励
     public async onGetMarkAllAward() {
+        var bg = ViewUtils.createBitmapByName("translucent_png");
+        bg.width = this.width;
+        bg.height = this.height;
+        bg.touchEnabled = true;
+        bg.alpha = 0;
+        AniUtils.ac.addChild(bg);
         var ended = false;
         var ske = ViewUtils.createSkeletonAni("bonus", () => ended = true);
         var d = ske.display;
@@ -1521,6 +1527,7 @@ class AniView extends egret.DisplayObjectContainer {
         await Utils.waitUtil(() => ended);
         ske["stop"]();
         AniUtils.ac.removeChild(d);
+        AniUtils.ac.removeChild(bg);
     }
 
     // Boss爆炸特效
