@@ -240,6 +240,7 @@ class Main extends egret.DisplayObjectContainer {
     private mv:MainView;
     private async runGame() {
         egret.Logger.logLevel = egret.Logger.ALL;
+        this.stage.orientation = egret.OrientationMode.PORTRAIT;
 
         await Utils.initPlatform();
 
