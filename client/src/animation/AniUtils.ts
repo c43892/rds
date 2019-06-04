@@ -540,13 +540,13 @@ class AniUtils {
         await AniUtils.wait4clickImpl();
     }
 
-    // 阻挡点击操作
-    public static blockClick() {
-        var av = <AniView>AniUtils.ac;
-        Utils.assert(!!av, "need AniView layer");
-        av.addBlockLayer();
-        return () => av.decBlockLayer();
-    }
+    // // 阻挡点击操作
+    // public static blockClick() {
+    //     var av = <AniView>AniUtils.ac;
+    //     Utils.assert(!!av, "need AniView layer");
+    //     av.addBlockLayer();
+    //     return () => av.decBlockLayer();
+    // }
 
     // 创建一个只用于动画显示的图片
     public static createImg(texName:string) {

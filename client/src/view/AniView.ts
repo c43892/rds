@@ -1880,8 +1880,8 @@ class AniView extends egret.DisplayObjectContainer {
         return new Promise<void>((r, _) => {
             var tw = egret.Tween.get(this.wmv).to({rawMapScrollPosRange:p}, time, egret.Ease.cubicInOut);
             tw.call(() => {
-                if (rev) rev();
                 this.decBlockLayer();
+                if (rev) rev();                
                 r();
             });
         });
@@ -1931,7 +1931,11 @@ class AniView extends egret.DisplayObjectContainer {
     aniLayerCnt = 0;
     onAniStarted(ani:Promise<void>, aniType:string, ps = undefined) {
         this.addBlockLayer();
-        ani.then(() => this.decBlockLayer());
+        try {
+            ani.then(() => this.decBlockLayer());
+        } catch(ex) {
+            this.decBlockLayer();
+        }
     }
 
     // 增加阻挡点击的操作层数（类似自旋），只要结果 >0 就会阻挡操作
@@ -1946,9 +1950,16 @@ class AniView extends egret.DisplayObjectContainer {
     // 减少阻挡点击的操作层数，只有结果 == 0 才会解除阻挡
     public decBlockLayer() {
         Utils.assert(this.aniLayerCnt > 0, "aniLayerCnt corrupted");
-        this.aniLayerCnt--;
+        if (this.aniLayerCnt > 0)
+            this.aniLayerCnt--;
         if (this.aniLayerCnt == 0)
             this.removeChild(this.aniCover);
         Utils.assert(this.aniLayerCnt >= 0, "aniLayerCnt corrupted");
     }
+
+    // // 清除所有阻挡
+    // public clearBlockLayer() {
+    //     this.removeChild(this.aniCover);
+    //     this.aniLayerCnt = 0;
+    // }
 }

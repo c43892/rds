@@ -88,8 +88,8 @@ class GuideView extends egret.DisplayObjectContainer {
                 av.addBlockLayer();
                 var tid;
                 tid = egret.setTimeout(async () => {
-                    egret.clearTimeout(tid);
                     av.decBlockLayer();
+                    egret.clearTimeout(tid);
                     await this.rookiePlay2(ps.bt);
                 }, this, 1000);
             }

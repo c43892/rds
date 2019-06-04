@@ -26,7 +26,7 @@ class Utils {
 
     // 条件断言
     public static assert(condition: boolean, msg:string) {
-        if (!condition)
+        if (egret.Capabilities.os == "Windows PC" && !condition)
             throw new Error(msg);
     }
 
