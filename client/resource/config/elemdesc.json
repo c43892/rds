@@ -539,25 +539,25 @@
             "<font color=#7d0403 bold=true size=21>精英</font>\n<font color=#000000 bold=false size=20>为所有怪物附加复生能力，死亡时会复活一次（本来能复活的怪物不会复活两次）</font>"
         ]},
         "Kraken":{"name":"克拉肯", "desc":[
-            "<font color=#7d0403 bold=true size=21>海怪吞噬</font>\n<font color=#000000 bold=false size=20>每3个回合主动攻击1次，造成3倍伤害，并随机摧毁一件非金钱的物品</font>",
+            "<font color=#7d0403 bold=true size=21>海怪吞噬</font>\n<font color=#000000 bold=false size=20>每3个回合主动攻击1次，造成2倍伤害，并随机摧毁一件非金钱的物品</font>",
             "<font color=#7d0403 bold=true size=21>深海窒息</font>\n<font color=#000000 bold=false size=20>克拉肯存在时，每回合对你造成1点伤害，无论它是否处于现身状态</font>",
             "<font color=#7d0403 bold=true size=21>狂暴</font>\n<font color=#000000 bold=false size=20>血量低于50%时，每回合都会进行海怪吞噬</font>",
             "<font color=#7d0403 bold=true size=21>深寒</font>\n<font color=#000000 bold=false size=20>无法被冰冻，受到火焰伤害时效果加倍</font>"
         ]},
         "HalloweenTreant":{"name":"万圣节树妖", "desc":[
-             "<font color=#7d0403 bold=true size=21>古树缠绕</font>\n<font color=#000000 bold=false size=20>每3个回合主动攻击1次，造成4倍伤害</font>",
+             "<font color=#7d0403 bold=true size=21>古树缠绕</font>\n<font color=#000000 bold=false size=20>每3个回合主动攻击1次，造成3倍伤害</font>",
             "<font color=#7d0403 bold=true size=21>植物军团</font>\n<font color=#000000 bold=false size=20>将所有怪物变为植物，初始将5个随机怪物变成豌豆射手，豌豆射手将在战斗开始时自动现身，N回合攻击一次玩家（不攻击商人）</font>",
             "<font color=#7d0403 bold=true size=21>防护</font>\n<font color=#000000 bold=false size=20>血量每减少30%，则进入防护模式，为自己加上一个近乎无敌的防护罩，受到除火焰以外的任何伤害均为1，防护罩在受到3次伤害后解除</font>",
             "<font color=#7d0403 bold=true size=21>易燃</font>\n<font color=#000000 bold=false size=20>被火焰伤害会进入点燃状态，免疫中毒</font>"
         ]},
         "SlimeKing":{"name":"史莱姆之王", "desc":[
-            "<font color=#7d0403 bold=true size=21>史莱姆冲击</font>\n<font color=#000000 bold=false size=20>每3回合进行一次撞击，伤害是攻击的4倍</font>",
+            "<font color=#7d0403 bold=true size=21>史莱姆冲击</font>\n<font color=#000000 bold=false size=20>每3回合进行一次撞击，伤害是攻击的3倍</font>",
             "<font color=#7d0403 bold=true size=21>死亡和新生</font>\n<font color=#000000 bold=false size=20>血量低于50%史莱姆之王会分裂为4个史莱姆，4回合后会重新合成史莱姆之王，血量是史莱姆的血量之和</font>",
             "<font color=#7d0403 bold=true size=21>粘液</font>\n<font color=#000000 bold=false size=20>每次攻击需要额外消耗2回合</font>",
             "<font color=#7d0403 bold=true size=21>回复</font>\n<font color=#000000 bold=false size=20>每回合恢复5%的生命值</font>"
         ]},
         "BrainOfCthulhu":{"name":"克苏鲁之脑", "desc":[
-            "<font color=#7d0403 bold=true size=21>精神接触</font>\n<font color=#000000 bold=false size=20>每3个回合主动攻击1次，造成3倍伤害，并降低10点san值</font>",
+            "<font color=#7d0403 bold=true size=21>精神接触</font>\n<font color=#000000 bold=false size=20>每3个回合主动攻击1次，造成2倍伤害，并降低10点san值</font>",
             "<font color=#7d0403 bold=true size=21>指挥</font>\n<font color=#000000 bold=false size=20>所有其他怪物血量和攻击翻倍</font>",
             "<font color=#7d0403 bold=true size=21>恐惧光环</font>\n<font color=#000000 bold=false size=20>每回合都会降低你的san值，随着你的san值越低，你会做出一些越来越奇怪的行为……san值低于70：本层的所有地图数字都会显示为问号；san值低于35：怪物的所有属性都显示成问号；san值为0：你的攻击将随机点击可点击的地方</font>",
             "<font color=#7d0403 bold=true size=21>精神污染</font>\n<font color=#000000 bold=false size=20>boss被翻开后本关的所有普通怪物显示为克苏鲁的触手</font>",
@@ -951,25 +951,25 @@
             "<font color=#7d0403 bold=true size=21>精英</font>\n<font color=#000000 bold=false size=20>為所有怪物附加複生能力，死亡時會復活一次（本來能復活的怪物不會復活兩次）</font>"
         ]},
         "Kraken":{"name":"克拉肯", "desc":[
-            "<font color=#7d0403 bold=true size=21>海怪吞噬</font>\n<font color=#000000 bold=false size=20>每3個回合主動攻擊1次，造成3倍傷害，並隨機摧毀一件非金錢的物品</font>",
+            "<font color=#7d0403 bold=true size=21>海怪吞噬</font>\n<font color=#000000 bold=false size=20>每3個回合主動攻擊1次，造成2倍傷害，並隨機摧毀一件非金錢的物品</font>",
             "<font color=#7d0403 bold=true size=21>深海窒息</font>\n<font color=#000000 bold=false size=20>克拉肯存在時，每回合對你造成1點傷害，無論它是否處於現身狀態</font>",
             "<font color=#7d0403 bold=true size=21>狂暴</font>\n<font color=#000000 bold=false size=20>血量低於50%時，每回合都會進行海怪吞噬</font>",
             "<font color=#7d0403 bold=true size=21>深寒</font>\n<font color=#000000 bold=false size=20>無法被冰凍，受到火焰傷害時效果加倍</font>"
         ]},
         "HalloweenTreant":{"name":"萬聖節樹妖", "desc":[
-             "<font color=#7d0403 bold=true size=21>古樹纏繞</font>\n<font color=#000000 bold=false size=20>每3個回合主動攻擊1次，造成4倍傷害</font>",
+             "<font color=#7d0403 bold=true size=21>古樹纏繞</font>\n<font color=#000000 bold=false size=20>每3個回合主動攻擊1次，造成3倍傷害</font>",
             "<font color=#7d0403 bold=true size=21>植物軍團</font>\n<font color=#000000 bold=false size=20>將所有怪物變為植物，初始將5個隨機怪物變成豌豆射手，豌豆射手將在戰鬥開始時自動現身，N回合攻擊一次玩家（不攻擊商人）</font>",
             "<font color=#7d0403 bold=true size=21>防護</font>\n<font color=#000000 bold=false size=20>血量每減少30%，則進入防護模式，為自己加上一個近乎無敵的防護罩，受到除火焰以外的任何傷害均為1，防護罩在受到3次傷害後解除</font>",
             "<font color=#7d0403 bold=true size=21>易燃</font>\n<font color=#000000 bold=false size=20>被火焰傷害會進入點燃狀態，免疫中毒</font>"
         ]},
         "SlimeKing":{"name":"史萊姆之王", "desc":[
-            "<font color=#7d0403 bold=true size=21>史萊姆衝擊</font>\n<font color=#000000 bold=false size=20>每3回合進行一次撞擊，傷害是攻擊的4倍</font>",
+            "<font color=#7d0403 bold=true size=21>史萊姆衝擊</font>\n<font color=#000000 bold=false size=20>每3回合進行一次撞擊，傷害是攻擊的3倍</font>",
             "<font color=#7d0403 bold=true size=21>死亡和新生</font>\n<font color=#000000 bold=false size=20>血量低於50%史萊姆之王會分裂為4個史萊姆，4回合後會重新合成史萊姆之王，血量是史萊姆的血量之和</font>",
             "<font color=#7d0403 bold=true size=21>粘液</font>\n<font color=#000000 bold=false size=20>每次攻擊需要額外消耗2回合</font>",
             "<font color=#7d0403 bold=true size=21>回復</font>\n<font color=#000000 bold=false size=20>每回合恢復5%的生命值</font>"
         ]},
         "BrainOfCthulhu":{"name":"克蘇魯之腦", "desc":[
-            "<font color=#7d0403 bold=true size=21>精神接觸</font>\n<font color=#000000 bold=false size=20>每3個回合主動攻擊1次，造成3倍傷害，並降低10點san值</font>",
+            "<font color=#7d0403 bold=true size=21>精神接觸</font>\n<font color=#000000 bold=false size=20>每3個回合主動攻擊1次，造成2倍傷害，並降低10點san值</font>",
             "<font color=#7d0403 bold=true size=21>指揮</font>\n<font color=#000000 bold=false size=20>所有其他怪物血量和攻擊翻倍</font>",
             "<font color=#7d0403 bold=true size=21>恐懼光環</font>\n<font color=#000000 bold=false size=20>每回合都會降低你的san值，隨著你的san值越低，你會做出一些越來越奇怪的行為……san值低於70：本層的所有地圖數位都會顯示為問號；san值低於35：怪物的所有屬性都顯示成問號；san值為0：你的攻擊將隨機點擊可點擊的地方</font>",
             "<font color=#7d0403 bold=true size=21>精神污染</font>\n<font color=#000000 bold=false size=20>boss被翻開後本關的所有普通怪物顯示為克蘇魯的觸手</font>",
