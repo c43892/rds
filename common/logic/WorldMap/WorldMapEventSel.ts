@@ -100,6 +100,9 @@ class WorldMapEventSelFactory {
 
     // 加减钱
     async implAddMoney(p:Player, dm) {
+        if(dm > 0)
+            dm *= GCfg.getDifficultyCfg()[p.difficulty]["moneyGet"];
+            
         p.addMoney(dm);
         await p.fireEvent("onGetMoneyInWorldmap", {dm:dm, reason:"WorldmapSelEvent"});
     }

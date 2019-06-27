@@ -16,6 +16,8 @@ class TurntableView extends egret.DisplayObjectContainer {
     private destination:egret.Bitmap; // 用于获得表现
     public static showElemDesc; // 显示元素信息
     private rewardsBgShadow:egret.Bitmap; // 用于遮挡转盘
+    private award;
+    private ready2Get;
 
     public constructor(w:number, h:number){
         super();
@@ -96,6 +98,25 @@ class TurntableView extends egret.DisplayObjectContainer {
             var toImg = this.destination;
             await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
             fromImg["dispose"]();
+        }
+
+        // 真正获得奖励的时间点(与动画对应)
+        switch (this.award.type) {
+            case "+maxHp":
+                this.player.addMaxHp(this.award["attrs"]);
+                break;
+            case "-hp":
+                this.player.addHp(Math.floor(this.player.hp * this.award["attrs"] / 100));
+                break;
+            case "box":
+                this.player.addItem(this.ready2Get);
+                break;
+            case "coins":
+                this.player.addMoney(this.award["attrs"] * GCfg.getDifficultyCfg()[this.player.difficulty]["moneyGet"]);
+                break;
+            case "item":
+                this.player.addItem(this.ready2Get);
+                break;
         }
         this.doClsoe()
     }
@@ -180,57 +201,50 @@ class TurntableView extends egret.DisplayObjectContainer {
 
         var rotateAngels = (randomIndex * 60  + 3600 );// 所需旋转角度,额外加十圈,角度单位
 
-                // 将奖励添加到角色身上
-        var award = this.imgs[randomIndex];
+        // 确定奖励展示的内容
+        this.award = this.imgs[randomIndex];
         var showRewardIcon:boolean = false;
-        switch(award["type"]){
-                case "+maxHp":
-                    var hpBefore = this.player.hp;
-                    this.player.addMaxHp(award["attrs"]);
-                    this.tipContent.text = "+" + (award["attrs"]) + " max hp";
-                    break;
-                case "-hp":
-                    var hpBefore = this.player.hp;
-                    this.player.addHp(Math.floor(this.player.hp * award["attrs"] / 100));
-                    this.tipContent.text = "-" + (hpBefore - this.player.hp) + " hp";
-                    break;
-                case "box":
-                    var rdp = GCfg.getRandomDropGroupCfg(award["attrs"]);
-                    // 无可选时出皇冠
-                    var dropItem = Utils.randomSelectByWeightWithPlayerFilter(this.player, rdp.elems, this.player.playerRandom, 1, 2, false, "Crown")[0];
-                    var e = ElemFactory.create(dropItem);
-                    this.player.addItem(e);
-                    this.tipContent.text = ViewUtils.getElemNameAndDesc(dropItem).name;
-                    showRewardIcon = this.setTipReward(e);
-                    break;
-                case "coins":
-                    this.player.addMoney(award["attrs"]);
-                    this.tipContent.text = "+" + award["attrs"] + ViewUtils.getTipText("coins");
-                    showRewardIcon = this.setTipReward(ElemFactory.create("Coins",{cnt:award["attrs"]}));
-                    break;
-                case "item":
-                    var e = ElemFactory.create(award["attrs"]);
-                    this.player.addItem(e);
-                    this.tipContent.text = ViewUtils.getElemNameAndDesc(e.type).name;
-                    showRewardIcon = this.setTipReward(e);
-                    break;
-            }        
-            
-        var rr = egret.Tween.get(this.rewards, {loop:false});
+        switch (this.award["type"]) {
+            case "+maxHp":
+                this.tipContent.text = "+" + (this.award["attrs"]) + " max hp";
+                break;
+            case "-hp":
+                this.tipContent.text = (Math.floor(this.player.hp * this.award["attrs"] / 100)) + " hp";
+                break;
+            case "box":
+                var rdp = GCfg.getRandomDropGroupCfg(this.award["attrs"]);
+                // 无可选时出皇冠
+                var dropItem = Utils.randomSelectByWeightWithPlayerFilter(this.player, rdp.elems, this.player.playerRandom, 1, 2, false, "Crown")[0];
+                this.ready2Get = ElemFactory.create(dropItem);
+                this.tipContent.text = ViewUtils.getElemNameAndDesc(dropItem).name;
+                showRewardIcon = this.setTipReward(this.ready2Get);
+                break;
+            case "coins":
+                this.tipContent.text = "+" + this.award["attrs"] + ViewUtils.getTipText("coins");
+                showRewardIcon = this.setTipReward(ElemFactory.create("Coins", { cnt: this.award["attrs"] }));
+                break;
+            case "item":
+                this.ready2Get = ElemFactory.create(this.award["attrs"]);
+                this.tipContent.text = ViewUtils.getElemNameAndDesc(this.ready2Get.type).name;
+                showRewardIcon = this.setTipReward(this.ready2Get);
+                break;
+        }
+
+        var rr = egret.Tween.get(this.rewards, { loop: false });
         // 3秒动画后出现前进按钮
-        rr.to({rotation:rotateAngels}, 3000, egret.Ease.circInOut).call(((b:boolean) => () => {
-                var p = this;
-                p.addChild(p.rewardsBgShadow);
-                p.addChild(p.tipBg);
-                p.addChild(p.tipContent);
-                p.addChild(p.goOutBtn);
-                
-                if(b){                    
-                    p.tipReward.x = 171;
-                    p.tipReward.y = 743; 
-                    p.addChild(p.tipReward);
-                }                    
-            })(showRewardIcon)
+        rr.to({ rotation: rotateAngels }, 3000, egret.Ease.circInOut).call(((b: boolean) => () => {
+            var p = this;
+            p.addChild(p.rewardsBgShadow);
+            p.addChild(p.tipBg);
+            p.addChild(p.tipContent);
+            p.addChild(p.goOutBtn);
+
+            if (b) {
+                p.tipReward.x = 171;
+                p.tipReward.y = 743;
+                p.addChild(p.tipReward);
+            }
+        })(showRewardIcon)
         );
     }
 
