@@ -924,7 +924,7 @@ class MonsterFactory {
             var te = BattleUtils.findRandomElems(m.bt(), 1, (e:Elem) => !e.getGrid().isCovered() && Utils.contains(types, e.type))[0];
             if(te)
                 await m.bt().implRemoveElemAt(te.pos.x, te.pos.y);
-        }, m);
+        }, m, (ps) => ps.subType == "monster2targets" && ps.attackerAttrs.owner == m);
     }
     
     // 攻击时，会同时用闪电伤害玩家和周围的怪物
@@ -1279,7 +1279,7 @@ class MonsterFactory {
             var te = BattleUtils.findRandomElems(m.bt(), 1, (e: Elem) => !e.getGrid().isCovered() && Utils.contains(types, e.type))[0];
             if (te)
                 await m.bt().implRemoveElemAt(te.pos.x, te.pos.y);
-        }, m, (ps) => Utils.contains(ps.attackerAttrs.attackFlags, "activeAttack"));
+        }, m, (ps) => Utils.contains(ps.attackerAttrs.attackFlags, "activeAttack") && ps.subType == "monster2targets" && ps.attackerAttrs.owner == m);
     }
 
     // 克拉肯存在时，每回合对你造成1点伤害，无论它是否处于现身状态

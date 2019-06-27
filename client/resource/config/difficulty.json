@@ -6,7 +6,7 @@
         "deathStep":150,
         "monsterHp":80,
         "money":100,
-        "moneyGet":10
+        "moneyGet":5
     },
     "level1":{
         "worlds":["world1", "world2"],
@@ -15,7 +15,7 @@
         "deathStep":130,
         "monsterHp":90,
         "money":75,
-        "moneyGet":5
+        "moneyGet":4
     },
     "level2":{
         "worlds":["world1", "world2", "world3"],
