@@ -471,7 +471,7 @@ class MainView extends egret.DisplayObjectContainer {
         // this.openNewAchvView(achv);
         // Utils.removeLocalData("occupationExp"); // 删除职业解锁进度
         // Utils.removeLocalData("playerName"); // 删除玩家名
-        // Utils.removeLocalData("unlockedOccupations"); // 删除职业解锁信息
+        Utils.removeLocalData("unlockedOccupations"); // 删除职业解锁信息
 
         this.p = p;
         this.lgv.player = p;
