@@ -145,6 +145,9 @@ class GuideView extends egret.DisplayObjectContainer {
 
             await this.openAvatarView();
         });
+
+        // 职业解锁
+        bt.registerEvent("onUnlockOccupationGuide", async (ps) => await this.onUnlockOccupationGuide(ps))
     }
 
     // 点击指引
@@ -803,5 +806,11 @@ class GuideView extends egret.DisplayObjectContainer {
 
         var avatar = this.cv.getChildByName("goBackBtn");
         await this.tapWithDialog(avatar, "Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("openAvatarView03"), 0, 550);
+    }
+
+    // 职业解锁
+    async onUnlockOccupationGuide(ps){
+        var occ = ps.occ;
+        await this.showDialog(occ, ViewUtils.getTipText(GCfg.getOccupationCfg(occ).name), ViewUtils.getTipText("onUnlockOccupationGuide01"), 0, 550, true);
     }
 }

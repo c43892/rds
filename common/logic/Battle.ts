@@ -1289,6 +1289,41 @@ class Battle {
         await this.notifyElemsDropped(ready2Drop, pos);
     }
 
+    // 将目标位置的怪物转化为植物,园艺师专用
+    public async implChange2Plant(x:number, y:number) {            
+        // 如果是标记的地块需要翻开
+        if (this.level.map.getGridAt(x, y).isMarked())
+            await this.implUncoverAt(x, y);
+
+        var m = <Monster>this.level.map.getElemAt(x, y);
+        // 统计目标身上的物品,掉落用
+        var ready2Drop = [];
+        for (var dp of m.dropItems) {
+            var g = BattleUtils.findRandomEmptyGrid(this);
+            if (g) {
+                this.addElemAt(dp, g.pos.x, g.pos.y);
+                ready2Drop.push(dp);
+            }
+        }
+        // 移除目标并以玩家的植物替换
+        await this.implRemoveElemAt(x, y);
+        var plantTypes: string[] = GCfg.getMiscConfig("PlantTypes");
+        for (var pt of plantTypes)
+            if (BattleUtils.findRandomElems(this, 1, (te: Elem) => te.type == pt).length == 1)
+                plantTypes = Utils.remove(plantTypes, pt);
+
+        if (plantTypes.length == 0)
+            plantTypes = GCfg.getMiscConfig("PlantTypes");
+
+        var plantType = plantTypes[this.srand.nextInt(0, plantTypes.length)];
+        var relicLevel = Utils.filter(this.player.relicsEquipped, (r: Relic) => r.type == "HorticultureMaster")[0].reinforceLv;
+        var plant = <Plant>this.level.createElem(plantType + (relicLevel + 1).toString(), undefined, this.player);
+        await this.implAddElemAt(plant, x, y);
+
+        // 将目标身上的物品掉落出来
+        await this.notifyElemsDropped(ready2Drop, m.pos);
+    }
+
     // boss三选一宝箱
     public async implOpenLuxuryChest(e:Elem) {
         if (!e["relics"]) {

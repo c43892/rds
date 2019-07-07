@@ -251,7 +251,7 @@ class MainView extends egret.DisplayObjectContainer {
             "onSwatheItemWithCocoon", "summonByDancer", "onGetMarkAllAward", "onStartupRegionUncovered", "awardInheritedRefreshMap", "onSneaking",
             "relicsEquippedMaxNumAdded", "onPlayerReborn", "onPlayerDead", "onUseProp", "onElemRevive", "refreshMap", 
             "onPlayerLevelUp", "onSelfExplode", "onShieldFlyBack", "onSanThreshold", "monsterAttackSingleTargetAct", "onProtect", "onMultAttack" ,"onPreFinishAchv", 
-            "onBossExplosion", "onLevelInitedGiveTip", "protectiveShield", "onKrakenDeepFrozen"
+            "onBossExplosion", "onLevelInitedGiveTip", "protectiveShield", "onKrakenDeepFrozen", "onUnlockOccupationAni"
         ], (e) => (ps) => this.bv.av[e](ps));
         bt.registerEvent("onBattleEnded", async (ps) => {
             await this.av.blackIn();
@@ -471,6 +471,7 @@ class MainView extends egret.DisplayObjectContainer {
         // this.openNewAchvView(achv);
         // Utils.removeLocalData("occupationExp"); // 删除职业解锁进度
         // Utils.removeLocalData("playerName"); // 删除玩家名
+        // Utils.removeLocalData("unlockedOccupations"); // 删除职业解锁信息
 
         this.p = p;
         this.lgv.player = p;

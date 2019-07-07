@@ -13,6 +13,7 @@ class Occupation {
     static creators = {
         "Nurse": Occupation.makeNurse,
         "Rogue": Occupation.makeRogue,
+        "Horticulturist":Occupation.makeHorticulturist
     }
 
     // 获取各职业初始物品配置
@@ -74,12 +75,22 @@ class Occupation {
         return p;
     }
 
+    // 园艺师
+    static makeHorticulturist(p:Player):Player {
+        p.addRelic(<Relic>ElemFactory.create("HorticultureMaster")); // 初始遗物
+        p.addItem(<Prop>ElemFactory.create("NaturePotion")); // 初始物品
+        return p;
+    }
+
     static occupationMakers = {
         "Nurse": (p:Player) => {
             p.addBuff(new BuffNurse()); // 职业buff
         },
 
         "Rogue": (p:Player) => {
+        },
+
+        "Horticulturist": (p:Player) => {
         },
     };
 

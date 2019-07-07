@@ -148,6 +148,7 @@
     "Shield":{"name":"盾牌", "cd":15, "shield":5, "validTarget":"markedMonster|uncoveredMonser", "showCDNum":true, "repRes":["Shield", "ShieldBack"]},
     "GoldenHand":{"name":"点金之手", "cnt":3, "dropNum":19, "useWithTarget":true, "useWithoutConfirm":true},
     "HeadBone":{"name":"骷髅头"},
+    "Prison":{"name":"监狱", "useWithoutConfirm":true},
 
     "DeathGod":{"name":"死神", "deathStep":15, "movePs":{"moveType":"fly"}, "cannotTake":true, "addInEffect":"noEffect", "attackInterval":0},
     "NormalZombie":{"name":"普通僵尸", "power":1, "hp":5, "movePs":{"moveRange":3}, "dropItems":["CoinsTiny"], "addInEffect":"noEffect"},
@@ -282,6 +283,7 @@
         "frozenAttrs":{"rounds":3}
     },
     "CandyCannon":{"name":"糖果炮弹", "canOverlap":true, "useWithTarget":true, "cd":5, "occupations":["Merchant"]},
+    "NaturePotion":{"name":"自然药水", "canOverlap":true, "useWithTarget":true, "cd":20},
     "Baton":{"name":"警棍", "powerA":1},
     "Vest":{"name":"防护衣", "dPower":1},
     "Cocoon":{"name":"茧", "useWithoutConfirm":true, "hideDropItems":true, "addInEffect":"noEffect",

@@ -150,6 +150,27 @@ class PropFactory {
                 };
                 return e;
             })
+        },
+
+        // 自然药水
+        "NaturePotion": (attrs) => {
+            return this.createProp(attrs, (e:Elem) => {
+                e.canUse = () => false;
+                e.canUseAt = (x:number, y:number) => {
+                    var map = e.bt().level.map;
+                    var tog:Grid = map.getGridAt(x, y);
+                    var toe:Elem = map.getElemAt(x, y);
+                    return (!tog.isCovered() || tog.isMarked()) && toe && toe instanceof Monster && !toe.isBig() && !toe.isElite && toe.isHazard() 
+                    && toe.type != "PlaceHolder";
+                };
+                e.useAt = async (x:number, y:number) => {
+                    e.resetCD();
+                    e.cnt --;
+                    await e.bt().implChange2Plant(x, y);
+                    return e.cnt > 0;
+                };
+                return e;
+            })
         }
     };
 }

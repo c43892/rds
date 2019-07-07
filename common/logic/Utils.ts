@@ -974,4 +974,52 @@ class Utils {
     //     }
     //     Utils.assert(true, "can not find replace world cfg for " + worldName);
     // }
+
+    // 初始化职业解锁信息
+    public static initOccupationsUnlockInfo() {
+        if (!Utils.loadLocalData("unlockedOccupations"))
+            Utils.saveLocalData("unlockedOccupations", ["Rogue", "Nurse"]);
+    }
+
+    // 获取开放的所有职业
+    public static getAllOccupations():string[]{
+        return GCfg.getMiscConfig("allOccupations");
+    }
+
+    // 获取当前可用职业
+    public static getUnlockedOccupations(): string[] {
+        Utils.initOccupationsUnlockInfo();
+        return Utils.loadLocalData("unlockedOccupations");
+    }
+
+    // 获取当前可以用于解锁的职业
+    public static getLockedOccupations(): string[] {
+        var all = Utils.getAllOccupations();
+        var unlocked = Utils.getUnlockedOccupations();
+        var locked = [];
+        for (var occ of all)
+            if (Utils.indexOf(unlocked, (o: string) => o == occ) == -1)
+                locked.push(occ);
+
+        return locked;
+    }
+
+    // 解锁一个职业
+    public static unlockOccupation(occ: string) {
+        var unlocked = Utils.getUnlockedOccupations();
+        unlocked.push(occ);
+        Utils.saveLocalData("unlockedOccupations", unlocked);
+    }
+
+    // 锁定一个职业
+    public static lockOccupation(occ: string) {
+        var unlocked = Utils.getUnlockedOccupations();
+        unlocked = Utils.remove(unlocked, occ);
+        Utils.saveLocalData("unlockedOccupations", unlocked);
+    }
+
+    // 职业是否已解锁
+    public static isUnlockedOccupation(occ: string): boolean {
+        return Utils.indexOf(Utils.getUnlockedOccupations(), (o: string) => o == occ) > -1;
+    }
 }

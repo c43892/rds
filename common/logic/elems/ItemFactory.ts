@@ -407,6 +407,26 @@ class ItemFactory {
                 return e.cnt > 0;
             }
             return e;
+        },
+
+        // 监狱,用于解锁职业
+        "Prison": (attrs) => {
+            var e = this.createItem();
+            e.canUse = () => e.isValid();
+            e.canBeDragDrop = false;
+            // 解锁一个可以被解锁的职业,获得被解锁的职业后播放对应动画表明职业
+            e.use = async () => {
+                // 获取解锁的职业
+                var occs = Utils.getLockedOccupations();
+                var occ = occs[e.bt().srand.nextInt(0, occs.length)];
+                await e.bt().triggerLogicPoint("onUnlockOccupation", {occ:occ, e:e});
+                // 放动画
+                await e.bt().fireEvent("onUnlockOccupationAni", {occ:occ, e:e});
+                // 放剧情
+                await e.bt().fireEvent("onUnlockOccupationGuide", {occ:occ, e:e});
+                Utils.unlockOccupation(occ);
+            }
+            return e;
         }
     };
 }

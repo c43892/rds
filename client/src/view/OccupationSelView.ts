@@ -122,7 +122,7 @@ class OccupationSelView extends egret.DisplayObjectContainer {
     public refresh() {
         ViewUtils.asFullBg(this.bg);
 
-        this.setAvailableOccList(["Rogue", "Nurse"]);
+        this.setAvailableOccList(Utils.getAllOccupations());
         this.setAvailableDiff(Utils.getDiffByAchvData());
         this.selOcc("Rogue");
         this.selDifficulty(Utils.getDiffByAchvData() - 1);
@@ -154,6 +154,9 @@ class OccupationSelView extends egret.DisplayObjectContainer {
     occArr;
     setAvailableOccList(occArr:string[]) {
         this.occArr = occArr;
+
+        // 未解锁的职业使用正常occUnlockedBg_png背景,但置灰且点击不触发效果
+        // 多余位置用occLockedBg_png显示为问号
         for (var i = 0; i < this.occAvatarBgLst.length; i++) {
             this.occAvatarLst[i].removeChildren();
             this.occAvatarBgLst[i].setTexName("occUnlockedBg_png");
@@ -162,7 +165,8 @@ class OccupationSelView extends egret.DisplayObjectContainer {
                 let occ = occArr[i];
                 this.occAvatarBgLst[i].enabled = true;
                 this.occAvatarBgLst[i].onClicked = () => {
-                    this.selOcc(occ);
+                    if(Utils.isUnlockedOccupation(occ))
+                        this.selOcc(occ);
                 };
 
                 // let ske = ViewUtils.createSkeletonAni(occArr[i]);
@@ -174,9 +178,21 @@ class OccupationSelView extends egret.DisplayObjectContainer {
                 occImg.height = c.height;
                 occImg.x = occImg.y = 0;
                 c.addChild(occImg);
+
+                if(Utils.isUnlockedOccupation(occ)){
+                    ViewUtils.makeGray(this.occAvatarLst[i], false);
+                    ViewUtils.makeGray(this.occAvatarBgLst[i], false);
+                }
+                else{
+                    ViewUtils.makeGray(this.occAvatarLst[i], true);
+                    ViewUtils.makeGray(this.occAvatarBgLst[i], true);
+                }
             }
-            else
+            else{
                 this.occAvatarBgLst[i].enabled = false;
+                ViewUtils.makeGray(this.occAvatarLst[i], false);
+                ViewUtils.makeGray(this.occAvatarBgLst[i], false);
+            }
         }
     }
 

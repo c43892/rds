@@ -14,6 +14,7 @@ class LevelLogicFactory{
             case "LevelLogicElite": levelLogic = new LevelLogicElite(ps[0]); break;
             case "LevelLogicRandomEgg": levelLogic = new LevelLogicRandomEgg(ps[0]); break;
             case "LevelLogicAwardInherited": levelLogic = new LevelLogicAwardInherited(ps[0]); break;
+            case "LevelLogicAddPrison": levelLogic = new LevelLogicAddPrison(); break;
         }
         return levelLogic;
     };
