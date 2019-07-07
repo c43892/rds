@@ -71,6 +71,9 @@
                 ]
             }
         },
+        "occPropType":"NaturePotion",
+        "commonRelics":["HorticultureMaster", "Power", "Endurance", "Agile", "Fierce", "TimeMachine", "MonsterHunter"],
+        "initItems":["Clock", "Knife", "Magazine", "Shield", "Vest", "Baton", "Cloak", "WantedOrder", "EconomyMagazine"],
         "constItems":{"Clock":1, "Vest":1},
         "randomItems":{"num":[2, 3], "elems":{
             "Magazine":80,

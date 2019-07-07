@@ -19,8 +19,9 @@ class Occupation {
     // 获取各职业初始物品配置
     public static getInitialItems(occ:string) {
         return {
-            "Nurse": {"relic": "MedicineBox", "prop":"SuperPotion", "prop4All": "HpPotion"},
-            "Rogue": {"relic": "GangMember", "prop":"StrengthPotion", "prop4All": "StrengthPotion"}
+            "Nurse": {"relic": "MedicineBox", "prop":"SuperPotion"},
+            "Rogue": {"relic": "GangMember", "prop":"StrengthPotion"},
+            "Horticulturist": {"relic": "HorticultureMaster", "prop":"NaturePotion"}
         }[occ];
     }
     
@@ -100,14 +101,12 @@ class Occupation {
 
     // 根据解锁的职业获取全职业通用效果
     static getEffet4All(p){
-        var unlockedOccupation = Utils.loadLocalData("unlockedOccupation");
-        // 暂时没有解锁逻辑,默认为都解锁了
-        if (!unlockedOccupation)
-            unlockedOccupation = ["Nurse", "Rouge"];
+        var unlockedOccupation = Utils.getUnlockedOccupations();        
 
-        for (var occ of unlockedOccupation){
-            p = Occupation.effect4All[occ](p);
-        }
+        for (var occ of unlockedOccupation)
+            if(!!Occupation.effect4All[occ])
+                p = Occupation.effect4All[occ](p);
+        
         return p;
     }
 
