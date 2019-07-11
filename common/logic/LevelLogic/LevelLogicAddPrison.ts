@@ -3,11 +3,17 @@ class LevelLogicAddPrison extends LevelLogic {
         super("LevelLogicAddPrison");
 
         this.addAI("onLevelInitElems", (ps) => {
-            // 难度检查,只有最后两个难度会出现监狱
-            if(this.level.bt.player.difficulty != "level3" && this.level.bt.player.difficulty != "level4")
+            // 难度检查,只有最后三个难度会出现监狱
+            if(this.level.bt.player.difficulty != "level2" && this.level.bt.player.difficulty != "level3" && this.level.bt.player.difficulty != "level4")
+                return;
+            
+            // 通关第三个难度前不出现
+            var allAchvs = AchievementMgr.mgr.allAchvs;
+            var tarAchv = (type:string) => allAchvs[Utils.indexOf(allAchvs, (a:Achievement) => a.type == type)];  
+            if(!tarAchv("DifficultModeUnlock").isFinished())
                 return;
                 
-            // 随机是否出现监狱,只有前3个难度才会出现
+            // 随机是否出现监狱
             var levelType = this.level.levelType;
             var rateInfo = GCfg.getMiscConfig("prisonRate");
             var levelIndex = Number(this.level.bt.player.difficulty.substr(5));
