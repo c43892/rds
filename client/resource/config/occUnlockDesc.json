@@ -34,5 +34,23 @@
             {"title":"获得初始物品", "icon":"Fierce", "desc":"<font color=#000000 size=25>所有职业获得1级杀戮专精，100%几率获得2级杀戮专精</font>"},
             {"title":"技能增强", "icon":"Agile", "desc":"<font color=#000000 size=25>闪避强化，每级闪避</font><font color=#294c22 size=25>+8%→+9%</font>"}
         ]
+    ],
+    "Horticulturist":[
+        [
+            {"title":"无尽模式强化", "icon":"OpenRelicSpace", "desc":"<font color=#000000 size=25>无尽模式中获得额外1个技能格</font>"},
+            {"title":"技能增强", "icon":"ShieldBlock", "desc":"<font color=#000000 size=25>圣甲虫</font>"}
+        ],
+        [
+            {"title":"无尽模式强化", "icon":"OpenRelicSpace", "desc":"<font color=#000000 size=25>无尽模式中获得额外2个技能格</font>"},
+            {"title":"技能增强", "icon":"ShieldBlock", "desc":"<font color=#000000 size=25>圣甲虫</font>"}
+        ],
+        [
+            {"title":"无尽模式强化", "icon":"OpenRelicSpace", "desc":"<font color=#000000 size=25>无尽模式中获得额外3个技能格</font>"},
+            {"title":"技能增强", "icon":"ShieldBlock", "desc":"<font color=#000000 size=25>圣甲虫</font>"}
+        ],
+        [
+            {"title":"无尽模式强化", "icon":"OpenRelicSpace", "desc":"<font color=#000000 size=25>无尽模式中获得额外4个技能格</font>"},
+            {"title":"技能增强", "icon":"ShieldBlock", "desc":"<font color=#000000 size=25>圣甲虫</font>"}
+        ]
     ]
 }

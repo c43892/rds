@@ -447,7 +447,8 @@ class Battle {
                 await this.fireEvent("onPlayerReborn", {inBattle:true});
                 await this.triggerLogicPoint("onPlayerReborn", {inBattle:true});
             } else {
-                await this.fireEvent("onPlayerDead", {inBattle:true});
+                await this.fireEvent("onPlayerDead", {inBattle:true});                
+                Utils.lockOccupation(this.player.occupation);
                 return true;
             }
         }
@@ -887,6 +888,7 @@ class Battle {
 
         if (e.afterDie) await e.afterDie();
         await this.triggerLogicPoint("onElemChanged", {"subType": "dead", e:e, flags:flags});
+        await this.fireEvent("onElemChanged", {"subType": "dead", e:e, flags:flags});
     }
 
     // 进行一次攻击计算
@@ -1309,14 +1311,14 @@ class Battle {
         await this.implRemoveElemAt(x, y);
         var plantTypes: string[] = GCfg.getMiscConfig("PlantTypes");
         for (var pt of plantTypes)
-            if (BattleUtils.findRandomElems(this, 1, (te: Elem) => te.type == pt).length == 1)
+            if (BattleUtils.findRandomElems(this, 1, (te: Elem) => te.type.indexOf(pt) == 0).length > 0)
                 plantTypes = Utils.remove(plantTypes, pt);
 
         if (plantTypes.length == 0)
             plantTypes = GCfg.getMiscConfig("PlantTypes");
 
         var plantType = plantTypes[this.srand.nextInt(0, plantTypes.length)];
-        var relicLevel = Utils.filter(this.player.relicsEquipped, (r: Relic) => r.type == "HorticultureMaster")[0].reinforceLv;
+        var relicLevel = Utils.filter([...this.player.commonRelics, ...this.player.relicsEquipped], (r: Relic) => r.type == "HorticultureMaster")[0].reinforceLv;
         var plant = <Plant>this.level.createElem(plantType + (relicLevel + 1).toString(), undefined, this.player);
         await this.implAddElemAt(plant, x, y);
 

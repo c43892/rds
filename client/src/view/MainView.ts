@@ -114,7 +114,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.openEventSels = async (title, desc, bg, sels) => await this.openWorldMapEventSels(title, desc, bg, sels);
         this.wmv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
         this.wmv.selRelic = async () => await this.openRelicExchangeView(false, false, "selectRelic", true);
-        this.wmv.selRelic2Inherit = async (relics4Sel) => await this.openRelicExchangeView(false, false, "selectRelicWithoutConfirm", true, relics4Sel);
+        // this.wmv.selRelic2Inherit = async (relics4Sel) => await this.openRelicExchangeView(false, false, "selectRelicWithoutConfirm", true, relics4Sel);
         this.wmv.openFinishGameView = async () => await this.openFinishGameView();
         
         this.wmtv = new WorldMapTopView(w, 80);
@@ -466,12 +466,12 @@ class MainView extends egret.DisplayObjectContainer {
         // Utils.saveLocalData("rookiePlay", "finished"); // 新手标记
         // Utils.removeLocalDate("rookiePlay"); // 删除新手数据存档
         // Utils.initAchvData(); // 初始化成就数据
-        // AchievementMgr.mgr.finishAchvAndSave({type:"RichMan", isFinished:true, finishedStage:undefined});
+        // AchievementMgr.mgr.finishAchvAndSave({type:"DifficultModeUnlock", isFinished:true, finishedStage:undefined});
         // var achv = AchievementMgr.mgr.allAchvs[Utils.indexOf(AchievementMgr.mgr.allAchvs, (a:Achievement) => a.type == "EasyModeUnlock")];
         // this.openNewAchvView(achv);
         // Utils.removeLocalData("occupationExp"); // 删除职业解锁进度
         // Utils.removeLocalData("playerName"); // 删除玩家名
-        Utils.removeLocalData("unlockedOccupations"); // 删除职业解锁信息
+        // Utils.removeLocalData("unlockedOccupations"); // 删除职业解锁信息
 
         this.p = p;
         this.lgv.player = p;
@@ -657,14 +657,14 @@ class MainView extends egret.DisplayObjectContainer {
         return yesno;
     }
 
-    public async openRelicExchangeView(inBattle:boolean, canDrag:boolean, funcOnClinked = "showDesc", hideGoBackBtn = false, relics4Sel = undefined){
+    public async openRelicExchangeView(inBattle:boolean, canDrag:boolean, funcOnClinked = "showDesc", hideGoBackBtn = false){
         this.rev.player = this.p;
         this.addChild(this.rev);
 
         // if (!inBattle)
         //     this.setTopAndRefreshWmtv();
 
-        var result = await this.rev.open(canDrag, funcOnClinked, hideGoBackBtn, relics4Sel);
+        var result = await this.rev.open(canDrag, funcOnClinked, hideGoBackBtn);
         this.removeChild(this.rev);
         return result;
     }

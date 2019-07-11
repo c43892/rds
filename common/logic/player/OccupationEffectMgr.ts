@@ -60,7 +60,34 @@ class OccupationEffectMgr {
                     break;
                 }
             }
-        return attrs;
+            return attrs;
+        },
+
+        "ShieldBlock": (attrs) => {
+            var horticulturistLevel:number = Utils.getOccupationLevelAndExp("Horticulturist").level;
+            switch (horticulturistLevel){                
+                case 2:{
+                    attrs.dShield = 2;
+                    attrs.reinforce = [{"dShield":4}, {"dShield":6}, {"dShield":8}, {"dShield":10}]
+                    break;
+                }
+                case 3:{
+                    attrs.dShield = 3;
+                    attrs.reinforce = [{"dShield":6}, {"dShield":9}, {"dShield":12}, {"dShield":15}]
+                    break;
+                }
+                case 4:{
+                    attrs.dShield = 4;
+                    attrs.reinforce = [{"dShield":8}, {"dShield":12}, {"dShield":16}, {"dShield":20}]
+                    break;
+                }
+                case -1:{
+                    attrs.dShield = 5;
+                    attrs.reinforce = [{"dShield":10}, {"dShield":15}, {"dShield":20}, {"dShield":25}]
+                    break;
+                }
+            }
+            return attrs;
         }
     }
 

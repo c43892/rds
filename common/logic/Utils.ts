@@ -336,6 +336,12 @@ class Utils {
 
     // 保存角色数据
     public static savePlayer(p:Player, reason = undefined) {
+        // 此时才进行职业解锁
+        var p1 = p ? p : AchievementMgr.mgr.player;
+        if(p1)        
+            for(var occ of p1.occsWait4Unlock)
+                Utils.unlockOccupation(occ);
+            
         // player数据存档时,同时将预完成成就数据存档
         var allPreFinishedAchvs = [...AchievementMgr.mgr.allPreFinishedAchvs()];
         for (var preFinishInfo of allPreFinishedAchvs)
@@ -359,7 +365,7 @@ class Utils {
 
         if (p) {
             Utils.localStorageData["Version"] = Version.currentVersion;
-            Utils.localStorageData["Player"] = p.toString();
+            Utils.localStorageData["Player"] = p.toString();            
         } else {
             delete Utils.localStorageData["Player"];
         }
@@ -482,7 +488,7 @@ class Utils {
                 continue;
 
             // 检查技能装备格达到上限，不能再购买
-            if (e == "OpenRelicSpace" && p.relicsEquippedCapacity >= p.relicEquippedCapacityMax)
+            if (e == "OpenRelicSpace" && p.relicsEquippedCapacity >= p.relicEquippedCapacityMax())
                 continue;
 
             // 检查遗物强化等级
@@ -678,7 +684,7 @@ class Utils {
     }
 
     // 得到player当前所在的总层数
-    public static playerCurrentTotalStorey(p:Player){
+    public static playerCurrentTotalStorey(p:Player):number {
         var storey = p.currentStoreyPos.lv;
         for(var world of p.finishedWorldMap)
             storey += world.cfg.totalLevels;
@@ -851,6 +857,17 @@ class Utils {
         return cfg["playerInitRelicsEquippedCapacity"];
     }
 
+    // 根据职业解锁情况获取玩家总共可开启的技能格子的数量
+    public static getPlayerTotalRelicsEquippedCapacity(p: Player) {
+        if (Number(p.difficulty.substring(5)) < 4)
+            return 12;
+        else {
+            var horticulturistLevel: number = Utils.getOccupationLevelAndExp("Horticulturist").level;
+            horticulturistLevel = horticulturistLevel == -1 ? 5 : horticulturistLevel;
+            return 11 + horticulturistLevel;
+        }
+    }
+
     // 玩家某个职业获得经验
     public static addOccupationExp(occupation:string, exp:number) {     
         Utils.try2InitOccupationExpInfo(occupation);
@@ -1004,15 +1021,23 @@ class Utils {
         return locked;
     }
 
-    // 解锁一个职业
+    // 解锁一个职业,附带激活功能
     public static unlockOccupation(occ: string) {
+        if(!Utils.isActivated(occ))
+            Utils.activateOccupation(occ);
+
         var unlocked = Utils.getUnlockedOccupations();
+        if(Utils.indexOf(unlocked, (uo) => uo == occ) > -1)
+            return;
+
         unlocked.push(occ);
         Utils.saveLocalData("unlockedOccupations", unlocked);
     }
 
     // 锁定一个职业
     public static lockOccupation(occ: string) {
+        if(occ == "Nurse" || occ == "Rogue") return;
+        
         var unlocked = Utils.getUnlockedOccupations();
         unlocked = Utils.remove(unlocked, occ);
         Utils.saveLocalData("unlockedOccupations", unlocked);
@@ -1021,5 +1046,38 @@ class Utils {
     // 职业是否已解锁
     public static isUnlockedOccupation(occ: string): boolean {
         return Utils.indexOf(Utils.getUnlockedOccupations(), (o: string) => o == occ) > -1;
+    }
+
+    // 职业是否激活(未激活的职业在选择职业时显示为问号)
+    public static isActivated(occ:string):boolean{
+        if(!Utils.loadLocalData("occActivated"))
+            Utils.saveLocalData("occActivated", ["Rogue", "Nurse"]);
+
+        // 成就相关
+        var allAchvs = AchievementMgr.mgr.allAchvs;
+        var tarAchv = (type:string) => allAchvs[Utils.indexOf(allAchvs, (a:Achievement) => a.type == type)];  
+        // 不同职业可能存在不同的激活条件
+        switch(occ) {
+            case "Horticulturist":{
+                // 只要获得过难度3的成就即默认解锁              
+                if (tarAchv("DifficultModeUnlock").isFinished()) return true;
+            }
+            default: {
+                var activated = Utils.loadLocalData("occActivated");
+                return !!activated && Utils.indexOf(activated, (o: string) => o == occ) > -1;
+            }
+        }
+    }
+
+    // 激活职业
+    public static activateOccupation(occ:string){
+        if(!Utils.loadLocalData("occActivated"))
+            Utils.saveLocalData("occActivated", ["Rogue", "Nurse"]);
+
+        var activated = Utils.loadLocalData("occActivated");
+        if(Utils.indexOf(activated, (o:string) => o == occ) == -1){
+            activated.push(occ);
+            Utils.saveLocalData("occActivated", activated);
+        }            
     }
 }

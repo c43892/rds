@@ -75,6 +75,7 @@
         {"type":"LevelLogicTakeKey"},
         {"type":"LevelLogicBoss", "ps":[["HalloweenTreant"]]},
         {"type":"LevelLogicChangeMonster", "ps":[["MCherryBomb", "MSunflower", "MCharmingMushroom", "MNutWall"], 63, {"MPeashooter":5}, ["MPeashooter"]]},
-        {"type":"LevelLogicAddPrison"}
+        {"type":"LevelLogicAddPrison"},
+        {"type":"LevelLogicKillHalloweenTreant"}
     ]
 }

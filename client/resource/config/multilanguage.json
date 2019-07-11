@@ -607,6 +607,7 @@
 		"levelUpTitle":{"EN": "unlock", "CNS": "实力提升效果", "CNT": "實力提升效果"},
 		"unlockBtn":{"EN": "unlock", "CNS": "解锁", "CNT": "解鎖"},
 		"nurse":{"EN": "Nurse", "CNS": "护士", "CNT": "護士"},
+		"rogue":{"EN": "Rogue", "CNS": "黑帮混混", "CNT": "黑帮混混"},
 		"horticulturist":{"EN": "Nurse", "CNS": "园艺师", "CNT": "園藝師"},
 		"merchant":{"EN": "Merchant", "CNS": "商人", "CNT": "商人"},
 		"rookiePlay101":{"EN": "", "CNS": "!!!", "CNT": "!!!"},
@@ -655,6 +656,8 @@
 		"openAvatarView02":{"EN": "", "CNS": "这里你可以看到你的属性，通用技能，还有一些设置可以选择", "CNT": "這裡你可以看到你的屬性，通用技能，還有一些設置可以選擇"},
 		"openAvatarView03":{"EN": "", "CNS": "点击返回让我们回到战斗", "CNT": "點擊返回讓我們回到戰鬥"},
 		"onUnlockOccupationGuide01":{"EN": "", "CNS": "解锁职业对话开始了", "CNT": "解锁职业对话开始了"},
+		"rookieKillBoss01":{"EN": "", "CNS": "新手击败boss对话01", "CNT": "新手击败boss对话01"},
+		"killHalloweenTreantFirstTime01":{"EN": "", "CNS": "首次击杀树妖对话01", "CNT": "首次击杀树妖对话01"},
 		"": {}
 	}
 }

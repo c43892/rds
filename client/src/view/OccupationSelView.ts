@@ -169,21 +169,21 @@ class OccupationSelView extends egret.DisplayObjectContainer {
                         this.selOcc(occ);
                 };
 
-                // let ske = ViewUtils.createSkeletonAni(occArr[i]);
-                // ske.animation.play("Idle", 0);
-                // this.occAvatarLst[i].addChild(ske.display);
                 var c = this.occAvatarLst[i];
                 let occImg = ViewUtils.createBitmapByName(occArr[i] + "_png");
                 occImg.width = c.width;
                 occImg.height = c.height;
-                occImg.x = occImg.y = 0;
-                c.addChild(occImg);
+                occImg.x = occImg.y = 0;                
 
-                if(Utils.isUnlockedOccupation(occ)){
+                if(!Utils.isActivated(occ))
+                    this.occAvatarBgLst[i].enabled = false;
+                else if(Utils.isUnlockedOccupation(occ)){
+                    c.addChild(occImg);
                     ViewUtils.makeGray(this.occAvatarLst[i], false);
                     ViewUtils.makeGray(this.occAvatarBgLst[i], false);
                 }
                 else{
+                    c.addChild(occImg);
                     ViewUtils.makeGray(this.occAvatarLst[i], true);
                     ViewUtils.makeGray(this.occAvatarBgLst[i], true);
                 }

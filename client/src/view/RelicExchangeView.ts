@@ -109,31 +109,34 @@ class RelicExchangeView extends egret.DisplayObjectContainer{
         var rev = this;
         this.relicsAreaBg.addEventListener(egret.TouchEvent.TOUCH_MOVE, (evt) => RelicExchangeView.onEvent(rev, "onTouchMove", evt), this.relicsAreaBg);
         this.relicsAreaBg.touchEnabled = true;
-        this.relicsAreaBg.name = "this.relicsAreaBg";
-        this.relicsArea.addChild(this.relicsAreaBg);
-
-        this.setEmptyGrids();
+        this.relicsAreaBg.name = "this.relicsAreaBg";        
     }
 
-public async open(canDrag:boolean = true, funcOnClick = "showDesc", hideGoBackBtn = false, relics4Sel = undefined) {
+public async open(canDrag:boolean = true, funcOnClick = "showDesc", hideGoBackBtn = false) {
         this.canDrag = canDrag;
         this.funcOnClick = funcOnClick;
-        this.relics4Sel = relics4Sel;
+        // 取消由外部提供候选列表的功能
+        // this.relics4Sel = relics4Sel; 
+        // if (!relics4Sel) { // 没指定候选表， 默认用角色身上的
+        //     this.rsEquipped = [...this.player.relicsEquipped];
+        //     this.rsInBag = [...this.player.relicsInBag];
+        //     this.titleCommon.alpha = 1;
+        //     this.titleEquipped.alpha = 1;
+        //     this.titleInBag.alpha = 1;
+        // } else { // 有单独给候选表，就用给的
+        //     this.rsCommon = relics4Sel.length > 8 ? relics4Sel.slice(0, 8) : relics4Sel;
+        //     this.rsEquipped = relics4Sel.length > 8 ? (relics4Sel.length > 20 ? relics4Sel.slice(8, 20) : relics4Sel.slice(0, relics4Sel.length)) : [];
+        //     this.rsInBag = relics4Sel.length > 20 ? relics4Sel.slice(20, relics4Sel.length) : [];
+        //     this.titleCommon.alpha = 0;
+        //     this.titleEquipped.alpha = 0;
+        //     this.titleInBag.alpha = 0;
+        // }
         this.page = 0;
-        if (!relics4Sel) { // 没指定候选表， 默认用角色身上的
-            this.rsEquipped = [...this.player.relicsEquipped];
-            this.rsInBag = [...this.player.relicsInBag];
-            this.titleCommon.alpha = 1;
-            this.titleEquipped.alpha = 1;
-            this.titleInBag.alpha = 1;
-        } else { // 有单独给候选表，就用给的
-            this.rsCommon = relics4Sel.length > 8 ? relics4Sel.slice(0, 8) : relics4Sel;
-            this.rsEquipped = relics4Sel.length > 8 ? (relics4Sel.length > 20 ? relics4Sel.slice(8, 20) : relics4Sel.slice(0, relics4Sel.length)) : [];
-            this.rsInBag = relics4Sel.length > 20 ? relics4Sel.slice(20, relics4Sel.length) : [];
-            this.titleCommon.alpha = 0;
-            this.titleEquipped.alpha = 0;
-            this.titleInBag.alpha = 0;
-        }
+        this.rsEquipped = [...this.player.relicsEquipped];
+        this.rsInBag = [...this.player.relicsInBag];
+        this.titleCommon.alpha = 1;
+        this.titleEquipped.alpha = 1;
+        this.titleInBag.alpha = 1;
         
         // 处理返回和前进按钮
         if (!this.canDrag) {
@@ -150,18 +153,23 @@ public async open(canDrag:boolean = true, funcOnClick = "showDesc", hideGoBackBt
             this.goBackBtn.alpha = 1;
             this.goBackBtn.touchEnabled = true;
         }
-        this.refresh(!!relics4Sel);
+        this.refresh();
         return new Promise<number>((resolve, reject) => this.doClose = resolve);
     }
 
     // 在背景上放置圆盘和用于装入遗物图的格子
     private setEmptyGrids() {
+        this.relicsArea.removeChildren();
+        this.commonGrids = [];
+        this.equippedGrids = [];
+        this.inBagGrids = [];
+        this.relicsArea.addChild(this.relicsAreaBg);
         var xGap = (this.relicsArea.width - (this.ColNum * this.GridSize)) / (this.ColNum + 1);
         for (var j = 0; j < 3; j++) {
             // j == 1, 装备着的.  j == 2, 背包里的.
             var x = xGap;
-            var y = j == 0 ? 20 : (j == 1 ? (xGap + 220) : (xGap + 535));
-            for (var i = 0; i < (j == 0 ? this.CommonNum : this.ShowNum); i++) {
+            var y = j == 0 ? 20 : (j == 1 ? (xGap + 220) : (xGap + 535 + (Utils.getPlayerTotalRelicsEquippedCapacity(this.player) > 12 ? (this.GridSize + xGap - 25) : 0)));
+            for (var i = 0; i < (j == 0 ? this.CommonNum : (j == 1 ? Utils.getPlayerTotalRelicsEquippedCapacity(this.player) : this.ShowNum)); i++) {
                 var grid = new egret.DisplayObjectContainer();
                 grid.width = grid.height = this.GridSize;
                 grid.x = x;
@@ -200,9 +208,28 @@ public async open(canDrag:boolean = true, funcOnClick = "showDesc", hideGoBackBt
 
     private doClose;
 
-    private refresh(hideLock = false) {
+    private refresh() {
+        var objs = [this.bg1, this.titleCommon, this.titleEquipped, this.leftSplitLine1, this.rightSplitLine1, this.titleInBag, this.leftSplitLine2, this.rightSplitLine2, this.goBackBtn, this.goOnBtn, this.pageUpBtn, this.pageDownBtn, this.relicsArea];        
+        ViewUtils.multiLang(this, ...objs);
+        // 扩展背包后界面要做调整
+        if (Utils.getPlayerTotalRelicsEquippedCapacity(this.player) > 12) {
+            // 扩展高度
+            var change = 91.8;
+            var move = 70;
+            // 整体背景拉长
+            this.bg1.height += change;
+            this.relicsArea.height += change;
+            this.relicsAreaBg.height += change;
+            // 整体上移
+            objs.forEach((obj, _) => obj.y -= move);
+            // 下半部分的元素相对下移
+            var bots = [this.titleInBag, this.leftSplitLine2, this.rightSplitLine2, this.pageUpBtn, this.pageDownBtn, this.goBackBtn, this.goOnBtn];
+            bots.forEach((obj, _) => obj.y += change);
+        }
+
+        this.setEmptyGrids();
         this.refreshCommonRelics();
-        this.refreshRelicEquipped(hideLock);
+        this.refreshRelicEquipped();
         this.refreshRelicInBagArea();
     }
 
@@ -252,8 +279,8 @@ public async open(canDrag:boolean = true, funcOnClick = "showDesc", hideGoBackBt
         }
     }
 
-    private refreshRelicEquipped(hideLock) {
-        this.refreshGrids(this.rsEquipped, true, hideLock);
+    private refreshRelicEquipped() {
+        this.refreshGrids(this.rsEquipped, true);
     }
 
     private refreshRelicInBagArea() {
@@ -283,14 +310,15 @@ public async open(canDrag:boolean = true, funcOnClick = "showDesc", hideGoBackBt
         this.refreshGrids(relics, false);
     }
 
-    // 刷新格子里的遗物图像等,只刷新装备的或背包里的12个格子
-    private refreshGrids(relics: Relic[] = [], equipped:boolean, hideLock:boolean = false) {
+    // 刷新格子里的遗物图像等,只刷新装备的或背包里的格子
+    // 
+    private refreshGrids(relics: Relic[] = [], equipped:boolean) {
         if (equipped)
             var containerArr = this.equippedGrids;
         else
             var containerArr = this.inBagGrids;
 
-        for (var i = 0; i < this.ShowNum; i++) {
+        for (var i = 0; i < (equipped ? Utils.getPlayerTotalRelicsEquippedCapacity(this.player): this.ShowNum); i++) {
             var container = containerArr[i];
             container.removeChildren();
             container["index"] = i;
@@ -315,9 +343,9 @@ public async open(canDrag:boolean = true, funcOnClick = "showDesc", hideGoBackBt
                     emptyGridBg.width = emptyGridBg.height = this.GridSize;
                     container.addChild(emptyGridBg);
                 }
-                else if (!hideLock && i >= this.player.relicsEquippedCapacity) {
+                else if (i >= this.player.relicsEquippedCapacity) {
                     container["relic"] = undefined;
-                    container["elem"] = "lock";                    
+                    container["elem"] = "lock";
                     var l = ViewUtils.createBitmapByName("relicLock_png");
                     l.anchorOffsetX = l.width / 2;
                     l.anchorOffsetY = l.height / 2;

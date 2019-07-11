@@ -41,6 +41,7 @@ class Player {
     public finishedEvent = [];
     public globalEventFinishedCount = {}; // 全局事件计数
     public difficulty:string; // 游戏难度
+    public occsWait4Unlock:string[] = [];
 
     // 重新创建角色
     public static createPlayer(occ:string, diff:number):Player {
@@ -472,8 +473,9 @@ class Player {
     }
 
     // 遗物相关逻辑
+    // 装备格上限和多种因素相关
+    public relicEquippedCapacityMax = () => Utils.getPlayerTotalRelicsEquippedCapacity(this);
 
-    public relicEquippedCapacityMax = 12; // 装备格上限
     public relicsEquippedCapacity; // 遗物装备格容量
     public commonRelics:Relic[] = []; // 通用技能
     public get commonRelicTypes():string[] { 

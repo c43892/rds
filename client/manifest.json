@@ -67,6 +67,7 @@
 		"bin-debug/logic/LevelLogic/LevelLogicChangeMonster.js",
 		"bin-debug/logic/LevelLogic/LevelLogicElite.js",
 		"bin-debug/logic/LevelLogic/LevelLogicFactory.js",
+		"bin-debug/logic/LevelLogic/LevelLogicKillHalloweenTreant.js",
 		"bin-debug/Main.js",
 		"bin-debug/logic/LevelLogic/LevelLogicRandomEgg.js",
 		"bin-debug/logic/LevelLogic/LevelLogicSearchBody.js",

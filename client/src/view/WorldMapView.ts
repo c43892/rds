@@ -618,7 +618,9 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 await this.player.fireEvent("onPlayerReborn", {inBattle:false});
                 await this.player.triggerLogicPoint("onPlayerReborn", {inBattle:false});
             } else {
+                var occ = this.player.occupation;
                 await this.player.fireEvent("onPlayerDead");
+                Utils.lockOccupation(occ);
             }
         }
 

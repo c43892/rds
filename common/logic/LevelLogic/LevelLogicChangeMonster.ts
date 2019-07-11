@@ -19,19 +19,20 @@ class LevelLogicChangeMonster extends LevelLogic{
             // 部分变化属于优先的 prior是形如{type1:num1, type2:num2}的表
             if (prior){
                 for (var priorType in prior)
-                    for(var i = 0; i < prior[priorType]; i++){
-                        if(tarms.length > 0)
+                    for (var i = 0; i < prior[priorType]; i++) {
+                        if (tarms.length > 0) {
                             var target = tarms.shift();
                             var pos = target.pos;
                             var m = this.level.createElem(priorType);
-                            if (hasKey(target)){
-                                var hasKeys = Utils.filter(target.dropItems, (d:Elem) => d.type == "Key");
+                            if (hasKey(target)) {
+                                var hasKeys = Utils.filter(target.dropItems, (d: Elem) => d.type == "Key");
                                 for (var key of hasKeys)
                                     m.addDropItem(key);
                             }
-                                
+
                             await bt.implRemoveElemAt(pos.x, pos.y);
                             await bt.implAddElemAt(m, pos.x, pos.y);
+                        }
                     }
             }
 
