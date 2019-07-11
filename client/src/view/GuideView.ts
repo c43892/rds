@@ -826,6 +826,7 @@ class GuideView extends egret.DisplayObjectContainer {
     async onUnlockOccupationGuide(ps){
         var occ = ps.occ;
         await this.showDialog(occ, ViewUtils.getTipText(GCfg.getOccupationCfg(occ).name), ViewUtils.getTipText("onUnlockOccupationGuide01"), 0, 550, true);
+        await this.showDialog(occ, ViewUtils.getTipText(GCfg.getOccupationCfg(occ).name), ViewUtils.getTipText("onUnlockOccupationGuide02"), 0, 550, true);
     }
 
     // 新手击败boss
