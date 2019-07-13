@@ -707,17 +707,20 @@ class GridView extends egret.DisplayObjectContainer {
 
         if (!GridView.pressTimer) {
             GridView.pressTimer = new egret.Timer(GridView.LongPressThreshold, 1);
-            GridView.pressTimer.addEventListener(egret.TimerEvent.TIMER, GridView.onPressTimer, this);
+            GridView.pressTimer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, GridView.onPressTimer, this);
         }
 
         GridView.pressTimer.start();
+        Utils.log("start timer");
         GridView.checkOutPhrase();
     }
 
     static async onPressTimer() {
+        Utils.log("on timer");
         if (!GridView.pressed)
             return;
 
+        Utils.log("on timer 2");
         GridView.longPressed = true;
         GridView.pressTimer.stop();
 
