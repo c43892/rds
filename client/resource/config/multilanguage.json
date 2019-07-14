@@ -657,8 +657,10 @@
 		"openAvatarView03":{"EN": "", "CNS": "点击返回让我们回到战斗", "CNT": "點擊返回讓我們回到戰鬥"},
 		"onUnlockOccupationGuide01":{"EN": "", "CNS": "我的朋友，你终于来了，我为万圣节树妖关在这里好久了", "CNT": "我的朋友，你終於來了，我為萬聖節樹妖關在這裡好久了"},
 		"onUnlockOccupationGuide02":{"EN": "", "CNS": "感谢你的拯救，你可以在初始界面选择我与你并肩战斗", "CNT": "感謝你的拯救，你可以在初始介面選擇我與你並肩戰鬥"},
-		"rookieKillBoss01":{"EN": "", "CNS": "新手击败boss对话01", "CNT": "新手击败boss对话01"},
-		"killHalloweenTreantFirstTime01":{"EN": "", "CNS": "首次击杀树妖对话01", "CNT": "首次击杀树妖对话01"},
+		"rookieKillBoss01":{"EN": "", "CNS": "                             园艺师被我抓走了", "CNT": "新手击败boss对话01"},
+		"rookieKillBoss02":{"EN": "", "CNS": "护士妹子、黑帮兄弟，快来救我", "CNT": "護士妹子、黑幫兄弟，快來救我"},
+		"killHalloweenTreantFirstTime01":{"EN": "", "CNS": "我终于得救了，谢谢", "CNT": "我終於得救了，謝謝"},
+		"killHalloweenTreantFirstTime02":{"EN": "", "CNS": "作为感谢，我可以帮助你战斗一次", "CNT": "作為感謝，我可以幫助妳戰鬥壹次"},
 		"occLocked":{"EN": "this occupation is locked", "CNS": "该职业未解锁", "CNT": "該職業未解鎖"},
 		"occLockedContent":{"EN": "pay to unlock?", "CNS": "是否支付X元永久解锁该职业,可在游戏内营救该职业进行解锁,但死亡后会被重新锁定", "CNT": "是否支付X元永久解锁该职业,可在游戏内营救该职业进行解锁,但死亡后会被重新锁定"},
 		"": {}

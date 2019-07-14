@@ -792,9 +792,9 @@ class GuideView extends egret.DisplayObjectContainer {
     async rookiePlay5(bt:Battle) {
         await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay501"), 0, 550, true);
         await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay502"), 0, 550, true);
-        await this.showDialog("Gardener", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("rookiePlay503"), 0, 550, true);
-        await this.showDialog("Gardener", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("rookiePlay504"), 0, 550, true);
-        await this.showDialog("Gardener", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("rookiePlay505"), 0, 550, true);
+        await this.showDialog("Horticulturist", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("rookiePlay503"), 0, 550, true);
+        await this.showDialog("Horticulturist", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("rookiePlay504"), 0, 550, true);
+        await this.showDialog("Horticulturist", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("rookiePlay505"), 0, 550, true);
         await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay506"), 0, 550, true);    
     }
 
@@ -831,14 +831,17 @@ class GuideView extends egret.DisplayObjectContainer {
 
     // 新手击败boss
     async rookieKillBoss(ps){
-        await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookieKillBoss01"), 0, 550, true);
+        await this.showDialog("HalloweenTreant", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookieKillBoss01"), 0, 550, true);
+         await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookieKillBoss02"), 0, 550, true);       
     }
 
     // 首次击败树妖
     async killHalloweenTreantFirstTime(ps){
         var p:Player = ps.e.bt().player;
-        var occ = p.occupation;        
-        
-        await this.showDialog(occ, ViewUtils.getTipText(GCfg.getOccupationCfg(occ).name), ViewUtils.getTipText("killHalloweenTreantFirstTime01"), 0, 550, true);
+        var occ = p.occupation;
+
+        await this.showDialog("Horticulturist", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("killHalloweenTreantFirstTime01"), 0, 550, true);
+        await this.showDialog("Horticulturist", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("killHalloweenTreantFirstTime02"), 0, 550, true);
+        //await this.showDialog(occ, ViewUtils.getTipText(GCfg.getOccupationCfg(occ).name), ViewUtils.getTipText("killHalloweenTreantFirstTime01"), 0, 550, true);
     }
 }
