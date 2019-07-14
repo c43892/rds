@@ -76,6 +76,7 @@ class MainView extends egret.DisplayObjectContainer {
 
         // 角色选择界面
         this.osv = new OccupationSelView(w, h);
+        this.osv.confirmOkYesNo = async (title, content, yesno:boolean) => await this.confirmOkYesNo(title, content, yesno);
 
         // 设置界面
         this.st = new SettingView(w, h);
@@ -472,6 +473,7 @@ class MainView extends egret.DisplayObjectContainer {
         // Utils.removeLocalData("occupationExp"); // 删除职业解锁进度
         // Utils.removeLocalData("playerName"); // 删除玩家名
         // Utils.removeLocalData("unlockedOccupations"); // 删除职业解锁信息
+        // Utils.removeLocalData("occupationsUnlockForever"); // 删除职业永久解锁信息
 
         this.p = p;
         this.lgv.player = p;

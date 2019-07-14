@@ -25,6 +25,10 @@ class OccupationSelView extends egret.DisplayObjectContainer {
 
     diffDesc:LevelDiffDescView; // 难度详情
 
+    confirmOkYesNo; // 确认界面
+
+    public static wait2PlayOccAni = [];
+
     public constructor(w:number, h:number) {
         super();
 
@@ -167,6 +171,8 @@ class OccupationSelView extends egret.DisplayObjectContainer {
                 this.occAvatarBgLst[i].onClicked = () => {
                     if(Utils.isUnlockedOccupation(occ))
                         this.selOcc(occ);
+                    else
+                        this.clickLockedOcc(occ);
                 };
 
                 var c = this.occAvatarLst[i];
@@ -175,9 +181,10 @@ class OccupationSelView extends egret.DisplayObjectContainer {
                 occImg.height = c.height;
                 occImg.x = occImg.y = 0;                
 
-                if(!Utils.isActivated(occ))
-                    this.occAvatarBgLst[i].enabled = false;
-                else if(Utils.isUnlockedOccupation(occ)){
+                // if(!Utils.isActivated(occ))
+                //     this.occAvatarBgLst[i].enabled = false;
+                // else 
+                if(Utils.isUnlockedOccupation(occ)){
                     c.addChild(occImg);
                     ViewUtils.makeGray(this.occAvatarLst[i], false);
                     ViewUtils.makeGray(this.occAvatarBgLst[i], false);
@@ -243,5 +250,49 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         this.diffFlagDesc.height = this.diffFlagBg.height - 12;
         this.diffFlagDesc.textAlign = egret.HorizontalAlign.CENTER;
         this.diffFlagDesc.verticalAlign = egret.VerticalAlign.MIDDLE;
+    }
+
+    // 点击未解锁职业
+    async clickLockedOcc(occ: string) {
+        var yesno = await this.confirmOkYesNo(ViewUtils.getTipText("occLocked"), ViewUtils.getTipText("occLockedContent"), true);
+        if (yesno) {
+            // 此处等待支付回调
+            var paid = true;
+            if(paid)
+                this.pay2Unlock(occ);
+        }
+    }
+
+    // 付费永久解锁相关
+    async pay2Unlock(occ: string) {
+        var i = Utils.indexOf(this.occArr, (o) => o == occ);
+        var occAvatar = this.occAvatarBgLst[i];
+        await this.playUnlockOccupationAni(occAvatar);
+        Utils.unlockOccupationForever(occ);
+        this.refresh();
+        this.selOcc(occ);
+    }
+
+    // 播放职业永久解锁动画
+    async playUnlockOccupationAni(occAvatar:TextButtonWithBg){
+        var bg = ViewUtils.createBitmapByName("translucent_png");
+        bg.width = this.width;
+        bg.height = this.height;
+        bg.touchEnabled = true;
+        bg.alpha = 0;
+        AniUtils.ac.addChild(bg);
+        var ended = false;
+        var ske = ViewUtils.createSkeletonAni("zhujuejiesuo", () => ended = true);
+        var d = ske.display;
+
+        var pos = AniUtils.ani2global(occAvatar);
+        d.x = pos.x + 141;
+        d.y = pos.y + 190;
+        AniUtils.ac.addChild(d);
+        ske.animation.play("stand", 1);
+        await Utils.waitUtil(() => ended);
+        ske["stop"]();
+        AniUtils.ac.removeChild(d);
+        AniUtils.ac.removeChild(bg);
     }
 }

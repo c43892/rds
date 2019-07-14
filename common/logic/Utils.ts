@@ -995,7 +995,7 @@ class Utils {
     // 初始化职业解锁信息
     public static initOccupationsUnlockInfo() {
         if (!Utils.loadLocalData("unlockedOccupations"))
-            Utils.saveLocalData("unlockedOccupations", ["Rogue", "Nurse"]);
+            Utils.saveLocalData("unlockedOccupations", []);
     }
 
     // 获取开放的所有职业
@@ -1006,7 +1006,15 @@ class Utils {
     // 获取当前可用职业
     public static getUnlockedOccupations(): string[] {
         Utils.initOccupationsUnlockInfo();
-        return Utils.loadLocalData("unlockedOccupations");
+        Utils.initOccupationsUnlockForeverInfo();
+
+        var occs: string[] = Utils.loadLocalData("unlockedOccupations");
+        var occsF: string[] = Utils.loadLocalData("occupationsUnlockForever");
+        for (var oF of occsF)
+            if (Utils.indexOf(occs, (o) => o == oF) == -1)
+                occs.push(oF);
+
+        return occs;
     }
 
     // 获取当前可以用于解锁的职业
@@ -1032,6 +1040,24 @@ class Utils {
 
         unlocked.push(occ);
         Utils.saveLocalData("unlockedOccupations", unlocked);
+    }
+
+    // 永久解锁一个职业,用于付费解锁
+    public static unlockOccupationForever(occ:string){
+        if(!Utils.isActivated(occ))
+            Utils.activateOccupation(occ);
+
+        var occs:string[] = Utils.loadLocalData("occupationsUnlockForever");
+        if(Utils.indexOf(occs, (o) => o == occ) == -1)
+            occs.push(occ);
+
+        Utils.saveLocalData("occupationsUnlockForever", occs);
+    }
+
+    // 初始化永久解锁信息
+    public static initOccupationsUnlockForeverInfo(){
+        if (!Utils.loadLocalData("occupationsUnlockForever"))
+            Utils.saveLocalData("occupationsUnlockForever", ["Rogue", "Nurse"]);
     }
 
     // 锁定一个职业

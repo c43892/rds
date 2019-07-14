@@ -659,6 +659,8 @@
 		"onUnlockOccupationGuide02":{"EN": "", "CNS": "感谢你的拯救，你可以在初始界面选择我与你并肩战斗", "CNT": "感謝你的拯救，你可以在初始介面選擇我與你並肩戰鬥"},
 		"rookieKillBoss01":{"EN": "", "CNS": "新手击败boss对话01", "CNT": "新手击败boss对话01"},
 		"killHalloweenTreantFirstTime01":{"EN": "", "CNS": "首次击杀树妖对话01", "CNT": "首次击杀树妖对话01"},
+		"occLocked":{"EN": "this occupation is locked", "CNS": "该职业未解锁", "CNT": "該職業未解鎖"},
+		"occLockedContent":{"EN": "pay to unlock?", "CNS": "是否支付X元永久解锁该职业,可在游戏内营救该职业进行解锁,但死亡后会被重新锁定", "CNT": "是否支付X元永久解锁该职业,可在游戏内营救该职业进行解锁,但死亡后会被重新锁定"},
 		"": {}
 	}
 }
