@@ -69,7 +69,7 @@
         "EconomyMagazine":{"name":"金融雜誌", "desc":["每次點擊獲得1經驗值及2金錢"]},
         "Shield":{"name":"盾牌", "desc":["<font color=#000000 size=20>抵擋一次攻擊傷害，冷卻時間3回合"]},
         "HeadBone":{"name":"骷髏頭", "desc":["<font color=#000000 size=20>每當你被怪物突襲時，骷髏王都會原地復活"]},
-        "Prison":{"name":"监狱", "desc":["一个密室"]},
+        "Prison":{"name":"密室", "desc":["一个密室"]},
 
         "DeathGod":{"name":"死神", "desc":[
             "<font color=#7d0403 bold=true size=21>漂浮</font>\n<font color=#000000 bold=false size=20>每回合都會移動位置</font>",
@@ -388,7 +388,7 @@
         "GoldenHand":{"name":"点金之手", "desc":["<font color=#000000 size=20>可以将怪物转化为</font> <font color=#294c22 size=20> {dropNum} </font>金钱，还可以使用</font> <font color=#294c22 size=20> {cnt} </font>次</font>"],
             "useDescArr":["<font color=#e4d5a5 size=25>可以将怪物转化为</font><font color=#56ba42 size=25> {dropNum} </font><font color=#e4d5a5 size=25>金钱，还可以使用</font><font color=#56ba42 size=25> {cnt} </font><font color=#e4d5a5 size=25>次</font>", "<font color=#e4d5a5 size=25>点金之手（点击目标怪物使用）</font>"]},
         "HeadBone":{"name":"骷髅头", "desc":["<font color=#000000 size=20>每当你被怪物突袭时，骷髅王都会原地复活</font>"]},
-        "Prison":{"name":"监狱", "desc":["<font color=#000000 size=20>你的同伴被关在了里面</font>"]},
+        "Prison":{"name":"密室", "desc":["<font color=#000000 size=20>你的同伴被关在了里面</font>"]},
         "OpenRelicSpace":{"name":"技能格", "desc":["<font color=#000000 bold=false size=20>增加一个技能装备格</font>"]},
 
         "DeathGod":{"name":"死神", "desc":[
@@ -805,7 +805,7 @@
         "GoldenHand":{"name":"點金之手", "desc":["<font color=#000000 size=20>可以將怪物轉化為</font> <font color=#294c22 size=20> {dropNum} </font>金錢，還可以使用</font> <font color=#294c22 size=20> {cnt} </font>次</font>"],
             "useDescArr":["<font color=#e4d5a5 size=25>可以將怪物轉化為</font><font color=#56ba42 size=25> {dropNum} </font><font color=#e4d5a5 size=25>金錢，還可以使用</font><font color=#56ba42 size=25> {cnt} </font><font color=#e4d5a5 size=25>次</font>", "<font color=#e4d5a5 size=25>點金之手（點擊目標怪物使用）</font>"]},
         "HeadBone":{"name":"骷髏頭", "desc":["<font color=#000000 size=20>每當你被怪物突襲時，骷髏王都會原地復活</font>"]},
-        "Prison":{"name":"監獄", "desc":["<font color=#000000 size=20>你的同伴被關在裡面</font>"]},
+        "Prison":{"name":"密室", "desc":["<font color=#000000 size=20>你的同伴被關在裡面</font>"]},
         "OpenRelicSpace":{"name":"技能格", "desc":["<font color=#000000 bold=false size=20>增加一個技能裝備格</font>"]},
 
         "DeathGod":{"name":"死神", "desc":[
