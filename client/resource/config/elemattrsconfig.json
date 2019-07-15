@@ -218,7 +218,7 @@
         "useWithConfirm":true, "tags":["plant"], "noNewMonsterTip":true,
         "useTipContent":"useSunflower"
         },
-    "CharmingMushroom":{"name":"魅惑菇", "hp":10, 
+    "CharmingMushroom":{"name":"魅惑菇", "hp":10, "cnt":1,
         "level2AddPower":1, "level3AddHp":2, "level4AddCritical":10, "level5AddDodge":10,
         "useWithTarget":true, "tags":["plant"], "noNewMonsterTip":true},
     "CharmedMonster":{},

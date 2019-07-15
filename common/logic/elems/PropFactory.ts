@@ -159,14 +159,27 @@ class PropFactory {
                 e.canUseAt = (x:number, y:number) => {
                     var map = e.bt().level.map;
                     var tog:Grid = map.getGridAt(x, y);
-                    var toe:Elem = map.getElemAt(x, y);
-                    return (!tog.isCovered() || tog.isMarked()) && toe && toe instanceof Monster && !toe.isBig() && !toe.isElite && toe.isHazard() 
-                    && toe.type != "PlaceHolder";
+                    var toe: Elem = map.getElemAt(x, y);
+                    if ((!tog.isCovered() || tog.isMarked()) && toe && toe instanceof Monster && !toe.isBig() && !toe.isElite && toe.isHazard()
+                        && toe.type != "PlaceHolder")
+                        return true;
+                    else if(!tog.isCovered() && toe && toe instanceof Plant)
+                        return true;
                 };
-                e.useAt = async (x:number, y:number) => {
+                e.useAt = async (x: number, y: number) => {
                     e.resetCD();
                     e.cnt --;
-                    await e.bt().implChange2Plant(x, y);
+                    var map = e.bt().level.map;
+                    var tog:Grid = map.getGridAt(x, y);
+                    var toe: Elem = map.getElemAt(x, y);
+                    // 对敌对怪物使用,将目标变成植物
+                    if ((!tog.isCovered() || tog.isMarked()) && toe && toe instanceof Monster && !toe.isBig() && !toe.isElite && toe.isHazard()
+                        && toe.type != "PlaceHolder")
+                        await e.bt().implChange2Plant(toe);
+                    // 对自己的植物使用,触发不同效果
+                    else if(!tog.isCovered() && toe && toe instanceof Plant)
+                        await e.bt().implUseNaturePotionOnPlant(toe);
+
                     return e.cnt > 0;
                 };
                 return e;
