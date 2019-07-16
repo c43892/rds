@@ -831,8 +831,9 @@ class GuideView extends egret.DisplayObjectContainer {
 
     // 新手击败boss
     async rookieKillBoss(ps){
-        await this.showDialog("HalloweenTreant", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookieKillBoss01"), 0, 550, true);
-         await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookieKillBoss02"), 0, 550, true);       
+        await this.showDialog("HalloweenTreant", ViewUtils.getTipText("halloweenTreant"), ViewUtils.getTipText("rookieKillBoss01"), 0, 550, true);    
+        //await this.showDialog("HalloweenTreant", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookieKillBoss01"), 0, 550, true);
+         await this.showDialog("Horticulturist", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("rookieKillBoss02"), 0, 550, true);       
     }
 
     // 首次击败树妖
