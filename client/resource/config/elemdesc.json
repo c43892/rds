@@ -31,8 +31,8 @@
             "shortDesc":"每層額外增加一件防護服"},
         "BookMaster":{"name":"圖書大師", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每層額外增加一本書</font>"],
             "shortDesc":"每層額外增加一本書"},
-        "TradeMaster":{"name":"交易大師", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>你購買物品的價格優惠5%</font>"],
-            "shortDesc":"你購買物品的價格優惠5%"},
+        "TradeMaster":{"name":"交易大師", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>你購買道具的價格優惠5%</font>"],
+            "shortDesc":"你購買道具的價格優惠5%"},
         "TreasureBoxDetector":{"name":"寶箱探測", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每進入一層新的戰鬥地圖，都可以標記一個寶箱的位置</font>"],
             "shortDesc":"每進入一層新的戰鬥地圖，都可以標記一個寶箱的位置"},
         "KnifeMaster":{"name":"飛刀大師", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每場戰鬥增加一把飛刀，飛刀造成的傷害+X</font>"],
@@ -41,14 +41,14 @@
             "shortDesc":"每場戰鬥開始時標記X個怪物"},
         "KnifeProficient":{"name":"飛刀專精", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每場戰鬥增加一把飛刀，飛刀攻擊時無視護甲</font>"],
             "shortDesc":"每場戰鬥增加一把飛刀，飛刀攻擊時無視護甲"},
-        "ExploreEnhanced":{"name":"探索強化", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每當你殺死一隻怪物，則隨機顯示一件物品的位置</font>"],
-            "shortDesc":"每當你殺死一隻怪物，則隨機顯示一件物品的位置"},
+        "ExploreEnhanced":{"name":"探索強化", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每當你殺死一隻怪物，則隨機顯示一件道具的位置</font>"],
+            "shortDesc":"每當你殺死一隻怪物，則隨機顯示一件道具的位置"},
         "HorticultureProficient":{"name":"園藝專精", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每場戰鬥增加一個蘋果，每次使用蘋果額外回復一點生命</font>"],
             "shortDesc":"每層都可以獲得植物的援助"},
         "SmellEnhanced":{"name":"嗅覺強化", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>你知道所有食物的位置</font>"],
             "shortDesc":"你知道所有食物的位置"},
-        "Storer":{"name":"囤積居奇", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每當離開一場戰鬥地圖，都可以帶走隨機一件非金錢物品到下一場戰鬥</font>"],
-            "shortDesc":"每當離開一場戰鬥地圖，都可以帶走隨機一件非金錢物品到下一場戰鬥"},
+        "Storer":{"name":"囤積居奇", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每當離開一場戰鬥地圖，都可以帶走隨機一件非金錢道具到下一場戰鬥</font>"],
+            "shortDesc":"每當離開一場戰鬥地圖，都可以帶走隨機一件非金錢道具到下一場戰鬥"},
         "ShieldProficient":{"name":"盾牌專精", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每場戰鬥增加一面盾牌，盾牌的恢復時間減少一回合</font>"],
             "shortDesc":"每場戰鬥增加一面盾牌，盾牌的恢復時間減少一回合"},
         "HorticultureMaster":{"name":"園藝大師", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每層都可以獲得植物的援助，技能升級後植物可以獲得更強的能力</font>"],
@@ -145,7 +145,7 @@
             "<font color=#7d0403 bold=true size=21>不死</font>\n<font color=#000000 bold=false size=20>每當被其他怪物突襲時復活</font>"
         ]},
         "SwatheZombie":{"name":"纏繞僵屍", "desc":[
-            "<font color=#7d0403 bold=true size=21>纏繞</font>\n<font color=#000000 bold=false size=20>突襲時鎖定三項已顯形物品，死亡後才可解鎖</font>",
+            "<font color=#7d0403 bold=true size=21>纏繞</font>\n<font color=#000000 bold=false size=20>突襲時鎖定三項已顯形道具，死亡後才可解鎖</font>",
             "<font color=#7d0403 bold=true size=21>劇毒</font>\n<font color=#000000 bold=false size=20>攻擊附帶2層中毒</font>"
         ]},
         "BoxMonster":{"name":"憤怒寶箱", "desc":[
@@ -271,7 +271,7 @@
                 "initialDesc":"你无法抵抗大自然的力量"},
         "Baton":{"name":"劍", "desc":["<font color=#000000 bold=false size=20>在5回合內，攻擊力+1，怪物無法反擊</font>"]},
         "Vest":{"name":"防護服", "desc":["<font color=#000000 bold=false size=20>降低敵人1點的攻擊</font>"]},
-        "Cocoon":{"name":"繭", "desc":["<font color=#000000 bold=false size=20>被繭包裹的物品無法使用</font>"]},
+        "Cocoon":{"name":"繭", "desc":["<font color=#000000 bold=false size=20>被繭包裹的道具無法使用</font>"]},
         "WantedOrder":{"name":"通緝令", "desc":["<font color=#000000 bold=false size=20>標記一個隨機怪物，掉落金錢變為10倍</font>"]},
         "Cloak":{"name":"披風", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>免疫一次敵方突襲效果</font>"]},
         "DeluxeMeal":{"name":"生命之泉", "desc":[""]},
@@ -286,7 +286,7 @@
 		"initialDesc":"<font color=#000000 size=28>离开每层时回复 3/6/9/12/15点生命值。</font>"},
 		"GangMember":{"name":"黑帮", "desc":[
            " <font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>可以抢劫商店和事件NPC</font>",
-           " <font color=#3333cc size=20>注释</font>\n<font color=#000000 size=20>lv1：可以抢劫智能机械管家，抢到一件物品</font>\n<font color=#000000 size=20>lv2：可以抢劫部分？事件</font>\n<font color=#000000 size=20>lv3：可以抢劫大地图商人，抢到一件物品</font>\n<font color=#000000 size=20>lv4：抢劫智能机械管家时，50%的几率获得两件物品</font>\n<font color=#000000 size=20>lv5：抢劫大地图商人时，25%的几率获得一件额外的物品</font>"],
+           " <font color=#3333cc size=20>注释</font>\n<font color=#000000 size=20>lv1：可以抢劫智能机械管家，抢到一件道具</font>\n<font color=#000000 size=20>lv2：可以抢劫部分？事件</font>\n<font color=#000000 size=20>lv3：可以抢劫大地图商人，抢到一件道具</font>\n<font color=#000000 size=20>lv4：抢劫智能机械管家时，50%的几率获得两件道具</font>\n<font color=#000000 size=20>lv5：抢劫大地图商人时，25%的几率获得一件额外的道具</font>"],
         "shortDesc":"可以抢劫商店和事件NPC",
 		"initialDesc":"<font color=#000000 size=28>可以抢劫商店和事件NPC</font>。"},
         "Endurance":{"name":"耐力强化", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>耐力：增加</font><font color=#294c22 size=20> {dMaxHp} </font><font color=#000000 size=20>点最大生命值</font>"], 
@@ -315,8 +315,8 @@
             "shortDesc":"每层额外增加一件防护服,额外降低一点敌人的攻击力"},
         "BookMaster":{"name":"图书大师", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>每层额外增加一本书，阅读时额外增加{dexp}点经验</font>"],
             "shortDesc":"每层额外增加一本书,阅读时额外增加{dexp}点经验"},
-        "TradeMaster":{"name":"交易大师", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>你购买物品的价格优惠</font><font color=#294c22 size=20> {discount}%</font>"],
-            "shortDesc":"你购买物品的价格优惠5%"},
+        "TradeMaster":{"name":"交易大师", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>你购买道具的价格优惠</font><font color=#294c22 size=20> {discount}%</font>"],
+            "shortDesc":"你购买道具的价格优惠5%"},
         "TreasureBoxDetector":{"name":"宝箱探测", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>每进入一层新的战斗地图，都可以标记一个宝箱的位置</font>"],
             "shortDesc":"进入战斗地图，都可以标记一个宝箱的位置"},
         "KnifeMaster":{"name":"飞刀大师", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>每场战斗增加一把飞刀，飞刀造成的伤害+</font><font color=#294c22 size=20> {dpower}</font>"],
@@ -325,14 +325,14 @@
             "shortDesc":"每场战斗开始时标记1个怪物"},
         "KnifeProficient":{"name":"飞刀专精", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>每场战斗增加一把飞刀，飞刀攻击时无视护甲</font>"],
             "shortDesc":"每场战斗增加一把飞刀，飞刀无视护甲"},
-        "ExploreEnhanced":{"name":"探索强化", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>每当你杀死一只怪物，则随机显示一件物品的位置</font>"],
-            "shortDesc":"每当你杀死一只怪物，则显示一件物品"},
-        "HorticultureProficient":{"name":"厨艺大师", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>每场战斗增加一个苹果，每次使用苹果额外回复一点生命</font>"],
+        "ExploreEnhanced":{"name":"探索强化", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>每当你杀死一只怪物，则随机显示一件道具的位置</font>"],
+            "shortDesc":"每当你杀死一只怪物，则显示一件道具"},
+        "HorticultureProficient":{"name":"牛顿的苹果", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>每场战斗增加一个苹果，每次使用苹果额外回复一点生命</font>"],
             "shortDesc":"每场战斗增加一个苹果，苹果效果增强"},
         "SmellEnhanced":{"name":"嗅觉强化", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>你知道所有食物的位置，有{percent}%的几率使普通食物变成豪华大餐</font>"],
             "shortDesc":"你知道所有食物的位置,有{percent}%的几率使普通食物变成豪华大餐"},
-        "Storer":{"name":"囤积居奇", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>每当离开一场战斗地图，都可以带走随机一件非金钱物品到下一场战斗</font>"],
-            "shortDesc":"离开战斗地图，都可以带走一件随机物品"},
+        "Storer":{"name":"囤积居奇", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>每当离开一场战斗地图，都可以带走随机一件非金钱道具到下一场战斗</font>"],
+            "shortDesc":"离开战斗地图，都可以带走一件随机道具"},
         "ShieldProficient":{"name":"盾牌专精", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>每场战斗增加一面盾牌，盾牌的恢复时间减少{dcd}回合</font>"],
             "shortDesc":"每场战斗增加一面盾牌，盾牌恢复时间减少"},
         "HorticultureMaster":{"name":"园艺大师", "desc":["<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>每层都可以获得植物的援助，技能升级后植物可以获得更强的能力</font>"],
@@ -467,7 +467,7 @@
             "<font color=#7d0403 bold=true size=21>不死</font>\n<font color=#000000 bold=false size=20>每当被其他怪物突袭时复活</font>"
         ]},
         "SwatheZombie":{"name":"黑寡妇蜘蛛", "desc":[
-            "<font color=#7d0403 bold=true size=21>缠绕</font>\n<font color=#000000 bold=false size=20>突袭时锁定三项已显形物品，死亡后才可解锁</font>",
+            "<font color=#7d0403 bold=true size=21>缠绕</font>\n<font color=#000000 bold=false size=20>突袭时锁定三项已显形道具，死亡后才可解锁</font>",
             "<font color=#7d0403 bold=true size=21>剧毒</font>\n<font color=#000000 bold=false size=20>攻击附带中毒效果</font>"
         ], "skillNames":["缠绕"]},
         "BoxMonster":{"name":"愤怒宝箱", "desc":[
@@ -487,13 +487,13 @@
             "<font color=#7d0403 bold=true size=21>惊恐</font>\n<font color=#000000 bold=false size=20>突袭时，死神将会提前15步；现身时，你每回合失去一点生命</font>"
         ]},
         "Worm":{"name":"吞噬蠕虫", "desc":[
-            "<font color=#7d0403 bold=true size=21>暴食</font>\n<font color=#000000 bold=false size=20>突袭时，吞噬所有非钥匙的物品，攻击时吸取生命</font>"
+            "<font color=#7d0403 bold=true size=21>暴食</font>\n<font color=#000000 bold=false size=20>突袭时，吞噬所有非钥匙的道具，攻击时吸取生命</font>"
         ]},
         "Hag":{"name":"女妖", "desc":[
             "<font color=#7d0403 bold=true size=21>诱惑</font>\n<font color=#000000 bold=false size=20>现身时，你无法使用任何药水</font>"
         ]},
         "Nightmare":{"name":"梦魇兽", "desc":[
-            "<font color=#7d0403 bold=true size=21>梦魇</font>\n<font color=#000000 bold=false size=20>每次攻击摧毁一件非钥匙的物品，攻击无视防暴盾和防护服</font>"
+            "<font color=#7d0403 bold=true size=21>梦魇</font>\n<font color=#000000 bold=false size=20>每次攻击摧毁一件非钥匙的道具，攻击无视防暴盾和防护服</font>"
         ]},
         "ThunderElemental":{"name":"闪电水母", "desc":[
             "<font color=#7d0403 bold=true size=21>电击</font>\n<font color=#000000 bold=false size=20>身上围绕着闪电的怪物，受到攻击时，会同时伤害你和周围的怪物</font>"
@@ -536,16 +536,16 @@
             "<font color=#7d0403 bold=true size=21>精英</font>\n<font color=#000000 bold=false size=20>为所有怪物附加魅惑功能，突袭时死神前进10步</font>"
         ]},
         "EliteSwatheZombie":{"name":"精英黑寡妇蜘蛛", "desc":[
-            "<font color=#7d0403 bold=true size=21>缠绕</font>\n<font color=#000000 bold=false size=20>突袭时锁定三项已显形物品，死亡后才可解锁</font>",
+            "<font color=#7d0403 bold=true size=21>缠绕</font>\n<font color=#000000 bold=false size=20>突袭时锁定三项已显形道具，死亡后才可解锁</font>",
             "<font color=#7d0403 bold=true size=21>剧毒</font>\n<font color=#000000 bold=false size=20>攻击附带中毒效果</font>",
-            "<font color=#7d0403 bold=true size=21>精英</font>\n<font color=#000000 bold=false size=20>为所有怪物附加缠绕能力，突袭时可缠绕两件物品</font>"
+            "<font color=#7d0403 bold=true size=21>精英</font>\n<font color=#000000 bold=false size=20>为所有怪物附加缠绕能力，突袭时可缠绕两件道具</font>"
         ]},
         "EliteReviveZombie":{"name":"精英克苏鲁触手", "desc":[
             "<font color=#7d0403 bold=true size=21>复生</font>\n<font color=#000000 bold=false size=20>死亡后可以复活一次</font>",
             "<font color=#7d0403 bold=true size=21>精英</font>\n<font color=#000000 bold=false size=20>为所有怪物附加复生能力，死亡时会复活一次（本来能复活的怪物不会复活两次）</font>"
         ]},
         "Kraken":{"name":"克拉肯", "desc":[
-            "<font color=#7d0403 bold=true size=21>海怪吞噬</font>\n<font color=#000000 bold=false size=20>每3个回合主动攻击1次，造成2倍伤害，并随机摧毁一件非金钱的物品</font>",
+            "<font color=#7d0403 bold=true size=21>海怪吞噬</font>\n<font color=#000000 bold=false size=20>每3个回合主动攻击1次，造成2倍伤害，并随机摧毁一件非金钱的道具</font>",
             "<font color=#7d0403 bold=true size=21>深海窒息</font>\n<font color=#000000 bold=false size=20>克拉肯存在时，每回合对你造成1点伤害，无论它是否处于现身状态</font>",
             "<font color=#7d0403 bold=true size=21>狂暴</font>\n<font color=#000000 bold=false size=20>血量低于50%时，每回合都会进行海怪吞噬</font>",
             "<font color=#7d0403 bold=true size=21>深寒</font>\n<font color=#000000 bold=false size=20>无法被冰冻，受到火焰伤害时效果加倍</font>"
@@ -688,7 +688,7 @@
                 "initialDesc":"<font color=#000000 size=28>将怪物变为一个随机植物</font>"},
         "Baton":{"name":"警棍", "desc":["<font color=#000000 size=20>攻击力+</font><font color=#294c22 size=20> {powerA}</font>"]},
         "Vest":{"name":"防护服", "desc":["<font color=#000000 size=20>降低敌人</font><font color=#294c22 size=20> 1 </font><font color=#000000 size=20>点的攻击</font>"]},
-        "Cocoon":{"name":"茧", "desc":["<font color=#000000 size=20>被茧包裹的物品无法使用</font>"]},
+        "Cocoon":{"name":"茧", "desc":["<font color=#000000 size=20>被茧包裹的道具无法使用</font>"]},
         "WantedOrder":{"name":"通缉令", "desc":["<font color=#000000 size=20>标记一个随机怪物，掉落</font><font color=#294c22 size=20> 10 </font><font color=#000000 size=20>倍金钱</font>"]},
         "Cloak":{"name":"披风", "desc":["<font color=#000000 size=20>免疫一次敌方突袭效果</font>"]},
         "DeluxeMeal":{"name":"豪华大餐", "desc":["<font color=#000000 size=20>回复<font color=#294c22 size=20> 50% </font>的血量</font>"]},
@@ -703,7 +703,7 @@
 		"initialDesc":"<font color=#000000 size=28>離開每層時回復 3/6/9/12/15點生命值。</font>"},
 		"GangMember":{"name":"黑幫", "desc":[
            " <font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>可以搶劫商店和事件NPC</font>",
-           " <font color=#3333cc size=20>注釋</font>\n<font color=#000000 size=20>lv1：可以搶劫智慧機械管家，搶到一件物品</font>\n<font color=#000000 size=20>lv2：可以搶劫部分？事件</font>\n<font color=#000000 size=20>lv3：可以搶劫大地圖商人，搶到一件物品</font>\n<font color=#000000 size=20>lv4：搶劫智慧機械管家時，50%的幾率獲得兩件物品</font>\n<font color=#000000 size=20>lv5：搶劫大地圖商人時，25%的幾率獲得一件額外的物品</font>"],
+           " <font color=#3333cc size=20>注釋</font>\n<font color=#000000 size=20>lv1：可以搶劫智慧機械管家，搶到一件道具</font>\n<font color=#000000 size=20>lv2：可以搶劫部分？事件</font>\n<font color=#000000 size=20>lv3：可以搶劫大地圖商人，搶到一件道具</font>\n<font color=#000000 size=20>lv4：搶劫智慧機械管家時，50%的幾率獲得兩件道具</font>\n<font color=#000000 size=20>lv5：搶劫大地圖商人時，25%的幾率獲得一件額外的道具</font>"],
         "shortDesc":"可以搶劫商店和事件NPC",
 		"initialDesc":"<font color=#000000 size=28>可以搶劫商店和事件NPC</font>。"},
         "Endurance":{"name":"耐力強化", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>耐力：增加</font><font color=#294c22 size=20> {dMaxHp} </font><font color=#000000 size=20>點最大生命值</font>"], 
@@ -732,8 +732,8 @@
             "shortDesc":"每層額外增加一件防護服,額外降低一點敵人的攻擊力"},
         "BookMaster":{"name":"圖書大師", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每層額外增加一本書，閱讀時額外增加{dexp}點經驗</font>"],
             "shortDesc":"每層額外增加一本書,閱讀時額外增加{dexp}點經驗"},
-        "TradeMaster":{"name":"交易大師", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>你購買物品的價格優惠</font><font color=#294c22 size=20> {discount}%</font>"],
-            "shortDesc":"你購買物品的價格優惠5%"},
+        "TradeMaster":{"name":"交易大師", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>你購買道具的價格優惠</font><font color=#294c22 size=20> {discount}%</font>"],
+            "shortDesc":"你購買道具的價格優惠5%"},
         "TreasureBoxDetector":{"name":"寶箱探測", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每進入一層新的戰鬥地圖，都可以標記一個寶箱的位置</font>"],
             "shortDesc":"進入戰鬥地圖，都可以標記一個寶箱的位置"},
         "KnifeMaster":{"name":"飛刀大師", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每場戰鬥增加一把飛刀，飛刀造成的傷害+</font><font color=#294c22 size=20> {dpower}</font>"],
@@ -742,14 +742,14 @@
             "shortDesc":"每場戰鬥開始時標記1個怪物"},
         "KnifeProficient":{"name":"飛刀專精", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每場戰鬥增加一把飛刀，飛刀攻擊時無視護甲</font>"],
             "shortDesc":"每場戰鬥增加一把飛刀，飛刀無視護甲"},
-        "ExploreEnhanced":{"name":"探索強化", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每當你殺死一隻怪物，則隨機顯示一件物品的位置</font>"],
-            "shortDesc":"每當你殺死一隻怪物，則顯示一件物品"},
-        "HorticultureProficient":{"name":"廚藝大師", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每場戰鬥增加一個蘋果，每次使用蘋果額外回復一點生命</font>"],
+        "ExploreEnhanced":{"name":"探索強化", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每當你殺死一隻怪物，則隨機顯示一件道具的位置</font>"],
+            "shortDesc":"每當你殺死一隻怪物，則顯示一件道具"},
+        "HorticultureProficient":{"name":"牛頓的蘋果", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每場戰鬥增加一個蘋果，每次使用蘋果額外回復一點生命</font>"],
             "shortDesc":"每場戰鬥增加一個蘋果，蘋果效果增強"},
         "SmellEnhanced":{"name":"嗅覺強化", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>你知道所有食物的位置，有{percent}%的幾率使普通食物變成豪華大餐</font>"],
             "shortDesc":"你知道所有食物的位置,有{percent}%的幾率使普通食物變成豪華大餐"},
-        "Storer":{"name":"囤積居奇", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每當離開一場戰鬥地圖，都可以帶走隨機一件非金錢物品到下一場戰鬥</font>"],
-            "shortDesc":"離開戰鬥地圖，都可以帶走一件隨機物品"},
+        "Storer":{"name":"囤積居奇", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每當離開一場戰鬥地圖，都可以帶走隨機一件非金錢道具到下一場戰鬥</font>"],
+            "shortDesc":"離開戰鬥地圖，都可以帶走一件隨機道具"},
         "ShieldProficient":{"name":"盾牌專精", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每場戰鬥增加一面盾牌，盾牌的恢復時間減少{dcd}回合</font>"],
             "shortDesc":"每場戰鬥增加一面盾牌，盾牌恢復時間減少"},
         "HorticultureMaster":{"name":"園藝大師", "desc":["<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每層都可以獲得植物的援助，技能升級後植物可以獲得更強的能力</font>"],
@@ -884,7 +884,7 @@
             "<font color=#7d0403 bold=true size=21>不死</font>\n<font color=#000000 bold=false size=20>每當被其他怪物突襲時復活</font>"
         ]},
         "SwatheZombie":{"name":"黑寡婦蜘蛛", "desc":[
-            "<font color=#7d0403 bold=true size=21>纏繞</font>\n<font color=#000000 bold=false size=20>突襲時鎖定三項已顯形物品，死亡後才可解鎖</font>",
+            "<font color=#7d0403 bold=true size=21>纏繞</font>\n<font color=#000000 bold=false size=20>突襲時鎖定三項已顯形道具，死亡後才可解鎖</font>",
             "<font color=#7d0403 bold=true size=21>劇毒</font>\n<font color=#000000 bold=false size=20>攻擊附帶中毒效果</font>"
         ], "skillNames":["纏繞"]},
         "BoxMonster":{"name":"憤怒寶箱", "desc":[
@@ -904,13 +904,13 @@
             "<font color=#7d0403 bold=true size=21>驚恐</font>\n<font color=#000000 bold=false size=20>突襲時，死神將會提前15步；現身時，你每回合失去一點生命</font>"
         ]},
         "Worm":{"name":"吞噬蠕蟲", "desc":[
-            "<font color=#7d0403 bold=true size=21>暴食</font>\n<font color=#000000 bold=false size=20>突襲時，吞噬所有非鑰匙的物品，攻擊時吸取生命</font>"
+            "<font color=#7d0403 bold=true size=21>暴食</font>\n<font color=#000000 bold=false size=20>突襲時，吞噬所有非鑰匙的道具，攻擊時吸取生命</font>"
         ]},
         "Hag":{"name":"女妖", "desc":[
             "<font color=#7d0403 bold=true size=21>誘惑</font>\n<font color=#000000 bold=false size=20>現身時，你無法使用任何藥水</font>"
         ]},
         "Nightmare":{"name":"夢魘獸", "desc":[
-            "<font color=#7d0403 bold=true size=21>夢魘</font>\n<font color=#000000 bold=false size=20>每次攻擊摧毀一件非鑰匙的物品，攻擊無視防暴盾和防護服</font>"
+            "<font color=#7d0403 bold=true size=21>夢魘</font>\n<font color=#000000 bold=false size=20>每次攻擊摧毀一件非鑰匙的道具，攻擊無視防暴盾和防護服</font>"
         ]},
         "ThunderElemental":{"name":"閃電水母", "desc":[
             "<font color=#7d0403 bold=true size=21>電擊</font>\n<font color=#000000 bold=false size=20>身上圍繞著閃電的怪物，受到攻擊時，會同時傷害你和周圍的怪物</font>"
@@ -953,16 +953,16 @@
             "<font color=#7d0403 bold=true size=21>精英</font>\n<font color=#000000 bold=false size=20>為所有怪物附加魅惑功能，突襲時死神前進10步</font>"
         ]},
         "EliteSwatheZombie":{"name":"精英黑寡婦蜘蛛", "desc":[
-            "<font color=#7d0403 bold=true size=21>纏繞</font>\n<font color=#000000 bold=false size=20>突襲時鎖定三項已顯形物品，死亡後才可解鎖</font>",
+            "<font color=#7d0403 bold=true size=21>纏繞</font>\n<font color=#000000 bold=false size=20>突襲時鎖定三項已顯形道具，死亡後才可解鎖</font>",
             "<font color=#7d0403 bold=true size=21>劇毒</font>\n<font color=#000000 bold=false size=20>攻擊附帶中毒效果</font>",
-            "<font color=#7d0403 bold=true size=21>精英</font>\n<font color=#000000 bold=false size=20>為所有怪物附加纏繞能力，突襲時可纏繞兩件物品</font>"
+            "<font color=#7d0403 bold=true size=21>精英</font>\n<font color=#000000 bold=false size=20>為所有怪物附加纏繞能力，突襲時可纏繞兩件道具</font>"
         ]},
         "EliteReviveZombie":{"name":"精英克蘇魯觸手", "desc":[
             "<font color=#7d0403 bold=true size=21>複生</font>\n<font color=#000000 bold=false size=20>死亡後可以復活一次</font>",
             "<font color=#7d0403 bold=true size=21>精英</font>\n<font color=#000000 bold=false size=20>為所有怪物附加複生能力，死亡時會復活一次（本來能復活的怪物不會復活兩次）</font>"
         ]},
         "Kraken":{"name":"克拉肯", "desc":[
-            "<font color=#7d0403 bold=true size=21>海怪吞噬</font>\n<font color=#000000 bold=false size=20>每3個回合主動攻擊1次，造成2倍傷害，並隨機摧毀一件非金錢的物品</font>",
+            "<font color=#7d0403 bold=true size=21>海怪吞噬</font>\n<font color=#000000 bold=false size=20>每3個回合主動攻擊1次，造成2倍傷害，並隨機摧毀一件非金錢的道具</font>",
             "<font color=#7d0403 bold=true size=21>深海窒息</font>\n<font color=#000000 bold=false size=20>克拉肯存在時，每回合對你造成1點傷害，無論它是否處於現身狀態</font>",
             "<font color=#7d0403 bold=true size=21>狂暴</font>\n<font color=#000000 bold=false size=20>血量低於50%時，每回合都會進行海怪吞噬</font>",
             "<font color=#7d0403 bold=true size=21>深寒</font>\n<font color=#000000 bold=false size=20>無法被冰凍，受到火焰傷害時效果加倍</font>"
@@ -1105,7 +1105,7 @@
                 "initialDesc":"<font color=#000000 size=28>將怪物變為一個隨機植物</font>"},
         "Baton":{"name":"警棍", "desc":["<font color=#000000 size=20>攻擊力+</font><font color=#294c22 size=20> {powerA}</font>"]},
         "Vest":{"name":"防護服", "desc":["<font color=#000000 size=20>降低敵人</font><font color=#294c22 size=20> 1 </font><font color=#000000 size=20>點的攻擊</font>"]},
-        "Cocoon":{"name":"繭", "desc":["<font color=#000000 size=20>被繭包裹的物品無法使用</font>"]},
+        "Cocoon":{"name":"繭", "desc":["<font color=#000000 size=20>被繭包裹的道具無法使用</font>"]},
         "WantedOrder":{"name":"通緝令", "desc":["<font color=#000000 size=20>標記一個隨機怪物，掉落</font><font color=#294c22 size=20> 10 </font><font color=#000000 size=20>倍金錢</font>"]},
         "Cloak":{"name":"披風", "desc":["<font color=#000000 size=20>免疫一次敵方突襲效果</font>"]},
         "DeluxeMeal":{"name":"豪華大餐", "desc":["<font color=#000000 size=20>回復<font color=#294c22 size=20> 50% </font>的血量</font>"]},
