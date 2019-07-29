@@ -1915,7 +1915,7 @@ class AniView extends egret.DisplayObjectContainer {
     // 装备格打开效果
     public async relicsEquippedMaxNumAdded(ps) {
         var n = this.bv.player.relicsEquippedCapacity;
-        var rv = this.bv.relics[n - 1];
+        var rv = n > 12 ? this.bv.moreRelics : this.bv.relics[n - 1];
         var fromPos = ShopView.lastSelectedElemGlobalPos;
         var img = AniUtils.createImg("OpenRelicSpace_png");
         img.x = fromPos.x;
