@@ -20,6 +20,7 @@ declare interface Platform {
 
     platformType;
     openDataContext;
+    onBuyResult;
 }
 
 class DefaultPaltform implements Platform {
@@ -32,12 +33,18 @@ class DefaultPaltform implements Platform {
     // adMobAdID:string = "ca-app-pub-1800218346925652/3739720681";
 
     iOSLoadLocalStorageDataCallback;
+    onBuyResult;
     // rewardAdsCompletedCallback;
     async init() {
         if (egret.Capabilities.os == "iOS") {
             egret.ExternalInterface.addCallback("rdsLoadLocalStorageDataCallback", (str) => {
                 this.iOSLoadLocalStorageDataCallback(str);
             });
+
+            egret.ExternalInterface.addCallback("notifyBuyResult", (str) => {
+                if(this.onBuyResult)
+                    this.onBuyResult(str);
+            })
         }
 
         if (DEBUG && egret.Capabilities.os == "Windows PC") // 开发环境

@@ -77,5 +77,11 @@
         {"type":"LevelLogicChangeMonster", "ps":[["MCherryBomb", "MSunflower", "MCharmingMushroom", "MNutWall"], 63, {"MPeashooter":5}, ["MPeashooter"]]},
         {"type":"LevelLogicAddPrison"},
         {"type":"LevelLogicKillHalloweenTreant"}
+    ],
+    "titan":[
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["bossBox1", "bossBox2", "bossBox4", "bossBox5"]]}, 
+        {"type":"LevelLogicTakeKey"},
+        {"type":"LevelLogicBoss", "ps":[["Titan"]]},
+        {"type":"LevelLogicAddPrison"}
     ]
 }

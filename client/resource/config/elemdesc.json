@@ -171,6 +171,7 @@
         "Werewolf":{"name":"狼人", "desc":[]},
         "Kraken":{"name":"克拉肯", "desc":[]},
         "HalloweenTreant":{"name":"万圣节树妖", "desc":[]},
+        "Titan":{"name":"泰坦巨人", "desc":[]},
         "ShopNpc":{"name":"商人", "desc":[
             "</font><font color=#7d0403 bold=true  size=20>奸商</font>\n<font color=#000000 bold=false size=20>顧客才是我的上帝</font>"
         ]},
@@ -555,6 +556,12 @@
             "<font color=#7d0403 bold=true size=21>植物军团</font>\n<font color=#000000 bold=false size=20>将所有怪物变为植物，初始将5个随机怪物变成豌豆射手，豌豆射手将在战斗开始时自动现身，N回合攻击一次玩家（不攻击商人）</font>",
             "<font color=#7d0403 bold=true size=21>防护</font>\n<font color=#000000 bold=false size=20>血量每减少30%，则进入防护模式，为自己加上一个近乎无敌的防护罩，受到除火焰以外的任何伤害均为1，防护罩在受到3次伤害后解除</font>",
             "<font color=#7d0403 bold=true size=21>易燃</font>\n<font color=#000000 bold=false size=20>被火焰伤害会进入点燃状态，免疫中毒</font>"
+        ]},
+        "Titan":{"name":"泰坦巨人", "desc":[
+             "<font color=#7d0403 bold=true size=21>闪电风暴</font>\n<font color=#000000 bold=false size=20>每3个回合主动攻击1次，该攻击共有2段，每段造成1倍伤害。该攻击无法被闪避。</font>",
+            "<font color=#7d0403 bold=true size=21>指挥</font>\n<font color=#000000 bold=false size=20>所有其他怪物血量和攻击翻倍</font>",
+            "<font color=#7d0403 bold=true size=21>复生</font>\n<font color=#000000 bold=false size=20>死亡后可以复活一次</font>",
+            "<font color=#7d0403 bold=true size=21>泰坦意志</font>\n<font color=#000000 bold=false size=20>从以下技能中随机获得其中两项：回复，恐惧光环，防护，狂暴</font>"
         ]},
         "SlimeKing":{"name":"史莱姆之王", "desc":[
             "<font color=#7d0403 bold=true size=21>史莱姆冲击</font>\n<font color=#000000 bold=false size=20>每3回合进行一次撞击，伤害是攻击的3倍</font>",
@@ -972,6 +979,12 @@
             "<font color=#7d0403 bold=true size=21>植物軍團</font>\n<font color=#000000 bold=false size=20>將所有怪物變為植物，初始將5個隨機怪物變成豌豆射手，豌豆射手將在戰鬥開始時自動現身，N回合攻擊一次玩家（不攻擊商人）</font>",
             "<font color=#7d0403 bold=true size=21>防護</font>\n<font color=#000000 bold=false size=20>血量每減少30%，則進入防護模式，為自己加上一個近乎無敵的防護罩，受到除火焰以外的任何傷害均為1，防護罩在受到3次傷害後解除</font>",
             "<font color=#7d0403 bold=true size=21>易燃</font>\n<font color=#000000 bold=false size=20>被火焰傷害會進入點燃狀態，免疫中毒</font>"
+        ]},
+        "Titan":{"name":"泰坦巨人", "desc":[
+             "<font color=#7d0403 bold=true size=21>闪电风暴</font>\n<font color=#000000 bold=false size=20>每3個回合主動攻擊1次，該攻擊共有2段，每段造成1倍傷害。該攻擊無法被閃避。</font>",
+            "<font color=#7d0403 bold=true size=21>指揮</font>\n<font color=#000000 bold=false size=20>所有其他怪物血量和攻擊翻倍</font>",
+            "<font color=#7d0403 bold=true size=21>複生</font>\n<font color=#000000 bold=false size=20>死亡後可以復活一次</font>",
+            "<font color=#7d0403 bold=true size=21>泰坦意志</font>\n<font color=#000000 bold=false size=20>从以下技能中随机获得其中两项：回復，恐懼光環，防護，狂暴</font>"
         ]},
         "SlimeKing":{"name":"史萊姆之王", "desc":[
             "<font color=#7d0403 bold=true size=21>史萊姆衝擊</font>\n<font color=#000000 bold=false size=20>每3回合進行一次撞擊，傷害是攻擊的3倍</font>",

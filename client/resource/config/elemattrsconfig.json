@@ -201,6 +201,7 @@
     "EliteReviveZombie":{"name":"精英复生僵尸", "elemImg":"ReviveZombie", "power":1, "hp":4, "reviveCnt":1, "dropItems":["Coins"]},
     "Kraken":{"name":"克拉肯", "attackInterval":3, "targetFlags":["immuneFrozen"], "size":{"w":2, "h":2}, "hideHazardNum":true},
     "HalloweenTreant":{"name":"万圣节树妖", "attackInterval":3, "targetFlags":["BuffPoison"], "size":{"w":2, "h":2}, "hideHazardNum":true, "refElems":["MNutWall", "MPeashooter", "MCherryBomb", "MSunflower", "MCharmingMushroom"]},
+    "Titan":{"name":"泰坦巨人", "attackInterval":3, "size":{"w":2, "h":2}, "hideHazardNum":true},
     "NutWall":{"name":"坚果墙", "hp":15,
         "level1Share":50, "level2AddHp":5, "level3AddShare":25, "level4AddHp":5, "level5AddShare":25,
         "tags":["plant"], "noNewMonsterTip":true},

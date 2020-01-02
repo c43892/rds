@@ -663,7 +663,8 @@
 		"killHalloweenTreantFirstTime01":{"EN": "", "CNS": "我终于得救了，谢谢", "CNT": "我終於得救了，謝謝"},
 		"killHalloweenTreantFirstTime02":{"EN": "", "CNS": "作为感谢，我可以帮助你战斗一次", "CNT": "作為感謝，我可以幫助妳戰鬥壹次"},
 		"occLocked":{"EN": "this occupation is locked", "CNS": "该职业未解锁", "CNT": "該職業未解鎖"},
-		"occLockedContent":{"EN": "pay to unlock?", "CNS": "是否支付X元永久解锁该职业,可在游戏内营救该职业进行解锁,但死亡后会被重新锁定", "CNT": "是否支付X元永久解锁该职业,可在游戏内营救该职业进行解锁,但死亡后会被重新锁定"},
+		"occLockedContent":{"EN": "pay to unlock?", "CNS": "支付6元永久解锁该职业?也可在游戏内营救该职业进行解锁,但死亡后会被重新锁定", "CNT": "支付6元永久解锁该职业?也可在游戏内营救该职业进行解锁,但死亡后会被重新锁定"},
+		"occLockedContentAndroid":{"EN": "pay to unlock?", "CNS": "永久解锁该职业?", "CNT": "永久解锁该职业?"},
 		"": {}
 	}
 }

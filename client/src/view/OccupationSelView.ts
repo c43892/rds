@@ -252,19 +252,29 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         this.diffFlagDesc.verticalAlign = egret.VerticalAlign.MIDDLE;
     }
 
-    // 点击未解锁职业
+    // 点击未解锁职业    
     async clickLockedOcc(occ: string) {
-        var yesno = await this.confirmOkYesNo(ViewUtils.getTipText("occLocked"), ViewUtils.getTipText("occLockedContent"), true);
-        if (yesno) {
-            // 此处等待支付回调
-            var paid = true;
-            if(paid)
-                this.pay2Unlock(occ);
+        if(!window.platform.onBuyResult)
+            window.platform.onBuyResult = (str) => {
+                    if(str == "ok" || str == "restored")
+                        this.pay2Unlock(); 
+                    else if (str == "inPurchasing")
+                        AniUtils.tipAt("购买请求中，请稍候！", {x:this.width/2, y:this.height/3}, 25, 0xffffff);
+            };
+        if (egret.Capabilities.os == "iOS") {
+            var yesno = await this.confirmOkYesNo(ViewUtils.getTipText("occLocked"), ViewUtils.getTipText("occLockedContent"), true);
+            if (yesno) 
+                egret.ExternalInterface.call("rdsBuyProduct", "");            
+        }
+        else{
+            var yesno = await this.confirmOkYesNo(ViewUtils.getTipText("occLocked"), ViewUtils.getTipText("occLockedContentAndroid"), true);
+            if (yesno) 
+                this.pay2Unlock();
         }
     }
 
     // 付费永久解锁相关
-    async pay2Unlock(occ: string) {
+    async pay2Unlock(occ: string = "Horticulturist") {
         var i = Utils.indexOf(this.occArr, (o) => o == occ);
         var occAvatar = this.occAvatarBgLst[i];
         await this.playUnlockOccupationAni(occAvatar);
