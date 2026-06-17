@@ -223,10 +223,16 @@ class AniUtils {
     // 悬浮效果
     public static floating(obj:egret.DisplayObject, stopFloating = false) {
         if (stopFloating) {
+            // Mark BEFORE clearing tweens: clearAll -> removeTweens resolves the in-flight
+            // animation's trailing promise, whose onEnded re-runs createAni one microtask
+            // later. Without this flag that re-loop rebuilds the floating tween AFTER the
+            // removal, so the item keeps bobbing once dropped / the grid status changes.
+            obj["floatingStopped"] = true;
             this.clearAll(obj);
             obj.x = 0;
             obj.y = 0;
         } else {
+            obj["floatingStopped"] = false;
             var fp = {x:obj.x, y:obj.y};
             var tp = {x:fp.x, y:fp.y - 25};
             var aniCfg = {type:"seq", arr:[
@@ -235,6 +241,7 @@ class AniUtils {
             ], noWait:true, obj:obj};
 
             var createAni = () => {
+                if (obj["floatingStopped"]) return;   // stopped while a loop was in flight
                 var aw = AniUtils.aniFact.createAniByCfg(aniCfg);
                 aw["onEnded"].push(createAni);
                 return aw;

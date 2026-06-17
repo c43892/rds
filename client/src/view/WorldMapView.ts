@@ -396,12 +396,13 @@ class WorldMapView extends egret.DisplayObjectContainer {
 
         // 将迷雾效果渲染到纹理，再加入图层
 
-        var mistRT = new egret.RenderTexture();
-        var mistBmp = new egret.Bitmap();
-        mistRT.drawToTexture(mistContainer);
-        ViewUtils.setTex(mistBmp, mistRT);
-        mistBmp.x = mistBmp.y = 0;
-        this.viewContent.addChild(mistBmp);
+        // 迷雾（fog of war）已关闭：整张地图保持全亮，不再叠加压暗层
+        // var mistRT = new egret.RenderTexture();
+        // var mistBmp = new egret.Bitmap();
+        // mistRT.drawToTexture(mistContainer);
+        // ViewUtils.setTex(mistBmp, mistRT);
+        // mistBmp.x = mistBmp.y = 0;
+        // this.viewContent.addChild(mistBmp);
 
         // 显示可经过的节点
         var lastSp;
@@ -520,6 +521,21 @@ class WorldMapView extends egret.DisplayObjectContainer {
         return this.mapArea.scrollTop / (this.viewContent.height - this.mapArea.height);
     }
 
+    // 将视口对准当前所在节点：战斗结束返回大地图时，把当前可前往的节点居中显示。
+    // 开局时当前节点在最底部，会被下面的钳制自然贴到底部，与开局滚动到底部一致。
+    public focusOnCurrentNode() {
+        if (!this.worldmap || !this.player || !this.player.currentStoreyPos) return;
+        var pos = this.player.currentStoreyPos;
+        var node = WorldMapNode.getNode(pos.n, pos.lv, this.worldmap.nodes);
+        if (!node) return;
+        var topGap = 50; // 与 refreshNodes 中保持一致
+        var yGap = (this.viewContent.height - topGap) / this.worldmap.nodes.length;
+        var nodeY = WorldMapNode.getNodeYposOnView(node, this.viewContent.height, yGap, 0);
+        var top = nodeY - this.mapArea.height / 2;
+        top = Math.max(0, Math.min(top, this.viewContent.height - this.mapArea.height));
+        this.mapArea.scrollTop = top;
+    }
+
     public refresh() {
         if (!this.worldmap) return;
         this.refreshUI();
@@ -543,8 +559,8 @@ class WorldMapView extends egret.DisplayObjectContainer {
         var ptStoreyLv = bmp["ptStoreyLv"];
         var ptStoreyN = bmp["ptStoreyN"];
 
-        //检查点击的节点是否是当前可到达节点(测试中,暂且屏蔽该检查)
-        if (!DEBUG && !BattleUtils.isStoreyPosSelectable(this.worldmap.player, {lv:ptStoreyLv, n:ptStoreyN}))
+        //检查点击的节点是否是当前可到达节点(只有从当前节点可达的下一步节点才能进入)
+        if (!BattleUtils.isStoreyPosSelectable(this.worldmap.player, {lv:ptStoreyLv, n:ptStoreyN}))
             return;
 
         Utils.assert(this.worldmap.nodes[ptStoreyLv][ptStoreyN].roomType == ptType, 
@@ -671,8 +687,10 @@ class WorldMapView extends egret.DisplayObjectContainer {
                     await this.openFinishGameView();
                 }
             }
-            else
+            else {
                 this.refresh();
+                this.focusOnCurrentNode(); // 战斗结束返回大地图，把视口对准当前可前往的节点
+            }
         }
     }
 

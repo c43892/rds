@@ -450,6 +450,10 @@ class MainView extends egret.DisplayObjectContainer {
 
         this.wmv.player = this.p;
         this.wmv.setWorldMap(worldmap);
+
+        // 每次回到大地图都把视口对准当前所在节点（可前往的节点）
+        this.wmv.focusOnCurrentNode();
+
         AudioFactory.playBg("bgs");
     }
 

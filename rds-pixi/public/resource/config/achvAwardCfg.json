@@ -1,0 +1,32 @@
+{
+    "award1":{
+        "type":"achvFinished",
+        "achv":"RichMan",
+        "awardContent":{
+            "type":"unlockRelic",
+            "relic":"GoldMedal"
+        },
+        "icon":"GoldMedal",
+        "desc":"大富翁"
+    },
+    "award2":{
+        "type":"achvFinished",
+        "achv":"KnowlegdeChangesDestiny",
+        "awardContent":{
+            "type":"unlockRelic",
+            "relic":"ExpMedal"
+        },
+        "icon":"ExpMedal",
+        "desc":"知识改变命运"
+    },
+    "award3":{
+        "type":"achvPoint",
+        "achvPoint":50,
+        "awardContent":{
+            "type":"unlockRelic",
+            "relic":"DoubleAttack"
+        },
+        "icon":"DoubleAttack",
+        "desc":"50点"
+    }
+}

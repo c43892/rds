@@ -15,7 +15,7 @@ class AudioFactory {
             AudioFactory.curBgs.ch.stop();
     }
 
-    static auidoOn = 1;
+    static auidoOn = 0; // muted by default
     public static set AudioOn(on:number) {
         if (AudioFactory.auidoOn == on)
             return;

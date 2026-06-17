@@ -1,0 +1,83 @@
+{
+    "Nurse":{
+        "relics":{},
+        "occPropType":"SuperPotion",
+        "commonRelics":["MedicineBox", "Power", "Endurance", "Agile", "Fierce", "TimeMachine", "MonsterHunter"],
+        "initItems":["Clock", "Knife", "Magazine", "Shield", "Vest", "Baton", "Cloak", "WantedOrder", "EconomyMagazine"],
+        "constItems":{"Clock":1, "Knife":1},
+        "randomItems":{"num":[2, 3], "elems":{
+            "Magazine":80,
+            "Shield":50,
+            "Vest":20,
+            "Baton":20,
+            "Cloak":10,
+            "WantedOrder":10,
+            "EconomyMagazine":10
+            }
+        }
+    },
+    "Rogue":{
+        "relics":{},
+        "occPropType":"StrengthPotion",
+        "commonRelics":["GangMember", "Power", "Endurance", "Agile", "Fierce", "TimeMachine", "MonsterHunter"],
+        "initItems":["Clock", "Knife", "Magazine", "Shield", "Vest", "Baton", "Cloak", "WantedOrder", "EconomyMagazine"],
+        "constItems":{"Clock":1, "Knife":1},
+        "randomItems":{"num":[2, 3], "elems":{
+            "Magazine":80,
+            "Shield":50,
+            "Vest":20,
+            "Baton":20,
+            "Cloak":10,
+            "WantedOrder":10,
+            "EconomyMagazine":10
+            }
+        }
+    },
+    "Horticulturist":{
+        "relics":{
+            "HorticultureMaster":{
+                "NutWall":[
+                    {"type":"hp", "enhance":2}, 
+                    {"type":"shield", "enhance":2}, 
+                    {"type":"hp", "enhance":2}, 
+                    {"type":"shield", "enhance":2}
+                ], 
+                "Peashooter":[
+                    {"type":"power", "enhance":{"a":0, "b":1, "c":0}}, 
+                    {"type":"attackInterval", "enhance":{"a":0, "b":-1, "c":0}}, 
+                    {"type":"power", "enhance":{"a":0, "b":1, "c":0}}, 
+                    {"type":"attackInterval", "enhance":{"a":0, "b":-1, "c":0}}
+                ], 
+                "CherryBomb":[
+                    {"type":"power", "enhance":{"a":0, "b":1, "c":0}}, 
+                    {"type":"hp", "enhance":2}, 
+                    {"type":"power", "enhance":{"a":0, "b":1, "c":0}}, 
+                    {"type":"hp", "enhance":2}
+                ], 
+                "Sunflower":[
+                    {"type":"dhpPercent", "enhance":5}, 
+                    {"type":"dhpPercent", "enhance":5}, 
+                    {"type":"dhpPercent", "enhance":5}, 
+                    {"type":"dhpPercent", "enhance":5}
+                ], 
+                "CharmingMushroom":[
+                    {"type":"hp", "enhance":2}, 
+                    {"type":"shield", "enhance":2}, 
+                    {"type":"hp", "enhance":2}, 
+                    {"type":"shield", "enhance":2}
+                ]
+            }
+        },
+        "constItems":{"Clock":1, "Vest":1},
+        "randomItems":{"num":[2, 3], "elems":{
+            "Magazine":80,
+            "Shield":50,
+            "Knife":20,
+            "Baton":20,
+            "Cloak":10,
+            "WantedOrder":10,
+            "EconomyMagazine":10
+            }
+        }
+    }
+}

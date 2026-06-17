@@ -112,7 +112,23 @@ class OccupationSelView extends egret.DisplayObjectContainer {
 
         ViewUtils.multiLang(this, ...uis);
 
-        this.occAvatar.mask = this.occAvatarFrameMask;
+        // 职业描述文字偏长（较长的描述会排到 4 行）会溢出顶部的装饰边框，
+        // 这里缩小字号让它排成 3 行，并把盒子高度收到边框范围内做垂直居中。
+        this.occDesc.size = 28;
+        this.occDesc.height = 112;
+        this.occDesc.verticalAlign = egret.VerticalAlign.MIDDLE;
+
+        // 职业头像是 DragonBones 骨骼动画。PIXI 的精灵(位图)遮罩用滤镜实现，无法裁剪
+        // 骨骼网格，会让整个头像消失（原来用 occAvatarFrameMask 做遮罩时头像区域是空的）。
+        // 改用同尺寸的矩形 Shape 作为模板(stencil)遮罩即可正常裁剪显示。
+        var occAvatarMask = new egret.Shape();
+        occAvatarMask.graphics.beginFill(0xffffff, 1);
+        occAvatarMask.graphics.drawRect(this.occAvatarFrameMask.x, this.occAvatarFrameMask.y,
+            this.occAvatarFrameMask.width, this.occAvatarFrameMask.height);
+        occAvatarMask.graphics.endFill();
+        this.addChild(occAvatarMask);
+        this.occAvatar.mask = occAvatarMask;
+        this.occAvatarFrameMask.visible = false; // 原位图遮罩不再使用，隐藏以免渲染成白块
 
         this.diffDesc = new LevelDiffDescView(w, h);
         this.diffDesc.x = this.diffDesc.y = 0;

@@ -1,0 +1,40 @@
+{
+    "battleViewElemTipTypes" : ["Clock", "Gengar", "TreasureBox", "RandomEggZombie"],
+    "seniorTypes" : ["eliteGoblinThief", "eliteVampire", "eliteLustZombie", "eliteSwatheZombie", "eliteReviveZombie"],
+    "bossTypes" : ["slimeKing", "brainOfCthulhu", "kraken", "halloweenTreant"],
+    "unlockPrices": [75,125,175,250,350,450,600,800],
+    "PlantTypes": ["NutWall", "Peashooter", "CherryBomb", "Sunflower", "CharmingMushroom"],
+    "sanLevel": [101, 60, 30, 0],
+    "itemsCanBring2NextLevel":["Knife","Magazine","Apple","Steak","Clock","Key","Shield","WantedOrder","Baton","Vest","EconomyMagazine","Cloak"],
+    "itemsCanTake":["Coins","Knife","Magazine","Apple","Steak","Clock","Key","Shield","WantedOrder","Baton","Vest","EconomyMagazine","Cloak"],
+    "itemsCanDestroy": ["Coins","Knife","Magazine","Apple","Steak","Clock","Shield","WantedOrder","Baton","Vest","EconomyMagazine","Cloak"],
+    "scoreInfoPs":{
+        "totalStoreyLevel":5, 
+        "playerLevel":10, 
+        "totalCoins":0.1, 
+        "totalRelicLevel":2, 
+        "normalMonster":1, 
+        "eliteMonster":5, 
+        "bossMonster":10, 
+        "normalBonus":1, 
+        "eliteBonus":5, 
+        "bossBonus":10,
+        "difficulty":{
+            "level0":0.5,
+            "level1":0.8,
+            "level2":1,
+            "level3":1.5,
+            "level4":2
+        }
+    },
+    "occupationLevelCfg":[250, 500, 750, 1000],
+    "relicsNeedUnlock":["GoldMedal", "ExpMedal", "DoubleAttack"],
+    "eliteLevelTips": {
+        "randomEgg": "会出现多个彩蛋僵尸，击杀可以获得不错的奖励",
+        "eliteGoblinThief": "精英哥布林小偷为所有怪物附加突袭偷窃能力，突袭时偷取玩家15%的当前金钱",
+        "eliteVampire": "精英吸血鬼为所有怪物附加突袭吸血能力，突袭时吸收玩家15%的当前生命",
+        "eliteLustZombie": "精英魅魔为所有怪物附加魅惑功能，突袭时死神前进10步",
+        "eliteSwatheZombie": "精英黑寡妇蜘蛛为所有怪物附加缠绕能力，突袭时可缠绕两件物品",
+        "eliteReviveZombie": "精英克苏鲁的触手为所有怪物附加复生能力，死亡时会复活一次"
+    }
+}

@@ -21,7 +21,7 @@ class Level {
             cfg.init_uncovered, cfg.doorUnlock);
         if (cfg.levelLogics) {
             for (var levelLogic of cfg.levelLogics) {
-                var ll = LevelLogicFactory.createLevelLogic(levelLogic.type, ...levelLogic.ps);
+                var ll = LevelLogicFactory.createLevelLogic(levelLogic.type, ...(levelLogic.ps || []));
                 this.addLevelLogic(ll);
             }
         }

@@ -1,0 +1,297 @@
+{
+    "MedicineBox":{"name":"医疗专精", "dhp":3, 
+        "reinforce":[
+            {"dhp":6}, {"dhp":9}, {"dhp":12}, {"dhp":15}
+        ],
+        "occupations":["Nurse"]
+    },
+    "GangMember":{"name":"黑帮", 
+        "reinforce":[{}, {}, {}, {}], "occupations":["Rogue"]},
+    "Hawkeye":{"name":"鹰眼"},
+    "TimeMachine":{"name":"敌意消退", "deathGodBackStep":5,
+        "reinforce":[
+            {"deathGodBackStep":10}, {"deathGodBackStep":15}, {"deathGodBackStep":20}, {"deathGodBackStep":25}
+        ]
+    },
+    "Endurance":{"name":"耐力强化", "dMaxHp":5, 
+        "reinforce":[
+            {"dMaxHp":10}, {"dMaxHp":15}, {"dMaxHp":20}, {"dMaxHp":25}
+        ]
+    },
+    "Power":{"name":"力量强化", "dPower":1,
+    "reinforce":[
+            {"dPower":2}, {"dPower":3}, {"dPower":4}, {"dPower":5}
+        ]
+    },
+    "Agile":{"name":"闪避强化", "dDodge":4,
+    "reinforce":[
+            {"dDodge":8}, {"dDodge":12}, {"dDodge":16}, {"dDodge":20}
+        ]
+    },
+    "Fierce":{"name":"杀戮专精", "dPower":2,
+        "reinforce":[
+            {"dPower":4}, {"dPower":6}, {"dPower":8}, {"dPower":10}
+        ]
+    },
+    "Unback2Sneak":{"name":"料敌先机"},
+    "Crucifix":{"name":"十字架"},
+    "WeaponMaster":{"name":"武器大师", "refElems":["Baton"], "addOnLevelInit":{"num":1, "elems":["Baton"]}},
+    "UndefinedName1":{"name":"未命名1", "uncoverCnt":5,
+        "reinforce":[
+            {"uncoverCnt":4}, {"uncoverCnt":3}, {"uncoverCnt":14}, {"uncoverCnt":12}
+        ]
+    },
+    "ExpMedal":{"name":"经验勋章", "dexp":1,
+        "reinforce":[
+            {"dexp":2}, {"dexp":3}, {"dexp":4}, {"dexp":5}
+        ]
+    },
+    "GoldMedal":{"name":"未命名3", "num":1,
+        "reinforce":[
+            {"num":2}, {"num":3}, {"num":4}, {"num":5}
+        ]
+    },
+    "DefenseProficient":{"name":"防护专精", "refElems":["Vest"], "addOnLevelInit":{"num":1, "elems":["Vest"]}},
+    "BookMaster":{"name":"图书大师", "dexp":1,
+        "reinforce":[
+            {"dexp":2}, {"dexp":3}
+        ], "refElems":["Magazine", "EconomyMagazine"], "addOnLevelInit":{"num":1, "elems":["Magazine", "EconomyMagazine"]}},
+    "TradeMaster":{"name":"交易大师", "discount":5,
+        "reinforce":[
+            {"discount":10}, {"discount":15}, {"discount":20}, {"discount":25}
+        ],
+        "occupations":["Merchant"]
+    },
+    "TreasureBoxDetector":{"name":"宝箱探测"},
+    "KnifeMaster":{"name":"飞刀大师", "dpower":1, "refElems":["Knife"],
+        "reinforce":[
+            {"dpower":2}, {"dpower":3}, {"dpower":4}, {"dpower":5}
+        ], 
+        "addOnLevelInit":{"num":1, "elems":["Knife"]}
+    },
+    "MonsterHunter":{"name":"怪物猎人", "markNum":1,
+        "reinforce":[
+            {"markNum":2}, {"markNum":3}, {"markNum":4}, {"markNum":5}
+        ]
+    },
+    "KnifeProficient":{"name":"飞刀专精", "refElems":["Knife"], "addOnLevelInit":{"num":1, "elems":["Knife"]}},
+    "KnifeRange":{"name":"随意之刃", "refElems":["Knife"], "addOnLevelInit":{"num":1, "elems":["Knife"]}},
+    "PoisonKnife":{"name":"剧毒之刃", "poisonCnt":1, "reinforce":[
+            {"poisonCnt":2}, {"poisonCnt":3}
+        ],
+        "refElems":["Knife"], "addOnLevelInit":{"num":1, "elems":["Knife"]}
+    },
+    "InfinityKnife":{"name":"无尽之刃", "percent":20, "reinforce":[
+            {"percent":40}, {"percent":60}, {"percent":80}, {"percent":100}
+        ],
+        "refElems":["Knife"], "addOnLevelInit":{"num":1, "elems":["Knife"]}
+    },
+    "KnifeDetector":{"name":"飞刀侦测", "refElems":["Knife"], "addOnLevelInit":{"num":1, "elems":["Knife"]}},
+    "ExploreEnhanced":{"name":"探索强化"},
+    "HorticultureProficient":{"name":"厨艺大师", "refElems":["Apple"], "addOnLevelInit":{"num":1, "elems":["Apple"]}},
+    "SmellEnhanced":{"name":"嗅觉强化", "percent":5,
+        "reinforce":[
+            {"percent":10}, {"percent":15}
+        ]},
+    "Storer":{"name":"囤积居奇"},
+    "ShieldProficient":{"name":"盾牌专精", "dcd":1,
+        "reinforce":[
+            {"dcd":2}, {"dcd":3}
+        ],
+        "refElems":["Shield"], "addOnLevelInit":{"num":1, "elems":["Shield"]}},
+    "HorticultureMaster":{"name":"园艺大师","reinforce":[
+            {}, {}, {}, {}
+        ], "occupations":["Horticulturist"], "refElems":["NutWall", "Peashooter", "CherryBomb", "Sunflower", "CharmingMushroom"]},
+    "StrikeFirst":{"name":"先发制人", "moveNum":1,
+        "reinforce":[
+                {"moveNum":2}, {"moveNum":3}
+            ]
+    },
+    "ShieldBlock":{"name":"圣甲虫的壳", "dShield":3,
+        "reinforce":[
+            {"dShield":6}, {"dShield":9}, {"dShield":12}, {"dShield":15}
+        ], 
+        "refElems":["Shield"], "addOnLevelInit":{"num":1, "elems":["Shield"]}},
+    "ShieldDetector":{"name":"盾牌侦测", "refElems":["Shield"], "addOnLevelInit":{"num":1, "elems":["Shield"]}},
+    "ShieldSlam":{"name":"盾牌猛击", "refElems":["Shield"], "addOnLevelInit":{"num":1, "elems":["Shield"]}},
+    "VestDetector":{"name":"防护侦测", "refElems":["Vest"], "addOnLevelInit":{"num":1, "elems":["Vest"]}},
+    "VestImmune":{"name":"防护免疫", "percent":1,
+        "reinforce":[
+            {"percent":2}, {"percent":3}, {"percent":4}, {"percent":5}
+        ], 
+        "refElems":["Vest"], "addOnLevelInit":{"num":1, "elems":["Vest"]}},
+    "VestThorns":{"name":"荆棘防护", "thornsDamage":1,
+        "reinforce":[
+            {"thornsDamage":2}, {"thornsDamage":3}, {"thornsDamage":4}, {"thornsDamage":5}
+        ], 
+        "refElems":["Vest"], "addOnLevelInit":{"num":1, "elems":["Vest"]}},
+    "Watchmaker":{"name":"钟表匠", "addDeathStepBack":1, "refElems":["Clock"], "addOnLevelInit":{"num":1, "elems":["Clock"]},
+        "reinforce":[
+            {"addDeathStepBack":2}, {"addDeathStepBack":3}
+        ]},
+    "DoubleAttack":{"name":"连击"},
+    "Crown":{"name":"荆棘花冠"},
+
+    "Coins":{"name":"金币", "cnt":1, "canOverlap":true, "useWithoutConfirm":true, 
+        "repRes":["Coins1", "Coins2", "Coins3", "Coins4", "Coins5", "Coins6", "Coins7", "Coins8", "Coins9"]},
+    "Key":{"name":"钥匙", "useWithTarget":true, "validTargets":["Door", "TreasureBox"]},
+    "Door":{"name":"门", "cnt":1, "useWithoutConfirm":true, "dropItems":["NextLevelPort"], "hideDropItems":true, "addInEffect":"noEffect",
+        "repRes":["Door1", "Door2", "Door3"]},
+    "TreasureBox":{"name":"宝箱", "useWithoutConfirm":true, "refElems":["BoxMonster"], "hideDropItems":true},
+    "RandomEgg":{"name":"彩蛋","rdp":"RandomEgg", "useWithoutConfirm":true, "audioOnUsing":"openBox"},
+    "LuxuryChest":{"name":"豪华宝箱", "randomDropList":"bossBox3", "randomDropListBackup":"bossBox3Backup", "useWithoutConfirm":true},
+    "Clock":{"name":"钟表", "deathStepBack":15, "useWithoutConfirm":true},
+    "BigBen":{"name":"大本钟", "deathStepBack":50, "useWithoutConfirm":true},
+    "HpPotion":{"name":"医疗药剂", "heal":6, "canOverlap":true},
+    "Magazine":{"name":"自然杂志", "cnt":5, "dexp":3, "tags":["book"], "useWithoutConfirm":true},
+    "EconomyMagazine":{"name":"金融杂志", "cnt":5, "dexp":2, "tags":["book"], "useWithoutConfirm":true},
+    "Shield":{"name":"盾牌", "cd":15, "shield":5, "validTarget":"markedMonster|uncoveredMonser", "showCDNum":true, "repRes":["Shield", "ShieldBack"]},
+    "GoldenHand":{"name":"点金之手", "cnt":3, "dropNum":19, "useWithTarget":true, "useWithoutConfirm":true},
+    "HeadBone":{"name":"骷髅头"},
+
+    "DeathGod":{"name":"死神", "deathStep":15, "movePs":{"moveType":"fly"}, "cannotTake":true, "addInEffect":"noEffect", "attackInterval":0},
+    "NormalZombie":{"name":"普通僵尸", "power":1, "hp":5, "movePs":{"moveRange":3}, "dropItems":["CoinsTiny"], "addInEffect":"noEffect"},
+    "GoblinThief":{"name":"哥布林窃贼", "steal":{"percent":20, "num":5}, "movePs":{"moveRange":3, "targetType":"pickupCoins"}, "dropItems":["CoinsTiny"], "cannotTake":true},
+    "HoundZombie":{"name":"猎犬僵尸", "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}], "muiltAttack":2, "movePs":{"moveRange":3, "targetType":"eatFood"}, "dropItems":["CoinsSmall"]},
+    "Vampire":{"name":"吸血鬼", "suckBlood":{"percent":30, "num":0}, "movePs":{"moveType":"fly"}, "dropItems":["CoinsSmall"]},
+    "DancerZombie":{"name":"舞王僵尸", "power":1, "hp":4, "movePs":{"moveRange":4}, "summons":["NormalZombie", "NormalZombie"], "dropItems":["CoinsSmall"], "refElems":["NormalZombie"]},
+    "GluttonyZombie":{"name":"暴食僵尸", "power":2, "hp":4, "movePs":{"moveRange":2, "targetType":"eatFood"}, "dropItems":["CoinsSmall", "Steak"], "cannotTake":true},
+    "Gengar":{"name":"耿鬼", "power":2, "hp":4, "dropItems":["CoinsSmall"], "movePs":{"moveRange":2, "targetType":"eatFood"}},
+    "BombAbomination":{"name":"自爆憎恶", "power":1, "hp":6, "attackInterval":0, "selfExplode":{"cnt":5, "mult":3, "aoe":{"w":3, "h":3}}, "dropItems":["CoinsSmall"], "specialCharmed":true},
+    "EyeDemon":{"name":"眼魔", "power":2, "hp":4, "movePs":{"moveRange":3, "targetType":"eatFood"}, "dropItems":["CoinsTiny"], "repRes":["EyeDemon", "eyeDemonEye"], "specialCharmed":true},
+    "RandomEggZombie":{"name":"彩蛋僵尸", "power":2, "hp":5, "shield":3, "movePs":{"moveRange":3}, "dropItems":["RandomEgg"], "cannotTake":true, "refElems":["RandomEgg"]},
+    "LustZombie":{"name":"色欲僵尸","deathStepOnSneak":15, "deathStepOnDie":5, "movePs":{"moveRange":4, "targetType":"eatFood"}, "dropItems":["CoinsSmall"]},
+    "CommanderZombie":{"name":"指挥官僵尸", "dropItems":["CoinsSmall"]},
+    "RageZombie":{"name":"狂暴僵尸", "dropItems":["CoinsSmall"]},
+    "HideZombie":{"name":"隐匿僵尸", "dropItems":["CoinsSmall"]},
+    "BallShito":{"name":"圆球使徒", "power":1, "hp":5, "shield":3, "movePs":{"moveRange":2, "targetType":"attackShopNpc"}, "dropItems":["CoinsSmall"]},
+    "ReviveZombie":{"name":"复生僵尸", "power":1, "hp":4, "reviveCnt":1, "dropItems":["CoinsTiny"]},
+    "CowardZombie":{"name":"胆怯僵尸", "dropItems":["CoinsSmall"]},
+    "MarkZombie":{"name":"标记僵尸", "dropItems":["CoinsSmall"]},
+    "GreedyZombie":{"name":"贪婪僵尸", "movePs":{"moveRange":3}, "dropItems":["CoinsSmall"], "cannotTake":true},
+    "ConfusionZombie":{"name":"疑惑僵尸", "hideHazardNum":true, "dropItems":["CoinsSmall"]},
+    "Mummy":{"name":"木乃伊", "dropItems":["CoinsSmall"]},
+    "PoisonJellyfish":{"name":"毒性水母", "power":1, "hp":5, "buffCnt":3, "poisonPs":[3, 1], "dropItems":["CoinsSmall"], "movePs":{"moveRange":0, "targetType":"eatFood"}},
+    "SkeletonKing":{"name":"骷髅王", "power":1, "hp":5, "shield":2, "movePs":{"moveRange":2}, "rdp":"SkeletonKing", "dropItems":["CoinsSmall"], "cannotTake":true, "refElems":["HeadBone"]},
+    "SwatheZombie":{"name":"缠绕僵尸", "power":1, "hp":5, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}], "movePs":{"moveRange":3, "targetType":"eatFood"}, "invalid":["Cocoon", "Rock", "Hole", "IceBlock"], "dropItems":["CoinsSmall"], "repRes":["SwatheZombie", "Cocoon"], "specialCharmed":true},
+    "BoxMonster":{"name":"愤怒宝箱", "power":2, "hp":5, "shield":3},
+    "Ghost":{"name":"幽灵", "attackFlags":["AmorPenetrate"], "movePs":{"moveType":"fly"}, "dropItems":["CoinsSmall"], "cannotTake":true},
+    "RedSlime":{"name":"红色史莱姆", "power":3, "hp":10, "esOnNormalAttack":1, "movePs":{"moveRange":0, "targetType":"eatFood"}, "dropItems":["CoinsSmall"]},
+    "GreenSlime":{"name":"绿色史莱姆", "power":3, "hp":10, "movePs":{"moveRange":0, "targetType":"eatFood"}, "dropItems":["CoinsTiny"]},
+    "SlimeKing":{"name":"史莱姆之王", "hp":20, "power":3, "attackInterval":3, "esOnNormalAttack":2, "size":{"w":2, "h":2}, "hideHazardNum":true, "refElems":["RedSlime", "GreenSlime"]},
+    "BrainOfCthulhu":{"name":"克苏鲁之脑", "hp":20, "power":3, "attackInterval":3, "esOnNormalAttack":2, "size":{"w":2, "h":2}, "hideHazardNum":true, "refElems":["ReviveZombie"]},
+    "Siren":{"name":"塞壬", "deathStepOnSneak":15, "movePs":{"moveRange":4, "targetType":"eatFood"}, "dropItems":["CoinsSmall"]},
+    "Worm":{"name":"吞噬蠕虫", "suckBloodOnAttack":15, "movePs":{"moveRange":1, "targetType":"eatFood"}, "dropItems":["CoinsSmall"]},
+    "Hag":{"name":"女妖", "movePs":{"moveType":"fly"}, "dropItems":["CoinsSmall"]},
+    "Nightmare":{"name":"梦魇兽", "movePs":{"moveRange":5, "targetType":"eatFood"}, "attackFlags":["AmorPenetrate"], "dropItems":["CoinsSmall"]},
+    "ThunderElemental":{"name":"雷元素", "movePs":{"moveType":"fly"}, "thunderDamage":3, "dropItems":["CoinsSmall"]},
+    "FlameElemental":{"name":"火元素", "targetFlags":["Flame", "BuffFlame"], "rdp":"Bazooka", "dropItems":["CoinsSmall"]},
+    "Echinus":{"name":"海胆", "movePs":{"moveRange":0, "targetType":"eatFood"}, "dropItems":["CoinsSmall"]},
+    "Werewolf":{"name":"狼人", "movePs":{"moveRange":4, "targetType":"eatFood"}, "dropItems":["CoinsSmall"]},
+    "MNutWall":{"name":"坚果墙", "elemImg":"NutWall", "dropItems":["CoinsSmall"]},
+    "MPeashooter":{"name":"豌豆射手", "attackInterval":4, "muiltAttack":2, "dropItems":["CoinsSmall"], "elemImg":"Peashooter"},
+    "MCherryBomb":{"name":"樱桃炸弹", "attackInterval":0, "selfExplode":{"cnt":5, "mult":3, "aoe":{"w":3, "h":3}}, "rounds":5, "dropItems":["CoinsSmall"], "specialCharmed":true, "elemImg":"CherryBomb"},
+    "MSunflower":{"name":"太阳花", "rounds":3, "dropItems":["CoinsSmall"], "attackInterval":0, "showCDNum":true, "elemImg":"Sunflower"},
+    "MCharmingMushroom":{"name":"魅惑菇", "cannotCharm":true, "dropItems":["CoinsSmall"], "elemImg":"CharmingMushroom"},
+    "EliteGoblinThief":{"name":"精英哥布林窃贼", "elemImg":"GoblinThief", "steal":{"percent":20, "num":5}, "movePs":{"moveRange":3, "targetType":"pickupCoins"}, "dropItems":["Coins"]},
+    "EliteVampire":{"name":"精英吸血鬼", "elemImg":"Vampire", "suckBlood":{"percent":30, "num":0}, "movePs":{"moveType":"fly"}, "dropItems":["Coins"]},
+    "EliteLustZombie":{"name":"精英色欲僵尸", "elemImg":"LustZombie","deathStepOnSneak":15, "deathStepOnDie":5, "movePs":{"moveRange":4, "targetType":"eatFood"}, "dropItems":["Coins"]},
+    "EliteSwatheZombie":{"name":"精英缠绕僵尸", "elemImg":"SwatheZombie", "power":1, "hp":5, "addBuffs":[{"type":"Poison", "rate":100, "ps":[3 ,1]}], "movePs":{"moveRange":3, "targetType":"eatFood"}, "invalid":["Cocoon", "Rock", "Hole", "IceBlock"], "dropItems":["Coins"], "repRes":["SwatheZombie", "Cocoon"]}, 
+    "EliteReviveZombie":{"name":"精英复生僵尸", "elemImg":"ReviveZombie", "power":1, "hp":4, "reviveCnt":1, "dropItems":["Coins"]},
+    "Kraken":{"name":"克拉肯", "attackInterval":3, "targetFlags":["immuneFrozen"], "size":{"w":2, "h":2}, "hideHazardNum":true},
+    "HalloweenTreant":{"name":"万圣节树妖", "attackInterval":3, "targetFlags":["BuffPoison"], "size":{"w":2, "h":2}, "hideHazardNum":true, "refElems":["MNutWall", "MPeashooter", "MCherryBomb", "MSunflower", "MCharmingMushroom"]},
+    "NutWall":{"name":"坚果墙", "hp":15,
+        "level1Share":50, "level2AddHp":5, "level3AddShare":25, "level4AddHp":5, "level5AddShare":25,
+        "tags":["plant"], "noNewMonsterTip":true},
+    "Peashooter":{"name":"豌豆射手", "power":3, "hp":10, "attackInterval":5, "attackFlags":["immuneAttackBack"], 
+        "level2Power":2, "level3Critical":10, "level4MinusInterval":1,
+        "rangedAttacker":true, "tags":["plant"], "noNewMonsterTip":true},
+    "CherryBomb":{
+        "name":"樱桃炸弹", "hp":10, "power":5, "selfExplode":{"aoe":{"w":3, "h":3}},
+        "level2Power":2, "level3Critical":10, "level4BoomDamage":50,
+        "useWithConfirm":true, "tags":["plant"], "noNewMonsterTip":true,
+        "useTipContent":"useCherryBomb"
+        },
+    "Sunflower":{"name":"太阳花", "hp":10, "dhpPercent":15, 
+        "level2AddHp":6, "level3AddExpPercent":20, "level4AddMoney":10, "level5AddMaxHp":1,
+        "useWithConfirm":true, "tags":["plant"], "noNewMonsterTip":true,
+        "useTipContent":"useSunflower"
+        },
+    "CharmingMushroom":{"name":"魅惑菇", "hp":10, 
+        "level2AddPower":1, "level3AddHp":2, "level4AddCritical":10, "level5AddDodge":10,
+        "useWithTarget":true, "tags":["plant"], "noNewMonsterTip":true},
+    "CharmedMonster":{},
+
+    "NutWall1":{"name":"坚果墙", "noNewMonsterTip":true},
+    "NutWall2":{"name":"坚果墙", "noNewMonsterTip":true},
+    "NutWall3":{"name":"坚果墙", "noNewMonsterTip":true},
+    "NutWall4":{"name":"坚果墙", "noNewMonsterTip":true},
+    "NutWall5":{"name":"坚果墙", "noNewMonsterTip":true},
+    "Peashooter1":{"name":"豌豆射手", "noNewMonsterTip":true},
+    "Peashooter2":{"name":"豌豆射手", "noNewMonsterTip":true},
+    "Peashooter3":{"name":"豌豆射手", "noNewMonsterTip":true},
+    "Peashooter4":{"name":"豌豆射手", "noNewMonsterTip":true},
+    "Peashooter5":{"name":"豌豆射手", "noNewMonsterTip":true},
+    "CherryBomb1":{"name":"樱桃炸弹", "noNewMonsterTip":true},
+    "CherryBomb2":{"name":"樱桃炸弹", "noNewMonsterTip":true},
+    "CherryBomb3":{"name":"樱桃炸弹", "noNewMonsterTip":true},
+    "CherryBomb4":{"name":"樱桃炸弹", "noNewMonsterTip":true},
+    "CherryBomb5":{"name":"樱桃炸弹", "noNewMonsterTip":true},
+    "Sunflower1":{"name":"太阳花", "noNewMonsterTip":true},
+    "Sunflower2":{"name":"太阳花", "noNewMonsterTip":true},
+    "Sunflower3":{"name":"太阳花", "noNewMonsterTip":true},
+    "Sunflower4":{"name":"太阳花", "noNewMonsterTip":true},
+    "Sunflower5":{"name":"太阳花", "noNewMonsterTip":true},
+    "CharmingMushroom1":{"name":"魅惑菇", "noNewMonsterTip":true},
+    "CharmingMushroom2":{"name":"魅惑菇", "noNewMonsterTip":true},
+    "CharmingMushroom3":{"name":"魅惑菇", "noNewMonsterTip":true},
+    "CharmingMushroom4":{"name":"魅惑菇", "noNewMonsterTip":true},
+    "CharmingMushroom5":{"name":"魅惑菇", "noNewMonsterTip":true},
+
+    "ShopNpc":{"name":"商人", "hp":5, "cannotTake":true, "noNewMonsterTip":true, "dropItems":["Coins"]},
+    "Gardener":{},
+
+    "PlaceHolder":{"name":"Boss精英占位", "hideHazardNum":true, "invisible":true, "cannotTake":true},
+    "BossBunny":{"name":"boss兔子", "size":{"w":2, "h":2}, "hp":10, "hideHazardNum":true, "attackInterval":2},
+
+    "DePoison":{"name":"解毒药剂", "canOverlap":true},
+    "SuperPotion":{"name":"超能药水", "immunizeCnt":2, "cd":5, "canOverlap":true, "occupations":["Nurse"]},
+    "StrengthPotion":{"name":"力量药水", "enhanceCnt":5, "cd":5, "canOverlap":true, "occupations":["Rogue"]},    
+    "Hole":{"name":"黑洞"},
+    "Rock":{"name":"石块", "cnt":2, "useWithoutConfirm":true, "dropItems":["SmallRock"], "repRes":["Rock1", "Rock2"]},
+    "Apple":{"name":"苹果", "cnt":3, "dhp":2, "useWithoutConfirm":true, "tags":["food"],
+        "repRes":["Apple1", "Apple2", "Apple3"]},
+    "Steak":{"name":"牛排", "cnt":3, "dhp":3, "useWithoutConfirm":true, "tags":["food"],
+        "repRes":["Steak1", "Steak2", "Steak3"]},
+    "Knife":{"name":"小刀", "useWithTarget":true, "validTarget":"markedHazardMonster|uncoveredHazardMonster|uncoverable|blocked", "power":4},
+    "SmallRock":{"name":"石块", "useWithTarget":true, "validTarget":"markedHazardMonster|uncoveredHazardMonster|uncoverable|blocked", "power":1},
+    "IceBlock":{"name":"冰块", "cnt":2, "useWithoutConfirm":true, "repRes":["IceBlock1", "IceBlock2"], "addInEffect":"noEffect"},    
+    "Bazooka":{"name":"火箭筒", "canOverlap":true, "useWithTarget":true, "cd":5,
+        "validTarget":"markedMonster|uncoveredMonster|uncoverable|blocked",
+        "attackFlags":["Flame", "Pierce"], 
+        "power":5
+    },
+    "RayGun":{"name":"爆炸药水", "canOverlap":true, "useWithTarget":true, "cd":15, 
+        "validTarget": "all",
+        "attackFlags":["Flame", "Pierce"],
+        "power":6, "aoe":{"w":3, "h":3}
+    },
+    "IceGun":{"name":"冰冻射线", "canOverlap":true, "useWithTarget":true, "refElems":["IceBlock"], "cd":10,
+        "validTarget":"markedMonster|uncoveredMonster|uncoverable|blocked&canFrozen", 
+        "attackFlags":["Ice"],
+        "frozenAttrs":{"rounds":3}
+    },
+    "CandyCannon":{"name":"糖果炮弹", "canOverlap":true, "useWithTarget":true, "cd":5, "occupations":["Merchant"]},
+    "Baton":{"name":"警棍", "powerA":1},
+    "Vest":{"name":"防护衣", "dPower":1},
+    "Cocoon":{"name":"茧", "useWithoutConfirm":true, "hideDropItems":true, "addInEffect":"noEffect",
+        "repRes":["Cocoon", "CocoonLIne"]},
+    "WantedOrder":{"name":"通缉令", "useWithoutConfirm":true},
+    "Cloak":{"name":"披风"},
+    "DeluxeMeal":{"name":"豪华大餐", "percent":50, "useWithConfirm":true, "useTipContent":"useDeluxeMeal"},
+
+    "NextLevelPort":{"name":"下一层", "addInEffect":"noEffect", "useWithConfirm":true, "useTipContent":"goToNextLevel"},
+    "EscapePort":{"name":"逃跑", "invisible":true},
+
+    "OpenRelicSpace":{"name":"技能装备格", "autoUse":true}
+}

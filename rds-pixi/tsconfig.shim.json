@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "target": "es2018",
+        "module": "none",
+        "lib": ["es2018", "dom"],
+        "outFile": "public/lib/egret-shim.js",
+        "experimentalDecorators": true,
+        "skipLibCheck": true,
+        "noImplicitAny": false,
+        "strict": false,
+        "removeComments": false
+    },
+    "files": [
+        "src/shim/00-core.ts",
+        "src/shim/10-display.ts",
+        "src/shim/20-text.ts",
+        "src/shim/30-tween.ts",
+        "src/shim/40-movieclip.ts",
+        "src/shim/50-res.ts",
+        "src/shim/60-sound.ts",
+        "src/shim/70-system.ts",
+        "src/shim/75-extras.ts",
+        "src/shim/80-dragonbones.ts",
+        "src/shim/90-stage.ts"
+    ]
+}

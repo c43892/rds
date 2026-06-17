@@ -658,6 +658,7 @@ class Utils {
 
     // 判断是否是处于新手期
     public static checkRookiePlay():boolean {
+        return false; // tutorial disabled — jump straight into normal game mode
         return !Utils.loadLocalData("rookiePlay") || Utils.loadLocalData("rookiePlay") != "finished";
     }
 

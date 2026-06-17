@@ -1,0 +1,23 @@
+{
+  "name": "rds-pixi",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "setup": "node setup-libs.mjs",
+    "build:shim": "tsc -p tsconfig.shim.json",
+    "build:game": "tsc -p tsconfig.game.json || exit 0",
+    "wrap": "node wrap.mjs",
+    "build": "npm run build:shim && npm run build:game && npm run wrap",
+    "order": "node order.mjs > order.json",
+    "serve": "node server.mjs",
+    "start": "node server.mjs"
+  },
+  "dependencies": {
+    "@types/howler": "^2.2.13",
+    "dragonbones.js": "^5.7.4",
+    "glob": "^13.0.6",
+    "howler": "^2.2.4",
+    "pixi.js": "^7.4.2",
+    "pixi5-dragonbones": "^5.7.0-2b"
+  }
+}

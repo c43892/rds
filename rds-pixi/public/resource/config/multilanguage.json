@@ -1,0 +1,654 @@
+{
+    "currentLanguage":"CNS",
+    "validLanguages":["EN", "CNS", "CNT"],
+
+    "views": {
+        "login": {
+            "layout": {
+				"title": {"x": 0, "y":-30},
+                "newPlayBtn": {"x": 170, "y": 820},
+				"continueBtn": {"x": 158, "y": 900},
+                "rankBtn": {"x": 165, "y": 1000},
+				"achievementBtn": {"x": 330, "y": 1000}
+            },
+
+            "text": {
+                "title": { "EN": "Zombie Mine", "CNS": "僵尸扫雷", "CNT": "僵尸扫雷" },
+                "continueBtn": { "EN": "Continue ...", "CNS": "继续游戏 ...", "CNT": "继续游戏 ..." },
+                "newPlayBtn": { "EN": "New Play", "CNS": "新游戏", "CNT": "新游戏" },
+                "rankBtn": { "EN": "Score Rank >>", "CNS": "排行榜 >>", "CNT": "排行榜 >>" }
+            }
+        },
+
+        "battle": {
+            "layout": {
+				"occupationBg": {"x":10, "y":-50},
+				"avatarBg": {"x":0, "y":0},
+				"avatar": {"x":90, "y":70},
+				"avatarWeapon": {"x":50, "y":-150},
+                "expBar": {"x":3, "y":4},
+                "hpBar": {"x":144, "y":5},
+				"poisonedHpBar": {"x":144, "y":5},
+				"hp": {"x":144, "y":104, "w":30, "h":30},
+				"exp": {"x":2, "y":104, "w":30, "h":30},
+				
+                "power": {"x":40, "y":133, "w":50, "h":30},
+				"strengthPotionEffBg": {"x":28, "y":132, "w":35, "h":35}, 
+                "dodge": {"x":117, "y":133, "w":50, "h":30},
+                "money": {"x":15, "y":1065, "w":50, "h":30},
+                "storeyLv": {"x":570, "y":980, "w":50, "h":30},
+				
+				"deathGodBarBg": {"x":213, "y":150, "w":365, "h":10},
+				"deathGodBar": {"x":213, "y":150, "w":365, "h":10},
+                "deathGodRed": {"x":213, "y":150},
+				"deathGodGray": {"x":213, "y":150},
+				
+				"relicsBg": {"x":203, "y":10, "w":368, "h":120},
+				"moreRelics": {"x":586, "y":35, "h":80},
+				"moreProps": {"x":566, "y":1035},
+				"elemsTip": {"x":50, "y":975, "w":520, "h":45},
+				"propsView": {"x":74, "y":1028, "w":490, "h":86},
+				
+				"mapView": {"x":20, "y":190, "w":602, "h":774}
+            }
+        },
+		
+		"elemDesc": {
+			"layout": {
+				"bg": {"x":0, "y":0, "w":640, "h":1136},
+				"closeBtn": {"x":10, "y":980},
+				"tip":{"y":850, "size":40},
+				
+				"itemDescBg": {"x":50, "y":0, "w":540, "h":300},
+				"itemIcon": {"x":180, "y":25, "w":84, "h":84},
+				"itemName": {"x":280, "y":38, "w":300, "h":50},
+				"itemDesc": {"x":135, "y":65, "w":370, "h":180},
+				
+				"monsterBg": {"x":100, "y":0, "w":440, "h":600},
+				"monsterName": {"x":100, "y":42, "w":440, "h":50},
+				"monsterIcon": {"x":380, "y":110, "w":84, "h":84},
+				"powerBg": {"x":180, "y":105, "w":35, "h":35},
+				"powerTxt": {"x":230, "y":109, "w":150, "h":35},
+				"hpBg": {"x":180, "y":155, "w":35, "h":35},
+				"hpTxt": {"x":230, "y":159, "w":150, "h":35},
+				"shieldBg": {"x":280, "y":153, "w":35, "h":35},
+				"shieldTxt": {"x":330, "y":159, "w":150, "h":35},
+				"moveRangeBg": {"x":280, "y":103, "w":35, "h":35},
+				"moveRangeTxt": {"x":330, "y":109, "w":150, "h":35},
+				"attackIntervalBg": {"x":280, "y":153, "w":35, "h":35},
+				"attackIntervalTxt": {"x":330, "y":159, "w":150, "h":35},
+				"monsterDesc0": {"x":170, "y":220, "w":300},
+				"monsterDescBgFrame0": {"x":150, "y":200, "w":340},
+				
+				"relicDescBg": {"x":100, "y":0, "w":440, "h":600},
+				"relicIcon": {"x":180, "y":45, "w":84, "h":84},
+				"relicName": {"x":280, "y":75, "w":300, "h":50},
+				"relicDesc0": {"x":170, "y":175, "w":300},
+				"relicDescBgFrame0": {"x":150, "y":150, "w":340}
+			},
+			
+			
+			"text": {
+				"closeBtn": { "EN": "Close", "CNS": "返回", "CNT": "返回" }
+			}
+		},
+		
+		"allElems": {
+			"layout": {
+				"bg1": {"x":20, "y":195, "w":600, "h":730},
+				"title": {"x":70, "y":210, "w":500, "h":50},
+				"scrollArea": {"x":70, "y":285, "w":500, "h":550},
+				"closeBtn": {"x":10, "y":980}
+			},
+			
+			"text": {
+				"closeBtn": { "EN": "Close", "CNS": "返回", "CNT": "返回" }
+			}
+		},
+
+		"playerLevelUp": {
+			"layout": {
+				"bg": {"x":0, "y":0, "w":640, "h":1136},
+				"lvBg": {"x":50, "y":145},
+				"lvBg2": {"x":285, "y":642},
+				"btnOk": {"x":242, "y":928},
+				"btnOkBg": {"x":242, "y":969},
+				"btnSel0": {"x":120, "y":514},
+				"btnSel1": {"x":120, "y":632},
+				"btnSel2": {"x":120, "y":750},
+				"imgSel0": {"x":155, "y":532},
+				"imgSel1": {"x":155, "y":650},
+				"imgSel2": {"x":155, "y":768},
+				"txtSel0": {"x":245, "y":524, "w":265, "h":100},
+				"txtSel1": {"x":245, "y":642, "w":265, "h":100},
+				"txtSel2": {"x":245, "y":760, "w":265, "h":100},
+				"lvTxt": {"y":390, "w":640}
+			},
+			
+			"text": {
+				"closeBtn": { "EN": "Close", "CNS": "返回", "CNT": "返回" }
+			}
+		},
+		
+		"worldmap": {
+			"layout": {
+				"btnSymbolDesc": {"x":400, "y":70},
+				"symbolDesc": {"x":418, "y":68},
+				"crevice0": {"x":-10, "y":250},
+				"crevice1": {"x":400, "y":450},
+				"crevice2": {"x":20, "y":650},
+				"crevice3": {"x":500, "y":1000},
+				"crevice4": {"x":150, "y":1300},
+				"crevice5": {"x":-100, "y":2000},
+				"crevice6": {"x":350, "y":1700}
+			}
+		},
+		
+		"worldmapTopView": {
+			"layout": {
+				"top": {"x":0, "y":0, "h": 80},
+				"btnSetting": {"x":30, "y":10, "w":50, "h":50},
+				"coins": {"x":200, "y":10, "w":45, "h":45},
+				"numCoins": {"x":260, "y":15, "w":200, "h":50},
+				"hpTitle": {"x":340, "y":15},
+				"hp": {"x":400, "y":15, "w":200, "h":50}
+			}
+		},
+		
+		"shop": {
+			"layout": {
+				"bg1": {"x":5, "y":166},
+				"btnGoBack": {"x":10, "y":980},
+				"grid0": {"x":112, "y":438, "w":110, "h":110},
+				"grid1": {"x":267, "y":438, "w":110, "h":110},
+				"grid2": {"x":422, "y":438, "w":110, "h":110},
+				"grid3": {"x":112, "y":620, "w":110, "h":110},
+				"grid4": {"x":267, "y":620, "w":110, "h":110},
+				"grid5": {"x":422, "y":620, "w":110, "h":110},
+				"price0": {"x":151, "y":575, "w":100, "h":20},
+				"price1": {"x":311, "y":575, "w":100, "h":20},
+				"price2": {"x":472, "y":575, "w":100, "h":20},
+				"price3": {"x":151, "y":760, "w":100, "h":20},
+				"price4": {"x":311, "y":760, "w":100, "h":20},
+				"price5": {"x":472, "y":760, "w":100, "h":20},
+				"btnRob": {"x":300, "y":860},
+				"btnExchangeRelic":{"x":10, "y":980},
+				"btnGoOn":{"x":465, "y":980}
+			}
+		},
+		
+		"tipConfirm": {
+			"layout": {
+				"yesnoBg": {"x":100, "y":500, "w":460, "h":260},
+				"yesnoTitle": {"x":100, "y":525, "w":460, "h":50},
+				"yesnoContent": {"x":165, "y":535, "w":330, "h":150},
+				"btnYes": {"x":360, "y":670, "w":120, "h":50},
+				"btnNo": {"x":180, "y":670, "w":120, "h":50},
+				"btnOk": {"x":260, "y":670, "w":120, "h":50}
+			}
+		}, 
+		
+		"worldmapSelsEvent": {
+			"layout": {
+				"bg1": {"x":20, "y":220, "w":600},
+				"bg2": {"x":317, "y":413},
+				"title": {"x":40, "y":280, "w":560, "h":70},
+				"desc": {"x":120, "y":350, "w":410, "h":150},
+				"sel0": {"x":100, "y":500, "w":440, "h":70},
+				"sel1": {"x":100, "y":580, "w":440, "h":70},
+				"sel2": {"x":100, "y":660, "w":440, "h":70},
+				"sel3": {"x":100, "y":740, "w":440, "h":70},
+				"sel4": {"x":100, "y":810, "w":440, "h":70},
+				"sel5": {"x":100, "y":900, "w":440, "h":70}
+			}
+		}, 
+		
+		"turntable": {
+			"layout": {
+				"bg1": {"x":0, "y":118},
+				"rewards": {"x":320, "y":430},
+				"startBtn": {"x":320, "y":430},
+				"pointer": {"x":320, "y":407},
+				"rewardsBgShadow":{"x":320, "y":430},
+				"tipBg":{"x":111, "y":730},
+				"tipContent":{"x":171, "y":740, "w":300, "h":90},
+				"tipReward":{"x":171, "y":743},
+				"goOutBtn":{"x":465, "y":980},
+				"destination":{"x":320, "y":0}
+			}
+		},		
+		
+		"boxRoomView": {
+			"layout": {
+				"bg1": {"x":20, "y":220, "w":600},
+				"box": {"x":320, "y":502},
+				"boxEff": {"x":130, "y":415},
+				"openBoxBtn": {"x":320, "y":780},
+				"goOutBtn": {"x":427, "y":970},
+				"destination":{"x":320, "y":0},
+				"startingPoint":{"x":299, "y":479}				
+			}
+		},
+		
+		"settingView":{
+			"layout": {
+				"bg1": {"x":20, "y":220, "w":600},
+				"title":{"x":70, "y":235, "w":500, "h":50},
+				"volumeBtn":{"x":122, "y":403},
+				"relicsBtn":{"x":229, "y":400},
+				"propsBtn":{"x":340, "y":396},
+				"exitBtn":{"x":461, "y":398},
+				"goBackBtn": {"x":10, "y":980}
+			}
+		},
+		
+		"hospitalView":{
+			"layout": {
+				"bg1": {"x":20, "y":130, "w":600, "h":764},
+				"bg2": {"x":172, "y":230},		
+				"title":{"x":70, "y":145, "w":500, "h":50},		
+				"tip":{"x":70, "y":195, "w":500, "h":50},	
+				"btnMutate":{"x":119, "y":520},
+				"btnCure":{"x":119, "y":555},
+				"btnDeathGodBack":{"x":119, "y":635},
+				"btnReinforce":{"x":119, "y":720},
+				"btnExchangeRelic":{"x":10, "y":980},				
+				"btnGoOn":{"x":465, "y":980} 
+			}
+		},
+		
+		"relicSelView":{
+			"layout": {
+				"bg1":{"x":20, "y":220, "w":600},
+				"title":{"x":70, "y":235, "w":500, "h":50},
+				"btnGoBack": {"x":0, "y":1080, "w":100, "h":50}
+			}
+		},
+		
+		"guideDlgFrame":{
+			"layout": {
+				"bg": {"x":0, "y":0, "w":650, "h":330},
+				"avatar1": {"x":138, "y":50, "w":100, "h":100},
+				"avatarName1": {"x":248, "y":75, "w":200, "h":50},
+				"avatar2": {"x":480, "y":50, "w":100, "h":100},
+				"avatarName2": {"x":270, "y":75, "w":200, "h":50},
+				"content": {"x": 105, "y":190, "w":430, "h":310}
+			}
+		},
+		
+		"relicExchange":{
+			"layout": {
+				"bg1": {"x":20, "y":75, "w":600, "h":1040},
+				"relicsArea": {"x":70, "y":155, "w":500, "h":770},
+				"titleCommon":{"x":70, "y":125, "w":500, "h":50},
+				"titleEquipped" :{"x":70, "y":355, "w":500, "h":50},
+				"leftSplitLine1":{"x":75, "y":380, "w":160},
+				"rightSplitLine1":{"x":585, "y":380, "w":180},
+				"titleInBag" :{"x":70, "y":670, "w":500, "h":50},
+				"leftSplitLine2":{"x":70, "y":692, "w":160},
+				"rightSplitLine2":{"x":590, "y":692, "w":180},
+				"pageUpBtn":{"x":560, "y":825},
+				"pageDownBtn":{"x":80, "y":825},
+				"goBackBtn": {"x":10, "y":980},
+				"goOnBtn": {"x":465, "y":980}
+			}
+		},
+		
+		"LuxuryChestView":{
+			"layout": {
+				"bg1":{"x":63, "y":120},
+				"shineImg":{},
+				"relicImg1":{"x":320, "y":290, "w":100, "h":100},
+				"relicImg2":{"x":212, "y":430, "w":100, "h":100},
+				"relicImg3":{"x":428, "y":430, "w":100, "h":100},
+				"goBackBtn":{"x":10, "y":980},
+				"goOnBtn":{"x":465, "y":980},
+				"elemDesc":{"x":0, "y":590}
+			}
+		},
+		
+		"scoreView":{
+			"layout":{
+				"bg1":{"x":0, "y":50},
+				"avatar":{"x":71, "y":591, "w":100, "h":100},
+				"avatarBg":{"x":55, "y":560},
+				"finalScore":{"x":320, "y":735, "w":120, "h":60, "size":40},
+				"playerName":{"x":83, "y":745, "w":140, "h":20, "size":20},
+				"exp":{"x":110, "y":838, "w":300, "h":60, "size":40},
+				"expBar":{"x":80, "y":776},
+				"level":{"x":495, "y":838, "w":90, "h":60, "size":40},
+				"shareBtn":{"x":10, "y":980},
+				"goOnBtn":{"x":465, "y":980},
+				"scrollArea":{"x":65, "y":170, "h":548, "w":500},
+				"title":{"x":20, "y":0},
+				"score":{"x":450, "y":0},
+				"line":{"x":0, "y":32}
+			}
+		},
+
+		"nameView":{
+			"layout":{
+				"bg1":{"x":13, "y":200},
+				"keyInName":{"x":63, "y":340, "h":40, "w": 400, "size":40},
+				"randomBtn":{"x":551, "y":351},
+				"goOnBtn":{"x":465, "y":980},
+				"tip":{"x":65, "y":250, "w":400, "h":40, "size":40}
+			}
+		}, 
+		
+		"occSelView": {
+			"layout": {
+				"cancelBtn":{"x":10, "y":980},
+				"okBtn":{"x":465, "y":980},
+				"occAvatar": {"x":125, "y":135, "w":100, "h":100},
+				"occAvatarFrame": {"x":30, "y":55},
+				"occAvatarFrameMask": {"x":30, "y":55},
+				"occDesc": {"x":200, "y":100, "w":400, "h":150},
+				"occRelicImg": {"x":55, "y":213, "w":80, "h":80},
+				"occRelicDesc": {"x":150, "y":223, "w":430, "h":80},
+				"occPropImg": {"x":60, "y":293, "w":70, "h":70},
+				"occPropDesc": {"x":150, "y":298, "w":430, "h":70},
+				
+				"occAvatarBgLst1": {"x":30, "y":435, "w":150, "h":150},
+				"occAvatarBgLst2": {"x":170, "y":435, "w":150, "h":150},
+				"occAvatarBgLst3": {"x":310, "y":435, "w":150, "h":150},
+				"occAvatarBgLst4": {"x":450, "y":435, "w":150, "h":150},
+				"occAvatarBgLst5": {"x":30, "y":575, "w":150, "h":150},
+				"occAvatarBgLst6": {"x":170, "y":575, "w":150, "h":150},
+				"occAvatarBgLst7": {"x":310, "y":575, "w":150, "h":150},
+				"occAvatarBgLst8": {"x":450, "y":575, "w":150, "h":150},
+				
+				"occAvatarLst1": {"x":50, "y":450, "w":120, "h":120},
+				"occAvatarLst2": {"x":190, "y":450, "w":120, "h":120},
+				"occAvatarLst3": {"x":330, "y":450, "w":120, "h":120},
+				"occAvatarLst4": {"x":470, "y":450, "w":120, "h":120},
+				"occAvatarLst5": {"x":50, "y":590, "w":120, "h":120},
+				"occAvatarLst6": {"x":190, "y":590, "w":120, "h":120},
+				"occAvatarLst7": {"x":330, "y":590, "w":120, "h":120},
+				"occAvatarLst8": {"x":470, "y":590, "w":120, "h":120},
+				
+				"diff1": {"x":138, "y":866},
+				"diff2": {"x":221, "y":866},
+				"diff3": {"x":311, "y":866},
+				"diff4": {"x":401, "y":866},
+				"diff5": {"x":492, "y":866}
+			},
+			
+			"text": {
+				"cancelBtn": { "EN": "Return", "CNS": "返回", "CNT": "返回" },
+				"okBtn": { "EN": "Continue", "CNS": "继续", "CNT": "继续" }
+			}
+		},
+		
+		"characterView":{
+			"layout": {
+				"attrsBg":{"x":5, "y":10},			
+				"commonRelicsArea":{"x":132, "y":267, "rotation":24},
+				"avatar":{"x":50, "y":61, "w":120, "h":120},
+				"avatarBg":{"x":30, "y":46, "w":150, "h":150},
+				"occupationName":{"x":267, "y":93, "size":30, "w":150, "h":30},
+				"expBar":{"x":195, "y":145},
+				"level":{"x":214, "y":165, "size":30, "w":60, "h":30},
+				"exp":{"x":443, "y":143, "size":25, "w":125, "h":25},
+				"power":{"x":165, "y":244, "size":30, "w":120, "h":30},
+				"hp":{"x":355, "y":240, "size":30, "w":120, "h":30},
+				"dogde":{"x":545, "y":240, "size":30, "w":120, "h":30},
+				"coins":{"x":175, "y":307, "size":30, "w":150, "h":30},
+				"currentStorey":{"x":391, "y":307, "size":30, "w":120, "h":30},
+				"currentDiffFlag":{"x":480, "y":270},
+				"switchesArea":{"x":5, "y":735},
+				"switchBtnBg":{"x":0, "y":0},
+				"volumeSwitchBtn":{"x":52, "y":54},
+				"initAddElemAniAniSwitchBtn":{"x":184, "y":47},
+				"coinAniSwitchBtn":{"x":319, "y":47},
+				"forbidIcons":{"x":0, "y":0},
+				"volumeSwitchBtnForbidIcon":{"x":53, "y":60},
+				"initAddElemAniAniSwitchBtnForbidIcon":{"x":191, "y":60},
+				"coinAniSwitchBtnForbidIcon":{"x":322, "y":60},
+				"goBackBtn":{"x":10, "y":980},
+				"exitBtn":{"x":528, "y":46}
+			}
+		},
+		
+		"achvView":{
+			"layout":{
+				"bg1":{"x":22, "y":100},
+				"achvListBtn":{"x":30, "y":51},
+				"achvAwardBtn":{"x":225, "y":51},
+				"redPoint":{"x":407, "y":56},
+				"goBackBtn":{"x":10, "y":980},
+				"achvListScrollArea":{"x":35, "y":143, "w":560, "h":760},
+				"achvAwardScrollArea":{"x":35, "y":163, "w":560, "h":740},				
+				"stars":{"x":415, "y":40},
+				"finishedSign":{"x":375, "y":38, "rotation":-24},
+				"achvIcon":{"x":19, "y":14, "w":80, "h":80},
+				"title":{"x":105, "y":15, "w":320, "h":40, "size":30},
+				"shortDesc":{"x":105, "y":67, "w":270, "h":20, "size":20},
+				"awardIcon":{"x":88, "y":81},
+				"awardReceiveBtn":{"x":0, "y":151},
+				"unlockTip":{"x":88, "y":145, "h":20, "w":120},
+				"unlockDesc":{"x":88, "y":175, "h":25, "w":125},
+				"achvPointTip":{"x":120, "y":120, "w":400, "h":40}
+			}
+		},
+
+		"achvDescView":{
+			"layout":{
+				"bg1": {"x":50, "y":0, "w":540, "h":300},
+				"icon": {"x":130, "y":25, "w":84, "h":84},
+				"title": {"x":170, "y":40, "w":300, "h":50, "size":33},
+				"desc":{"x":140, "y": 100, "w":360, "h":50, "size":23},
+				"progressTip":{"x":140, "y":160, "w":360, "h":40, "size":23},
+				"progressInfo0":{"x":170, "y":200, "w":300},
+				"achvPoint": {"x":135, "y":210, "w":370, "h":40}
+			}
+		},
+
+		"newAchvView":{
+			"layout":{
+				"bg1": {"x":120, "y":300, "w":400, "h":300},
+				"title": {"x":170, "y":330, "w":300, "h":50, "size":25},
+				"achvName": {"x":170, "y":370, "w":300, "h":50, "size":35},
+				"achvIcon": {"x":270, "y":435, "w":100, "h":100},
+				"goOnBtn":{"x":465, "y":980},
+				"dTitle":{"x":120, "y":550, "w":400, "h":30},
+				"dDesc":{"x":120, "w":400, "h":30}
+			}
+		},
+
+		"OccUnlockView":{
+			"layout":{
+				"bg1": {"x":30, "y":100, "w":580, "h":800},
+				"occAvatar":{"x":120, "y":190, "w":150, "h":150},
+				"occText":{"x":300, "y":220, "w":150, "h":40},
+				"levelUp2":{"x":300, "y":300, "w":200, "h":30},
+				"levelUpTitle":{"x":100, "y":350, "w":200, "h":30},
+				"firstInfoContainer":{"x":100, "y":390, "w":440},
+				"moreInfoContainer":{"x":100, "y":390, "w":440},
+				"infoBgFrame":{"w":440, "h":200},
+				"infoTitle":{"x":30, "y":0, "w":300, "h":100},
+				"infoICon":{"x":30, "y":80},
+				"infoDesc":{"x":120, "y":90, "w":300},
+				"goOnBtn":{"x":465, "y":980}
+			}
+		}
+    },
+	
+	"occupations": {
+		"Nurse": {
+			"desc": { "EN": "description of Nurse", "CNS": "护士妹妹拥有良好的恢复能力，所有职业初始可携带与护士等级相关数量的医疗药剂。", "CNT": "護士妹妹擁有良好的恢復能力，所有職業初始可攜帶與護士等級相關數量的醫療藥劑。" },
+			"name": { "EN": "Nurse", "CNS": "护士妹妹", "CNT": "護士妹妹" }
+		},
+		
+		"Rogue": {
+			"desc": { "EN": "description of Rogue", "CNS": "作为一个黑帮混混，抢劫商店是必备能力，所有职业获得与黑帮混混等级相关级别的杀戮专精。", "CNT": "作為一個黑幫混混，搶劫商店是必備能力，所有職業獲得與黑幫混混等級相關級別的殺戮專精。" },
+			"name": { "EN": "Rogue", "CNS": "黑帮混混", "CNT": "黑幫混混" }
+		}
+	},
+
+	"tips": {
+		"yes": { "EN": "yes", "CNS": "确定", "CNT": "確定" },
+		"cancel": { "EN": "no", "CNS": "取消", "CNT": "取消" },
+		"close": { "EN": "close", "CNS": "关闭", "CNT": "關閉" },
+		"ok": { "EN": "OK", "CNS": "确定", "CNT": "確定" },
+		"retry": { "EN": "Retry", "CNS": "重试", "CNT": "重試" },
+		"cannotconnect2server": { "EN": "Cannot connect to the server", "CNS": "无法连接到服务器", "CNT": "無法連接到伺服器" },
+		"notHungry": { "EN": "I'm not hungry", "CNS": "我不饿", "CNT": "我不餓" },
+		"noKey": { "EN": "I don't have enough key", "CNS": "没有钥匙", "CNT": "沒有鑰匙" },
+		"doorLocked": { "EN": "The door is locked by boss", "CNS": "Boss锁住了门", "CNT": "Boss鎖住了門" },
+		"swathed":{ "EN": "kill the monster who swathed it first", "CNS": "需要先消灭缠绕它的怪物", "CNT": "需要先消滅纏繞它的怪物" },
+		"cure": { "EN": "cure", "CNS": "愈合", "CNT": "癒合" },
+		"thorns": { "EN": "thorns", "CNS": "荆棘", "CNT": "荊棘" },
+		"protect": { "EN": "protect", "CNS": "援护", "CNT": "援護" },
+		"multAttack": { "EN": "mult-attack", "CNS": "连击", "CNT": "連擊" },
+		"deepFrozen":{ "EN": "deep frozen", "CNS": "窒息", "CNT": "窒息" },
+		"makeSureReinforceRelic": {"EN": "", "CNS": "确定强化{0}?", "CNT": "確定強化{0}?" },
+		"makeSureBuy": {"EN": "", "CNS": "花费{0}金币?", "CNT": "花費{0}金幣"},
+		"relics": {"EN": "Skills", "CNS": "技能", "CNT": "技能"},
+		"props": {"EN": "Props", "CNS": "道具", "CNT": "道具"},
+		"makeSureUseElem": {"EN": "be sure to use {0}?", "CNS": "确定使用<font color=#ff0000>{0}</font>?", "CNT": "確定使用<font color=#ff0000>{0}</font>?"},
+		"makeSureUseProp": {"EN": "be sure to use {0}?", "CNS": "确定使用<font color=#ff0000>{0}</font>?", "CNT": "確定使用<font color=#ff0000>{0}</font>?"},
+		"coins": {"EN": "coins", "CNS": "金币", "CNT": "金幣" },
+		"costCoins": {"EN": "<font color=#294c22>cost {0} coins</font>", "CNS": "<font color=#294c22>花费金币 {0} </font>", "CNT": "<font color=#294c22>花费金幣 {0} </font>"},
+		"costCoinsOnRelic": {"EN": "<font color=#ffffff>cost {0} coins</font>", "CNS": "<font color=#ffffff size = 25>花费金币 {0} </font>", "CNT": "<font color=#294c22>花费金幣 {0} </font>"},
+		"numHold": {"EN": "<font color=#464070>hold {0} </font>", "CNS": "<font color=#464070>当前拥有 {0} 个</font>", "CNT": "<font color=#464070>當前擁有 {0} 個</font>"},
+		"openBox": {"EN": "open the box", "CNS": "打开宝箱", "CNT": "打開寶箱"},
+		"makeSureGoOutBoxRoom":{"EN": "be sure to leave without left items?", "CNS": "确定放弃余下的物品?", "CNT": "確定放棄餘下的物品?"},
+		"setting": {"EN": "setting", "CNS": "设置", "CNT": "設置"},
+		"makeSureExitThisGame":{"EN": "be sure to give up this game?", "CNS": "确定<font color=#7d0403>放弃</font>此局游戏?", "CNT": "確定<font color=#7d0403>放棄</font>此局遊戲?"},
+		"hospitalTitle": {"EN": "safe house", "CNS": "安全屋", "CNT": "安全屋"},
+		"hospitalTip": {"EN": "what's your choice?", "CNS": "你想要做什么?", "CNT": "你想要做什麼?"},
+		"hospitalCure":{"EN": "cure", "CNS": "休息（恢复30%生命）", "CNT": "治療"},
+		"hospitalDeathGodBack":{"EN": "death god back", "CNS": "驱逐（死神回退50步）", "CNT": "驅逐（死神回退50步）"},
+		"hospitalReinforce":{"EN": "reinforce", "CNS": "强化（升级某项技能）", "CNT": "強化"},
+		"hospitalMutate":{"EN": "mutate", "CNS": "变异", "CNT": "變異"},
+		"hospitalExchangeRelic": {"EN": "exchange", "CNS": "装备技能", "CNT": "裝備技能"},
+		"selRelic": {"EN": "select a skill", "CNS": "选择一个技能", "CNT": "選擇一個技能"},
+		"makeSureSelRelic": {"EN": "be sure to select ", "CNS": "确定选择", "CNT": "確定選擇"},
+		"continueBtn":{"EN": "continue", "CNS": "继续", "CNT": "繼續"},
+		"shareBtn":{"EN": "share", "CNS": "分享", "CNT": "分享"},
+		"rob":{"EN": "Rob", "CNS": "抢劫", "CNT": "搶劫"},
+		"goBackBtn":{"EN": "go back", "CNS": "返回", "CNT": "返回"},
+		"showDeathGodStep":{"EN": "{0}", "CNS": "死神距离你还有<font color=#7d0403>{0}</font>步", "CNT": "死神距離你還有<font color=#7d0403>{0}</font>步"},
+		"nextOne":{"EN": "next one", "CNS": "下一个", "CNT": "下一個"},
+		"soldout":{"EN": "sold out", "CNS": "已售罄", "CNT": "已售罄"},
+		"notEnoughMoney":{"EN": "Not Enough Money", "CNS": "<font color=#ffffff size=30>金币不足</font>", "CNT": "<font color=#ffffff size=30>金幣不足</font>"},
+		"pressAnywhereToClose":{"EN": "press anywhere to close", "CNS": "<font color=#968885 size=30>点击任意位置关闭</font>", "CNT": "<font color=#968885 size=30>點擊任意位置關閉</font>"},
+		"goToNextLevel": {"EN": "be sure to leave?", "CNS": "确定离开这一层吗?", "CNT": "確定離開這一層嗎?"},
+		"press2Unblock": {"EN": "press to unblock", "CNS": "再次长按取消标记", "CNT": "再次長按取消標記"},
+		"sneaking": {"EN": "sneaking", "CNS": "突袭", "CNT": "突襲"},
+		"relicPosLocked": {"EN": "locked", "CNS": "在商店解锁", "CNT": "在商店解鎖"},
+		"titleCommon":{"EN": "skills", "CNS": "固有技能", "CNT": "固有技能"},
+		"titleEquipped": {"EN": "skills equipped", "CNS": "已装备技能", "CNT": "已裝備技能"},
+		"titleInBag": {"EN": "skills in bag", "CNS": "技能包裹", "CNT": "技能包裹"},
+		"makeSureGiveUpTitle":{"EN": "sure", "CNS": "确定", "CNT": "確定"},
+		"makeSureGiveUpContent":{"EN": "be sure to give up exchanges?", "CNS": "确定放弃交换操作?", "CNT": "確定放棄交換操作?"},
+		"makeSureGoOnTitle":{"EN": "sure", "CNS": "确定", "CNT": "確定"},
+		"makeSureGoOnContent":{"EN": "be sure to save exchanges?", "CNS": "确定保存交换操作?", "CNT": "確定保存交換操作?"},
+		"canNotDragCommonRelic":{"EN": "can't exchange this skill?", "CNS": "不能交换固有技能", "CNT": "不能交換固有技能"},
+		"shieldPassiveTriggerDesc": {"EN": "shield trigger passively", "CNS": "盾牌抵挡一次攻击", "CNT": "盾牌抵擋一次攻擊"},
+		"inCD":{"EN": "not ready", "CNS": "冷却中", "CNT": "冷卻中"},
+		"batonPassiveTriggerDesc": {"EN": "baton trigger passively", "CNS": "警棍增加1攻击", "CNT": "警棍增加1攻擊"},
+		"cloakPassiveTriggerDesc": {"EN": "cloak trigger passively", "CNS": "披风抵挡一次突袭", "CNT": "披風抵擋一次突襲"},
+		"invalidOperate":{"EN": "can not do that", "CNS": "这是一个无效的操作", "CNT": "這是一個無效的操作"},
+		"tipOnDrag":{"EN": "can not do that", "CNS": "只能在营火的切换技能处装备或交换技能", "CNT": "只能在營火的切換技能處裝備或交換技能"},
+		"tipOnCannotReinfoce":{"EN": "can not reinfoce", "CNS": "该技能不能再升级", "CNT": "該技能不能再升級"},
+		"nutWallUseDesc":{"EN": "I'm going to share the damage", "CNS": "我会帮你分担伤害", "CNT": "我會幫你分擔傷害"},
+		"peashooterUseDesc":{"EN": "shooting!", "CNS": "射击！射击！", "CNT": "射擊！射擊！"},
+		"headBoneUseDesc":{"EN": "get the monster sneaking!", "CNS": "让怪物突袭你吧！", "CNT": "讓怪物突襲你吧！"},
+		"newPlayConfirmTitle":{"EN": "!", "CNS": "<font color=#7d0403>提示</font>", "CNT": "<font color=#7d0403>提示</font>"},
+		"newPlayConfirmContent":{"EN": "discard the current progress?", "CNS": "确定放弃当前进度？", "CNT": "確定放棄當前進度？"},
+		"chooseThisRelic":{"EN": "choose this skill", "CNS": "选择此技能", "CNT": "選擇此技能"},
+		"saveExchange":{"EN": "sava", "CNS": "保存", "CNT": "保存"},
+		"useDeluxeMeal":{"EN": "使用豪华大餐回复50%生命值？", "CNS": "使用豪华大餐回复50%生命值？", "CNT": "使用豪華大餐回復50%生命值？"},
+		"hideHazardNumber":{"EN": "hideHazardNumber", "CNS": "你的SAN值过低，<font color=#7d0403>怪物周围的计数将被隐藏</font>，杀死克苏鲁的触手可恢复SAN值", "CNT": "你的SAN值過低，<font color=#7d0403>怪物周圍的計數將被隱藏</font>，殺死克蘇魯的觸手可恢復SAN值"},
+		"hideMonsterAttrs":{"EN": "hideMonsterAttrs", "CNS": "你的SAN值过低，<font color=#7d0403>怪物的属性值将被隐藏</font>，杀死克苏鲁的触手可恢复SAN值", "CNT": "你的SAN值過低，<font color=#7d0403>怪物的屬性值將被隱藏</font>，殺死克蘇魯的觸手可恢復SAN值"},
+		"attackRandomGrid":{"EN": "attackRandomGrid", "CNS": "你的SAN值过低，<font color=#7d0403>将攻击随机的敌方目标</font>，杀死克苏鲁的触手可恢复SAN值", "CNT": "你的SAN值過低，<font color=#7d0403>將攻擊隨機的敵方目標</font>，殺死克蘇魯的觸手可恢復SAN值"},
+		"changeMonsterImg":{"EN": "changeMonsterImg", "CNS": "你的SAN值过低，<font color=#7d0403>怪物的图标都显示为克苏鲁的触手</font>，杀死克苏鲁的触手可恢复SAN值", "CNT": "你的SAN值過低，<font color=#7d0403>怪物的圖示都顯示為克蘇魯的觸手</font>，殺死克蘇魯的觸手可恢復SAN值"},
+		"diff1":{"EN": "diff1", "CNS": "简单", "CNT":"簡單"},
+		"diff2":{"EN": "diff2", "CNS": "普通", "CNT":"普通"},
+		"diff3":{"EN": "diff3", "CNS": "困难", "CNT":"困難"},
+		"diff4":{"EN": "diff4", "CNS": "噩梦", "CNT":"噩夢"},
+		"diff5":{"EN": "diff5", "CNS": "地狱", "CNT":"地獄"},
+		"levelDifficultyDesc":{
+			"EN":["<font color=#000000 size=25>新手难度</font>\r\n初始格子数 8", "简单难度\r\n初始格子数 7", "普通难度\r\n初始格子数 6", "困难难度\r\n初始格子数 5", "地狱难度\r\n初始格子数 4"],
+			"CNS":["\r\n\r\n<font color=#7d0403 size=25>简单难度</font>\r\n<font color=#000000 size=23>初始格子数：8</font>\r\n<font color=#000000 size=23>怪物属性：80%</font>\r\n<font color=#000000 size=23>获得金钱数：200%</font>\r\n<font color=#000000 size=23>初始生命值：40</font>\r\n<font color=#000000 size=23>死神初始步数：180</font>\r\n<font color=#000000 size=23>1个世界</font>\r\n<font color=#000000 size=23>难度系数:50%</font>", "\r\n\r\n<font color=#7d0403 size=25>普通难度</font>\r\n<font color=#000000 size=23>初始格子数：7</font>\r\n<font color=#000000 size=23>怪物属性：90%</font>\r\n<font color=#000000 size=23>获得金钱数：150%</font>\r\n<font color=#000000 size=23>初始生命值：40</font>\r\n<font color=#000000 size=23>死神初始步数：160</font>\r\n<font color=#000000 size=23>2个世界</font>\r\n<font color=#000000 size=23>难度系数:80%</font>", "\r\n\r\n<font color=#7d0403 size=25>困难难度</font>\r\n<font color=#000000 size=23>初始格子数：6</font>\r\n<font color=#000000 size=23>怪物属性：100%</font>\r\n<font color=#000000 size=23>获得金钱数：100%</font>\r\n<font color=#000000 size=23>初始生命值：40</font>\r\n<font color=#000000 size=23>死神初始步数：140</font>\r\n<font color=#000000 size=23>3个世界</font>\r\n<font color=#000000 size=23>难度系数:100%</font>", "\r\n\r\n<font color=#7d0403 size=25>噩梦难度</font>\r\n<font color=#000000 size=23>初始格子数：5</font>\r\n<font color=#000000 size=23>怪物属性：110%</font>\r\n<font color=#000000 size=23>获得金钱数：100%</font>\r\n<font color=#000000 size=23>初始生命值：30</font>\r\n<font color=#000000 size=23>死神初始步数：120</font>\r\n<font color=#000000 size=23>4个世界</font>\r\n<font color=#000000 size=23>难度系数:150%</font>", "\r\n\r\n<font color=#7d0403 size=25>地狱难度</font>\r\n<font color=#000000 size=23>初始格子数：4</font>\r\n<font color=#000000 size=23>怪物属性：120%</font>\r\n<font color=#000000 size=23>获得金钱数：100%</font>\r\n<font color=#000000 size=23>初始生命值：20</font>\r\n<font color=#000000 size=23>死神初始步数：100</font>\r\n<font color=#000000 size=23>无限模式</font>\r\n<font color=#000000 size=23>难度系数:200%</font>"],
+			"CNT":["\r\n\r\n<font color=#7d0403 size=25>簡單難度</font>\r\n<font color=#000000 size=23>初始格子數：8</font>\r\n<font color=#000000 size=23>怪物屬性：80%</font>\r\n<font color=#000000 size=23>獲得金錢數：200%</font>\r\n<font color=#000000 size=23>初始生命值：40</font>\r\n<font color=#000000 size=23>死神初始步數：180</font>\r\n<font color=#000000 size=23>1個世界</font>\r\n<font color=#000000 size=23>難度係數:50%</font>", "\r\n\r\n<font color=#7d0403 size=25>普通難度</font>\r\n<font color=#000000 size=23>初始格子數：7</font>\r\n<font color=#000000 size=23>怪物屬性：90%</font>\r\n<font color=#000000 size=23>獲得金錢數：150%</font>\r\n<font color=#000000 size=23>初始生命值：40</font>\r\n<font color=#000000 size=23>死神初始步數：160</font>\r\n<font color=#000000 size=23>2個世界</font>\r\n<font color=#000000 size=23>難度係數:80%</font>", "\r\n\r\n<font color=#7d0403 size=25>困難難度</font>\r\n<font color=#000000 size=23>初始格子數：6</font>\r\n<font color=#000000 size=23>怪物屬性：100%</font>\r\n<font color=#000000 size=23>獲得金錢數：100%</font>\r\n<font color=#000000 size=23>初始生命值：40</font>\r\n<font color=#000000 size=23>死神初始步數：140</font>\r\n<font color=#000000 size=23>3個世界</font>\r\n<font color=#000000 size=23>難度係數:100%</font>", "\r\n\r\n<font color=#7d0403 size=25>噩夢難度</font>\r\n<font color=#000000 size=23>初始格子數：5</font>\r\n<font color=#000000 size=23>怪物屬性：110%</font>\r\n<font color=#000000 size=23>獲得金錢數：100%</font>\r\n<font color=#000000 size=23>初始生命值：30</font>\r\n<font color=#000000 size=23>死神初始步數：120</font>\r\n<font color=#000000 size=23>4個世界</font>\r\n<font color=#000000 size=23>難度係數:150%</font>", "\r\n\r\n<font color=#7d0403 size=25>地獄難度</font>\r\n<font color=#000000 size=23>初始格子數：4</font>\r\n<font color=#000000 size=23>怪物屬性：120%</font>\r\n<font color=#000000 size=23>獲得金錢數：100%</font>\r\n<font color=#000000 size=23>初始生命值：20</font>\r\n<font color=#000000 size=23>死神初始步數：100</font>\r\n<font color=#000000 size=23>無限模式</font>\r\n<font color=#000000 size=23>難度係數:200%</font>"]
+		},
+		"totalStoreyLevel": {"EN": "totalStoreyLevel", "CNS": "层数得分", "CNT": "層數得分"},
+		"playerLevel": {"EN": "playerLevel", "CNS": "等级得分", "CNT": "等級得分"},
+		"totalCoins": {"EN": "totalCoins", "CNS": "金币得分", "CNT": "金幣得分"},
+		"totalRelicLevel": {"EN": "totalRelicLevel", "CNS": "技能得分", "CNT": "技能得分"},
+		"totalMonster": {"EN": "totalMonster", "CNS": "消灭怪物得分", "CNT": "消滅怪物得分"},
+		"clearBonusCount": {"EN": "clearBonusCount", "CNS": "清关得分", "CNT": "清關得分"},
+		"difficulty": {"EN": "difficulty", "CNS": "难度系数", "CNT": "難度係數"},
+		"needName": {"EN": "need a name", "CNS": "需要一个名字", "CNT": "需要一個名字"},
+		"tooLongName": {"EN": "this name is too long", "CNS": "名字最长七个字", "CNT": "名字最長七個字"},
+		"inValidName": {"EN": "invalid name", "CNS": "名字不合规", "CNT": "名字不合规"},
+		"keyInNewName": {"EN": "key in a new name", "CNS": "请输入一个新名字", "CNT": "請輸入一個新名字"},
+		"notInRank": {"EN": "not in the rank. best score {score}", "CNS": "未上榜, 最好成绩 {score}", "CNT": "未上榜, 最好成績 {score}"},
+		"scoreInRank": {"EN": "ranking: {ranking}, best score {score}", "CNS": "排名: {ranking}, 最好成绩 {score}", "CNT": "排名: {ranking}, 最好成績 {score}"},
+		"noThisRelic":{"EN": "don't have this skill", "CNS": "还未获得此技能", "CNT":"還未獲得此技能"},
+		"thisIsLocked":{"EN": "this is locked", "CNS": "还未解锁", "CNT":"還未解鎖"},
+		"notOpenYet":{"EN": "Do not open yet", "CNS": "暂未开放", "CNT": "暫未開放"},
+		"watchRewardAds":{"EN": "Watch Ads", "CNS": "看广告", "CNT": "看廣告"},
+		"justDie":{"EN": "Just Die", "CNS": "死亡", "CNT": "死亡"},
+		"rebornAnyway":{"EN": "Reborn", "CNS": "复活", "CNT": "復活"},
+		"useCherryBomb": {"EN": "Just Die", "CNS": "引爆后，翻开周围3*3的格子并造成伤害", "CNT": "引爆後，翻開周圍3*3的格子並造成傷害"},
+		"useSunflower": {"EN": "Just Die", "CNS": "使用后恢复生命值", "CNT": "使用後恢復生命值"},
+		"getNewAchvTitle":{"EN": "You've got a new achievement:", "CNS": "恭喜获得成就:", "CNT": "恭喜獲得成就:"},
+		"currentAchvPoint":{"EN": "Current achievement point:", "CNS": "当前成就点:", "CNT": "當前成就點:"},
+		"eliteLevelTipTitle":{"EN": "this is a tip title", "CNS": "精英关卡提示", "CNT": "精英關卡提示"},
+		"levelUpTitle":{"EN": "unlock", "CNS": "实力提升效果", "CNT": "實力提升效果"},
+		"unlockBtn":{"EN": "unlock", "CNS": "解锁", "CNT": "解鎖"},
+		"nurse":{"EN": "Nurse", "CNS": "护士", "CNT": "護士"},
+		"horticulturist":{"EN": "Nurse", "CNS": "园艺师", "CNT": "園藝師"},
+		"merchant":{"EN": "Merchant", "CNS": "商人", "CNT": "商人"},
+		"rookiePlay101":{"EN": "", "CNS": "!!!", "CNT": "!!!"},
+		"rookiePlay102":{"EN": "", "CNS": "你怎么跑到这里来了", "CNT": "你怎麼跑到這裡來了"},
+		"rookiePlay103":{"EN": "", "CNS": "这是魔王的地牢，每一层都有很多怪物看守", "CNT": "這是魔王的地牢，每一層都有很多怪物看守"},
+		"rookiePlay104":{"EN": "", "CNS": "现在你可以看到怪物和一些可以使用的道具，门后面是出口", "CNT": "現在你可以看到怪物和一些可以使用的道具，門後面是出口"},
+		"rookiePlay105":{"EN": "", "CNS": "但是你永远无法知道出口是离开地牢还是通往下一层", "CNT": "但是你永遠無法知道出口是離開地牢還是通往下一層"},
+		"rookiePlay201":{"EN": "", "CNS": "让我告诉你一些基本规则", "CNT": "讓我告訴你一些基本規則"},
+		"rookiePlay202":{"EN": "", "CNS": "地上的数字表示它周围8个格子里隐藏的怪物的数量", "CNT": "地上的數字表示它周圍8個格子裡隱藏的怪物的數量"},
+		"rookiePlay203":{"EN": "", "CNS": "点击就可以打开格子", "CNT": "點擊就可以打開格子"},
+		"rookiePlay204":{"EN": "", "CNS": "跟着我点击闪光的格子", "CNT": "跟著我點擊閃光的格子"},
+		"rookiePlay205":{"EN": "", "CNS": "当你无法确定时，可以用飞刀来探路", "CNT": "當你無法確定時，可以用飛刀來探路"},
+		"rookiePlay206":{"EN": "", "CNS": "捡起飞刀，我们来用它探路", "CNT": "撿起飛刀，我們來用它探路"},
+		"rookiePlay207":{"EN": "", "CNS": "下来让我们攻击一个格子", "CNT": "下來讓我們攻擊一個格子"},
+		"rookiePlay208":{"EN": "", "CNS": "看来我们遇到了对手", "CNT": "看來我們遇到了對手"},
+		"rookiePlay209":{"EN": "", "CNS": "怪物的详细信息可以通过长按来查看", "CNT": "怪物的詳細資訊可以通過長按來查看"},
+		"rookiePlay210":{"EN": "", "CNS": "现在长按小手指向的格子吧", "CNT": "現在長按小手指向的格子吧"},
+		"rookiePlay211":{"EN": "", "CNS": "每个怪物都有特殊的属性和技能，现在让我们尝试攻击一下它", "CNT": "每個怪物都有特殊的屬性和技能，現在讓我們嘗試攻擊一下它"},
+		"rookiePlay212":{"EN": "", "CNS": "来，点击怪物吧", "CNT": "來，點擊怪物吧"},
+		"rookiePlay213":{"EN": "", "CNS": "眼魔死亡会打开空着的格子。", "CNT": "眼魔死亡會打開空著的格子"},
+		"rookiePlay214":{"EN": "", "CNS": "现在点开闪光的格子", "CNT": "現在點開閃光的格子"},
+		"rookiePlay215":{"EN": "", "CNS": "有一个苹果，我们可以拖走它方便我们看格子上的数字", "CNT": "有一個蘋果，我們可以拖走它方便我們看格子上的數字"},
+		"rookiePlay216":{"EN": "", "CNS": "让我们再点开一个闪光的格子", "CNT": "讓我們再點開一個閃光的格子"},
+		"rookiePlay217":{"EN": "", "CNS": "有一瓶药水，我们来点一下", "CNT": "有一瓶藥水，我們來點一下"},
+		"rookiePlay218":{"EN": "", "CNS": "它进入道具栏了，让我们继续", "CNT": "它進入道具欄了，讓我們繼續"},
+		"rookiePlay219":{"EN": "", "CNS": "我们来尝试一下爆炸药水的效果吧", "CNT": "我們來嘗試一下爆炸藥水的效果吧"},
+		"rookiePlay220":{"EN": "", "CNS": "现在我们学习一个新操作，手动标注怪物", "CNT": "現在我們學習一個新操作，手動標注怪物"},
+		"rookiePlay221":{"EN": "", "CNS": "我们手动在格子上做记号，提醒自己那个格子有怪物", "CNT": "我們手動在格子上做記號，提醒自己那個格子有怪物"},
+		"rookiePlay222":{"EN": "", "CNS": "跟着小手长按那个格子", "CNT": "跟著小手長按那個格子"},
+		"rookiePlay223":{"EN": "", "CNS": "好的，你成功了，让我们再来一次", "CNT": "好的，你成功了，讓我們再來一次"},
+		"rookiePlay224":{"EN": "", "CNS": "非常好，魔王的手下遍布地牢，谨慎的向前探索吧，勇士", "CNT": "非常好，魔王的手下遍佈地牢，謹慎的向前探索吧，勇士"},
+		"onSneakedGuide01":{"EN": "", "CNS": "哎呀，你被怪物突袭了", "CNT": "哎呀，你被怪物突襲了"},
+		"onSneakedGuide02":{"EN": "", "CNS": "怪物突袭时会有各种技能来伤害你", "CNT": "怪物突襲時會有各種技能來傷害你"},
+		"onSneakedGuide03":{"EN": "", "CNS": "你可以使用飞刀和道具来探路", "CNT": "你可以使用飛刀和道具來探路"},
+		"onMonsterMarkedGuide01":{"EN": "", "CNS": "bingo，你成功的标记了一个怪物", "CNT": "bingo，你成功的標記了一個怪物"},
+		"onMonsterMarkedGuide02":{"EN": "", "CNS": "你也可以看到怪物的属性来判断是不是要击杀这个怪物", "CNT": "你也可以看到怪物的屬性來判斷是不是要擊殺這個怪物"},
+		"onMonsterMarkedGuide03":{"EN": "", "CNS": "注意哦，你不一定要击杀所有怪物，拿到宝物就可以去下一层了", "CNT": "注意哦，你不一定要擊殺所有怪物，拿到寶物就可以去下一層了"},
+		"rookiePlay501":{"EN": "", "CNS": "看来你有机会突破魔王的封锁了", "CNT": "看來你有機會突破魔王的封鎖了"},
+		"rookiePlay502":{"EN": "", "CNS": "给你介绍一位强力的同伴，他会和我一起帮助你战斗", "CNT": "給你介紹一位強力的同伴，他會和我一起幫助你戰鬥"},
+		"rookiePlay503":{"EN": "", "CNS": "其实我就是种花的，不过我的植物宝贝们都很厉害", "CNT": "其實我就是種花的，不過我的植物寶貝們都很厲害"},
+		"rookiePlay504":{"EN": "", "CNS": "了解并熟悉它们，可以让你的战斗更加轻松", "CNT": "瞭解並熟悉它們，可以讓你的戰鬥更加輕鬆"},
+		"rookiePlay505":{"EN": "", "CNS": "现在把我的宝物给你，你就可以操纵我的植物了", "CNT": "現在把我的寶物給你，你就可以操縱我的植物了"},
+		"rookiePlay506":{"EN": "", "CNS": "继续前进吧，勇士", "CNT": "繼續前進吧，勇士"},
+		"robExtraItemDialog01":{"EN": "", "CNS": "额外抢到一件物品：", "CNT": "額外搶到一件物品："},
+		"openAvatarView01":{"EN": "", "CNS": "点击头像", "CNT": "點擊頭像"},
+		"openAvatarView02":{"EN": "", "CNS": "这里你可以看到你的属性，通用技能，还有一些设置可以选择", "CNT": "這裡你可以看到你的屬性，通用技能，還有一些設置可以選擇"},
+		"openAvatarView03":{"EN": "", "CNS": "点击返回让我们回到战斗", "CNT": "點擊返回讓我們回到戰鬥"},
+		"": {}
+	}
+}

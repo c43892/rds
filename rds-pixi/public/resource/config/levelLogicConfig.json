@@ -1,0 +1,70 @@
+{
+    "rookiePlay":[
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1"], ["rookiePlayBox", "rookiePlayBox", "rookiePlayBox"]]}, 
+        {"type":"LevelLogicTakeKey"},
+        {"type":"LevelLogicMarkAllAward", "ps":["rookiePlayBox"]}
+        ],
+    "awardInherited":[],
+    "normal":[
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1"]]}, 
+        {"type":"LevelLogicTakeKey"},
+        {"type":"LevelLogicMarkAllAward", "ps":["markAllAward"]}
+        ],
+    "randomEgg":[
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox2"]]}, 
+        {"type":"LevelLogicTakeKey"}, 
+        {"type":"LevelLogicChangeMonster", "ps":[["RandomEggZombie"], 5]},
+        {"type":"LevelLogicRandomEgg", "ps":["markAllAward"]}
+        ],
+    "eliteGoblinThief":[
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox2"]]}, 
+        {"type":"LevelLogicTakeKey"}, 
+        {"type":"LevelLogicElite", "ps":[["EliteGoblinThief"]]}
+        ],
+    "eliteVampire":[
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox2"]]}, 
+        {"type":"LevelLogicTakeKey"}, 
+        {"type":"LevelLogicElite", "ps":[["EliteVampire"]]}
+        ],
+    "eliteLustZombie":[
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox2"]]}, 
+        {"type":"LevelLogicTakeKey"}, 
+        {"type":"LevelLogicElite", "ps":[["EliteLustZombie"]]}
+        ],
+    "eliteSwatheZombie":[
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox2"]]}, 
+        {"type":"LevelLogicTakeKey"}, 
+        {"type":"LevelLogicElite", "ps":[["EliteSwatheZombie"]]}
+        ],
+    "eliteReviveZombie":[
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox2"]]}, 
+        {"type":"LevelLogicTakeKey"}, 
+        {"type":"LevelLogicElite", "ps":[["EliteReviveZombie"]]}
+        ],
+    "searchBody":[
+        {"type":"LevelLogicTakeKey"}
+        ],
+    "slimeKing":[
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["bossBox1", "bossBox2", "bossBox4", "bossBox5"]]}, 
+        {"type":"LevelLogicTakeKey"}, 
+        {"type":"LevelLogicChangeMonster", "ps":[["RedSlime", "GreenSlime"], 5]},
+        {"type":"LevelLogicBoss", "ps":[["SlimeKing"]]}
+        ],
+    "brainOfCthulhu":[
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["bossBox1", "bossBox2", "bossBox4", "bossBox5"]]}, 
+        {"type":"LevelLogicTakeKey"}, 
+        {"type":"LevelLogicChangeMonster", "ps":[["ReviveZombie"], 5]},
+        {"type":"LevelLogicBoss", "ps":[["BrainOfCthulhu"]]}
+        ],
+    "kraken":[
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["bossBox1", "bossBox2", "bossBox4", "bossBox5"]]}, 
+        {"type":"LevelLogicTakeKey"}, 
+        {"type":"LevelLogicBoss", "ps":[["Kraken"]]}
+    ],
+    "halloweenTreant":[
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["bossBox1", "bossBox2", "bossBox4", "bossBox5"]]}, 
+        {"type":"LevelLogicTakeKey"},
+        {"type":"LevelLogicBoss", "ps":[["HalloweenTreant"]]},
+        {"type":"LevelLogicChangeMonster", "ps":[["MCherryBomb", "MSunflower", "MCharmingMushroom", "MNutWall"], 63, {"MPeashooter":5}, ["MPeashooter"]]}
+    ]
+}
