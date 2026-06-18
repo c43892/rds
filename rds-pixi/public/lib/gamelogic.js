@@ -21937,34 +21937,9 @@ class WorldMapView extends egret.DisplayObjectContainer {
             this.viewContent.setChildIndex(imgs[sp.lv][sp.n], -1);
             this.viewContent.setChildIndex(adpImg, -1);
         }
-        // 显示可选节点动画
-        var sps = BattleUtils.getSelectableStoreyPos(this.worldmap.player);
-        var sr = new SRandom();
-        for (var sp of sps) {
-            var img = imgs[sp.lv][sp.n];
-            if (!img)
-                continue;
-            img.alpha = 1;
-            var t = sr.nextInt(1000, 2000);
-            var s = img["ptType"] == "boss" ? bossDotScale : dotScale;
-            egret.Tween.get(img, { loop: true }).to({ scaleX: 1.1 * s, scaleY: 1.1 * s }, t, egret.Ease.quadInOut)
-                .to({ scaleX: s, scaleY: s }, t, egret.Ease.quadInOut);
-            egret.Tween.get(img, { loop: true }).to({ alpha: 2.5 }, t, egret.Ease.quadInOut)
-                .to({ alpha: 1 }, t, egret.Ease.quadInOut);
-            // var outline = ViewUtils.createBitmapByName("BoxRoomFlash_png");
-            // img.parent.addChild(outline);
-            // img.parent.setChildIndex(img, -1);
-            // outline.anchorOffsetX = outline.width / 2;
-            // outline.anchorOffsetY = outline.height / 2;
-            // outline.x = img.x;
-            // outline.y = img.y;
-            // img.alpha = 0.5;
-            // egret.Tween.get(outline, {loop:true}).to({alpha:0}, 1000, egret.Ease.quadInOut)
-            //     .to({alpha:1}, 1000, egret.Ease.quadInOut);
-            // egret.Tween.get(img, {loop:true}).to({alpha:1}, 1000, egret.Ease.quadInOut)
-            //     .to({alpha:0.5}, 1000, egret.Ease.quadInOut);
-        }
-        // 所有未来可达的点
+        // 所有未来可达的点：点亮整条可达路线（含脚步）。注意这些只是"可达"，并不一定
+        // 当前就能点击 —— 只有直接可前往的节点（下方）才可点击，所以先处理可达点，
+        // 再在其之上叠加发光区分可点击节点。
         var currentNode = WorldMapNode.getNode(this.player.currentStoreyPos.n, this.player.currentStoreyPos.lv, this.player.worldmap.nodes);
         var connectableNodes = currentNode.getConnectableNodes();
         for (var nd of connectableNodes) {
@@ -21982,6 +21957,44 @@ class WorldMapView extends egret.DisplayObjectContainer {
             ViewUtils.makeGray(img, false);
             img.alpha = 1;
             this.viewContent.setChildIndex(img, -1);
+        }
+        // 显示当前真正可点击（直接可前往）的节点：呼吸式放大 + 发光高亮，让玩家一眼区分
+        // "现在能去"和"路线上可达、但要等下方节点完成才能去"的节点。必须放在上面的可达
+        // 循环之后：发光层用 ADD(叠加)混合，要位于节点之上才能真正提亮（PIXI 会把
+        // 原版用来高亮的 alpha:2.5 截断为 1，所以改用叠加副本来实现发光）。
+        var sps = BattleUtils.getSelectableStoreyPos(this.worldmap.player);
+        var sr = new SRandom();
+        for (var sp of sps) {
+            var selImg = imgs[sp.lv][sp.n];
+            if (!selImg)
+                continue;
+            selImg.alpha = 1;
+            var t = sr.nextInt(1000, 2000);
+            var s = selImg["ptType"] == "boss" ? bossDotScale : dotScale;
+            // 轻微放大呼吸
+            egret.Tween.get(selImg, { loop: true }).to({ scaleX: 1.12 * s, scaleY: 1.12 * s }, t, egret.Ease.quadInOut)
+                .to({ scaleX: s, scaleY: s }, t, egret.Ease.quadInOut);
+            // 呼吸式发光：一张 ADD 叠加的同纹理副本，覆盖在节点之上同步放大并明灭
+            var glow = new egret.Bitmap();
+            glow.texture = selImg.texture;
+            glow.anchorOffsetX = selImg.anchorOffsetX;
+            glow.anchorOffsetY = selImg.anchorOffsetY;
+            glow.x = selImg.x;
+            glow.y = selImg.y;
+            glow.scaleX = selImg.scaleX;
+            glow.scaleY = selImg.scaleY;
+            glow.blendMode = egret.BlendMode.ADD;
+            glow.alpha = 0;
+            this.viewContent.addChild(glow);
+            this.viewContent.setChildIndex(glow, -1);
+            // 发光层在节点之上：PIXI 的 hitTest 会因为它（有纹理、containsPoint 命中）而
+            // 把点击吃掉，导致下方"可前往"节点点不动。设为完全不参与点击的 "none"。
+            glow.touchEnabled = false;
+            glow.eventMode = "none";
+            egret.Tween.get(glow, { loop: true }).to({ scaleX: 1.12 * s, scaleY: 1.12 * s }, t, egret.Ease.quadInOut)
+                .to({ scaleX: s, scaleY: s }, t, egret.Ease.quadInOut);
+            egret.Tween.get(glow, { loop: true }).to({ alpha: 0.9 }, t, egret.Ease.quadInOut)
+                .to({ alpha: 0 }, t, egret.Ease.quadInOut);
         }
         // // 处理脚步路径
         // if (lastSp) {
