@@ -65,7 +65,14 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
     curSel = 0;
     doSel;
     okBtnSlot:dragonBones.Slot;
+    // Cache pluv's width/height at open time. PIXI Container.width/height returns
+    // dynamic getLocalBounds() which collapses to 0 mid-animation, so reading it after
+    // an await would compute the wrong armature center.
+    private _stableW = 0;
+    private _stableH = 0;
     public async open(choices):Promise<string> {
+        this._stableW = this.width;
+        this._stableH = this.height;
         this.choices = choices;
         this.refresh();
         this.lvTxt.text = (this.player.lv + 1).toString();
@@ -122,7 +129,7 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
         // skipped by an early-resolved doSel or any timing/await interaction with the
         // intro effects that follow.
         await Utils.delay(50); // one frame for slot.global to populate from the first pose
-        var armCx0 = this.width / 2, armCy0 = this.height / 2;
+        var armCx0 = this._stableW / 2, armCy0 = this._stableH / 2;
         for (var iTxt0 = 0; iTxt0 < this.choices.length && iTxt0 < 3; iTxt0++) {
             var ziSlot0 = ske.getSlot("zi" + (iTxt0 + 1).toString());
             var txtV0 = this.btnSelsRelicTxts[iTxt0];
