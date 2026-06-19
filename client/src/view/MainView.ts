@@ -307,6 +307,7 @@ class MainView extends egret.DisplayObjectContainer {
     public async openShopOnWorldMap(shop, afterBoss = false) {
         this.sv.player = this.p;
         this.addChild(this.sv);
+        try {
         this.setTopAndRefreshWmtv();
         var r = Utils.genRandomShopItems(this.p, shop, this.p.playerRandom, 6);
 
@@ -379,25 +380,30 @@ class MainView extends egret.DisplayObjectContainer {
         this.p.triggerLogicPointSync("beforeOpenShopOnWorldmap", robChecker);
         var canRob = robChecker.robNum > 0 && !robbed;
         await this.sv.open(r.items, r.prices, onBuy, canRob ? onRob(robChecker.robNum) : undefined, false, onRobbed, afterBoss);
-        this.removeChild(this.sv);
+        } finally { this.removeChild(this.sv); }
     }
 
     // 打开医院界面
     public async openHospital() {
+        // 必须用 try/finally 保证视图最终被移除：模态视图叠在 WorldMapView 之上，
+        // 若 await 中途抛异常，原来的 removeChild 不会执行，模态视图会留在显示列表上
+        // 吞掉所有点击，造成"地图节点点不动"的诡异状况。
         this.hv.player = this.p;
         this.addChild(this.hv);
-        this.setTopAndRefreshWmtv();
-        await this.hv.openHospital();
-        this.removeChild(this.hv);
+        try {
+            this.setTopAndRefreshWmtv();
+            await this.hv.openHospital();
+        } finally { this.removeChild(this.hv); }
     }
 
     // 打开宝箱房间
     public async openBoxRoom() {
         this.brv.player = this.p;
         this.addChild(this.brv);
-        this.setTopAndRefreshWmtv();
-        await this.brv.open();
-        this.removeChild(this.brv);
+        try {
+            this.setTopAndRefreshWmtv();
+            await this.brv.open();
+        } finally { this.removeChild(this.brv); }
     }
 
     // 打开转盘界面
@@ -413,9 +419,10 @@ class MainView extends egret.DisplayObjectContainer {
             }
         }
         this.addChild(this.ttv);
-        this.setTopAndRefreshWmtv();
-        await this.ttv.open();
-        this.removeChild(this.ttv);
+        try {
+            this.setTopAndRefreshWmtv();
+            await this.ttv.open();
+        } finally { this.removeChild(this.ttv); }
     }
 
     // 打开选项事件界面
@@ -429,13 +436,14 @@ class MainView extends egret.DisplayObjectContainer {
         wmesv.x = wmesv.y = 0;
         wmesv.player = this.p;
         this.addChild(wmesv);
-        this.setTopAndRefreshWmtv();
-        this.lastWmesv = wmesv;
-        await wmesv.open(title, desc, bg, sels);
-
-        this.lastWmesv = undefined;
-        if (this.contains(wmesv))
-            this.removeChild(wmesv);
+        try {
+            this.setTopAndRefreshWmtv();
+            this.lastWmesv = wmesv;
+            await wmesv.open(title, desc, bg, sels);
+        } finally {
+            this.lastWmesv = undefined;
+            if (this.contains(wmesv)) this.removeChild(wmesv);
+        }
     }
 
     // 开启世界地图

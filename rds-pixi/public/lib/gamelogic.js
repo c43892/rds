@@ -22493,86 +22493,101 @@ class MainView extends egret.DisplayObjectContainer {
     async openShopOnWorldMap(shop, afterBoss = false) {
         this.sv.player = this.p;
         this.addChild(this.sv);
-        this.setTopAndRefreshWmtv();
-        var r = Utils.genRandomShopItems(this.p, shop, this.p.playerRandom, 6);
-        // 处理打折
-        var onOpenShopPs = { discount: 0 };
-        this.p.triggerLogicPointSync("onOpenShop", onOpenShopPs);
-        if (onOpenShopPs.discount != 0) {
-            var discounted = [];
-            for (var item of r.items) {
-                if (Utils.indexOf(discounted, (i) => i == item) < 0) {
-                    r.prices[item] = Math.ceil(r.prices[item] * (1 - onOpenShopPs.discount / 100));
-                    discounted.push(item);
+        try {
+            this.setTopAndRefreshWmtv();
+            var r = Utils.genRandomShopItems(this.p, shop, this.p.playerRandom, 6);
+            // 处理打折
+            var onOpenShopPs = { discount: 0 };
+            this.p.triggerLogicPointSync("onOpenShop", onOpenShopPs);
+            if (onOpenShopPs.discount != 0) {
+                var discounted = [];
+                for (var item of r.items) {
+                    if (Utils.indexOf(discounted, (i) => i == item) < 0) {
+                        r.prices[item] = Math.ceil(r.prices[item] * (1 - onOpenShopPs.discount / 100));
+                        discounted.push(item);
+                    }
                 }
             }
-        }
-        var robbed = false;
-        var robbedElems = [];
-        var onBuy = async (elem, price) => {
-            this.p.addMoney(-price);
-            this.p.addItem(elem);
-            await this.p.fireEvent("onGetMoneyInWorldmap", { dm: -price, reason: "shop" });
-            this.sv.refresh();
-            await this.p.fireEvent("onGetElemInWorldmap", { e: elem, fromPos: ShopView.lastSelectedElemGlobalPos });
-        };
-        var shopCfg = GCfg.getShopCfg(shop);
-        var robCfg = GCfg.getRobCfg(shopCfg.rob);
-        var onRob = (robNum) => {
-            return async (elems) => {
-                // 抢劫逻辑
-                Utils.assert(!robbed, "can only be robbed one time");
-                robbed = true;
-                var es = Utils.doRobInShop(elems, robCfg, robNum, this.p.playerRandom);
-                for (var i = 0; i < es.length; i++) {
-                    var e = es[i];
-                    this.p.addItem(e);
-                    var n = Utils.indexOf(r.items, (it) => it == e.type);
-                    ShopView.lastSelectedElemGlobalPos = this.sv.getGlobaPosAndSize(n);
-                    this.sv.refreshFakeElemAt(n, undefined, 0);
-                    await this.p.fireEvent("onGetElemInWorldmap", { e: e, price: r.prices[n], fromPos: ShopView.lastSelectedElemGlobalPos });
-                }
-                robbedElems = es;
-                return es;
+            var robbed = false;
+            var robbedElems = [];
+            var onBuy = async (elem, price) => {
+                this.p.addMoney(-price);
+                this.p.addItem(elem);
+                await this.p.fireEvent("onGetMoneyInWorldmap", { dm: -price, reason: "shop" });
+                this.sv.refresh();
+                await this.p.fireEvent("onGetElemInWorldmap", { e: elem, fromPos: ShopView.lastSelectedElemGlobalPos });
             };
-        };
-        // 可能还有个额外的奖励
-        var onRobbed = async () => {
-            var extraRobChecker = { robExtraItem: false };
-            this.p.triggerLogicPointSync("onRobbedOnWorldmap", extraRobChecker);
-            if (extraRobChecker.robExtraItem) {
-                // 这里出个对话，然后获得一个额外物品
-                var extraItem = Utils.randomSelectByWeightWithPlayerFilter(this.p, robCfg.extraOnWorldMap.items, this.p.playerRandom, 1, 2, false)[0];
-                if (!extraItem)
-                    return;
-                var e = ElemFactory.create(extraItem);
-                var iconPos = await this.gv.robExtraItemDialog(e);
-                this.p.addItem(e);
-                ShopView.lastSelectedElemGlobalPos = iconPos;
-                await this.p.fireEvent("onGetElemInWorldmap", { e: e, price: 0, fromPos: ShopView.lastSelectedElemGlobalPos });
-            }
-        };
-        var robChecker = { robNum: 0 };
-        this.p.triggerLogicPointSync("beforeOpenShopOnWorldmap", robChecker);
-        var canRob = robChecker.robNum > 0 && !robbed;
-        await this.sv.open(r.items, r.prices, onBuy, canRob ? onRob(robChecker.robNum) : undefined, false, onRobbed, afterBoss);
-        this.removeChild(this.sv);
+            var shopCfg = GCfg.getShopCfg(shop);
+            var robCfg = GCfg.getRobCfg(shopCfg.rob);
+            var onRob = (robNum) => {
+                return async (elems) => {
+                    // 抢劫逻辑
+                    Utils.assert(!robbed, "can only be robbed one time");
+                    robbed = true;
+                    var es = Utils.doRobInShop(elems, robCfg, robNum, this.p.playerRandom);
+                    for (var i = 0; i < es.length; i++) {
+                        var e = es[i];
+                        this.p.addItem(e);
+                        var n = Utils.indexOf(r.items, (it) => it == e.type);
+                        ShopView.lastSelectedElemGlobalPos = this.sv.getGlobaPosAndSize(n);
+                        this.sv.refreshFakeElemAt(n, undefined, 0);
+                        await this.p.fireEvent("onGetElemInWorldmap", { e: e, price: r.prices[n], fromPos: ShopView.lastSelectedElemGlobalPos });
+                    }
+                    robbedElems = es;
+                    return es;
+                };
+            };
+            // 可能还有个额外的奖励
+            var onRobbed = async () => {
+                var extraRobChecker = { robExtraItem: false };
+                this.p.triggerLogicPointSync("onRobbedOnWorldmap", extraRobChecker);
+                if (extraRobChecker.robExtraItem) {
+                    // 这里出个对话，然后获得一个额外物品
+                    var extraItem = Utils.randomSelectByWeightWithPlayerFilter(this.p, robCfg.extraOnWorldMap.items, this.p.playerRandom, 1, 2, false)[0];
+                    if (!extraItem)
+                        return;
+                    var e = ElemFactory.create(extraItem);
+                    var iconPos = await this.gv.robExtraItemDialog(e);
+                    this.p.addItem(e);
+                    ShopView.lastSelectedElemGlobalPos = iconPos;
+                    await this.p.fireEvent("onGetElemInWorldmap", { e: e, price: 0, fromPos: ShopView.lastSelectedElemGlobalPos });
+                }
+            };
+            var robChecker = { robNum: 0 };
+            this.p.triggerLogicPointSync("beforeOpenShopOnWorldmap", robChecker);
+            var canRob = robChecker.robNum > 0 && !robbed;
+            await this.sv.open(r.items, r.prices, onBuy, canRob ? onRob(robChecker.robNum) : undefined, false, onRobbed, afterBoss);
+        }
+        finally {
+            this.removeChild(this.sv);
+        }
     }
     // 打开医院界面
     async openHospital() {
+        // 必须用 try/finally 保证视图最终被移除：模态视图叠在 WorldMapView 之上，
+        // 若 await 中途抛异常，原来的 removeChild 不会执行，模态视图会留在显示列表上
+        // 吞掉所有点击，造成"地图节点点不动"的诡异状况。
         this.hv.player = this.p;
         this.addChild(this.hv);
-        this.setTopAndRefreshWmtv();
-        await this.hv.openHospital();
-        this.removeChild(this.hv);
+        try {
+            this.setTopAndRefreshWmtv();
+            await this.hv.openHospital();
+        }
+        finally {
+            this.removeChild(this.hv);
+        }
     }
     // 打开宝箱房间
     async openBoxRoom() {
         this.brv.player = this.p;
         this.addChild(this.brv);
-        this.setTopAndRefreshWmtv();
-        await this.brv.open();
-        this.removeChild(this.brv);
+        try {
+            this.setTopAndRefreshWmtv();
+            await this.brv.open();
+        }
+        finally {
+            this.removeChild(this.brv);
+        }
     }
     // 打开转盘界面
     async openTurntable(turntable) {
@@ -22587,9 +22602,13 @@ class MainView extends egret.DisplayObjectContainer {
             }
         }
         this.addChild(this.ttv);
-        this.setTopAndRefreshWmtv();
-        await this.ttv.open();
-        this.removeChild(this.ttv);
+        try {
+            this.setTopAndRefreshWmtv();
+            await this.ttv.open();
+        }
+        finally {
+            this.removeChild(this.ttv);
+        }
     }
     async openWorldMapEventSels(title, desc, bg, sels) {
         if (this.lastWmesv)
@@ -22599,12 +22618,16 @@ class MainView extends egret.DisplayObjectContainer {
         wmesv.x = wmesv.y = 0;
         wmesv.player = this.p;
         this.addChild(wmesv);
-        this.setTopAndRefreshWmtv();
-        this.lastWmesv = wmesv;
-        await wmesv.open(title, desc, bg, sels);
-        this.lastWmesv = undefined;
-        if (this.contains(wmesv))
-            this.removeChild(wmesv);
+        try {
+            this.setTopAndRefreshWmtv();
+            this.lastWmesv = wmesv;
+            await wmesv.open(title, desc, bg, sels);
+        }
+        finally {
+            this.lastWmesv = undefined;
+            if (this.contains(wmesv))
+                this.removeChild(wmesv);
+        }
     }
     // 开启世界地图
     openWorldMap(worldmap) {
