@@ -117,6 +117,25 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
         // 龙出现
         ske.animation.play("stand");
 
+        // Port workaround for per-choice description: see note at the end of open().
+        // Done here (right after play("stand")) instead of at the very end so it isn't
+        // skipped by an early-resolved doSel or any timing/await interaction with the
+        // intro effects that follow.
+        await Utils.delay(50); // one frame for slot.global to populate from the first pose
+        var armCx0 = this.width / 2, armCy0 = this.height / 2;
+        for (var iTxt0 = 0; iTxt0 < this.choices.length && iTxt0 < 3; iTxt0++) {
+            var ziSlot0 = ske.getSlot("zi" + (iTxt0 + 1).toString());
+            var txtV0 = this.btnSelsRelicTxts[iTxt0];
+            if (!ziSlot0 || !ziSlot0.global || !txtV0) continue;
+            if (txtV0.parent) txtV0.parent.removeChild(txtV0);
+            this.addChild(txtV0);
+            txtV0.anchorOffsetX = txtV0.width / 2;
+            txtV0.anchorOffsetY = txtV0.height / 2;
+            txtV0.x = armCx0 + ziSlot0.global.x;
+            txtV0.y = armCy0 + ziSlot0.global.y;
+        }
+        console.log("[pluv] reparented " + this.choices.length + " desc texts to pluv");
+
         await Utils.delay(100);
 
         // 经验条顶端爆炸
@@ -143,9 +162,20 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
         eff2["stop"]();
         AniUtils.ac.removeChild(track);
 
+        // NOTE: pixi-dragonbones renders slot-Bitmap textures via its own pipeline but
+        // silently skips non-textured displays like egret.TextField (a Container of PIXI.Text).
+        // The icons (zi -> Bitmap) render fine; description texts (zi -> TextField) render
+        // to their own texture but never reach the screen. The per-choice descriptions are
+        // instead re-parented directly onto pluv right after play("stand") above, so PIXI's
+        // normal render pipeline draws them. The doSel cleanup below also removes them.
+
         return new Promise<string>((resolve, reject) => {
             this.doSel = (r) => {
                 this.removeChild(ske.display);
+                // remove the description texts we re-parented to pluv so they don't linger
+                for (var tt of this.btnSelsRelicTxts) {
+                    if (tt && tt.parent === this) this.removeChild(tt);
+                }
                 resolve(r);
             };
         });
