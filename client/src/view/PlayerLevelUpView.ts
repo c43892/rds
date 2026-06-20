@@ -14,6 +14,12 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
     btnSelsRelicImgs:egret.Bitmap[]; // 遗物选项图标
     btnSelsRelicTxts:egret.TextField[]; // 遗物描述文字
 
+    // 选中技能的常驻详情面板(显示在三个选项下方)
+    descPanelBg:egret.Bitmap;    // 详情面板背景框
+    descPanelName:egret.TextField; // 技能名称
+    descPanelTxt:egret.TextField;  // 完整描述
+    fakeRelics:Relic[] = [];     // 各选项对应的(升级后等级的)遗物,用于取详情
+
     public constructor(w:number, h:number) { 
         super();
         this.name = "playerLevelUp";
@@ -42,6 +48,19 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
             this.btnSelsRelicTxts[i].name = "txtSel" + i.toString();
             // this.addChild(this.btnSelsRelicTxts[i]);
         }
+
+        // 选中技能的详情面板(常驻,加在 pluv 上而非骨骼插槽,直接由 PIXI 渲染)
+        this.descPanelBg = ViewUtils.createBitmapByName("bgFrame_png");
+        this.descPanelBg.name = "descPanelBg";
+        this.descPanelBg.scale9Grid = new egret.Rectangle(45, 45, 225, 1);
+        this.descPanelName = ViewUtils.createTextField(28, 0x7d0403, false);
+        this.descPanelName.name = "descPanelName";
+        this.descPanelName.bold = true;
+        this.descPanelName.textAlign = egret.HorizontalAlign.LEFT;
+        this.descPanelTxt = ViewUtils.createTextField(22, 0x000000, false);
+        this.descPanelTxt.name = "descPanelTxt";
+        this.descPanelTxt.textAlign = egret.HorizontalAlign.LEFT;
+        this.descPanelTxt.lineSpacing = 8;
 
         this.lvTxt = new egret.BitmapText();
         this.lvTxt.name = "lvTxt";
@@ -76,6 +95,15 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
         this.addChild(ske.display);
         ske.display.x = this.width / 2;
         ske.display.y = this.height / 2;
+
+        // 详情面板放在三个选项下方,加到 pluv(在 ske.display 之后 -> 渲染在最上层)
+        var pw = 500, px = (this.width - pw) / 2, py = 858;
+        this.descPanelBg.x = px; this.descPanelBg.y = py; this.descPanelBg.width = pw; this.descPanelBg.height = 170;
+        this.descPanelName.x = px + 42; this.descPanelName.y = py + 26; this.descPanelName.width = pw - 84;
+        this.descPanelTxt.x = px + 42; this.descPanelTxt.y = py + 70; this.descPanelTxt.width = pw - 84;
+        this.addChild(this.descPanelBg);
+        this.addChild(this.descPanelName);
+        this.addChild(this.descPanelTxt);
 
         // 确定按钮，至少选中一个后再出现
         this.okBtnSlot = ske.getSlot("pai4");
@@ -165,7 +193,8 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
         //     if (this.contains(this.btnSelsRelicImgs[i])) this.removeChild(this.btnSelsRelicImgs[i]);
         //     if (this.contains(this.btnSelsRelicTxts[i])) this.removeChild(this.btnSelsRelicTxts[i]);
         // }
-        
+
+        this.fakeRelics = [];
         for (var i = 0; i < this.choices.length; i++) {
             // this.addChild(this.btnSels[i]);
             // this.addChild(this.btnSelsRelicImgs[i]);
@@ -183,6 +212,7 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
                 var fakeLv = allRelics[realRelicIndex].reinforceLv + 1;
                 fakeRelic.setReinfoceLv(fakeLv);
             }
+            this.fakeRelics[i] = fakeRelic; // 供选中后详情面板取用
             var nameAndDesc = ViewUtils.getElemNameAndDesc(this.choices[i]);
             var shortDesc = ViewUtils.replaceByProperties(nameAndDesc.shortDesc, fakeRelic, this.player, 1);
             this.btnSelsRelicTxts[i].textFlow = ViewUtils.fromHtml(shortDesc);
@@ -202,12 +232,43 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
             this.btnOk.anchorOffsetY = this.btnOk.height / 2;
         } else {
             this.okBtnSlot.display.alpha = 0;
+            this.hideDescPanel(); // 未选中时不显示详情
             return;
         }
 
         if (n >= 0 && n < this.btnSels.length) {
             this.btnSels[n].setTexName("lvSelBarSel_png");
-            PlayerLevelUpView.lastSelectedRelicImgGlobalPos = ViewUtils.getGlobalPosAndSize(this.btnSelsRelicImgs[n]);
+            // 图标是 DragonBones 插槽显示对象,端口里 pixi-dragonbones 不给它设 PIXI 父节点,
+            // getGlobalPosAndSize 会因"未挂到 MainArea"而抛异常 —— 这只是给确定时的飞行动画
+            // 算坐标,非关键,try 包住,以免中断后面的详情面板显示。
+            try {
+                PlayerLevelUpView.lastSelectedRelicImgGlobalPos = ViewUtils.getGlobalPosAndSize(this.btnSelsRelicImgs[n]);
+            } catch (e) {}
+            this.showDescPanel(n); // 显示该技能的完整详情
         }
+    }
+
+    // 隐藏详情面板
+    private hideDescPanel() {
+        if (!this.descPanelBg) return;
+        this.descPanelBg.alpha = 0;
+        this.descPanelName.alpha = 0;
+        this.descPanelTxt.alpha = 0;
+    }
+
+    // 显示第 n 个技能的完整详情(名称 + 完整描述,含升级增量)
+    private showDescPanel(n:number) {
+        var fr = this.fakeRelics[n];
+        if (!fr) { this.hideDescPanel(); return; }
+        var nd = ViewUtils.getElemNameAndDesc(this.choices[n]);
+        this.descPanelName.text = nd.name;
+        var descArr = (nd.desc || []).map((d) => ViewUtils.replaceByProperties(d, fr, this.player, 1));
+        this.descPanelTxt.textFlow = ViewUtils.fromHtml(descArr.join("\n"));
+        // 背景框高度自适应文字
+        this.descPanelTxt.height = this.descPanelTxt.textHeight;
+        this.descPanelBg.height = (this.descPanelTxt.y - this.descPanelBg.y) + this.descPanelTxt.height + 36;
+        this.descPanelBg.alpha = 1;
+        this.descPanelName.alpha = 1;
+        this.descPanelTxt.alpha = 1;
     }
 }
