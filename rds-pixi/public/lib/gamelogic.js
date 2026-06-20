@@ -18837,8 +18837,12 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
         //     this.btnSelsRelicTxts[0], this.btnSelsRelicTxts[1], this.btnSelsRelicTxts[2]);
     }
     async open(choices) {
-        this._stableW = this.width;
-        this._stableH = this.height;
+        // Capture pluv's dimensions BEFORE any await — PIXI Container width/height can
+        // return getLocalBounds() dynamically, collapsing to 0 mid-animation. Fall back to
+        // the canvas constants (640x1136) if width/height isn't a usable value, so the
+        // armature center used to position the description texts is always correct.
+        this._stableW = this.width > 0 ? this.width : 640;
+        this._stableH = this.height > 0 ? this.height : 1136;
         this.choices = choices;
         this.refresh();
         this.lvTxt.text = (this.player.lv + 1).toString();
