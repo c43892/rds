@@ -18899,6 +18899,12 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
             var txtV0 = this.btnSelsRelicTxts[iTxt0];
             if (!ziSlot0 || !ziSlot0.global || !txtV0)
                 continue;
+            // CRITICAL: also detach from the slot. Just removing from parent isn't enough —
+            // the DragonBones runtime keeps `zi.display` as a reference and re-applies the
+            // slot's animated x/y to it every frame, overwriting our position (resulting in
+            // texts stuck at ~x=8 instead of 369). Swap in a dummy display first so the
+            // slot has something to push around, then reparent and place the real text.
+            ziSlot0.display = new egret.Bitmap();
             if (txtV0.parent)
                 txtV0.parent.removeChild(txtV0);
             this.addChild(txtV0);
@@ -18907,7 +18913,6 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
             txtV0.x = armCx0 + ziSlot0.global.x;
             txtV0.y = armCy0 + ziSlot0.global.y;
         }
-        console.log("[pluv] reparented " + this.choices.length + " desc texts to pluv");
         await Utils.delay(100);
         // 经验条顶端爆炸
         var eff1 = AniUtils.createFrameAni("effPlayerLevelUp2", 1);
