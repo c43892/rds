@@ -275,6 +275,11 @@ namespace egret {
 
         public addChildAt(child: any, index: number): any { return super.addChildAt(child, index); }
 
+        // egret: getChildIndex returns -1 for a non-child. PIXI's version THROWS, which
+        // breaks game helpers that probe membership this way (ViewUtils.tyr2AddChild /
+        // try2RemoveChild, LuxuryChestView.refreshRelics, …). Return indexOf (-1 if absent).
+        public getChildIndex(child: any): number { return this.children.indexOf(child); }
+
         // egret: index < 0 or out of range means "bring to top".
         public setChildIndex(child: any, index: number): void {
             const n = this.children.length;
