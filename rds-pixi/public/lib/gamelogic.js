@@ -18793,11 +18793,6 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
         super();
         this.choices = [];
         this.curSel = 0;
-        // Cache pluv's width/height at open time. PIXI Container.width/height returns
-        // dynamic getLocalBounds() which collapses to 0 mid-animation, so reading it after
-        // an await would compute the wrong armature center.
-        this._stableW = 0;
-        this._stableH = 0;
         this.name = "playerLevelUp";
         this.width = w;
         this.height = h;
@@ -18837,12 +18832,6 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
         //     this.btnSelsRelicTxts[0], this.btnSelsRelicTxts[1], this.btnSelsRelicTxts[2]);
     }
     async open(choices) {
-        // Capture pluv's dimensions BEFORE any await — PIXI Container width/height can
-        // return getLocalBounds() dynamically, collapsing to 0 mid-animation. Fall back to
-        // the canvas constants (640x1136) if width/height isn't a usable value, so the
-        // armature center used to position the description texts is always correct.
-        this._stableW = this.width > 0 ? this.width : 640;
-        this._stableH = this.height > 0 ? this.height : 1136;
         this.choices = choices;
         this.refresh();
         this.lvTxt.text = (this.player.lv + 1).toString();
@@ -18865,12 +18854,20 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
                 img.anchorOffsetX = img.width / 2;
                 img.anchorOffsetY = img.height / 2;
                 biao.display = img;
+                // pixi-dragonbones 用自己的插槽渲染机制,只渲染 Bitmap 类显示对象,不渲染
+                // TextField(所以原来端口里描述文字一直不显示)。这里把已排好版的 TextField
+                // 渲染成一张贴图,再以 Bitmap 形式放进 zi 插槽 —— 运行时就会像图标一样把它
+                // 画到面板里、并跟随动画。比 reparent 更稳:动画播放前就设好,不会破坏骨骼。
                 var txt = this.btnSelsRelicTxts[i];
-                zi.display = txt;
                 txt.width = 265;
                 txt.height = 100;
-                txt.anchorOffsetX = txt.width / 2;
-                txt.anchorOffsetY = txt.height / 2;
+                var textRT = new egret.RenderTexture();
+                textRT.drawToTexture(txt);
+                var textBmp = new egret.Bitmap();
+                textBmp.texture = textRT;
+                textBmp.anchorOffsetX = textBmp.width / 2;
+                textBmp.anchorOffsetY = textBmp.height / 2;
+                zi.display = textBmp;
                 var btn = this.btnSels[i];
                 btn.anchorOffsetX = this.btnSels[i].width / 2;
                 btn.anchorOffsetY = this.btnSels[i].height / 2;
@@ -18888,31 +18885,6 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
         this.lvTxt.anchorOffsetY = this.lvTxt.height / 2;
         // 龙出现
         ske.animation.play("stand");
-        // Port workaround for per-choice description: see note at the end of open().
-        // Done here (right after play("stand")) instead of at the very end so it isn't
-        // skipped by an early-resolved doSel or any timing/await interaction with the
-        // intro effects that follow.
-        await Utils.delay(50); // one frame for slot.global to populate from the first pose
-        var armCx0 = this._stableW / 2, armCy0 = this._stableH / 2;
-        for (var iTxt0 = 0; iTxt0 < this.choices.length && iTxt0 < 3; iTxt0++) {
-            var ziSlot0 = ske.getSlot("zi" + (iTxt0 + 1).toString());
-            var txtV0 = this.btnSelsRelicTxts[iTxt0];
-            if (!ziSlot0 || !ziSlot0.global || !txtV0)
-                continue;
-            // CRITICAL: also detach from the slot. Just removing from parent isn't enough —
-            // the DragonBones runtime keeps `zi.display` as a reference and re-applies the
-            // slot's animated x/y to it every frame, overwriting our position (resulting in
-            // texts stuck at ~x=8 instead of 369). Swap in a dummy display first so the
-            // slot has something to push around, then reparent and place the real text.
-            ziSlot0.display = new egret.Bitmap();
-            if (txtV0.parent)
-                txtV0.parent.removeChild(txtV0);
-            this.addChild(txtV0);
-            txtV0.anchorOffsetX = txtV0.width / 2;
-            txtV0.anchorOffsetY = txtV0.height / 2;
-            txtV0.x = armCx0 + ziSlot0.global.x;
-            txtV0.y = armCy0 + ziSlot0.global.y;
-        }
         await Utils.delay(100);
         // 经验条顶端爆炸
         var eff1 = AniUtils.createFrameAni("effPlayerLevelUp2", 1);
@@ -18936,20 +18908,9 @@ class PlayerLevelUpView extends egret.DisplayObjectContainer {
         await AniUtils.createFlyTrack(track, effPos, toPos, 500);
         eff2["stop"]();
         AniUtils.ac.removeChild(track);
-        // NOTE: pixi-dragonbones renders slot-Bitmap textures via its own pipeline but
-        // silently skips non-textured displays like egret.TextField (a Container of PIXI.Text).
-        // The icons (zi -> Bitmap) render fine; description texts (zi -> TextField) render
-        // to their own texture but never reach the screen. The per-choice descriptions are
-        // instead re-parented directly onto pluv right after play("stand") above, so PIXI's
-        // normal render pipeline draws them. The doSel cleanup below also removes them.
         return new Promise((resolve, reject) => {
             this.doSel = (r) => {
                 this.removeChild(ske.display);
-                // remove the description texts we re-parented to pluv so they don't linger
-                for (var tt of this.btnSelsRelicTxts) {
-                    if (tt && tt.parent === this)
-                        this.removeChild(tt);
-                }
                 resolve(r);
             };
         });
