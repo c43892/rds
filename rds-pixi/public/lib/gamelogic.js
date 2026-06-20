@@ -19045,6 +19045,9 @@ class PropView extends egret.DisplayObjectContainer {
         this.addChild(this.num);
         // cd计数
         this.cd = new egret.BitmapText(); // cd 计数
+        // 冷却数字用的位图字体颜色在变灰的道具上很难看清，加一圈深色描边提升可读性
+        this.cd.outlineColor = 0x000000;
+        this.cd.outlineSize = 2;
         this.addChild(this.cd);
         // 禁止符号
         this.forbidden = ViewUtils.createBitmapByName("switchBtnOff_png");

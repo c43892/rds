@@ -1389,7 +1389,16 @@ var egret;
             this.lineSpacing = 0;
             this.textAlign = egret.HorizontalAlign.LEFT;
             this.smoothing = true;
+            // Optional outline/stroke (bitmap fonts can't be stroked, so we draw dark tinted
+            // duplicates of each glyph offset in 8 directions BEHIND the main glyphs). Off by
+            // default; set both to enable. Used to make the cooldown number readable.
+            this._outlineColor = undefined;
+            this._outlineSize = 0;
         }
+        get outlineColor() { return this._outlineColor; }
+        set outlineColor(v) { this._outlineColor = v; this.rebuild(); }
+        get outlineSize() { return this._outlineSize; }
+        set outlineSize(v) { this._outlineSize = v; this.rebuild(); }
         get font() { return this._font; }
         set font(f) { this._font = f; this.rebuild(); }
         get text() { return this._text; }
@@ -1398,6 +1407,8 @@ var egret;
             this.removeChildren();
             if (!this._font || !this._text)
                 return;
+            // collect glyph placements first so the outline pass can sit fully behind all glyphs
+            const glyphs = [];
             let cursorX = 0;
             let lineY = 0;
             for (const ch of this._text) {
@@ -1412,11 +1423,29 @@ var egret;
                     cursorX += this._size() / 2;
                     continue;
                 }
-                const spr = new PIXI.Sprite(tex);
-                spr.x = cursorX + (f.offX || 0);
-                spr.y = lineY + (f.offY || 0);
-                super.addChild(spr);
+                glyphs.push({ tex, x: cursorX + (f.offX || 0), y: lineY + (f.offY || 0) });
                 cursorX += (f.sourceW || f.w) + this.letterSpacing;
+            }
+            // outline pass: dark tinted copies in 8 directions, drawn first (behind)
+            if (this._outlineColor !== undefined && this._outlineColor !== null && this._outlineSize > 0) {
+                const s = this._outlineSize;
+                const offs = [[-s, -s], [0, -s], [s, -s], [-s, 0], [s, 0], [-s, s], [0, s], [s, s]];
+                for (const g of glyphs) {
+                    for (const o of offs) {
+                        const sp = new PIXI.Sprite(g.tex);
+                        sp.x = g.x + o[0];
+                        sp.y = g.y + o[1];
+                        sp.tint = this._outlineColor;
+                        super.addChild(sp);
+                    }
+                }
+            }
+            // main glyphs on top
+            for (const g of glyphs) {
+                const spr = new PIXI.Sprite(g.tex);
+                spr.x = g.x;
+                spr.y = g.y;
+                super.addChild(spr);
             }
         }
         _size() { return 24; }

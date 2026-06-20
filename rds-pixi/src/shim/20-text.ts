@@ -375,6 +375,16 @@ namespace egret {
         public textAlign = HorizontalAlign.LEFT;
         public smoothing = true;
 
+        // Optional outline/stroke (bitmap fonts can't be stroked, so we draw dark tinted
+        // duplicates of each glyph offset in 8 directions BEHIND the main glyphs). Off by
+        // default; set both to enable. Used to make the cooldown number readable.
+        private _outlineColor: number | undefined = undefined;
+        private _outlineSize = 0;
+        public get outlineColor(): number | undefined { return this._outlineColor; }
+        public set outlineColor(v: number | undefined) { this._outlineColor = v; this.rebuild(); }
+        public get outlineSize(): number { return this._outlineSize; }
+        public set outlineSize(v: number) { this._outlineSize = v; this.rebuild(); }
+
         public get font(): BitmapFont | undefined { return this._font; }
         public set font(f: BitmapFont | undefined) { this._font = f; this.rebuild(); }
         public get text(): string { return this._text; }
@@ -383,6 +393,8 @@ namespace egret {
         private rebuild() {
             this.removeChildren();
             if (!this._font || !this._text) return;
+            // collect glyph placements first so the outline pass can sit fully behind all glyphs
+            const glyphs: Array<{ tex: any; x: number; y: number }> = [];
             let cursorX = 0;
             let lineY = 0;
             for (const ch of this._text) {
@@ -390,11 +402,27 @@ namespace egret {
                 const f = this._font.getFrame(ch);
                 const tex = this._font.getTexture(ch);
                 if (!f || !tex) { cursorX += this._size() / 2; continue; }
-                const spr = new PIXI.Sprite(tex);
-                spr.x = cursorX + (f.offX || 0);
-                spr.y = lineY + (f.offY || 0);
-                super.addChild(spr);
+                glyphs.push({ tex, x: cursorX + (f.offX || 0), y: lineY + (f.offY || 0) });
                 cursorX += (f.sourceW || f.w) + this.letterSpacing;
+            }
+            // outline pass: dark tinted copies in 8 directions, drawn first (behind)
+            if (this._outlineColor !== undefined && this._outlineColor !== null && this._outlineSize > 0) {
+                const s = this._outlineSize;
+                const offs = [[-s, -s], [0, -s], [s, -s], [-s, 0], [s, 0], [-s, s], [0, s], [s, s]];
+                for (const g of glyphs) {
+                    for (const o of offs) {
+                        const sp = new PIXI.Sprite(g.tex);
+                        sp.x = g.x + o[0]; sp.y = g.y + o[1];
+                        sp.tint = this._outlineColor;
+                        super.addChild(sp);
+                    }
+                }
+            }
+            // main glyphs on top
+            for (const g of glyphs) {
+                const spr = new PIXI.Sprite(g.tex);
+                spr.x = g.x; spr.y = g.y;
+                super.addChild(spr);
             }
         }
         private _size(): number { return 24; }
