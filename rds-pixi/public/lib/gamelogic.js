@@ -12514,6 +12514,15 @@ class ViewUtils {
         var h = obj.height * s.scaleY;
         return { x: pos.x, y: pos.y, w: w, h: h };
     }
+    static langNativeName(lang) {
+        return ViewUtils.langNativeNames[lang] || lang;
+    }
+    // 在 validLanguages 里循环取下一个语言
+    static nextLanguage() {
+        var v = ViewUtils.getValidLanguages();
+        var i = v.indexOf(ViewUtils.getLanguage());
+        return v[(i + 1) % v.length];
+    }
     static ensureLangCfg() {
         if (!ViewUtils.languageCfg)
             ViewUtils.languageCfg = GCfg.getMultiLanguageCfg();
@@ -12816,6 +12825,11 @@ ViewUtils.localeMap = {
     "zh": "CNS", "zh-cn": "CNS", "zh-sg": "CNS", "zh-hans": "CNS",
     "en": "EN", "ja": "JA", "ko": "KO",
     "es": "ES", "fr": "FR", "de": "DE", "pt": "PT", "ru": "RU"
+};
+// 各语言的自称（用于语言切换按钮显示）
+ViewUtils.langNativeNames = {
+    EN: "English", CNS: "简体中文", CNT: "繁體中文", JA: "日本語", KO: "한국어",
+    ES: "Español", FR: "Français", DE: "Deutsch", PT: "Português", RU: "Русский"
 };
 // 作为背景填充安全显示区域
 ViewUtils.fullSize = { w: 758, h: 1280 };
@@ -18462,6 +18476,29 @@ class LoginView extends egret.DisplayObjectContainer {
         var objs = [this.title, this.btnContinue, this.btnNewPlay, this.btnOpenRank, this.btnAchievement];
         objs.forEach((obj, _) => this.addChild(obj));
         ViewUtils.multiLang(this, ...objs);
+        // 语言切换按钮（登录界面，无进行中对局）：循环切换 validLanguages，持久化后重载，
+        // 让所有界面以新语言从头重建。位置放在顶部居中。
+        this.btnLang = new TextButtonWithBg("btnBg_png", 28);
+        this.btnLang.name = "langBtn";
+        this.btnLang.text = ViewUtils.langNativeName(ViewUtils.getLanguage());
+        this.btnLang.anchorOffsetX = this.btnLang.width / 2;
+        this.btnLang.anchorOffsetY = this.btnLang.height / 2;
+        this.btnLang.x = this.width / 2;
+        this.btnLang.y = 70;
+        this.btnLang.onDown.push(btnSound);
+        this.btnLang.onClicked = () => this.onSwitchLanguage();
+        this.addChild(this.btnLang);
+    }
+    onSwitchLanguage() {
+        var next = ViewUtils.nextLanguage();
+        ViewUtils.setLanguage(next);
+        this.btnLang.text = ViewUtils.langNativeName(next);
+        // 重载使所有已构建的界面以新语言重建（语言只在启动时读取并铺到各界面）
+        try {
+            if (typeof window !== "undefined" && window.location && window.location.reload)
+                window.location.reload();
+        }
+        catch (e) { }
     }
     close(type) {
         this.ani.animation.stop("idle");

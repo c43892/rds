@@ -210,6 +210,21 @@ class ViewUtils {
         "es":"ES", "fr":"FR", "de":"DE", "pt":"PT", "ru":"RU"
     };
 
+    // 各语言的自称（用于语言切换按钮显示）
+    static readonly langNativeNames = {
+        EN:"English", CNS:"简体中文", CNT:"繁體中文", JA:"日本語", KO:"한국어",
+        ES:"Español", FR:"Français", DE:"Deutsch", PT:"Português", RU:"Русский"
+    };
+    public static langNativeName(lang:string):string {
+        return ViewUtils.langNativeNames[lang] || lang;
+    }
+    // 在 validLanguages 里循环取下一个语言
+    public static nextLanguage():string {
+        var v = ViewUtils.getValidLanguages();
+        var i = v.indexOf(ViewUtils.getLanguage());
+        return v[(i + 1) % v.length];
+    }
+
     private static ensureLangCfg() {
         if (!ViewUtils.languageCfg)
             ViewUtils.languageCfg = GCfg.getMultiLanguageCfg();
