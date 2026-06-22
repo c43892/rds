@@ -189,6 +189,8 @@ class Main extends egret.DisplayObjectContainer {
         // 多语言
         var multiLangCfg = ResMgr.getRes("multilanguage_json");
         GCfg.getMultiLanguageCfg = () => multiLangCfg;
+        // 启动语言：存档优先 -> 浏览器 locale -> 默认（CNS）。覆盖配置里写死的 currentLanguage。
+        multiLangCfg.currentLanguage = ViewUtils.resolveStartupLanguage();
 
         // misc内配置
         var misc = ResMgr.getRes("misc_json");

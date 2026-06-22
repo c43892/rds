@@ -12514,20 +12514,96 @@ class ViewUtils {
         var h = obj.height * s.scaleY;
         return { x: pos.x, y: pos.y, w: w, h: h };
     }
-    // 获取元素显示名称和描述信息
-    static getElemNameAndDesc(eType) {
+    static ensureLangCfg() {
         if (!ViewUtils.languageCfg)
             ViewUtils.languageCfg = GCfg.getMultiLanguageCfg();
+        return ViewUtils.languageCfg;
+    }
+    // 当前活动语言（单一真源）
+    static getLanguage() {
+        return ViewUtils.ensureLangCfg().currentLanguage;
+    }
+    // 支持的语言列表
+    static getValidLanguages() {
+        return ViewUtils.ensureLangCfg().validLanguages || ["EN", "CNS", "CNT"];
+    }
+    // 设置当前语言并持久化（不在这里刷新界面，刷新由调用方决定）
+    static setLanguage(lang) {
+        var cfg = ViewUtils.ensureLangCfg();
+        if (ViewUtils.getValidLanguages().indexOf(lang) < 0)
+            return;
+        cfg.currentLanguage = lang;
+        try {
+            Utils.saveLocalItem("language", lang);
+        }
+        catch (e) { }
+    }
+    // 启动时确定默认语言：存档优先，其次浏览器 locale，最后 CNS；都要落在 validLanguages 内
+    static resolveStartupLanguage() {
+        var valid = ViewUtils.getValidLanguages();
+        var saved = null;
+        try {
+            saved = Utils.loadLocalItem("language");
+        }
+        catch (e) { }
+        if (saved && valid.indexOf(saved) >= 0)
+            return saved;
+        var locales = [];
+        try {
+            var nav = (typeof navigator !== "undefined") ? navigator : null;
+            if (nav)
+                locales = (nav.languages && nav.languages.length ? nav.languages : [nav.language || ""]);
+        }
+        catch (e) { }
+        for (var loc of locales) {
+            var l = (loc || "").toLowerCase();
+            // 先整体匹配（如 zh-tw），再退到主语言（如 zh / en）
+            var mapped = ViewUtils.localeMap[l] || ViewUtils.localeMap[l.split("-")[0]];
+            if (mapped && valid.indexOf(mapped) >= 0)
+                return mapped;
+        }
+        return valid.indexOf("CNS") >= 0 ? "CNS" : valid[0];
+    }
+    // 从 {EN,CNS,CNT,...} 形状的多语言条目里按当前语言取值，缺失则回退并告警
+    static pickByLang(entry, keyForWarn) {
+        if (entry == null)
+            return entry;
+        var lang = ViewUtils.getLanguage();
+        if (entry[lang] != undefined)
+            return entry[lang];
+        for (var fb of ViewUtils.langFallbacks) {
+            if (entry[fb] != undefined) {
+                if (DEBUG)
+                    console.warn("[i18n] missing '" + lang + "' for " + (keyForWarn || "?") + ", fallback " + fb);
+                return entry[fb];
+            }
+        }
+        // 最后兜底：任意已有语言
+        for (var k in entry)
+            if (typeof entry[k] === "string")
+                return entry[k];
+        return entry;
+    }
+    // 获取元素显示名称和描述信息（elemdesc 顶层按语言分）
+    static getElemNameAndDesc(eType) {
         var descCfg = GCfg.getElemDescCfg();
-        return descCfg[ViewUtils.languageCfg.currentLanguage][eType];
+        var lang = ViewUtils.getLanguage();
+        var byLang = descCfg[lang];
+        if (!byLang || byLang[eType] == undefined) {
+            for (var fb of ViewUtils.langFallbacks) {
+                if (descCfg[fb] && descCfg[fb][eType] != undefined) {
+                    if (DEBUG)
+                        console.warn("[i18n] missing elemdesc '" + lang + "' for " + eType + ", fallback " + fb);
+                    return descCfg[fb][eType];
+                }
+            }
+        }
+        return byLang ? byLang[eType] : undefined;
     }
     // 获取指定提示信息
     static getTipText(key) {
-        if (!ViewUtils.languageCfg)
-            ViewUtils.languageCfg = GCfg.getMultiLanguageCfg();
-        var mlCfg = ViewUtils.languageCfg;
-        var curCfg = mlCfg.tips;
-        return curCfg[key][mlCfg.currentLanguage];
+        var mlCfg = ViewUtils.ensureLangCfg();
+        return ViewUtils.pickByLang(mlCfg.tips[key], "tip:" + key);
     }
     // 创建一批图像对象并赋值
     static createImgs(view, varNames, texNames) {
@@ -12567,7 +12643,7 @@ class ViewUtils {
             }
             // text
             if ((p instanceof egret.TextField || p instanceof TextButtonWithBg) && curCfg.text && curCfg.text[name])
-                p.text = curCfg.text[name][mlCfg.currentLanguage] ? curCfg.text[name][mlCfg.currentLanguage] : curCfg.text[name];
+                p.text = ViewUtils.pickByLang(curCfg.text[name], "view:" + view.name + "." + name);
             // image
             if ((p instanceof egret.Bitmap || p instanceof TextButtonWithBg) && curCfg.imgs && curCfg.imgs[name]) {
                 var bmp = p instanceof TextButtonWithBg ? p.bg : p;
@@ -12731,6 +12807,16 @@ class ViewUtils {
             parent.addChild(child);
     }
 }
+// ---- 多语言基础设施 ----------------------------------------------------
+// 语言回退顺序：源语言 CNS、再 EN，作为缺失翻译时的兜底（保证半成品翻译不崩、不空白）
+ViewUtils.langFallbacks = ["CNS", "EN"];
+// 浏览器 locale 前缀 -> 语言键（新增语言时只需在此登记；最终是否生效仍以 validLanguages 为准）
+ViewUtils.localeMap = {
+    "zh-tw": "CNT", "zh-hk": "CNT", "zh-mo": "CNT", "zh-hant": "CNT",
+    "zh": "CNS", "zh-cn": "CNS", "zh-sg": "CNS", "zh-hans": "CNS",
+    "en": "EN", "ja": "JA", "ko": "KO",
+    "es": "ES", "fr": "FR", "de": "DE", "pt": "PT", "ru": "RU"
+};
 // 作为背景填充安全显示区域
 ViewUtils.fullSize = { w: 758, h: 1280 };
 // 带背景的文字按钮
@@ -23885,6 +23971,8 @@ class Main extends egret.DisplayObjectContainer {
         // 多语言
         var multiLangCfg = ResMgr.getRes("multilanguage_json");
         GCfg.getMultiLanguageCfg = () => multiLangCfg;
+        // 启动语言：存档优先 -> 浏览器 locale -> 默认（CNS）。覆盖配置里写死的 currentLanguage。
+        multiLangCfg.currentLanguage = ViewUtils.resolveStartupLanguage();
         // misc内配置
         var misc = ResMgr.getRes("misc_json");
         GCfg.getBattleViewElemTipTypes = () => misc["battleViewElemTipTypes"];
