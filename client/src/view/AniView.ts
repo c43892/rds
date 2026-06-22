@@ -1590,6 +1590,31 @@ class AniView extends egret.DisplayObjectContainer {
         AniUtils.ac.removeChild(d);
     }
 
+    // 密室效果
+    public async onUnlockOccupationAni(ps){
+        var bg = ViewUtils.createBitmapByName("translucent_png");
+        bg.width = this.width;
+        bg.height = this.height;
+        bg.touchEnabled = true;
+        bg.alpha = 0;
+        AniUtils.ac.addChild(bg);
+        var ended = false;
+        var ske = ViewUtils.createSkeletonAni("mishi", () => ended = true);
+        var d = ske.display;
+
+        var e = <Elem>ps.e;
+        var sv = this.getSVByPos(e.pos.x, e.pos.y);        
+        var pos = AniUtils.ani2global(sv);        
+        d.x = pos.x + sv.width / 2;
+        d.y = pos.y + sv.height / 2;
+        AniUtils.ac.addChild(d);
+        ske.animation.play("stand", 1);
+        await Utils.waitUtil(() => ended);
+        ske["stop"]();
+        AniUtils.ac.removeChild(d);
+        AniUtils.ac.removeChild(bg);
+    }
+
     // 移除颜色效果
     removeColorEffect(effName, ...objs) {
         effName += "Effect";
@@ -1890,7 +1915,7 @@ class AniView extends egret.DisplayObjectContainer {
     // 装备格打开效果
     public async relicsEquippedMaxNumAdded(ps) {
         var n = this.bv.player.relicsEquippedCapacity;
-        var rv = this.bv.relics[n - 1];
+        var rv = n > 12 ? this.bv.moreRelics : this.bv.relics[n - 1];
         var fromPos = ShopView.lastSelectedElemGlobalPos;
         var img = AniUtils.createImg("OpenRelicSpace_png");
         img.x = fromPos.x;

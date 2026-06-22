@@ -148,6 +148,7 @@
     "Shield":{"name":"盾牌", "cd":15, "shield":5, "validTarget":"markedMonster|uncoveredMonser", "showCDNum":true, "repRes":["Shield", "ShieldBack"]},
     "GoldenHand":{"name":"点金之手", "cnt":3, "dropNum":19, "useWithTarget":true, "useWithoutConfirm":true},
     "HeadBone":{"name":"骷髅头"},
+    "Prison":{"name":"监狱", "useWithoutConfirm":true},
 
     "DeathGod":{"name":"死神", "deathStep":15, "movePs":{"moveType":"fly"}, "cannotTake":true, "addInEffect":"noEffect", "attackInterval":0},
     "NormalZombie":{"name":"普通僵尸", "power":1, "hp":5, "movePs":{"moveRange":3}, "dropItems":["CoinsTiny"], "addInEffect":"noEffect"},
@@ -200,6 +201,7 @@
     "EliteReviveZombie":{"name":"精英复生僵尸", "elemImg":"ReviveZombie", "power":1, "hp":4, "reviveCnt":1, "dropItems":["Coins"]},
     "Kraken":{"name":"克拉肯", "attackInterval":3, "targetFlags":["immuneFrozen"], "size":{"w":2, "h":2}, "hideHazardNum":true},
     "HalloweenTreant":{"name":"万圣节树妖", "attackInterval":3, "targetFlags":["BuffPoison"], "size":{"w":2, "h":2}, "hideHazardNum":true, "refElems":["MNutWall", "MPeashooter", "MCherryBomb", "MSunflower", "MCharmingMushroom"]},
+    "Titan":{"name":"泰坦巨人", "attackInterval":3, "size":{"w":2, "h":2}, "hideHazardNum":true},
     "NutWall":{"name":"坚果墙", "hp":15,
         "level1Share":50, "level2AddHp":5, "level3AddShare":25, "level4AddHp":5, "level5AddShare":25,
         "tags":["plant"], "noNewMonsterTip":true},
@@ -217,7 +219,7 @@
         "useWithConfirm":true, "tags":["plant"], "noNewMonsterTip":true,
         "useTipContent":"useSunflower"
         },
-    "CharmingMushroom":{"name":"魅惑菇", "hp":10, 
+    "CharmingMushroom":{"name":"魅惑菇", "hp":10, "cnt":1,
         "level2AddPower":1, "level3AddHp":2, "level4AddCritical":10, "level5AddDodge":10,
         "useWithTarget":true, "tags":["plant"], "noNewMonsterTip":true},
     "CharmedMonster":{},
@@ -282,6 +284,7 @@
         "frozenAttrs":{"rounds":3}
     },
     "CandyCannon":{"name":"糖果炮弹", "canOverlap":true, "useWithTarget":true, "cd":5, "occupations":["Merchant"]},
+    "NaturePotion":{"name":"自然药水", "canOverlap":true, "useWithTarget":true, "cd":20},
     "Baton":{"name":"警棍", "powerA":1},
     "Vest":{"name":"防护衣", "dPower":1},
     "Cocoon":{"name":"茧", "useWithoutConfirm":true, "hideDropItems":true, "addInEffect":"noEffect",

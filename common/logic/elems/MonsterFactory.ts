@@ -288,6 +288,32 @@ class MonsterFactory {
             return m;
         }, 
 
+        // 泰坦巨人
+        "Titan":(attrs) => {
+            var m = this.createMonster(attrs);
+            MonsterFactory.makeBoss(
+                MonsterFactory.doSneakAttack(
+                    MonsterFactory.doAttackBack(
+                        MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player, attrs.attackInterval, () => !m.trapped, { a: 1, b: 0, c: 0 }, ["mustHit"], 2),
+                        () => !m.trapped)));
+            m = MonsterFactory.doAvoidDieAndShowMonsters(m);            
+
+            // 随机获得两项技能
+            var allSkills = [
+                () => MonsterFactory.doAddHpPerRound(Math.floor(attrs.hp * 0.05) > 1 ? Math.floor(attrs.hp * 0.05) : 1, m),
+                () => MonsterFactory.sanLogic(m),
+                () => MonsterFactory.protectiveShield(m),
+                () => MonsterFactory.doActiveAttackPerRoundOn50Hp(m)
+                ];
+            var index1 = [0, 1, 2, 3][new SRandom().nextInt(0, 4)];
+            var _index2 = [0, 1, 2][new SRandom().nextInt(0, 3)];
+            var index2 = _index2 < index1 ? _index2 : (_index2 + 1);
+            allSkills[index1]();
+            allSkills[index2]();
+
+            return m;
+        },
+
         "CharmedMonster": (attrs) => this.createMonster(attrs),
         "PlaceHolder": (attrs) => this.createMonster(attrs)
     };
@@ -497,7 +523,7 @@ class MonsterFactory {
     }
 
     // 攻击一次
-    static doAttack(logicPoint:string, m:Monster, findTarget, attackInterval:number = 0, condition = () => true, extraPowerABC = {a:0, b:0, c:0}):Monster {
+    static doAttack(logicPoint:string, m:Monster, findTarget, attackInterval:number = 0, condition = () => true, extraPowerABC = {a:0, b:0, c:0}, extraFlags = [], sprcialMultAttack = undefined):Monster {
         attackInterval = attackInterval ? attackInterval : 0;
         m["attackInterval"] = attackInterval ? attackInterval : 1;
         var interval = 0; // 攻击行为的间隔回合记数
@@ -524,7 +550,7 @@ class MonsterFactory {
                     // 如果是打怪，需要判断射程
                     if (target instanceof Monster && !m.inAttackRange(target)) return;
                     
-                    await m.bt().implMonsterAttackTargets(m, [target], extraPowerABC, false, ["activeAttack"], undefined, true);
+                    await m.bt().implMonsterAttackTargets(m, [target], extraPowerABC, false, [...extraFlags, "activeAttack"], undefined, true, sprcialMultAttack);
                 }
             }
         }, m);
@@ -755,6 +781,27 @@ class MonsterFactory {
         }, m);
     }
 
+    // 取消死亡,回复满生命值,并让所有怪物现身
+    static doAvoidDieAndShowMonsters(m:Monster):Monster{
+        m["avoidDie"] = false;
+        return <Monster>ElemFactory.addAI("afterMonsterHurt", async () => {
+            var bt = m.bt();
+            if(!m["avoidDie"] && m.hp<=0) {                
+                m["avoidDie"]=true;
+                var maxHp = bt.level.createElem(m.type).attrs.hp;
+                var add = maxHp - m.hp;
+                await bt.implAddMonsterHp(m, add);
+                var map = bt.level.map;
+                var monsters = map.findAllElems((e: Elem) => e.isHazard);
+                for (var i = 0; i < monsters.length; i++) {
+                    var g = monsters[i].getGrid();
+                    if (g.isCovered() && !g.isMarked()) 
+                        await bt.uncover(g.pos.x, g.pos.y, true);
+                }
+            }
+        }, m);
+    }
+
     // 每次受到伤害，都会标记一个随机怪物
     static doMarkMonsterOnHurt(m:Monster):Monster {
         return <Monster>ElemFactory.addAI("onMonsterHurt", async () => {
@@ -924,7 +971,7 @@ class MonsterFactory {
             var te = BattleUtils.findRandomElems(m.bt(), 1, (e:Elem) => !e.getGrid().isCovered() && Utils.contains(types, e.type))[0];
             if(te)
                 await m.bt().implRemoveElemAt(te.pos.x, te.pos.y);
-        }, m);
+        }, m, (ps) => ps.subType == "monster2targets" && ps.attackerAttrs.owner == m);
     }
     
     // 攻击时，会同时用闪电伤害玩家和周围的怪物
@@ -1279,7 +1326,7 @@ class MonsterFactory {
             var te = BattleUtils.findRandomElems(m.bt(), 1, (e: Elem) => !e.getGrid().isCovered() && Utils.contains(types, e.type))[0];
             if (te)
                 await m.bt().implRemoveElemAt(te.pos.x, te.pos.y);
-        }, m, (ps) => Utils.contains(ps.attackerAttrs.attackFlags, "activeAttack"));
+        }, m, (ps) => Utils.contains(ps.attackerAttrs.attackFlags, "activeAttack") && ps.subType == "monster2targets" && ps.attackerAttrs.owner == m);
     }
 
     // 克拉肯存在时，每回合对你造成1点伤害，无论它是否处于现身状态

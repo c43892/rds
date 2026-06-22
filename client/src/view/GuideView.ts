@@ -145,6 +145,23 @@ class GuideView extends egret.DisplayObjectContainer {
 
             await this.openAvatarView();
         });
+
+        // 职业解锁
+        bt.registerEvent("onUnlockOccupationGuide", async (ps) => await this.onUnlockOccupationGuide(ps));
+
+        // 新手击败boss
+        bt.registerEvent("onElemChanged", async (ps) => {
+            if(ps.subType != "dead")
+                return;
+
+            var e:Elem = ps.e;
+            var bt:Battle = e.bt();
+            if(e instanceof Monster && e.isBoss && bt.player.currentTotalStorey() == 10)
+                await this.rookieKillBoss(ps);
+        })
+
+        // 首次击败树妖
+        bt.registerEvent("killHalloweenTreantFirstTimeFinished", async (ps) => await this.killHalloweenTreantFirstTime(ps));
     }
 
     // 点击指引
@@ -775,9 +792,9 @@ class GuideView extends egret.DisplayObjectContainer {
     async rookiePlay5(bt:Battle) {
         await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay501"), 0, 550, true);
         await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay502"), 0, 550, true);
-        await this.showDialog("Gardener", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("rookiePlay503"), 0, 550, true);
-        await this.showDialog("Gardener", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("rookiePlay504"), 0, 550, true);
-        await this.showDialog("Gardener", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("rookiePlay505"), 0, 550, true);
+        await this.showDialog("Horticulturist", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("rookiePlay503"), 0, 550, true);
+        await this.showDialog("Horticulturist", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("rookiePlay504"), 0, 550, true);
+        await this.showDialog("Horticulturist", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("rookiePlay505"), 0, 550, true);
         await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay506"), 0, 550, true);    
     }
 
@@ -803,5 +820,29 @@ class GuideView extends egret.DisplayObjectContainer {
 
         var avatar = this.cv.getChildByName("goBackBtn");
         await this.tapWithDialog(avatar, "Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("openAvatarView03"), 0, 550);
+    }
+
+    // 职业解锁
+    async onUnlockOccupationGuide(ps){
+        var occ = ps.occ;
+        await this.showDialog(occ, ViewUtils.getTipText(GCfg.getOccupationCfg(occ).name), ViewUtils.getTipText("onUnlockOccupationGuide01"), 0, 550, true);
+        await this.showDialog(occ, ViewUtils.getTipText(GCfg.getOccupationCfg(occ).name), ViewUtils.getTipText("onUnlockOccupationGuide02"), 0, 550, true);
+    }
+
+    // 新手击败boss
+    async rookieKillBoss(ps){
+        await this.showDialog("HalloweenTreant", ViewUtils.getTipText("halloweenTreant"), ViewUtils.getTipText("rookieKillBoss01"), 0, 550, true);    
+        //await this.showDialog("HalloweenTreant", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookieKillBoss01"), 0, 550, true);
+         await this.showDialog("Horticulturist", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("rookieKillBoss02"), 0, 550, true);       
+    }
+
+    // 首次击败树妖
+    async killHalloweenTreantFirstTime(ps){
+        var p:Player = ps.e.bt().player;
+        var occ = p.occupation;
+
+        await this.showDialog("Horticulturist", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("killHalloweenTreantFirstTime01"), 0, 550, true);
+        await this.showDialog("Horticulturist", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("killHalloweenTreantFirstTime02"), 0, 550, true);
+        //await this.showDialog(occ, ViewUtils.getTipText(GCfg.getOccupationCfg(occ).name), ViewUtils.getTipText("killHalloweenTreantFirstTime01"), 0, 550, true);
     }
 }

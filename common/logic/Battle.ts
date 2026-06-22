@@ -447,7 +447,8 @@ class Battle {
                 await this.fireEvent("onPlayerReborn", {inBattle:true});
                 await this.triggerLogicPoint("onPlayerReborn", {inBattle:true});
             } else {
-                await this.fireEvent("onPlayerDead", {inBattle:true});
+                await this.fireEvent("onPlayerDead", {inBattle:true});                
+                Utils.lockOccupation(this.player.occupation);
                 return true;
             }
         }
@@ -887,6 +888,7 @@ class Battle {
 
         if (e.afterDie) await e.afterDie();
         await this.triggerLogicPoint("onElemChanged", {"subType": "dead", e:e, flags:flags});
+        await this.fireEvent("onElemChanged", {"subType": "dead", e:e, flags:flags});
     }
 
     // 进行一次攻击计算
@@ -1127,7 +1129,7 @@ class Battle {
     }
 
     // 怪物尝试攻击指定目标
-    public async implMonsterAttackTargets(m:Monster, targets, extraPowerABC = {a:0, b:0, c:0}, selfExplode = false, addFlags:string[] = [], results = [], isNormalAttack = false) {
+    public async implMonsterAttackTargets(m:Monster, targets, extraPowerABC = {a:0, b:0, c:0}, dieAfterExplode = false, addFlags:string[] = [], results = [], isNormalAttack = false, sprcialMultAttack = undefined) {
         var map = this.level.map;
         var mapsize = map.size;
 
@@ -1153,7 +1155,7 @@ class Battle {
         // 通知目标确定,有可能因外部因素需要增减
         this.triggerLogicPointSync("gotAttackTargets", {subType:"monstar2targets", m:m, targets:tars});
 
-        if (selfExplode)
+        if (dieAfterExplode)
             addFlags.push("selfExplode");
 
         // 攻击行为启动
@@ -1179,7 +1181,7 @@ class Battle {
                 var tar = tars[i];
                 var targetAttrs = tar.getAttrsAsTarget(); // 目标属性
 
-                for (var j = 0; j < attackerAttrs.muiltAttack && !tar.isDead(); j++) {
+                for (var j = 0; j < ((!!sprcialMultAttack) ? sprcialMultAttack : attackerAttrs.muiltAttack) && !tar.isDead(); j++) {
                     
                     // 从第二次攻击时跳出连击提示,且需要更新一次targetAttrs
                     if (j > 0){
@@ -1219,11 +1221,11 @@ class Battle {
             }
         }
         
-        if (selfExplode && !m.isDead()) // 自爆还要走死亡逻辑
+        if (dieAfterExplode && !m.isDead()) // 自爆还要走死亡逻辑
             await this.implOnElemDie(m, ["selfExplode"]);
     }
 
-    public async implMonsterAttackPoses(m:Monster, poses, extraPowerABC = {a:0, b:0, c:0}, selfExplode = false, addFlags:string[] = [], attackPlayer = false, isNormalAttack = false){
+    public async implMonsterAttackPoses(m:Monster, poses, extraPowerABC = {a:0, b:0, c:0}, dieAfterExplode = false, addFlags:string[] = [], attackPlayer = false, isNormalAttack = false){
         var targets = [];
         for(var pos of poses){
             if(m.map().getGridAt(pos.x, pos.y).isCovered())
@@ -1235,10 +1237,10 @@ class Battle {
         }
         if (attackPlayer) targets.push(m.bt().player);
 
-        await m.bt().implMonsterAttackTargets(m, targets, extraPowerABC, selfExplode, addFlags, undefined, isNormalAttack);
+        await m.bt().implMonsterAttackTargets(m, targets, extraPowerABC, dieAfterExplode, addFlags, undefined, isNormalAttack);
     }
 
-    public async implMonsterDoSelfExplode(m:Monster, extraPowerABC, attackPlayer = false){
+    public async implMonsterDoSelfExplode(m:Monster, extraPowerABC, attackPlayer = false, dieAfterExplode = true){
         var mapsize = m.map().size;
         var aoe = m.attrs.selfExplode.aoe;
         Utils.assert(aoe.w%2 == 1 && aoe.h%2 == 1, "do not support aoe size for: " + aoe.w + ", " + aoe.h);
@@ -1254,7 +1256,7 @@ class Battle {
         }
         extraPowerABC = extraPowerABC ? extraPowerABC : {a:0, b:0, c:0};
         await m.bt().fireEvent("onSelfExplode", {m:m});
-        await m.bt().implMonsterAttackPoses(m, poses, extraPowerABC, true, ["immuneAttackBack"], attackPlayer);
+        await m.bt().implMonsterAttackPoses(m, poses, extraPowerABC, dieAfterExplode, ["immuneAttackBack"], attackPlayer);
     }
 
     public async implElemFollow2NextLevel(e:Elem) {
@@ -1287,6 +1289,100 @@ class Battle {
             }
         }
         await this.notifyElemsDropped(ready2Drop, pos);
+    }
+
+    // 将目标位置的怪物转化为植物,园艺师专用
+    public async implChange2Plant(m:Monster) {     
+        var x = m.pos.x;
+        var y = m.pos.y;       
+        // 如果是标记的地块需要翻开
+        if (m.getGrid().isMarked())
+            await this.implUncoverAt(x, y);
+
+        // 统计目标身上的物品,掉落用
+        var ready2Drop = [];
+        for (var dp of m.dropItems) {
+            var g = BattleUtils.findRandomEmptyGrid(this);
+            if (g) {
+                this.addElemAt(dp, g.pos.x, g.pos.y);
+                ready2Drop.push(dp);
+            }
+        }
+        // 移除目标并以玩家的植物替换
+        await this.implRemoveElemAt(x, y);
+        var plantTypes: string[] = GCfg.getMiscConfig("PlantTypes");
+        for (var pt of plantTypes)
+            if (BattleUtils.findRandomElems(this, 1, (te: Elem) => te.type.indexOf(pt) == 0).length > 0)
+                plantTypes = Utils.remove(plantTypes, pt);
+
+        if (plantTypes.length == 0)
+            plantTypes = GCfg.getMiscConfig("PlantTypes");
+
+        var plantType = plantTypes[this.srand.nextInt(0, plantTypes.length)];
+        var relicLevel = Utils.filter([...this.player.commonRelics, ...this.player.relicsEquipped], (r: Relic) => r.type == "HorticultureMaster")[0].reinforceLv;
+        var plant = <Plant>this.level.createElem(plantType + (relicLevel + 1).toString(), undefined, this.player);
+        await this.implAddElemAt(plant, x, y);
+
+        // 将目标身上的物品掉落出来
+        await this.notifyElemsDropped(ready2Drop, m.pos);
+    }
+
+    // 对自己的植物使用自然药水触发不同的效果
+    public async implUseNaturePotionOnPlant(p: Plant) {
+        var plantType = p.type.substring(0, p.type.length - 1);
+        var level = Number(p.type.substring(p.type.length - 1, p.type.length));
+        switch (plantType) {
+            case "NutWall": {
+                await this.implAddBuff(this.player, "BuffSuper", 2);
+                break;
+            }
+            case "Peashooter": {
+                for (var i = 0; i < 5; i++) {
+                    if (!p.isDead() && !p.getGrid().isCovered()) {
+                        var target = BattleUtils.findRandomElems(this, 1, (t: Elem) => t instanceof Monster && !t.getGrid().isCovered() && t.isHazard())[0];
+                        if (target)
+                            // 此攻击要忽略射手的连击属性
+                            await this.implMonsterAttackTargets(p, [target], undefined, false, [], [], false, 1);
+                    }
+                }
+                break;
+            }
+            case "CherryBomb": {
+                // 手动触发两次爆炸   
+                for (var i = 0; i < 2; i++) {
+                    if (level < 4)
+                        await this.implMonsterDoSelfExplode(p, undefined, false, i == 1);
+                    else
+                        await this.implMonsterDoSelfExplode(p, { a: p.attrs.level4BoomDamage / 100, b: 0, c: 0 }, false,  i == 1);
+                }
+                break;
+            }
+            case "Sunflower": {
+                // 标记距离小于2的所有格子
+                var grids = this.level.map.findAllGrid((x, y, tg: Grid) => tg != p.getGrid() && Math.abs(x - p.pos.x) + Math.abs(y - p.pos.y) <= 2);                
+                for (var grid of grids) {
+                    if (!grid.isCovered() || grid.isMarked()) continue;
+                    else if (!grid.getElem())
+                        await this.implUncoverAt(grid.pos.x, grid.pos.y);
+                    else{
+                        var e = grid.getElem();
+                        if(e.isBig()){
+                            await this.implMark(grid.pos.x, grid.pos.y);
+                            for (var placeHolder of <Elem[]>(e["placeHolders"]()))
+                                if(placeHolder.getGrid().isCovered() && !placeHolder.getGrid().isMarked())
+                                    await this.implMark(placeHolder.pos.x, placeHolder.pos.y);                                
+                        }
+                        else
+                            await this.implMark(grid.pos.x, grid.pos.y);
+                    }                        
+                }
+                break;
+            }
+            case "CharmingMushroom": {
+                p.cnt++;
+                break;
+            }
+        }
     }
 
     // boss三选一宝箱

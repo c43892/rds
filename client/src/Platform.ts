@@ -13,32 +13,38 @@ declare interface Platform {
     getRankInfo();
     getUserID():string;
 
-    canPlayAdsReborn();
-
-    playRewardAds(callback);
+    // canPlayAdsReborn();
+    // playRewardAds(callback);
     canShare(): boolean;
     shareGame();
 
     platformType;
     openDataContext;
+    onBuyResult;
 }
 
 class DefaultPaltform implements Platform {
     wc:WebClient;
     
-    adMobReady:boolean = false;
+    // adMobReady:boolean = false;
     // adMobAppID:string = "ca-app-pub-3940256099942544~3347511713"; // google test
     // adMobAdID:string = "ca-app-pub-3940256099942544/5224354917"; // google test
-    adMobAppID:string = "ca-app-pub-1800218346925652~6940599097";
-    adMobAdID:string = "ca-app-pub-1800218346925652/3739720681";
+    // adMobAppID:string = "ca-app-pub-1800218346925652~6940599097";
+    // adMobAdID:string = "ca-app-pub-1800218346925652/3739720681";
 
     iOSLoadLocalStorageDataCallback;
-    rewardAdsCompletedCallback;
+    onBuyResult;
+    // rewardAdsCompletedCallback;
     async init() {
         if (egret.Capabilities.os == "iOS") {
             egret.ExternalInterface.addCallback("rdsLoadLocalStorageDataCallback", (str) => {
                 this.iOSLoadLocalStorageDataCallback(str);
             });
+
+            egret.ExternalInterface.addCallback("notifyBuyResult", (str) => {
+                if(this.onBuyResult)
+                    this.onBuyResult(str);
+            })
         }
 
         if (DEBUG && egret.Capabilities.os == "Windows PC") // 开发环境
@@ -46,23 +52,23 @@ class DefaultPaltform implements Platform {
         else {
             this.wc = new WebClient("http://119.23.110.78:81/");
 
-            Utils.log("ads registed callback");
+            // Utils.log("ads registed callback");
 
-            egret.ExternalInterface.addCallback("notifyAdMobLoaded", (msg) => {
-                Utils.log("ads notifyAdMobLoaded");
-                this.adMobReady = true;
-            });
+            // egret.ExternalInterface.addCallback("notifyAdMobLoaded", (msg) => {
+            //     Utils.log("ads notifyAdMobLoaded");
+            //     this.adMobReady = true;
+            // });
 
-            egret.ExternalInterface.addCallback("notifyRewardAdCompleted", (msg) => {
-                if (this.rewardAdsCompletedCallback)
-                    this.rewardAdsCompletedCallback(msg);
+            // egret.ExternalInterface.addCallback("notifyRewardAdCompleted", (msg) => {
+            //     if (this.rewardAdsCompletedCallback)
+            //         this.rewardAdsCompletedCallback(msg);
 
-                this.rewardAdsCompletedCallback = undefined;
-            });
+            //     this.rewardAdsCompletedCallback = undefined;
+            // });
 
-            // 初始化广告模块
-            if (egret.Capabilities.os != "iOS")
-                egret.ExternalInterface.call("rdsInitAdMob", this.adMobAppID + ";" + this.adMobAdID);
+            // // 初始化广告模块
+            // if (egret.Capabilities.os != "iOS")
+            //     egret.ExternalInterface.call("rdsInitAdMob", this.adMobAppID + ";" + this.adMobAdID);
         }
 
         egret.lifecycle.onPause = () => {
@@ -74,27 +80,27 @@ class DefaultPaltform implements Platform {
         };
     }
 
-    public canPlayAdsReborn() {
-        return egret.Capabilities.os == "iOS" || (this.adMobReady || egret.Capabilities.os == "Android");
-    }
+    // public canPlayAdsReborn() {
+    //     return egret.Capabilities.os == "iOS" || (this.adMobReady || egret.Capabilities.os == "Android");
+    // }
 
-    public async playRewardAds(callback) {
-        if (this.canPlayAdsReborn()) { // egret.Capabilities.os == "iOS" || egret.Capabilities.os == "Android") {
-            var promise = new Promise((r, _) => {
-                this.rewardAdsCompletedCallback = (msg) => {
-                    Utils.log("ads reward callback: " + msg);
-                    callback(msg == undefined || msg == "");
-                    r();
-                };
-            });
-            this.adMobReady = false;
-            egret.ExternalInterface.call("rdsPlayRewardAds", "");
-            callback(true);
-            return promise;
-        } else {
-            Utils.log("ads: play reward ads: adMobReady = " + this.adMobReady);
-        }
-    }
+    // public async playRewardAds(callback) {
+    //     if (this.canPlayAdsReborn()) { // egret.Capabilities.os == "iOS" || egret.Capabilities.os == "Android") {
+    //         var promise = new Promise((r, _) => {
+    //             this.rewardAdsCompletedCallback = (msg) => {
+    //                 Utils.log("ads reward callback: " + msg);
+    //                 callback(msg == undefined || msg == "");
+    //                 r();
+    //             };
+    //         });
+    //         this.adMobReady = false;
+    //         egret.ExternalInterface.call("rdsPlayRewardAds", "");
+    //         callback(true);
+    //         return promise;
+    //     } else {
+    //         Utils.log("ads: play reward ads: adMobReady = " + this.adMobReady);
+    //     }
+    // }
 
     public getUserID():string {
         var uid:string = Utils.loadLocalItem("UserID");

@@ -76,6 +76,7 @@ class MainView extends egret.DisplayObjectContainer {
 
         // 角色选择界面
         this.osv = new OccupationSelView(w, h);
+        this.osv.confirmOkYesNo = async (title, content, yesno:boolean) => await this.confirmOkYesNo(title, content, yesno);
 
         // 设置界面
         this.st = new SettingView(w, h);
@@ -114,7 +115,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.openEventSels = async (title, desc, bg, sels) => await this.openWorldMapEventSels(title, desc, bg, sels);
         this.wmv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
         this.wmv.selRelic = async () => await this.openRelicExchangeView(false, false, "selectRelic", true);
-        this.wmv.selRelic2Inherit = async (relics4Sel) => await this.openRelicExchangeView(false, false, "selectRelicWithoutConfirm", true, relics4Sel);
+        // this.wmv.selRelic2Inherit = async (relics4Sel) => await this.openRelicExchangeView(false, false, "selectRelicWithoutConfirm", true, relics4Sel);
         this.wmv.openFinishGameView = async () => await this.openFinishGameView();
         
         this.wmtv = new WorldMapTopView(w, 80);
@@ -251,7 +252,7 @@ class MainView extends egret.DisplayObjectContainer {
             "onSwatheItemWithCocoon", "summonByDancer", "onGetMarkAllAward", "onStartupRegionUncovered", "awardInheritedRefreshMap", "onSneaking",
             "relicsEquippedMaxNumAdded", "onPlayerReborn", "onPlayerDead", "onUseProp", "onElemRevive", "refreshMap", 
             "onPlayerLevelUp", "onSelfExplode", "onShieldFlyBack", "onSanThreshold", "monsterAttackSingleTargetAct", "onProtect", "onMultAttack" ,"onPreFinishAchv", 
-            "onBossExplosion", "onLevelInitedGiveTip", "protectiveShield", "onKrakenDeepFrozen"
+            "onBossExplosion", "onLevelInitedGiveTip", "protectiveShield", "onKrakenDeepFrozen", "onUnlockOccupationAni"
         ], (e) => (ps) => this.bv.av[e](ps));
         bt.registerEvent("onBattleEnded", async (ps) => {
             await this.av.blackIn();
@@ -478,11 +479,13 @@ class MainView extends egret.DisplayObjectContainer {
         // Utils.saveLocalData("rookiePlay", "finished"); // 新手标记
         // Utils.removeLocalDate("rookiePlay"); // 删除新手数据存档
         // Utils.initAchvData(); // 初始化成就数据
-        // AchievementMgr.mgr.finishAchvAndSave({type:"RichMan", isFinished:true, finishedStage:undefined});
+        // AchievementMgr.mgr.finishAchvAndSave({type:"DifficultModeUnlock", isFinished:true, finishedStage:undefined});
         // var achv = AchievementMgr.mgr.allAchvs[Utils.indexOf(AchievementMgr.mgr.allAchvs, (a:Achievement) => a.type == "EasyModeUnlock")];
         // this.openNewAchvView(achv);
         // Utils.removeLocalData("occupationExp"); // 删除职业解锁进度
         // Utils.removeLocalData("playerName"); // 删除玩家名
+        // Utils.removeLocalData("unlockedOccupations"); // 删除职业解锁信息
+        // Utils.removeLocalData("occupationsUnlockForever"); // 删除职业永久解锁信息
 
         this.p = p;
         this.lgv.player = p;
@@ -598,41 +601,45 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 打开角色死亡界面
     public async openPlayerDieView(ps) {
-
-        if (this.p.rebornCnt < 1 && egret.Capabilities.os == "iOS") { // 暂时不看广告直接复活
-            if (await this.confirmOkYesNo("不幸死亡", "立即复活？", true, 
-                {yes:"rebornAnyway", cancel:"justDie"})) {
-                ps.reborn = true;
-                Utils.st("Reborn", this.p.currentTotalStorey() + "," + this.p.occupation + "," + this.p.difficulty.replace("level", ""));
-            }
-        } else {
-            var watchAds = true;
-            while (watchAds && !ps.reborn) {
-                if (window.platform.canShare()) {
-                    watchAds = false;
-                    ps.reborn = await this.confirmOkYesNo("不幸死亡", "确定分享给好友并复活吗？", true);
-                    if (ps.reborn)
-                        window.platform.shareGame();
-                } else if (this.p.rebornCnt < 1) {
-                    if (window.platform.canPlayAdsReborn()) {
-                        if (await this.confirmOkYesNo("不幸死亡", "是否观看广告复活？", true, 
-                            {yes:"watchRewardAds", cancel:"justDie"}))
-                            await window.platform.playRewardAds((reward) => {
-                                ps.reborn = reward;
-                                Utils.st("Reborn", this.p.currentTotalStorey() + "," + this.p.occupation + "," + this.p.difficulty.replace("level", ""));
-                            });
-                        else
-                            watchAds = false;
-                    } else
-                        watchAds = false;
-                } else {
-                    watchAds = false;
-                    await this.confirmOkYesNo("不幸死亡", "游戏结束", false);
-                    ps.reborn = false;
-                }
-            }
-        }
+        await this.confirmOkYesNo("不幸死亡", "游戏结束", false);
     }
+
+    // public async openPlayerDieView(ps) {
+
+    //     if (this.p.rebornCnt < 1 && egret.Capabilities.os == "iOS") { // 暂时不看广告直接复活
+    //         if (await this.confirmOkYesNo("不幸死亡", "立即复活？", true, 
+    //             {yes:"rebornAnyway", cancel:"justDie"})) {
+    //             ps.reborn = true;
+    //             Utils.st("Reborn", this.p.currentTotalStorey() + "," + this.p.occupation + "," + this.p.difficulty.replace("level", ""));
+    //         }
+    //     } else {
+    //         var watchAds = true;
+    //         while (watchAds && !ps.reborn) {
+    //             if (window.platform.canShare()) {
+    //                 watchAds = false;
+    //                 ps.reborn = await this.confirmOkYesNo("不幸死亡", "确定分享给好友并复活吗？", true);
+    //                 if (ps.reborn)
+    //                     window.platform.shareGame();
+    //             } else if (this.p.rebornCnt < 1) {
+    //                 if (window.platform.canPlayAdsReborn()) {
+    //                     if (await this.confirmOkYesNo("不幸死亡", "是否观看广告复活？", true, 
+    //                         {yes:"watchRewardAds", cancel:"justDie"}))
+    //                         await window.platform.playRewardAds((reward) => {
+    //                             ps.reborn = reward;
+    //                             Utils.st("Reborn", this.p.currentTotalStorey() + "," + this.p.occupation + "," + this.p.difficulty.replace("level", ""));
+    //                         });
+    //                     else
+    //                         watchAds = false;
+    //                 } else
+    //                     watchAds = false;
+    //             } else {
+    //                 watchAds = false;
+    //                 await this.confirmOkYesNo("不幸死亡", "游戏结束", false);
+    //                 ps.reborn = false;
+    //             }
+    //         }
+    //     }
+    // }
 
     // 打开通关界面
     public async openFinishGameView(){
@@ -668,14 +675,14 @@ class MainView extends egret.DisplayObjectContainer {
         return yesno;
     }
 
-    public async openRelicExchangeView(inBattle:boolean, canDrag:boolean, funcOnClinked = "showDesc", hideGoBackBtn = false, relics4Sel = undefined){
+    public async openRelicExchangeView(inBattle:boolean, canDrag:boolean, funcOnClinked = "showDesc", hideGoBackBtn = false){
         this.rev.player = this.p;
         this.addChild(this.rev);
 
         // if (!inBattle)
         //     this.setTopAndRefreshWmtv();
 
-        var result = await this.rev.open(canDrag, funcOnClinked, hideGoBackBtn, relics4Sel);
+        var result = await this.rev.open(canDrag, funcOnClinked, hideGoBackBtn);
         this.removeChild(this.rev);
         return result;
     }

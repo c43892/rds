@@ -34,8 +34,8 @@ class BattleCalculator {
             return r;
         }
 
-        // 计算命中(-闪避)
-        if (this.srand.next100() >= 100 + accuracy - dodge) {
+        // 计算命中(-闪避)        
+        if (!Utils.contains(attackFlags, "mustHit") && this.srand.next100() >= 100 + accuracy - dodge) {
             r.r = "dodged";
             return r;
         }

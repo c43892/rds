@@ -151,6 +151,11 @@ class ElemFactory {
                     g = BattleUtils.findRandomEmptyGrid(e.bt());
 
                 if (!g) break; // 没有空间了
+
+                // 怪物元素身上的金钱在掉落时根据难度进行倍率调整
+                if(elem.type == "Coins")
+                    elem.cnt *= GCfg.getDifficultyCfg()[e.bt().player.difficulty]["moneyGet"];
+
                 e.bt().addElemAt(elem, g.pos.x, g.pos.y);
                 droppedElems.push(elem);
             }

@@ -25,6 +25,10 @@ class OccupationSelView extends egret.DisplayObjectContainer {
 
     diffDesc:LevelDiffDescView; // 难度详情
 
+    confirmOkYesNo; // 确认界面
+
+    public static wait2PlayOccAni = [];
+
     public constructor(w:number, h:number) {
         super();
 
@@ -138,7 +142,7 @@ class OccupationSelView extends egret.DisplayObjectContainer {
     public refresh() {
         ViewUtils.asFullBg(this.bg);
 
-        this.setAvailableOccList(["Rogue", "Nurse"]);
+        this.setAvailableOccList(Utils.getAllOccupations());
         this.setAvailableDiff(Utils.getDiffByAchvData());
         this.selOcc("Rogue");
         this.selDifficulty(Utils.getDiffByAchvData() - 1);
@@ -170,6 +174,9 @@ class OccupationSelView extends egret.DisplayObjectContainer {
     occArr;
     setAvailableOccList(occArr:string[]) {
         this.occArr = occArr;
+
+        // 未解锁的职业使用正常occUnlockedBg_png背景,但置灰且点击不触发效果
+        // 多余位置用occLockedBg_png显示为问号
         for (var i = 0; i < this.occAvatarBgLst.length; i++) {
             this.occAvatarLst[i].removeChildren();
             this.occAvatarBgLst[i].setTexName("occUnlockedBg_png");
@@ -178,21 +185,37 @@ class OccupationSelView extends egret.DisplayObjectContainer {
                 let occ = occArr[i];
                 this.occAvatarBgLst[i].enabled = true;
                 this.occAvatarBgLst[i].onClicked = () => {
-                    this.selOcc(occ);
+                    if(Utils.isUnlockedOccupation(occ))
+                        this.selOcc(occ);
+                    else
+                        this.clickLockedOcc(occ);
                 };
 
-                // let ske = ViewUtils.createSkeletonAni(occArr[i]);
-                // ske.animation.play("Idle", 0);
-                // this.occAvatarLst[i].addChild(ske.display);
                 var c = this.occAvatarLst[i];
                 let occImg = ViewUtils.createBitmapByName(occArr[i] + "_png");
                 occImg.width = c.width;
                 occImg.height = c.height;
-                occImg.x = occImg.y = 0;
-                c.addChild(occImg);
+                occImg.x = occImg.y = 0;                
+
+                // if(!Utils.isActivated(occ))
+                //     this.occAvatarBgLst[i].enabled = false;
+                // else 
+                if(Utils.isUnlockedOccupation(occ)){
+                    c.addChild(occImg);
+                    ViewUtils.makeGray(this.occAvatarLst[i], false);
+                    ViewUtils.makeGray(this.occAvatarBgLst[i], false);
+                }
+                else{
+                    c.addChild(occImg);
+                    ViewUtils.makeGray(this.occAvatarLst[i], true);
+                    ViewUtils.makeGray(this.occAvatarBgLst[i], true);
+                }
             }
-            else
+            else{
                 this.occAvatarBgLst[i].enabled = false;
+                ViewUtils.makeGray(this.occAvatarLst[i], false);
+                ViewUtils.makeGray(this.occAvatarBgLst[i], false);
+            }
         }
     }
 
@@ -243,5 +266,59 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         this.diffFlagDesc.height = this.diffFlagBg.height - 12;
         this.diffFlagDesc.textAlign = egret.HorizontalAlign.CENTER;
         this.diffFlagDesc.verticalAlign = egret.VerticalAlign.MIDDLE;
+    }
+
+    // 点击未解锁职业    
+    async clickLockedOcc(occ: string) {
+        if(!window.platform.onBuyResult)
+            window.platform.onBuyResult = (str) => {
+                    if(str == "ok" || str == "restored")
+                        this.pay2Unlock(); 
+                    else if (str == "inPurchasing")
+                        AniUtils.tipAt("购买请求中，请稍候！", {x:this.width/2, y:this.height/3}, 25, 0xffffff);
+            };
+        if (egret.Capabilities.os == "iOS") {
+            var yesno = await this.confirmOkYesNo(ViewUtils.getTipText("occLocked"), ViewUtils.getTipText("occLockedContent"), true);
+            if (yesno) 
+                egret.ExternalInterface.call("rdsBuyProduct", "");            
+        }
+        else{
+            var yesno = await this.confirmOkYesNo(ViewUtils.getTipText("occLocked"), ViewUtils.getTipText("occLockedContentAndroid"), true);
+            if (yesno) 
+                this.pay2Unlock();
+        }
+    }
+
+    // 付费永久解锁相关
+    async pay2Unlock(occ: string = "Horticulturist") {
+        var i = Utils.indexOf(this.occArr, (o) => o == occ);
+        var occAvatar = this.occAvatarBgLst[i];
+        await this.playUnlockOccupationAni(occAvatar);
+        Utils.unlockOccupationForever(occ);
+        this.refresh();
+        this.selOcc(occ);
+    }
+
+    // 播放职业永久解锁动画
+    async playUnlockOccupationAni(occAvatar:TextButtonWithBg){
+        var bg = ViewUtils.createBitmapByName("translucent_png");
+        bg.width = this.width;
+        bg.height = this.height;
+        bg.touchEnabled = true;
+        bg.alpha = 0;
+        AniUtils.ac.addChild(bg);
+        var ended = false;
+        var ske = ViewUtils.createSkeletonAni("zhujuejiesuo", () => ended = true);
+        var d = ske.display;
+
+        var pos = AniUtils.ani2global(occAvatar);
+        d.x = pos.x + 141;
+        d.y = pos.y + 190;
+        AniUtils.ac.addChild(d);
+        ske.animation.play("stand", 1);
+        await Utils.waitUtil(() => ended);
+        ske["stop"]();
+        AniUtils.ac.removeChild(d);
+        AniUtils.ac.removeChild(bg);
     }
 }

@@ -21,16 +21,17 @@ class WorldMap {
             var bossTypes: string[] = Utils.filter(w.cfg.bossTypes, (t) => !Utils.contains(finishedBoss, t));
         }
         // 无尽模式
-        else {
+        else {                        
             var allBossTypes:string[] = GCfg.getMiscConfig("bossTypes");
-            var bossNum = allBossTypes.length;
+            var bossNum = allBossTypes.length + 1;
             var finishedNum = p.finishedWorldMap.length;
             var round = Math.floor(finishedNum / bossNum) + 1;
             var finishedBossThisRound = [];
             for(var i = (round - 1) * bossNum; i < p.finishedWorldMap.length; i++)                
                 finishedBossThisRound.push(p.finishedWorldMap[i].bossType);            
-            
+            finishedBossThisRound = ["slimeKing", "brainOfCthulhu", "kraken", "halloweenTreant"];
             var bossTypes: string[] = Utils.filter(allBossTypes, (t) => !Utils.contains(finishedBossThisRound, t));            
+            if(bossTypes.length == 0) bossTypes = ["titan"];
         }
         Utils.assert(bossTypes.length > 0, "not enough bossType to set");
         w.bossType = bossTypes[worldmapRandom.nextInt(0, bossTypes.length)];

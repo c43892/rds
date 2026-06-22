@@ -173,7 +173,8 @@ class PlantFactory {
             var p = this.createPlant(attrs);
             p.canUse = () => true;
             p.use = async () => { 
-                await p.bt().implMonsterDoSelfExplode(p, undefined, false); 
+                p.cnt --;
+                await p.bt().implMonsterDoSelfExplode(p, undefined, false, p.cnt == 0); 
                 return true;
             }
             p = MonsterFactory.doAttack("onPlayerActed", p, () => {
@@ -197,7 +198,8 @@ class PlantFactory {
             var p = this.createPlant(attrs);
             p.canUse = () => true;
             p.use = async () => { 
-                await p.bt().implMonsterDoSelfExplode(p, undefined, false); 
+                p.cnt --;
+                await p.bt().implMonsterDoSelfExplode(p, undefined, false, p.cnt == 0); 
                 return true;
             }
             p = MonsterFactory.doAttack("onPlayerActed", p, () => {
@@ -222,7 +224,8 @@ class PlantFactory {
             var p = this.createPlant(attrs);
             p.canUse = () => true;
             p.use = async () => { 
-                await p.bt().implMonsterDoSelfExplode(p, undefined, false); 
+                p.cnt --;
+                await p.bt().implMonsterDoSelfExplode(p, undefined, false, p.cnt == 0); 
                 return true;
             }
             p = MonsterFactory.doAttack("onPlayerActed", p, () => {
@@ -247,7 +250,8 @@ class PlantFactory {
             var p = this.createPlant(attrs);
             p.canUse = () => true;
             p.use = async () => { 
-                await p.bt().implMonsterDoSelfExplode(p, {a:attrs.level4BoomDamage / 100, b:0, c:0}, false); 
+                p.cnt --;
+                await p.bt().implMonsterDoSelfExplode(p, {a:attrs.level4BoomDamage / 100, b:0, c:0}, false, p.cnt == 0); 
                 return true;
             }
             p = MonsterFactory.doAttack("onPlayerActed", p, () => {
@@ -273,7 +277,8 @@ class PlantFactory {
             var p = this.createPlant(attrs);
             p.canUse = () => true;
             p.use = async () => { 
-                await p.bt().implMonsterDoSelfExplode(p, {a:attrs.level4BoomDamage / 100, b:0, c:0}, false); 
+                p.cnt --;
+                await p.bt().implMonsterDoSelfExplode(p, {a:attrs.level4BoomDamage / 100, b:0, c:0}, false, p.cnt == 0); 
                 return true;
             }
             p = MonsterFactory.doAttack("onPlayerActed", p, () => {
@@ -373,6 +378,7 @@ class PlantFactory {
             var attrs = level.getElemCfg("CharmingMushroom").attrs;
             attrs = Utils.clone(attrs);
             var p = this.createPlant(attrs);
+            p.cnt = attrs.cnt;
             p.canUseAt = (x:number, y:number) => {
                 var e = p.map().getElemAt(x, y);
                 var g = p.map().getGridAt(x, y);
@@ -380,9 +386,10 @@ class PlantFactory {
             };
             
             p.useAt = async (x:number, y:number) => { 
+                p.cnt --;
                 var tarm = <Monster>p.map().getElemAt(x, y);
                 await p.bt().implCharmMonster(tarm);
-                return false;
+                return p.cnt > 0;
             }
             p.getElemImgRes = () => "CharmingMushroom";
             return p;
@@ -393,6 +400,7 @@ class PlantFactory {
             var attrs = level.getElemCfg("CharmingMushroom").attrs;
             attrs = Utils.clone(attrs);
             var p = this.createPlant(attrs);
+            p.cnt = attrs.cnt;
             p.canUseAt = (x:number, y:number) => {
                 var e = p.map().getElemAt(x, y);
                 var g = p.map().getGridAt(x, y);
@@ -400,10 +408,11 @@ class PlantFactory {
             };
             
             p.useAt = async (x:number, y:number) => { 
+                p.cnt --;
                 var tarm = <Monster>p.map().getElemAt(x, y);
                 var dattrs = [{type:"power", num:attrs.level2AddPower}]
                 await p.bt().implCharmMonster(tarm, dattrs);
-                return false;
+                return p.cnt > 0;
             }
             p.getElemImgRes = () => "CharmingMushroom";
             return p;
@@ -414,6 +423,7 @@ class PlantFactory {
             var attrs = level.getElemCfg("CharmingMushroom").attrs;
             attrs = Utils.clone(attrs);
             var p = this.createPlant(attrs);
+            p.cnt = attrs.cnt;
             p.canUseAt = (x:number, y:number) => {
                 var e = p.map().getElemAt(x, y);
                 var g = p.map().getGridAt(x, y);
@@ -421,10 +431,11 @@ class PlantFactory {
             };
             
             p.useAt = async (x:number, y:number) => { 
+                p.cnt --;
                 var tarm = <Monster>p.map().getElemAt(x, y);
                 var dattrs = [{type:"power", num:attrs.level2AddPower}, {type:"hp", num:attrs.level3AddHp}]
                 await p.bt().implCharmMonster(tarm, dattrs);
-                return false;
+                return p.cnt > 0;
             }
             p.getElemImgRes = () => "CharmingMushroom";
             return p;
@@ -435,6 +446,7 @@ class PlantFactory {
             var attrs = level.getElemCfg("CharmingMushroom").attrs;
             attrs = Utils.clone(attrs);
             var p = this.createPlant(attrs);
+            p.cnt = attrs.cnt;
             p.canUseAt = (x:number, y:number) => {
                 var e = p.map().getElemAt(x, y);
                 var g = p.map().getGridAt(x, y);
@@ -442,10 +454,11 @@ class PlantFactory {
             };
             
             p.useAt = async (x:number, y:number) => { 
+                p.cnt --;
                 var tarm = <Monster>p.map().getElemAt(x, y);
                 var dattrs = [{type:"power", num:attrs.level2AddPower}, {type:"hp", num:attrs.level3AddHp}, {type:"critical", num:attrs.level4AddCritical}]
                 await p.bt().implCharmMonster(tarm, dattrs);
-                return false;
+                return p.cnt > 0;
             }
             p.getElemImgRes = () => "CharmingMushroom";
             return p;
@@ -456,6 +469,7 @@ class PlantFactory {
             var attrs = level.getElemCfg("CharmingMushroom").attrs;
             attrs = Utils.clone(attrs);
             var p = this.createPlant(attrs);
+            p.cnt = attrs.cnt;
             p.canUseAt = (x:number, y:number) => {
                 var e = p.map().getElemAt(x, y);
                 var g = p.map().getGridAt(x, y);
@@ -463,13 +477,14 @@ class PlantFactory {
             };
             
             p.useAt = async (x:number, y:number) => { 
+                p.cnt --;
                 var tarm = <Monster>p.map().getElemAt(x, y);
                 var dattrs = [
                     {type:"power", num:attrs.level2AddPower}, {type:"hp", num:attrs.level3AddHp}, {type:"critical", num:attrs.level4AddCritical}, 
                     {type:"dodge", num:attrs.level5AddDodge}
                     ]
                 await p.bt().implCharmMonster(tarm, dattrs);
-                return false;
+                return p.cnt > 0;
             }
             p.getElemImgRes = () => "CharmingMushroom";
             return p;

@@ -481,8 +481,13 @@
 		},
 		
 		"Rogue": {
-			"desc": { "EN": "description of Rogue", "CNS": "作为一个黑帮混混，抢劫商店是必备能力，所有职业获得与黑帮混混等级相关级别的杀戮专精。", "CNT": "作為一個黑幫混混，搶劫商店是必備能力，所有職業獲得與黑幫混混等級相關級別的殺戮專精。" },
+			"desc": { "EN": "description of Rogue", "CNS": "黑帮混混最爱抢劫商店，所有职业获得与黑帮混混等级相关级别的杀戮专精。", "CNT": "黑幫混混最愛搶劫商店，所有職業獲得與黑幫混混等級相關級別的殺戮專精。" },
 			"name": { "EN": "Rogue", "CNS": "黑帮混混", "CNT": "黑幫混混" }
+		},
+
+		"Horticulturist":{
+			"desc": { "EN": "description of Horticulturist", "CNS": "园艺师可以召唤植物帮助自己战斗，所有职业获得圣甲虫的壳技能效果提升。", "CNT": "園藝師可以召喚植物幫助自己戰鬥，所有職業獲得聖甲蟲的殼技能效果提升。" },
+			"name": { "EN": "Horticulturist", "CNS": "园艺师", "CNT": "园艺师" }
 		}
 	},
 
@@ -505,7 +510,7 @@
 		"makeSureReinforceRelic": {"EN": "", "CNS": "确定强化{0}?", "CNT": "確定強化{0}?" },
 		"makeSureBuy": {"EN": "", "CNS": "花费{0}金币?", "CNT": "花費{0}金幣"},
 		"relics": {"EN": "Skills", "CNS": "技能", "CNT": "技能"},
-		"props": {"EN": "Props", "CNS": "道具", "CNT": "道具"},
+		"props": {"EN": "Props", "CNS": "药水", "CNT": "药水"},
 		"makeSureUseElem": {"EN": "be sure to use {0}?", "CNS": "确定使用<font color=#ff0000>{0}</font>?", "CNT": "確定使用<font color=#ff0000>{0}</font>?"},
 		"makeSureUseProp": {"EN": "be sure to use {0}?", "CNS": "确定使用<font color=#ff0000>{0}</font>?", "CNT": "確定使用<font color=#ff0000>{0}</font>?"},
 		"coins": {"EN": "coins", "CNS": "金币", "CNT": "金幣" },
@@ -513,7 +518,7 @@
 		"costCoinsOnRelic": {"EN": "<font color=#ffffff>cost {0} coins</font>", "CNS": "<font color=#ffffff size = 25>花费金币 {0} </font>", "CNT": "<font color=#294c22>花费金幣 {0} </font>"},
 		"numHold": {"EN": "<font color=#464070>hold {0} </font>", "CNS": "<font color=#464070>当前拥有 {0} 个</font>", "CNT": "<font color=#464070>當前擁有 {0} 個</font>"},
 		"openBox": {"EN": "open the box", "CNS": "打开宝箱", "CNT": "打開寶箱"},
-		"makeSureGoOutBoxRoom":{"EN": "be sure to leave without left items?", "CNS": "确定放弃余下的物品?", "CNT": "確定放棄餘下的物品?"},
+		"makeSureGoOutBoxRoom":{"EN": "be sure to leave without left items?", "CNS": "确定放弃余下的道具?", "CNT": "確定放棄餘下的道具?"},
 		"setting": {"EN": "setting", "CNS": "设置", "CNT": "設置"},
 		"makeSureExitThisGame":{"EN": "be sure to give up this game?", "CNS": "确定<font color=#7d0403>放弃</font>此局游戏?", "CNT": "確定<font color=#7d0403>放棄</font>此局遊戲?"},
 		"hospitalTitle": {"EN": "safe house", "CNS": "安全屋", "CNT": "安全屋"},
@@ -572,8 +577,8 @@
 		"diff5":{"EN": "diff5", "CNS": "地狱", "CNT":"地獄"},
 		"levelDifficultyDesc":{
 			"EN":["<font color=#000000 size=25>新手难度</font>\r\n初始格子数 8", "简单难度\r\n初始格子数 7", "普通难度\r\n初始格子数 6", "困难难度\r\n初始格子数 5", "地狱难度\r\n初始格子数 4"],
-			"CNS":["\r\n\r\n<font color=#7d0403 size=25>简单难度</font>\r\n<font color=#000000 size=23>初始格子数：8</font>\r\n<font color=#000000 size=23>怪物属性：80%</font>\r\n<font color=#000000 size=23>获得金钱数：200%</font>\r\n<font color=#000000 size=23>初始生命值：40</font>\r\n<font color=#000000 size=23>死神初始步数：180</font>\r\n<font color=#000000 size=23>1个世界</font>\r\n<font color=#000000 size=23>难度系数:50%</font>", "\r\n\r\n<font color=#7d0403 size=25>普通难度</font>\r\n<font color=#000000 size=23>初始格子数：7</font>\r\n<font color=#000000 size=23>怪物属性：90%</font>\r\n<font color=#000000 size=23>获得金钱数：150%</font>\r\n<font color=#000000 size=23>初始生命值：40</font>\r\n<font color=#000000 size=23>死神初始步数：160</font>\r\n<font color=#000000 size=23>2个世界</font>\r\n<font color=#000000 size=23>难度系数:80%</font>", "\r\n\r\n<font color=#7d0403 size=25>困难难度</font>\r\n<font color=#000000 size=23>初始格子数：6</font>\r\n<font color=#000000 size=23>怪物属性：100%</font>\r\n<font color=#000000 size=23>获得金钱数：100%</font>\r\n<font color=#000000 size=23>初始生命值：40</font>\r\n<font color=#000000 size=23>死神初始步数：140</font>\r\n<font color=#000000 size=23>3个世界</font>\r\n<font color=#000000 size=23>难度系数:100%</font>", "\r\n\r\n<font color=#7d0403 size=25>噩梦难度</font>\r\n<font color=#000000 size=23>初始格子数：5</font>\r\n<font color=#000000 size=23>怪物属性：110%</font>\r\n<font color=#000000 size=23>获得金钱数：100%</font>\r\n<font color=#000000 size=23>初始生命值：30</font>\r\n<font color=#000000 size=23>死神初始步数：120</font>\r\n<font color=#000000 size=23>4个世界</font>\r\n<font color=#000000 size=23>难度系数:150%</font>", "\r\n\r\n<font color=#7d0403 size=25>地狱难度</font>\r\n<font color=#000000 size=23>初始格子数：4</font>\r\n<font color=#000000 size=23>怪物属性：120%</font>\r\n<font color=#000000 size=23>获得金钱数：100%</font>\r\n<font color=#000000 size=23>初始生命值：20</font>\r\n<font color=#000000 size=23>死神初始步数：100</font>\r\n<font color=#000000 size=23>无限模式</font>\r\n<font color=#000000 size=23>难度系数:200%</font>"],
-			"CNT":["\r\n\r\n<font color=#7d0403 size=25>簡單難度</font>\r\n<font color=#000000 size=23>初始格子數：8</font>\r\n<font color=#000000 size=23>怪物屬性：80%</font>\r\n<font color=#000000 size=23>獲得金錢數：200%</font>\r\n<font color=#000000 size=23>初始生命值：40</font>\r\n<font color=#000000 size=23>死神初始步數：180</font>\r\n<font color=#000000 size=23>1個世界</font>\r\n<font color=#000000 size=23>難度係數:50%</font>", "\r\n\r\n<font color=#7d0403 size=25>普通難度</font>\r\n<font color=#000000 size=23>初始格子數：7</font>\r\n<font color=#000000 size=23>怪物屬性：90%</font>\r\n<font color=#000000 size=23>獲得金錢數：150%</font>\r\n<font color=#000000 size=23>初始生命值：40</font>\r\n<font color=#000000 size=23>死神初始步數：160</font>\r\n<font color=#000000 size=23>2個世界</font>\r\n<font color=#000000 size=23>難度係數:80%</font>", "\r\n\r\n<font color=#7d0403 size=25>困難難度</font>\r\n<font color=#000000 size=23>初始格子數：6</font>\r\n<font color=#000000 size=23>怪物屬性：100%</font>\r\n<font color=#000000 size=23>獲得金錢數：100%</font>\r\n<font color=#000000 size=23>初始生命值：40</font>\r\n<font color=#000000 size=23>死神初始步數：140</font>\r\n<font color=#000000 size=23>3個世界</font>\r\n<font color=#000000 size=23>難度係數:100%</font>", "\r\n\r\n<font color=#7d0403 size=25>噩夢難度</font>\r\n<font color=#000000 size=23>初始格子數：5</font>\r\n<font color=#000000 size=23>怪物屬性：110%</font>\r\n<font color=#000000 size=23>獲得金錢數：100%</font>\r\n<font color=#000000 size=23>初始生命值：30</font>\r\n<font color=#000000 size=23>死神初始步數：120</font>\r\n<font color=#000000 size=23>4個世界</font>\r\n<font color=#000000 size=23>難度係數:150%</font>", "\r\n\r\n<font color=#7d0403 size=25>地獄難度</font>\r\n<font color=#000000 size=23>初始格子數：4</font>\r\n<font color=#000000 size=23>怪物屬性：120%</font>\r\n<font color=#000000 size=23>獲得金錢數：100%</font>\r\n<font color=#000000 size=23>初始生命值：20</font>\r\n<font color=#000000 size=23>死神初始步數：100</font>\r\n<font color=#000000 size=23>無限模式</font>\r\n<font color=#000000 size=23>難度係數:200%</font>"]
+			"CNS":["\r\n\r\n<font color=#7d0403 size=25>简单难度</font>\r\n<font color=#000000 size=23>初始格子数：8</font>\r\n<font color=#000000 size=23>怪物属性：80%</font>\r\n<font color=#000000 size=23>获得金钱数：200%</font>\r\n<font color=#000000 size=23>初始生命值：60</font>\r\n<font color=#000000 size=23>死神初始步数：180</font>\r\n<font color=#000000 size=23>1个世界</font>\r\n<font color=#000000 size=23>难度系数:50%</font>", "\r\n\r\n<font color=#7d0403 size=25>普通难度</font>\r\n<font color=#000000 size=23>初始格子数：7</font>\r\n<font color=#000000 size=23>怪物属性：90%</font>\r\n<font color=#000000 size=23>获得金钱数：150%</font>\r\n<font color=#000000 size=23>初始生命值：50</font>\r\n<font color=#000000 size=23>死神初始步数：160</font>\r\n<font color=#000000 size=23>2个世界</font>\r\n<font color=#000000 size=23>难度系数:80%</font>", "\r\n\r\n<font color=#7d0403 size=25>困难难度</font>\r\n<font color=#000000 size=23>初始格子数：6</font>\r\n<font color=#000000 size=23>怪物属性：100%</font>\r\n<font color=#000000 size=23>获得金钱数：100%</font>\r\n<font color=#000000 size=23>初始生命值：40</font>\r\n<font color=#000000 size=23>死神初始步数：140</font>\r\n<font color=#000000 size=23>3个世界</font>\r\n<font color=#000000 size=23>难度系数:100%</font>", "\r\n\r\n<font color=#7d0403 size=25>噩梦难度</font>\r\n<font color=#000000 size=23>初始格子数：5</font>\r\n<font color=#000000 size=23>怪物属性：110%</font>\r\n<font color=#000000 size=23>获得金钱数：100%</font>\r\n<font color=#000000 size=23>初始生命值：30</font>\r\n<font color=#000000 size=23>死神初始步数：120</font>\r\n<font color=#000000 size=23>4个世界</font>\r\n<font color=#000000 size=23>难度系数:150%</font>", "\r\n\r\n<font color=#7d0403 size=25>地狱难度</font>\r\n<font color=#000000 size=23>初始格子数：4</font>\r\n<font color=#000000 size=23>怪物属性：120%</font>\r\n<font color=#000000 size=23>获得金钱数：100%</font>\r\n<font color=#000000 size=23>初始生命值：20</font>\r\n<font color=#000000 size=23>死神初始步数：100</font>\r\n<font color=#000000 size=23>无限模式</font>\r\n<font color=#000000 size=23>难度系数:200%</font>"],
+			"CNT":["\r\n\r\n<font color=#7d0403 size=25>簡單難度</font>\r\n<font color=#000000 size=23>初始格子數：8</font>\r\n<font color=#000000 size=23>怪物屬性：80%</font>\r\n<font color=#000000 size=23>獲得金錢數：200%</font>\r\n<font color=#000000 size=23>初始生命值：60</font>\r\n<font color=#000000 size=23>死神初始步數：180</font>\r\n<font color=#000000 size=23>1個世界</font>\r\n<font color=#000000 size=23>難度係數:50%</font>", "\r\n\r\n<font color=#7d0403 size=25>普通難度</font>\r\n<font color=#000000 size=23>初始格子數：7</font>\r\n<font color=#000000 size=23>怪物屬性：90%</font>\r\n<font color=#000000 size=23>獲得金錢數：150%</font>\r\n<font color=#000000 size=23>初始生命值：50</font>\r\n<font color=#000000 size=23>死神初始步數：160</font>\r\n<font color=#000000 size=23>2個世界</font>\r\n<font color=#000000 size=23>難度係數:80%</font>", "\r\n\r\n<font color=#7d0403 size=25>困難難度</font>\r\n<font color=#000000 size=23>初始格子數：6</font>\r\n<font color=#000000 size=23>怪物屬性：100%</font>\r\n<font color=#000000 size=23>獲得金錢數：100%</font>\r\n<font color=#000000 size=23>初始生命值：40</font>\r\n<font color=#000000 size=23>死神初始步數：140</font>\r\n<font color=#000000 size=23>3個世界</font>\r\n<font color=#000000 size=23>難度係數:100%</font>", "\r\n\r\n<font color=#7d0403 size=25>噩夢難度</font>\r\n<font color=#000000 size=23>初始格子數：5</font>\r\n<font color=#000000 size=23>怪物屬性：110%</font>\r\n<font color=#000000 size=23>獲得金錢數：100%</font>\r\n<font color=#000000 size=23>初始生命值：30</font>\r\n<font color=#000000 size=23>死神初始步數：120</font>\r\n<font color=#000000 size=23>4個世界</font>\r\n<font color=#000000 size=23>難度係數:150%</font>", "\r\n\r\n<font color=#7d0403 size=25>地獄難度</font>\r\n<font color=#000000 size=23>初始格子數：4</font>\r\n<font color=#000000 size=23>怪物屬性：120%</font>\r\n<font color=#000000 size=23>獲得金錢數：100%</font>\r\n<font color=#000000 size=23>初始生命值：20</font>\r\n<font color=#000000 size=23>死神初始步數：100</font>\r\n<font color=#000000 size=23>無限模式</font>\r\n<font color=#000000 size=23>難度係數:200%</font>"]
 		},
 		"totalStoreyLevel": {"EN": "totalStoreyLevel", "CNS": "层数得分", "CNT": "層數得分"},
 		"playerLevel": {"EN": "playerLevel", "CNS": "等级得分", "CNT": "等級得分"},
@@ -602,12 +607,13 @@
 		"levelUpTitle":{"EN": "unlock", "CNS": "实力提升效果", "CNT": "實力提升效果"},
 		"unlockBtn":{"EN": "unlock", "CNS": "解锁", "CNT": "解鎖"},
 		"nurse":{"EN": "Nurse", "CNS": "护士", "CNT": "護士"},
+		"rogue":{"EN": "Rogue", "CNS": "黑帮混混", "CNT": "黑帮混混"},
 		"horticulturist":{"EN": "Nurse", "CNS": "园艺师", "CNT": "園藝師"},
 		"merchant":{"EN": "Merchant", "CNS": "商人", "CNT": "商人"},
 		"rookiePlay101":{"EN": "", "CNS": "!!!", "CNT": "!!!"},
 		"rookiePlay102":{"EN": "", "CNS": "你怎么跑到这里来了", "CNT": "你怎麼跑到這裡來了"},
 		"rookiePlay103":{"EN": "", "CNS": "这是魔王的地牢，每一层都有很多怪物看守", "CNT": "這是魔王的地牢，每一層都有很多怪物看守"},
-		"rookiePlay104":{"EN": "", "CNS": "现在你可以看到怪物和一些可以使用的道具，门后面是出口", "CNT": "現在你可以看到怪物和一些可以使用的道具，門後面是出口"},
+		"rookiePlay104":{"EN": "", "CNS": "现在你可以看到怪物和一些可以使用的药水，门后面是出口", "CNT": "現在你可以看到怪物和一些可以使用的药水，門後面是出口"},
 		"rookiePlay105":{"EN": "", "CNS": "但是你永远无法知道出口是离开地牢还是通往下一层", "CNT": "但是你永遠無法知道出口是離開地牢還是通往下一層"},
 		"rookiePlay201":{"EN": "", "CNS": "让我告诉你一些基本规则", "CNT": "讓我告訴你一些基本規則"},
 		"rookiePlay202":{"EN": "", "CNS": "地上的数字表示它周围8个格子里隐藏的怪物的数量", "CNT": "地上的數字表示它周圍8個格子裡隱藏的怪物的數量"},
@@ -626,7 +632,7 @@
 		"rookiePlay215":{"EN": "", "CNS": "有一个苹果，我们可以拖走它方便我们看格子上的数字", "CNT": "有一個蘋果，我們可以拖走它方便我們看格子上的數字"},
 		"rookiePlay216":{"EN": "", "CNS": "让我们再点开一个闪光的格子", "CNT": "讓我們再點開一個閃光的格子"},
 		"rookiePlay217":{"EN": "", "CNS": "有一瓶药水，我们来点一下", "CNT": "有一瓶藥水，我們來點一下"},
-		"rookiePlay218":{"EN": "", "CNS": "它进入道具栏了，让我们继续", "CNT": "它進入道具欄了，讓我們繼續"},
+		"rookiePlay218":{"EN": "", "CNS": "它进入药水栏了，让我们继续", "CNT": "它進入药水欄了，讓我們繼續"},
 		"rookiePlay219":{"EN": "", "CNS": "我们来尝试一下爆炸药水的效果吧", "CNT": "我們來嘗試一下爆炸藥水的效果吧"},
 		"rookiePlay220":{"EN": "", "CNS": "现在我们学习一个新操作，手动标注怪物", "CNT": "現在我們學習一個新操作，手動標注怪物"},
 		"rookiePlay221":{"EN": "", "CNS": "我们手动在格子上做记号，提醒自己那个格子有怪物", "CNT": "我們手動在格子上做記號，提醒自己那個格子有怪物"},
@@ -635,7 +641,7 @@
 		"rookiePlay224":{"EN": "", "CNS": "非常好，魔王的手下遍布地牢，谨慎的向前探索吧，勇士", "CNT": "非常好，魔王的手下遍佈地牢，謹慎的向前探索吧，勇士"},
 		"onSneakedGuide01":{"EN": "", "CNS": "哎呀，你被怪物突袭了", "CNT": "哎呀，你被怪物突襲了"},
 		"onSneakedGuide02":{"EN": "", "CNS": "怪物突袭时会有各种技能来伤害你", "CNT": "怪物突襲時會有各種技能來傷害你"},
-		"onSneakedGuide03":{"EN": "", "CNS": "你可以使用飞刀和道具来探路", "CNT": "你可以使用飛刀和道具來探路"},
+		"onSneakedGuide03":{"EN": "", "CNS": "你可以使用飞刀和药水来探路", "CNT": "你可以使用飛刀和药水來探路"},
 		"onMonsterMarkedGuide01":{"EN": "", "CNS": "bingo，你成功的标记了一个怪物", "CNT": "bingo，你成功的標記了一個怪物"},
 		"onMonsterMarkedGuide02":{"EN": "", "CNS": "你也可以看到怪物的属性来判断是不是要击杀这个怪物", "CNT": "你也可以看到怪物的屬性來判斷是不是要擊殺這個怪物"},
 		"onMonsterMarkedGuide03":{"EN": "", "CNS": "注意哦，你不一定要击杀所有怪物，拿到宝物就可以去下一层了", "CNT": "注意哦，你不一定要擊殺所有怪物，拿到寶物就可以去下一層了"},
@@ -645,10 +651,20 @@
 		"rookiePlay504":{"EN": "", "CNS": "了解并熟悉它们，可以让你的战斗更加轻松", "CNT": "瞭解並熟悉它們，可以讓你的戰鬥更加輕鬆"},
 		"rookiePlay505":{"EN": "", "CNS": "现在把我的宝物给你，你就可以操纵我的植物了", "CNT": "現在把我的寶物給你，你就可以操縱我的植物了"},
 		"rookiePlay506":{"EN": "", "CNS": "继续前进吧，勇士", "CNT": "繼續前進吧，勇士"},
-		"robExtraItemDialog01":{"EN": "", "CNS": "额外抢到一件物品：", "CNT": "額外搶到一件物品："},
+		"robExtraItemDialog01":{"EN": "", "CNS": "额外抢到一件道具：", "CNT": "額外搶到一件道具："},
 		"openAvatarView01":{"EN": "", "CNS": "点击头像", "CNT": "點擊頭像"},
 		"openAvatarView02":{"EN": "", "CNS": "这里你可以看到你的属性，通用技能，还有一些设置可以选择", "CNT": "這裡你可以看到你的屬性，通用技能，還有一些設置可以選擇"},
 		"openAvatarView03":{"EN": "", "CNS": "点击返回让我们回到战斗", "CNT": "點擊返回讓我們回到戰鬥"},
+		"halloweenTreant":{"EN": "HalloweenTreant", "CNS": "万圣节树妖", "CNT": "萬聖節樹妖"},
+		"onUnlockOccupationGuide01":{"EN": "", "CNS": "我的朋友，你终于来了，我为万圣节树妖关在这里好久了", "CNT": "我的朋友，你終於來了，我為萬聖節樹妖關在這裡好久了"},
+		"onUnlockOccupationGuide02":{"EN": "", "CNS": "感谢你的拯救，你可以在初始界面选择我与你并肩战斗", "CNT": "感謝你的拯救，你可以在初始介面選擇我與你並肩戰鬥"},
+		"rookieKillBoss01":{"EN": "", "CNS": "                             园艺师被我抓走了", "CNT": "新手击败boss对话01"},
+		"rookieKillBoss02":{"EN": "", "CNS": "护士妹子、黑帮兄弟，快来救我", "CNT": "護士妹子、黑幫兄弟，快來救我"},
+		"killHalloweenTreantFirstTime01":{"EN": "", "CNS": "我终于得救了，谢谢", "CNT": "我終於得救了，謝謝"},
+		"killHalloweenTreantFirstTime02":{"EN": "", "CNS": "作为感谢，我可以帮助你战斗一次", "CNT": "作為感謝，我可以幫助妳戰鬥壹次"},
+		"occLocked":{"EN": "this occupation is locked", "CNS": "该职业未解锁", "CNT": "該職業未解鎖"},
+		"occLockedContent":{"EN": "pay to unlock?", "CNS": "支付6元永久解锁该职业?也可在游戏内营救该职业进行解锁,但死亡后会被重新锁定", "CNT": "支付6元永久解锁该职业?也可在游戏内营救该职业进行解锁,但死亡后会被重新锁定"},
+		"occLockedContentAndroid":{"EN": "pay to unlock?", "CNS": "永久解锁该职业?", "CNT": "永久解锁该职业?"},
 		"": {}
 	}
 }

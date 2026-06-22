@@ -119,8 +119,8 @@ class BoxRoomView extends egret.DisplayObjectContainer {
             elemImg.touchEnabled = false;
             if (arr[i] != "Coins")
                 elemImg["e"] = ElemFactory.create(arr[i]);
-            else
-                elemImg["e"] = ElemFactory.create(arr[i], {cnt:coinsnum});
+            else // 金币数量根据难度调整
+                elemImg["e"] = ElemFactory.create(arr[i], {cnt:coinsnum * GCfg.getDifficultyCfg()[this.player.difficulty]["moneyGet"]});
             
             elemImg.onClicked = () => BoxRoomView.showElemDesc(elemImg["e"]);            
         }

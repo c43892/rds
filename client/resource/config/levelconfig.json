@@ -8172,6 +8172,12 @@
     "halloweenTreant_30": {"redirect": "boss_30"},
     "halloweenTreant_45": {"redirect": "boss_45"},
     "halloweenTreant_60": {"redirect": "boss_60"},
+    
+    "titan_10": {"redirect": "boss_10"},
+    "titan_15": {"redirect": "boss_15"},
+    "titan_30": {"redirect": "boss_30"},
+    "titan_45": {"redirect": "boss_45"},
+    "titan_60": {"redirect": "boss_60"},
 
     "_abcd": {
         "displayName": "Boss战斗15",

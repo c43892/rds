@@ -15,11 +15,11 @@
         "+dodge": "闪避增加{dodge}",
         "+power": "攻击力增加{dpower}",
         "+item": "获得 {item}",
-        "+randomItems": "获得 {randomNum} 件随机物品",
+        "+randomItems": "获得 {randomNum} 件随机道具",
         "reinforceRandomRelics": "随机强化 {reinforceNum} 件遗物",
         "reinfoceRelic": "强化一件遗物",
         "gambling": "压 {wager} 金币，{rate}% 胜利获得 {award} 金币",
-        "rob": "抢劫物品",
+        "rob": "抢劫道具",
         "redirectSelGroup": "重建选项列表",
         "redirectSelGroup2": "重建选项列表",
         "toTurnTable": "",
@@ -533,7 +533,7 @@
             },{
                 "desc": "<font color=#000000 size=20>[贬低]</font></font><font color=#294c22 size=20>闪避+{dodge}%</font>",
                 "func": ["redirectSelGroup", "+dodge"],
-                "ps": {"group": "a82", "dodge": 5}
+                "ps": {"group": "a82", "dodge": 1}
             }],
             "extraRobSel": {
                 "desc": "<font color=#000000 size=20>[打劫]</font><font color=#000000 size=20>你什么都不会获得</font>",
@@ -636,7 +636,7 @@
                     "group": "b21"
                  }                
             },{
-                "desc": "<font color=#000000 size=20>[购买道具]</font></font><font color=#000000 size=20>花费{money}金币，</font><font color=#294c22 size=20>获得两个随机道具</font>",
+                "desc": "<font color=#000000 size=20>[购买药水]</font></font><font color=#000000 size=20>花费{money}金币，</font><font color=#294c22 size=20>获得两个随机药水</font>",
                 "func": ["-money", "+randomItems", "redirectSelGroup"],
                 "ps": {
                     "money": 50,
@@ -650,7 +650,7 @@
                 "ps": {"group": "b23"}
             }],
              "extraRobSel": {
-                "desc": "<font color=#000000 size=20>[打劫]</font><font color=#294c22 size=20>获得一件道具或技能</font>",
+                "desc": "<font color=#000000 size=20>[打劫]</font><font color=#294c22 size=20>获得一件药水或技能</font>",
                 "func": ["rob", "redirectSelGroup"],
                 "ps": {"rob":"inEvent", "group": "b24"}
             },
@@ -770,7 +770,7 @@
             }, {
                 "func": ["sequence"],
                 "ps": {
-                    "desc": "{rate}% 获得一个随机物品并损失 {hp} hp",
+                    "desc": "{rate}% 获得一个随机道具并损失 {hp} hp",
                     "func": ["-hp"],
                     "rates": [100, 0, 25],
                     "items": {"HpPotion":100, "MedicineBox":50, "IceGun":1},
