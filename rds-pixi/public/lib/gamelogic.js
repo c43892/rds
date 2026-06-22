@@ -15460,15 +15460,15 @@ class BoxRoomView extends egret.DisplayObjectContainer {
         // 宝箱中的金币
         var coinsnum = onOpenBoxRoomPs.coinsnum;
         arr.push("Coins");
-        this.scale = arr.length == 3 ? 1.3 : 1;
+        this.dropScale = arr.length == 3 ? 1.3 : 1;
         for (var i = 0; i < arr.length; i++) {
             let elemImg = new TextButtonWithBg((arr[i] == "Coins" ? "Coins9" : arr[i]) + "_png");
             elemImg.touchEnabled = true;
-            elemImg.x = 320 + (i - (arr.length - 1) / 2) * 120 * this.scale - 42 * this.scale;
-            elemImg.y = 430 - 42 / this.scale;
-            elemImg.scaleX = elemImg.scaleY = this.scale;
+            elemImg.x = 320 + (i - (arr.length - 1) / 2) * 120 * this.dropScale - 42 * this.dropScale;
+            elemImg.y = 430 - 42 / this.dropScale;
+            elemImg.scaleX = elemImg.scaleY = this.dropScale;
             this.elemImgs.push(elemImg);
-            elemImg["flashBg"] = this.setElemImgFlashBg(elemImg, this.scale);
+            elemImg["flashBg"] = this.setElemImgFlashBg(elemImg, this.dropScale);
             elemImg["flashBg"].alpha = 0;
             this.addChild(elemImg["flashBg"]);
             this.addChild(elemImg);
@@ -15521,7 +15521,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
             fromImg.y = this.startingPoint.y;
             fromImg.width = elemImg.width / 2;
             fromImg.height = elemImg.height / 2;
-            fromImg.scaleX = fromImg.scaleY = this.scale;
+            fromImg.scaleX = fromImg.scaleY = this.dropScale;
             var toImg = elemImg;
             await Utils.delay(200);
             if (i == this.elemImgs.length - 1) {
@@ -15554,7 +15554,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
             fromImg.y = elemImg.y;
             fromImg.width = elemImg.width;
             fromImg.height = elemImg.height;
-            fromImg.scaleX = fromImg.scaleY = this.scale;
+            fromImg.scaleX = fromImg.scaleY = this.dropScale;
             var toImg = this.destination;
             await Utils.delay(200);
             if (i == this.elemImgs.length - 1) {
@@ -22063,53 +22063,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
         this.refresh();
     }
     onTouchGrid(evt) {
-        // 间歇性 bug 诊断（仅 DEBUG）：每次点地图都记录命中到的节点、当前应可选节点
-        // 及其渲染坐标，并对每个可选节点在其“渲染中心”再做一次命中测试 —— 若返回的不是
-        // 节点本身，说明那一瞬间它被别的东西盖住了（这正是“点发光节点没反应”的根因取证）。
-        if (DEBUG) {
-            try {
-                var tgt = evt.target;
-                var hitInfo = tgt
-                    ? (tgt["ptStoreyLv"] !== undefined
-                        ? "node " + tgt["ptStoreyLv"] + "," + tgt["ptStoreyN"] + ":" + tgt["ptType"]
-                        : (tgt.constructor && tgt.constructor.name) + (tgt.name ? "#" + tgt.name : ""))
-                    : "null";
-                var sel = BattleUtils.getSelectableStoreyPos(this.worldmap.player);
-                var eb = egret.$app && egret.$app.renderer.events.rootBoundary;
-                if (eb)
-                    eb.rootTarget = egret.$app.stage;
-                var nodeAt = (lv, n) => {
-                    var found = null;
-                    var walk = (o) => {
-                        if (!o)
-                            return;
-                        if (o.children)
-                            o.children.forEach(walk);
-                        if (o["ptStoreyLv"] === lv && o["ptStoreyN"] === n)
-                            found = o;
-                    };
-                    walk(egret.$app.stage);
-                    return found;
-                };
-                var selInfo = sel.map((sp) => {
-                    var nd = nodeAt(sp.lv, sp.n);
-                    if (!nd)
-                        return sp.lv + "," + sp.n + ":(no img)";
-                    var g = nd.getGlobalPosition ? nd.getGlobalPosition() : nd.localToGlobal(0, 0);
-                    var gx = Math.round(g.x), gy = Math.round(g.y);
-                    var at = eb ? eb.hitTest(gx, gy) : null;
-                    var atStr = at ? (at["ptStoreyLv"] !== undefined ? at["ptStoreyLv"] + "," + at["ptStoreyN"] : (at.constructor && at.constructor.name)) : "null";
-                    var blocked = !(at && at["ptStoreyLv"] === sp.lv && at["ptStoreyN"] === sp.n);
-                    return sp.lv + "," + sp.n + " @(" + gx + "," + gy + ") 自测命中=" + atStr + (blocked ? " ⚠被遮挡/未命中" : " ok");
-                });
-                console.log("[map-tap] 点到=" + hitInfo + " | stage=(" + Math.round(evt.stageX) + "," + Math.round(evt.stageY) +
-                    ") | 当前=" + this.player.currentStoreyPos.lv + "," + this.player.currentStoreyPos.n +
-                    " | 可选节点: " + selInfo.join("  ;  "));
-            }
-            catch (e) {
-                console.log("[map-tap] diag error", e);
-            }
-        }
         var bmp = evt.target;
         if (!(bmp instanceof egret.Bitmap))
             return;

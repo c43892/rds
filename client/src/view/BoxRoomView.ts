@@ -12,7 +12,10 @@ class BoxRoomView extends egret.DisplayObjectContainer {
     private startingPoint:egret.Bitmap;
     private destination:egret.Bitmap;
     private boxEff:egret.MovieClip;
-    private scale:number;
+    // 注意：不能叫 scale —— 在 PixiJS 里 DisplayObject.scale 是变换用的 ObservablePoint，
+    // 用一个 number 覆盖它会让整个视图的 worldTransform 变成 NaN（宝箱房间整体渲染不出来、
+    // 也无法命中）。Egret 用 scaleX/scaleY，所以原版叫 scale 没事，移植到 Pixi 必须改名。
+    private dropScale:number;
     public confirmOkYesNo;
     public static showElemDesc;
     
@@ -99,16 +102,16 @@ class BoxRoomView extends egret.DisplayObjectContainer {
         var coinsnum = onOpenBoxRoomPs.coinsnum;
         arr.push("Coins");
         
-        this.scale = arr.length == 3 ? 1.3 : 1;
+        this.dropScale = arr.length == 3 ? 1.3 : 1;
         
         for(var i = 0; i < arr.length; i++){
             let elemImg = new TextButtonWithBg((arr[i] == "Coins" ? "Coins9" : arr[i]) + "_png");
             elemImg.touchEnabled = true;
-            elemImg.x = 320 + (i - (arr.length - 1) / 2) * 120 * this.scale - 42 * this.scale;
-            elemImg.y = 430 - 42 / this.scale;
-            elemImg.scaleX = elemImg.scaleY = this.scale;
+            elemImg.x = 320 + (i - (arr.length - 1) / 2) * 120 * this.dropScale - 42 * this.dropScale;
+            elemImg.y = 430 - 42 / this.dropScale;
+            elemImg.scaleX = elemImg.scaleY = this.dropScale;
             this.elemImgs.push(elemImg);
-            elemImg["flashBg"] = this.setElemImgFlashBg(elemImg, this.scale);
+            elemImg["flashBg"] = this.setElemImgFlashBg(elemImg, this.dropScale);
             elemImg["flashBg"].alpha = 0;
             this.addChild(elemImg["flashBg"]);
             this.addChild(elemImg);
@@ -170,7 +173,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
             fromImg.y = this.startingPoint.y;
             fromImg.width = elemImg.width / 2;
             fromImg.height = elemImg.height / 2;
-            fromImg.scaleX = fromImg.scaleY = this.scale;
+            fromImg.scaleX = fromImg.scaleY = this.dropScale;
             var toImg = elemImg;
             await Utils.delay(200);
             if(i == this.elemImgs.length - 1){
@@ -204,7 +207,7 @@ class BoxRoomView extends egret.DisplayObjectContainer {
             fromImg.y = elemImg.y;
             fromImg.width = elemImg.width;
             fromImg.height = elemImg.height;
-            fromImg.scaleX = fromImg.scaleY = this.scale;
+            fromImg.scaleX = fromImg.scaleY = this.dropScale;
             var toImg = this.destination;
             await Utils.delay(200);
             if(i == this.elemImgs.length - 1){
