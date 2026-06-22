@@ -364,6 +364,11 @@ class Utils {
     }
     // 保存角色数据
     static savePlayer(p, reason = undefined) {
+        // 此时才进行职业解锁
+        var p1 = p ? p : AchievementMgr.mgr.player;
+        if (p1)
+            for (var occ of p1.occsWait4Unlock)
+                Utils.unlockOccupation(occ);
         // player数据存档时,同时将预完成成就数据存档
         var allPreFinishedAchvs = [...AchievementMgr.mgr.allPreFinishedAchvs()];
         for (var preFinishInfo of allPreFinishedAchvs)
@@ -488,7 +493,7 @@ class Utils {
             if (!Utils.occupationCompatible(p.occupation, e, customGetConfigFun))
                 continue;
             // 检查技能装备格达到上限，不能再购买
-            if (e == "OpenRelicSpace" && p.relicsEquippedCapacity >= p.relicEquippedCapacityMax)
+            if (e == "OpenRelicSpace" && p.relicsEquippedCapacity >= p.relicEquippedCapacityMax())
                 continue;
             // 检查遗物强化等级
             var allRelics = p.allRelics;
@@ -807,6 +812,16 @@ class Utils {
         var cfg = GCfg.getDifficultyCfg()[difficulty];
         return cfg["playerInitRelicsEquippedCapacity"];
     }
+    // 根据职业解锁情况获取玩家总共可开启的技能格子的数量
+    static getPlayerTotalRelicsEquippedCapacity(p) {
+        if (Number(p.difficulty.substring(5)) < 4)
+            return 12;
+        else {
+            var horticulturistLevel = Utils.getOccupationLevelAndExp("Horticulturist").level;
+            horticulturistLevel = horticulturistLevel == -1 ? 5 : horticulturistLevel;
+            return 11 + horticulturistLevel;
+        }
+    }
     // 玩家某个职业获得经验
     static addOccupationExp(occupation, exp) {
         Utils.try2InitOccupationExpInfo(occupation);
@@ -901,7 +916,7 @@ class Utils {
             return 2;
         else
             return 1;
-        // // 全部开启
+        // 全部开启
         // return 5;
     }
     // 无限模式中用来生成配置
@@ -909,6 +924,112 @@ class Utils {
     static getEndlessWorldMapName(lastWorldName) {
         var worldIndex = Number(lastWorldName.substring(5, lastWorldName.length)) + 1;
         return "world" + worldIndex;
+    }
+    // // 新的世界地图配置
+    // public static getEndlessWorldMapCfg(worldName: string) {
+    //     var worldIndex = Number(worldName.substring(5 + 1, worldName.length)) + 1;
+    //     for (var i = worldIndex; i >= 0; i--) {
+    //         var tWorld = "world" + i;
+    //         if (!!GCfg.getWorldMapCfg(tWorld))
+    //             return GCfg.getWorldMapCfg(tWorld);
+    //     }
+    //     Utils.assert(true, "can not find replace world cfg for " + worldName);
+    // }
+    // 初始化职业解锁信息
+    static initOccupationsUnlockInfo() {
+        if (!Utils.loadLocalData("unlockedOccupations"))
+            Utils.saveLocalData("unlockedOccupations", []);
+    }
+    // 获取开放的所有职业
+    static getAllOccupations() {
+        return GCfg.getMiscConfig("allOccupations");
+    }
+    // 获取当前可用职业
+    static getUnlockedOccupations() {
+        Utils.initOccupationsUnlockInfo();
+        Utils.initOccupationsUnlockForeverInfo();
+        var occs = Utils.loadLocalData("unlockedOccupations");
+        var occsF = Utils.loadLocalData("occupationsUnlockForever");
+        for (var oF of occsF)
+            if (Utils.indexOf(occs, (o) => o == oF) == -1)
+                occs.push(oF);
+        return occs;
+    }
+    // 获取当前可以用于解锁的职业
+    static getLockedOccupations() {
+        var all = Utils.getAllOccupations();
+        var unlocked = Utils.getUnlockedOccupations();
+        var locked = [];
+        for (var occ of all)
+            if (Utils.indexOf(unlocked, (o) => o == occ) == -1)
+                locked.push(occ);
+        return locked;
+    }
+    // 解锁一个职业,附带激活功能
+    static unlockOccupation(occ) {
+        if (!Utils.isActivated(occ))
+            Utils.activateOccupation(occ);
+        var unlocked = Utils.getUnlockedOccupations();
+        if (Utils.indexOf(unlocked, (uo) => uo == occ) > -1)
+            return;
+        unlocked.push(occ);
+        Utils.saveLocalData("unlockedOccupations", unlocked);
+    }
+    // 永久解锁一个职业,用于付费解锁
+    static unlockOccupationForever(occ) {
+        if (!Utils.isActivated(occ))
+            Utils.activateOccupation(occ);
+        var occs = Utils.loadLocalData("occupationsUnlockForever");
+        if (Utils.indexOf(occs, (o) => o == occ) == -1)
+            occs.push(occ);
+        Utils.saveLocalData("occupationsUnlockForever", occs);
+    }
+    // 初始化永久解锁信息
+    static initOccupationsUnlockForeverInfo() {
+        if (!Utils.loadLocalData("occupationsUnlockForever"))
+            Utils.saveLocalData("occupationsUnlockForever", ["Rogue", "Nurse"]);
+    }
+    // 锁定一个职业
+    static lockOccupation(occ) {
+        if (occ == "Nurse" || occ == "Rogue")
+            return;
+        var unlocked = Utils.getUnlockedOccupations();
+        unlocked = Utils.remove(unlocked, occ);
+        Utils.saveLocalData("unlockedOccupations", unlocked);
+    }
+    // 职业是否已解锁
+    static isUnlockedOccupation(occ) {
+        return Utils.indexOf(Utils.getUnlockedOccupations(), (o) => o == occ) > -1;
+    }
+    // 职业是否激活(未激活的职业在选择职业时显示为问号)
+    static isActivated(occ) {
+        if (!Utils.loadLocalData("occActivated"))
+            Utils.saveLocalData("occActivated", ["Rogue", "Nurse"]);
+        // 成就相关
+        var allAchvs = AchievementMgr.mgr.allAchvs;
+        var tarAchv = (type) => allAchvs[Utils.indexOf(allAchvs, (a) => a.type == type)];
+        // 不同职业可能存在不同的激活条件
+        switch (occ) {
+            case "Horticulturist": {
+                // 只要获得过难度3的成就即默认解锁              
+                if (tarAchv("DifficultModeUnlock").isFinished())
+                    return true;
+            }
+            default: {
+                var activated = Utils.loadLocalData("occActivated");
+                return !!activated && Utils.indexOf(activated, (o) => o == occ) > -1;
+            }
+        }
+    }
+    // 激活职业
+    static activateOccupation(occ) {
+        if (!Utils.loadLocalData("occActivated"))
+            Utils.saveLocalData("occActivated", ["Rogue", "Nurse"]);
+        var activated = Utils.loadLocalData("occActivated");
+        if (Utils.indexOf(activated, (o) => o == occ) == -1) {
+            activated.push(occ);
+            Utils.saveLocalData("occActivated", activated);
+        }
     }
 }
 Utils.localStorageData = {};
@@ -1790,7 +1911,7 @@ class ItemFactory {
             "OpenRelicSpace": (attrs) => {
                 var e = this.createItem();
                 e["autoUseInBattle"] = async (bt) => {
-                    Utils.assert(bt.player.relicsEquippedCapacity < bt.player.relicEquippedCapacityMax, "open equipped relics position overflow");
+                    Utils.assert(bt.player.relicsEquippedCapacity < bt.player.relicEquippedCapacityMax(), "open equipped relics position overflow");
                     bt.player.relicsEquippedCapacity++;
                     await bt.fireEvent("relicsEquippedMaxNumAdded");
                 };
@@ -1823,6 +1944,27 @@ class ItemFactory {
                     }
                     await bt.implDestoryAt(x, y, e);
                     return e.cnt > 0;
+                };
+                return e;
+            },
+            // 监狱,用于解锁职业
+            "Prison": (attrs) => {
+                var e = this.createItem();
+                e.canUse = () => e.isValid();
+                e.canBeDragDrop = false;
+                // 解锁一个可以被解锁的职业,获得被解锁的职业后播放对应动画表明职业
+                e.use = async () => {
+                    // 获取解锁的职业
+                    var occs = Utils.getLockedOccupations();
+                    if (occs.length == 0)
+                        return;
+                    var occ = occs[e.bt().srand.nextInt(0, occs.length)];
+                    await e.bt().triggerLogicPoint("onUnlockOccupation", { occ: occ, e: e });
+                    // 放动画
+                    await e.bt().fireEvent("onUnlockOccupationAni", { occ: occ, e: e });
+                    // 放剧情
+                    await e.bt().fireEvent("onUnlockOccupationGuide", { occ: occ, e: e });
+                    e.bt().player.occsWait4Unlock.push(occ);
                 };
                 return e;
             }
@@ -2083,6 +2225,25 @@ class MonsterFactory {
                 m = MonsterFactory.doBurnByFlameDamage(m);
                 m = MonsterFactory.doUncoverMPeashooter(m);
                 m = MonsterFactory.protectiveShield(m);
+                return m;
+            },
+            // 泰坦巨人
+            "Titan": (attrs) => {
+                var m = this.createMonster(attrs);
+                MonsterFactory.makeBoss(MonsterFactory.doSneakAttack(MonsterFactory.doAttackBack(MonsterFactory.doAttack("onPlayerActed", m, () => m.bt().player, attrs.attackInterval, () => !m.trapped, { a: 1, b: 0, c: 0 }, ["mustHit"], 2), () => !m.trapped)));
+                m = MonsterFactory.doAvoidDieAndShowMonsters(m);
+                // 随机获得两项技能
+                var allSkills = [
+                    () => MonsterFactory.doAddHpPerRound(Math.floor(attrs.hp * 0.05) > 1 ? Math.floor(attrs.hp * 0.05) : 1, m),
+                    () => MonsterFactory.sanLogic(m),
+                    () => MonsterFactory.protectiveShield(m),
+                    () => MonsterFactory.doActiveAttackPerRoundOn50Hp(m)
+                ];
+                var index1 = [0, 1, 2, 3][new SRandom().nextInt(0, 4)];
+                var _index2 = [0, 1, 2][new SRandom().nextInt(0, 3)];
+                var index2 = _index2 < index1 ? _index2 : (_index2 + 1);
+                allSkills[index1]();
+                allSkills[index2]();
                 return m;
             },
             "CharmedMonster": (attrs) => this.createMonster(attrs),
@@ -2386,7 +2547,7 @@ class MonsterFactory {
         });
     }
     // 攻击一次
-    static doAttack(logicPoint, m, findTarget, attackInterval = 0, condition = () => true, extraPowerABC = { a: 0, b: 0, c: 0 }) {
+    static doAttack(logicPoint, m, findTarget, attackInterval = 0, condition = () => true, extraPowerABC = { a: 0, b: 0, c: 0 }, extraFlags = [], sprcialMultAttack = undefined) {
         attackInterval = attackInterval ? attackInterval : 0;
         m["attackInterval"] = attackInterval ? attackInterval : 1;
         var interval = 0; // 攻击行为的间隔回合记数
@@ -2412,7 +2573,7 @@ class MonsterFactory {
                     // 如果是打怪，需要判断射程
                     if (target instanceof Monster && !m.inAttackRange(target))
                         return;
-                    await m.bt().implMonsterAttackTargets(m, [target], extraPowerABC, false, ["activeAttack"], undefined, true);
+                    await m.bt().implMonsterAttackTargets(m, [target], extraPowerABC, false, [...extraFlags, "activeAttack"], undefined, true, sprcialMultAttack);
                 }
             }
         }, m);
@@ -2614,6 +2775,26 @@ class MonsterFactory {
             }
         }, m);
     }
+    // 取消死亡,回复满生命值,并让所有怪物现身
+    static doAvoidDieAndShowMonsters(m) {
+        m["avoidDie"] = false;
+        return ElemFactory.addAI("afterMonsterHurt", async () => {
+            var bt = m.bt();
+            if (!m["avoidDie"] && m.hp <= 0) {
+                m["avoidDie"] = true;
+                var maxHp = bt.level.createElem(m.type).attrs.hp;
+                var add = maxHp - m.hp;
+                await bt.implAddMonsterHp(m, add);
+                var map = bt.level.map;
+                var monsters = map.findAllElems((e) => e.isHazard);
+                for (var i = 0; i < monsters.length; i++) {
+                    var g = monsters[i].getGrid();
+                    if (g.isCovered() && !g.isMarked())
+                        await bt.uncover(g.pos.x, g.pos.y, true);
+                }
+            }
+        }, m);
+    }
     // 每次受到伤害，都会标记一个随机怪物
     static doMarkMonsterOnHurt(m) {
         return ElemFactory.addAI("onMonsterHurt", async () => {
@@ -2771,7 +2952,7 @@ class MonsterFactory {
             var te = BattleUtils.findRandomElems(m.bt(), 1, (e) => !e.getGrid().isCovered() && Utils.contains(types, e.type))[0];
             if (te)
                 await m.bt().implRemoveElemAt(te.pos.x, te.pos.y);
-        }, m);
+        }, m, (ps) => ps.subType == "monster2targets" && ps.attackerAttrs.owner == m);
     }
     // 攻击时，会同时用闪电伤害玩家和周围的怪物
     static doThunderDamageAroundOnAttack(m) {
@@ -3098,7 +3279,7 @@ class MonsterFactory {
             var te = BattleUtils.findRandomElems(m.bt(), 1, (e) => !e.getGrid().isCovered() && Utils.contains(types, e.type))[0];
             if (te)
                 await m.bt().implRemoveElemAt(te.pos.x, te.pos.y);
-        }, m, (ps) => Utils.contains(ps.attackerAttrs.attackFlags, "activeAttack"));
+        }, m, (ps) => Utils.contains(ps.attackerAttrs.attackFlags, "activeAttack") && ps.subType == "monster2targets" && ps.attackerAttrs.owner == m);
     }
     // 克拉肯存在时，每回合对你造成1点伤害，无论它是否处于现身状态
     static doReduceHpPerRound(m, onlyUncovered = false) {
@@ -3674,7 +3855,8 @@ class PlantFactory {
                 var p = this.createPlant(attrs);
                 p.canUse = () => true;
                 p.use = async () => {
-                    await p.bt().implMonsterDoSelfExplode(p, undefined, false);
+                    p.cnt--;
+                    await p.bt().implMonsterDoSelfExplode(p, undefined, false, p.cnt == 0);
                     return true;
                 };
                 p = MonsterFactory.doAttack("onPlayerActed", p, () => {
@@ -3697,7 +3879,8 @@ class PlantFactory {
                 var p = this.createPlant(attrs);
                 p.canUse = () => true;
                 p.use = async () => {
-                    await p.bt().implMonsterDoSelfExplode(p, undefined, false);
+                    p.cnt--;
+                    await p.bt().implMonsterDoSelfExplode(p, undefined, false, p.cnt == 0);
                     return true;
                 };
                 p = MonsterFactory.doAttack("onPlayerActed", p, () => {
@@ -3721,7 +3904,8 @@ class PlantFactory {
                 var p = this.createPlant(attrs);
                 p.canUse = () => true;
                 p.use = async () => {
-                    await p.bt().implMonsterDoSelfExplode(p, undefined, false);
+                    p.cnt--;
+                    await p.bt().implMonsterDoSelfExplode(p, undefined, false, p.cnt == 0);
                     return true;
                 };
                 p = MonsterFactory.doAttack("onPlayerActed", p, () => {
@@ -3745,7 +3929,8 @@ class PlantFactory {
                 var p = this.createPlant(attrs);
                 p.canUse = () => true;
                 p.use = async () => {
-                    await p.bt().implMonsterDoSelfExplode(p, { a: attrs.level4BoomDamage / 100, b: 0, c: 0 }, false);
+                    p.cnt--;
+                    await p.bt().implMonsterDoSelfExplode(p, { a: attrs.level4BoomDamage / 100, b: 0, c: 0 }, false, p.cnt == 0);
                     return true;
                 };
                 p = MonsterFactory.doAttack("onPlayerActed", p, () => {
@@ -3770,7 +3955,8 @@ class PlantFactory {
                 var p = this.createPlant(attrs);
                 p.canUse = () => true;
                 p.use = async () => {
-                    await p.bt().implMonsterDoSelfExplode(p, { a: attrs.level4BoomDamage / 100, b: 0, c: 0 }, false);
+                    p.cnt--;
+                    await p.bt().implMonsterDoSelfExplode(p, { a: attrs.level4BoomDamage / 100, b: 0, c: 0 }, false, p.cnt == 0);
                     return true;
                 };
                 p = MonsterFactory.doAttack("onPlayerActed", p, () => {
@@ -3864,15 +4050,17 @@ class PlantFactory {
                 var attrs = level.getElemCfg("CharmingMushroom").attrs;
                 attrs = Utils.clone(attrs);
                 var p = this.createPlant(attrs);
+                p.cnt = attrs.cnt;
                 p.canUseAt = (x, y) => {
                     var e = p.map().getElemAt(x, y);
                     var g = p.map().getGridAt(x, y);
                     return (!g.isCovered() || g.isMarked()) && e && e instanceof Monster && e.isHazard() && !e.isBoss && !e.isElite && e.type != "PlaceHolder" && !e.attrs.cannotCharm;
                 };
                 p.useAt = async (x, y) => {
+                    p.cnt--;
                     var tarm = p.map().getElemAt(x, y);
                     await p.bt().implCharmMonster(tarm);
-                    return false;
+                    return p.cnt > 0;
                 };
                 p.getElemImgRes = () => "CharmingMushroom";
                 return p;
@@ -3882,16 +4070,18 @@ class PlantFactory {
                 var attrs = level.getElemCfg("CharmingMushroom").attrs;
                 attrs = Utils.clone(attrs);
                 var p = this.createPlant(attrs);
+                p.cnt = attrs.cnt;
                 p.canUseAt = (x, y) => {
                     var e = p.map().getElemAt(x, y);
                     var g = p.map().getGridAt(x, y);
                     return (!g.isCovered() || g.isMarked()) && e && e instanceof Monster && e.isHazard() && !e.isBoss && !e.isElite && e.type != "PlaceHolder" && !e.attrs.cannotCharm;
                 };
                 p.useAt = async (x, y) => {
+                    p.cnt--;
                     var tarm = p.map().getElemAt(x, y);
                     var dattrs = [{ type: "power", num: attrs.level2AddPower }];
                     await p.bt().implCharmMonster(tarm, dattrs);
-                    return false;
+                    return p.cnt > 0;
                 };
                 p.getElemImgRes = () => "CharmingMushroom";
                 return p;
@@ -3901,16 +4091,18 @@ class PlantFactory {
                 var attrs = level.getElemCfg("CharmingMushroom").attrs;
                 attrs = Utils.clone(attrs);
                 var p = this.createPlant(attrs);
+                p.cnt = attrs.cnt;
                 p.canUseAt = (x, y) => {
                     var e = p.map().getElemAt(x, y);
                     var g = p.map().getGridAt(x, y);
                     return (!g.isCovered() || g.isMarked()) && e && e instanceof Monster && e.isHazard() && !e.isBoss && !e.isElite && e.type != "PlaceHolder" && !e.attrs.cannotCharm;
                 };
                 p.useAt = async (x, y) => {
+                    p.cnt--;
                     var tarm = p.map().getElemAt(x, y);
                     var dattrs = [{ type: "power", num: attrs.level2AddPower }, { type: "hp", num: attrs.level3AddHp }];
                     await p.bt().implCharmMonster(tarm, dattrs);
-                    return false;
+                    return p.cnt > 0;
                 };
                 p.getElemImgRes = () => "CharmingMushroom";
                 return p;
@@ -3920,16 +4112,18 @@ class PlantFactory {
                 var attrs = level.getElemCfg("CharmingMushroom").attrs;
                 attrs = Utils.clone(attrs);
                 var p = this.createPlant(attrs);
+                p.cnt = attrs.cnt;
                 p.canUseAt = (x, y) => {
                     var e = p.map().getElemAt(x, y);
                     var g = p.map().getGridAt(x, y);
                     return (!g.isCovered() || g.isMarked()) && e && e instanceof Monster && e.isHazard() && !e.isBoss && !e.isElite && e.type != "PlaceHolder" && !e.attrs.cannotCharm;
                 };
                 p.useAt = async (x, y) => {
+                    p.cnt--;
                     var tarm = p.map().getElemAt(x, y);
                     var dattrs = [{ type: "power", num: attrs.level2AddPower }, { type: "hp", num: attrs.level3AddHp }, { type: "critical", num: attrs.level4AddCritical }];
                     await p.bt().implCharmMonster(tarm, dattrs);
-                    return false;
+                    return p.cnt > 0;
                 };
                 p.getElemImgRes = () => "CharmingMushroom";
                 return p;
@@ -3939,19 +4133,21 @@ class PlantFactory {
                 var attrs = level.getElemCfg("CharmingMushroom").attrs;
                 attrs = Utils.clone(attrs);
                 var p = this.createPlant(attrs);
+                p.cnt = attrs.cnt;
                 p.canUseAt = (x, y) => {
                     var e = p.map().getElemAt(x, y);
                     var g = p.map().getGridAt(x, y);
                     return (!g.isCovered() || g.isMarked()) && e && e instanceof Monster && e.isHazard() && !e.isBoss && !e.isElite && e.type != "PlaceHolder" && !e.attrs.cannotCharm;
                 };
                 p.useAt = async (x, y) => {
+                    p.cnt--;
                     var tarm = p.map().getElemAt(x, y);
                     var dattrs = [
                         { type: "power", num: attrs.level2AddPower }, { type: "hp", num: attrs.level3AddHp }, { type: "critical", num: attrs.level4AddCritical },
                         { type: "dodge", num: attrs.level5AddDodge }
                     ];
                     await p.bt().implCharmMonster(tarm, dattrs);
-                    return false;
+                    return p.cnt > 0;
                 };
                 p.getElemImgRes = () => "CharmingMushroom";
                 return p;
@@ -4134,6 +4330,38 @@ class PropFactory {
                             var buff = m.buffs[index];
                             await e.bt().implAddBuff(m, "BuffPoison", [buff.cnt, 1]);
                         }
+                        return e.cnt > 0;
+                    };
+                    return e;
+                });
+            },
+            // 自然药水
+            "NaturePotion": (attrs) => {
+                return this.createProp(attrs, (e) => {
+                    e.canUse = () => false;
+                    e.canUseAt = (x, y) => {
+                        var map = e.bt().level.map;
+                        var tog = map.getGridAt(x, y);
+                        var toe = map.getElemAt(x, y);
+                        if ((!tog.isCovered() || tog.isMarked()) && toe && toe instanceof Monster && !toe.isBig() && !toe.isElite && toe.isHazard()
+                            && toe.type != "PlaceHolder")
+                            return true;
+                        else if (!tog.isCovered() && toe && toe instanceof Plant)
+                            return true;
+                    };
+                    e.useAt = async (x, y) => {
+                        e.resetCD();
+                        e.cnt--;
+                        var map = e.bt().level.map;
+                        var tog = map.getGridAt(x, y);
+                        var toe = map.getElemAt(x, y);
+                        // 对敌对怪物使用,将目标变成植物
+                        if ((!tog.isCovered() || tog.isMarked()) && toe && toe instanceof Monster && !toe.isBig() && !toe.isElite && toe.isHazard()
+                            && toe.type != "PlaceHolder")
+                            await e.bt().implChange2Plant(toe);
+                        // 对自己的植物使用,触发不同效果
+                        else if (!tog.isCovered() && toe && toe instanceof Plant)
+                            await e.bt().implUseNaturePotionOnPlant(toe);
                         return e.cnt > 0;
                     };
                     return e;
@@ -4741,7 +4969,7 @@ class RelicFactory {
                     }
                     ElemFactory.addAI("onStartupRegionUncoveredAddPlant", async (ps) => {
                         var bt = r.bt();
-                        var level = Utils.filter(bt.player.relicsEquipped, (r) => r.type == "HorticultureMaster")[0].reinforceLv;
+                        var level = Utils.filter([...bt.player.commonRelics, ...bt.player.relicsEquipped], (r) => r.type == "HorticultureMaster")[0].reinforceLv;
                         var pTypes = GCfg.getMiscConfig("PlantTypes");
                         var elemTypes = [];
                         for (var pType of pTypes)
@@ -4912,6 +5140,12 @@ class LevelLogicFactory {
             case "LevelLogicAwardInherited":
                 levelLogic = new LevelLogicAwardInherited(ps[0]);
                 break;
+            case "LevelLogicAddPrison":
+                levelLogic = new LevelLogicAddPrison();
+                break;
+            case "LevelLogicKillHalloweenTreant":
+                levelLogic = new LevelLogicKillHalloweenTreant();
+                break;
         }
         return levelLogic;
     }
@@ -5044,6 +5278,9 @@ class ElemFactory {
                     g = BattleUtils.findRandomEmptyGrid(e.bt());
                 if (!g)
                     break; // 没有空间了
+                // 怪物元素身上的金钱在掉落时根据难度进行倍率调整
+                if (elem.type == "Coins")
+                    elem.cnt *= GCfg.getDifficultyCfg()[e.bt().player.difficulty]["moneyGet"];
                 e.bt().addElemAt(elem, g.pos.x, g.pos.y);
                 droppedElems.push(elem);
             }
@@ -6016,6 +6253,7 @@ class Battle {
             }
             else {
                 await this.fireEvent("onPlayerDead", { inBattle: true });
+                Utils.lockOccupation(this.player.occupation);
                 return true;
             }
         }
@@ -6384,6 +6622,7 @@ class Battle {
         if (e.afterDie)
             await e.afterDie();
         await this.triggerLogicPoint("onElemChanged", { "subType": "dead", e: e, flags: flags });
+        await this.fireEvent("onElemChanged", { "subType": "dead", e: e, flags: flags });
     }
     // 进行一次攻击计算
     async calcAttack(subType, attackerAttrs, targetAttrs, weapon = undefined, isMultAndNot1st) {
@@ -6581,7 +6820,7 @@ class Battle {
         }
     }
     // 怪物尝试攻击指定目标
-    async implMonsterAttackTargets(m, targets, extraPowerABC = { a: 0, b: 0, c: 0 }, selfExplode = false, addFlags = [], results = [], isNormalAttack = false) {
+    async implMonsterAttackTargets(m, targets, extraPowerABC = { a: 0, b: 0, c: 0 }, dieAfterExplode = false, addFlags = [], results = [], isNormalAttack = false, sprcialMultAttack = undefined) {
         var map = this.level.map;
         var mapsize = map.size;
         // 至此，poses 就是攻击区域了，同时 x, y 是玩家选择的原始目标位置
@@ -6603,7 +6842,7 @@ class Battle {
         }
         // 通知目标确定,有可能因外部因素需要增减
         this.triggerLogicPointSync("gotAttackTargets", { subType: "monstar2targets", m: m, targets: tars });
-        if (selfExplode)
+        if (dieAfterExplode)
             addFlags.push("selfExplode");
         // 攻击行为启动
         await this.fireEvent("onAttacking", { subType: "monstar2targets", m: m, targets: tars, addFlags: addFlags });
@@ -6622,7 +6861,7 @@ class Battle {
             for (var i = 0; i < tars.length; i++) {
                 var tar = tars[i];
                 var targetAttrs = tar.getAttrsAsTarget(); // 目标属性
-                for (var j = 0; j < attackerAttrs.muiltAttack && !tar.isDead(); j++) {
+                for (var j = 0; j < ((!!sprcialMultAttack) ? sprcialMultAttack : attackerAttrs.muiltAttack) && !tar.isDead(); j++) {
                     // 从第二次攻击时跳出连击提示,且需要更新一次targetAttrs
                     if (j > 0) {
                         targetAttrs = tar.getAttrsAsTarget();
@@ -6658,10 +6897,10 @@ class Battle {
                 await this.triggerLogicPoint("onAttacked", { subType: "monster2targets", attackerAttrs: attackerAttrs, targetAttrs: targetAttrs, rs: results });
             }
         }
-        if (selfExplode && !m.isDead()) // 自爆还要走死亡逻辑
+        if (dieAfterExplode && !m.isDead()) // 自爆还要走死亡逻辑
             await this.implOnElemDie(m, ["selfExplode"]);
     }
-    async implMonsterAttackPoses(m, poses, extraPowerABC = { a: 0, b: 0, c: 0 }, selfExplode = false, addFlags = [], attackPlayer = false, isNormalAttack = false) {
+    async implMonsterAttackPoses(m, poses, extraPowerABC = { a: 0, b: 0, c: 0 }, dieAfterExplode = false, addFlags = [], attackPlayer = false, isNormalAttack = false) {
         var targets = [];
         for (var pos of poses) {
             if (m.map().getGridAt(pos.x, pos.y).isCovered())
@@ -6672,9 +6911,9 @@ class Battle {
         }
         if (attackPlayer)
             targets.push(m.bt().player);
-        await m.bt().implMonsterAttackTargets(m, targets, extraPowerABC, selfExplode, addFlags, undefined, isNormalAttack);
+        await m.bt().implMonsterAttackTargets(m, targets, extraPowerABC, dieAfterExplode, addFlags, undefined, isNormalAttack);
     }
-    async implMonsterDoSelfExplode(m, extraPowerABC, attackPlayer = false) {
+    async implMonsterDoSelfExplode(m, extraPowerABC, attackPlayer = false, dieAfterExplode = true) {
         var mapsize = m.map().size;
         var aoe = m.attrs.selfExplode.aoe;
         Utils.assert(aoe.w % 2 == 1 && aoe.h % 2 == 1, "do not support aoe size for: " + aoe.w + ", " + aoe.h);
@@ -6690,7 +6929,7 @@ class Battle {
         }
         extraPowerABC = extraPowerABC ? extraPowerABC : { a: 0, b: 0, c: 0 };
         await m.bt().fireEvent("onSelfExplode", { m: m });
-        await m.bt().implMonsterAttackPoses(m, poses, extraPowerABC, true, ["immuneAttackBack"], attackPlayer);
+        await m.bt().implMonsterAttackPoses(m, poses, extraPowerABC, dieAfterExplode, ["immuneAttackBack"], attackPlayer);
     }
     async implElemFollow2NextLevel(e) {
         this.removeElemAt(e.pos.x, e.pos.y);
@@ -6718,6 +6957,95 @@ class Battle {
             }
         }
         await this.notifyElemsDropped(ready2Drop, pos);
+    }
+    // 将目标位置的怪物转化为植物,园艺师专用
+    async implChange2Plant(m) {
+        var x = m.pos.x;
+        var y = m.pos.y;
+        // 如果是标记的地块需要翻开
+        if (m.getGrid().isMarked())
+            await this.implUncoverAt(x, y);
+        // 统计目标身上的物品,掉落用
+        var ready2Drop = [];
+        for (var dp of m.dropItems) {
+            var g = BattleUtils.findRandomEmptyGrid(this);
+            if (g) {
+                this.addElemAt(dp, g.pos.x, g.pos.y);
+                ready2Drop.push(dp);
+            }
+        }
+        // 移除目标并以玩家的植物替换
+        await this.implRemoveElemAt(x, y);
+        var plantTypes = GCfg.getMiscConfig("PlantTypes");
+        for (var pt of plantTypes)
+            if (BattleUtils.findRandomElems(this, 1, (te) => te.type.indexOf(pt) == 0).length > 0)
+                plantTypes = Utils.remove(plantTypes, pt);
+        if (plantTypes.length == 0)
+            plantTypes = GCfg.getMiscConfig("PlantTypes");
+        var plantType = plantTypes[this.srand.nextInt(0, plantTypes.length)];
+        var relicLevel = Utils.filter([...this.player.commonRelics, ...this.player.relicsEquipped], (r) => r.type == "HorticultureMaster")[0].reinforceLv;
+        var plant = this.level.createElem(plantType + (relicLevel + 1).toString(), undefined, this.player);
+        await this.implAddElemAt(plant, x, y);
+        // 将目标身上的物品掉落出来
+        await this.notifyElemsDropped(ready2Drop, m.pos);
+    }
+    // 对自己的植物使用自然药水触发不同的效果
+    async implUseNaturePotionOnPlant(p) {
+        var plantType = p.type.substring(0, p.type.length - 1);
+        var level = Number(p.type.substring(p.type.length - 1, p.type.length));
+        switch (plantType) {
+            case "NutWall": {
+                await this.implAddBuff(this.player, "BuffSuper", 2);
+                break;
+            }
+            case "Peashooter": {
+                for (var i = 0; i < 5; i++) {
+                    if (!p.isDead() && !p.getGrid().isCovered()) {
+                        var target = BattleUtils.findRandomElems(this, 1, (t) => t instanceof Monster && !t.getGrid().isCovered() && t.isHazard())[0];
+                        if (target)
+                            // 此攻击要忽略射手的连击属性
+                            await this.implMonsterAttackTargets(p, [target], undefined, false, [], [], false, 1);
+                    }
+                }
+                break;
+            }
+            case "CherryBomb": {
+                // 手动触发两次爆炸   
+                for (var i = 0; i < 2; i++) {
+                    if (level < 4)
+                        await this.implMonsterDoSelfExplode(p, undefined, false, i == 1);
+                    else
+                        await this.implMonsterDoSelfExplode(p, { a: p.attrs.level4BoomDamage / 100, b: 0, c: 0 }, false, i == 1);
+                }
+                break;
+            }
+            case "Sunflower": {
+                // 标记距离小于2的所有格子
+                var grids = this.level.map.findAllGrid((x, y, tg) => tg != p.getGrid() && Math.abs(x - p.pos.x) + Math.abs(y - p.pos.y) <= 2);
+                for (var grid of grids) {
+                    if (!grid.isCovered() || grid.isMarked())
+                        continue;
+                    else if (!grid.getElem())
+                        await this.implUncoverAt(grid.pos.x, grid.pos.y);
+                    else {
+                        var e = grid.getElem();
+                        if (e.isBig()) {
+                            await this.implMark(grid.pos.x, grid.pos.y);
+                            for (var placeHolder of (e["placeHolders"]()))
+                                if (placeHolder.getGrid().isCovered() && !placeHolder.getGrid().isMarked())
+                                    await this.implMark(placeHolder.pos.x, placeHolder.pos.y);
+                        }
+                        else
+                            await this.implMark(grid.pos.x, grid.pos.y);
+                    }
+                }
+                break;
+            }
+            case "CharmingMushroom": {
+                p.cnt++;
+                break;
+            }
+        }
     }
     // boss三选一宝箱
     async implOpenLuxuryChest(e) {
@@ -6898,8 +7226,8 @@ class BattleCalculator {
             r.r = "canceled";
             return r;
         }
-        // 计算命中(-闪避)
-        if (this.srand.next100() >= 100 + accuracy - dodge) {
+        // 计算命中(-闪避)        
+        if (!Utils.contains(attackFlags, "mustHit") && this.srand.next100() >= 100 + accuracy - dodge) {
             r.r = "dodged";
             return r;
         }
@@ -7903,6 +8231,38 @@ class LevelLogicAddElemOnInit extends LevelLogic {
         }, true);
     }
 }
+class LevelLogicAddPrison extends LevelLogic {
+    constructor() {
+        super("LevelLogicAddPrison");
+        this.addAI("onLevelInitElems", (ps) => {
+            // 难度检查,只有最后三个难度会出现监狱
+            if (this.level.bt.player.difficulty != "level2" && this.level.bt.player.difficulty != "level3" && this.level.bt.player.difficulty != "level4")
+                return;
+            // 通关第三个难度前不出现
+            var allAchvs = AchievementMgr.mgr.allAchvs;
+            var tarAchv = (type) => allAchvs[Utils.indexOf(allAchvs, (a) => a.type == type)];
+            if (!tarAchv("DifficultModeUnlock").isFinished())
+                return;
+            // 随机是否出现监狱
+            var levelType = this.level.levelType;
+            var rateInfo = GCfg.getMiscConfig("prisonRate");
+            var levelIndex = Number(this.level.bt.player.difficulty.substr(5));
+            var rate;
+            if (levelType == "normal")
+                rate = rateInfo["normal"][levelIndex];
+            else if (Utils.indexOf(GCfg.getMiscConfig("seniorTypes"), (t) => t == levelType) > -1)
+                rate = rateInfo["senior"][levelIndex];
+            else if (Utils.indexOf(GCfg.getMiscConfig("bossTypes"), (t) => t == levelType) > -1)
+                rate = rateInfo["boss"][levelIndex];
+            else
+                return;
+            if (this.level.bt.srand.nextInt(0, 10000) >= rate || Utils.getLockedOccupations().length == 0)
+                return;
+            var prison = this.level.createElem("Prison");
+            ps.elems.push(prison);
+        }, true);
+    }
+}
 // 专门用于在新手关增加园艺大师技能
 class LevelLogicAddRelicOnRookie extends LevelLogic {
     constructor() {
@@ -8018,17 +8378,18 @@ class LevelLogicChangeMonster extends LevelLogic {
             if (prior) {
                 for (var priorType in prior)
                     for (var i = 0; i < prior[priorType]; i++) {
-                        if (tarms.length > 0)
+                        if (tarms.length > 0) {
                             var target = tarms.shift();
-                        var pos = target.pos;
-                        var m = this.level.createElem(priorType);
-                        if (hasKey(target)) {
-                            var hasKeys = Utils.filter(target.dropItems, (d) => d.type == "Key");
-                            for (var key of hasKeys)
-                                m.addDropItem(key);
+                            var pos = target.pos;
+                            var m = this.level.createElem(priorType);
+                            if (hasKey(target)) {
+                                var hasKeys = Utils.filter(target.dropItems, (d) => d.type == "Key");
+                                for (var key of hasKeys)
+                                    m.addDropItem(key);
+                            }
+                            await bt.implRemoveElemAt(pos.x, pos.y);
+                            await bt.implAddElemAt(m, pos.x, pos.y);
                         }
-                        await bt.implRemoveElemAt(pos.x, pos.y);
-                        await bt.implAddElemAt(m, pos.x, pos.y);
                     }
             }
             for (var i = 0; i < tarms.length; i++) {
@@ -8055,6 +8416,30 @@ class LevelLogicElite extends LevelLogic {
             var e = this.level.createElem(this.eliteType);
             ps.elems.push(e);
         }, true);
+    }
+}
+// 专用于第一次击败树妖的剧情对话
+class LevelLogicKillHalloweenTreant extends LevelLogic {
+    constructor() {
+        super("LevelLogicKillHalloweenTreant");
+        this.addAI("onElemChanged", async (ps) => {
+            if (ps.subType != "dead" || ps.e.type != "HalloweenTreant")
+                return;
+            var bt = this.level.bt;
+            if (bt.player.difficulty == "level2" && Utils.getDiffByAchvData() == 3 && !Utils.loadLocalData("killHalloweenTreantFirstTimeFinished")) {
+                // 必定触发一次密室
+                var prison = bt.level.createElem("Prison");
+                var g = BattleUtils.findRandomEmptyGrid(bt, false);
+                if (g) {
+                    await bt.fireEvent("killHalloweenTreantFirstTimeFinished", ps);
+                    await bt.implAddElemAt(prison, g.pos.x, g.pos.y);
+                    // 存一下标记
+                    Utils.saveLocalData("killHalloweenTreantFirstTimeFinished", true);
+                    // // 测试用删除标记
+                    // Utils.removeLocalData("killHalloweenTreantFirstTimeFinished");
+                }
+            }
+        });
     }
 }
 class LevelLogicMarkAllAward extends LevelLogic {
@@ -8122,45 +8507,61 @@ class LevelLogicRandomEgg extends LevelLogic {
             var bt = this.level.bt;
             var randomEggZombies = map.findAllElems((e) => e.type == "RandomEggZombie");
             if (randomEggZombies.length == 0) {
-                var gs = map.findAllGrid((x, y, g) => {
-                    if (!g.isCovered())
-                        return false;
-                    var e = g.getElem();
-                    return !e || !(e instanceof Monster) || !e.isHazard();
-                });
-                if (gs.length != 0)
-                    return;
-                var boxGrid = BattleUtils.findRandomEmptyGrid(bt);
-                if (boxGrid) {
-                    // 钥匙优先掉落在怪物身上
-                    var keyGrid = map.findFirstGrid((x, y, g) => {
-                        if (g == boxGrid)
+                // 判断是出现监狱还是道具
+                // 概率为10%
+                var rate = this.level.bt.srand.next100();
+                // 几率随机到并且有可解锁职业才出密室
+                if (rate < 100 && Utils.getLockedOccupations().length > 0) {
+                    var pg = BattleUtils.findRandomEmptyGrid(this.level.bt, false);
+                    if (pg) {
+                        this.valid = false;
+                        var prison = this.level.createElem("Prison");
+                        await bt.fireEvent("onGetMarkAllAward", { btType: "randomEgg" });
+                        await this.level.bt.implAddElemAt(prison, pg.pos.x, pg.pos.y);
+                    }
+                }
+                // 其他情况奖励道具
+                else {
+                    var gs = map.findAllGrid((x, y, g) => {
+                        if (!g.isCovered())
                             return false;
                         var e = g.getElem();
-                        if (e && e instanceof Monster && e.isHazard() && !e.isBig() && e.type != "PlaceHolder" && !e.attrs.cannotTake)
-                            return Utils.indexOf(e.dropItems, (dp) => dp.type != "Coins") == -1;
+                        return !e || !(e instanceof Monster) || !e.isHazard();
                     });
-                    // 没有目标怪物则掉落在空地上
-                    if (!keyGrid)
-                        keyGrid = BattleUtils.findRandomGrids(bt, (g) => !g.isCovered() && !g.getElem() && g != boxGrid, 1)[0];
-                    // 分配好宝箱和钥匙的目标位置都才一起掉落出来
-                    if (keyGrid) {
-                        this.valid = false;
-                        await bt.fireEvent("onGetMarkAllAward", { btType: "randomEgg" });
-                        var box = this.level.createElem("TreasureBox", { rdp: this.rdp });
-                        await bt.implAddElemAt(box, boxGrid.pos.x, boxGrid.pos.y);
-                        var key = this.level.createElem("Key");
-                        var e = keyGrid.getElem();
-                        if (!e) {
-                            Utils.assert(!keyGrid.isCovered(), "only uncovered grid without monster is valid");
-                            await bt.implAddElemAt(key, keyGrid.pos.x, keyGrid.pos.y);
+                    if (gs.length != 0)
+                        return;
+                    var boxGrid = BattleUtils.findRandomEmptyGrid(bt);
+                    if (boxGrid) {
+                        // 钥匙优先掉落在怪物身上
+                        var keyGrid = map.findFirstGrid((x, y, g) => {
+                            if (g == boxGrid)
+                                return false;
+                            var e = g.getElem();
+                            if (e && e instanceof Monster && e.isHazard() && !e.isBig() && e.type != "PlaceHolder" && !e.attrs.cannotTake)
+                                return Utils.indexOf(e.dropItems, (dp) => dp.type != "Coins") == -1;
+                        });
+                        // 没有目标怪物则掉落在空地上
+                        if (!keyGrid)
+                            keyGrid = BattleUtils.findRandomGrids(bt, (g) => !g.isCovered() && !g.getElem() && g != boxGrid, 1)[0];
+                        // 分配好宝箱和钥匙的目标位置都才一起掉落出来
+                        if (keyGrid) {
+                            this.valid = false;
+                            await bt.fireEvent("onGetMarkAllAward", { btType: "randomEgg" });
+                            var box = this.level.createElem("TreasureBox", { rdp: this.rdp });
+                            await bt.implAddElemAt(box, boxGrid.pos.x, boxGrid.pos.y);
+                            var key = this.level.createElem("Key");
+                            var e = keyGrid.getElem();
+                            if (!e) {
+                                Utils.assert(!keyGrid.isCovered(), "only uncovered grid without monster is valid");
+                                await bt.implAddElemAt(key, keyGrid.pos.x, keyGrid.pos.y);
+                            }
+                            else {
+                                Utils.assert(e instanceof Monster, "only monster can take the key: " + e.type + " at " + keyGrid.pos.x + ", " + keyGrid.pos.y);
+                                e.addDropItem(key);
+                                await bt.fireEvent("onElemImgFlying", { e: key, fromPos: boxGrid.pos, toPos: keyGrid.pos });
+                            }
+                            await bt.triggerLogicPoint("onGetMarkAllAward", { btType: "randomEgg" });
                         }
-                        else {
-                            Utils.assert(e instanceof Monster, "only monster can take the key: " + e.type + " at " + keyGrid.pos.x + ", " + keyGrid.pos.y);
-                            e.addDropItem(key);
-                            await bt.fireEvent("onElemImgFlying", { e: key, fromPos: boxGrid.pos, toPos: keyGrid.pos });
-                        }
-                        await bt.triggerLogicPoint("onGetMarkAllAward", { btType: "randomEgg" });
                     }
                 }
             }
@@ -8638,8 +9039,9 @@ class Occupation {
     // 获取各职业初始物品配置
     static getInitialItems(occ) {
         return {
-            "Nurse": { "relic": "MedicineBox", "prop": "SuperPotion", "prop4All": "HpPotion" },
-            "Rogue": { "relic": "GangMember", "prop": "StrengthPotion", "prop4All": "StrengthPotion" }
+            "Nurse": { "relic": "MedicineBox", "prop": "SuperPotion" },
+            "Rogue": { "relic": "GangMember", "prop": "StrengthPotion" },
+            "Horticulturist": { "relic": "HorticultureMaster", "prop": "NaturePotion" }
         }[occ];
     }
     // 护士
@@ -8691,18 +9093,21 @@ class Occupation {
         p.addItem(ElemFactory.create("StrengthPotion")); // 初始物品
         return p;
     }
+    // 园艺师
+    static makeHorticulturist(p) {
+        p.addRelic(ElemFactory.create("HorticultureMaster")); // 初始遗物
+        p.addItem(ElemFactory.create("NaturePotion")); // 初始物品
+        return p;
+    }
     static exists(occupation) {
         return !!Occupation.occupationMakers[occupation];
     }
     // 根据解锁的职业获取全职业通用效果
     static getEffet4All(p) {
-        var unlockedOccupation = Utils.loadLocalData("unlockedOccupation");
-        // 暂时没有解锁逻辑,默认为都解锁了
-        if (!unlockedOccupation)
-            unlockedOccupation = ["Nurse", "Rouge"];
-        for (var occ of unlockedOccupation) {
-            p = Occupation.effect4All[occ](p);
-        }
+        var unlockedOccupation = Utils.getUnlockedOccupations();
+        for (var occ of unlockedOccupation)
+            if (!!Occupation.effect4All[occ])
+                p = Occupation.effect4All[occ](p);
         return p;
     }
     // 设置职业 buff
@@ -8717,12 +9122,15 @@ class Occupation {
 Occupation.creators = {
     "Nurse": Occupation.makeNurse,
     "Rogue": Occupation.makeRogue,
+    "Horticulturist": Occupation.makeHorticulturist
 };
 Occupation.occupationMakers = {
     "Nurse": (p) => {
         p.addBuff(new BuffNurse()); // 职业buff
     },
     "Rogue": (p) => {
+    },
+    "Horticulturist": (p) => {
     },
 };
 // 职业效果
@@ -8800,6 +9208,32 @@ OccupationEffectMgr.changeRelicAttrs = {
             case -1: {
                 attrs.dDodge = 8;
                 attrs.reinforce = [{ "dDodge": 16 }, { "dDodge": 24 }, { "dDodge": 32 }, { "dDodge": 40 }];
+                break;
+            }
+        }
+        return attrs;
+    },
+    "ShieldBlock": (attrs) => {
+        var horticulturistLevel = Utils.getOccupationLevelAndExp("Horticulturist").level;
+        switch (horticulturistLevel) {
+            case 2: {
+                attrs.dShield = 2;
+                attrs.reinforce = [{ "dShield": 4 }, { "dShield": 6 }, { "dShield": 8 }, { "dShield": 10 }];
+                break;
+            }
+            case 3: {
+                attrs.dShield = 3;
+                attrs.reinforce = [{ "dShield": 6 }, { "dShield": 9 }, { "dShield": 12 }, { "dShield": 15 }];
+                break;
+            }
+            case 4: {
+                attrs.dShield = 4;
+                attrs.reinforce = [{ "dShield": 8 }, { "dShield": 12 }, { "dShield": 16 }, { "dShield": 20 }];
+                break;
+            }
+            case -1: {
+                attrs.dShield = 5;
+                attrs.reinforce = [{ "dShield": 10 }, { "dShield": 15 }, { "dShield": 20 }, { "dShield": 25 }];
                 break;
             }
         }
@@ -8891,6 +9325,7 @@ class Player {
         this.finishedWorldMapName = []; // 已经完成的世界名,方便进行存档
         this.finishedEvent = [];
         this.globalEventFinishedCount = {}; // 全局事件计数
+        this.occsWait4Unlock = [];
         this.attackFlags = [[], ["item"]]; // 攻击属性
         this.resistFlags = [[], []]; // 抵抗属性
         this.targetFlags = [[], []]; // 被攻击时的属性
@@ -8911,7 +9346,8 @@ class Player {
         // buff 相关
         this.buffs = []; // 所有 buff
         // 遗物相关逻辑
-        this.relicEquippedCapacityMax = 12; // 装备格上限
+        // 装备格上限和多种因素相关
+        this.relicEquippedCapacityMax = () => Utils.getPlayerTotalRelicsEquippedCapacity(this);
         this.commonRelics = []; // 通用技能
         this.relicsEquipped = []; // 已经装备的遗物
         this.relicsInBag = []; // 包裹中的遗物
@@ -9591,13 +10027,16 @@ class WorldMap {
         // 无尽模式
         else {
             var allBossTypes = GCfg.getMiscConfig("bossTypes");
-            var bossNum = allBossTypes.length;
+            var bossNum = allBossTypes.length + 1;
             var finishedNum = p.finishedWorldMap.length;
             var round = Math.floor(finishedNum / bossNum) + 1;
             var finishedBossThisRound = [];
             for (var i = (round - 1) * bossNum; i < p.finishedWorldMap.length; i++)
                 finishedBossThisRound.push(p.finishedWorldMap[i].bossType);
+            finishedBossThisRound = ["slimeKing", "brainOfCthulhu", "kraken", "halloweenTreant"];
             var bossTypes = Utils.filter(allBossTypes, (t) => !Utils.contains(finishedBossThisRound, t));
+            if (bossTypes.length == 0)
+                bossTypes = ["titan"];
         }
         Utils.assert(bossTypes.length > 0, "not enough bossType to set");
         w.bossType = bossTypes[worldmapRandom.nextInt(0, bossTypes.length)];
@@ -9925,6 +10364,8 @@ class WorldMapEventSelFactory {
     }
     // 加减钱
     async implAddMoney(p, dm) {
+        if (dm > 0)
+            dm *= GCfg.getDifficultyCfg()[p.difficulty]["moneyGet"];
         p.addMoney(dm);
         await p.fireEvent("onGetMoneyInWorldmap", { dm: dm, reason: "WorldmapSelEvent" });
     }
@@ -10626,39 +11067,39 @@ class WebClient {
 }
 class DefaultPaltform {
     constructor() {
-        this.adMobReady = false;
-        // adMobAppID:string = "ca-app-pub-3940256099942544~3347511713"; // google test
-        // adMobAdID:string = "ca-app-pub-3940256099942544/5224354917"; // google test
-        this.adMobAppID = "ca-app-pub-1800218346925652~6940599097";
-        this.adMobAdID = "ca-app-pub-1800218346925652/3739720681";
         this.platformType = egret.Capabilities.os;
         this.openDataContext = {
             createDisplayObject: () => { }
         };
     }
+    // rewardAdsCompletedCallback;
     async init() {
         if (egret.Capabilities.os == "iOS") {
             egret.ExternalInterface.addCallback("rdsLoadLocalStorageDataCallback", (str) => {
                 this.iOSLoadLocalStorageDataCallback(str);
+            });
+            egret.ExternalInterface.addCallback("notifyBuyResult", (str) => {
+                if (this.onBuyResult)
+                    this.onBuyResult(str);
             });
         }
         if (DEBUG && egret.Capabilities.os == "Windows PC") // 开发环境
             this.wc = new WebClient("http://127.0.0.1:81/");
         else {
             this.wc = new WebClient("http://119.23.110.78:81/");
-            Utils.log("ads registed callback");
-            egret.ExternalInterface.addCallback("notifyAdMobLoaded", (msg) => {
-                Utils.log("ads notifyAdMobLoaded");
-                this.adMobReady = true;
-            });
-            egret.ExternalInterface.addCallback("notifyRewardAdCompleted", (msg) => {
-                if (this.rewardAdsCompletedCallback)
-                    this.rewardAdsCompletedCallback(msg);
-                this.rewardAdsCompletedCallback = undefined;
-            });
-            // 初始化广告模块
-            if (egret.Capabilities.os != "iOS")
-                egret.ExternalInterface.call("rdsInitAdMob", this.adMobAppID + ";" + this.adMobAdID);
+            // Utils.log("ads registed callback");
+            // egret.ExternalInterface.addCallback("notifyAdMobLoaded", (msg) => {
+            //     Utils.log("ads notifyAdMobLoaded");
+            //     this.adMobReady = true;
+            // });
+            // egret.ExternalInterface.addCallback("notifyRewardAdCompleted", (msg) => {
+            //     if (this.rewardAdsCompletedCallback)
+            //         this.rewardAdsCompletedCallback(msg);
+            //     this.rewardAdsCompletedCallback = undefined;
+            // });
+            // // 初始化广告模块
+            // if (egret.Capabilities.os != "iOS")
+            //     egret.ExternalInterface.call("rdsInitAdMob", this.adMobAppID + ";" + this.adMobAdID);
         }
         egret.lifecycle.onPause = () => {
             AudioFactory.Paused = 1;
@@ -10667,27 +11108,26 @@ class DefaultPaltform {
             AudioFactory.Paused = 0;
         };
     }
-    canPlayAdsReborn() {
-        return egret.Capabilities.os == "iOS" || (this.adMobReady || egret.Capabilities.os == "Android");
-    }
-    async playRewardAds(callback) {
-        if (this.canPlayAdsReborn()) { // egret.Capabilities.os == "iOS" || egret.Capabilities.os == "Android") {
-            var promise = new Promise((r, _) => {
-                this.rewardAdsCompletedCallback = (msg) => {
-                    Utils.log("ads reward callback: " + msg);
-                    callback(msg == undefined || msg == "");
-                    r();
-                };
-            });
-            this.adMobReady = false;
-            egret.ExternalInterface.call("rdsPlayRewardAds", "");
-            callback(true);
-            return promise;
-        }
-        else {
-            Utils.log("ads: play reward ads: adMobReady = " + this.adMobReady);
-        }
-    }
+    // public canPlayAdsReborn() {
+    //     return egret.Capabilities.os == "iOS" || (this.adMobReady || egret.Capabilities.os == "Android");
+    // }
+    // public async playRewardAds(callback) {
+    //     if (this.canPlayAdsReborn()) { // egret.Capabilities.os == "iOS" || egret.Capabilities.os == "Android") {
+    //         var promise = new Promise((r, _) => {
+    //             this.rewardAdsCompletedCallback = (msg) => {
+    //                 Utils.log("ads reward callback: " + msg);
+    //                 callback(msg == undefined || msg == "");
+    //                 r();
+    //             };
+    //         });
+    //         this.adMobReady = false;
+    //         egret.ExternalInterface.call("rdsPlayRewardAds", "");
+    //         callback(true);
+    //         return promise;
+    //     } else {
+    //         Utils.log("ads: play reward ads: adMobReady = " + this.adMobReady);
+    //     }
+    // }
     getUserID() {
         var uid = Utils.loadLocalItem("UserID");
         if (!uid || uid.substring(0, 4) != "uid.") {
@@ -14473,6 +14913,29 @@ class AniView extends egret.DisplayObjectContainer {
         ske["stop"]();
         AniUtils.ac.removeChild(d);
     }
+    // 密室效果
+    async onUnlockOccupationAni(ps) {
+        var bg = ViewUtils.createBitmapByName("translucent_png");
+        bg.width = this.width;
+        bg.height = this.height;
+        bg.touchEnabled = true;
+        bg.alpha = 0;
+        AniUtils.ac.addChild(bg);
+        var ended = false;
+        var ske = ViewUtils.createSkeletonAni("mishi", () => ended = true);
+        var d = ske.display;
+        var e = ps.e;
+        var sv = this.getSVByPos(e.pos.x, e.pos.y);
+        var pos = AniUtils.ani2global(sv);
+        d.x = pos.x + sv.width / 2;
+        d.y = pos.y + sv.height / 2;
+        AniUtils.ac.addChild(d);
+        ske.animation.play("stand", 1);
+        await Utils.waitUtil(() => ended);
+        ske["stop"]();
+        AniUtils.ac.removeChild(d);
+        AniUtils.ac.removeChild(bg);
+    }
     // 移除颜色效果
     removeColorEffect(effName, ...objs) {
         effName += "Effect";
@@ -14750,7 +15213,7 @@ class AniView extends egret.DisplayObjectContainer {
     // 装备格打开效果
     async relicsEquippedMaxNumAdded(ps) {
         var n = this.bv.player.relicsEquippedCapacity;
-        var rv = this.bv.relics[n - 1];
+        var rv = n > 12 ? this.bv.moreRelics : this.bv.relics[n - 1];
         var fromPos = ShopView.lastSelectedElemGlobalPos;
         var img = AniUtils.createImg("OpenRelicSpace_png");
         img.x = fromPos.x;
@@ -15476,8 +15939,8 @@ class BoxRoomView extends egret.DisplayObjectContainer {
             elemImg.touchEnabled = false;
             if (arr[i] != "Coins")
                 elemImg["e"] = ElemFactory.create(arr[i]);
-            else
-                elemImg["e"] = ElemFactory.create(arr[i], { cnt: coinsnum });
+            else // 金币数量根据难度调整
+                elemImg["e"] = ElemFactory.create(arr[i], { cnt: coinsnum * GCfg.getDifficultyCfg()[this.player.difficulty]["moneyGet"] });
             elemImg.onClicked = () => BoxRoomView.showElemDesc(elemImg["e"]);
         }
         ViewUtils.setTexName(this.box, "BoxRoomBox_png");
@@ -16815,14 +17278,17 @@ class GridView extends egret.DisplayObjectContainer {
         GridView.dragFromPos = { x: this.x + evt.localX, y: this.y + evt.localY };
         if (!GridView.pressTimer) {
             GridView.pressTimer = new egret.Timer(GridView.LongPressThreshold, 1);
-            GridView.pressTimer.addEventListener(egret.TimerEvent.TIMER, GridView.onPressTimer, this);
+            GridView.pressTimer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, GridView.onPressTimer, this);
         }
         GridView.pressTimer.start();
+        Utils.log("start timer");
         GridView.checkOutPhrase();
     }
     static async onPressTimer() {
+        Utils.log("on timer");
         if (!GridView.pressed)
             return;
+        Utils.log("on timer 2");
         GridView.longPressed = true;
         GridView.pressTimer.stop();
         let g = GridView.dragFrom.map.getGridAt(GridView.dragFrom.gx, GridView.dragFrom.gy);
@@ -17083,6 +17549,19 @@ class GuideView extends egret.DisplayObjectContainer {
                 return;
             await this.openAvatarView();
         });
+        // 职业解锁
+        bt.registerEvent("onUnlockOccupationGuide", async (ps) => await this.onUnlockOccupationGuide(ps));
+        // 新手击败boss
+        bt.registerEvent("onElemChanged", async (ps) => {
+            if (ps.subType != "dead")
+                return;
+            var e = ps.e;
+            var bt = e.bt();
+            if (e instanceof Monster && e.isBoss && bt.player.currentTotalStorey() == 10)
+                await this.rookieKillBoss(ps);
+        });
+        // 首次击败树妖
+        bt.registerEvent("killHalloweenTreantFirstTimeFinished", async (ps) => await this.killHalloweenTreantFirstTime(ps));
     }
     buildGeneral() {
         this.hand = ViewUtils.createBitmapByName("guideHand_png");
@@ -17595,9 +18074,9 @@ class GuideView extends egret.DisplayObjectContainer {
     async rookiePlay5(bt) {
         await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay501"), 0, 550, true);
         await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay502"), 0, 550, true);
-        await this.showDialog("Gardener", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("rookiePlay503"), 0, 550, true);
-        await this.showDialog("Gardener", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("rookiePlay504"), 0, 550, true);
-        await this.showDialog("Gardener", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("rookiePlay505"), 0, 550, true);
+        await this.showDialog("Horticulturist", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("rookiePlay503"), 0, 550, true);
+        await this.showDialog("Horticulturist", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("rookiePlay504"), 0, 550, true);
+        await this.showDialog("Horticulturist", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("rookiePlay505"), 0, 550, true);
         await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookiePlay506"), 0, 550, true);
     }
     // 额外抢劫剧情
@@ -17615,6 +18094,26 @@ class GuideView extends egret.DisplayObjectContainer {
         await this.showDialog("Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("openAvatarView02"), 0, 550, true);
         var avatar = this.cv.getChildByName("goBackBtn");
         await this.tapWithDialog(avatar, "Nurse", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("openAvatarView03"), 0, 550);
+    }
+    // 职业解锁
+    async onUnlockOccupationGuide(ps) {
+        var occ = ps.occ;
+        await this.showDialog(occ, ViewUtils.getTipText(GCfg.getOccupationCfg(occ).name), ViewUtils.getTipText("onUnlockOccupationGuide01"), 0, 550, true);
+        await this.showDialog(occ, ViewUtils.getTipText(GCfg.getOccupationCfg(occ).name), ViewUtils.getTipText("onUnlockOccupationGuide02"), 0, 550, true);
+    }
+    // 新手击败boss
+    async rookieKillBoss(ps) {
+        await this.showDialog("HalloweenTreant", ViewUtils.getTipText("halloweenTreant"), ViewUtils.getTipText("rookieKillBoss01"), 0, 550, true);
+        //await this.showDialog("HalloweenTreant", ViewUtils.getTipText("nurse"), ViewUtils.getTipText("rookieKillBoss01"), 0, 550, true);
+        await this.showDialog("Horticulturist", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("rookieKillBoss02"), 0, 550, true);
+    }
+    // 首次击败树妖
+    async killHalloweenTreantFirstTime(ps) {
+        var p = ps.e.bt().player;
+        var occ = p.occupation;
+        await this.showDialog("Horticulturist", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("killHalloweenTreantFirstTime01"), 0, 550, true);
+        await this.showDialog("Horticulturist", ViewUtils.getTipText("horticulturist"), ViewUtils.getTipText("killHalloweenTreantFirstTime02"), 0, 550, true);
+        //await this.showDialog(occ, ViewUtils.getTipText(GCfg.getOccupationCfg(occ).name), ViewUtils.getTipText("killHalloweenTreantFirstTime01"), 0, 550, true);
     }
 }
 // 医院视图
@@ -18693,7 +19192,7 @@ class OccupationSelView extends egret.DisplayObjectContainer {
     }
     refresh() {
         ViewUtils.asFullBg(this.bg);
-        this.setAvailableOccList(["Rogue", "Nurse"]);
+        this.setAvailableOccList(Utils.getAllOccupations());
         this.setAvailableDiff(Utils.getDiffByAchvData());
         this.selOcc("Rogue");
         this.selDifficulty(Utils.getDiffByAchvData() - 1);
@@ -18721,6 +19220,8 @@ class OccupationSelView extends egret.DisplayObjectContainer {
     }
     setAvailableOccList(occArr) {
         this.occArr = occArr;
+        // 未解锁的职业使用正常occUnlockedBg_png背景,但置灰且点击不触发效果
+        // 多余位置用occLockedBg_png显示为问号
         for (var i = 0; i < this.occAvatarBgLst.length; i++) {
             this.occAvatarLst[i].removeChildren();
             this.occAvatarBgLst[i].setTexName("occUnlockedBg_png");
@@ -18729,20 +19230,35 @@ class OccupationSelView extends egret.DisplayObjectContainer {
                 let occ = occArr[i];
                 this.occAvatarBgLst[i].enabled = true;
                 this.occAvatarBgLst[i].onClicked = () => {
-                    this.selOcc(occ);
+                    if (Utils.isUnlockedOccupation(occ))
+                        this.selOcc(occ);
+                    else
+                        this.clickLockedOcc(occ);
                 };
-                // let ske = ViewUtils.createSkeletonAni(occArr[i]);
-                // ske.animation.play("Idle", 0);
-                // this.occAvatarLst[i].addChild(ske.display);
                 var c = this.occAvatarLst[i];
                 let occImg = ViewUtils.createBitmapByName(occArr[i] + "_png");
                 occImg.width = c.width;
                 occImg.height = c.height;
                 occImg.x = occImg.y = 0;
-                c.addChild(occImg);
+                // if(!Utils.isActivated(occ))
+                //     this.occAvatarBgLst[i].enabled = false;
+                // else 
+                if (Utils.isUnlockedOccupation(occ)) {
+                    c.addChild(occImg);
+                    ViewUtils.makeGray(this.occAvatarLst[i], false);
+                    ViewUtils.makeGray(this.occAvatarBgLst[i], false);
+                }
+                else {
+                    c.addChild(occImg);
+                    ViewUtils.makeGray(this.occAvatarLst[i], true);
+                    ViewUtils.makeGray(this.occAvatarBgLst[i], true);
+                }
             }
-            else
+            else {
                 this.occAvatarBgLst[i].enabled = false;
+                ViewUtils.makeGray(this.occAvatarLst[i], false);
+                ViewUtils.makeGray(this.occAvatarBgLst[i], false);
+            }
         }
     }
     selOcc(occ) {
@@ -18786,7 +19302,58 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         this.diffFlagDesc.textAlign = egret.HorizontalAlign.CENTER;
         this.diffFlagDesc.verticalAlign = egret.VerticalAlign.MIDDLE;
     }
+    // 点击未解锁职业    
+    async clickLockedOcc(occ) {
+        if (!window.platform.onBuyResult)
+            window.platform.onBuyResult = (str) => {
+                if (str == "ok" || str == "restored")
+                    this.pay2Unlock();
+                else if (str == "inPurchasing")
+                    AniUtils.tipAt("购买请求中，请稍候！", { x: this.width / 2, y: this.height / 3 }, 25, 0xffffff);
+            };
+        if (egret.Capabilities.os == "iOS") {
+            var yesno = await this.confirmOkYesNo(ViewUtils.getTipText("occLocked"), ViewUtils.getTipText("occLockedContent"), true);
+            if (yesno)
+                egret.ExternalInterface.call("rdsBuyProduct", "");
+        }
+        else {
+            var yesno = await this.confirmOkYesNo(ViewUtils.getTipText("occLocked"), ViewUtils.getTipText("occLockedContentAndroid"), true);
+            if (yesno)
+                this.pay2Unlock();
+        }
+    }
+    // 付费永久解锁相关
+    async pay2Unlock(occ = "Horticulturist") {
+        var i = Utils.indexOf(this.occArr, (o) => o == occ);
+        var occAvatar = this.occAvatarBgLst[i];
+        await this.playUnlockOccupationAni(occAvatar);
+        Utils.unlockOccupationForever(occ);
+        this.refresh();
+        this.selOcc(occ);
+    }
+    // 播放职业永久解锁动画
+    async playUnlockOccupationAni(occAvatar) {
+        var bg = ViewUtils.createBitmapByName("translucent_png");
+        bg.width = this.width;
+        bg.height = this.height;
+        bg.touchEnabled = true;
+        bg.alpha = 0;
+        AniUtils.ac.addChild(bg);
+        var ended = false;
+        var ske = ViewUtils.createSkeletonAni("zhujuejiesuo", () => ended = true);
+        var d = ske.display;
+        var pos = AniUtils.ani2global(occAvatar);
+        d.x = pos.x + 141;
+        d.y = pos.y + 190;
+        AniUtils.ac.addChild(d);
+        ske.animation.play("stand", 1);
+        await Utils.waitUtil(() => ended);
+        ske["stop"]();
+        AniUtils.ac.removeChild(d);
+        AniUtils.ac.removeChild(bg);
+    }
 }
+OccupationSelView.wait2PlayOccAni = [];
 // 角色升级视图
 class PlayerLevelUpView extends egret.DisplayObjectContainer {
     constructor(w, h) {
@@ -19497,29 +20064,32 @@ class RelicExchangeView extends egret.DisplayObjectContainer {
         this.relicsAreaBg.addEventListener(egret.TouchEvent.TOUCH_MOVE, (evt) => RelicExchangeView.onEvent(rev, "onTouchMove", evt), this.relicsAreaBg);
         this.relicsAreaBg.touchEnabled = true;
         this.relicsAreaBg.name = "this.relicsAreaBg";
-        this.relicsArea.addChild(this.relicsAreaBg);
-        this.setEmptyGrids();
     }
-    async open(canDrag = true, funcOnClick = "showDesc", hideGoBackBtn = false, relics4Sel = undefined) {
+    async open(canDrag = true, funcOnClick = "showDesc", hideGoBackBtn = false) {
         this.canDrag = canDrag;
         this.funcOnClick = funcOnClick;
-        this.relics4Sel = relics4Sel;
+        // 取消由外部提供候选列表的功能
+        // this.relics4Sel = relics4Sel; 
+        // if (!relics4Sel) { // 没指定候选表， 默认用角色身上的
+        //     this.rsEquipped = [...this.player.relicsEquipped];
+        //     this.rsInBag = [...this.player.relicsInBag];
+        //     this.titleCommon.alpha = 1;
+        //     this.titleEquipped.alpha = 1;
+        //     this.titleInBag.alpha = 1;
+        // } else { // 有单独给候选表，就用给的
+        //     this.rsCommon = relics4Sel.length > 8 ? relics4Sel.slice(0, 8) : relics4Sel;
+        //     this.rsEquipped = relics4Sel.length > 8 ? (relics4Sel.length > 20 ? relics4Sel.slice(8, 20) : relics4Sel.slice(0, relics4Sel.length)) : [];
+        //     this.rsInBag = relics4Sel.length > 20 ? relics4Sel.slice(20, relics4Sel.length) : [];
+        //     this.titleCommon.alpha = 0;
+        //     this.titleEquipped.alpha = 0;
+        //     this.titleInBag.alpha = 0;
+        // }
         this.page = 0;
-        if (!relics4Sel) { // 没指定候选表， 默认用角色身上的
-            this.rsEquipped = [...this.player.relicsEquipped];
-            this.rsInBag = [...this.player.relicsInBag];
-            this.titleCommon.alpha = 1;
-            this.titleEquipped.alpha = 1;
-            this.titleInBag.alpha = 1;
-        }
-        else { // 有单独给候选表，就用给的
-            this.rsCommon = relics4Sel.length > 8 ? relics4Sel.slice(0, 8) : relics4Sel;
-            this.rsEquipped = relics4Sel.length > 8 ? (relics4Sel.length > 20 ? relics4Sel.slice(8, 20) : relics4Sel.slice(0, relics4Sel.length)) : [];
-            this.rsInBag = relics4Sel.length > 20 ? relics4Sel.slice(20, relics4Sel.length) : [];
-            this.titleCommon.alpha = 0;
-            this.titleEquipped.alpha = 0;
-            this.titleInBag.alpha = 0;
-        }
+        this.rsEquipped = [...this.player.relicsEquipped];
+        this.rsInBag = [...this.player.relicsInBag];
+        this.titleCommon.alpha = 1;
+        this.titleEquipped.alpha = 1;
+        this.titleInBag.alpha = 1;
         // 处理返回和前进按钮
         if (!this.canDrag) {
             this.goOnBtn.alpha = 0;
@@ -19537,17 +20107,22 @@ class RelicExchangeView extends egret.DisplayObjectContainer {
             this.goBackBtn.alpha = 1;
             this.goBackBtn.touchEnabled = true;
         }
-        this.refresh(!!relics4Sel);
+        this.refresh();
         return new Promise((resolve, reject) => this.doClose = resolve);
     }
     // 在背景上放置圆盘和用于装入遗物图的格子
     setEmptyGrids() {
+        this.relicsArea.removeChildren();
+        this.commonGrids = [];
+        this.equippedGrids = [];
+        this.inBagGrids = [];
+        this.relicsArea.addChild(this.relicsAreaBg);
         var xGap = (this.relicsArea.width - (this.ColNum * this.GridSize)) / (this.ColNum + 1);
         for (var j = 0; j < 3; j++) {
             // j == 1, 装备着的.  j == 2, 背包里的.
             var x = xGap;
-            var y = j == 0 ? 20 : (j == 1 ? (xGap + 220) : (xGap + 535));
-            for (var i = 0; i < (j == 0 ? this.CommonNum : this.ShowNum); i++) {
+            var y = j == 0 ? 20 : (j == 1 ? (xGap + 220) : (xGap + 535 + (Utils.getPlayerTotalRelicsEquippedCapacity(this.player) > 12 ? (this.GridSize + xGap - 25) : 0)));
+            for (var i = 0; i < (j == 0 ? this.CommonNum : (j == 1 ? Utils.getPlayerTotalRelicsEquippedCapacity(this.player) : this.ShowNum)); i++) {
                 var grid = new egret.DisplayObjectContainer();
                 grid.width = grid.height = this.GridSize;
                 grid.x = x;
@@ -19580,9 +20155,27 @@ class RelicExchangeView extends egret.DisplayObjectContainer {
             }
         }
     }
-    refresh(hideLock = false) {
+    refresh() {
+        var objs = [this.bg1, this.titleCommon, this.titleEquipped, this.leftSplitLine1, this.rightSplitLine1, this.titleInBag, this.leftSplitLine2, this.rightSplitLine2, this.goBackBtn, this.goOnBtn, this.pageUpBtn, this.pageDownBtn, this.relicsArea];
+        ViewUtils.multiLang(this, ...objs);
+        // 扩展背包后界面要做调整
+        if (Utils.getPlayerTotalRelicsEquippedCapacity(this.player) > 12) {
+            // 扩展高度
+            var change = 91.8;
+            var move = 70;
+            // 整体背景拉长
+            this.bg1.height += change;
+            this.relicsArea.height += change;
+            this.relicsAreaBg.height += change;
+            // 整体上移
+            objs.forEach((obj, _) => obj.y -= move);
+            // 下半部分的元素相对下移
+            var bots = [this.titleInBag, this.leftSplitLine2, this.rightSplitLine2, this.pageUpBtn, this.pageDownBtn, this.goBackBtn, this.goOnBtn];
+            bots.forEach((obj, _) => obj.y += change);
+        }
+        this.setEmptyGrids();
         this.refreshCommonRelics();
-        this.refreshRelicEquipped(hideLock);
+        this.refreshRelicEquipped();
         this.refreshRelicInBagArea();
     }
     refreshCommonRelics() {
@@ -19625,8 +20218,8 @@ class RelicExchangeView extends egret.DisplayObjectContainer {
             }
         }
     }
-    refreshRelicEquipped(hideLock) {
-        this.refreshGrids(this.rsEquipped, true, hideLock);
+    refreshRelicEquipped() {
+        this.refreshGrids(this.rsEquipped, true);
     }
     refreshRelicInBagArea() {
         // 是否两个显示翻页按钮
@@ -19653,13 +20246,14 @@ class RelicExchangeView extends egret.DisplayObjectContainer {
         });
         this.refreshGrids(relics, false);
     }
-    // 刷新格子里的遗物图像等,只刷新装备的或背包里的12个格子
-    refreshGrids(relics = [], equipped, hideLock = false) {
+    // 刷新格子里的遗物图像等,只刷新装备的或背包里的格子
+    // 
+    refreshGrids(relics = [], equipped) {
         if (equipped)
             var containerArr = this.equippedGrids;
         else
             var containerArr = this.inBagGrids;
-        for (var i = 0; i < this.ShowNum; i++) {
+        for (var i = 0; i < (equipped ? Utils.getPlayerTotalRelicsEquippedCapacity(this.player) : this.ShowNum); i++) {
             var container = containerArr[i];
             container.removeChildren();
             container["index"] = i;
@@ -19684,7 +20278,7 @@ class RelicExchangeView extends egret.DisplayObjectContainer {
                     emptyGridBg.width = emptyGridBg.height = this.GridSize;
                     container.addChild(emptyGridBg);
                 }
-                else if (!hideLock && i >= this.player.relicsEquippedCapacity) {
+                else if (i >= this.player.relicsEquippedCapacity) {
                     container["relic"] = undefined;
                     container["elem"] = "lock";
                     var l = ViewUtils.createBitmapByName("relicLock_png");
@@ -21304,6 +21898,24 @@ class TurntableView extends egret.DisplayObjectContainer {
             await AniUtils.fly2(fromImg, fromImg, toImg, true, 1);
             fromImg["dispose"]();
         }
+        // 真正获得奖励的时间点(与动画对应)
+        switch (this.award.type) {
+            case "+maxHp":
+                this.player.addMaxHp(this.award["attrs"]);
+                break;
+            case "-hp":
+                this.player.addHp(Math.floor(this.player.hp * this.award["attrs"] / 100));
+                break;
+            case "box":
+                this.player.addItem(this.ready2Get);
+                break;
+            case "coins":
+                this.player.addMoney(this.award["attrs"] * GCfg.getDifficultyCfg()[this.player.difficulty]["moneyGet"]);
+                break;
+            case "item":
+                this.player.addItem(this.ready2Get);
+                break;
+        }
         this.doClsoe();
     }
     // 打开转盘界面
@@ -21373,39 +21985,32 @@ class TurntableView extends egret.DisplayObjectContainer {
         var cfg = this.player.worldmap.cfg.turntable;
         var randomIndex = this.getRandomIndexByWeight(cfg);
         var rotateAngels = (randomIndex * 60 + 3600); // 所需旋转角度,额外加十圈,角度单位
-        // 将奖励添加到角色身上
-        var award = this.imgs[randomIndex];
+        // 确定奖励展示的内容
+        this.award = this.imgs[randomIndex];
         var showRewardIcon = false;
-        switch (award["type"]) {
+        switch (this.award["type"]) {
             case "+maxHp":
-                var hpBefore = this.player.hp;
-                this.player.addMaxHp(award["attrs"]);
-                this.tipContent.text = "+" + (award["attrs"]) + " max hp";
+                this.tipContent.text = "+" + (this.award["attrs"]) + " max hp";
                 break;
             case "-hp":
-                var hpBefore = this.player.hp;
-                this.player.addHp(Math.floor(this.player.hp * award["attrs"] / 100));
-                this.tipContent.text = "-" + (hpBefore - this.player.hp) + " hp";
+                this.tipContent.text = (Math.floor(this.player.hp * this.award["attrs"] / 100)) + " hp";
                 break;
             case "box":
-                var rdp = GCfg.getRandomDropGroupCfg(award["attrs"]);
+                var rdp = GCfg.getRandomDropGroupCfg(this.award["attrs"]);
                 // 无可选时出皇冠
                 var dropItem = Utils.randomSelectByWeightWithPlayerFilter(this.player, rdp.elems, this.player.playerRandom, 1, 2, false, "Crown")[0];
-                var e = ElemFactory.create(dropItem);
-                this.player.addItem(e);
+                this.ready2Get = ElemFactory.create(dropItem);
                 this.tipContent.text = ViewUtils.getElemNameAndDesc(dropItem).name;
-                showRewardIcon = this.setTipReward(e);
+                showRewardIcon = this.setTipReward(this.ready2Get);
                 break;
             case "coins":
-                this.player.addMoney(award["attrs"]);
-                this.tipContent.text = "+" + award["attrs"] + ViewUtils.getTipText("coins");
-                showRewardIcon = this.setTipReward(ElemFactory.create("Coins", { cnt: award["attrs"] }));
+                this.tipContent.text = "+" + this.award["attrs"] + ViewUtils.getTipText("coins");
+                showRewardIcon = this.setTipReward(ElemFactory.create("Coins", { cnt: this.award["attrs"] }));
                 break;
             case "item":
-                var e = ElemFactory.create(award["attrs"]);
-                this.player.addItem(e);
-                this.tipContent.text = ViewUtils.getElemNameAndDesc(e.type).name;
-                showRewardIcon = this.setTipReward(e);
+                this.ready2Get = ElemFactory.create(this.award["attrs"]);
+                this.tipContent.text = ViewUtils.getElemNameAndDesc(this.ready2Get.type).name;
+                showRewardIcon = this.setTipReward(this.ready2Get);
                 break;
         }
         var rr = egret.Tween.get(this.rewards, { loop: false });
@@ -22134,7 +22739,9 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 await this.player.triggerLogicPoint("onPlayerReborn", { inBattle: false });
             }
             else {
+                var occ = this.player.occupation;
                 await this.player.fireEvent("onPlayerDead");
+                Utils.lockOccupation(occ);
             }
         }
         // 统计当前进度
@@ -22310,6 +22917,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.lgv.openAchvView = async () => await this.openAchvView();
         // 角色选择界面
         this.osv = new OccupationSelView(w, h);
+        this.osv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
         // 设置界面
         this.st = new SettingView(w, h);
         this.st.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
@@ -22341,7 +22949,7 @@ class MainView extends egret.DisplayObjectContainer {
         this.wmv.openEventSels = async (title, desc, bg, sels) => await this.openWorldMapEventSels(title, desc, bg, sels);
         this.wmv.confirmOkYesNo = async (title, content, yesno) => await this.confirmOkYesNo(title, content, yesno);
         this.wmv.selRelic = async () => await this.openRelicExchangeView(false, false, "selectRelic", true);
-        this.wmv.selRelic2Inherit = async (relics4Sel) => await this.openRelicExchangeView(false, false, "selectRelicWithoutConfirm", true, relics4Sel);
+        // this.wmv.selRelic2Inherit = async (relics4Sel) => await this.openRelicExchangeView(false, false, "selectRelicWithoutConfirm", true, relics4Sel);
         this.wmv.openFinishGameView = async () => await this.openFinishGameView();
         this.wmtv = new WorldMapTopView(w, 80);
         this.wmtv.openSettingView = async () => await this.openSettingView();
@@ -22456,7 +23064,7 @@ class MainView extends egret.DisplayObjectContainer {
             "onSwatheItemWithCocoon", "summonByDancer", "onGetMarkAllAward", "onStartupRegionUncovered", "awardInheritedRefreshMap", "onSneaking",
             "relicsEquippedMaxNumAdded", "onPlayerReborn", "onPlayerDead", "onUseProp", "onElemRevive", "refreshMap",
             "onPlayerLevelUp", "onSelfExplode", "onShieldFlyBack", "onSanThreshold", "monsterAttackSingleTargetAct", "onProtect", "onMultAttack", "onPreFinishAchv",
-            "onBossExplosion", "onLevelInitedGiveTip", "protectiveShield", "onKrakenDeepFrozen"
+            "onBossExplosion", "onLevelInitedGiveTip", "protectiveShield", "onKrakenDeepFrozen", "onUnlockOccupationAni"
         ], (e) => (ps) => this.bv.av[e](ps));
         bt.registerEvent("onBattleEnded", async (ps) => {
             await this.av.blackIn();
@@ -22666,11 +23274,13 @@ class MainView extends egret.DisplayObjectContainer {
         // Utils.saveLocalData("rookiePlay", "finished"); // 新手标记
         // Utils.removeLocalDate("rookiePlay"); // 删除新手数据存档
         // Utils.initAchvData(); // 初始化成就数据
-        // AchievementMgr.mgr.finishAchvAndSave({type:"RichMan", isFinished:true, finishedStage:undefined});
+        // AchievementMgr.mgr.finishAchvAndSave({type:"DifficultModeUnlock", isFinished:true, finishedStage:undefined});
         // var achv = AchievementMgr.mgr.allAchvs[Utils.indexOf(AchievementMgr.mgr.allAchvs, (a:Achievement) => a.type == "EasyModeUnlock")];
         // this.openNewAchvView(achv);
         // Utils.removeLocalData("occupationExp"); // 删除职业解锁进度
         // Utils.removeLocalData("playerName"); // 删除玩家名
+        // Utils.removeLocalData("unlockedOccupations"); // 删除职业解锁信息
+        // Utils.removeLocalData("occupationsUnlockForever"); // 删除职业永久解锁信息
         this.p = p;
         this.lgv.player = p;
         this.addChild(this.lgv);
@@ -22770,42 +23380,43 @@ class MainView extends egret.DisplayObjectContainer {
     }
     // 打开角色死亡界面
     async openPlayerDieView(ps) {
-        if (this.p.rebornCnt < 1 && egret.Capabilities.os == "iOS") { // 暂时不看广告直接复活
-            if (await this.confirmOkYesNo("不幸死亡", "立即复活？", true, { yes: "rebornAnyway", cancel: "justDie" })) {
-                ps.reborn = true;
-                Utils.st("Reborn", this.p.currentTotalStorey() + "," + this.p.occupation + "," + this.p.difficulty.replace("level", ""));
-            }
-        }
-        else {
-            var watchAds = true;
-            while (watchAds && !ps.reborn) {
-                if (window.platform.canShare()) {
-                    watchAds = false;
-                    ps.reborn = await this.confirmOkYesNo("不幸死亡", "确定分享给好友并复活吗？", true);
-                    if (ps.reborn)
-                        window.platform.shareGame();
-                }
-                else if (this.p.rebornCnt < 1) {
-                    if (window.platform.canPlayAdsReborn()) {
-                        if (await this.confirmOkYesNo("不幸死亡", "是否观看广告复活？", true, { yes: "watchRewardAds", cancel: "justDie" }))
-                            await window.platform.playRewardAds((reward) => {
-                                ps.reborn = reward;
-                                Utils.st("Reborn", this.p.currentTotalStorey() + "," + this.p.occupation + "," + this.p.difficulty.replace("level", ""));
-                            });
-                        else
-                            watchAds = false;
-                    }
-                    else
-                        watchAds = false;
-                }
-                else {
-                    watchAds = false;
-                    await this.confirmOkYesNo("不幸死亡", "游戏结束", false);
-                    ps.reborn = false;
-                }
-            }
-        }
+        await this.confirmOkYesNo("不幸死亡", "游戏结束", false);
     }
+    // public async openPlayerDieView(ps) {
+    //     if (this.p.rebornCnt < 1 && egret.Capabilities.os == "iOS") { // 暂时不看广告直接复活
+    //         if (await this.confirmOkYesNo("不幸死亡", "立即复活？", true, 
+    //             {yes:"rebornAnyway", cancel:"justDie"})) {
+    //             ps.reborn = true;
+    //             Utils.st("Reborn", this.p.currentTotalStorey() + "," + this.p.occupation + "," + this.p.difficulty.replace("level", ""));
+    //         }
+    //     } else {
+    //         var watchAds = true;
+    //         while (watchAds && !ps.reborn) {
+    //             if (window.platform.canShare()) {
+    //                 watchAds = false;
+    //                 ps.reborn = await this.confirmOkYesNo("不幸死亡", "确定分享给好友并复活吗？", true);
+    //                 if (ps.reborn)
+    //                     window.platform.shareGame();
+    //             } else if (this.p.rebornCnt < 1) {
+    //                 if (window.platform.canPlayAdsReborn()) {
+    //                     if (await this.confirmOkYesNo("不幸死亡", "是否观看广告复活？", true, 
+    //                         {yes:"watchRewardAds", cancel:"justDie"}))
+    //                         await window.platform.playRewardAds((reward) => {
+    //                             ps.reborn = reward;
+    //                             Utils.st("Reborn", this.p.currentTotalStorey() + "," + this.p.occupation + "," + this.p.difficulty.replace("level", ""));
+    //                         });
+    //                     else
+    //                         watchAds = false;
+    //                 } else
+    //                     watchAds = false;
+    //             } else {
+    //                 watchAds = false;
+    //                 await this.confirmOkYesNo("不幸死亡", "游戏结束", false);
+    //                 ps.reborn = false;
+    //             }
+    //         }
+    //     }
+    // }
     // 打开通关界面
     async openFinishGameView() {
         Utils.savePlayer(undefined, "onGameEnd");
@@ -22836,12 +23447,12 @@ class MainView extends egret.DisplayObjectContainer {
         this.removeChild(this.scv);
         return yesno;
     }
-    async openRelicExchangeView(inBattle, canDrag, funcOnClinked = "showDesc", hideGoBackBtn = false, relics4Sel = undefined) {
+    async openRelicExchangeView(inBattle, canDrag, funcOnClinked = "showDesc", hideGoBackBtn = false) {
         this.rev.player = this.p;
         this.addChild(this.rev);
         // if (!inBattle)
         //     this.setTopAndRefreshWmtv();
-        var result = await this.rev.open(canDrag, funcOnClinked, hideGoBackBtn, relics4Sel);
+        var result = await this.rev.open(canDrag, funcOnClinked, hideGoBackBtn);
         this.removeChild(this.rev);
         return result;
     }

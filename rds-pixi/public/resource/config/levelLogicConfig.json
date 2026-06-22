@@ -8,7 +8,8 @@
     "normal":[
         {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1"]]}, 
         {"type":"LevelLogicTakeKey"},
-        {"type":"LevelLogicMarkAllAward", "ps":["markAllAward"]}
+        {"type":"LevelLogicMarkAllAward", "ps":["markAllAward"]},
+        {"type":"LevelLogicAddPrison"}
         ],
     "randomEgg":[
         {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox2"]]}, 
@@ -19,27 +20,32 @@
     "eliteGoblinThief":[
         {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox2"]]}, 
         {"type":"LevelLogicTakeKey"}, 
-        {"type":"LevelLogicElite", "ps":[["EliteGoblinThief"]]}
+        {"type":"LevelLogicElite", "ps":[["EliteGoblinThief"]]},
+        {"type":"LevelLogicAddPrison"}
         ],
     "eliteVampire":[
         {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox2"]]}, 
         {"type":"LevelLogicTakeKey"}, 
-        {"type":"LevelLogicElite", "ps":[["EliteVampire"]]}
+        {"type":"LevelLogicElite", "ps":[["EliteVampire"]]},
+        {"type":"LevelLogicAddPrison"}
         ],
     "eliteLustZombie":[
         {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox2"]]}, 
         {"type":"LevelLogicTakeKey"}, 
-        {"type":"LevelLogicElite", "ps":[["EliteLustZombie"]]}
+        {"type":"LevelLogicElite", "ps":[["EliteLustZombie"]]},
+        {"type":"LevelLogicAddPrison"}
         ],
     "eliteSwatheZombie":[
         {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox2"]]}, 
         {"type":"LevelLogicTakeKey"}, 
-        {"type":"LevelLogicElite", "ps":[["EliteSwatheZombie"]]}
+        {"type":"LevelLogicElite", "ps":[["EliteSwatheZombie"]]},
+        {"type":"LevelLogicAddPrison"}
         ],
     "eliteReviveZombie":[
         {"type":"LevelLogicAddBoxAndKey", "ps":[["treasureBox1", "treasureBox2"]]}, 
         {"type":"LevelLogicTakeKey"}, 
-        {"type":"LevelLogicElite", "ps":[["EliteReviveZombie"]]}
+        {"type":"LevelLogicElite", "ps":[["EliteReviveZombie"]]},
+        {"type":"LevelLogicAddPrison"}
         ],
     "searchBody":[
         {"type":"LevelLogicTakeKey"}
@@ -48,23 +54,34 @@
         {"type":"LevelLogicAddBoxAndKey", "ps":[["bossBox1", "bossBox2", "bossBox4", "bossBox5"]]}, 
         {"type":"LevelLogicTakeKey"}, 
         {"type":"LevelLogicChangeMonster", "ps":[["RedSlime", "GreenSlime"], 5]},
-        {"type":"LevelLogicBoss", "ps":[["SlimeKing"]]}
+        {"type":"LevelLogicBoss", "ps":[["SlimeKing"]]},
+        {"type":"LevelLogicAddPrison"}
         ],
     "brainOfCthulhu":[
         {"type":"LevelLogicAddBoxAndKey", "ps":[["bossBox1", "bossBox2", "bossBox4", "bossBox5"]]}, 
         {"type":"LevelLogicTakeKey"}, 
         {"type":"LevelLogicChangeMonster", "ps":[["ReviveZombie"], 5]},
-        {"type":"LevelLogicBoss", "ps":[["BrainOfCthulhu"]]}
+        {"type":"LevelLogicBoss", "ps":[["BrainOfCthulhu"]]},
+        {"type":"LevelLogicAddPrison"}
         ],
     "kraken":[
         {"type":"LevelLogicAddBoxAndKey", "ps":[["bossBox1", "bossBox2", "bossBox4", "bossBox5"]]}, 
         {"type":"LevelLogicTakeKey"}, 
-        {"type":"LevelLogicBoss", "ps":[["Kraken"]]}
+        {"type":"LevelLogicBoss", "ps":[["Kraken"]]},
+        {"type":"LevelLogicAddPrison"}
     ],
     "halloweenTreant":[
         {"type":"LevelLogicAddBoxAndKey", "ps":[["bossBox1", "bossBox2", "bossBox4", "bossBox5"]]}, 
         {"type":"LevelLogicTakeKey"},
         {"type":"LevelLogicBoss", "ps":[["HalloweenTreant"]]},
-        {"type":"LevelLogicChangeMonster", "ps":[["MCherryBomb", "MSunflower", "MCharmingMushroom", "MNutWall"], 63, {"MPeashooter":5}, ["MPeashooter"]]}
+        {"type":"LevelLogicChangeMonster", "ps":[["MCherryBomb", "MSunflower", "MCharmingMushroom", "MNutWall"], 63, {"MPeashooter":5}, ["MPeashooter"]]},
+        {"type":"LevelLogicAddPrison"},
+        {"type":"LevelLogicKillHalloweenTreant"}
+    ],
+    "titan":[
+        {"type":"LevelLogicAddBoxAndKey", "ps":[["bossBox1", "bossBox2", "bossBox4", "bossBox5"]]}, 
+        {"type":"LevelLogicTakeKey"},
+        {"type":"LevelLogicBoss", "ps":[["Titan"]]},
+        {"type":"LevelLogicAddPrison"}
     ]
 }
