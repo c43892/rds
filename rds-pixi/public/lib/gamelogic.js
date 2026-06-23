@@ -12596,6 +12596,19 @@ class ViewUtils {
                 return entry[k];
         return entry;
     }
+    // 顶层按语言分的配置（occUnlockDesc / achvDesc / worldmapeventsels）：取当前语言的整段，
+    // 缺失则回退 CNS->EN。逻辑只存源语言(CNS)一份，其它语言可选地只翻译需要的部分。
+    static pickLangSection(cfg) {
+        if (!cfg)
+            return cfg;
+        var lang = ViewUtils.getLanguage();
+        if (cfg[lang])
+            return cfg[lang];
+        for (var fb of ViewUtils.langFallbacks)
+            if (cfg[fb])
+                return cfg[fb];
+        return cfg; // 未迁移/异常时原样返回，保证不崩
+    }
     // 获取元素显示名称和描述信息（elemdesc 顶层按语言分）
     static getElemNameAndDesc(eType) {
         var descCfg = GCfg.getElemDescCfg();
@@ -24001,12 +24014,13 @@ class Main extends egret.DisplayObjectContainer {
         // 世界地图事件
         var worldmapeventselsCfg = ResMgr.getRes("worldmapeventsels_json");
         GCfg.getWorldMapEventSelsDesc = (f) => {
-            Utils.assert(worldmapeventselsCfg.desc[f], "can not find worldmap event sels desc: " + f);
-            return worldmapeventselsCfg.desc[f];
+            var sec = ViewUtils.pickLangSection(worldmapeventselsCfg);
+            Utils.assert(sec.desc[f], "can not find worldmap event sels desc: " + f);
+            return sec.desc[f];
         };
         GCfg.getWorldMapEventSelGroupsCfg = (g) => {
-            // Utils.assert(worldmapeventselsCfg.groups[g], "can not find worldmap event sels group: " + g);
-            return worldmapeventselsCfg.groups[g];
+            // Utils.assert(sec.groups[g], "can not find worldmap event sels group: " + g);
+            return ViewUtils.pickLangSection(worldmapeventselsCfg).groups[g];
         };
         // 多语言
         var multiLangCfg = ResMgr.getRes("multilanguage_json");
@@ -24030,11 +24044,11 @@ class Main extends egret.DisplayObjectContainer {
         // 成就配置
         GCfg.getAchvCfg = () => ResMgr.getRes("achvCfg_json");
         GCfg.getAchvAwardCfg = () => ResMgr.getRes("achvAwardCfg_json");
-        GCfg.getAchvDescCfg = (achvType) => ResMgr.getRes("achvDesc_json")[achvType];
+        GCfg.getAchvDescCfg = (achvType) => ViewUtils.pickLangSection(ResMgr.getRes("achvDesc_json"))[achvType];
         // 难度配置
         GCfg.getDifficultyCfg = () => ResMgr.getRes("difficulty_json");
         // 职业解锁描述
-        GCfg.getOccUnlockDesc = (occ) => ResMgr.getRes("occUnlockDesc_json")[occ];
+        GCfg.getOccUnlockDesc = (occ) => ViewUtils.pickLangSection(ResMgr.getRes("occUnlockDesc_json"))[occ];
         AchievementMgr.mgr = AchievementMgr.createAchvMgr();
     }
     async loadResGroups(gs) {

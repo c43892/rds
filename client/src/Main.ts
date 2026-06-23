@@ -178,12 +178,13 @@ class Main extends egret.DisplayObjectContainer {
         // 世界地图事件
         var worldmapeventselsCfg = ResMgr.getRes("worldmapeventsels_json");
         GCfg.getWorldMapEventSelsDesc = (f) => {
-            Utils.assert(worldmapeventselsCfg.desc[f], "can not find worldmap event sels desc: " + f);
-            return worldmapeventselsCfg.desc[f];
+            var sec = ViewUtils.pickLangSection(worldmapeventselsCfg);
+            Utils.assert(sec.desc[f], "can not find worldmap event sels desc: " + f);
+            return sec.desc[f];
         };
         GCfg.getWorldMapEventSelGroupsCfg = (g) => {
-            // Utils.assert(worldmapeventselsCfg.groups[g], "can not find worldmap event sels group: " + g);
-            return worldmapeventselsCfg.groups[g];
+            // Utils.assert(sec.groups[g], "can not find worldmap event sels group: " + g);
+            return ViewUtils.pickLangSection(worldmapeventselsCfg).groups[g];
         };
 
         // 多语言
@@ -212,13 +213,13 @@ class Main extends egret.DisplayObjectContainer {
         // 成就配置
         GCfg.getAchvCfg = () => ResMgr.getRes("achvCfg_json");
         GCfg.getAchvAwardCfg = () => ResMgr.getRes("achvAwardCfg_json");
-        GCfg.getAchvDescCfg = (achvType) => ResMgr.getRes("achvDesc_json")[achvType];
+        GCfg.getAchvDescCfg = (achvType) => ViewUtils.pickLangSection(ResMgr.getRes("achvDesc_json"))[achvType];
 
         // 难度配置
         GCfg.getDifficultyCfg = () => ResMgr.getRes("difficulty_json");
 
         // 职业解锁描述
-        GCfg.getOccUnlockDesc = (occ:string) => ResMgr.getRes("occUnlockDesc_json")[occ];
+        GCfg.getOccUnlockDesc = (occ:string) => ViewUtils.pickLangSection(ResMgr.getRes("occUnlockDesc_json"))[occ];
 
         AchievementMgr.mgr = AchievementMgr.createAchvMgr();
     }

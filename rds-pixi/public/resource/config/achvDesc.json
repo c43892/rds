@@ -1,117 +1,141 @@
 {
-    "HalloweenTreantNoPeashooter":{
-        "title":"突突突",
-        "shortDesc":"以特定方式击败万圣节树妖",
-        "longDesc":"在不杀死任何豌豆射手的情况下击败万圣节树妖",
-        "icon":"HalloweenTreant",
-        "progressType":"",
-        "progressInfos":["<font color=#000000 bold=false size=20>1这是一条进度信息{type}</font>"],
-        "progressInfoFinished":["已完成"]
-    },
-    "DeepFrozen":{
-        "title":"极度深寒",
-        "shortDesc":"以特定方式击败克拉肯",
-        "longDesc":"在被深寒窒息超过50点伤害的情况下击杀克拉肯",
-        "icon":"Kraken",
-        "progressType":"",
-        "progressInfos":[""]
-    },
-    "RichMan":{
-        "title":"大富翁",
-        "shortDesc":"获取足够的金钱",
-        "longDesc":"在一局游戏内获得1000金钱",
-        "icon":"Coins9",
-        "progressType":"",
-        "progressInfos":[""]
-    },
-    "KnowlegdeChangesDestiny":{
-        "title":"知识改变命运",
-        "shortDesc":"一局游戏内阅读20本书籍",
-        "icon":"Magazine",
-        "progressType":"",
-        "progressInfos":[""]
-    },
-    "DeathGodKiller":{
-        "title":"死神克星",
-        "shortDesc":"一局游戏内杀死10次死神",
-        "icon":"DeathGod",
-        "progressType":"",
-        "progressInfos":[""]
-    },
-    "SkillMaster":{
-        "title":"技能达人",
-        "shortDesc":"升级足够的技能",
-        "longDesc":"一局游戏内将8个技能升至5级",
-        "icon":"HalloweenTreant",
-        "progressType":"",
-        "progressInfos":[""]
-    },
-    "EasyModeUnlock":{
-        "title":"简单模式",
-        "shortDesc":"通关简单模式",
-        "icon":"HalloweenTreant",
-        "progressType":"",
-        "progressInfos":[""],
-        "detail":{
-            "title":"<font color=#000000 size=25>恭喜解锁普通难度</font>",
-            "descs":[
-                "<font color=#000000 size=20>初始格子数:</font><font color=#294c22 size=20>8→7</font>",
-                "<font color=#000000 size=20>怪物属性:</font><font color=#294c22 size=20>80%→90%</font>",
-                "<font color=#000000 size=20>获得金钱数:</font><font color=#294c22 size=20>200%→150%</font>",
-                "<font color=#000000 size=20>初始生命值:</font><font color=#294c22 size=20>60→50</font>",
-                "<font color=#000000 size=20>死神初始步数:</font><font color=#294c22 size=20>150→130</font>",
-                "<font color=#000000 size=20>世界长度:</font><font color=#294c22 size=20>1→2</font>"
-            ]
-        }
-    },
-    "NormalModeUnlock":{
-        "title":"普通模式",
-        "shortDesc":"通关普通模式",
-        "icon":"HalloweenTreant",
-        "progressType":"",
-        "progressInfos":[""],
-        "detail":{
-            "title":"<font color=#000000 size=25>恭喜解锁困难难度</font>",
-            "descs":[
-                "<font color=#000000 size=20>初始格子数:</font><font color=#294c22 size=20>7→6</font>",
-                "<font color=#000000 size=20>怪物属性:</font><font color=#294c22 size=20>90%→100%</font>",
-                "<font color=#000000 size=20>获得金钱数:</font><font color=#294c22 size=20>150%→100%</font>",
-                "<font color=#000000 size=20>初始生命值:</font><font color=#294c22 size=20>50→40</font>",
-                "<font color=#000000 size=20>死神初始步数:</font><font color=#294c22 size=20>130→110</font>",
-                "<font color=#000000 size=20>世界长度:</font><font color=#294c22 size=20>2→3</font>"
-            ]
-        }
-    },
-    "DifficultModeUnlock":{
-        "title":"困难模式",
-        "shortDesc":"通关困难模式",
-        "icon":"HalloweenTreant",
-        "progressType":"",
-        "progressInfos":[""],
-        "detail":{
-            "title":"<font color=#000000 size=25>恭喜解锁噩梦难度</font>",
-            "descs":[
-                "<font color=#000000 size=20>初始格子数:</font><font color=#294c22 size=20>6→5</font>",
-                "<font color=#000000 size=20>怪物属性:</font><font color=#294c22 size=20>100%→110%</font>",
-                "<font color=#000000 size=20>死神初始步数:</font><font color=#294c22 size=20>110→100</font>",
-                "<font color=#000000 size=20>世界长度:</font><font color=#294c22 size=20>3→4</font>"
-            ]
-        }
-    },
-    "NightmareUnlock":{
-        "title":"噩梦模式",
-        "shortDesc":"通关噩梦模式",
-        "icon":"HalloweenTreant",
-        "progressType":"",
-        "progressInfos":[""],
-        "detail":{
-            "title":"<font color=#000000 size=25>恭喜解锁地狱难度</font>",
-            "descs":[
-                "<font color=#000000 size=20>初始格子数:</font><font color=#294c22 size=20>5→4</font>",
-                "<font color=#000000 size=20>怪物属性:</font><font color=#294c22 size=20>110%→120%</font>",
-                "<font color=#000000 size=20>死神初始步数:</font><font color=#294c22 size=20>100→90</font>",
-                "<font color=#000000 size=20>世界长度:</font><font color=#294c22 size=20>2→无限</font>"
-            ]
-        }
-    }
+	"CNS": {
+		"HalloweenTreantNoPeashooter": {
+			"title": "突突突",
+			"shortDesc": "以特定方式击败万圣节树妖",
+			"longDesc": "在不杀死任何豌豆射手的情况下击败万圣节树妖",
+			"icon": "HalloweenTreant",
+			"progressType": "",
+			"progressInfos": [
+				"<font color=#000000 bold=false size=20>1这是一条进度信息{type}</font>"
+			],
+			"progressInfoFinished": [
+				"已完成"
+			]
+		},
+		"DeepFrozen": {
+			"title": "极度深寒",
+			"shortDesc": "以特定方式击败克拉肯",
+			"longDesc": "在被深寒窒息超过50点伤害的情况下击杀克拉肯",
+			"icon": "Kraken",
+			"progressType": "",
+			"progressInfos": [
+				""
+			]
+		},
+		"RichMan": {
+			"title": "大富翁",
+			"shortDesc": "获取足够的金钱",
+			"longDesc": "在一局游戏内获得1000金钱",
+			"icon": "Coins9",
+			"progressType": "",
+			"progressInfos": [
+				""
+			]
+		},
+		"KnowlegdeChangesDestiny": {
+			"title": "知识改变命运",
+			"shortDesc": "一局游戏内阅读20本书籍",
+			"icon": "Magazine",
+			"progressType": "",
+			"progressInfos": [
+				""
+			]
+		},
+		"DeathGodKiller": {
+			"title": "死神克星",
+			"shortDesc": "一局游戏内杀死10次死神",
+			"icon": "DeathGod",
+			"progressType": "",
+			"progressInfos": [
+				""
+			]
+		},
+		"SkillMaster": {
+			"title": "技能达人",
+			"shortDesc": "升级足够的技能",
+			"longDesc": "一局游戏内将8个技能升至5级",
+			"icon": "HalloweenTreant",
+			"progressType": "",
+			"progressInfos": [
+				""
+			]
+		},
+		"EasyModeUnlock": {
+			"title": "简单模式",
+			"shortDesc": "通关简单模式",
+			"icon": "HalloweenTreant",
+			"progressType": "",
+			"progressInfos": [
+				""
+			],
+			"detail": {
+				"title": "<font color=#000000 size=25>恭喜解锁普通难度</font>",
+				"descs": [
+					"<font color=#000000 size=20>初始格子数:</font><font color=#294c22 size=20>8→7</font>",
+					"<font color=#000000 size=20>怪物属性:</font><font color=#294c22 size=20>80%→90%</font>",
+					"<font color=#000000 size=20>获得金钱数:</font><font color=#294c22 size=20>200%→150%</font>",
+					"<font color=#000000 size=20>初始生命值:</font><font color=#294c22 size=20>60→50</font>",
+					"<font color=#000000 size=20>死神初始步数:</font><font color=#294c22 size=20>150→130</font>",
+					"<font color=#000000 size=20>世界长度:</font><font color=#294c22 size=20>1→2</font>"
+				]
+			}
+		},
+		"NormalModeUnlock": {
+			"title": "普通模式",
+			"shortDesc": "通关普通模式",
+			"icon": "HalloweenTreant",
+			"progressType": "",
+			"progressInfos": [
+				""
+			],
+			"detail": {
+				"title": "<font color=#000000 size=25>恭喜解锁困难难度</font>",
+				"descs": [
+					"<font color=#000000 size=20>初始格子数:</font><font color=#294c22 size=20>7→6</font>",
+					"<font color=#000000 size=20>怪物属性:</font><font color=#294c22 size=20>90%→100%</font>",
+					"<font color=#000000 size=20>获得金钱数:</font><font color=#294c22 size=20>150%→100%</font>",
+					"<font color=#000000 size=20>初始生命值:</font><font color=#294c22 size=20>50→40</font>",
+					"<font color=#000000 size=20>死神初始步数:</font><font color=#294c22 size=20>130→110</font>",
+					"<font color=#000000 size=20>世界长度:</font><font color=#294c22 size=20>2→3</font>"
+				]
+			}
+		},
+		"DifficultModeUnlock": {
+			"title": "困难模式",
+			"shortDesc": "通关困难模式",
+			"icon": "HalloweenTreant",
+			"progressType": "",
+			"progressInfos": [
+				""
+			],
+			"detail": {
+				"title": "<font color=#000000 size=25>恭喜解锁噩梦难度</font>",
+				"descs": [
+					"<font color=#000000 size=20>初始格子数:</font><font color=#294c22 size=20>6→5</font>",
+					"<font color=#000000 size=20>怪物属性:</font><font color=#294c22 size=20>100%→110%</font>",
+					"<font color=#000000 size=20>死神初始步数:</font><font color=#294c22 size=20>110→100</font>",
+					"<font color=#000000 size=20>世界长度:</font><font color=#294c22 size=20>3→4</font>"
+				]
+			}
+		},
+		"NightmareUnlock": {
+			"title": "噩梦模式",
+			"shortDesc": "通关噩梦模式",
+			"icon": "HalloweenTreant",
+			"progressType": "",
+			"progressInfos": [
+				""
+			],
+			"detail": {
+				"title": "<font color=#000000 size=25>恭喜解锁地狱难度</font>",
+				"descs": [
+					"<font color=#000000 size=20>初始格子数:</font><font color=#294c22 size=20>5→4</font>",
+					"<font color=#000000 size=20>怪物属性:</font><font color=#294c22 size=20>110%→120%</font>",
+					"<font color=#000000 size=20>死神初始步数:</font><font color=#294c22 size=20>100→90</font>",
+					"<font color=#000000 size=20>世界长度:</font><font color=#294c22 size=20>2→无限</font>"
+				]
+			}
+		}
+	}
 }

@@ -286,6 +286,16 @@ class ViewUtils {
         return entry;
     }
 
+    // 顶层按语言分的配置（occUnlockDesc / achvDesc / worldmapeventsels）：取当前语言的整段，
+    // 缺失则回退 CNS->EN。逻辑只存源语言(CNS)一份，其它语言可选地只翻译需要的部分。
+    public static pickLangSection(cfg) {
+        if (!cfg) return cfg;
+        var lang = ViewUtils.getLanguage();
+        if (cfg[lang]) return cfg[lang];
+        for (var fb of ViewUtils.langFallbacks) if (cfg[fb]) return cfg[fb];
+        return cfg; // 未迁移/异常时原样返回，保证不崩
+    }
+
     // 获取元素显示名称和描述信息（elemdesc 顶层按语言分）
     public static getElemNameAndDesc(eType:string) {
         var descCfg = GCfg.getElemDescCfg();
