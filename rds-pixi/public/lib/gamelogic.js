@@ -12570,10 +12570,11 @@ class ViewUtils {
         var fs = Math.max(16, Math.min(byH, byW, 46));
         var esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
         return "<svg xmlns='http://www.w3.org/2000/svg' width='" + w + "' height='" + h + "' viewBox='0 0 " + w + " " + h + "'>"
-            + "<defs><linearGradient id='bg' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#c9a25e'/><stop offset='1' stop-color='#7c4a1f'/></linearGradient></defs>"
-            + "<rect x='2' y='2' width='" + (w - 4) + "' height='" + (h - 4) + "' rx='14' fill='url(#bg)' stroke='#43280f' stroke-width='3'/>"
-            + "<rect x='6' y='5' width='" + (w - 12) + "' height='" + Math.round(h * 0.38) + "' rx='9' fill='#ffffff' fill-opacity='0.14'/>"
-            + "<text x='" + (w / 2) + "' y='" + (h / 2 + fs * 0.34) + "' font-family=\"" + fam + "\" font-weight='bold' font-size='" + fs + "' fill='#ffffff' stroke='#3a230f' stroke-width='0.9' text-anchor='middle'>" + esc(text) + "</text>"
+            + "<defs><linearGradient id='bg' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#a9763a'/><stop offset='1' stop-color='#5e3414'/></linearGradient></defs>"
+            + "<rect x='2' y='2' width='" + (w - 4) + "' height='" + (h - 4) + "' rx='14' fill='url(#bg)' stroke='#3a2410' stroke-width='3'/>"
+            + "<rect x='6' y='5' width='" + (w - 12) + "' height='" + Math.round(h * 0.38) + "' rx='9' fill='#ffffff' fill-opacity='0.12'/>"
+            // 文字用原按钮的金色(采样 ~#be9140),配深棕描边
+            + "<text x='" + (w / 2) + "' y='" + (h / 2 + fs * 0.34) + "' font-family=\"" + fam + "\" font-weight='bold' font-size='" + fs + "' fill='#efc96f' stroke='#3a2410' stroke-width='1' text-anchor='middle'>" + esc(text) + "</text>"
             + "</svg>";
     }
     // 把一个 TextButtonWithBg 本地化为现生成的按钮图(英文版不调用,保留原花体图)。
