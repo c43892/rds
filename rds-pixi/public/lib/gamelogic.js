@@ -13038,8 +13038,9 @@ class ViewUtils {
     }
 }
 // ---- 多语言基础设施 ----------------------------------------------------
-// 语言回退顺序：源语言 CNS、再 EN，作为缺失翻译时的兜底（保证半成品翻译不崩、不空白）
-ViewUtils.langFallbacks = ["CNS", "EN"];
+// 语言回退顺序：先英文(通用且已 100% 翻译),再中文源。未翻译的语言(日/韩/法/德/西/俄)
+// 因此回退到英文而非中文,对非中文用户更友好。CNS/CNT 已全译,不会触发回退。
+ViewUtils.langFallbacks = ["EN", "CNS"];
 // 浏览器 locale 前缀 -> 语言键（新增语言时只需在此登记；最终是否生效仍以 validLanguages 为准）
 ViewUtils.localeMap = {
     "zh-tw": "CNT", "zh-hk": "CNT", "zh-mo": "CNT", "zh-hant": "CNT",
@@ -18782,6 +18783,7 @@ class LoginView extends egret.DisplayObjectContainer {
             add(flag);
             // 语言自称
             var name = ViewUtils.createTextField(30, lang === cur ? 0xffd34d : 0xffffff);
+            name.fontFamily = ViewUtils.getUIFontFamily(lang); // 用该语言字体,谚文/西里尔不出豆腐块
             name.text = ViewUtils.langNativeName(lang);
             name.width = rowW - (flagW + 24);
             name.height = rowH;

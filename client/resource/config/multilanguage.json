@@ -3,7 +3,13 @@
 	"validLanguages": [
 		"EN",
 		"CNS",
-		"CNT"
+		"CNT",
+		"JA",
+		"KO",
+		"FR",
+		"DE",
+		"ES",
+		"RU"
 	],
 	"views": {
 		"login": {
@@ -1778,10 +1784,26 @@
 		}
 	},
 	"tips": {
-		"loginNewGame": { "EN": "New Game", "CNS": "新游戏", "CNT": "新遊戲" },
-		"loginContinue": { "EN": "Continue", "CNS": "继续游戏", "CNT": "繼續遊戲" },
-		"loginRank": { "EN": "Heroes", "CNS": "排行榜", "CNT": "排行榜" },
-		"loginAchievement": { "EN": "Achievements", "CNS": "成就", "CNT": "成就" },
+		"loginNewGame": {
+			"EN": "New Game",
+			"CNS": "新游戏",
+			"CNT": "新遊戲"
+		},
+		"loginContinue": {
+			"EN": "Continue",
+			"CNS": "继续游戏",
+			"CNT": "繼續遊戲"
+		},
+		"loginRank": {
+			"EN": "Heroes",
+			"CNS": "排行榜",
+			"CNT": "排行榜"
+		},
+		"loginAchievement": {
+			"EN": "Achievements",
+			"CNS": "成就",
+			"CNT": "成就"
+		},
 		"currentProgress": {
 			"EN": "Progress",
 			"CNS": "当前进度",

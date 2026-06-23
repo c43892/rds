@@ -155,6 +155,7 @@ class LoginView extends egret.DisplayObjectContainer {
 
             // 语言自称
             var name = ViewUtils.createTextField(30, lang === cur ? 0xffd34d : 0xffffff);
+            name.fontFamily = ViewUtils.getUIFontFamily(lang); // 用该语言字体,谚文/西里尔不出豆腐块
             name.text = ViewUtils.langNativeName(lang);
             name.width = rowW - (flagW + 24); name.height = rowH;
             name.verticalAlign = egret.VerticalAlign.MIDDLE;
