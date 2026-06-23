@@ -12569,12 +12569,14 @@ class ViewUtils {
         var byH = Math.round(h * 0.5);
         var fs = Math.max(16, Math.min(byH, byW, 46));
         var esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        // 木底配色取自原按钮采样(橄榄金棕 ~#706030~#908040),金字 ~#be9140,深描边。
+        // 外深描边 + 内金色描边(立体边框感),与原花体按钮风格统一。
         return "<svg xmlns='http://www.w3.org/2000/svg' width='" + w + "' height='" + h + "' viewBox='0 0 " + w + " " + h + "'>"
-            + "<defs><linearGradient id='bg' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#a9763a'/><stop offset='1' stop-color='#5e3414'/></linearGradient></defs>"
-            + "<rect x='2' y='2' width='" + (w - 4) + "' height='" + (h - 4) + "' rx='14' fill='url(#bg)' stroke='#3a2410' stroke-width='3'/>"
-            + "<rect x='6' y='5' width='" + (w - 12) + "' height='" + Math.round(h * 0.38) + "' rx='9' fill='#ffffff' fill-opacity='0.12'/>"
-            // 文字用原按钮的金色(采样 ~#be9140),配深棕描边
-            + "<text x='" + (w / 2) + "' y='" + (h / 2 + fs * 0.34) + "' font-family=\"" + fam + "\" font-weight='bold' font-size='" + fs + "' fill='#efc96f' stroke='#3a2410' stroke-width='1' text-anchor='middle'>" + esc(text) + "</text>"
+            + "<defs><linearGradient id='bg' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#93783b'/><stop offset='0.5' stop-color='#74592a'/><stop offset='1' stop-color='#574018'/></linearGradient></defs>"
+            + "<rect x='2' y='2' width='" + (w - 4) + "' height='" + (h - 4) + "' rx='12' fill='url(#bg)' stroke='#2b1d0d' stroke-width='3'/>"
+            + "<rect x='5.5' y='5.5' width='" + (w - 11) + "' height='" + (h - 11) + "' rx='9' fill='none' stroke='#caa766' stroke-opacity='0.5' stroke-width='1.5'/>"
+            + "<rect x='6' y='5' width='" + (w - 12) + "' height='" + Math.round(h * 0.34) + "' rx='8' fill='#ffffff' fill-opacity='0.10'/>"
+            + "<text x='" + (w / 2) + "' y='" + (h / 2 + fs * 0.34) + "' font-family=\"" + fam + "\" font-weight='bold' font-size='" + fs + "' fill='#efc96f' stroke='#2b1d0d' stroke-width='1' text-anchor='middle'>" + esc(text) + "</text>"
             + "</svg>";
     }
     // 把一个 TextButtonWithBg 本地化为现生成的按钮图(英文版不调用,保留原花体图)。
