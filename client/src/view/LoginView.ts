@@ -11,7 +11,7 @@ class LoginView extends egret.DisplayObjectContainer {
     btnNewPlay:TextButtonWithBg;
     btnOpenRank:TextButtonWithBg;
     btnAchievement:TextButtonWithBg;
-    btnLang:TextButtonWithBg;
+    btnLang:egret.Bitmap;
     ani:dragonBones.Armature;
 
     public constructor(w:number, h:number) {
@@ -81,24 +81,21 @@ class LoginView extends egret.DisplayObjectContainer {
         objs.forEach((obj, _) => this.addChild(obj));
         ViewUtils.multiLang(this, ...objs);
 
-        // 语言切换按钮（登录界面，无进行中对局）：循环切换 validLanguages，持久化后重载，
-        // 让所有界面以新语言从头重建。位置放在顶部居中。
-        this.btnLang = new TextButtonWithBg("btnBg_png", 28);
+        // 语言切换：右上角国旗 chip(矢量 SVG)。点击循环 validLanguages，持久化后重载，
+        // 让所有界面以新语言从头重建（登录界面无进行中对局，安全）。
+        this.btnLang = ViewUtils.createFlagBitmap(ViewUtils.getLanguage());
         this.btnLang.name = "langBtn";
-        this.btnLang.text = ViewUtils.langNativeName(ViewUtils.getLanguage());
-        this.btnLang.anchorOffsetX = this.btnLang.width / 2;
-        this.btnLang.anchorOffsetY = this.btnLang.height / 2;
-        this.btnLang.x = this.width / 2;
-        this.btnLang.y = 70;
-        this.btnLang.onDown.push(btnSound);
-        this.btnLang.onClicked = () => this.onSwitchLanguage();
+        this.btnLang.x = this.width - 66 - 18; // 右上角，18px 边距
+        this.btnLang.y = 28;
+        this.btnLang.touchEnabled = true;
+        this.btnLang.addEventListener(egret.TouchEvent.TOUCH_TAP, () => this.onSwitchLanguage(), this);
         this.addChild(this.btnLang);
     }
 
     private onSwitchLanguage() {
+        AudioFactory.play("btn1");
         var next = ViewUtils.nextLanguage();
         ViewUtils.setLanguage(next);
-        this.btnLang.text = ViewUtils.langNativeName(next);
         // 重载使所有已构建的界面以新语言重建（语言只在启动时读取并铺到各界面）
         try {
             if (typeof window !== "undefined" && window.location && window.location.reload)

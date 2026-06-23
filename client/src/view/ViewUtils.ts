@@ -225,6 +225,74 @@ class ViewUtils {
         return v[(i + 1) % v.length];
     }
 
+    // ---- 语言国旗(矢量 SVG;跨平台,规避 Windows 不渲染 emoji 国旗) ----
+    // 5 角星顶点(rotDeg=指向角度,-90 为正上)
+    private static star5(cx:number, cy:number, R:number, rotDeg:number):string {
+        var rot = rotDeg * Math.PI / 180, pts = [];
+        for (var i = 0; i < 5; i++) {
+            var a = rot + i * 2 * Math.PI / 5;
+            pts.push((cx + R * Math.cos(a)).toFixed(1) + ',' + (cy + R * Math.sin(a)).toFixed(1));
+            var a2 = a + Math.PI / 5, r2 = R * 0.382;
+            pts.push((cx + r2 * Math.cos(a2)).toFixed(1) + ',' + (cy + r2 * Math.sin(a2)).toFixed(1));
+        }
+        return pts.join(' ');
+    }
+    // 一面 60x40 国旗的内部 SVG 标记(不含外层 <svg>)
+    private static flagInner(lang:string):string {
+        switch (lang) {
+            case 'FR': return "<rect width='20' height='40' fill='#0055A4'/><rect x='20' width='20' height='40' fill='#fff'/><rect x='40' width='20' height='40' fill='#EF4135'/>";
+            case 'DE': return "<rect width='60' height='40' fill='#FFCE00'/><rect width='60' height='26.7' fill='#DD0000'/><rect width='60' height='13.3' fill='#000'/>";
+            case 'RU': return "<rect width='60' height='40' fill='#D52B1E'/><rect width='60' height='26.7' fill='#0039A6'/><rect width='60' height='13.3' fill='#fff'/>";
+            case 'ES': return "<rect width='60' height='40' fill='#AA151B'/><rect y='10' width='60' height='20' fill='#F1BF00'/>";
+            case 'PT': return "<rect width='60' height='40' fill='#DA291C'/><rect width='24' height='40' fill='#046A38'/><circle cx='24' cy='20' r='5.5' fill='#FFE600' stroke='#7a5c00' stroke-width='0.8'/>";
+            case 'JA': return "<rect width='60' height='40' fill='#fff'/><circle cx='30' cy='20' r='10' fill='#BC002D'/>";
+            case 'KO': return "<rect width='60' height='40' fill='#fff'/><circle cx='30' cy='20' r='9' fill='#003478'/><path d='M21,20 a9,9 0 0,1 18,0 z' fill='#C60C30'/>";
+            case 'EN': return "<rect width='60' height='40' fill='#012169'/>"
+                + "<path d='M0,0 L60,40 M60,0 L0,40' stroke='#fff' stroke-width='8'/>"
+                + "<path d='M0,0 L60,40 M60,0 L0,40' stroke='#C8102E' stroke-width='3.5'/>"
+                + "<rect x='24' width='12' height='40' fill='#fff'/><rect y='14' width='60' height='12' fill='#fff'/>"
+                + "<rect x='26.5' width='7' height='40' fill='#C8102E'/><rect y='16.5' width='60' height='7' fill='#C8102E'/>";
+            case 'CNS': case 'CNT': {
+                var s = "<rect width='60' height='40' fill='#DE2910'/>";
+                s += "<polygon points='" + ViewUtils.star5(12, 12, 6.5, -90) + "' fill='#FFDE00'/>";
+                var small = [[25, 4], [30, 9], [30, 17], [25, 22]];
+                for (var sm of small) {
+                    var rot = Math.atan2(12 - sm[1], 12 - sm[0]) * 180 / Math.PI;
+                    s += "<polygon points='" + ViewUtils.star5(sm[0], sm[1], 2.3, rot) + "' fill='#FFDE00'/>";
+                }
+                // 简/繁 角标(脚本区分,避免使用政治敏感的单独旗帜)
+                var badge = lang === 'CNS' ? '简' : '繁';
+                s += "<rect x='39' y='26' width='19' height='12' rx='2' fill='#000' fill-opacity='0.55'/>";
+                s += "<text x='48.5' y='35.5' font-size='10' text-anchor='middle' fill='#fff' font-family='sans-serif'>" + badge + "</text>";
+                return s;
+            }
+            default: {
+                var code = (lang || '?').toUpperCase().slice(0, 2);
+                return "<rect width='60' height='40' fill='#5b6b7a'/><text x='30' y='27' font-size='18' text-anchor='middle' fill='#fff' font-family='sans-serif' font-weight='bold'>" + code + "</text>";
+            }
+        }
+    }
+    // 独立的一面国旗 SVG(60x40)
+    public static flagSVG(lang:string):string {
+        return "<svg xmlns='http://www.w3.org/2000/svg' width='60' height='40' viewBox='0 0 60 40'>" + ViewUtils.flagInner(lang) + "</svg>";
+    }
+    // 生成“国旗 chip”Bitmap:圆角深色底 + 白描边 + 圆角裁切的国旗。整块一张矢量 SVG。
+    // 尺寸 66x46(国旗 60x40 居中,留 3px 边)。
+    public static createFlagBitmap(lang:string):any {
+        var fw = 60, fh = 40, pad = 3, W = fw + pad * 2, H = fh + pad * 2;
+        var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='" + W + "' height='" + H + "' viewBox='0 0 " + W + " " + H + "'>"
+            + "<rect x='1' y='1' width='" + (W - 2) + "' height='" + (H - 2) + "' rx='9' fill='#000' fill-opacity='0.38' stroke='#fff' stroke-opacity='0.85' stroke-width='2'/>"
+            + "<clipPath id='fc'><rect x='" + pad + "' y='" + pad + "' width='" + fw + "' height='" + fh + "' rx='4'/></clipPath>"
+            + "<g clip-path='url(#fc)' transform='translate(" + pad + "," + pad + ")'>" + ViewUtils.flagInner(lang) + "</g>"
+            + "</svg>";
+        var bmp = new egret.Bitmap();
+        try {
+            var uri = "data:image/svg+xml;utf8," + encodeURIComponent(svg);
+            bmp.texture = (<any>egret).Texture.fromPixi((<any>window).PIXI.Texture.from(uri));
+        } catch (e) {}
+        return bmp;
+    }
+
     // 按语言的 UI 字体栈：栈末尾留系统字体，未 bundle 对应字体时也能由操作系统渲染
     // (日文假名/韩文谚文/西里尔等不出豆腐块)。bundled 字体(如 LXGW)放栈首优先用。
     static readonly uiFontFamilies = {
