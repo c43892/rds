@@ -150,5 +150,1069 @@
 				}
 			]
 		]
+	},
+	"EN": {
+		"Nurse": [
+			[
+				{
+					"title": "Gain starting items",
+					"icon": "HpPotion",
+					"desc": "<font color=#000000 size=25>All classes start carrying <font color=#294c22 size=25>1→2</font> healing potions</font>"
+				},
+				{
+					"title": "Skill boost",
+					"icon": "Endurance",
+					"desc": "<font color=#000000 size=25>Endurance: HP per level </font><font color=#294c22 size=25>+5→+6</font>"
+				}
+			],
+			[
+				{
+					"title": "Gain starting items",
+					"icon": "HpPotion",
+					"desc": "<font color=#000000 size=25>All classes start carrying <font color=#294c22 size=25>2→3</font> healing potions</font>"
+				},
+				{
+					"title": "Skill boost",
+					"icon": "Endurance",
+					"desc": "<font color=#000000 size=25>Endurance: HP per level </font><font color=#294c22 size=25>+6→+7</font>"
+				}
+			],
+			[
+				{
+					"title": "Gain starting items",
+					"icon": "HpPotion",
+					"desc": "<font color=#000000 size=25>All classes start carrying <font color=#294c22 size=25>3→4</font> healing potions</font>"
+				},
+				{
+					"title": "Skill boost",
+					"icon": "Endurance",
+					"desc": "<font color=#000000 size=25>Endurance: HP per level </font><font color=#294c22 size=25>+7→+8</font>"
+				}
+			],
+			[
+				{
+					"title": "Gain starting items",
+					"icon": "HpPotion",
+					"desc": "<font color=#000000 size=25>All classes start carrying <font color=#294c22 size=25>4→5</font> healing potions</font>"
+				},
+				{
+					"title": "Skill boost",
+					"icon": "Endurance",
+					"desc": "<font color=#000000 size=25>Endurance: HP per level </font><font color=#294c22 size=25>+8→+9</font>"
+				}
+			]
+		],
+		"Rogue": [
+			[
+				{
+					"title": "Gain starting items",
+					"icon": "Fierce",
+					"desc": "<font color=#000000 size=25>All classes gain Killing Mastery Lv1, 25% chance for Lv2</font>"
+				},
+				{
+					"title": "Skill boost",
+					"icon": "Agile",
+					"desc": "<font color=#000000 size=25>Agility: dodge per level </font><font color=#294c22 size=25>+5%→+6%</font>"
+				}
+			],
+			[
+				{
+					"title": "Gain starting items",
+					"icon": "Fierce",
+					"desc": "<font color=#000000 size=25>All classes gain Killing Mastery Lv1, 50% chance for Lv2</font>"
+				},
+				{
+					"title": "Skill boost",
+					"icon": "Agile",
+					"desc": "<font color=#000000 size=25>Agility: dodge per level </font><font color=#294c22 size=25>+6%→+7%</font>"
+				}
+			],
+			[
+				{
+					"title": "Gain starting items",
+					"icon": "Fierce",
+					"desc": "<font color=#000000 size=25>All classes gain Killing Mastery Lv1, 75% chance for Lv2</font>"
+				},
+				{
+					"title": "Skill boost",
+					"icon": "Agile",
+					"desc": "<font color=#000000 size=25>Agility: dodge per level </font><font color=#294c22 size=25>+7%→+8%</font>"
+				}
+			],
+			[
+				{
+					"title": "Gain starting items",
+					"icon": "Fierce",
+					"desc": "<font color=#000000 size=25>All classes gain Killing Mastery Lv1, 100% chance for Lv2</font>"
+				},
+				{
+					"title": "Skill boost",
+					"icon": "Agile",
+					"desc": "<font color=#000000 size=25>Agility: dodge per level </font><font color=#294c22 size=25>+8%→+9%</font>"
+				}
+			]
+		],
+		"Horticulturist": [
+			[
+				{
+					"title": "Endless mode boost",
+					"icon": "OpenRelicSpace",
+					"desc": "<font color=#000000 size=25>Gain 1 extra skill slot in Endless mode</font>"
+				},
+				{
+					"title": "Skill boost",
+					"icon": "ShieldBlock",
+					"desc": "<font color=#000000 size=25>Scarab Shell: shield absorption +1</font>"
+				}
+			],
+			[
+				{
+					"title": "Endless mode boost",
+					"icon": "OpenRelicSpace",
+					"desc": "<font color=#000000 size=25>Gain 2 extra skill slots in Endless mode</font>"
+				},
+				{
+					"title": "Skill boost",
+					"icon": "ShieldBlock",
+					"desc": "<font color=#000000 size=25>Scarab Shell: shield absorption +2</font>"
+				}
+			],
+			[
+				{
+					"title": "Endless mode boost",
+					"icon": "OpenRelicSpace",
+					"desc": "<font color=#000000 size=25>Gain 3 extra skill slots in Endless mode</font>"
+				},
+				{
+					"title": "Skill boost",
+					"icon": "ShieldBlock",
+					"desc": "<font color=#000000 size=25>Scarab Shell: shield absorption +3</font>"
+				}
+			],
+			[
+				{
+					"title": "Endless mode boost",
+					"icon": "OpenRelicSpace",
+					"desc": "<font color=#000000 size=25>Gain 4 extra skill slots in Endless mode</font>"
+				},
+				{
+					"title": "Skill boost",
+					"icon": "ShieldBlock",
+					"desc": "<font color=#000000 size=25>Scarab Shell: shield absorption +4</font>"
+				}
+			]
+		]
+	},
+	"FR": {
+		"Nurse": [
+			[
+				{
+					"title": "Objets de départ",
+					"icon": "HpPotion",
+					"desc": "<font color=#000000 size=25>Toutes les classes portent au départ <font color=#294c22 size=25>1→2</font> potions de soin</font>"
+				},
+				{
+					"title": "Renfort de compétence",
+					"icon": "Endurance",
+					"desc": "<font color=#000000 size=25>Endurance : PV par niveau </font><font color=#294c22 size=25>+5→+6</font>"
+				}
+			],
+			[
+				{
+					"title": "Objets de départ",
+					"icon": "HpPotion",
+					"desc": "<font color=#000000 size=25>Toutes les classes portent au départ <font color=#294c22 size=25>2→3</font> potions de soin</font>"
+				},
+				{
+					"title": "Renfort de compétence",
+					"icon": "Endurance",
+					"desc": "<font color=#000000 size=25>Endurance : PV par niveau </font><font color=#294c22 size=25>+6→+7</font>"
+				}
+			],
+			[
+				{
+					"title": "Objets de départ",
+					"icon": "HpPotion",
+					"desc": "<font color=#000000 size=25>Toutes les classes portent au départ <font color=#294c22 size=25>3→4</font> potions de soin</font>"
+				},
+				{
+					"title": "Renfort de compétence",
+					"icon": "Endurance",
+					"desc": "<font color=#000000 size=25>Endurance : PV par niveau </font><font color=#294c22 size=25>+7→+8</font>"
+				}
+			],
+			[
+				{
+					"title": "Objets de départ",
+					"icon": "HpPotion",
+					"desc": "<font color=#000000 size=25>Toutes les classes portent au départ <font color=#294c22 size=25>4→5</font> potions de soin</font>"
+				},
+				{
+					"title": "Renfort de compétence",
+					"icon": "Endurance",
+					"desc": "<font color=#000000 size=25>Endurance : PV par niveau </font><font color=#294c22 size=25>+8→+9</font>"
+				}
+			]
+		],
+		"Rogue": [
+			[
+				{
+					"title": "Objets de départ",
+					"icon": "Fierce",
+					"desc": "<font color=#000000 size=25>Toutes les classes gagnent Maîtrise du carnage niv.1, 25% de chances niv.2</font>"
+				},
+				{
+					"title": "Renfort de compétence",
+					"icon": "Agile",
+					"desc": "<font color=#000000 size=25>Agilité : esquive par niveau </font><font color=#294c22 size=25>+5%→+6%</font>"
+				}
+			],
+			[
+				{
+					"title": "Objets de départ",
+					"icon": "Fierce",
+					"desc": "<font color=#000000 size=25>Toutes les classes gagnent Maîtrise du carnage niv.1, 50% de chances niv.2</font>"
+				},
+				{
+					"title": "Renfort de compétence",
+					"icon": "Agile",
+					"desc": "<font color=#000000 size=25>Agilité : esquive par niveau </font><font color=#294c22 size=25>+6%→+7%</font>"
+				}
+			],
+			[
+				{
+					"title": "Objets de départ",
+					"icon": "Fierce",
+					"desc": "<font color=#000000 size=25>Toutes les classes gagnent Maîtrise du carnage niv.1, 75% de chances niv.2</font>"
+				},
+				{
+					"title": "Renfort de compétence",
+					"icon": "Agile",
+					"desc": "<font color=#000000 size=25>Agilité : esquive par niveau </font><font color=#294c22 size=25>+7%→+8%</font>"
+				}
+			],
+			[
+				{
+					"title": "Objets de départ",
+					"icon": "Fierce",
+					"desc": "<font color=#000000 size=25>Toutes les classes gagnent Maîtrise du carnage niv.1, 100% de chances niv.2</font>"
+				},
+				{
+					"title": "Renfort de compétence",
+					"icon": "Agile",
+					"desc": "<font color=#000000 size=25>Agilité : esquive par niveau </font><font color=#294c22 size=25>+8%→+9%</font>"
+				}
+			]
+		],
+		"Horticulturist": [
+			[
+				{
+					"title": "Renfort du mode infini",
+					"icon": "OpenRelicSpace",
+					"desc": "<font color=#000000 size=25>Gagne 1 emplacement de compétence en plus en mode infini</font>"
+				},
+				{
+					"title": "Renfort de compétence",
+					"icon": "ShieldBlock",
+					"desc": "<font color=#000000 size=25>Carapace de scarabée : absorption du bouclier +1</font>"
+				}
+			],
+			[
+				{
+					"title": "Renfort du mode infini",
+					"icon": "OpenRelicSpace",
+					"desc": "<font color=#000000 size=25>Gagne 2 emplacements de compétence en plus en mode infini</font>"
+				},
+				{
+					"title": "Renfort de compétence",
+					"icon": "ShieldBlock",
+					"desc": "<font color=#000000 size=25>Carapace de scarabée : absorption du bouclier +2</font>"
+				}
+			],
+			[
+				{
+					"title": "Renfort du mode infini",
+					"icon": "OpenRelicSpace",
+					"desc": "<font color=#000000 size=25>Gagne 3 emplacements de compétence en plus en mode infini</font>"
+				},
+				{
+					"title": "Renfort de compétence",
+					"icon": "ShieldBlock",
+					"desc": "<font color=#000000 size=25>Carapace de scarabée : absorption du bouclier +3</font>"
+				}
+			],
+			[
+				{
+					"title": "Renfort du mode infini",
+					"icon": "OpenRelicSpace",
+					"desc": "<font color=#000000 size=25>Gagne 4 emplacements de compétence en plus en mode infini</font>"
+				},
+				{
+					"title": "Renfort de compétence",
+					"icon": "ShieldBlock",
+					"desc": "<font color=#000000 size=25>Carapace de scarabée : absorption du bouclier +4</font>"
+				}
+			]
+		]
+	},
+	"DE": {
+		"Nurse": [
+			[
+				{
+					"title": "Startgegenstände erhalten",
+					"icon": "HpPotion",
+					"desc": "<font color=#000000 size=25>Alle Klassen tragen anfangs <font color=#294c22 size=25>1→2</font> Heiltränke</font>"
+				},
+				{
+					"title": "Fähigkeitsverstärkung",
+					"icon": "Endurance",
+					"desc": "<font color=#000000 size=25>Ausdauer: LP pro Stufe </font><font color=#294c22 size=25>+5→+6</font>"
+				}
+			],
+			[
+				{
+					"title": "Startgegenstände erhalten",
+					"icon": "HpPotion",
+					"desc": "<font color=#000000 size=25>Alle Klassen tragen anfangs <font color=#294c22 size=25>2→3</font> Heiltränke</font>"
+				},
+				{
+					"title": "Fähigkeitsverstärkung",
+					"icon": "Endurance",
+					"desc": "<font color=#000000 size=25>Ausdauer: LP pro Stufe </font><font color=#294c22 size=25>+6→+7</font>"
+				}
+			],
+			[
+				{
+					"title": "Startgegenstände erhalten",
+					"icon": "HpPotion",
+					"desc": "<font color=#000000 size=25>Alle Klassen tragen anfangs <font color=#294c22 size=25>3→4</font> Heiltränke</font>"
+				},
+				{
+					"title": "Fähigkeitsverstärkung",
+					"icon": "Endurance",
+					"desc": "<font color=#000000 size=25>Ausdauer: LP pro Stufe </font><font color=#294c22 size=25>+7→+8</font>"
+				}
+			],
+			[
+				{
+					"title": "Startgegenstände erhalten",
+					"icon": "HpPotion",
+					"desc": "<font color=#000000 size=25>Alle Klassen tragen anfangs <font color=#294c22 size=25>4→5</font> Heiltränke</font>"
+				},
+				{
+					"title": "Fähigkeitsverstärkung",
+					"icon": "Endurance",
+					"desc": "<font color=#000000 size=25>Ausdauer: LP pro Stufe </font><font color=#294c22 size=25>+8→+9</font>"
+				}
+			]
+		],
+		"Rogue": [
+			[
+				{
+					"title": "Startgegenstände erhalten",
+					"icon": "Fierce",
+					"desc": "<font color=#000000 size=25>Alle Klassen erhalten Meister des Tötens Stufe 1, 25% Chance auf Stufe 2</font>"
+				},
+				{
+					"title": "Fähigkeitsverstärkung",
+					"icon": "Agile",
+					"desc": "<font color=#000000 size=25>Beweglichkeit: Ausweichen pro Stufe </font><font color=#294c22 size=25>+5%→+6%</font>"
+				}
+			],
+			[
+				{
+					"title": "Startgegenstände erhalten",
+					"icon": "Fierce",
+					"desc": "<font color=#000000 size=25>Alle Klassen erhalten Meister des Tötens Stufe 1, 50% Chance auf Stufe 2</font>"
+				},
+				{
+					"title": "Fähigkeitsverstärkung",
+					"icon": "Agile",
+					"desc": "<font color=#000000 size=25>Beweglichkeit: Ausweichen pro Stufe </font><font color=#294c22 size=25>+6%→+7%</font>"
+				}
+			],
+			[
+				{
+					"title": "Startgegenstände erhalten",
+					"icon": "Fierce",
+					"desc": "<font color=#000000 size=25>Alle Klassen erhalten Meister des Tötens Stufe 1, 75% Chance auf Stufe 2</font>"
+				},
+				{
+					"title": "Fähigkeitsverstärkung",
+					"icon": "Agile",
+					"desc": "<font color=#000000 size=25>Beweglichkeit: Ausweichen pro Stufe </font><font color=#294c22 size=25>+7%→+8%</font>"
+				}
+			],
+			[
+				{
+					"title": "Startgegenstände erhalten",
+					"icon": "Fierce",
+					"desc": "<font color=#000000 size=25>Alle Klassen erhalten Meister des Tötens Stufe 1, 100% Chance auf Stufe 2</font>"
+				},
+				{
+					"title": "Fähigkeitsverstärkung",
+					"icon": "Agile",
+					"desc": "<font color=#000000 size=25>Beweglichkeit: Ausweichen pro Stufe </font><font color=#294c22 size=25>+8%→+9%</font>"
+				}
+			]
+		],
+		"Horticulturist": [
+			[
+				{
+					"title": "Endlos-Modus-Verstärkung",
+					"icon": "OpenRelicSpace",
+					"desc": "<font color=#000000 size=25>Erhalte 1 zusätzlichen Fähigkeitsplatz im Endlos-Modus</font>"
+				},
+				{
+					"title": "Fähigkeitsverstärkung",
+					"icon": "ShieldBlock",
+					"desc": "<font color=#000000 size=25>Skarabäuspanzer: Schildabsorption +1</font>"
+				}
+			],
+			[
+				{
+					"title": "Endlos-Modus-Verstärkung",
+					"icon": "OpenRelicSpace",
+					"desc": "<font color=#000000 size=25>Erhalte 2 zusätzliche Fähigkeitsplätze im Endlos-Modus</font>"
+				},
+				{
+					"title": "Fähigkeitsverstärkung",
+					"icon": "ShieldBlock",
+					"desc": "<font color=#000000 size=25>Skarabäuspanzer: Schildabsorption +2</font>"
+				}
+			],
+			[
+				{
+					"title": "Endlos-Modus-Verstärkung",
+					"icon": "OpenRelicSpace",
+					"desc": "<font color=#000000 size=25>Erhalte 3 zusätzliche Fähigkeitsplätze im Endlos-Modus</font>"
+				},
+				{
+					"title": "Fähigkeitsverstärkung",
+					"icon": "ShieldBlock",
+					"desc": "<font color=#000000 size=25>Skarabäuspanzer: Schildabsorption +3</font>"
+				}
+			],
+			[
+				{
+					"title": "Endlos-Modus-Verstärkung",
+					"icon": "OpenRelicSpace",
+					"desc": "<font color=#000000 size=25>Erhalte 4 zusätzliche Fähigkeitsplätze im Endlos-Modus</font>"
+				},
+				{
+					"title": "Fähigkeitsverstärkung",
+					"icon": "ShieldBlock",
+					"desc": "<font color=#000000 size=25>Skarabäuspanzer: Schildabsorption +4</font>"
+				}
+			]
+		]
+	},
+	"ES": {
+		"Nurse": [
+			[
+				{
+					"title": "Objetos iniciales",
+					"icon": "HpPotion",
+					"desc": "<font color=#000000 size=25>Todas las clases empiezan con <font color=#294c22 size=25>1→2</font> pociones de curación</font>"
+				},
+				{
+					"title": "Mejora de habilidad",
+					"icon": "Endurance",
+					"desc": "<font color=#000000 size=25>Resistencia: PV por nivel </font><font color=#294c22 size=25>+5→+6</font>"
+				}
+			],
+			[
+				{
+					"title": "Objetos iniciales",
+					"icon": "HpPotion",
+					"desc": "<font color=#000000 size=25>Todas las clases empiezan con <font color=#294c22 size=25>2→3</font> pociones de curación</font>"
+				},
+				{
+					"title": "Mejora de habilidad",
+					"icon": "Endurance",
+					"desc": "<font color=#000000 size=25>Resistencia: PV por nivel </font><font color=#294c22 size=25>+6→+7</font>"
+				}
+			],
+			[
+				{
+					"title": "Objetos iniciales",
+					"icon": "HpPotion",
+					"desc": "<font color=#000000 size=25>Todas las clases empiezan con <font color=#294c22 size=25>3→4</font> pociones de curación</font>"
+				},
+				{
+					"title": "Mejora de habilidad",
+					"icon": "Endurance",
+					"desc": "<font color=#000000 size=25>Resistencia: PV por nivel </font><font color=#294c22 size=25>+7→+8</font>"
+				}
+			],
+			[
+				{
+					"title": "Objetos iniciales",
+					"icon": "HpPotion",
+					"desc": "<font color=#000000 size=25>Todas las clases empiezan con <font color=#294c22 size=25>4→5</font> pociones de curación</font>"
+				},
+				{
+					"title": "Mejora de habilidad",
+					"icon": "Endurance",
+					"desc": "<font color=#000000 size=25>Resistencia: PV por nivel </font><font color=#294c22 size=25>+8→+9</font>"
+				}
+			]
+		],
+		"Rogue": [
+			[
+				{
+					"title": "Objetos iniciales",
+					"icon": "Fierce",
+					"desc": "<font color=#000000 size=25>Todas las clases obtienen Maestría asesina Nv1, 25% de prob. de Nv2</font>"
+				},
+				{
+					"title": "Mejora de habilidad",
+					"icon": "Agile",
+					"desc": "<font color=#000000 size=25>Agilidad: evasión por nivel </font><font color=#294c22 size=25>+5%→+6%</font>"
+				}
+			],
+			[
+				{
+					"title": "Objetos iniciales",
+					"icon": "Fierce",
+					"desc": "<font color=#000000 size=25>Todas las clases obtienen Maestría asesina Nv1, 50% de prob. de Nv2</font>"
+				},
+				{
+					"title": "Mejora de habilidad",
+					"icon": "Agile",
+					"desc": "<font color=#000000 size=25>Agilidad: evasión por nivel </font><font color=#294c22 size=25>+6%→+7%</font>"
+				}
+			],
+			[
+				{
+					"title": "Objetos iniciales",
+					"icon": "Fierce",
+					"desc": "<font color=#000000 size=25>Todas las clases obtienen Maestría asesina Nv1, 75% de prob. de Nv2</font>"
+				},
+				{
+					"title": "Mejora de habilidad",
+					"icon": "Agile",
+					"desc": "<font color=#000000 size=25>Agilidad: evasión por nivel </font><font color=#294c22 size=25>+7%→+8%</font>"
+				}
+			],
+			[
+				{
+					"title": "Objetos iniciales",
+					"icon": "Fierce",
+					"desc": "<font color=#000000 size=25>Todas las clases obtienen Maestría asesina Nv1, 100% de prob. de Nv2</font>"
+				},
+				{
+					"title": "Mejora de habilidad",
+					"icon": "Agile",
+					"desc": "<font color=#000000 size=25>Agilidad: evasión por nivel </font><font color=#294c22 size=25>+8%→+9%</font>"
+				}
+			]
+		],
+		"Horticulturist": [
+			[
+				{
+					"title": "Mejora del modo infinito",
+					"icon": "OpenRelicSpace",
+					"desc": "<font color=#000000 size=25>Obtén 1 ranura de habilidad extra en modo infinito</font>"
+				},
+				{
+					"title": "Mejora de habilidad",
+					"icon": "ShieldBlock",
+					"desc": "<font color=#000000 size=25>Caparazón de escarabajo: absorción del escudo +1</font>"
+				}
+			],
+			[
+				{
+					"title": "Mejora del modo infinito",
+					"icon": "OpenRelicSpace",
+					"desc": "<font color=#000000 size=25>Obtén 2 ranuras de habilidad extra en modo infinito</font>"
+				},
+				{
+					"title": "Mejora de habilidad",
+					"icon": "ShieldBlock",
+					"desc": "<font color=#000000 size=25>Caparazón de escarabajo: absorción del escudo +2</font>"
+				}
+			],
+			[
+				{
+					"title": "Mejora del modo infinito",
+					"icon": "OpenRelicSpace",
+					"desc": "<font color=#000000 size=25>Obtén 3 ranuras de habilidad extra en modo infinito</font>"
+				},
+				{
+					"title": "Mejora de habilidad",
+					"icon": "ShieldBlock",
+					"desc": "<font color=#000000 size=25>Caparazón de escarabajo: absorción del escudo +3</font>"
+				}
+			],
+			[
+				{
+					"title": "Mejora del modo infinito",
+					"icon": "OpenRelicSpace",
+					"desc": "<font color=#000000 size=25>Obtén 4 ranuras de habilidad extra en modo infinito</font>"
+				},
+				{
+					"title": "Mejora de habilidad",
+					"icon": "ShieldBlock",
+					"desc": "<font color=#000000 size=25>Caparazón de escarabajo: absorción del escudo +4</font>"
+				}
+			]
+		]
+	},
+	"RU": {
+		"Nurse": [
+			[
+				{
+					"title": "Стартовые предметы",
+					"icon": "HpPotion",
+					"desc": "<font color=#000000 size=25>Все классы носят в начале <font color=#294c22 size=25>1→2</font> зелья лечения</font>"
+				},
+				{
+					"title": "Усиление навыка",
+					"icon": "Endurance",
+					"desc": "<font color=#000000 size=25>Выносливость: ОЗ за уровень </font><font color=#294c22 size=25>+5→+6</font>"
+				}
+			],
+			[
+				{
+					"title": "Стартовые предметы",
+					"icon": "HpPotion",
+					"desc": "<font color=#000000 size=25>Все классы носят в начале <font color=#294c22 size=25>2→3</font> зелья лечения</font>"
+				},
+				{
+					"title": "Усиление навыка",
+					"icon": "Endurance",
+					"desc": "<font color=#000000 size=25>Выносливость: ОЗ за уровень </font><font color=#294c22 size=25>+6→+7</font>"
+				}
+			],
+			[
+				{
+					"title": "Стартовые предметы",
+					"icon": "HpPotion",
+					"desc": "<font color=#000000 size=25>Все классы носят в начале <font color=#294c22 size=25>3→4</font> зелья лечения</font>"
+				},
+				{
+					"title": "Усиление навыка",
+					"icon": "Endurance",
+					"desc": "<font color=#000000 size=25>Выносливость: ОЗ за уровень </font><font color=#294c22 size=25>+7→+8</font>"
+				}
+			],
+			[
+				{
+					"title": "Стартовые предметы",
+					"icon": "HpPotion",
+					"desc": "<font color=#000000 size=25>Все классы носят в начале <font color=#294c22 size=25>4→5</font> зелья лечения</font>"
+				},
+				{
+					"title": "Усиление навыка",
+					"icon": "Endurance",
+					"desc": "<font color=#000000 size=25>Выносливость: ОЗ за уровень </font><font color=#294c22 size=25>+8→+9</font>"
+				}
+			]
+		],
+		"Rogue": [
+			[
+				{
+					"title": "Стартовые предметы",
+					"icon": "Fierce",
+					"desc": "<font color=#000000 size=25>Все классы получают Мастерство убийства ур.1, 25% шанс ур.2</font>"
+				},
+				{
+					"title": "Усиление навыка",
+					"icon": "Agile",
+					"desc": "<font color=#000000 size=25>Ловкость: уклонение за уровень </font><font color=#294c22 size=25>+5%→+6%</font>"
+				}
+			],
+			[
+				{
+					"title": "Стартовые предметы",
+					"icon": "Fierce",
+					"desc": "<font color=#000000 size=25>Все классы получают Мастерство убийства ур.1, 50% шанс ур.2</font>"
+				},
+				{
+					"title": "Усиление навыка",
+					"icon": "Agile",
+					"desc": "<font color=#000000 size=25>Ловкость: уклонение за уровень </font><font color=#294c22 size=25>+6%→+7%</font>"
+				}
+			],
+			[
+				{
+					"title": "Стартовые предметы",
+					"icon": "Fierce",
+					"desc": "<font color=#000000 size=25>Все классы получают Мастерство убийства ур.1, 75% шанс ур.2</font>"
+				},
+				{
+					"title": "Усиление навыка",
+					"icon": "Agile",
+					"desc": "<font color=#000000 size=25>Ловкость: уклонение за уровень </font><font color=#294c22 size=25>+7%→+8%</font>"
+				}
+			],
+			[
+				{
+					"title": "Стартовые предметы",
+					"icon": "Fierce",
+					"desc": "<font color=#000000 size=25>Все классы получают Мастерство убийства ур.1, 100% шанс ур.2</font>"
+				},
+				{
+					"title": "Усиление навыка",
+					"icon": "Agile",
+					"desc": "<font color=#000000 size=25>Ловкость: уклонение за уровень </font><font color=#294c22 size=25>+8%→+9%</font>"
+				}
+			]
+		],
+		"Horticulturist": [
+			[
+				{
+					"title": "Усиление бесконечного режима",
+					"icon": "OpenRelicSpace",
+					"desc": "<font color=#000000 size=25>Получите 1 доп. ячейку навыка в бесконечном режиме</font>"
+				},
+				{
+					"title": "Усиление навыка",
+					"icon": "ShieldBlock",
+					"desc": "<font color=#000000 size=25>Панцирь скарабея: поглощение щита +1</font>"
+				}
+			],
+			[
+				{
+					"title": "Усиление бесконечного режима",
+					"icon": "OpenRelicSpace",
+					"desc": "<font color=#000000 size=25>Получите 2 доп. ячейки навыка в бесконечном режиме</font>"
+				},
+				{
+					"title": "Усиление навыка",
+					"icon": "ShieldBlock",
+					"desc": "<font color=#000000 size=25>Панцирь скарабея: поглощение щита +2</font>"
+				}
+			],
+			[
+				{
+					"title": "Усиление бесконечного режима",
+					"icon": "OpenRelicSpace",
+					"desc": "<font color=#000000 size=25>Получите 3 доп. ячейки навыка в бесконечном режиме</font>"
+				},
+				{
+					"title": "Усиление навыка",
+					"icon": "ShieldBlock",
+					"desc": "<font color=#000000 size=25>Панцирь скарабея: поглощение щита +3</font>"
+				}
+			],
+			[
+				{
+					"title": "Усиление бесконечного режима",
+					"icon": "OpenRelicSpace",
+					"desc": "<font color=#000000 size=25>Получите 4 доп. ячейки навыка в бесконечном режиме</font>"
+				},
+				{
+					"title": "Усиление навыка",
+					"icon": "ShieldBlock",
+					"desc": "<font color=#000000 size=25>Панцирь скарабея: поглощение щита +4</font>"
+				}
+			]
+		]
+	},
+	"JA": {
+		"Nurse": [
+			[
+				{
+					"title": "初期アイテム獲得",
+					"icon": "HpPotion",
+					"desc": "<font color=#000000 size=25>全職業が初期に<font color=#294c22 size=25>1→2</font>本の回復ポーションを所持</font>"
+				},
+				{
+					"title": "スキル強化",
+					"icon": "Endurance",
+					"desc": "<font color=#000000 size=25>持久力：レベルごとのHP</font><font color=#294c22 size=25>+5→+6</font>"
+				}
+			],
+			[
+				{
+					"title": "初期アイテム獲得",
+					"icon": "HpPotion",
+					"desc": "<font color=#000000 size=25>全職業が初期に<font color=#294c22 size=25>2→3</font>本の回復ポーションを所持</font>"
+				},
+				{
+					"title": "スキル強化",
+					"icon": "Endurance",
+					"desc": "<font color=#000000 size=25>持久力：レベルごとのHP</font><font color=#294c22 size=25>+6→+7</font>"
+				}
+			],
+			[
+				{
+					"title": "初期アイテム獲得",
+					"icon": "HpPotion",
+					"desc": "<font color=#000000 size=25>全職業が初期に<font color=#294c22 size=25>3→4</font>本の回復ポーションを所持</font>"
+				},
+				{
+					"title": "スキル強化",
+					"icon": "Endurance",
+					"desc": "<font color=#000000 size=25>持久力：レベルごとのHP</font><font color=#294c22 size=25>+7→+8</font>"
+				}
+			],
+			[
+				{
+					"title": "初期アイテム獲得",
+					"icon": "HpPotion",
+					"desc": "<font color=#000000 size=25>全職業が初期に<font color=#294c22 size=25>4→5</font>本の回復ポーションを所持</font>"
+				},
+				{
+					"title": "スキル強化",
+					"icon": "Endurance",
+					"desc": "<font color=#000000 size=25>持久力：レベルごとのHP</font><font color=#294c22 size=25>+8→+9</font>"
+				}
+			]
+		],
+		"Rogue": [
+			[
+				{
+					"title": "初期アイテム獲得",
+					"icon": "Fierce",
+					"desc": "<font color=#000000 size=25>全職業が殺戮マスターLv1を獲得、25%でLv2</font>"
+				},
+				{
+					"title": "スキル強化",
+					"icon": "Agile",
+					"desc": "<font color=#000000 size=25>回避強化：レベルごとの回避</font><font color=#294c22 size=25>+5%→+6%</font>"
+				}
+			],
+			[
+				{
+					"title": "初期アイテム獲得",
+					"icon": "Fierce",
+					"desc": "<font color=#000000 size=25>全職業が殺戮マスターLv1を獲得、50%でLv2</font>"
+				},
+				{
+					"title": "スキル強化",
+					"icon": "Agile",
+					"desc": "<font color=#000000 size=25>回避強化：レベルごとの回避</font><font color=#294c22 size=25>+6%→+7%</font>"
+				}
+			],
+			[
+				{
+					"title": "初期アイテム獲得",
+					"icon": "Fierce",
+					"desc": "<font color=#000000 size=25>全職業が殺戮マスターLv1を獲得、75%でLv2</font>"
+				},
+				{
+					"title": "スキル強化",
+					"icon": "Agile",
+					"desc": "<font color=#000000 size=25>回避強化：レベルごとの回避</font><font color=#294c22 size=25>+7%→+8%</font>"
+				}
+			],
+			[
+				{
+					"title": "初期アイテム獲得",
+					"icon": "Fierce",
+					"desc": "<font color=#000000 size=25>全職業が殺戮マスターLv1を獲得、100%でLv2</font>"
+				},
+				{
+					"title": "スキル強化",
+					"icon": "Agile",
+					"desc": "<font color=#000000 size=25>回避強化：レベルごとの回避</font><font color=#294c22 size=25>+8%→+9%</font>"
+				}
+			]
+		],
+		"Horticulturist": [
+			[
+				{
+					"title": "無限モード強化",
+					"icon": "OpenRelicSpace",
+					"desc": "<font color=#000000 size=25>無限モードでスキル枠を1つ追加で獲得</font>"
+				},
+				{
+					"title": "スキル強化",
+					"icon": "ShieldBlock",
+					"desc": "<font color=#000000 size=25>スカラベの殻：盾の吸収+1</font>"
+				}
+			],
+			[
+				{
+					"title": "無限モード強化",
+					"icon": "OpenRelicSpace",
+					"desc": "<font color=#000000 size=25>無限モードでスキル枠を2つ追加で獲得</font>"
+				},
+				{
+					"title": "スキル強化",
+					"icon": "ShieldBlock",
+					"desc": "<font color=#000000 size=25>スカラベの殻：盾の吸収+2</font>"
+				}
+			],
+			[
+				{
+					"title": "無限モード強化",
+					"icon": "OpenRelicSpace",
+					"desc": "<font color=#000000 size=25>無限モードでスキル枠を3つ追加で獲得</font>"
+				},
+				{
+					"title": "スキル強化",
+					"icon": "ShieldBlock",
+					"desc": "<font color=#000000 size=25>スカラベの殻：盾の吸収+3</font>"
+				}
+			],
+			[
+				{
+					"title": "無限モード強化",
+					"icon": "OpenRelicSpace",
+					"desc": "<font color=#000000 size=25>無限モードでスキル枠を4つ追加で獲得</font>"
+				},
+				{
+					"title": "スキル強化",
+					"icon": "ShieldBlock",
+					"desc": "<font color=#000000 size=25>スカラベの殻：盾の吸収+4</font>"
+				}
+			]
+		]
+	},
+	"KO": {
+		"Nurse": [
+			[
+				{
+					"title": "초기 아이템 획득",
+					"icon": "HpPotion",
+					"desc": "<font color=#000000 size=25>모든 직업이 처음에 <font color=#294c22 size=25>1→2</font>개의 회복 물약 소지</font>"
+				},
+				{
+					"title": "스킬 강화",
+					"icon": "Endurance",
+					"desc": "<font color=#000000 size=25>지구력: 레벨당 HP</font><font color=#294c22 size=25>+5→+6</font>"
+				}
+			],
+			[
+				{
+					"title": "초기 아이템 획득",
+					"icon": "HpPotion",
+					"desc": "<font color=#000000 size=25>모든 직업이 처음에 <font color=#294c22 size=25>2→3</font>개의 회복 물약 소지</font>"
+				},
+				{
+					"title": "스킬 강화",
+					"icon": "Endurance",
+					"desc": "<font color=#000000 size=25>지구력: 레벨당 HP</font><font color=#294c22 size=25>+6→+7</font>"
+				}
+			],
+			[
+				{
+					"title": "초기 아이템 획득",
+					"icon": "HpPotion",
+					"desc": "<font color=#000000 size=25>모든 직업이 처음에 <font color=#294c22 size=25>3→4</font>개의 회복 물약 소지</font>"
+				},
+				{
+					"title": "스킬 강화",
+					"icon": "Endurance",
+					"desc": "<font color=#000000 size=25>지구력: 레벨당 HP</font><font color=#294c22 size=25>+7→+8</font>"
+				}
+			],
+			[
+				{
+					"title": "초기 아이템 획득",
+					"icon": "HpPotion",
+					"desc": "<font color=#000000 size=25>모든 직업이 처음에 <font color=#294c22 size=25>4→5</font>개의 회복 물약 소지</font>"
+				},
+				{
+					"title": "스킬 강화",
+					"icon": "Endurance",
+					"desc": "<font color=#000000 size=25>지구력: 레벨당 HP</font><font color=#294c22 size=25>+8→+9</font>"
+				}
+			]
+		],
+		"Rogue": [
+			[
+				{
+					"title": "초기 아이템 획득",
+					"icon": "Fierce",
+					"desc": "<font color=#000000 size=25>모든 직업이 살육 숙련 Lv1 획득, 25% 확률로 Lv2</font>"
+				},
+				{
+					"title": "스킬 강화",
+					"icon": "Agile",
+					"desc": "<font color=#000000 size=25>회피 강화: 레벨당 회피</font><font color=#294c22 size=25>+5%→+6%</font>"
+				}
+			],
+			[
+				{
+					"title": "초기 아이템 획득",
+					"icon": "Fierce",
+					"desc": "<font color=#000000 size=25>모든 직업이 살육 숙련 Lv1 획득, 50% 확률로 Lv2</font>"
+				},
+				{
+					"title": "스킬 강화",
+					"icon": "Agile",
+					"desc": "<font color=#000000 size=25>회피 강화: 레벨당 회피</font><font color=#294c22 size=25>+6%→+7%</font>"
+				}
+			],
+			[
+				{
+					"title": "초기 아이템 획득",
+					"icon": "Fierce",
+					"desc": "<font color=#000000 size=25>모든 직업이 살육 숙련 Lv1 획득, 75% 확률로 Lv2</font>"
+				},
+				{
+					"title": "스킬 강화",
+					"icon": "Agile",
+					"desc": "<font color=#000000 size=25>회피 강화: 레벨당 회피</font><font color=#294c22 size=25>+7%→+8%</font>"
+				}
+			],
+			[
+				{
+					"title": "초기 아이템 획득",
+					"icon": "Fierce",
+					"desc": "<font color=#000000 size=25>모든 직업이 살육 숙련 Lv1 획득, 100% 확률로 Lv2</font>"
+				},
+				{
+					"title": "스킬 강화",
+					"icon": "Agile",
+					"desc": "<font color=#000000 size=25>회피 강화: 레벨당 회피</font><font color=#294c22 size=25>+8%→+9%</font>"
+				}
+			]
+		],
+		"Horticulturist": [
+			[
+				{
+					"title": "무한 모드 강화",
+					"icon": "OpenRelicSpace",
+					"desc": "<font color=#000000 size=25>무한 모드에서 스킬 슬롯 1개 추가 획득</font>"
+				},
+				{
+					"title": "스킬 강화",
+					"icon": "ShieldBlock",
+					"desc": "<font color=#000000 size=25>스카라베의 껍질: 방패 흡수 +1</font>"
+				}
+			],
+			[
+				{
+					"title": "무한 모드 강화",
+					"icon": "OpenRelicSpace",
+					"desc": "<font color=#000000 size=25>무한 모드에서 스킬 슬롯 2개 추가 획득</font>"
+				},
+				{
+					"title": "스킬 강화",
+					"icon": "ShieldBlock",
+					"desc": "<font color=#000000 size=25>스카라베의 껍질: 방패 흡수 +2</font>"
+				}
+			],
+			[
+				{
+					"title": "무한 모드 강화",
+					"icon": "OpenRelicSpace",
+					"desc": "<font color=#000000 size=25>무한 모드에서 스킬 슬롯 3개 추가 획득</font>"
+				},
+				{
+					"title": "스킬 강화",
+					"icon": "ShieldBlock",
+					"desc": "<font color=#000000 size=25>스카라베의 껍질: 방패 흡수 +3</font>"
+				}
+			],
+			[
+				{
+					"title": "무한 모드 강화",
+					"icon": "OpenRelicSpace",
+					"desc": "<font color=#000000 size=25>무한 모드에서 스킬 슬롯 4개 추가 획득</font>"
+				},
+				{
+					"title": "스킬 강화",
+					"icon": "ShieldBlock",
+					"desc": "<font color=#000000 size=25>스카라베의 껍질: 방패 흡수 +4</font>"
+				}
+			]
+		]
 	}
 }
