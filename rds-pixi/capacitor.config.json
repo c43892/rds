@@ -1,0 +1,9 @@
+{
+  "appId": "com.c43892.rds",
+  "appName": "RDS",
+  "webDir": "public",
+  "android": {
+    "allowMixedContent": true,
+    "webContentsDebuggingEnabled": true
+  }
+}

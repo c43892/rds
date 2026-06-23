@@ -479,16 +479,32 @@ class ViewUtils {
     public static getElemNameAndDesc(eType:string) {
         var descCfg = GCfg.getElemDescCfg();
         var lang = ViewUtils.getLanguage();
-        var byLang = descCfg[lang];
-        if (!byLang || byLang[eType] == undefined) {
-            for (var fb of ViewUtils.langFallbacks) {
-                if (descCfg[fb] && descCfg[fb][eType] != undefined) {
-                    if (DEBUG) console.warn("[i18n] missing elemdesc '" + lang + "' for " + eType + ", fallback " + fb);
-                    return descCfg[fb][eType];
-                }
-            }
+        // 候选语言优先级：当前语言 -> 回退链。逐字段补齐,确保 name/shortDesc/desc 都不为空。
+        var order = [lang];
+        for (var fb of ViewUtils.langFallbacks) if (order.indexOf(fb) < 0) order.push(fb);
+
+        var primary = undefined;
+        for (var l of order) {
+            if (descCfg[l] && descCfg[l][eType] != undefined) { primary = descCfg[l][eType]; break; }
         }
-        return byLang ? byLang[eType] : undefined;
+        if (primary == undefined) return undefined;
+
+        // 浅拷贝,避免污染配置;对缺失字段(尤其 desc 富文本正文)从回退语言补齐,
+        // 否则部分翻译(只译了 name/shortDesc、漏了 desc)会让描述视图读到 undefined.desc 而抛错/空白。
+        var merged:any = {};
+        for (var k in primary) merged[k] = primary[k];
+        var hasDesc = merged.desc != undefined && merged.desc.length > 0;
+        if (!hasDesc || merged.name == undefined || merged.shortDesc == undefined) {
+            for (var l of order) {
+                var e = descCfg[l] && descCfg[l][eType];
+                if (!e) continue;
+                if (!hasDesc && e.desc != undefined && e.desc.length > 0) { merged.desc = e.desc; hasDesc = true; }
+                if (merged.name == undefined && e.name != undefined) merged.name = e.name;
+                if (merged.shortDesc == undefined && e.shortDesc != undefined) merged.shortDesc = e.shortDesc;
+            }
+            if (DEBUG && !hasDesc) console.warn("[i18n] elemdesc no 'desc' anywhere for " + eType);
+        }
+        return merged;
     }
 
     // 获取指定提示信息
