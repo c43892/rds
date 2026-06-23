@@ -26,6 +26,11 @@ const NEW = {
     rankWeekly:          { EN: "Weekly",                         CNS: "周榜",            CNT: "週榜" },
     rankRole:            { EN: "Roles",                          CNS: "角色榜",          CNT: "角色榜" },
     rankFriend:          { EN: "Friends",                        CNS: "好友榜",          CNT: "好友榜" },
+    // 登录界面按钮文案(英文版用花体原图,其它语言用这些文字现生成按钮)
+    loginNewGame:        { EN: "New Game",                       CNS: "新游戏",          CNT: "新遊戲" },
+    loginContinue:       { EN: "Continue",                       CNS: "继续游戏",        CNT: "繼續遊戲" },
+    loginRank:           { EN: "Heroes",                         CNS: "排行榜",          CNT: "排行榜" },
+    loginAchievement:    { EN: "Achievements",                   CNS: "成就",            CNT: "成就" },
 };
 
 let txt = fs.readFileSync(FILE, 'utf8');

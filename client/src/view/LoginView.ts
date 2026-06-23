@@ -82,6 +82,14 @@ class LoginView extends egret.DisplayObjectContainer {
         objs.forEach((obj, _) => this.addChild(obj));
         ViewUtils.multiLang(this, ...objs);
 
+        // 非英文:用现生成的本地化按钮图替换花体英文图(英文版保留原图)
+        if (ViewUtils.getLanguage() !== "EN") {
+            ViewUtils.localizeButton(this.btnNewPlay, ViewUtils.getTipText("loginNewGame"));
+            ViewUtils.localizeButton(this.btnContinue, ViewUtils.getTipText("loginContinue"));
+            ViewUtils.localizeButton(this.btnOpenRank, ViewUtils.getTipText("loginRank"));
+            ViewUtils.localizeButton(this.btnAchievement, ViewUtils.getTipText("loginAchievement"));
+        }
+
         // 语言切换：右上角国旗 chip(矢量 SVG)。点击循环 validLanguages，持久化后重载，
         // 让所有界面以新语言从头重建（登录界面无进行中对局，安全）。
         this.btnLang = ViewUtils.createFlagBitmap(ViewUtils.getLanguage(), 1.5); // 放大 50%

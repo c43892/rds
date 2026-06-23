@@ -254,6 +254,43 @@ class ViewUtils {
         return bmp;
     }
 
+    // 生成本地化按钮的 SVG(木质风底 + 正常字体文字),尺寸 w x h
+    private static buttonSVG(text:string, w:number, h:number):string {
+        var fam = ViewUtils.getUIFontFamily().replace(/"/g, "'");
+        var cjk = /[　-鿿가-힯぀-ヿ]/.test(text);
+        var cw = cjk ? 1.02 : 0.6;
+        var byW = Math.floor((w - 26) / Math.max(1, text.length) / cw);
+        var byH = Math.round(h * 0.5);
+        var fs = Math.max(16, Math.min(byH, byW, 46));
+        var esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return "<svg xmlns='http://www.w3.org/2000/svg' width='" + w + "' height='" + h + "' viewBox='0 0 " + w + " " + h + "'>"
+            + "<defs><linearGradient id='bg' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#c9a25e'/><stop offset='1' stop-color='#7c4a1f'/></linearGradient></defs>"
+            + "<rect x='2' y='2' width='" + (w - 4) + "' height='" + (h - 4) + "' rx='14' fill='url(#bg)' stroke='#43280f' stroke-width='3'/>"
+            + "<rect x='6' y='5' width='" + (w - 12) + "' height='" + Math.round(h * 0.38) + "' rx='9' fill='#ffffff' fill-opacity='0.14'/>"
+            + "<text x='" + (w / 2) + "' y='" + (h / 2 + fs * 0.34) + "' font-family=\"" + fam + "\" font-weight='bold' font-size='" + fs + "' fill='#ffffff' stroke='#3a230f' stroke-width='0.9' text-anchor='middle'>" + esc(text) + "</text>"
+            + "</svg>";
+    }
+    // 把一个 TextButtonWithBg 本地化为现生成的按钮图(英文版不调用,保留原花体图)。
+    // 异步贴图加载完成后再设底图/尺寸,避免 0 尺寸贴图导致的缩放问题。
+    public static localizeButton(btn:any, text:string) {
+        if (!btn || !btn.bg) return;
+        var w = Math.round(btn.width), h = Math.round(btn.height);
+        try {
+            var uri = "data:image/svg+xml;utf8," + encodeURIComponent(ViewUtils.buttonSVG(text, w, h));
+            var pixiTex = (<any>window).PIXI.Texture.from(uri);
+            var apply = () => {
+                try {
+                    btn.bg.texture = (<any>egret).Texture.fromPixi(pixiTex);
+                    btn.setDownBg(undefined);     // 去掉英文按下态图
+                    btn.setDisableBg(undefined);  // 去掉英文禁用态图(改用置灰)
+                    btn.bg.width = w; btn.bg.height = h;
+                } catch (e) {}
+            };
+            if (pixiTex.baseTexture.valid) apply();
+            else pixiTex.baseTexture.once('loaded', apply);
+        } catch (e) {}
+    }
+
     // 一面 60x40 国旗的内部 SVG 标记(不含外层 <svg>)
     private static flagInner(lang:string):string {
         switch (lang) {
