@@ -42,7 +42,10 @@
 					"CNT": "僵尸扫雷",
 					"FR": "Zombie Mine",
 					"DE": "Zombie Mine",
-					"ES": "Zombie Mine"
+					"ES": "Zombie Mine",
+					"RU": "Zombie Mine",
+					"JA": "Zombie Mine",
+					"KO": "Zombie Mine"
 				},
 				"continueBtn": {
 					"EN": "Continue ...",
@@ -50,7 +53,10 @@
 					"CNT": "继续游戏 ...",
 					"FR": "Continuer ...",
 					"DE": "Fortsetzen ...",
-					"ES": "Continuar ..."
+					"ES": "Continuar ...",
+					"RU": "Продолжить ...",
+					"JA": "つづきから ...",
+					"KO": "이어하기 ..."
 				},
 				"newPlayBtn": {
 					"EN": "New Play",
@@ -58,7 +64,10 @@
 					"CNT": "新游戏",
 					"FR": "Nouvelle partie",
 					"DE": "Neues Spiel",
-					"ES": "Nueva partida"
+					"ES": "Nueva partida",
+					"RU": "Новая игра",
+					"JA": "新しいゲーム",
+					"KO": "새 게임"
 				},
 				"rankBtn": {
 					"EN": "Score Rank >>",
@@ -66,7 +75,10 @@
 					"CNT": "排行榜 >>",
 					"FR": "Classement >>",
 					"DE": "Rangliste >>",
-					"ES": "Clasificación >>"
+					"ES": "Clasificación >>",
+					"RU": "Рейтинг >>",
+					"JA": "ランキング >>",
+					"KO": "랭킹 >>"
 				}
 			}
 		},
@@ -361,7 +373,10 @@
 					"CNT": "返回",
 					"FR": "Fermer",
 					"DE": "Schließen",
-					"ES": "Cerrar"
+					"ES": "Cerrar",
+					"RU": "Закрыть",
+					"JA": "閉じる",
+					"KO": "닫기"
 				}
 			}
 		},
@@ -397,7 +412,10 @@
 					"CNT": "返回",
 					"FR": "Fermer",
 					"DE": "Schließen",
-					"ES": "Cerrar"
+					"ES": "Cerrar",
+					"RU": "Закрыть",
+					"JA": "閉じる",
+					"KO": "닫기"
 				}
 			}
 		},
@@ -479,7 +497,10 @@
 					"CNT": "返回",
 					"FR": "Fermer",
 					"DE": "Schließen",
-					"ES": "Cerrar"
+					"ES": "Cerrar",
+					"RU": "Закрыть",
+					"JA": "閉じる",
+					"KO": "닫기"
 				}
 			}
 		},
@@ -1375,7 +1396,10 @@
 					"CNT": "返回",
 					"FR": "Retour",
 					"DE": "Zurück",
-					"ES": "Volver"
+					"ES": "Volver",
+					"RU": "Назад",
+					"JA": "もどる",
+					"KO": "뒤로"
 				},
 				"okBtn": {
 					"EN": "Continue",
@@ -1383,7 +1407,10 @@
 					"CNT": "继续",
 					"FR": "Continuer",
 					"DE": "Weiter",
-					"ES": "Continuar"
+					"ES": "Continuar",
+					"RU": "Продолжить",
+					"JA": "つづける",
+					"KO": "계속"
 				}
 			}
 		},
@@ -1817,7 +1844,10 @@
 			"CNT": "新遊戲",
 			"FR": "Nouvelle partie",
 			"DE": "Neues Spiel",
-			"ES": "Nueva partida"
+			"ES": "Nueva partida",
+			"RU": "Новая игра",
+			"JA": "新しいゲーム",
+			"KO": "새 게임"
 		},
 		"loginContinue": {
 			"EN": "Continue",
@@ -1825,7 +1855,10 @@
 			"CNT": "繼續遊戲",
 			"FR": "Continuer",
 			"DE": "Fortsetzen",
-			"ES": "Continuar"
+			"ES": "Continuar",
+			"RU": "Продолжить",
+			"JA": "つづきから",
+			"KO": "이어하기"
 		},
 		"loginRank": {
 			"EN": "Heroes",
@@ -1833,7 +1866,10 @@
 			"CNT": "排行榜",
 			"FR": "Héros",
 			"DE": "Helden",
-			"ES": "Héroes"
+			"ES": "Héroes",
+			"RU": "Герои",
+			"JA": "ヒーロー",
+			"KO": "영웅"
 		},
 		"loginAchievement": {
 			"EN": "Achievements",
@@ -1841,7 +1877,10 @@
 			"CNT": "成就",
 			"FR": "Succès",
 			"DE": "Erfolge",
-			"ES": "Logros"
+			"ES": "Logros",
+			"RU": "Достижения",
+			"JA": "実績",
+			"KO": "업적"
 		},
 		"currentProgress": {
 			"EN": "Progress",
@@ -1849,7 +1888,10 @@
 			"CNT": "當前進度",
 			"FR": "Progression",
 			"DE": "Fortschritt",
-			"ES": "Progreso"
+			"ES": "Progreso",
+			"RU": "Прогресс",
+			"JA": "進捗",
+			"KO": "진행도"
 		},
 		"currentProgressWith": {
 			"EN": "Progress {0}",
@@ -1857,7 +1899,10 @@
 			"CNT": "當前進度 {0}",
 			"FR": "Progression {0}",
 			"DE": "Fortschritt {0}",
-			"ES": "Progreso {0}"
+			"ES": "Progreso {0}",
+			"RU": "Прогресс {0}",
+			"JA": "進捗 {0}",
+			"KO": "진행도 {0}"
 		},
 		"achvPointLabel": {
 			"EN": "Achievement points: {0}",
@@ -1865,7 +1910,10 @@
 			"CNT": "成就點: {0}",
 			"FR": "Points de succès : {0}",
 			"DE": "Erfolgspunkte: {0}",
-			"ES": "Puntos de logro: {0}"
+			"ES": "Puntos de logro: {0}",
+			"RU": "Очки достижений: {0}",
+			"JA": "実績ポイント：{0}",
+			"KO": "업적 점수: {0}"
 		},
 		"unlockedByAchv": {
 			"EN": "Unlocked by achievement",
@@ -1873,7 +1921,10 @@
 			"CNT": "解鎖於成就",
 			"FR": "Débloqué par un succès",
 			"DE": "Durch Erfolg freigeschaltet",
-			"ES": "Desbloqueado por un logro"
+			"ES": "Desbloqueado por un logro",
+			"RU": "Открыто за достижение",
+			"JA": "実績で解放",
+			"KO": "업적으로 해제"
 		},
 		"unlockedByAchvPoint": {
 			"EN": "Unlocked by achievement points",
@@ -1881,7 +1932,10 @@
 			"CNT": "解鎖於成就點",
 			"FR": "Débloqué par les points de succès",
 			"DE": "Durch Erfolgspunkte freigeschaltet",
-			"ES": "Desbloqueado por puntos de logro"
+			"ES": "Desbloqueado por puntos de logro",
+			"RU": "Открыто за очки достижений",
+			"JA": "実績ポイントで解放",
+			"KO": "업적 점수로 해제"
 		},
 		"received": {
 			"EN": "Received",
@@ -1889,7 +1943,10 @@
 			"CNT": "已領取",
 			"FR": "Reçu",
 			"DE": "Erhalten",
-			"ES": "Recibido"
+			"ES": "Recibido",
+			"RU": "Получено",
+			"JA": "受取済み",
+			"KO": "받음"
 		},
 		"receive": {
 			"EN": "Receive",
@@ -1897,7 +1954,10 @@
 			"CNT": "領取",
 			"FR": "Recevoir",
 			"DE": "Abholen",
-			"ES": "Recibir"
+			"ES": "Recibir",
+			"RU": "Получить",
+			"JA": "受け取る",
+			"KO": "받기"
 		},
 		"completed": {
 			"EN": "Completed",
@@ -1905,7 +1965,10 @@
 			"CNT": "已完成",
 			"FR": "Terminé",
 			"DE": "Abgeschlossen",
-			"ES": "Completado"
+			"ES": "Completado",
+			"RU": "Завершено",
+			"JA": "達成",
+			"KO": "완료"
 		},
 		"hospitalHealTitle": {
 			"EN": "Heal?",
@@ -1913,7 +1976,10 @@
 			"CNT": "確定治療",
 			"FR": "Soigner ?",
 			"DE": "Heilen?",
-			"ES": "¿Curar?"
+			"ES": "¿Curar?",
+			"RU": "Лечить?",
+			"JA": "回復する？",
+			"KO": "치료할까요?"
 		},
 		"hospitalHealContent": {
 			"EN": "Restore up to 30% HP",
@@ -1921,7 +1987,10 @@
 			"CNT": "回復最多 30% 生命",
 			"FR": "Restaure jusqu'à 30 % des PV",
 			"DE": "Stellt bis zu 30 % der LP wieder her",
-			"ES": "Restaura hasta el 30 % de PV"
+			"ES": "Restaura hasta el 30 % de PV",
+			"RU": "Восстанавливает до 30 % ОЗ",
+			"JA": "最大30％のHPを回復",
+			"KO": "최대 30%의 HP 회복"
 		},
 		"hospitalExpelTitle": {
 			"EN": "Expel Death?",
@@ -1929,7 +1998,10 @@
 			"CNT": "確定驅逐死神",
 			"FR": "Chasser la Mort ?",
 			"DE": "Den Tod vertreiben?",
-			"ES": "¿Expulsar a la Muerte?"
+			"ES": "¿Expulsar a la Muerte?",
+			"RU": "Прогнать Смерть?",
+			"JA": "死神を追い払う？",
+			"KO": "사신을 쫓아낼까요?"
 		},
 		"hospitalExpelContent": {
 			"EN": "Death retreats 50 steps",
@@ -1937,7 +2009,10 @@
 			"CNT": "死神回退 50 步",
 			"FR": "La Mort recule de 50 pas",
 			"DE": "Der Tod weicht 50 Schritte zurück",
-			"ES": "La Muerte retrocede 50 pasos"
+			"ES": "La Muerte retrocede 50 pasos",
+			"RU": "Смерть отступает на 50 шагов",
+			"JA": "死神が50歩後退する",
+			"KO": "사신이 50걸음 물러납니다"
 		},
 		"gameOverTitle": {
 			"EN": "You died",
@@ -1945,7 +2020,10 @@
 			"CNT": "不幸死亡",
 			"FR": "Vous êtes mort",
 			"DE": "Du bist gestorben",
-			"ES": "Has muerto"
+			"ES": "Has muerto",
+			"RU": "Вы погибли",
+			"JA": "あなたは死亡した",
+			"KO": "사망했습니다"
 		},
 		"gameOverContent": {
 			"EN": "Game over",
@@ -1953,7 +2031,10 @@
 			"CNT": "遊戲結束",
 			"FR": "Partie terminée",
 			"DE": "Spiel vorbei",
-			"ES": "Fin de la partida"
+			"ES": "Fin de la partida",
+			"RU": "Игра окончена",
+			"JA": "ゲームオーバー",
+			"KO": "게임 오버"
 		},
 		"clickToInputName": {
 			"EN": "Tap to enter name",
@@ -1961,7 +2042,10 @@
 			"CNT": "點擊輸入名字",
 			"FR": "Touchez pour saisir un nom",
 			"DE": "Zum Eingeben des Namens tippen",
-			"ES": "Toca para introducir un nombre"
+			"ES": "Toca para introducir un nombre",
+			"RU": "Нажмите, чтобы ввести имя",
+			"JA": "タップして名前を入力",
+			"KO": "탭하여 이름 입력"
 		},
 		"occLevelUpArrow": {
 			"EN": "Lv {0} → Lv {1}",
@@ -1969,7 +2053,10 @@
 			"CNT": "{0}級 → {1}級",
 			"FR": "Niv {0} → Niv {1}",
 			"DE": "Stufe {0} → Stufe {1}",
-			"ES": "Niv {0} → Niv {1}"
+			"ES": "Niv {0} → Niv {1}",
+			"RU": "Ур. {0} → Ур. {1}",
+			"JA": "Lv {0} → Lv {1}",
+			"KO": "Lv {0} → Lv {1}"
 		},
 		"purchasing": {
 			"EN": "Purchasing, please wait!",
@@ -1977,7 +2064,10 @@
 			"CNT": "購買請求中，請稍候！",
 			"FR": "Achat en cours, veuillez patienter !",
 			"DE": "Kauf läuft, bitte warten!",
-			"ES": "Comprando, espera por favor..."
+			"ES": "Comprando, espera por favor...",
+			"RU": "Покупка, подождите...",
+			"JA": "購入処理中、お待ちください！",
+			"KO": "구매 중입니다. 잠시만 기다려 주세요!"
 		},
 		"aNewPlayer": {
 			"EN": "A new player",
@@ -1985,7 +2075,10 @@
 			"CNT": "一個新玩家",
 			"FR": "Un nouveau joueur",
 			"DE": "Ein neuer Spieler",
-			"ES": "Un nuevo jugador"
+			"ES": "Un nuevo jugador",
+			"RU": "Новый игрок",
+			"JA": "新しいプレイヤー",
+			"KO": "새로운 플레이어"
 		},
 		"rankWeekly": {
 			"EN": "Weekly",
@@ -1993,7 +2086,10 @@
 			"CNT": "週榜",
 			"FR": "Semaine",
 			"DE": "Woche",
-			"ES": "Semana"
+			"ES": "Semana",
+			"RU": "Неделя",
+			"JA": "週間",
+			"KO": "주간"
 		},
 		"rankRole": {
 			"EN": "Roles",
@@ -2001,7 +2097,10 @@
 			"CNT": "角色榜",
 			"FR": "Personnages",
 			"DE": "Charaktere",
-			"ES": "Personajes"
+			"ES": "Personajes",
+			"RU": "Персонажи",
+			"JA": "キャラ",
+			"KO": "캐릭터"
 		},
 		"rankFriend": {
 			"EN": "Friends",
@@ -2009,7 +2108,10 @@
 			"CNT": "好友榜",
 			"FR": "Amis",
 			"DE": "Freunde",
-			"ES": "Amigos"
+			"ES": "Amigos",
+			"RU": "Друзья",
+			"JA": "フレンド",
+			"KO": "친구"
 		},
 		"yes": {
 			"EN": "yes",
@@ -2017,7 +2119,10 @@
 			"CNT": "確定",
 			"FR": "oui",
 			"DE": "Ja",
-			"ES": "sí"
+			"ES": "sí",
+			"RU": "да",
+			"JA": "はい",
+			"KO": "예"
 		},
 		"cancel": {
 			"EN": "no",
@@ -2025,7 +2130,10 @@
 			"CNT": "取消",
 			"FR": "non",
 			"DE": "Nein",
-			"ES": "no"
+			"ES": "no",
+			"RU": "нет",
+			"JA": "いいえ",
+			"KO": "아니오"
 		},
 		"close": {
 			"EN": "close",
@@ -2033,7 +2141,10 @@
 			"CNT": "關閉",
 			"FR": "fermer",
 			"DE": "schließen",
-			"ES": "cerrar"
+			"ES": "cerrar",
+			"RU": "закрыть",
+			"JA": "閉じる",
+			"KO": "닫기"
 		},
 		"ok": {
 			"EN": "OK",
@@ -2041,7 +2152,10 @@
 			"CNT": "確定",
 			"FR": "OK",
 			"DE": "OK",
-			"ES": "OK"
+			"ES": "OK",
+			"RU": "ОК",
+			"JA": "OK",
+			"KO": "확인"
 		},
 		"retry": {
 			"EN": "Retry",
@@ -2049,7 +2163,10 @@
 			"CNT": "重試",
 			"FR": "Réessayer",
 			"DE": "Erneut versuchen",
-			"ES": "Reintentar"
+			"ES": "Reintentar",
+			"RU": "Повторить",
+			"JA": "再試行",
+			"KO": "재시도"
 		},
 		"cannotconnect2server": {
 			"EN": "Cannot connect to the server",
@@ -2057,7 +2174,10 @@
 			"CNT": "無法連接到伺服器",
 			"FR": "Connexion au serveur impossible",
 			"DE": "Verbindung zum Server fehlgeschlagen",
-			"ES": "No se puede conectar al servidor"
+			"ES": "No se puede conectar al servidor",
+			"RU": "Не удалось подключиться к серверу",
+			"JA": "サーバーに接続できません",
+			"KO": "서버에 연결할 수 없습니다"
 		},
 		"notHungry": {
 			"EN": "I'm not hungry",
@@ -2065,7 +2185,10 @@
 			"CNT": "我不餓",
 			"FR": "Je n'ai pas faim",
 			"DE": "Ich habe keinen Hunger",
-			"ES": "No tengo hambre"
+			"ES": "No tengo hambre",
+			"RU": "Я не голоден",
+			"JA": "お腹は空いていない",
+			"KO": "배고프지 않아"
 		},
 		"noKey": {
 			"EN": "I don't have enough key",
@@ -2073,7 +2196,10 @@
 			"CNT": "沒有鑰匙",
 			"FR": "Je n'ai pas assez de clés",
 			"DE": "Ich habe nicht genug Schlüssel",
-			"ES": "No tengo suficientes llaves"
+			"ES": "No tengo suficientes llaves",
+			"RU": "Не хватает ключей",
+			"JA": "鍵が足りない",
+			"KO": "열쇠가 부족해"
 		},
 		"doorLocked": {
 			"EN": "The door is locked by boss",
@@ -2081,7 +2207,10 @@
 			"CNT": "Boss鎖住了門",
 			"FR": "La porte est verrouillée par le boss",
 			"DE": "Die Tür ist vom Boss verriegelt",
-			"ES": "El jefe ha cerrado la puerta"
+			"ES": "El jefe ha cerrado la puerta",
+			"RU": "Дверь заперта боссом",
+			"JA": "扉はボスに施錠されている",
+			"KO": "보스가 문을 잠갔다"
 		},
 		"swathed": {
 			"EN": "kill the monster who swathed it first",
@@ -2089,7 +2218,10 @@
 			"CNT": "需要先消滅纏繞它的怪物",
 			"FR": "tuez d'abord le monstre qui l'a enveloppé",
 			"DE": "Töte zuerst das Monster, das es umhüllt hat",
-			"ES": "mata primero al monstruo que lo envolvió"
+			"ES": "mata primero al monstruo que lo envolvió",
+			"RU": "сначала убейте монстра, который его опутал",
+			"JA": "まず包んでいる魔物を倒せ",
+			"KO": "먼저 감싼 몬스터를 처치하세요"
 		},
 		"cure": {
 			"EN": "cure",
@@ -2097,7 +2229,10 @@
 			"CNT": "癒合",
 			"FR": "soin",
 			"DE": "Heilung",
-			"ES": "curar"
+			"ES": "curar",
+			"RU": "лечение",
+			"JA": "治療",
+			"KO": "치료"
 		},
 		"thorns": {
 			"EN": "thorns",
@@ -2105,7 +2240,10 @@
 			"CNT": "荊棘",
 			"FR": "épines",
 			"DE": "Dornen",
-			"ES": "espinas"
+			"ES": "espinas",
+			"RU": "шипы",
+			"JA": "とげ",
+			"KO": "가시"
 		},
 		"protect": {
 			"EN": "protect",
@@ -2113,7 +2251,10 @@
 			"CNT": "援護",
 			"FR": "protéger",
 			"DE": "schützen",
-			"ES": "proteger"
+			"ES": "proteger",
+			"RU": "защита",
+			"JA": "防御",
+			"KO": "보호"
 		},
 		"multAttack": {
 			"EN": "mult-attack",
@@ -2121,7 +2262,10 @@
 			"CNT": "連擊",
 			"FR": "attaque multiple",
 			"DE": "Mehrfachangriff",
-			"ES": "ataque múltiple"
+			"ES": "ataque múltiple",
+			"RU": "мультиатака",
+			"JA": "連続攻撃",
+			"KO": "다중 공격"
 		},
 		"deepFrozen": {
 			"EN": "deep frozen",
@@ -2129,7 +2273,10 @@
 			"CNT": "窒息",
 			"FR": "gelé",
 			"DE": "tiefgefroren",
-			"ES": "congelado"
+			"ES": "congelado",
+			"RU": "заморожен",
+			"JA": "凍結",
+			"KO": "빙결"
 		},
 		"makeSureReinforceRelic": {
 			"EN": "Reinforce {0}?",
@@ -2137,7 +2284,10 @@
 			"CNT": "確定強化{0}?",
 			"FR": "Renforcer {0} ?",
 			"DE": "{0} verstärken?",
-			"ES": "¿Reforzar {0}?"
+			"ES": "¿Reforzar {0}?",
+			"RU": "Усилить {0}?",
+			"JA": "{0} を強化しますか？",
+			"KO": "{0}을(를) 강화할까요?"
 		},
 		"makeSureBuy": {
 			"EN": "Spend {0} coins?",
@@ -2145,7 +2295,10 @@
 			"CNT": "花費{0}金幣",
 			"FR": "Dépenser {0} pièces ?",
 			"DE": "{0} Münzen ausgeben?",
-			"ES": "¿Gastar {0} monedas?"
+			"ES": "¿Gastar {0} monedas?",
+			"RU": "Потратить {0} монет?",
+			"JA": "{0} コインを使いますか？",
+			"KO": "{0} 코인을 사용할까요?"
 		},
 		"relics": {
 			"EN": "Skills",
@@ -2153,7 +2306,10 @@
 			"CNT": "技能",
 			"FR": "Compétences",
 			"DE": "Fähigkeiten",
-			"ES": "Habilidades"
+			"ES": "Habilidades",
+			"RU": "Навыки",
+			"JA": "スキル",
+			"KO": "스킬"
 		},
 		"props": {
 			"EN": "Props",
@@ -2161,7 +2317,10 @@
 			"CNT": "药水",
 			"FR": "Objets",
 			"DE": "Gegenstände",
-			"ES": "Objetos"
+			"ES": "Objetos",
+			"RU": "Предметы",
+			"JA": "アイテム",
+			"KO": "아이템"
 		},
 		"makeSureUseElem": {
 			"EN": "be sure to use {0}?",
@@ -2169,7 +2328,10 @@
 			"CNT": "確定使用<font color=#ff0000>{0}</font>?",
 			"FR": "utiliser {0} ?",
 			"DE": "{0} benutzen?",
-			"ES": "¿usar {0}?"
+			"ES": "¿usar {0}?",
+			"RU": "использовать {0}?",
+			"JA": "{0} を使いますか？",
+			"KO": "{0}을(를) 사용할까요?"
 		},
 		"makeSureUseProp": {
 			"EN": "be sure to use {0}?",
@@ -2177,7 +2339,10 @@
 			"CNT": "確定使用<font color=#ff0000>{0}</font>?",
 			"FR": "utiliser {0} ?",
 			"DE": "{0} benutzen?",
-			"ES": "¿usar {0}?"
+			"ES": "¿usar {0}?",
+			"RU": "использовать {0}?",
+			"JA": "{0} を使いますか？",
+			"KO": "{0}을(를) 사용할까요?"
 		},
 		"coins": {
 			"EN": "coins",
@@ -2185,7 +2350,10 @@
 			"CNT": "金幣",
 			"FR": "pièces",
 			"DE": "Münzen",
-			"ES": "monedas"
+			"ES": "monedas",
+			"RU": "монеты",
+			"JA": "コイン",
+			"KO": "코인"
 		},
 		"costCoins": {
 			"EN": "<font color=#294c22>cost {0} coins</font>",
@@ -2193,7 +2361,10 @@
 			"CNT": "<font color=#294c22>花费金幣 {0} </font>",
 			"FR": "<font color=#294c22>coûte {0} pièces</font>",
 			"DE": "<font color=#294c22>kostet {0} Münzen</font>",
-			"ES": "<font color=#294c22>cuesta {0} monedas</font>"
+			"ES": "<font color=#294c22>cuesta {0} monedas</font>",
+			"RU": "<font color=#294c22>стоит {0} монет</font>",
+			"JA": "<font color=#294c22>{0} コイン</font>",
+			"KO": "<font color=#294c22>{0} 코인 소모</font>"
 		},
 		"costCoinsOnRelic": {
 			"EN": "<font color=#ffffff>cost {0} coins</font>",
@@ -2201,7 +2372,10 @@
 			"CNT": "<font color=#294c22>花费金幣 {0} </font>",
 			"FR": "<font color=#ffffff>coûte {0} pièces</font>",
 			"DE": "<font color=#ffffff>kostet {0} Münzen</font>",
-			"ES": "<font color=#ffffff>cuesta {0} monedas</font>"
+			"ES": "<font color=#ffffff>cuesta {0} monedas</font>",
+			"RU": "<font color=#ffffff>стоит {0} монет</font>",
+			"JA": "<font color=#ffffff>{0} コイン</font>",
+			"KO": "<font color=#ffffff>{0} 코인 소모</font>"
 		},
 		"numHold": {
 			"EN": "<font color=#464070>hold {0} </font>",
@@ -2209,7 +2383,10 @@
 			"CNT": "<font color=#464070>當前擁有 {0} 個</font>",
 			"FR": "<font color=#464070>en réserve {0} </font>",
 			"DE": "<font color=#464070>Vorrat {0} </font>",
-			"ES": "<font color=#464070>en reserva {0} </font>"
+			"ES": "<font color=#464070>en reserva {0} </font>",
+			"RU": "<font color=#464070>в запасе {0} </font>",
+			"JA": "<font color=#464070>所持 {0} </font>",
+			"KO": "<font color=#464070>보유 {0} </font>"
 		},
 		"openBox": {
 			"EN": "open the box",
@@ -2217,7 +2394,10 @@
 			"CNT": "打開寶箱",
 			"FR": "ouvrir le coffre",
 			"DE": "Truhe öffnen",
-			"ES": "abrir el cofre"
+			"ES": "abrir el cofre",
+			"RU": "открыть сундук",
+			"JA": "宝箱を開ける",
+			"KO": "상자 열기"
 		},
 		"makeSureGoOutBoxRoom": {
 			"EN": "be sure to leave without left items?",
@@ -2225,7 +2405,10 @@
 			"CNT": "確定放棄餘下的道具?",
 			"FR": "partir sans prendre les objets restants ?",
 			"DE": "Ohne die übrigen Gegenstände gehen?",
-			"ES": "¿salir sin los objetos restantes?"
+			"ES": "¿salir sin los objetos restantes?",
+			"RU": "уйти, не забрав оставшиеся предметы?",
+			"JA": "残りのアイテムを取らずに出ますか？",
+			"KO": "남은 아이템을 두고 나갈까요?"
 		},
 		"setting": {
 			"EN": "setting",
@@ -2233,7 +2416,10 @@
 			"CNT": "設置",
 			"FR": "réglages",
 			"DE": "Einstellungen",
-			"ES": "ajustes"
+			"ES": "ajustes",
+			"RU": "настройки",
+			"JA": "設定",
+			"KO": "설정"
 		},
 		"makeSureExitThisGame": {
 			"EN": "be sure to give up this game?",
@@ -2241,7 +2427,10 @@
 			"CNT": "確定<font color=#7d0403>放棄</font>此局遊戲?",
 			"FR": "abandonner cette partie ?",
 			"DE": "Dieses Spiel aufgeben?",
-			"ES": "¿abandonar esta partida?"
+			"ES": "¿abandonar esta partida?",
+			"RU": "бросить эту игру?",
+			"JA": "このゲームをあきらめますか？",
+			"KO": "이 게임을 포기할까요?"
 		},
 		"hospitalTitle": {
 			"EN": "safe house",
@@ -2249,7 +2438,10 @@
 			"CNT": "安全屋",
 			"FR": "refuge",
 			"DE": "Unterschlupf",
-			"ES": "refugio"
+			"ES": "refugio",
+			"RU": "убежище",
+			"JA": "隠れ家",
+			"KO": "은신처"
 		},
 		"hospitalTip": {
 			"EN": "what's your choice?",
@@ -2257,7 +2449,10 @@
 			"CNT": "你想要做什麼?",
 			"FR": "que choisissez-vous ?",
 			"DE": "Wofür entscheidest du dich?",
-			"ES": "¿qué eliges?"
+			"ES": "¿qué eliges?",
+			"RU": "что выберете?",
+			"JA": "どうしますか？",
+			"KO": "무엇을 선택하시겠어요?"
 		},
 		"hospitalCure": {
 			"EN": "cure",
@@ -2265,7 +2460,10 @@
 			"CNT": "治療",
 			"FR": "soin",
 			"DE": "Heilung",
-			"ES": "curar"
+			"ES": "curar",
+			"RU": "лечение",
+			"JA": "治療",
+			"KO": "치료"
 		},
 		"hospitalDeathGodBack": {
 			"EN": "death god back",
@@ -2273,7 +2471,10 @@
 			"CNT": "驅逐（死神回退50步）",
 			"FR": "repousser la Mort",
 			"DE": "Tod zurückdrängen",
-			"ES": "repeler a la Muerte"
+			"ES": "repeler a la Muerte",
+			"RU": "отогнать Смерть",
+			"JA": "死神を退ける",
+			"KO": "사신 물리치기"
 		},
 		"hospitalReinforce": {
 			"EN": "reinforce",
@@ -2281,7 +2482,10 @@
 			"CNT": "強化",
 			"FR": "renforcer",
 			"DE": "verstärken",
-			"ES": "reforzar"
+			"ES": "reforzar",
+			"RU": "усилить",
+			"JA": "強化",
+			"KO": "강화"
 		},
 		"hospitalMutate": {
 			"EN": "mutate",
@@ -2289,7 +2493,10 @@
 			"CNT": "變異",
 			"FR": "muter",
 			"DE": "mutieren",
-			"ES": "mutar"
+			"ES": "mutar",
+			"RU": "мутировать",
+			"JA": "変異",
+			"KO": "변이"
 		},
 		"hospitalExchangeRelic": {
 			"EN": "exchange",
@@ -2297,7 +2504,10 @@
 			"CNT": "裝備技能",
 			"FR": "échanger",
 			"DE": "tauschen",
-			"ES": "intercambiar"
+			"ES": "intercambiar",
+			"RU": "обменять",
+			"JA": "交換",
+			"KO": "교환"
 		},
 		"selRelic": {
 			"EN": "select a skill",
@@ -2305,7 +2515,10 @@
 			"CNT": "選擇一個技能",
 			"FR": "choisir une compétence",
 			"DE": "Fähigkeit wählen",
-			"ES": "elige una habilidad"
+			"ES": "elige una habilidad",
+			"RU": "выберите навык",
+			"JA": "スキルを選ぶ",
+			"KO": "스킬 선택"
 		},
 		"makeSureSelRelic": {
 			"EN": "be sure to select ",
@@ -2313,7 +2526,10 @@
 			"CNT": "確定選擇",
 			"FR": "êtes-vous sûr de choisir ",
 			"DE": "Bist du sicher, dass du wählst ",
-			"ES": "¿seguro que eliges "
+			"ES": "¿seguro que eliges ",
+			"RU": "точно выбрать ",
+			"JA": "本当に選びますか ",
+			"KO": "정말 선택할까요 "
 		},
 		"continueBtn": {
 			"EN": "continue",
@@ -2321,7 +2537,10 @@
 			"CNT": "繼續",
 			"FR": "continuer",
 			"DE": "weiter",
-			"ES": "continuar"
+			"ES": "continuar",
+			"RU": "продолжить",
+			"JA": "つづける",
+			"KO": "계속"
 		},
 		"shareBtn": {
 			"EN": "share",
@@ -2329,7 +2548,10 @@
 			"CNT": "分享",
 			"FR": "partager",
 			"DE": "teilen",
-			"ES": "compartir"
+			"ES": "compartir",
+			"RU": "поделиться",
+			"JA": "シェア",
+			"KO": "공유"
 		},
 		"rob": {
 			"EN": "Rob",
@@ -2337,7 +2559,10 @@
 			"CNT": "搶劫",
 			"FR": "Voler",
 			"DE": "Rauben",
-			"ES": "Robar"
+			"ES": "Robar",
+			"RU": "Ограбить",
+			"JA": "強奪",
+			"KO": "강탈"
 		},
 		"goBackBtn": {
 			"EN": "go back",
@@ -2345,7 +2570,10 @@
 			"CNT": "返回",
 			"FR": "retour",
 			"DE": "zurück",
-			"ES": "volver"
+			"ES": "volver",
+			"RU": "назад",
+			"JA": "もどる",
+			"KO": "뒤로"
 		},
 		"showDeathGodStep": {
 			"EN": "{0}",
@@ -2358,7 +2586,10 @@
 			"CNT": "下一個",
 			"FR": "suivant",
 			"DE": "nächstes",
-			"ES": "siguiente"
+			"ES": "siguiente",
+			"RU": "далее",
+			"JA": "つぎへ",
+			"KO": "다음"
 		},
 		"soldout": {
 			"EN": "sold out",
@@ -2366,7 +2597,10 @@
 			"CNT": "已售罄",
 			"FR": "épuisé",
 			"DE": "ausverkauft",
-			"ES": "agotado"
+			"ES": "agotado",
+			"RU": "распродано",
+			"JA": "売り切れ",
+			"KO": "품절"
 		},
 		"notEnoughMoney": {
 			"EN": "Not Enough Money",
@@ -2374,7 +2608,10 @@
 			"CNT": "<font color=#ffffff size=30>金幣不足</font>",
 			"FR": "Pas assez d'argent",
 			"DE": "Nicht genug Geld",
-			"ES": "Dinero insuficiente"
+			"ES": "Dinero insuficiente",
+			"RU": "Недостаточно денег",
+			"JA": "お金が足りません",
+			"KO": "돈이 부족합니다"
 		},
 		"pressAnywhereToClose": {
 			"EN": "press anywhere to close",
@@ -2382,7 +2619,10 @@
 			"CNT": "<font color=#968885 size=30>點擊任意位置關閉</font>",
 			"FR": "touchez n'importe où pour fermer",
 			"DE": "tippe irgendwohin zum Schließen",
-			"ES": "toca en cualquier sitio para cerrar"
+			"ES": "toca en cualquier sitio para cerrar",
+			"RU": "нажмите в любом месте, чтобы закрыть",
+			"JA": "どこでもタップで閉じる",
+			"KO": "아무 곳이나 탭하여 닫기"
 		},
 		"goToNextLevel": {
 			"EN": "be sure to leave?",
@@ -2390,7 +2630,10 @@
 			"CNT": "確定離開這一層嗎?",
 			"FR": "êtes-vous sûr de partir ?",
 			"DE": "Bist du sicher, dass du gehst?",
-			"ES": "¿seguro que quieres salir?"
+			"ES": "¿seguro que quieres salir?",
+			"RU": "точно уйти?",
+			"JA": "本当に出ますか？",
+			"KO": "정말 떠날까요?"
 		},
 		"press2Unblock": {
 			"EN": "press to unblock",
@@ -2398,7 +2641,10 @@
 			"CNT": "再次長按取消標記",
 			"FR": "appuyez pour démarquer",
 			"DE": "tippen zum Entmarkieren",
-			"ES": "toca para desmarcar"
+			"ES": "toca para desmarcar",
+			"RU": "нажмите, чтобы снять метку",
+			"JA": "タップでマーク解除",
+			"KO": "탭하여 표시 해제"
 		},
 		"sneaking": {
 			"EN": "sneaking",
@@ -2406,7 +2652,10 @@
 			"CNT": "突襲",
 			"FR": "embuscade",
 			"DE": "Hinterhalt",
-			"ES": "emboscada"
+			"ES": "emboscada",
+			"RU": "засада",
+			"JA": "奇襲",
+			"KO": "기습"
 		},
 		"relicPosLocked": {
 			"EN": "locked",
@@ -2414,7 +2663,10 @@
 			"CNT": "在商店解鎖",
 			"FR": "verrouillé",
 			"DE": "gesperrt",
-			"ES": "bloqueado"
+			"ES": "bloqueado",
+			"RU": "заблокировано",
+			"JA": "ロック中",
+			"KO": "잠김"
 		},
 		"titleCommon": {
 			"EN": "skills",
@@ -2422,7 +2674,10 @@
 			"CNT": "固有技能",
 			"FR": "compétences",
 			"DE": "Fähigkeiten",
-			"ES": "habilidades"
+			"ES": "habilidades",
+			"RU": "навыки",
+			"JA": "スキル",
+			"KO": "스킬"
 		},
 		"titleEquipped": {
 			"EN": "skills equipped",
@@ -2430,7 +2685,10 @@
 			"CNT": "已裝備技能",
 			"FR": "compétences équipées",
 			"DE": "ausgerüstete Fähigkeiten",
-			"ES": "habilidades equipadas"
+			"ES": "habilidades equipadas",
+			"RU": "экипированные навыки",
+			"JA": "装備中のスキル",
+			"KO": "장착한 스킬"
 		},
 		"titleInBag": {
 			"EN": "skills in bag",
@@ -2438,7 +2696,10 @@
 			"CNT": "技能包裹",
 			"FR": "compétences dans le sac",
 			"DE": "Fähigkeiten im Beutel",
-			"ES": "habilidades en la bolsa"
+			"ES": "habilidades en la bolsa",
+			"RU": "навыки в сумке",
+			"JA": "バッグ内のスキル",
+			"KO": "가방 속 스킬"
 		},
 		"makeSureGiveUpTitle": {
 			"EN": "sure",
@@ -2446,7 +2707,10 @@
 			"CNT": "確定",
 			"FR": "confirmer",
 			"DE": "bestätigen",
-			"ES": "confirmar"
+			"ES": "confirmar",
+			"RU": "подтвердить",
+			"JA": "確認",
+			"KO": "확인"
 		},
 		"makeSureGiveUpContent": {
 			"EN": "be sure to give up exchanges?",
@@ -2454,7 +2718,10 @@
 			"CNT": "確定放棄交換操作?",
 			"FR": "abandonner les échanges ?",
 			"DE": "Tausch verwerfen?",
-			"ES": "¿descartar los intercambios?"
+			"ES": "¿descartar los intercambios?",
+			"RU": "отменить обмены?",
+			"JA": "交換を破棄しますか？",
+			"KO": "교환을 취소할까요?"
 		},
 		"makeSureGoOnTitle": {
 			"EN": "sure",
@@ -2462,7 +2729,10 @@
 			"CNT": "確定",
 			"FR": "confirmer",
 			"DE": "bestätigen",
-			"ES": "confirmar"
+			"ES": "confirmar",
+			"RU": "подтвердить",
+			"JA": "確認",
+			"KO": "확인"
 		},
 		"makeSureGoOnContent": {
 			"EN": "be sure to save exchanges?",
@@ -2470,7 +2740,10 @@
 			"CNT": "確定保存交換操作?",
 			"FR": "enregistrer les échanges ?",
 			"DE": "Tausch speichern?",
-			"ES": "¿guardar los intercambios?"
+			"ES": "¿guardar los intercambios?",
+			"RU": "сохранить обмены?",
+			"JA": "交換を保存しますか？",
+			"KO": "교환을 저장할까요?"
 		},
 		"canNotDragCommonRelic": {
 			"EN": "can't exchange this skill?",
@@ -2478,7 +2751,10 @@
 			"CNT": "不能交換固有技能",
 			"FR": "impossible d'échanger cette compétence ?",
 			"DE": "Diese Fähigkeit kann nicht getauscht werden?",
-			"ES": "¿no se puede intercambiar esta habilidad?"
+			"ES": "¿no se puede intercambiar esta habilidad?",
+			"RU": "этот навык нельзя обменять?",
+			"JA": "このスキルは交換できません？",
+			"KO": "이 스킬은 교환할 수 없습니다?"
 		},
 		"shieldPassiveTriggerDesc": {
 			"EN": "shield trigger passively",
@@ -2486,7 +2762,10 @@
 			"CNT": "盾牌抵擋一次攻擊",
 			"FR": "le bouclier se déclenche passivement",
 			"DE": "Schild wird passiv ausgelöst",
-			"ES": "el escudo se activa de forma pasiva"
+			"ES": "el escudo se activa de forma pasiva",
+			"RU": "щит срабатывает пассивно",
+			"JA": "盾はパッシブで発動",
+			"KO": "방패는 패시브로 발동"
 		},
 		"inCD": {
 			"EN": "not ready",
@@ -2494,7 +2773,10 @@
 			"CNT": "冷卻中",
 			"FR": "pas prêt",
 			"DE": "nicht bereit",
-			"ES": "no listo"
+			"ES": "no listo",
+			"RU": "не готово",
+			"JA": "準備中",
+			"KO": "준비 안 됨"
 		},
 		"batonPassiveTriggerDesc": {
 			"EN": "baton trigger passively",
@@ -2502,7 +2784,10 @@
 			"CNT": "警棍增加1攻擊",
 			"FR": "la matraque se déclenche passivement",
 			"DE": "Schlagstock wird passiv ausgelöst",
-			"ES": "la porra se activa de forma pasiva"
+			"ES": "la porra se activa de forma pasiva",
+			"RU": "дубинка срабатывает пассивно",
+			"JA": "警棒はパッシブで発動",
+			"KO": "경봉은 패시브로 발동"
 		},
 		"cloakPassiveTriggerDesc": {
 			"EN": "cloak trigger passively",
@@ -2510,7 +2795,10 @@
 			"CNT": "披風抵擋一次突襲",
 			"FR": "la cape se déclenche passivement",
 			"DE": "Umhang wird passiv ausgelöst",
-			"ES": "la capa se activa de forma pasiva"
+			"ES": "la capa se activa de forma pasiva",
+			"RU": "плащ срабатывает пассивно",
+			"JA": "マントはパッシブで発動",
+			"KO": "망토는 패시브로 발동"
 		},
 		"invalidOperate": {
 			"EN": "can not do that",
@@ -2518,7 +2806,10 @@
 			"CNT": "這是一個無效的操作",
 			"FR": "impossible de faire cela",
 			"DE": "das ist nicht möglich",
-			"ES": "no puedes hacer eso"
+			"ES": "no puedes hacer eso",
+			"RU": "так нельзя",
+			"JA": "それはできません",
+			"KO": "할 수 없습니다"
 		},
 		"tipOnDrag": {
 			"EN": "can not do that",
@@ -2526,7 +2817,10 @@
 			"CNT": "只能在營火的切換技能處裝備或交換技能",
 			"FR": "impossible de faire cela",
 			"DE": "das ist nicht möglich",
-			"ES": "no puedes hacer eso"
+			"ES": "no puedes hacer eso",
+			"RU": "так нельзя",
+			"JA": "それはできません",
+			"KO": "할 수 없습니다"
 		},
 		"tipOnCannotReinfoce": {
 			"EN": "can not reinfoce",
@@ -2534,7 +2828,10 @@
 			"CNT": "該技能不能再升級",
 			"FR": "impossible à renforcer",
 			"DE": "kann nicht verstärkt werden",
-			"ES": "no se puede reforzar"
+			"ES": "no se puede reforzar",
+			"RU": "нельзя усилить",
+			"JA": "これ以上強化できません",
+			"KO": "더 강화할 수 없습니다"
 		},
 		"nutWallUseDesc": {
 			"EN": "I'm going to share the damage",
@@ -2542,7 +2839,10 @@
 			"CNT": "我會幫你分擔傷害",
 			"FR": "Je vais absorber les dégâts",
 			"DE": "Ich fange den Schaden ab",
-			"ES": "Voy a absorber el daño"
+			"ES": "Voy a absorber el daño",
+			"RU": "Я приму урон на себя",
+			"JA": "ダメージを引き受ける",
+			"KO": "피해를 대신 받겠다"
 		},
 		"peashooterUseDesc": {
 			"EN": "shooting!",
@@ -2550,7 +2850,10 @@
 			"CNT": "射擊！射擊！",
 			"FR": "feu !",
 			"DE": "Feuer!",
-			"ES": "¡fuego!"
+			"ES": "¡fuego!",
+			"RU": "огонь!",
+			"JA": "発射！",
+			"KO": "발사!"
 		},
 		"headBoneUseDesc": {
 			"EN": "get the monster sneaking!",
@@ -2558,7 +2861,10 @@
 			"CNT": "讓怪物突襲你吧！",
 			"FR": "débusque le monstre embusqué !",
 			"DE": "Bring das lauernde Monster zum Vorschein!",
-			"ES": "¡saca al monstruo emboscado!"
+			"ES": "¡saca al monstruo emboscado!",
+			"RU": "выманите притаившегося монстра!",
+			"JA": "潜んでいる魔物をあぶり出せ！",
+			"KO": "숨어 있는 몬스터를 드러내라!"
 		},
 		"newPlayConfirmTitle": {
 			"EN": "!",
@@ -2566,7 +2872,10 @@
 			"CNT": "<font color=#7d0403>提示</font>",
 			"FR": "!",
 			"DE": "!",
-			"ES": "!"
+			"ES": "!",
+			"RU": "!",
+			"JA": "！",
+			"KO": "!"
 		},
 		"newPlayConfirmContent": {
 			"EN": "discard the current progress?",
@@ -2574,7 +2883,10 @@
 			"CNT": "確定放棄當前進度？",
 			"FR": "abandonner la progression actuelle ?",
 			"DE": "Aktuellen Fortschritt verwerfen?",
-			"ES": "¿descartar el progreso actual?"
+			"ES": "¿descartar el progreso actual?",
+			"RU": "отказаться от текущего прогресса?",
+			"JA": "現在の進捗を破棄しますか？",
+			"KO": "현재 진행도를 버릴까요?"
 		},
 		"chooseThisRelic": {
 			"EN": "choose this skill",
@@ -2582,7 +2894,10 @@
 			"CNT": "選擇此技能",
 			"FR": "choisir cette compétence",
 			"DE": "diese Fähigkeit wählen",
-			"ES": "elegir esta habilidad"
+			"ES": "elegir esta habilidad",
+			"RU": "выбрать этот навык",
+			"JA": "このスキルを選ぶ",
+			"KO": "이 스킬 선택"
 		},
 		"saveExchange": {
 			"EN": "sava",
@@ -2590,7 +2905,10 @@
 			"CNT": "保存",
 			"FR": "enregistrer",
 			"DE": "speichern",
-			"ES": "guardar"
+			"ES": "guardar",
+			"RU": "сохранить",
+			"JA": "保存",
+			"KO": "저장"
 		},
 		"useDeluxeMeal": {
 			"EN": "使用豪华大餐回复50%生命值？",
@@ -2598,7 +2916,10 @@
 			"CNT": "使用豪華大餐回復50%生命值？",
 			"FR": "Utiliser le festin de luxe pour restaurer 50 % des PV ?",
 			"DE": "Luxusmahl benutzen und 50 % der LP wiederherstellen?",
-			"ES": "¿Usar el festín de lujo para restaurar el 50 % de PV?"
+			"ES": "¿Usar el festín de lujo para restaurar el 50 % de PV?",
+			"RU": "Использовать роскошный пир и восстановить 50 % ОЗ?",
+			"JA": "豪華な食事を使ってHPを50％回復しますか？",
+			"KO": "호화로운 식사를 사용해 HP를 50% 회복할까요?"
 		},
 		"hideHazardNumber": {
 			"EN": "hideHazardNumber",
@@ -2709,7 +3030,10 @@
 			"CNT": "需要一個名字",
 			"FR": "un nom est requis",
 			"DE": "ein Name wird benötigt",
-			"ES": "se necesita un nombre"
+			"ES": "se necesita un nombre",
+			"RU": "нужно имя",
+			"JA": "名前が必要です",
+			"KO": "이름이 필요합니다"
 		},
 		"tooLongName": {
 			"EN": "this name is too long",
@@ -2717,7 +3041,10 @@
 			"CNT": "名字最長七個字",
 			"FR": "ce nom est trop long",
 			"DE": "dieser Name ist zu lang",
-			"ES": "este nombre es demasiado largo"
+			"ES": "este nombre es demasiado largo",
+			"RU": "это имя слишком длинное",
+			"JA": "この名前は長すぎます",
+			"KO": "이 이름은 너무 깁니다"
 		},
 		"inValidName": {
 			"EN": "invalid name",
@@ -2725,7 +3052,10 @@
 			"CNT": "名字不合规",
 			"FR": "nom invalide",
 			"DE": "ungültiger Name",
-			"ES": "nombre no válido"
+			"ES": "nombre no válido",
+			"RU": "недопустимое имя",
+			"JA": "無効な名前です",
+			"KO": "잘못된 이름입니다"
 		},
 		"keyInNewName": {
 			"EN": "key in a new name",
@@ -2733,7 +3063,10 @@
 			"CNT": "請輸入一個新名字",
 			"FR": "saisissez un nouveau nom",
 			"DE": "gib einen neuen Namen ein",
-			"ES": "introduce un nombre nuevo"
+			"ES": "introduce un nombre nuevo",
+			"RU": "введите новое имя",
+			"JA": "新しい名前を入力",
+			"KO": "새 이름을 입력하세요"
 		},
 		"notInRank": {
 			"EN": "not in the rank. best score {score}",
@@ -2741,7 +3074,10 @@
 			"CNT": "未上榜, 最好成績 {score}",
 			"FR": "hors classement. meilleur score {score}",
 			"DE": "nicht in der Rangliste. Bestwert {score}",
-			"ES": "fuera de la clasificación. mejor puntuación {score}"
+			"ES": "fuera de la clasificación. mejor puntuación {score}",
+			"RU": "вне рейтинга. лучший результат {score}",
+			"JA": "ランク外。ベストスコア {score}",
+			"KO": "순위권 밖. 최고 점수 {score}"
 		},
 		"scoreInRank": {
 			"EN": "ranking: {ranking}, best score {score}",
@@ -2749,7 +3085,10 @@
 			"CNT": "排名: {ranking}, 最好成績 {score}",
 			"FR": "classement : {ranking}, meilleur score {score}",
 			"DE": "Rang: {ranking}, Bestwert {score}",
-			"ES": "clasificación: {ranking}, mejor puntuación {score}"
+			"ES": "clasificación: {ranking}, mejor puntuación {score}",
+			"RU": "рейтинг: {ranking}, лучший результат {score}",
+			"JA": "ランキング：{ranking}、ベストスコア {score}",
+			"KO": "순위: {ranking}, 최고 점수 {score}"
 		},
 		"noThisRelic": {
 			"EN": "don't have this skill",
@@ -2757,7 +3096,10 @@
 			"CNT": "還未獲得此技能",
 			"FR": "vous n'avez pas cette compétence",
 			"DE": "du hast diese Fähigkeit nicht",
-			"ES": "no tienes esta habilidad"
+			"ES": "no tienes esta habilidad",
+			"RU": "у вас нет этого навыка",
+			"JA": "このスキルを持っていません",
+			"KO": "이 스킬이 없습니다"
 		},
 		"thisIsLocked": {
 			"EN": "this is locked",
@@ -2765,7 +3107,10 @@
 			"CNT": "還未解鎖",
 			"FR": "ceci est verrouillé",
 			"DE": "dies ist gesperrt",
-			"ES": "esto está bloqueado"
+			"ES": "esto está bloqueado",
+			"RU": "это заблокировано",
+			"JA": "これはロックされています",
+			"KO": "이것은 잠겨 있습니다"
 		},
 		"notOpenYet": {
 			"EN": "Do not open yet",
@@ -2773,7 +3118,10 @@
 			"CNT": "暫未開放",
 			"FR": "Pas encore disponible",
 			"DE": "Noch nicht verfügbar",
-			"ES": "Aún no disponible"
+			"ES": "Aún no disponible",
+			"RU": "Пока недоступно",
+			"JA": "まだ利用できません",
+			"KO": "아직 이용할 수 없습니다"
 		},
 		"watchRewardAds": {
 			"EN": "Watch Ads",
@@ -2781,7 +3129,10 @@
 			"CNT": "看廣告",
 			"FR": "Voir la pub",
 			"DE": "Werbung ansehen",
-			"ES": "Ver anuncio"
+			"ES": "Ver anuncio",
+			"RU": "Смотреть рекламу",
+			"JA": "広告を見る",
+			"KO": "광고 보기"
 		},
 		"justDie": {
 			"EN": "Just Die",
@@ -2789,7 +3140,10 @@
 			"CNT": "死亡",
 			"FR": "Mourir",
 			"DE": "Sterben",
-			"ES": "Morir"
+			"ES": "Morir",
+			"RU": "Умереть",
+			"JA": "死亡する",
+			"KO": "죽기"
 		},
 		"rebornAnyway": {
 			"EN": "Reborn",
@@ -2797,7 +3151,10 @@
 			"CNT": "復活",
 			"FR": "Renaître",
 			"DE": "Wiedergeburt",
-			"ES": "Renacer"
+			"ES": "Renacer",
+			"RU": "Возродиться",
+			"JA": "復活する",
+			"KO": "부활"
 		},
 		"useCherryBomb": {
 			"EN": "Just Die",
@@ -2805,7 +3162,10 @@
 			"CNT": "引爆後，翻開周圍3*3的格子並造成傷害",
 			"FR": "Mourir",
 			"DE": "Sterben",
-			"ES": "Morir"
+			"ES": "Morir",
+			"RU": "Умереть",
+			"JA": "死亡する",
+			"KO": "죽기"
 		},
 		"useSunflower": {
 			"EN": "Just Die",
@@ -2813,7 +3173,10 @@
 			"CNT": "使用後恢復生命值",
 			"FR": "Mourir",
 			"DE": "Sterben",
-			"ES": "Morir"
+			"ES": "Morir",
+			"RU": "Умереть",
+			"JA": "死亡する",
+			"KO": "죽기"
 		},
 		"getNewAchvTitle": {
 			"EN": "You've got a new achievement:",
@@ -2821,7 +3184,10 @@
 			"CNT": "恭喜獲得成就:",
 			"FR": "Vous avez obtenu un succès :",
 			"DE": "Du hast einen Erfolg erhalten:",
-			"ES": "Has obtenido un logro:"
+			"ES": "Has obtenido un logro:",
+			"RU": "Вы получили достижение:",
+			"JA": "実績を獲得しました：",
+			"KO": "업적을 획득했습니다:"
 		},
 		"currentAchvPoint": {
 			"EN": "Current achievement point:",
@@ -2829,7 +3195,10 @@
 			"CNT": "當前成就點:",
 			"FR": "Points de succès actuels :",
 			"DE": "Aktuelle Erfolgspunkte:",
-			"ES": "Puntos de logro actuales:"
+			"ES": "Puntos de logro actuales:",
+			"RU": "Текущие очки достижений:",
+			"JA": "現在の実績ポイント：",
+			"KO": "현재 업적 점수:"
 		},
 		"eliteLevelTipTitle": {
 			"EN": "this is a tip title",
@@ -2842,7 +3211,10 @@
 			"CNT": "實力提升效果",
 			"FR": "débloquer",
 			"DE": "freischalten",
-			"ES": "desbloquear"
+			"ES": "desbloquear",
+			"RU": "открыть",
+			"JA": "解放",
+			"KO": "해제"
 		},
 		"unlockBtn": {
 			"EN": "unlock",
@@ -2850,7 +3222,10 @@
 			"CNT": "解鎖",
 			"FR": "débloquer",
 			"DE": "freischalten",
-			"ES": "desbloquear"
+			"ES": "desbloquear",
+			"RU": "открыть",
+			"JA": "解放",
+			"KO": "해제"
 		},
 		"nurse": {
 			"EN": "Nurse",
@@ -2858,7 +3233,10 @@
 			"CNT": "護士",
 			"FR": "Infirmière",
 			"DE": "Krankenschwester",
-			"ES": "Enfermera"
+			"ES": "Enfermera",
+			"RU": "Медсестра",
+			"JA": "ナース",
+			"KO": "간호사"
 		},
 		"rogue": {
 			"EN": "Rogue",
@@ -2866,7 +3244,10 @@
 			"CNT": "黑帮混混",
 			"FR": "Voyou",
 			"DE": "Schurke",
-			"ES": "Pícaro"
+			"ES": "Pícaro",
+			"RU": "Разбойник",
+			"JA": "ならず者",
+			"KO": "도적"
 		},
 		"horticulturist": {
 			"EN": "Nurse",
@@ -2874,7 +3255,10 @@
 			"CNT": "園藝師",
 			"FR": "Jardinier",
 			"DE": "Gärtner",
-			"ES": "Jardinero"
+			"ES": "Jardinero",
+			"RU": "Садовник",
+			"JA": "庭師",
+			"KO": "정원사"
 		},
 		"merchant": {
 			"EN": "Merchant",
@@ -2882,7 +3266,10 @@
 			"CNT": "商人",
 			"FR": "Marchand",
 			"DE": "Händler",
-			"ES": "Mercader"
+			"ES": "Mercader",
+			"RU": "Торговец",
+			"JA": "商人",
+			"KO": "상인"
 		},
 		"rookiePlay101": {
 			"EN": "!!!",
@@ -2890,7 +3277,10 @@
 			"CNT": "!!!",
 			"FR": "!!!",
 			"DE": "!!!",
-			"ES": "!!!"
+			"ES": "!!!",
+			"RU": "!!!",
+			"JA": "！！！",
+			"KO": "!!!"
 		},
 		"rookiePlay102": {
 			"EN": "How did you end up here?",
@@ -2898,7 +3288,10 @@
 			"CNT": "你怎麼跑到這裡來了",
 			"FR": "Comment es-tu arrivé ici ?",
 			"DE": "Wie bist du hierher geraten?",
-			"ES": "¿Cómo has acabado aquí?"
+			"ES": "¿Cómo has acabado aquí?",
+			"RU": "Как ты сюда попал?",
+			"JA": "どうしてここに来たんだ？",
+			"KO": "어쩌다 여기까지 왔지?"
 		},
 		"rookiePlay103": {
 			"EN": "This is the Demon King's dungeon — every floor is guarded by many monsters.",
@@ -2906,7 +3299,10 @@
 			"CNT": "這是魔王的地牢，每一層都有很多怪物看守",
 			"FR": "C'est le donjon du Roi Démon — chaque étage est gardé par de nombreux monstres.",
 			"DE": "Das ist der Kerker des Dämonenkönigs — jede Etage wird von vielen Monstern bewacht.",
-			"ES": "Esta es la mazmorra del Rey Demonio: cada piso está vigilado por muchos monstruos."
+			"ES": "Esta es la mazmorra del Rey Demonio: cada piso está vigilado por muchos monstruos.",
+			"RU": "Это подземелье Короля демонов — каждый этаж охраняют толпы монстров.",
+			"JA": "ここは魔王のダンジョン——どの階も多くの魔物が守っている。",
+			"KO": "여기는 마왕의 던전이야 — 층마다 수많은 몬스터가 지키고 있지."
 		},
 		"rookiePlay104": {
 			"EN": "Now you can see the monsters and some usable potions; the exit is behind the door.",
@@ -2914,7 +3310,10 @@
 			"CNT": "現在你可以看到怪物和一些可以使用的药水，門後面是出口",
 			"FR": "Tu vois maintenant les monstres et quelques potions utilisables ; la sortie est derrière la porte.",
 			"DE": "Du siehst nun die Monster und einige nutzbare Tränke; der Ausgang ist hinter der Tür.",
-			"ES": "Ahora ves los monstruos y algunas pociones utilizables; la salida está tras la puerta."
+			"ES": "Ahora ves los monstruos y algunas pociones utilizables; la salida está tras la puerta.",
+			"RU": "Теперь ты видишь монстров и несколько зелий; выход за дверью.",
+			"JA": "魔物と使えるポーションが見える。出口は扉の向こうだ。",
+			"KO": "이제 몬스터와 사용할 수 있는 물약이 보일 거야. 출구는 문 뒤에 있어."
 		},
 		"rookiePlay105": {
 			"EN": "But you can never know whether an exit leaves the dungeon or leads to the next floor.",
@@ -2922,7 +3321,10 @@
 			"CNT": "但是你永遠無法知道出口是離開地牢還是通往下一層",
 			"FR": "Mais tu ne sauras jamais si une sortie quitte le donjon ou mène à l'étage suivant.",
 			"DE": "Aber du weißt nie, ob ein Ausgang aus dem Kerker führt oder zur nächsten Etage.",
-			"ES": "Pero nunca sabrás si una salida abandona la mazmorra o lleva al siguiente piso."
+			"ES": "Pero nunca sabrás si una salida abandona la mazmorra o lleva al siguiente piso.",
+			"RU": "Но ты никогда не знаешь, выводит ли выход из подземелья или ведёт на следующий этаж.",
+			"JA": "だが、その出口がダンジョンを出るのか次の階へ続くのかは決して分からない。",
+			"KO": "하지만 그 출구가 던전을 벗어나는지 다음 층으로 이어지는지는 결코 알 수 없어."
 		},
 		"rookiePlay201": {
 			"EN": "Let me tell you some basic rules.",
@@ -2930,7 +3332,10 @@
 			"CNT": "讓我告訴你一些基本規則",
 			"FR": "Laisse-moi t'expliquer quelques règles de base.",
 			"DE": "Lass mich dir ein paar Grundregeln erklären.",
-			"ES": "Déjame explicarte algunas reglas básicas."
+			"ES": "Déjame explicarte algunas reglas básicas.",
+			"RU": "Позволь объяснить несколько базовых правил.",
+			"JA": "基本的なルールを教えよう。",
+			"KO": "기본 규칙을 알려줄게."
 		},
 		"rookiePlay202": {
 			"EN": "A number on the ground shows how many monsters hide in the 8 surrounding tiles.",
@@ -2938,7 +3343,10 @@
 			"CNT": "地上的數字表示它周圍8個格子裡隱藏的怪物的數量",
 			"FR": "Un chiffre sur le sol indique combien de monstres se cachent dans les 8 cases voisines.",
 			"DE": "Eine Zahl am Boden zeigt, wie viele Monster sich in den 8 Nachbarfeldern verbergen.",
-			"ES": "Un número en el suelo indica cuántos monstruos se ocultan en las 8 casillas vecinas."
+			"ES": "Un número en el suelo indica cuántos monstruos se ocultan en las 8 casillas vecinas.",
+			"RU": "Число на полу показывает, сколько монстров скрыто в 8 соседних клетках.",
+			"JA": "床の数字は、周囲8マスに隠れている魔物の数を表す。",
+			"KO": "바닥의 숫자는 주변 8칸에 숨은 몬스터 수를 나타내."
 		},
 		"rookiePlay203": {
 			"EN": "Tap to uncover a tile.",
@@ -2946,7 +3354,10 @@
 			"CNT": "點擊就可以打開格子",
 			"FR": "Touche pour révéler une case.",
 			"DE": "Tippe, um ein Feld aufzudecken.",
-			"ES": "Toca para descubrir una casilla."
+			"ES": "Toca para descubrir una casilla.",
+			"RU": "Нажми, чтобы открыть клетку.",
+			"JA": "タップでマスを開く。",
+			"KO": "탭하면 칸이 열려."
 		},
 		"rookiePlay204": {
 			"EN": "Follow me — tap the flashing tile.",
@@ -2954,7 +3365,10 @@
 			"CNT": "跟著我點擊閃光的格子",
 			"FR": "Suis-moi — touche la case qui clignote.",
 			"DE": "Folge mir — tippe das blinkende Feld an.",
-			"ES": "Sígueme: toca la casilla que parpadea."
+			"ES": "Sígueme: toca la casilla que parpadea.",
+			"RU": "Следуй за мной — нажми мигающую клетку.",
+			"JA": "ついて来て——光っているマスをタップ。",
+			"KO": "날 따라와 — 반짝이는 칸을 탭해."
 		},
 		"rookiePlay205": {
 			"EN": "When you're not sure, use a throwing knife to scout.",
@@ -2962,7 +3376,10 @@
 			"CNT": "當你無法確定時，可以用飛刀來探路",
 			"FR": "Dans le doute, utilise un couteau de lancer pour explorer.",
 			"DE": "Wenn du unsicher bist, nutze ein Wurfmesser zum Erkunden.",
-			"ES": "Cuando dudes, usa un cuchillo arrojadizo para explorar."
+			"ES": "Cuando dudes, usa un cuchillo arrojadizo para explorar.",
+			"RU": "Если не уверен, используй метательный нож для разведки.",
+			"JA": "迷ったときは、投げナイフで偵察しよう。",
+			"KO": "확신이 없을 땐 표창으로 정찰해."
 		},
 		"rookiePlay206": {
 			"EN": "Pick up the knife and let's use it to scout.",
@@ -2970,7 +3387,10 @@
 			"CNT": "撿起飛刀，我們來用它探路",
 			"FR": "Ramasse le couteau et servons-nous-en pour explorer.",
 			"DE": "Heb das Messer auf und erkunden wir damit.",
-			"ES": "Recoge el cuchillo y usémoslo para explorar."
+			"ES": "Recoge el cuchillo y usémoslo para explorar.",
+			"RU": "Подбери нож, и давай разведаем им путь.",
+			"JA": "ナイフを拾って、それで偵察しよう。",
+			"KO": "표창을 주워서 정찰에 써보자."
 		},
 		"rookiePlay207": {
 			"EN": "Now let's attack a tile.",
@@ -2978,7 +3398,10 @@
 			"CNT": "下來讓我們攻擊一個格子",
 			"FR": "Attaquons maintenant une case.",
 			"DE": "Greifen wir nun ein Feld an.",
-			"ES": "Ataquemos ahora una casilla."
+			"ES": "Ataquemos ahora una casilla.",
+			"RU": "Теперь атакуем клетку.",
+			"JA": "では、マスを攻撃してみよう。",
+			"KO": "이제 칸을 공격해 보자."
 		},
 		"rookiePlay208": {
 			"EN": "Looks like we've run into an enemy.",
@@ -2986,7 +3409,10 @@
 			"CNT": "看來我們遇到了對手",
 			"FR": "On dirait qu'on a croisé un ennemi.",
 			"DE": "Sieht aus, als wären wir auf einen Gegner gestoßen.",
-			"ES": "Parece que nos hemos topado con un enemigo."
+			"ES": "Parece que nos hemos topado con un enemigo.",
+			"RU": "Похоже, мы наткнулись на врага.",
+			"JA": "どうやら敵に出くわしたようだ。",
+			"KO": "적과 마주친 것 같군."
 		},
 		"rookiePlay209": {
 			"EN": "Long-press to view a monster's details.",
@@ -2994,7 +3420,10 @@
 			"CNT": "怪物的詳細資訊可以通過長按來查看",
 			"FR": "Maintiens l'appui pour voir les détails d'un monstre.",
 			"DE": "Halte gedrückt, um die Details eines Monsters zu sehen.",
-			"ES": "Mantén pulsado para ver los detalles de un monstruo."
+			"ES": "Mantén pulsado para ver los detalles de un monstruo.",
+			"RU": "Удерживай нажатие, чтобы увидеть сведения о монстре.",
+			"JA": "長押しで魔物の詳細を見られる。",
+			"KO": "길게 누르면 몬스터의 상세 정보를 볼 수 있어."
 		},
 		"rookiePlay210": {
 			"EN": "Now long-press the tile the hand points to.",
@@ -3002,7 +3431,10 @@
 			"CNT": "現在長按小手指向的格子吧",
 			"FR": "Maintiens l'appui sur la case indiquée par la main.",
 			"DE": "Halte nun das Feld gedrückt, auf das die Hand zeigt.",
-			"ES": "Mantén pulsada la casilla que señala la mano."
+			"ES": "Mantén pulsada la casilla que señala la mano.",
+			"RU": "Теперь удерживай клетку, на которую указывает рука.",
+			"JA": "手が指すマスを長押ししよう。",
+			"KO": "손이 가리키는 칸을 길게 눌러."
 		},
 		"rookiePlay211": {
 			"EN": "Every monster has special stats and skills. Now let's try attacking it.",
@@ -3010,7 +3442,10 @@
 			"CNT": "每個怪物都有特殊的屬性和技能，現在讓我們嘗試攻擊一下它",
 			"FR": "Chaque monstre a des stats et des compétences propres. Essayons de l'attaquer.",
 			"DE": "Jedes Monster hat eigene Werte und Fähigkeiten. Versuchen wir, es anzugreifen.",
-			"ES": "Cada monstruo tiene sus propias estadísticas y habilidades. Probemos a atacarlo."
+			"ES": "Cada monstruo tiene sus propias estadísticas y habilidades. Probemos a atacarlo.",
+			"RU": "У каждого монстра свои характеристики и навыки. Попробуем атаковать его.",
+			"JA": "魔物にはそれぞれ固有の能力とスキルがある。攻撃してみよう。",
+			"KO": "몬스터마다 고유한 능력치와 스킬이 있어. 공격해 보자."
 		},
 		"rookiePlay212": {
 			"EN": "Go ahead, tap the monster.",
@@ -3018,7 +3453,10 @@
 			"CNT": "來，點擊怪物吧",
 			"FR": "Vas-y, touche le monstre.",
 			"DE": "Los, tippe das Monster an.",
-			"ES": "Adelante, toca el monstruo."
+			"ES": "Adelante, toca el monstruo.",
+			"RU": "Давай, нажми на монстра.",
+			"JA": "さあ、魔物をタップ。",
+			"KO": "자, 몬스터를 탭해."
 		},
 		"rookiePlay213": {
 			"EN": "When an Eye Demon dies, it opens the empty tiles around it.",
@@ -3026,7 +3464,10 @@
 			"CNT": "眼魔死亡會打開空著的格子",
 			"FR": "Quand un Démon de l'Œil meurt, il ouvre les cases vides autour de lui.",
 			"DE": "Wenn ein Augendämon stirbt, öffnet er die leeren Felder um sich herum.",
-			"ES": "Cuando un Demonio Ojo muere, abre las casillas vacías a su alrededor."
+			"ES": "Cuando un Demonio Ojo muere, abre las casillas vacías a su alrededor.",
+			"RU": "Когда Глаз-демон погибает, он открывает пустые клетки вокруг себя.",
+			"JA": "アイデーモンが死ぬと、周囲の空きマスを開く。",
+			"KO": "아이 데몬이 죽으면 주변의 빈 칸이 열려."
 		},
 		"rookiePlay214": {
 			"EN": "Now uncover the flashing tile.",
@@ -3034,7 +3475,10 @@
 			"CNT": "現在點開閃光的格子",
 			"FR": "Révèle maintenant la case qui clignote.",
 			"DE": "Decke nun das blinkende Feld auf.",
-			"ES": "Descubre ahora la casilla que parpadea."
+			"ES": "Descubre ahora la casilla que parpadea.",
+			"RU": "Теперь открой мигающую клетку.",
+			"JA": "光っているマスを開こう。",
+			"KO": "이제 반짝이는 칸을 열어."
 		},
 		"rookiePlay215": {
 			"EN": "There's an apple — we can drag it away to read the number on the tile.",
@@ -3042,7 +3486,10 @@
 			"CNT": "有一個蘋果，我們可以拖走它方便我們看格子上的數字",
 			"FR": "Il y a une pomme — on peut la déplacer pour lire le chiffre sur la case.",
 			"DE": "Da ist ein Apfel — wir können ihn wegziehen, um die Zahl auf dem Feld zu lesen.",
-			"ES": "Hay una manzana: podemos arrastrarla para leer el número de la casilla."
+			"ES": "Hay una manzana: podemos arrastrarla para leer el número de la casilla.",
+			"RU": "Тут яблоко — можно оттащить его, чтобы прочитать число на клетке.",
+			"JA": "リンゴがある——ずらすとマスの数字が読める。",
+			"KO": "사과가 있네 — 끌어서 치우면 칸의 숫자를 볼 수 있어."
 		},
 		"rookiePlay216": {
 			"EN": "Let's uncover another flashing tile.",
@@ -3050,7 +3497,10 @@
 			"CNT": "讓我們再點開一個閃光的格子",
 			"FR": "Révélons une autre case clignotante.",
 			"DE": "Decken wir ein weiteres blinkendes Feld auf.",
-			"ES": "Descubramos otra casilla que parpadea."
+			"ES": "Descubramos otra casilla que parpadea.",
+			"RU": "Откроем ещё одну мигающую клетку.",
+			"JA": "もう一つ光るマスを開こう。",
+			"KO": "반짝이는 칸을 하나 더 열자."
 		},
 		"rookiePlay217": {
 			"EN": "There's a potion — let's tap it.",
@@ -3058,7 +3508,10 @@
 			"CNT": "有一瓶藥水，我們來點一下",
 			"FR": "Il y a une potion — touchons-la.",
 			"DE": "Da ist ein Trank — tippen wir ihn an.",
-			"ES": "Hay una poción: toquémosla."
+			"ES": "Hay una poción: toquémosla.",
+			"RU": "Тут зелье — нажмём на него.",
+			"JA": "ポーションがある——タップしよう。",
+			"KO": "물약이 있네 — 탭해 보자."
 		},
 		"rookiePlay218": {
 			"EN": "It went into the item bar. Let's keep going.",
@@ -3066,7 +3519,10 @@
 			"CNT": "它進入药水欄了，讓我們繼續",
 			"FR": "Elle est allée dans la barre d'objets. Continuons.",
 			"DE": "Er ist in die Gegenstandsleiste gewandert. Weiter geht's.",
-			"ES": "Ha ido a la barra de objetos. Sigamos."
+			"ES": "Ha ido a la barra de objetos. Sigamos.",
+			"RU": "Оно попало в панель предметов. Продолжим.",
+			"JA": "アイテム欄に入った。続けよう。",
+			"KO": "아이템 칸에 들어갔어. 계속하자."
 		},
 		"rookiePlay219": {
 			"EN": "Let's try out the bomb potion.",
@@ -3074,7 +3530,10 @@
 			"CNT": "我們來嘗試一下爆炸藥水的效果吧",
 			"FR": "Essayons la potion explosive.",
 			"DE": "Probieren wir den Bombentrank aus.",
-			"ES": "Probemos la poción explosiva."
+			"ES": "Probemos la poción explosiva.",
+			"RU": "Опробуем зелье-бомбу.",
+			"JA": "爆発ポーションを試してみよう。",
+			"KO": "폭탄 물약을 써보자."
 		},
 		"rookiePlay220": {
 			"EN": "Now let's learn a new action: marking monsters manually.",
@@ -3082,7 +3541,10 @@
 			"CNT": "現在我們學習一個新操作，手動標注怪物",
 			"FR": "Apprenons une nouvelle action : marquer les monstres à la main.",
 			"DE": "Lernen wir eine neue Aktion: Monster von Hand markieren.",
-			"ES": "Aprendamos una nueva acción: marcar monstruos a mano."
+			"ES": "Aprendamos una nueva acción: marcar monstruos a mano.",
+			"RU": "Освоим новое действие: помечать монстров вручную.",
+			"JA": "新しい操作を覚えよう：手動で魔物に印を付ける。",
+			"KO": "새로운 조작을 배우자: 몬스터를 직접 표시하기."
 		},
 		"rookiePlay221": {
 			"EN": "We mark a tile by hand to remind ourselves a monster is there.",
@@ -3090,7 +3552,10 @@
 			"CNT": "我們手動在格子上做記號，提醒自己那個格子有怪物",
 			"FR": "On marque une case à la main pour se rappeler qu'un monstre s'y trouve.",
 			"DE": "Wir markieren ein Feld von Hand, um uns zu merken, dass dort ein Monster ist.",
-			"ES": "Marcamos una casilla a mano para recordar que allí hay un monstruo."
+			"ES": "Marcamos una casilla a mano para recordar que allí hay un monstruo.",
+			"RU": "Мы помечаем клетку вручную, чтобы помнить, что там монстр.",
+			"JA": "魔物がいると覚えておくため、マスに手動で印を付ける。",
+			"KO": "그 칸에 몬스터가 있다는 걸 기억하려고 직접 표시하는 거야."
 		},
 		"rookiePlay222": {
 			"EN": "Follow the hand and long-press that tile.",
@@ -3098,7 +3563,10 @@
 			"CNT": "跟著小手長按那個格子",
 			"FR": "Suis la main et maintiens l'appui sur cette case.",
 			"DE": "Folge der Hand und halte dieses Feld gedrückt.",
-			"ES": "Sigue la mano y mantén pulsada esa casilla."
+			"ES": "Sigue la mano y mantén pulsada esa casilla.",
+			"RU": "Следуй за рукой и удерживай эту клетку.",
+			"JA": "手に従って、そのマスを長押し。",
+			"KO": "손을 따라 그 칸을 길게 눌러."
 		},
 		"rookiePlay223": {
 			"EN": "Great, you did it! Let's try once more.",
@@ -3106,7 +3574,10 @@
 			"CNT": "好的，你成功了，讓我們再來一次",
 			"FR": "Bravo, tu as réussi ! Recommençons.",
 			"DE": "Super, geschafft! Versuchen wir es noch einmal.",
-			"ES": "¡Genial, lo lograste! Hagámoslo otra vez."
+			"ES": "¡Genial, lo lograste! Hagámoslo otra vez.",
+			"RU": "Отлично, получилось! Повторим ещё раз.",
+			"JA": "よし、成功だ！もう一度やってみよう。",
+			"KO": "좋아, 해냈어! 한 번 더 해보자."
 		},
 		"rookiePlay224": {
 			"EN": "Excellent. The Demon King's minions fill the dungeon — explore carefully, hero.",
@@ -3114,7 +3585,10 @@
 			"CNT": "非常好，魔王的手下遍佈地牢，謹慎的向前探索吧，勇士",
 			"FR": "Excellent. Les sbires du Roi Démon emplissent le donjon — explore prudemment, héros.",
 			"DE": "Ausgezeichnet. Die Schergen des Dämonenkönigs füllen den Kerker — erkunde vorsichtig, Held.",
-			"ES": "Excelente. Los secuaces del Rey Demonio llenan la mazmorra: explora con cuidado, héroe."
+			"ES": "Excelente. Los secuaces del Rey Demonio llenan la mazmorra: explora con cuidado, héroe.",
+			"RU": "Превосходно. Прислужники Короля демонов заполонили подземелье — исследуй осторожно, герой.",
+			"JA": "見事だ。魔王の手下はダンジョンに満ちている——慎重に進め、勇者よ。",
+			"KO": "훌륭해. 마왕의 부하들이 던전에 가득해 — 조심히 탐험하렴, 용사여."
 		},
 		"onSneakedGuide01": {
 			"EN": "Oops, a monster ambushed you!",
@@ -3122,7 +3596,10 @@
 			"CNT": "哎呀，你被怪物突襲了",
 			"FR": "Oups, un monstre t'a tendu une embuscade !",
 			"DE": "Hoppla, ein Monster hat dich überfallen!",
-			"ES": "¡Vaya, un monstruo te ha emboscado!"
+			"ES": "¡Vaya, un monstruo te ha emboscado!",
+			"RU": "Ой, монстр устроил тебе засаду!",
+			"JA": "おっと、魔物に奇襲された！",
+			"KO": "이런, 몬스터에게 기습당했어!"
 		},
 		"onSneakedGuide02": {
 			"EN": "When monsters ambush, they use all kinds of skills to hurt you.",
@@ -3130,7 +3607,10 @@
 			"CNT": "怪物突襲時會有各種技能來傷害你",
 			"FR": "Lors d'une embuscade, les monstres usent de toutes sortes de compétences pour te blesser.",
 			"DE": "Bei einem Überfall setzen Monster allerlei Fähigkeiten ein, um dir zu schaden.",
-			"ES": "Al emboscar, los monstruos usan todo tipo de habilidades para dañarte."
+			"ES": "Al emboscar, los monstruos usan todo tipo de habilidades para dañarte.",
+			"RU": "В засаде монстры применяют разные навыки, чтобы ранить тебя.",
+			"JA": "奇襲時、魔物はさまざまなスキルで君を傷つける。",
+			"KO": "기습할 때 몬스터는 온갖 스킬로 너를 해쳐."
 		},
 		"onSneakedGuide03": {
 			"EN": "You can use throwing knives and potions to scout ahead.",
@@ -3138,7 +3618,10 @@
 			"CNT": "你可以使用飛刀和药水來探路",
 			"FR": "Tu peux utiliser des couteaux de lancer et des potions pour explorer.",
 			"DE": "Du kannst Wurfmesser und Tränke zum Erkunden nutzen.",
-			"ES": "Puedes usar cuchillos arrojadizos y pociones para explorar."
+			"ES": "Puedes usar cuchillos arrojadizos y pociones para explorar.",
+			"RU": "Для разведки можно использовать метательные ножи и зелья.",
+			"JA": "投げナイフやポーションで偵察できる。",
+			"KO": "표창과 물약으로 정찰할 수 있어."
 		},
 		"onMonsterMarkedGuide01": {
 			"EN": "Bingo! You marked a monster.",
@@ -3146,7 +3629,10 @@
 			"CNT": "bingo，你成功的標記了一個怪物",
 			"FR": "Bingo ! Tu as marqué un monstre.",
 			"DE": "Bingo! Du hast ein Monster markiert.",
-			"ES": "¡Bingo! Has marcado un monstruo."
+			"ES": "¡Bingo! Has marcado un monstruo.",
+			"RU": "Бинго! Ты пометил монстра.",
+			"JA": "ビンゴ！魔物に印を付けた。",
+			"KO": "빙고! 몬스터를 표시했어."
 		},
 		"onMonsterMarkedGuide02": {
 			"EN": "You can also check a monster's stats to decide whether to kill it.",
@@ -3154,7 +3640,10 @@
 			"CNT": "你也可以看到怪物的屬性來判斷是不是要擊殺這個怪物",
 			"FR": "Tu peux aussi consulter ses stats pour décider de le tuer ou non.",
 			"DE": "Du kannst auch seine Werte prüfen, um zu entscheiden, ob du es tötest.",
-			"ES": "También puedes ver sus estadísticas para decidir si lo matas."
+			"ES": "También puedes ver sus estadísticas para decidir si lo matas.",
+			"RU": "Можно также посмотреть его характеристики и решить, убивать ли его.",
+			"JA": "能力を確認して、倒すかどうか判断できる。",
+			"KO": "능력치를 확인해 처치할지 정할 수도 있어."
 		},
 		"onMonsterMarkedGuide03": {
 			"EN": "Note: you don't have to kill every monster — grab the treasure and head to the next floor.",
@@ -3162,7 +3651,10 @@
 			"CNT": "注意哦，你不一定要擊殺所有怪物，拿到寶物就可以去下一層了",
 			"FR": "Note : tu n'es pas obligé de tuer chaque monstre — prends le trésor et passe à l'étage suivant.",
 			"DE": "Hinweis: Du musst nicht jedes Monster töten — schnapp dir den Schatz und geh zur nächsten Etage.",
-			"ES": "Nota: no tienes que matar a todos los monstruos; coge el tesoro y pasa al siguiente piso."
+			"ES": "Nota: no tienes que matar a todos los monstruos; coge el tesoro y pasa al siguiente piso.",
+			"RU": "Заметь: убивать всех монстров необязательно — забери сокровище и иди на следующий этаж.",
+			"JA": "注意：すべての魔物を倒す必要はない——宝を取って次の階へ進もう。",
+			"KO": "참고: 모든 몬스터를 죽일 필요는 없어 — 보물을 챙겨 다음 층으로 가면 돼."
 		},
 		"rookiePlay501": {
 			"EN": "Looks like you have a chance to break through the Demon King's blockade.",
@@ -3170,7 +3662,10 @@
 			"CNT": "看來你有機會突破魔王的封鎖了",
 			"FR": "On dirait que tu as une chance de percer le blocus du Roi Démon.",
 			"DE": "Sieht aus, als hättest du eine Chance, die Blockade des Dämonenkönigs zu durchbrechen.",
-			"ES": "Parece que tienes una oportunidad de romper el bloqueo del Rey Demonio."
+			"ES": "Parece que tienes una oportunidad de romper el bloqueo del Rey Demonio.",
+			"RU": "Похоже, у тебя есть шанс прорвать блокаду Короля демонов.",
+			"JA": "魔王の封鎖を突破するチャンスがあるようだ。",
+			"KO": "마왕의 봉쇄를 뚫을 기회가 생긴 것 같군."
 		},
 		"rookiePlay502": {
 			"EN": "Let me introduce a powerful ally — he'll fight alongside me to help you.",
@@ -3178,7 +3673,10 @@
 			"CNT": "給你介紹一位強力的同伴，他會和我一起幫助你戰鬥",
 			"FR": "Laisse-moi te présenter un allié puissant — il combattra à mes côtés pour t'aider.",
 			"DE": "Lass mich dir einen starken Verbündeten vorstellen — er kämpft an meiner Seite, um dir zu helfen.",
-			"ES": "Déjame presentarte a un aliado poderoso: luchará a mi lado para ayudarte."
+			"ES": "Déjame presentarte a un aliado poderoso: luchará a mi lado para ayudarte.",
+			"RU": "Представлю тебе могучего союзника — он будет сражаться рядом со мной, помогая тебе.",
+			"JA": "強力な仲間を紹介しよう——彼は私と共に君を助けて戦う。",
+			"KO": "강력한 동료를 소개하지 — 그는 나와 함께 너를 도와 싸울 거야."
 		},
 		"rookiePlay503": {
 			"EN": "I'm just a gardener, really, but my plant darlings are formidable.",
@@ -3186,7 +3684,10 @@
 			"CNT": "其實我就是種花的，不過我的植物寶貝們都很厲害",
 			"FR": "Je ne suis qu'un jardinier, mais mes chères plantes sont redoutables.",
 			"DE": "Ich bin nur ein Gärtner, doch meine geliebten Pflanzen sind beachtlich.",
-			"ES": "Solo soy un jardinero, pero mis queridas plantas son temibles."
+			"ES": "Solo soy un jardinero, pero mis queridas plantas son temibles.",
+			"RU": "Я всего лишь садовник, но мои дорогие растения весьма грозны.",
+			"JA": "私はただの庭師だが、私の愛する植物たちは手強いぞ。",
+			"KO": "난 그저 정원사지만, 내 소중한 식물들은 만만치 않아."
 		},
 		"rookiePlay504": {
 			"EN": "Getting to know them well will make your battles much easier.",
@@ -3194,7 +3695,10 @@
 			"CNT": "瞭解並熟悉它們，可以讓你的戰鬥更加輕鬆",
 			"FR": "Bien les connaître rendra tes combats bien plus faciles.",
 			"DE": "Sie gut zu kennen macht deine Kämpfe viel leichter.",
-			"ES": "Conocerlas bien hará tus combates mucho más fáciles."
+			"ES": "Conocerlas bien hará tus combates mucho más fáciles.",
+			"RU": "Хорошо зная их, ты будешь сражаться гораздо легче.",
+			"JA": "彼らをよく知れば、戦いはずっと楽になる。",
+			"KO": "그들을 잘 알면 전투가 훨씬 수월해질 거야."
 		},
 		"rookiePlay505": {
 			"EN": "Now I'll give you my relic, and you'll be able to command my plants.",
@@ -3202,7 +3706,10 @@
 			"CNT": "現在把我的寶物給你，你就可以操縱我的植物了",
 			"FR": "Je te donne ma relique : tu pourras commander mes plantes.",
 			"DE": "Ich gebe dir meine Reliquie: Du kannst dann meine Pflanzen befehligen.",
-			"ES": "Te doy mi reliquia: podrás comandar mis plantas."
+			"ES": "Te doy mi reliquia: podrás comandar mis plantas.",
+			"RU": "Дарю тебе мою реликвию: ты сможешь повелевать моими растениями.",
+			"JA": "私のレリックを授けよう。君は私の植物を操れるようになる。",
+			"KO": "내 유물을 줄게. 이제 내 식물을 부릴 수 있어."
 		},
 		"rookiePlay506": {
 			"EN": "Press on, hero.",
@@ -3210,7 +3717,10 @@
 			"CNT": "繼續前進吧，勇士",
 			"FR": "En avant, héros.",
 			"DE": "Vorwärts, Held.",
-			"ES": "Adelante, héroe."
+			"ES": "Adelante, héroe.",
+			"RU": "Вперёд, герой.",
+			"JA": "進め、勇者よ。",
+			"KO": "나아가라, 용사여."
 		},
 		"robExtraItemDialog01": {
 			"EN": "Robbed an extra item: ",
@@ -3218,7 +3728,10 @@
 			"CNT": "額外搶到一件道具：",
 			"FR": "Objet supplémentaire volé : ",
 			"DE": "Zusätzlichen Gegenstand geraubt: ",
-			"ES": "Objeto adicional robado: "
+			"ES": "Objeto adicional robado: ",
+			"RU": "Похищен дополнительный предмет: ",
+			"JA": "アイテムを追加で奪った：",
+			"KO": "아이템을 추가로 강탈했다: "
 		},
 		"openAvatarView01": {
 			"EN": "Tap the avatar.",
@@ -3226,7 +3739,10 @@
 			"CNT": "點擊頭像",
 			"FR": "Touche l'avatar.",
 			"DE": "Tippe den Avatar an.",
-			"ES": "Toca el avatar."
+			"ES": "Toca el avatar.",
+			"RU": "Нажми на аватар.",
+			"JA": "アバターをタップ。",
+			"KO": "아바타를 탭해."
 		},
 		"openAvatarView02": {
 			"EN": "Here you can see your stats, common skills, and some settings to choose from.",
@@ -3234,7 +3750,10 @@
 			"CNT": "這裡你可以看到你的屬性，通用技能，還有一些設置可以選擇",
 			"FR": "Ici tu vois tes stats, tes compétences communes et quelques réglages.",
 			"DE": "Hier siehst du deine Werte, allgemeine Fähigkeiten und einige Einstellungen.",
-			"ES": "Aquí ves tus estadísticas, habilidades comunes y algunos ajustes."
+			"ES": "Aquí ves tus estadísticas, habilidades comunes y algunos ajustes.",
+			"RU": "Здесь видны твои характеристики, общие навыки и некоторые настройки.",
+			"JA": "ここでは能力値、共通スキル、いくつかの設定を確認できる。",
+			"KO": "여기서 능력치, 공용 스킬, 몇 가지 설정을 볼 수 있어."
 		},
 		"openAvatarView03": {
 			"EN": "Tap back to return to the battle.",
@@ -3242,7 +3761,10 @@
 			"CNT": "點擊返回讓我們回到戰鬥",
 			"FR": "Touche Retour pour revenir au combat.",
 			"DE": "Tippe Zurück, um zum Kampf zurückzukehren.",
-			"ES": "Toca Volver para regresar al combate."
+			"ES": "Toca Volver para regresar al combate.",
+			"RU": "Нажми «Назад», чтобы вернуться в бой.",
+			"JA": "「もどる」をタップで戦闘に戻る。",
+			"KO": "뒤로를 탭하면 전투로 돌아가."
 		},
 		"halloweenTreant": {
 			"EN": "HalloweenTreant",
@@ -3255,7 +3777,10 @@
 			"CNT": "我的朋友，你終於來了，我為萬聖節樹妖關在這裡好久了",
 			"FR": "Mon ami, te voilà enfin — le Tréant d'Halloween me retient prisonnier depuis si longtemps.",
 			"DE": "Mein Freund, endlich bist du da — der Halloween-Baumriese hält mich schon so lange gefangen.",
-			"ES": "Amigo mío, por fin has venido: el Ent de Halloween me tiene preso aquí desde hace tanto."
+			"ES": "Amigo mío, por fin has venido: el Ent de Halloween me tiene preso aquí desde hace tanto.",
+			"RU": "Друг мой, наконец-то ты пришёл — Хэллоуинский древень так долго держал меня в плену.",
+			"JA": "友よ、ついに来てくれたか——ハロウィントレントに長らく囚われていたのだ。",
+			"KO": "친구여, 드디어 왔구나 — 핼러윈 트렌트에게 오랫동안 갇혀 있었다네."
 		},
 		"onUnlockOccupationGuide02": {
 			"EN": "Thank you for saving me. You can pick me on the start screen to fight by your side.",
@@ -3263,7 +3788,10 @@
 			"CNT": "感謝你的拯救，你可以在初始介面選擇我與你並肩戰鬥",
 			"FR": "Merci de m'avoir sauvé. Tu pourras me choisir à l'écran d'accueil pour combattre à tes côtés.",
 			"DE": "Danke, dass du mich gerettet hast. Du kannst mich im Startbildschirm wählen, um an deiner Seite zu kämpfen.",
-			"ES": "Gracias por salvarme. Podrás elegirme en la pantalla de inicio para luchar a tu lado."
+			"ES": "Gracias por salvarme. Podrás elegirme en la pantalla de inicio para luchar a tu lado.",
+			"RU": "Спасибо, что спас меня. На стартовом экране ты сможешь выбрать меня, чтобы сражаться вместе.",
+			"JA": "助けてくれて感謝する。スタート画面で私を選べば、共に戦えるぞ。",
+			"KO": "구해줘서 고맙네. 시작 화면에서 나를 선택하면 함께 싸울 수 있어."
 		},
 		"rookieKillBoss01": {
 			"EN": "                             The Horticulturist has been captured.",
@@ -3271,7 +3799,10 @@
 			"CNT": "新手击败boss对话01",
 			"FR": "                             Le Jardinier a été capturé.",
 			"DE": "                             Der Gärtner wurde gefangen genommen.",
-			"ES": "                             El Jardinero ha sido capturado."
+			"ES": "                             El Jardinero ha sido capturado.",
+			"RU": "                             Садовник был схвачен.",
+			"JA": "                             庭師が捕らえられた。",
+			"KO": "                             정원사가 붙잡혔다."
 		},
 		"rookieKillBoss02": {
 			"EN": "Nurse, gangster — come save me, quick!",
@@ -3279,7 +3810,10 @@
 			"CNT": "護士妹子、黑幫兄弟，快來救我",
 			"FR": "Infirmière, voyou — venez vite me sauver !",
 			"DE": "Krankenschwester, Schurke — kommt schnell, rettet mich!",
-			"ES": "Enfermera, pícaro: ¡venid rápido a salvarme!"
+			"ES": "Enfermera, pícaro: ¡venid rápido a salvarme!",
+			"RU": "Медсестра, разбойник — скорее спасите меня!",
+			"JA": "ナース、ならず者——早く助けに来てくれ！",
+			"KO": "간호사, 도적 — 어서 날 구해줘!"
 		},
 		"killHalloweenTreantFirstTime01": {
 			"EN": "I'm finally saved — thank you!",
@@ -3287,7 +3821,10 @@
 			"CNT": "我終於得救了，謝謝",
 			"FR": "Je suis enfin sauvé — merci !",
 			"DE": "Endlich bin ich gerettet — danke!",
-			"ES": "¡Por fin estoy a salvo, gracias!"
+			"ES": "¡Por fin estoy a salvo, gracias!",
+			"RU": "Наконец-то я спасён — спасибо!",
+			"JA": "ついに救われた——ありがとう！",
+			"KO": "드디어 구원받았어 — 고마워!"
 		},
 		"killHalloweenTreantFirstTime02": {
 			"EN": "As thanks, I can help you in battle once.",
@@ -3295,7 +3832,10 @@
 			"CNT": "作為感謝，我可以幫助妳戰鬥壹次",
 			"FR": "En remerciement, je peux t'aider une fois au combat.",
 			"DE": "Zum Dank kann ich dir einmal im Kampf helfen.",
-			"ES": "En agradecimiento, puedo ayudarte una vez en combate."
+			"ES": "En agradecimiento, puedo ayudarte una vez en combate.",
+			"RU": "В благодарность я могу один раз помочь тебе в бою.",
+			"JA": "礼として、一度だけ戦闘で手助けしよう。",
+			"KO": "보답으로 전투에서 한 번 도와줄게."
 		},
 		"occLocked": {
 			"EN": "this occupation is locked",
@@ -3303,7 +3843,10 @@
 			"CNT": "該職業未解鎖",
 			"FR": "cette classe est verrouillée",
 			"DE": "diese Klasse ist gesperrt",
-			"ES": "esta clase está bloqueada"
+			"ES": "esta clase está bloqueada",
+			"RU": "этот класс заблокирован",
+			"JA": "この職業はロックされています",
+			"KO": "이 직업은 잠겨 있습니다"
 		},
 		"occLockedContent": {
 			"EN": "pay to unlock?",
@@ -3311,7 +3854,10 @@
 			"CNT": "支付6元永久解锁该职业?也可在游戏内营救该职业进行解锁,但死亡后会被重新锁定",
 			"FR": "payer pour débloquer ?",
 			"DE": "zum Freischalten bezahlen?",
-			"ES": "¿pagar para desbloquear?"
+			"ES": "¿pagar para desbloquear?",
+			"RU": "оплатить разблокировку?",
+			"JA": "支払って解放しますか？",
+			"KO": "결제하여 해제할까요?"
 		},
 		"occLockedContentAndroid": {
 			"EN": "pay to unlock?",
@@ -3319,7 +3865,10 @@
 			"CNT": "永久解锁该职业?",
 			"FR": "payer pour débloquer ?",
 			"DE": "zum Freischalten bezahlen?",
-			"ES": "¿pagar para desbloquear?"
+			"ES": "¿pagar para desbloquear?",
+			"RU": "оплатить разблокировку?",
+			"JA": "支払って解放しますか？",
+			"KO": "결제하여 해제할까요?"
 		},
 		"": {}
 	}
