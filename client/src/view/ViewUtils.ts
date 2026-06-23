@@ -278,9 +278,11 @@ class ViewUtils {
     }
     // 生成“国旗 chip”Bitmap:圆角深色底 + 白描边 + 圆角裁切的国旗。整块一张矢量 SVG。
     // 尺寸 66x46(国旗 60x40 居中,留 3px 边)。
-    public static createFlagBitmap(lang:string):any {
+    public static createFlagBitmap(lang:string, scale:number = 1):any {
         var fw = 60, fh = 40, pad = 3, W = fw + pad * 2, H = fh + pad * 2;
-        var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='" + W + "' height='" + H + "' viewBox='0 0 " + W + " " + H + "'>"
+        // 按 scale 放大输出像素(width/height),viewBox 不变 -> 矢量栅格化更大、保持清晰
+        var ow = Math.round(W * scale), oh = Math.round(H * scale);
+        var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='" + ow + "' height='" + oh + "' viewBox='0 0 " + W + " " + H + "'>"
             + "<rect x='1' y='1' width='" + (W - 2) + "' height='" + (H - 2) + "' rx='9' fill='#000' fill-opacity='0.38' stroke='#fff' stroke-opacity='0.85' stroke-width='2'/>"
             + "<clipPath id='fc'><rect x='" + pad + "' y='" + pad + "' width='" + fw + "' height='" + fh + "' rx='4'/></clipPath>"
             + "<g clip-path='url(#fc)' transform='translate(" + pad + "," + pad + ")'>" + ViewUtils.flagInner(lang) + "</g>"

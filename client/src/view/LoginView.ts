@@ -83,10 +83,10 @@ class LoginView extends egret.DisplayObjectContainer {
 
         // 语言切换：右上角国旗 chip(矢量 SVG)。点击循环 validLanguages，持久化后重载，
         // 让所有界面以新语言从头重建（登录界面无进行中对局，安全）。
-        this.btnLang = ViewUtils.createFlagBitmap(ViewUtils.getLanguage());
+        this.btnLang = ViewUtils.createFlagBitmap(ViewUtils.getLanguage(), 1.5); // 放大 50%
         this.btnLang.name = "langBtn";
-        this.btnLang.x = 18;                  // 左下角，18px 边距
-        this.btnLang.y = this.height - 46 - 18;
+        this.btnLang.x = 18;                  // 左侧，与第三排按钮(y=1000)同高
+        this.btnLang.y = 1000;
         this.btnLang.touchEnabled = true;
         this.btnLang.addEventListener(egret.TouchEvent.TOUCH_TAP, () => this.onSwitchLanguage(), this);
         this.addChild(this.btnLang);
