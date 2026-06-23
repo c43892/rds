@@ -4279,5 +4279,1077 @@
 		"BrainOfCthulhu": {
 			"name": "Gehirn von Cthulhu"
 		}
+	},
+	"ES": {
+		"MedicineBox": {
+			"name": "Maestría médica",
+			"shortDesc": "Restaura 2 PV al salir de cada piso",
+			"initialDesc": "<font color=#000000 size=28>Restaura 3/6/9/12/15 PV al salir de cada piso.</font>"
+		},
+		"Hawkeye": {
+			"name": "Ojo de halcón",
+			"shortDesc": "Marca un monstruo con llave al inicio de cada nivel"
+		},
+		"Endurance": {
+			"name": "Resistencia",
+			"shortDesc": "Aumenta los PV máximos en 5"
+		},
+		"Power": {
+			"name": "Fuerza",
+			"shortDesc": "Ataque +1"
+		},
+		"Fierce": {
+			"name": "Maestría asesina",
+			"shortDesc": "Al emboscar a un enemigo, +5 % de prob. de crítico"
+		},
+		"Unback2Sneak": {
+			"name": "Golpe preventivo",
+			"shortDesc": "Cuando emboscas a un enemigo, no puede contraatacar"
+		},
+		"Agile": {
+			"name": "Agilidad",
+			"shortDesc": "Evasión +5 %"
+		},
+		"TimeMachine": {
+			"name": "Hostilidad menguante",
+			"shortDesc": "Al salir del piso, la Muerte retrocede 5 pasos más"
+		},
+		"Crucifix": {
+			"name": "Crucifijo",
+			"shortDesc": "Ningún monstruo puede revivir"
+		},
+		"WeaponMaster": {
+			"name": "Maestro de armas",
+			"shortDesc": "Añade una porra extra en cada piso"
+		},
+		"UndefinedName1": {
+			"name": "Sin nombre 1",
+			"shortDesc": "Aumenta los PV máximos en 5"
+		},
+		"ExpMedal": {
+			"name": "Sin nombre 2",
+			"shortDesc": "Aumenta los PV máximos en 5"
+		},
+		"GoldMedal": {
+			"name": "Sin nombre 3",
+			"shortDesc": "Aumenta los PV máximos en 5"
+		},
+		"DefenseProficient": {
+			"name": "Maestro de la defensa",
+			"shortDesc": "Añade un chaleco extra en cada piso"
+		},
+		"BookMaster": {
+			"name": "Maestro de libros",
+			"shortDesc": "Añade un libro extra en cada piso"
+		},
+		"TradeMaster": {
+			"name": "Maestro del comercio",
+			"shortDesc": "Los objetos que compras cuestan un 5 % menos"
+		},
+		"TreasureBoxDetector": {
+			"name": "Detector de cofres",
+			"shortDesc": "Marca la ubicación de un cofre en cada nuevo mapa de combate"
+		},
+		"KnifeMaster": {
+			"name": "Maestro del cuchillo",
+			"shortDesc": "Añade un cuchillo arrojadizo por combate; daño del cuchillo +X"
+		},
+		"MonsterHunter": {
+			"name": "Cazador de monstruos",
+			"shortDesc": "Marca X monstruos al inicio de cada combate"
+		},
+		"KnifeProficient": {
+			"name": "Pericia con el cuchillo",
+			"shortDesc": "Añade un cuchillo arrojadizo por combate; los cuchillos ignoran la armadura"
+		},
+		"ExploreEnhanced": {
+			"name": "Exploración",
+			"shortDesc": "Cada vez que matas un monstruo, revela la ubicación de un objeto al azar"
+		},
+		"HorticultureProficient": {
+			"name": "Pericia hortícola",
+			"shortDesc": "Recibe ayuda de las plantas en cada piso"
+		},
+		"SmellEnhanced": {
+			"name": "Olfato agudo",
+			"shortDesc": "Conoces la ubicación de toda la comida"
+		},
+		"Storer": {
+			"name": "Acaparador",
+			"shortDesc": "Al salir de un mapa de combate, llevas un objeto no monetario al azar al siguiente combate"
+		},
+		"ShieldProficient": {
+			"name": "Pericia con el escudo",
+			"shortDesc": "Añade un escudo por combate; su recuperación dura un turno menos"
+		},
+		"HorticultureMaster": {
+			"name": "Maestro hortícola",
+			"shortDesc": "Añade una manzana por combate; cada manzana restaura 1 PV extra",
+			"initialDesc": "Ayuda de las plantas"
+		},
+		"StrikeFirst": {
+			"name": "Adelantarse",
+			"shortDesc": "Añade 1 objeto aleatorio a la zona de inicio"
+		},
+		"Coins": {
+			"name": "Monedas"
+		},
+		"Key": {
+			"name": "Llave"
+		},
+		"Door": {
+			"name": "Puerta"
+		},
+		"TreasureBox": {
+			"name": "Cofre del tesoro"
+		},
+		"RandomEgg": {
+			"name": "Huevo sorpresa"
+		},
+		"Clock": {
+			"name": "Reloj"
+		},
+		"HpPotion": {
+			"name": "Poción de curación",
+			"initialDesc": "<font color=#000000 size=28>Úsala para restaurar 6 PV</font>"
+		},
+		"DePoison": {
+			"name": "Antídoto"
+		},
+		"Magazine": {
+			"name": "Revista de naturaleza"
+		},
+		"EconomyMagazine": {
+			"name": "Revista financiera"
+		},
+		"Shield": {
+			"name": "Escudo"
+		},
+		"HeadBone": {
+			"name": "Calavera"
+		},
+		"Prison": {
+			"name": "Mazmorra"
+		},
+		"DeathGod": {
+			"name": "La Muerte"
+		},
+		"NormalZombie": {
+			"name": "Zombi"
+		},
+		"Vampire": {
+			"name": "Vampiro"
+		},
+		"GoblinThief": {
+			"name": "Ladrón goblin"
+		},
+		"HoundZombie": {
+			"name": "Zombi sabueso"
+		},
+		"DancerZombie": {
+			"name": "Zombi bailarín"
+		},
+		"GluttonyZombie": {
+			"name": "Zombi glotón"
+		},
+		"Gengar": {
+			"name": "Gengar"
+		},
+		"BombAbomination": {
+			"name": "Abominación suicida"
+		},
+		"EyeDemon": {
+			"name": "Demonio ojo"
+		},
+		"RandomEggZombie": {
+			"name": "Zombi sorpresa"
+		},
+		"LustZombie": {
+			"name": "Zombi lujuria"
+		},
+		"CommanderZombie": {
+			"name": "Zombi comandante"
+		},
+		"RageZombie": {
+			"name": "Zombi furioso"
+		},
+		"HideZombie": {
+			"name": "Zombi oculto"
+		},
+		"BallShito": {
+			"name": "Apóstol esfera"
+		},
+		"ReviveZombie": {
+			"name": "Tentáculo de Cthulhu"
+		},
+		"CowardZombie": {
+			"name": "Zombi cobarde"
+		},
+		"MarkZombie": {
+			"name": "Zombi marcador"
+		},
+		"GreedyZombie": {
+			"name": "Zombi avaro"
+		},
+		"ConfusionZombie": {
+			"name": "Zombi confuso"
+		},
+		"Mummy": {
+			"name": "Momia"
+		},
+		"PoisonJellyfish": {
+			"name": "Medusa venenosa"
+		},
+		"SkeletonKing": {
+			"name": "Rey esqueleto"
+		},
+		"SwatheZombie": {
+			"name": "Zombi envolvente"
+		},
+		"BoxMonster": {
+			"name": "Cofre imitador"
+		},
+		"Ghost": {
+			"name": "Fantasma"
+		},
+		"RedSlime": {
+			"name": "Slime rojo"
+		},
+		"GreenSlime": {
+			"name": "Slime verde"
+		},
+		"Siren": {
+			"name": "Sirena"
+		},
+		"Worm": {
+			"name": "Gusano devorador"
+		},
+		"Hag": {
+			"name": "Bruja"
+		},
+		"Nightmare": {
+			"name": "Pesadilla"
+		},
+		"ThunderElemental": {
+			"name": "Elemental del trueno"
+		},
+		"FlameElemental": {
+			"name": "Elemental del fuego"
+		},
+		"Echinus": {
+			"name": "Erizo de mar"
+		},
+		"Werewolf": {
+			"name": "Hombre lobo"
+		},
+		"Kraken": {
+			"name": "Kraken"
+		},
+		"HalloweenTreant": {
+			"name": "Ent de Halloween"
+		},
+		"Titan": {
+			"name": "Titán"
+		},
+		"ShopNpc": {
+			"name": "Mercader"
+		},
+		"BombAbominationCharmed": {
+			"name": "Abominación suicida"
+		},
+		"EyeDemonCharmed": {
+			"name": "Demonio ojo"
+		},
+		"NutWall1": {
+			"name": "Nuez-muro"
+		},
+		"NutWall2": {
+			"name": "Nuez-muro"
+		},
+		"NutWall3": {
+			"name": "Nuez-muro"
+		},
+		"NutWall4": {
+			"name": "Nuez-muro"
+		},
+		"NutWall5": {
+			"name": "Nuez-muro"
+		},
+		"Peashooter1": {
+			"name": "Lanzaguisantes"
+		},
+		"Peashooter2": {
+			"name": "Lanzaguisantes"
+		},
+		"Peashooter3": {
+			"name": "Lanzaguisantes"
+		},
+		"Peashooter4": {
+			"name": "Lanzaguisantes"
+		},
+		"Peashooter5": {
+			"name": "Lanzaguisantes"
+		},
+		"CherryBomb1": {
+			"name": "Bomba cereza"
+		},
+		"CherryBomb2": {
+			"name": "Bomba cereza"
+		},
+		"CherryBomb3": {
+			"name": "Bomba cereza"
+		},
+		"CherryBomb4": {
+			"name": "Bomba cereza"
+		},
+		"CherryBomb5": {
+			"name": "Bomba cereza"
+		},
+		"Sunflower1": {
+			"name": "Girasol"
+		},
+		"Sunflower2": {
+			"name": "Girasol"
+		},
+		"Sunflower3": {
+			"name": "Girasol"
+		},
+		"Sunflower4": {
+			"name": "Girasol"
+		},
+		"Sunflower5": {
+			"name": "Girasol"
+		},
+		"CharmingMushroom1": {
+			"name": "Seta encantadora"
+		},
+		"CharmingMushroom2": {
+			"name": "Seta encantadora"
+		},
+		"CharmingMushroom3": {
+			"name": "Seta encantadora"
+		},
+		"CharmingMushroom4": {
+			"name": "Seta encantadora"
+		},
+		"CharmingMushroom5": {
+			"name": "Seta encantadora"
+		},
+		"PlaceHolder": {
+			"name": "Marcador de jefe de élite"
+		},
+		"BossBunny": {
+			"name": "Conejo jefe"
+		},
+		"SuperPotion": {
+			"name": "Superpoción",
+			"initialDesc": "<font color=#000000 size=28>Durante 1 turno no puedes ser emboscado y eres inmune a todo el daño.</font>"
+		},
+		"StrengthPotion": {
+			"name": "Poción de fuerza",
+			"initialDesc": "<font color=#000000 size=28>Durante 5 turnos tu ataque se duplica y los monstruos no pueden contraatacar.</font>"
+		},
+		"Hole": {
+			"name": "Agujero negro"
+		},
+		"Apple": {
+			"name": "Manzana"
+		},
+		"Steak": {
+			"name": "Filete"
+		},
+		"IceBlock": {
+			"name": "Bloque de hielo"
+		},
+		"Knife": {
+			"name": "Cuchillo"
+		},
+		"Rock": {
+			"name": "Roca"
+		},
+		"SmallRock": {
+			"name": "Roca pequeña"
+		},
+		"Bazooka": {
+			"name": "Bazuca"
+		},
+		"RayGun": {
+			"name": "Rayo de fuego"
+		},
+		"IceGun": {
+			"name": "Rayo de hielo"
+		},
+		"CandyCannon": {
+			"name": "Cañón de caramelos"
+		},
+		"NaturePotion": {
+			"name": "Poción de naturaleza",
+			"initialDesc": "No puedes resistir el poder de la naturaleza"
+		},
+		"Baton": {
+			"name": "Porra"
+		},
+		"Vest": {
+			"name": "Chaleco"
+		},
+		"Cocoon": {
+			"name": "Capullo"
+		},
+		"WantedOrder": {
+			"name": "Cartel de búsqueda"
+		},
+		"Cloak": {
+			"name": "Capa"
+		},
+		"DeluxeMeal": {
+			"name": "Fuente de vida"
+		},
+		"NextLevelPort": {
+			"name": "Siguiente piso"
+		},
+		"EscapePort": {
+			"name": "Huir"
+		},
+		"GangMember": {
+			"name": "Pandillero",
+			"shortDesc": "Puede robar tiendas y PNJ de eventos",
+			"initialDesc": "<font color=#000000 size=28>Puede robar tiendas y PNJ de eventos</font>."
+		},
+		"ShieldBlock": {
+			"name": "Caparazón de escarabajo",
+			"shortDesc": "Cada combate añade un escudo; absorción del escudo +{dShield}"
+		},
+		"ShieldDetector": {
+			"name": "Detector de escudos",
+			"shortDesc": "Cada combate añade un escudo; conoces la ubicación de todos los escudos"
+		},
+		"ShieldSlam": {
+			"name": "Golpe de escudo",
+			"shortDesc": "Cada combate añade un escudo; puedes lanzarlo para infligir daño hasta su absorción restante, rompiéndose al alcanzar ese umbral"
+		},
+		"VestDetector": {
+			"name": "Detector de chalecos",
+			"shortDesc": "Cada piso añade un chaleco extra; conoces la ubicación de todos los chalecos"
+		},
+		"VestImmune": {
+			"name": "Inmunidad de chaleco",
+			"shortDesc": "Cada piso añade un chaleco extra; mientras un chaleco esté activo, tienes un {percent}% de prob. de anular el daño"
+		},
+		"VestThorns": {
+			"name": "Chaleco de espinas",
+			"shortDesc": "Cada piso añade un chaleco extra; cuando te atacan, infliges {thornsDamage} de daño reflejado al monstruo"
+		},
+		"Watchmaker": {
+			"name": "Relojero",
+			"shortDesc": "Cada piso añade un reloj; usarlo retrocede el tiempo en +{addDeathStepBack}"
+		},
+		"KnifeRange": {
+			"name": "Hoja de alcance",
+			"shortDesc": "Cada combate añade un cuchillo arrojadizo; tus cuchillos pueden golpear cualquier casilla"
+		},
+		"PoisonKnife": {
+			"name": "Hoja venenosa",
+			"shortDesc": "Cada combate añade un cuchillo arrojadizo; los ataques con cuchillo aplican una dosis de veneno"
+		},
+		"InfinityKnife": {
+			"name": "Hoja infinita",
+			"shortDesc": "Cada combate añade un cuchillo arrojadizo; tras matar a un monstruo, tiene un {percent}% de prob. de no consumirse"
+		},
+		"KnifeDetector": {
+			"name": "Detector de cuchillos",
+			"shortDesc": "Cada combate añade un cuchillo arrojadizo; conoces la ubicación de todos los cuchillos"
+		},
+		"DoubleAttack": {
+			"name": "Golpe combo",
+			"shortDesc": "Golpea una vez más al atacar directamente a un monstruo blindado"
+		},
+		"Crown": {
+			"name": "Corona de espinas",
+			"shortDesc": "Un símbolo de poder"
+		},
+		"LuxuryChest": {
+			"name": "Cofre de lujo"
+		},
+		"BigBen": {
+			"name": "Big Ben"
+		},
+		"GoldenHand": {
+			"name": "Toque de Midas"
+		},
+		"OpenRelicSpace": {
+			"name": "Ranura de habilidad"
+		},
+		"MNutWall": {
+			"name": "Nuez-muro"
+		},
+		"MPeashooter": {
+			"name": "Lanzaguisantes"
+		},
+		"MCherryBomb": {
+			"name": "Bomba cereza"
+		},
+		"MSunflower": {
+			"name": "Girasol"
+		},
+		"MCharmingMushroom": {
+			"name": "Seta encantadora"
+		},
+		"EliteGoblinThief": {
+			"name": "Ladrón goblin de élite"
+		},
+		"EliteVampire": {
+			"name": "Vampiro de élite"
+		},
+		"EliteLustZombie": {
+			"name": "Súcubo de élite"
+		},
+		"EliteSwatheZombie": {
+			"name": "Viuda negra de élite"
+		},
+		"EliteReviveZombie": {
+			"name": "Tentáculo de Cthulhu de élite"
+		},
+		"SlimeKing": {
+			"name": "Rey slime"
+		},
+		"BrainOfCthulhu": {
+			"name": "Cerebro de Cthulhu"
+		}
+	},
+	"RU": {
+		"MedicineBox": {
+			"name": "Мастерство медицины",
+			"shortDesc": "Восстанавливает 2 ОЗ при выходе с этажа",
+			"initialDesc": "<font color=#000000 size=28>Восстанавливает 3/6/9/12/15 ОЗ при выходе с каждого этажа.</font>"
+		},
+		"Hawkeye": {
+			"name": "Соколиный глаз",
+			"shortDesc": "Отмечает монстра с ключом в начале каждого уровня"
+		},
+		"Endurance": {
+			"name": "Выносливость",
+			"shortDesc": "Увеличивает макс. ОЗ на 5"
+		},
+		"Power": {
+			"name": "Сила",
+			"shortDesc": "Атака +1"
+		},
+		"Fierce": {
+			"name": "Мастерство убийства",
+			"shortDesc": "При засаде на врага +5 % шанс крит. удара"
+		},
+		"Unback2Sneak": {
+			"name": "Упреждающий удар",
+			"shortDesc": "Когда вы нападаете из засады, враг не может контратаковать"
+		},
+		"Agile": {
+			"name": "Ловкость",
+			"shortDesc": "Уклонение +5 %"
+		},
+		"TimeMachine": {
+			"name": "Угасающая враждебность",
+			"shortDesc": "При выходе с этажа Смерть отступает ещё на 5 шагов"
+		},
+		"Crucifix": {
+			"name": "Распятие",
+			"shortDesc": "Ни один монстр не может воскреснуть"
+		},
+		"WeaponMaster": {
+			"name": "Мастер оружия",
+			"shortDesc": "Добавляет дубинку на каждом этаже"
+		},
+		"UndefinedName1": {
+			"name": "Без имени 1",
+			"shortDesc": "Увеличивает макс. ОЗ на 5"
+		},
+		"ExpMedal": {
+			"name": "Без имени 2",
+			"shortDesc": "Увеличивает макс. ОЗ на 5"
+		},
+		"GoldMedal": {
+			"name": "Без имени 3",
+			"shortDesc": "Увеличивает макс. ОЗ на 5"
+		},
+		"DefenseProficient": {
+			"name": "Мастер защиты",
+			"shortDesc": "Добавляет жилет на каждом этаже"
+		},
+		"BookMaster": {
+			"name": "Мастер книг",
+			"shortDesc": "Добавляет книгу на каждом этаже"
+		},
+		"TradeMaster": {
+			"name": "Мастер торговли",
+			"shortDesc": "Покупаемые предметы дешевле на 5 %"
+		},
+		"TreasureBoxDetector": {
+			"name": "Детектор сундуков",
+			"shortDesc": "Отмечает сундук на каждой новой боевой карте"
+		},
+		"KnifeMaster": {
+			"name": "Мастер ножа",
+			"shortDesc": "Добавляет метательный нож за бой; урон ножа +X"
+		},
+		"MonsterHunter": {
+			"name": "Охотник на монстров",
+			"shortDesc": "Отмечает X монстров в начале каждого боя"
+		},
+		"KnifeProficient": {
+			"name": "Владение ножом",
+			"shortDesc": "Добавляет метательный нож за бой; атаки ножом игнорируют броню"
+		},
+		"ExploreEnhanced": {
+			"name": "Исследование",
+			"shortDesc": "Каждый раз, убивая монстра, открывает местоположение случайного предмета"
+		},
+		"HorticultureProficient": {
+			"name": "Владение садоводством",
+			"shortDesc": "Получайте помощь растений на каждом этаже"
+		},
+		"SmellEnhanced": {
+			"name": "Острый нюх",
+			"shortDesc": "Вы знаете местоположение всей еды"
+		},
+		"Storer": {
+			"name": "Накопитель",
+			"shortDesc": "Покидая боевую карту, берёте случайный неденежный предмет в следующий бой"
+		},
+		"ShieldProficient": {
+			"name": "Владение щитом",
+			"shortDesc": "Добавляет щит за бой; его восстановление короче на 1 ход"
+		},
+		"HorticultureMaster": {
+			"name": "Мастер садоводства",
+			"shortDesc": "Добавляет яблоко за бой; каждое яблоко восстанавливает на 1 ОЗ больше",
+			"initialDesc": "Помощь растений"
+		},
+		"StrikeFirst": {
+			"name": "Опередить",
+			"shortDesc": "Добавляет 1 случайный предмет в стартовую зону"
+		},
+		"Coins": {
+			"name": "Монеты"
+		},
+		"Key": {
+			"name": "Ключ"
+		},
+		"Door": {
+			"name": "Дверь"
+		},
+		"TreasureBox": {
+			"name": "Сундук с сокровищами"
+		},
+		"RandomEgg": {
+			"name": "Пасхалка"
+		},
+		"Clock": {
+			"name": "Часы"
+		},
+		"HpPotion": {
+			"name": "Зелье лечения",
+			"initialDesc": "<font color=#000000 size=28>Используйте, чтобы восстановить 6 ОЗ</font>"
+		},
+		"DePoison": {
+			"name": "Противоядие"
+		},
+		"Magazine": {
+			"name": "Журнал о природе"
+		},
+		"EconomyMagazine": {
+			"name": "Финансовый журнал"
+		},
+		"Shield": {
+			"name": "Щит"
+		},
+		"HeadBone": {
+			"name": "Череп"
+		},
+		"Prison": {
+			"name": "Темница"
+		},
+		"DeathGod": {
+			"name": "Смерть"
+		},
+		"NormalZombie": {
+			"name": "Зомби"
+		},
+		"Vampire": {
+			"name": "Вампир"
+		},
+		"GoblinThief": {
+			"name": "Гоблин-вор"
+		},
+		"HoundZombie": {
+			"name": "Зомби-гончая"
+		},
+		"DancerZombie": {
+			"name": "Зомби-танцор"
+		},
+		"GluttonyZombie": {
+			"name": "Зомби обжорства"
+		},
+		"Gengar": {
+			"name": "Генгар"
+		},
+		"BombAbomination": {
+			"name": "Мерзость-смертник"
+		},
+		"EyeDemon": {
+			"name": "Демон-глаз"
+		},
+		"RandomEggZombie": {
+			"name": "Зомби-пасхалка"
+		},
+		"LustZombie": {
+			"name": "Зомби похоти"
+		},
+		"CommanderZombie": {
+			"name": "Зомби-командир"
+		},
+		"RageZombie": {
+			"name": "Яростный зомби"
+		},
+		"HideZombie": {
+			"name": "Скрытый зомби"
+		},
+		"BallShito": {
+			"name": "Апостол-сфера"
+		},
+		"ReviveZombie": {
+			"name": "Щупальце Ктулху"
+		},
+		"CowardZombie": {
+			"name": "Трусливый зомби"
+		},
+		"MarkZombie": {
+			"name": "Зомби-метка"
+		},
+		"GreedyZombie": {
+			"name": "Жадный зомби"
+		},
+		"ConfusionZombie": {
+			"name": "Зомби смятения"
+		},
+		"Mummy": {
+			"name": "Мумия"
+		},
+		"PoisonJellyfish": {
+			"name": "Ядовитая медуза"
+		},
+		"SkeletonKing": {
+			"name": "Король скелетов"
+		},
+		"SwatheZombie": {
+			"name": "Опутывающий зомби"
+		},
+		"BoxMonster": {
+			"name": "Сундук-мимик"
+		},
+		"Ghost": {
+			"name": "Призрак"
+		},
+		"RedSlime": {
+			"name": "Красный слизень"
+		},
+		"GreenSlime": {
+			"name": "Зелёный слизень"
+		},
+		"Siren": {
+			"name": "Сирена"
+		},
+		"Worm": {
+			"name": "Пожирающий червь"
+		},
+		"Hag": {
+			"name": "Ведьма"
+		},
+		"Nightmare": {
+			"name": "Кошмар"
+		},
+		"ThunderElemental": {
+			"name": "Элементаль грома"
+		},
+		"FlameElemental": {
+			"name": "Элементаль огня"
+		},
+		"Echinus": {
+			"name": "Морской ёж"
+		},
+		"Werewolf": {
+			"name": "Оборотень"
+		},
+		"Kraken": {
+			"name": "Кракен"
+		},
+		"HalloweenTreant": {
+			"name": "Хэллоуинский древень"
+		},
+		"Titan": {
+			"name": "Титан"
+		},
+		"ShopNpc": {
+			"name": "Торговец"
+		},
+		"BombAbominationCharmed": {
+			"name": "Мерзость-смертник"
+		},
+		"EyeDemonCharmed": {
+			"name": "Демон-глаз"
+		},
+		"NutWall1": {
+			"name": "Орех-стена"
+		},
+		"NutWall2": {
+			"name": "Орех-стена"
+		},
+		"NutWall3": {
+			"name": "Орех-стена"
+		},
+		"NutWall4": {
+			"name": "Орех-стена"
+		},
+		"NutWall5": {
+			"name": "Орех-стена"
+		},
+		"Peashooter1": {
+			"name": "Горохострел"
+		},
+		"Peashooter2": {
+			"name": "Горохострел"
+		},
+		"Peashooter3": {
+			"name": "Горохострел"
+		},
+		"Peashooter4": {
+			"name": "Горохострел"
+		},
+		"Peashooter5": {
+			"name": "Горохострел"
+		},
+		"CherryBomb1": {
+			"name": "Вишнёвая бомба"
+		},
+		"CherryBomb2": {
+			"name": "Вишнёвая бомба"
+		},
+		"CherryBomb3": {
+			"name": "Вишнёвая бомба"
+		},
+		"CherryBomb4": {
+			"name": "Вишнёвая бомба"
+		},
+		"CherryBomb5": {
+			"name": "Вишнёвая бомба"
+		},
+		"Sunflower1": {
+			"name": "Подсолнух"
+		},
+		"Sunflower2": {
+			"name": "Подсолнух"
+		},
+		"Sunflower3": {
+			"name": "Подсолнух"
+		},
+		"Sunflower4": {
+			"name": "Подсолнух"
+		},
+		"Sunflower5": {
+			"name": "Подсолнух"
+		},
+		"CharmingMushroom1": {
+			"name": "Чарующий гриб"
+		},
+		"CharmingMushroom2": {
+			"name": "Чарующий гриб"
+		},
+		"CharmingMushroom3": {
+			"name": "Чарующий гриб"
+		},
+		"CharmingMushroom4": {
+			"name": "Чарующий гриб"
+		},
+		"CharmingMushroom5": {
+			"name": "Чарующий гриб"
+		},
+		"PlaceHolder": {
+			"name": "Заглушка элитного босса"
+		},
+		"BossBunny": {
+			"name": "Босс-кролик"
+		},
+		"SuperPotion": {
+			"name": "Суперзелье",
+			"initialDesc": "<font color=#000000 size=28>В течение 1 хода вас нельзя застать врасплох, и вы невосприимчивы ко всему урону.</font>"
+		},
+		"StrengthPotion": {
+			"name": "Зелье силы",
+			"initialDesc": "<font color=#000000 size=28>В течение 5 ходов ваша атака удваивается, а монстры не могут контратаковать.</font>"
+		},
+		"Hole": {
+			"name": "Чёрная дыра"
+		},
+		"Apple": {
+			"name": "Яблоко"
+		},
+		"Steak": {
+			"name": "Стейк"
+		},
+		"IceBlock": {
+			"name": "Ледяной блок"
+		},
+		"Knife": {
+			"name": "Нож"
+		},
+		"Rock": {
+			"name": "Камень"
+		},
+		"SmallRock": {
+			"name": "Маленький камень"
+		},
+		"Bazooka": {
+			"name": "Базука"
+		},
+		"RayGun": {
+			"name": "Огненный луч"
+		},
+		"IceGun": {
+			"name": "Ледяной луч"
+		},
+		"CandyCannon": {
+			"name": "Конфетная пушка"
+		},
+		"NaturePotion": {
+			"name": "Зелье природы",
+			"initialDesc": "Вы не можете противостоять силе природы"
+		},
+		"Baton": {
+			"name": "Дубинка"
+		},
+		"Vest": {
+			"name": "Жилет"
+		},
+		"Cocoon": {
+			"name": "Кокон"
+		},
+		"WantedOrder": {
+			"name": "Розыскной лист"
+		},
+		"Cloak": {
+			"name": "Плащ"
+		},
+		"DeluxeMeal": {
+			"name": "Источник жизни"
+		},
+		"NextLevelPort": {
+			"name": "Следующий этаж"
+		},
+		"EscapePort": {
+			"name": "Побег"
+		},
+		"GangMember": {
+			"name": "Бандит",
+			"shortDesc": "Может грабить лавки и NPC событий",
+			"initialDesc": "<font color=#000000 size=28>Может грабить лавки и NPC событий</font>."
+		},
+		"ShieldBlock": {
+			"name": "Панцирь скарабея",
+			"shortDesc": "Каждый бой добавляет щит; поглощение щита +{dShield}"
+		},
+		"ShieldDetector": {
+			"name": "Детектор щитов",
+			"shortDesc": "Каждый бой добавляет щит; вы знаете местоположение всех щитов"
+		},
+		"ShieldSlam": {
+			"name": "Удар щитом",
+			"shortDesc": "Каждый бой добавляет щит; вы можете метнуть его, нанося урон вплоть до остатка поглощения; по достижении порога щит разбивается"
+		},
+		"VestDetector": {
+			"name": "Детектор жилетов",
+			"shortDesc": "Каждый этаж добавляет жилет; вы знаете местоположение всех жилетов"
+		},
+		"VestImmune": {
+			"name": "Иммунитет жилета",
+			"shortDesc": "Каждый этаж добавляет жилет; пока жилет активен, у вас {percent}% шанс свести урон к нулю"
+		},
+		"VestThorns": {
+			"name": "Жилет с шипами",
+			"shortDesc": "Каждый этаж добавляет жилет; при атаке по вам вы наносите монстру {thornsDamage} отражённого урона"
+		},
+		"Watchmaker": {
+			"name": "Часовщик",
+			"shortDesc": "Каждый этаж добавляет часы; их использование отматывает время на +{addDeathStepBack}"
+		},
+		"KnifeRange": {
+			"name": "Клинок досягаемости",
+			"shortDesc": "Каждый бой добавляет метательный нож; ваши ножи поражают любую клетку"
+		},
+		"PoisonKnife": {
+			"name": "Ядовитый клинок",
+			"shortDesc": "Каждый бой добавляет метательный нож; атаки ножом накладывают заряд яда"
+		},
+		"InfinityKnife": {
+			"name": "Бесконечный клинок",
+			"shortDesc": "Каждый бой добавляет метательный нож; после убийства монстра нож с {percent}% шансом не расходуется"
+		},
+		"KnifeDetector": {
+			"name": "Детектор ножей",
+			"shortDesc": "Каждый бой добавляет метательный нож; вы знаете местоположение всех ножей"
+		},
+		"DoubleAttack": {
+			"name": "Комбоудар",
+			"shortDesc": "Наносит ещё один удар при прямой атаке по бронированному монстру"
+		},
+		"Crown": {
+			"name": "Терновый венец",
+			"shortDesc": "Символ силы"
+		},
+		"LuxuryChest": {
+			"name": "Роскошный сундук"
+		},
+		"BigBen": {
+			"name": "Биг-Бен"
+		},
+		"GoldenHand": {
+			"name": "Прикосновение Мидаса"
+		},
+		"OpenRelicSpace": {
+			"name": "Ячейка навыка"
+		},
+		"MNutWall": {
+			"name": "Орех-стена"
+		},
+		"MPeashooter": {
+			"name": "Горохострел"
+		},
+		"MCherryBomb": {
+			"name": "Вишнёвая бомба"
+		},
+		"MSunflower": {
+			"name": "Подсолнух"
+		},
+		"MCharmingMushroom": {
+			"name": "Чарующий гриб"
+		},
+		"EliteGoblinThief": {
+			"name": "Элитный гоблин-вор"
+		},
+		"EliteVampire": {
+			"name": "Элитный вампир"
+		},
+		"EliteLustZombie": {
+			"name": "Элитный суккуб"
+		},
+		"EliteSwatheZombie": {
+			"name": "Элитная чёрная вдова"
+		},
+		"EliteReviveZombie": {
+			"name": "Элитное щупальце Ктулху"
+		},
+		"SlimeKing": {
+			"name": "Король слизней"
+		},
+		"BrainOfCthulhu": {
+			"name": "Мозг Ктулху"
+		}
 	}
 }
