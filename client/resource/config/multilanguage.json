@@ -39,22 +39,34 @@
 				"title": {
 					"EN": "Zombie Mine",
 					"CNS": "僵尸扫雷",
-					"CNT": "僵尸扫雷"
+					"CNT": "僵尸扫雷",
+					"FR": "Zombie Mine",
+					"DE": "Zombie Mine",
+					"ES": "Zombie Mine"
 				},
 				"continueBtn": {
 					"EN": "Continue ...",
 					"CNS": "继续游戏 ...",
-					"CNT": "继续游戏 ..."
+					"CNT": "继续游戏 ...",
+					"FR": "Continuer ...",
+					"DE": "Fortsetzen ...",
+					"ES": "Continuar ..."
 				},
 				"newPlayBtn": {
 					"EN": "New Play",
 					"CNS": "新游戏",
-					"CNT": "新游戏"
+					"CNT": "新游戏",
+					"FR": "Nouvelle partie",
+					"DE": "Neues Spiel",
+					"ES": "Nueva partida"
 				},
 				"rankBtn": {
 					"EN": "Score Rank >>",
 					"CNS": "排行榜 >>",
-					"CNT": "排行榜 >>"
+					"CNT": "排行榜 >>",
+					"FR": "Classement >>",
+					"DE": "Rangliste >>",
+					"ES": "Clasificación >>"
 				}
 			}
 		},
@@ -346,7 +358,10 @@
 				"closeBtn": {
 					"EN": "Close",
 					"CNS": "返回",
-					"CNT": "返回"
+					"CNT": "返回",
+					"FR": "Fermer",
+					"DE": "Schließen",
+					"ES": "Cerrar"
 				}
 			}
 		},
@@ -379,7 +394,10 @@
 				"closeBtn": {
 					"EN": "Close",
 					"CNS": "返回",
-					"CNT": "返回"
+					"CNT": "返回",
+					"FR": "Fermer",
+					"DE": "Schließen",
+					"ES": "Cerrar"
 				}
 			}
 		},
@@ -458,7 +476,10 @@
 				"closeBtn": {
 					"EN": "Close",
 					"CNS": "返回",
-					"CNT": "返回"
+					"CNT": "返回",
+					"FR": "Fermer",
+					"DE": "Schließen",
+					"ES": "Cerrar"
 				}
 			}
 		},
@@ -1351,12 +1372,18 @@
 				"cancelBtn": {
 					"EN": "Return",
 					"CNS": "返回",
-					"CNT": "返回"
+					"CNT": "返回",
+					"FR": "Retour",
+					"DE": "Zurück",
+					"ES": "Volver"
 				},
 				"okBtn": {
 					"EN": "Continue",
 					"CNS": "继续",
-					"CNT": "继续"
+					"CNT": "继续",
+					"FR": "Continuer",
+					"DE": "Weiter",
+					"ES": "Continuar"
 				}
 			}
 		},
@@ -1787,337 +1814,538 @@
 		"loginNewGame": {
 			"EN": "New Game",
 			"CNS": "新游戏",
-			"CNT": "新遊戲"
+			"CNT": "新遊戲",
+			"FR": "Nouvelle partie",
+			"DE": "Neues Spiel",
+			"ES": "Nueva partida"
 		},
 		"loginContinue": {
 			"EN": "Continue",
 			"CNS": "继续游戏",
-			"CNT": "繼續遊戲"
+			"CNT": "繼續遊戲",
+			"FR": "Continuer",
+			"DE": "Fortsetzen",
+			"ES": "Continuar"
 		},
 		"loginRank": {
 			"EN": "Heroes",
 			"CNS": "排行榜",
-			"CNT": "排行榜"
+			"CNT": "排行榜",
+			"FR": "Héros",
+			"DE": "Helden",
+			"ES": "Héroes"
 		},
 		"loginAchievement": {
 			"EN": "Achievements",
 			"CNS": "成就",
-			"CNT": "成就"
+			"CNT": "成就",
+			"FR": "Succès",
+			"DE": "Erfolge",
+			"ES": "Logros"
 		},
 		"currentProgress": {
 			"EN": "Progress",
 			"CNS": "当前进度",
-			"CNT": "當前進度"
+			"CNT": "當前進度",
+			"FR": "Progression",
+			"DE": "Fortschritt",
+			"ES": "Progreso"
 		},
 		"currentProgressWith": {
 			"EN": "Progress {0}",
 			"CNS": "当前进度 {0}",
-			"CNT": "當前進度 {0}"
+			"CNT": "當前進度 {0}",
+			"FR": "Progression {0}",
+			"DE": "Fortschritt {0}",
+			"ES": "Progreso {0}"
 		},
 		"achvPointLabel": {
 			"EN": "Achievement points: {0}",
 			"CNS": "成就点: {0}",
-			"CNT": "成就點: {0}"
+			"CNT": "成就點: {0}",
+			"FR": "Points de succès : {0}",
+			"DE": "Erfolgspunkte: {0}",
+			"ES": "Puntos de logro: {0}"
 		},
 		"unlockedByAchv": {
 			"EN": "Unlocked by achievement",
 			"CNS": "解锁于成就",
-			"CNT": "解鎖於成就"
+			"CNT": "解鎖於成就",
+			"FR": "Débloqué par un succès",
+			"DE": "Durch Erfolg freigeschaltet",
+			"ES": "Desbloqueado por un logro"
 		},
 		"unlockedByAchvPoint": {
 			"EN": "Unlocked by achievement points",
 			"CNS": "解锁于成就点",
-			"CNT": "解鎖於成就點"
+			"CNT": "解鎖於成就點",
+			"FR": "Débloqué par les points de succès",
+			"DE": "Durch Erfolgspunkte freigeschaltet",
+			"ES": "Desbloqueado por puntos de logro"
 		},
 		"received": {
 			"EN": "Received",
 			"CNS": "已领取",
-			"CNT": "已領取"
+			"CNT": "已領取",
+			"FR": "Reçu",
+			"DE": "Erhalten",
+			"ES": "Recibido"
 		},
 		"receive": {
 			"EN": "Receive",
 			"CNS": "领取",
-			"CNT": "領取"
+			"CNT": "領取",
+			"FR": "Recevoir",
+			"DE": "Abholen",
+			"ES": "Recibir"
 		},
 		"completed": {
 			"EN": "Completed",
 			"CNS": "已完成",
-			"CNT": "已完成"
+			"CNT": "已完成",
+			"FR": "Terminé",
+			"DE": "Abgeschlossen",
+			"ES": "Completado"
 		},
 		"hospitalHealTitle": {
 			"EN": "Heal?",
 			"CNS": "确定治疗",
-			"CNT": "確定治療"
+			"CNT": "確定治療",
+			"FR": "Soigner ?",
+			"DE": "Heilen?",
+			"ES": "¿Curar?"
 		},
 		"hospitalHealContent": {
 			"EN": "Restore up to 30% HP",
 			"CNS": "回复最多 30% 生命",
-			"CNT": "回復最多 30% 生命"
+			"CNT": "回復最多 30% 生命",
+			"FR": "Restaure jusqu'à 30 % des PV",
+			"DE": "Stellt bis zu 30 % der LP wieder her",
+			"ES": "Restaura hasta el 30 % de PV"
 		},
 		"hospitalExpelTitle": {
 			"EN": "Expel Death?",
 			"CNS": "确定驱逐死神",
-			"CNT": "確定驅逐死神"
+			"CNT": "確定驅逐死神",
+			"FR": "Chasser la Mort ?",
+			"DE": "Den Tod vertreiben?",
+			"ES": "¿Expulsar a la Muerte?"
 		},
 		"hospitalExpelContent": {
 			"EN": "Death retreats 50 steps",
 			"CNS": "死神回退 50 步",
-			"CNT": "死神回退 50 步"
+			"CNT": "死神回退 50 步",
+			"FR": "La Mort recule de 50 pas",
+			"DE": "Der Tod weicht 50 Schritte zurück",
+			"ES": "La Muerte retrocede 50 pasos"
 		},
 		"gameOverTitle": {
 			"EN": "You died",
 			"CNS": "不幸死亡",
-			"CNT": "不幸死亡"
+			"CNT": "不幸死亡",
+			"FR": "Vous êtes mort",
+			"DE": "Du bist gestorben",
+			"ES": "Has muerto"
 		},
 		"gameOverContent": {
 			"EN": "Game over",
 			"CNS": "游戏结束",
-			"CNT": "遊戲結束"
+			"CNT": "遊戲結束",
+			"FR": "Partie terminée",
+			"DE": "Spiel vorbei",
+			"ES": "Fin de la partida"
 		},
 		"clickToInputName": {
 			"EN": "Tap to enter name",
 			"CNS": "点击输入名字",
-			"CNT": "點擊輸入名字"
+			"CNT": "點擊輸入名字",
+			"FR": "Touchez pour saisir un nom",
+			"DE": "Zum Eingeben des Namens tippen",
+			"ES": "Toca para introducir un nombre"
 		},
 		"occLevelUpArrow": {
 			"EN": "Lv {0} → Lv {1}",
 			"CNS": "{0}级 → {1}级",
-			"CNT": "{0}級 → {1}級"
+			"CNT": "{0}級 → {1}級",
+			"FR": "Niv {0} → Niv {1}",
+			"DE": "Stufe {0} → Stufe {1}",
+			"ES": "Niv {0} → Niv {1}"
 		},
 		"purchasing": {
 			"EN": "Purchasing, please wait!",
 			"CNS": "购买请求中，请稍候！",
-			"CNT": "購買請求中，請稍候！"
+			"CNT": "購買請求中，請稍候！",
+			"FR": "Achat en cours, veuillez patienter !",
+			"DE": "Kauf läuft, bitte warten!",
+			"ES": "Comprando, espera por favor..."
 		},
 		"aNewPlayer": {
 			"EN": "A new player",
 			"CNS": "一个新玩家",
-			"CNT": "一個新玩家"
+			"CNT": "一個新玩家",
+			"FR": "Un nouveau joueur",
+			"DE": "Ein neuer Spieler",
+			"ES": "Un nuevo jugador"
 		},
 		"rankWeekly": {
 			"EN": "Weekly",
 			"CNS": "周榜",
-			"CNT": "週榜"
+			"CNT": "週榜",
+			"FR": "Semaine",
+			"DE": "Woche",
+			"ES": "Semana"
 		},
 		"rankRole": {
 			"EN": "Roles",
 			"CNS": "角色榜",
-			"CNT": "角色榜"
+			"CNT": "角色榜",
+			"FR": "Personnages",
+			"DE": "Charaktere",
+			"ES": "Personajes"
 		},
 		"rankFriend": {
 			"EN": "Friends",
 			"CNS": "好友榜",
-			"CNT": "好友榜"
+			"CNT": "好友榜",
+			"FR": "Amis",
+			"DE": "Freunde",
+			"ES": "Amigos"
 		},
 		"yes": {
 			"EN": "yes",
 			"CNS": "确定",
-			"CNT": "確定"
+			"CNT": "確定",
+			"FR": "oui",
+			"DE": "Ja",
+			"ES": "sí"
 		},
 		"cancel": {
 			"EN": "no",
 			"CNS": "取消",
-			"CNT": "取消"
+			"CNT": "取消",
+			"FR": "non",
+			"DE": "Nein",
+			"ES": "no"
 		},
 		"close": {
 			"EN": "close",
 			"CNS": "关闭",
-			"CNT": "關閉"
+			"CNT": "關閉",
+			"FR": "fermer",
+			"DE": "schließen",
+			"ES": "cerrar"
 		},
 		"ok": {
 			"EN": "OK",
 			"CNS": "确定",
-			"CNT": "確定"
+			"CNT": "確定",
+			"FR": "OK",
+			"DE": "OK",
+			"ES": "OK"
 		},
 		"retry": {
 			"EN": "Retry",
 			"CNS": "重试",
-			"CNT": "重試"
+			"CNT": "重試",
+			"FR": "Réessayer",
+			"DE": "Erneut versuchen",
+			"ES": "Reintentar"
 		},
 		"cannotconnect2server": {
 			"EN": "Cannot connect to the server",
 			"CNS": "无法连接到服务器",
-			"CNT": "無法連接到伺服器"
+			"CNT": "無法連接到伺服器",
+			"FR": "Connexion au serveur impossible",
+			"DE": "Verbindung zum Server fehlgeschlagen",
+			"ES": "No se puede conectar al servidor"
 		},
 		"notHungry": {
 			"EN": "I'm not hungry",
 			"CNS": "我不饿",
-			"CNT": "我不餓"
+			"CNT": "我不餓",
+			"FR": "Je n'ai pas faim",
+			"DE": "Ich habe keinen Hunger",
+			"ES": "No tengo hambre"
 		},
 		"noKey": {
 			"EN": "I don't have enough key",
 			"CNS": "没有钥匙",
-			"CNT": "沒有鑰匙"
+			"CNT": "沒有鑰匙",
+			"FR": "Je n'ai pas assez de clés",
+			"DE": "Ich habe nicht genug Schlüssel",
+			"ES": "No tengo suficientes llaves"
 		},
 		"doorLocked": {
 			"EN": "The door is locked by boss",
 			"CNS": "Boss锁住了门",
-			"CNT": "Boss鎖住了門"
+			"CNT": "Boss鎖住了門",
+			"FR": "La porte est verrouillée par le boss",
+			"DE": "Die Tür ist vom Boss verriegelt",
+			"ES": "El jefe ha cerrado la puerta"
 		},
 		"swathed": {
 			"EN": "kill the monster who swathed it first",
 			"CNS": "需要先消灭缠绕它的怪物",
-			"CNT": "需要先消滅纏繞它的怪物"
+			"CNT": "需要先消滅纏繞它的怪物",
+			"FR": "tuez d'abord le monstre qui l'a enveloppé",
+			"DE": "Töte zuerst das Monster, das es umhüllt hat",
+			"ES": "mata primero al monstruo que lo envolvió"
 		},
 		"cure": {
 			"EN": "cure",
 			"CNS": "愈合",
-			"CNT": "癒合"
+			"CNT": "癒合",
+			"FR": "soin",
+			"DE": "Heilung",
+			"ES": "curar"
 		},
 		"thorns": {
 			"EN": "thorns",
 			"CNS": "荆棘",
-			"CNT": "荊棘"
+			"CNT": "荊棘",
+			"FR": "épines",
+			"DE": "Dornen",
+			"ES": "espinas"
 		},
 		"protect": {
 			"EN": "protect",
 			"CNS": "援护",
-			"CNT": "援護"
+			"CNT": "援護",
+			"FR": "protéger",
+			"DE": "schützen",
+			"ES": "proteger"
 		},
 		"multAttack": {
 			"EN": "mult-attack",
 			"CNS": "连击",
-			"CNT": "連擊"
+			"CNT": "連擊",
+			"FR": "attaque multiple",
+			"DE": "Mehrfachangriff",
+			"ES": "ataque múltiple"
 		},
 		"deepFrozen": {
 			"EN": "deep frozen",
 			"CNS": "窒息",
-			"CNT": "窒息"
+			"CNT": "窒息",
+			"FR": "gelé",
+			"DE": "tiefgefroren",
+			"ES": "congelado"
 		},
 		"makeSureReinforceRelic": {
 			"EN": "Reinforce {0}?",
 			"CNS": "确定强化{0}?",
-			"CNT": "確定強化{0}?"
+			"CNT": "確定強化{0}?",
+			"FR": "Renforcer {0} ?",
+			"DE": "{0} verstärken?",
+			"ES": "¿Reforzar {0}?"
 		},
 		"makeSureBuy": {
 			"EN": "Spend {0} coins?",
 			"CNS": "花费{0}金币?",
-			"CNT": "花費{0}金幣"
+			"CNT": "花費{0}金幣",
+			"FR": "Dépenser {0} pièces ?",
+			"DE": "{0} Münzen ausgeben?",
+			"ES": "¿Gastar {0} monedas?"
 		},
 		"relics": {
 			"EN": "Skills",
 			"CNS": "技能",
-			"CNT": "技能"
+			"CNT": "技能",
+			"FR": "Compétences",
+			"DE": "Fähigkeiten",
+			"ES": "Habilidades"
 		},
 		"props": {
 			"EN": "Props",
 			"CNS": "药水",
-			"CNT": "药水"
+			"CNT": "药水",
+			"FR": "Objets",
+			"DE": "Gegenstände",
+			"ES": "Objetos"
 		},
 		"makeSureUseElem": {
 			"EN": "be sure to use {0}?",
 			"CNS": "确定使用<font color=#ff0000>{0}</font>?",
-			"CNT": "確定使用<font color=#ff0000>{0}</font>?"
+			"CNT": "確定使用<font color=#ff0000>{0}</font>?",
+			"FR": "utiliser {0} ?",
+			"DE": "{0} benutzen?",
+			"ES": "¿usar {0}?"
 		},
 		"makeSureUseProp": {
 			"EN": "be sure to use {0}?",
 			"CNS": "确定使用<font color=#ff0000>{0}</font>?",
-			"CNT": "確定使用<font color=#ff0000>{0}</font>?"
+			"CNT": "確定使用<font color=#ff0000>{0}</font>?",
+			"FR": "utiliser {0} ?",
+			"DE": "{0} benutzen?",
+			"ES": "¿usar {0}?"
 		},
 		"coins": {
 			"EN": "coins",
 			"CNS": "金币",
-			"CNT": "金幣"
+			"CNT": "金幣",
+			"FR": "pièces",
+			"DE": "Münzen",
+			"ES": "monedas"
 		},
 		"costCoins": {
 			"EN": "<font color=#294c22>cost {0} coins</font>",
 			"CNS": "<font color=#294c22>花费金币 {0} </font>",
-			"CNT": "<font color=#294c22>花费金幣 {0} </font>"
+			"CNT": "<font color=#294c22>花费金幣 {0} </font>",
+			"FR": "<font color=#294c22>coûte {0} pièces</font>",
+			"DE": "<font color=#294c22>kostet {0} Münzen</font>",
+			"ES": "<font color=#294c22>cuesta {0} monedas</font>"
 		},
 		"costCoinsOnRelic": {
 			"EN": "<font color=#ffffff>cost {0} coins</font>",
 			"CNS": "<font color=#ffffff size = 25>花费金币 {0} </font>",
-			"CNT": "<font color=#294c22>花费金幣 {0} </font>"
+			"CNT": "<font color=#294c22>花费金幣 {0} </font>",
+			"FR": "<font color=#ffffff>coûte {0} pièces</font>",
+			"DE": "<font color=#ffffff>kostet {0} Münzen</font>",
+			"ES": "<font color=#ffffff>cuesta {0} monedas</font>"
 		},
 		"numHold": {
 			"EN": "<font color=#464070>hold {0} </font>",
 			"CNS": "<font color=#464070>当前拥有 {0} 个</font>",
-			"CNT": "<font color=#464070>當前擁有 {0} 個</font>"
+			"CNT": "<font color=#464070>當前擁有 {0} 個</font>",
+			"FR": "<font color=#464070>en réserve {0} </font>",
+			"DE": "<font color=#464070>Vorrat {0} </font>",
+			"ES": "<font color=#464070>en reserva {0} </font>"
 		},
 		"openBox": {
 			"EN": "open the box",
 			"CNS": "打开宝箱",
-			"CNT": "打開寶箱"
+			"CNT": "打開寶箱",
+			"FR": "ouvrir le coffre",
+			"DE": "Truhe öffnen",
+			"ES": "abrir el cofre"
 		},
 		"makeSureGoOutBoxRoom": {
 			"EN": "be sure to leave without left items?",
 			"CNS": "确定放弃余下的道具?",
-			"CNT": "確定放棄餘下的道具?"
+			"CNT": "確定放棄餘下的道具?",
+			"FR": "partir sans prendre les objets restants ?",
+			"DE": "Ohne die übrigen Gegenstände gehen?",
+			"ES": "¿salir sin los objetos restantes?"
 		},
 		"setting": {
 			"EN": "setting",
 			"CNS": "设置",
-			"CNT": "設置"
+			"CNT": "設置",
+			"FR": "réglages",
+			"DE": "Einstellungen",
+			"ES": "ajustes"
 		},
 		"makeSureExitThisGame": {
 			"EN": "be sure to give up this game?",
 			"CNS": "确定<font color=#7d0403>放弃</font>此局游戏?",
-			"CNT": "確定<font color=#7d0403>放棄</font>此局遊戲?"
+			"CNT": "確定<font color=#7d0403>放棄</font>此局遊戲?",
+			"FR": "abandonner cette partie ?",
+			"DE": "Dieses Spiel aufgeben?",
+			"ES": "¿abandonar esta partida?"
 		},
 		"hospitalTitle": {
 			"EN": "safe house",
 			"CNS": "安全屋",
-			"CNT": "安全屋"
+			"CNT": "安全屋",
+			"FR": "refuge",
+			"DE": "Unterschlupf",
+			"ES": "refugio"
 		},
 		"hospitalTip": {
 			"EN": "what's your choice?",
 			"CNS": "你想要做什么?",
-			"CNT": "你想要做什麼?"
+			"CNT": "你想要做什麼?",
+			"FR": "que choisissez-vous ?",
+			"DE": "Wofür entscheidest du dich?",
+			"ES": "¿qué eliges?"
 		},
 		"hospitalCure": {
 			"EN": "cure",
 			"CNS": "休息（恢复30%生命）",
-			"CNT": "治療"
+			"CNT": "治療",
+			"FR": "soin",
+			"DE": "Heilung",
+			"ES": "curar"
 		},
 		"hospitalDeathGodBack": {
 			"EN": "death god back",
 			"CNS": "驱逐（死神回退50步）",
-			"CNT": "驅逐（死神回退50步）"
+			"CNT": "驅逐（死神回退50步）",
+			"FR": "repousser la Mort",
+			"DE": "Tod zurückdrängen",
+			"ES": "repeler a la Muerte"
 		},
 		"hospitalReinforce": {
 			"EN": "reinforce",
 			"CNS": "强化（升级某项技能）",
-			"CNT": "強化"
+			"CNT": "強化",
+			"FR": "renforcer",
+			"DE": "verstärken",
+			"ES": "reforzar"
 		},
 		"hospitalMutate": {
 			"EN": "mutate",
 			"CNS": "变异",
-			"CNT": "變異"
+			"CNT": "變異",
+			"FR": "muter",
+			"DE": "mutieren",
+			"ES": "mutar"
 		},
 		"hospitalExchangeRelic": {
 			"EN": "exchange",
 			"CNS": "装备技能",
-			"CNT": "裝備技能"
+			"CNT": "裝備技能",
+			"FR": "échanger",
+			"DE": "tauschen",
+			"ES": "intercambiar"
 		},
 		"selRelic": {
 			"EN": "select a skill",
 			"CNS": "选择一个技能",
-			"CNT": "選擇一個技能"
+			"CNT": "選擇一個技能",
+			"FR": "choisir une compétence",
+			"DE": "Fähigkeit wählen",
+			"ES": "elige una habilidad"
 		},
 		"makeSureSelRelic": {
 			"EN": "be sure to select ",
 			"CNS": "确定选择",
-			"CNT": "確定選擇"
+			"CNT": "確定選擇",
+			"FR": "êtes-vous sûr de choisir ",
+			"DE": "Bist du sicher, dass du wählst ",
+			"ES": "¿seguro que eliges "
 		},
 		"continueBtn": {
 			"EN": "continue",
 			"CNS": "继续",
-			"CNT": "繼續"
+			"CNT": "繼續",
+			"FR": "continuer",
+			"DE": "weiter",
+			"ES": "continuar"
 		},
 		"shareBtn": {
 			"EN": "share",
 			"CNS": "分享",
-			"CNT": "分享"
+			"CNT": "分享",
+			"FR": "partager",
+			"DE": "teilen",
+			"ES": "compartir"
 		},
 		"rob": {
 			"EN": "Rob",
 			"CNS": "抢劫",
-			"CNT": "搶劫"
+			"CNT": "搶劫",
+			"FR": "Voler",
+			"DE": "Rauben",
+			"ES": "Robar"
 		},
 		"goBackBtn": {
 			"EN": "go back",
 			"CNS": "返回",
-			"CNT": "返回"
+			"CNT": "返回",
+			"FR": "retour",
+			"DE": "zurück",
+			"ES": "volver"
 		},
 		"showDeathGodStep": {
 			"EN": "{0}",
@@ -2127,157 +2355,250 @@
 		"nextOne": {
 			"EN": "next one",
 			"CNS": "下一个",
-			"CNT": "下一個"
+			"CNT": "下一個",
+			"FR": "suivant",
+			"DE": "nächstes",
+			"ES": "siguiente"
 		},
 		"soldout": {
 			"EN": "sold out",
 			"CNS": "已售罄",
-			"CNT": "已售罄"
+			"CNT": "已售罄",
+			"FR": "épuisé",
+			"DE": "ausverkauft",
+			"ES": "agotado"
 		},
 		"notEnoughMoney": {
 			"EN": "Not Enough Money",
 			"CNS": "<font color=#ffffff size=30>金币不足</font>",
-			"CNT": "<font color=#ffffff size=30>金幣不足</font>"
+			"CNT": "<font color=#ffffff size=30>金幣不足</font>",
+			"FR": "Pas assez d'argent",
+			"DE": "Nicht genug Geld",
+			"ES": "Dinero insuficiente"
 		},
 		"pressAnywhereToClose": {
 			"EN": "press anywhere to close",
 			"CNS": "<font color=#968885 size=30>点击任意位置关闭</font>",
-			"CNT": "<font color=#968885 size=30>點擊任意位置關閉</font>"
+			"CNT": "<font color=#968885 size=30>點擊任意位置關閉</font>",
+			"FR": "touchez n'importe où pour fermer",
+			"DE": "tippe irgendwohin zum Schließen",
+			"ES": "toca en cualquier sitio para cerrar"
 		},
 		"goToNextLevel": {
 			"EN": "be sure to leave?",
 			"CNS": "确定离开这一层吗?",
-			"CNT": "確定離開這一層嗎?"
+			"CNT": "確定離開這一層嗎?",
+			"FR": "êtes-vous sûr de partir ?",
+			"DE": "Bist du sicher, dass du gehst?",
+			"ES": "¿seguro que quieres salir?"
 		},
 		"press2Unblock": {
 			"EN": "press to unblock",
 			"CNS": "再次长按取消标记",
-			"CNT": "再次長按取消標記"
+			"CNT": "再次長按取消標記",
+			"FR": "appuyez pour démarquer",
+			"DE": "tippen zum Entmarkieren",
+			"ES": "toca para desmarcar"
 		},
 		"sneaking": {
 			"EN": "sneaking",
 			"CNS": "突袭",
-			"CNT": "突襲"
+			"CNT": "突襲",
+			"FR": "embuscade",
+			"DE": "Hinterhalt",
+			"ES": "emboscada"
 		},
 		"relicPosLocked": {
 			"EN": "locked",
 			"CNS": "在商店解锁",
-			"CNT": "在商店解鎖"
+			"CNT": "在商店解鎖",
+			"FR": "verrouillé",
+			"DE": "gesperrt",
+			"ES": "bloqueado"
 		},
 		"titleCommon": {
 			"EN": "skills",
 			"CNS": "固有技能",
-			"CNT": "固有技能"
+			"CNT": "固有技能",
+			"FR": "compétences",
+			"DE": "Fähigkeiten",
+			"ES": "habilidades"
 		},
 		"titleEquipped": {
 			"EN": "skills equipped",
 			"CNS": "已装备技能",
-			"CNT": "已裝備技能"
+			"CNT": "已裝備技能",
+			"FR": "compétences équipées",
+			"DE": "ausgerüstete Fähigkeiten",
+			"ES": "habilidades equipadas"
 		},
 		"titleInBag": {
 			"EN": "skills in bag",
 			"CNS": "技能包裹",
-			"CNT": "技能包裹"
+			"CNT": "技能包裹",
+			"FR": "compétences dans le sac",
+			"DE": "Fähigkeiten im Beutel",
+			"ES": "habilidades en la bolsa"
 		},
 		"makeSureGiveUpTitle": {
 			"EN": "sure",
 			"CNS": "确定",
-			"CNT": "確定"
+			"CNT": "確定",
+			"FR": "confirmer",
+			"DE": "bestätigen",
+			"ES": "confirmar"
 		},
 		"makeSureGiveUpContent": {
 			"EN": "be sure to give up exchanges?",
 			"CNS": "确定放弃交换操作?",
-			"CNT": "確定放棄交換操作?"
+			"CNT": "確定放棄交換操作?",
+			"FR": "abandonner les échanges ?",
+			"DE": "Tausch verwerfen?",
+			"ES": "¿descartar los intercambios?"
 		},
 		"makeSureGoOnTitle": {
 			"EN": "sure",
 			"CNS": "确定",
-			"CNT": "確定"
+			"CNT": "確定",
+			"FR": "confirmer",
+			"DE": "bestätigen",
+			"ES": "confirmar"
 		},
 		"makeSureGoOnContent": {
 			"EN": "be sure to save exchanges?",
 			"CNS": "确定保存交换操作?",
-			"CNT": "確定保存交換操作?"
+			"CNT": "確定保存交換操作?",
+			"FR": "enregistrer les échanges ?",
+			"DE": "Tausch speichern?",
+			"ES": "¿guardar los intercambios?"
 		},
 		"canNotDragCommonRelic": {
 			"EN": "can't exchange this skill?",
 			"CNS": "不能交换固有技能",
-			"CNT": "不能交換固有技能"
+			"CNT": "不能交換固有技能",
+			"FR": "impossible d'échanger cette compétence ?",
+			"DE": "Diese Fähigkeit kann nicht getauscht werden?",
+			"ES": "¿no se puede intercambiar esta habilidad?"
 		},
 		"shieldPassiveTriggerDesc": {
 			"EN": "shield trigger passively",
 			"CNS": "盾牌抵挡一次攻击",
-			"CNT": "盾牌抵擋一次攻擊"
+			"CNT": "盾牌抵擋一次攻擊",
+			"FR": "le bouclier se déclenche passivement",
+			"DE": "Schild wird passiv ausgelöst",
+			"ES": "el escudo se activa de forma pasiva"
 		},
 		"inCD": {
 			"EN": "not ready",
 			"CNS": "冷却中",
-			"CNT": "冷卻中"
+			"CNT": "冷卻中",
+			"FR": "pas prêt",
+			"DE": "nicht bereit",
+			"ES": "no listo"
 		},
 		"batonPassiveTriggerDesc": {
 			"EN": "baton trigger passively",
 			"CNS": "警棍增加1攻击",
-			"CNT": "警棍增加1攻擊"
+			"CNT": "警棍增加1攻擊",
+			"FR": "la matraque se déclenche passivement",
+			"DE": "Schlagstock wird passiv ausgelöst",
+			"ES": "la porra se activa de forma pasiva"
 		},
 		"cloakPassiveTriggerDesc": {
 			"EN": "cloak trigger passively",
 			"CNS": "披风抵挡一次突袭",
-			"CNT": "披風抵擋一次突襲"
+			"CNT": "披風抵擋一次突襲",
+			"FR": "la cape se déclenche passivement",
+			"DE": "Umhang wird passiv ausgelöst",
+			"ES": "la capa se activa de forma pasiva"
 		},
 		"invalidOperate": {
 			"EN": "can not do that",
 			"CNS": "这是一个无效的操作",
-			"CNT": "這是一個無效的操作"
+			"CNT": "這是一個無效的操作",
+			"FR": "impossible de faire cela",
+			"DE": "das ist nicht möglich",
+			"ES": "no puedes hacer eso"
 		},
 		"tipOnDrag": {
 			"EN": "can not do that",
 			"CNS": "只能在营火的切换技能处装备或交换技能",
-			"CNT": "只能在營火的切換技能處裝備或交換技能"
+			"CNT": "只能在營火的切換技能處裝備或交換技能",
+			"FR": "impossible de faire cela",
+			"DE": "das ist nicht möglich",
+			"ES": "no puedes hacer eso"
 		},
 		"tipOnCannotReinfoce": {
 			"EN": "can not reinfoce",
 			"CNS": "该技能不能再升级",
-			"CNT": "該技能不能再升級"
+			"CNT": "該技能不能再升級",
+			"FR": "impossible à renforcer",
+			"DE": "kann nicht verstärkt werden",
+			"ES": "no se puede reforzar"
 		},
 		"nutWallUseDesc": {
 			"EN": "I'm going to share the damage",
 			"CNS": "我会帮你分担伤害",
-			"CNT": "我會幫你分擔傷害"
+			"CNT": "我會幫你分擔傷害",
+			"FR": "Je vais absorber les dégâts",
+			"DE": "Ich fange den Schaden ab",
+			"ES": "Voy a absorber el daño"
 		},
 		"peashooterUseDesc": {
 			"EN": "shooting!",
 			"CNS": "射击！射击！",
-			"CNT": "射擊！射擊！"
+			"CNT": "射擊！射擊！",
+			"FR": "feu !",
+			"DE": "Feuer!",
+			"ES": "¡fuego!"
 		},
 		"headBoneUseDesc": {
 			"EN": "get the monster sneaking!",
 			"CNS": "让怪物突袭你吧！",
-			"CNT": "讓怪物突襲你吧！"
+			"CNT": "讓怪物突襲你吧！",
+			"FR": "débusque le monstre embusqué !",
+			"DE": "Bring das lauernde Monster zum Vorschein!",
+			"ES": "¡saca al monstruo emboscado!"
 		},
 		"newPlayConfirmTitle": {
 			"EN": "!",
 			"CNS": "<font color=#7d0403>提示</font>",
-			"CNT": "<font color=#7d0403>提示</font>"
+			"CNT": "<font color=#7d0403>提示</font>",
+			"FR": "!",
+			"DE": "!",
+			"ES": "!"
 		},
 		"newPlayConfirmContent": {
 			"EN": "discard the current progress?",
 			"CNS": "确定放弃当前进度？",
-			"CNT": "確定放棄當前進度？"
+			"CNT": "確定放棄當前進度？",
+			"FR": "abandonner la progression actuelle ?",
+			"DE": "Aktuellen Fortschritt verwerfen?",
+			"ES": "¿descartar el progreso actual?"
 		},
 		"chooseThisRelic": {
 			"EN": "choose this skill",
 			"CNS": "选择此技能",
-			"CNT": "選擇此技能"
+			"CNT": "選擇此技能",
+			"FR": "choisir cette compétence",
+			"DE": "diese Fähigkeit wählen",
+			"ES": "elegir esta habilidad"
 		},
 		"saveExchange": {
 			"EN": "sava",
 			"CNS": "保存",
-			"CNT": "保存"
+			"CNT": "保存",
+			"FR": "enregistrer",
+			"DE": "speichern",
+			"ES": "guardar"
 		},
 		"useDeluxeMeal": {
 			"EN": "使用豪华大餐回复50%生命值？",
 			"CNS": "使用豪华大餐回复50%生命值？",
-			"CNT": "使用豪華大餐回復50%生命值？"
+			"CNT": "使用豪華大餐回復50%生命值？",
+			"FR": "Utiliser le festin de luxe pour restaurer 50 % des PV ?",
+			"DE": "Luxusmahl benutzen und 50 % der LP wiederherstellen?",
+			"ES": "¿Usar el festín de lujo para restaurar el 50 % de PV?"
 		},
 		"hideHazardNumber": {
 			"EN": "hideHazardNumber",
@@ -2385,82 +2706,130 @@
 		"needName": {
 			"EN": "need a name",
 			"CNS": "需要一个名字",
-			"CNT": "需要一個名字"
+			"CNT": "需要一個名字",
+			"FR": "un nom est requis",
+			"DE": "ein Name wird benötigt",
+			"ES": "se necesita un nombre"
 		},
 		"tooLongName": {
 			"EN": "this name is too long",
 			"CNS": "名字最长七个字",
-			"CNT": "名字最長七個字"
+			"CNT": "名字最長七個字",
+			"FR": "ce nom est trop long",
+			"DE": "dieser Name ist zu lang",
+			"ES": "este nombre es demasiado largo"
 		},
 		"inValidName": {
 			"EN": "invalid name",
 			"CNS": "名字不合规",
-			"CNT": "名字不合规"
+			"CNT": "名字不合规",
+			"FR": "nom invalide",
+			"DE": "ungültiger Name",
+			"ES": "nombre no válido"
 		},
 		"keyInNewName": {
 			"EN": "key in a new name",
 			"CNS": "请输入一个新名字",
-			"CNT": "請輸入一個新名字"
+			"CNT": "請輸入一個新名字",
+			"FR": "saisissez un nouveau nom",
+			"DE": "gib einen neuen Namen ein",
+			"ES": "introduce un nombre nuevo"
 		},
 		"notInRank": {
 			"EN": "not in the rank. best score {score}",
 			"CNS": "未上榜, 最好成绩 {score}",
-			"CNT": "未上榜, 最好成績 {score}"
+			"CNT": "未上榜, 最好成績 {score}",
+			"FR": "hors classement. meilleur score {score}",
+			"DE": "nicht in der Rangliste. Bestwert {score}",
+			"ES": "fuera de la clasificación. mejor puntuación {score}"
 		},
 		"scoreInRank": {
 			"EN": "ranking: {ranking}, best score {score}",
 			"CNS": "排名: {ranking}, 最好成绩 {score}",
-			"CNT": "排名: {ranking}, 最好成績 {score}"
+			"CNT": "排名: {ranking}, 最好成績 {score}",
+			"FR": "classement : {ranking}, meilleur score {score}",
+			"DE": "Rang: {ranking}, Bestwert {score}",
+			"ES": "clasificación: {ranking}, mejor puntuación {score}"
 		},
 		"noThisRelic": {
 			"EN": "don't have this skill",
 			"CNS": "还未获得此技能",
-			"CNT": "還未獲得此技能"
+			"CNT": "還未獲得此技能",
+			"FR": "vous n'avez pas cette compétence",
+			"DE": "du hast diese Fähigkeit nicht",
+			"ES": "no tienes esta habilidad"
 		},
 		"thisIsLocked": {
 			"EN": "this is locked",
 			"CNS": "还未解锁",
-			"CNT": "還未解鎖"
+			"CNT": "還未解鎖",
+			"FR": "ceci est verrouillé",
+			"DE": "dies ist gesperrt",
+			"ES": "esto está bloqueado"
 		},
 		"notOpenYet": {
 			"EN": "Do not open yet",
 			"CNS": "暂未开放",
-			"CNT": "暫未開放"
+			"CNT": "暫未開放",
+			"FR": "Pas encore disponible",
+			"DE": "Noch nicht verfügbar",
+			"ES": "Aún no disponible"
 		},
 		"watchRewardAds": {
 			"EN": "Watch Ads",
 			"CNS": "看广告",
-			"CNT": "看廣告"
+			"CNT": "看廣告",
+			"FR": "Voir la pub",
+			"DE": "Werbung ansehen",
+			"ES": "Ver anuncio"
 		},
 		"justDie": {
 			"EN": "Just Die",
 			"CNS": "死亡",
-			"CNT": "死亡"
+			"CNT": "死亡",
+			"FR": "Mourir",
+			"DE": "Sterben",
+			"ES": "Morir"
 		},
 		"rebornAnyway": {
 			"EN": "Reborn",
 			"CNS": "复活",
-			"CNT": "復活"
+			"CNT": "復活",
+			"FR": "Renaître",
+			"DE": "Wiedergeburt",
+			"ES": "Renacer"
 		},
 		"useCherryBomb": {
 			"EN": "Just Die",
 			"CNS": "引爆后，翻开周围3*3的格子并造成伤害",
-			"CNT": "引爆後，翻開周圍3*3的格子並造成傷害"
+			"CNT": "引爆後，翻開周圍3*3的格子並造成傷害",
+			"FR": "Mourir",
+			"DE": "Sterben",
+			"ES": "Morir"
 		},
 		"useSunflower": {
 			"EN": "Just Die",
 			"CNS": "使用后恢复生命值",
-			"CNT": "使用後恢復生命值"
+			"CNT": "使用後恢復生命值",
+			"FR": "Mourir",
+			"DE": "Sterben",
+			"ES": "Morir"
 		},
 		"getNewAchvTitle": {
 			"EN": "You've got a new achievement:",
 			"CNS": "恭喜获得成就:",
-			"CNT": "恭喜獲得成就:"
+			"CNT": "恭喜獲得成就:",
+			"FR": "Vous avez obtenu un succès :",
+			"DE": "Du hast einen Erfolg erhalten:",
+			"ES": "Has obtenido un logro:"
 		},
 		"currentAchvPoint": {
 			"EN": "Current achievement point:",
 			"CNS": "当前成就点:",
-			"CNT": "當前成就點:"
+			"CNT": "當前成就點:",
+			"FR": "Points de succès actuels :",
+			"DE": "Aktuelle Erfolgspunkte:",
+			"ES": "Puntos de logro actuales:"
 		},
 		"eliteLevelTipTitle": {
 			"EN": "this is a tip title",
@@ -2470,257 +2839,410 @@
 		"levelUpTitle": {
 			"EN": "unlock",
 			"CNS": "实力提升效果",
-			"CNT": "實力提升效果"
+			"CNT": "實力提升效果",
+			"FR": "débloquer",
+			"DE": "freischalten",
+			"ES": "desbloquear"
 		},
 		"unlockBtn": {
 			"EN": "unlock",
 			"CNS": "解锁",
-			"CNT": "解鎖"
+			"CNT": "解鎖",
+			"FR": "débloquer",
+			"DE": "freischalten",
+			"ES": "desbloquear"
 		},
 		"nurse": {
 			"EN": "Nurse",
 			"CNS": "护士",
-			"CNT": "護士"
+			"CNT": "護士",
+			"FR": "Infirmière",
+			"DE": "Krankenschwester",
+			"ES": "Enfermera"
 		},
 		"rogue": {
 			"EN": "Rogue",
 			"CNS": "黑帮混混",
-			"CNT": "黑帮混混"
+			"CNT": "黑帮混混",
+			"FR": "Voyou",
+			"DE": "Schurke",
+			"ES": "Pícaro"
 		},
 		"horticulturist": {
 			"EN": "Nurse",
 			"CNS": "园艺师",
-			"CNT": "園藝師"
+			"CNT": "園藝師",
+			"FR": "Jardinier",
+			"DE": "Gärtner",
+			"ES": "Jardinero"
 		},
 		"merchant": {
 			"EN": "Merchant",
 			"CNS": "商人",
-			"CNT": "商人"
+			"CNT": "商人",
+			"FR": "Marchand",
+			"DE": "Händler",
+			"ES": "Mercader"
 		},
 		"rookiePlay101": {
 			"EN": "!!!",
 			"CNS": "!!!",
-			"CNT": "!!!"
+			"CNT": "!!!",
+			"FR": "!!!",
+			"DE": "!!!",
+			"ES": "!!!"
 		},
 		"rookiePlay102": {
 			"EN": "How did you end up here?",
 			"CNS": "你怎么跑到这里来了",
-			"CNT": "你怎麼跑到這裡來了"
+			"CNT": "你怎麼跑到這裡來了",
+			"FR": "Comment es-tu arrivé ici ?",
+			"DE": "Wie bist du hierher geraten?",
+			"ES": "¿Cómo has acabado aquí?"
 		},
 		"rookiePlay103": {
 			"EN": "This is the Demon King's dungeon — every floor is guarded by many monsters.",
 			"CNS": "这是魔王的地牢，每一层都有很多怪物看守",
-			"CNT": "這是魔王的地牢，每一層都有很多怪物看守"
+			"CNT": "這是魔王的地牢，每一層都有很多怪物看守",
+			"FR": "C'est le donjon du Roi Démon — chaque étage est gardé par de nombreux monstres.",
+			"DE": "Das ist der Kerker des Dämonenkönigs — jede Etage wird von vielen Monstern bewacht.",
+			"ES": "Esta es la mazmorra del Rey Demonio: cada piso está vigilado por muchos monstruos."
 		},
 		"rookiePlay104": {
 			"EN": "Now you can see the monsters and some usable potions; the exit is behind the door.",
 			"CNS": "现在你可以看到怪物和一些可以使用的药水，门后面是出口",
-			"CNT": "現在你可以看到怪物和一些可以使用的药水，門後面是出口"
+			"CNT": "現在你可以看到怪物和一些可以使用的药水，門後面是出口",
+			"FR": "Tu vois maintenant les monstres et quelques potions utilisables ; la sortie est derrière la porte.",
+			"DE": "Du siehst nun die Monster und einige nutzbare Tränke; der Ausgang ist hinter der Tür.",
+			"ES": "Ahora ves los monstruos y algunas pociones utilizables; la salida está tras la puerta."
 		},
 		"rookiePlay105": {
 			"EN": "But you can never know whether an exit leaves the dungeon or leads to the next floor.",
 			"CNS": "但是你永远无法知道出口是离开地牢还是通往下一层",
-			"CNT": "但是你永遠無法知道出口是離開地牢還是通往下一層"
+			"CNT": "但是你永遠無法知道出口是離開地牢還是通往下一層",
+			"FR": "Mais tu ne sauras jamais si une sortie quitte le donjon ou mène à l'étage suivant.",
+			"DE": "Aber du weißt nie, ob ein Ausgang aus dem Kerker führt oder zur nächsten Etage.",
+			"ES": "Pero nunca sabrás si una salida abandona la mazmorra o lleva al siguiente piso."
 		},
 		"rookiePlay201": {
 			"EN": "Let me tell you some basic rules.",
 			"CNS": "让我告诉你一些基本规则",
-			"CNT": "讓我告訴你一些基本規則"
+			"CNT": "讓我告訴你一些基本規則",
+			"FR": "Laisse-moi t'expliquer quelques règles de base.",
+			"DE": "Lass mich dir ein paar Grundregeln erklären.",
+			"ES": "Déjame explicarte algunas reglas básicas."
 		},
 		"rookiePlay202": {
 			"EN": "A number on the ground shows how many monsters hide in the 8 surrounding tiles.",
 			"CNS": "地上的数字表示它周围8个格子里隐藏的怪物的数量",
-			"CNT": "地上的數字表示它周圍8個格子裡隱藏的怪物的數量"
+			"CNT": "地上的數字表示它周圍8個格子裡隱藏的怪物的數量",
+			"FR": "Un chiffre sur le sol indique combien de monstres se cachent dans les 8 cases voisines.",
+			"DE": "Eine Zahl am Boden zeigt, wie viele Monster sich in den 8 Nachbarfeldern verbergen.",
+			"ES": "Un número en el suelo indica cuántos monstruos se ocultan en las 8 casillas vecinas."
 		},
 		"rookiePlay203": {
 			"EN": "Tap to uncover a tile.",
 			"CNS": "点击就可以打开格子",
-			"CNT": "點擊就可以打開格子"
+			"CNT": "點擊就可以打開格子",
+			"FR": "Touche pour révéler une case.",
+			"DE": "Tippe, um ein Feld aufzudecken.",
+			"ES": "Toca para descubrir una casilla."
 		},
 		"rookiePlay204": {
 			"EN": "Follow me — tap the flashing tile.",
 			"CNS": "跟着我点击闪光的格子",
-			"CNT": "跟著我點擊閃光的格子"
+			"CNT": "跟著我點擊閃光的格子",
+			"FR": "Suis-moi — touche la case qui clignote.",
+			"DE": "Folge mir — tippe das blinkende Feld an.",
+			"ES": "Sígueme: toca la casilla que parpadea."
 		},
 		"rookiePlay205": {
 			"EN": "When you're not sure, use a throwing knife to scout.",
 			"CNS": "当你无法确定时，可以用飞刀来探路",
-			"CNT": "當你無法確定時，可以用飛刀來探路"
+			"CNT": "當你無法確定時，可以用飛刀來探路",
+			"FR": "Dans le doute, utilise un couteau de lancer pour explorer.",
+			"DE": "Wenn du unsicher bist, nutze ein Wurfmesser zum Erkunden.",
+			"ES": "Cuando dudes, usa un cuchillo arrojadizo para explorar."
 		},
 		"rookiePlay206": {
 			"EN": "Pick up the knife and let's use it to scout.",
 			"CNS": "捡起飞刀，我们来用它探路",
-			"CNT": "撿起飛刀，我們來用它探路"
+			"CNT": "撿起飛刀，我們來用它探路",
+			"FR": "Ramasse le couteau et servons-nous-en pour explorer.",
+			"DE": "Heb das Messer auf und erkunden wir damit.",
+			"ES": "Recoge el cuchillo y usémoslo para explorar."
 		},
 		"rookiePlay207": {
 			"EN": "Now let's attack a tile.",
 			"CNS": "下来让我们攻击一个格子",
-			"CNT": "下來讓我們攻擊一個格子"
+			"CNT": "下來讓我們攻擊一個格子",
+			"FR": "Attaquons maintenant une case.",
+			"DE": "Greifen wir nun ein Feld an.",
+			"ES": "Ataquemos ahora una casilla."
 		},
 		"rookiePlay208": {
 			"EN": "Looks like we've run into an enemy.",
 			"CNS": "看来我们遇到了对手",
-			"CNT": "看來我們遇到了對手"
+			"CNT": "看來我們遇到了對手",
+			"FR": "On dirait qu'on a croisé un ennemi.",
+			"DE": "Sieht aus, als wären wir auf einen Gegner gestoßen.",
+			"ES": "Parece que nos hemos topado con un enemigo."
 		},
 		"rookiePlay209": {
 			"EN": "Long-press to view a monster's details.",
 			"CNS": "怪物的详细信息可以通过长按来查看",
-			"CNT": "怪物的詳細資訊可以通過長按來查看"
+			"CNT": "怪物的詳細資訊可以通過長按來查看",
+			"FR": "Maintiens l'appui pour voir les détails d'un monstre.",
+			"DE": "Halte gedrückt, um die Details eines Monsters zu sehen.",
+			"ES": "Mantén pulsado para ver los detalles de un monstruo."
 		},
 		"rookiePlay210": {
 			"EN": "Now long-press the tile the hand points to.",
 			"CNS": "现在长按小手指向的格子吧",
-			"CNT": "現在長按小手指向的格子吧"
+			"CNT": "現在長按小手指向的格子吧",
+			"FR": "Maintiens l'appui sur la case indiquée par la main.",
+			"DE": "Halte nun das Feld gedrückt, auf das die Hand zeigt.",
+			"ES": "Mantén pulsada la casilla que señala la mano."
 		},
 		"rookiePlay211": {
 			"EN": "Every monster has special stats and skills. Now let's try attacking it.",
 			"CNS": "每个怪物都有特殊的属性和技能，现在让我们尝试攻击一下它",
-			"CNT": "每個怪物都有特殊的屬性和技能，現在讓我們嘗試攻擊一下它"
+			"CNT": "每個怪物都有特殊的屬性和技能，現在讓我們嘗試攻擊一下它",
+			"FR": "Chaque monstre a des stats et des compétences propres. Essayons de l'attaquer.",
+			"DE": "Jedes Monster hat eigene Werte und Fähigkeiten. Versuchen wir, es anzugreifen.",
+			"ES": "Cada monstruo tiene sus propias estadísticas y habilidades. Probemos a atacarlo."
 		},
 		"rookiePlay212": {
 			"EN": "Go ahead, tap the monster.",
 			"CNS": "来，点击怪物吧",
-			"CNT": "來，點擊怪物吧"
+			"CNT": "來，點擊怪物吧",
+			"FR": "Vas-y, touche le monstre.",
+			"DE": "Los, tippe das Monster an.",
+			"ES": "Adelante, toca el monstruo."
 		},
 		"rookiePlay213": {
 			"EN": "When an Eye Demon dies, it opens the empty tiles around it.",
 			"CNS": "眼魔死亡会打开空着的格子。",
-			"CNT": "眼魔死亡會打開空著的格子"
+			"CNT": "眼魔死亡會打開空著的格子",
+			"FR": "Quand un Démon de l'Œil meurt, il ouvre les cases vides autour de lui.",
+			"DE": "Wenn ein Augendämon stirbt, öffnet er die leeren Felder um sich herum.",
+			"ES": "Cuando un Demonio Ojo muere, abre las casillas vacías a su alrededor."
 		},
 		"rookiePlay214": {
 			"EN": "Now uncover the flashing tile.",
 			"CNS": "现在点开闪光的格子",
-			"CNT": "現在點開閃光的格子"
+			"CNT": "現在點開閃光的格子",
+			"FR": "Révèle maintenant la case qui clignote.",
+			"DE": "Decke nun das blinkende Feld auf.",
+			"ES": "Descubre ahora la casilla que parpadea."
 		},
 		"rookiePlay215": {
 			"EN": "There's an apple — we can drag it away to read the number on the tile.",
 			"CNS": "有一个苹果，我们可以拖走它方便我们看格子上的数字",
-			"CNT": "有一個蘋果，我們可以拖走它方便我們看格子上的數字"
+			"CNT": "有一個蘋果，我們可以拖走它方便我們看格子上的數字",
+			"FR": "Il y a une pomme — on peut la déplacer pour lire le chiffre sur la case.",
+			"DE": "Da ist ein Apfel — wir können ihn wegziehen, um die Zahl auf dem Feld zu lesen.",
+			"ES": "Hay una manzana: podemos arrastrarla para leer el número de la casilla."
 		},
 		"rookiePlay216": {
 			"EN": "Let's uncover another flashing tile.",
 			"CNS": "让我们再点开一个闪光的格子",
-			"CNT": "讓我們再點開一個閃光的格子"
+			"CNT": "讓我們再點開一個閃光的格子",
+			"FR": "Révélons une autre case clignotante.",
+			"DE": "Decken wir ein weiteres blinkendes Feld auf.",
+			"ES": "Descubramos otra casilla que parpadea."
 		},
 		"rookiePlay217": {
 			"EN": "There's a potion — let's tap it.",
 			"CNS": "有一瓶药水，我们来点一下",
-			"CNT": "有一瓶藥水，我們來點一下"
+			"CNT": "有一瓶藥水，我們來點一下",
+			"FR": "Il y a une potion — touchons-la.",
+			"DE": "Da ist ein Trank — tippen wir ihn an.",
+			"ES": "Hay una poción: toquémosla."
 		},
 		"rookiePlay218": {
 			"EN": "It went into the item bar. Let's keep going.",
 			"CNS": "它进入药水栏了，让我们继续",
-			"CNT": "它進入药水欄了，讓我們繼續"
+			"CNT": "它進入药水欄了，讓我們繼續",
+			"FR": "Elle est allée dans la barre d'objets. Continuons.",
+			"DE": "Er ist in die Gegenstandsleiste gewandert. Weiter geht's.",
+			"ES": "Ha ido a la barra de objetos. Sigamos."
 		},
 		"rookiePlay219": {
 			"EN": "Let's try out the bomb potion.",
 			"CNS": "我们来尝试一下爆炸药水的效果吧",
-			"CNT": "我們來嘗試一下爆炸藥水的效果吧"
+			"CNT": "我們來嘗試一下爆炸藥水的效果吧",
+			"FR": "Essayons la potion explosive.",
+			"DE": "Probieren wir den Bombentrank aus.",
+			"ES": "Probemos la poción explosiva."
 		},
 		"rookiePlay220": {
 			"EN": "Now let's learn a new action: marking monsters manually.",
 			"CNS": "现在我们学习一个新操作，手动标注怪物",
-			"CNT": "現在我們學習一個新操作，手動標注怪物"
+			"CNT": "現在我們學習一個新操作，手動標注怪物",
+			"FR": "Apprenons une nouvelle action : marquer les monstres à la main.",
+			"DE": "Lernen wir eine neue Aktion: Monster von Hand markieren.",
+			"ES": "Aprendamos una nueva acción: marcar monstruos a mano."
 		},
 		"rookiePlay221": {
 			"EN": "We mark a tile by hand to remind ourselves a monster is there.",
 			"CNS": "我们手动在格子上做记号，提醒自己那个格子有怪物",
-			"CNT": "我們手動在格子上做記號，提醒自己那個格子有怪物"
+			"CNT": "我們手動在格子上做記號，提醒自己那個格子有怪物",
+			"FR": "On marque une case à la main pour se rappeler qu'un monstre s'y trouve.",
+			"DE": "Wir markieren ein Feld von Hand, um uns zu merken, dass dort ein Monster ist.",
+			"ES": "Marcamos una casilla a mano para recordar que allí hay un monstruo."
 		},
 		"rookiePlay222": {
 			"EN": "Follow the hand and long-press that tile.",
 			"CNS": "跟着小手长按那个格子",
-			"CNT": "跟著小手長按那個格子"
+			"CNT": "跟著小手長按那個格子",
+			"FR": "Suis la main et maintiens l'appui sur cette case.",
+			"DE": "Folge der Hand und halte dieses Feld gedrückt.",
+			"ES": "Sigue la mano y mantén pulsada esa casilla."
 		},
 		"rookiePlay223": {
 			"EN": "Great, you did it! Let's try once more.",
 			"CNS": "好的，你成功了，让我们再来一次",
-			"CNT": "好的，你成功了，讓我們再來一次"
+			"CNT": "好的，你成功了，讓我們再來一次",
+			"FR": "Bravo, tu as réussi ! Recommençons.",
+			"DE": "Super, geschafft! Versuchen wir es noch einmal.",
+			"ES": "¡Genial, lo lograste! Hagámoslo otra vez."
 		},
 		"rookiePlay224": {
 			"EN": "Excellent. The Demon King's minions fill the dungeon — explore carefully, hero.",
 			"CNS": "非常好，魔王的手下遍布地牢，谨慎的向前探索吧，勇士",
-			"CNT": "非常好，魔王的手下遍佈地牢，謹慎的向前探索吧，勇士"
+			"CNT": "非常好，魔王的手下遍佈地牢，謹慎的向前探索吧，勇士",
+			"FR": "Excellent. Les sbires du Roi Démon emplissent le donjon — explore prudemment, héros.",
+			"DE": "Ausgezeichnet. Die Schergen des Dämonenkönigs füllen den Kerker — erkunde vorsichtig, Held.",
+			"ES": "Excelente. Los secuaces del Rey Demonio llenan la mazmorra: explora con cuidado, héroe."
 		},
 		"onSneakedGuide01": {
 			"EN": "Oops, a monster ambushed you!",
 			"CNS": "哎呀，你被怪物突袭了",
-			"CNT": "哎呀，你被怪物突襲了"
+			"CNT": "哎呀，你被怪物突襲了",
+			"FR": "Oups, un monstre t'a tendu une embuscade !",
+			"DE": "Hoppla, ein Monster hat dich überfallen!",
+			"ES": "¡Vaya, un monstruo te ha emboscado!"
 		},
 		"onSneakedGuide02": {
 			"EN": "When monsters ambush, they use all kinds of skills to hurt you.",
 			"CNS": "怪物突袭时会有各种技能来伤害你",
-			"CNT": "怪物突襲時會有各種技能來傷害你"
+			"CNT": "怪物突襲時會有各種技能來傷害你",
+			"FR": "Lors d'une embuscade, les monstres usent de toutes sortes de compétences pour te blesser.",
+			"DE": "Bei einem Überfall setzen Monster allerlei Fähigkeiten ein, um dir zu schaden.",
+			"ES": "Al emboscar, los monstruos usan todo tipo de habilidades para dañarte."
 		},
 		"onSneakedGuide03": {
 			"EN": "You can use throwing knives and potions to scout ahead.",
 			"CNS": "你可以使用飞刀和药水来探路",
-			"CNT": "你可以使用飛刀和药水來探路"
+			"CNT": "你可以使用飛刀和药水來探路",
+			"FR": "Tu peux utiliser des couteaux de lancer et des potions pour explorer.",
+			"DE": "Du kannst Wurfmesser und Tränke zum Erkunden nutzen.",
+			"ES": "Puedes usar cuchillos arrojadizos y pociones para explorar."
 		},
 		"onMonsterMarkedGuide01": {
 			"EN": "Bingo! You marked a monster.",
 			"CNS": "bingo，你成功的标记了一个怪物",
-			"CNT": "bingo，你成功的標記了一個怪物"
+			"CNT": "bingo，你成功的標記了一個怪物",
+			"FR": "Bingo ! Tu as marqué un monstre.",
+			"DE": "Bingo! Du hast ein Monster markiert.",
+			"ES": "¡Bingo! Has marcado un monstruo."
 		},
 		"onMonsterMarkedGuide02": {
 			"EN": "You can also check a monster's stats to decide whether to kill it.",
 			"CNS": "你也可以看到怪物的属性来判断是不是要击杀这个怪物",
-			"CNT": "你也可以看到怪物的屬性來判斷是不是要擊殺這個怪物"
+			"CNT": "你也可以看到怪物的屬性來判斷是不是要擊殺這個怪物",
+			"FR": "Tu peux aussi consulter ses stats pour décider de le tuer ou non.",
+			"DE": "Du kannst auch seine Werte prüfen, um zu entscheiden, ob du es tötest.",
+			"ES": "También puedes ver sus estadísticas para decidir si lo matas."
 		},
 		"onMonsterMarkedGuide03": {
 			"EN": "Note: you don't have to kill every monster — grab the treasure and head to the next floor.",
 			"CNS": "注意哦，你不一定要击杀所有怪物，拿到宝物就可以去下一层了",
-			"CNT": "注意哦，你不一定要擊殺所有怪物，拿到寶物就可以去下一層了"
+			"CNT": "注意哦，你不一定要擊殺所有怪物，拿到寶物就可以去下一層了",
+			"FR": "Note : tu n'es pas obligé de tuer chaque monstre — prends le trésor et passe à l'étage suivant.",
+			"DE": "Hinweis: Du musst nicht jedes Monster töten — schnapp dir den Schatz und geh zur nächsten Etage.",
+			"ES": "Nota: no tienes que matar a todos los monstruos; coge el tesoro y pasa al siguiente piso."
 		},
 		"rookiePlay501": {
 			"EN": "Looks like you have a chance to break through the Demon King's blockade.",
 			"CNS": "看来你有机会突破魔王的封锁了",
-			"CNT": "看來你有機會突破魔王的封鎖了"
+			"CNT": "看來你有機會突破魔王的封鎖了",
+			"FR": "On dirait que tu as une chance de percer le blocus du Roi Démon.",
+			"DE": "Sieht aus, als hättest du eine Chance, die Blockade des Dämonenkönigs zu durchbrechen.",
+			"ES": "Parece que tienes una oportunidad de romper el bloqueo del Rey Demonio."
 		},
 		"rookiePlay502": {
 			"EN": "Let me introduce a powerful ally — he'll fight alongside me to help you.",
 			"CNS": "给你介绍一位强力的同伴，他会和我一起帮助你战斗",
-			"CNT": "給你介紹一位強力的同伴，他會和我一起幫助你戰鬥"
+			"CNT": "給你介紹一位強力的同伴，他會和我一起幫助你戰鬥",
+			"FR": "Laisse-moi te présenter un allié puissant — il combattra à mes côtés pour t'aider.",
+			"DE": "Lass mich dir einen starken Verbündeten vorstellen — er kämpft an meiner Seite, um dir zu helfen.",
+			"ES": "Déjame presentarte a un aliado poderoso: luchará a mi lado para ayudarte."
 		},
 		"rookiePlay503": {
 			"EN": "I'm just a gardener, really, but my plant darlings are formidable.",
 			"CNS": "其实我就是种花的，不过我的植物宝贝们都很厉害",
-			"CNT": "其實我就是種花的，不過我的植物寶貝們都很厲害"
+			"CNT": "其實我就是種花的，不過我的植物寶貝們都很厲害",
+			"FR": "Je ne suis qu'un jardinier, mais mes chères plantes sont redoutables.",
+			"DE": "Ich bin nur ein Gärtner, doch meine geliebten Pflanzen sind beachtlich.",
+			"ES": "Solo soy un jardinero, pero mis queridas plantas son temibles."
 		},
 		"rookiePlay504": {
 			"EN": "Getting to know them well will make your battles much easier.",
 			"CNS": "了解并熟悉它们，可以让你的战斗更加轻松",
-			"CNT": "瞭解並熟悉它們，可以讓你的戰鬥更加輕鬆"
+			"CNT": "瞭解並熟悉它們，可以讓你的戰鬥更加輕鬆",
+			"FR": "Bien les connaître rendra tes combats bien plus faciles.",
+			"DE": "Sie gut zu kennen macht deine Kämpfe viel leichter.",
+			"ES": "Conocerlas bien hará tus combates mucho más fáciles."
 		},
 		"rookiePlay505": {
 			"EN": "Now I'll give you my relic, and you'll be able to command my plants.",
 			"CNS": "现在把我的宝物给你，你就可以操纵我的植物了",
-			"CNT": "現在把我的寶物給你，你就可以操縱我的植物了"
+			"CNT": "現在把我的寶物給你，你就可以操縱我的植物了",
+			"FR": "Je te donne ma relique : tu pourras commander mes plantes.",
+			"DE": "Ich gebe dir meine Reliquie: Du kannst dann meine Pflanzen befehligen.",
+			"ES": "Te doy mi reliquia: podrás comandar mis plantas."
 		},
 		"rookiePlay506": {
 			"EN": "Press on, hero.",
 			"CNS": "继续前进吧，勇士",
-			"CNT": "繼續前進吧，勇士"
+			"CNT": "繼續前進吧，勇士",
+			"FR": "En avant, héros.",
+			"DE": "Vorwärts, Held.",
+			"ES": "Adelante, héroe."
 		},
 		"robExtraItemDialog01": {
 			"EN": "Robbed an extra item: ",
 			"CNS": "额外抢到一件道具：",
-			"CNT": "額外搶到一件道具："
+			"CNT": "額外搶到一件道具：",
+			"FR": "Objet supplémentaire volé : ",
+			"DE": "Zusätzlichen Gegenstand geraubt: ",
+			"ES": "Objeto adicional robado: "
 		},
 		"openAvatarView01": {
 			"EN": "Tap the avatar.",
 			"CNS": "点击头像",
-			"CNT": "點擊頭像"
+			"CNT": "點擊頭像",
+			"FR": "Touche l'avatar.",
+			"DE": "Tippe den Avatar an.",
+			"ES": "Toca el avatar."
 		},
 		"openAvatarView02": {
 			"EN": "Here you can see your stats, common skills, and some settings to choose from.",
 			"CNS": "这里你可以看到你的属性，通用技能，还有一些设置可以选择",
-			"CNT": "這裡你可以看到你的屬性，通用技能，還有一些設置可以選擇"
+			"CNT": "這裡你可以看到你的屬性，通用技能，還有一些設置可以選擇",
+			"FR": "Ici tu vois tes stats, tes compétences communes et quelques réglages.",
+			"DE": "Hier siehst du deine Werte, allgemeine Fähigkeiten und einige Einstellungen.",
+			"ES": "Aquí ves tus estadísticas, habilidades comunes y algunos ajustes."
 		},
 		"openAvatarView03": {
 			"EN": "Tap back to return to the battle.",
 			"CNS": "点击返回让我们回到战斗",
-			"CNT": "點擊返回讓我們回到戰鬥"
+			"CNT": "點擊返回讓我們回到戰鬥",
+			"FR": "Touche Retour pour revenir au combat.",
+			"DE": "Tippe Zurück, um zum Kampf zurückzukehren.",
+			"ES": "Toca Volver para regresar al combate."
 		},
 		"halloweenTreant": {
 			"EN": "HalloweenTreant",
@@ -2730,47 +3252,74 @@
 		"onUnlockOccupationGuide01": {
 			"EN": "My friend, you've come at last — the Halloween Treant has kept me locked up here for so long.",
 			"CNS": "我的朋友，你终于来了，我为万圣节树妖关在这里好久了",
-			"CNT": "我的朋友，你終於來了，我為萬聖節樹妖關在這裡好久了"
+			"CNT": "我的朋友，你終於來了，我為萬聖節樹妖關在這裡好久了",
+			"FR": "Mon ami, te voilà enfin — le Tréant d'Halloween me retient prisonnier depuis si longtemps.",
+			"DE": "Mein Freund, endlich bist du da — der Halloween-Baumriese hält mich schon so lange gefangen.",
+			"ES": "Amigo mío, por fin has venido: el Ent de Halloween me tiene preso aquí desde hace tanto."
 		},
 		"onUnlockOccupationGuide02": {
 			"EN": "Thank you for saving me. You can pick me on the start screen to fight by your side.",
 			"CNS": "感谢你的拯救，你可以在初始界面选择我与你并肩战斗",
-			"CNT": "感謝你的拯救，你可以在初始介面選擇我與你並肩戰鬥"
+			"CNT": "感謝你的拯救，你可以在初始介面選擇我與你並肩戰鬥",
+			"FR": "Merci de m'avoir sauvé. Tu pourras me choisir à l'écran d'accueil pour combattre à tes côtés.",
+			"DE": "Danke, dass du mich gerettet hast. Du kannst mich im Startbildschirm wählen, um an deiner Seite zu kämpfen.",
+			"ES": "Gracias por salvarme. Podrás elegirme en la pantalla de inicio para luchar a tu lado."
 		},
 		"rookieKillBoss01": {
 			"EN": "                             The Horticulturist has been captured.",
 			"CNS": "                             园艺师被我抓走了",
-			"CNT": "新手击败boss对话01"
+			"CNT": "新手击败boss对话01",
+			"FR": "                             Le Jardinier a été capturé.",
+			"DE": "                             Der Gärtner wurde gefangen genommen.",
+			"ES": "                             El Jardinero ha sido capturado."
 		},
 		"rookieKillBoss02": {
 			"EN": "Nurse, gangster — come save me, quick!",
 			"CNS": "护士妹子、黑帮兄弟，快来救我",
-			"CNT": "護士妹子、黑幫兄弟，快來救我"
+			"CNT": "護士妹子、黑幫兄弟，快來救我",
+			"FR": "Infirmière, voyou — venez vite me sauver !",
+			"DE": "Krankenschwester, Schurke — kommt schnell, rettet mich!",
+			"ES": "Enfermera, pícaro: ¡venid rápido a salvarme!"
 		},
 		"killHalloweenTreantFirstTime01": {
 			"EN": "I'm finally saved — thank you!",
 			"CNS": "我终于得救了，谢谢",
-			"CNT": "我終於得救了，謝謝"
+			"CNT": "我終於得救了，謝謝",
+			"FR": "Je suis enfin sauvé — merci !",
+			"DE": "Endlich bin ich gerettet — danke!",
+			"ES": "¡Por fin estoy a salvo, gracias!"
 		},
 		"killHalloweenTreantFirstTime02": {
 			"EN": "As thanks, I can help you in battle once.",
 			"CNS": "作为感谢，我可以帮助你战斗一次",
-			"CNT": "作為感謝，我可以幫助妳戰鬥壹次"
+			"CNT": "作為感謝，我可以幫助妳戰鬥壹次",
+			"FR": "En remerciement, je peux t'aider une fois au combat.",
+			"DE": "Zum Dank kann ich dir einmal im Kampf helfen.",
+			"ES": "En agradecimiento, puedo ayudarte una vez en combate."
 		},
 		"occLocked": {
 			"EN": "this occupation is locked",
 			"CNS": "该职业未解锁",
-			"CNT": "該職業未解鎖"
+			"CNT": "該職業未解鎖",
+			"FR": "cette classe est verrouillée",
+			"DE": "diese Klasse ist gesperrt",
+			"ES": "esta clase está bloqueada"
 		},
 		"occLockedContent": {
 			"EN": "pay to unlock?",
 			"CNS": "支付6元永久解锁该职业?也可在游戏内营救该职业进行解锁,但死亡后会被重新锁定",
-			"CNT": "支付6元永久解锁该职业?也可在游戏内营救该职业进行解锁,但死亡后会被重新锁定"
+			"CNT": "支付6元永久解锁该职业?也可在游戏内营救该职业进行解锁,但死亡后会被重新锁定",
+			"FR": "payer pour débloquer ?",
+			"DE": "zum Freischalten bezahlen?",
+			"ES": "¿pagar para desbloquear?"
 		},
 		"occLockedContentAndroid": {
 			"EN": "pay to unlock?",
 			"CNS": "永久解锁该职业?",
-			"CNT": "永久解锁该职业?"
+			"CNT": "永久解锁该职业?",
+			"FR": "payer pour débloquer ?",
+			"DE": "zum Freischalten bezahlen?",
+			"ES": "¿pagar para desbloquear?"
 		},
 		"": {}
 	}
