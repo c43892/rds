@@ -31,6 +31,15 @@ const NEW = {
     loginContinue:       { EN: "Continue",                       CNS: "继续游戏",        CNT: "繼續遊戲" },
     loginRank:           { EN: "Heroes",                         CNS: "排行榜",          CNT: "排行榜" },
     loginAchievement:    { EN: "Achievements",                   CNS: "成就",            CNT: "成就" },
+    // 世界地图图例
+    legend:              { EN: "Legend",        CNS: "图例",     CNT: "圖例",     JA: "凡例",         KO: "범례",       FR: "Légende",        DE: "Legende",        ES: "Leyenda",        RU: "Легенда" },
+    legendBoss:          { EN: "Boss Battle",   CNS: "BOSS战斗", CNT: "BOSS戰鬥", JA: "ボス戦",       KO: "보스 전투",  FR: "Combat de boss", DE: "Boss-Kampf",     ES: "Combate de jefe",RU: "Бой с боссом" },
+    legendCamp:          { EN: "Safe House",    CNS: "安全屋",   CNT: "安全屋",   JA: "隠れ家",       KO: "은신처",     FR: "Refuge",         DE: "Unterschlupf",   ES: "Refugio",        RU: "Убежище" },
+    legendBox:           { EN: "Treasure",      CNS: "宝箱",     CNT: "寶箱",     JA: "宝箱",         KO: "보물상자",   FR: "Coffre",         DE: "Schatztruhe",    ES: "Cofre",          RU: "Сундук" },
+    legendSenior:        { EN: "Special Battle",CNS: "特殊战斗", CNT: "特殊戰鬥", JA: "特殊戦",       KO: "특수 전투",  FR: "Combat spécial", DE: "Spezialkampf",   ES: "Combate especial",RU: "Особый бой" },
+    legendNormal:        { EN: "Normal Battle", CNS: "普通战斗", CNT: "普通戰鬥", JA: "通常戦",       KO: "일반 전투",  FR: "Combat normal",  DE: "Normaler Kampf", ES: "Combate normal", RU: "Обычный бой" },
+    legendEvent:         { EN: "Random Event",  CNS: "随机事件", CNT: "隨機事件", JA: "ランダムイベント", KO: "무작위 이벤트", FR: "Événement",   DE: "Zufallsereignis",ES: "Evento aleatorio",RU: "Случайное событие" },
+    legendShop:          { EN: "Merchant",      CNS: "商人",     CNT: "商人",     JA: "商人",         KO: "상인",       FR: "Marchand",       DE: "Händler",        ES: "Mercader",       RU: "Торговец" },
 };
 
 let txt = fs.readFileSync(FILE, 'utf8');
@@ -46,7 +55,8 @@ let added = 0, skipped = 0;
 for (const k in NEW) {
     if (cfg.tips[k] != undefined) { skipped++; continue; }
     const v = NEW[k];
-    lines.push('\t\t"' + k + '": { "EN": ' + JSON.stringify(v.EN) + ', "CNS": ' + JSON.stringify(v.CNS) + ', "CNT": ' + JSON.stringify(v.CNT) + ' },');
+    const parts = Object.keys(v).map(lng => '"' + lng + '": ' + JSON.stringify(v[lng]));
+    lines.push('\t\t"' + k + '": { ' + parts.join(', ') + ' },');
     added++;
 }
 if (added > 0) {

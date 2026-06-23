@@ -22665,10 +22665,77 @@ class WorldMapView extends egret.DisplayObjectContainer {
             var btRandonSeed = this.player.playerRandom.nextInt(0, 10000);
             await this.startNewBattle(this.player, battleType, this.player.currentTotalStorey(), this.player.currentStoreyPos.n, btRandonSeed, false, extraLevelLogic);
         };
-        this.btnSymbolDesc = new TextButtonWithBg("SymbolDescbtn_png");
+        // 图例(原 SymbolDesc_png / SymbolDescbtn_png 把图标+中文文字烤死在图里,无法本地化)。
+        // 改为运行时拼装:节点图标 + 各语言文字标签,跟随当前语言。
+        this.btnSymbolDesc = this.buildLegendBtn();
         this.btnSymbolDesc.name = "btnSymbolDesc";
-        this.symbolDesc = new TextButtonWithBg("SymbolDesc_png");
+        this.symbolDesc = this.buildLegendPanel();
         this.symbolDesc.name = "symbolDesc";
+    }
+    // 收起态的小按钮:面板底 + "图例"文字
+    buildLegendBtn() {
+        var W = 108, H = 46;
+        var c = new egret.DisplayObjectContainer();
+        c.width = W;
+        c.height = H;
+        var bg = ViewUtils.createPanelBitmap(W, H);
+        bg.width = W;
+        bg.height = H;
+        c.addChild(bg);
+        var label = ViewUtils.createTextField(26, 0xffffff);
+        label.fontFamily = ViewUtils.getUIFontFamily();
+        label.text = ViewUtils.getTipText("legend");
+        label.width = W;
+        label.height = H;
+        c.addChild(label);
+        c.touchEnabled = true;
+        c.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClickSymbolDesc, this);
+        return c;
+    }
+    // 展开态的图例面板:节点图标 + 各语言文字
+    buildLegendPanel() {
+        var rows = [
+            ["slimeKingBossNode_png", "legendBoss"],
+            ["Nodecamp_png", "legendCamp"],
+            ["Nodebox_png", "legendBox"],
+            ["Nodesenior_png", "legendSenior"],
+            ["Nodenormal_png", "legendNormal"],
+            ["Nodeevent_png", "legendEvent"],
+            ["Nodeshop_png", "legendShop"],
+        ];
+        var W = 210, rowH = 42, padTop = 16, padBot = 16, iconBox = 36, iconCX = 32, labelX = 62;
+        var H = padTop + rows.length * rowH + padBot;
+        var panel = new egret.DisplayObjectContainer();
+        panel.width = W;
+        panel.height = H;
+        var bg = ViewUtils.createPanelBitmap(W, H);
+        bg.width = W;
+        bg.height = H;
+        panel.addChild(bg);
+        var fam = ViewUtils.getUIFontFamily();
+        rows.forEach((r, i) => {
+            var cy = padTop + i * rowH + rowH / 2;
+            var icon = ViewUtils.createBitmapByName(r[0]);
+            var iw = icon.width || iconBox, ih = icon.height || iconBox;
+            var s = iconBox / Math.max(iw, ih);
+            icon.anchorOffsetX = iw / 2;
+            icon.anchorOffsetY = ih / 2;
+            icon.scaleX = icon.scaleY = s;
+            icon.x = iconCX;
+            icon.y = cy;
+            panel.addChild(icon);
+            var label = ViewUtils.createTextField(24, 0xffffff, false, true);
+            label.fontFamily = fam;
+            label.text = ViewUtils.getTipText(r[1]);
+            label.x = labelX;
+            label.y = cy - rowH / 2;
+            label.width = W - labelX - 8;
+            label.height = rowH;
+            panel.addChild(label);
+        });
+        panel.touchEnabled = true;
+        panel.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClickSymbolDesc, this);
+        return panel;
     }
     refreshUI() {
         this.refreshFrame();
@@ -22679,8 +22746,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
         });
         ViewUtils.multiLang(this, ...objs);
         this.removeChild(this.symbolDesc); // 初始不显示图例
-        this.btnSymbolDesc.onClicked = () => this.onClickSymbolDesc();
-        this.symbolDesc.onClicked = () => this.onClickSymbolDesc();
         this.wmtv.refresh();
     }
     onClickSymbolDesc() {
