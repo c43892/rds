@@ -48,12 +48,15 @@ namespace egret {
 
     // ---- TextField --------------------------------------------------------
     export class TextField extends DisplayObjectContainer {
+        // 全局 UI 默认字体栈。游戏按当前语言设置(见 ViewUtils.applyUIFont)：栈末尾留系统
+        // 字体，使日/韩/西里尔等无 bundled 字体时也能由操作系统字体渲染(不出豆腐块)。
+        public static defaultFontFamily = "LXGW WenKai, Microsoft YaHei, sans-serif";
         private _t: any;                 // PIXI.Text
         private _text = "";
         private _flow: ITextElement[] | undefined;
         private _size = 30;
         private _color = 0xffffff;
-        private _family = "LXGW WenKai, Microsoft YaHei, sans-serif";
+        private _family = TextField.defaultFontFamily;
         private _bold = false;
         private _italic = false;
         private _align = HorizontalAlign.LEFT;

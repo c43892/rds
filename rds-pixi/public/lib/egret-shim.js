@@ -1022,7 +1022,7 @@ var egret;
             this._text = "";
             this._size = 30;
             this._color = 0xffffff;
-            this._family = "LXGW WenKai, Microsoft YaHei, sans-serif";
+            this._family = TextField.defaultFontFamily;
             this._bold = false;
             this._italic = false;
             this._align = egret.HorizontalAlign.LEFT;
@@ -1363,6 +1363,9 @@ var egret;
         get numLines() { return this._text ? this._text.split("\n").length : 0; }
         setFocus() { }
     }
+    // 全局 UI 默认字体栈。游戏按当前语言设置(见 ViewUtils.applyUIFont)：栈末尾留系统
+    // 字体，使日/韩/西里尔等无 bundled 字体时也能由操作系统字体渲染(不出豆腐块)。
+    TextField.defaultFontFamily = "LXGW WenKai, Microsoft YaHei, sans-serif";
     egret.TextField = TextField;
     // ---- BitmapFont -------------------------------------------------------
     class BitmapFont {

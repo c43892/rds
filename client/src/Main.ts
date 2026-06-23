@@ -192,6 +192,8 @@ class Main extends egret.DisplayObjectContainer {
         GCfg.getMultiLanguageCfg = () => multiLangCfg;
         // 启动语言：存档优先 -> 浏览器 locale -> 默认（CNS）。覆盖配置里写死的 currentLanguage。
         multiLangCfg.currentLanguage = ViewUtils.resolveStartupLanguage();
+        // 按语言设定 UI 字体栈（须在构建界面前）
+        ViewUtils.applyUIFont();
         // 让 common/logic 也能本地化（取 tips）
         Utils.localize = (key) => ViewUtils.getTipText(key);
 

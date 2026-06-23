@@ -12526,6 +12526,17 @@ class ViewUtils {
         var i = v.indexOf(ViewUtils.getLanguage());
         return v[(i + 1) % v.length];
     }
+    static getUIFontFamily(lang) {
+        lang = lang || ViewUtils.getLanguage();
+        return ViewUtils.uiFontFamilies[lang] || ViewUtils.uiFontFamilies._default;
+    }
+    // 把当前语言的字体栈设为 TextField 的默认字体(须在构建界面前调用)
+    static applyUIFont() {
+        try {
+            egret.TextField.defaultFontFamily = ViewUtils.getUIFontFamily();
+        }
+        catch (e) { }
+    }
     static ensureLangCfg() {
         if (!ViewUtils.languageCfg)
             ViewUtils.languageCfg = GCfg.getMultiLanguageCfg();
@@ -12846,6 +12857,15 @@ ViewUtils.localeMap = {
 ViewUtils.langNativeNames = {
     EN: "English", CNS: "简体中文", CNT: "繁體中文", JA: "日本語", KO: "한국어",
     ES: "Español", FR: "Français", DE: "Deutsch", PT: "Português", RU: "Русский"
+};
+// 按语言的 UI 字体栈：栈末尾留系统字体，未 bundle 对应字体时也能由操作系统渲染
+// (日文假名/韩文谚文/西里尔等不出豆腐块)。bundled 字体(如 LXGW)放栈首优先用。
+ViewUtils.uiFontFamilies = {
+    CNS: "LXGW WenKai, Microsoft YaHei, PingFang SC, sans-serif",
+    CNT: "LXGW WenKai, Microsoft JhengHei, PingFang TC, sans-serif",
+    JA: "LXGW WenKai, Hiragino Sans, Yu Gothic, Meiryo, MS Gothic, sans-serif",
+    KO: "Malgun Gothic, Apple SD Gothic Neo, Nanum Gothic, sans-serif",
+    _default: "LXGW WenKai, Segoe UI, Arial, sans-serif" // 拉丁/西里尔(EN/ES/FR/DE/PT/RU)
 };
 // 作为背景填充安全显示区域
 ViewUtils.fullSize = { w: 758, h: 1280 };
@@ -24027,6 +24047,8 @@ class Main extends egret.DisplayObjectContainer {
         GCfg.getMultiLanguageCfg = () => multiLangCfg;
         // 启动语言：存档优先 -> 浏览器 locale -> 默认（CNS）。覆盖配置里写死的 currentLanguage。
         multiLangCfg.currentLanguage = ViewUtils.resolveStartupLanguage();
+        // 按语言设定 UI 字体栈（须在构建界面前）
+        ViewUtils.applyUIFont();
         // 让 common/logic 也能本地化（取 tips）
         Utils.localize = (key) => ViewUtils.getTipText(key);
         // misc内配置

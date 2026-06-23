@@ -225,6 +225,24 @@ class ViewUtils {
         return v[(i + 1) % v.length];
     }
 
+    // 按语言的 UI 字体栈：栈末尾留系统字体，未 bundle 对应字体时也能由操作系统渲染
+    // (日文假名/韩文谚文/西里尔等不出豆腐块)。bundled 字体(如 LXGW)放栈首优先用。
+    static readonly uiFontFamilies = {
+        CNS: "LXGW WenKai, Microsoft YaHei, PingFang SC, sans-serif",
+        CNT: "LXGW WenKai, Microsoft JhengHei, PingFang TC, sans-serif",
+        JA:  "LXGW WenKai, Hiragino Sans, Yu Gothic, Meiryo, MS Gothic, sans-serif",
+        KO:  "Malgun Gothic, Apple SD Gothic Neo, Nanum Gothic, sans-serif",
+        _default: "LXGW WenKai, Segoe UI, Arial, sans-serif" // 拉丁/西里尔(EN/ES/FR/DE/PT/RU)
+    };
+    public static getUIFontFamily(lang?:string):string {
+        lang = lang || ViewUtils.getLanguage();
+        return ViewUtils.uiFontFamilies[lang] || ViewUtils.uiFontFamilies._default;
+    }
+    // 把当前语言的字体栈设为 TextField 的默认字体(须在构建界面前调用)
+    public static applyUIFont() {
+        try { (<any>egret).TextField.defaultFontFamily = ViewUtils.getUIFontFamily(); } catch (e) {}
+    }
+
     private static ensureLangCfg() {
         if (!ViewUtils.languageCfg)
             ViewUtils.languageCfg = GCfg.getMultiLanguageCfg();
