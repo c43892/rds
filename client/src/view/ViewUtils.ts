@@ -273,25 +273,41 @@ class ViewUtils {
             + "<text x='" + (w / 2) + "' y='" + (h / 2 + fs * 0.34) + "' font-family=\"" + fam + "\" font-weight='bold' font-size='" + fs + "' fill='#efc96f' stroke='#2b1d0d' stroke-width='1' text-anchor='middle'>" + esc(text) + "</text>"
             + "</svg>";
     }
-    // 把一个 TextButtonWithBg 本地化为现生成的按钮图(英文版不调用,保留原花体图)。
-    // 异步贴图加载完成后再设底图/尺寸,避免 0 尺寸贴图导致的缩放问题。
-    public static localizeButton(btn:any, text:string) {
+    // 把一个 TextButtonWithBg 本地化(英文版不调用,保留原花体图)。
+    // 优先用“该语言的成品按钮图”(美术/AI 按原图重绘文字后放到
+    //   resource/assets/ui/login/i18n/<base>_<LANG>.png,如 NewGameNormal_CNS.png);
+    // 若该图不存在,则回退到运行时现生成的木质按钮(buttonSVG)。
+    private static applyButtonTexture(btn:any, pixiTex:any, w:number, h:number) {
+        try {
+            btn.bg.texture = (<any>egret).Texture.fromPixi(pixiTex);
+            btn.setDownBg(undefined);     // 去掉英文按下态图
+            btn.setDisableBg(undefined);  // 去掉英文禁用态图(改用置灰)
+            btn.bg.width = w; btn.bg.height = h;
+        } catch (e) {}
+    }
+    private static applyGeneratedButton(btn:any, text:string, w:number, h:number) {
+        try {
+            var pixiTex = (<any>window).PIXI.Texture.from("data:image/svg+xml;utf8," + encodeURIComponent(ViewUtils.buttonSVG(text, w, h)));
+            var apply = () => ViewUtils.applyButtonTexture(btn, pixiTex, w, h);
+            if (pixiTex.baseTexture.valid) apply(); else pixiTex.baseTexture.once('loaded', apply);
+        } catch (e) {}
+    }
+    public static localizeButton(btn:any, baseTexName:string, text:string) {
         if (!btn || !btn.bg) return;
         var w = Math.round(btn.width), h = Math.round(btn.height);
+        var base = (baseTexName || "").replace(/_png$/, "");
+        var url = "resource/assets/ui/login/i18n/" + base + "_" + ViewUtils.getLanguage() + ".png";
         try {
-            var uri = "data:image/svg+xml;utf8," + encodeURIComponent(ViewUtils.buttonSVG(text, w, h));
-            var pixiTex = (<any>window).PIXI.Texture.from(uri);
-            var apply = () => {
-                try {
-                    btn.bg.texture = (<any>egret).Texture.fromPixi(pixiTex);
-                    btn.setDownBg(undefined);     // 去掉英文按下态图
-                    btn.setDisableBg(undefined);  // 去掉英文禁用态图(改用置灰)
-                    btn.bg.width = w; btn.bg.height = h;
-                } catch (e) {}
+            var probe = new Image();
+            probe.onload = () => {
+                try { ViewUtils.applyButtonTexture(btn, (<any>window).PIXI.Texture.from(probe), w, h); }
+                catch (e) { ViewUtils.applyGeneratedButton(btn, text, w, h); }
             };
-            if (pixiTex.baseTexture.valid) apply();
-            else pixiTex.baseTexture.once('loaded', apply);
-        } catch (e) {}
+            probe.onerror = () => ViewUtils.applyGeneratedButton(btn, text, w, h);
+            probe.src = url;
+        } catch (e) {
+            ViewUtils.applyGeneratedButton(btn, text, w, h);
+        }
     }
 
     // 一面 60x40 国旗的内部 SVG 标记(不含外层 <svg>)
