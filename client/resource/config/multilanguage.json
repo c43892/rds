@@ -1802,38 +1802,74 @@
 	"occupations": {
 		"Nurse": {
 			"desc": {
-				"EN": "description of Nurse",
+				"EN": "The Nurse has strong recovery; all classes start able to carry healing potions based on the Nurse level.",
 				"CNS": "护士妹妹拥有良好的恢复能力，所有职业初始可携带与护士等级相关数量的医疗药剂。",
-				"CNT": "護士妹妹擁有良好的恢復能力，所有職業初始可攜帶與護士等級相關數量的醫療藥劑。"
+				"CNT": "護士妹妹擁有良好的恢復能力，所有職業初始可攜帶與護士等級相關數量的醫療藥劑。",
+				"FR": "L’Infirmière récupère bien ; toutes les classes peuvent porter au départ des potions de soin selon le niveau d’Infirmière.",
+				"DE": "Die Krankenschwester regeneriert gut; alle Klassen tragen anfangs Heiltränke entsprechend der Krankenschwester-Stufe.",
+				"ES": "La Enfermera se recupera bien; todas las clases empiezan pudiendo llevar pociones de curación según el nivel de Enfermera.",
+				"RU": "Медсестра хорошо восстанавливается; все классы в начале могут носить зелья лечения в зависимости от уровня Медсестры.",
+				"JA": "ナースは回復力に優れ、すべての職業はナースのレベルに応じた数の回復ポーションを初期所持できる。",
+				"KO": "간호사는 회복력이 뛰어나며, 모든 직업은 간호사 레벨에 따른 수의 회복 물약을 처음부터 소지할 수 있다。"
 			},
 			"name": {
 				"EN": "Nurse",
 				"CNS": "护士妹妹",
-				"CNT": "護士妹妹"
+				"CNT": "護士妹妹",
+				"FR": "Infirmière",
+				"DE": "Krankenschwester",
+				"ES": "Enfermera",
+				"RU": "Медсестра",
+				"JA": "ナース",
+				"KO": "간호사"
 			}
 		},
 		"Rogue": {
 			"desc": {
-				"EN": "description of Rogue",
+				"EN": "The gangster loves robbing shops; all classes gain Killing Mastery based on the gangster level.",
 				"CNS": "黑帮混混最爱抢劫商店，所有职业获得与黑帮混混等级相关级别的杀戮专精。",
-				"CNT": "黑幫混混最愛搶劫商店，所有職業獲得與黑幫混混等級相關級別的殺戮專精。"
+				"CNT": "黑幫混混最愛搶劫商店，所有職業獲得與黑幫混混等級相關級別的殺戮專精。",
+				"FR": "Le voyou adore dévaliser les boutiques ; toutes les classes gagnent la Maîtrise du carnage selon le niveau de voyou.",
+				"DE": "Der Schurke raubt am liebsten Läden aus; alle Klassen erhalten Meister des Tötens je nach Schurken-Stufe.",
+				"ES": "Al pícaro le encanta robar tiendas; todas las clases obtienen Maestría asesina según el nivel de pícaro.",
+				"RU": "Разбойник обожает грабить лавки; все классы получают Мастерство убийства в зависимости от уровня Разбойника.",
+				"JA": "ならず者は店の強奪を好み、すべての職業はならず者のレベルに応じた殺戮マスターを得る。",
+				"KO": "도적은 상점 강탈을 즐기며, 모든 직업은 도적 레벨에 따른 살육 숙련을 얻는다。"
 			},
 			"name": {
 				"EN": "Rogue",
 				"CNS": "黑帮混混",
-				"CNT": "黑幫混混"
+				"CNT": "黑幫混混",
+				"FR": "Voyou",
+				"DE": "Schurke",
+				"ES": "Pícaro",
+				"RU": "Разбойник",
+				"JA": "ならず者",
+				"KO": "도적"
 			}
 		},
 		"Horticulturist": {
 			"desc": {
-				"EN": "description of Horticulturist",
+				"EN": "The Horticulturist summons plants to fight; all classes get an enhanced Scarab Shell effect.",
 				"CNS": "园艺师可以召唤植物帮助自己战斗，所有职业获得圣甲虫的壳技能效果提升。",
-				"CNT": "園藝師可以召喚植物幫助自己戰鬥，所有職業獲得聖甲蟲的殼技能效果提升。"
+				"CNT": "園藝師可以召喚植物幫助自己戰鬥，所有職業獲得聖甲蟲的殼技能效果提升。",
+				"FR": "Le Jardinier invoque des plantes pour combattre ; toutes les classes bénéficient d’un effet amélioré de la Carapace de scarabée.",
+				"DE": "Der Gärtner ruft Pflanzen zum Kampf; alle Klassen erhalten einen verstärkten Skarabäuspanzer-Effekt.",
+				"ES": "El Jardinero invoca plantas para luchar; todas las clases obtienen un efecto mejorado del Caparazón de escarabajo.",
+				"RU": "Садовник призывает растения для боя; все классы получают усиленный эффект «Панцирь скарабея».",
+				"JA": "庭師は植物を召喚して戦え、すべての職業はスカラベの殻の効果が向上する。",
+				"KO": "정원사는 식물을 소환해 싸우며, 모든 직업은 스카라베의 껍질 효과가 향상된다。"
 			},
 			"name": {
 				"EN": "Horticulturist",
 				"CNS": "园艺师",
-				"CNT": "园艺师"
+				"CNT": "园艺师",
+				"FR": "Jardinier",
+				"DE": "Gärtner",
+				"ES": "Jardinero",
+				"RU": "Садовник",
+				"JA": "庭師",
+				"KO": "정원사"
 			}
 		}
 	},
