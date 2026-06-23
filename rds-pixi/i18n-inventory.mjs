@@ -85,7 +85,7 @@ for (const l of TARGET_LANGS)
     console.log('  ' + l.padEnd(4), present[l] + '/' + translatable,
         '(' + Math.round((present[l] / translatable) * 100) + '%)' + (present[l] < translatable ? '  缺 ' + (translatable - present[l]) : '  ✓'));
 
-console.log('\n注意: occUnlockDesc / worldmapeventsels / achvDesc 目前尚未走多语言结构(Phase 2 #5 会改造后纳入本清单)。');
+console.log('\n注意: occUnlockDesc / worldmapeventsels / achvDesc 已改为按语言分(顶层 CNS)，但其嵌套/富文本结构尚未被本脚本枚举(后续可扩展)。');
 
 // ---- 写 CSV 主表 ----
 const esc = (s) => '"' + String(s == undefined ? '' : s).replace(/"/g, '""').replace(/\r?\n/g, '\\n') + '"';
