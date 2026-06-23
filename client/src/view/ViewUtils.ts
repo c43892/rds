@@ -237,6 +237,23 @@ class ViewUtils {
         }
         return pts.join(' ');
     }
+    // 圆角半透明面板位图(用于语言选择弹窗底板)
+    public static createPanelBitmap(w:number, h:number):any {
+        var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='" + w + "' height='" + h + "' viewBox='0 0 " + w + " " + h + "'>"
+            + "<rect x='1' y='1' width='" + (w - 2) + "' height='" + (h - 2) + "' rx='12' fill='#202830' fill-opacity='0.96' stroke='#ffffff' stroke-opacity='0.85' stroke-width='2'/></svg>";
+        var bmp = new egret.Bitmap();
+        try { bmp.texture = (<any>egret).Texture.fromPixi((<any>window).PIXI.Texture.from("data:image/svg+xml;utf8," + encodeURIComponent(svg))); } catch (e) {}
+        return bmp;
+    }
+    // 行高亮位图(当前语言行背景)
+    public static createHighlightBitmap(w:number, h:number):any {
+        var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='" + w + "' height='" + h + "' viewBox='0 0 " + w + " " + h + "'>"
+            + "<rect x='0' y='0' width='" + w + "' height='" + h + "' rx='8' fill='#ffffff' fill-opacity='0.16'/></svg>";
+        var bmp = new egret.Bitmap();
+        try { bmp.texture = (<any>egret).Texture.fromPixi((<any>window).PIXI.Texture.from("data:image/svg+xml;utf8," + encodeURIComponent(svg))); } catch (e) {}
+        return bmp;
+    }
+
     // 一面 60x40 国旗的内部 SVG 标记(不含外层 <svg>)
     private static flagInner(lang:string):string {
         switch (lang) {
