@@ -67,11 +67,14 @@ class NameView extends egret.DisplayObjectContainer {
 
     // 获取一个随机的名字
     getRandomName() {
-        var nameCfg = GCfg.getRandomNameCfg();
+        // 按当前语言取名字部件(缺失回退 CNS);中日韩直接拼接,拉丁/西里尔用空格分隔
+        var nameCfg = ViewUtils.pickLangSection(GCfg.getRandomNameCfg());
         var rd = new SRandom();
         var first = nameCfg.first[rd.nextInt(0, nameCfg.first.length)];
         var last = nameCfg.last[rd.nextInt(0, nameCfg.last.length)];
-        this.keyInName.text = first + last;
+        var lang = ViewUtils.getLanguage();
+        var sep = (lang == "CNS" || lang == "CNT" || lang == "JA" || lang == "KO") ? "" : " ";
+        this.keyInName.text = first + sep + last;
         egret.Tween.removeTweens(this.randomBtn);
         this.randomBtn.alpha = 1;
         this.scaleX = 1;
