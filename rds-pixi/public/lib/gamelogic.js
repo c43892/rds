@@ -18585,8 +18585,8 @@ class LoginView extends egret.DisplayObjectContainer {
         // 让所有界面以新语言从头重建（登录界面无进行中对局，安全）。
         this.btnLang = ViewUtils.createFlagBitmap(ViewUtils.getLanguage());
         this.btnLang.name = "langBtn";
-        this.btnLang.x = this.width - 66 - 18; // 右上角，18px 边距
-        this.btnLang.y = 28;
+        this.btnLang.x = 18; // 左下角，18px 边距
+        this.btnLang.y = this.height - 46 - 18;
         this.btnLang.touchEnabled = true;
         this.btnLang.addEventListener(egret.TouchEvent.TOUCH_TAP, () => this.onSwitchLanguage(), this);
         this.addChild(this.btnLang);
