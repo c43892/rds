@@ -292,22 +292,38 @@ class ViewUtils {
             if (pixiTex.baseTexture.valid) apply(); else pixiTex.baseTexture.once('loaded', apply);
         } catch (e) {}
     }
-    public static localizeButton(btn:any, baseTexName:string, text:string) {
+    private static loadImg(url:string, onok:(img:any)=>void, onfail?:()=>void) {
+        try { var im = new Image(); im.onload = () => onok(im); im.onerror = () => { if (onfail) onfail(); }; im.src = url; }
+        catch (e) { if (onfail) onfail(); }
+    }
+    // 用已加载的图片设置按下/禁用态底图(替代英文专用图)
+    private static setStateBg(btn:any, prop:string, img:any, w:number, h:number) {
+        try {
+            if (btn[prop]) { try { btn.removeChild(btn[prop]); } catch (e) {} btn[prop] = undefined; }
+            var bmp = new egret.Bitmap();
+            bmp.texture = (<any>egret).Texture.fromPixi((<any>window).PIXI.Texture.from(img));
+            bmp.alpha = 0; bmp.width = w; bmp.height = h;
+            btn[prop] = bmp; btn.addChild(bmp);
+            btn.refresh();
+            if (prop === "disabledBg") btn.enabled = btn.enabled; // 重置一次以套用禁用态视觉
+        } catch (e) {}
+    }
+    // prefix ∈ {NewGame, Continue, Heros, Achievement}。优先用 i18n/<LANG>/<prefix>Normal.png
+    // (含 Down/Disabled 三态);缺 Normal 则回退现生成的木质按钮。
+    public static localizeButton(btn:any, prefix:string, text:string) {
         if (!btn || !btn.bg) return;
         var w = Math.round(btn.width), h = Math.round(btn.height);
-        var base = (baseTexName || "").replace(/_png$/, "");
-        var url = "resource/assets/ui/login/i18n/" + base + "_" + ViewUtils.getLanguage() + ".png";
-        try {
-            var probe = new Image();
-            probe.onload = () => {
-                try { ViewUtils.applyButtonTexture(btn, (<any>window).PIXI.Texture.from(probe), w, h); }
-                catch (e) { ViewUtils.applyGeneratedButton(btn, text, w, h); }
-            };
-            probe.onerror = () => ViewUtils.applyGeneratedButton(btn, text, w, h);
-            probe.src = url;
-        } catch (e) {
-            ViewUtils.applyGeneratedButton(btn, text, w, h);
-        }
+        var dir = "resource/assets/ui/login/i18n/" + ViewUtils.getLanguage() + "/";
+        ViewUtils.loadImg(dir + prefix + "Normal.png",
+            (img) => {
+                try { ViewUtils.applyButtonTexture(btn, (<any>window).PIXI.Texture.from(img), w, h); }
+                catch (e) { ViewUtils.applyGeneratedButton(btn, text, w, h); return; }
+                // 有按下/禁用态就一并替换(没有则保持:置灰)
+                ViewUtils.loadImg(dir + prefix + "Down.png", (d) => ViewUtils.setStateBg(btn, "downBg", d, w, h));
+                ViewUtils.loadImg(dir + prefix + "Disabled.png", (d) => ViewUtils.setStateBg(btn, "disabledBg", d, w, h));
+            },
+            () => ViewUtils.applyGeneratedButton(btn, text, w, h)
+        );
     }
 
     // 一面 60x40 国旗的内部 SVG 标记(不含外层 <svg>)

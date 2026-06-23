@@ -1,18 +1,16 @@
-# 登录按钮 - 各语言成品图放这里
+# 登录按钮 - 各语言成品图
 
-游戏会优先加载本目录下对应语言的按钮图;不存在则回退为运行时生成的木质按钮。
+游戏优先加载本目录下"当前语言"的按钮图;某语言缺图则回退为运行时生成的木质按钮。
 
-命名规则(严格匹配,区分大小写):  <底图名>_<语言码>.png
-语言码:CNS(简中) CNT(繁中) JA KO ES FR DE PT RU  (EN 用原图,无需放这里)
+目录结构:  i18n/<语言码>/<状态图>.png
+语言码:CNS CNT JA KO ES FR DE PT RU  (EN 用原图,不放这里)
 
-需要的 4 个底图名与尺寸(PNG,带透明通道,尺寸需与原图一致):
-  NewGameNormal_<LANG>.png      318 x 83
-  ContinueNormal_<LANG>.png     340 x 94
-  HerosNormal_<LANG>.png        165 x 77
-  AchievementNormal_<LANG>.png  172 x 78
+每种语言放下列图(尺寸需与原图一致,PNG 带透明):
+  NewGameNormal.png / NewGameDown.png                         318x83
+  ContinueNormal.png / ContinueDown.png / ContinueDisabled.png 340x94
+  HerosNormal.png / HerosDown.png                             165x77
+  AchievementNormal.png / AchievementDown.png / AchievementDisabled.png  172x78
 
-参考底图(英文原版,用作 ChatGPT 图像重绘的底):
-  ../NewGameNormal.png  ../ContinueNormal.png  ../HerosNormal.png  ../AchievementNormal.png
-
-例:简体中文「新游戏」按钮 -> NewGameNormal_CNS.png (318x83)
-放好后刷新页面即可生效(无需改配置)。
+加载规则:Normal 必需;Down/Disabled 有则用(按下态/禁用态),无则按下保持原样、禁用置灰。
+参考底图(英文原版):上一级目录的 NewGameNormal.png 等。
+放好刷新页面即生效,无需改配置。
