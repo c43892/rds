@@ -41,7 +41,7 @@ class AchvDescView extends egret.DisplayObjectContainer {
 
         this.progressTip = ViewUtils.createTextField(25, 0xffffff);
         this.progressTip.name = "progressTip";
-        this.progressTip.text = "当前进度"
+        this.progressTip.text = ViewUtils.getTipText("currentProgress")
         this.progressTip.textAlign = egret.HorizontalAlign.CENTER;
 
         this.achvPoint = ViewUtils.createTextField(23, 0x7d0403);
@@ -71,7 +71,7 @@ class AchvDescView extends egret.DisplayObjectContainer {
 
         this.title.text = cfg.title;
         this.desc.text = cfg.longDesc ? cfg.longDesc : cfg.shortDesc;
-        this.achvPoint.text = "成就点: " + this.achv.cfg.achvPoint;
+        this.achvPoint.text = ViewUtils.formatTip("achvPointLabel", this.achv.cfg.achvPoint);
 
         this.createProgressInfo();
         this.move2Center();
@@ -95,7 +95,7 @@ class AchvDescView extends egret.DisplayObjectContainer {
         // for (var i = 1; i < cfg.progressInfos.length; i++){
 
         // }
-        this.progressTip.text = "当前进度 " + this.achv.finishedProgressInfo();
+        this.progressTip.text = ViewUtils.formatTip("currentProgressWith", this.achv.finishedProgressInfo());
     }
 
     // 将面板整体在y方向上靠近居中位置显示

@@ -57,7 +57,7 @@ class Achievement {
         }
         else {
             if (this.isFinished())
-                return "已完成";
+                return Utils.localize("completed");
             else 
                 return "0 / 1";
         }

@@ -79,7 +79,7 @@ class OccUnlockView extends egret.DisplayObjectContainer {
         this.occText.text = mlCfg.occupations[this.occ]["name"][mlCfg.currentLanguage];
 
         // 提升至xx级提示
-        this.levelUp2.text = (this.level - 1).toString() + "级 → " + this.level + "级";
+        this.levelUp2.text = ViewUtils.formatTip("occLevelUpArrow", this.level - 1, this.level);
 
         // 所有的解锁信息
         this.refreshUnlockInfos();

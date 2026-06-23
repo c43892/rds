@@ -1033,6 +1033,9 @@ class Utils {
     }
 }
 Utils.localStorageData = {};
+// 跨层本地化钩子：common/logic 取不到客户端的 ViewUtils，启动时由 Main 接管为
+// (key)=>ViewUtils.getTipText(key)。默认原样返回 key，保证未接管时也不崩。
+Utils.localize = (key) => key;
 class Version {
     // 版本是否兼容
     static isCompatible(oldVer) {
@@ -1365,7 +1368,7 @@ class AchievementFactory {
                 // 特殊的进度信息
                 achv.finishedProgressInfo = () => {
                     if (achv.isFinished())
-                        return "已完成"; //return achv.cfg.money + " / " + achv.cfg.money;
+                        return Utils.localize("completed"); //return achv.cfg.money + " / " + achv.cfg.money;
                     else
                         return (achv["getMoney"] ? (achv["getMoney"] > achv.cfg.money ? achv.cfg.money : achv["getMoney"]) : 0) + " / " + achv.cfg.money;
                 };
@@ -1387,7 +1390,7 @@ class AchievementFactory {
                 // 特殊的进度信息
                 achv.finishedProgressInfo = () => {
                     if (achv.isFinished())
-                        return "已完成"; //return achv.cfg.readNum + " / " + achv.cfg.readNum;
+                        return Utils.localize("completed"); //return achv.cfg.readNum + " / " + achv.cfg.readNum;
                     else
                         return (achv["readNum"] ? (achv["readNum"] > achv.cfg.readNum ? achv.cfg.readNum : achv["readNum"]) : 0) + " / " + achv.cfg.readNum;
                 };
@@ -1409,7 +1412,7 @@ class AchievementFactory {
                 // 特殊的进度信息
                 achv.finishedProgressInfo = () => {
                     if (achv.isFinished())
-                        return "已完成"; //return achv.cfg.killNum + " / " + achv.cfg.killNum;
+                        return Utils.localize("completed"); //return achv.cfg.killNum + " / " + achv.cfg.killNum;
                     else
                         return (achv["killNum"] ? (achv["killNum"] > achv.cfg.killNum ? achv.cfg.killNum : achv["killNum"]) : 0) + " / " + achv.cfg.killNum;
                 };
@@ -1449,7 +1452,7 @@ class AchievementFactory {
                 // 特殊的进度信息
                 achv.finishedProgressInfo = () => {
                     if (achv.isFinished())
-                        return "已完成"; //return achv.cfg.relicNum + " / " + achv.cfg.relicNum;                    
+                        return Utils.localize("completed"); //return achv.cfg.relicNum + " / " + achv.cfg.relicNum;                    
                     else
                         return (achv["relicValid"] ? (achv["relicValid"].length > achv.cfg.relicNum ? achv.cfg.relicNum : achv["relicValid"].length) : 0) + " / " + achv.cfg.relicNum;
                 };
@@ -5471,7 +5474,7 @@ class Achievement {
         }
         else {
             if (this.isFinished())
-                return "已完成";
+                return Utils.localize("completed");
             else
                 return "0 / 1";
         }
@@ -13055,7 +13058,7 @@ class AchvDescView extends egret.DisplayObjectContainer {
         this.desc.textAlign = egret.HorizontalAlign.CENTER;
         this.progressTip = ViewUtils.createTextField(25, 0xffffff);
         this.progressTip.name = "progressTip";
-        this.progressTip.text = "当前进度";
+        this.progressTip.text = ViewUtils.getTipText("currentProgress");
         this.progressTip.textAlign = egret.HorizontalAlign.CENTER;
         this.achvPoint = ViewUtils.createTextField(23, 0x7d0403);
         this.achvPoint.name = "achvPoint";
@@ -13076,7 +13079,7 @@ class AchvDescView extends egret.DisplayObjectContainer {
         // ViewUtils.setTexName(this.icon, cfg.icon + "_png");
         this.title.text = cfg.title;
         this.desc.text = cfg.longDesc ? cfg.longDesc : cfg.shortDesc;
-        this.achvPoint.text = "成就点: " + this.achv.cfg.achvPoint;
+        this.achvPoint.text = ViewUtils.formatTip("achvPointLabel", this.achv.cfg.achvPoint);
         this.createProgressInfo();
         this.move2Center();
     }
@@ -13094,7 +13097,7 @@ class AchvDescView extends egret.DisplayObjectContainer {
         // this.progressInfos.push(progressInfo0);
         // for (var i = 1; i < cfg.progressInfos.length; i++){
         // }
-        this.progressTip.text = "当前进度 " + this.achv.finishedProgressInfo();
+        this.progressTip.text = ViewUtils.formatTip("currentProgressWith", this.achv.finishedProgressInfo());
     }
     // 将面板整体在y方向上靠近居中位置显示
     move2Center() {
@@ -13330,11 +13333,11 @@ class AchvView extends egret.DisplayObjectContainer {
             tip.name = "unlockTip";
             switch (info.type) {
                 case "achvFinished": {
-                    tip.text = "解锁于成就";
+                    tip.text = ViewUtils.getTipText("unlockedByAchv");
                     break;
                 }
                 case "achvPoint": {
-                    tip.text = "解锁于成就点";
+                    tip.text = ViewUtils.getTipText("unlockedByAchvPoint");
                     break;
                 }
             }
@@ -13372,11 +13375,11 @@ class AchvView extends egret.DisplayObjectContainer {
             ViewUtils.multiLang(this, awardReceiveBtn);
             awardContainer.addChild(awardReceiveBtn);
             if (status == "received") {
-                awardReceiveBtn.text = "已领取";
+                awardReceiveBtn.text = ViewUtils.getTipText("received");
                 awardReceiveBtn.enabled = false;
             }
             else {
-                awardReceiveBtn.text = "领取";
+                awardReceiveBtn.text = ViewUtils.getTipText("receive");
                 awardReceiveBtn.enabled = true;
                 awardReceiveBtn["awardName"] = awardName;
                 awardReceiveBtn.onClicked = () => this.onReceiveBtn(awardReceiveBtn);
@@ -13401,7 +13404,7 @@ class AchvView extends egret.DisplayObjectContainer {
         }
         AchievementMgr.receiveAchvAward(awardName);
         btn.enabled = false;
-        btn.text = "已领取";
+        btn.text = ViewUtils.getTipText("received");
         this.refreshRedPoint();
     }
     // 查看成就奖励内容
@@ -17329,7 +17332,7 @@ class GridView extends egret.DisplayObjectContainer {
                                 content = ViewUtils.formatString(ViewUtils.getTipText("makeSureUseElem"), ViewUtils.getElemNameAndDesc(e.type).name);
                             else
                                 content = ViewUtils.getTipText(e.attrs.useTipContent);
-                            var ok = await GridView.confirmOkYesNo(undefined, content, true, ["确定", "取消"]);
+                            var ok = await GridView.confirmOkYesNo(undefined, content, true, [ViewUtils.getTipText("yes"), ViewUtils.getTipText("cancel")]);
                             if (ok)
                                 await GridView.try2UseElem(e);
                         }
@@ -17339,7 +17342,7 @@ class GridView extends egret.DisplayObjectContainer {
                             else {
                                 if (!e.attrs.useWithoutConfirm) {
                                     var content = ViewUtils.formatString(ViewUtils.getTipText("makeSureUseElem"), ViewUtils.getElemNameAndDesc(e.type).name);
-                                    var ok = await GridView.confirmOkYesNo(undefined, content, true, ["确定", "取消"]);
+                                    var ok = await GridView.confirmOkYesNo(undefined, content, true, [ViewUtils.getTipText("yes"), ViewUtils.getTipText("cancel")]);
                                     if (ok)
                                         await GridView.try2UseElem(e);
                                 }
@@ -18272,7 +18275,7 @@ class HospitalView extends egret.DisplayObjectContainer {
         return new Promise((resolve, reject) => this.doClose = resolve);
     }
     async onCure() {
-        var yesno = await this.confirmOkYesNo("确定治疗", "回复最多 30% 生命", true);
+        var yesno = await this.confirmOkYesNo(ViewUtils.getTipText("hospitalHealTitle"), ViewUtils.getTipText("hospitalHealContent"), true);
         if (yesno) {
             await this.player.fireEvent("onHospitalCureStart");
             this.player.addHp(Math.floor(this.player.maxHp * 0.3));
@@ -18316,7 +18319,7 @@ class HospitalView extends egret.DisplayObjectContainer {
     // }
     // 死神回退
     async onDeathGodBack() {
-        var yesno = await this.confirmOkYesNo("确定驱逐死神", "死神回退 50 步", true);
+        var yesno = await this.confirmOkYesNo(ViewUtils.getTipText("hospitalExpelTitle"), ViewUtils.getTipText("hospitalExpelContent"), true);
         if (yesno) {
             var deathStep = this.player.deathStep + 50;
             this.player.deathStep = deathStep > this.player.maxDeathStep ? this.player.maxDeathStep : deathStep;
@@ -19160,7 +19163,7 @@ class OccUnlockView extends egret.DisplayObjectContainer {
         var mlCfg = ViewUtils.languageCfg;
         this.occText.text = mlCfg.occupations[this.occ]["name"][mlCfg.currentLanguage];
         // 提升至xx级提示
-        this.levelUp2.text = (this.level - 1).toString() + "级 → " + this.level + "级";
+        this.levelUp2.text = ViewUtils.formatTip("occLevelUpArrow", this.level - 1, this.level);
         // 所有的解锁信息
         this.refreshUnlockInfos();
         // 平移界面置中
@@ -19432,7 +19435,7 @@ class OccupationSelView extends egret.DisplayObjectContainer {
                 if (str == "ok" || str == "restored")
                     this.pay2Unlock();
                 else if (str == "inPurchasing")
-                    AniUtils.tipAt("购买请求中，请稍候！", { x: this.width / 2, y: this.height / 3 }, 25, 0xffffff);
+                    AniUtils.tipAt(ViewUtils.getTipText("purchasing"), { x: this.width / 2, y: this.height / 3 }, 25, 0xffffff);
             };
         if (egret.Capabilities.os == "iOS") {
             var yesno = await this.confirmOkYesNo(ViewUtils.getTipText("occLocked"), ViewUtils.getTipText("occLockedContent"), true);
@@ -20995,7 +20998,7 @@ class ScoreView extends egret.DisplayObjectContainer {
         // 设置头像
         ViewUtils.setTexName(this.avatar, "avatar" + this.player.occupation + "_png", true);
         // 设置玩家名
-        var name = Utils.getPlayerName() ? Utils.getPlayerName() : "一个新玩家";
+        var name = Utils.getPlayerName() ? Utils.getPlayerName() : ViewUtils.getTipText("aNewPlayer");
         this.playerName.text = name;
         // 设置经验条
         this.setExpTip();
@@ -23503,7 +23506,7 @@ class MainView extends egret.DisplayObjectContainer {
     }
     // 打开角色死亡界面
     async openPlayerDieView(ps) {
-        await this.confirmOkYesNo("不幸死亡", "游戏结束", false);
+        await this.confirmOkYesNo(ViewUtils.getTipText("gameOverTitle"), ViewUtils.getTipText("gameOverContent"), false);
     }
     // public async openPlayerDieView(ps) {
     //     if (this.p.rebornCnt < 1 && egret.Capabilities.os == "iOS") { // 暂时不看广告直接复活
@@ -23534,7 +23537,7 @@ class MainView extends egret.DisplayObjectContainer {
     //                     watchAds = false;
     //             } else {
     //                 watchAds = false;
-    //                 await this.confirmOkYesNo("不幸死亡", "游戏结束", false);
+    //                 await this.confirmOkYesNo(ViewUtils.getTipText("gameOverTitle"), ViewUtils.getTipText("gameOverContent"), false);
     //                 ps.reborn = false;
     //             }
     //         }
@@ -24010,6 +24013,8 @@ class Main extends egret.DisplayObjectContainer {
         GCfg.getMultiLanguageCfg = () => multiLangCfg;
         // 启动语言：存档优先 -> 浏览器 locale -> 默认（CNS）。覆盖配置里写死的 currentLanguage。
         multiLangCfg.currentLanguage = ViewUtils.resolveStartupLanguage();
+        // 让 common/logic 也能本地化（取 tips）
+        Utils.localize = (key) => ViewUtils.getTipText(key);
         // misc内配置
         var misc = ResMgr.getRes("misc_json");
         GCfg.getBattleViewElemTipTypes = () => misc["battleViewElemTipTypes"];

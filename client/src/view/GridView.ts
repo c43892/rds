@@ -652,7 +652,7 @@ class GridView extends egret.DisplayObjectContainer {
                                 content = ViewUtils.formatString(ViewUtils.getTipText("makeSureUseElem"), ViewUtils.getElemNameAndDesc(e.type).name);
                             else
                                 content = ViewUtils.getTipText(e.attrs.useTipContent)
-                            var ok = await GridView.confirmOkYesNo(undefined, content, true, ["确定", "取消"]);
+                            var ok = await GridView.confirmOkYesNo(undefined, content, true, [ViewUtils.getTipText("yes"), ViewUtils.getTipText("cancel")]);
                             if (ok)
                                 await GridView.try2UseElem(e);
                         } else {
@@ -661,7 +661,7 @@ class GridView extends egret.DisplayObjectContainer {
                             else {
                                 if (!e.attrs.useWithoutConfirm){
                                     var content = ViewUtils.formatString(ViewUtils.getTipText("makeSureUseElem"), ViewUtils.getElemNameAndDesc(e.type).name);
-                                    var ok = await GridView.confirmOkYesNo(undefined, content, true, ["确定", "取消"]);
+                                    var ok = await GridView.confirmOkYesNo(undefined, content, true, [ViewUtils.getTipText("yes"), ViewUtils.getTipText("cancel")]);
                                     if (ok)
                                         await GridView.try2UseElem(e);
                                 }

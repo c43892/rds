@@ -260,11 +260,11 @@ class AchvView extends egret.DisplayObjectContainer {
             tip.name = "unlockTip";
             switch (info.type) {
                 case "achvFinished":{
-                    tip.text = "解锁于成就"
+                    tip.text = ViewUtils.getTipText("unlockedByAchv")
                     break;
                 }
                 case "achvPoint":{
-                    tip.text = "解锁于成就点"
+                    tip.text = ViewUtils.getTipText("unlockedByAchvPoint")
                     break;
                 }
             }
@@ -306,11 +306,11 @@ class AchvView extends egret.DisplayObjectContainer {
             ViewUtils.multiLang(this, awardReceiveBtn);
             awardContainer.addChild(awardReceiveBtn);
             if (status == "received"){
-                awardReceiveBtn.text = "已领取";
+                awardReceiveBtn.text = ViewUtils.getTipText("received");
                 awardReceiveBtn.enabled = false;
             }
             else {
-                awardReceiveBtn.text = "领取";
+                awardReceiveBtn.text = ViewUtils.getTipText("receive");
                 awardReceiveBtn.enabled = true;
                 awardReceiveBtn["awardName"] = awardName;
                 awardReceiveBtn.onClicked = () => this.onReceiveBtn(awardReceiveBtn);
@@ -337,7 +337,7 @@ class AchvView extends egret.DisplayObjectContainer {
         }
         AchievementMgr.receiveAchvAward(awardName);
         btn.enabled = false;
-        btn.text = "已领取";
+        btn.text = ViewUtils.getTipText("received");
         this.refreshRedPoint();
     }
 

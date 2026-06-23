@@ -308,6 +308,10 @@ class Utils {
 
     static localStorageData = {};
 
+    // 跨层本地化钩子：common/logic 取不到客户端的 ViewUtils，启动时由 Main 接管为
+    // (key)=>ViewUtils.getTipText(key)。默认原样返回 key，保证未接管时也不崩。
+    public static localize = (key:string):string => key;
+
     // 本地存储部分数据
     public static saveLocalItem(key:string, value) {
         Utils.localStorageData[key] = value;

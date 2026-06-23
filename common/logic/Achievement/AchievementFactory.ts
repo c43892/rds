@@ -111,7 +111,7 @@ class AchievementFactory {
             // 特殊的进度信息
             achv.finishedProgressInfo = () => {
                 if (achv.isFinished()) 
-                    return "已完成"; //return achv.cfg.money + " / " + achv.cfg.money;
+                    return Utils.localize("completed"); //return achv.cfg.money + " / " + achv.cfg.money;
                 else
                     return (achv["getMoney"] ? (achv["getMoney"] > achv.cfg.money ? achv.cfg.money : achv["getMoney"]) : 0) + " / " + achv.cfg.money;
             }
@@ -137,7 +137,7 @@ class AchievementFactory {
             // 特殊的进度信息
             achv.finishedProgressInfo = () => {
                 if (achv.isFinished()) 
-                    return "已完成"; //return achv.cfg.readNum + " / " + achv.cfg.readNum;
+                    return Utils.localize("completed"); //return achv.cfg.readNum + " / " + achv.cfg.readNum;
                 else
                     return (achv["readNum"] ? (achv["readNum"] > achv.cfg.readNum ? achv.cfg.readNum : achv["readNum"]) : 0) + " / " + achv.cfg.readNum;
             }
@@ -164,7 +164,7 @@ class AchievementFactory {
             // 特殊的进度信息
             achv.finishedProgressInfo = () => {
                 if (achv.isFinished()) 
-                    return "已完成"; //return achv.cfg.killNum + " / " + achv.cfg.killNum;
+                    return Utils.localize("completed"); //return achv.cfg.killNum + " / " + achv.cfg.killNum;
                 else
                     return (achv["killNum"] ? (achv["killNum"] > achv.cfg.killNum ? achv.cfg.killNum : achv["killNum"]) : 0) + " / " + achv.cfg.killNum;
             }
@@ -212,7 +212,7 @@ class AchievementFactory {
             // 特殊的进度信息
             achv.finishedProgressInfo = () => {
                 if (achv.isFinished()) 
-                    return "已完成"; //return achv.cfg.relicNum + " / " + achv.cfg.relicNum;                    
+                    return Utils.localize("completed"); //return achv.cfg.relicNum + " / " + achv.cfg.relicNum;                    
                 else
                     return (achv["relicValid"] ? (achv["relicValid"].length > achv.cfg.relicNum ? achv.cfg.relicNum : achv["relicValid"].length) : 0) + " / " + achv.cfg.relicNum;
             }

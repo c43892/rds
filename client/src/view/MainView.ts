@@ -601,7 +601,7 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 打开角色死亡界面
     public async openPlayerDieView(ps) {
-        await this.confirmOkYesNo("不幸死亡", "游戏结束", false);
+        await this.confirmOkYesNo(ViewUtils.getTipText("gameOverTitle"), ViewUtils.getTipText("gameOverContent"), false);
     }
 
     // public async openPlayerDieView(ps) {
@@ -634,7 +634,7 @@ class MainView extends egret.DisplayObjectContainer {
     //                     watchAds = false;
     //             } else {
     //                 watchAds = false;
-    //                 await this.confirmOkYesNo("不幸死亡", "游戏结束", false);
+    //                 await this.confirmOkYesNo(ViewUtils.getTipText("gameOverTitle"), ViewUtils.getTipText("gameOverContent"), false);
     //                 ps.reborn = false;
     //             }
     //         }

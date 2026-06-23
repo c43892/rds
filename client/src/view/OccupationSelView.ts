@@ -275,7 +275,7 @@ class OccupationSelView extends egret.DisplayObjectContainer {
                     if(str == "ok" || str == "restored")
                         this.pay2Unlock(); 
                     else if (str == "inPurchasing")
-                        AniUtils.tipAt("购买请求中，请稍候！", {x:this.width/2, y:this.height/3}, 25, 0xffffff);
+                        AniUtils.tipAt(ViewUtils.getTipText("purchasing"), {x:this.width/2, y:this.height/3}, 25, 0xffffff);
             };
         if (egret.Capabilities.os == "iOS") {
             var yesno = await this.confirmOkYesNo(ViewUtils.getTipText("occLocked"), ViewUtils.getTipText("occLockedContent"), true);

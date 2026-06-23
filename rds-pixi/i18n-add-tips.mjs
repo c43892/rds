@@ -1,0 +1,52 @@
+// 一次性脚本：把 #6 抽离出来的硬编码 UI 文案作为新 tips 键，最小化插入到
+// multilanguage.json 的 "tips": { 之后（不重排整个文件）。已存在的键跳过。
+import fs from 'fs';
+const FILE = '../client/resource/config/multilanguage.json';
+
+// key -> {EN,CNS,CNT}
+const NEW = {
+    currentProgress:     { EN: "Progress",                       CNS: "当前进度",        CNT: "當前進度" },
+    currentProgressWith: { EN: "Progress {0}",                   CNS: "当前进度 {0}",    CNT: "當前進度 {0}" },
+    achvPointLabel:      { EN: "Achievement points: {0}",        CNS: "成就点: {0}",     CNT: "成就點: {0}" },
+    unlockedByAchv:      { EN: "Unlocked by achievement",        CNS: "解锁于成就",      CNT: "解鎖於成就" },
+    unlockedByAchvPoint: { EN: "Unlocked by achievement points", CNS: "解锁于成就点",    CNT: "解鎖於成就點" },
+    received:            { EN: "Received",                       CNS: "已领取",          CNT: "已領取" },
+    receive:             { EN: "Receive",                        CNS: "领取",            CNT: "領取" },
+    completed:           { EN: "Completed",                      CNS: "已完成",          CNT: "已完成" },
+    hospitalHealTitle:   { EN: "Heal?",                          CNS: "确定治疗",        CNT: "確定治療" },
+    hospitalHealContent: { EN: "Restore up to 30% HP",           CNS: "回复最多 30% 生命", CNT: "回復最多 30% 生命" },
+    hospitalExpelTitle:  { EN: "Expel Death?",                   CNS: "确定驱逐死神",    CNT: "確定驅逐死神" },
+    hospitalExpelContent:{ EN: "Death retreats 50 steps",        CNS: "死神回退 50 步",  CNT: "死神回退 50 步" },
+    gameOverTitle:       { EN: "You died",                       CNS: "不幸死亡",        CNT: "不幸死亡" },
+    gameOverContent:     { EN: "Game over",                      CNS: "游戏结束",        CNT: "遊戲結束" },
+    clickToInputName:    { EN: "Tap to enter name",              CNS: "点击输入名字",    CNT: "點擊輸入名字" },
+    occLevelUpArrow:     { EN: "Lv {0} → Lv {1}",           CNS: "{0}级 → {1}级", CNT: "{0}級 → {1}級" },
+    purchasing:          { EN: "Purchasing, please wait!",       CNS: "购买请求中，请稍候！", CNT: "購買請求中，請稍候！" },
+    aNewPlayer:          { EN: "A new player",                   CNS: "一个新玩家",      CNT: "一個新玩家" },
+    rankWeekly:          { EN: "Weekly",                         CNS: "周榜",            CNT: "週榜" },
+    rankRole:            { EN: "Roles",                          CNS: "角色榜",          CNT: "角色榜" },
+    rankFriend:          { EN: "Friends",                        CNS: "好友榜",          CNT: "好友榜" },
+};
+
+let txt = fs.readFileSync(FILE, 'utf8');
+const cfg = JSON.parse(txt); // 校验 + 查重
+const eol = txt.indexOf('\r\n') >= 0 ? '\r\n' : '\n';
+// 容错匹配 "tips" : {  （含可能的 \r），在其行尾后插入
+const m = txt.match(/"tips"\s*:\s*\{[ \t]*\r?\n/);
+if (!m) { console.error('找不到 tips 锚点'); process.exit(1); }
+const anchor = m[0];
+
+const lines = [];
+let added = 0, skipped = 0;
+for (const k in NEW) {
+    if (cfg.tips[k] != undefined) { skipped++; continue; }
+    const v = NEW[k];
+    lines.push('\t\t"' + k + '": { "EN": ' + JSON.stringify(v.EN) + ', "CNS": ' + JSON.stringify(v.CNS) + ', "CNT": ' + JSON.stringify(v.CNT) + ' },');
+    added++;
+}
+if (added > 0) {
+    txt = txt.replace(anchor, anchor + lines.join(eol) + eol);
+    JSON.parse(txt); // 再次校验插入后仍是合法 JSON
+    fs.writeFileSync(FILE, txt);
+}
+console.log('tips 新增:', added, '跳过(已存在):', skipped);

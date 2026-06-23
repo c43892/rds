@@ -179,7 +179,7 @@ class ScoreView extends egret.DisplayObjectContainer{
         ViewUtils.setTexName(this.avatar, "avatar" + this.player.occupation + "_png", true);
 
         // 设置玩家名
-        var name = Utils.getPlayerName() ? Utils.getPlayerName() : "一个新玩家";
+        var name = Utils.getPlayerName() ? Utils.getPlayerName() : ViewUtils.getTipText("aNewPlayer");
         this.playerName.text = name;
 
         // 设置经验条
