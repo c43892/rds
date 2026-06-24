@@ -85,25 +85,59 @@ class LoadingUI extends egret.DisplayObjectContainer implements RES.PromiseTaskR
         this.warning.x = (this.width - this.warning.measuredWidth) / 2;
         this.warning.y = this.height - this.warning.measuredHeight - 50;
         this.addChild(this.warning);
+
+        // 背景图(LoadingBg)底部烤死了一行中文玩法提示「这是一款扫雷游戏…」(y≈1060,水平居中,
+        // 周围背景为均匀近黑)。非中文版:用同色深块盖掉它,再叠本地化文字。中文版保留原烤字。
+        var lang = this.detectLang();
+        if (lang != "CNS" && lang != "CNT") {
+            var bandY = 1052, bandH = 50;
+            var mask = ViewUtils.createColorBitmap(this.width - 40, bandH, "#0c0c0c", 1);
+            mask.x = 20; mask.y = bandY;
+            this.addChild(mask);
+            var tip = ViewUtils.createTextField(23, 0xd8d0bc);
+            tip.fontFamily = ViewUtils.getUIFontFamily(lang);
+            tip.text = this.localizedTip(lang);
+            tip.textAlign = egret.HorizontalAlign.CENTER;
+            tip.width = this.width - 80;
+            tip.x = 40;
+            tip.y = bandY + 4;
+            this.addChild(tip);
+        }
     }
 
     // 自包含的语言检测(此刻 multilanguage 配置尚未加载):优先已保存偏好,
     // 否则按浏览器 locale 经 ViewUtils.localeMap(静态表,无需配置)映射,默认 CNS。
-    private localizedWarning():string {
-        var lang = "CNS";
+    private detectLang():string {
         try {
             var saved = Utils.loadLocalItem("language");
-            if (saved) lang = saved;
-            else {
-                var nav:any = (typeof navigator !== "undefined") ? navigator : null;
-                var locales = nav ? (nav.languages && nav.languages.length ? nav.languages : [nav.language || ""]) : [];
-                for (var loc of locales) {
-                    var l = (loc || "").toLowerCase();
-                    var m = ViewUtils.localeMap[l] || ViewUtils.localeMap[l.split("-")[0]];
-                    if (m) { lang = m; break; }
-                }
+            if (saved) return saved;
+            var nav:any = (typeof navigator !== "undefined") ? navigator : null;
+            var locales = nav ? (nav.languages && nav.languages.length ? nav.languages : [nav.language || ""]) : [];
+            for (var loc of locales) {
+                var l = (loc || "").toLowerCase();
+                var m = ViewUtils.localeMap[l] || ViewUtils.localeMap[l.split("-")[0]];
+                if (m) return m;
             }
         } catch (e) {}
+        return "CNS";
+    }
+
+    // 背景图底部烤死的一行中文玩法提示的本地化文案(非中文版用,叠在遮罩上)
+    private localizedTip(lang:string):string {
+        var T = {
+            EN: "This is a minesweeper game — you don't need to kill every monster.",
+            JA: "これはマインスイーパーゲームです。すべての魔物を倒す必要はありません。",
+            KO: "이것은 지뢰찾기 게임입니다. 모든 몬스터를 죽일 필요는 없습니다.",
+            FR: "C'est un jeu de démineur : tu n'as pas besoin de tuer tous les monstres.",
+            DE: "Dies ist ein Minesweeper-Spiel — du musst nicht jedes Monster töten.",
+            ES: "Este es un juego de buscaminas: no necesitas matar a todos los monstruos.",
+            RU: "Это игра-сапёр — вам не нужно убивать всех монстров."
+        };
+        return T[lang] || T["EN"];
+    }
+
+    private localizedWarning():string {
+        var lang = this.detectLang();
 
         var W = {
             CNS: "抵制不良游戏, 拒绝盗版游戏。 注意自我保护, 谨防受骗上当。\r适度游戏益脑, 沉迷游戏伤身。 合理安排时间, 享受健康生活。",

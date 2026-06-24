@@ -258,6 +258,14 @@ class ViewUtils {
         try { bmp.texture = (<any>egret).Texture.fromPixi((<any>window).PIXI.Texture.from("data:image/svg+xml;utf8," + encodeURIComponent(svg))); } catch (e) {}
         return bmp;
     }
+    // 纯色块位图(用于遮盖背景图里烤死的文字等)
+    public static createColorBitmap(w:number, h:number, color:string = "#0c0c0c", opacity:number = 1):any {
+        var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='" + w + "' height='" + h + "' viewBox='0 0 " + w + " " + h + "'>"
+            + "<rect x='0' y='0' width='" + w + "' height='" + h + "' fill='" + color + "' fill-opacity='" + opacity + "'/></svg>";
+        var bmp = new egret.Bitmap();
+        try { bmp.texture = (<any>egret).Texture.fromPixi((<any>window).PIXI.Texture.from("data:image/svg+xml;utf8," + encodeURIComponent(svg))); } catch (e) {}
+        return bmp;
+    }
     // 行高亮位图(当前语言行背景)
     public static createHighlightBitmap(w:number, h:number):any {
         var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='" + w + "' height='" + h + "' viewBox='0 0 " + w + " " + h + "'>"
