@@ -339,6 +339,23 @@ class ViewUtils {
         );
     }
 
+    // 把一张 egret.Bitmap 替换为本地化版本图片。CNS/CNT 用原图(原图即中文);
+    // 其它语言加载 <baseDir>i18n/<LANG>/<fileName>,失败则保持原图。保持原显示尺寸。
+    public static localizeImage(bmp:egret.Bitmap, baseDir:string, fileName:string) {
+        if (!bmp) return;
+        var lang = ViewUtils.getLanguage();
+        if (lang == "CNS" || lang == "CNT") return;
+        var url = baseDir + "i18n/" + lang + "/" + fileName;
+        var w = bmp.width, h = bmp.height;
+        ViewUtils.loadImg(url, (img) => {
+            try {
+                bmp.texture = (<any>egret).Texture.fromPixi((<any>window).PIXI.Texture.from(img));
+                if (w) bmp.width = w;
+                if (h) bmp.height = h;
+            } catch (e) {}
+        });
+    }
+
     // 一面 60x40 国旗的内部 SVG 标记(不含外层 <svg>)
     private static flagInner(lang:string):string {
         switch (lang) {

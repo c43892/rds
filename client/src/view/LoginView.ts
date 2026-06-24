@@ -32,10 +32,11 @@ class LoginView extends egret.DisplayObjectContainer {
         d.x = this.width / 2;
         d.y = this.height / 2;
 
-        // 标题
+        // 标题(CNS/CNT 用原图"魔塔扫雷";其它语言换用对应的本地化木牌图)
         this.title = ViewUtils.createBitmapByName("lgTitle_png");
         this.title.name = "title";
         this.addChild(this.title);
+        ViewUtils.localizeImage(this.title, "resource/assets/ui/login/", "lgTitle.png");
 
         // 继续游戏按钮
         this.btnContinue = new TextButtonWithBg("ContinueNormal_png", 0);
