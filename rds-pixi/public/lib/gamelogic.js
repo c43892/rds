@@ -24245,12 +24245,48 @@ class LoadingUI extends egret.DisplayObjectContainer {
         this.ghost.x = this.sx;
         this.ghost.y = this.sy;
         this.addChild(this.ghost);
-        // 八字箴言
+        // 八字箴言(健康游戏忠告)。LoadingUI 在多语言配置加载之前就构造,
+        // 不能用 getTipText;改为按"已保存语言/浏览器 locale"自包含选择文案。
         this.warning = ViewUtils.createTextField(20, 0x765721);
-        this.warning.text = "抵制不良游戏, 拒绝盗版游戏。 注意自我保护, 谨防受骗上当。\r适度游戏益脑, 沉迷游戏伤身。 合理安排时间, 享受健康生活。";
+        this.warning.text = this.localizedWarning();
         this.warning.x = (this.width - this.warning.measuredWidth) / 2;
         this.warning.y = this.height - this.warning.measuredHeight - 50;
         this.addChild(this.warning);
+    }
+    // 自包含的语言检测(此刻 multilanguage 配置尚未加载):优先已保存偏好,
+    // 否则按浏览器 locale 经 ViewUtils.localeMap(静态表,无需配置)映射,默认 CNS。
+    localizedWarning() {
+        var lang = "CNS";
+        try {
+            var saved = Utils.loadLocalItem("language");
+            if (saved)
+                lang = saved;
+            else {
+                var nav = (typeof navigator !== "undefined") ? navigator : null;
+                var locales = nav ? (nav.languages && nav.languages.length ? nav.languages : [nav.language || ""]) : [];
+                for (var loc of locales) {
+                    var l = (loc || "").toLowerCase();
+                    var m = ViewUtils.localeMap[l] || ViewUtils.localeMap[l.split("-")[0]];
+                    if (m) {
+                        lang = m;
+                        break;
+                    }
+                }
+            }
+        }
+        catch (e) { }
+        var W = {
+            CNS: "抵制不良游戏, 拒绝盗版游戏。 注意自我保护, 谨防受骗上当。\r适度游戏益脑, 沉迷游戏伤身。 合理安排时间, 享受健康生活。",
+            CNT: "抵制不良遊戲，拒絕盜版遊戲。注意自我保護，謹防受騙上當。\r適度遊戲益腦，沉迷遊戲傷身。合理安排時間，享受健康生活。",
+            EN: "Reject harmful games, refuse pirated games. Protect yourself, beware of fraud.\rGaming in moderation sharpens the mind; addiction harms the body. Manage your time, enjoy a healthy life.",
+            JA: "不良ゲームに抵抗し、海賊版を拒否しよう。自己防衛に気をつけ、詐欺に注意しよう。\r適度なゲームは脳に良く、のめり込みは体に悪い。時間を上手に管理し、健康な生活を楽しもう。",
+            KO: "불량 게임에 저항하고 불법 복제 게임을 거부하세요. 자신을 보호하고 사기를 조심하세요.\r적당한 게임은 두뇌에 좋지만 중독은 몸을 해칩니다. 시간을 잘 관리하고 건강한 생활을 즐기세요.",
+            FR: "Rejette les mauvais jeux, refuse le piratage. Protège-toi, méfie-toi des arnaques.\rJouer avec modération aiguise l'esprit ; l'excès nuit au corps. Gère ton temps, profite d'une vie saine.",
+            DE: "Lehne schädliche Spiele ab, verweigere Raubkopien. Schütze dich, hüte dich vor Betrug.\rMaßvolles Spielen schärft den Geist; Sucht schadet dem Körper. Teile deine Zeit ein, genieße ein gesundes Leben.",
+            ES: "Rechaza los juegos dañinos y la piratería. Protégete y cuídate de los fraudes.\rJugar con moderación agudiza la mente; el exceso daña el cuerpo. Organiza tu tiempo y disfruta de una vida sana.",
+            RU: "Откажитесь от вредных и пиратских игр. Берегите себя и остерегайтесь мошенничества.\rУмеренная игра развивает ум, а зависимость вредит здоровью. Распределяйте время и наслаждайтесь здоровой жизнью."
+        };
+        return W[lang] || W["EN"] || W["CNS"];
     }
     onProgress(current, total) {
         Utils.log("loading " + current + ":" + total);
