@@ -23,6 +23,7 @@
     "pixi5-dragonbones": "^5.7.0-2b"
   },
   "devDependencies": {
-    "@capacitor/cli": "^7.6.7"
+    "@capacitor/cli": "^7.6.7",
+    "pngjs": "^7.0.0"
   }
 }

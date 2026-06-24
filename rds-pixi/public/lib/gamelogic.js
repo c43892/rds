@@ -24258,24 +24258,17 @@ class LoadingUI extends egret.DisplayObjectContainer {
         this.warning.x = (this.width - this.warning.measuredWidth) / 2;
         this.warning.y = this.height - this.warning.measuredHeight - 50;
         this.addChild(this.warning);
-        // 背景图(LoadingBg)底部烤死了一行中文玩法提示「这是一款扫雷游戏…」(y≈1060,水平居中,
-        // 周围背景为均匀近黑)。非中文版:用同色深块盖掉它,再叠本地化文字。中文版保留原烤字。
+        // 玩法提示。原文案烤死在 LoadingBg 图里,现已从图上抹去 -> 改为真正的文本,
+        // 所有语言(含中文)都用此 TextField 渲染,跟随当前语言。垂直居中于原文字位置(y≈1073)。
         var lang = this.detectLang();
-        if (lang != "CNS" && lang != "CNT") {
-            var bandY = 1052, bandH = 50;
-            var mask = ViewUtils.createColorBitmap(this.width - 40, bandH, "#0c0c0c", 1);
-            mask.x = 20;
-            mask.y = bandY;
-            this.addChild(mask);
-            var tip = ViewUtils.createTextField(23, 0xd8d0bc);
-            tip.fontFamily = ViewUtils.getUIFontFamily(lang);
-            tip.text = this.localizedTip(lang);
-            tip.textAlign = egret.HorizontalAlign.CENTER;
-            tip.width = this.width - 80;
-            tip.x = 40;
-            tip.y = bandY + 4;
-            this.addChild(tip);
-        }
+        var tip = ViewUtils.createTextField(24, 0xd8d0bc);
+        tip.fontFamily = ViewUtils.getUIFontFamily(lang);
+        tip.textAlign = egret.HorizontalAlign.CENTER;
+        tip.width = this.width - 80;
+        tip.x = 40;
+        tip.text = this.localizedTip(lang);
+        tip.y = Math.round(1073 - tip.measuredHeight / 2);
+        this.addChild(tip);
     }
     // 自包含的语言检测(此刻 multilanguage 配置尚未加载):优先已保存偏好,
     // 否则按浏览器 locale 经 ViewUtils.localeMap(静态表,无需配置)映射,默认 CNS。
@@ -24299,6 +24292,8 @@ class LoadingUI extends egret.DisplayObjectContainer {
     // 背景图底部烤死的一行中文玩法提示的本地化文案(非中文版用,叠在遮罩上)
     localizedTip(lang) {
         var T = {
+            CNS: "这是一款扫雷游戏，你并不需要杀死所有的怪物",
+            CNT: "這是一款掃雷遊戲，你並不需要殺死所有的怪物",
             EN: "This is a minesweeper game — you don't need to kill every monster.",
             JA: "これはマインスイーパーゲームです。すべての魔物を倒す必要はありません。",
             KO: "이것은 지뢰찾기 게임입니다. 모든 몬스터를 죽일 필요는 없습니다.",
