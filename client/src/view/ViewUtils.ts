@@ -246,6 +246,18 @@ class ViewUtils {
         try { bmp.texture = (<any>egret).Texture.fromPixi((<any>window).PIXI.Texture.from("data:image/svg+xml;utf8," + encodeURIComponent(svg))); } catch (e) {}
         return bmp;
     }
+    // 羊皮纸风圆角面板位图(用于非中文版图例底板,贴合原卷轴美术色调)
+    public static createParchmentBitmap(w:number, h:number):any {
+        var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='" + w + "' height='" + h + "' viewBox='0 0 " + w + " " + h + "'>"
+            + "<defs><linearGradient id='pg' x1='0' y1='0' x2='0' y2='1'>"
+            + "<stop offset='0' stop-color='#d8c08a'/><stop offset='0.5' stop-color='#c9ad77'/><stop offset='1' stop-color='#b6985f'/>"
+            + "</linearGradient></defs>"
+            + "<rect x='2' y='2' width='" + (w - 4) + "' height='" + (h - 4) + "' rx='14' fill='url(#pg)' stroke='#6b4f2a' stroke-width='3'/>"
+            + "<rect x='8' y='8' width='" + (w - 16) + "' height='" + (h - 16) + "' rx='10' fill='none' stroke='#8a6c3c' stroke-width='1.5' stroke-opacity='0.6'/></svg>";
+        var bmp = new egret.Bitmap();
+        try { bmp.texture = (<any>egret).Texture.fromPixi((<any>window).PIXI.Texture.from("data:image/svg+xml;utf8," + encodeURIComponent(svg))); } catch (e) {}
+        return bmp;
+    }
     // 行高亮位图(当前语言行背景)
     public static createHighlightBitmap(w:number, h:number):any {
         var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='" + w + "' height='" + h + "' viewBox='0 0 " + w + " " + h + "'>"
