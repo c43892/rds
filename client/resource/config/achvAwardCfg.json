@@ -1,32 +1,62 @@
 {
-    "award1":{
-        "type":"achvFinished",
-        "achv":"RichMan",
-        "awardContent":{
-            "type":"unlockRelic",
-            "relic":"GoldMedal"
+    "award1": {
+        "type": "achvFinished",
+        "achv": "RichMan",
+        "awardContent": {
+            "type": "unlockRelic",
+            "relic": "GoldMedal"
         },
-        "icon":"GoldMedal",
-        "desc":"大富翁"
+        "icon": "GoldMedal",
+        "desc": {
+            "CNS": "大富翁",
+            "CNT": "大富翁",
+            "EN": "Tycoon",
+            "FR": "Magnat",
+            "DE": "Tycoon",
+            "ES": "Magnate",
+            "RU": "Магнат",
+            "JA": "大富豪",
+            "KO": "부자"
+        }
     },
-    "award2":{
-        "type":"achvFinished",
-        "achv":"KnowlegdeChangesDestiny",
-        "awardContent":{
-            "type":"unlockRelic",
-            "relic":"ExpMedal"
+    "award2": {
+        "type": "achvFinished",
+        "achv": "KnowlegdeChangesDestiny",
+        "awardContent": {
+            "type": "unlockRelic",
+            "relic": "ExpMedal"
         },
-        "icon":"ExpMedal",
-        "desc":"知识改变命运"
+        "icon": "ExpMedal",
+        "desc": {
+            "CNS": "知识改变命运",
+            "CNT": "知識改變命運",
+            "EN": "Knowledge changes fate",
+            "FR": "Le savoir change le destin",
+            "DE": "Wissen verändert das Schicksal",
+            "ES": "El saber cambia el destino",
+            "RU": "Знание меняет судьбу",
+            "JA": "知識は運命を変える",
+            "KO": "지식이 운명을 바꾼다"
+        }
     },
-    "award3":{
-        "type":"achvPoint",
-        "achvPoint":50,
-        "awardContent":{
-            "type":"unlockRelic",
-            "relic":"DoubleAttack"
+    "award3": {
+        "type": "achvPoint",
+        "achvPoint": 50,
+        "awardContent": {
+            "type": "unlockRelic",
+            "relic": "DoubleAttack"
         },
-        "icon":"DoubleAttack",
-        "desc":"50点"
+        "icon": "DoubleAttack",
+        "desc": {
+            "CNS": "50点",
+            "CNT": "50點",
+            "EN": "50 points",
+            "FR": "50 points",
+            "DE": "50 Punkte",
+            "ES": "50 puntos",
+            "RU": "50 очков",
+            "JA": "50ポイント",
+            "KO": "50점"
+        }
     }
 }

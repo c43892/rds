@@ -273,7 +273,7 @@ class AchvView extends egret.DisplayObjectContainer {
             // 描述
             var desc = ViewUtils.createTextField(20, 0x000000);
             desc.name = "unlockDesc";
-            desc.text = info.desc;
+            desc.text = typeof info.desc === "string" ? info.desc : ViewUtils.pickByLang(info.desc, "achvAward.desc");
             awardContainer.addChild(desc);
             
             ViewUtils.multiLang(this, tip, desc);

@@ -10,10 +10,10 @@
 		},
 		"Hawkeye": {
 			"name": "Hawkeye",
+			"shortDesc": "Mark a key-holding monster at the start of each level",
 			"desc": [
-				"<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每關開始時標記一個帶鑰匙的怪物</font>"
-			],
-			"shortDesc": "Mark a key-holding monster at the start of each level"
+				"<font color=#3333cc size=20>Enhancement</font>\n<font color=#000000 size=20>Mark a key-holding monster at the start of each level</font>"
+			]
 		},
 		"Endurance": {
 			"name": "Endurance",
@@ -201,6 +201,10 @@
 			"name": "Key",
 			"desc": [
 				"<font color=#000000 size=20>Can open a chest or door</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Can open a chest or door</font>",
+				"<font color=#e4d5a5 size=25>Key (select a target)</font>"
 			]
 		},
 		"Door": {
@@ -232,12 +236,20 @@
 			"desc": [
 				"<font color=#000000 size=20>Use to restore {heal} HP</font>"
 			],
-			"initialDesc": "<font color=#000000 size=28>Use to restore 6 HP</font>"
+			"initialDesc": "<font color=#000000 size=28>Use to restore 6 HP</font>",
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Use to restore {heal} HP</font>",
+				"<font color=#e4d5a5 size=25>Healing Potion (tap anywhere on the map to use)</font>"
+			]
 		},
 		"DePoison": {
 			"name": "Antidote",
 			"desc": [
 				"<font color=#000000 size=20>Cures poison</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Cures poison</font>",
+				"<font color=#e4d5a5 size=25>Antidote (tap anywhere on the map to use)</font>"
 			]
 		},
 		"Magazine": {
@@ -671,30 +683,50 @@
 			"name": "Charm Shroom",
 			"desc": [
 				"<font color=#7d0403 size=20>Master Gardener</font>\n<font color=#000000 size=20>Lv1: can charm one normal monster to fight for you</font>\n<font color=#aeaeae size=20>Lv2: charmed monster's Attack +{level2AddPower}</font>\n<font color=#aeaeae size=20>Lv3: charmed monster's HP +{level3AddHp}</font>\n<font color=#aeaeae size=20>Lv4: charmed monster's Critical chance +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Lv5: charmed monster's Dodge +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Can charm a normal monster to fight for you, {cnt} uses left</font>",
+				"<font color=#e4d5a5 size=25>Charm Mushroom (select a target)</font>"
 			]
 		},
 		"CharmingMushroom2": {
 			"name": "Charm Shroom",
 			"desc": [
 				"<font color=#7d0403 size=20>Master Gardener</font>\n<font color=#000000 size=20>Lv1: can charm one normal monster to fight for you</font>\n<font color=#000000 size=20>Lv2: charmed monster's Attack +{level2AddPower}</font>\n<font color=#aeaeae size=20>Lv3: charmed monster's HP +{level3AddHp}</font>\n<font color=#aeaeae size=20>Lv4: charmed monster's Critical chance +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Lv5: charmed monster's Dodge +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Can charm a normal monster to fight for you, {cnt} uses left</font>",
+				"<font color=#e4d5a5 size=25>Charm Mushroom (select a target)</font>"
 			]
 		},
 		"CharmingMushroom3": {
 			"name": "Charm Shroom",
 			"desc": [
 				"<font color=#7d0403 size=20>Master Gardener</font>\n<font color=#000000 size=20>Lv1: can charm one normal monster to fight for you</font>\n<font color=#000000 size=20>Lv2: charmed monster's Attack +{level2AddPower}</font>\n<font color=#000000 size=20>Lv3: charmed monster's HP +{level3AddHp}</font>\n<font color=#aeaeae size=20>Lv4: charmed monster's Critical chance +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Lv5: charmed monster's Dodge +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Can charm a normal monster to fight for you, {cnt} uses left</font>",
+				"<font color=#e4d5a5 size=25>Charm Mushroom (select a target)</font>"
 			]
 		},
 		"CharmingMushroom4": {
 			"name": "Charm Shroom",
 			"desc": [
 				"<font color=#7d0403 size=20>Master Gardener</font>\n<font color=#000000 size=20>Lv1: can charm one normal monster to fight for you</font>\n<font color=#000000 size=20>Lv2: charmed monster's Attack +{level2AddPower}</font>\n<font color=#000000 size=20>Lv3: charmed monster's HP +{level3AddHp}</font>\n<font color=#000000 size=20>Lv4: charmed monster's Critical chance +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Lv5: charmed monster's Dodge +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Can charm a normal monster to fight for you, {cnt} uses left</font>",
+				"<font color=#e4d5a5 size=25>Charm Mushroom (select a target)</font>"
 			]
 		},
 		"CharmingMushroom5": {
 			"name": "Charm Shroom",
 			"desc": [
 				"<font color=#7d0403 size=20>Master Gardener</font>\n<font color=#000000 size=20>Lv1: can charm one normal monster to fight for you</font>\n<font color=#000000 size=20>Lv2: charmed monster's Attack +{level2AddPower}</font>\n<font color=#000000 size=20>Lv3: charmed monster's HP +{level3AddHp}</font>\n<font color=#000000 size=20>Lv4: charmed monster's Critical chance +{level4AddCritical}%</font>\n<font color=#000000 size=20>Lv5: charmed monster's Dodge +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Can charm a normal monster to fight for you, {cnt} uses left</font>",
+				"<font color=#e4d5a5 size=25>Charm Mushroom (select a target)</font>"
 			]
 		},
 		"PlaceHolder": {
@@ -710,14 +742,22 @@
 			"desc": [
 				"<font color=#000000 size=20>For {immunizeCnt-1} turns, you take no surprise attacks and are immune to all damage</font>"
 			],
-			"initialDesc": "<font color=#000000 size=28>For 1 turn you can't be ambushed and are immune to all damage.</font>"
+			"initialDesc": "<font color=#000000 size=28>For 1 turn you can't be ambushed and are immune to all damage.</font>",
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>For {immunizeCnt-1} turns, you take no surprise attacks and are immune to all damage</font>\n<font color=#e4d5a5 size=25>Cooldown {elemCD} turns</font>",
+				"<font color=#e4d5a5 size=25>Super Potion (tap anywhere on the map to use)</font>"
+			]
 		},
 		"StrengthPotion": {
 			"name": "Strength Potion",
 			"desc": [
 				"<font color=#000000 size=20>For {enhanceCnt-1} turns, Attack is doubled and monsters cannot counter</font>"
 			],
-			"initialDesc": "<font color=#000000 size=28>For 5 turns your attack doubles and monsters can't counterattack.</font>"
+			"initialDesc": "<font color=#000000 size=28>For 5 turns your attack doubles and monsters can't counterattack.</font>",
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>For {enhanceCnt-1} turns, Attack is doubled and monsters cannot counter</font>\n<font color=#e4d5a5 size=25>Cooldown {elemCD} turns</font>",
+				"<font color=#e4d5a5 size=25>Strength Potion (tap anywhere on the map to use)</font>"
+			]
 		},
 		"Hole": {
 			"name": "Black Hole",
@@ -747,6 +787,10 @@
 			"name": "Knife",
 			"desc": [
 				"<font color=#000000 size=20>Throw the weapon to deal {power} damage</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Throw the weapon to deal {power} damage</font>",
+				"<font color=#e4d5a5 size=25>Knife (select a target)</font>"
 			]
 		},
 		"Rock": {
@@ -759,30 +803,50 @@
 			"name": "Small Rock",
 			"desc": [
 				"<font color=#000000 size=20>Throw the weapon to deal 1 damage</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Throw the weapon to deal {power} damage</font>",
+				"<font color=#e4d5a5 size=25>Small Rock (select a target)</font>"
 			]
 		},
 		"Bazooka": {
 			"name": "Bazooka",
 			"desc": [
 				"<font color=#000000 size=20>On use, ignites the target, dealing {power} damage</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>On use, ignites the target, dealing {power} damage</font>\n<font color=#e4d5a5 size=25>Cooldown {elemCD} turns</font>",
+				"<font color=#e4d5a5 size=25>Fire Potion (select a target)</font>"
 			]
 		},
 		"RayGun": {
 			"name": "Flame Ray",
 			"desc": [
 				"<font color=#000000 size=20>Reveal the 3x3 tiles and deal {power} damage</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Reveal the 3x3 tiles and deal {power} damage</font>\n<font color=#e4d5a5 size=25>Cooldown {elemCD} turns</font>",
+				"<font color=#e4d5a5 size=25>Blast Potion (select a target)</font>"
 			]
 		},
 		"IceGun": {
 			"name": "Frost Ray",
 			"desc": [
 				"<font color=#000000 size=20>On use, freezes the target</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>On use, freezes the target</font>\n<font color=#e4d5a5 size=25>Cooldown {elemCD} turns</font>",
+				"<font color=#e4d5a5 size=25>Freeze Ray (select a target)</font>"
 			]
 		},
 		"CandyCannon": {
 			"name": "Candy Cannon",
 			"desc": [
 				"<font color=#000000 size=20>Spend coins worth 3x a target's HP to kill one enemy; no effect on elites and bosses</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Spend coins worth 3x a target's HP to kill one enemy; no effect on elites and bosses</font>\n<font color=#e4d5a5 size=25>Cooldown {elemCD} turns</font>",
+				"<font color=#e4d5a5 size=25>Candy Cannon (select a target)</font>"
 			]
 		},
 		"NaturePotion": {
@@ -791,7 +855,7 @@
 				"<font color=#000000 size=20>Use to turn a monster into a random plant</font>"
 			],
 			"useDescArr": [
-				"自然药水useDescArr"
+				"<font color=#e4d5a5 size=25>Turn a monster into a random plant</font>"
 			],
 			"initialDesc": "You cannot resist the power of nature"
 		},
@@ -959,6 +1023,10 @@
 			"name": "Midas Touch",
 			"desc": [
 				"<font color=#000000 size=20>Can turn a monster into {dropNum} coins, usable {cnt} more times</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Can turn a monster into {dropNum} coins, usable {cnt} more times</font>",
+				"<font color=#e4d5a5 size=25>Midas Touch (tap the target monster to use)</font>"
 			]
 		},
 		"OpenRelicSpace": {
@@ -2198,6 +2266,13 @@
 			"desc": [
 				"<font color=#000000 bold=false size=20>离开地牢</font>"
 			]
+		},
+		"Hawkeye": {
+			"name": "鹰眼",
+			"shortDesc": "每关开始时标记一个带钥匙的怪物",
+			"desc": [
+				"<font color=#3333cc size=20>强化属性</font>\n<font color=#000000 size=20>每关开始时标记一个带钥匙的怪物</font>"
+			]
 		}
 	},
 	"CNT": {
@@ -3344,6 +3419,13 @@
 			"desc": [
 				"<font color=#000000 bold=false size=20>離開地牢</font>"
 			]
+		},
+		"Hawkeye": {
+			"name": "鷹眼",
+			"shortDesc": "每關開始時標記一個帶鑰匙的怪物",
+			"desc": [
+				"<font color=#3333cc size=20>強化屬性</font>\n<font color=#000000 size=20>每關開始時標記一個帶鑰匙的怪物</font>"
+			]
 		}
 	},
 	"FR": {
@@ -3357,7 +3439,10 @@
 		},
 		"Hawkeye": {
 			"name": "Œil de faucon",
-			"shortDesc": "Marque un monstre porteur de clé au début de chaque niveau"
+			"shortDesc": "Repère un monstre porteur de clé au début de chaque niveau",
+			"desc": [
+				"<font color=#3333cc size=20>Amélioration</font>\n<font color=#000000 size=20>Repère un monstre porteur de clé au début de chaque niveau</font>"
+			]
 		},
 		"Endurance": {
 			"name": "Endurance",
@@ -3545,6 +3630,10 @@
 			"name": "Clé",
 			"desc": [
 				"<font color=#000000 size=20>Peut ouvrir un coffre ou une porte</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Peut ouvrir un coffre ou une porte</font>",
+				"<font color=#e4d5a5 size=25>Clé (sélectionne une cible)</font>"
 			]
 		},
 		"Door": {
@@ -3576,12 +3665,20 @@
 			"initialDesc": "<font color=#000000 size=28>À utiliser pour restaurer 6 PV</font>",
 			"desc": [
 				"<font color=#000000 size=20>Utiliser pour restaurer {heal} PV</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Utiliser pour restaurer {heal} PV</font>",
+				"<font color=#e4d5a5 size=25>Potion de soin (touche n'importe où sur la carte)</font>"
 			]
 		},
 		"DePoison": {
 			"name": "Antidote",
 			"desc": [
 				"<font color=#000000 size=20>Soigne l'empoisonnement</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Soigne l'empoisonnement</font>",
+				"<font color=#e4d5a5 size=25>Antidote (touche n'importe où sur la carte)</font>"
 			]
 		},
 		"Magazine": {
@@ -4010,30 +4107,50 @@
 			"name": "Champignon charmeur",
 			"desc": [
 				"<font color=#7d0403 size=20>Maître jardinier</font>\n<font color=#000000 size=20>Niv1 : peut charmer un monstre normal pour qu'il combatte pour toi</font>\n<font color=#aeaeae size=20>Niv2 : Attaque du monstre charmé +{level2AddPower}</font>\n<font color=#aeaeae size=20>Niv3 : PV du monstre charmé +{level3AddHp}</font>\n<font color=#aeaeae size=20>Niv4 : chance de critique du monstre charmé +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Niv5 : Esquive du monstre charmé +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Peut charmer un monstre normal pour qu'il combatte pour toi, {cnt} usages restants</font>",
+				"<font color=#e4d5a5 size=25>Champignon de charme (sélectionne une cible)</font>"
 			]
 		},
 		"CharmingMushroom2": {
 			"name": "Champignon charmeur",
 			"desc": [
 				"<font color=#7d0403 size=20>Maître jardinier</font>\n<font color=#000000 size=20>Niv1 : peut charmer un monstre normal pour qu'il combatte pour toi</font>\n<font color=#000000 size=20>Niv2 : Attaque du monstre charmé +{level2AddPower}</font>\n<font color=#aeaeae size=20>Niv3 : PV du monstre charmé +{level3AddHp}</font>\n<font color=#aeaeae size=20>Niv4 : chance de critique du monstre charmé +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Niv5 : Esquive du monstre charmé +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Peut charmer un monstre normal pour qu'il combatte pour toi, {cnt} usages restants</font>",
+				"<font color=#e4d5a5 size=25>Champignon de charme (sélectionne une cible)</font>"
 			]
 		},
 		"CharmingMushroom3": {
 			"name": "Champignon charmeur",
 			"desc": [
 				"<font color=#7d0403 size=20>Maître jardinier</font>\n<font color=#000000 size=20>Niv1 : peut charmer un monstre normal pour qu'il combatte pour toi</font>\n<font color=#000000 size=20>Niv2 : Attaque du monstre charmé +{level2AddPower}</font>\n<font color=#000000 size=20>Niv3 : PV du monstre charmé +{level3AddHp}</font>\n<font color=#aeaeae size=20>Niv4 : chance de critique du monstre charmé +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Niv5 : Esquive du monstre charmé +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Peut charmer un monstre normal pour qu'il combatte pour toi, {cnt} usages restants</font>",
+				"<font color=#e4d5a5 size=25>Champignon de charme (sélectionne une cible)</font>"
 			]
 		},
 		"CharmingMushroom4": {
 			"name": "Champignon charmeur",
 			"desc": [
 				"<font color=#7d0403 size=20>Maître jardinier</font>\n<font color=#000000 size=20>Niv1 : peut charmer un monstre normal pour qu'il combatte pour toi</font>\n<font color=#000000 size=20>Niv2 : Attaque du monstre charmé +{level2AddPower}</font>\n<font color=#000000 size=20>Niv3 : PV du monstre charmé +{level3AddHp}</font>\n<font color=#000000 size=20>Niv4 : chance de critique du monstre charmé +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Niv5 : Esquive du monstre charmé +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Peut charmer un monstre normal pour qu'il combatte pour toi, {cnt} usages restants</font>",
+				"<font color=#e4d5a5 size=25>Champignon de charme (sélectionne une cible)</font>"
 			]
 		},
 		"CharmingMushroom5": {
 			"name": "Champignon charmeur",
 			"desc": [
 				"<font color=#7d0403 size=20>Maître jardinier</font>\n<font color=#000000 size=20>Niv1 : peut charmer un monstre normal pour qu'il combatte pour toi</font>\n<font color=#000000 size=20>Niv2 : Attaque du monstre charmé +{level2AddPower}</font>\n<font color=#000000 size=20>Niv3 : PV du monstre charmé +{level3AddHp}</font>\n<font color=#000000 size=20>Niv4 : chance de critique du monstre charmé +{level4AddCritical}%</font>\n<font color=#000000 size=20>Niv5 : Esquive du monstre charmé +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Peut charmer un monstre normal pour qu'il combatte pour toi, {cnt} usages restants</font>",
+				"<font color=#e4d5a5 size=25>Champignon de charme (sélectionne une cible)</font>"
 			]
 		},
 		"PlaceHolder": {
@@ -4047,6 +4164,10 @@
 			"initialDesc": "<font color=#000000 size=28>Pendant 1 tour, tu ne peux pas être pris en embuscade et es immunisé à tous les dégâts.</font>",
 			"desc": [
 				"<font color=#000000 size=20>Pendant {immunizeCnt-1} tours, tu ne subis aucune attaque surprise et es immunisé à tous les dégâts</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Pendant {immunizeCnt-1} tours, tu ne subis aucune attaque surprise et es immunisé à tous les dégâts</font>\n<font color=#e4d5a5 size=25>Recharge {elemCD} tours</font>",
+				"<font color=#e4d5a5 size=25>Potion suprême (touche n'importe où sur la carte)</font>"
 			]
 		},
 		"StrengthPotion": {
@@ -4054,6 +4175,10 @@
 			"initialDesc": "<font color=#000000 size=28>Pendant 5 tours, ton attaque double et les monstres ne peuvent pas riposter.</font>",
 			"desc": [
 				"<font color=#000000 size=20>Pendant {enhanceCnt-1} tours, l'Attaque est doublée et les monstres ne peuvent riposter</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Pendant {enhanceCnt-1} tours, l'Attaque est doublée et les monstres ne peuvent riposter</font>\n<font color=#e4d5a5 size=25>Recharge {elemCD} tours</font>",
+				"<font color=#e4d5a5 size=25>Potion de force (touche n'importe où sur la carte)</font>"
 			]
 		},
 		"Hole": {
@@ -4084,6 +4209,10 @@
 			"name": "Couteau",
 			"desc": [
 				"<font color=#000000 size=20>Lance l'arme pour infliger {power} dégâts</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Lance l'arme pour infliger {power} dégâts</font>",
+				"<font color=#e4d5a5 size=25>Couteau (sélectionne une cible)</font>"
 			]
 		},
 		"Rock": {
@@ -4096,30 +4225,50 @@
 			"name": "Petit rocher",
 			"desc": [
 				"<font color=#000000 size=20>Lance l'arme pour infliger 1 dégât</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Lance l'arme pour infliger {power} dégâts</font>",
+				"<font color=#e4d5a5 size=25>Petite pierre (sélectionne une cible)</font>"
 			]
 		},
 		"Bazooka": {
 			"name": "Bazooka",
 			"desc": [
 				"<font color=#000000 size=20>À l'usage, enflamme la cible, infligeant {power} dégâts</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>À l'usage, enflamme la cible, infligeant {power} dégâts</font>\n<font color=#e4d5a5 size=25>Recharge {elemCD} tours</font>",
+				"<font color=#e4d5a5 size=25>Potion de feu (sélectionne une cible)</font>"
 			]
 		},
 		"RayGun": {
 			"name": "Rayon de feu",
 			"desc": [
 				"<font color=#000000 size=20>Révèle les cases 3x3 et inflige {power} dégâts</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Révèle les cases 3x3 et inflige {power} dégâts</font>\n<font color=#e4d5a5 size=25>Recharge {elemCD} tours</font>",
+				"<font color=#e4d5a5 size=25>Potion explosive (sélectionne une cible)</font>"
 			]
 		},
 		"IceGun": {
 			"name": "Rayon de givre",
 			"desc": [
 				"<font color=#000000 size=20>À l'usage, gèle la cible</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>À l'usage, gèle la cible</font>\n<font color=#e4d5a5 size=25>Recharge {elemCD} tours</font>",
+				"<font color=#e4d5a5 size=25>Rayon de gel (sélectionne une cible)</font>"
 			]
 		},
 		"CandyCannon": {
 			"name": "Canon à bonbons",
 			"desc": [
 				"<font color=#000000 size=20>Dépense des pièces valant 3x les PV d'une cible pour tuer un ennemi ; sans effet sur les élites et les boss</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Dépense des pièces valant 3x les PV d'une cible pour tuer un ennemi ; sans effet sur les élites et les boss</font>\n<font color=#e4d5a5 size=25>Recharge {elemCD} tours</font>",
+				"<font color=#e4d5a5 size=25>Canon à bonbons (sélectionne une cible)</font>"
 			]
 		},
 		"NaturePotion": {
@@ -4127,6 +4276,9 @@
 			"initialDesc": "Tu ne peux résister à la puissance de la nature",
 			"desc": [
 				"<font color=#000000 size=20>Utiliser pour changer un monstre en plante aléatoire</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Change un monstre en plante aléatoire</font>"
 			]
 		},
 		"Baton": {
@@ -4293,6 +4445,10 @@
 			"name": "Main de Midas",
 			"desc": [
 				"<font color=#000000 size=20>Peut changer un monstre en {dropNum} pièces, utilisable {cnt} fois de plus</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Peut changer un monstre en {dropNum} pièces, utilisable {cnt} fois de plus</font>",
+				"<font color=#e4d5a5 size=25>Main de Midas (touche le monstre cible)</font>"
 			]
 		},
 		"OpenRelicSpace": {
@@ -4404,7 +4560,10 @@
 		},
 		"Hawkeye": {
 			"name": "Falkenauge",
-			"shortDesc": "Markiert zu Beginn jeder Ebene ein Monster mit Schlüssel"
+			"shortDesc": "Markiert zu Beginn jeder Ebene ein schlüsseltragendes Monster",
+			"desc": [
+				"<font color=#3333cc size=20>Verstärkung</font>\n<font color=#000000 size=20>Markiert zu Beginn jeder Ebene ein schlüsseltragendes Monster</font>"
+			]
 		},
 		"Endurance": {
 			"name": "Ausdauer",
@@ -4592,6 +4751,10 @@
 			"name": "Schlüssel",
 			"desc": [
 				"<font color=#000000 size=20>Kann eine Truhe oder Tür öffnen</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Kann eine Truhe oder Tür öffnen</font>",
+				"<font color=#e4d5a5 size=25>Schlüssel (Ziel auswählen)</font>"
 			]
 		},
 		"Door": {
@@ -4623,12 +4786,20 @@
 			"initialDesc": "<font color=#000000 size=28>Stellt bei Benutzung 6 LP wieder her</font>",
 			"desc": [
 				"<font color=#000000 size=20>Benutzen, um {heal} LP zu heilen</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Benutzen, um {heal} LP zu heilen</font>",
+				"<font color=#e4d5a5 size=25>Heiltrank (irgendwo auf der Karte antippen)</font>"
 			]
 		},
 		"DePoison": {
 			"name": "Gegengift",
 			"desc": [
 				"<font color=#000000 size=20>Heilt Vergiftung</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Heilt Vergiftung</font>",
+				"<font color=#e4d5a5 size=25>Gegengift (irgendwo auf der Karte antippen)</font>"
 			]
 		},
 		"Magazine": {
@@ -5057,30 +5228,50 @@
 			"name": "Bezaubernder Pilz",
 			"desc": [
 				"<font color=#7d0403 size=20>Meistergärtner</font>\n<font color=#000000 size=20>Stufe 1: kann ein normales Monster bezaubern, sodass es für dich kämpft</font>\n<font color=#aeaeae size=20>Stufe 2: Angriff des bezauberten Monsters +{level2AddPower}</font>\n<font color=#aeaeae size=20>Stufe 3: LP des bezauberten Monsters +{level3AddHp}</font>\n<font color=#aeaeae size=20>Stufe 4: Kritische Chance des bezauberten Monsters +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Stufe 5: Ausweichen des bezauberten Monsters +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Kann ein normales Monster bezaubern, sodass es für dich kämpft, {cnt} Anwendungen übrig</font>",
+				"<font color=#e4d5a5 size=25>Bezauberpilz (Ziel auswählen)</font>"
 			]
 		},
 		"CharmingMushroom2": {
 			"name": "Bezaubernder Pilz",
 			"desc": [
 				"<font color=#7d0403 size=20>Meistergärtner</font>\n<font color=#000000 size=20>Stufe 1: kann ein normales Monster bezaubern, sodass es für dich kämpft</font>\n<font color=#000000 size=20>Stufe 2: Angriff des bezauberten Monsters +{level2AddPower}</font>\n<font color=#aeaeae size=20>Stufe 3: LP des bezauberten Monsters +{level3AddHp}</font>\n<font color=#aeaeae size=20>Stufe 4: Kritische Chance des bezauberten Monsters +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Stufe 5: Ausweichen des bezauberten Monsters +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Kann ein normales Monster bezaubern, sodass es für dich kämpft, {cnt} Anwendungen übrig</font>",
+				"<font color=#e4d5a5 size=25>Bezauberpilz (Ziel auswählen)</font>"
 			]
 		},
 		"CharmingMushroom3": {
 			"name": "Bezaubernder Pilz",
 			"desc": [
 				"<font color=#7d0403 size=20>Meistergärtner</font>\n<font color=#000000 size=20>Stufe 1: kann ein normales Monster bezaubern, sodass es für dich kämpft</font>\n<font color=#000000 size=20>Stufe 2: Angriff des bezauberten Monsters +{level2AddPower}</font>\n<font color=#000000 size=20>Stufe 3: LP des bezauberten Monsters +{level3AddHp}</font>\n<font color=#aeaeae size=20>Stufe 4: Kritische Chance des bezauberten Monsters +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Stufe 5: Ausweichen des bezauberten Monsters +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Kann ein normales Monster bezaubern, sodass es für dich kämpft, {cnt} Anwendungen übrig</font>",
+				"<font color=#e4d5a5 size=25>Bezauberpilz (Ziel auswählen)</font>"
 			]
 		},
 		"CharmingMushroom4": {
 			"name": "Bezaubernder Pilz",
 			"desc": [
 				"<font color=#7d0403 size=20>Meistergärtner</font>\n<font color=#000000 size=20>Stufe 1: kann ein normales Monster bezaubern, sodass es für dich kämpft</font>\n<font color=#000000 size=20>Stufe 2: Angriff des bezauberten Monsters +{level2AddPower}</font>\n<font color=#000000 size=20>Stufe 3: LP des bezauberten Monsters +{level3AddHp}</font>\n<font color=#000000 size=20>Stufe 4: Kritische Chance des bezauberten Monsters +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Stufe 5: Ausweichen des bezauberten Monsters +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Kann ein normales Monster bezaubern, sodass es für dich kämpft, {cnt} Anwendungen übrig</font>",
+				"<font color=#e4d5a5 size=25>Bezauberpilz (Ziel auswählen)</font>"
 			]
 		},
 		"CharmingMushroom5": {
 			"name": "Bezaubernder Pilz",
 			"desc": [
 				"<font color=#7d0403 size=20>Meistergärtner</font>\n<font color=#000000 size=20>Stufe 1: kann ein normales Monster bezaubern, sodass es für dich kämpft</font>\n<font color=#000000 size=20>Stufe 2: Angriff des bezauberten Monsters +{level2AddPower}</font>\n<font color=#000000 size=20>Stufe 3: LP des bezauberten Monsters +{level3AddHp}</font>\n<font color=#000000 size=20>Stufe 4: Kritische Chance des bezauberten Monsters +{level4AddCritical}%</font>\n<font color=#000000 size=20>Stufe 5: Ausweichen des bezauberten Monsters +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Kann ein normales Monster bezaubern, sodass es für dich kämpft, {cnt} Anwendungen übrig</font>",
+				"<font color=#e4d5a5 size=25>Bezauberpilz (Ziel auswählen)</font>"
 			]
 		},
 		"PlaceHolder": {
@@ -5094,6 +5285,10 @@
 			"initialDesc": "<font color=#000000 size=28>Für 1 Runde kannst du nicht überfallen werden und bist immun gegen allen Schaden.</font>",
 			"desc": [
 				"<font color=#000000 size=20>Für {immunizeCnt-1} Runden erleidest du keine Überfälle und bist gegen allen Schaden immun</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Für {immunizeCnt-1} Runden erleidest du keine Überfälle und bist gegen allen Schaden immun</font>\n<font color=#e4d5a5 size=25>Abklingzeit {elemCD} Runden</font>",
+				"<font color=#e4d5a5 size=25>Supertrank (irgendwo auf der Karte antippen)</font>"
 			]
 		},
 		"StrengthPotion": {
@@ -5101,6 +5296,10 @@
 			"initialDesc": "<font color=#000000 size=28>Für 5 Runden verdoppelt sich dein Angriff und Monster können nicht zurückschlagen.</font>",
 			"desc": [
 				"<font color=#000000 size=20>Für {enhanceCnt-1} Runden ist der Angriff verdoppelt und Monster können nicht kontern</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Für {enhanceCnt-1} Runden ist der Angriff verdoppelt und Monster können nicht kontern</font>\n<font color=#e4d5a5 size=25>Abklingzeit {elemCD} Runden</font>",
+				"<font color=#e4d5a5 size=25>Stärketrank (irgendwo auf der Karte antippen)</font>"
 			]
 		},
 		"Hole": {
@@ -5131,6 +5330,10 @@
 			"name": "Messer",
 			"desc": [
 				"<font color=#000000 size=20>Wirf die Waffe, um {power} Schaden zu verursachen</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Wirf die Waffe, um {power} Schaden zu verursachen</font>",
+				"<font color=#e4d5a5 size=25>Messer (Ziel auswählen)</font>"
 			]
 		},
 		"Rock": {
@@ -5143,30 +5346,50 @@
 			"name": "Kleiner Fels",
 			"desc": [
 				"<font color=#000000 size=20>Wirf die Waffe, um 1 Schaden zu verursachen</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Wirf die Waffe, um {power} Schaden zu verursachen</font>",
+				"<font color=#e4d5a5 size=25>Kleiner Stein (Ziel auswählen)</font>"
 			]
 		},
 		"Bazooka": {
 			"name": "Bazooka",
 			"desc": [
 				"<font color=#000000 size=20>Bei Nutzung wird das Ziel entzündet und erleidet {power} Schaden</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Bei Nutzung wird das Ziel entzündet und erleidet {power} Schaden</font>\n<font color=#e4d5a5 size=25>Abklingzeit {elemCD} Runden</font>",
+				"<font color=#e4d5a5 size=25>Feuertrank (Ziel auswählen)</font>"
 			]
 		},
 		"RayGun": {
 			"name": "Flammenstrahl",
 			"desc": [
 				"<font color=#000000 size=20>Deckt die 3x3 Felder auf und verursacht {power} Schaden</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Deckt die 3x3 Felder auf und verursacht {power} Schaden</font>\n<font color=#e4d5a5 size=25>Abklingzeit {elemCD} Runden</font>",
+				"<font color=#e4d5a5 size=25>Sprengtrank (Ziel auswählen)</font>"
 			]
 		},
 		"IceGun": {
 			"name": "Froststrahl",
 			"desc": [
 				"<font color=#000000 size=20>Bei Nutzung wird das Ziel eingefroren</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Bei Nutzung wird das Ziel eingefroren</font>\n<font color=#e4d5a5 size=25>Abklingzeit {elemCD} Runden</font>",
+				"<font color=#e4d5a5 size=25>Eisstrahl (Ziel auswählen)</font>"
 			]
 		},
 		"CandyCannon": {
 			"name": "Bonbonkanone",
 			"desc": [
 				"<font color=#000000 size=20>Gib Münzen im Wert von 3x den LP eines Ziels aus, um einen Gegner zu töten; wirkungslos gegen Eliten und Bosse</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Gib Münzen im Wert von 3x den LP eines Ziels aus, um einen Gegner zu töten; wirkungslos gegen Eliten und Bosse</font>\n<font color=#e4d5a5 size=25>Abklingzeit {elemCD} Runden</font>",
+				"<font color=#e4d5a5 size=25>Bonbon-Kanone (Ziel auswählen)</font>"
 			]
 		},
 		"NaturePotion": {
@@ -5174,6 +5397,9 @@
 			"initialDesc": "Du kannst der Macht der Natur nicht widerstehen",
 			"desc": [
 				"<font color=#000000 size=20>Benutzen, um ein Monster in eine zufällige Pflanze zu verwandeln</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Verwandelt ein Monster in eine zufällige Pflanze</font>"
 			]
 		},
 		"Baton": {
@@ -5340,6 +5566,10 @@
 			"name": "Midasberührung",
 			"desc": [
 				"<font color=#000000 size=20>Kann ein Monster in {dropNum} Münzen verwandeln, {cnt}-mal nutzbar</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Kann ein Monster in {dropNum} Münzen verwandeln, {cnt}-mal nutzbar</font>",
+				"<font color=#e4d5a5 size=25>Midas-Hand (Zielmonster antippen)</font>"
 			]
 		},
 		"OpenRelicSpace": {
@@ -5451,7 +5681,10 @@
 		},
 		"Hawkeye": {
 			"name": "Ojo de halcón",
-			"shortDesc": "Marca un monstruo con llave al inicio de cada nivel"
+			"shortDesc": "Marca un monstruo con llave al inicio de cada nivel",
+			"desc": [
+				"<font color=#3333cc size=20>Mejora</font>\n<font color=#000000 size=20>Marca un monstruo con llave al inicio de cada nivel</font>"
+			]
 		},
 		"Endurance": {
 			"name": "Resistencia",
@@ -5639,6 +5872,10 @@
 			"name": "Llave",
 			"desc": [
 				"<font color=#000000 size=20>Puede abrir un cofre o puerta</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Puede abrir un cofre o puerta</font>",
+				"<font color=#e4d5a5 size=25>Llave (selecciona un objetivo)</font>"
 			]
 		},
 		"Door": {
@@ -5670,12 +5907,20 @@
 			"initialDesc": "<font color=#000000 size=28>Úsala para restaurar 6 PV</font>",
 			"desc": [
 				"<font color=#000000 size=20>Úsalo para recuperar {heal} HP</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Úsalo para recuperar {heal} HP</font>",
+				"<font color=#e4d5a5 size=25>Poción curativa (toca cualquier lugar del mapa)</font>"
 			]
 		},
 		"DePoison": {
 			"name": "Antídoto",
 			"desc": [
 				"<font color=#000000 size=20>Cura el envenenamiento</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Cura el envenenamiento</font>",
+				"<font color=#e4d5a5 size=25>Antídoto (toca cualquier lugar del mapa)</font>"
 			]
 		},
 		"Magazine": {
@@ -6104,30 +6349,50 @@
 			"name": "Seta encantadora",
 			"desc": [
 				"<font color=#7d0403 size=20>Maestro jardinero</font>\n<font color=#000000 size=20>Nv1: puede encantar a un monstruo normal para que luche por ti</font>\n<font color=#aeaeae size=20>Nv2: Ataque del monstruo encantado +{level2AddPower}</font>\n<font color=#aeaeae size=20>Nv3: HP del monstruo encantado +{level3AddHp}</font>\n<font color=#aeaeae size=20>Nv4: probabilidad de crítico del monstruo encantado +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Nv5: Evasión del monstruo encantado +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Puede encantar a un monstruo normal para que luche por ti, {cnt} usos restantes</font>",
+				"<font color=#e4d5a5 size=25>Hongo encantador (selecciona un objetivo)</font>"
 			]
 		},
 		"CharmingMushroom2": {
 			"name": "Seta encantadora",
 			"desc": [
 				"<font color=#7d0403 size=20>Maestro jardinero</font>\n<font color=#000000 size=20>Nv1: puede encantar a un monstruo normal para que luche por ti</font>\n<font color=#000000 size=20>Nv2: Ataque del monstruo encantado +{level2AddPower}</font>\n<font color=#aeaeae size=20>Nv3: HP del monstruo encantado +{level3AddHp}</font>\n<font color=#aeaeae size=20>Nv4: probabilidad de crítico del monstruo encantado +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Nv5: Evasión del monstruo encantado +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Puede encantar a un monstruo normal para que luche por ti, {cnt} usos restantes</font>",
+				"<font color=#e4d5a5 size=25>Hongo encantador (selecciona un objetivo)</font>"
 			]
 		},
 		"CharmingMushroom3": {
 			"name": "Seta encantadora",
 			"desc": [
 				"<font color=#7d0403 size=20>Maestro jardinero</font>\n<font color=#000000 size=20>Nv1: puede encantar a un monstruo normal para que luche por ti</font>\n<font color=#000000 size=20>Nv2: Ataque del monstruo encantado +{level2AddPower}</font>\n<font color=#000000 size=20>Nv3: HP del monstruo encantado +{level3AddHp}</font>\n<font color=#aeaeae size=20>Nv4: probabilidad de crítico del monstruo encantado +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Nv5: Evasión del monstruo encantado +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Puede encantar a un monstruo normal para que luche por ti, {cnt} usos restantes</font>",
+				"<font color=#e4d5a5 size=25>Hongo encantador (selecciona un objetivo)</font>"
 			]
 		},
 		"CharmingMushroom4": {
 			"name": "Seta encantadora",
 			"desc": [
 				"<font color=#7d0403 size=20>Maestro jardinero</font>\n<font color=#000000 size=20>Nv1: puede encantar a un monstruo normal para que luche por ti</font>\n<font color=#000000 size=20>Nv2: Ataque del monstruo encantado +{level2AddPower}</font>\n<font color=#000000 size=20>Nv3: HP del monstruo encantado +{level3AddHp}</font>\n<font color=#000000 size=20>Nv4: probabilidad de crítico del monstruo encantado +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Nv5: Evasión del monstruo encantado +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Puede encantar a un monstruo normal para que luche por ti, {cnt} usos restantes</font>",
+				"<font color=#e4d5a5 size=25>Hongo encantador (selecciona un objetivo)</font>"
 			]
 		},
 		"CharmingMushroom5": {
 			"name": "Seta encantadora",
 			"desc": [
 				"<font color=#7d0403 size=20>Maestro jardinero</font>\n<font color=#000000 size=20>Nv1: puede encantar a un monstruo normal para que luche por ti</font>\n<font color=#000000 size=20>Nv2: Ataque del monstruo encantado +{level2AddPower}</font>\n<font color=#000000 size=20>Nv3: HP del monstruo encantado +{level3AddHp}</font>\n<font color=#000000 size=20>Nv4: probabilidad de crítico del monstruo encantado +{level4AddCritical}%</font>\n<font color=#000000 size=20>Nv5: Evasión del monstruo encantado +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Puede encantar a un monstruo normal para que luche por ti, {cnt} usos restantes</font>",
+				"<font color=#e4d5a5 size=25>Hongo encantador (selecciona un objetivo)</font>"
 			]
 		},
 		"PlaceHolder": {
@@ -6141,6 +6406,10 @@
 			"initialDesc": "<font color=#000000 size=28>Durante 1 turno no puedes ser emboscado y eres inmune a todo el daño.</font>",
 			"desc": [
 				"<font color=#000000 size=20>Durante {immunizeCnt-1} turnos, no recibes ataques sorpresa y eres inmune a todo el daño</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Durante {immunizeCnt-1} turnos, no recibes ataques sorpresa y eres inmune a todo el daño</font>\n<font color=#e4d5a5 size=25>Enfriamiento {elemCD} turnos</font>",
+				"<font color=#e4d5a5 size=25>Súper poción (toca cualquier lugar del mapa)</font>"
 			]
 		},
 		"StrengthPotion": {
@@ -6148,6 +6417,10 @@
 			"initialDesc": "<font color=#000000 size=28>Durante 5 turnos tu ataque se duplica y los monstruos no pueden contraatacar.</font>",
 			"desc": [
 				"<font color=#000000 size=20>Durante {enhanceCnt-1} turnos, el Ataque se duplica y los monstruos no pueden contraatacar</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Durante {enhanceCnt-1} turnos, el Ataque se duplica y los monstruos no pueden contraatacar</font>\n<font color=#e4d5a5 size=25>Enfriamiento {elemCD} turnos</font>",
+				"<font color=#e4d5a5 size=25>Poción de fuerza (toca cualquier lugar del mapa)</font>"
 			]
 		},
 		"Hole": {
@@ -6178,6 +6451,10 @@
 			"name": "Cuchillo",
 			"desc": [
 				"<font color=#000000 size=20>Lanza el arma para infligir {power} de daño</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Lanza el arma para infligir {power} de daño</font>",
+				"<font color=#e4d5a5 size=25>Cuchillo (selecciona un objetivo)</font>"
 			]
 		},
 		"Rock": {
@@ -6190,30 +6467,50 @@
 			"name": "Roca pequeña",
 			"desc": [
 				"<font color=#000000 size=20>Lanza el arma para infligir 1 de daño</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Lanza el arma para infligir {power} de daño</font>",
+				"<font color=#e4d5a5 size=25>Piedra pequeña (selecciona un objetivo)</font>"
 			]
 		},
 		"Bazooka": {
 			"name": "Bazuca",
 			"desc": [
 				"<font color=#000000 size=20>Al usar, incendia al objetivo, infligiendo {power} de daño</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Al usar, incendia al objetivo, infligiendo {power} de daño</font>\n<font color=#e4d5a5 size=25>Enfriamiento {elemCD} turnos</font>",
+				"<font color=#e4d5a5 size=25>Poción de fuego (selecciona un objetivo)</font>"
 			]
 		},
 		"RayGun": {
 			"name": "Rayo de fuego",
 			"desc": [
 				"<font color=#000000 size=20>Revela las casillas 3x3 e inflige {power} de daño</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Revela las casillas 3x3 e inflige {power} de daño</font>\n<font color=#e4d5a5 size=25>Enfriamiento {elemCD} turnos</font>",
+				"<font color=#e4d5a5 size=25>Poción explosiva (selecciona un objetivo)</font>"
 			]
 		},
 		"IceGun": {
 			"name": "Rayo de hielo",
 			"desc": [
 				"<font color=#000000 size=20>Al usar, congela al objetivo</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Al usar, congela al objetivo</font>\n<font color=#e4d5a5 size=25>Enfriamiento {elemCD} turnos</font>",
+				"<font color=#e4d5a5 size=25>Rayo congelante (selecciona un objetivo)</font>"
 			]
 		},
 		"CandyCannon": {
 			"name": "Cañón de caramelos",
 			"desc": [
 				"<font color=#000000 size=20>Gasta monedas equivalentes a 3x el HP de un objetivo para matar a un enemigo; sin efecto en élites y jefes</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Gasta monedas equivalentes a 3x el HP de un objetivo para matar a un enemigo; sin efecto en élites y jefes</font>\n<font color=#e4d5a5 size=25>Enfriamiento {elemCD} turnos</font>",
+				"<font color=#e4d5a5 size=25>Cañón de caramelos (selecciona un objetivo)</font>"
 			]
 		},
 		"NaturePotion": {
@@ -6221,6 +6518,9 @@
 			"initialDesc": "No puedes resistir el poder de la naturaleza",
 			"desc": [
 				"<font color=#000000 size=20>Úsalo para convertir un monstruo en una planta aleatoria</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Convierte un monstruo en una planta aleatoria</font>"
 			]
 		},
 		"Baton": {
@@ -6387,6 +6687,10 @@
 			"name": "Toque de Midas",
 			"desc": [
 				"<font color=#000000 size=20>Puede convertir un monstruo en {dropNum} monedas, usable {cnt} veces más</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Puede convertir un monstruo en {dropNum} monedas, usable {cnt} veces más</font>",
+				"<font color=#e4d5a5 size=25>Toque de Midas (toca al monstruo objetivo)</font>"
 			]
 		},
 		"OpenRelicSpace": {
@@ -6498,7 +6802,10 @@
 		},
 		"Hawkeye": {
 			"name": "Соколиный глаз",
-			"shortDesc": "Отмечает монстра с ключом в начале каждого уровня"
+			"shortDesc": "Отмечает монстра с ключом в начале каждого уровня",
+			"desc": [
+				"<font color=#3333cc size=20>Усиление</font>\n<font color=#000000 size=20>Отмечает монстра с ключом в начале каждого уровня</font>"
+			]
 		},
 		"Endurance": {
 			"name": "Выносливость",
@@ -6686,6 +6993,10 @@
 			"name": "Ключ",
 			"desc": [
 				"<font color=#000000 size=20>Может открыть сундук или дверь</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Может открыть сундук или дверь</font>",
+				"<font color=#e4d5a5 size=25>Ключ (выберите цель)</font>"
 			]
 		},
 		"Door": {
@@ -6717,12 +7028,20 @@
 			"initialDesc": "<font color=#000000 size=28>Используйте, чтобы восстановить 6 ОЗ</font>",
 			"desc": [
 				"<font color=#000000 size=20>Использовать, чтобы восстановить {heal} ОЗ</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Использовать, чтобы восстановить {heal} ОЗ</font>",
+				"<font color=#e4d5a5 size=25>Лечебное зелье (нажмите в любом месте карты)</font>"
 			]
 		},
 		"DePoison": {
 			"name": "Противоядие",
 			"desc": [
 				"<font color=#000000 size=20>Снимает отравление</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Снимает отравление</font>",
+				"<font color=#e4d5a5 size=25>Противоядие (нажмите в любом месте карты)</font>"
 			]
 		},
 		"Magazine": {
@@ -7151,30 +7470,50 @@
 			"name": "Чарующий гриб",
 			"desc": [
 				"<font color=#7d0403 size=20>Мастер-садовник</font>\n<font color=#000000 size=20>Ур1: можно зачаровать одного обычного монстра, чтобы он сражался за вас</font>\n<font color=#aeaeae size=20>Ур2: Атака зачарованного монстра +{level2AddPower}</font>\n<font color=#aeaeae size=20>Ур3: ОЗ зачарованного монстра +{level3AddHp}</font>\n<font color=#aeaeae size=20>Ур4: шанс крита зачарованного монстра +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Ур5: Уклонение зачарованного монстра +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Можно зачаровать обычного монстра, чтобы он сражался за вас, осталось {cnt} использований</font>",
+				"<font color=#e4d5a5 size=25>Чарующий гриб (выберите цель)</font>"
 			]
 		},
 		"CharmingMushroom2": {
 			"name": "Чарующий гриб",
 			"desc": [
 				"<font color=#7d0403 size=20>Мастер-садовник</font>\n<font color=#000000 size=20>Ур1: можно зачаровать одного обычного монстра, чтобы он сражался за вас</font>\n<font color=#000000 size=20>Ур2: Атака зачарованного монстра +{level2AddPower}</font>\n<font color=#aeaeae size=20>Ур3: ОЗ зачарованного монстра +{level3AddHp}</font>\n<font color=#aeaeae size=20>Ур4: шанс крита зачарованного монстра +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Ур5: Уклонение зачарованного монстра +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Можно зачаровать обычного монстра, чтобы он сражался за вас, осталось {cnt} использований</font>",
+				"<font color=#e4d5a5 size=25>Чарующий гриб (выберите цель)</font>"
 			]
 		},
 		"CharmingMushroom3": {
 			"name": "Чарующий гриб",
 			"desc": [
 				"<font color=#7d0403 size=20>Мастер-садовник</font>\n<font color=#000000 size=20>Ур1: можно зачаровать одного обычного монстра, чтобы он сражался за вас</font>\n<font color=#000000 size=20>Ур2: Атака зачарованного монстра +{level2AddPower}</font>\n<font color=#000000 size=20>Ур3: ОЗ зачарованного монстра +{level3AddHp}</font>\n<font color=#aeaeae size=20>Ур4: шанс крита зачарованного монстра +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Ур5: Уклонение зачарованного монстра +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Можно зачаровать обычного монстра, чтобы он сражался за вас, осталось {cnt} использований</font>",
+				"<font color=#e4d5a5 size=25>Чарующий гриб (выберите цель)</font>"
 			]
 		},
 		"CharmingMushroom4": {
 			"name": "Чарующий гриб",
 			"desc": [
 				"<font color=#7d0403 size=20>Мастер-садовник</font>\n<font color=#000000 size=20>Ур1: можно зачаровать одного обычного монстра, чтобы он сражался за вас</font>\n<font color=#000000 size=20>Ур2: Атака зачарованного монстра +{level2AddPower}</font>\n<font color=#000000 size=20>Ур3: ОЗ зачарованного монстра +{level3AddHp}</font>\n<font color=#000000 size=20>Ур4: шанс крита зачарованного монстра +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Ур5: Уклонение зачарованного монстра +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Можно зачаровать обычного монстра, чтобы он сражался за вас, осталось {cnt} использований</font>",
+				"<font color=#e4d5a5 size=25>Чарующий гриб (выберите цель)</font>"
 			]
 		},
 		"CharmingMushroom5": {
 			"name": "Чарующий гриб",
 			"desc": [
 				"<font color=#7d0403 size=20>Мастер-садовник</font>\n<font color=#000000 size=20>Ур1: можно зачаровать одного обычного монстра, чтобы он сражался за вас</font>\n<font color=#000000 size=20>Ур2: Атака зачарованного монстра +{level2AddPower}</font>\n<font color=#000000 size=20>Ур3: ОЗ зачарованного монстра +{level3AddHp}</font>\n<font color=#000000 size=20>Ур4: шанс крита зачарованного монстра +{level4AddCritical}%</font>\n<font color=#000000 size=20>Ур5: Уклонение зачарованного монстра +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Можно зачаровать обычного монстра, чтобы он сражался за вас, осталось {cnt} использований</font>",
+				"<font color=#e4d5a5 size=25>Чарующий гриб (выберите цель)</font>"
 			]
 		},
 		"PlaceHolder": {
@@ -7188,6 +7527,10 @@
 			"initialDesc": "<font color=#000000 size=28>В течение 1 хода вас нельзя застать врасплох, и вы невосприимчивы ко всему урону.</font>",
 			"desc": [
 				"<font color=#000000 size=20>В течение {immunizeCnt-1} ходов вы не получаете внезапных атак и невосприимчивы к любому урону</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>В течение {immunizeCnt-1} ходов вы не получаете внезапных атак и невосприимчивы к любому урону</font>\n<font color=#e4d5a5 size=25>Перезарядка {elemCD} ходов</font>",
+				"<font color=#e4d5a5 size=25>Супер-зелье (нажмите в любом месте карты)</font>"
 			]
 		},
 		"StrengthPotion": {
@@ -7195,6 +7538,10 @@
 			"initialDesc": "<font color=#000000 size=28>В течение 5 ходов ваша атака удваивается, а монстры не могут контратаковать.</font>",
 			"desc": [
 				"<font color=#000000 size=20>В течение {enhanceCnt-1} ходов Атака удвоена, и монстры не могут контратаковать</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>В течение {enhanceCnt-1} ходов Атака удвоена, и монстры не могут контратаковать</font>\n<font color=#e4d5a5 size=25>Перезарядка {elemCD} ходов</font>",
+				"<font color=#e4d5a5 size=25>Зелье силы (нажмите в любом месте карты)</font>"
 			]
 		},
 		"Hole": {
@@ -7225,6 +7572,10 @@
 			"name": "Нож",
 			"desc": [
 				"<font color=#000000 size=20>Бросьте оружие, нанося {power} урона</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Бросьте оружие, нанося {power} урона</font>",
+				"<font color=#e4d5a5 size=25>Нож (выберите цель)</font>"
 			]
 		},
 		"Rock": {
@@ -7237,30 +7588,50 @@
 			"name": "Маленький камень",
 			"desc": [
 				"<font color=#000000 size=20>Бросьте оружие, нанося 1 урон</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Бросьте оружие, нанося {power} урона</font>",
+				"<font color=#e4d5a5 size=25>Камень (выберите цель)</font>"
 			]
 		},
 		"Bazooka": {
 			"name": "Базука",
 			"desc": [
 				"<font color=#000000 size=20>При использовании поджигает цель, нанося {power} урона</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>При использовании поджигает цель, нанося {power} урона</font>\n<font color=#e4d5a5 size=25>Перезарядка {elemCD} ходов</font>",
+				"<font color=#e4d5a5 size=25>Огненное зелье (выберите цель)</font>"
 			]
 		},
 		"RayGun": {
 			"name": "Огненный луч",
 			"desc": [
 				"<font color=#000000 size=20>Открывает клетки 3x3 и наносит {power} урона</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Открывает клетки 3x3 и наносит {power} урона</font>\n<font color=#e4d5a5 size=25>Перезарядка {elemCD} ходов</font>",
+				"<font color=#e4d5a5 size=25>Взрывное зелье (выберите цель)</font>"
 			]
 		},
 		"IceGun": {
 			"name": "Ледяной луч",
 			"desc": [
 				"<font color=#000000 size=20>При использовании замораживает цель</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>При использовании замораживает цель</font>\n<font color=#e4d5a5 size=25>Перезарядка {elemCD} ходов</font>",
+				"<font color=#e4d5a5 size=25>Замораживающий луч (выберите цель)</font>"
 			]
 		},
 		"CandyCannon": {
 			"name": "Конфетная пушка",
 			"desc": [
 				"<font color=#000000 size=20>Потратьте монеты на сумму, равную 3x ОЗ цели, чтобы убить одного врага; не действует на элиту и боссов</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Потратьте монеты на сумму, равную 3x ОЗ цели, чтобы убить одного врага; не действует на элиту и боссов</font>\n<font color=#e4d5a5 size=25>Перезарядка {elemCD} ходов</font>",
+				"<font color=#e4d5a5 size=25>Конфетная пушка (выберите цель)</font>"
 			]
 		},
 		"NaturePotion": {
@@ -7268,6 +7639,9 @@
 			"initialDesc": "Вы не можете противостоять силе природы",
 			"desc": [
 				"<font color=#000000 size=20>Использовать, чтобы превратить монстра в случайное растение</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Превращает монстра в случайное растение</font>"
 			]
 		},
 		"Baton": {
@@ -7434,6 +7808,10 @@
 			"name": "Прикосновение Мидаса",
 			"desc": [
 				"<font color=#000000 size=20>Превращает монстра в {dropNum} монет, ещё {cnt} использований</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Превращает монстра в {dropNum} монет, ещё {cnt} использований</font>",
+				"<font color=#e4d5a5 size=25>Прикосновение Мидаса (нажмите на целевого монстра)</font>"
 			]
 		},
 		"OpenRelicSpace": {
@@ -7544,8 +7922,11 @@
 			]
 		},
 		"Hawkeye": {
-			"name": "鷹の目",
-			"shortDesc": "各レベル開始時、鍵を持つ魔物を1体マークする"
+			"name": "ホークアイ",
+			"shortDesc": "各レベル開始時に鍵を持つ魔物を1体表示する",
+			"desc": [
+				"<font color=#3333cc size=20>強化</font>\n<font color=#000000 size=20>各レベル開始時に鍵を持つ魔物を1体表示する</font>"
+			]
 		},
 		"Endurance": {
 			"name": "持久力",
@@ -7733,6 +8114,10 @@
 			"name": "鍵",
 			"desc": [
 				"<font color=#000000 size=20>宝箱や扉を開けられる</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>宝箱や扉を開けられる</font>",
+				"<font color=#e4d5a5 size=25>鍵（対象を選択）</font>"
 			]
 		},
 		"Door": {
@@ -7764,12 +8149,20 @@
 			"initialDesc": "<font color=#000000 size=28>使用してHPを6回復</font>",
 			"desc": [
 				"<font color=#000000 size=20>使用して {heal} HP回復</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>使用して {heal} HP回復</font>",
+				"<font color=#e4d5a5 size=25>治療薬（マップの任意の場所をタップ）</font>"
 			]
 		},
 		"DePoison": {
 			"name": "解毒ポーション",
 			"desc": [
 				"<font color=#000000 size=20>中毒状態を解除</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>中毒状態を解除</font>",
+				"<font color=#e4d5a5 size=25>解毒薬（マップの任意の場所をタップ）</font>"
 			]
 		},
 		"Magazine": {
@@ -8198,30 +8591,50 @@
 			"name": "魅惑キノコ",
 			"desc": [
 				"<font color=#7d0403 size=20>園芸の達人</font>\n<font color=#000000 size=20>Lv1: 通常の魔物1体を魅了して味方にできる</font>\n<font color=#aeaeae size=20>Lv2: 魅了した魔物の攻撃力 +{level2AddPower}</font>\n<font color=#aeaeae size=20>Lv3: 魅了した魔物のHP +{level3AddHp}</font>\n<font color=#aeaeae size=20>Lv4: 魅了した魔物のクリティカル率 +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Lv5: 魅了した魔物の回避 +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>通常の魔物1体を魅了して味方にできる、あと{cnt}回使用可能</font>",
+				"<font color=#e4d5a5 size=25>魅了キノコ（対象を選択）</font>"
 			]
 		},
 		"CharmingMushroom2": {
 			"name": "魅惑キノコ",
 			"desc": [
 				"<font color=#7d0403 size=20>園芸の達人</font>\n<font color=#000000 size=20>Lv1: 通常の魔物1体を魅了して味方にできる</font>\n<font color=#000000 size=20>Lv2: 魅了した魔物の攻撃力 +{level2AddPower}</font>\n<font color=#aeaeae size=20>Lv3: 魅了した魔物のHP +{level3AddHp}</font>\n<font color=#aeaeae size=20>Lv4: 魅了した魔物のクリティカル率 +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Lv5: 魅了した魔物の回避 +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>通常の魔物1体を魅了して味方にできる、あと{cnt}回使用可能</font>",
+				"<font color=#e4d5a5 size=25>魅了キノコ（対象を選択）</font>"
 			]
 		},
 		"CharmingMushroom3": {
 			"name": "魅惑キノコ",
 			"desc": [
 				"<font color=#7d0403 size=20>園芸の達人</font>\n<font color=#000000 size=20>Lv1: 通常の魔物1体を魅了して味方にできる</font>\n<font color=#000000 size=20>Lv2: 魅了した魔物の攻撃力 +{level2AddPower}</font>\n<font color=#000000 size=20>Lv3: 魅了した魔物のHP +{level3AddHp}</font>\n<font color=#aeaeae size=20>Lv4: 魅了した魔物のクリティカル率 +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Lv5: 魅了した魔物の回避 +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>通常の魔物1体を魅了して味方にできる、あと{cnt}回使用可能</font>",
+				"<font color=#e4d5a5 size=25>魅了キノコ（対象を選択）</font>"
 			]
 		},
 		"CharmingMushroom4": {
 			"name": "魅惑キノコ",
 			"desc": [
 				"<font color=#7d0403 size=20>園芸の達人</font>\n<font color=#000000 size=20>Lv1: 通常の魔物1体を魅了して味方にできる</font>\n<font color=#000000 size=20>Lv2: 魅了した魔物の攻撃力 +{level2AddPower}</font>\n<font color=#000000 size=20>Lv3: 魅了した魔物のHP +{level3AddHp}</font>\n<font color=#000000 size=20>Lv4: 魅了した魔物のクリティカル率 +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Lv5: 魅了した魔物の回避 +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>通常の魔物1体を魅了して味方にできる、あと{cnt}回使用可能</font>",
+				"<font color=#e4d5a5 size=25>魅了キノコ（対象を選択）</font>"
 			]
 		},
 		"CharmingMushroom5": {
 			"name": "魅惑キノコ",
 			"desc": [
 				"<font color=#7d0403 size=20>園芸の達人</font>\n<font color=#000000 size=20>Lv1: 通常の魔物1体を魅了して味方にできる</font>\n<font color=#000000 size=20>Lv2: 魅了した魔物の攻撃力 +{level2AddPower}</font>\n<font color=#000000 size=20>Lv3: 魅了した魔物のHP +{level3AddHp}</font>\n<font color=#000000 size=20>Lv4: 魅了した魔物のクリティカル率 +{level4AddCritical}%</font>\n<font color=#000000 size=20>Lv5: 魅了した魔物の回避 +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>通常の魔物1体を魅了して味方にできる、あと{cnt}回使用可能</font>",
+				"<font color=#e4d5a5 size=25>魅了キノコ（対象を選択）</font>"
 			]
 		},
 		"PlaceHolder": {
@@ -8235,6 +8648,10 @@
 			"initialDesc": "<font color=#000000 size=28>1ターンの間、奇襲を受けず、すべてのダメージを無効化する。</font>",
 			"desc": [
 				"<font color=#000000 size=20>{immunizeCnt-1} ターンの間、奇襲を受けず、すべてのダメージを無効化</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>{immunizeCnt-1} ターンの間、奇襲を受けず、すべてのダメージを無効化</font>\n<font color=#e4d5a5 size=25>再使用 {elemCD} ターン</font>",
+				"<font color=#e4d5a5 size=25>超能薬（マップの任意の場所をタップ）</font>"
 			]
 		},
 		"StrengthPotion": {
@@ -8242,6 +8659,10 @@
 			"initialDesc": "<font color=#000000 size=28>5ターンの間、攻撃力が倍になり、魔物は反撃できない。</font>",
 			"desc": [
 				"<font color=#000000 size=20>{enhanceCnt-1} ターンの間、攻撃力が2倍になり、魔物は反撃できない</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>{enhanceCnt-1} ターンの間、攻撃力が2倍になり、魔物は反撃できない</font>\n<font color=#e4d5a5 size=25>再使用 {elemCD} ターン</font>",
+				"<font color=#e4d5a5 size=25>力の薬（マップの任意の場所をタップ）</font>"
 			]
 		},
 		"Hole": {
@@ -8272,6 +8693,10 @@
 			"name": "ナイフ",
 			"desc": [
 				"<font color=#000000 size=20>武器を投げて {power} ダメージを与える</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>武器を投げて {power} ダメージを与える</font>",
+				"<font color=#e4d5a5 size=25>ナイフ（対象を選択）</font>"
 			]
 		},
 		"Rock": {
@@ -8284,30 +8709,50 @@
 			"name": "小さな岩",
 			"desc": [
 				"<font color=#000000 size=20>武器を投げて 1 ダメージを与える</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>武器を投げて {power} ダメージを与える</font>",
+				"<font color=#e4d5a5 size=25>小石（対象を選択）</font>"
 			]
 		},
 		"Bazooka": {
 			"name": "バズーカ",
 			"desc": [
 				"<font color=#000000 size=20>使用すると対象を燃やし、{power} ダメージを与える</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>使用すると対象を燃やし、{power} ダメージを与える</font>\n<font color=#e4d5a5 size=25>再使用 {elemCD} ターン</font>",
+				"<font color=#e4d5a5 size=25>火炎の薬（対象を選択）</font>"
 			]
 		},
 		"RayGun": {
 			"name": "火炎ビーム",
 			"desc": [
 				"<font color=#000000 size=20>3x3マスを開き {power} ダメージを与える</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>3x3マスを開き {power} ダメージを与える</font>\n<font color=#e4d5a5 size=25>再使用 {elemCD} ターン</font>",
+				"<font color=#e4d5a5 size=25>爆発の薬（対象を選択）</font>"
 			]
 		},
 		"IceGun": {
 			"name": "氷結ビーム",
 			"desc": [
 				"<font color=#000000 size=20>使用すると対象を凍結させる</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>使用すると対象を凍結させる</font>\n<font color=#e4d5a5 size=25>再使用 {elemCD} ターン</font>",
+				"<font color=#e4d5a5 size=25>冷凍ビーム（対象を選択）</font>"
 			]
 		},
 		"CandyCannon": {
 			"name": "キャンディ砲",
 			"desc": [
 				"<font color=#000000 size=20>対象のHPの3倍のコインを消費して敵1体を倒す。エリートとボスには無効</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>対象のHPの3倍のコインを消費して敵1体を倒す。エリートとボスには無効</font>\n<font color=#e4d5a5 size=25>再使用 {elemCD} ターン</font>",
+				"<font color=#e4d5a5 size=25>キャンディ大砲（対象を選択）</font>"
 			]
 		},
 		"NaturePotion": {
@@ -8315,6 +8760,9 @@
 			"initialDesc": "あなたは大自然の力に抗えない",
 			"desc": [
 				"<font color=#000000 size=20>使用して魔物をランダムな植物に変える</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>魔物をランダムな植物に変える</font>"
 			]
 		},
 		"Baton": {
@@ -8481,6 +8929,10 @@
 			"name": "ミダスの手",
 			"desc": [
 				"<font color=#000000 size=20>魔物を {dropNum} コインに変えられる、あと {cnt} 回使用可能</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>魔物を {dropNum} コインに変えられる、あと {cnt} 回使用可能</font>",
+				"<font color=#e4d5a5 size=25>点金の手（対象の魔物をタップ）</font>"
 			]
 		},
 		"OpenRelicSpace": {
@@ -8591,8 +9043,11 @@
 			]
 		},
 		"Hawkeye": {
-			"name": "매의 눈",
-			"shortDesc": "각 레벨 시작 시 열쇠를 가진 몬스터 1마리를 표시"
+			"name": "호크아이",
+			"shortDesc": "각 레벨 시작 시 열쇠를 가진 몬스터를 표시한다",
+			"desc": [
+				"<font color=#3333cc size=20>강화</font>\n<font color=#000000 size=20>각 레벨 시작 시 열쇠를 가진 몬스터를 표시한다</font>"
+			]
 		},
 		"Endurance": {
 			"name": "지구력",
@@ -8780,6 +9235,10 @@
 			"name": "열쇠",
 			"desc": [
 				"<font color=#000000 size=20>보물상자나 문을 열 수 있다</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>보물상자나 문을 열 수 있다</font>",
+				"<font color=#e4d5a5 size=25>열쇠 (대상 선택)</font>"
 			]
 		},
 		"Door": {
@@ -8811,12 +9270,20 @@
 			"initialDesc": "<font color=#000000 size=28>사용하면 HP 6 회복</font>",
 			"desc": [
 				"<font color=#000000 size=20>사용하여 {heal} HP 회복</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>사용하여 {heal} HP 회복</font>",
+				"<font color=#e4d5a5 size=25>치료 물약 (맵의 아무 곳이나 탭)</font>"
 			]
 		},
 		"DePoison": {
 			"name": "해독 물약",
 			"desc": [
 				"<font color=#000000 size=20>중독 상태 해제</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>중독 상태 해제</font>",
+				"<font color=#e4d5a5 size=25>해독제 (맵의 아무 곳이나 탭)</font>"
 			]
 		},
 		"Magazine": {
@@ -9245,30 +9712,50 @@
 			"name": "매혹 버섯",
 			"desc": [
 				"<font color=#7d0403 size=20>원예 달인</font>\n<font color=#000000 size=20>Lv1: 일반 몬스터 1마리를 매혹해 아군으로 만든다</font>\n<font color=#aeaeae size=20>Lv2: 매혹한 몬스터의 공격력 +{level2AddPower}</font>\n<font color=#aeaeae size=20>Lv3: 매혹한 몬스터의 HP +{level3AddHp}</font>\n<font color=#aeaeae size=20>Lv4: 매혹한 몬스터의 치명타 확률 +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Lv5: 매혹한 몬스터의 회피 +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>일반 몬스터 1마리를 매혹해 아군으로 만든다, {cnt}회 더 사용 가능</font>",
+				"<font color=#e4d5a5 size=25>매혹 버섯 (대상 선택)</font>"
 			]
 		},
 		"CharmingMushroom2": {
 			"name": "매혹 버섯",
 			"desc": [
 				"<font color=#7d0403 size=20>원예 달인</font>\n<font color=#000000 size=20>Lv1: 일반 몬스터 1마리를 매혹해 아군으로 만든다</font>\n<font color=#000000 size=20>Lv2: 매혹한 몬스터의 공격력 +{level2AddPower}</font>\n<font color=#aeaeae size=20>Lv3: 매혹한 몬스터의 HP +{level3AddHp}</font>\n<font color=#aeaeae size=20>Lv4: 매혹한 몬스터의 치명타 확률 +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Lv5: 매혹한 몬스터의 회피 +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>일반 몬스터 1마리를 매혹해 아군으로 만든다, {cnt}회 더 사용 가능</font>",
+				"<font color=#e4d5a5 size=25>매혹 버섯 (대상 선택)</font>"
 			]
 		},
 		"CharmingMushroom3": {
 			"name": "매혹 버섯",
 			"desc": [
 				"<font color=#7d0403 size=20>원예 달인</font>\n<font color=#000000 size=20>Lv1: 일반 몬스터 1마리를 매혹해 아군으로 만든다</font>\n<font color=#000000 size=20>Lv2: 매혹한 몬스터의 공격력 +{level2AddPower}</font>\n<font color=#000000 size=20>Lv3: 매혹한 몬스터의 HP +{level3AddHp}</font>\n<font color=#aeaeae size=20>Lv4: 매혹한 몬스터의 치명타 확률 +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Lv5: 매혹한 몬스터의 회피 +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>일반 몬스터 1마리를 매혹해 아군으로 만든다, {cnt}회 더 사용 가능</font>",
+				"<font color=#e4d5a5 size=25>매혹 버섯 (대상 선택)</font>"
 			]
 		},
 		"CharmingMushroom4": {
 			"name": "매혹 버섯",
 			"desc": [
 				"<font color=#7d0403 size=20>원예 달인</font>\n<font color=#000000 size=20>Lv1: 일반 몬스터 1마리를 매혹해 아군으로 만든다</font>\n<font color=#000000 size=20>Lv2: 매혹한 몬스터의 공격력 +{level2AddPower}</font>\n<font color=#000000 size=20>Lv3: 매혹한 몬스터의 HP +{level3AddHp}</font>\n<font color=#000000 size=20>Lv4: 매혹한 몬스터의 치명타 확률 +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Lv5: 매혹한 몬스터의 회피 +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>일반 몬스터 1마리를 매혹해 아군으로 만든다, {cnt}회 더 사용 가능</font>",
+				"<font color=#e4d5a5 size=25>매혹 버섯 (대상 선택)</font>"
 			]
 		},
 		"CharmingMushroom5": {
 			"name": "매혹 버섯",
 			"desc": [
 				"<font color=#7d0403 size=20>원예 달인</font>\n<font color=#000000 size=20>Lv1: 일반 몬스터 1마리를 매혹해 아군으로 만든다</font>\n<font color=#000000 size=20>Lv2: 매혹한 몬스터의 공격력 +{level2AddPower}</font>\n<font color=#000000 size=20>Lv3: 매혹한 몬스터의 HP +{level3AddHp}</font>\n<font color=#000000 size=20>Lv4: 매혹한 몬스터의 치명타 확률 +{level4AddCritical}%</font>\n<font color=#000000 size=20>Lv5: 매혹한 몬스터의 회피 +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>일반 몬스터 1마리를 매혹해 아군으로 만든다, {cnt}회 더 사용 가능</font>",
+				"<font color=#e4d5a5 size=25>매혹 버섯 (대상 선택)</font>"
 			]
 		},
 		"PlaceHolder": {
@@ -9282,6 +9769,10 @@
 			"initialDesc": "<font color=#000000 size=28>1턴 동안 기습당하지 않으며 모든 피해에 면역이다.</font>",
 			"desc": [
 				"<font color=#000000 size=20>{immunizeCnt-1}턴 동안 기습을 받지 않고 모든 피해에 면역</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>{immunizeCnt-1}턴 동안 기습을 받지 않고 모든 피해에 면역</font>\n<font color=#e4d5a5 size=25>재사용 {elemCD}턴</font>",
+				"<font color=#e4d5a5 size=25>슈퍼 물약 (맵의 아무 곳이나 탭)</font>"
 			]
 		},
 		"StrengthPotion": {
@@ -9289,6 +9780,10 @@
 			"initialDesc": "<font color=#000000 size=28>5턴 동안 공격력이 두 배가 되고 몬스터는 반격할 수 없다.</font>",
 			"desc": [
 				"<font color=#000000 size=20>{enhanceCnt-1}턴 동안 공격력이 2배가 되고 몬스터가 반격할 수 없다</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>{enhanceCnt-1}턴 동안 공격력이 2배가 되고 몬스터가 반격할 수 없다</font>\n<font color=#e4d5a5 size=25>재사용 {elemCD}턴</font>",
+				"<font color=#e4d5a5 size=25>힘의 물약 (맵의 아무 곳이나 탭)</font>"
 			]
 		},
 		"Hole": {
@@ -9319,6 +9814,10 @@
 			"name": "칼",
 			"desc": [
 				"<font color=#000000 size=20>무기를 던져 {power} 피해를 준다</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>무기를 던져 {power} 피해를 준다</font>",
+				"<font color=#e4d5a5 size=25>칼 (대상 선택)</font>"
 			]
 		},
 		"Rock": {
@@ -9331,30 +9830,50 @@
 			"name": "작은 바위",
 			"desc": [
 				"<font color=#000000 size=20>무기를 던져 1 피해를 준다</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>무기를 던져 {power} 피해를 준다</font>",
+				"<font color=#e4d5a5 size=25>돌멩이 (대상 선택)</font>"
 			]
 		},
 		"Bazooka": {
 			"name": "바주카",
 			"desc": [
 				"<font color=#000000 size=20>사용 시 대상을 점화시켜 {power} 피해를 준다</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>사용 시 대상을 점화시켜 {power} 피해를 준다</font>\n<font color=#e4d5a5 size=25>재사용 {elemCD}턴</font>",
+				"<font color=#e4d5a5 size=25>화염 물약 (대상 선택)</font>"
 			]
 		},
 		"RayGun": {
 			"name": "화염 광선",
 			"desc": [
 				"<font color=#000000 size=20>3x3 칸을 열고 {power} 피해를 준다</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>3x3 칸을 열고 {power} 피해를 준다</font>\n<font color=#e4d5a5 size=25>재사용 {elemCD}턴</font>",
+				"<font color=#e4d5a5 size=25>폭발 물약 (대상 선택)</font>"
 			]
 		},
 		"IceGun": {
 			"name": "냉동 광선",
 			"desc": [
 				"<font color=#000000 size=20>사용 시 대상을 얼린다</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>사용 시 대상을 얼린다</font>\n<font color=#e4d5a5 size=25>재사용 {elemCD}턴</font>",
+				"<font color=#e4d5a5 size=25>냉동 광선 (대상 선택)</font>"
 			]
 		},
 		"CandyCannon": {
 			"name": "사탕 대포",
 			"desc": [
 				"<font color=#000000 size=20>대상 HP의 3배에 해당하는 코인을 소모해 적 1체를 처치한다. 정예와 보스에게는 무효</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>대상 HP의 3배에 해당하는 코인을 소모해 적 1체를 처치한다. 정예와 보스에게는 무효</font>\n<font color=#e4d5a5 size=25>재사용 {elemCD}턴</font>",
+				"<font color=#e4d5a5 size=25>사탕 대포 (대상 선택)</font>"
 			]
 		},
 		"NaturePotion": {
@@ -9362,6 +9881,9 @@
 			"initialDesc": "당신은 대자연의 힘에 저항할 수 없다",
 			"desc": [
 				"<font color=#000000 size=20>사용하여 몬스터를 무작위 식물로 바꾼다</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>몬스터를 무작위 식물로 바꾼다</font>"
 			]
 		},
 		"Baton": {
@@ -9528,6 +10050,10 @@
 			"name": "미다스의 손",
 			"desc": [
 				"<font color=#000000 size=20>몬스터를 {dropNum} 코인으로 바꾼다, {cnt}회 더 사용 가능</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>몬스터를 {dropNum} 코인으로 바꾼다, {cnt}회 더 사용 가능</font>",
+				"<font color=#e4d5a5 size=25>황금손 (대상 몬스터를 탭)</font>"
 			]
 		},
 		"OpenRelicSpace": {

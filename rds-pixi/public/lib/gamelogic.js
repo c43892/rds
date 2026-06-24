@@ -12838,7 +12838,17 @@ class ViewUtils {
         for (var k in primary)
             merged[k] = primary[k];
         var hasDesc = merged.desc != undefined && merged.desc.length > 0;
-        if (!hasDesc || merged.name == undefined || merged.shortDesc == undefined) {
+        var hasUDA = merged.useDescArr != undefined && merged.useDescArr.length > 0;
+        // 该元素在任一语言里有 useDescArr,才说明它"应当"有(并非所有元素都有)。
+        var udaExpected = false;
+        for (var l of order) {
+            var ee0 = descCfg[l] && descCfg[l][eType];
+            if (ee0 && ee0.useDescArr && ee0.useDescArr.length) {
+                udaExpected = true;
+                break;
+            }
+        }
+        if (!hasDesc || (udaExpected && !hasUDA) || merged.name == undefined || merged.shortDesc == undefined) {
             for (var l of order) {
                 var e = descCfg[l] && descCfg[l][eType];
                 if (!e)
@@ -12846,6 +12856,10 @@ class ViewUtils {
                 if (!hasDesc && e.desc != undefined && e.desc.length > 0) {
                     merged.desc = e.desc;
                     hasDesc = true;
+                }
+                if (!hasUDA && e.useDescArr != undefined && e.useDescArr.length > 0) {
+                    merged.useDescArr = e.useDescArr;
+                    hasUDA = true;
                 }
                 if (merged.name == undefined && e.name != undefined)
                     merged.name = e.name;
@@ -13600,7 +13614,7 @@ class AchvView extends egret.DisplayObjectContainer {
             // 描述
             var desc = ViewUtils.createTextField(20, 0x000000);
             desc.name = "unlockDesc";
-            desc.text = info.desc;
+            desc.text = typeof info.desc === "string" ? info.desc : ViewUtils.pickByLang(info.desc, "achvAward.desc");
             awardContainer.addChild(desc);
             ViewUtils.multiLang(this, tip, desc);
             tip.textAlign = egret.HorizontalAlign.CENTER;
@@ -14992,7 +15006,7 @@ class AniView extends egret.DisplayObjectContainer {
         // 如果是精英关卡,给出特殊提示
         if (Utils.contains(seniorTypes, levelType)) {
             var title = ViewUtils.getTipText("eliteLevelTipTitle");
-            var tipContent = GCfg.getMiscConfig("eliteLevelTips")[levelType];
+            var tipContent = ViewUtils.getTipText("eliteLevelTip_" + levelType);
             await this.mv.confirmOkYesNo(title, tipContent, false);
         }
     }

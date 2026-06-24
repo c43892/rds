@@ -1874,14 +1874,94 @@
 		}
 	},
 	"tips": {
-		"legend": { "EN": "Legend", "CNS": "图例", "CNT": "圖例", "JA": "凡例", "KO": "범례", "FR": "Légende", "DE": "Legende", "ES": "Leyenda", "RU": "Легенда" },
-		"legendBoss": { "EN": "Boss Battle", "CNS": "BOSS战斗", "CNT": "BOSS戰鬥", "JA": "ボス戦", "KO": "보스 전투", "FR": "Combat de boss", "DE": "Boss-Kampf", "ES": "Combate de jefe", "RU": "Бой с боссом" },
-		"legendCamp": { "EN": "Safe House", "CNS": "安全屋", "CNT": "安全屋", "JA": "隠れ家", "KO": "은신처", "FR": "Refuge", "DE": "Unterschlupf", "ES": "Refugio", "RU": "Убежище" },
-		"legendBox": { "EN": "Treasure", "CNS": "宝箱", "CNT": "寶箱", "JA": "宝箱", "KO": "보물상자", "FR": "Coffre", "DE": "Schatztruhe", "ES": "Cofre", "RU": "Сундук" },
-		"legendSenior": { "EN": "Special Battle", "CNS": "特殊战斗", "CNT": "特殊戰鬥", "JA": "特殊戦", "KO": "특수 전투", "FR": "Combat spécial", "DE": "Spezialkampf", "ES": "Combate especial", "RU": "Особый бой" },
-		"legendNormal": { "EN": "Normal Battle", "CNS": "普通战斗", "CNT": "普通戰鬥", "JA": "通常戦", "KO": "일반 전투", "FR": "Combat normal", "DE": "Normaler Kampf", "ES": "Combate normal", "RU": "Обычный бой" },
-		"legendEvent": { "EN": "Random Event", "CNS": "随机事件", "CNT": "隨機事件", "JA": "ランダムイベント", "KO": "무작위 이벤트", "FR": "Événement", "DE": "Zufallsereignis", "ES": "Evento aleatorio", "RU": "Случайное событие" },
-		"legendShop": { "EN": "Merchant", "CNS": "商人", "CNT": "商人", "JA": "商人", "KO": "상인", "FR": "Marchand", "DE": "Händler", "ES": "Mercader", "RU": "Торговец" },
+		"legend": {
+			"EN": "Legend",
+			"CNS": "图例",
+			"CNT": "圖例",
+			"JA": "凡例",
+			"KO": "범례",
+			"FR": "Légende",
+			"DE": "Legende",
+			"ES": "Leyenda",
+			"RU": "Легенда"
+		},
+		"legendBoss": {
+			"EN": "Boss Battle",
+			"CNS": "BOSS战斗",
+			"CNT": "BOSS戰鬥",
+			"JA": "ボス戦",
+			"KO": "보스 전투",
+			"FR": "Combat de boss",
+			"DE": "Boss-Kampf",
+			"ES": "Combate de jefe",
+			"RU": "Бой с боссом"
+		},
+		"legendCamp": {
+			"EN": "Safe House",
+			"CNS": "安全屋",
+			"CNT": "安全屋",
+			"JA": "隠れ家",
+			"KO": "은신처",
+			"FR": "Refuge",
+			"DE": "Unterschlupf",
+			"ES": "Refugio",
+			"RU": "Убежище"
+		},
+		"legendBox": {
+			"EN": "Treasure",
+			"CNS": "宝箱",
+			"CNT": "寶箱",
+			"JA": "宝箱",
+			"KO": "보물상자",
+			"FR": "Coffre",
+			"DE": "Schatztruhe",
+			"ES": "Cofre",
+			"RU": "Сундук"
+		},
+		"legendSenior": {
+			"EN": "Special Battle",
+			"CNS": "特殊战斗",
+			"CNT": "特殊戰鬥",
+			"JA": "特殊戦",
+			"KO": "특수 전투",
+			"FR": "Combat spécial",
+			"DE": "Spezialkampf",
+			"ES": "Combate especial",
+			"RU": "Особый бой"
+		},
+		"legendNormal": {
+			"EN": "Normal Battle",
+			"CNS": "普通战斗",
+			"CNT": "普通戰鬥",
+			"JA": "通常戦",
+			"KO": "일반 전투",
+			"FR": "Combat normal",
+			"DE": "Normaler Kampf",
+			"ES": "Combate normal",
+			"RU": "Обычный бой"
+		},
+		"legendEvent": {
+			"EN": "Random Event",
+			"CNS": "随机事件",
+			"CNT": "隨機事件",
+			"JA": "ランダムイベント",
+			"KO": "무작위 이벤트",
+			"FR": "Événement",
+			"DE": "Zufallsereignis",
+			"ES": "Evento aleatorio",
+			"RU": "Случайное событие"
+		},
+		"legendShop": {
+			"EN": "Merchant",
+			"CNS": "商人",
+			"CNT": "商人",
+			"JA": "商人",
+			"KO": "상인",
+			"FR": "Marchand",
+			"DE": "Händler",
+			"ES": "Mercader",
+			"RU": "Торговец"
+		},
 		"loginNewGame": {
 			"EN": "New Game",
 			"CNS": "新游戏",
@@ -2620,9 +2700,15 @@
 			"KO": "뒤로"
 		},
 		"showDeathGodStep": {
-			"EN": "{0}",
+			"EN": "Death is <font color=#7d0403>{0}</font> steps away",
 			"CNS": "死神距离你还有<font color=#7d0403>{0}</font>步",
-			"CNT": "死神距離你還有<font color=#7d0403>{0}</font>步"
+			"CNT": "死神距離你還有<font color=#7d0403>{0}</font>步",
+			"JA": "死神まであと<font color=#7d0403>{0}</font>歩",
+			"KO": "사신까지 <font color=#7d0403>{0}</font>걸음",
+			"FR": "La Mort est à <font color=#7d0403>{0}</font> pas",
+			"DE": "Der Tod ist <font color=#7d0403>{0}</font> Schritte entfernt",
+			"ES": "La Muerte está a <font color=#7d0403>{0}</font> pasos",
+			"RU": "Смерть в <font color=#7d0403>{0}</font> шагах"
 		},
 		"nextOne": {
 			"EN": "next one",
@@ -2955,60 +3041,114 @@
 			"KO": "저장"
 		},
 		"useDeluxeMeal": {
-			"EN": "使用豪华大餐回复50%生命值？",
+			"EN": "Use the deluxe feast to restore 50% HP?",
 			"CNS": "使用豪华大餐回复50%生命值？",
 			"CNT": "使用豪華大餐回復50%生命值？",
-			"FR": "Utiliser le festin de luxe pour restaurer 50 % des PV ?",
-			"DE": "Luxusmahl benutzen und 50 % der LP wiederherstellen?",
-			"ES": "¿Usar el festín de lujo para restaurar el 50 % de PV?",
-			"RU": "Использовать роскошный пир и восстановить 50 % ОЗ?",
-			"JA": "豪華な食事を使ってHPを50％回復しますか？",
+			"FR": "Utiliser le festin de luxe pour restaurer 50% des PV ?",
+			"DE": "Das Luxus-Festmahl benutzen, um 50% LP zu heilen?",
+			"ES": "¿Usar el banquete de lujo para recuperar 50% del HP?",
+			"RU": "Использовать роскошный пир, чтобы восстановить 50% ОЗ?",
+			"JA": "豪華な食事を使ってHPを50%回復しますか？",
 			"KO": "호화로운 식사를 사용해 HP를 50% 회복할까요?"
 		},
 		"hideHazardNumber": {
-			"EN": "hideHazardNumber",
+			"EN": "Your SAN is too low; <font color=#7d0403>the counts around monsters are hidden</font>. Kill Cthulhu's tentacles to restore SAN",
 			"CNS": "你的SAN值过低，<font color=#7d0403>怪物周围的计数将被隐藏</font>，杀死克苏鲁的触手可恢复SAN值",
-			"CNT": "你的SAN值過低，<font color=#7d0403>怪物周圍的計數將被隱藏</font>，殺死克蘇魯的觸手可恢復SAN值"
+			"CNT": "你的SAN值過低，<font color=#7d0403>怪物周圍的計數將被隱藏</font>，殺死克蘇魯的觸手可恢復SAN值",
+			"JA": "SAN値が低すぎる。<font color=#7d0403>魔物周囲の数字が隠される</font>。クトゥルフの触手を倒すとSANが回復する",
+			"KO": "SAN이 너무 낮다. <font color=#7d0403>몬스터 주변의 숫자가 숨겨진다</font>. 크툴루의 촉수를 죽이면 SAN이 회복된다",
+			"FR": "Ta SAN est trop basse ; <font color=#7d0403>les chiffres autour des monstres sont cachés</font>. Tue les tentacules de Cthulhu pour restaurer la SAN",
+			"DE": "Deine SAN ist zu niedrig; <font color=#7d0403>die Zahlen um Monster werden verborgen</font>. Töte Cthulhus Tentakel, um SAN wiederherzustellen",
+			"ES": "Tu SAN es muy baja; <font color=#7d0403>los números alrededor de los monstruos se ocultan</font>. Mata los tentáculos de Cthulhu para recuperar SAN",
+			"RU": "Ваш SAN слишком низок; <font color=#7d0403>числа вокруг монстров скрыты</font>. Убивайте щупальца Ктулху, чтобы восстановить SAN"
 		},
 		"hideMonsterAttrs": {
-			"EN": "hideMonsterAttrs",
+			"EN": "Your SAN is too low; <font color=#7d0403>monster stats are hidden</font>. Kill Cthulhu's tentacles to restore SAN",
 			"CNS": "你的SAN值过低，<font color=#7d0403>怪物的属性值将被隐藏</font>，杀死克苏鲁的触手可恢复SAN值",
-			"CNT": "你的SAN值過低，<font color=#7d0403>怪物的屬性值將被隱藏</font>，殺死克蘇魯的觸手可恢復SAN值"
+			"CNT": "你的SAN值過低，<font color=#7d0403>怪物的屬性值將被隱藏</font>，殺死克蘇魯的觸手可恢復SAN值",
+			"JA": "SAN値が低すぎる。<font color=#7d0403>魔物の能力値が隠される</font>。クトゥルフの触手を倒すとSANが回復する",
+			"KO": "SAN이 너무 낮다. <font color=#7d0403>몬스터 능력치가 숨겨진다</font>. 크툴루의 촉수를 죽이면 SAN이 회복된다",
+			"FR": "Ta SAN est trop basse ; <font color=#7d0403>les stats des monstres sont cachées</font>. Tue les tentacules de Cthulhu pour restaurer la SAN",
+			"DE": "Deine SAN ist zu niedrig; <font color=#7d0403>Monsterwerte werden verborgen</font>. Töte Cthulhus Tentakel, um SAN wiederherzustellen",
+			"ES": "Tu SAN es muy baja; <font color=#7d0403>las estadísticas de monstruos se ocultan</font>. Mata los tentáculos de Cthulhu para recuperar SAN",
+			"RU": "Ваш SAN слишком низок; <font color=#7d0403>характеристики монстров скрыты</font>. Убивайте щупальца Ктулху, чтобы восстановить SAN"
 		},
 		"attackRandomGrid": {
-			"EN": "attackRandomGrid",
+			"EN": "Your SAN is too low; <font color=#7d0403>you will attack random enemy targets</font>. Kill Cthulhu's tentacles to restore SAN",
 			"CNS": "你的SAN值过低，<font color=#7d0403>将攻击随机的敌方目标</font>，杀死克苏鲁的触手可恢复SAN值",
-			"CNT": "你的SAN值過低，<font color=#7d0403>將攻擊隨機的敵方目標</font>，殺死克蘇魯的觸手可恢復SAN值"
+			"CNT": "你的SAN值過低，<font color=#7d0403>將攻擊隨機的敵方目標</font>，殺死克蘇魯的觸手可恢復SAN值",
+			"JA": "SAN値が低すぎる。<font color=#7d0403>ランダムな敵を攻撃してしまう</font>。クトゥルフの触手を倒すとSANが回復する",
+			"KO": "SAN이 너무 낮다. <font color=#7d0403>무작위 적을 공격하게 된다</font>. 크툴루의 촉수를 죽이면 SAN이 회복된다",
+			"FR": "Ta SAN est trop basse ; <font color=#7d0403>tu attaqueras des cibles ennemies aléatoires</font>. Tue les tentacules de Cthulhu pour restaurer la SAN",
+			"DE": "Deine SAN ist zu niedrig; <font color=#7d0403>du greifst zufällige Gegnerziele an</font>. Töte Cthulhus Tentakel, um SAN wiederherzustellen",
+			"ES": "Tu SAN es muy baja; <font color=#7d0403>atacarás a objetivos enemigos aleatorios</font>. Mata los tentáculos de Cthulhu para recuperar SAN",
+			"RU": "Ваш SAN слишком низок; <font color=#7d0403>вы будете атаковать случайные цели</font>. Убивайте щупальца Ктулху, чтобы восстановить SAN"
 		},
 		"changeMonsterImg": {
-			"EN": "changeMonsterImg",
+			"EN": "Your SAN is too low; <font color=#7d0403>all monster icons appear as Cthulhu's tentacles</font>. Kill Cthulhu's tentacles to restore SAN",
 			"CNS": "你的SAN值过低，<font color=#7d0403>怪物的图标都显示为克苏鲁的触手</font>，杀死克苏鲁的触手可恢复SAN值",
-			"CNT": "你的SAN值過低，<font color=#7d0403>怪物的圖示都顯示為克蘇魯的觸手</font>，殺死克蘇魯的觸手可恢復SAN值"
+			"CNT": "你的SAN值過低，<font color=#7d0403>怪物的圖示都顯示為克蘇魯的觸手</font>，殺死克蘇魯的觸手可恢復SAN值",
+			"JA": "SAN値が低すぎる。<font color=#7d0403>魔物のアイコンがすべてクトゥルフの触手に見える</font>。クトゥルフの触手を倒すとSANが回復する",
+			"KO": "SAN이 너무 낮다. <font color=#7d0403>모든 몬스터 아이콘이 크툴루의 촉수로 보인다</font>. 크툴루의 촉수를 죽이면 SAN이 회복된다",
+			"FR": "Ta SAN est trop basse ; <font color=#7d0403>toutes les icônes de monstres apparaissent comme des tentacules de Cthulhu</font>. Tue les tentacules de Cthulhu pour restaurer la SAN",
+			"DE": "Deine SAN ist zu niedrig; <font color=#7d0403>alle Monstersymbole erscheinen als Cthulhus Tentakel</font>. Töte Cthulhus Tentakel, um SAN wiederherzustellen",
+			"ES": "Tu SAN es muy baja; <font color=#7d0403>todos los iconos de monstruos aparecen como tentáculos de Cthulhu</font>. Mata los tentáculos de Cthulhu para recuperar SAN",
+			"RU": "Ваш SAN слишком низок; <font color=#7d0403>все значки монстров выглядят как щупальца Ктулху</font>. Убивайте щупальца Ктулху, чтобы восстановить SAN"
 		},
 		"diff1": {
-			"EN": "diff1",
+			"EN": "Easy",
 			"CNS": "简单",
-			"CNT": "簡單"
+			"CNT": "簡單",
+			"JA": "イージー",
+			"KO": "쉬움",
+			"FR": "Facile",
+			"DE": "Einfach",
+			"ES": "Fácil",
+			"RU": "Лёгкий"
 		},
 		"diff2": {
-			"EN": "diff2",
+			"EN": "Normal",
 			"CNS": "普通",
-			"CNT": "普通"
+			"CNT": "普通",
+			"JA": "ノーマル",
+			"KO": "보통",
+			"FR": "Normal",
+			"DE": "Normal",
+			"ES": "Normal",
+			"RU": "Обычный"
 		},
 		"diff3": {
-			"EN": "diff3",
+			"EN": "Hard",
 			"CNS": "困难",
-			"CNT": "困難"
+			"CNT": "困難",
+			"JA": "ハード",
+			"KO": "어려움",
+			"FR": "Difficile",
+			"DE": "Schwer",
+			"ES": "Difícil",
+			"RU": "Сложный"
 		},
 		"diff4": {
-			"EN": "diff4",
+			"EN": "Nightmare",
 			"CNS": "噩梦",
-			"CNT": "噩夢"
+			"CNT": "噩夢",
+			"JA": "ナイトメア",
+			"KO": "악몽",
+			"FR": "Cauchemar",
+			"DE": "Albtraum",
+			"ES": "Pesadilla",
+			"RU": "Кошмар"
 		},
 		"diff5": {
-			"EN": "diff5",
+			"EN": "Hell",
 			"CNS": "地狱",
-			"CNT": "地獄"
+			"CNT": "地獄",
+			"JA": "ヘル",
+			"KO": "지옥",
+			"FR": "Enfer",
+			"DE": "Hölle",
+			"ES": "Infierno",
+			"RU": "Ад"
 		},
 		"levelDifficultyDesc": {
 			"EN": [
@@ -3076,39 +3216,81 @@
 			]
 		},
 		"totalStoreyLevel": {
-			"EN": "totalStoreyLevel",
+			"EN": "Floor score",
 			"CNS": "层数得分",
-			"CNT": "層數得分"
+			"CNT": "層數得分",
+			"JA": "階層スコア",
+			"KO": "층수 점수",
+			"FR": "Score d'étages",
+			"DE": "Etagen-Punkte",
+			"ES": "Puntos de pisos",
+			"RU": "Очки этажей"
 		},
 		"playerLevel": {
-			"EN": "playerLevel",
+			"EN": "Level score",
 			"CNS": "等级得分",
-			"CNT": "等級得分"
+			"CNT": "等級得分",
+			"JA": "レベルスコア",
+			"KO": "레벨 점수",
+			"FR": "Score de niveau",
+			"DE": "Stufen-Punkte",
+			"ES": "Puntos de nivel",
+			"RU": "Очки уровня"
 		},
 		"totalCoins": {
-			"EN": "totalCoins",
+			"EN": "Coin score",
 			"CNS": "金币得分",
-			"CNT": "金幣得分"
+			"CNT": "金幣得分",
+			"JA": "コインスコア",
+			"KO": "코인 점수",
+			"FR": "Score de pièces",
+			"DE": "Münz-Punkte",
+			"ES": "Puntos de monedas",
+			"RU": "Очки монет"
 		},
 		"totalRelicLevel": {
-			"EN": "totalRelicLevel",
+			"EN": "Skill score",
 			"CNS": "技能得分",
-			"CNT": "技能得分"
+			"CNT": "技能得分",
+			"JA": "スキルスコア",
+			"KO": "스킬 점수",
+			"FR": "Score de compétences",
+			"DE": "Fähigkeiten-Punkte",
+			"ES": "Puntos de habilidad",
+			"RU": "Очки навыков"
 		},
 		"totalMonster": {
-			"EN": "totalMonster",
+			"EN": "Kill score",
 			"CNS": "消灭怪物得分",
-			"CNT": "消滅怪物得分"
+			"CNT": "消滅怪物得分",
+			"JA": "撃破スコア",
+			"KO": "처치 점수",
+			"FR": "Score d'éliminations",
+			"DE": "Tötungs-Punkte",
+			"ES": "Puntos de eliminación",
+			"RU": "Очки убийств"
 		},
 		"clearBonusCount": {
-			"EN": "clearBonusCount",
+			"EN": "Clear score",
 			"CNS": "清关得分",
-			"CNT": "清關得分"
+			"CNT": "清關得分",
+			"JA": "クリアスコア",
+			"KO": "클리어 점수",
+			"FR": "Score de complétion",
+			"DE": "Abschluss-Punkte",
+			"ES": "Puntos de victoria",
+			"RU": "Очки прохождения"
 		},
 		"difficulty": {
-			"EN": "difficulty",
+			"EN": "Difficulty",
 			"CNS": "难度系数",
-			"CNT": "難度係數"
+			"CNT": "難度係數",
+			"JA": "難易度",
+			"KO": "난이도",
+			"FR": "Difficulté",
+			"DE": "Schwierigkeit",
+			"ES": "Dificultad",
+			"RU": "Сложность"
 		},
 		"needName": {
 			"EN": "need a name",
@@ -3287,9 +3469,15 @@
 			"KO": "현재 업적 점수:"
 		},
 		"eliteLevelTipTitle": {
-			"EN": "this is a tip title",
+			"EN": "Elite Level Tip",
 			"CNS": "精英关卡提示",
-			"CNT": "精英關卡提示"
+			"CNT": "精英關卡提示",
+			"JA": "エリートステージの注意",
+			"KO": "정예 스테이지 안내",
+			"FR": "Astuce de niveau d'élite",
+			"DE": "Elite-Level-Hinweis",
+			"ES": "Consejo de nivel élite",
+			"RU": "Подсказка элитного уровня"
 		},
 		"levelUpTitle": {
 			"EN": "unlock",
@@ -3853,9 +4041,15 @@
 			"KO": "뒤로를 탭하면 전투로 돌아가."
 		},
 		"halloweenTreant": {
-			"EN": "HalloweenTreant",
+			"EN": "Halloween Treant",
 			"CNS": "万圣节树妖",
-			"CNT": "萬聖節樹妖"
+			"CNT": "萬聖節樹妖",
+			"JA": "ハロウィントレント",
+			"KO": "할로윈 트렌트",
+			"FR": "Tréant d'Halloween",
+			"DE": "Halloween-Baumriese",
+			"ES": "Ent de Halloween",
+			"RU": "Хэллоуинский энт"
 		},
 		"onUnlockOccupationGuide01": {
 			"EN": "My friend, you've come at last — the Halloween Treant has kept me locked up here for so long.",
@@ -3956,6 +4150,72 @@
 			"JA": "支払って解放しますか？",
 			"KO": "결제하여 해제할까요?"
 		},
-		"": {}
+		"": {},
+		"eliteLevelTip_randomEgg": {
+			"EN": "Multiple Easter-egg zombies will appear; killing them grants decent rewards",
+			"CNS": "会出现多个彩蛋僵尸，击杀可以获得不错的奖励",
+			"CNT": "會出現多個彩蛋殭屍，擊殺可以獲得不錯的獎勵",
+			"JA": "複数のイースターエッグゾンビが出現し、倒すと良い報酬が得られる",
+			"KO": "여러 이스터에그 좀비가 출현하며, 처치하면 괜찮은 보상을 얻는다",
+			"FR": "Plusieurs zombies œufs surprise apparaîtront ; les tuer donne de bonnes récompenses",
+			"DE": "Mehrere Osterei-Zombies erscheinen; sie zu töten bringt ordentliche Belohnungen",
+			"ES": "Aparecerán varios zombis huevo sorpresa; matarlos otorga buenas recompensas",
+			"RU": "Появится несколько зомби-пасхалок; их убийство даёт неплохие награды"
+		},
+		"eliteLevelTip_eliteGoblinThief": {
+			"EN": "The Elite Goblin Thief gives all monsters surprise-steal: a surprise attack steals 15% of your current coins",
+			"CNS": "精英哥布林小偷为所有怪物附加突袭偷窃能力，突袭时偷取玩家15%的当前金钱",
+			"CNT": "精英哥布林小偷為所有怪物附加突襲偷竊能力，突襲時偷取玩家15%的當前金錢",
+			"JA": "エリートゴブリンシーフはすべての魔物に奇襲窃盗を付与する。奇襲時、現在のコインの15%を盗む",
+			"KO": "정예 고블린 도둑이 모든 몬스터에 기습 절도를 부여한다. 기습 시 현재 코인의 15%를 훔친다",
+			"FR": "Le Voleur gobelin d'élite donne à tous les monstres le vol-surprise : une attaque surprise vole 15% de tes pièces actuelles",
+			"DE": "Der Elite-Goblin-Dieb verleiht allen Monstern Überfall-Diebstahl: ein Überfall stiehlt 15% deiner aktuellen Münzen",
+			"ES": "El Ladrón goblin élite da a todos los monstruos robo sorpresa: un ataque sorpresa roba 15% de tus monedas actuales",
+			"RU": "Элитный гоблин-вор даёт всем монстрам внезапную кражу: внезапная атака крадёт 15% ваших текущих монет"
+		},
+		"eliteLevelTip_eliteVampire": {
+			"EN": "The Elite Vampire gives all monsters surprise-lifesteal: a surprise attack drains 15% of your current HP",
+			"CNS": "精英吸血鬼为所有怪物附加突袭吸血能力，突袭时吸收玩家15%的当前生命",
+			"CNT": "精英吸血鬼為所有怪物附加突襲吸血能力，突襲時吸收玩家15%的當前生命",
+			"JA": "エリート吸血鬼はすべての魔物に奇襲吸血を付与する。奇襲時、現在HPの15%を吸収する",
+			"KO": "정예 흡혈귀가 모든 몬스터에 기습 흡혈을 부여한다. 기습 시 현재 HP의 15%를 흡수한다",
+			"FR": "Le Vampire d'élite donne à tous les monstres le vol de vie-surprise : une attaque surprise draine 15% de tes PV actuels",
+			"DE": "Der Elite-Vampir verleiht allen Monstern Überfall-Lebensraub: ein Überfall entzieht 15% deiner aktuellen LP",
+			"ES": "El Vampiro élite da a todos los monstruos robo de vida sorpresa: un ataque sorpresa drena 15% de tu HP actual",
+			"RU": "Элитный вампир даёт всем монстрам внезапный вампиризм: внезапная атака высасывает 15% ваших текущих ОЗ"
+		},
+		"eliteLevelTip_eliteLustZombie": {
+			"EN": "The Elite Succubus gives all monsters charm: a surprise attack advances Death 10 steps",
+			"CNS": "精英魅魔为所有怪物附加魅惑功能，突袭时死神前进10步",
+			"CNT": "精英魅魔為所有怪物附加魅惑功能，突襲時死神前進10步",
+			"JA": "エリートサキュバスはすべての魔物に魅了を付与する。奇襲時、死神が10歩進む",
+			"KO": "정예 서큐버스가 모든 몬스터에 매혹을 부여한다. 기습 시 사신이 10걸음 전진한다",
+			"FR": "La Succube d'élite donne le charme à tous les monstres : une attaque surprise avance la Mort de 10 pas",
+			"DE": "Der Elite-Sukkubus verleiht allen Monstern Bezauberung: ein Überfall rückt den Tod 10 Schritte vor",
+			"ES": "La Súcubo élite da encanto a todos los monstruos: un ataque sorpresa adelanta a la Muerte 10 pasos",
+			"RU": "Элитный суккуб даёт всем монстрам чары: внезапная атака продвигает Смерть на 10 шагов"
+		},
+		"eliteLevelTip_eliteSwatheZombie": {
+			"EN": "The Elite Black Widow Spider gives all monsters entangle: a surprise attack can lock 2 items",
+			"CNS": "精英黑寡妇蜘蛛为所有怪物附加缠绕能力，突袭时可缠绕两件道具",
+			"CNT": "精英黑寡婦蜘蛛為所有怪物附加纏繞能力，突襲時可纏繞兩件道具",
+			"JA": "エリートクロゴケグモはすべての魔物に絡みつきを付与する。奇襲時、道具2つをロックできる",
+			"KO": "정예 검은과부거미가 모든 몬스터에 휘감기를 부여한다. 기습 시 도구 2개를 잠글 수 있다",
+			"FR": "L'Araignée veuve noire d'élite donne l'enchevêtrement à tous les monstres : une attaque surprise peut verrouiller 2 objets",
+			"DE": "Die Elite-Schwarze-Witwe verleiht allen Monstern Umschlingung: ein Überfall kann 2 Gegenstände sperren",
+			"ES": "La Araña viuda negra élite da enredo a todos los monstruos: un ataque sorpresa puede bloquear 2 objetos",
+			"RU": "Элитный чёрный паук-вдова даёт всем монстрам опутывание: внезапная атака может заблокировать 2 предмета"
+		},
+		"eliteLevelTip_eliteReviveZombie": {
+			"EN": "The Elite Cthulhu Tentacle gives all monsters revive: they revive once on death",
+			"CNS": "精英克苏鲁的触手为所有怪物附加复生能力，死亡时会复活一次",
+			"CNT": "精英克蘇魯的觸手為所有怪物附加復生能力，死亡時會復活一次",
+			"JA": "エリートクトゥルフの触手はすべての魔物に復活を付与する。死亡時に一度復活する",
+			"KO": "정예 크툴루의 촉수가 모든 몬스터에 부활을 부여한다. 사망 시 한 번 부활한다",
+			"FR": "La Tentacule de Cthulhu d'élite donne la résurrection à tous les monstres : ils ressuscitent une fois à la mort",
+			"DE": "Die Elite-Cthulhu-Tentakel verleiht allen Monstern Wiederbelebung: sie beleben sich beim Tod einmal wieder",
+			"ES": "El Tentáculo de Cthulhu élite da resurrección a todos los monstruos: reviven una vez al morir",
+			"RU": "Элитное щупальце Ктулху даёт всем монстрам воскрешение: они оживают один раз при смерти"
+		}
 	}
 }

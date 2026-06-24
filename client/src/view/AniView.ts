@@ -1281,7 +1281,7 @@ class AniView extends egret.DisplayObjectContainer {
         // 如果是精英关卡,给出特殊提示
         if (Utils.contains(seniorTypes, levelType)){
             var title = ViewUtils.getTipText("eliteLevelTipTitle");
-            var tipContent = GCfg.getMiscConfig("eliteLevelTips")[levelType];
+            var tipContent = ViewUtils.getTipText("eliteLevelTip_" + levelType);
             await this.mv.confirmOkYesNo(title, tipContent, false);
         }
     }

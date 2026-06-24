@@ -494,11 +494,16 @@ class ViewUtils {
         var merged:any = {};
         for (var k in primary) merged[k] = primary[k];
         var hasDesc = merged.desc != undefined && merged.desc.length > 0;
-        if (!hasDesc || merged.name == undefined || merged.shortDesc == undefined) {
+        var hasUDA = merged.useDescArr != undefined && merged.useDescArr.length > 0;
+        // 该元素在任一语言里有 useDescArr,才说明它"应当"有(并非所有元素都有)。
+        var udaExpected = false;
+        for (var l of order) { var ee0 = descCfg[l] && descCfg[l][eType]; if (ee0 && ee0.useDescArr && ee0.useDescArr.length) { udaExpected = true; break; } }
+        if (!hasDesc || (udaExpected && !hasUDA) || merged.name == undefined || merged.shortDesc == undefined) {
             for (var l of order) {
                 var e = descCfg[l] && descCfg[l][eType];
                 if (!e) continue;
                 if (!hasDesc && e.desc != undefined && e.desc.length > 0) { merged.desc = e.desc; hasDesc = true; }
+                if (!hasUDA && e.useDescArr != undefined && e.useDescArr.length > 0) { merged.useDescArr = e.useDescArr; hasUDA = true; }
                 if (merged.name == undefined && e.name != undefined) merged.name = e.name;
                 if (merged.shortDesc == undefined && e.shortDesc != undefined) merged.shortDesc = e.shortDesc;
             }
