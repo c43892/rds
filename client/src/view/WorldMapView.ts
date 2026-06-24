@@ -83,56 +83,13 @@ class WorldMapView extends egret.DisplayObjectContainer {
         return c;
     }
 
-    // 展开态:中文用原图;其它语言用羊皮纸面板 + 节点图标 + 本地化文字
+    // 展开态:用原卷轴图;CNS/CNT 即中文原图,其它语言换用对应的本地化卷轴图
     private buildLegendPanel():egret.DisplayObjectContainer {
-        var lang = ViewUtils.getLanguage();
         var panel = new egret.DisplayObjectContainer();
-
-        if (lang == "CNS" || lang == "CNT") {
-            var orig = ViewUtils.createBitmapByName("SymbolDesc_png");
-            panel.width = orig.width; panel.height = orig.height;
-            panel.addChild(orig);
-            panel.touchEnabled = true;
-            panel.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClickSymbolDesc, this);
-            return panel;
-        }
-
-        var rows = [
-            ["slimeKingBossNode_png", "legendBoss"],
-            ["Nodecamp_png",          "legendCamp"],
-            ["Nodebox_png",           "legendBox"],
-            ["Nodesenior_png",        "legendSenior"],
-            ["Nodenormal_png",        "legendNormal"],
-            ["Nodeevent_png",         "legendEvent"],
-            ["Nodeshop_png",          "legendShop"],
-        ];
-        var W = 210, rowH = 42, padTop = 18, padBot = 18, iconBox = 36, iconCX = 34, labelX = 64;
-        var H = padTop + rows.length * rowH + padBot;
-        panel.width = W; panel.height = H;
-        var bg = ViewUtils.createParchmentBitmap(W, H);
-        bg.width = W; bg.height = H;
+        var bg = ViewUtils.createBitmapByName("SymbolDesc_png");
+        panel.width = bg.width; panel.height = bg.height;
         panel.addChild(bg);
-        var fam = ViewUtils.getUIFontFamily();
-        rows.forEach((r, i) => {
-            var cy = padTop + i * rowH + rowH / 2;
-            var icon = ViewUtils.createBitmapByName(r[0]);
-            var iw = icon.width || iconBox, ih = icon.height || iconBox;
-            var s = iconBox / Math.max(iw, ih);
-            icon.anchorOffsetX = iw / 2;
-            icon.anchorOffsetY = ih / 2;
-            icon.scaleX = icon.scaleY = s;
-            icon.x = iconCX;
-            icon.y = cy;
-            panel.addChild(icon);
-            var label = ViewUtils.createTextField(24, 0x3d2a14, false, true);
-            label.fontFamily = fam;
-            label.text = ViewUtils.getTipText(r[1]);
-            label.x = labelX;
-            label.y = cy - rowH / 2;
-            label.width = W - labelX - 8;
-            label.height = rowH;
-            panel.addChild(label);
-        });
+        ViewUtils.localizeImage(bg, "resource/assets/ui/worldmap/", "SymbolDesc.png");
         panel.touchEnabled = true;
         panel.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClickSymbolDesc, this);
         return panel;
