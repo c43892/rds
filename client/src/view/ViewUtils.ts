@@ -353,14 +353,17 @@ class ViewUtils {
         if (!bmp) return;
         var lang = ViewUtils.getLanguage();
         if (lang == "CNS" || lang == "CNT") return;
-        var url = baseDir + "i18n/" + lang + "/" + fileName;
         var w = bmp.width, h = bmp.height;
-        ViewUtils.loadImg(url, (img) => {
+        var setTex = (img) => {
             try {
                 bmp.texture = (<any>egret).Texture.fromPixi((<any>window).PIXI.Texture.from(img));
                 if (w) bmp.width = w;
                 if (h) bmp.height = h;
             } catch (e) {}
+        };
+        ViewUtils.loadImg(baseDir + "i18n/" + lang + "/" + fileName, setTex, () => {
+            // 该语言没有专属图(如暂无美术的 PT)-> 退到英文图,好过给非中文用户看中文原图
+            if (lang != "EN") ViewUtils.loadImg(baseDir + "i18n/EN/" + fileName, setTex);
         });
     }
 

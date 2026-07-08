@@ -1110,5 +1110,144 @@
 				]
 			}
 		}
+	},
+	"PT": {
+		"HalloweenTreantNoPeashooter": {
+			"title": "Ratatá",
+			"shortDesc": "Derrote o Ent do Halloween de uma maneira específica",
+			"longDesc": "Derrote o Ent do Halloween sem matar nenhum Atira-Ervilha",
+			"icon": "HalloweenTreant",
+			"progressType": "",
+			"progressInfos": [
+				"<font color=#000000 bold=false size=20>1 Esta é uma mensagem de progresso {type}</font>"
+			],
+			"progressInfoFinished": [
+				"Concluído"
+			]
+		},
+		"DeepFrozen": {
+			"title": "Congelamento Profundo",
+			"shortDesc": "Derrote o Kraken de uma maneira específica",
+			"longDesc": "Mate o Kraken enquanto sufocado por mais de 50 de dano de gelo",
+			"icon": "Kraken",
+			"progressType": "",
+			"progressInfos": [
+				""
+			]
+		},
+		"RichMan": {
+			"title": "Magnata",
+			"shortDesc": "Junte dinheiro suficiente",
+			"longDesc": "Ganhe 1000 moedas em uma única partida",
+			"icon": "Coins9",
+			"progressType": "",
+			"progressInfos": [
+				""
+			]
+		},
+		"KnowlegdeChangesDestiny": {
+			"title": "O Conhecimento Muda o Destino",
+			"shortDesc": "Leia 20 livros em uma única partida",
+			"icon": "Carregador",
+			"progressType": "",
+			"progressInfos": [
+				""
+			]
+		},
+		"DeathGodKiller": {
+			"title": "Perdição da Morte",
+			"shortDesc": "Mate a Morte 10 vezes em uma única partida",
+			"icon": "Deus da Morte",
+			"progressType": "",
+			"progressInfos": [
+				""
+			]
+		},
+		"SkillMaster": {
+			"title": "Perito em Habilidades",
+			"shortDesc": "Aprimore habilidades suficientes",
+			"longDesc": "Eleve 8 habilidades ao nível 5 em uma única partida",
+			"icon": "HalloweenTreant",
+			"progressType": "",
+			"progressInfos": [
+				""
+			]
+		},
+		"EasyModeUnlock": {
+			"title": "Modo Fácil",
+			"shortDesc": "Concluir modo Fácil",
+			"icon": "HalloweenTreant",
+			"progressType": "",
+			"progressInfos": [
+				""
+			],
+			"detail": {
+				"title": "<font color=#000000 size=25>Parabéns, dificuldade Normal desbloqueada</font>",
+				"descs": [
+					"<font color=#000000 size=20>Grades iniciais:</font><font color=#294c22 size=20>8→7</font>",
+					"<font color=#000000 size=20>Atributos do monstro:</font><font color=#294c22 size=20>80%→90%</font>",
+					"<font color=#000000 size=20>Moedas obtidas:</font><font color=#294c22 size=20>200%→150%</font>",
+					"<font color=#000000 size=20>HP inicial:</font><font color=#294c22 size=20>60→50</font>",
+					"<font color=#000000 size=20>Passos da Morte:</font><font color=#294c22 size=20>150→130</font>",
+					"<font color=#000000 size=20>Tamanho do mundo:</font><font color=#294c22 size=20>1→2</font>"
+				]
+			}
+		},
+		"NormalModeUnlock": {
+			"title": "Modo Normal",
+			"shortDesc": "Complete o modo Normal",
+			"icon": "HalloweenTreant",
+			"progressType": "",
+			"progressInfos": [
+				""
+			],
+			"detail": {
+				"title": "<font color=#000000 size=25>Parabéns, dificuldade Difícil desbloqueada</font>",
+				"descs": [
+					"<font color=#000000 size=20>Grades iniciais:</font><font color=#294c22 size=20>7→6</font>",
+					"<font color=#000000 size=20>Atributos do monstro:</font><font color=#294c22 size=20>90%→100%</font>",
+					"<font color=#000000 size=20>Moedas obtidas:</font><font color=#294c22 size=20>150%→100%</font>",
+					"<font color=#000000 size=20>HP inicial:</font><font color=#294c22 size=20>50→40</font>",
+					"<font color=#000000 size=20>Passos da Morte:</font><font color=#294c22 size=20>130→110</font>",
+					"<font color=#000000 size=20>Tamanho do mundo:</font><font color=#294c22 size=20>2→3</font>"
+				]
+			}
+		},
+		"DifficultModeUnlock": {
+			"title": "Modo Difícil",
+			"shortDesc": "Concluir modo Difícil",
+			"icon": "HalloweenTreant",
+			"progressType": "",
+			"progressInfos": [
+				""
+			],
+			"detail": {
+				"title": "<font color=#000000 size=25>Parabéns, dificuldade Pesadelo desbloqueada</font>",
+				"descs": [
+					"<font color=#000000 size=20>Grades iniciais:</font><font color=#294c22 size=20>6→5</font>",
+					"<font color=#000000 size=20>Atributos dos monstros:</font><font color=#294c22 size=20>100%→110%</font>",
+					"<font color=#000000 size=20>Passos da Morte:</font><font color=#294c22 size=20>110→100</font>",
+					"<font color=#000000 size=20>Tamanho do mundo:</font><font color=#294c22 size=20>3→4</font>"
+				]
+			}
+		},
+		"NightmareUnlock": {
+			"title": "Modo Pesadelo",
+			"shortDesc": "Complete o modo Pesadelo",
+			"icon": "HalloweenTreant",
+			"progressType": "",
+			"progressInfos": [
+				""
+			],
+			"detail": {
+				"title": "<font color=#000000 size=25>Parabéns, dificuldade Inferno desbloqueada</font>",
+				"descs": [
+					"<font color=#000000 size=20>Grades iniciais:</font><font color=#294c22 size=20>5→4</font>",
+					"<font color=#000000 size=20>Atributos dos monstros:</font><font color=#294c22 size=20>110%→120%</font>",
+					"<font color=#000000 size=20>Passos da Morte:</font><font color=#294c22 size=20>100→90</font>",
+					"<font color=#000000 size=20>Tamanho do mundo:</font><font color=#294c22 size=20>2→Infinito</font>"
+				]
+			}
+		}
 	}
 }

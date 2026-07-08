@@ -127,7 +127,8 @@ class LoadingUI extends egret.DisplayObjectContainer implements RES.PromiseTaskR
             FR: "C'est un jeu de démineur : tu n'as pas besoin de tuer tous les monstres.",
             DE: "Dies ist ein Minesweeper-Spiel — du musst nicht jedes Monster töten.",
             ES: "Este es un juego de buscaminas: no necesitas matar a todos los monstruos.",
-            RU: "Это игра-сапёр — вам не нужно убивать всех монстров."
+            RU: "Это игра-сапёр — вам не нужно убивать всех монстров.",
+            PT: "Este é um jogo de campo minado — você não precisa matar todos os monstros."
         };
         return T[lang] || T["EN"];
     }
@@ -144,7 +145,8 @@ class LoadingUI extends egret.DisplayObjectContainer implements RES.PromiseTaskR
             FR: "Rejette les mauvais jeux, refuse le piratage. Protège-toi, méfie-toi des arnaques.\rJouer avec modération aiguise l'esprit ; l'excès nuit au corps. Gère ton temps, profite d'une vie saine.",
             DE: "Lehne schädliche Spiele ab, verweigere Raubkopien. Schütze dich, hüte dich vor Betrug.\rMaßvolles Spielen schärft den Geist; Sucht schadet dem Körper. Teile deine Zeit ein, genieße ein gesundes Leben.",
             ES: "Rechaza los juegos dañinos y la piratería. Protégete y cuídate de los fraudes.\rJugar con moderación agudiza la mente; el exceso daña el cuerpo. Organiza tu tiempo y disfruta de una vida sana.",
-            RU: "Откажитесь от вредных и пиратских игр. Берегите себя и остерегайтесь мошенничества.\rУмеренная игра развивает ум, а зависимость вредит здоровью. Распределяйте время и наслаждайтесь здоровой жизнью."
+            RU: "Откажитесь от вредных и пиратских игр. Берегите себя и остерегайтесь мошенничества.\rУмеренная игра развивает ум, а зависимость вредит здоровью. Распределяйте время и наслаждайтесь здоровой жизнью.",
+            PT: "Rejeite jogos nocivos e recuse a pirataria. Proteja-se e cuidado com fraudes.\rJogar com moderação estimula a mente; o vício prejudica o corpo. Gerencie seu tempo e desfrute de uma vida saudável."
         };
         return W[lang] || W["EN"] || W["CNS"];
     }

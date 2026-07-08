@@ -1090,5 +1090,51 @@
 			"준서",
 			"다은"
 		]
+	},
+	"PT": {
+		"first": [
+			"Miguel",
+			"João",
+			"Pedro",
+			"Tiago",
+			"Rafael",
+			"Bruno",
+			"André",
+			"Diogo",
+			"Gabriel",
+			"Lucas",
+			"Ana",
+			"Maria",
+			"Sofia",
+			"Beatriz",
+			"Carolina",
+			"Inês",
+			"Mariana",
+			"Rita",
+			"Leonor",
+			"Matilde"
+		],
+		"last": [
+			"Silva",
+			"Santos",
+			"Ferreira",
+			"Pereira",
+			"Oliveira",
+			"Costa",
+			"Rodrigues",
+			"Martins",
+			"Sousa",
+			"Fernandes",
+			"Gonçalves",
+			"Gomes",
+			"Lopes",
+			"Marques",
+			"Almeida",
+			"Ribeiro",
+			"Pinto",
+			"Carvalho",
+			"Teixeira",
+			"Moreira"
+		]
 	}
 }

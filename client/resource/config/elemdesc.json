@@ -10153,5 +10153,1128 @@
 				"<font color=#7d0403 size=20>멍함</font>\n<font color=#000000 size=20>매혹으로 지능이 떨어졌다</font>"
 			]
 		}
+	},
+	"PT": {
+		"MedicineBox": {
+			"name": "Maestria em Medicina",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>Ao sair de cada andar, restaura {dhp} HP</font>"
+			],
+			"shortDesc": "Restaura 2 HP ao sair de cada andar",
+			"initialDesc": "<font color=#000000 size=28>Restaura 3/6/9/12/15 HP ao sair de cada andar.</font>"
+		},
+		"Hawkeye": {
+			"name": "Olho de Águia",
+			"shortDesc": "Marca um monstro que carrega a chave no início de cada nível",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>Marca um monstro que carrega a chave no início de cada nível</font>"
+			]
+		},
+		"Endurance": {
+			"name": "Resistência",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>Resistência: aumenta o HP Máx em {dMaxHp}</font>"
+			],
+			"shortDesc": "Aumenta o HP máximo em 5"
+		},
+		"Power": {
+			"name": "Força",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>Ataque + {dPower}</font>"
+			],
+			"shortDesc": "Ataque +1"
+		},
+		"Fierce": {
+			"name": "Maestria em Abate",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>No ataque surpresa, ganha {dPower} de Ataque</font>"
+			],
+			"shortDesc": "Ao fazer um ataque surpresa, +5% de chance de crítico"
+		},
+		"Unback2Sneak": {
+			"name": "Ataque Preventivo",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>No ataque surpresa, o inimigo não pode contra-atacar</font>"
+			],
+			"shortDesc": "Quando você faz um ataque surpresa, o inimigo não pode contra-atacar"
+		},
+		"Agile": {
+			"name": "Agilidade",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>Esquiva + {dDodge}%</font>"
+			],
+			"shortDesc": "Esquiva +5%"
+		},
+		"TimeMachine": {
+			"name": "Hostilidade Decrescente",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>Ao sair deste andar, a Morte recua {deathGodBackStep} passos a mais</font>"
+			],
+			"shortDesc": "Ao sair do andar, a Morte recua 5 passos a mais"
+		},
+		"Crucifix": {
+			"name": "Crucifixo",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>Nenhum monstro pode reviver</font>"
+			],
+			"shortDesc": "Nenhum monstro pode reviver"
+		},
+		"WeaponMaster": {
+			"name": "Mestre das Armas",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>Adiciona um cassetete extra a cada andar</font>"
+			],
+			"shortDesc": "Adiciona um cassetete extra a cada andar"
+		},
+		"UndefinedName1": {
+			"name": "Sem nome 1",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>Nenhum monstro pode reviver</font>"
+			],
+			"shortDesc": "Aumenta o HP máximo em 5"
+		},
+		"ExpMedal": {
+			"name": "Sem nome 2",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>Matar um monstro concede 1 EXP extra; +{dexp} por nível</font>"
+			],
+			"shortDesc": "Aumenta o HP máximo em 5"
+		},
+		"GoldMedal": {
+			"name": "Sem nome 3",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>Cada monstro solta 1 moeda a mais; +{num} por nível</font>"
+			],
+			"shortDesc": "Aumenta o HP máximo em 5"
+		},
+		"DefenseProficient": {
+			"name": "Mestre da Defesa",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>A cada andar, adiciona um colete, reduzindo o Ataque inimigo em mais 1</font>"
+			],
+			"shortDesc": "Adiciona um colete extra a cada andar"
+		},
+		"BookMaster": {
+			"name": "Mestre dos Livros",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>A cada andar, adiciona um livro extra; ler concede {dexp} de EXP extra</font>"
+			],
+			"shortDesc": "Adiciona um livro extra a cada andar"
+		},
+		"TradeMaster": {
+			"name": "Mestre do Comércio",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>Os itens têm {discount}% de desconto</font>"
+			],
+			"shortDesc": "Itens que você compra ficam 5% mais baratos"
+		},
+		"TreasureBoxDetector": {
+			"name": "Detector de Tesouro",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>Ao entrar em um novo mapa de batalha, marca a localização de um baú de tesouro</font>"
+			],
+			"shortDesc": "Marca a localização de um baú de tesouro em cada novo mapa de batalha"
+		},
+		"KnifeMaster": {
+			"name": "Mestre das Facas",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>A cada batalha, adiciona uma faca de arremesso; dano da faca + {dpower}</font>"
+			],
+			"shortDesc": "Adiciona uma faca de arremesso a cada batalha; dano da faca +X"
+		},
+		"MonsterHunter": {
+			"name": "Caçador de Monstros",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>No início de cada batalha, marca {markNum} monstros normais</font>"
+			],
+			"shortDesc": "Marca X monstros no início de cada batalha"
+		},
+		"KnifeProficient": {
+			"name": "Proficiência em Faca",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>A cada batalha, adiciona uma faca de arremesso; ataques de faca ignoram armadura</font>"
+			],
+			"shortDesc": "Adiciona uma faca de arremesso a cada batalha; ataques com faca ignoram a armadura"
+		},
+		"ExploreEnhanced": {
+			"name": "Exploração",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>Cada vez que você mata um monstro, revela a localização de um item aleatório</font>"
+			],
+			"shortDesc": "Cada vez que você mata um monstro, revela a localização de um item aleatório"
+		},
+		"HorticultureProficient": {
+			"name": "Proficiência em Horticultura",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>A cada batalha, adiciona uma maçã; cada maçã restaura 1 HP extra</font>"
+			],
+			"shortDesc": "Ganha ajuda de plantas em cada andar"
+		},
+		"SmellEnhanced": {
+			"name": "Olfato Apurado",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>Você conhece a localização de toda comida; comida normal tem {percent}% de chance de virar um banquete</font>"
+			],
+			"shortDesc": "Você sabe a localização de toda a comida"
+		},
+		"Storer": {
+			"name": "Acumulador",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>Ao sair de um mapa de batalha, leva um item aleatório que não seja moeda para a próxima batalha</font>"
+			],
+			"shortDesc": "Ao sair de um mapa de batalha, leve um item aleatório que não seja moeda para a próxima batalha"
+		},
+		"ShieldProficient": {
+			"name": "Proficiência em Escudo",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>A cada batalha, adiciona um escudo; recarga do escudo reduzida em {dcd} turnos</font>"
+			],
+			"shortDesc": "Adiciona um escudo a cada batalha; a recuperação do escudo é 1 turno mais rápida"
+		},
+		"HorticultureMaster": {
+			"name": "Mestre em Horticultura",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>A cada andar você recebe ajuda das plantas; aprimorar a habilidade deixa as plantas mais fortes</font>"
+			],
+			"shortDesc": "Adiciona uma maçã a cada batalha; cada maçã restaura 1 de HP a mais",
+			"initialDesc": "Ajuda das plantas"
+		},
+		"StrikeFirst": {
+			"name": "Atacar Primeiro",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>Move aleatoriamente {moveNum} itens para a área inicial</font>"
+			],
+			"shortDesc": "Adiciona 1 item aleatório à área inicial"
+		},
+		"Coins": {
+			"name": "Moedas",
+			"desc": [
+				"<font color=#294c22 size=20>{cnt} moedas</font>"
+			]
+		},
+		"Key": {
+			"name": "Chave",
+			"desc": [
+				"<font color=#000000 size=20>Pode abrir um baú ou porta</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Pode abrir um baú ou porta</font>",
+				"<font color=#e4d5a5 size=25>Chave (selecione um alvo)</font>"
+			]
+		},
+		"Door": {
+			"name": "Porta",
+			"desc": [
+				"<font color=#000000 size=20>Abra para chegar ao próximo andar</font>"
+			]
+		},
+		"TreasureBox": {
+			"name": "Baú do Tesouro",
+			"desc": [
+				"<font color=#000000 size=20>Pode ser aberto com uma chave para um item aleatório</font>"
+			]
+		},
+		"RandomEgg": {
+			"name": "Ovo de Páscoa",
+			"desc": [
+				"<font color=#000000 size=20>Abra para um item aleatório</font>"
+			]
+		},
+		"Clock": {
+			"name": "Relógio",
+			"desc": [
+				"<font color=#000000 size=20>A Morte recua {deathStepBack} passos</font>"
+			]
+		},
+		"HpPotion": {
+			"name": "Poção de Cura",
+			"desc": [
+				"<font color=#000000 size=20>Use para restaurar {heal} de HP</font>"
+			],
+			"initialDesc": "<font color=#000000 size=28>Use para restaurar 6 de HP</font>",
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Use para restaurar {heal} de HP</font>",
+				"<font color=#e4d5a5 size=25>Poção de Cura (toque em qualquer lugar do mapa para usar)</font>"
+			]
+		},
+		"DePoison": {
+			"name": "Antídoto",
+			"desc": [
+				"<font color=#000000 size=20>Cura o veneno</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Cura o veneno</font>",
+				"<font color=#e4d5a5 size=25>Antídoto (toque em qualquer lugar do mapa para usar)</font>"
+			]
+		},
+		"Magazine": {
+			"name": "Revista de Natureza",
+			"desc": [
+				"<font color=#000000 size=20>Cada toque concede {dexp} de EXP</font>"
+			]
+		},
+		"EconomyMagazine": {
+			"name": "Revista de Finanças",
+			"desc": [
+				"<font color=#000000 size=20>Cada toque concede {dexp} de EXP e {money} moedas</font>"
+			]
+		},
+		"Shield": {
+			"name": "Escudo",
+			"desc": [
+				"<font color=#000000 size=20>Bloqueia o dano de um ataque; recarga de {elemCD} turnos</font>\n<font color=#000000 size=20>Bloqueia {shield} de dano no total</font>"
+			]
+		},
+		"HeadBone": {
+			"name": "Caveira",
+			"desc": [
+				"<font color=#000000 size=20>Sempre que um monstro faz um ataque surpresa, o Rei Esqueleto reviverá no lugar</font>"
+			]
+		},
+		"Prison": {
+			"name": "Prisão",
+			"desc": [
+				"<font color=#000000 size=20>Seu companheiro está trancado lá dentro</font>"
+			]
+		},
+		"DeathGod": {
+			"name": "Morte",
+			"desc": [
+				"<font color=#7d0403 size=20>Flutuar</font>\n<font color=#000000 size=20>Muda de posição a cada turno</font>",
+				"<font color=#7d0403 size=20>Massacre</font>\n<font color=#000000 size=20>Ataca a cada turno</font>"
+			]
+		},
+		"NormalZombie": {
+			"name": "Zumbi",
+			"desc": [
+				"<font color=#7d0403 size=20>Comum</font>\n<font color=#000000 size=20>Sem habilidade especial</font>"
+			]
+		},
+		"Vampire": {
+			"name": "Vampiro",
+			"desc": [
+				"<font color=#7d0403 size=20>Roubo de Vida</font>\n<font color=#000000 size=20>No ataque surpresa, drena {percent}% do seu HP</font>"
+			]
+		},
+		"GoblinThief": {
+			"name": "Goblin Ladrão",
+			"desc": [
+				"<font color=#7d0403 size=20>Roubo</font>\n<font color=#000000 size=20>No ataque surpresa, rouba suas moedas</font>",
+				"<font color=#7d0403 size=20>Coleta</font>\n<font color=#000000 size=20>Recolhe ativamente moedas do chão</font>"
+			]
+		},
+		"HoundZombie": {
+			"name": "Cão Zumbi",
+			"desc": [
+				"<font color=#7d0403 size=20>Veneno Cadavérico</font>\n<font color=#000000 size=20>Os ataques infligem veneno</font>"
+			]
+		},
+		"DancerZombie": {
+			"name": "Zumbi Dançarino",
+			"desc": [
+				"<font color=#7d0403 size=20>Dançarinos de Apoio</font>\n<font color=#000000 size=20>No ataque surpresa, invoca 2 companheiros</font>"
+			]
+		},
+		"GluttonyZombie": {
+			"name": "Zumbi da Gula",
+			"desc": [
+				"<font color=#7d0403 size=20>Glutão</font>\n<font color=#000000 size=20>No ataque surpresa, devora 1 item aleatório</font>"
+			]
+		},
+		"Gengar": {
+			"name": "Gengar",
+			"desc": [
+				"<font color=#7d0403 size=20>Emboscada</font>\n<font color=#000000 size=20>Ao sair deste andar, realiza um ataque</font>"
+			]
+		},
+		"BombAbomination": {
+			"name": "Abominação Suicida",
+			"desc": [
+				"<font color=#7d0403 size=20>Autodestruição</font>\n<font color=#000000 size=20>Autodestrói-se {rounds} turnos após aparecer, revelando as 8 casas ao redor e causando dano de Ataque x3</font>"
+			]
+		},
+		"EyeDemon": {
+			"name": "Demônio-Olho",
+			"desc": [
+				"<font color=#7d0403 size=20>Clarividência</font>\n<font color=#000000 size=20>Ao morrer, revela 2 casas vazias</font>"
+			]
+		},
+		"RandomEggZombie": {
+			"name": "Zumbi Ovo",
+			"desc": [
+				"<font color=#7d0403 size=20>Ovo de Páscoa</font>\n<font color=#000000 size=20>Sempre solta um ovo de Páscoa ao morrer</font>"
+			]
+		},
+		"LustZombie": {
+			"name": "Zumbi da Luxúria",
+			"desc": [
+				"<font color=#7d0403 size=20>Sedução</font>\n<font color=#000000 size=20>No ataque surpresa, avança a Morte em {deathStepOnSneak} turnos</font>",
+				"<font color=#7d0403 size=20>Vingança</font>\n<font color=#000000 size=20>Ao morrer, recua a Morte em {deathStepOnDie} turnos</font>"
+			]
+		},
+		"CommanderZombie": {
+			"name": "Zumbi Comandante",
+			"desc": [
+				"<font color=#7d0403 size=20>Comando</font>\n<font color=#000000 size=20>Enquanto presente, o Ataque e o HP de todos os outros monstros são dobrados</font>"
+			]
+		},
+		"RageZombie": {
+			"name": "Zumbi Furioso",
+			"desc": [
+				"<font color=#7d0403 size=20>Fúria</font>\n<font color=#000000 size=20>Quanto menor o HP, maior o Ataque</font>"
+			]
+		},
+		"HideZombie": {
+			"name": "Zumbi Oculto",
+			"desc": [
+				"<font color=#7d0403 size=20>Furtividade</font>\n<font color=#000000 size=20>Após aparecer, esconde-se aleatoriamente em outro espaço vazio</font>"
+			]
+		},
+		"BallShito": {
+			"name": "Apóstolo do Orbe",
+			"desc": [
+				"<font color=#7d0403 size=20>Guarda</font>\n<font color=#000000 size=20>Quando outro monstro dentro das 8 casas ao redor é atingido, ele recebe esse dano</font>"
+			]
+		},
+		"ReviveZombie": {
+			"name": "Tentáculo de Cthulhu",
+			"desc": [
+				"<font color=#7d0403 size=20>Reviver</font>\n<font color=#000000 size=20>Pode reviver uma vez após a morte</font>"
+			]
+		},
+		"CowardZombie": {
+			"name": "Zumbi Covarde",
+			"desc": [
+				"<font color=#7d0403 size=20>Covardia</font>\n<font color=#000000 size=20>Se outro zumbi morrer, ele foge para as sombras</font>"
+			]
+		},
+		"MarkZombie": {
+			"name": "Zumbi Marcador",
+			"desc": [
+				"<font color=#7d0403 size=20>Confissão</font>\n<font color=#000000 size=20>Cada vez que sofre dano, marca um monstro aleatório</font>"
+			]
+		},
+		"GreedyZombie": {
+			"name": "Zumbi Ganancioso",
+			"desc": [
+				"<font color=#7d0403 size=20>Ganância</font>\n<font color=#000000 size=20>Recolhe itens e moedas ao redor</font>"
+			]
+		},
+		"ConfusionZombie": {
+			"name": "Zumbi da Confusão",
+			"desc": [
+				"<font color=#7d0403 size=20>Caos</font>\n<font color=#000000 size=20>Todas as casas ao redor exibem pontos de interrogação</font>"
+			]
+		},
+		"Mummy": {
+			"name": "Múmia",
+			"desc": [
+				"<font color=#7d0403 size=20>Tempestade de Areia</font>\n<font color=#000000 size=20>Cria névoa ao seu redor</font>"
+			]
+		},
+		"PoisonJellyfish": {
+			"name": "Água-viva Venenosa",
+			"desc": [
+				"<font color=#7d0403 size=20>Névoa Venenosa</font>\n<font color=#000000 size=20>Ao morrer, envenena todas as casas não reveladas por 3 turnos</font>"
+			]
+		},
+		"SkeletonKing": {
+			"name": "Rei Esqueleto",
+			"desc": [
+				"<font color=#7d0403 size=20>Imortal</font>\n<font color=#000000 size=20>Revive sempre que outro monstro faz um ataque surpresa</font>"
+			]
+		},
+		"SwatheZombie": {
+			"name": "Zumbi Casulo",
+			"desc": [
+				"<font color=#7d0403 size=20>Enredar</font>\n<font color=#000000 size=20>Em ataque surpresa, bloqueia 3 itens revelados; eles só se desbloqueiam após a morte dele</font>",
+				"<font color=#7d0403 size=20>Peçonha</font>\n<font color=#000000 size=20>Os ataques infligem veneno</font>"
+			]
+		},
+		"BoxMonster": {
+			"name": "Mímico",
+			"desc": [
+				"<font color=#7d0403 size=20>Ira</font>\n<font color=#000000 size=20>A vingança do baú</font>"
+			]
+		},
+		"Ghost": {
+			"name": "Fantasma",
+			"desc": [
+				"<font color=#7d0403 size=20>Perfuração</font>\n<font color=#000000 size=20>Os ataques ignoram escudos antimotim e coletes</font>",
+				"<font color=#7d0403 size=20>Perseguição</font>\n<font color=#000000 size=20>Segue o jogador até o próximo andar</font>"
+			]
+		},
+		"RedSlime": {
+			"name": "Gosma Vermelha",
+			"desc": [
+				"<font color=#7d0403 size=20>Pesado</font>\n<font color=#000000 size=20>Cada ataque custa um turno extra</font>"
+			]
+		},
+		"GreenSlime": {
+			"name": "Gosma Verde",
+			"desc": [
+				"<font color=#7d0403 size=20>Cura</font>\n<font color=#000000 size=20>A cada turno, restaura 20% do HP atual</font>"
+			]
+		},
+		"Siren": {
+			"name": "Sereia",
+			"desc": [
+				"<font color=#7d0403 size=20>Terror</font>\n<font color=#000000 size=20>Em ataque surpresa, a Morte avança 15 passos; enquanto presente, você perde 1 de HP por turno</font>"
+			]
+		},
+		"Worm": {
+			"name": "Verme Devorador",
+			"desc": [
+				"<font color=#7d0403 size=20>Gula</font>\n<font color=#000000 size=20>No ataque surpresa, devora todos os itens que não são chaves; os ataques drenam HP</font>"
+			]
+		},
+		"Hag": {
+			"name": "Bruxa",
+			"desc": [
+				"<font color=#7d0403 size=20>Tentação</font>\n<font color=#000000 size=20>Enquanto presente, você não pode usar nenhuma poção</font>"
+			]
+		},
+		"Nightmare": {
+			"name": "Pesadelo",
+			"desc": [
+				"<font color=#7d0403 size=20>Pesadelo</font>\n<font color=#000000 size=20>Cada ataque destrói um item que não seja chave; os ataques ignoram escudos e coletes</font>"
+			]
+		},
+		"ThunderElemental": {
+			"name": "Elemental de Trovão",
+			"desc": [
+				"<font color=#7d0403 size=20>Choque</font>\n<font color=#000000 size=20>Um monstro envolto em raios; ao ser atingido, causa dano a você e aos monstros ao redor de uma só vez</font>"
+			]
+		},
+		"FlameElemental": {
+			"name": "Elemental de Fogo",
+			"desc": [
+				"<font color=#7d0403 size=20>Chama</font>\n<font color=#000000 size=20>Imune a dano de fogo; solta uma poção de fogo ao morrer</font>"
+			]
+		},
+		"Echinus": {
+			"name": "Ouriço-do-mar",
+			"desc": [
+				"<font color=#7d0403 size=20>Espinhos</font>\n<font color=#000000 size=20>Reflete 50% do dano de ataques normais</font>"
+			]
+		},
+		"Werewolf": {
+			"name": "Lobisomem",
+			"desc": [
+				"<font color=#7d0403 size=20>Frenesi</font>\n<font color=#000000 size=20>A cada turno restaura 20% do HP; +10% por golpe recebido</font>"
+			]
+		},
+		"Kraken": {
+			"name": "Kraken",
+			"desc": [
+				"<font color=#7d0403 size=20>Devorar do Kraken</font>\n<font color=#000000 size=20>A cada 3 turnos, ataca com 2x de dano e destrói um item aleatório que não seja moeda</font>",
+				"<font color=#7d0403 size=20>Sufocamento das Profundezas</font>\n<font color=#000000 size=20>Enquanto o Kraken existir, ele causa 1 de dano a você a cada turno, esteja revelado ou não</font>",
+				"<font color=#7d0403 size=20>Fúria</font>\n<font color=#000000 size=20>Abaixo de 50% de HP, executa Devorar do Kraken a cada turno</font>",
+				"<font color=#7d0403 size=20>Frio Profundo</font>\n<font color=#000000 size=20>Não pode ser congelado; o dano de fogo contra ele é dobrado</font>"
+			]
+		},
+		"HalloweenTreant": {
+			"name": "Treant do Halloween",
+			"desc": [
+				"<font color=#7d0403 size=20>Garra da Árvore Ancestral</font>\n<font color=#000000 size=20>A cada 3 turnos, ataca com 3x de dano</font>",
+				"<font color=#7d0403 size=20>Legião das Plantas</font>\n<font color=#000000 size=20>Transforma todos os monstros em plantas; inicialmente transforma 5 monstros aleatórios em atiradores de ervilha que aparecem automaticamente no início da batalha e atacam o jogador a cada N turnos (eles não atacam mercadores)</font>",
+				"<font color=#7d0403 size=20>Proteção</font>\n<font color=#000000 size=20>Cada vez que seu HP cai 30%, ele entra em modo de proteção, ganhando uma barreira quase invencível que reduz qualquer dano, exceto fogo, para 1; a barreira quebra após receber 3 golpes</font>",
+				"<font color=#7d0403 size=20>Inflamável</font>\n<font color=#000000 size=20>O dano de fogo o incendeia; imune a veneno</font>"
+			]
+		},
+		"Titan": {
+			"name": "Titã",
+			"desc": [
+				"<font color=#7d0403 size=20>Tempestade de Raios</font>\n<font color=#000000 size=20>A cada 3 turnos, realiza um ataque de 2 golpes, cada um causando 1x de dano. Este ataque não pode ser esquivado.</font>",
+				"<font color=#7d0403 size=20>Comando</font>\n<font color=#000000 size=20>Dobra o HP e o Ataque de todos os outros monstros</font>",
+				"<font color=#7d0403 size=20>Reviver</font>\n<font color=#000000 size=20>Pode reviver uma vez após a morte</font>",
+				"<font color=#7d0403 size=20>Vontade do Titã</font>\n<font color=#000000 size=20>Ganha aleatoriamente duas das seguintes habilidades: Recuperação, Aura do Medo, Proteção, Fúria</font>"
+			]
+		},
+		"ShopNpc": {
+			"name": "Mercador",
+			"desc": [
+				"<font color=#7d0403 size=20>Trapaceiro</font>\n<font color=#000000 size=20>O cliente é meu deus</font>"
+			]
+		},
+		"CharmedNormal": {
+			"desc": [
+				"<font color=#7d0403 size=20>Atordoado</font>\n<font color=#000000 size=20>Sua inteligência foi embotada pelo encanto</font>"
+			]
+		},
+		"BombAbominationCharmed": {
+			"name": "Abominação Suicida",
+			"desc": [
+				"<font color=#7d0403 size=20>Autodestruição</font>\n<font color=#000000 size=20>Autodestrói-se {rounds} turnos após aparecer, causando dano de Ataque x3</font>"
+			]
+		},
+		"EyeDemonCharmed": {
+			"name": "Demônio-Olho",
+			"desc": [
+				"<font color=#7d0403 size=20>Clarividência</font>\n<font color=#000000 size=20>Ao morrer, revela 2 casas vazias</font>"
+			]
+		},
+		"NutWall1": {
+			"name": "Noz-muralha",
+			"desc": [
+				"<font color=#7d0403 size=20>Mestre Jardineiro</font>\n<font color=#000000 size=20>Lv1: absorve {level1Share}% do dano que você recebe</font>\n<font color=#aeaeae size=20>Lv2: HP +{level2AddHp}</font>\n<font color=#aeaeae size=20>Lv3: absorve {level3AddShare}% a mais do dano que você recebe</font>\n<font color=#aeaeae size=20>Lv4: HP +{level4AddHp}</font>\n<font color=#aeaeae size=20>Lv5: absorve {level5AddShare}% a mais do dano que você recebe</font>"
+			]
+		},
+		"NutWall2": {
+			"name": "Noz-muralha",
+			"desc": [
+				"<font color=#7d0403 size=20>Mestre Jardineiro</font>\n<font color=#000000 size=20>Lv1: absorve {level1Share}% do dano que você recebe</font>\n<font color=#000000 size=20>Lv2: HP +{level2AddHp}</font>\n<font color=#aeaeae size=20>Lv3: absorve {level3AddShare}% a mais do dano que você recebe</font>\n<font color=#aeaeae size=20>Lv4: HP +{level4AddHp}</font>\n<font color=#aeaeae size=20>Lv5: absorve {level5AddShare}% a mais do dano que você recebe</font>"
+			]
+		},
+		"NutWall3": {
+			"name": "Noz-muralha",
+			"desc": [
+				"<font color=#7d0403 size=20>Mestre Jardineiro</font>\n<font color=#000000 size=20>Lv1: absorve {level1Share}% do dano que você recebe</font>\n<font color=#000000 size=20>Lv2: HP +{level2AddHp}</font>\n<font color=#000000 size=20>Lv3: absorve {level3AddShare}% a mais do dano que você recebe</font>\n<font color=#aeaeae size=20>Lv4: HP +{level4AddHp}</font>\n<font color=#aeaeae size=20>Lv5: absorve {level5AddShare}% a mais do dano que você recebe</font>"
+			]
+		},
+		"NutWall4": {
+			"name": "Noz-muralha",
+			"desc": [
+				"<font color=#7d0403 size=20>Mestre Jardineiro</font>\n<font color=#000000 size=20>Lv1: absorve {level1Share}% do dano que você recebe</font>\n<font color=#000000 size=20>Lv2: HP +{level2AddHp}</font>\n<font color=#000000 size=20>Lv3: absorve {level3AddShare}% a mais do dano que você recebe</font>\n<font color=#000000 size=20>Lv4: HP +{level4AddHp}</font>\n<font color=#aeaeae size=20>Lv5: absorve {level5AddShare}% a mais do dano que você recebe</font>"
+			]
+		},
+		"NutWall5": {
+			"name": "Noz-muralha",
+			"desc": [
+				"<font color=#7d0403 size=20>Mestre Jardineiro</font>\n<font color=#000000 size=20>Lv1: absorve {level1Share}% do dano que você recebe</font>\n<font color=#000000 size=20>Lv2: HP +{level2AddHp}</font>\n<font color=#000000 size=20>Lv3: absorve {level3AddShare}% a mais do dano que você recebe</font>\n<font color=#000000 size=20>Lv4: HP +{level4AddHp}</font>\n<font color=#000000 size=20>Lv5: absorve {level5AddShare}% a mais do dano que você recebe</font>"
+			]
+		},
+		"Peashooter1": {
+			"name": "Ervilhal",
+			"desc": [
+				"<font color=#7d0403 size=20>Mestre Jardineiro</font>\n<font color=#000000 size=20>Lv1: a cada 5 turnos, causa dano à distância em um alvo inimigo aleatório</font>\n<font color=#aeaeae size=20>Lv2: Ataque +{level2Power}</font>\n<font color=#aeaeae size=20>Lv3: chance de Crítico +{level3Critical}%</font>\n<font color=#aeaeae size=20>Lv4: reduz a recarga do ataque em {level4MinusInterval} turnos</font>\n<font color=#aeaeae size=20>Lv5: ganha a habilidade de combo</font>"
+			]
+		},
+		"Peashooter2": {
+			"name": "Ervilhal",
+			"desc": [
+				"<font color=#7d0403 size=20>Mestre Jardineiro</font>\n<font color=#000000 size=20>Lv1: a cada 5 turnos, causa dano à distância em um alvo inimigo aleatório</font>\n<font color=#000000 size=20>Lv2: Ataque +{level2Power}</font>\n<font color=#aeaeae size=20>Lv3: chance de Crítico +{level3Critical}%</font>\n<font color=#aeaeae size=20>Lv4: reduz a recarga do ataque em {level4MinusInterval} turnos</font>\n<font color=#aeaeae size=20>Lv5: ganha a habilidade de combo</font>"
+			]
+		},
+		"Peashooter3": {
+			"name": "Ervilhal",
+			"desc": [
+				"<font color=#7d0403 size=20>Mestre Jardineiro</font>\n<font color=#000000 size=20>Lv1: a cada 5 turnos, causa dano à distância em um alvo inimigo aleatório</font>\n<font color=#000000 size=20>Lv2: Ataque +{level2Power}</font>\n<font color=#000000 size=20>Lv3: chance de Crítico +{level3Critical}%</font>\n<font color=#aeaeae size=20>Lv4: reduz a recarga do ataque em {level4MinusInterval} turnos</font>\n<font color=#aeaeae size=20>Lv5: ganha a habilidade de combo</font>"
+			]
+		},
+		"Peashooter4": {
+			"name": "Ervilhal",
+			"desc": [
+				"<font color=#7d0403 size=20>Mestre Jardineiro</font>\n<font color=#000000 size=20>Lv1: a cada 5 turnos, causa dano à distância em um alvo inimigo aleatório</font>\n<font color=#000000 size=20>Lv2: Ataque +{level2Power}</font>\n<font color=#000000 size=20>Lv3: chance de Crítico +{level3Critical}%</font>\n<font color=#000000 size=20>Lv4: reduz a recarga do ataque em {level4MinusInterval} turnos</font>\n<font color=#aeaeae size=20>Lv5: ganha a habilidade de combo</font>"
+			]
+		},
+		"Peashooter5": {
+			"name": "Ervilhal",
+			"desc": [
+				"<font color=#7d0403 size=20>Mestre Jardineiro</font>\n<font color=#000000 size=20>Lv1: a cada 5 turnos, causa dano à distância em um alvo inimigo aleatório</font>\n<font color=#000000 size=20>Lv2: Ataque +{level2Power}</font>\n<font color=#000000 size=20>Lv3: chance de Crítico +{level3Critical}%</font>\n<font color=#000000 size=20>Lv4: reduz a recarga do ataque em {level4MinusInterval} turnos</font>\n<font color=#000000 size=20>Lv5: ganha a habilidade de combo</font>"
+			]
+		},
+		"CherryBomb1": {
+			"name": "Bomba Cereja",
+			"desc": [
+				"<font color=#7d0403 size=20>Mestre Jardineiro</font>\n<font color=#000000 size=20>Lv1: ao detonar, revela as casas 3x3 ao redor e causa {power} de dano</font>\n<font color=#aeaeae size=20>Lv2: Ataque +{level2Power}</font>\n<font color=#aeaeae size=20>Lv3: chance de Crítico +{level3Critical}%</font>\n<font color=#aeaeae size=20>Lv4: dano da explosão +{level4BoomDamage}%</font>\n<font color=#aeaeae size=20>Lv5: o dano ignora armadura</font>"
+			]
+		},
+		"CherryBomb2": {
+			"name": "Bomba Cereja",
+			"desc": [
+				"<font color=#7d0403 size=20>Mestre Jardineiro</font>\n<font color=#000000 size=20>Lv1: ao detonar, revela as casas 3x3 ao redor e causa {power} de dano</font>\n<font color=#000000 size=20>Lv2: Ataque +{level2Power}</font>\n<font color=#aeaeae size=20>Lv3: chance de Crítico +{level3Critical}%</font>\n<font color=#aeaeae size=20>Lv4: dano da explosão +{level4BoomDamage}%</font>\n<font color=#aeaeae size=20>Lv5: o dano ignora armadura</font>"
+			]
+		},
+		"CherryBomb3": {
+			"name": "Bomba Cereja",
+			"desc": [
+				"<font color=#7d0403 size=20>Mestre Jardineiro</font>\n<font color=#000000 size=20>Lv1: ao detonar, revela as casas 3x3 ao redor e causa {power} de dano</font>\n<font color=#000000 size=20>Lv2: Ataque +{level2Power}</font>\n<font color=#000000 size=20>Lv3: chance de Crítico +{level3Critical}%</font>\n<font color=#aeaeae size=20>Lv4: dano da explosão +{level4BoomDamage}%</font>\n<font color=#aeaeae size=20>Lv5: o dano ignora armadura</font>"
+			]
+		},
+		"CherryBomb4": {
+			"name": "Bomba Cereja",
+			"desc": [
+				"<font color=#7d0403 size=20>Mestre Jardineiro</font>\n<font color=#000000 size=20>Lv1: ao detonar, revela as casas 3x3 ao redor e causa {power} de dano</font>\n<font color=#000000 size=20>Lv2: Ataque +{level2Power}</font>\n<font color=#000000 size=20>Lv3: chance de Crítico +{level3Critical}%</font>\n<font color=#000000 size=20>Lv4: dano da explosão +{level4BoomDamage}%</font>\n<font color=#aeaeae size=20>Lv5: o dano ignora armadura</font>"
+			]
+		},
+		"CherryBomb5": {
+			"name": "Bomba Cereja",
+			"desc": [
+				"<font color=#7d0403 size=20>Mestre Jardineiro</font>\n<font color=#000000 size=20>Lv1: ao detonar, revela as casas 3x3 ao redor e causa {power} de dano</font>\n<font color=#000000 size=20>Lv2: Ataque +{level2Power}</font>\n<font color=#000000 size=20>Lv3: chance de Crítico +{level3Critical}%</font>\n<font color=#000000 size=20>Lv4: dano da explosão +{level4BoomDamage}%</font>\n<font color=#000000 size=20>Lv5: o dano ignora armadura</font>"
+			]
+		},
+		"Sunflower1": {
+			"name": "Girassol",
+			"desc": [
+				"<font color=#7d0403 size=20>Mestre Jardineiro</font>\n<font color=#000000 size=20>Lv1: ao usar, restaura {dhpPercent}% do HP</font>\n<font color=#aeaeae size=20>Lv2: ao usar, restaura {level2AddHp} de HP extra</font>\n<font color=#aeaeae size=20>Lv3: ao usar, ganha EXP igual a {level3AddExpPercent}% do seu nível atual</font>\n<font color=#aeaeae size=20>Lv4: ao usar, ganha {level4AddMoney} moedas extras</font>\n<font color=#aeaeae size=20>Lv5: ao usar, ganha {level5AddMaxHp} de HP máximo extra</font>"
+			]
+		},
+		"Sunflower2": {
+			"name": "Girassol",
+			"desc": [
+				"<font color=#7d0403 size=20>Mestre Jardineiro</font>\n<font color=#000000 size=20>Lv1: ao usar, restaura {dhpPercent}% do HP</font>\n<font color=#000000 size=20>Lv2: ao usar, restaura {level2AddHp} de HP extra</font>\n<font color=#aeaeae size=20>Lv3: ao usar, ganha EXP igual a {level3AddExpPercent}% do seu nível atual</font>\n<font color=#aeaeae size=20>Lv4: ao usar, ganha {level4AddMoney} moedas extras</font>\n<font color=#aeaeae size=20>Lv5: ao usar, ganha {level5AddMaxHp} de HP máximo extra</font>"
+			]
+		},
+		"Sunflower3": {
+			"name": "Girassol",
+			"desc": [
+				"<font color=#7d0403 size=20>Mestre Jardineiro</font>\n<font color=#000000 size=20>Lv1: ao usar, restaura {dhpPercent}% do HP</font>\n<font color=#000000 size=20>Lv2: ao usar, restaura {level2AddHp} de HP extra</font>\n<font color=#000000 size=20>Lv3: ao usar, ganha EXP igual a {level3AddExpPercent}% do seu nível atual</font>\n<font color=#aeaeae size=20>Lv4: ao usar, ganha {level4AddMoney} moedas extras</font>\n<font color=#aeaeae size=20>Lv5: ao usar, ganha {level5AddMaxHp} de HP máximo extra</font>"
+			]
+		},
+		"Sunflower4": {
+			"name": "Girassol",
+			"desc": [
+				"<font color=#7d0403 size=20>Mestre Jardineiro</font>\n<font color=#000000 size=20>Lv1: ao usar, restaura {dhpPercent}% do HP</font>\n<font color=#000000 size=20>Lv2: ao usar, restaura {level2AddHp} de HP extra</font>\n<font color=#000000 size=20>Lv3: ao usar, ganha EXP igual a {level3AddExpPercent}% do seu nível atual</font>\n<font color=#000000 size=20>Lv4: ao usar, ganha {level4AddMoney} moedas extras</font>\n<font color=#aeaeae size=20>Lv5: ao usar, ganha {level5AddMaxHp} de HP máximo extra</font>"
+			]
+		},
+		"Sunflower5": {
+			"name": "Girassol",
+			"desc": [
+				"<font color=#7d0403 size=20>Mestre Jardineiro</font>\n<font color=#000000 size=20>Lv1: ao usar, restaura {dhpPercent}% do HP</font>\n<font color=#000000 size=20>Lv2: ao usar, restaura {level2AddHp} de HP extra</font>\n<font color=#000000 size=20>Lv3: ao usar, ganha EXP igual a {level3AddExpPercent}% do seu nível atual</font>\n<font color=#000000 size=20>Lv4: ao usar, ganha {level4AddMoney} moedas extras</font>\n<font color=#000000 size=20>Lv5: ao usar, ganha {level5AddMaxHp} de HP máximo extra</font>"
+			]
+		},
+		"CharmingMushroom1": {
+			"name": "Cogumelo Encantador",
+			"desc": [
+				"<font color=#7d0403 size=20>Mestre Jardineiro</font>\n<font color=#000000 size=20>Lv1: pode encantar um monstro normal para lutar por você</font>\n<font color=#aeaeae size=20>Lv2: Ataque do monstro encantado +{level2AddPower}</font>\n<font color=#aeaeae size=20>Lv3: HP do monstro encantado +{level3AddHp}</font>\n<font color=#aeaeae size=20>Lv4: chance de Crítico do monstro encantado +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Lv5: Esquiva do monstro encantado +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Pode encantar um monstro normal para lutar por você, restam {cnt} usos</font>",
+				"<font color=#e4d5a5 size=25>Cogumelo Encantador (selecione um alvo)</font>"
+			]
+		},
+		"CharmingMushroom2": {
+			"name": "Cogumelo Encantador",
+			"desc": [
+				"<font color=#7d0403 size=20>Mestre Jardineiro</font>\n<font color=#000000 size=20>Lv1: pode encantar um monstro normal para lutar por você</font>\n<font color=#000000 size=20>Lv2: Ataque do monstro encantado +{level2AddPower}</font>\n<font color=#aeaeae size=20>Lv3: HP do monstro encantado +{level3AddHp}</font>\n<font color=#aeaeae size=20>Lv4: chance de Crítico do monstro encantado +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Lv5: Esquiva do monstro encantado +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Pode encantar um monstro normal para lutar por você, restam {cnt} usos</font>",
+				"<font color=#e4d5a5 size=25>Cogumelo Encantador (selecione um alvo)</font>"
+			]
+		},
+		"CharmingMushroom3": {
+			"name": "Cogumelo Encantador",
+			"desc": [
+				"<font color=#7d0403 size=20>Mestre Jardineiro</font>\n<font color=#000000 size=20>Lv1: pode encantar um monstro normal para lutar por você</font>\n<font color=#000000 size=20>Lv2: Ataque do monstro encantado +{level2AddPower}</font>\n<font color=#000000 size=20>Lv3: HP do monstro encantado +{level3AddHp}</font>\n<font color=#aeaeae size=20>Lv4: chance de Crítico do monstro encantado +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Lv5: Esquiva do monstro encantado +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Pode encantar um monstro normal para lutar por você, restam {cnt} usos</font>",
+				"<font color=#e4d5a5 size=25>Cogumelo Encantador (selecione um alvo)</font>"
+			]
+		},
+		"CharmingMushroom4": {
+			"name": "Cogumelo Encantador",
+			"desc": [
+				"<font color=#7d0403 size=20>Mestre Jardineiro</font>\n<font color=#000000 size=20>Lv1: pode encantar um monstro normal para lutar por você</font>\n<font color=#000000 size=20>Lv2: Ataque do monstro encantado +{level2AddPower}</font>\n<font color=#000000 size=20>Lv3: HP do monstro encantado +{level3AddHp}</font>\n<font color=#000000 size=20>Lv4: chance de Crítico do monstro encantado +{level4AddCritical}%</font>\n<font color=#aeaeae size=20>Lv5: Esquiva do monstro encantado +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Pode encantar um monstro normal para lutar por você, restam {cnt} usos</font>",
+				"<font color=#e4d5a5 size=25>Cogumelo Encantador (selecione um alvo)</font>"
+			]
+		},
+		"CharmingMushroom5": {
+			"name": "Cogumelo Encantador",
+			"desc": [
+				"<font color=#7d0403 size=20>Mestre Jardineiro</font>\n<font color=#000000 size=20>Lv1: pode encantar um monstro normal para lutar por você</font>\n<font color=#000000 size=20>Lv2: Ataque do monstro encantado +{level2AddPower}</font>\n<font color=#000000 size=20>Lv3: HP do monstro encantado +{level3AddHp}</font>\n<font color=#000000 size=20>Lv4: chance de Crítico do monstro encantado +{level4AddCritical}%</font>\n<font color=#000000 size=20>Lv5: Esquiva do monstro encantado +{level5AddDodge}%</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Pode encantar um monstro normal para lutar por você, restam {cnt} usos</font>",
+				"<font color=#e4d5a5 size=25>Cogumelo Encantador (selecione um alvo)</font>"
+			]
+		},
+		"PlaceHolder": {
+			"name": "Espaço reservado de Chefe Elite",
+			"desc": ""
+		},
+		"BossBunny": {
+			"name": "Coelho Chefe",
+			"desc": ""
+		},
+		"SuperPotion": {
+			"name": "Superpoção",
+			"desc": [
+				"<font color=#000000 size=20>Por {immunizeCnt-1} turnos, você não sofre ataques surpresa e fica imune a todo dano</font>"
+			],
+			"initialDesc": "<font color=#000000 size=28>Por 1 turno você não pode sofrer emboscadas e fica imune a todo dano.</font>",
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Por {immunizeCnt-1} turnos, você não sofre ataques surpresa e fica imune a todo dano</font>\n<font color=#e4d5a5 size=25>Recarga de {elemCD} turnos</font>",
+				"<font color=#e4d5a5 size=25>Superpoção (toque em qualquer lugar do mapa para usar)</font>"
+			]
+		},
+		"StrengthPotion": {
+			"name": "Poção de Força",
+			"desc": [
+				"<font color=#000000 size=20>Por {enhanceCnt-1} turnos, o Ataque é dobrado e os monstros não podem contra-atacar</font>"
+			],
+			"initialDesc": "<font color=#000000 size=28>Por 5 turnos seu ataque dobra e os monstros não podem contra-atacar.</font>",
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Por {enhanceCnt-1} turnos, o Ataque é dobrado e os monstros não podem contra-atacar</font>\n<font color=#e4d5a5 size=25>Recarga de {elemCD} turnos</font>",
+				"<font color=#e4d5a5 size=25>Poção de Força (toque em qualquer lugar do mapa para usar)</font>"
+			]
+		},
+		"Hole": {
+			"name": "Buraco Negro",
+			"desc": [
+				"<font color=#000000 size=20>Sem passagem</font>"
+			]
+		},
+		"Apple": {
+			"name": "Maçã",
+			"desc": [
+				"<font color=#000000 size=20>Use para restaurar {dhp} de HP</font>"
+			]
+		},
+		"Steak": {
+			"name": "Bife",
+			"desc": [
+				"<font color=#000000 size=20>Use para restaurar {dhp} de HP</font>"
+			]
+		},
+		"IceBlock": {
+			"name": "Bloco de Gelo",
+			"desc": [
+				"<font color=#000000 size=20>Pode ser quebrado para remover</font>"
+			]
+		},
+		"Knife": {
+			"name": "Faca",
+			"desc": [
+				"<font color=#000000 size=20>Arremesse a arma para causar {power} de dano</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Arremesse a arma para causar {power} de dano</font>",
+				"<font color=#e4d5a5 size=25>Faca (selecione um alvo)</font>"
+			]
+		},
+		"Rock": {
+			"name": "Pedra",
+			"desc": [
+				"<font color=#000000 size=20>Pode ser quebrado para remover</font>"
+			]
+		},
+		"SmallRock": {
+			"name": "Pedra Pequena",
+			"desc": [
+				"<font color=#000000 size=20>Arremesse a arma para causar 1 de dano</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Arremesse a arma para causar {power} de dano</font>",
+				"<font color=#e4d5a5 size=25>Pedra Pequena (selecione um alvo)</font>"
+			]
+		},
+		"Bazooka": {
+			"name": "Bazuca",
+			"desc": [
+				"<font color=#000000 size=20>Ao usar, incendeia o alvo, causando {power} de dano</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Ao usar, incendeia o alvo, causando {power} de dano</font>\n<font color=#e4d5a5 size=25>Recarga de {elemCD} turnos</font>",
+				"<font color=#e4d5a5 size=25>Poção de Fogo (selecione um alvo)</font>"
+			]
+		},
+		"RayGun": {
+			"name": "Raio Flamejante",
+			"desc": [
+				"<font color=#000000 size=20>Revela as casas 3x3 e causa {power} de dano</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Revela as casas 3x3 e causa {power} de dano</font>\n<font color=#e4d5a5 size=25>Recarga de {elemCD} turnos</font>",
+				"<font color=#e4d5a5 size=25>Poção Explosiva (selecione um alvo)</font>"
+			]
+		},
+		"IceGun": {
+			"name": "Raio Congelante",
+			"desc": [
+				"<font color=#000000 size=20>Ao usar, congela o alvo</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Ao usar, congela o alvo</font>\n<font color=#e4d5a5 size=25>Recarga de {elemCD} turnos</font>",
+				"<font color=#e4d5a5 size=25>Raio Congelante (selecione um alvo)</font>"
+			]
+		},
+		"CandyCannon": {
+			"name": "Canhão de Doces",
+			"desc": [
+				"<font color=#000000 size=20>Gaste moedas equivalentes a 3x o HP de um alvo para matar um inimigo; sem efeito em elites e chefes</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Gaste moedas no valor de 3x o HP de um alvo para matar um inimigo; sem efeito em elites e chefes</font>\n<font color=#e4d5a5 size=25>Recarga de {elemCD} turnos</font>",
+				"<font color=#e4d5a5 size=25>Canhão de Doces (selecione um alvo)</font>"
+			]
+		},
+		"NaturePotion": {
+			"name": "Poção da Natureza",
+			"desc": [
+				"<font color=#000000 size=20>Use para transformar um monstro em uma planta aleatória</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Transforme um monstro em uma planta aleatória</font>"
+			],
+			"initialDesc": "Você não consegue resistir ao poder da natureza"
+		},
+		"Baton": {
+			"name": "Cassetete",
+			"desc": [
+				"<font color=#000000 size=20>Ataque + {powerA}</font>"
+			]
+		},
+		"Vest": {
+			"name": "Colete",
+			"desc": [
+				"<font color=#000000 size=20>Reduz o Ataque do inimigo em 1</font>"
+			]
+		},
+		"Cocoon": {
+			"name": "Casulo",
+			"desc": [
+				"<font color=#000000 size=20>Itens envolvidos em um casulo não podem ser usados</font>"
+			]
+		},
+		"WantedOrder": {
+			"name": "Cartaz de Procurado",
+			"desc": [
+				"<font color=#000000 size=20>Marca um monstro aleatório; ele solta 10x moedas</font>"
+			]
+		},
+		"Cloak": {
+			"name": "Manto",
+			"desc": [
+				"<font color=#000000 size=20>Anula um ataque surpresa inimigo</font>"
+			]
+		},
+		"DeluxeMeal": {
+			"name": "Fonte da Vida",
+			"desc": [
+				"<font color=#000000 size=20>Restaura 50% do HP</font>"
+			]
+		},
+		"NextLevelPort": {
+			"name": "Próximo Andar",
+			"desc": [
+				"<font color=#000000 size=20>Sair da masmorra</font>"
+			]
+		},
+		"EscapePort": {
+			"name": "Fuga",
+			"desc": [
+				"<font color=#000000 size=20>Sair da masmorra</font>"
+			]
+		},
+		"GangMember": {
+			"name": "Gângster",
+			"shortDesc": "Pode roubar lojas e NPCs de eventos",
+			"initialDesc": "<font color=#000000 size=28>Pode roubar lojas e NPCs de eventos</font>.",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>Pode roubar lojas e NPCs de eventos</font>",
+				"<font color=#3333cc size=20>Notas</font>\n<font color=#000000 size=20>Lv1: rouba um item do mordomo robô</font>\n<font color=#000000 size=20>Lv2: pode roubar em alguns eventos ?</font>\n<font color=#000000 size=20>Lv3: rouba um item do mercador do mapa-múndi</font>\n<font color=#000000 size=20>Lv4: ao roubar o mordomo robô, 50% de chance de obter dois itens</font>\n<font color=#000000 size=20>Lv5: ao roubar o mercador do mapa-múndi, 25% de chance de um item extra</font>"
+			]
+		},
+		"ShieldBlock": {
+			"name": "Carapaça de Escaravelho",
+			"shortDesc": "Cada batalha adiciona um escudo; absorção do escudo +{dShield}",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>A cada batalha, adiciona um escudo; o escudo absorve {dShield} de dano a mais</font>"
+			]
+		},
+		"ShieldDetector": {
+			"name": "Detector de Escudos",
+			"shortDesc": "Cada batalha adiciona um escudo; você conhece a localização de todos os escudos",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>A cada batalha, adiciona um escudo; você conhece a localização de todos os escudos</font>"
+			]
+		},
+		"ShieldSlam": {
+			"name": "Pancada de Escudo",
+			"shortDesc": "A cada batalha adiciona um escudo; você pode arremessá-lo para causar dano até o limite de sua absorção restante, estilhaçando-o assim que esse limite é atingido",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>Adiciona um escudo a cada batalha; você pode arremessar seu escudo para causar dano até o limite de sua absorção restante, estilhaçando-o quando o limite é atingido</font>"
+			]
+		},
+		"VestDetector": {
+			"name": "Detector de Coletes",
+			"shortDesc": "Cada andar adiciona um colete extra; você conhece a localização de todos os coletes",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>A cada andar, adiciona um colete; você conhece a localização de todos os coletes</font>"
+			]
+		},
+		"VestImmune": {
+			"name": "Imunidade de Colete",
+			"shortDesc": "Cada andar adiciona um colete extra; enquanto um colete estiver ativo, você tem {percent}% de chance de anular o dano",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>Adiciona um colete a cada andar; cada colete utilizável tem {percent}% de chance de anular o dano</font>"
+			]
+		},
+		"VestThorns": {
+			"name": "Colete de Espinhos",
+			"shortDesc": "Cada andar adiciona um colete extra; quando você é atacado, causa {thornsDamage} de dano refletido ao monstro",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>Adiciona um colete a cada andar; ao ser atingido, causa {thornsDamage} de dano de espinhos ao monstro</font>"
+			]
+		},
+		"Watchmaker": {
+			"name": "Relojoeiro",
+			"shortDesc": "Cada andar adiciona um relógio; usá-lo retrocede o tempo em +{addDeathStepBack}",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>A cada andar, adiciona um relógio; ao usá-lo, retrocede o tempo em +{addDeathStepBack}</font>"
+			]
+		},
+		"KnifeRange": {
+			"name": "Lâmina do Alcance",
+			"shortDesc": "Cada batalha adiciona uma faca de arremesso; suas facas podem atingir qualquer casa",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>A cada batalha, adiciona uma faca de arremesso; suas facas podem atingir qualquer casa</font>"
+			]
+		},
+		"PoisonKnife": {
+			"name": "Lâmina Venenosa",
+			"shortDesc": "Cada batalha adiciona uma faca de arremesso; ataques com faca aplicam um acúmulo de veneno",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>Adiciona uma faca de arremesso a cada batalha; ataques de faca aplicam um acúmulo de veneno</font>"
+			]
+		},
+		"InfinityKnife": {
+			"name": "Lâmina Infinita",
+			"shortDesc": "Cada batalha adiciona uma faca de arremesso; depois que uma faca mata um monstro, há {percent}% de chance de não ser consumida",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>Adiciona uma faca de arremesso a cada batalha; após uma faca matar um monstro, {percent}% de chance de não ser consumida</font>"
+			]
+		},
+		"KnifeDetector": {
+			"name": "Detector de Facas",
+			"shortDesc": "Cada batalha adiciona uma faca de arremesso; você conhece a localização de todas as facas",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>A cada batalha, adiciona uma faca de arremesso; você conhece a localização de todas as facas</font>"
+			]
+		},
+		"DoubleAttack": {
+			"name": "Golpe Combo",
+			"shortDesc": "Golpeia uma vez a mais ao atacar diretamente um monstro blindado",
+			"desc": [
+				"<font color=#3333cc size=20>Aprimoramento</font>\n<font color=#000000 size=20>Ao atacar diretamente um monstro blindado, golpeie uma vez a mais</font>"
+			]
+		},
+		"Crown": {
+			"name": "Coroa de Espinhos",
+			"shortDesc": "Um símbolo de poder",
+			"desc": [
+				"<font color=#000000 size=20>Um símbolo de força</font>"
+			]
+		},
+		"LuxuryChest": {
+			"name": "Baú de Luxo",
+			"desc": [
+				"<font color=#000000 size=20>Rende coisas boas</font>"
+			]
+		},
+		"BigBen": {
+			"name": "Big Ben",
+			"desc": [
+				"<font color=#000000 size=20>A Morte recua {deathStepBack} passos</font>"
+			]
+		},
+		"GoldenHand": {
+			"name": "Toque de Midas",
+			"desc": [
+				"<font color=#000000 size=20>Pode transformar um monstro em {dropNum} moedas, utilizável mais {cnt} vezes</font>"
+			],
+			"useDescArr": [
+				"<font color=#e4d5a5 size=25>Pode transformar um monstro em {dropNum} moedas, utilizável mais {cnt} vezes</font>",
+				"<font color=#e4d5a5 size=25>Toque de Midas (toque no monstro-alvo para usar)</font>"
+			]
+		},
+		"OpenRelicSpace": {
+			"name": "Espaço de habilidade",
+			"desc": [
+				"<font color=#000000 size=20>Adiciona um espaço de equipamento de habilidade</font>"
+			]
+		},
+		"MNutWall": {
+			"name": "Noz-muralha",
+			"desc": [
+				"<font color=#7d0403 size=20>Guarda</font>\n<font color=#000000 size=20>Quando outro monstro dentro das 8 casas ao redor é atingido, ele recebe esse dano</font>"
+			]
+		},
+		"MPeashooter": {
+			"name": "Ervilhal",
+			"desc": [
+				"<font color=#7d0403 size=20>Combo</font>\n<font color=#000000 size=20>Ataca uma vez a cada 4 turnos</font>"
+			]
+		},
+		"MCherryBomb": {
+			"name": "Bomba Cereja",
+			"desc": [
+				"<font color=#7d0403 size=20>Autodestruição</font>\n<font color=#000000 size=20>Autodestrói-se {rounds} turnos após aparecer, revelando as 8 casas ao redor e causando dano de Ataque x3</font>"
+			]
+		},
+		"MSunflower": {
+			"name": "Girassol",
+			"desc": [
+				"<font color=#7d0403 size=20>Recuperação</font>\n<font color=#000000 size=20>A cada 3 turnos, restaura 1 HP a todos os monstros revelados</font>"
+			]
+		},
+		"MCharmingMushroom": {
+			"name": "Cogumelo Encantador",
+			"desc": [
+				"<font color=#7d0403 size=20>Imune</font>\n<font color=#000000 size=20>Não pode ser encantado</font>"
+			]
+		},
+		"EliteGoblinThief": {
+			"name": "Ladrão Goblin Elite",
+			"desc": [
+				"<font color=#7d0403 size=20>Roubo</font>\n<font color=#000000 size=20>No ataque surpresa, rouba suas moedas</font>",
+				"<font color=#7d0403 size=20>Elite</font>\n<font color=#000000 size=20>Concede roubo surpresa a todos os monstros: um ataque surpresa rouba 15% das suas moedas atuais</font>"
+			]
+		},
+		"EliteVampire": {
+			"name": "Vampiro de Elite",
+			"desc": [
+				"<font color=#7d0403 size=20>Roubo de Vida</font>\n<font color=#000000 size=20>No ataque surpresa, drena {percent}% do seu HP</font>",
+				"<font color=#7d0403 size=20>Elite</font>\n<font color=#000000 size=20>Concede roubo de vida surpresa a todos os monstros: um ataque surpresa drena 15% do seu HP atual</font>"
+			]
+		},
+		"EliteLustZombie": {
+			"name": "Súcubo Elite",
+			"desc": [
+				"<font color=#7d0403 size=20>Sedução</font>\n<font color=#000000 size=20>No ataque surpresa, avança a Morte em {deathStepOnSneak} turnos</font>",
+				"<font color=#7d0403 size=20>Vingança</font>\n<font color=#000000 size=20>Ao morrer, recua a Morte em {deathStepOnDie} turnos</font>",
+				"<font color=#7d0403 size=20>Elite</font>\n<font color=#000000 size=20>Concede sedução a todos os monstros: um ataque surpresa avança a Morte 10 passos</font>"
+			]
+		},
+		"EliteSwatheZombie": {
+			"name": "Viúva-Negra Elite",
+			"desc": [
+				"<font color=#7d0403 size=20>Enredar</font>\n<font color=#000000 size=20>Em ataque surpresa, bloqueia 3 itens revelados; eles só se desbloqueiam após a morte dele</font>",
+				"<font color=#7d0403 size=20>Peçonha</font>\n<font color=#000000 size=20>Os ataques infligem veneno</font>",
+				"<font color=#7d0403 size=20>Elite</font>\n<font color=#000000 size=20>Concede enredar a todos os monstros: um ataque surpresa pode travar 2 itens</font>"
+			]
+		},
+		"EliteReviveZombie": {
+			"name": "Tentáculo de Cthulhu Elite",
+			"desc": [
+				"<font color=#7d0403 size=20>Reviver</font>\n<font color=#000000 size=20>Pode reviver uma vez após a morte</font>",
+				"<font color=#7d0403 size=20>Elite</font>\n<font color=#000000 size=20>Concede reviver a todos os monstros: eles revivem uma vez ao morrer (monstros que já podiam reviver não revivem duas vezes)</font>"
+			]
+		},
+		"SlimeKing": {
+			"name": "Rei Gosma",
+			"desc": [
+				"<font color=#7d0403 size=20>Pancada de Gosma</font>\n<font color=#000000 size=20>A cada 3 turnos, executa uma pancada causando 3x de dano de Ataque</font>",
+				"<font color=#7d0403 size=20>Morte e Renascimento</font>\n<font color=#000000 size=20>Abaixo de 50% de HP, o Rei Gosma se divide em 4 gosmas; após 4 turnos elas se recombinam no Rei Gosma, cujo HP é a soma do HP das gosmas</font>",
+				"<font color=#7d0403 size=20>Gosma</font>\n<font color=#000000 size=20>Cada ataque custa 2 turnos extras</font>",
+				"<font color=#7d0403 size=20>Recuperar</font>\n<font color=#000000 size=20>Restaura 5% de HP a cada turno</font>"
+			]
+		},
+		"BrainOfCthulhu": {
+			"name": "Cérebro de Cthulhu",
+			"desc": [
+				"<font color=#7d0403 size=20>Toque Mental</font>\n<font color=#000000 size=20>A cada 3 turnos, ataca com 2x de dano e reduz a SAN em 10</font>",
+				"<font color=#7d0403 size=20>Comando</font>\n<font color=#000000 size=20>Dobra o HP e o Ataque de todos os outros monstros</font>",
+				"<font color=#7d0403 size=20>Aura do Medo</font>\n<font color=#000000 size=20>Reduz sua SAN a cada turno; quanto menor a sua SAN, mais estranho fica seu comportamento... abaixo de 70 de SAN: todos os números do mapa neste andar aparecem como pontos de interrogação; abaixo de 35 de SAN: todos os atributos dos monstros aparecem como pontos de interrogação; com 0 de SAN: seus ataques tocam pontos clicáveis aleatoriamente</font>",
+				"<font color=#7d0403 size=20>Poluição Mental</font>\n<font color=#000000 size=20>Após o chefe ser revelado, todos os monstros normais desta fase aparecem como tentáculos de Cthulhu</font>",
+				"<font color=#7d0403 size=20>Chamado de Cthulhu</font>\n<font color=#000000 size=20>O Cérebro de Cthulhu invoca um tentáculo de Cthulhu em um local aleatório a cada 5 turnos; cada tentáculo que você mata restaura 10 de SAN</font>"
+			]
+		}
 	}
 }

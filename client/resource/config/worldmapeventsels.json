@@ -13014,5 +13014,1632 @@
 				]
 			}
 		}
+	},
+	"PT": {
+		"desc": {
+			"exit": "Sair",
+			"battle": "Batalha",
+			"-money": "Perca {money} moedas",
+			"+money": "Ganhe {money} moedas",
+			"-allMoney": "Perde todas as moedas",
+			"-hp": "Perca {hp} HP",
+			"+hp": "Ganhe {hp} HP",
+			"-hpPrecentage": "Perca {hp} HP",
+			"+hpPrecentage": "Restaura {hp} HP",
+			"-maxHpPrecentage": "HP Máx. -{maxHp}",
+			"-maxHp": "HP Máx. -{maxHp}",
+			"+maxHp": "HP Máx. +{maxHp}",
+			"+dodge": "Esquiva +{dodge}",
+			"+power": "Ataque +{dpower}",
+			"+item": "Ganhe {item}",
+			"+randomItems": "Ganhe {randomNum} itens aleatórios",
+			"reinforceRandomRelics": "Reforça {reinforceNum} relíquias aleatórias",
+			"reinfoceRelic": "Reforçar uma relíquia",
+			"gambling": "Aposte {wager} moedas; {rate}% de chance de ganhar {award} moedas",
+			"rob": "Roubar itens",
+			"redirectSelGroup": "Reconstruir lista de opções",
+			"redirectSelGroup2": "Reconstruir lista de opções",
+			"toTurnTable": "",
+			"searchOnCorpse": "Revistar o cadáver",
+			"+specificRelics": "Ganhe {num} habilidades específicas"
+		},
+		"groups": {
+			"newPlayAward": {
+				"title": "O que você quer?",
+				"desc": "Sua partida anterior chegou ao andar $lv$. Deseja resgatar sua recompensa de herança?",
+				"sels": [
+					{
+						"desc": "Sim",
+						"func": [
+							"batalha"
+						],
+						"ps": {
+							"battleType": "awardInherited",
+							"extraLevelLogic": []
+						}
+					},
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				]
+			},
+			"a1": {
+				"title": "Luz Celestial",
+				"desc": "Um brilho sagrado desce diante de você; mesmo à distância você sente sua majestade e pureza.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Aproximar]</font><font color=#294c22 size=20>Aprimora 2 habilidades aleatórias, </font><font color=#7d0403 size=20>perde {hp} de HP</font>",
+						"func": [
+							"reinforceRandomRelics",
+							"-hpPrecentage",
+							"redirectSelGroup"
+						],
+						"ps": {
+							"reinforceNum": 2,
+							"hpPrecentage": 30,
+							"group": "a11"
+						}
+					},
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair",
+							"redirectSelGroup"
+						],
+						"ps": {
+							"group": "a12"
+						}
+					}
+				]
+			},
+			"a11": {
+				"title": "Luz Brilhante",
+				"desc": "Você entra na luz; o imenso poder é quase <font color=#7d0403 size=25>insuportável</font>, mas você resiste e ganha uma <font color=#294c22 size=25>compreensão mais profunda das suas habilidades</font>.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				]
+			},
+			"a12": {
+				"title": "Luz Celestial",
+				"desc": "É uma armadilha. Você não vai cair nessa.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				]
+			},
+			"a2": {
+				"title": "Bomba Cereja",
+				"desc": "Você encontra uma Bomba-Cereja dormindo profundamente, o tesouro dela sem proteção — uma ideia maldosa surge.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Roubar]</font><font color=#294c22 size=20>Ganhe uma medalha de moeda</font>, <font color=#7d0403 size=20>sofra a vingança da Bomba Cereja</font>",
+						"func": [
+							"redirectSelGroup"
+						],
+						"ps": {
+							"group": "a21"
+						}
+					},
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair",
+							"redirectSelGroup"
+						],
+						"ps": {
+							"group": "a22"
+						}
+					}
+				],
+				"globalCountMax": 1,
+				"extraRobSel": {
+					"desc": "<font color=#000000 size=20>[Roubar]</font><font color=#294c22 size=20>Ganhe uma habilidade</font>",
+					"func": [
+						"roubar",
+						"redirectSelGroup"
+					],
+					"ps": {
+						"rob": "inEvent1",
+						"group": "a23"
+					}
+				},
+				"bg": "Bomba-Cereja"
+			},
+			"a21": {
+				"title": "Bomba Cereja",
+				"desc": "A Bomba Cereja acorda sobressaltada e se explode em pedaços, lançando uma rajada escaldante diretamente contra você.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Fugir]</font><font color=#7d0403 size=20>Perca {money} moedas</font>",
+						"func": [
+							"+item",
+							"-moedas",
+							"redirectSelGroup"
+						],
+						"ps": {
+							"item": "Medalha de Ouro",
+							"money": 30,
+							"group": "a211"
+						}
+					},
+					{
+						"desc": "<font color=#000000 size=20>[Preparar-se]</font><font color=#7d0403 size=20>HP Máx -{maxHp}</font>",
+						"func": [
+							"+item",
+							"-HP máx",
+							"redirectSelGroup"
+						],
+						"ps": {
+							"item": "Medalha de Ouro",
+							"maxHp": 5,
+							"group": "a212"
+						}
+					},
+					{
+						"desc": "<font color=#000000 size=20>[Esconder-se]</font><font color=#7d0403 size=20>Perca {hp} HP</font>",
+						"func": [
+							"+item",
+							"-hpPrecentage",
+							"redirectSelGroup"
+						],
+						"ps": {
+							"item": "Medalha de Ouro",
+							"hpPrecentage": 20,
+							"group": "a213"
+						}
+					}
+				],
+				"bg": "Bomba-Cereja"
+			},
+			"a211": {
+				"title": "Bomba Cereja",
+				"desc": "<font color=#000000 size=25>Você corre para salvar a vida e finalmente escapa do raio da explosão; depois percebe que, no pânico, você </font><font color=#7d0403 size=25>deixou cair algumas moedas</font>.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				],
+				"bg": "Bomba-Cereja"
+			},
+			"a212": {
+				"title": "Bomba Cereja",
+				"desc": "<font color=#000000 size=25>Você protege a cabeça e se joga no chão; a explosão ainda te atinge, e seu corpo fica </font><font color=#7d0403 size=25>bastante machucado</font>.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				],
+				"bg": "Bomba-Cereja"
+			},
+			"a213": {
+				"title": "Bomba Cereja",
+				"desc": "<font color=#000000 size=25>Você se protege atrás de um obstáculo e sobrevive, embora </font><font color=#7d0403 size=25>ainda sofra algum dano</font>.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				],
+				"bg": "Bomba-Cereja"
+			},
+			"a22": {
+				"title": "Bomba Cereja",
+				"desc": "Roubar é errado.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				],
+				"bg": "Bomba-Cereja"
+			},
+			"a23": {
+				"title": "Bomba Cereja",
+				"desc": "Antes mesmo que a Bomba Cereja possa explodir, você surrupia o seu <font color=#294c22 size=25>tesouro</font>",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				],
+				"bg": "Bomba-Cereja"
+			},
+			"a3": {
+				"title": "Estátua Misteriosa",
+				"desc": "Diante de você há uma estátua misteriosa que parece guardar grande poder.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Rezar]</font><font color=#294c22 size=20>Aprimore uma habilidade</font>",
+						"func": [
+							"reinfoceRelic",
+							"redirectSelGroup"
+						],
+						"ps": {
+							"group": "a31"
+						}
+					},
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair",
+							"redirectSelGroup"
+						],
+						"ps": {
+							"group": "a32"
+						}
+					}
+				]
+			},
+			"a31": {
+				"title": "Estátua Misteriosa",
+				"desc": "Você se sente ficar mais forte.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				]
+			},
+			"a32": {
+				"title": "Estátua Misteriosa",
+				"desc": "Você ignora a estátua.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				]
+			},
+			"g1": {
+				"title": "Título do Evento",
+				"desc": "Texto de descrição do evento — explique do que se trata este evento",
+				"sels": [
+					{
+						"func": [
+							"+moedas",
+							"-HP"
+						],
+						"ps": {
+							"money": 10,
+							"hp": 1
+						}
+					},
+					{
+						"desc": "Ganhe um {item}, mas perca todas as moedas",
+						"func": [
+							"-allMoney",
+							"+item"
+						],
+						"ps": {
+							"item": "Caixa de Remédios"
+						}
+					},
+					{
+						"func": [
+							"roubar"
+						],
+						"ps": {
+							"rob": "inEvent"
+						}
+					},
+					{
+						"func": [
+							"Sair"
+						]
+					}
+				]
+			},
+			"g2": {
+				"title": "Título do Evento",
+				"desc": "Texto de descrição do evento — explique do que se trata este evento",
+				"sels": [
+					{
+						"func": [
+							"-maxHpPrecentage",
+							"reinforceRandomRelics"
+						],
+						"ps": {
+							"maxHpPrecentage": 50,
+							"reinforceNum": 2
+						}
+					},
+					{
+						"func": [
+							"-hpPrecentage"
+						],
+						"ps": {
+							"hpPrecentage": 50
+						}
+					},
+					{
+						"func": [
+							"-HP máx",
+							"reinfoceRelic"
+						],
+						"ps": {
+							"maxHp": 5
+						}
+					},
+					{
+						"func": [
+							"Sair"
+						]
+					}
+				]
+			},
+			"g3": {
+				"title": "Título do Evento",
+				"desc": "Texto de descrição do evento — explique do que se trata este evento",
+				"sels": [
+					{
+						"desc": "Enfrente uma batalha normal",
+						"func": [
+							"batalha"
+						],
+						"ps": {
+							"battleType": "_abcd"
+						}
+					},
+					{
+						"func": [
+							"-allMoney"
+						]
+					}
+				]
+			},
+			"a4": {
+				"title": "Voz Misteriosa",
+				"desc": "Uma voz majestosa ecoa do céu: \"Ofereça sua vida, e eu lhe concederei poder.\"",
+				"sels": [
+					{
+						"func": [
+							"sequência"
+						],
+						"ps": {
+							"desc": "<font color=#000000 size=20>[Sacrificar]</font><font color=#7d0403 size=20>Perca {hp} de HP, </font><font color=#294c22 size=20>{rate}% de chance de ganhar uma habilidade</font>",
+							"func": [
+								"+randomItems",
+								"-HP",
+								"redirectSelGroup"
+							],
+							"rates": [
+								20
+							],
+							"failedFunc": [
+								"-HP",
+								"redirectSelGroup2",
+								"+randomItemsFake"
+							],
+							"ps": [
+								{
+									"randomNum": 1,
+									"items": {
+										"ShieldBlock": 10,
+										"ExpMedal": 10,
+										"KnifeMaster": 10,
+										"MonsterHunter": 10,
+										"VestThorns": 10,
+										"InfinityKnife": 10,
+										"VestImmune": 10
+									},
+									"hp": 1,
+									"group": "a411",
+									"group2": "a421"
+								}
+							]
+						}
+					},
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair",
+							"redirectSelGroup"
+						],
+						"ps": {
+							"group": "a431"
+						}
+					}
+				]
+			},
+			"a411": {
+				"title": "Voz Misteriosa",
+				"desc": "Um poder imenso te invade; em meio à <font color=#7d0403 size=25>dor</font> você <font color=#294c22 size=25>compreende</font> algo.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				]
+			},
+			"a421": {
+				"title": "Voz Misteriosa",
+				"desc": "Um poder caótico inunda seu corpo; você sente uma <font color=#7d0403 size=25>dor</font> intensa, mas não compreende nada.",
+				"sels": [
+					{
+						"func": [
+							"sequência"
+						],
+						"ps": {
+							"desc": "<font color=#000000 size=20>[Sacrificar]</font><font color=#7d0403 size=20>Perca {hp} de HP, </font><font color=#294c22 size=20>{rate}% de chance de ganhar uma habilidade</font>",
+							"func": [
+								"+randomItems",
+								"-HP",
+								"redirectSelGroup"
+							],
+							"rates": [
+								35
+							],
+							"failedFunc": [
+								"-HP",
+								"redirectSelGroup2"
+							],
+							"ps": [
+								{
+									"randomNum": 1,
+									"items": {
+										"ShieldBlock": 10,
+										"ExpMedal": 10,
+										"KnifeMaster": 10,
+										"MonsterHunter": 10,
+										"VestThorns": 10,
+										"InfinityKnife": 10,
+										"VestImmune": 10
+									},
+									"hp": 2,
+									"group": "a411",
+									"group2": "a422"
+								}
+							]
+						}
+					},
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair",
+							"redirectSelGroup"
+						],
+						"ps": {
+							"group": "a431"
+						}
+					}
+				]
+			},
+			"a422": {
+				"title": "Voz Misteriosa",
+				"desc": "Um poder caótico inunda seu corpo; você sente uma <font color=#7d0403 size=25>dor</font> intensa, mas não compreende nada.",
+				"sels": [
+					{
+						"func": [
+							"sequência"
+						],
+						"ps": {
+							"desc": "<font color=#000000 size=20>[Sacrificar]</font><font color=#7d0403 size=20>Perca {hp} de HP, </font><font color=#294c22 size=20>{rate}% de chance de ganhar uma habilidade</font>",
+							"func": [
+								"+randomItems",
+								"-HP",
+								"redirectSelGroup"
+							],
+							"rates": [
+								50
+							],
+							"failedFunc": [
+								"-HP",
+								"redirectSelGroup2"
+							],
+							"ps": [
+								{
+									"randomNum": 1,
+									"items": {
+										"ShieldBlock": 10,
+										"ExpMedal": 10,
+										"KnifeMaster": 10,
+										"MonsterHunter": 10,
+										"VestThorns": 10,
+										"InfinityKnife": 10,
+										"VestImmune": 10
+									},
+									"hp": 3,
+									"group": "a411",
+									"group2": "a423"
+								}
+							]
+						}
+					},
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair",
+							"redirectSelGroup"
+						],
+						"ps": {
+							"group": "a431"
+						}
+					}
+				]
+			},
+			"a423": {
+				"title": "Voz Misteriosa",
+				"desc": "Um poder caótico inunda seu corpo; você sente uma <font color=#7d0403 size=25>dor</font> intensa, mas não compreende nada.",
+				"sels": [
+					{
+						"func": [
+							"sequência"
+						],
+						"ps": {
+							"desc": "<font color=#000000 size=20>[Sacrificar]</font><font color=#7d0403 size=20>Perca {hp} de HP, </font><font color=#294c22 size=20>{rate}% de chance de ganhar uma habilidade</font>",
+							"func": [
+								"+randomItems",
+								"-HP",
+								"redirectSelGroup"
+							],
+							"rates": [
+								65
+							],
+							"failedFunc": [
+								"-HP",
+								"redirectSelGroup2"
+							],
+							"ps": [
+								{
+									"randomNum": 1,
+									"items": {
+										"ShieldBlock": 10,
+										"ExpMedal": 10,
+										"KnifeMaster": 10,
+										"MonsterHunter": 10,
+										"VestThorns": 10,
+										"InfinityKnife": 10,
+										"VestImmune": 10
+									},
+									"hp": 4,
+									"group": "a411",
+									"group2": "a424"
+								}
+							]
+						}
+					},
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair",
+							"redirectSelGroup"
+						],
+						"ps": {
+							"group": "a431"
+						}
+					}
+				]
+			},
+			"a424": {
+				"title": "Voz Misteriosa",
+				"desc": "Um poder caótico inunda seu corpo; você sente uma <font color=#7d0403 size=25>dor</font> intensa, mas não compreende nada.",
+				"sels": [
+					{
+						"func": [
+							"sequência"
+						],
+						"ps": {
+							"desc": "<font color=#000000 size=20>[Sacrificar]</font><font color=#7d0403 size=20>Perca {hp} de HP, </font><font color=#294c22 size=20>{rate}% de chance de ganhar uma habilidade</font>",
+							"func": [
+								"+randomItems",
+								"-HP",
+								"redirectSelGroup"
+							],
+							"rates": [
+								80
+							],
+							"failedFunc": [
+								"-HP",
+								"redirectSelGroup2"
+							],
+							"ps": [
+								{
+									"randomNum": 1,
+									"items": {
+										"ShieldBlock": 10,
+										"ExpMedal": 10,
+										"KnifeMaster": 10,
+										"MonsterHunter": 10,
+										"VestThorns": 10,
+										"InfinityKnife": 10,
+										"VestImmune": 10
+									},
+									"hp": 5,
+									"group": "a411",
+									"group2": "a425"
+								}
+							]
+						}
+					},
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair",
+							"redirectSelGroup"
+						],
+						"ps": {
+							"group": "a431"
+						}
+					}
+				]
+			},
+			"a425": {
+				"title": "Voz Misteriosa",
+				"desc": "Um poder caótico inunda seu corpo; você sente uma <font color=#7d0403 size=25>dor</font> intensa, mas não compreende nada.",
+				"sels": [
+					{
+						"func": [
+							"sequência"
+						],
+						"ps": {
+							"desc": "<font color=#000000 size=20>[Sacrificar]</font><font color=#7d0403 size=20>Perca {hp} de HP, </font><font color=#294c22 size=20>{rate}% de chance de ganhar uma habilidade</font>",
+							"func": [
+								"+randomItems",
+								"-HP",
+								"redirectSelGroup"
+							],
+							"rates": [
+								95
+							],
+							"failedFunc": [
+								"-HP",
+								"redirectSelGroup2"
+							],
+							"ps": [
+								{
+									"randomNum": 1,
+									"items": {
+										"ShieldBlock": 10,
+										"ExpMedal": 10,
+										"KnifeMaster": 10,
+										"MonsterHunter": 10,
+										"VestThorns": 10,
+										"InfinityKnife": 10,
+										"VestImmune": 10
+									},
+									"hp": 6,
+									"group": "a411",
+									"group2": "a426"
+								}
+							]
+						}
+					},
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair",
+							"redirectSelGroup"
+						],
+						"ps": {
+							"group": "a431"
+						}
+					}
+				]
+			},
+			"a426": {
+				"title": "Voz Misteriosa",
+				"desc": "Um poder caótico inunda seu corpo; você sente uma <font color=#7d0403 size=25>dor</font> intensa, mas não compreende nada.",
+				"sels": [
+					{
+						"func": [
+							"sequência"
+						],
+						"ps": {
+							"desc": "<font color=#000000 size=20>[Sacrificar]</font><font color=#7d0403 size=20>Perca {hp} de HP, </font><font color=#294c22 size=20>{rate}% de chance de ganhar uma habilidade</font>",
+							"func": [
+								"+randomItems",
+								"-HP",
+								"redirectSelGroup"
+							],
+							"rates": [
+								100
+							],
+							"failedFunc": [
+								"-HP",
+								"redirectSelGroup2"
+							],
+							"ps": [
+								{
+									"randomNum": 1,
+									"items": {
+										"ShieldBlock": 10,
+										"ExpMedal": 10,
+										"KnifeMaster": 10,
+										"MonsterHunter": 10,
+										"VestThorns": 10,
+										"InfinityKnife": 10,
+										"VestImmune": 10
+									},
+									"hp": 7,
+									"group": "a411",
+									"group2": "a426"
+								}
+							]
+						}
+					},
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair",
+							"redirectSelGroup"
+						],
+						"ps": {
+							"group": "a431"
+						}
+					}
+				]
+			},
+			"a431": {
+				"title": "Voz Misteriosa",
+				"desc": "Isso deve ser um truque.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				]
+			},
+			"aa55": {
+				"title": "Título",
+				"desc": "desc",
+				"sels": [
+					{
+						"func": [
+							"searchOnCorpse"
+						],
+						"desc": "sels",
+						"ps": {
+							"rateArr": [
+								100,
+								100,
+								0
+							],
+							"titleArr": [
+								"Título 1",
+								"Título 2",
+								"Título 3"
+							],
+							"upDescArr": [
+								"1 Acabou de encontrar {lastDropped}",
+								"2 Acabou de encontrar {lastDropped}",
+								"3 Nada restante"
+							],
+							"descArr": [
+								"Descrição 1",
+								"Descrição 2",
+								"Descrição 3"
+							],
+							"toDrop": [
+								"Moedas",
+								"ttrdp1",
+								"ttrdp2"
+							],
+							"money": 1,
+							"exitDescArr": [
+								"Estou indo embora",
+								"Estou indo embora",
+								"Vou embora mesmo"
+							],
+							"battleType": "normal"
+						}
+					}
+				]
+			},
+			"a5": {
+				"title": "Cogumelo Encantador",
+				"desc": "\"Que tal uma partida?\" O Cogumelo Encantador agita as cartas, e você se sente totalmente convencido.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Apostar Alto] Aposte 50 moedas — </font><font color=#294c22 size=20>30% de ganhar 250 moedas</font>",
+						"func": [
+							"aposta"
+						],
+						"ps": {
+							"wager": 50,
+							"rate": 30,
+							"award": 250,
+							"succeedRedirectGroup": "a51",
+							"failedRedirectGroup": "a52"
+						}
+					},
+					{
+						"desc": "<font color=#000000 size=20>[Aposta Baixa] Aposte 50 moedas — </font><font color=#294c22 size=20>70% de ganhar 100 moedas</font>",
+						"func": [
+							"aposta"
+						],
+						"ps": {
+							"wager": 50,
+							"rate": 70,
+							"award": 100,
+							"succeedRedirectGroup": "a51",
+							"failedRedirectGroup": "a52"
+						}
+					},
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair",
+							"redirectSelGroup"
+						],
+						"ps": {
+							"group": "a53"
+						}
+					}
+				],
+				"extraRobSel": {
+					"desc": "<font color=#000000 size=20>[Roubar]</font><font color=#294c22 size=20>Ganhe 250 moedas</font>",
+					"func": [
+						"+moedas",
+						"redirectSelGroup"
+					],
+					"ps": {
+						"money": 250,
+						"group": "a54"
+					}
+				},
+				"bg": "CharmingMushroom"
+			},
+			"a51": {
+				"title": "Cogumelo Encantador",
+				"desc": "<font color=#294c22 size=25>Você ganhou a aposta.</font> \"Ah! Droga!\" o Cogumelo Encantador grita. \"Você trapaceou, não foi? Você deve ter trapaceado!\"",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				],
+				"bg": "CharmingMushroom"
+			},
+			"a52": {
+				"title": "Cogumelo Encantador",
+				"desc": "<font color=#7d0403 size=25>Você perdeu.</font> \"Obrigado pela preferência.\" A voz do Cogumelo Encantador irrita. Você balança a cabeça ainda tonta e deixa este lugar lamentável.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				],
+				"bg": "CharmingMushroom"
+			},
+			"a53": {
+				"title": "Cogumelo Encantador",
+				"desc": "Você vai embora sem hesitar, deixando as zombarias do Cogumelo Encantador para trás.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				],
+				"bg": "CharmingMushroom"
+			},
+			"a54": {
+				"title": "Cogumelo Encantador",
+				"desc": "Só criança escolhe. <font color=#294c22 size=25>Eu levo tudo!</font>",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				],
+				"bg": "CharmingMushroom"
+			},
+			"a6": {
+				"title": "Doces ou Travessuras",
+				"desc": "\"Doçura ou travessura!\" A Morte rosna lentamente, e você tem a sensação de que ela está falando sério.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Ignorar]</font><font color=#294c22 size=20>Ganhe {money} moedas, </font><font color=#7d0403 size=20>perca {hp} HP</font>",
+						"func": [
+							"+moedas",
+							"-HP",
+							"redirectSelGroup"
+						],
+						"ps": {
+							"money": 50,
+							"hp": 5,
+							"group": "a61"
+						}
+					},
+					{
+						"desc": "<font color=#000000 size=20>[Subornar]</font><font color=#7d0403 size=20>Perca {money} moedas, </font><font color=#294c22 size=20>ganhe Hostilidade Reduzida</font>",
+						"func": [
+							"-moedas",
+							"+item",
+							"redirectSelGroup"
+						],
+						"ps": {
+							"money": 50,
+							"item": "Máquina do Tempo",
+							"group": "a62"
+						}
+					}
+				],
+				"extraRobSel": {
+					"desc": "<font color=#000000 size=20>[Roubar]</font><font color=#7d0403 size=20>Você não faz ideia do que vai acontecer…</font>",
+					"func": [
+						"-HP",
+						"redirectSelGroup"
+					],
+					"ps": {
+						"hp": 5,
+						"group": "a63"
+					}
+				},
+				"bg": "Deus da Morte"
+			},
+			"a61": {
+				"title": "Doces ou Travessuras",
+				"desc": "A Morte <font color=#7d0403 size=25>te derruba</font> e vai embora. Um pequeno consolo: ela deixou cair algumas <font color=#294c22 size=25>moedas</font> ao partir",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				],
+				"bg": "Deus da Morte"
+			},
+			"a62": {
+				"title": "Doces ou Travessuras",
+				"desc": "A Morte se afasta silenciosamente. Você está um pouco mais <font color=#7d0403 size=25>pobre</font>, mas também aprendeu a <font color=#294c22 size=25>afastá-la</font>.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				],
+				"bg": "Deus da Morte"
+			},
+			"a63": {
+				"title": "Doces ou Travessuras",
+				"desc": "A Morte te abate sem piedade; você se levanta às pressas e foge, grato por ter sofrido apenas um <font color=#7d0403 size=25>ferimento leve</font>.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				],
+				"bg": "Deus da Morte"
+			},
+			"a7": {
+				"title": "Ovo de Páscoa",
+				"desc": "Você avista um ovo no chão rotulado como [Sem recompensa dentro]. Seus dedos começam a coçar.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Abrir] Entrar em uma fase especial de </font><font color=#7d0403 size=20>batalha</font><font color=#000000 size=20> — </font><font color=#294c22 size=20>Easter Egg</font><font color=#000000 size=20></font>",
+						"func": [
+							"redirectSelGroup"
+						],
+						"ps": {
+							"group": "a71"
+						}
+					},
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair",
+							"redirectSelGroup"
+						],
+						"ps": {
+							"group": "a72"
+						}
+					}
+				],
+				"bg": "Ovo Aleatório"
+			},
+			"a71": {
+				"title": "Ovo de Páscoa",
+				"desc": "Ao se aproximar do ovo, um inimigo surge de repente.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Batalha]</font>",
+						"func": [
+							"batalha"
+						],
+						"ps": {
+							"battleType": "randomEgg"
+						}
+					}
+				],
+				"bg": "Ovo Aleatório"
+			},
+			"a72": {
+				"title": "Ovo de Páscoa",
+				"desc": "Como não há recompensa, melhor não abrir.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				],
+				"bg": "Ovo Aleatório"
+			},
+			"a8": {
+				"title": "Girassol",
+				"desc": "\"Ei! Vamos lá!\" O Girassol convida você animadamente a dar sua opinião sobre a nova música dele.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Louvar]</font><font color=#294c22 size=20>HP Máx +{maxHp}</font>",
+						"func": [
+							"+HP máx",
+							"redirectSelGroup"
+						],
+						"ps": {
+							"maxHp": 10,
+							"group": "a81"
+						}
+					},
+					{
+						"desc": "<font color=#000000 size=20>[Zombar]</font><font color=#294c22 size=20>Esquiva +{dodge}%</font>",
+						"func": [
+							"redirectSelGroup",
+							"+esquiva"
+						],
+						"ps": {
+							"group": "a82",
+							"dodge": 1
+						}
+					}
+				],
+				"extraRobSel": {
+					"desc": "<font color=#000000 size=20>[Roubar]</font><font color=#000000 size=20>Você não ganha nada</font>",
+					"func": [
+						"redirectSelGroup"
+					],
+					"ps": {
+						"group": "a83"
+					}
+				},
+				"globalCountMax": 6,
+				"bg": "Girassol"
+			},
+			"a81": {
+				"title": "Girassol",
+				"desc": "Banhado pelo calor da música, você sente sua <font color=#294c22 size=25>força vital elevada</font>.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				],
+				"bg": "Girassol"
+			},
+			"a82": {
+				"title": "Girassol",
+				"desc": "O Girassol te encara; você começa a tremer e quer se esconder em algum lugar para <font color=#294c22 size=25>escapar</font> do seu olhar.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				],
+				"bg": "Girassol"
+			},
+			"a83": {
+				"title": "Girassol",
+				"desc": "Você derruba o Girassol com um chute e vasculha tudo, mas não encontra nada.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				],
+				"bg": "Girassol"
+			},
+			"a9": {
+				"title": "Cadáver de Aventureiro",
+				"desc": "Você encontra o cadáver de um aventureiro! O pobre coitado está feito em pedaços, mas pode estar escondendo algo <font color=#294c22 size=25>bom</font>.",
+				"sels": [
+					{
+						"func": [
+							"searchOnCorpse"
+						],
+						"desc": "<font color=#000000 size=20>[Vasculhar]</font><font color=#294c22 size=20>75% de ganhar uma recompensa, </font><font color=#7d0403 size=20>25% de entrar em batalha</font>",
+						"ps": {
+							"rateArr": [
+								75,
+								50,
+								25
+							],
+							"titleArr": [
+								"Cadáver de Aventureiro",
+								"Cadáver de Aventureiro",
+								"Cadáver de Aventureiro"
+							],
+							"upDescArr": [
+								"Você encontrou </font><font color=#294c22 size=25>{lastDropped}, </font>continuar procurando?",
+								"Você encontrou </font><font color=#294c22 size=25>{lastDropped}, </font>continuar procurando?",
+								"Você encontrou </font><font color=#294c22 size=25>{lastDropped}</font>. O aventureiro não tem mais nada agora, e você vai embora satisfeito."
+							],
+							"descArr": [
+								"<font color=#000000 size=20>[Continuar procurando]</font><font color=#294c22 size=20>50% recompensa, </font><font color=#7d0403 size=20>50% batalha</font>",
+								"<font color=#000000 size=20>[Procurar]</font><font color=#294c22 size=20>25% recompensa, </font><font color=#7d0403 size=20>75% batalha</font>",
+								"Sem querer compartilhar do destino do aventureiro, você vai embora sem titubear."
+							],
+							"toDrop": [
+								"Moedas",
+								"worldmapeventa91",
+								"worldmapeventa92"
+							],
+							"money": 50,
+							"exitDescArr": [
+								"<font color=#000000 size=20>[Sair]</font>",
+								"<font color=#000000 size=20>[Sair]</font>",
+								"<font color=#000000 size=20>[Sair]</font>"
+							],
+							"failedBattleType": "searchBody",
+							"failedUpDesc": "Você é emboscado enquanto vasculha!",
+							"failedDesc": "<font color=#000000 size=20>[Batalha]</font>",
+							"bg": "Crânio"
+						}
+					},
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair",
+							"redirectSelGroup"
+						],
+						"ps": {
+							"group": "a91"
+						}
+					}
+				],
+				"bg": "Crânio"
+			},
+			"a91": {
+				"title": "Cadáver de Aventureiro",
+				"desc": "Sem querer compartilhar do destino do aventureiro, você vai embora sem titubear.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				],
+				"bg": "Crânio"
+			},
+			"a92": {
+				"title": "Cadáver de Aventureiro",
+				"desc": "Você é emboscado enquanto vasculha!",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Batalha]</font>",
+						"func": [
+							"batalha"
+						],
+						"ps": {
+							"battleType": "searchBody"
+						}
+					}
+				],
+				"bg": "Crânio"
+			},
+			"b1": {
+				"title": "Roda da Sorte",
+				"desc": "Você encontra um goblin",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Iniciar Jogo]</font>",
+						"func": [
+							"toTurnTable"
+						]
+					}
+				]
+			},
+			"b2": {
+				"title": "Mordomo Robô Inteligente",
+				"desc": "\"Mercadoria genuína, justa para todos\", mas de algum modo você percebe um toque de astúcia em sua voz mecânica.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Comprar Habilidade] Gaste {money} moedas, </font><font color=#294c22 size=20>ganhe uma habilidade aleatória</font>",
+						"func": [
+							"-moedas",
+							"+randomItems",
+							"redirectSelGroup"
+						],
+						"ps": {
+							"money": 50,
+							"randomNum": 1,
+							"items": {
+								"WeaponMaster": 10,
+								"DefenseProficient": 10,
+								"BookMaster": 10,
+								"TreasureBoxDetector": 10,
+								"KnifeMaster": 10,
+								"MonsterHunter": 10,
+								"ExploreEnhanced": 10,
+								"HorticultureProficient": 10,
+								"SmellEnhanced": 10,
+								"Storer": 10,
+								"ShieldProficient": 10,
+								"StrikeFirst": 10
+							},
+							"group": "b21"
+						}
+					},
+					{
+						"desc": "<font color=#000000 size=20>[Comprar Poções] Gaste {money} moedas, </font><font color=#294c22 size=20>ganhe duas poções aleatórias</font>",
+						"func": [
+							"-moedas",
+							"+randomItems",
+							"redirectSelGroup"
+						],
+						"ps": {
+							"money": 50,
+							"randomNum": 2,
+							"items": {
+								"IceGun": 10,
+								"RayGun": 10,
+								"HpPotion": 10,
+								"Bazooka": 10,
+								"SuperPotion": 10,
+								"StrengthPotion": 10,
+								"CandyCannon": 10
+							},
+							"group": "b22"
+						}
+					},
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair",
+							"redirectSelGroup"
+						],
+						"ps": {
+							"group": "b23"
+						}
+					}
+				],
+				"extraRobSel": {
+					"desc": "<font color=#000000 size=20>[Roubar]</font><font color=#294c22 size=20>Ganhe uma poção ou uma habilidade</font>",
+					"func": [
+						"roubar",
+						"redirectSelGroup"
+					],
+					"ps": {
+						"rob": "inEvent",
+						"group": "b24"
+					}
+				},
+				"bg": "ShopNpc"
+			},
+			"b21": {
+				"title": "Mordomo Robô Inteligente",
+				"desc": "\"Volte sempre.\" A voz dele agora carrega um tom nítido de arrogância.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				],
+				"bg": "ShopNpc"
+			},
+			"b22": {
+				"title": "Mordomo Robô Inteligente",
+				"desc": "\"Volte sempre.\" A voz dele agora carrega um tom nítido de arrogância.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				],
+				"bg": "ShopNpc"
+			},
+			"b23": {
+				"title": "Mordomo Robô Inteligente",
+				"desc": "\"Seu maldito pobretão!\" O mordomo robô abandona o disfarce e explode de raiva.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				],
+				"bg": "ShopNpc"
+			},
+			"b24": {
+				"title": "Mordomo Robô Inteligente",
+				"desc": "Você empurra grosseiramente o mordomo robô ao chão e surrupia suas <font color=#294c22 size=20>mercadorias</font>.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				],
+				"bg": "ShopNpc"
+			},
+			"b3": {
+				"title": "Beijo da Súcubo",
+				"desc": "A súcubo lhe manda um beijo, e na hora você fica caidinho por ela.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Se entregar]</font><font color=#7d0403 size=20>Perca todas as moedas, </font><font color=#294c22 size=20>HP Máx +10</font>",
+						"func": [
+							"-allMoney",
+							"+HP máx",
+							"+hpPrecentage",
+							"redirectSelGroup"
+						],
+						"ps": {
+							"maxHp": 10,
+							"hpPrecentage": 100,
+							"group": "b31"
+						}
+					},
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair",
+							"redirectSelGroup"
+						],
+						"ps": {
+							"group": "b32"
+						}
+					}
+				],
+				"extraRobSel": {
+					"desc": "<font color=#000000 size=20>[Roubar]</font><font color=#294c22 size=20>Restaure todo o HP, ganhe 50 moedas</font>",
+					"func": [
+						"+hpPrecentage",
+						"+moedas",
+						"redirectSelGroup"
+					],
+					"ps": {
+						"hpPrecentage": 100,
+						"money": 50,
+						"group": "b33"
+					}
+				},
+				"bg": "Zumbi da Luxúria"
+			},
+			"b31": {
+				"title": "Beijo da Súcubo",
+				"desc": "Você acorda de manhã se sentindo <font color=#294c22 size=25>melhor do que nunca</font> — então percebe que sua <font color=#7d0403 size=25>carteira sumiu</font>.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				],
+				"bg": "Zumbi da Luxúria"
+			},
+			"b32": {
+				"title": "Beijo da Súcubo",
+				"desc": "Você resiste à tentação da súcubo com todas as forças e foge do lugar.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				],
+				"bg": "Zumbi da Luxúria"
+			},
+			"b33": {
+				"title": "Beijo da Súcubo",
+				"desc": "Você não tem noção de cavalheirismo: você <font color=#294c22 size=25>roubou as moedas dela</font> e <font color=#294c22 size=25>roubou um beijo</font> de quebra.",
+				"sels": [
+					{
+						"desc": "<font color=#000000 size=20>[Sair]</font>",
+						"func": [
+							"Sair"
+						]
+					}
+				],
+				"bg": "Zumbi da Luxúria"
+			},
+			"g4": {
+				"title": "Título do Evento",
+				"desc": "Texto de descrição do evento — explique do que se trata este evento",
+				"sels": [
+					{
+						"func": [
+							"aposta"
+						],
+						"ps": {
+							"wager": 50,
+							"rate": 75,
+							"award": 100,
+							"succeedRedirectGroup": "g4",
+							"failedRedirectGroup": "gg"
+						}
+					},
+					{
+						"func": [
+							"aposta"
+						],
+						"ps": {
+							"wager": 50,
+							"rate": 25,
+							"award": 250,
+							"succeedRedirectGroup": "g4",
+							"failedRedirectGroup": "gg"
+						}
+					},
+					{
+						"func": [
+							"sequência"
+						],
+						"ps": {
+							"desc": "{rate}% de ganhar {hp} HP e perder {money} moedas; {-rate}% de iniciar uma batalha",
+							"func": [
+								"+HP",
+								"-moedas"
+							],
+							"rates": [
+								99,
+								98,
+								97
+							],
+							"ps": [
+								{
+									"hp": 1,
+									"money": 10,
+									"battleType": "normal"
+								},
+								{
+									"hp": 2,
+									"money": 20,
+									"battleType": "normal"
+								},
+								{
+									"hp": 3,
+									"money": 30,
+									"battleType": "normal"
+								}
+							],
+							"failedFunc": [
+								"batalha"
+							]
+						}
+					},
+					{
+						"func": [
+							"+randomItems",
+							"redirectSelGroup"
+						],
+						"ps": {
+							"randomNum": 2,
+							"items": {
+								"RayGun": 100,
+								"IceGun": 1
+							},
+							"group": "gg"
+						}
+					},
+					{
+						"func": [
+							"sequência"
+						],
+						"ps": {
+							"desc": "{rate}% de chance de ganhar um item aleatório e perder {hp} HP",
+							"func": [
+								"-HP"
+							],
+							"rates": [
+								100,
+								0,
+								25
+							],
+							"items": {
+								"HpPotion": 100,
+								"MedicineBox": 50,
+								"IceGun": 1
+							},
+							"randomNum": 1,
+							"ps": [
+								{
+									"hp": 30
+								},
+								{
+									"hp": 40
+								},
+								{
+									"hp": 50
+								}
+							],
+							"failedFunc": [
+								"+randomItems",
+								"-HP",
+								"Sair"
+							]
+						}
+					},
+					{
+						"func": [
+							"Sair"
+						]
+					}
+				]
+			},
+			"gg": {
+				"title": "Esta é uma lista de subopções",
+				"desc": "Esta é uma lista de subopções",
+				"sels": [
+					{
+						"func": [
+							"-HP"
+						],
+						"ps": {
+							"hp": 1
+						}
+					},
+					{
+						"func": [
+							"-allMoney"
+						]
+					},
+					{
+						"func": [
+							"Sair"
+						]
+					}
+				]
+			}
+		}
 	}
 }
