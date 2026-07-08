@@ -3305,8 +3305,8 @@
 		},
 		"tooLongName": {
 			"EN": "this name is too long",
-			"CNS": "名字最长七个字",
-			"CNT": "名字最長七個字",
+			"CNS": "名字太长了",
+			"CNT": "名字太長了",
 			"FR": "ce nom est trop long",
 			"DE": "dieser Name ist zu lang",
 			"ES": "este nombre es demasiado largo",

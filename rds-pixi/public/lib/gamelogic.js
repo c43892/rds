@@ -19259,7 +19259,7 @@ class NameView extends egret.DisplayObjectContainer {
         var name = this.keyInName.text;
         if (name.length == 0 || name == "点击输入名字")
             return "needName";
-        else if (name.length > 7)
+        else if (name.length > 30)
             return "tooLongName";
         else if (!Utils.checkValidName(name))
             return "inValidName";
