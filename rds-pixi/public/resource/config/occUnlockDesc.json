@@ -1220,48 +1220,48 @@
 			[
 				{
 					"title": "Ganhe itens iniciais",
-					"icon": "Poção de HP",
+					"icon": "HpPotion",
 					"desc": "<font color=#000000 size=25>Todas as classes começam com <font color=#294c22 size=25>1→2</font> poções de cura</font>"
 				},
 				{
 					"title": "Reforço de Habilidade",
-					"icon": "Resistência",
+					"icon": "Endurance",
 					"desc": "<font color=#000000 size=25>Resistência: HP por nível </font><font color=#294c22 size=25>+5→+6</font>"
 				}
 			],
 			[
 				{
 					"title": "Ganhe itens iniciais",
-					"icon": "Poção de HP",
+					"icon": "HpPotion",
 					"desc": "<font color=#000000 size=25>Todas as classes começam com <font color=#294c22 size=25>2→3</font> poções de cura</font>"
 				},
 				{
 					"title": "Reforço de Habilidade",
-					"icon": "Resistência",
+					"icon": "Endurance",
 					"desc": "<font color=#000000 size=25>Resistência: HP por nível </font><font color=#294c22 size=25>+6→+7</font>"
 				}
 			],
 			[
 				{
 					"title": "Ganhe itens iniciais",
-					"icon": "Poção de HP",
+					"icon": "HpPotion",
 					"desc": "<font color=#000000 size=25>Todas as classes começam com <font color=#294c22 size=25>3→4</font> poções de cura</font>"
 				},
 				{
 					"title": "Reforço de Habilidade",
-					"icon": "Resistência",
+					"icon": "Endurance",
 					"desc": "<font color=#000000 size=25>Resistência: HP por nível </font><font color=#294c22 size=25>+7→+8</font>"
 				}
 			],
 			[
 				{
 					"title": "Ganhe itens iniciais",
-					"icon": "Poção de HP",
+					"icon": "HpPotion",
 					"desc": "<font color=#000000 size=25>Todas as classes começam com <font color=#294c22 size=25>4→5</font> poções de cura</font>"
 				},
 				{
 					"title": "Reforço de Habilidade",
-					"icon": "Resistência",
+					"icon": "Endurance",
 					"desc": "<font color=#000000 size=25>Resistência: HP por nível </font><font color=#294c22 size=25>+8→+9</font>"
 				}
 			]
@@ -1270,48 +1270,48 @@
 			[
 				{
 					"title": "Ganhe itens iniciais",
-					"icon": "Feroz",
+					"icon": "Fierce",
 					"desc": "<font color=#000000 size=25>Todas as classes ganham Maestria de Abate Lv1, 25% de chance de Lv2</font>"
 				},
 				{
 					"title": "Reforço de Habilidade",
-					"icon": "Ágil",
+					"icon": "Agile",
 					"desc": "<font color=#000000 size=25>Agilidade: esquiva por nível </font><font color=#294c22 size=25>+5%→+6%</font>"
 				}
 			],
 			[
 				{
 					"title": "Ganhe itens iniciais",
-					"icon": "Feroz",
+					"icon": "Fierce",
 					"desc": "<font color=#000000 size=25>Todas as classes ganham Maestria de Abate Lv1, 50% de chance de Lv2</font>"
 				},
 				{
 					"title": "Reforço de Habilidade",
-					"icon": "Ágil",
+					"icon": "Agile",
 					"desc": "<font color=#000000 size=25>Agilidade: esquiva por nível </font><font color=#294c22 size=25>+6%→+7%</font>"
 				}
 			],
 			[
 				{
 					"title": "Ganhe itens iniciais",
-					"icon": "Feroz",
+					"icon": "Fierce",
 					"desc": "<font color=#000000 size=25>Todas as classes ganham Maestria de Abate Lv1, 75% de chance de Lv2</font>"
 				},
 				{
 					"title": "Reforço de Habilidade",
-					"icon": "Ágil",
+					"icon": "Agile",
 					"desc": "<font color=#000000 size=25>Agilidade: esquiva por nível </font><font color=#294c22 size=25>+7%→+8%</font>"
 				}
 			],
 			[
 				{
 					"title": "Ganhe itens iniciais",
-					"icon": "Feroz",
+					"icon": "Fierce",
 					"desc": "<font color=#000000 size=25>Todas as classes ganham Maestria de Abate Lv1, 100% de chance de Lv2</font>"
 				},
 				{
 					"title": "Reforço de Habilidade",
-					"icon": "Ágil",
+					"icon": "Agile",
 					"desc": "<font color=#000000 size=25>Agilidade: esquiva por nível </font><font color=#294c22 size=25>+8%→+9%</font>"
 				}
 			]
@@ -1325,7 +1325,7 @@
 				},
 				{
 					"title": "Reforço de Habilidade",
-					"icon": "Bloqueio de Escudo",
+					"icon": "ShieldBlock",
 					"desc": "<font color=#000000 size=25>Casco de Escaravelho: absorção do escudo +1</font>"
 				}
 			],
@@ -1337,7 +1337,7 @@
 				},
 				{
 					"title": "Reforço de Habilidade",
-					"icon": "Bloqueio de Escudo",
+					"icon": "ShieldBlock",
 					"desc": "<font color=#000000 size=25>Casco de Escaravelho: absorção do escudo +2</font>"
 				}
 			],
@@ -1349,7 +1349,7 @@
 				},
 				{
 					"title": "Reforço de Habilidade",
-					"icon": "Bloqueio de Escudo",
+					"icon": "ShieldBlock",
 					"desc": "<font color=#000000 size=25>Casco de Escaravelho: absorção do escudo +3</font>"
 				}
 			],
@@ -1361,7 +1361,7 @@
 				},
 				{
 					"title": "Reforço de Habilidade",
-					"icon": "Bloqueio de Escudo",
+					"icon": "ShieldBlock",
 					"desc": "<font color=#000000 size=25>Casco de Escaravelho: absorção do escudo +4</font>"
 				}
 			]

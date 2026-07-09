@@ -12385,10 +12385,30 @@ class ViewUtils {
             if (!tex)
                 Utils.assert(false, "no texture created: " + name);
             ViewUtils.setTex(bmp, tex, resetSize, fillMode);
+            ViewUtils.maybeLocalizeTex(bmp, name); // 文字烤在图里的资源,非中文时异步换成对应语言图
         }
         else
             bmp.texture = undefined;
         return bmp;
+    }
+    // 若该资源在 localizedTextures 里且当前非中文,异步加载 i18n/<语言>/ 图并替换纹理;
+    // 缺该语言图则退英文;都没有则保持已设的原图。base 已同步设好,故任何时刻纹理都有效。
+    static maybeLocalizeTex(bmp, name) {
+        var dir = ViewUtils.localizedTextures[name];
+        if (!dir)
+            return;
+        var lang = ViewUtils.getLanguage();
+        if (lang == "CNS" || lang == "CNT")
+            return;
+        var file = name.replace(/_png$/, ".png");
+        var setPixi = (img) => { try {
+            bmp.texture = egret.Texture.fromPixi(window.PIXI.Texture.from(img));
+        }
+        catch (e) { } };
+        ViewUtils.loadImg("resource/" + dir + "i18n/" + lang + "/" + file, setPixi, () => {
+            if (lang != "EN")
+                ViewUtils.loadImg("resource/" + dir + "i18n/EN/" + file, setPixi);
+        });
     }
     static getBmpFont(fnt) {
         var tex = ResMgr.getRes(fnt + "_png");
@@ -12771,6 +12791,35 @@ class ViewUtils {
         catch (e) { }
         return bmp;
     }
+    // 用户提供的"旗杆挂旗"图标(assets/ui/flags/<LANG>.png,约 208x256 竖版)。
+    // 异步加载,按 targetH 等比缩放;加载完成回调 onSized(可用于重新定位)。
+    // 图缺失时回退旧的矢量 SVG 芯片,保证任何语言都有旗可显。
+    static createFlagImageBitmap(lang, targetH, onSized) {
+        var bmp = new egret.Bitmap();
+        ViewUtils.loadImg("resource/assets/ui/flags/" + lang + ".png", (img) => {
+            try {
+                bmp.texture = egret.Texture.fromPixi(window.PIXI.Texture.from(img));
+                var aspect = img.width / img.height;
+                bmp.height = targetH;
+                bmp.width = Math.round(targetH * aspect);
+                if (onSized)
+                    onSized(bmp);
+            }
+            catch (e) { }
+        }, () => {
+            // 回退:矢量 SVG 芯片(60x40 横版),等比适配 targetH
+            try {
+                var chip = ViewUtils.createFlagBitmap(lang, 2);
+                bmp.texture = chip.texture;
+                bmp.height = Math.round(targetH * 0.66);
+                bmp.width = Math.round(bmp.height * 1.5);
+                if (onSized)
+                    onSized(bmp);
+            }
+            catch (e) { }
+        });
+        return bmp;
+    }
     static getUIFontFamily(lang) {
         lang = lang || ViewUtils.getLanguage();
         return ViewUtils.uiFontFamilies[lang] || ViewUtils.uiFontFamilies._default;
@@ -13129,6 +13178,20 @@ class ViewUtils {
             parent.addChild(child);
     }
 }
+// 文字烤在图里、需按语言换图的资源名 -> 资源目录(相对 resource/)。
+// 在这些图放到 <目录>/i18n/<语言>/<名>.png。中文(CNS/CNT)用原图。
+ViewUtils.localizedTextures = {
+    "weeklyRankBtn_png": "assets/ui/ranking/",
+    "friendRankBtn_png": "assets/ui/ranking/",
+    "achvListBtn_png": "assets/ui/achv/",
+    "achvListBtnGray_png": "assets/ui/achv/",
+    "achvAwardBtn_png": "assets/ui/achv/",
+    "achvAwardBtnGray_png": "assets/ui/achv/",
+    "exchange_png": "assets/ui/hospital/",
+    "btnRob_png": "assets/ui/shop/",
+    "lvBtnOk_png": "assets/ui/levelup/",
+    "attrsBg_png": "assets/ui/character/",
+};
 // ---- 多语言基础设施 ----------------------------------------------------
 // 语言回退顺序：先英文(通用且已 100% 翻译),再中文源。未翻译的语言(日/韩/法/德/西/俄)
 // 因此回退到英文而非中文,对非中文用户更友好。CNS/CNT 已全译,不会触发回退。
@@ -18807,12 +18870,15 @@ class LoginView extends egret.DisplayObjectContainer {
             ViewUtils.localizeButton(this.btnOpenRank, "Heros", ViewUtils.getTipText("loginRank"));
             ViewUtils.localizeButton(this.btnAchievement, "Achievement", ViewUtils.getTipText("loginAchievement"));
         }
-        // 语言切换：右上角国旗 chip(矢量 SVG)。点击循环 validLanguages，持久化后重载，
-        // 让所有界面以新语言从头重建（登录界面无进行中对局，安全）。
-        this.btnLang = ViewUtils.createFlagBitmap(ViewUtils.getLanguage(), 1.5); // 放大 50%
+        // 排行榜功能未实现:永久置灰 + 禁用点击(enabled=false 会置 touchEnabled=false 并 makeGray)
+        this.btnOpenRank.enabled = false;
+        // 语言切换："旗杆挂旗"图标(用户美术),贴左侧、在 title 图(y=-30..258)下方。
+        this.btnLang = ViewUtils.createFlagImageBitmap(ViewUtils.getLanguage(), 104, (bmp) => {
+            bmp.x = 12;
+        });
         this.btnLang.name = "langBtn";
-        this.btnLang.x = 18; // 左侧，与第三排按钮(y=1000)同高
-        this.btnLang.y = 1000;
+        this.btnLang.x = 12;
+        this.btnLang.y = 268;
         this.btnLang.touchEnabled = true;
         this.btnLang.addEventListener(egret.TouchEvent.TOUCH_TAP, () => this.toggleLangMenu(), this);
         this.addChild(this.btnLang);
@@ -18832,8 +18898,13 @@ class LoginView extends egret.DisplayObjectContainer {
         var rowH = 60, rowW = 232, pad = 12, flagW = 60, flagH = 40;
         var panelW = rowW + pad * 2;
         var panelH = langs.length * rowH + pad * 2;
-        var panelX = 14;
-        var panelY = 1000 - panelH - 10; // 在按钮上方展开
+        // 旗子在左上角 -> 菜单在其下方、左对齐展开;超出屏幕则向上收
+        var panelX = 12;
+        var panelY = this.btnLang.y + this.btnLang.height + 8;
+        if (panelY + panelH > this.height - 20)
+            panelY = this.height - 20 - panelH;
+        if (panelY < 20)
+            panelY = 20;
         if (panelY < 40)
             panelY = 40;
         // 点击空白处关闭(全屏点击层,无贴图+显式尺寸 => 按矩形命中)
@@ -18868,10 +18939,13 @@ class LoginView extends egret.DisplayObjectContainer {
             hit.touchEnabled = true;
             hit.addEventListener(egret.TouchEvent.TOUCH_TAP, () => this.selectLanguage(lang), this);
             add(hit);
-            // 国旗
-            var flag = ViewUtils.createFlagBitmap(lang, 1);
+            // 国旗(旗杆挂旗图标,竖版;在 flagW 宽的格子里水平居中、行内垂直居中)
+            let frx = rx;
+            var flag = ViewUtils.createFlagImageBitmap(lang, rowH - 8, (bmp) => {
+                bmp.x = frx + 6 + Math.max(0, (flagW - 12 - bmp.width) / 2);
+            });
             flag.x = rx + 6;
-            flag.y = ry + (rowH - flagH) / 2;
+            flag.y = ry + 4;
             flag.touchEnabled = false;
             add(flag);
             // 语言自称
@@ -18917,8 +18991,8 @@ class LoginView extends egret.DisplayObjectContainer {
         ViewUtils.asFullBg(this.bg);
         this.ani.animation.play("idle", 0);
         this.btnContinue.enabled = !!this.player;
-        this.btnAchievement.enabled = true; // 暂时不可用
-        this.btnOpenRank.enabled = true;
+        this.btnAchievement.enabled = true;
+        this.btnOpenRank.enabled = false; // 排行榜功能未实现:置灰 + 禁用点击
     }
 }
 class LuxuryChestView extends egret.DisplayObjectContainer {
@@ -24262,17 +24336,6 @@ class LoadingUI extends egret.DisplayObjectContainer {
         this.warning.x = (this.width - this.warning.measuredWidth) / 2;
         this.warning.y = this.height - this.warning.measuredHeight - 50;
         this.addChild(this.warning);
-        // 玩法提示。原文案烤死在 LoadingBg 图里,现已从图上抹去 -> 改为真正的文本,
-        // 所有语言(含中文)都用此 TextField 渲染,跟随当前语言。垂直居中于原文字位置(y≈1073)。
-        var lang = this.detectLang();
-        var tip = ViewUtils.createTextField(24, 0xd8d0bc);
-        tip.fontFamily = ViewUtils.getUIFontFamily(lang);
-        tip.textAlign = egret.HorizontalAlign.CENTER;
-        tip.width = this.width - 80;
-        tip.x = 40;
-        tip.text = this.localizedTip(lang);
-        tip.y = Math.round(1073 - tip.measuredHeight / 2);
-        this.addChild(tip);
     }
     // 自包含的语言检测(此刻 multilanguage 配置尚未加载):优先已保存偏好,
     // 否则按浏览器 locale 经 ViewUtils.localeMap(静态表,无需配置)映射,默认 CNS。

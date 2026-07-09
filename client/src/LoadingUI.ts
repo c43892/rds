@@ -85,18 +85,6 @@ class LoadingUI extends egret.DisplayObjectContainer implements RES.PromiseTaskR
         this.warning.x = (this.width - this.warning.measuredWidth) / 2;
         this.warning.y = this.height - this.warning.measuredHeight - 50;
         this.addChild(this.warning);
-
-        // 玩法提示。原文案烤死在 LoadingBg 图里,现已从图上抹去 -> 改为真正的文本,
-        // 所有语言(含中文)都用此 TextField 渲染,跟随当前语言。垂直居中于原文字位置(y≈1073)。
-        var lang = this.detectLang();
-        var tip = ViewUtils.createTextField(24, 0xd8d0bc);
-        tip.fontFamily = ViewUtils.getUIFontFamily(lang);
-        tip.textAlign = egret.HorizontalAlign.CENTER;
-        tip.width = this.width - 80;
-        tip.x = 40;
-        tip.text = this.localizedTip(lang);
-        tip.y = Math.round(1073 - tip.measuredHeight / 2);
-        this.addChild(tip);
     }
 
     // 自包含的语言检测(此刻 multilanguage 配置尚未加载):优先已保存偏好,

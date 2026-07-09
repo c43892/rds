@@ -91,12 +91,16 @@ class LoginView extends egret.DisplayObjectContainer {
             ViewUtils.localizeButton(this.btnAchievement, "Achievement", ViewUtils.getTipText("loginAchievement"));
         }
 
-        // 语言切换：右上角国旗 chip(矢量 SVG)。点击循环 validLanguages，持久化后重载，
-        // 让所有界面以新语言从头重建（登录界面无进行中对局，安全）。
-        this.btnLang = ViewUtils.createFlagBitmap(ViewUtils.getLanguage(), 1.5); // 放大 50%
+        // 排行榜功能未实现:永久置灰 + 禁用点击(enabled=false 会置 touchEnabled=false 并 makeGray)
+        this.btnOpenRank.enabled = false;
+
+        // 语言切换："旗杆挂旗"图标(用户美术),贴左侧、在 title 图(y=-30..258)下方。
+        this.btnLang = ViewUtils.createFlagImageBitmap(ViewUtils.getLanguage(), 104, (bmp) => {
+            bmp.x = 12;
+        });
         this.btnLang.name = "langBtn";
-        this.btnLang.x = 18;                  // 左侧，与第三排按钮(y=1000)同高
-        this.btnLang.y = 1000;
+        this.btnLang.x = 12;
+        this.btnLang.y = 268;
         this.btnLang.touchEnabled = true;
         this.btnLang.addEventListener(egret.TouchEvent.TOUCH_TAP, () => this.toggleLangMenu(), this);
         this.addChild(this.btnLang);
@@ -115,8 +119,11 @@ class LoginView extends egret.DisplayObjectContainer {
         var rowH = 60, rowW = 232, pad = 12, flagW = 60, flagH = 40;
         var panelW = rowW + pad * 2;
         var panelH = langs.length * rowH + pad * 2;
-        var panelX = 14;
-        var panelY = 1000 - panelH - 10;          // 在按钮上方展开
+        // 旗子在左上角 -> 菜单在其下方、左对齐展开;超出屏幕则向上收
+        var panelX = 12;
+        var panelY = this.btnLang.y + this.btnLang.height + 8;
+        if (panelY + panelH > this.height - 20) panelY = this.height - 20 - panelH;
+        if (panelY < 20) panelY = 20;
         if (panelY < 40) panelY = 40;
 
         // 点击空白处关闭(全屏点击层,无贴图+显式尺寸 => 按矩形命中)
@@ -148,9 +155,12 @@ class LoginView extends egret.DisplayObjectContainer {
             hit.addEventListener(egret.TouchEvent.TOUCH_TAP, () => this.selectLanguage(lang), this);
             add(hit);
 
-            // 国旗
-            var flag = ViewUtils.createFlagBitmap(lang, 1);
-            flag.x = rx + 6; flag.y = ry + (rowH - flagH) / 2;
+            // 国旗(旗杆挂旗图标,竖版;在 flagW 宽的格子里水平居中、行内垂直居中)
+            let frx = rx;
+            var flag = ViewUtils.createFlagImageBitmap(lang, rowH - 8, (bmp) => {
+                bmp.x = frx + 6 + Math.max(0, (flagW - 12 - bmp.width) / 2);
+            });
+            flag.x = rx + 6; flag.y = ry + 4;
             flag.touchEnabled = false;
             add(flag);
 
@@ -195,7 +205,7 @@ class LoginView extends egret.DisplayObjectContainer {
         ViewUtils.asFullBg(this.bg);
         this.ani.animation.play("idle", 0);
         this.btnContinue.enabled = !!this.player;
-        this.btnAchievement.enabled = true; // 暂时不可用
-        this.btnOpenRank.enabled = true;
+        this.btnAchievement.enabled = true;
+        this.btnOpenRank.enabled = false; // 排行榜功能未实现:置灰 + 禁用点击
     }
 }

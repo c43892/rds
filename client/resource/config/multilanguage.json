@@ -3347,11 +3347,11 @@
 				"\r\n\r\n\r\n<font color=#7d0403 size=25>지옥</font>\r\n<font color=#000000 size=23>초기 칸 수: 4</font>\r\n<font color=#000000 size=23>몬스터 능력치: 120%</font>\r\n<font color=#000000 size=23>획득 코인: 100%</font>\r\n<font color=#000000 size=23>초기 HP: 20</font>\r\n<font color=#000000 size=23>사신 걸음 수: 100</font>\r\n<font color=#000000 size=23>무한 모드</font>\r\n<font color=#000000 size=23>난이도 계수: 200%</font>"
 			],
 			"PT": [
-				"\r\n\r\n\r\n<font color=#7d0403 size=25>Fácil</font>\r\n<font color=#000000 size=23>Grades iniciais: 8</font>\r\n<font color=#000000 size=23>Atributos do monstro: 80%</font>\r\n<font color=#000000 size=23>Moedas ganhas: 200%</font>\r\n<font color=#000000 size=23>HP inicial: 60</font>\r\n<font color=#000000 size=23>Passos da Morte: 180</font>\r\n<font color=#000000 size=23>1 mundo</font>\r\n<font color=#000000 size=23>Fator de dificuldade: 50%</font>",
-				"\r\n\r\n\r\n<font color=#7d0403 size=25>Normal</font>\r\n<font color=#000000 size=23>Grades iniciais: 7</font>\r\n<font color=#000000 size=23>Atributos do monstro: 90%</font>\r\n<font color=#000000 size=23>Moedas ganhas: 150%</font>\r\n<font color=#000000 size=23>HP inicial: 50</font>\r\n<font color=#000000 size=23>Passos da Morte: 160</font>\r\n<font color=#000000 size=23>2 mundos</font>\r\n<font color=#000000 size=23>Fator de dificuldade: 80%</font>",
-				"\r\n\r\n\r\n<font color=#7d0403 size=25>Difícil</font>\r\n<font color=#000000 size=23>Grades iniciais: 6</font>\r\n<font color=#000000 size=23>Atributos do monstro: 100%</font>\r\n<font color=#000000 size=23>Moedas ganhas: 100%</font>\r\n<font color=#000000 size=23>HP inicial: 40</font>\r\n<font color=#000000 size=23>Passos da Morte: 140</font>\r\n<font color=#000000 size=23>3 mundos</font>\r\n<font color=#000000 size=23>Fator de dificuldade: 100%</font>",
-				"\r\n\r\n\r\n<font color=#7d0403 size=25>Pesadelo</font>\r\n<font color=#000000 size=23>Grades iniciais: 5</font>\r\n<font color=#000000 size=23>Atributos do monstro: 110%</font>\r\n<font color=#000000 size=23>Moedas ganhas: 100%</font>\r\n<font color=#000000 size=23>HP inicial: 30</font>\r\n<font color=#000000 size=23>Passos da Morte: 120</font>\r\n<font color=#000000 size=23>4 mundos</font>\r\n<font color=#000000 size=23>Fator de dificuldade: 150%</font>",
-				"\r\n\r\n\r\n<font color=#7d0403 size=25>Inferno</font>\r\n<font color=#000000 size=23>Grades iniciais: 4</font>\r\n<font color=#000000 size=23>Atributos do monstro: 120%</font>\r\n<font color=#000000 size=23>Moedas ganhas: 100%</font>\r\n<font color=#000000 size=23>HP inicial: 20</font>\r\n<font color=#000000 size=23>Passos da Morte: 100</font>\r\n<font color=#000000 size=23>Modo infinito</font>\r\n<font color=#000000 size=23>Fator de dificuldade: 200%</font>"
+				"\r\n\r\n\r\n<font color=#7d0403 size=25>Fácil</font>\r\n<font color=#000000 size=23>Casas iniciais: 8</font>\r\n<font color=#000000 size=23>Atributos dos monstros: 80%</font>\r\n<font color=#000000 size=23>Moedas ganhas: 200%</font>\r\n<font color=#000000 size=23>HP inicial: 60</font>\r\n<font color=#000000 size=23>Passos da Morte: 180</font>\r\n<font color=#000000 size=23>1 mundo</font>\r\n<font color=#000000 size=23>Fator de dificuldade: 50%</font>",
+				"\r\n\r\n\r\n<font color=#7d0403 size=25>Normal</font>\r\n<font color=#000000 size=23>Casas iniciais: 7</font>\r\n<font color=#000000 size=23>Atributos dos monstros: 90%</font>\r\n<font color=#000000 size=23>Moedas ganhas: 150%</font>\r\n<font color=#000000 size=23>HP inicial: 50</font>\r\n<font color=#000000 size=23>Passos da Morte: 160</font>\r\n<font color=#000000 size=23>2 mundos</font>\r\n<font color=#000000 size=23>Fator de dificuldade: 80%</font>",
+				"\r\n\r\n\r\n<font color=#7d0403 size=25>Difícil</font>\r\n<font color=#000000 size=23>Casas iniciais: 6</font>\r\n<font color=#000000 size=23>Atributos dos monstros: 100%</font>\r\n<font color=#000000 size=23>Moedas ganhas: 100%</font>\r\n<font color=#000000 size=23>HP inicial: 40</font>\r\n<font color=#000000 size=23>Passos da Morte: 140</font>\r\n<font color=#000000 size=23>3 mundos</font>\r\n<font color=#000000 size=23>Fator de dificuldade: 100%</font>",
+				"\r\n\r\n\r\n<font color=#7d0403 size=25>Pesadelo</font>\r\n<font color=#000000 size=23>Casas iniciais: 5</font>\r\n<font color=#000000 size=23>Atributos dos monstros: 110%</font>\r\n<font color=#000000 size=23>Moedas ganhas: 100%</font>\r\n<font color=#000000 size=23>HP inicial: 30</font>\r\n<font color=#000000 size=23>Passos da Morte: 120</font>\r\n<font color=#000000 size=23>4 mundos</font>\r\n<font color=#000000 size=23>Fator de dificuldade: 150%</font>",
+				"\r\n\r\n\r\n<font color=#7d0403 size=25>Inferno</font>\r\n<font color=#000000 size=23>Casas iniciais: 4</font>\r\n<font color=#000000 size=23>Atributos dos monstros: 120%</font>\r\n<font color=#000000 size=23>Moedas ganhas: 100%</font>\r\n<font color=#000000 size=23>HP inicial: 20</font>\r\n<font color=#000000 size=23>Passos da Morte: 100</font>\r\n<font color=#000000 size=23>Modo infinito</font>\r\n<font color=#000000 size=23>Fator de dificuldade: 200%</font>"
 			]
 		},
 		"totalStoreyLevel": {
@@ -4446,6 +4446,18 @@
 			"ES": "El Tentáculo de Cthulhu élite da resurrección a todos los monstruos: reviven una vez al morir",
 			"RU": "Элитное щупальце Ктулху даёт всем монстрам воскрешение: они оживают один раз при смерти",
 			"PT": "O Tentáculo de Cthulhu Elite concede a todos os monstros reviver: eles revivem uma vez ao morrer"
+		},
+		"robBtn": {
+			"EN": "Rob",
+			"CNS": "抢劫",
+			"CNT": "搶劫",
+			"JA": "強奪",
+			"KO": "강탈",
+			"FR": "Voler",
+			"DE": "Rauben",
+			"ES": "Robar",
+			"RU": "Ограбить",
+			"PT": "Roubar"
 		}
 	}
 }

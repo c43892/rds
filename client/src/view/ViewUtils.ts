@@ -44,10 +44,39 @@ class ViewUtils {
             if (!tex)
                 Utils.assert(false, "no texture created: " + name);
             ViewUtils.setTex(bmp, tex, resetSize, fillMode);
+            ViewUtils.maybeLocalizeTex(bmp, name); // 文字烤在图里的资源,非中文时异步换成对应语言图
         } else
             bmp.texture = undefined;
 
         return bmp;
+    }
+
+    // 文字烤在图里、需按语言换图的资源名 -> 资源目录(相对 resource/)。
+    // 在这些图放到 <目录>/i18n/<语言>/<名>.png。中文(CNS/CNT)用原图。
+    static readonly localizedTextures = {
+        "weeklyRankBtn_png":  "assets/ui/ranking/",
+        "friendRankBtn_png":  "assets/ui/ranking/",
+        "achvListBtn_png":    "assets/ui/achv/",
+        "achvListBtnGray_png":"assets/ui/achv/",
+        "achvAwardBtn_png":   "assets/ui/achv/",
+        "achvAwardBtnGray_png":"assets/ui/achv/",
+        "exchange_png":       "assets/ui/hospital/",
+        "btnRob_png":         "assets/ui/shop/",
+        "lvBtnOk_png":        "assets/ui/levelup/",
+        "attrsBg_png":        "assets/ui/character/",
+    };
+    // 若该资源在 localizedTextures 里且当前非中文,异步加载 i18n/<语言>/ 图并替换纹理;
+    // 缺该语言图则退英文;都没有则保持已设的原图。base 已同步设好,故任何时刻纹理都有效。
+    private static maybeLocalizeTex(bmp:any, name:string) {
+        var dir = ViewUtils.localizedTextures[name];
+        if (!dir) return;
+        var lang = ViewUtils.getLanguage();
+        if (lang == "CNS" || lang == "CNT") return;
+        var file = name.replace(/_png$/, ".png");
+        var setPixi = (img) => { try { bmp.texture = (<any>egret).Texture.fromPixi((<any>window).PIXI.Texture.from(img)); } catch (e) {} };
+        ViewUtils.loadImg("resource/" + dir + "i18n/" + lang + "/" + file, setPixi, () => {
+            if (lang != "EN") ViewUtils.loadImg("resource/" + dir + "i18n/EN/" + file, setPixi);
+        });
     }
 
     public static getBmpFont(fnt) {
@@ -423,6 +452,32 @@ class ViewUtils {
             var uri = "data:image/svg+xml;utf8," + encodeURIComponent(svg);
             bmp.texture = (<any>egret).Texture.fromPixi((<any>window).PIXI.Texture.from(uri));
         } catch (e) {}
+        return bmp;
+    }
+
+    // 用户提供的"旗杆挂旗"图标(assets/ui/flags/<LANG>.png,约 208x256 竖版)。
+    // 异步加载,按 targetH 等比缩放;加载完成回调 onSized(可用于重新定位)。
+    // 图缺失时回退旧的矢量 SVG 芯片,保证任何语言都有旗可显。
+    public static createFlagImageBitmap(lang:string, targetH:number, onSized?:(bmp:any)=>void):any {
+        var bmp = new egret.Bitmap();
+        ViewUtils.loadImg("resource/assets/ui/flags/" + lang + ".png", (img) => {
+            try {
+                bmp.texture = (<any>egret).Texture.fromPixi((<any>window).PIXI.Texture.from(img));
+                var aspect = img.width / img.height;
+                bmp.height = targetH;
+                bmp.width = Math.round(targetH * aspect);
+                if (onSized) onSized(bmp);
+            } catch (e) {}
+        }, () => {
+            // 回退:矢量 SVG 芯片(60x40 横版),等比适配 targetH
+            try {
+                var chip = ViewUtils.createFlagBitmap(lang, 2);
+                bmp.texture = chip.texture;
+                bmp.height = Math.round(targetH * 0.66);
+                bmp.width = Math.round(bmp.height * 1.5);
+                if (onSized) onSized(bmp);
+            } catch (e) {}
+        });
         return bmp;
     }
 

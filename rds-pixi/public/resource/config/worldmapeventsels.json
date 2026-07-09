@@ -13051,7 +13051,7 @@
 					{
 						"desc": "Sim",
 						"func": [
-							"batalha"
+							"battle"
 						],
 						"ps": {
 							"battleType": "awardInherited",
@@ -13061,7 +13061,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				]
@@ -13086,7 +13086,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair",
+							"exit",
 							"redirectSelGroup"
 						],
 						"ps": {
@@ -13102,7 +13102,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				]
@@ -13114,7 +13114,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				]
@@ -13135,7 +13135,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair",
+							"exit",
 							"redirectSelGroup"
 						],
 						"ps": {
@@ -13147,7 +13147,7 @@
 				"extraRobSel": {
 					"desc": "<font color=#000000 size=20>[Roubar]</font><font color=#294c22 size=20>Ganhe uma habilidade</font>",
 					"func": [
-						"roubar",
+						"rob",
 						"redirectSelGroup"
 					],
 					"ps": {
@@ -13155,7 +13155,7 @@
 						"group": "a23"
 					}
 				},
-				"bg": "Bomba-Cereja"
+				"bg": "CherryBomb"
 			},
 			"a21": {
 				"title": "Bomba Cereja",
@@ -13165,11 +13165,11 @@
 						"desc": "<font color=#000000 size=20>[Fugir]</font><font color=#7d0403 size=20>Perca {money} moedas</font>",
 						"func": [
 							"+item",
-							"-moedas",
+							"-money",
 							"redirectSelGroup"
 						],
 						"ps": {
-							"item": "Medalha de Ouro",
+							"item": "GoldMedal",
 							"money": 30,
 							"group": "a211"
 						}
@@ -13178,11 +13178,11 @@
 						"desc": "<font color=#000000 size=20>[Preparar-se]</font><font color=#7d0403 size=20>HP Máx -{maxHp}</font>",
 						"func": [
 							"+item",
-							"-HP máx",
+							"-maxHp",
 							"redirectSelGroup"
 						],
 						"ps": {
-							"item": "Medalha de Ouro",
+							"item": "GoldMedal",
 							"maxHp": 5,
 							"group": "a212"
 						}
@@ -13195,13 +13195,13 @@
 							"redirectSelGroup"
 						],
 						"ps": {
-							"item": "Medalha de Ouro",
+							"item": "GoldMedal",
 							"hpPrecentage": 20,
 							"group": "a213"
 						}
 					}
 				],
-				"bg": "Bomba-Cereja"
+				"bg": "CherryBomb"
 			},
 			"a211": {
 				"title": "Bomba Cereja",
@@ -13210,11 +13210,11 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				],
-				"bg": "Bomba-Cereja"
+				"bg": "CherryBomb"
 			},
 			"a212": {
 				"title": "Bomba Cereja",
@@ -13223,11 +13223,11 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				],
-				"bg": "Bomba-Cereja"
+				"bg": "CherryBomb"
 			},
 			"a213": {
 				"title": "Bomba Cereja",
@@ -13236,11 +13236,11 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				],
-				"bg": "Bomba-Cereja"
+				"bg": "CherryBomb"
 			},
 			"a22": {
 				"title": "Bomba Cereja",
@@ -13249,11 +13249,11 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				],
-				"bg": "Bomba-Cereja"
+				"bg": "CherryBomb"
 			},
 			"a23": {
 				"title": "Bomba Cereja",
@@ -13262,11 +13262,11 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				],
-				"bg": "Bomba-Cereja"
+				"bg": "CherryBomb"
 			},
 			"a3": {
 				"title": "Estátua Misteriosa",
@@ -13285,7 +13285,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair",
+							"exit",
 							"redirectSelGroup"
 						],
 						"ps": {
@@ -13301,7 +13301,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				]
@@ -13313,7 +13313,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				]
@@ -13324,8 +13324,8 @@
 				"sels": [
 					{
 						"func": [
-							"+moedas",
-							"-HP"
+							"+money",
+							"-hp"
 						],
 						"ps": {
 							"money": 10,
@@ -13339,12 +13339,12 @@
 							"+item"
 						],
 						"ps": {
-							"item": "Caixa de Remédios"
+							"item": "MedicineBox"
 						}
 					},
 					{
 						"func": [
-							"roubar"
+							"rob"
 						],
 						"ps": {
 							"rob": "inEvent"
@@ -13352,7 +13352,7 @@
 					},
 					{
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				]
@@ -13381,7 +13381,7 @@
 					},
 					{
 						"func": [
-							"-HP máx",
+							"-maxHp",
 							"reinfoceRelic"
 						],
 						"ps": {
@@ -13390,7 +13390,7 @@
 					},
 					{
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				]
@@ -13402,7 +13402,7 @@
 					{
 						"desc": "Enfrente uma batalha normal",
 						"func": [
-							"batalha"
+							"battle"
 						],
 						"ps": {
 							"battleType": "_abcd"
@@ -13421,20 +13421,20 @@
 				"sels": [
 					{
 						"func": [
-							"sequência"
+							"sequence"
 						],
 						"ps": {
 							"desc": "<font color=#000000 size=20>[Sacrificar]</font><font color=#7d0403 size=20>Perca {hp} de HP, </font><font color=#294c22 size=20>{rate}% de chance de ganhar uma habilidade</font>",
 							"func": [
 								"+randomItems",
-								"-HP",
+								"-hp",
 								"redirectSelGroup"
 							],
 							"rates": [
 								20
 							],
 							"failedFunc": [
-								"-HP",
+								"-hp",
 								"redirectSelGroup2",
 								"+randomItemsFake"
 							],
@@ -13460,7 +13460,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair",
+							"exit",
 							"redirectSelGroup"
 						],
 						"ps": {
@@ -13476,7 +13476,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				]
@@ -13487,20 +13487,20 @@
 				"sels": [
 					{
 						"func": [
-							"sequência"
+							"sequence"
 						],
 						"ps": {
 							"desc": "<font color=#000000 size=20>[Sacrificar]</font><font color=#7d0403 size=20>Perca {hp} de HP, </font><font color=#294c22 size=20>{rate}% de chance de ganhar uma habilidade</font>",
 							"func": [
 								"+randomItems",
-								"-HP",
+								"-hp",
 								"redirectSelGroup"
 							],
 							"rates": [
 								35
 							],
 							"failedFunc": [
-								"-HP",
+								"-hp",
 								"redirectSelGroup2"
 							],
 							"ps": [
@@ -13525,7 +13525,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair",
+							"exit",
 							"redirectSelGroup"
 						],
 						"ps": {
@@ -13540,20 +13540,20 @@
 				"sels": [
 					{
 						"func": [
-							"sequência"
+							"sequence"
 						],
 						"ps": {
 							"desc": "<font color=#000000 size=20>[Sacrificar]</font><font color=#7d0403 size=20>Perca {hp} de HP, </font><font color=#294c22 size=20>{rate}% de chance de ganhar uma habilidade</font>",
 							"func": [
 								"+randomItems",
-								"-HP",
+								"-hp",
 								"redirectSelGroup"
 							],
 							"rates": [
 								50
 							],
 							"failedFunc": [
-								"-HP",
+								"-hp",
 								"redirectSelGroup2"
 							],
 							"ps": [
@@ -13578,7 +13578,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair",
+							"exit",
 							"redirectSelGroup"
 						],
 						"ps": {
@@ -13593,20 +13593,20 @@
 				"sels": [
 					{
 						"func": [
-							"sequência"
+							"sequence"
 						],
 						"ps": {
 							"desc": "<font color=#000000 size=20>[Sacrificar]</font><font color=#7d0403 size=20>Perca {hp} de HP, </font><font color=#294c22 size=20>{rate}% de chance de ganhar uma habilidade</font>",
 							"func": [
 								"+randomItems",
-								"-HP",
+								"-hp",
 								"redirectSelGroup"
 							],
 							"rates": [
 								65
 							],
 							"failedFunc": [
-								"-HP",
+								"-hp",
 								"redirectSelGroup2"
 							],
 							"ps": [
@@ -13631,7 +13631,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair",
+							"exit",
 							"redirectSelGroup"
 						],
 						"ps": {
@@ -13646,20 +13646,20 @@
 				"sels": [
 					{
 						"func": [
-							"sequência"
+							"sequence"
 						],
 						"ps": {
 							"desc": "<font color=#000000 size=20>[Sacrificar]</font><font color=#7d0403 size=20>Perca {hp} de HP, </font><font color=#294c22 size=20>{rate}% de chance de ganhar uma habilidade</font>",
 							"func": [
 								"+randomItems",
-								"-HP",
+								"-hp",
 								"redirectSelGroup"
 							],
 							"rates": [
 								80
 							],
 							"failedFunc": [
-								"-HP",
+								"-hp",
 								"redirectSelGroup2"
 							],
 							"ps": [
@@ -13684,7 +13684,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair",
+							"exit",
 							"redirectSelGroup"
 						],
 						"ps": {
@@ -13699,20 +13699,20 @@
 				"sels": [
 					{
 						"func": [
-							"sequência"
+							"sequence"
 						],
 						"ps": {
 							"desc": "<font color=#000000 size=20>[Sacrificar]</font><font color=#7d0403 size=20>Perca {hp} de HP, </font><font color=#294c22 size=20>{rate}% de chance de ganhar uma habilidade</font>",
 							"func": [
 								"+randomItems",
-								"-HP",
+								"-hp",
 								"redirectSelGroup"
 							],
 							"rates": [
 								95
 							],
 							"failedFunc": [
-								"-HP",
+								"-hp",
 								"redirectSelGroup2"
 							],
 							"ps": [
@@ -13737,7 +13737,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair",
+							"exit",
 							"redirectSelGroup"
 						],
 						"ps": {
@@ -13752,20 +13752,20 @@
 				"sels": [
 					{
 						"func": [
-							"sequência"
+							"sequence"
 						],
 						"ps": {
 							"desc": "<font color=#000000 size=20>[Sacrificar]</font><font color=#7d0403 size=20>Perca {hp} de HP, </font><font color=#294c22 size=20>{rate}% de chance de ganhar uma habilidade</font>",
 							"func": [
 								"+randomItems",
-								"-HP",
+								"-hp",
 								"redirectSelGroup"
 							],
 							"rates": [
 								100
 							],
 							"failedFunc": [
-								"-HP",
+								"-hp",
 								"redirectSelGroup2"
 							],
 							"ps": [
@@ -13790,7 +13790,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair",
+							"exit",
 							"redirectSelGroup"
 						],
 						"ps": {
@@ -13806,13 +13806,13 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				]
 			},
 			"aa55": {
-				"title": "Título",
+				"title": "title",
 				"desc": "desc",
 				"sels": [
 					{
@@ -13842,7 +13842,7 @@
 								"Descrição 3"
 							],
 							"toDrop": [
-								"Moedas",
+								"Coins",
 								"ttrdp1",
 								"ttrdp2"
 							],
@@ -13864,7 +13864,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Apostar Alto] Aposte 50 moedas — </font><font color=#294c22 size=20>30% de ganhar 250 moedas</font>",
 						"func": [
-							"aposta"
+							"gambling"
 						],
 						"ps": {
 							"wager": 50,
@@ -13877,7 +13877,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Aposta Baixa] Aposte 50 moedas — </font><font color=#294c22 size=20>70% de ganhar 100 moedas</font>",
 						"func": [
-							"aposta"
+							"gambling"
 						],
 						"ps": {
 							"wager": 50,
@@ -13890,7 +13890,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair",
+							"exit",
 							"redirectSelGroup"
 						],
 						"ps": {
@@ -13901,7 +13901,7 @@
 				"extraRobSel": {
 					"desc": "<font color=#000000 size=20>[Roubar]</font><font color=#294c22 size=20>Ganhe 250 moedas</font>",
 					"func": [
-						"+moedas",
+						"+money",
 						"redirectSelGroup"
 					],
 					"ps": {
@@ -13918,7 +13918,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				],
@@ -13931,7 +13931,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				],
@@ -13944,7 +13944,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				],
@@ -13957,7 +13957,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				],
@@ -13970,8 +13970,8 @@
 					{
 						"desc": "<font color=#000000 size=20>[Ignorar]</font><font color=#294c22 size=20>Ganhe {money} moedas, </font><font color=#7d0403 size=20>perca {hp} HP</font>",
 						"func": [
-							"+moedas",
-							"-HP",
+							"+money",
+							"-hp",
 							"redirectSelGroup"
 						],
 						"ps": {
@@ -13983,13 +13983,13 @@
 					{
 						"desc": "<font color=#000000 size=20>[Subornar]</font><font color=#7d0403 size=20>Perca {money} moedas, </font><font color=#294c22 size=20>ganhe Hostilidade Reduzida</font>",
 						"func": [
-							"-moedas",
+							"-money",
 							"+item",
 							"redirectSelGroup"
 						],
 						"ps": {
 							"money": 50,
-							"item": "Máquina do Tempo",
+							"item": "TimeMachine",
 							"group": "a62"
 						}
 					}
@@ -13997,7 +13997,7 @@
 				"extraRobSel": {
 					"desc": "<font color=#000000 size=20>[Roubar]</font><font color=#7d0403 size=20>Você não faz ideia do que vai acontecer…</font>",
 					"func": [
-						"-HP",
+						"-hp",
 						"redirectSelGroup"
 					],
 					"ps": {
@@ -14005,7 +14005,7 @@
 						"group": "a63"
 					}
 				},
-				"bg": "Deus da Morte"
+				"bg": "DeathGod"
 			},
 			"a61": {
 				"title": "Doces ou Travessuras",
@@ -14014,11 +14014,11 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				],
-				"bg": "Deus da Morte"
+				"bg": "DeathGod"
 			},
 			"a62": {
 				"title": "Doces ou Travessuras",
@@ -14027,11 +14027,11 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				],
-				"bg": "Deus da Morte"
+				"bg": "DeathGod"
 			},
 			"a63": {
 				"title": "Doces ou Travessuras",
@@ -14040,11 +14040,11 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				],
-				"bg": "Deus da Morte"
+				"bg": "DeathGod"
 			},
 			"a7": {
 				"title": "Ovo de Páscoa",
@@ -14062,7 +14062,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair",
+							"exit",
 							"redirectSelGroup"
 						],
 						"ps": {
@@ -14070,7 +14070,7 @@
 						}
 					}
 				],
-				"bg": "Ovo Aleatório"
+				"bg": "RandomEgg"
 			},
 			"a71": {
 				"title": "Ovo de Páscoa",
@@ -14079,14 +14079,14 @@
 					{
 						"desc": "<font color=#000000 size=20>[Batalha]</font>",
 						"func": [
-							"batalha"
+							"battle"
 						],
 						"ps": {
 							"battleType": "randomEgg"
 						}
 					}
 				],
-				"bg": "Ovo Aleatório"
+				"bg": "RandomEgg"
 			},
 			"a72": {
 				"title": "Ovo de Páscoa",
@@ -14095,11 +14095,11 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				],
-				"bg": "Ovo Aleatório"
+				"bg": "RandomEgg"
 			},
 			"a8": {
 				"title": "Girassol",
@@ -14108,7 +14108,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Louvar]</font><font color=#294c22 size=20>HP Máx +{maxHp}</font>",
 						"func": [
-							"+HP máx",
+							"+maxHp",
 							"redirectSelGroup"
 						],
 						"ps": {
@@ -14120,7 +14120,7 @@
 						"desc": "<font color=#000000 size=20>[Zombar]</font><font color=#294c22 size=20>Esquiva +{dodge}%</font>",
 						"func": [
 							"redirectSelGroup",
-							"+esquiva"
+							"+dodge"
 						],
 						"ps": {
 							"group": "a82",
@@ -14138,7 +14138,7 @@
 					}
 				},
 				"globalCountMax": 6,
-				"bg": "Girassol"
+				"bg": "Sunflower"
 			},
 			"a81": {
 				"title": "Girassol",
@@ -14147,11 +14147,11 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				],
-				"bg": "Girassol"
+				"bg": "Sunflower"
 			},
 			"a82": {
 				"title": "Girassol",
@@ -14160,11 +14160,11 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				],
-				"bg": "Girassol"
+				"bg": "Sunflower"
 			},
 			"a83": {
 				"title": "Girassol",
@@ -14173,11 +14173,11 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				],
-				"bg": "Girassol"
+				"bg": "Sunflower"
 			},
 			"a9": {
 				"title": "Cadáver de Aventureiro",
@@ -14210,7 +14210,7 @@
 								"Sem querer compartilhar do destino do aventureiro, você vai embora sem titubear."
 							],
 							"toDrop": [
-								"Moedas",
+								"Coins",
 								"worldmapeventa91",
 								"worldmapeventa92"
 							],
@@ -14223,13 +14223,13 @@
 							"failedBattleType": "searchBody",
 							"failedUpDesc": "Você é emboscado enquanto vasculha!",
 							"failedDesc": "<font color=#000000 size=20>[Batalha]</font>",
-							"bg": "Crânio"
+							"bg": "HeadBone"
 						}
 					},
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair",
+							"exit",
 							"redirectSelGroup"
 						],
 						"ps": {
@@ -14237,7 +14237,7 @@
 						}
 					}
 				],
-				"bg": "Crânio"
+				"bg": "HeadBone"
 			},
 			"a91": {
 				"title": "Cadáver de Aventureiro",
@@ -14246,11 +14246,11 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				],
-				"bg": "Crânio"
+				"bg": "HeadBone"
 			},
 			"a92": {
 				"title": "Cadáver de Aventureiro",
@@ -14259,14 +14259,14 @@
 					{
 						"desc": "<font color=#000000 size=20>[Batalha]</font>",
 						"func": [
-							"batalha"
+							"battle"
 						],
 						"ps": {
 							"battleType": "searchBody"
 						}
 					}
 				],
-				"bg": "Crânio"
+				"bg": "HeadBone"
 			},
 			"b1": {
 				"title": "Roda da Sorte",
@@ -14287,7 +14287,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Comprar Habilidade] Gaste {money} moedas, </font><font color=#294c22 size=20>ganhe uma habilidade aleatória</font>",
 						"func": [
-							"-moedas",
+							"-money",
 							"+randomItems",
 							"redirectSelGroup"
 						],
@@ -14314,7 +14314,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Comprar Poções] Gaste {money} moedas, </font><font color=#294c22 size=20>ganhe duas poções aleatórias</font>",
 						"func": [
-							"-moedas",
+							"-money",
 							"+randomItems",
 							"redirectSelGroup"
 						],
@@ -14336,7 +14336,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair",
+							"exit",
 							"redirectSelGroup"
 						],
 						"ps": {
@@ -14347,7 +14347,7 @@
 				"extraRobSel": {
 					"desc": "<font color=#000000 size=20>[Roubar]</font><font color=#294c22 size=20>Ganhe uma poção ou uma habilidade</font>",
 					"func": [
-						"roubar",
+						"rob",
 						"redirectSelGroup"
 					],
 					"ps": {
@@ -14364,7 +14364,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				],
@@ -14377,7 +14377,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				],
@@ -14390,7 +14390,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				],
@@ -14403,7 +14403,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				],
@@ -14417,7 +14417,7 @@
 						"desc": "<font color=#000000 size=20>[Se entregar]</font><font color=#7d0403 size=20>Perca todas as moedas, </font><font color=#294c22 size=20>HP Máx +10</font>",
 						"func": [
 							"-allMoney",
-							"+HP máx",
+							"+maxHp",
 							"+hpPrecentage",
 							"redirectSelGroup"
 						],
@@ -14430,7 +14430,7 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair",
+							"exit",
 							"redirectSelGroup"
 						],
 						"ps": {
@@ -14442,7 +14442,7 @@
 					"desc": "<font color=#000000 size=20>[Roubar]</font><font color=#294c22 size=20>Restaure todo o HP, ganhe 50 moedas</font>",
 					"func": [
 						"+hpPrecentage",
-						"+moedas",
+						"+money",
 						"redirectSelGroup"
 					],
 					"ps": {
@@ -14451,7 +14451,7 @@
 						"group": "b33"
 					}
 				},
-				"bg": "Zumbi da Luxúria"
+				"bg": "LustZombie"
 			},
 			"b31": {
 				"title": "Beijo da Súcubo",
@@ -14460,11 +14460,11 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				],
-				"bg": "Zumbi da Luxúria"
+				"bg": "LustZombie"
 			},
 			"b32": {
 				"title": "Beijo da Súcubo",
@@ -14473,11 +14473,11 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				],
-				"bg": "Zumbi da Luxúria"
+				"bg": "LustZombie"
 			},
 			"b33": {
 				"title": "Beijo da Súcubo",
@@ -14486,11 +14486,11 @@
 					{
 						"desc": "<font color=#000000 size=20>[Sair]</font>",
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				],
-				"bg": "Zumbi da Luxúria"
+				"bg": "LustZombie"
 			},
 			"g4": {
 				"title": "Título do Evento",
@@ -14498,7 +14498,7 @@
 				"sels": [
 					{
 						"func": [
-							"aposta"
+							"gambling"
 						],
 						"ps": {
 							"wager": 50,
@@ -14510,7 +14510,7 @@
 					},
 					{
 						"func": [
-							"aposta"
+							"gambling"
 						],
 						"ps": {
 							"wager": 50,
@@ -14522,13 +14522,13 @@
 					},
 					{
 						"func": [
-							"sequência"
+							"sequence"
 						],
 						"ps": {
 							"desc": "{rate}% de ganhar {hp} HP e perder {money} moedas; {-rate}% de iniciar uma batalha",
 							"func": [
-								"+HP",
-								"-moedas"
+								"+hp",
+								"-money"
 							],
 							"rates": [
 								99,
@@ -14553,7 +14553,7 @@
 								}
 							],
 							"failedFunc": [
-								"batalha"
+								"battle"
 							]
 						}
 					},
@@ -14573,12 +14573,12 @@
 					},
 					{
 						"func": [
-							"sequência"
+							"sequence"
 						],
 						"ps": {
 							"desc": "{rate}% de chance de ganhar um item aleatório e perder {hp} HP",
 							"func": [
-								"-HP"
+								"-hp"
 							],
 							"rates": [
 								100,
@@ -14604,14 +14604,14 @@
 							],
 							"failedFunc": [
 								"+randomItems",
-								"-HP",
-								"Sair"
+								"-hp",
+								"exit"
 							]
 						}
 					},
 					{
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				]
@@ -14622,7 +14622,7 @@
 				"sels": [
 					{
 						"func": [
-							"-HP"
+							"-hp"
 						],
 						"ps": {
 							"hp": 1
@@ -14635,7 +14635,7 @@
 					},
 					{
 						"func": [
-							"Sair"
+							"exit"
 						]
 					}
 				]

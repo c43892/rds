@@ -1148,7 +1148,7 @@
 		"KnowlegdeChangesDestiny": {
 			"title": "O Conhecimento Muda o Destino",
 			"shortDesc": "Leia 20 livros em uma única partida",
-			"icon": "Carregador",
+			"icon": "Magazine",
 			"progressType": "",
 			"progressInfos": [
 				""
@@ -1157,7 +1157,7 @@
 		"DeathGodKiller": {
 			"title": "Perdição da Morte",
 			"shortDesc": "Mate a Morte 10 vezes em uma única partida",
-			"icon": "Deus da Morte",
+			"icon": "DeathGod",
 			"progressType": "",
 			"progressInfos": [
 				""
