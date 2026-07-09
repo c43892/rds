@@ -104,6 +104,41 @@ class LoginView extends egret.DisplayObjectContainer {
         this.btnLang.touchEnabled = true;
         this.btnLang.addEventListener(egret.TouchEvent.TOUCH_TAP, () => this.toggleLangMenu(), this);
         this.addChild(this.btnLang);
+
+        // 仅开发状态:右上角"重置存档"按钮(上架/正式环境永不出现,见 ViewUtils.isDevMode)
+        if (ViewUtils.isDevMode())
+            this.addDevResetButton();
+    }
+
+    // DEV ONLY —— 清空所有存档、恢复到全新装机(新手)状态
+    private addDevResetButton() {
+        var w = 168, h = 48, m = 12;
+        var panel = ViewUtils.createColorBitmap(w, h, "#b32424", 0.9);
+        panel.x = this.width - w - m; panel.y = m;
+        panel.touchEnabled = true;
+        panel.addEventListener(egret.TouchEvent.TOUCH_TAP, () => this.onDevReset(), this);
+        this.addChild(panel);
+
+        var lbl = ViewUtils.createTextField(24, 0xffffff);
+        lbl.text = "重置存档 (DEV)";
+        lbl.width = w; lbl.height = h;
+        lbl.x = panel.x; lbl.y = panel.y;
+        lbl.touchEnabled = false;
+        this.addChild(lbl);
+    }
+
+    private onDevReset() {
+        AudioFactory.play("btn1");
+        this.confirmOkYesNo("重置所有数据 (DEV)", "确定清空全部存档、恢复到新手(全新装机)状态？此操作不可撤销。", true)
+            .then((ok) => {
+                if (!ok) return;
+                var lang = undefined;
+                try { lang = Utils.loadLocalItem("language"); } catch (e) {} // 保留当前语言,重载不跳回默认
+                Utils.localStorageData = {};
+                if (lang) Utils.localStorageData["language"] = lang;
+                window.platform.setUserLocalStorage(Utils.localStorageData);
+                try { window.location.reload(); } catch (e) {}
+            });
     }
 
     // 点击国旗 -> 弹出语言列表(在按钮上方展开),点某一项即选定该语言。

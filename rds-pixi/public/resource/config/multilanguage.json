@@ -4458,6 +4458,54 @@
 			"ES": "Robar",
 			"RU": "Ограбить",
 			"PT": "Roubar"
+		},
+		"purchaseFailed": {
+			"EN": "Purchase failed, please try again",
+			"CNS": "购买失败，请重试",
+			"CNT": "購買失敗，請重試",
+			"JA": "購入に失敗しました。もう一度お試しください",
+			"KO": "구매에 실패했습니다. 다시 시도해 주세요",
+			"FR": "Échec de l’achat, veuillez réessayer",
+			"DE": "Kauf fehlgeschlagen, bitte erneut versuchen",
+			"ES": "La compra falló, inténtalo de nuevo",
+			"RU": "Не удалось совершить покупку, попробуйте ещё раз",
+			"PT": "Falha na compra, tente novamente"
+		},
+		"restorePurchase": {
+			"EN": "Restore Purchases",
+			"CNS": "恢复购买",
+			"CNT": "恢復購買",
+			"JA": "購入を復元",
+			"KO": "구매 복원",
+			"FR": "Restaurer les achats",
+			"DE": "Käufe wiederherstellen",
+			"ES": "Restaurar compras",
+			"RU": "Восстановить покупки",
+			"PT": "Restaurar compras"
+		},
+		"restoreSuccess": {
+			"EN": "Purchases restored",
+			"CNS": "购买已恢复",
+			"CNT": "購買已恢復",
+			"JA": "購入を復元しました",
+			"KO": "구매가 복원되었습니다",
+			"FR": "Achats restaurés",
+			"DE": "Käufe wiederhergestellt",
+			"ES": "Compras restauradas",
+			"RU": "Покупки восстановлены",
+			"PT": "Compras restauradas"
+		},
+		"restoreNone": {
+			"EN": "No purchases to restore",
+			"CNS": "没有可恢复的购买",
+			"CNT": "沒有可恢復的購買",
+			"JA": "復元できる購入はありません",
+			"KO": "복원할 구매 항목이 없습니다",
+			"FR": "Aucun achat à restaurer",
+			"DE": "Keine Käufe zum Wiederherstellen",
+			"ES": "No hay compras para restaurar",
+			"RU": "Нет покупок для восстановления",
+			"PT": "Nenhuma compra para restaurar"
 		}
 	}
 }

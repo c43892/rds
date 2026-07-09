@@ -37,7 +37,7 @@
         "eliteSwatheZombie": "精英黑寡妇蜘蛛为所有怪物附加缠绕能力，突袭时可缠绕两件道具",
         "eliteReviveZombie": "精英克苏鲁的触手为所有怪物附加复生能力，死亡时会复活一次"
     },
-    "allOccupations":["Rogue", "Nurse", "Horticulturist"],
+    "allOccupations":["Nurse", "Rogue", "Horticulturist"],
     "prisonRate":{
         "normal":[0, 0, 86, 90, 95],
         "senior":[0, 0, 257, 271, 286],

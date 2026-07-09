@@ -3,6 +3,8 @@ class OccupationSelView extends egret.DisplayObjectContainer {
     bg:egret.Bitmap; // 背景底板
     btnCancel:TextButtonWithBg; // 返回
     btnOk:TextButtonWithBg; // 确定
+    btnRestoreBg:egret.Bitmap;   // 恢复购买按钮底板(底部中央)
+    btnRestoreLbl:egret.TextField; // 恢复购买按钮文字
 
     occAvatarFrame:egret.Bitmap;
     occAvatarFrameMask:egret.Bitmap;
@@ -136,6 +138,42 @@ class OccupationSelView extends egret.DisplayObjectContainer {
 
         this.diffDesc = new LevelDiffDescView(w, h);
         this.diffDesc.x = this.diffDesc.y = 0;
+
+        // 恢复购买按钮(底部中央,"返回"与"继续"之间)。App Store/Google Play 要求提供该入口。
+        // 手动定位,不进 multiLang 布局表。
+        var rw = 260, rh = 64, rx = Math.round((this.width - rw) / 2), ry = 1012;
+        this.btnRestoreBg = ViewUtils.createPanelBitmap(rw, rh);
+        this.btnRestoreBg.name = "restoreBtnBg";
+        this.btnRestoreBg.x = rx; this.btnRestoreBg.y = ry;
+        this.btnRestoreBg.touchEnabled = true;
+        this.btnRestoreBg.addEventListener(egret.TouchEvent.TOUCH_TAP, () => this.onRestorePurchases(), this);
+        this.addChild(this.btnRestoreBg);
+
+        this.btnRestoreLbl = ViewUtils.createTextField(26, 0xffe9b0);
+        this.btnRestoreLbl.name = "restoreBtnLbl";
+        this.btnRestoreLbl.text = ViewUtils.getTipText("restorePurchase");
+        this.btnRestoreLbl.width = rw; this.btnRestoreLbl.height = rh;
+        this.btnRestoreLbl.x = rx; this.btnRestoreLbl.y = ry;
+        this.btnRestoreLbl.touchEnabled = false;
+        this.addChild(this.btnRestoreLbl);
+    }
+
+    // 恢复购买:查回该账号已购买的角色并永久解锁(重装/换机后找回)。
+    // 目前 IapService.restore() 是 mock(返回空);接入真实 SDK 后此处无需改动。
+    private async onRestorePurchases() {
+        AudioFactory.play("btn1");
+        AniUtils.tipAt(ViewUtils.getTipText("purchasing"), {x:this.width/2, y:this.height/3}, 25, 0xffffff);
+        var owned = await IapService.restore();
+        var newly = 0;
+        for (var occ of owned) {
+            if (IapService.isPaidOccupation(occ) && !Utils.isUnlockedOccupation(occ)) {
+                Utils.unlockOccupationForever(occ);
+                newly++;
+            }
+        }
+        this.refresh();
+        AniUtils.tipAt(ViewUtils.getTipText(newly > 0 ? "restoreSuccess" : "restoreNone"),
+            {x:this.width/2, y:this.height/2}, 25, 0xffffff);
     }
 
     onClose;
@@ -144,7 +182,7 @@ class OccupationSelView extends egret.DisplayObjectContainer {
 
         this.setAvailableOccList(Utils.getAllOccupations());
         this.setAvailableDiff(Utils.getDiffByAchvData());
-        this.selOcc("Rogue");
+        this.selOcc(this.occArr[0]); // 默认选中第一个职业(护士,免费默认角色)
         this.selDifficulty(Utils.getDiffByAchvData() - 1);
     }
 
@@ -207,7 +245,12 @@ class OccupationSelView extends egret.DisplayObjectContainer {
                 }
                 else{
                     c.addChild(occImg);
-                    ViewUtils.makeGray(this.occAvatarLst[i], true);
+                    // 锁定:头像上叠一层监狱铁栏杆表示被关押(头像保持彩色显示在栏杆后,格子底置灰)
+                    var bars = ViewUtils.createUrlBitmap("resource/assets/ui/occupationsel/prisonBars.png", c.width, c.height);
+                    bars.x = bars.y = 0;
+                    bars.touchEnabled = false;
+                    c.addChild(bars);
+                    ViewUtils.makeGray(this.occAvatarLst[i], false);
                     ViewUtils.makeGray(this.occAvatarBgLst[i], true);
                 }
             }
@@ -268,29 +311,27 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         this.diffFlagDesc.verticalAlign = egret.VerticalAlign.MIDDLE;
     }
 
-    // 点击未解锁职业    
+    // 点击未解锁职业:确认(含价格)-> 走内购 -> 成功后永久解锁"该"职业
     async clickLockedOcc(occ: string) {
-        if(!window.platform.onBuyResult)
-            window.platform.onBuyResult = (str) => {
-                    if(str == "ok" || str == "restored")
-                        this.pay2Unlock(); 
-                    else if (str == "inPurchasing")
-                        AniUtils.tipAt(ViewUtils.getTipText("purchasing"), {x:this.width/2, y:this.height/3}, 25, 0xffffff);
-            };
-        if (egret.Capabilities.os == "iOS") {
-            var yesno = await this.confirmOkYesNo(ViewUtils.getTipText("occLocked"), ViewUtils.getTipText("occLockedContent"), true);
-            if (yesno) 
-                egret.ExternalInterface.call("rdsBuyProduct", "");            
-        }
-        else{
-            var yesno = await this.confirmOkYesNo(ViewUtils.getTipText("occLocked"), ViewUtils.getTipText("occLockedContentAndroid"), true);
-            if (yesno) 
-                this.pay2Unlock();
-        }
+        // 免费职业不该走到这里(护士),付费职业才有商品ID
+        if (!IapService.isPaidOccupation(occ)) return;
+
+        var price = IapService.priceText(occ);
+        var content = ViewUtils.getTipText("occLockedContentAndroid");
+        if (price) content = content + "  (" + price + ")";
+        var yesno = await this.confirmOkYesNo(ViewUtils.getTipText("occLocked"), content, true);
+        if (!yesno) return;
+
+        AniUtils.tipAt(ViewUtils.getTipText("purchasing"), {x:this.width/2, y:this.height/3}, 25, 0xffffff);
+        var r = await IapService.purchase(occ);
+        if (r == "ok" || r == "restored")
+            await this.pay2Unlock(occ);          // 解锁点击的那个职业,而不是写死的园艺师
+        else if (r != "cancel")
+            AniUtils.tipAt(ViewUtils.getTipText("purchaseFailed"), {x:this.width/2, y:this.height/2}, 25, 0xffffff);
     }
 
-    // 付费永久解锁相关
-    async pay2Unlock(occ: string = "Horticulturist") {
+    // 付费永久解锁相关(occ 必传:解锁哪个就传哪个)
+    async pay2Unlock(occ: string) {
         var i = Utils.indexOf(this.occArr, (o) => o == occ);
         var occAvatar = this.occAvatarBgLst[i];
         await this.playUnlockOccupationAni(occAvatar);

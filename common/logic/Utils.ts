@@ -1062,12 +1062,12 @@ class Utils {
     // 初始化永久解锁信息
     public static initOccupationsUnlockForeverInfo(){
         if (!Utils.loadLocalData("occupationsUnlockForever"))
-            Utils.saveLocalData("occupationsUnlockForever", ["Rogue", "Nurse"]);
+            Utils.saveLocalData("occupationsUnlockForever", ["Nurse"]); // 默认只有护士免费
     }
 
     // 锁定一个职业
     public static lockOccupation(occ: string) {
-        if(occ == "Nurse" || occ == "Rogue") return;
+        if(occ == "Nurse") return; // 护士永不锁定(免费默认角色,死亡也不锁)
         
         var unlocked = Utils.getUnlockedOccupations();
         unlocked = Utils.remove(unlocked, occ);
@@ -1080,30 +1080,19 @@ class Utils {
     }
 
     // 职业是否激活(未激活的职业在选择职业时显示为问号)
+    // 注:园艺师"通过成就免费解锁"这条路已去掉——付费/营救才能获得。
     public static isActivated(occ:string):boolean{
         if(!Utils.loadLocalData("occActivated"))
-            Utils.saveLocalData("occActivated", ["Rogue", "Nurse"]);
+            Utils.saveLocalData("occActivated", ["Nurse"]);
 
-        // 成就相关
-        var allAchvs = AchievementMgr.mgr.allAchvs;
-        var tarAchv = (type:string) => allAchvs[Utils.indexOf(allAchvs, (a:Achievement) => a.type == type)];  
-        // 不同职业可能存在不同的激活条件
-        switch(occ) {
-            case "Horticulturist":{
-                // 只要获得过难度3的成就即默认解锁              
-                if (tarAchv("DifficultModeUnlock").isFinished()) return true;
-            }
-            default: {
-                var activated = Utils.loadLocalData("occActivated");
-                return !!activated && Utils.indexOf(activated, (o: string) => o == occ) > -1;
-            }
-        }
+        var activated = Utils.loadLocalData("occActivated");
+        return !!activated && Utils.indexOf(activated, (o: string) => o == occ) > -1;
     }
 
     // 激活职业
     public static activateOccupation(occ:string){
         if(!Utils.loadLocalData("occActivated"))
-            Utils.saveLocalData("occActivated", ["Rogue", "Nurse"]);
+            Utils.saveLocalData("occActivated", ["Nurse"]);
 
         var activated = Utils.loadLocalData("occActivated");
         if(Utils.indexOf(activated, (o:string) => o == occ) == -1){

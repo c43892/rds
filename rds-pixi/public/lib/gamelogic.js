@@ -987,12 +987,12 @@ class Utils {
     // 初始化永久解锁信息
     static initOccupationsUnlockForeverInfo() {
         if (!Utils.loadLocalData("occupationsUnlockForever"))
-            Utils.saveLocalData("occupationsUnlockForever", ["Rogue", "Nurse"]);
+            Utils.saveLocalData("occupationsUnlockForever", ["Nurse"]); // 默认只有护士免费
     }
     // 锁定一个职业
     static lockOccupation(occ) {
-        if (occ == "Nurse" || occ == "Rogue")
-            return;
+        if (occ == "Nurse")
+            return; // 护士永不锁定(免费默认角色,死亡也不锁)
         var unlocked = Utils.getUnlockedOccupations();
         unlocked = Utils.remove(unlocked, occ);
         Utils.saveLocalData("unlockedOccupations", unlocked);
@@ -1002,29 +1002,17 @@ class Utils {
         return Utils.indexOf(Utils.getUnlockedOccupations(), (o) => o == occ) > -1;
     }
     // 职业是否激活(未激活的职业在选择职业时显示为问号)
+    // 注:园艺师"通过成就免费解锁"这条路已去掉——付费/营救才能获得。
     static isActivated(occ) {
         if (!Utils.loadLocalData("occActivated"))
-            Utils.saveLocalData("occActivated", ["Rogue", "Nurse"]);
-        // 成就相关
-        var allAchvs = AchievementMgr.mgr.allAchvs;
-        var tarAchv = (type) => allAchvs[Utils.indexOf(allAchvs, (a) => a.type == type)];
-        // 不同职业可能存在不同的激活条件
-        switch (occ) {
-            case "Horticulturist": {
-                // 只要获得过难度3的成就即默认解锁              
-                if (tarAchv("DifficultModeUnlock").isFinished())
-                    return true;
-            }
-            default: {
-                var activated = Utils.loadLocalData("occActivated");
-                return !!activated && Utils.indexOf(activated, (o) => o == occ) > -1;
-            }
-        }
+            Utils.saveLocalData("occActivated", ["Nurse"]);
+        var activated = Utils.loadLocalData("occActivated");
+        return !!activated && Utils.indexOf(activated, (o) => o == occ) > -1;
     }
     // 激活职业
     static activateOccupation(occ) {
         if (!Utils.loadLocalData("occActivated"))
-            Utils.saveLocalData("occActivated", ["Rogue", "Nurse"]);
+            Utils.saveLocalData("occActivated", ["Nurse"]);
         var activated = Utils.loadLocalData("occActivated");
         if (Utils.indexOf(activated, (o) => o == occ) == -1) {
             activated.push(occ);
@@ -11207,6 +11195,55 @@ class DefaultPaltform {
     canShare() { return false; }
     shareGame() { }
 }
+// ========================= 内购(IAP)服务 =========================
+// 角色付费永久解锁的统一抽象层。目前为 mock 实现(浏览器/未接商店时可完整测试
+// 解锁流程);上架时把 mockMode 置 false 并在 purchase()/restore() 里接
+// RevenueCat / StoreKit(iOS) / Play Billing(Android)。
+class IapService {
+    static productId(occ) {
+        var p = IapService.products[occ];
+        return p ? p.id : "";
+    }
+    static priceText(occ) {
+        var p = IapService.products[occ];
+        return p ? "$" + p.priceUsd.toFixed(2) : "";
+    }
+    static isPaidOccupation(occ) {
+        return !!IapService.products[occ];
+    }
+    // 发起购买。返回 "ok" | "cancel" | "pending" | "error"。
+    // 调用方在拿到 "ok"/"restored" 后才执行永久解锁。
+    static async purchase(occ) {
+        var pid = IapService.productId(occ);
+        if (!pid)
+            return "error";
+        if (IapService.mockMode) {
+            // —— mock:模拟商店处理耗时后成功。真实接入时替换本分支。——
+            await Utils.delay(400);
+            return "ok";
+        }
+        // —— 真实商店(占位,待接 RevenueCat / 各平台原生桥)——
+        // iOS: egret.ExternalInterface.call("rdsBuyProduct", pid) + onBuyResult 回调
+        // Android: 走 Play Billing 插件
+        return "error";
+    }
+    // 恢复购买(重装/换机后找回已购角色)。返回已拥有的角色名列表。
+    // mock 返回空;真实接入查询商店已购项目并映射回角色名。
+    static async restore() {
+        if (IapService.mockMode)
+            return [];
+        return [];
+    }
+}
+// 角色 -> 商店商品ID(在 App Store Connect / Google Play Console 里配置成
+// 同名的"非消耗型"商品)。护士是免费默认角色,不在此表。
+IapService.products = {
+    "Rogue": { id: "unlock_rogue", priceUsd: 0.99 },
+    "Horticulturist": { id: "unlock_horticulturist", priceUsd: 0.99 },
+};
+// mock 模式:浏览器预览/未接真实商店时为 true —— purchase() 直接模拟成功,
+// 便于测试。真机上架构建时改为 false 走真实下单+回执校验。
+IapService.mockMode = true;
 if (!window.platform) {
     window.platform = new DefaultPaltform();
 }
@@ -12518,6 +12555,31 @@ class ViewUtils {
         var colorFilter = new egret.ColorMatrixFilter(colorMatrix);
         e.filters = [colorFilter];
     }
+    // 是否"开发状态"。必须失败安全:上架 App / 正式网页一律返回 false,
+    // 只有本地开发服务器(带非标准端口的 localhost/局域网 IP)或显式 ?dev=1 才为 true。
+    //   - ?dev=1 强制开 / ?dev=0 强制关(方便真机临时调试)
+    //   - 打包 App:iOS capacitor://localhost、Android http://localhost(无端口/80)、
+    //     file:// 一律不算;正式网页(真实域名)不算 => 用户永远看不到该按钮。
+    static isDevMode() {
+        try {
+            var loc = (typeof window !== "undefined") ? window.location : null;
+            if (!loc)
+                return false;
+            var s = loc.search || "";
+            if (/[?&]dev=0/.test(s))
+                return false;
+            if (/[?&]dev=1/.test(s))
+                return true;
+            var host = loc.hostname || "";
+            var port = loc.port || "";
+            var isLocal = host === "localhost" || host === "127.0.0.1"
+                || /^192\.168\./.test(host) || /^10\./.test(host);
+            return isLocal && port !== "" && port !== "80" && port !== "443";
+        }
+        catch (e) {
+            return false;
+        }
+    }
     // 创建一个显示文本
     static createTextField(size, color, alignCenter = true, vAlignMiddle = true) {
         var t = new egret.TextField();
@@ -12705,6 +12767,26 @@ class ViewUtils {
             ViewUtils.loadImg(dir + prefix + "Down.png", (d) => ViewUtils.setStateBg(btn, "downBg", d, w, h));
             ViewUtils.loadImg(dir + prefix + "Disabled.png", (d) => ViewUtils.setStateBg(btn, "disabledBg", d, w, h));
         }, () => ViewUtils.applyGeneratedButton(btn, text, w, h));
+    }
+    // 按 URL 异步加载一张图为 egret.Bitmap(用于不在 res 清单里的叠加图,如监狱栏杆)。
+    // 立即返回空 Bitmap,加载完成后填纹理并套用给定尺寸。
+    static createUrlBitmap(url, w, h) {
+        var bmp = new egret.Bitmap();
+        if (w)
+            bmp.width = w;
+        if (h)
+            bmp.height = h;
+        ViewUtils.loadImg(url, (img) => {
+            try {
+                bmp.texture = egret.Texture.fromPixi(window.PIXI.Texture.from(img));
+                if (w)
+                    bmp.width = w;
+                if (h)
+                    bmp.height = h;
+            }
+            catch (e) { }
+        });
+        return bmp;
     }
     // 把一张 egret.Bitmap 替换为本地化版本图片。CNS/CNT 用原图(原图即中文);
     // 其它语言加载 <baseDir>i18n/<LANG>/<fileName>,失败则保持原图。保持原显示尺寸。
@@ -18882,6 +18964,48 @@ class LoginView extends egret.DisplayObjectContainer {
         this.btnLang.touchEnabled = true;
         this.btnLang.addEventListener(egret.TouchEvent.TOUCH_TAP, () => this.toggleLangMenu(), this);
         this.addChild(this.btnLang);
+        // 仅开发状态:右上角"重置存档"按钮(上架/正式环境永不出现,见 ViewUtils.isDevMode)
+        if (ViewUtils.isDevMode())
+            this.addDevResetButton();
+    }
+    // DEV ONLY —— 清空所有存档、恢复到全新装机(新手)状态
+    addDevResetButton() {
+        var w = 168, h = 48, m = 12;
+        var panel = ViewUtils.createColorBitmap(w, h, "#b32424", 0.9);
+        panel.x = this.width - w - m;
+        panel.y = m;
+        panel.touchEnabled = true;
+        panel.addEventListener(egret.TouchEvent.TOUCH_TAP, () => this.onDevReset(), this);
+        this.addChild(panel);
+        var lbl = ViewUtils.createTextField(24, 0xffffff);
+        lbl.text = "重置存档 (DEV)";
+        lbl.width = w;
+        lbl.height = h;
+        lbl.x = panel.x;
+        lbl.y = panel.y;
+        lbl.touchEnabled = false;
+        this.addChild(lbl);
+    }
+    onDevReset() {
+        AudioFactory.play("btn1");
+        this.confirmOkYesNo("重置所有数据 (DEV)", "确定清空全部存档、恢复到新手(全新装机)状态？此操作不可撤销。", true)
+            .then((ok) => {
+            if (!ok)
+                return;
+            var lang = undefined;
+            try {
+                lang = Utils.loadLocalItem("language");
+            }
+            catch (e) { } // 保留当前语言,重载不跳回默认
+            Utils.localStorageData = {};
+            if (lang)
+                Utils.localStorageData["language"] = lang;
+            window.platform.setUserLocalStorage(Utils.localStorageData);
+            try {
+                window.location.reload();
+            }
+            catch (e) { }
+        });
     }
     // 点击国旗 -> 弹出语言列表(在按钮上方展开),点某一项即选定该语言。
     // 各元素直接加到 LoginView(不用中间容器:PIXI v7 对"无 hitArea 的中间容器"
@@ -19798,12 +19922,47 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         this.occAvatarFrameMask.visible = false; // 原位图遮罩不再使用，隐藏以免渲染成白块
         this.diffDesc = new LevelDiffDescView(w, h);
         this.diffDesc.x = this.diffDesc.y = 0;
+        // 恢复购买按钮(底部中央,"返回"与"继续"之间)。App Store/Google Play 要求提供该入口。
+        // 手动定位,不进 multiLang 布局表。
+        var rw = 260, rh = 64, rx = Math.round((this.width - rw) / 2), ry = 1012;
+        this.btnRestoreBg = ViewUtils.createPanelBitmap(rw, rh);
+        this.btnRestoreBg.name = "restoreBtnBg";
+        this.btnRestoreBg.x = rx;
+        this.btnRestoreBg.y = ry;
+        this.btnRestoreBg.touchEnabled = true;
+        this.btnRestoreBg.addEventListener(egret.TouchEvent.TOUCH_TAP, () => this.onRestorePurchases(), this);
+        this.addChild(this.btnRestoreBg);
+        this.btnRestoreLbl = ViewUtils.createTextField(26, 0xffe9b0);
+        this.btnRestoreLbl.name = "restoreBtnLbl";
+        this.btnRestoreLbl.text = ViewUtils.getTipText("restorePurchase");
+        this.btnRestoreLbl.width = rw;
+        this.btnRestoreLbl.height = rh;
+        this.btnRestoreLbl.x = rx;
+        this.btnRestoreLbl.y = ry;
+        this.btnRestoreLbl.touchEnabled = false;
+        this.addChild(this.btnRestoreLbl);
+    }
+    // 恢复购买:查回该账号已购买的角色并永久解锁(重装/换机后找回)。
+    // 目前 IapService.restore() 是 mock(返回空);接入真实 SDK 后此处无需改动。
+    async onRestorePurchases() {
+        AudioFactory.play("btn1");
+        AniUtils.tipAt(ViewUtils.getTipText("purchasing"), { x: this.width / 2, y: this.height / 3 }, 25, 0xffffff);
+        var owned = await IapService.restore();
+        var newly = 0;
+        for (var occ of owned) {
+            if (IapService.isPaidOccupation(occ) && !Utils.isUnlockedOccupation(occ)) {
+                Utils.unlockOccupationForever(occ);
+                newly++;
+            }
+        }
+        this.refresh();
+        AniUtils.tipAt(ViewUtils.getTipText(newly > 0 ? "restoreSuccess" : "restoreNone"), { x: this.width / 2, y: this.height / 2 }, 25, 0xffffff);
     }
     refresh() {
         ViewUtils.asFullBg(this.bg);
         this.setAvailableOccList(Utils.getAllOccupations());
         this.setAvailableDiff(Utils.getDiffByAchvData());
-        this.selOcc("Rogue");
+        this.selOcc(this.occArr[0]); // 默认选中第一个职业(护士,免费默认角色)
         this.selDifficulty(Utils.getDiffByAchvData() - 1);
     }
     async open() {
@@ -19859,7 +20018,12 @@ class OccupationSelView extends egret.DisplayObjectContainer {
                 }
                 else {
                     c.addChild(occImg);
-                    ViewUtils.makeGray(this.occAvatarLst[i], true);
+                    // 锁定:头像上叠一层监狱铁栏杆表示被关押(头像保持彩色显示在栏杆后,格子底置灰)
+                    var bars = ViewUtils.createUrlBitmap("resource/assets/ui/occupationsel/prisonBars.png", c.width, c.height);
+                    bars.x = bars.y = 0;
+                    bars.touchEnabled = false;
+                    c.addChild(bars);
+                    ViewUtils.makeGray(this.occAvatarLst[i], false);
                     ViewUtils.makeGray(this.occAvatarBgLst[i], true);
                 }
             }
@@ -19911,28 +20075,27 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         this.diffFlagDesc.textAlign = egret.HorizontalAlign.CENTER;
         this.diffFlagDesc.verticalAlign = egret.VerticalAlign.MIDDLE;
     }
-    // 点击未解锁职业    
+    // 点击未解锁职业:确认(含价格)-> 走内购 -> 成功后永久解锁"该"职业
     async clickLockedOcc(occ) {
-        if (!window.platform.onBuyResult)
-            window.platform.onBuyResult = (str) => {
-                if (str == "ok" || str == "restored")
-                    this.pay2Unlock();
-                else if (str == "inPurchasing")
-                    AniUtils.tipAt(ViewUtils.getTipText("purchasing"), { x: this.width / 2, y: this.height / 3 }, 25, 0xffffff);
-            };
-        if (egret.Capabilities.os == "iOS") {
-            var yesno = await this.confirmOkYesNo(ViewUtils.getTipText("occLocked"), ViewUtils.getTipText("occLockedContent"), true);
-            if (yesno)
-                egret.ExternalInterface.call("rdsBuyProduct", "");
-        }
-        else {
-            var yesno = await this.confirmOkYesNo(ViewUtils.getTipText("occLocked"), ViewUtils.getTipText("occLockedContentAndroid"), true);
-            if (yesno)
-                this.pay2Unlock();
-        }
+        // 免费职业不该走到这里(护士),付费职业才有商品ID
+        if (!IapService.isPaidOccupation(occ))
+            return;
+        var price = IapService.priceText(occ);
+        var content = ViewUtils.getTipText("occLockedContentAndroid");
+        if (price)
+            content = content + "  (" + price + ")";
+        var yesno = await this.confirmOkYesNo(ViewUtils.getTipText("occLocked"), content, true);
+        if (!yesno)
+            return;
+        AniUtils.tipAt(ViewUtils.getTipText("purchasing"), { x: this.width / 2, y: this.height / 3 }, 25, 0xffffff);
+        var r = await IapService.purchase(occ);
+        if (r == "ok" || r == "restored")
+            await this.pay2Unlock(occ); // 解锁点击的那个职业,而不是写死的园艺师
+        else if (r != "cancel")
+            AniUtils.tipAt(ViewUtils.getTipText("purchaseFailed"), { x: this.width / 2, y: this.height / 2 }, 25, 0xffffff);
     }
-    // 付费永久解锁相关
-    async pay2Unlock(occ = "Horticulturist") {
+    // 付费永久解锁相关(occ 必传:解锁哪个就传哪个)
+    async pay2Unlock(occ) {
         var i = Utils.indexOf(this.occArr, (o) => o == occ);
         var occAvatar = this.occAvatarBgLst[i];
         await this.playUnlockOccupationAni(occAvatar);

@@ -205,6 +205,26 @@ class ViewUtils {
         e.filters = [colorFilter];
     }
 
+    // 是否"开发状态"。必须失败安全:上架 App / 正式网页一律返回 false,
+    // 只有本地开发服务器(带非标准端口的 localhost/局域网 IP)或显式 ?dev=1 才为 true。
+    //   - ?dev=1 强制开 / ?dev=0 强制关(方便真机临时调试)
+    //   - 打包 App:iOS capacitor://localhost、Android http://localhost(无端口/80)、
+    //     file:// 一律不算;正式网页(真实域名)不算 => 用户永远看不到该按钮。
+    public static isDevMode():boolean {
+        try {
+            var loc:any = (typeof window !== "undefined") ? window.location : null;
+            if (!loc) return false;
+            var s = loc.search || "";
+            if (/[?&]dev=0/.test(s)) return false;
+            if (/[?&]dev=1/.test(s)) return true;
+            var host = loc.hostname || "";
+            var port = loc.port || "";
+            var isLocal = host === "localhost" || host === "127.0.0.1"
+                || /^192\.168\./.test(host) || /^10\./.test(host);
+            return isLocal && port !== "" && port !== "80" && port !== "443";
+        } catch (e) { return false; }
+    }
+
     // 创建一个显示文本
     public static createTextField(size:number, color:number, alignCenter:boolean = true, vAlignMiddle:boolean = true):egret.TextField {
         var t = new egret.TextField();
@@ -374,6 +394,22 @@ class ViewUtils {
             },
             () => ViewUtils.applyGeneratedButton(btn, text, w, h)
         );
+    }
+
+    // 按 URL 异步加载一张图为 egret.Bitmap(用于不在 res 清单里的叠加图,如监狱栏杆)。
+    // 立即返回空 Bitmap,加载完成后填纹理并套用给定尺寸。
+    public static createUrlBitmap(url:string, w?:number, h?:number):egret.Bitmap {
+        var bmp = new egret.Bitmap();
+        if (w) bmp.width = w;
+        if (h) bmp.height = h;
+        ViewUtils.loadImg(url, (img) => {
+            try {
+                bmp.texture = (<any>egret).Texture.fromPixi((<any>window).PIXI.Texture.from(img));
+                if (w) bmp.width = w;
+                if (h) bmp.height = h;
+            } catch (e) {}
+        });
+        return bmp;
     }
 
     // 把一张 egret.Bitmap 替换为本地化版本图片。CNS/CNT 用原图(原图即中文);

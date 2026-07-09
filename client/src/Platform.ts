@@ -188,6 +188,58 @@ class DefaultPaltform implements Platform {
     }
 }
 
+// ========================= 内购(IAP)服务 =========================
+// 角色付费永久解锁的统一抽象层。目前为 mock 实现(浏览器/未接商店时可完整测试
+// 解锁流程);上架时把 mockMode 置 false 并在 purchase()/restore() 里接
+// RevenueCat / StoreKit(iOS) / Play Billing(Android)。
+class IapService {
+    // 角色 -> 商店商品ID(在 App Store Connect / Google Play Console 里配置成
+    // 同名的"非消耗型"商品)。护士是免费默认角色,不在此表。
+    static products: { [occ: string]: { id: string, priceUsd: number } } = {
+        "Rogue":          { id: "unlock_rogue",          priceUsd: 0.99 },
+        "Horticulturist": { id: "unlock_horticulturist", priceUsd: 0.99 },
+    };
+
+    // mock 模式:浏览器预览/未接真实商店时为 true —— purchase() 直接模拟成功,
+    // 便于测试。真机上架构建时改为 false 走真实下单+回执校验。
+    static mockMode = true;
+
+    static productId(occ: string): string {
+        var p = IapService.products[occ];
+        return p ? p.id : "";
+    }
+    static priceText(occ: string): string {
+        var p = IapService.products[occ];
+        return p ? "$" + p.priceUsd.toFixed(2) : "";
+    }
+    static isPaidOccupation(occ: string): boolean {
+        return !!IapService.products[occ];
+    }
+
+    // 发起购买。返回 "ok" | "cancel" | "pending" | "error"。
+    // 调用方在拿到 "ok"/"restored" 后才执行永久解锁。
+    static async purchase(occ: string): Promise<string> {
+        var pid = IapService.productId(occ);
+        if (!pid) return "error";
+        if (IapService.mockMode) {
+            // —— mock:模拟商店处理耗时后成功。真实接入时替换本分支。——
+            await Utils.delay(400);
+            return "ok";
+        }
+        // —— 真实商店(占位,待接 RevenueCat / 各平台原生桥)——
+        // iOS: egret.ExternalInterface.call("rdsBuyProduct", pid) + onBuyResult 回调
+        // Android: 走 Play Billing 插件
+        return "error";
+    }
+
+    // 恢复购买(重装/换机后找回已购角色)。返回已拥有的角色名列表。
+    // mock 返回空;真实接入查询商店已购项目并映射回角色名。
+    static async restore(): Promise<string[]> {
+        if (IapService.mockMode) return [];
+        return [];
+    }
+}
+
 if (!window.platform) {
     window.platform = new DefaultPaltform();
 }
