@@ -13,7 +13,7 @@
     "start": "node server.mjs"
   },
   "dependencies": {
-    "@capacitor/android": "^7.6.7",
+    "@capacitor/android": "^7.6.9",
     "@capacitor/core": "^7.6.7",
     "@types/howler": "^2.2.13",
     "dragonbones.js": "^5.7.4",
