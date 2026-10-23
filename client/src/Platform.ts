@@ -25,6 +25,7 @@ declare interface Platform {
 
 class DefaultPaltform implements Platform {
     wc:WebClient;
+    private offlineIOS = (<any>window).Capacitor?.getPlatform?.() === "ios";
     
     // adMobReady:boolean = false;
     // adMobAppID:string = "ca-app-pub-3940256099942544~3347511713"; // google test
@@ -47,7 +48,10 @@ class DefaultPaltform implements Platform {
             })
         }
 
-        if (DEBUG && egret.Capabilities.os == "Windows PC") // 开发环境
+        if (this.offlineIOS) {
+            // iOS gameplay and saves are local. Never initialize the retired
+            // telemetry / leaderboard server for an App Store build.
+        } else if (DEBUG && egret.Capabilities.os == "Windows PC") // 开发环境
             this.wc = new WebClient("http://127.0.0.1:81/");
         else {
             this.wc = new WebClient("http://119.23.110.78:81/");
@@ -115,6 +119,7 @@ class DefaultPaltform implements Platform {
     }
 
     async getRankInfo() {
+        if (this.offlineIOS) return undefined;
         var r = await this.wc.request({
             type: "getRank",
         });
@@ -123,6 +128,7 @@ class DefaultPaltform implements Platform {
     }
 
     setUserCloudStorage(key:string, value) {
+        if (this.offlineIOS) return;
         var uid = this.getUserID();
         this.wc.send({
             type: "setUserCloudData",
@@ -189,27 +195,40 @@ class DefaultPaltform implements Platform {
 }
 
 // ========================= 内购(IAP)服务 =========================
-// 角色付费永久解锁的统一抽象层。目前为 mock 实现(浏览器/未接商店时可完整测试
-// 解锁流程);上架时把 mockMode 置 false 并在 purchase()/restore() 里接
-// RevenueCat / StoreKit(iOS) / Play Billing(Android)。
+// iOS 原生版本使用 StoreKit 2；浏览器预览保留模拟购买。
+// 其他原生平台未接商店时拒绝购买，不使用模拟解锁。
 class IapService {
     // 角色 -> 商店商品ID(在 App Store Connect / Google Play Console 里配置成
     // 同名的"非消耗型"商品)。护士是免费默认角色,不在此表。
     static products: { [occ: string]: { id: string, priceUsd: number } } = {
         "Rogue":          { id: "unlock_rogue",          priceUsd: 0.99 },
-        "Horticulturist": { id: "unlock_horticulturist", priceUsd: 0.99 },
+        "Horticulturist": { id: "Horticulturist", priceUsd: 0.99 },
     };
 
     // mock 模式:浏览器预览/未接真实商店时为 true —— purchase() 直接模拟成功,
     // 便于测试。真机上架构建时改为 false 走真实下单+回执校验。
-    static mockMode = true;
+    // Native apps must never grant paid unlocks through simulated purchases.
+    static mockMode = !(<any>window).Capacitor?.isNativePlatform?.();
 
     static productId(occ: string): string {
         var p = IapService.products[occ];
         return p ? p.id : "";
     }
-    static priceText(occ: string): string {
+    private static nativeStore(): any {
+        var cap = (<any>window).Capacitor;
+        if (cap?.getPlatform?.() !== "ios") return undefined;
+        return cap.Plugins.RDSStore || cap.registerPlugin("RDSStore");
+    }
+    static async priceText(occ: string): Promise<string> {
         var p = IapService.products[occ];
+        if (!IapService.mockMode) {
+            var store = IapService.nativeStore();
+            if (!store || !p) throw new Error("Store unavailable");
+            var catalog = await store.products();
+            var product = catalog.products.find((item) => item.id === p.id);
+            if (!product) throw new Error("Product unavailable");
+            return product.price;
+        }
         return p ? "$" + p.priceUsd.toFixed(2) : "";
     }
     static isPaidOccupation(occ: string): boolean {
@@ -226,9 +245,10 @@ class IapService {
             await Utils.delay(400);
             return "ok";
         }
-        // —— 真实商店(占位,待接 RevenueCat / 各平台原生桥)——
-        // iOS: egret.ExternalInterface.call("rdsBuyProduct", pid) + onBuyResult 回调
-        // Android: 走 Play Billing 插件
+        try {
+            var store = IapService.nativeStore();
+            if (store) return (await store.purchase({ productId: pid })).status;
+        } catch (e) { console.error("App Store purchase failed", e); }
         return "error";
     }
 
@@ -236,7 +256,20 @@ class IapService {
     // mock 返回空;真实接入查询商店已购项目并映射回角色名。
     static async restore(): Promise<string[]> {
         if (IapService.mockMode) return [];
-        return [];
+        var store = IapService.nativeStore();
+        if (!store) throw new Error("Store unavailable");
+        var owned = (await store.restore({ sync: true })).productIds;
+        return Object.keys(IapService.products).filter((occ) =>
+            owned.indexOf(IapService.products[occ].id) >= 0);
+    }
+
+    static async finish(occ: string): Promise<void> {
+        if (IapService.mockMode) return;
+        var store = IapService.nativeStore();
+        if (store) {
+            try { await store.finish({ productId: IapService.productId(occ) }); }
+            catch (e) { console.error("Transaction finish will be retried on restore", e); }
+        }
     }
 }
 

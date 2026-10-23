@@ -7949,7 +7949,7 @@ class Level {
     }
     // 创建地图
     InitMap(cfg) {
-        this.map = new Map();
+        this.map = new GameMap();
     }
     getElemCfg(type) {
         var attrs = GCfg.getElemAttrsOfLevel(type, this.lv);
@@ -8705,7 +8705,7 @@ class Grid {
     getElem() { return this.map.getElemAt(this.pos.x, this.pos.y); }
 }
 // 实时的游戏地图，用于存放所有地图格和元素
-class Map {
+class GameMap {
     constructor() {
         this.size = { w: 0, h: 0 }; // 地图尺寸
         var w = GCfg.mapsize.w;
@@ -11056,8 +11056,11 @@ class WebClient {
         }
     }
 }
+var _a, _b;
 class DefaultPaltform {
     constructor() {
+        var _a, _b;
+        this.offlineIOS = ((_b = (_a = window.Capacitor) === null || _a === void 0 ? void 0 : _a.getPlatform) === null || _b === void 0 ? void 0 : _b.call(_a)) === "ios";
         this.platformType = egret.Capabilities.os;
         this.openDataContext = {
             createDisplayObject: () => { }
@@ -11074,7 +11077,11 @@ class DefaultPaltform {
                     this.onBuyResult(str);
             });
         }
-        if (DEBUG && egret.Capabilities.os == "Windows PC") // 开发环境
+        if (this.offlineIOS) {
+            // iOS gameplay and saves are local. Never initialize the retired
+            // telemetry / leaderboard server for an App Store build.
+        }
+        else if (DEBUG && egret.Capabilities.os == "Windows PC") // 开发环境
             this.wc = new WebClient("http://127.0.0.1:81/");
         else {
             this.wc = new WebClient("http://119.23.110.78:81/");
@@ -11130,12 +11137,16 @@ class DefaultPaltform {
         return uid;
     }
     async getRankInfo() {
+        if (this.offlineIOS)
+            return undefined;
         var r = await this.wc.request({
             type: "getRank",
         });
         return r;
     }
     setUserCloudStorage(key, value) {
+        if (this.offlineIOS)
+            return;
         var uid = this.getUserID();
         this.wc.send({
             type: "setUserCloudData",
@@ -11196,16 +11207,32 @@ class DefaultPaltform {
     shareGame() { }
 }
 // ========================= 内购(IAP)服务 =========================
-// 角色付费永久解锁的统一抽象层。目前为 mock 实现(浏览器/未接商店时可完整测试
-// 解锁流程);上架时把 mockMode 置 false 并在 purchase()/restore() 里接
-// RevenueCat / StoreKit(iOS) / Play Billing(Android)。
+// iOS 原生版本使用 StoreKit 2；浏览器预览保留模拟购买。
+// 其他原生平台未接商店时拒绝购买，不使用模拟解锁。
 class IapService {
     static productId(occ) {
         var p = IapService.products[occ];
         return p ? p.id : "";
     }
-    static priceText(occ) {
+    static nativeStore() {
+        var _a;
+        var cap = window.Capacitor;
+        if (((_a = cap === null || cap === void 0 ? void 0 : cap.getPlatform) === null || _a === void 0 ? void 0 : _a.call(cap)) !== "ios")
+            return undefined;
+        return cap.Plugins.RDSStore || cap.registerPlugin("RDSStore");
+    }
+    static async priceText(occ) {
         var p = IapService.products[occ];
+        if (!IapService.mockMode) {
+            var store = IapService.nativeStore();
+            if (!store || !p)
+                throw new Error("Store unavailable");
+            var catalog = await store.products();
+            var product = catalog.products.find((item) => item.id === p.id);
+            if (!product)
+                throw new Error("Product unavailable");
+            return product.price;
+        }
         return p ? "$" + p.priceUsd.toFixed(2) : "";
     }
     static isPaidOccupation(occ) {
@@ -11222,9 +11249,14 @@ class IapService {
             await Utils.delay(400);
             return "ok";
         }
-        // —— 真实商店(占位,待接 RevenueCat / 各平台原生桥)——
-        // iOS: egret.ExternalInterface.call("rdsBuyProduct", pid) + onBuyResult 回调
-        // Android: 走 Play Billing 插件
+        try {
+            var store = IapService.nativeStore();
+            if (store)
+                return (await store.purchase({ productId: pid })).status;
+        }
+        catch (e) {
+            console.error("App Store purchase failed", e);
+        }
         return "error";
     }
     // 恢复购买(重装/换机后找回已购角色)。返回已拥有的角色名列表。
@@ -11232,18 +11264,36 @@ class IapService {
     static async restore() {
         if (IapService.mockMode)
             return [];
-        return [];
+        var store = IapService.nativeStore();
+        if (!store)
+            throw new Error("Store unavailable");
+        var owned = (await store.restore({ sync: true })).productIds;
+        return Object.keys(IapService.products).filter((occ) => owned.indexOf(IapService.products[occ].id) >= 0);
+    }
+    static async finish(occ) {
+        if (IapService.mockMode)
+            return;
+        var store = IapService.nativeStore();
+        if (store) {
+            try {
+                await store.finish({ productId: IapService.productId(occ) });
+            }
+            catch (e) {
+                console.error("Transaction finish will be retried on restore", e);
+            }
+        }
     }
 }
 // 角色 -> 商店商品ID(在 App Store Connect / Google Play Console 里配置成
 // 同名的"非消耗型"商品)。护士是免费默认角色,不在此表。
 IapService.products = {
     "Rogue": { id: "unlock_rogue", priceUsd: 0.99 },
-    "Horticulturist": { id: "unlock_horticulturist", priceUsd: 0.99 },
+    "Horticulturist": { id: "Horticulturist", priceUsd: 0.99 },
 };
 // mock 模式:浏览器预览/未接真实商店时为 true —— purchase() 直接模拟成功,
 // 便于测试。真机上架构建时改为 false 走真实下单+回执校验。
-IapService.mockMode = true;
+// Native apps must never grant paid unlocks through simulated purchases.
+IapService.mockMode = !((_b = (_a = window.Capacitor) === null || _a === void 0 ? void 0 : _a.isNativePlatform) === null || _b === void 0 ? void 0 : _b.call(_a));
 if (!window.platform) {
     window.platform = new DefaultPaltform();
 }
@@ -12561,7 +12611,10 @@ class ViewUtils {
     //   - 打包 App:iOS capacitor://localhost、Android http://localhost(无端口/80)、
     //     file:// 一律不算;正式网页(真实域名)不算 => 用户永远看不到该按钮。
     static isDevMode() {
+        var _a, _b;
         try {
+            if ((_b = (_a = window.Capacitor) === null || _a === void 0 ? void 0 : _a.isNativePlatform) === null || _b === void 0 ? void 0 : _b.call(_a))
+                return false;
             var loc = (typeof window !== "undefined") ? window.location : null;
             if (!loc)
                 return false;
@@ -18890,6 +18943,7 @@ class LevelDiffDescView extends egret.DisplayObjectContainer {
 // 登录界面
 class LoginView extends egret.DisplayObjectContainer {
     constructor(w, h) {
+        var _a, _b, _c, _d;
         super();
         this.name = "login";
         this.width = w;
@@ -18954,6 +19008,8 @@ class LoginView extends egret.DisplayObjectContainer {
         }
         // 排行榜功能未实现:永久置灰 + 禁用点击(enabled=false 会置 touchEnabled=false 并 makeGray)
         this.btnOpenRank.enabled = false;
+        if (((_b = (_a = window.Capacitor) === null || _a === void 0 ? void 0 : _a.getPlatform) === null || _b === void 0 ? void 0 : _b.call(_a)) === "ios")
+            this.btnOpenRank.visible = false;
         // 语言切换："旗杆挂旗"图标(用户美术),贴左侧、在 title 图(y=-30..258)下方。
         this.btnLang = ViewUtils.createFlagImageBitmap(ViewUtils.getLanguage(), 104, (bmp) => {
             bmp.x = 12;
@@ -18967,6 +19023,24 @@ class LoginView extends egret.DisplayObjectContainer {
         // 仅开发状态:右上角"重置存档"按钮(上架/正式环境永不出现,见 ViewUtils.isDevMode)
         if (ViewUtils.isDevMode())
             this.addDevResetButton();
+        if (((_d = (_c = window.Capacitor) === null || _c === void 0 ? void 0 : _c.getPlatform) === null || _d === void 0 ? void 0 : _d.call(_c)) === "ios") {
+            var chinese = /^CN/.test(ViewUtils.getLanguage());
+            ["privacy", "support"].forEach((page, i) => {
+                var link = ViewUtils.createTextField(22, 0xe4d5ae);
+                link.text = page === "privacy" ? (chinese ? "隐私说明" : "Privacy")
+                    : (chinese ? "技术支持" : "Support");
+                link.width = 150;
+                link.height = 38;
+                link.x = this.width / 2 - 160 + i * 170;
+                link.y = this.height - 42;
+                link.touchEnabled = true;
+                link.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
+                    window.Capacitor.nativePromise("RDSStore", "openPage", { page })
+                        .catch((e) => console.error("Cannot open information page", e));
+                }, this);
+                this.addChild(link);
+            });
+        }
     }
     // DEV ONLY —— 清空所有存档、恢复到全新装机(新手)状态
     addDevResetButton() {
@@ -19947,13 +20021,21 @@ class OccupationSelView extends egret.DisplayObjectContainer {
     async onRestorePurchases() {
         AudioFactory.play("btn1");
         AniUtils.tipAt(ViewUtils.getTipText("purchasing"), { x: this.width / 2, y: this.height / 3 }, 25, 0xffffff);
-        var owned = await IapService.restore();
+        var owned;
+        try {
+            owned = await IapService.restore();
+        }
+        catch (e) {
+            AniUtils.tipAt(ViewUtils.getTipText("purchaseFailed"), { x: this.width / 2, y: this.height / 2 }, 25, 0xffffff);
+            return;
+        }
         var newly = 0;
         for (var occ of owned) {
             if (IapService.isPaidOccupation(occ) && !Utils.isUnlockedOccupation(occ)) {
                 Utils.unlockOccupationForever(occ);
                 newly++;
             }
+            await IapService.finish(occ);
         }
         this.refresh();
         AniUtils.tipAt(ViewUtils.getTipText(newly > 0 ? "restoreSuccess" : "restoreNone"), { x: this.width / 2, y: this.height / 2 }, 25, 0xffffff);
@@ -20080,7 +20162,14 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         // 免费职业不该走到这里(护士),付费职业才有商品ID
         if (!IapService.isPaidOccupation(occ))
             return;
-        var price = IapService.priceText(occ);
+        var price;
+        try {
+            price = await IapService.priceText(occ);
+        }
+        catch (e) {
+            AniUtils.tipAt(ViewUtils.getTipText("purchaseFailed"), { x: this.width / 2, y: this.height / 2 }, 25, 0xffffff);
+            return;
+        }
         var content = ViewUtils.getTipText("occLockedContentAndroid");
         if (price)
             content = content + "  (" + price + ")";
@@ -20091,7 +20180,7 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         var r = await IapService.purchase(occ);
         if (r == "ok" || r == "restored")
             await this.pay2Unlock(occ); // 解锁点击的那个职业,而不是写死的园艺师
-        else if (r != "cancel")
+        else if (r != "cancel" && r != "pending")
             AniUtils.tipAt(ViewUtils.getTipText("purchaseFailed"), { x: this.width / 2, y: this.height / 2 }, 25, 0xffffff);
     }
     // 付费永久解锁相关(occ 必传:解锁哪个就传哪个)
@@ -20100,6 +20189,7 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         var occAvatar = this.occAvatarBgLst[i];
         await this.playUnlockOccupationAni(occAvatar);
         Utils.unlockOccupationForever(occ);
+        await IapService.finish(occ);
         this.refresh();
         this.selOcc(occ);
     }

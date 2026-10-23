@@ -2,7 +2,7 @@
 // 关卡控制逻辑
 class Level {
     public displayName:string;
-    public map:Map;
+    public map:GameMap;
     public bt:Battle; // 反向引用回所属 battle
     public keys:Elem[] = []; // 装着所有的关卡初始钥匙
     public levelType; // 关卡种类
@@ -29,7 +29,7 @@ class Level {
 
     // 创建地图
     public InitMap(cfg) {
-        this.map = new Map();
+        this.map = new GameMap();
     }
 
     // 创建指定元素，如果未明确指定配置属性，则默认参考本关卡配置

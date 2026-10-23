@@ -49,7 +49,7 @@ declare namespace egret {
     type TextField = any; const TextField: any;
     type TextFieldType = any; const TextFieldType: any;
     type TextFieldInputType = any; const TextFieldInputType: any;
-    type Texture = any; const Texture: any;
+    type Texture = any; let Texture: any;
     type Ticker = any; const Ticker: any;
     type Timer = any; const Timer: any;
     type TimerEvent = any; const TimerEvent: any;
@@ -100,7 +100,7 @@ declare var Howl: any;
 declare var Howler: any;
 
 interface Window {
-    platform: any;
+    platform: Platform;
     canvas: any;
     __game: any;
     egret: any;

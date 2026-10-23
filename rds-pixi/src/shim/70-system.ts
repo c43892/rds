@@ -144,10 +144,27 @@ namespace egret {
         },
     };
 
-    // ---- native bridge (web no-op) ----------------------------------------
+    // ---- legacy native storage bridge ------------------------------------
     export const ExternalInterface = {
         callbacks: {} as { [k: string]: Function },
         addCallback(name: string, fn: Function) { this.callbacks[name] = fn; },
-        call(name: string, value?: string) { /* no native host on web */ },
+        call(name: string, value?: string) {
+            // The iOS game still calls the old Egret host for saves. Capacitor
+            // uses WKWebView storage, so complete that callback here instead
+            // of leaving startup waiting for a native host that does not exist.
+            if (name === "rdsLoadLocalStorageData") {
+                const callback = this.callbacks["rdsLoadLocalStorageDataCallback"];
+                const saved = localStorage.getItem("localStorageData");
+                const cap = (<any>window).Capacitor;
+                if (!saved && cap?.getPlatform?.() === "ios") {
+                    cap.nativePromise("RDSStore", "legacySave", {}).then((result) => {
+                        if (result.save) localStorage.setItem("localStorageData", result.save);
+                        if (callback) callback(result.save || "");
+                    }).catch(() => { if (callback) callback(""); });
+                } else if (callback) callback(saved);
+            } else if (name === "rdsSaveLocalStorageData") {
+                localStorage.setItem("localStorageData", value || "");
+            }
+        },
     };
 }

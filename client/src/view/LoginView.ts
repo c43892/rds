@@ -93,6 +93,8 @@ class LoginView extends egret.DisplayObjectContainer {
 
         // 排行榜功能未实现:永久置灰 + 禁用点击(enabled=false 会置 touchEnabled=false 并 makeGray)
         this.btnOpenRank.enabled = false;
+        if ((<any>window).Capacitor?.getPlatform?.() === "ios")
+            this.btnOpenRank.visible = false;
 
         // 语言切换："旗杆挂旗"图标(用户美术),贴左侧、在 title 图(y=-30..258)下方。
         this.btnLang = ViewUtils.createFlagImageBitmap(ViewUtils.getLanguage(), 104, (bmp) => {
@@ -108,6 +110,24 @@ class LoginView extends egret.DisplayObjectContainer {
         // 仅开发状态:右上角"重置存档"按钮(上架/正式环境永不出现,见 ViewUtils.isDevMode)
         if (ViewUtils.isDevMode())
             this.addDevResetButton();
+
+        if ((<any>window).Capacitor?.getPlatform?.() === "ios") {
+            var chinese = /^CN/.test(ViewUtils.getLanguage());
+            ["privacy", "support"].forEach((page, i) => {
+                var link = ViewUtils.createTextField(22, 0xe4d5ae);
+                link.text = page === "privacy" ? (chinese ? "隐私说明" : "Privacy")
+                    : (chinese ? "技术支持" : "Support");
+                link.width = 150; link.height = 38;
+                link.x = this.width / 2 - 160 + i * 170;
+                link.y = this.height - 42;
+                link.touchEnabled = true;
+                link.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
+                    (<any>window).Capacitor.nativePromise("RDSStore", "openPage", { page })
+                        .catch((e) => console.error("Cannot open information page", e));
+                }, this);
+                this.addChild(link);
+            });
+        }
     }
 
     // DEV ONLY —— 清空所有存档、恢复到全新装机(新手)状态

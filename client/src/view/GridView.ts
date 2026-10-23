@@ -1,6 +1,6 @@
 // 地图上的元素视图
 class GridView extends egret.DisplayObjectContainer {
-    public map:Map;
+    public map:GameMap;
     public gx:number;
     public gy:number;
 

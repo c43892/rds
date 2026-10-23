@@ -9,7 +9,7 @@ enum GridStatus {
 
 // 表示一个地图格
 class Grid {
-    public map:Map; // 反向引用所属地图
+    public map:GameMap; // 反向引用所属地图
 
     // 表示地图块的坐标
     public pos = {x: 0, y: 0};

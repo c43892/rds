@@ -7,7 +7,7 @@ class Elem {
     public $$bt; // 所属战斗对象
     public setBattle(bt:Battle) { this.$$bt = bt; }
     public bt():Battle { return this.$$bt; } // 所属战斗对象
-    public map():Map { return this.bt().level.map; }
+    public map():GameMap { return this.bt().level.map; }
     public type: string; // 元素类型
     public cnt:number; // 叠加数量
     public cd:number; // 冷却回合数

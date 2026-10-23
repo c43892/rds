@@ -1,6 +1,6 @@
 {
-  "appId": "com.c43892.rds",
-  "appName": "RDS",
+  "appId": "com.daybreak.rds",
+  "appName": "魔塔扫雷",
   "webDir": "public",
   "android": {
     "allowMixedContent": true,

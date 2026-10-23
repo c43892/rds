@@ -212,6 +212,7 @@ class ViewUtils {
     //     file:// 一律不算;正式网页(真实域名)不算 => 用户永远看不到该按钮。
     public static isDevMode():boolean {
         try {
+            if ((<any>window).Capacitor?.isNativePlatform?.()) return false;
             var loc:any = (typeof window !== "undefined") ? window.location : null;
             if (!loc) return false;
             var s = loc.search || "";

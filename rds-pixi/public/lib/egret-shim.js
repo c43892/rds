@@ -2206,11 +2206,35 @@ var egret;
             return u8.buffer;
         },
     };
-    // ---- native bridge (web no-op) ----------------------------------------
+    // ---- legacy native storage bridge ------------------------------------
     egret.ExternalInterface = {
         callbacks: {},
         addCallback(name, fn) { this.callbacks[name] = fn; },
-        call(name, value) { },
+        call(name, value) {
+            var _a;
+            // The iOS game still calls the old Egret host for saves. Capacitor
+            // uses WKWebView storage, so complete that callback here instead
+            // of leaving startup waiting for a native host that does not exist.
+            if (name === "rdsLoadLocalStorageData") {
+                const callback = this.callbacks["rdsLoadLocalStorageDataCallback"];
+                const saved = egret.localStorage.getItem("localStorageData");
+                const cap = window.Capacitor;
+                if (!saved && ((_a = cap === null || cap === void 0 ? void 0 : cap.getPlatform) === null || _a === void 0 ? void 0 : _a.call(cap)) === "ios") {
+                    cap.nativePromise("RDSStore", "legacySave", {}).then((result) => {
+                        if (result.save)
+                            egret.localStorage.setItem("localStorageData", result.save);
+                        if (callback)
+                            callback(result.save || "");
+                    }).catch(() => { if (callback)
+                        callback(""); });
+                }
+                else if (callback)
+                    callback(saved);
+            }
+            else if (name === "rdsSaveLocalStorageData") {
+                egret.localStorage.setItem("localStorageData", value || "");
+            }
+        },
     };
 })(egret || (egret = {}));
 // ============================================================================

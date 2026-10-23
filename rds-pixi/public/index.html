@@ -14,6 +14,7 @@
     <div class="egret-player"></div>
 
     <!-- third-party runtimes (global UMD) -->
+    <script src="lib/capacitor.js"></script>
     <script src="lib/pixi.min.js"></script>
     <script src="lib/howler.min.js"></script>
     <!-- DragonBones 5.7 Pixi runtime (defines global dragonBones) -->
@@ -23,7 +24,7 @@
     <script src="lib/egret-shim.js"></script>
 
     <!-- game + logic code (IIFE; exposes window.Main) -->
-    <script>var DEBUG = true;</script>
+    <script>var DEBUG = !window.Capacitor.isNativePlatform();</script>
     <script src="lib/gamelogic.js"></script>
 
     <!-- bootstrap -->

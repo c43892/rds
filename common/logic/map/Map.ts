@@ -1,6 +1,6 @@
 
 // 实时的游戏地图，用于存放所有地图格和元素
-class Map {
+class GameMap {
     public size = {w: 0, h: 0}; // 地图尺寸
     public grids : Grid[][]; // 所有地图格子
     public elems : Elem[][]; // 所有元素

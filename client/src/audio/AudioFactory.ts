@@ -83,7 +83,7 @@ class AudioFactory {
         Utils.assert(s, "audio " + name + " has not been loaded");
 
         var ch = s.play(0, playTimes);
-        var wrap = new Promise((r, _) => {
+        var wrap = new Promise<void>((r, _) => {
             ch.addEventListener(egret.Event.SOUND_COMPLETE, () => r());
         });
 

@@ -1,6 +1,6 @@
 // 地图视图
 class MapView extends egret.DisplayObjectContainer {
-    private map:Map; // 对应地图数据
+    private map:GameMap; // 对应地图数据
     private mgvs:GridView[][]; // 所有元素视图
 
     public gsize = {w:0, h:0};
@@ -31,7 +31,7 @@ class MapView extends egret.DisplayObjectContainer {
     }
 
     // 设置新的地图数据，但并不自动刷新显示，需要手动刷新
-    public setMap(map:Map) {
+    public setMap(map:GameMap) {
         if (this.map == undefined || map.size.w != this.map.size.w || map.size.h != this.map.size.h)
             this.rebuildMapGridView(map.size.w, map.size.h);
 

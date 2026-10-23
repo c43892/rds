@@ -6,7 +6,7 @@ class MonsterMarker {
     // 1、包含指定位置的，一片互相连接且未解开的块，且和其它未揭开的块孤立
     // 2、这一片孤立的未揭开的块里面，全部是怪物，没有空地或者其它道具
     // 返回值表示要被标记的坐标序列，格式为 [[x1,y1], [x2,y2], ...]，无结果则返回 []
-    public static CalcMonsterMarkSignAt(map:Map, x:number, y:number):number[][] {
+    public static CalcMonsterMarkSignAt(map:GameMap, x:number, y:number):number[][] {
         var forCheck = [[x, y]]; 
         var markPos = [];
         while (forCheck.length > 0) {

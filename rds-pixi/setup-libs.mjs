@@ -6,6 +6,7 @@ import { execSync } from 'child_process';
 fs.mkdirSync('public/lib', { recursive: true });
 
 const copies = [
+    ['node_modules/@capacitor/core/dist/capacitor.js', 'public/lib/capacitor.js'],
     ['node_modules/pixi.js/dist/pixi.min.js', 'public/lib/pixi.min.js'],
     ['node_modules/howler/dist/howler.min.js', 'public/lib/howler.min.js'],
     ['node_modules/pixi5-dragonbones/dragonBones.js', 'public/lib/dragonBones.js'],

@@ -114,7 +114,7 @@ class ScoreView extends egret.DisplayObjectContainer{
         this.refresh();
         await this.flyIn();
         
-        return new Promise<void>((resolve, reject) => this.doClose = resolve);
+        return new Promise<{ occ: string; level: number } | void>((resolve, reject) => this.doClose = resolve);
     }
 
     doClose;

@@ -90,7 +90,7 @@ class ResMgr {
     static async loadResItemsWx(arr, cb, failed) {
         var cnt = arr.length;
         var tm = {};
-        return new Promise((r, _) => {
+        return new Promise<void>((r, _) => {
             arr.forEach((item, i) => {
                 let it = item;
                 // RES.getResAsync(it.name, (res) => {

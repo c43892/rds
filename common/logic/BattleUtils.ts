@@ -48,7 +48,7 @@ class BattleUtils {
     }
 
     // 寻找一个离指定位置最近的满足条件的位置
-    public static findNearestGrid(map:Map, pos, f) {
+    public static findNearestGrid(map:GameMap, pos, f) {
         // 确定最大搜索半径
         var w = map.size.w;
         var h = map.size.h;

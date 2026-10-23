@@ -415,7 +415,7 @@ class BattleView extends egret.DisplayObjectContainer {
     }
 
     // 设置新的地图数据，但并不自动刷新显示，需要手动刷新
-    public setMap(map:Map, title:string) {
+    public setMap(map:GameMap, title:string) {
         this.mapView.setMap(map);
         this.selView.rebuild(this.mapView.x, this.mapView.y, this.mapView.gsize.w, this.mapView.gsize.h, this.mapView.gw, this.mapView.gh);
     }

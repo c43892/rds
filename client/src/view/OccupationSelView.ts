@@ -163,13 +163,19 @@ class OccupationSelView extends egret.DisplayObjectContainer {
     private async onRestorePurchases() {
         AudioFactory.play("btn1");
         AniUtils.tipAt(ViewUtils.getTipText("purchasing"), {x:this.width/2, y:this.height/3}, 25, 0xffffff);
-        var owned = await IapService.restore();
+        var owned: string[];
+        try { owned = await IapService.restore(); }
+        catch (e) {
+            AniUtils.tipAt(ViewUtils.getTipText("purchaseFailed"), {x:this.width/2, y:this.height/2}, 25, 0xffffff);
+            return;
+        }
         var newly = 0;
         for (var occ of owned) {
             if (IapService.isPaidOccupation(occ) && !Utils.isUnlockedOccupation(occ)) {
                 Utils.unlockOccupationForever(occ);
                 newly++;
             }
+            await IapService.finish(occ);
         }
         this.refresh();
         AniUtils.tipAt(ViewUtils.getTipText(newly > 0 ? "restoreSuccess" : "restoreNone"),
@@ -316,7 +322,12 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         // 免费职业不该走到这里(护士),付费职业才有商品ID
         if (!IapService.isPaidOccupation(occ)) return;
 
-        var price = IapService.priceText(occ);
+        var price: string;
+        try { price = await IapService.priceText(occ); }
+        catch (e) {
+            AniUtils.tipAt(ViewUtils.getTipText("purchaseFailed"), {x:this.width/2, y:this.height/2}, 25, 0xffffff);
+            return;
+        }
         var content = ViewUtils.getTipText("occLockedContentAndroid");
         if (price) content = content + "  (" + price + ")";
         var yesno = await this.confirmOkYesNo(ViewUtils.getTipText("occLocked"), content, true);
@@ -326,7 +337,7 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         var r = await IapService.purchase(occ);
         if (r == "ok" || r == "restored")
             await this.pay2Unlock(occ);          // 解锁点击的那个职业,而不是写死的园艺师
-        else if (r != "cancel")
+        else if (r != "cancel" && r != "pending")
             AniUtils.tipAt(ViewUtils.getTipText("purchaseFailed"), {x:this.width/2, y:this.height/2}, 25, 0xffffff);
     }
 
@@ -336,6 +347,7 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         var occAvatar = this.occAvatarBgLst[i];
         await this.playUnlockOccupationAni(occAvatar);
         Utils.unlockOccupationForever(occ);
+        await IapService.finish(occ);
         this.refresh();
         this.selOcc(occ);
     }
