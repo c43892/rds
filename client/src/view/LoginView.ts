@@ -9,7 +9,6 @@ class LoginView extends egret.DisplayObjectContainer {
     title:egret.Bitmap;
     btnContinue:TextButtonWithBg;
     btnNewPlay:TextButtonWithBg;
-    btnOpenRank:TextButtonWithBg;
     btnAchievement:TextButtonWithBg;
     btnLang:egret.Bitmap;
     langMenuItems:egret.DisplayObject[];
@@ -49,11 +48,6 @@ class LoginView extends egret.DisplayObjectContainer {
         this.btnNewPlay.name = "newPlayBtn";
         this.btnNewPlay.setDownBg("NewGameDown_png");
 
-        // 排行榜按钮
-        this.btnOpenRank = new TextButtonWithBg("HerosNormal_png", 0);
-        this.btnOpenRank.name = "rankBtn";
-        this.btnOpenRank.setDownBg("HerosDown_png");
-
         // 成就按钮
         this.btnAchievement = new TextButtonWithBg("AchievementNormal_png", 0);
         this.btnAchievement.name = "achievementBtn";
@@ -72,14 +66,12 @@ class LoginView extends egret.DisplayObjectContainer {
             } else
                 this.close("newPlay");
         }
-        this.btnOpenRank.onClicked = () => this.close("openRank");
 
         var btnSound = () => AudioFactory.play("btn1");
         this.btnContinue.onDown.push(btnSound);
         this.btnNewPlay.onDown.push(btnSound);
-        this.btnOpenRank.onDown.push(btnSound);
 
-        var objs = [this.title, this.btnContinue, this.btnNewPlay, this.btnOpenRank, this.btnAchievement];
+        var objs = [this.title, this.btnContinue, this.btnNewPlay, this.btnAchievement];
         objs.forEach((obj, _) => this.addChild(obj));
         ViewUtils.multiLang(this, ...objs);
 
@@ -87,12 +79,8 @@ class LoginView extends egret.DisplayObjectContainer {
         if (ViewUtils.getLanguage() !== "EN") {
             ViewUtils.localizeButton(this.btnNewPlay, "NewGame", ViewUtils.getTipText("loginNewGame"));
             ViewUtils.localizeButton(this.btnContinue, "Continue", ViewUtils.getTipText("loginContinue"));
-            ViewUtils.localizeButton(this.btnOpenRank, "Heros", ViewUtils.getTipText("loginRank"));
             ViewUtils.localizeButton(this.btnAchievement, "Achievement", ViewUtils.getTipText("loginAchievement"));
         }
-
-        // 排行榜功能未实现:永久置灰 + 禁用点击(enabled=false 会置 touchEnabled=false 并 makeGray)
-        this.btnOpenRank.enabled = false;
 
         // 语言切换："旗杆挂旗"图标(用户美术),贴左侧、在 title 图(y=-30..258)下方。
         this.btnLang = ViewUtils.createFlagImageBitmap(ViewUtils.getLanguage(), 104, (bmp) => {
@@ -241,6 +229,5 @@ class LoginView extends egret.DisplayObjectContainer {
         this.ani.animation.play("idle", 0);
         this.btnContinue.enabled = !!this.player;
         this.btnAchievement.enabled = true;
-        this.btnOpenRank.enabled = false; // 排行榜功能未实现:置灰 + 禁用点击
     }
 }

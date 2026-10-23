@@ -54,8 +54,6 @@ class ViewUtils {
     // 文字烤在图里、需按语言换图的资源名 -> 资源目录(相对 resource/)。
     // 在这些图放到 <目录>/i18n/<语言>/<名>.png。中文(CNS/CNT)用原图。
     static readonly localizedTextures = {
-        "weeklyRankBtn_png":  "assets/ui/ranking/",
-        "friendRankBtn_png":  "assets/ui/ranking/",
         "achvListBtn_png":    "assets/ui/achv/",
         "achvListBtnGray_png":"assets/ui/achv/",
         "achvAwardBtn_png":   "assets/ui/achv/",
@@ -384,13 +382,17 @@ class ViewUtils {
         if (!btn || !btn.bg) return;
         var w = Math.round(btn.width), h = Math.round(btn.height);
         var dir = "resource/assets/ui/login/i18n/" + ViewUtils.getLanguage() + "/";
+        // 只有本身带禁用态的按钮(继续/成就)才有 Disabled 图;新游戏没有,不请求以免 404。
+        // 须在 applyButtonTexture 清掉 disabledBg 之前记下。
+        var hasDisabled = !!btn.disabledBg;
         ViewUtils.loadImg(dir + prefix + "Normal.png",
             (img) => {
                 try { ViewUtils.applyButtonTexture(btn, (<any>window).PIXI.Texture.from(img), w, h); }
                 catch (e) { ViewUtils.applyGeneratedButton(btn, text, w, h); return; }
                 // 有按下/禁用态就一并替换(没有则保持:置灰)
                 ViewUtils.loadImg(dir + prefix + "Down.png", (d) => ViewUtils.setStateBg(btn, "downBg", d, w, h));
-                ViewUtils.loadImg(dir + prefix + "Disabled.png", (d) => ViewUtils.setStateBg(btn, "disabledBg", d, w, h));
+                if (hasDisabled)
+                    ViewUtils.loadImg(dir + prefix + "Disabled.png", (d) => ViewUtils.setStateBg(btn, "disabledBg", d, w, h));
             },
             () => ViewUtils.applyGeneratedButton(btn, text, w, h)
         );

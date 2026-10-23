@@ -156,17 +156,20 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         this.btnRestoreLbl.x = rx; this.btnRestoreLbl.y = ry;
         this.btnRestoreLbl.touchEnabled = false;
         this.addChild(this.btnRestoreLbl);
+
+        // 商店异步到账(如"询问购买"被批准)时,若本界面正开着就刷新解锁状态
+        IapService.onGranted = () => { if (this.parent) this.refresh(); };
     }
 
     // 恢复购买:查回该账号已购买的角色并永久解锁(重装/换机后找回)。
-    // 目前 IapService.restore() 是 mock(返回空);接入真实 SDK 后此处无需改动。
     private async onRestorePurchases() {
         AudioFactory.play("btn1");
         AniUtils.tipAt(ViewUtils.getTipText("purchasing"), {x:this.width/2, y:this.height/3}, 25, 0xffffff);
         var owned = await IapService.restore();
         var newly = 0;
         for (var occ of owned) {
-            if (IapService.isPaidOccupation(occ) && !Utils.isUnlockedOccupation(occ)) {
+            // 用"永久解锁"判断:营救得来的临时解锁不算拥有,否则恢复后死亡又会被锁
+            if (IapService.isPaidOccupation(occ) && !Utils.isUnlockedOccupationForever(occ)) {
                 Utils.unlockOccupationForever(occ);
                 newly++;
             }
@@ -324,8 +327,10 @@ class OccupationSelView extends egret.DisplayObjectContainer {
 
         AniUtils.tipAt(ViewUtils.getTipText("purchasing"), {x:this.width/2, y:this.height/3}, 25, 0xffffff);
         var r = await IapService.purchase(occ);
-        if (r == "ok" || r == "restored")
+        if (r == "ok")
             await this.pay2Unlock(occ);          // 解锁点击的那个职业,而不是写死的园艺师
+        else if (r == "pending")             // "询问购买"等家长批准,批准后自动到账
+            AniUtils.tipAt(ViewUtils.getTipText("purchasePending"), {x:this.width/2, y:this.height/2}, 25, 0xffffff);
         else if (r != "cancel")
             AniUtils.tipAt(ViewUtils.getTipText("purchaseFailed"), {x:this.width/2, y:this.height/2}, 25, 0xffffff);
     }

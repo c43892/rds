@@ -323,16 +323,6 @@ class Utils {
         return Utils.localStorageData[key];
     }
 
-    // 云端存储部分数据
-    public static saveCloudData(key:string, data) {
-        window.platform.setUserCloudStorage(key, JSON.stringify(data));
-    }
-
-    // 打点统计
-    public static st(key:string, value) {
-        window.platform.setUserCloudStorage("st." + key, value);
-    }
-
     public static nowTimeStr():string {
         return (new Date()).toLocaleString('en-GB', { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })
         // return (new Date()).toLocaleString('en-GB', { timeZone: 'Asia/Shanghai' })
@@ -1052,6 +1042,7 @@ class Utils {
         if(!Utils.isActivated(occ))
             Utils.activateOccupation(occ);
 
+        Utils.initOccupationsUnlockForeverInfo(); // 启动时补发已购角色可能早于首次初始化
         var occs:string[] = Utils.loadLocalData("occupationsUnlockForever");
         if(Utils.indexOf(occs, (o) => o == occ) == -1)
             occs.push(occ);
@@ -1077,6 +1068,12 @@ class Utils {
     // 职业是否已解锁
     public static isUnlockedOccupation(occ: string): boolean {
         return Utils.indexOf(Utils.getUnlockedOccupations(), (o: string) => o == occ) > -1;
+    }
+
+    // 职业是否已永久解锁(付费/免费默认);营救获得的临时解锁死亡后会失去,不算
+    public static isUnlockedOccupationForever(occ: string): boolean {
+        Utils.initOccupationsUnlockForeverInfo();
+        return Utils.indexOf(Utils.loadLocalData("occupationsUnlockForever"), (o: string) => o == occ) > -1;
     }
 
     // 职业是否激活(未激活的职业在选择职业时显示为问号)

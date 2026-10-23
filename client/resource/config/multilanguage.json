@@ -27,12 +27,8 @@
 					"x": 158,
 					"y": 900
 				},
-				"rankBtn": {
-					"x": 165,
-					"y": 1000
-				},
 				"achievementBtn": {
-					"x": 330,
+					"x": 234,
 					"y": 1000
 				}
 			},
@@ -72,18 +68,6 @@
 					"JA": "新しいゲーム",
 					"KO": "새 게임",
 					"PT": "Nova Partida"
-				},
-				"rankBtn": {
-					"EN": "Score Rank >>",
-					"CNS": "排行榜 >>",
-					"CNT": "排行榜 >>",
-					"FR": "Classement >>",
-					"DE": "Rangliste >>",
-					"ES": "Clasificación >>",
-					"RU": "Рейтинг >>",
-					"JA": "ランキング >>",
-					"KO": "랭킹 >>",
-					"PT": "Ranking de Pontos >>"
 				}
 			}
 		},
@@ -4506,6 +4490,18 @@
 			"ES": "No hay compras para restaurar",
 			"RU": "Нет покупок для восстановления",
 			"PT": "Nenhuma compra para restaurar"
+		},
+		"purchasePending": {
+			"EN": "Waiting for approval. The class will unlock once the purchase is approved",
+			"CNS": "购买等待批准中，批准后会自动解锁该职业",
+			"CNT": "購買等待批准中，批准後會自動解鎖該職業",
+			"JA": "購入の承認待ちです。承認されると自動的に解放されます",
+			"KO": "구매 승인 대기 중입니다. 승인되면 자동으로 해제됩니다",
+			"FR": "Achat en attente d’approbation. La classe sera débloquée une fois approuvée",
+			"DE": "Kauf wartet auf Genehmigung. Die Klasse wird danach automatisch freigeschaltet",
+			"ES": "Compra pendiente de aprobación. La clase se desbloqueará al aprobarse",
+			"RU": "Покупка ожидает одобрения. Класс разблокируется автоматически после одобрения",
+			"PT": "Compra aguardando aprovação. A classe será desbloqueada quando for aprovada"
 		}
 	}
 }

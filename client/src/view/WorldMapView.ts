@@ -619,9 +619,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
         // 记住当前信息，可能开局要给奖励
         this.saveLastLevelCompletedInfo(trueLv);
 
-        // 统计当前进度
-        Utils.st("Prograss", "in,0," + trueLv.toString() + "," + Utils.checkRookiePlay().toString() + "," + this.player.occupation + "," + this.player.difficulty.replace("level", ""));
-        
         switch(nodeType) {
             case "normal":
                 var btRandonSeed = p.playerRandom.nextInt(0, 10000);
@@ -677,10 +674,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
             }
         }
 
-        // 统计当前进度
-        Utils.st("Prograss", "out," + (this.player.isDead() ? "1" : "0") + ","
-        + trueLv.toString() + "," + (Utils.checkRookiePlay() ? "1" : 0) + "," + this.player.occupation + "," + this.player.difficulty.replace("level", ""));
-
         // 记住当前信息，可能开局要给奖励
         this.saveLastLevelCompletedInfo(trueLv);
         
@@ -695,10 +688,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
             }
 
             Utils.savePlayer(this.player, "onBattleEnd");
-
-            // 更新最高分
-            var score = BattleStatistics.getFinalScore(BattleStatistics.getScoreInfos(this.player.st));
-            Utils.saveCloudData("score", score + "," + this.player.occupation);
 
             // 判断此世界是否已经完成
             if (this.player.currentStoreyPos.lv >= this.player.worldmap.cfg.totalLevels) {
@@ -720,8 +709,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 if (nextWorldName)
                     await this.onPlayerGo2NewWorld(nextWorldName);
                 else {
-                    Utils.st("Clearance", this.player.worldmap.cfg.totalLevels.toString() + "," + this.player.occupation + "," + this.player.difficulty.replace("level", ""));
-                    Utils.saveLocalItem("Clearance", "1");
                     await AchievementMgr.mgr.actOnLogicPoint("onGameEnd");
                     await this.openFinishGameView();
                 }

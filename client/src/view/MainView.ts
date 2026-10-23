@@ -13,7 +13,6 @@ class MainView extends egret.DisplayObjectContainer {
     public pluv:PlayerLevelUpView; // 角色升级界面
     public tcv:TipConfirmView; // 提示确认视图
     public gv:GuideView; // 指引层
-    public rankv:RankingView; // 排行榜视图
     public idv:ElemDescView; // 怪物、遗物、物品描述视图
     public aev:AllElemsView; // 展示给定的Elems列表
     public scv:ShopConfirmView; // 遗物对比界面
@@ -131,9 +130,6 @@ class MainView extends egret.DisplayObjectContainer {
 
         // 带遗物对比的确认视图
         this.scv = new ShopConfirmView(w, h);
-
-        // 排行榜视图
-        this.rankv = new RankingView(w, h);
 
         // 成就界面
         this.achvView = new AchvView(w, h);
@@ -494,45 +490,33 @@ class MainView extends egret.DisplayObjectContainer {
         AudioFactory.playBg("bgs");
         await this.av.blackOut();
         this.lgv.onClose = async (op:string) => {
-            if (op == "openRank") {
-                await this.openRankView();
-                this.lgv.open();
-            }
-            else {
-                await this.av.blackIn();
-                this.removeChild(this.lgv);
+            await this.av.blackIn();
+            this.removeChild(this.lgv);
 
-                if (op == "continuePlay")
-                    await this.continuePlay();
-                else if (op == "newPlay") {
-                    if(Utils.checkRookiePlay()) {
-                        Utils.st("NewGameStatus", "Rookie,0");
-                        await this.rookiePlay();
-                    }
-                    else {
-                        var r = await this.openOccSelView();
-                        if (r) {
-                            // 顺便记录上一次状态信息
-                            var clearanced = Utils.loadLocalItem("Clearance");
-                            clearanced = clearanced ? clearanced : "0";
-                            Utils.st("NewGameStatus", r["occ"] + "," + r["d"] + "," + clearanced);
-                            Utils.saveLocalItem("Clearance", "0")
-                            this.newPlay(r["occ"], r["d"]);
+            if (op == "continuePlay")
+                await this.continuePlay();
+            else if (op == "newPlay") {
+                if(Utils.checkRookiePlay()) {
+                    await this.rookiePlay();
+                }
+                else {
+                    var r = await this.openOccSelView();
+                    if (r) {
+                        this.newPlay(r["occ"], r["d"]);
 
-                            this.wmv.mapScrollPos = 0;
-                            await this.av.blackOut();
-                            await this.av.doWorldMapSlide(1, 2000, 1);
+                        this.wmv.mapScrollPos = 0;
+                        await this.av.blackOut();
+                        await this.av.doWorldMapSlide(1, 2000, 1);
 
-                            // 根据上一次层数发放奖励
-                            var lastLevelCompletedInfo = Utils.loadLocalData("lastLevelCompletedInfo");                            
-                            if (lastLevelCompletedInfo)
-                                await this.selAwardInherited(lastLevelCompletedInfo);
+                        // 根据上一次层数发放奖励
+                        var lastLevelCompletedInfo = Utils.loadLocalData("lastLevelCompletedInfo");                            
+                        if (lastLevelCompletedInfo)
+                            await this.selAwardInherited(lastLevelCompletedInfo);
 
-                            Utils.savePlayer(this.p);
-                            Utils.saveLocalData("lastLevelCompletedInfo", undefined);
-                        } else {
-                            this.openStartup(p);
-                        }
+                        Utils.savePlayer(this.p);
+                        Utils.saveLocalData("lastLevelCompletedInfo", undefined);
+                    } else {
+                        this.openStartup(p);
                     }
                 }
             }
@@ -587,11 +571,6 @@ class MainView extends egret.DisplayObjectContainer {
 
     // 角色死亡
     public async onPlayerDead(ps) {
-        var trueLv = this.p.currentTotalStorey();
-        var occ = this.p.occupation;
-        var d = this.p.difficulty.replace("level", "");
-        Utils.st("Prograss", "out,1," + trueLv.toString() + "," + Utils.checkRookiePlay().toString() + "," + occ + "," + d);
-
         await this.openScoreView();
         Utils.savePlayer(undefined, "onGameEnd");
         this.p = undefined;
@@ -685,30 +664,6 @@ class MainView extends egret.DisplayObjectContainer {
         var result = await this.rev.open(canDrag, funcOnClinked, hideGoBackBtn);
         this.removeChild(this.rev);
         return result;
-    }
-
-    // ranking
-    public async openRankView() {
-        var p = window.platform;
-        if (p.platformType != "wxgame") {
-            this.av.addBlockLayer();
-            var r = await p.getRankInfo();
-            this.av.decBlockLayer();
-            if (!r) {
-                AniUtils.tipAt(ViewUtils.getTipText("cannotconnect2server"), 
-                    {x: this.width / 2, y: this.height / 2 - 100},
-                    50, 0xffffff, 1000);
-                return;
-            }
-
-            this.rankv.usrInfo = r.usr;
-            this.rankv.weeklyRankInfo = r.rank;
-            this.rankv.roleRankInfo = undefined;
-        }
-
-        this.addChild(this.rankv);
-        await this.rankv.open();
-        this.removeChild(this.rankv);
     }
 
     // 打开成就界面

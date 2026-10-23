@@ -350,14 +350,6 @@ class Utils {
     static loadLocalItem(key) {
         return Utils.localStorageData[key];
     }
-    // 云端存储部分数据
-    static saveCloudData(key, data) {
-        window.platform.setUserCloudStorage(key, JSON.stringify(data));
-    }
-    // 打点统计
-    static st(key, value) {
-        window.platform.setUserCloudStorage("st." + key, value);
-    }
     static nowTimeStr() {
         return (new Date()).toLocaleString('en-GB', { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone });
         // return (new Date()).toLocaleString('en-GB', { timeZone: 'Asia/Shanghai' })
@@ -979,6 +971,7 @@ class Utils {
     static unlockOccupationForever(occ) {
         if (!Utils.isActivated(occ))
             Utils.activateOccupation(occ);
+        Utils.initOccupationsUnlockForeverInfo(); // 启动时补发已购角色可能早于首次初始化
         var occs = Utils.loadLocalData("occupationsUnlockForever");
         if (Utils.indexOf(occs, (o) => o == occ) == -1)
             occs.push(occ);
@@ -1000,6 +993,11 @@ class Utils {
     // 职业是否已解锁
     static isUnlockedOccupation(occ) {
         return Utils.indexOf(Utils.getUnlockedOccupations(), (o) => o == occ) > -1;
+    }
+    // 职业是否已永久解锁(付费/免费默认);营救获得的临时解锁死亡后会失去,不算
+    static isUnlockedOccupationForever(occ) {
+        Utils.initOccupationsUnlockForeverInfo();
+        return Utils.indexOf(Utils.loadLocalData("occupationsUnlockForever"), (o) => o == occ) > -1;
     }
     // 职业是否激活(未激活的职业在选择职业时显示为问号)
     // 注:园艺师"通过成就免费解锁"这条路已去掉——付费/营救才能获得。
@@ -11005,59 +11003,15 @@ class WorldMapRoute {
         }
     }
 }
-// 封装 web 客户端功能
-class WebClient {
-    constructor(serverUrl) {
-        this.srand = new SRandom();
-        this.srv = serverUrl;
-    }
-    // 发送数据，无回执，msg 是消息代码，ps 包含所有消息参数
-    send(msg) {
-        var r = new egret.HttpRequest();
-        r.responseType = egret.HttpResponseType.TEXT;
-        try {
-            r.open(this.srv, egret.HttpMethod.POST);
-            r.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
-            r.addEventListener(egret.IOErrorEvent.IO_ERROR, (event) => {
-            }, this);
-            r.send("msg=" + JSON.stringify(msg) + "&random=" + this.srand.nextDouble().toString());
-        }
-        catch (ex) {
-        }
-    }
-    // 发送数据，并等待回执
-    request(msg) {
-        var r = new egret.HttpRequest();
-        r.responseType = egret.HttpResponseType.TEXT;
-        var doResolve;
-        r.addEventListener(egret.Event.COMPLETE, (event) => {
-            var request = event.currentTarget;
-            var response = undefined;
-            response = request.response ? JSON.parse(request.response) : undefined;
-            try {
-                doResolve(response);
-            }
-            catch (ex) {
-                doResolve(undefined);
-            }
-        }, this);
-        r.addEventListener(egret.IOErrorEvent.IO_ERROR, (event) => {
-            doResolve(undefined);
-        }, this);
-        try {
-            r.open(this.srv, egret.HttpMethod.POST);
-            r.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
-            r.send("msg=" + JSON.stringify(msg) + "&datetime=" + (new Date()).getUTCSeconds());
-            return new Promise((resolve, reject) => {
-                doResolve = resolve;
-            });
-        }
-        catch (ex) {
-        }
-    }
-}
+// 浏览器 / Capacitor 原生包(iOS、Android)通用:存档统一走 WebView 的 localStorage。
+// 排行榜/打点服务器已下线,游戏不向任何服务器上传数据。
 class DefaultPaltform {
     constructor() {
+        // adMobReady:boolean = false;
+        // adMobAppID:string = "ca-app-pub-3940256099942544~3347511713"; // google test
+        // adMobAdID:string = "ca-app-pub-3940256099942544/5224354917"; // google test
+        // adMobAppID:string = "ca-app-pub-1800218346925652~6940599097";
+        // adMobAdID:string = "ca-app-pub-1800218346925652/3739720681";
         this.platformType = egret.Capabilities.os;
         this.openDataContext = {
             createDisplayObject: () => { }
@@ -11065,33 +11019,19 @@ class DefaultPaltform {
     }
     // rewardAdsCompletedCallback;
     async init() {
-        if (egret.Capabilities.os == "iOS") {
-            egret.ExternalInterface.addCallback("rdsLoadLocalStorageDataCallback", (str) => {
-                this.iOSLoadLocalStorageDataCallback(str);
-            });
-            egret.ExternalInterface.addCallback("notifyBuyResult", (str) => {
-                if (this.onBuyResult)
-                    this.onBuyResult(str);
-            });
-        }
-        if (DEBUG && egret.Capabilities.os == "Windows PC") // 开发环境
-            this.wc = new WebClient("http://127.0.0.1:81/");
-        else {
-            this.wc = new WebClient("http://119.23.110.78:81/");
-            // Utils.log("ads registed callback");
-            // egret.ExternalInterface.addCallback("notifyAdMobLoaded", (msg) => {
-            //     Utils.log("ads notifyAdMobLoaded");
-            //     this.adMobReady = true;
-            // });
-            // egret.ExternalInterface.addCallback("notifyRewardAdCompleted", (msg) => {
-            //     if (this.rewardAdsCompletedCallback)
-            //         this.rewardAdsCompletedCallback(msg);
-            //     this.rewardAdsCompletedCallback = undefined;
-            // });
-            // // 初始化广告模块
-            // if (egret.Capabilities.os != "iOS")
-            //     egret.ExternalInterface.call("rdsInitAdMob", this.adMobAppID + ";" + this.adMobAdID);
-        }
+        // Utils.log("ads registed callback");
+        // egret.ExternalInterface.addCallback("notifyAdMobLoaded", (msg) => {
+        //     Utils.log("ads notifyAdMobLoaded");
+        //     this.adMobReady = true;
+        // });
+        // egret.ExternalInterface.addCallback("notifyRewardAdCompleted", (msg) => {
+        //     if (this.rewardAdsCompletedCallback)
+        //         this.rewardAdsCompletedCallback(msg);
+        //     this.rewardAdsCompletedCallback = undefined;
+        // });
+        // // 初始化广告模块
+        // if (egret.Capabilities.os != "iOS")
+        //     egret.ExternalInterface.call("rdsInitAdMob", this.adMobAppID + ";" + this.adMobAdID);
         egret.lifecycle.onPause = () => {
             AudioFactory.Paused = 1;
         };
@@ -11129,56 +11069,23 @@ class DefaultPaltform {
         }
         return uid;
     }
-    async getRankInfo() {
-        var r = await this.wc.request({
-            type: "getRank",
-        });
-        return r;
-    }
-    setUserCloudStorage(key, value) {
-        var uid = this.getUserID();
-        this.wc.send({
-            type: "setUserCloudData",
-            uid: uid,
-            key: key,
-            value: value
-        });
-    }
     async getUserLocalStorage() {
-        if (egret.Capabilities.os == "iOS") {
-            return new Promise((r, _) => {
-                this.iOSLoadLocalStorageDataCallback = (str) => {
-                    try {
-                        var byteArray = new egret.ByteArray(egret.Base64Util.decode(str));
-                        str = byteArray.readUTF();
-                        var data = str ? JSON.parse(str) : {};
-                        r(data);
-                    }
-                    catch (ex) {
-                        r({});
-                    }
-                };
-                egret.ExternalInterface.call("rdsLoadLocalStorageData", "");
-            });
+        try {
+            var str = egret.localStorage.getItem("localStorageData");
+            Utils.log("load str: " + str.length);
+            if (str) {
+                var byteArray = new egret.ByteArray(egret.Base64Util.decode(str));
+                str = byteArray.readUTF();
+            }
+            await Utils.delay(1);
+            var data = str ? JSON.parse(str) : {};
+            return data;
         }
-        else {
-            try {
-                var str = egret.localStorage.getItem("localStorageData");
-                Utils.log("load str: " + str.length);
-                if (str) {
-                    var byteArray = new egret.ByteArray(egret.Base64Util.decode(str));
-                    str = byteArray.readUTF();
-                }
-                await Utils.delay(1);
-                var data = str ? JSON.parse(str) : {};
-                return data;
-            }
-            catch (ex) {
-                var exMsg = "load localstorage exception: " + str + ":" + ex.toString();
-                Utils.log(exMsg);
-                egret.localStorage.setItem("localStorageData", "");
-                return {};
-            }
+        catch (ex) {
+            var exMsg = "load localstorage exception: " + str + ":" + ex.toString();
+            Utils.log(exMsg);
+            egret.localStorage.setItem("localStorageData", "");
+            return {};
         }
     }
     setUserLocalStorage(data) {
@@ -11186,64 +11093,141 @@ class DefaultPaltform {
         var byteArray = new egret.ByteArray();
         byteArray.writeUTF(str);
         str = egret.Base64Util.encode(byteArray.buffer);
-        if (egret.Capabilities.os == "iOS") {
-            egret.ExternalInterface.call("rdsSaveLocalStorageData", str);
-        }
-        else
-            egret.localStorage.setItem("localStorageData", str);
+        egret.localStorage.setItem("localStorageData", str);
     }
     canShare() { return false; }
     shareGame() { }
 }
 // ========================= 内购(IAP)服务 =========================
-// 角色付费永久解锁的统一抽象层。目前为 mock 实现(浏览器/未接商店时可完整测试
-// 解锁流程);上架时把 mockMode 置 false 并在 purchase()/restore() 里接
-// RevenueCat / StoreKit(iOS) / Play Billing(Android)。
+// 角色付费永久解锁(非消耗型商品)。
+// - iOS:原生 StoreKit 2 插件 RdsIap(rds-pixi/ios/App/App/RdsIapPlugin.swift),经 Capacitor 桥调用。
+// - 浏览器开发预览(DEBUG 且没有原生插件):mock,purchase() 直接成功,便于测试解锁流程。
+// - 其它情况(如还没接 Play Billing 的 Android 包):购买返回 "error",不会白送。
 class IapService {
+    // 原生内购插件;浏览器或未注册插件的平台为 undefined
+    static native() {
+        var cap = window.Capacitor;
+        return cap && cap.Plugins ? cap.Plugins.RdsIap : undefined;
+    }
+    static get mockMode() {
+        return !IapService.native() && DEBUG;
+    }
     static productId(occ) {
         var p = IapService.products[occ];
         return p ? p.id : "";
     }
+    static occOfProduct(pid) {
+        for (var occ in IapService.products)
+            if (IapService.products[occ].id == pid)
+                return occ;
+        return undefined;
+    }
     static priceText(occ) {
         var p = IapService.products[occ];
-        return p ? "$" + p.priceUsd.toFixed(2) : "";
+        if (!p)
+            return "";
+        if (IapService.storePrices[p.id])
+            return IapService.storePrices[p.id];
+        // 真机没拿到商店价格时不显示(付款弹窗里商店会显示真实价格),绝不显示写死的美元价
+        return IapService.mockMode ? "$" + p.priceUsd.toFixed(2) : "";
     }
     static isPaidOccupation(occ) {
         return !!IapService.products[occ];
     }
+    // 启动时(本地存档加载之后)调用:监听商店推送的交易、拉取本地化价格,
+    // 并按 App Store 当前权益静默补发已购角色(重装/换机/中断后才完成的购买)。不会弹 Apple ID 登录。
+    static async init() {
+        var n = IapService.native();
+        if (!n)
+            return;
+        try {
+            n.addListener("transactionUpdated", (t) => IapService.grant(t && t.productId));
+        }
+        catch (ex) {
+            Utils.log("iap: addListener failed: " + ex);
+        }
+        var ids = Object.keys(IapService.products).map((occ) => IapService.products[occ].id);
+        try {
+            var r = await n.getProducts({ productIds: ids });
+            for (var p of (r && r.products) || [])
+                IapService.storePrices[p.id] = p.displayPrice;
+        }
+        catch (ex) {
+            Utils.log("iap: getProducts failed: " + ex);
+        }
+        try {
+            var owned = await n.getEntitlements();
+            for (var pid of (owned && owned.productIds) || [])
+                IapService.grant(pid);
+        }
+        catch (ex) {
+            Utils.log("iap: getEntitlements failed: " + ex);
+        }
+    }
+    // 发放商品对应角色的永久解锁,返回是否为新解锁
+    static grant(pid) {
+        var occ = IapService.occOfProduct(pid);
+        if (!occ || Utils.isUnlockedOccupationForever(occ))
+            return false;
+        Utils.unlockOccupationForever(occ);
+        if (IapService.onGranted)
+            IapService.onGranted(occ);
+        return true;
+    }
     // 发起购买。返回 "ok" | "cancel" | "pending" | "error"。
-    // 调用方在拿到 "ok"/"restored" 后才执行永久解锁。
+    // "pending" 是"询问购买"等待家长批准,批准后经 transactionUpdated 到账。
+    // 调用方拿到 "ok" 后才执行永久解锁。
     static async purchase(occ) {
         var pid = IapService.productId(occ);
         if (!pid)
             return "error";
+        var n = IapService.native();
+        if (n) {
+            try {
+                var r = await n.purchase({ productId: pid });
+                return r && r.result ? r.result : "error";
+            }
+            catch (ex) {
+                Utils.log("iap: purchase failed: " + ex);
+                return "error";
+            }
+        }
         if (IapService.mockMode) {
-            // —— mock:模拟商店处理耗时后成功。真实接入时替换本分支。——
             await Utils.delay(400);
             return "ok";
         }
-        // —— 真实商店(占位,待接 RevenueCat / 各平台原生桥)——
-        // iOS: egret.ExternalInterface.call("rdsBuyProduct", pid) + onBuyResult 回调
-        // Android: 走 Play Billing 插件
         return "error";
     }
-    // 恢复购买(重装/换机后找回已购角色)。返回已拥有的角色名列表。
-    // mock 返回空;真实接入查询商店已购项目并映射回角色名。
+    // 恢复购买(用户主动点击;iOS 会与 App Store 同步,可能弹出 Apple ID 登录)。
+    // 返回该账号已拥有的角色名列表。
     static async restore() {
-        if (IapService.mockMode)
+        var n = IapService.native();
+        if (!n)
             return [];
-        return [];
+        try {
+            var r = await n.restore();
+            var occs = [];
+            for (var pid of (r && r.productIds) || []) {
+                var occ = IapService.occOfProduct(pid);
+                if (occ)
+                    occs.push(occ);
+            }
+            return occs;
+        }
+        catch (ex) {
+            Utils.log("iap: restore failed: " + ex);
+            return [];
+        }
     }
 }
-// 角色 -> 商店商品ID(在 App Store Connect / Google Play Console 里配置成
-// 同名的"非消耗型"商品)。护士是免费默认角色,不在此表。
+// 角色 -> 商店商品ID(在 App Store Connect 里配置成同名的"非消耗型"商品)。
+// priceUsd 只用于浏览器 mock 显示;真机显示商店返回的本地化价格。护士是免费默认角色,不在此表。
 IapService.products = {
     "Rogue": { id: "unlock_rogue", priceUsd: 0.99 },
     "Horticulturist": { id: "unlock_horticulturist", priceUsd: 0.99 },
 };
-// mock 模式:浏览器预览/未接真实商店时为 true —— purchase() 直接模拟成功,
-// 便于测试。真机上架构建时改为 false 走真实下单+回执校验。
-IapService.mockMode = true;
+// 商品ID -> 商店返回的本地化价格文本(如 "$0.99"、"¥6.00"),init() 时填充
+IapService.storePrices = {};
 if (!window.platform) {
     window.platform = new DefaultPaltform();
 }
@@ -12755,6 +12739,9 @@ class ViewUtils {
             return;
         var w = Math.round(btn.width), h = Math.round(btn.height);
         var dir = "resource/assets/ui/login/i18n/" + ViewUtils.getLanguage() + "/";
+        // 只有本身带禁用态的按钮(继续/成就)才有 Disabled 图;新游戏没有,不请求以免 404。
+        // 须在 applyButtonTexture 清掉 disabledBg 之前记下。
+        var hasDisabled = !!btn.disabledBg;
         ViewUtils.loadImg(dir + prefix + "Normal.png", (img) => {
             try {
                 ViewUtils.applyButtonTexture(btn, window.PIXI.Texture.from(img), w, h);
@@ -12765,7 +12752,8 @@ class ViewUtils {
             }
             // 有按下/禁用态就一并替换(没有则保持:置灰)
             ViewUtils.loadImg(dir + prefix + "Down.png", (d) => ViewUtils.setStateBg(btn, "downBg", d, w, h));
-            ViewUtils.loadImg(dir + prefix + "Disabled.png", (d) => ViewUtils.setStateBg(btn, "disabledBg", d, w, h));
+            if (hasDisabled)
+                ViewUtils.loadImg(dir + prefix + "Disabled.png", (d) => ViewUtils.setStateBg(btn, "disabledBg", d, w, h));
         }, () => ViewUtils.applyGeneratedButton(btn, text, w, h));
     }
     // 按 URL 异步加载一张图为 egret.Bitmap(用于不在 res 清单里的叠加图,如监狱栏杆)。
@@ -13263,8 +13251,6 @@ class ViewUtils {
 // 文字烤在图里、需按语言换图的资源名 -> 资源目录(相对 resource/)。
 // 在这些图放到 <目录>/i18n/<语言>/<名>.png。中文(CNS/CNT)用原图。
 ViewUtils.localizedTextures = {
-    "weeklyRankBtn_png": "assets/ui/ranking/",
-    "friendRankBtn_png": "assets/ui/ranking/",
     "achvListBtn_png": "assets/ui/achv/",
     "achvListBtnGray_png": "assets/ui/achv/",
     "achvAwardBtn_png": "assets/ui/achv/",
@@ -18916,10 +18902,6 @@ class LoginView extends egret.DisplayObjectContainer {
         this.btnNewPlay = new TextButtonWithBg("NewGameNormal_png", 0);
         this.btnNewPlay.name = "newPlayBtn";
         this.btnNewPlay.setDownBg("NewGameDown_png");
-        // 排行榜按钮
-        this.btnOpenRank = new TextButtonWithBg("HerosNormal_png", 0);
-        this.btnOpenRank.name = "rankBtn";
-        this.btnOpenRank.setDownBg("HerosDown_png");
         // 成就按钮
         this.btnAchievement = new TextButtonWithBg("AchievementNormal_png", 0);
         this.btnAchievement.name = "achievementBtn";
@@ -18937,23 +18919,18 @@ class LoginView extends egret.DisplayObjectContainer {
             else
                 this.close("newPlay");
         };
-        this.btnOpenRank.onClicked = () => this.close("openRank");
         var btnSound = () => AudioFactory.play("btn1");
         this.btnContinue.onDown.push(btnSound);
         this.btnNewPlay.onDown.push(btnSound);
-        this.btnOpenRank.onDown.push(btnSound);
-        var objs = [this.title, this.btnContinue, this.btnNewPlay, this.btnOpenRank, this.btnAchievement];
+        var objs = [this.title, this.btnContinue, this.btnNewPlay, this.btnAchievement];
         objs.forEach((obj, _) => this.addChild(obj));
         ViewUtils.multiLang(this, ...objs);
         // 非英文:用现生成的本地化按钮图替换花体英文图(英文版保留原图)
         if (ViewUtils.getLanguage() !== "EN") {
             ViewUtils.localizeButton(this.btnNewPlay, "NewGame", ViewUtils.getTipText("loginNewGame"));
             ViewUtils.localizeButton(this.btnContinue, "Continue", ViewUtils.getTipText("loginContinue"));
-            ViewUtils.localizeButton(this.btnOpenRank, "Heros", ViewUtils.getTipText("loginRank"));
             ViewUtils.localizeButton(this.btnAchievement, "Achievement", ViewUtils.getTipText("loginAchievement"));
         }
-        // 排行榜功能未实现:永久置灰 + 禁用点击(enabled=false 会置 touchEnabled=false 并 makeGray)
-        this.btnOpenRank.enabled = false;
         // 语言切换："旗杆挂旗"图标(用户美术),贴左侧、在 title 图(y=-30..258)下方。
         this.btnLang = ViewUtils.createFlagImageBitmap(ViewUtils.getLanguage(), 104, (bmp) => {
             bmp.x = 12;
@@ -19116,7 +19093,6 @@ class LoginView extends egret.DisplayObjectContainer {
         this.ani.animation.play("idle", 0);
         this.btnContinue.enabled = !!this.player;
         this.btnAchievement.enabled = true;
-        this.btnOpenRank.enabled = false; // 排行榜功能未实现:置灰 + 禁用点击
     }
 }
 class LuxuryChestView extends egret.DisplayObjectContainer {
@@ -19470,7 +19446,6 @@ class NameView extends egret.DisplayObjectContainer {
     }
     saveName() {
         var name = this.keyInName.text;
-        Utils.saveCloudData("playerName", name);
         Utils.saveLocalData("playerName", name);
     }
 }
@@ -19941,16 +19916,19 @@ class OccupationSelView extends egret.DisplayObjectContainer {
         this.btnRestoreLbl.y = ry;
         this.btnRestoreLbl.touchEnabled = false;
         this.addChild(this.btnRestoreLbl);
+        // 商店异步到账(如"询问购买"被批准)时,若本界面正开着就刷新解锁状态
+        IapService.onGranted = () => { if (this.parent)
+            this.refresh(); };
     }
     // 恢复购买:查回该账号已购买的角色并永久解锁(重装/换机后找回)。
-    // 目前 IapService.restore() 是 mock(返回空);接入真实 SDK 后此处无需改动。
     async onRestorePurchases() {
         AudioFactory.play("btn1");
         AniUtils.tipAt(ViewUtils.getTipText("purchasing"), { x: this.width / 2, y: this.height / 3 }, 25, 0xffffff);
         var owned = await IapService.restore();
         var newly = 0;
         for (var occ of owned) {
-            if (IapService.isPaidOccupation(occ) && !Utils.isUnlockedOccupation(occ)) {
+            // 用"永久解锁"判断:营救得来的临时解锁不算拥有,否则恢复后死亡又会被锁
+            if (IapService.isPaidOccupation(occ) && !Utils.isUnlockedOccupationForever(occ)) {
                 Utils.unlockOccupationForever(occ);
                 newly++;
             }
@@ -20089,8 +20067,10 @@ class OccupationSelView extends egret.DisplayObjectContainer {
             return;
         AniUtils.tipAt(ViewUtils.getTipText("purchasing"), { x: this.width / 2, y: this.height / 3 }, 25, 0xffffff);
         var r = await IapService.purchase(occ);
-        if (r == "ok" || r == "restored")
+        if (r == "ok")
             await this.pay2Unlock(occ); // 解锁点击的那个职业,而不是写死的园艺师
+        else if (r == "pending") // "询问购买"等家长批准,批准后自动到账
+            AniUtils.tipAt(ViewUtils.getTipText("purchasePending"), { x: this.width / 2, y: this.height / 2 }, 25, 0xffffff);
         else if (r != "cancel")
             AniUtils.tipAt(ViewUtils.getTipText("purchaseFailed"), { x: this.width / 2, y: this.height / 2 }, 25, 0xffffff);
     }
@@ -20522,249 +20502,6 @@ class PropView extends egret.DisplayObjectContainer {
 }
 PropView.LongPressThreshold = 500; // 按下持续 0.5s 算长按    
 PropView.selHelper = {};
-// 排行榜视图
-class RankingView extends egret.DisplayObjectContainer {
-    constructor(w, h) {
-        super();
-        this.menu = [];
-        this.menuDisplayName = { "weeklyRank": "周榜", "roleRank": "角色榜", "friendRank": "好友榜" };
-        this.MaxNumInRank = 100; // 最多显示多少条目
-        this.PerItemHeight = 100; // 每条目占高度
-        this.width = w;
-        this.height = h;
-        // 背景
-        this.bg1 = ViewUtils.createBitmapByName("rkBg1_png");
-        this.bg1.x = 0;
-        this.bg1.y = -30;
-        this.bg1.width = this.width;
-        this.bg1.fillMode = egret.BitmapFillMode.REPEAT;
-        this.bg1.touchEnabled = true;
-        this.addChild(this.bg1);
-        this.bg2 = ViewUtils.createBitmapByName("rkBg2_png");
-        this.bg2.x = 0;
-        this.bg2.y = this.bg1.y + this.bg1.height;
-        this.bg2.width = this.width;
-        this.bg2.height = this.height - this.bg1.height - this.bg1.y;
-        this.bg2.fillMode = egret.BitmapFillMode.REPEAT;
-        this.bg2.touchEnabled = true;
-        this.addChild(this.bg2);
-        // 切换按钮
-        var menu = window.platform.platformType == "wx" ? ["friendRank"] : ["weeklyRank" /*, "roleRank"*/];
-        var x = 80;
-        var y = this.bg1.height / 2 + this.bg1.y;
-        for (var m of menu) {
-            let menuBtn = ViewUtils.createBitmapByName(menu + "Btn_png");
-            menuBtn.x = x;
-            menuBtn.y = y;
-            x += menuBtn.width + 30;
-            menuBtn["rankType"] = m;
-            this.menu.push(menuBtn);
-            this.addChild(menuBtn);
-            menuBtn.touchEnabled = true;
-            menuBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onMenuSel, this);
-        }
-        // 排名区域
-        var top = y + 80;
-        this.rankViewScrollArea = new egret.ScrollView();
-        this.rankViewScrollArea.verticalScrollPolicy = "auto";
-        this.rankViewScrollArea.horizontalScrollPolicy = "off";
-        this.rankViewScrollArea.bounces = true;
-        this.rankViewScrollArea.x = 0;
-        this.rankViewScrollArea.y = top;
-        this.rankViewScrollArea.width = this.width;
-        this.rankViewScrollArea.height = this.height - top - 30;
-        this.addChild(this.rankViewScrollArea);
-        this.rankViewContainer = new egret.DisplayObjectContainer();
-        // 自己名次部分
-        this.rankSelfBg = ViewUtils.createBitmapByName("rankSelfBg_png");
-        this.rankSelfBg.anchorOffsetY = this.rankSelfBg.height / 2;
-        this.rankSelfBg.x = 0;
-        this.rankSelfBg.y = this.height - 200;
-        this.addChild(this.rankSelfBg);
-        var selfPosY = this.rankSelfBg.y - this.rankSelfBg.anchorOffsetY;
-        this.rankSelfAvatar = new egret.Bitmap();
-        this.rankSelfAvatar.x = 30;
-        this.rankSelfAvatar.width = this.rankSelfAvatar.height = 120;
-        this.rankSelfAvatar.y = selfPosY + 15;
-        this.addChild(this.rankSelfAvatar);
-        this.rankSelfText = new egret.TextField();
-        this.rankSelfText.textAlign = egret.HorizontalAlign.LEFT;
-        this.rankSelfText.verticalAlign = egret.VerticalAlign.MIDDLE;
-        this.rankSelfText.x = 180;
-        this.rankSelfText.y = selfPosY;
-        this.rankSelfText.height = this.rankSelfBg.height;
-        this.rankSelfText.width = this.rankSelfBg.width - this.rankSelfText.x;
-        this.addChild(this.rankSelfText);
-        // 关闭按钮
-        this.closeBtn = new ArrowButton(false, "goBack_png", 30);
-        this.closeBtn.text = ViewUtils.getTipText("goBackBtn");
-        this.closeBtn.x = 10;
-        this.closeBtn.y = 980;
-        this.addChild(this.closeBtn);
-        this.closeBtn.onClicked = () => this.onCloseBtn();
-        // 红圈圈
-        this.curSelMark = ViewUtils.createBitmapByName("rkCurSel_png");
-        this.curSelMark.anchorOffsetX = this.curSelMark.width / 2;
-        this.curSelMark.anchorOffsetY = this.curSelMark.height / 2;
-        this.addChild(this.curSelMark);
-    }
-    onMenuSel(evt) {
-        var rankType = evt.target["rankType"];
-        this.openRank(rankType);
-    }
-    openRank(rankType) {
-        if (rankType == "weeklyRank")
-            this.openWeeklyRank();
-        else if (rankType == "roleRank")
-            this.openRoleRank();
-        else if (rankType == "friendRank") {
-            if (window.platform.platformType == "wx")
-                this.openWxFriendRank();
-        }
-        else
-            Utils.assert(false, "not supported rank type:" + rankType);
-    }
-    open(rankType = undefined) {
-        rankType = rankType ? rankType : this.menu[0]["rankType"];
-        this.menu.forEach((btn, _) => {
-            if (btn["rankType"] == rankType) {
-                btn.alpha = 1;
-                this.curSelMark.x = btn.x + btn.width / 2;
-                this.curSelMark.y = btn.y + btn.height / 2;
-            }
-            else
-                btn.alpha = 0.5;
-        });
-        this.openRank(rankType);
-        return new Promise((resolve, reject) => this.doClose = resolve);
-    }
-    rebuildRank(usrs, meInfo, occupations) {
-        this.rankViewContainer.removeChildren();
-        if (!usrs)
-            return;
-        var h = 80;
-        var wN = 60;
-        var wAvatar = h;
-        var wScore = 100;
-        var wName = this.width - wAvatar - wN - wScore - 50;
-        this.rankViewContainer.height = 20;
-        var usrSelf = undefined; // 自己在排行榜中的信息
-        var usrSelfRanking = -1; // 自己在排行榜中的位置
-        for (var i = 0; i < usrs.length; i++) {
-            var usr = usrs[i];
-            if (!usr || !usr.uid || usr.uid == "") // no more user
-                break;
-            if (!usrSelf && usr.uid == window.platform.getUserID()) {
-                usrSelf = usr;
-                usrSelfRanking = i;
-            }
-            var y = this.rankViewContainer.height;
-            // 名次
-            var n = ViewUtils.createTextField(30, 0x000000);
-            n.x = 30;
-            n.y = y;
-            n.width = wN;
-            n.height = h;
-            n.text = (i + 1).toString();
-            this.rankViewContainer.addChild(n);
-            // 职业头像
-            var occ = occupations[i];
-            var avatar = ViewUtils.createBitmapByName(occ ? occ + "_png" : undefined);
-            avatar.x = n.x + n.width + 10;
-            avatar.y = y;
-            avatar.width = wAvatar;
-            avatar.height = h;
-            this.rankViewContainer.addChild(avatar);
-            // 名字
-            var name = ViewUtils.createTextField(30, 0x000000, false);
-            name.x = avatar.x + avatar.width + 10;
-            name.y = y;
-            name.width = wName;
-            name.height = h;
-            name.text = usr.name.length >= 2 ? usr.name.substring(1, usr.name.length - 1) : "";
-            this.rankViewContainer.addChild(name);
-            // 分数
-            var score = ViewUtils.createTextField(30, 0x000000);
-            score.x = name.x + name.width + 10;
-            score.y = y;
-            score.width = wScore;
-            score.height = h;
-            score.text = usr.score.toString();
-            this.rankViewContainer.addChild(score);
-            // 间隔线
-            var ln = ViewUtils.createBitmapByName("rankLine1_png");
-            ln.x = 0;
-            ln.y = y - 15;
-            ln.width = this.rankViewContainer.width;
-            ln.height = h + 10;
-            this.rankViewContainer.addChild(ln);
-            // 皇冠
-            if (i < 3) {
-                var crown = ViewUtils.createBitmapByName("rankUsr" + (i + 1) + "_png");
-                crown.x = n.x;
-                crown.y = n.y;
-                this.rankViewContainer.addChild(crown);
-            }
-            this.rankViewContainer.height = score.y + score.height + 10;
-        }
-        var ln = ViewUtils.createBitmapByName("rankLine2_png");
-        ln.x = 0;
-        ln.y = y + h - 15;
-        ln.width = this.rankViewContainer.width;
-        this.rankViewContainer.addChild(ln);
-        this.rankViewContainer.height += 200;
-        this.rankViewScrollArea.touchEnabled = true;
-        this.rankViewScrollArea.scrollTop = 0;
-        this.rankViewScrollArea.setContent(this.rankViewContainer);
-        // 自己的名次
-        if (usrSelf) {
-            ViewUtils.setTexName(this.rankSelfAvatar, occupations[usrSelfRanking] + "_png", false);
-            var txt = ViewUtils.getTipText("scoreInRank").replace("{score}", usrSelf.score).replace("{ranking}", usrSelfRanking + 1);
-            this.rankSelfText.textFlow = ViewUtils.fromHtml(txt);
-        }
-        else {
-            ViewUtils.setTexName(this.rankSelfAvatar, undefined, false);
-            var txt = ViewUtils.getTipText("notInRank").replace("{score}", meInfo && meInfo.score ? meInfo.score : 0);
-            this.rankSelfText.textFlow = ViewUtils.fromHtml(txt);
-        }
-    }
-    // 周榜单
-    openWeeklyRank() {
-        this.rebuildRank(this.weeklyRankInfo.usrs, this.weeklyRankInfo.usr, this.weeklyRankInfo.occupations);
-    }
-    // 角色榜单
-    openRoleRank() {
-        this.rebuildRank(this.roleRankInfo.usrs, this.weeklyRankInfo.usr, this.weeklyRankInfo.occupations);
-    }
-    // 显示微信好友榜单
-    openWxFriendRank() {
-        if (this.wxRankImg)
-            this.rankViewScrollArea.removeChild(this.wxRankImg);
-        var platform = window.platform;
-        var bmp = platform.openDataContext.createDisplayObject(null, this.rankViewScrollArea.width, this.MaxNumInRank * this.PerItemHeight);
-        if (!bmp)
-            return;
-        window.platform.openDataContext.postMessage({ "type": "refresh", pageIndex: 0 });
-        this.loopChecker(bmp);
-    }
-    async loopChecker(bmp) {
-        this.rankViewScrollArea.verticalScrollPolicy = "off";
-        while (!bmp.hitTestPoint(50, this.PerItemHeight / 2, true))
-            await AniUtils.delay(50);
-        for (var i = this.PerItemHeight / 2; i < bmp.height; i += this.PerItemHeight) {
-            if (!bmp.hitTestPoint(50, i, true)) {
-                this.rankViewScrollArea.setContent(bmp);
-                bmp.height = i;
-                break;
-            }
-        }
-        bmp.fillMode = egret.BitmapFillMode.CLIP;
-        this.rankViewScrollArea.verticalScrollPolicy = "auto";
-    }
-    onCloseBtn() {
-        this.doClose();
-    }
-}
 class RelicExchangeView extends egret.DisplayObjectContainer {
     constructor(w, h) {
         super();
@@ -23484,8 +23221,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
         var trueLv = p.currentTotalStorey();
         // 记住当前信息，可能开局要给奖励
         this.saveLastLevelCompletedInfo(trueLv);
-        // 统计当前进度
-        Utils.st("Prograss", "in,0," + trueLv.toString() + "," + Utils.checkRookiePlay().toString() + "," + this.player.occupation + "," + this.player.difficulty.replace("level", ""));
         switch (nodeType) {
             case "normal":
                 var btRandonSeed = p.playerRandom.nextInt(0, 10000);
@@ -23539,9 +23274,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 Utils.lockOccupation(occ);
             }
         }
-        // 统计当前进度
-        Utils.st("Prograss", "out," + (this.player.isDead() ? "1" : "0") + ","
-            + trueLv.toString() + "," + (Utils.checkRookiePlay() ? "1" : 0) + "," + this.player.occupation + "," + this.player.difficulty.replace("level", ""));
         // 记住当前信息，可能开局要给奖励
         this.saveLastLevelCompletedInfo(trueLv);
         // 可能又被复活了
@@ -23553,9 +23285,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 Utils.saveLocalData("rookiePlay", "finished");
             }
             Utils.savePlayer(this.player, "onBattleEnd");
-            // 更新最高分
-            var score = BattleStatistics.getFinalScore(BattleStatistics.getScoreInfos(this.player.st));
-            Utils.saveCloudData("score", score + "," + this.player.occupation);
             // 判断此世界是否已经完成
             if (this.player.currentStoreyPos.lv >= this.player.worldmap.cfg.totalLevels) {
                 // 已完成的话,判断该难度下是否有下一个世界,其中无尽模式必有下一个世界
@@ -23574,8 +23303,6 @@ class WorldMapView extends egret.DisplayObjectContainer {
                 if (nextWorldName)
                     await this.onPlayerGo2NewWorld(nextWorldName);
                 else {
-                    Utils.st("Clearance", this.player.worldmap.cfg.totalLevels.toString() + "," + this.player.occupation + "," + this.player.difficulty.replace("level", ""));
-                    Utils.saveLocalItem("Clearance", "1");
                     await AchievementMgr.mgr.actOnLogicPoint("onGameEnd");
                     await this.openFinishGameView();
                 }
@@ -23757,8 +23484,6 @@ class MainView extends egret.DisplayObjectContainer {
         this.hv.exchangeRelic = async () => await this.openRelicExchangeView(false, true);
         // 带遗物对比的确认视图
         this.scv = new ShopConfirmView(w, h);
-        // 排行榜视图
-        this.rankv = new RankingView(w, h);
         // 成就界面
         this.achvView = new AchvView(w, h);
         this.achvView.openAchvDescView = async (achv) => await this.openAchvDescView(achv);
@@ -24083,42 +23808,30 @@ class MainView extends egret.DisplayObjectContainer {
         AudioFactory.playBg("bgs");
         await this.av.blackOut();
         this.lgv.onClose = async (op) => {
-            if (op == "openRank") {
-                await this.openRankView();
-                this.lgv.open();
-            }
-            else {
-                await this.av.blackIn();
-                this.removeChild(this.lgv);
-                if (op == "continuePlay")
-                    await this.continuePlay();
-                else if (op == "newPlay") {
-                    if (Utils.checkRookiePlay()) {
-                        Utils.st("NewGameStatus", "Rookie,0");
-                        await this.rookiePlay();
+            await this.av.blackIn();
+            this.removeChild(this.lgv);
+            if (op == "continuePlay")
+                await this.continuePlay();
+            else if (op == "newPlay") {
+                if (Utils.checkRookiePlay()) {
+                    await this.rookiePlay();
+                }
+                else {
+                    var r = await this.openOccSelView();
+                    if (r) {
+                        this.newPlay(r["occ"], r["d"]);
+                        this.wmv.mapScrollPos = 0;
+                        await this.av.blackOut();
+                        await this.av.doWorldMapSlide(1, 2000, 1);
+                        // 根据上一次层数发放奖励
+                        var lastLevelCompletedInfo = Utils.loadLocalData("lastLevelCompletedInfo");
+                        if (lastLevelCompletedInfo)
+                            await this.selAwardInherited(lastLevelCompletedInfo);
+                        Utils.savePlayer(this.p);
+                        Utils.saveLocalData("lastLevelCompletedInfo", undefined);
                     }
                     else {
-                        var r = await this.openOccSelView();
-                        if (r) {
-                            // 顺便记录上一次状态信息
-                            var clearanced = Utils.loadLocalItem("Clearance");
-                            clearanced = clearanced ? clearanced : "0";
-                            Utils.st("NewGameStatus", r["occ"] + "," + r["d"] + "," + clearanced);
-                            Utils.saveLocalItem("Clearance", "0");
-                            this.newPlay(r["occ"], r["d"]);
-                            this.wmv.mapScrollPos = 0;
-                            await this.av.blackOut();
-                            await this.av.doWorldMapSlide(1, 2000, 1);
-                            // 根据上一次层数发放奖励
-                            var lastLevelCompletedInfo = Utils.loadLocalData("lastLevelCompletedInfo");
-                            if (lastLevelCompletedInfo)
-                                await this.selAwardInherited(lastLevelCompletedInfo);
-                            Utils.savePlayer(this.p);
-                            Utils.saveLocalData("lastLevelCompletedInfo", undefined);
-                        }
-                        else {
-                            this.openStartup(p);
-                        }
+                        this.openStartup(p);
                     }
                 }
             }
@@ -24163,10 +23876,6 @@ class MainView extends egret.DisplayObjectContainer {
     }
     // 角色死亡
     async onPlayerDead(ps) {
-        var trueLv = this.p.currentTotalStorey();
-        var occ = this.p.occupation;
-        var d = this.p.difficulty.replace("level", "");
-        Utils.st("Prograss", "out,1," + trueLv.toString() + "," + Utils.checkRookiePlay().toString() + "," + occ + "," + d);
         await this.openScoreView();
         Utils.savePlayer(undefined, "onGameEnd");
         this.p = undefined;
@@ -24250,25 +23959,6 @@ class MainView extends egret.DisplayObjectContainer {
         var result = await this.rev.open(canDrag, funcOnClinked, hideGoBackBtn);
         this.removeChild(this.rev);
         return result;
-    }
-    // ranking
-    async openRankView() {
-        var p = window.platform;
-        if (p.platformType != "wxgame") {
-            this.av.addBlockLayer();
-            var r = await p.getRankInfo();
-            this.av.decBlockLayer();
-            if (!r) {
-                AniUtils.tipAt(ViewUtils.getTipText("cannotconnect2server"), { x: this.width / 2, y: this.height / 2 - 100 }, 50, 0xffffff, 1000);
-                return;
-            }
-            this.rankv.usrInfo = r.usr;
-            this.rankv.weeklyRankInfo = r.rank;
-            this.rankv.roleRankInfo = undefined;
-        }
-        this.addChild(this.rankv);
-        await this.rankv.open();
-        this.removeChild(this.rankv);
     }
     // 打开成就界面
     async openAchvView() {
@@ -24779,21 +24469,14 @@ class Main extends egret.DisplayObjectContainer {
         egret.Logger.logLevel = egret.Logger.ALL;
         this.stage.orientation = egret.OrientationMode.PORTRAIT;
         await Utils.initPlatform();
-        var launchTime = Utils.nowTimeStr();
-        var launchDate = launchTime.substr(0, 10);
-        Utils.st("LaunchDate", launchDate);
         Utils.log("platform: " + window.platform.platformType + " initialized");
-        // 心跳统计在线时长
-        egret.setInterval(() => {
-            Utils.st("Heartbeat", launchDate);
-        }, this, 60000);
+        IapService.init(); // 不阻塞启动:拉价格、补发已购角色
         this.calcArea(); // 计算屏幕适配
         await RES.loadConfig("resource/default.res.json", "resource/"); // 加载资源配置
         await RES.loadGroup("loading");
         this.ldv = new LoadingUI();
         await this.loadResGroups("preload"); // 加载初始资源
         Utils.log("preload finished");
-        // Utils.st("ResourceLoaded", launchDate);
         this.globalInit(); // 初始化全局配置
         Utils.log("global initialize finished");
         this.mv = this.createMainView(); // 创建主场景        

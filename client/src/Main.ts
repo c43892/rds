@@ -250,17 +250,8 @@ class Main extends egret.DisplayObjectContainer {
         this.stage.orientation = egret.OrientationMode.PORTRAIT;
 
         await Utils.initPlatform();
-
-        var launchTime = Utils.nowTimeStr();
-        var launchDate = launchTime.substr(0, 10);
-
-        Utils.st("LaunchDate", launchDate);
         Utils.log("platform: " + window.platform.platformType + " initialized");
-
-        // 心跳统计在线时长
-        egret.setInterval(() => {
-            Utils.st("Heartbeat", launchDate);
-        }, this, 60000);
+        IapService.init(); // 不阻塞启动:拉价格、补发已购角色
 
         this.calcArea(); // 计算屏幕适配
 
@@ -270,7 +261,6 @@ class Main extends egret.DisplayObjectContainer {
         this.ldv = new LoadingUI();
         await this.loadResGroups("preload"); // 加载初始资源
         Utils.log("preload finished");
-        // Utils.st("ResourceLoaded", launchDate);
         this.globalInit(); // 初始化全局配置
         Utils.log("global initialize finished");
         this.mv = this.createMainView(); // 创建主场景        

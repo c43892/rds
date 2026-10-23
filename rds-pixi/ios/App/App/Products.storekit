@@ -1,0 +1,48 @@
+{
+  "identifier" : "6F1C2B7A",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "0.99",
+      "familyShareable" : false,
+      "internalID" : "6740000001",
+      "localizations" : [
+        {
+          "description" : "Permanently unlock the Rogue class",
+          "displayName" : "Unlock Rogue",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "unlock_rogue",
+      "referenceName" : "Unlock Rogue",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "0.99",
+      "familyShareable" : false,
+      "internalID" : "6740000002",
+      "localizations" : [
+        {
+          "description" : "Permanently unlock the Horticulturist class",
+          "displayName" : "Unlock Horticulturist",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "unlock_horticulturist",
+      "referenceName" : "Unlock Horticulturist",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_failTransactionsEnabled" : false
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}

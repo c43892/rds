@@ -2,6 +2,10 @@
   "appId": "com.c43892.rds",
   "appName": "RDS",
   "webDir": "public",
+  "ios": {
+    "backgroundColor": "#000000",
+    "scrollEnabled": false
+  },
   "android": {
     "allowMixedContent": true,
     "webContentsDebuggingEnabled": true

@@ -23,7 +23,9 @@
     <script src="lib/egret-shim.js"></script>
 
     <!-- game + logic code (IIFE; exposes window.Main) -->
-    <script>var DEBUG = true;</script>
+    <!-- DEBUG only in the browser dev preview. Capacitor injects window.Capacitor before page
+         scripts run, so native (iOS/Android) builds are release builds: no IAP mock, no dev asserts. -->
+    <script>var DEBUG = !window.Capacitor;</script>
     <script src="lib/gamelogic.js"></script>
 
     <!-- bootstrap -->

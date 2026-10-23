@@ -123,7 +123,6 @@ class NameView extends egret.DisplayObjectContainer {
 
     saveName() {
         var name = this.keyInName.text;
-        Utils.saveCloudData("playerName", name);
         Utils.saveLocalData("playerName", name);
     }
 }
